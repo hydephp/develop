@@ -89,6 +89,11 @@ abstract class BaseMenuGenerator
             return false;
         }
 
+        if ($this->generatesSidebar) {
+            // Since the index page is linked in the header, we don't want it in the sidebar
+            return ! $route->is(DocumentationPage::homeRouteName());
+        }
+
         return true;
     }
 

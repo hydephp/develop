@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 
 use function collect;
@@ -35,13 +34,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
         }
 
         $this->sortSidebarGroupsByLowestPriority();
-    }
-
-    protected function canAddRoute(Route $route): bool
-    {
-        return parent::canAddRoute($route)
-            // Since the index page is linked in the header, we don't want it in the sidebar
-            && ! $route->is(DocumentationPage::homeRouteName());
     }
 
     protected function sortSidebarGroupsByLowestPriority(): void
