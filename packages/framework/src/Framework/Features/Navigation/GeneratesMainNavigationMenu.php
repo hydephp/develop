@@ -9,7 +9,6 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Foundation\Facades\Routes;
 
 use function collect;
 use function strtolower;
@@ -34,7 +33,7 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
 
     protected function generate(): void
     {
-        Routes::each(function (Route $route): void {
+        $this->routes->each(function (Route $route): void {
             if ($this->canAddRoute($route)) {
                 if ($this->useSubdirectoriesAsDropdowns() && $this->canAddRouteToGroup($route)) {
                     $this->addRouteToGroup($route);
