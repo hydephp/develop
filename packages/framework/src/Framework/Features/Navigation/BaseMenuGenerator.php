@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
+use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -97,5 +98,13 @@ abstract class BaseMenuGenerator
         if (! $this->items->has($groupItem->getIdentifier())) {
             $this->items->put($groupItem->getIdentifier(), $groupItem);
         }
+    }
+
+    protected function getOrCreateGroupItem(string $groupName): NavItem
+    {
+        $identifier = Str::slug($groupName);
+        $group = $this->items->get($identifier);
+
+        return $group ?? $this->createGroupItem($identifier, $groupName);
     }
 }

@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 
@@ -64,14 +63,6 @@ class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
     protected function getLowestPriorityInGroup(NavItem $item): int
     {
         return collect($item->getChildren())->min(fn (NavItem $child): int => $child->getPriority());
-    }
-
-    protected function getOrCreateGroupItem(string $groupName): NavItem
-    {
-        $identifier = Str::slug($groupName);
-        $group = $this->items->get($identifier);
-
-        return $group ?? $this->createGroupItem($identifier, $groupName);
     }
 
     protected function createGroupItem(string $identifier, string $groupName): NavItem

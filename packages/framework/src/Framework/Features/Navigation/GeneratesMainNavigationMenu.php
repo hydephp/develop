@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 
@@ -44,14 +43,6 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
     protected function canGroupRoute(Route $route): bool
     {
         return parent::canGroupRoute($route) && $route->getPage()->navigationMenuGroup() !== null;
-    }
-
-    protected function getOrCreateGroupItem(string $groupName): NavItem
-    {
-        $identifier = Str::slug($groupName);
-        $group = $this->items->get($identifier);
-
-        return $group ?? $this->createGroupItem($identifier, $groupName);
     }
 
     protected function createGroupItem(string $identifier, string $groupName): NavItem
