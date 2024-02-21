@@ -51,7 +51,7 @@ abstract class BaseMenuGenerator
     }
 
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
-    public static function handle(string $menuType): NavigationMenu
+    public static function handle(string $menuType): NavigationMenu|DocumentationSidebar
     {
         $menu = new static($menuType);
 
