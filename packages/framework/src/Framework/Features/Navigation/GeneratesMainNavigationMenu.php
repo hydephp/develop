@@ -71,9 +71,9 @@ class GeneratesMainNavigationMenu
 
     protected function addRouteToGroup(Route $route): void
     {
-        $group = $route->getPage()->navigationMenuGroup();
+        $item = NavItem::fromRoute($route);
 
-        $groupItem = $this->getOrCreateGroupItem($group);
+        $groupItem = $this->getOrCreateGroupItem($item->getGroup());
 
         $groupItem->addChild(NavItem::fromRoute($route));
 
