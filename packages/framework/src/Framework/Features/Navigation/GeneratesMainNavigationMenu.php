@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 
 use function collect;
-use function strtolower;
 
 /**
  * @experimental This class may change significantly before its release.
@@ -48,17 +46,6 @@ class GeneratesMainNavigationMenu extends BaseMenuGenerator
     protected function searchForGroupLabelInConfig(string $identifier): ?string
     {
         return Config::getArray('hyde.navigation.labels', [])[$identifier] ?? null;
-    }
-
-    /** Todo: Move into shared class */
-    protected static function normalizeGroupLabel(string $label): string
-    {
-        // If there is no label, and the group is a slug, we can make a title from it
-        if ($label === strtolower($label)) {
-            return Hyde::makeTitle($label);
-        }
-
-        return $label;
     }
 
     /** Todo: Move into shared class */
