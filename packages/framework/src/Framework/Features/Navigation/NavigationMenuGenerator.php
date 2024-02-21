@@ -14,7 +14,9 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 
 use function filled;
+use function assert;
 use function collect;
+use function in_array;
 use function strtolower;
 
 /**
