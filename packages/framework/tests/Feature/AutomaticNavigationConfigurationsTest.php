@@ -28,8 +28,6 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Features\Navigation\GeneratesDocumentationSidebarMenu
- * @covers \Hyde\Framework\Features\Navigation\GeneratesMainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavItem
  */
 class AutomaticNavigationConfigurationsTest extends TestCase
