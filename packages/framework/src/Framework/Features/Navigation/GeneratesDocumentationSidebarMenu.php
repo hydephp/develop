@@ -9,8 +9,6 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
-use Illuminate\Support\Collection;
-use Hyde\Foundation\Facades\Routes;
 
 use function filled;
 use function collect;
@@ -25,12 +23,6 @@ use function strtolower;
  */
 class GeneratesDocumentationSidebarMenu extends BaseMenuGenerator
 {
-    protected function __construct()
-    {
-        $this->items = new Collection();
-        $this->routes = Routes::getRoutes(DocumentationPage::class);
-    }
-
     public static function handle(): DocumentationSidebar
     {
         $menu = new static();

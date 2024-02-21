@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 
 /**
@@ -17,4 +19,10 @@ abstract class BaseMenuGenerator
 
     /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
     protected RouteCollection $routes;
+
+    protected function __construct()
+    {
+        $this->items = new Collection();
+        $this->routes = Routes::getRoutes(DocumentationPage::class);
+    }
 }
