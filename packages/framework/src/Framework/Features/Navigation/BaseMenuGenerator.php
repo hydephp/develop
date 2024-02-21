@@ -23,6 +23,11 @@ abstract class BaseMenuGenerator
     protected function __construct()
     {
         $this->items = new Collection();
-        $this->routes = Routes::getRoutes(DocumentationPage::class);
+
+        if ($this instanceof GeneratesDocumentationSidebarMenu) {
+            $this->routes = Routes::getRoutes(DocumentationPage::class);
+        } else {
+            $this->routes = Routes::all();
+        }
     }
 }
