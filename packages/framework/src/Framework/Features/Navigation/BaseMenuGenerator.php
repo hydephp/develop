@@ -20,11 +20,15 @@ abstract class BaseMenuGenerator
     /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
     protected RouteCollection $routes;
 
+    protected bool $generatesSidebar;
+
     protected function __construct()
     {
         $this->items = new Collection();
 
-        $this->routes = $this instanceof GeneratesDocumentationSidebarMenu
+        $this->generatesSidebar = $this instanceof GeneratesDocumentationSidebarMenu;
+
+        $this->routes = $this->generatesSidebar
             ? Routes::getRoutes(DocumentationPage::class)
             : Routes::all();
     }
