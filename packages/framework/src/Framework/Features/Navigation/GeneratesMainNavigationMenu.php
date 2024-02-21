@@ -47,10 +47,9 @@ class GeneratesMainNavigationMenu
             if ($this->canAddRoute($route)) {
                 if ($this->useSubdirectoriesAsDropdowns() && $this->canAddRouteToGroup($route)) {
                     $this->addRouteToGroup($route);
-
-                    return;
+                } else {
+                    $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
                 }
-                $this->items->put($route->getRouteKey(), NavItem::fromRoute($route));
             }
         });
 
