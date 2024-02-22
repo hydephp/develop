@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\ExternalRoute;
@@ -15,6 +16,7 @@ use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  *
@@ -257,12 +259,14 @@ class NavigationMenuTest extends TestCase
 
     public function testCanGetMenuFromServiceContainer()
     {
-        $this->assertEquals($this->createNavigationMenu(), app('navigation')->getMenu('main'));
+        $this->assertEquals($this->createNavigationMenu(), app('navigation.main'));
     }
 
     public function testCanAddItemsToMainNavigationMenuResolvedFromContainer()
     {
-        $navigation = app('navigation')->getMenu('main');
+        Hyde::boot();
+
+        $navigation = app('navigation.main');
         $navigation->add(new NavItem(new ExternalRoute('/foo'), 'Foo'));
 
         $this->assertCount(2, $navigation->getItems());

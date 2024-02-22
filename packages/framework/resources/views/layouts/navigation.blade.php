@@ -1,5 +1,5 @@
 @php
-    $navigation = app('navigation')->getMenu('main');
+    $navigation = app('navigation.main');
 @endphp
 
 <nav aria-label="Main navigation" id="main-navigation" class="flex flex-wrap items-center justify-between p-4 shadow-lg sm:shadow-xl md:shadow-none dark:bg-gray-800">

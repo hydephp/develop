@@ -6,13 +6,19 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+
+use function app;
 
 class DocumentationSidebar extends NavigationMenu
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
-    protected Collection $items;
+    /**
+     * Get the navigation menu instance from the service container.
+     */
+    public static function get(): static
+    {
+        return app('navigation.sidebar');
+    }
 
     public function hasGroups(): bool
     {
