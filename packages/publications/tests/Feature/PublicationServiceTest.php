@@ -12,8 +12,6 @@ use Hyde\Publications\Publications;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
-use function file_put_contents;
-
 /**
  * @covers \Hyde\Publications\Publications
  * @covers \Hyde\Publications\PublicationsExtension
