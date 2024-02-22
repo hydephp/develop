@@ -12,8 +12,8 @@ use Illuminate\Contracts\Support\Arrayable;
  *
  * The automatic navigation menus are stored within the service container and can be resolved by their identifiers.
  *
- * @example `$menu = app('navigation')->getMenu('main');` for the main navigation menu.
- * @example `$menu = app('navigation')->getMenu('sidebar');` for the documentation sidebar.
+ * @example `$menu = app('navigation.main');` for the main navigation menu.
+ * @example `$menu = app('navigation.sidebar');` for the documentation sidebar.
  */
 abstract class NavigationMenu
 {

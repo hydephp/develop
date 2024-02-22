@@ -258,12 +258,12 @@ class NavigationMenuTest extends TestCase
 
     public function testCanGetMenuFromServiceContainer()
     {
-        $this->assertEquals($this->createNavigationMenu(), app('navigation')->getMenu('main'));
+        $this->assertEquals($this->createNavigationMenu(), app('navigation.main'));
     }
 
     public function testCanAddItemsToMainNavigationMenuResolvedFromContainer()
     {
-        $navigation = app('navigation')->getMenu('main');
+        $navigation = app('navigation.main');
         $navigation->add(new NavItem(new ExternalRoute('/foo'), 'Foo'));
 
         $this->assertCount(2, $navigation->getItems());
