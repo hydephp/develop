@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
@@ -21,7 +20,6 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
@@ -1221,44 +1219,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'Hello World'])]);
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello-world'])]);
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello world'])]);
-    }
-
-    // Service container binding tests
-
-    public function testCannotGetContainerMenusBeforeKernelIsBooted()
-    {
-        $this->expectException(BindingResolutionException::class);
-
-        $this->assertNull(app('navigation.main'));
-        $this->assertNull(app('navigation.sidebar'));
-    }
-
-    public function testCanGetMainNavigationMenuFromContainer()
-    {
-        Hyde::boot();
-
-        $this->assertInstanceOf(MainNavigationMenu::class, app('navigation.main'));
-    }
-
-    public function testCanGetDocumentationSidebarFromContainer()
-    {
-        Hyde::boot();
-
-        $this->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
-    }
-
-    public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
-    {
-        Hyde::boot();
-
-        $this->assertSame(MainNavigationMenu::get(), app('navigation.main'));
-    }
-
-    public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
-    {
-        Hyde::boot();
-
-        $this->assertSame(DocumentationSidebar::get(), app('navigation.sidebar'));
     }
 
     // Testing helpers
