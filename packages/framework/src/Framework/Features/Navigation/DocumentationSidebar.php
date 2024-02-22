@@ -6,14 +6,10 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class DocumentationSidebar extends NavigationMenu
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
-    protected Collection $items;
-
     public function hasGroups(): bool
     {
         return $this->getItems()->contains(fn (NavItem $item): bool => $item->hasChildren());
