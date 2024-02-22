@@ -332,14 +332,14 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', DocumentationPage::outputDirectory());
     }
 
-    public function testCannotMainNavigationMenuFromContainerBeforeKernelIsBooted()
+    public function testCannotGetMainNavigationMenuFromContainerBeforeKernelIsBooted()
     {
         $this->expectException(BindingResolutionException::class);
 
         app('navigation.main');
     }
 
-    public function testCannotDocumentationSidebarFromContainerBeforeKernelIsBooted()
+    public function testCannotGetDocumentationSidebarFromContainerBeforeKernelIsBooted()
     {
         $this->expectException(BindingResolutionException::class);
 
