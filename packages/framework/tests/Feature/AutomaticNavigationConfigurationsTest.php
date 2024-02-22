@@ -545,6 +545,18 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testMainMenuAutomaticDropdownLabelsCanBeSetInConfig()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.labels' => ['foo' => 'Bar']]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Bar', 'children' => ['Bar']],
+        ], [
+            new MarkdownPage('foo/bar'),
+        ]);
+    }
+
     // Documentation sidebar menu tests
 
     public function testSidebarWithPages()
@@ -846,14 +858,15 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testSidebarDropdownLabelsCanBeSetInConfig()
+    public function testSidebarGroupLabelsCanBeSetInConfig()
     {
-        $this->markTestSkipped('Not yet implemented');
-    }
+        config(['docs.sidebar_group_labels' => ['foo' => 'Bar']]);
 
-    public function testSidebarAutomaticDropdownLabelsCanBeSetInConfig()
-    {
-        $this->markTestSkipped('Not yet implemented');
+        $this->assertSidebarEquals([
+            ['label' => 'Bar', 'children' => ['Bar']],
+        ], [
+            new DocumentationPage('foo/bar'),
+        ]);
     }
 
     public function testSidebarWithConfigHidden()
