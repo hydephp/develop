@@ -20,9 +20,6 @@ abstract class NavigationMenu
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
-    /**
-     * Create a new navigation menu instance.
-     */
     public function __construct(Arrayable|array $items = [])
     {
         $this->items = new Collection();
