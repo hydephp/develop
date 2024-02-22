@@ -71,43 +71,38 @@ class NavigationManagerTest extends TestCase
 
     public function testCanGetMainNavigationMenuFromContainer()
     {
-        Hyde::boot();
-
-        $this->assertInstanceOf(MainNavigationMenu::class, app(MainNavigationMenu::class));
+        $this->booted()->assertInstanceOf(MainNavigationMenu::class, app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainer()
     {
-        Hyde::boot();
-
-        $this->assertInstanceOf(DocumentationSidebar::class, app(DocumentationSidebar::class));
+        $this->booted()->assertInstanceOf(DocumentationSidebar::class, app(DocumentationSidebar::class));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
     {
-        Hyde::boot();
-
-        $this->assertSame(MainNavigationMenu::get(), app(MainNavigationMenu::class));
+        $this->booted()->assertSame(MainNavigationMenu::get(), app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
     {
-        Hyde::boot();
-
-        $this->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
+        $this->booted()->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingAlias()
     {
-        Hyde::boot();
-
-        $this->assertSame(app(MainNavigationMenu::class), app('navigation.main'));
+        $this->booted()->assertSame(app(MainNavigationMenu::class), app('navigation.main'));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingAlias()
     {
+        $this->booted()->assertSame(app(DocumentationSidebar::class), app('navigation.sidebar'));
+    }
+
+    protected function booted(): self
+    {
         Hyde::boot();
 
-        $this->assertSame(app(DocumentationSidebar::class), app('navigation.sidebar'));
+        return $this;
     }
 }
