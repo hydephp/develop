@@ -54,6 +54,12 @@ class NavigationManagerTest extends TestCase
         $manager->getMenu('foo');
     }
 
+    public function testContainerMenusAreNullBeforeKernelIsBooted()
+    {
+        $this->assertNull(app(MainNavigationMenu::class));
+        $this->assertNull(app(DocumentationSidebar::class));
+    }
+
     public function testCanGetMainNavigationMenuFromContainer()
     {
         Hyde::boot();
