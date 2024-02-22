@@ -1080,6 +1080,16 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testSidebarCanMixSubdirectoryGroupsWithFrontMatterGroups()
+    {
+        $this->assertSidebarEquals([
+            ['label' => 'Foo', 'children' => ['Bar', 'Baz']],
+        ], [
+            new DocumentationPage('foo/bar'),
+            new DocumentationPage('foo/baz', ['navigation.group' => 'foo']),
+        ]);
+    }
+
     // Priority tests
 
     public function testMainNavigationDropdownPriorityCanBeSetInConfig()
