@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Facades\Filesystem;
-
-use function config;
-
 use Hyde\Facades\Asset;
 use Hyde\Hyde;
 use Hyde\Support\Facades\Render;

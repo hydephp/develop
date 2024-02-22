@@ -4,13 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use function app;
-use function array_map;
-use function basename;
-use function config;
-use function get_class;
-use function glob;
-
 use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
@@ -24,8 +17,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
-
-use function method_exists;
 
 /**
  * @covers \Hyde\Framework\HydeServiceProvider

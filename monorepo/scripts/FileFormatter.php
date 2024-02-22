@@ -73,6 +73,13 @@ class CodeFormatter
 
             /** Normalization */
 
+            // Remove global function imports from tests
+            if (str_ends_with($filename, 'Test.php')) {
+                if (str_starts_with($line, 'use function') && ! str_contains($line, '\\')) {
+                    continue;
+                }
+            }
+
             // Remove multiple empty lines
             if (in_array(Settings::TrimMultipleEmptyLines, $this->settings)) {
                 if (trim($line) == '' && trim($last_line) == '') {

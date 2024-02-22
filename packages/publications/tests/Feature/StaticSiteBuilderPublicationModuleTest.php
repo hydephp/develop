@@ -13,9 +13,6 @@ use Hyde\Publications\Actions\SeedsPublicationFiles;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 
-use function range;
-use function collect;
-
 /**
  * Tests that publication pages are compiled properly when building the static site.
  *

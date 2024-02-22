@@ -12,11 +12,6 @@ use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
 
-use function file_get_contents;
-use function file_put_contents;
-use function json_decode;
-use function json_encode;
-
 /**
  * @covers \Hyde\Publications\Actions\PublicationPageCompiler
  */

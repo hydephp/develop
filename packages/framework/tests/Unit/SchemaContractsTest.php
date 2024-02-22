@@ -13,17 +13,6 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Str;
 
-use function array_filter;
-use function array_map;
-use function array_merge;
-use function array_values;
-use function basename;
-use function defined;
-use function file_get_contents;
-use function glob;
-use function is_subclass_of;
-use function substr_count;
-
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
  * This requires contributors to consider the impact of their changes as schema changes are rarely backwards compatible.

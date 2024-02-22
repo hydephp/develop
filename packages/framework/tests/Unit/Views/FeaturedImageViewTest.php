@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
-use function array_merge;
-
 use Hyde\Framework\Factories\FeaturedImageFactory;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-
-use function str_replace;
-use function strip_tags;
-use function trim;
-use function view;
 
 /**
  * @see resources/views/components/post/image.blade.php
