@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\ExternalRoute;
@@ -264,8 +263,6 @@ class NavigationMenuTest extends TestCase
 
     public function testCanAddItemsToMainNavigationMenuResolvedFromContainer()
     {
-        Hyde::boot();
-
         $navigation = app('navigation.main');
         $navigation->add(new NavItem(new ExternalRoute('/foo'), 'Foo'));
 

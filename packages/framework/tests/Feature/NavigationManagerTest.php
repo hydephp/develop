@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Framework\Features\Navigation\NavigationManager;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
@@ -71,38 +70,31 @@ class NavigationManagerTest extends TestCase
 
     public function testCanGetMainNavigationMenuFromContainer()
     {
-        $this->booted()->assertInstanceOf(MainNavigationMenu::class, app(MainNavigationMenu::class));
+        $this->assertInstanceOf(MainNavigationMenu::class, app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainer()
     {
-        $this->booted()->assertInstanceOf(DocumentationSidebar::class, app(DocumentationSidebar::class));
+        $this->assertInstanceOf(DocumentationSidebar::class, app(DocumentationSidebar::class));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
     {
-        $this->booted()->assertSame(MainNavigationMenu::get(), app(MainNavigationMenu::class));
+        $this->assertSame(MainNavigationMenu::get(), app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
     {
-        $this->booted()->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
+        $this->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingAlias()
     {
-        $this->booted()->assertSame(app(MainNavigationMenu::class), app('navigation.main'));
+        $this->assertSame(app(MainNavigationMenu::class), app('navigation.main'));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingAlias()
     {
-        $this->booted()->assertSame(app(DocumentationSidebar::class), app('navigation.sidebar'));
-    }
-
-    protected function booted(): self
-    {
-        Hyde::boot();
-
-        return $this;
+        $this->assertSame(app(DocumentationSidebar::class), app('navigation.sidebar'));
     }
 }
