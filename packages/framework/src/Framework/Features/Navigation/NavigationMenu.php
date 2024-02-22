@@ -17,6 +17,11 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 abstract class NavigationMenu
 {
+    public static function get(): static
+    {
+        return app(static::class);
+    }
+
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
