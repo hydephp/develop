@@ -8,6 +8,8 @@ use Hyde\Hyde;
 
 /**
  * Manages the navigation menus for the project.
+ *
+ * @deprecated Move to extension
  */
 class NavigationManager
 {
