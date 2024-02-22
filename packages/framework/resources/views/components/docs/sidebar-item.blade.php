@@ -12,7 +12,7 @@
             {{ $item->getLabel() }}
         </a>
 
-        @if(config('docs.table_of_contents.enabled', true))
+        @if(config('docs.sidebar.table_of_contents.enabled', true))
             <span class="sr-only">Table of contents</span>
             {!! ($page->getTableOfContents()) !!}
         @endif

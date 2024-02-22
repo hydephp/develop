@@ -56,23 +56,24 @@ return [
             'installation',
             'getting-started',
         ],
-    ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Table of Contents Settings
-    |--------------------------------------------------------------------------
-    |
-    | The Hyde Documentation Module comes with a fancy Sidebar that, by default,
-    | has a Table of Contents included. Here, you can configure its behavior,
-    | content, look and feel. You can also disable the feature completely.
-    |
-    */
+        /*
+        |--------------------------------------------------------------------------
+        | Table of Contents Settings
+        |--------------------------------------------------------------------------
+        |
+        | The Hyde Documentation Module comes with a fancy Sidebar that, by default,
+        | has a Table of Contents included. Here, you can configure its behavior,
+        | content, look and feel. You can also disable the feature completely.
+        |
+        */
 
-    'table_of_contents' => [
-        'enabled' => true,
-        'min_heading_level' => 2,
-        'max_heading_level' => 4,
+        'table_of_contents' => [
+            'enabled' => true,
+            'min_heading_level' => 2,
+            'max_heading_level' => 4,
+        ],
+
     ],
 
     /*
