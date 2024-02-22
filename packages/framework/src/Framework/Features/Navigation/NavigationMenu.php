@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Hyde;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -20,10 +19,6 @@ abstract class NavigationMenu
 {
     public static function get(): static
     {
-        if (! Hyde::isBooted()) {
-            Hyde::boot();
-        }
-
         return app(static::class);
     }
 
