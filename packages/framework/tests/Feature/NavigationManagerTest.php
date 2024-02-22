@@ -65,28 +65,29 @@ class NavigationManagerTest extends TestCase
 
     public function testCanGetMainNavigationMenuFromContainer()
     {
-        $this->booted()->assertInstanceOf(MainNavigationMenu::class, app('navigation.main'));
+        Hyde::boot();
+
+        $this->assertInstanceOf(MainNavigationMenu::class, app('navigation.main'));
     }
 
     public function testCanGetDocumentationSidebarFromContainer()
     {
-        $this->booted()->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
+        Hyde::boot();
+
+        $this->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
     {
-        $this->booted()->assertSame(MainNavigationMenu::get(), app('navigation.main'));
+        Hyde::boot();
+
+        $this->assertSame(MainNavigationMenu::get(), app('navigation.main'));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
     {
-        $this->booted()->assertSame(DocumentationSidebar::get(), app('navigation.sidebar'));
-    }
-
-    protected function booted(): self
-    {
         Hyde::boot();
 
-        return $this;
+        $this->assertSame(DocumentationSidebar::get(), app('navigation.sidebar'));
     }
 }
