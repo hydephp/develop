@@ -11,6 +11,7 @@ use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  *
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest

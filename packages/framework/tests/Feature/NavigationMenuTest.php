@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  *
