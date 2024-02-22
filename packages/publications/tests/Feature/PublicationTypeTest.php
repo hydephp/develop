@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
 
-use function array_merge;
-use function array_reverse;
-
 /**
  * @covers \Hyde\Publications\Models\PublicationType
  */

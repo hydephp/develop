@@ -17,8 +17,6 @@ use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Actions\CreatesNewPublicationPage;
 
-use function file_get_contents;
-
 /**
  * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage
  */

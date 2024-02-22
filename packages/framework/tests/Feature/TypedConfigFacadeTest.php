@@ -9,8 +9,6 @@ use Hyde\Testing\TestCase;
 use TypeError;
 use stdClass;
 
-use function config;
-
 /**
  * @covers \Hyde\Facades\Config
  */

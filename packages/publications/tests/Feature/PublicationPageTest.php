@@ -10,8 +10,6 @@ use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
-use function file_put_contents;
-
 /**
  * @covers \Hyde\Publications\Pages\PublicationPage
  */

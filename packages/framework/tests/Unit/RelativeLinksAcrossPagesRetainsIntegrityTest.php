@@ -9,9 +9,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
-
-use function config;
-
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;

@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Publications\Testing\Feature;
 
-use function array_merge;
-use function file_get_contents;
-use function file_put_contents;
-
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
-
-use function json_encode;
 
 /**
  * @covers \Hyde\Publications\Commands\MakePublicationCommand

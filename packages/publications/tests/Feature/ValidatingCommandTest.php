@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Validator;
 use Mockery;
 use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
-
-use function str_starts_with;
-
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 /**

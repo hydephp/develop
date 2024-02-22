@@ -20,8 +20,6 @@ use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
 
-use function app;
-
 /**
  * Tests the Extensions API Feature on a higher level to ensure the components work together.
  *
