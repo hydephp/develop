@@ -9,7 +9,6 @@ use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-/** @deprecated Use the new NavigationMenu class instead */
 class DocumentationSidebar extends NavigationMenu
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */

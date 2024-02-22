@@ -18,7 +18,7 @@ use Hyde\Support\Models\Redirect;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
@@ -28,7 +28,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavItem
  */
 class AutomaticNavigationConfigurationsTest extends TestCase
@@ -1298,7 +1298,7 @@ class AssertableNavigationMenu
     {
         $this->items = $sidebar
             ? NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
-            : NavigationMenuGenerator::handle(NavigationMenu::class)->getItems();
+            : NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems();
 
         $this->test = $test;
     }

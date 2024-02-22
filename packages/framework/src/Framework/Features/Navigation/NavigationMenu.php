@@ -15,7 +15,7 @@ use Illuminate\Contracts\Support\Arrayable;
  * @example `$menu = app('navigation')->getMenu('main');` for the main navigation menu.
  * @example `$menu = app('navigation')->getMenu('sidebar');` for the documentation sidebar.
  */
-class NavigationMenu
+abstract class NavigationMenu
 {
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
