@@ -77,7 +77,7 @@ class DocumentationSidebarTest extends TestCase
 
     public function testSidebarIsOrderedAlphabeticallyWhenNoOrderIsSetInConfig()
     {
-        Config::set('docs.sidebar_order', []);
+        Config::set('docs.sidebar.order', []);
         Filesystem::touch('_docs/a.md');
         Filesystem::touch('_docs/b.md');
         Filesystem::touch('_docs/c.md');
@@ -94,7 +94,7 @@ class DocumentationSidebarTest extends TestCase
 
     public function testSidebarIsOrderedByPriorityWhenPriorityIsSetInConfig()
     {
-        Config::set('docs.sidebar_order', [
+        Config::set('docs.sidebar.order', [
             'c',
             'b',
             'a',
@@ -124,14 +124,14 @@ class DocumentationSidebarTest extends TestCase
     {
         $this->makePage('foo', ['navigation.priority' => 25]);
 
-        Config::set('docs.sidebar_order', ['foo']);
+        Config::set('docs.sidebar.order', ['foo']);
 
         $this->assertEquals(25, NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()->first()->getPriority());
     }
 
     public function testSidebarPrioritiesCanBeSetInBothFrontMatterAndConfig()
     {
-        Config::set('docs.sidebar_order', [
+        Config::set('docs.sidebar.order', [
             'first',
             'third',
             'second',

@@ -223,10 +223,12 @@ To quickly arrange the order of items in the sidebar, you can reorder the page i
 Link items without an entry here will fall back to the default priority of 999, putting them last.
 
 ```php
-'sidebar_order' => [
-    'readme',
-    'installation',
-    'getting-started',
+'sidebar' => [
+    'order' => [
+        'readme',
+        'installation',
+        'getting-started',
+    ],
 ]
 ```
 

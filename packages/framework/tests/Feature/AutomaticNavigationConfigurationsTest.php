@@ -745,9 +745,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithConfigOrder()
     {
-        // TODO should be sidebar.order instead of docs.sidebar_order
-
-        config(['docs.sidebar_order' => ['first', 'second', 'third']]);
+        config(['docs.sidebar.order' => ['first', 'second', 'third']]);
 
         $this->assertSidebarEquals(['First', 'Second', 'Third'], [
             new DocumentationPage('first'),
@@ -755,7 +753,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('third'),
         ]);
 
-        config(['docs.sidebar_order' => ['third', 'second', 'first']]);
+        config(['docs.sidebar.order' => ['third', 'second', 'first']]);
 
         $this->assertSidebarEquals(['Third', 'Second', 'First'], [
             new DocumentationPage('first'),
@@ -776,7 +774,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('third'),
         ]);
 
-        config(['docs.sidebar_order' => ['first', 'second', 'third']]);
+        config(['docs.sidebar.order' => ['first', 'second', 'third']]);
 
         $this->assertSidebarEquals([
             ['priority' => 500],
@@ -791,7 +789,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithExplicitConfigOrder()
     {
-        config(['docs.sidebar_order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
+        config(['docs.sidebar.order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
 
         $this->assertSidebarEquals(['First', 'Second', 'Third'], [
             new DocumentationPage('first'),
@@ -799,7 +797,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('third'),
         ]);
 
-        config(['docs.sidebar_order' => ['first' => 3, 'second' => 2, 'third' => 1]]);
+        config(['docs.sidebar.order' => ['first' => 3, 'second' => 2, 'third' => 1]]);
 
         $this->assertSidebarEquals(['Third', 'Second', 'First'], [
             new DocumentationPage('first'),
@@ -807,7 +805,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('third'),
         ]);
 
-        config(['docs.sidebar_order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
+        config(['docs.sidebar.order' => ['first' => 1, 'second' => 2, 'third' => 3]]);
 
         $this->assertSidebarEquals([
             ['label' => 'First', 'priority' => 1],
@@ -822,7 +820,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithMixedConfigOrders()
     {
-        config(['docs.sidebar_order' => ['foo', 'bar' => 650]]);
+        config(['docs.sidebar.order' => ['foo', 'bar' => 650]]);
 
         $this->assertSidebarEquals([
             ['label' => 'Foo', 'priority' => 500],
@@ -1059,7 +1057,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
             new DocumentationPage('baz', ['navigation.group' => 'c', 'navigation.priority' => 10]),
         ]);
 
-        config(['docs.sidebar_order' => ['a' => 5]]);
+        config(['docs.sidebar.order' => ['a' => 5]]);
 
         $this->assertSidebarEquals([
             'A', 'C', 'B',
@@ -1117,7 +1115,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarGroupPriorityCanBeSetInConfig()
     {
-        config(['docs.sidebar_order' => ['foo' => 500]]);
+        config(['docs.sidebar.order' => ['foo' => 500]]);
 
         $this->assertSidebarEquals(
             [['label' => 'Foo', 'priority' => 500]],
@@ -1127,7 +1125,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarGroupPriorityCanBeSetInConfigUsingDifferingCases()
     {
-        config(['docs.sidebar_order' => ['hello-world' => 500]]);
+        config(['docs.sidebar.order' => ['hello-world' => 500]]);
 
         $expected = [['label' => 'Hello World', 'priority' => 500]];
         $this->assertSidebarEquals($expected, [new DocumentationPage('Hello World/bar')]);

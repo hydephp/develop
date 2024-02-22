@@ -160,7 +160,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private function searchForPriorityInSidebarConfig(): ?int
     {
         /** @var array<string>|array<string, int> $config */
-        $config = Config::getArray('docs.sidebar_order', []);
+        $config = Config::getArray('docs.sidebar.order', []);
 
         return
             // For consistency with the navigation config.
