@@ -14,7 +14,7 @@ class DocumentationSidebar extends NavigationMenu
 {
     public static function get(): static
     {
-        return app('navigation')->getMenu('sidebar');
+        return app(static::class);
     }
 
     public function hasGroups(): bool
