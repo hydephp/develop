@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+use Illuminate\Contracts\Container\BindingResolutionException;
+
 use function app;
 use function array_map;
 use function basename;
@@ -326,5 +330,41 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->assertEquals('foo', MarkdownPost::outputDirectory());
         $this->assertEquals('foo', DocumentationPage::outputDirectory());
+    }
+
+    public function testCannotGetContainerMenusBeforeKernelIsBooted()
+    {
+        $this->expectException(BindingResolutionException::class);
+
+        $this->assertNull(app('navigation.main'));
+        $this->assertNull(app('navigation.sidebar'));
+    }
+
+    public function testCanGetMainNavigationMenuFromContainer()
+    {
+        Hyde::boot();
+
+        $this->assertInstanceOf(MainNavigationMenu::class, app('navigation.main'));
+    }
+
+    public function testCanGetDocumentationSidebarFromContainer()
+    {
+        Hyde::boot();
+
+        $this->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
+    }
+
+    public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
+    {
+        Hyde::boot();
+
+        $this->assertSame(MainNavigationMenu::get(), app('navigation.main'));
+    }
+
+    public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
+    {
+        Hyde::boot();
+
+        $this->assertSame(DocumentationSidebar::get(), app('navigation.sidebar'));
     }
 }
