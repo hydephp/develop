@@ -22,6 +22,14 @@ class NavigationServiceProvider extends ServiceProvider
         $this->app->alias(NavigationManager::class, 'navigation');
 
         $this->app->make(HydeKernel::class)->booted(function () {
+            $this->app->singleton(MainNavigationMenu::class, function () {
+                return NavigationMenuGenerator::handle(MainNavigationMenu::class);
+            });
+
+            $this->app->singleton(DocumentationSidebar::class, function () {
+                return NavigationMenuGenerator::handle(DocumentationSidebar::class);
+            });
+
             $this->app->make(NavigationManager::class)->registerMenu('main', NavigationMenuGenerator::handle(MainNavigationMenu::class));
             $this->app->make(NavigationManager::class)->registerMenu('sidebar', NavigationMenuGenerator::handle(DocumentationSidebar::class));
         });

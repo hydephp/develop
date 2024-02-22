@@ -55,21 +55,21 @@ class NavigationManagerTest extends TestCase
 
     public function testCanGetMainNavigationMenuFromContainer()
     {
-        $this->assertInstanceOf(MainNavigationMenu::class, app('navigation')->getMenu('main'));
+        $this->assertInstanceOf(MainNavigationMenu::class, app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainer()
     {
-        $this->assertInstanceOf(DocumentationSidebar::class, app('navigation')->getMenu('sidebar'));
+        $this->assertInstanceOf(DocumentationSidebar::class, app(DocumentationSidebar::class));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
     {
-        $this->assertSame(MainNavigationMenu::get(), app('navigation')->getMenu('main'));
+        $this->assertSame(MainNavigationMenu::get(), app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
     {
-        $this->assertSame(DocumentationSidebar::get(), app('navigation')->getMenu('sidebar'));
+        $this->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
     }
 }
