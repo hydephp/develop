@@ -33,9 +33,8 @@ class NavigationManager
      */
     public function getMenu(string $name): NavigationMenu
     {
-        if (! Hyde::isBooted()) {
-            // Todo: This could be an anti-pattern so we may consider throwing an exception instead.
-            Hyde::boot();
+        if (! Hyde::isBooted() && ! isset($this->menus[$name])) {
+            throw new \Exception('Cannot get navigation menu before the Hyde Kernel is booted.');
         }
 
         return $this->menus[$name];
