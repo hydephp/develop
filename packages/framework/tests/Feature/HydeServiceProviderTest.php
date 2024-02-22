@@ -358,13 +358,13 @@ class HydeServiceProviderTest extends TestCase
     {
         Hyde::boot();
 
-        $this->assertSame(MainNavigationMenu::get(), app('navigation.main'));
+        $this->assertSame(app('navigation.main'), MainNavigationMenu::get());
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
     {
         Hyde::boot();
 
-        $this->assertSame(DocumentationSidebar::get(), app('navigation.sidebar'));
+        $this->assertSame(app('navigation.sidebar'), DocumentationSidebar::get());
     }
 }
