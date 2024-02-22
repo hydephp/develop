@@ -263,7 +263,6 @@ You can also disable the feature completely.
         'enabled' => true,
         'min_heading_level' => 2,
         'max_heading_level' => 4,
-        'smooth_page_scrolling' => true,
     ],
 ],
 ```
