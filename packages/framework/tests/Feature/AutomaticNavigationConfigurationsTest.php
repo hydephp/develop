@@ -532,6 +532,18 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testCanMixSubdirectoryDropdownsWithFrontMatterDropdowns()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $this->assertMenuEquals([
+            ['label' => 'Foo', 'children' => ['Bar', 'Baz']],
+        ], [
+            new MarkdownPage('foo/bar'),
+            new MarkdownPage('foo/baz', ['navigation.group' => 'foo']),
+        ]);
+    }
+
     // Documentation sidebar menu tests
 
     public function testSidebarWithPages()
