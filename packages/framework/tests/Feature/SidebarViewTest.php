@@ -13,12 +13,6 @@ use Illuminate\Contracts\View\View;
 use Throwable;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
-use function config;
-use function file_put_contents;
-use function realpath;
-use function view;
-use function e;
-
 /**
  * Very high level test of the sidebar views and their combinations of layouts.
  *
