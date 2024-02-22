@@ -336,8 +336,8 @@ class HydeServiceProviderTest extends TestCase
     {
         $this->expectException(BindingResolutionException::class);
 
-        $this->assertNull(app('navigation.main'));
-        $this->assertNull(app('navigation.sidebar'));
+        app('navigation.main');
+        app('navigation.sidebar');
     }
 
     public function testCanGetMainNavigationMenuFromContainer()
