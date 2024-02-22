@@ -8,10 +8,10 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  *
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
  */
@@ -19,56 +19,56 @@ class NavigationMenuUnitTest extends UnitTestCase
 {
     public function testCanConstruct()
     {
-        $this->assertInstanceOf(NavigationMenu::class, new NavigationMenu());
+        $this->assertInstanceOf(MainNavigationMenu::class, new MainNavigationMenu());
     }
 
     public function testCanConstructWithItemsArray()
     {
-        $this->assertInstanceOf(NavigationMenu::class, new NavigationMenu($this->getItems()));
+        $this->assertInstanceOf(MainNavigationMenu::class, new MainNavigationMenu($this->getItems()));
     }
 
     public function testCanConstructWithItemsArrayable()
     {
-        $this->assertInstanceOf(NavigationMenu::class, new NavigationMenu(collect($this->getItems())));
+        $this->assertInstanceOf(MainNavigationMenu::class, new MainNavigationMenu(collect($this->getItems())));
     }
 
     public function testGetItemsReturnsCollection()
     {
-        $this->assertInstanceOf(Collection::class, (new NavigationMenu())->getItems());
+        $this->assertInstanceOf(Collection::class, (new MainNavigationMenu())->getItems());
     }
 
     public function testGetItemsReturnsCollectionWhenSuppliedArray()
     {
-        $this->assertInstanceOf(Collection::class, (new NavigationMenu($this->getItems()))->getItems());
+        $this->assertInstanceOf(Collection::class, (new MainNavigationMenu($this->getItems()))->getItems());
     }
 
     public function testGetItemsReturnsCollectionWhenSuppliedArrayable()
     {
-        $this->assertInstanceOf(Collection::class, (new NavigationMenu(collect($this->getItems())))->getItems());
+        $this->assertInstanceOf(Collection::class, (new MainNavigationMenu(collect($this->getItems())))->getItems());
     }
 
     public function testGetItemsReturnsItems()
     {
         $items = $this->getItems();
 
-        $this->assertSame($items, (new NavigationMenu($items))->getItems()->all());
+        $this->assertSame($items, (new MainNavigationMenu($items))->getItems()->all());
     }
 
     public function testGetItemsReturnsItemsWhenSuppliedArrayable()
     {
         $items = $this->getItems();
 
-        $this->assertSame($items, (new NavigationMenu(collect($items)))->getItems()->all());
+        $this->assertSame($items, (new MainNavigationMenu(collect($items)))->getItems()->all());
     }
 
     public function testGetItemsReturnsEmptyArrayWhenNoItems()
     {
-        $this->assertSame([], (new NavigationMenu())->getItems()->all());
+        $this->assertSame([], (new MainNavigationMenu())->getItems()->all());
     }
 
     public function testCanAddItems()
     {
-        $menu = new NavigationMenu();
+        $menu = new MainNavigationMenu();
         $item = new NavItem(new ExternalRoute('/'), 'Home');
 
         $menu->add($item);
@@ -79,7 +79,7 @@ class NavigationMenuUnitTest extends UnitTestCase
 
     public function testItemsAreInTheOrderTheyWereAddedWhenThereAreNoCustomPriorities()
     {
-        $menu = new NavigationMenu();
+        $menu = new MainNavigationMenu();
         $item1 = new NavItem(new ExternalRoute('/'), 'Home');
         $item2 = new NavItem(new ExternalRoute('/about'), 'About');
         $item3 = new NavItem(new ExternalRoute('/contact'), 'Contact');
@@ -93,7 +93,7 @@ class NavigationMenuUnitTest extends UnitTestCase
 
     public function testItemsAreSortedByPriority()
     {
-        $menu = new NavigationMenu();
+        $menu = new MainNavigationMenu();
         $item1 = new NavItem(new ExternalRoute('/'), 'Home', 100);
         $item2 = new NavItem(new ExternalRoute('/about'), 'About', 200);
         $item3 = new NavItem(new ExternalRoute('/contact'), 'Contact', 300);

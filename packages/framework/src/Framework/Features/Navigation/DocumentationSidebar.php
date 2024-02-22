@@ -9,17 +9,10 @@ use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-/** @deprecated Use the new NavigationMenu class instead */
 class DocumentationSidebar extends NavigationMenu
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
-
-    /** @deprecated Will be moved to an action */
-    public static function create(): static
-    {
-        return NavigationMenuGenerator::handle(DocumentationSidebar::class);
-    }
 
     public function hasGroups(): bool
     {

@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
 use Throwable;
+use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 use function config;
 use function file_put_contents;
@@ -49,7 +50,7 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => DocumentationSidebar::create(),
+            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
         ]));
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
@@ -102,7 +103,7 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => DocumentationSidebar::create(),
+            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
         ]));
     }
 
@@ -130,7 +131,7 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => DocumentationSidebar::create(),
+            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
             'grouped' => true,
         ]));
 
@@ -162,7 +163,7 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => DocumentationSidebar::create(),
+            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
             'grouped' => true,
         ]));
 
@@ -187,7 +188,7 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => DocumentationSidebar::create(),
+            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
             'grouped' => true,
         ]));
 

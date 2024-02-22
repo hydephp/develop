@@ -39,7 +39,7 @@ class NavigationMenuGenerator
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
     protected function __construct(string $menuType)
     {
-        assert(in_array($menuType, [NavigationMenu::class, DocumentationSidebar::class]));
+        assert(in_array($menuType, [MainNavigationMenu::class, DocumentationSidebar::class]));
 
         $this->menuType = $menuType;
 
@@ -55,7 +55,7 @@ class NavigationMenuGenerator
     }
 
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
-    public static function handle(string $menuType): NavigationMenu|DocumentationSidebar
+    public static function handle(string $menuType): MainNavigationMenu|DocumentationSidebar
     {
         $menu = new static($menuType);
 

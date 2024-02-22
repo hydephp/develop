@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\ExternalRoute;
-use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  *
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
@@ -24,7 +24,7 @@ class NavigationMenuTest extends TestCase
 {
     public function testConstructor()
     {
-        $this->assertInstanceOf(NavigationMenu::class, $this->createNavigationMenu());
+        $this->assertInstanceOf(MainNavigationMenu::class, $this->createNavigationMenu());
     }
 
     public function testGenerateMethodCreatesCollectionOfNavItems()
@@ -269,8 +269,8 @@ class NavigationMenuTest extends TestCase
         $this->assertSame('Foo', $navigation->getItems()->last()->getLabel());
     }
 
-    protected function createNavigationMenu(): NavigationMenu
+    protected function createNavigationMenu(): MainNavigationMenu
     {
-        return NavigationMenuGenerator::handle(NavigationMenu::class);
+        return NavigationMenuGenerator::handle(MainNavigationMenu::class);
     }
 }
