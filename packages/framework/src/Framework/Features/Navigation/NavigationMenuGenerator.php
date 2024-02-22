@@ -182,7 +182,7 @@ class NavigationMenuGenerator
 
     protected function searchForGroupPriorityInConfig(string $groupKey): ?int
     {
-        $key = $this->generatesSidebar ? 'docs.sidebar_order' : 'hyde.navigation.order';
+        $key = $this->generatesSidebar ? 'docs.sidebar.order' : 'hyde.navigation.order';
 
         return Config::getArray($key, [])[$groupKey] ?? null;
     }

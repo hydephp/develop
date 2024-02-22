@@ -74,7 +74,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testSearchForPriorityInNavigationConfigForDocumentationPageWithListConfig()
     {
-        self::mockConfig(['docs.sidebar_order' => [
+        self::mockConfig(['docs.sidebar.order' => [
             'foo' => 15,
             'bar' => 10,
         ]]);
@@ -88,7 +88,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testSearchForPriorityInNavigationConfigForDocumentationPageWithKeyedConfig()
     {
-        self::mockConfig(['docs.sidebar_order' => [
+        self::mockConfig(['docs.sidebar.order' => [
             'foo',
             'bar' => 10,
             'baz',
@@ -109,7 +109,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testSearchForPriorityInNavigationConfigForDocumentationPageSupportsMixingKeyedAndListConfig()
     {
-        self::mockConfig(['docs.sidebar_order' => [
+        self::mockConfig(['docs.sidebar.order' => [
             'foo',
             'bar' => 10,
             'baz',
@@ -130,7 +130,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testRouteKeysCanBeUsedForDocumentationSidebarPriorities()
     {
-        self::mockConfig(['docs.sidebar_order' => [
+        self::mockConfig(['docs.sidebar.order' => [
             'key/foo',
             'key/bar',
             'baz',
