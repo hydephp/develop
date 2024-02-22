@@ -8,15 +8,8 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Str;
 
-use function app;
-
 class DocumentationSidebar extends NavigationMenu
 {
-    public static function get(): static
-    {
-        return app(static::class);
-    }
-
     public function hasGroups(): bool
     {
         return $this->getItems()->contains(fn (NavItem $item): bool => $item->hasChildren());
