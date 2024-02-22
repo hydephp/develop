@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Providers;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\ServiceProvider;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
-use Hyde\Framework\Features\Navigation\NavigationManager;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
@@ -30,9 +29,6 @@ class NavigationServiceProvider extends ServiceProvider
 
             $this->app->alias(MainNavigationMenu::class, 'navigation.main');
             $this->app->alias(DocumentationSidebar::class, 'navigation.sidebar');
-
-            $this->app->make(NavigationManager::class)->registerMenu('main', NavigationMenuGenerator::handle(MainNavigationMenu::class));
-            $this->app->make(NavigationManager::class)->registerMenu('sidebar', NavigationMenuGenerator::handle(DocumentationSidebar::class));
         });
     }
 }
