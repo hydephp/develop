@@ -14,21 +14,14 @@ class NavigationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Initially bind these to null, so that the container doesn't try to return empty menus before the kernel has booted.
-        $this->app->singleton(MainNavigationMenu::class, fn () => null);
-        $this->app->singleton(DocumentationSidebar::class, fn () => null);
-
         $this->app->make(HydeKernel::class)->booted(function (): void {
-            $this->app->singleton(MainNavigationMenu::class, function (): MainNavigationMenu {
+            $this->app->singleton('navigation.main', function (): MainNavigationMenu {
                 return NavigationMenuGenerator::handle(MainNavigationMenu::class);
             });
 
-            $this->app->singleton(DocumentationSidebar::class, function (): DocumentationSidebar {
+            $this->app->singleton('navigation.sidebar', function (): DocumentationSidebar {
                 return NavigationMenuGenerator::handle(DocumentationSidebar::class);
             });
-
-            $this->app->alias(MainNavigationMenu::class, 'navigation.main');
-            $this->app->alias(DocumentationSidebar::class, 'navigation.sidebar');
         });
     }
 }

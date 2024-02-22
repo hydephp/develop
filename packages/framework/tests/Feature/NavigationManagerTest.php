@@ -55,13 +55,7 @@ class NavigationManagerTest extends TestCase
         $manager->getMenu('foo');
     }
 
-    public function testContainerMenusAreNullBeforeKernelIsBooted()
-    {
-        $this->assertNull(app(MainNavigationMenu::class));
-        $this->assertNull(app(DocumentationSidebar::class));
-    }
-
-    public function testCannotGetContainerMenusByAliasBeforeKernelIsBooted()
+    public function testCannotGetContainerMenusBeforeKernelIsBooted()
     {
         $this->expectException(BindingResolutionException::class);
 
@@ -71,32 +65,22 @@ class NavigationManagerTest extends TestCase
 
     public function testCanGetMainNavigationMenuFromContainer()
     {
-        $this->booted()->assertInstanceOf(MainNavigationMenu::class, app(MainNavigationMenu::class));
+        $this->booted()->assertInstanceOf(MainNavigationMenu::class, app('navigation.main'));
     }
 
     public function testCanGetDocumentationSidebarFromContainer()
     {
-        $this->booted()->assertInstanceOf(DocumentationSidebar::class, app(DocumentationSidebar::class));
+        $this->booted()->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
     {
-        $this->booted()->assertSame(MainNavigationMenu::get(), app(MainNavigationMenu::class));
+        $this->booted()->assertSame(MainNavigationMenu::get(), app('navigation.main'));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
     {
-        $this->booted()->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
-    }
-
-    public function testCanGetMainNavigationMenuFromContainerUsingAlias()
-    {
-        $this->booted()->assertSame(app(MainNavigationMenu::class), app('navigation.main'));
-    }
-
-    public function testCanGetDocumentationSidebarFromContainerUsingAlias()
-    {
-        $this->booted()->assertSame(app(DocumentationSidebar::class), app('navigation.sidebar'));
+        $this->booted()->assertSame(DocumentationSidebar::get(), app('navigation.sidebar'));
     }
 
     protected function booted(): self
