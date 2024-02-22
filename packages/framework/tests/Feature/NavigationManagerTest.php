@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Framework\Features\Navigation\NavigationManager;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
@@ -55,21 +56,29 @@ class NavigationManagerTest extends TestCase
 
     public function testCanGetMainNavigationMenuFromContainer()
     {
+        Hyde::boot();
+
         $this->assertInstanceOf(MainNavigationMenu::class, app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainer()
     {
+        Hyde::boot();
+
         $this->assertInstanceOf(DocumentationSidebar::class, app(DocumentationSidebar::class));
     }
 
     public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
     {
+        Hyde::boot();
+
         $this->assertSame(MainNavigationMenu::get(), app(MainNavigationMenu::class));
     }
 
     public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
     {
+        Hyde::boot();
+
         $this->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
     }
 }
