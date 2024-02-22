@@ -258,11 +258,13 @@ In the `config/docs.php` file you can configure the behaviour, content, and the 
 You can also disable the feature completely.
 
 ```php
-'table_of_contents' => [
-    'enabled' => true,
-    'min_heading_level' => 2,
-    'max_heading_level' => 4,
-    'smooth_page_scrolling' => true,
+'sidebar' => [
+    'table_of_contents' => [
+        'enabled' => true,
+        'min_heading_level' => 2,
+        'max_heading_level' => 4,
+        'smooth_page_scrolling' => true,
+    ],
 ],
 ```
 
