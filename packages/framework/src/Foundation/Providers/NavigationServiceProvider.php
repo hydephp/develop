@@ -18,12 +18,12 @@ class NavigationServiceProvider extends ServiceProvider
         $this->app->singleton(MainNavigationMenu::class, fn () => null);
         $this->app->singleton(DocumentationSidebar::class, fn () => null);
 
-        $this->app->make(HydeKernel::class)->booted(function () {
-            $this->app->singleton(MainNavigationMenu::class, function () {
+        $this->app->make(HydeKernel::class)->booted(function (): void {
+            $this->app->singleton(MainNavigationMenu::class, function (): MainNavigationMenu {
                 return NavigationMenuGenerator::handle(MainNavigationMenu::class);
             });
 
-            $this->app->singleton(DocumentationSidebar::class, function () {
+            $this->app->singleton(DocumentationSidebar::class, function (): DocumentationSidebar {
                 return NavigationMenuGenerator::handle(DocumentationSidebar::class);
             });
 
