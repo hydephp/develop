@@ -21,7 +21,7 @@ class NavigationServiceProvider extends ServiceProvider
 
         $this->app->alias(NavigationManager::class, 'navigation');
 
-        // Initially bind these to null, so that the container doesn't try to return them before the kernel has booted.
+        // Initially bind these to null, so that the container doesn't try to return empty menus before the kernel has booted.
         $this->app->singleton(MainNavigationMenu::class, fn () => null);
         $this->app->singleton(DocumentationSidebar::class, fn () => null);
 
