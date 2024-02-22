@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Features\Navigation\NavigationManager;
-
 use function app;
 use function array_map;
 use function basename;
@@ -328,19 +326,5 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->assertEquals('foo', MarkdownPost::outputDirectory());
         $this->assertEquals('foo', DocumentationPage::outputDirectory());
-    }
-
-    public function testNavigationManagerIsRegisteredAsSingleton()
-    {
-        $this->assertTrue($this->app->bound(NavigationManager::class));
-        $this->assertInstanceOf(NavigationManager::class, $this->app->make(NavigationManager::class));
-        $this->assertSame($this->app->make(NavigationManager::class), $this->app->make(NavigationManager::class));
-    }
-
-    public function testProviderRegistersNavigationManagerAlias()
-    {
-        $this->assertTrue($this->app->bound('navigation'));
-        $this->assertInstanceOf(NavigationManager::class, $this->app->make('navigation'));
-        $this->assertSame($this->app->make(NavigationManager::class), $this->app->make('navigation'));
     }
 }
