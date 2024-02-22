@@ -34,6 +34,9 @@ class NavigationServiceProvider extends ServiceProvider
                 return NavigationMenuGenerator::handle(DocumentationSidebar::class);
             });
 
+            $this->app->alias(MainNavigationMenu::class, 'navigation.main');
+            $this->app->alias(DocumentationSidebar::class, 'navigation.sidebar');
+
             $this->app->make(NavigationManager::class)->registerMenu('main', NavigationMenuGenerator::handle(MainNavigationMenu::class));
             $this->app->make(NavigationManager::class)->registerMenu('sidebar', NavigationMenuGenerator::handle(DocumentationSidebar::class));
         });

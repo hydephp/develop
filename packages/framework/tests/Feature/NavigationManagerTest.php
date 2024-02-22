@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Navigation\NavigationManager;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Testing\TestCase;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
@@ -60,6 +61,14 @@ class NavigationManagerTest extends TestCase
         $this->assertNull(app(DocumentationSidebar::class));
     }
 
+    public function testCannotGetContainerMenusByAliasBeforeKernelIsBooted()
+    {
+        $this->expectException(BindingResolutionException::class);
+
+        $this->assertNull(app('navigation.main'));
+        $this->assertNull(app('navigation.sidebar'));
+    }
+
     public function testCanGetMainNavigationMenuFromContainer()
     {
         Hyde::boot();
@@ -86,5 +95,19 @@ class NavigationManagerTest extends TestCase
         Hyde::boot();
 
         $this->assertSame(DocumentationSidebar::get(), app(DocumentationSidebar::class));
+    }
+
+    public function testCanGetMainNavigationMenuFromContainerUsingAlias()
+    {
+        Hyde::boot();
+
+        $this->assertSame(app(MainNavigationMenu::class), app('navigation.main'));
+    }
+
+    public function testCanGetDocumentationSidebarFromContainerUsingAlias()
+    {
+        Hyde::boot();
+
+        $this->assertSame(app(DocumentationSidebar::class), app('navigation.sidebar'));
     }
 }
