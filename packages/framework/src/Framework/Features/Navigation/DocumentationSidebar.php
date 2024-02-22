@@ -15,12 +15,6 @@ class DocumentationSidebar extends NavigationMenu
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
-    /** @deprecated Will be moved to an action */
-    public static function create(): static
-    {
-        return NavigationMenuGenerator::handle(DocumentationSidebar::class);
-    }
-
     public function hasGroups(): bool
     {
         return $this->getItems()->contains(fn (NavItem $item): bool => $item->hasChildren());
