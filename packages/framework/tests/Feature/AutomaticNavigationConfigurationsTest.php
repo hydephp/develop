@@ -414,7 +414,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationAutomaticSubdirectoryDropdownLabelsCanBeSetInConfig()
     {
-        $this->markTestSkipped('Not yet implemented');
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.labels' => ['hello' => 'World']]);
+
+        $this->assertMenuEquals(['World'], [
+            new MarkdownPage('hello/world'),
+        ]);
     }
 
     public function testMainNavigationMenuWithConfigHidden()
