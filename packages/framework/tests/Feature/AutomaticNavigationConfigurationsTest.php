@@ -404,7 +404,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationDropdownLabelsCanBeSetInConfig()
     {
-        $this->markTestSkipped('Not yet implemented');
+        config(['hyde.navigation.subdirectories' => 'dropdown']); // TODO This should NOT be necessary when using front matter
+        config(['hyde.navigation.labels' => ['foo' => 'Bar']]);
+
+        $this->assertMenuEquals(['Bar'], [
+            new MarkdownPage('child', ['navigation.group' => 'foo']),
+        ]);
     }
 
     public function testMainNavigationAutomaticSubdirectoryDropdownLabelsCanBeSetInConfig()
