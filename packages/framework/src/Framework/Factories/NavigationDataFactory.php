@@ -91,7 +91,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->isInstanceOf(MarkdownPost::class)
             || $this->searchForHiddenInFrontMatter()
-            || $this->isPageHiddenInNavigationConfiguration()
+            || $this->searchForHiddenInConfigs()
             || $this->isNonDocumentationPageInHiddenSubdirectory();
     }
 
@@ -120,9 +120,23 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ?? $this->invert($this->getMatter('navigation.visible'));
     }
 
+    private function searchForHiddenInConfigs(): ?bool
+    {
+        return $this->isInstanceOf(DocumentationPage::class)
+            ? $this->isPageHiddenInSidebarConfiguration()
+            : $this->isPageHiddenInNavigationConfiguration();
+    }
+
     private function isPageHiddenInNavigationConfiguration(): ?bool
     {
         return in_array($this->routeKey, Config::getArray('hyde.navigation.exclude', ['404']));
+    }
+
+    private function isPageHiddenInSidebarConfiguration(): ?bool
+    {
+        $config = Config::getArray('docs.sidebar.exclude', ['404']);
+
+        return in_array($this->routeKey, $config) || in_array($this->identifier, $config);
     }
 
     private function isNonDocumentationPageInHiddenSubdirectory(): bool

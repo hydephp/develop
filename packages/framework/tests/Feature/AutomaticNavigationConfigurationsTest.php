@@ -869,8 +869,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithConfigHidden()
     {
-        $this->markTestSkipped('Not supported (yet?)');
-
         config(['docs.sidebar.exclude' => ['foo', 'bar', 'baz']]);
 
         $this->assertSidebarEquals([], [
