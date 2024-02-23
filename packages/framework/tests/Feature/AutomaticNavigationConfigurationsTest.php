@@ -407,7 +407,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->markTestSkipped('Not yet implemented');
     }
 
-    public function testMainNavigationAutomaticDropdownLabelsCanBeSetInConfig()
+    public function testMainNavigationAutomaticSubdirectoryDropdownLabelsCanBeSetInConfig()
     {
         $this->markTestSkipped('Not yet implemented');
     }
