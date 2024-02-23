@@ -136,7 +136,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         $config = Config::getArray('docs.sidebar.exclude', ['404']);
 
-        return in_array($this->routeKey, $config) || in_array($this->identifier, $config);
+        return in_array($this->routeKey, $config) || in_array($this->identifier, $config) || $this->isPageHiddenInNavigationConfiguration();
     }
 
     private function isNonDocumentationPageInHiddenSubdirectory(): bool
