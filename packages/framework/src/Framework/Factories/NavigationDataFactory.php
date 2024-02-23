@@ -73,7 +73,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected function makeLabel(): ?string
     {
         return $this->searchForLabelInFrontMatter()
-            ?? $this->searchForLabelInConfig()
+            ?? $this->searchForLabelInConfigs()
             ?? $this->getMatter('title')
             ?? $this->title;
     }
@@ -139,7 +139,14 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ?? $this->getMatter('navigation.order');
     }
 
-    private function searchForLabelInConfig(): ?string
+    private function searchForLabelInConfigs(): ?string
+    {
+        return $this->isInstanceOf(DocumentationPage::class)
+            ? $this->searchForLabelInSidebarConfig()
+            : $this->searchForLabelInNavigationConfig();
+    }
+
+    private function searchForLabelInNavigationConfig(): ?string
     {
         /** @var array<string, string> $config */
         $config = Config::getArray('hyde.navigation.labels', [
@@ -148,6 +155,16 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         ]);
 
         return $config[$this->routeKey] ?? null;
+    }
+
+    private function searchForLabelInSidebarConfig(): ?string
+    {
+        /** @var array<string>|array<string, string> $config */
+        $config = Config::getArray('docs.sidebar.labels', [
+            DocumentationPage::homeRouteName() => 'Docs',
+        ]);
+
+        return $config[$this->routeKey] ?? $config[$this->identifier] ?? null;
     }
 
     private function searchForPriorityInConfigs(): ?int
