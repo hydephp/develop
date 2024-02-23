@@ -847,8 +847,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithConfigLabels()
     {
-        $this->markTestSkipped('Not supported (yet?)');
-
         config(['docs.sidebar.labels' => ['foo' => 'First', 'bar' => 'Second', 'baz' => 'Third']]);
 
         $this->assertSidebarEquals(['First', 'Second', 'Third'], [
@@ -871,8 +869,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarWithConfigHidden()
     {
-        $this->markTestSkipped('Not supported (yet?)');
-
         config(['docs.sidebar.exclude' => ['foo', 'bar', 'baz']]);
 
         $this->assertSidebarEquals([], [
