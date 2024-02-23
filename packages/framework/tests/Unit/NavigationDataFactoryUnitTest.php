@@ -193,6 +193,50 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame('Fallback Title', $factory->makeLabel());
     }
 
+    public function testPageIsHiddenBasedOnNavigationConfiguration()
+    {
+        self::mockConfig(['hyde.navigation.exclude' => ['hiddenPage']]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'hiddenPage'));
+        $this->assertTrue($factory->makeHidden());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'visiblePage'));
+        $this->assertFalse($factory->makeHidden());
+    }
+
+    public function testPageIsHiddenBasedOnSidebarConfigurationForDocumentationPage()
+    {
+        self::mockConfig(['docs.sidebar.exclude' => ['hiddenDocPage']]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('hiddenDocPage', pageClass: DocumentationPage::class));
+        $this->assertTrue($factory->makeHidden());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('visibleDocPage', pageClass: DocumentationPage::class));
+        $this->assertFalse($factory->makeHidden());
+    }
+
+    public function testSearchForHiddenInConfigsSelectsCorrectConfigurationBasedOnPageType()
+    {
+        self::mockConfig([
+            'hyde.navigation.exclude' => ['hiddenPage'],
+            'docs.sidebar.exclude' => ['hiddenDocPage'],
+        ]);
+
+        // Test for a Markdown page, should use navigation.exclude config
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'hiddenPage'));
+        $this->assertTrue($factory->makeHidden());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'visiblePage'));
+        $this->assertFalse($factory->makeHidden());
+
+        // Test for a Documentation page, should use docs.sidebar.exclude config
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('hiddenDocPage', pageClass: DocumentationPage::class));
+        $this->assertTrue($factory->makeHidden());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('visibleDocPage', pageClass: DocumentationPage::class));
+        $this->assertFalse($factory->makeHidden());
+    }
+
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
     {
         return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
@@ -214,5 +258,10 @@ class NavigationConfigTestClass extends NavigationDataFactory
     public function makeLabel(): ?string
     {
         return parent::makeLabel();
+    }
+
+    public function makeHidden(): bool
+    {
+        return parent::makeHidden();
     }
 }
