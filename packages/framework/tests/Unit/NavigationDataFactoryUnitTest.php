@@ -146,6 +146,53 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(502, $factory->makePriority());
     }
 
+    public function testSearchForLabelInNavigationConfigForMarkdownPage()
+    {
+        self::mockConfig([
+            'hyde.navigation.labels' => [
+                'foo' => 'Foo Label',
+                'bar' => 'Bar Label',
+            ],
+        ]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'foo'));
+        $this->assertSame('Foo Label', $factory->makeLabel());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'bar'));
+        $this->assertSame('Bar Label', $factory->makeLabel());
+    }
+
+    public function testSearchForLabelInSidebarConfigForDocumentationPage()
+    {
+        self::mockConfig([
+            'docs.sidebar.labels' => [
+                'foo' => 'Documentation Foo Label',
+                'bar' => 'Documentation Bar Label',
+            ],
+        ]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'foo', pageClass: DocumentationPage::class));
+        $this->assertSame('Documentation Foo Label', $factory->makeLabel());
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(routeKey: 'bar', pageClass: DocumentationPage::class));
+        $this->assertSame('Documentation Bar Label', $factory->makeLabel());
+    }
+
+    public function testLabelFallbackToTitleIfNotDefinedInConfig()
+    {
+        self::mockConfig([
+            'hyde.navigation.labels' => [],
+            'docs.sidebar.labels' => [],
+        ]);
+
+        // Assuming the title fallback is correctly set in front matter or title property
+        $frontMatter = new FrontMatter(['title' => 'Fallback Title']);
+        $coreDataObject = new CoreDataObject($frontMatter, new Markdown(), MarkdownPage::class, '', '', '', 'undefinedKey');
+
+        $factory = new NavigationConfigTestClass($coreDataObject);
+        $this->assertSame('Fallback Title', $factory->makeLabel());
+    }
+
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
     {
         return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
@@ -162,5 +209,10 @@ class NavigationConfigTestClass extends NavigationDataFactory
     public function makePriority(): int
     {
         return parent::makePriority();
+    }
+
+    public function makeLabel(): ?string
+    {
+        return parent::makeLabel();
     }
 }
