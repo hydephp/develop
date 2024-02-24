@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
 use function app;
@@ -18,6 +19,11 @@ class DocumentationSidebar extends NavigationMenu
     public static function get(): static
     {
         return app('navigation.sidebar');
+    }
+
+    public function __construct(Arrayable|array $items = [])
+    {
+        parent::__construct($items);
     }
 
     public function hasGroups(): bool
