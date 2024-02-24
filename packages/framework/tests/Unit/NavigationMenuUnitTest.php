@@ -18,6 +18,8 @@ use Hyde\Framework\Features\Navigation\MainNavigationMenu;
  */
 class NavigationMenuUnitTest extends UnitTestCase
 {
+    // Base menu tests
+
     public function testCanConstruct()
     {
         $this->assertInstanceOf(MainNavigationMenu::class, new MainNavigationMenu());

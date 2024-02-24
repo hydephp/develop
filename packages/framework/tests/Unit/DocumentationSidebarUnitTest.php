@@ -19,6 +19,8 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
  */
 class DocumentationSidebarUnitTest extends UnitTestCase
 {
+    // Base menu tests
+
     public function testCanConstruct()
     {
         $this->assertInstanceOf(DocumentationSidebar::class, new DocumentationSidebar());
@@ -109,6 +111,8 @@ class DocumentationSidebarUnitTest extends UnitTestCase
 
         $this->assertSame([$item1, $item2, $item3], $menu->getItems()->all());
     }
+
+    // Sidebar specific tests
 
     public function testHasGroupsReturnsFalseWhenNoItemsHaveChildren()
     {
