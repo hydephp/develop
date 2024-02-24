@@ -206,6 +206,8 @@ class NavItem implements Stringable
         $this->children[] = $item;
     }
 
+    // Todo add method to add multiple children at once?
+
     protected static function normalizeGroupKey(?string $group): ?string
     {
         return $group ? Str::slug($group) : null;
