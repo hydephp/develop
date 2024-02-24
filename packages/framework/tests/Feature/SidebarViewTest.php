@@ -43,9 +43,7 @@ class SidebarViewTest extends TestCase
             ->assertDontSee('<li class="sidebar-item')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
-        ]));
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items'));
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-footer-text'));
@@ -96,9 +94,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<li class="sidebar-item')
             ->allGood();
 
-        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
-        ]));
+        $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items'));
     }
 
     public function testSidebarWithGroupedItems()
@@ -125,7 +121,6 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
             'grouped' => true,
         ]));
 
@@ -157,7 +152,6 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
             'grouped' => true,
         ]));
 
@@ -182,7 +176,6 @@ class SidebarViewTest extends TestCase
             ->allGood();
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
-            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
             'grouped' => true,
         ]));
 
@@ -191,6 +184,10 @@ class SidebarViewTest extends TestCase
 
     protected function renderComponent(View $view): self
     {
+        $sidebar = NavigationMenuGenerator::handle(DocumentationSidebar::class);
+        app()->instance('navigation.sidebar', $sidebar);
+        view()->share('sidebar', $sidebar);
+
         try {
             $this->html = $view->render();
             /** @noinspection LaravelFunctionsInspection */
