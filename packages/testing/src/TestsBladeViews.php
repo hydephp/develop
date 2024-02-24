@@ -12,7 +12,7 @@ use Illuminate\Testing\TestView;
  */
 trait TestsBladeViews
 {
-    protected function view(string|View $view, $data = []): TestView
+    protected function test(string|View $view, $data = []): TestView
     {
         if ($view instanceof View) {
             return new TestView($view);
