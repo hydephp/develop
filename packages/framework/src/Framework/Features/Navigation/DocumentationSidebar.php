@@ -32,6 +32,11 @@ class DocumentationSidebar extends NavigationMenu
         return Config::getBool('docs.sidebar.collapsible', true);
     }
 
+    public function hasFooter(): bool
+    {
+        return Config::getBool('docs.sidebar.footer', true);
+    }
+
     public function hasGroups(): bool
     {
         return $this->getItems()->contains(fn (NavItem $item): bool => $item->hasChildren());
