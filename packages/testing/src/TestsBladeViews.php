@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
-use Hyde\Testing\Support\TestableView;
+use Illuminate\Testing\TestView;
 
 trait TestsBladeViews
 {
-    public function view(string $view, array $data = []): TestableView
+    protected function view(string $view, $data = []): TestView
     {
-        return new TestableView($view, $data);
+        return new TestView(view($view, $data));
     }
 }
