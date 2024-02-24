@@ -115,6 +115,13 @@ class DocumentationSidebarUnitTest extends UnitTestCase
 
     // Sidebar specific tests
 
+    public function testGetMethodResolvesInstanceFromServiceContainer()
+    {
+        app()->instance('navigation.sidebar', $instance = new DocumentationSidebar());
+
+        $this->assertSame($instance, DocumentationSidebar::get());
+    }
+
     public function testHasGroupsReturnsFalseWhenNoItemsHaveChildren()
     {
         $this->assertFalse((new DocumentationSidebar())->hasGroups());
