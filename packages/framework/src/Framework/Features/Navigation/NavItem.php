@@ -199,11 +199,13 @@ class NavItem implements Stringable
     /**
      * Add a navigation item to the children of the navigation item.
      */
-    public function addChild(NavItem $item): void
+    public function addChild(NavItem $item): static
     {
         // Todo: Ensure that the item has a group identifier by creating it from the label if it doesn't exist?
 
         $this->children[] = $item;
+
+        return $this;
     }
 
     // Todo add method to add multiple children at once?
