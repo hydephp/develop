@@ -33,12 +33,12 @@ class DocumentationSidebar extends NavigationMenu
     public function isGroupActive(string $group): bool
     {
         $groupMatchesCurrentPageGroup = Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
-        $currentPageIsIndexPageAndShouldBeActive = $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
+        $currentPageIsIndexPageAndShouldBeActive = $this->isCurrentPageIndexPage() && $this->shouldIndexPageBeActive($group);
 
         return $groupMatchesCurrentPageGroup || $currentPageIsIndexPageAndShouldBeActive;
     }
 
-    private function isPageIndexPage(): bool
+    private function isCurrentPageIndexPage(): bool
     {
         return Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName());
     }
