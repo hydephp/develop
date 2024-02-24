@@ -1,7 +1,7 @@
 <p>
-    @if(is_bool(config('docs.sidebar.footer', true)))
+    @if(is_bool($sidebar->getFooter())))
         <a href="{{ Hyde::relativeLink('index.html') }}">Back to home page</a>
     @else
-        {{ Hyde::markdown(config('docs.sidebar.footer')) }}
+        {{ Hyde::markdown($sidebar->getFooter()) }}
     @endif
 </p>
