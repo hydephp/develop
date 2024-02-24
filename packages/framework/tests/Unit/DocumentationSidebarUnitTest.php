@@ -12,6 +12,7 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  */
