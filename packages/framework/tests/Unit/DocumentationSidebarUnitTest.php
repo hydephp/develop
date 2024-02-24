@@ -150,6 +150,13 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertTrue((new DocumentationSidebar())->hasFooter());
     }
 
+    public function testHasFooterReturnsTrueWhenConfigIsString()
+    {
+        self::mockConfig(['docs.sidebar.footer' => 'Some footer content']);
+
+        $this->assertTrue((new DocumentationSidebar())->hasFooter());
+    }
+
     public function testHasFooterReturnsTrueWhenConfigIsTrue()
     {
         self::mockConfig(['docs.sidebar.footer' => true]);

@@ -11,6 +11,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
 use function app;
+use function is_string;
 
 class DocumentationSidebar extends NavigationMenu
 {
@@ -34,6 +35,10 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasFooter(): bool
     {
+        if (is_string(Config::get('docs.sidebar.footer'))) {
+            return true;
+        }
+
         return Config::getBool('docs.sidebar.footer', true);
     }
 
