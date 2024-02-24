@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Contracts\Support\Arrayable;
@@ -24,6 +25,11 @@ class DocumentationSidebar extends NavigationMenu
     public function __construct(Arrayable|array $items = [])
     {
         parent::__construct($items);
+    }
+
+    public function isCollapsible(): bool
+    {
+        return Config::getBool('docs.sidebar.collapsible', true);
     }
 
     public function hasGroups(): bool
