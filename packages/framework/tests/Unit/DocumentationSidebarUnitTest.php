@@ -70,7 +70,7 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testCanAddItems()
     {
         $menu = new DocumentationSidebar();
-        $item = $this->item('/', 'Home');
+        $item = $this->item('/', 'Docs');
 
         $menu->add($item);
 
@@ -81,9 +81,9 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testItemsAreInTheOrderTheyWereAddedWhenThereAreNoCustomPriorities()
     {
         $menu = new DocumentationSidebar();
-        $item1 = $this->item('/', 'Home');
-        $item2 = $this->item('/about', 'About');
-        $item3 = $this->item('/contact', 'Contact');
+        $item1 = $this->item('/', 'Docs');
+        $item2 = $this->item('/installation', 'Installation');
+        $item3 = $this->item('/getting-started', 'Getting Started');
 
         $menu->add($item1);
         $menu->add($item2);
@@ -95,9 +95,9 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testItemsAreSortedByPriority()
     {
         $menu = new DocumentationSidebar();
-        $item1 = $this->item('/', 'Home', 100);
-        $item2 = $this->item('/about', 'About', 200);
-        $item3 = $this->item('/contact', 'Contact', 300);
+        $item1 = $this->item('/', 'Docs', 100);
+        $item2 = $this->item('/installation', 'Installation', 200);
+        $item3 = $this->item('/getting-started', 'Getting Started', 300);
 
         $menu->add($item3);
         $menu->add($item1);
@@ -109,9 +109,9 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     protected function getItems(): array
     {
         return [
-            $this->item('/', 'Home'),
-            $this->item('/about', 'About'),
-            $this->item('/contact', 'Contact'),
+            $this->item('/', 'Docs'),
+            $this->item('/installation', 'Installation'),
+            $this->item('/getting-started', 'Getting Started'),
         ];
     }
 
