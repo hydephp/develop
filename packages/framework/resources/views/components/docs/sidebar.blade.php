@@ -7,7 +7,7 @@
             'sidebar' => app('navigation.sidebar'),
         ])
     </nav>
-    @if(config('docs.sidebar.footer', true) !== false)
+    @if(app('navigation.sidebar')->hasFooter())
         <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
             @include('hyde::components.docs.sidebar-footer-text')
         </footer>
