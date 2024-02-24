@@ -69,7 +69,7 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testCanAddItems()
     {
         $menu = new DocumentationSidebar();
-        $item = new NavItem(new ExternalRoute('/'), 'Home');
+        $item = $this->item('/', 'Home');
 
         $menu->add($item);
 
@@ -80,9 +80,9 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testItemsAreInTheOrderTheyWereAddedWhenThereAreNoCustomPriorities()
     {
         $menu = new DocumentationSidebar();
-        $item1 = new NavItem(new ExternalRoute('/'), 'Home');
-        $item2 = new NavItem(new ExternalRoute('/about'), 'About');
-        $item3 = new NavItem(new ExternalRoute('/contact'), 'Contact');
+        $item1 = $this->item('/', 'Home');
+        $item2 = $this->item('/about', 'About');
+        $item3 = $this->item('/contact', 'Contact');
 
         $menu->add($item1);
         $menu->add($item2);
@@ -94,9 +94,9 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testItemsAreSortedByPriority()
     {
         $menu = new DocumentationSidebar();
-        $item1 = new NavItem(new ExternalRoute('/'), 'Home', 100);
-        $item2 = new NavItem(new ExternalRoute('/about'), 'About', 200);
-        $item3 = new NavItem(new ExternalRoute('/contact'), 'Contact', 300);
+        $item1 = $this->item('/', 'Home', 100);
+        $item2 = $this->item('/about', 'About', 200);
+        $item3 = $this->item('/contact', 'Contact', 300);
 
         $menu->add($item3);
         $menu->add($item1);
@@ -108,9 +108,14 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     protected function getItems(): array
     {
         return [
-            new NavItem(new ExternalRoute('/'), 'Home'),
-            new NavItem(new ExternalRoute('/about'), 'About'),
-            new NavItem(new ExternalRoute('/contact'), 'Contact'),
+            $this->item('/', 'Home'),
+            $this->item('/about', 'About'),
+            $this->item('/contact', 'Contact'),
         ];
+    }
+
+    protected function item(string $destination, string $label, int $priority = 500): NavItem
+    {
+        return new NavItem(new ExternalRoute($destination), $label, $priority);
     }
 }
