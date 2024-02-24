@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support;
 
-class TestableView
+class TestView
 {
     protected string $view;
     protected array $data = [];
