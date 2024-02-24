@@ -7,6 +7,9 @@ namespace Hyde\Testing;
 use Illuminate\View\View;
 use Illuminate\Testing\TestView;
 
+/**
+ * Provides a more fluent way to test Blade views.
+ */
 trait TestsBladeViews
 {
     protected function view(string|View $view, $data = []): TestView
