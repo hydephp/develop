@@ -6,9 +6,12 @@ namespace Hyde\Framework\Testing\Feature\Views;
 
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
+use Hyde\Testing\TestsBladeViews;
 
 class SidebarFooterTextViewTest extends TestCase
 {
+    use TestsBladeViews;
+
     public function testSidebarFooterTextViewWithDefaultConfig()
     {
         $view = $this->view('hyde::components.docs.sidebar-footer-text');
