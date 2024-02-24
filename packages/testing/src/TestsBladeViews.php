@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing;
 
 use Illuminate\View\View;
-use Illuminate\Testing\TestView;
+use Hyde\Testing\Support\TestView;
 
 /**
  * Provides a more fluent way to test Blade views.
