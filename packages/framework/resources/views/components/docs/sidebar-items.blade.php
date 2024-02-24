@@ -6,7 +6,7 @@
     </ul>
 @else
     <ul id="sidebar-items" role="list">
-        @php ($collapsible = config('docs.sidebar.collapsible', true))
+        @php ($collapsible = $sidebar->isCollapsible())
         @foreach ($sidebar->getItems() as $group)
             <li class="sidebar-group" role="listitem" @if($collapsible) x-data="{ groupOpen: {{ $sidebar->isGroupActive($group->getIdentifier()) ? 'true' : 'false' }} }" @endif>
                 <header @class(['sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center', 'group hover:bg-black/10' => $collapsible]) @if($collapsible) @click="groupOpen = ! groupOpen" @endif>
