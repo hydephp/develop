@@ -24,6 +24,8 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavItem
+ *
+ * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  */
 class DocumentationSidebarTest extends TestCase
 {
