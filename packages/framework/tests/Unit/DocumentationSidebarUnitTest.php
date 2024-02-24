@@ -70,6 +70,7 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testCanAddItems()
     {
         $menu = new DocumentationSidebar();
+
         $item = $this->item('/', 'Docs');
 
         $menu->add($item);
@@ -81,6 +82,7 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testItemsAreInTheOrderTheyWereAddedWhenThereAreNoCustomPriorities()
     {
         $menu = new DocumentationSidebar();
+
         $item1 = $this->item('/', 'Docs');
         $item2 = $this->item('/installation', 'Installation');
         $item3 = $this->item('/getting-started', 'Getting Started');
@@ -95,6 +97,7 @@ class DocumentationSidebarUnitTest extends UnitTestCase
     public function testItemsAreSortedByPriority()
     {
         $menu = new DocumentationSidebar();
+
         $item1 = $this->item('/', 'Docs', 100);
         $item2 = $this->item('/installation', 'Installation', 200);
         $item3 = $this->item('/getting-started', 'Getting Started', 300);

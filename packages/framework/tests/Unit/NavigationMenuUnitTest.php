@@ -70,6 +70,7 @@ class NavigationMenuUnitTest extends UnitTestCase
     public function testCanAddItems()
     {
         $menu = new MainNavigationMenu();
+
         $item = $this->item('/', 'Home');
 
         $menu->add($item);
@@ -81,6 +82,7 @@ class NavigationMenuUnitTest extends UnitTestCase
     public function testItemsAreInTheOrderTheyWereAddedWhenThereAreNoCustomPriorities()
     {
         $menu = new MainNavigationMenu();
+
         $item1 = $this->item('/', 'Home');
         $item2 = $this->item('/about', 'About');
         $item3 = $this->item('/contact', 'Contact');
@@ -95,6 +97,7 @@ class NavigationMenuUnitTest extends UnitTestCase
     public function testItemsAreSortedByPriority()
     {
         $menu = new MainNavigationMenu();
+
         $item1 = $this->item('/', 'Home', 100);
         $item2 = $this->item('/about', 'About', 200);
         $item3 = $this->item('/contact', 'Contact', 300);
