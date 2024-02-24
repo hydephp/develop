@@ -12,6 +12,9 @@ use Illuminate\Testing\TestView;
  */
 trait TestsBladeViews
 {
+    /**
+     * Test a Blade view.
+     */
     protected function test(string|View $view, $data = []): TestView
     {
         if ($view instanceof View) {
