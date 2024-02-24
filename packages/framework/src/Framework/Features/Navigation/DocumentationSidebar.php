@@ -35,7 +35,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasFooter(): bool
     {
-        if (is_string(Config::get('docs.sidebar.footer'))) {
+        if (is_string(Config::get('docs.sidebar.footer', true))) {
             return true;
         }
 
