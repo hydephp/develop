@@ -13,7 +13,7 @@
 
         @if(config('docs.sidebar.table_of_contents.enabled', true))
             <span class="sr-only">Table of contents</span>
-            {!! ($page->getTableOfContents()) !!}
+            {!! $page->getTableOfContents() !!}
         @endif
     @else
         <a href="{{ $item->getDestination() }}" @class([$grouped
