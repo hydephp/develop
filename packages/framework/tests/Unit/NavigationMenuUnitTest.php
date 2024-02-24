@@ -15,6 +15,7 @@ use Hyde\Framework\Features\Navigation\MainNavigationMenu;
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  *
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
+ * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  */
 class NavigationMenuUnitTest extends UnitTestCase
 {
