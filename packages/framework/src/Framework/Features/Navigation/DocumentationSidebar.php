@@ -23,6 +23,11 @@ class DocumentationSidebar extends NavigationMenu
         return app('navigation.sidebar');
     }
 
+    public function getFooter(): bool|string
+    {
+        return Config::get('docs.sidebar.footer', true);
+    }
+
     public function __construct(Arrayable|array $items = [])
     {
         parent::__construct($items);
