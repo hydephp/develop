@@ -24,6 +24,16 @@ namespace {
             return trim($string, '/\\');
         }
     }
+
+    if (! function_exists('asset')) {
+        /**
+         * Get a relative link or URL to an asset in the media directory.
+         */
+        function asset(string $name, bool $preferQualifiedUrl = false): string
+        {
+            return hyde()->asset($name, $preferQualifiedUrl);
+        }
+    }
 }
 
 namespace Hyde {

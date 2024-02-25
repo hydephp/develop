@@ -209,6 +209,26 @@ hyde()->routes()) === Hyde::routes(); // true
 It's up to you if you want to use the facade or the global function, or a mix of both.
 A benefit of using the global function is that it may have better IDE support.
 
+#### `asset`
+
+This is an alias of the `Hyde::asset()` facade method and allows you to get a relative link or URL to an asset in the media directory. 
+
+```php
+asset('image.png'); // Returns a relative web link to the given image
+```
+
+Gets a relative web link to the given image stored in the `_site/media` folder.
+If the image is remote (starts with http) it will be returned as is.
+
+If `true` is passed as the second argument, and a base URL is set,
+the image will be returned with a qualified absolute URL.
+
+**Example usage:**
+
+```blade
+<img src="{{ asset('image.png') }}" alt="My image">
+```
+
 ### Namespaced functions
 
 HydePHP also comes with a functions that are under the `Hyde` namespace,

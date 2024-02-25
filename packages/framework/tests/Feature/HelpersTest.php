@@ -10,6 +10,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
+use Hyde\Support\Facades\Render;
 
 /**
  * Covers the helpers in helpers.php.
@@ -62,6 +63,58 @@ class HelpersTest extends TestCase
         foreach ($tests as $test) {
             $this->assertSame('foo/bar', unslash($test));
         }
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunction()
+    {
+        $this->assertSame(Hyde::asset('foo'), asset('foo'));
+        $this->assertSame('media/foo', asset('foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithQualifiedUrl()
+    {
+        $this->assertSame(Hyde::asset('foo', true), asset('foo', true));
+        $this->assertSame('http://localhost/media/foo', asset('foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithExternalUrl()
+    {
+        $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
+        $this->assertSame('https://example.com/foo', asset('https://example.com/foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithQualifiedUrlAndNoBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => null]);
+        $this->assertSame('media/foo', asset('foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionFromNestedPage()
+    {
+        Render::shouldReceive('getRouteKey')->andReturn('foo/bar');
+
+        $this->assertSame('../media/foo', asset('foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionFromDeeplyNestedPage()
+    {
+        Render::shouldReceive('getRouteKey')->andReturn('foo/bar/baz');
+
+        $this->assertSame('../../media/foo', asset('foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('custom');
+
+        $this->assertSame('custom/foo', asset('foo'));
     }
 
     /** @covers ::\Hyde\hyde */
