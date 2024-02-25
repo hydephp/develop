@@ -17,7 +17,6 @@
         <cache>
           <versions>
             <info id="Local" version="9.5.21" />
-            <info id="LocalH:\monorepo\vendor\autoload.php" version="10.4.2" />
           </versions>
         </cache>
       </tool>
