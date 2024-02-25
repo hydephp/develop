@@ -33,6 +33,17 @@ class DocumentationSidebar extends NavigationMenu
         return Config::get('docs.sidebar.footer', true);
     }
 
+    public function getFooterText(): ?string
+    {
+        $option = Config::get('docs.sidebar.footer', true);
+
+        if (is_string($option)) {
+            return $option;
+        }
+
+        return null;
+    }
+
     public function hasFooter(): bool
     {
         if (is_string(Config::get('docs.sidebar.footer', true))) {

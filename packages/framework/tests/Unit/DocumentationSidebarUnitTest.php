@@ -150,6 +150,27 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertFalse((new DocumentationSidebar())->getFooter());
     }
 
+    public function testGetFooterTextReturnsStringWhenConfigIsString()
+    {
+        self::mockConfig(['docs.sidebar.footer' => 'Some footer content']);
+
+        $this->assertSame('Some footer content', (new DocumentationSidebar())->getFooterText());
+    }
+
+    public function testGetFooterTextReturnsNullWhenConfigIsTrue()
+    {
+        self::mockConfig(['docs.sidebar.footer' => true]);
+
+        $this->assertNull((new DocumentationSidebar())->getFooterText());
+    }
+
+    public function testGetFooterTextReturnsNullWhenConfigIsFalse()
+    {
+        self::mockConfig(['docs.sidebar.footer' => false]);
+
+        $this->assertNull((new DocumentationSidebar())->getFooterText());
+    }
+
     public function testIsCollapsibleReturnsTrueByDefault()
     {
         self::mockConfig();
