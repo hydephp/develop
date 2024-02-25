@@ -48,9 +48,6 @@ jobs:
           echo "  Hyde\Pages\DocumentationPage: ''" >> hyde.yml
           sed -i "s/'header' => env('SITE_NAME', 'HydePHP').' Docs'/'header' => 'PR #${{ github.event.pull_request.number }} - Docs'/g" config/docs.php
 
-      - name: Remove published article component
-        run: rm resources/views/vendor/hyde/components/docs/documentation-article.blade.php
-
       - name: Create component to add an information badge
         run: |
           mkdir -p resources/views/vendor/hyde/layouts
