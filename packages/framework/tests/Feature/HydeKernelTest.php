@@ -198,6 +198,17 @@ class HydeKernelTest extends TestCase
         $this->assertSame('assets/foo.jpg', Hyde::asset('foo.jpg'));
     }
 
+    public function testRouteHelper()
+    {
+        $this->assertNotNull(Hyde::route('index'));
+        $this->assertSame(Routes::get('index'), Hyde::route('index'));
+    }
+
+    public function testRouteHelperWithInvalidRoute()
+    {
+        $this->assertNull(Hyde::route('foo'));
+    }
+
     public function testHasSiteUrlHelperReturnsBooleanValueForWhenConfigSettingIsSet()
     {
         Config::set('hyde.url', 'https://example.com');
