@@ -248,6 +248,24 @@ If a route does not exist, `null` will be returned. Route instances can be cast 
 <a href="{{ route('index')->getLink() }}">Home</a>
 ```
 
+#### `url`
+
+This is an alias of the `Hyde::url()` facade method and formats a relative link to an absolute URL using the configured base URL.
+
+```php
+url('page.html'); // Returns an absolute URL to the given page
+```
+
+[//]: # (If the given link is already an absolute URL, it will be returned as is.)
+
+If a base URL is not set, an exception will be thrown.
+
+**Example usage:**
+
+```blade
+<a href="{{ url('page.html') }}">Link</a>
+```
+
 ### Namespaced functions
 
 HydePHP also comes with a functions that are under the `Hyde` namespace,

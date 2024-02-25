@@ -137,6 +137,36 @@ class HelpersTest extends TestCase
         $this->assertNull(route('nonexistent'));
     }
 
+    /** @covers ::url */
+    public function testUrlFunction()
+    {
+        $this->assertSame(Hyde::url('foo'), url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => 'http://localhost']);
+        $this->assertSame('http://localhost/foo', url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithoutBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => null]);
+        $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
+        $this->assertNull(url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithAlreadyQualifiedUrl()
+    {
+        $this->markTestSkipped('The url function does not check if the URL is already qualified.');
+
+        $this->assertSame('https://example.com/foo', url('https://example.com/foo'));
+        $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
+    }
+
     /** @covers ::\Hyde\hyde */
     public function testHydeFunctionExistsInHydeNamespace()
     {
