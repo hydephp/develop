@@ -193,9 +193,7 @@ HydePHP comes with a few helper functions to make your life easier.
 
 The most common ones are documented here, however you can also see the full list in the source code [`helpers.php`](https://github.com/hydephp/framework/blob/master/src/helpers.php) file.
 
-### Global functions
-
-#### `hyde`
+### `hyde`
 
 The `hyde` function is a global helper function that returns the HydeKernel instance.
 From this, you can access the same methods as you would from the `Hyde` facade.
@@ -209,7 +207,7 @@ hyde()->routes()) === Hyde::routes(); // true
 It's up to you if you want to use the facade or the global function, or a mix of both.
 A benefit of using the global function is that it may have better IDE support.
 
-#### `asset`
+### `asset`
 
 This is an alias of the `Hyde::asset()` facade method and allows you to get a relative link or URL to an asset in the media directory. 
 
@@ -229,7 +227,7 @@ the image will be returned with a qualified absolute URL.
 <img src="{{ asset('image.png') }}" alt="My image">
 ```
 
-#### `route`
+### `route`
 
 >info Routing primer: All pages in your Hyde project are automatically tied to an internal route. You can run `php hyde route:list` to see a list of all routes and their route keys.
 
@@ -248,7 +246,7 @@ If a route does not exist, `null` will be returned. Route instances can be cast 
 <a href="{{ route('index')->getLink() }}">Home</a>
 ```
 
-#### `url`
+### `url`
 
 This is an alias of the `Hyde::url()` facade method and formats a relative link to an absolute URL using the configured base URL.
 
