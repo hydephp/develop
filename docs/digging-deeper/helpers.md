@@ -187,6 +187,10 @@ $time->formatUsingClosure(function (int $minutes, int $seconds): string {
 }); // 1 minutes, 30 seconds
 ```
 
+## Helper Functions
+
+HydePHP comes with a few helper functions to make your life easier. 
+
 
 ## Pagination Utility
 
