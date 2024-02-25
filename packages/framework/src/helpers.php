@@ -34,6 +34,16 @@ namespace {
             return hyde()->asset($name, $preferQualifiedUrl);
         }
     }
+
+    if (! function_exists('route')) {
+        /**
+         * Get a page route by its key.
+         */
+        function route(string $key): ?Hyde\Support\Models\Route
+        {
+            return hyde()->route($key);
+        }
+    }
 }
 
 namespace Hyde {

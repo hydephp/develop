@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Support\Facades\Render;
+use Hyde\Foundation\Facades\Routes;
 
 /**
  * Covers the helpers in helpers.php.
@@ -115,6 +116,25 @@ class HelpersTest extends TestCase
         Hyde::setMediaDirectory('custom');
 
         $this->assertSame('custom/foo', asset('foo'));
+    }
+
+    /** @covers ::route */
+    public function testRouteFunction()
+    {
+        $this->assertNotNull(Hyde::route('index'));
+        $this->assertSame(Routes::get('index'), route('index'));
+    }
+
+    /** @covers ::route */
+    public function testRouteFunctionWithInvalidRoute()
+    {
+        $this->assertNull(route('foo'));
+    }
+
+    /** @covers ::route */
+    public function testRouteFunctionReturnsNullForNonExistentRoute()
+    {
+        $this->assertNull(route('nonexistent'));
     }
 
     /** @covers ::\Hyde\hyde */

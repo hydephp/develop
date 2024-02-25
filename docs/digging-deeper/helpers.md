@@ -229,6 +229,25 @@ the image will be returned with a qualified absolute URL.
 <img src="{{ asset('image.png') }}" alt="My image">
 ```
 
+#### `route`
+
+>info Routing primer: All pages in your Hyde project are automatically tied to an internal route. You can run `php hyde route:list` to see a list of all routes and their route keys.
+
+This is an alias of the `Hyde::route()` facade method and allows you to get a route instance by its route key.
+
+```php
+route('index'); // Returns the route instance with the given key
+```
+
+If a route does not exist, `null` will be returned. Route instances can be cast to strings to resolve a link to the page.
+
+**Example usage:**
+
+```blade
+<a href="{{ route('index') }}">Home</a>
+<a href="{{ route('index')->getLink() }}">Home</a>
+```
+
 ### Namespaced functions
 
 HydePHP also comes with a functions that are under the `Hyde` namespace,
