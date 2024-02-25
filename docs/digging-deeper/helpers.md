@@ -189,7 +189,9 @@ $time->formatUsingClosure(function (int $minutes, int $seconds): string {
 
 ## Helper Functions
 
-HydePHP comes with a few helper functions to make your life easier. 
+HydePHP comes with a few helper functions to make your life easier.
+
+The most common ones are documented here, however you can also see the full list in the source code [`helpers.php`](https://github.com/hydephp/framework/blob/master/src/helpers.php) file.
 
 ### Global `hyde` function
 
