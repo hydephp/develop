@@ -191,6 +191,20 @@ $time->formatUsingClosure(function (int $minutes, int $seconds): string {
 
 HydePHP comes with a few helper functions to make your life easier. 
 
+### Global `hyde` function
+
+The `hyde` function is a global helper function that returns the HydeKernel instance.
+From this, you can access the same methods as you would from the `Hyde` facade.
+
+```php
+hyde(); // Returns the HydeKernel instance
+
+hyde()->routes()) === Hyde::routes(); // true
+```
+
+It's up to you if you want to use the facade or the global function, or a mix of both.
+A benefit of using the global function is that it may have better IDE support.
+
 
 ## Pagination Utility
 
