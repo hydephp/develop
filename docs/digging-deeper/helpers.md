@@ -210,6 +210,13 @@ A benefit of using the global function is that it may have better IDE support.
 HydePHP also comes with a functions that are under the `Hyde` namespace,
 in order to avoid conflicts with other packages and your own code.
 
+#### `\Hyde\hyde`
+
+This is an alias for the `hyde` global function.
+
+```php
+\Hyde\hyde(); // Returns the HydeKernel instance
+```
 
 ## Pagination Utility
 
