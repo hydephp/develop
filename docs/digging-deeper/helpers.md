@@ -266,19 +266,6 @@ If a base URL is not set, an exception will be thrown.
 <a href="{{ url('page.html') }}">Link</a>
 ```
 
-### Namespaced functions
-
-HydePHP also comes with a functions that are under the `Hyde` namespace,
-in order to avoid conflicts with other packages and your own code.
-
-#### `\Hyde\hyde`
-
-This is an alias for the `hyde` global function.
-
-```php
-\Hyde\hyde(); // Returns the HydeKernel instance
-```
-
 ## Pagination Utility
 
 The `Pagination` class provides utilities to help you create custom pagination components.
