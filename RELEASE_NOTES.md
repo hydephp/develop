@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Added a `@head` stack to the `head.blade.php` component in https://github.com/hydephp/develop/pull/1567
+- Added a `Hyde::route()` helper to the `Hyde` facade in https://github.com/hydephp/develop/pull/1591
 
 ### Changed
 - for changes in existing functionality.
