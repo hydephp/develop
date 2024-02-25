@@ -13,8 +13,12 @@ class TestView extends \Illuminate\Testing\TestView
      *
      * @return $this
      */
-    public function assertSeeHtml(string $value): static
+    public function assertSeeHtml(string $value, bool $ignoreFormatting = false): static
     {
+        if ($ignoreFormatting) {
+            return $this->assertSeeHtmlIgnoringFormatting($value);
+        }
+
         return $this->assertSee($value, false);
     }
 
