@@ -33,11 +33,6 @@ class DocumentationSidebar extends NavigationMenu
         return Config::get('docs.sidebar.footer', true);
     }
 
-    public function isCollapsible(): bool
-    {
-        return Config::getBool('docs.sidebar.collapsible', true);
-    }
-
     public function hasFooter(): bool
     {
         if (is_string(Config::get('docs.sidebar.footer', true))) {
@@ -45,6 +40,11 @@ class DocumentationSidebar extends NavigationMenu
         }
 
         return Config::getBool('docs.sidebar.footer', true);
+    }
+
+    public function isCollapsible(): bool
+    {
+        return Config::getBool('docs.sidebar.collapsible', true);
     }
 
     public function hasGroups(): bool
