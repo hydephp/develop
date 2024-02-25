@@ -156,6 +156,14 @@ anything within the path label will be rendered as HTML. This means you can add 
 ```
 ````
 
+### Dynamic Markdown links
+
+In order to create automatically resolved links from your pages and posts, you can use the special Hyde Markdown link syntax.
+
+For all the supported syntax options, Hyde will resolve a relative link based on the current page being rendered.
+
+Since this happens in our Markdown processor, this will work regardless of if you have custom HTML or Blade enabled for your site.
+
 ### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
