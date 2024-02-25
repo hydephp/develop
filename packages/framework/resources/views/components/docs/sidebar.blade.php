@@ -8,7 +8,7 @@ $sidebar = app('navigation.sidebar');
     <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
         @include('hyde::components.docs.sidebar-items')
     </nav>
-    @if(app('navigation.sidebar')->hasFooter())
+    @if($sidebar->hasFooter())
         <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
             @include('hyde::components.docs.sidebar-footer-text')
         </footer>
