@@ -164,6 +164,24 @@ For all the supported syntax options, Hyde will resolve a relative link based on
 
 Since this happens in our Markdown processor, this will work regardless of if you have custom HTML or Blade enabled for your site.
 
+#### Resolving a route
+
+```markdown
+[Home](hyde::route('home'))
+```
+
+#### Resolving a relative link
+
+```markdown
+[Home](hyde::relativeLink('home'))
+```
+
+#### Resolving a media asset
+
+```markdown
+![Image](hyde::media('image.jpg'))
+```
+
 ### Limitations
 
 The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
