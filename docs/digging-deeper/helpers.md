@@ -205,6 +205,11 @@ hyde()->routes()) === Hyde::routes(); // true
 It's up to you if you want to use the facade or the global function, or a mix of both.
 A benefit of using the global function is that it may have better IDE support.
 
+### Namespaced functions
+
+HydePHP also comes with a functions that are under the `Hyde` namespace,
+in order to avoid conflicts with other packages and your own code.
+
 
 ## Pagination Utility
 
