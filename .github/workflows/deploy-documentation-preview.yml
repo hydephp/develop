@@ -75,9 +75,6 @@ jobs:
                  </p>
               </div>
             </aside>
-
-            <!-- Hotpatch for https://github.com/hydephp/develop/issues/968 -->
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hydephp/develop@master/_media/app.css">
           HTML
 
       - name: Configure environment variables
