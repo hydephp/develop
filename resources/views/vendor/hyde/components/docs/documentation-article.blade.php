@@ -24,3 +24,9 @@
         {{ $document->renderFooter() }}
     </footer>
 </article>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>.prose :where(pre):not(:where([class~=not-prose] *)) { background-color: #303030 } </style>
+<style>pre code.hljs { padding: 0; }</style>
