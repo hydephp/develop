@@ -193,7 +193,9 @@ HydePHP comes with a few helper functions to make your life easier.
 
 The most common ones are documented here, however you can also see the full list in the source code [`helpers.php`](https://github.com/hydephp/framework/blob/master/src/helpers.php) file.
 
-### Global `hyde` function
+### Global functions
+
+#### `hyde`
 
 The `hyde` function is a global helper function that returns the HydeKernel instance.
 From this, you can access the same methods as you would from the `Hyde` facade.
