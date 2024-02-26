@@ -28,17 +28,17 @@ class DocumentationSidebar extends NavigationMenu
         parent::__construct($items);
     }
 
-    public function getFooter(): bool|string
+    public function getFooter(): ?string
     {
-        return Config::get('docs.sidebar.footer', true);
-    }
-
-    public function getFooterText(): ?string
-    {
-        $option = Config::get('docs.sidebar.footer', true);
+        $option = Config::get('docs.sidebar.footer', '[Back to home page](../)');
 
         if (is_string($option)) {
             return $option;
+        }
+
+        if ($option === true) {
+            /** @deprecated Backwards compatibility */
+            return '[Back to home page](../)';
         }
 
         return null;
@@ -46,11 +46,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasFooter(): bool
     {
-        if (is_string(Config::get('docs.sidebar.footer', true))) {
-            return true;
-        }
-
-        return Config::getBool('docs.sidebar.footer', true);
+        return $this->getFooter() !== null;
     }
 
     public function isCollapsible(): bool

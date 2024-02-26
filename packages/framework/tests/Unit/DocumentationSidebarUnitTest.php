@@ -122,11 +122,11 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertSame($instance, DocumentationSidebar::get());
     }
 
-    public function testGetFooterReturnsTrueByDefault()
+    public function testGetFooterReturnsBackLinkByDefault()
     {
         self::mockConfig();
 
-        $this->assertTrue((new DocumentationSidebar())->getFooter());
+        $this->assertSame('[Back to home page](../)', (new DocumentationSidebar())->getFooter());
     }
 
     public function testGetFooterReturnsStringWhenConfigIsString()
@@ -136,39 +136,18 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertSame('Some footer content', (new DocumentationSidebar())->getFooter());
     }
 
-    public function testGetFooterReturnsTrueWhenConfigIsTrue()
+    public function testGetFooterReturnsBackLinkWhenConfigIsTrue()
     {
         self::mockConfig(['docs.sidebar.footer' => true]);
 
-        $this->assertTrue((new DocumentationSidebar())->getFooter());
+        $this->assertSame('[Back to home page](../)', (new DocumentationSidebar())->getFooter());
     }
 
-    public function testGetFooterReturnsFalseWhenConfigIsFalse()
+    public function testGetFooterReturnsNullWhenConfigIsFalse()
     {
         self::mockConfig(['docs.sidebar.footer' => false]);
 
-        $this->assertFalse((new DocumentationSidebar())->getFooter());
-    }
-
-    public function testGetFooterTextReturnsStringWhenConfigIsString()
-    {
-        self::mockConfig(['docs.sidebar.footer' => 'Some footer content']);
-
-        $this->assertSame('Some footer content', (new DocumentationSidebar())->getFooterText());
-    }
-
-    public function testGetFooterTextReturnsNullWhenConfigIsTrue()
-    {
-        self::mockConfig(['docs.sidebar.footer' => true]);
-
-        $this->assertNull((new DocumentationSidebar())->getFooterText());
-    }
-
-    public function testGetFooterTextReturnsNullWhenConfigIsFalse()
-    {
-        self::mockConfig(['docs.sidebar.footer' => false]);
-
-        $this->assertNull((new DocumentationSidebar())->getFooterText());
+        $this->assertNull((new DocumentationSidebar())->getFooter());
     }
 
     public function testIsCollapsibleReturnsTrueByDefault()
