@@ -187,6 +187,82 @@ $time->formatUsingClosure(function (int $minutes, int $seconds): string {
 }); // 1 minutes, 30 seconds
 ```
 
+## Helper Functions
+
+HydePHP comes with a few helper functions to make your life easier.
+
+The most common ones are documented here, however you can also see the full list in the source code [`helpers.php`](https://github.com/hydephp/framework/blob/master/src/helpers.php) file.
+
+### `hyde`
+
+The `hyde` function is a global helper function that returns the HydeKernel instance.
+From this, you can access the same methods as you would from the `Hyde` facade.
+
+```php
+hyde(); // Returns the HydeKernel instance
+
+hyde()->routes()) === Hyde::routes(); // true
+```
+
+It's up to you if you want to use the facade or the global function, or a mix of both.
+A benefit of using the global function is that it may have better IDE support.
+
+### `asset`
+
+This is an alias of the `Hyde::asset()` facade method and allows you to get a relative link or URL to an asset in the media directory. 
+
+```php
+asset('image.png'); // Returns a relative web link to the given image
+```
+
+Gets a relative web link to the given image stored in the `_site/media` folder.
+If the image is remote (starts with http) it will be returned as is.
+
+If `true` is passed as the second argument, and a base URL is set,
+the image will be returned with a qualified absolute URL.
+
+**Example usage:**
+
+```blade
+<img src="{{ asset('image.png') }}" alt="My image">
+```
+
+### `route`
+
+>info Routing primer: All pages in your Hyde project are automatically tied to an internal route. You can run `php hyde route:list` to see a list of all routes and their route keys.
+
+This is an alias of the `Hyde::route()` facade method and allows you to get a route instance by its route key.
+
+```php
+route('index'); // Returns the route instance with the given key
+```
+
+If a route does not exist, `null` will be returned. Route instances can be cast to strings to resolve a link to the page.
+
+**Example usage:**
+
+```blade
+<a href="{{ route('index') }}">Home</a>
+<a href="{{ route('index')->getLink() }}">Home</a>
+```
+
+### `url`
+
+This is an alias of the `Hyde::url()` facade method and formats a relative link to an absolute URL using the configured base URL.
+
+```php
+url('page.html'); // Returns an absolute URL to the given page
+```
+
+[//]: # (If the given link is already an absolute URL, it will be returned as is.)
+
+If a base URL is not set, an exception will be thrown.
+
+**Example usage:**
+
+```blade
+<a href="{{ url('page.html') }}">Link</a>
+```
 
 ## Pagination Utility
 

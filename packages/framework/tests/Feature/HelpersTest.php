@@ -10,6 +10,8 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
+use Hyde\Support\Facades\Render;
+use Hyde\Foundation\Facades\Routes;
 
 /**
  * Covers the helpers in helpers.php.
@@ -62,6 +64,107 @@ class HelpersTest extends TestCase
         foreach ($tests as $test) {
             $this->assertSame('foo/bar', unslash($test));
         }
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunction()
+    {
+        $this->assertSame(Hyde::asset('foo'), asset('foo'));
+        $this->assertSame('media/foo', asset('foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithQualifiedUrl()
+    {
+        $this->assertSame(Hyde::asset('foo', true), asset('foo', true));
+        $this->assertSame('http://localhost/media/foo', asset('foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithExternalUrl()
+    {
+        $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
+        $this->assertSame('https://example.com/foo', asset('https://example.com/foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithQualifiedUrlAndNoBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => null]);
+        $this->assertSame('media/foo', asset('foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionFromNestedPage()
+    {
+        Render::shouldReceive('getRouteKey')->andReturn('foo/bar');
+
+        $this->assertSame('../media/foo', asset('foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionFromDeeplyNestedPage()
+    {
+        Render::shouldReceive('getRouteKey')->andReturn('foo/bar/baz');
+
+        $this->assertSame('../../media/foo', asset('foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('custom');
+
+        $this->assertSame('custom/foo', asset('foo'));
+    }
+
+    /** @covers ::route */
+    public function testRouteFunction()
+    {
+        $this->assertNotNull(Hyde::route('index'));
+        $this->assertSame(Routes::get('index'), route('index'));
+    }
+
+    /** @covers ::route */
+    public function testRouteFunctionWithInvalidRoute()
+    {
+        $this->assertNull(route('foo'));
+    }
+
+    /** @covers ::route */
+    public function testRouteFunctionReturnsNullForNonExistentRoute()
+    {
+        $this->assertNull(route('nonexistent'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunction()
+    {
+        $this->assertSame(Hyde::url('foo'), url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => 'http://localhost']);
+        $this->assertSame('http://localhost/foo', url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithoutBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => null]);
+        $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
+        $this->assertNull(url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithAlreadyQualifiedUrl()
+    {
+        $this->markTestSkipped('The url function does not check if the URL is already qualified.');
+
+        $this->assertSame('https://example.com/foo', url('https://example.com/foo'));
+        $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
     }
 
     /** @covers ::\Hyde\hyde */

@@ -24,6 +24,40 @@ namespace {
             return trim($string, '/\\');
         }
     }
+
+    if (defined('HYDE_COMPATIBILITY_MODE') && HYDE_COMPATIBILITY_MODE === true) {
+        // Don't declare these functions when running in compatibility mode.
+    } else {
+        if (! function_exists('asset')) {
+            /**
+             * Get a relative link or URL to an asset in the media directory.
+             */
+            function asset(string $name, bool $preferQualifiedUrl = false): string
+            {
+                return hyde()->asset($name, $preferQualifiedUrl);
+            }
+        }
+
+        if (! function_exists('route')) {
+            /**
+             * Get a page route by its key.
+             */
+            function route(string $key): ?Hyde\Support\Models\Route
+            {
+                return hyde()->route($key);
+            }
+        }
+
+        if (! function_exists('url')) {
+            /**
+             * Get a qualified URL to the supplied path if a base URL is set.
+             */
+            function url(string $path = ''): string
+            {
+                return hyde()->url($path);
+            }
+        }
+    }
 }
 
 namespace Hyde {
