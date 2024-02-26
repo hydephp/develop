@@ -24,7 +24,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Realtime Compiler: Fixed responsive dashboard table issue in https://github.com/hydephp/develop/pull/1595
 
 ### Security
 - in case of vulnerabilities.
