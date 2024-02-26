@@ -26,7 +26,7 @@ This serves two purposes:
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 
 ### Fixed
-- for any bug fixes.
+- Realtime Compiler: Fixed responsive dashboard table issue in https://github.com/hydephp/develop/pull/1595
 
 ### Security
 - in case of vulnerabilities.
