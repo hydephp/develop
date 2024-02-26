@@ -37,7 +37,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<ul id="sidebar-items" role="list"')
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<footer id="sidebar-footer"')
-            ->assertSeeHtml('<a href="index.html">Back to home page</a>')
+            ->assertSeeHtml('<a href="../">Back to home page</a>')
             ->assertSeeHtml('<span class="sr-only">Toggle dark theme</span>')
             ->assertDontSee('<a href="docs/index.html">')
             ->assertDontSee('<li class="sidebar-item')
@@ -53,9 +53,10 @@ class SidebarViewTest extends TestCase
     {
         config(['docs.sidebar.footer' => false]);
 
-        $this->renderComponent(view('hyde::components.docs.sidebar'));
-
-        $this->assertViewWasNotRendered(view('hyde::components.docs.sidebar-footer-text'));
+        $this->renderComponent(view('hyde::components.docs.sidebar'))
+            ->assertDontSee('<footer id="sidebar-footer"')
+            ->assertDontSee('Back to home page')
+            ->allGood();
     }
 
     public function testBaseSidebarWithCustomFooterText()

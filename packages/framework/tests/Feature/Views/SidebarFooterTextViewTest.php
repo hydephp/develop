@@ -17,7 +17,7 @@ class SidebarFooterTextViewTest extends TestCase
     {
         $view = $this->test(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
 
-        $view->assertSeeHtml('<a href="index.html">Back to home page</a>');
+        $view->assertSeeHtml('<a href="../">Back to home page</a>');
     }
 
     public function testSidebarFooterTextViewWhenConfigOptionIsTrue()
@@ -26,7 +26,7 @@ class SidebarFooterTextViewTest extends TestCase
 
         $view = $this->test(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
 
-        $view->assertSeeHtml('<a href="index.html">Back to home page</a>');
+        $view->assertSeeHtml('<a href="../">Back to home page</a>');
     }
 
     public function testSidebarFooterTextViewWhenConfigOptionIsMarkdownString()
@@ -36,13 +36,6 @@ class SidebarFooterTextViewTest extends TestCase
         $view = $this->test(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
 
         $view->assertSeeText('Your Markdown String Here');
-    }
-
-    public function testSidebarFooterTextViewWhenConfigOptionIsFalse()
-    {
-        // This state is handled earlier in the component by the sidebar component so we don't need to test it here.
-
-        $this->assertTrue(true);
     }
 
     protected function withSidebar(): array
