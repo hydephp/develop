@@ -228,7 +228,7 @@
                             @endif
                         </div>
                     @else
-                        <table class="table table-bordered d-block overflow-x-auto">
+                        <table class="table table-bordered">
                             <tr>
                                 @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
                                     <th>{{ $header }}</th>
