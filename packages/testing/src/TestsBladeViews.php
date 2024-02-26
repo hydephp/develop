@@ -18,7 +18,7 @@ trait TestsBladeViews
     protected function test(string|View $view, $data = []): TestView
     {
         if ($view instanceof View) {
-            return new TestView($view);
+            return new TestView($view->with($data));
         }
 
         return new TestView(view($view, $data));
