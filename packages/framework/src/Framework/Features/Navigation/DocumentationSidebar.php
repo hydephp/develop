@@ -28,6 +28,11 @@ class DocumentationSidebar extends NavigationMenu
         parent::__construct($items);
     }
 
+    public function getHeader(): string
+    {
+        return Config::get('docs.sidebar.header', 'Documentation');
+    }
+
     public function getFooter(): ?string
     {
         $option = Config::get('docs.sidebar.footer', '[Back to home page](../)');

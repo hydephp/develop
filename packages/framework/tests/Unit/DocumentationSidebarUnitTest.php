@@ -122,6 +122,20 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertSame($instance, DocumentationSidebar::get());
     }
 
+    public function testGetHeaderReturnsDefaultWhenNotConfigured()
+    {
+        self::mockConfig();
+
+        $this->assertSame('Documentation', (new DocumentationSidebar())->getHeader());
+    }
+
+    public function testGetHeaderReturnsConfiguredValue()
+    {
+        self::mockConfig(['docs.sidebar.header' => 'Some header']);
+
+        $this->assertSame('Some header', (new DocumentationSidebar())->getHeader());
+    }
+
     public function testGetFooterReturnsBackLinkByDefault()
     {
         self::mockConfig();
