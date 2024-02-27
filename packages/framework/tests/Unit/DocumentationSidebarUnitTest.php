@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -121,9 +122,114 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertSame($instance, DocumentationSidebar::get());
     }
 
+    public function testGetHeaderReturnsDefaultWhenNotConfigured()
+    {
+        self::mockConfig();
+
+        $this->assertSame('Documentation', (new DocumentationSidebar())->getHeader());
+    }
+
+    public function testGetHeaderReturnsConfiguredValue()
+    {
+        self::mockConfig(['docs.sidebar.header' => 'Some header']);
+
+        $this->assertSame('Some header', (new DocumentationSidebar())->getHeader());
+    }
+
+    public function testGetFooterReturnsBackLinkByDefault()
+    {
+        self::mockConfig();
+
+        $this->assertSame('[Back to home page](../)', (new DocumentationSidebar())->getFooter());
+    }
+
+    public function testGetFooterReturnsStringWhenConfigIsString()
+    {
+        self::mockConfig(['docs.sidebar.footer' => 'Some footer content']);
+
+        $this->assertSame('Some footer content', (new DocumentationSidebar())->getFooter());
+    }
+
+    public function testGetFooterReturnsBackLinkWhenConfigIsTrue()
+    {
+        self::mockConfig(['docs.sidebar.footer' => true]);
+
+        $this->assertSame('[Back to home page](../)', (new DocumentationSidebar())->getFooter());
+    }
+
+    public function testGetFooterReturnsNullWhenConfigIsFalse()
+    {
+        self::mockConfig(['docs.sidebar.footer' => false]);
+
+        $this->assertNull((new DocumentationSidebar())->getFooter());
+    }
+
+    public function testIsCollapsibleReturnsTrueByDefault()
+    {
+        self::mockConfig();
+
+        $this->assertTrue((new DocumentationSidebar())->isCollapsible());
+    }
+
+    public function testIsCollapsibleReturnsTrueWhenConfigIsTrue()
+    {
+        self::mockConfig(['docs.sidebar.collapsible' => true]);
+
+        $this->assertTrue((new DocumentationSidebar())->isCollapsible());
+    }
+
+    public function testIsCollapsibleReturnsFalseWhenConfigIsFalse()
+    {
+        self::mockConfig(['docs.sidebar.collapsible' => false]);
+
+        $this->assertFalse((new DocumentationSidebar())->isCollapsible());
+    }
+
+    public function testHasFooterReturnsTrueByDefault()
+    {
+        self::mockConfig();
+
+        $this->assertTrue((new DocumentationSidebar())->hasFooter());
+    }
+
+    public function testHasFooterReturnsTrueWhenConfigIsString()
+    {
+        self::mockConfig(['docs.sidebar.footer' => 'Some footer content']);
+
+        $this->assertTrue((new DocumentationSidebar())->hasFooter());
+    }
+
+    public function testHasFooterReturnsTrueWhenConfigIsTrue()
+    {
+        self::mockConfig(['docs.sidebar.footer' => true]);
+
+        $this->assertTrue((new DocumentationSidebar())->hasFooter());
+    }
+
+    public function testHasFooterReturnsFalseWhenConfigIsFalse()
+    {
+        self::mockConfig(['docs.sidebar.footer' => false]);
+
+        $this->assertFalse((new DocumentationSidebar())->hasFooter());
+    }
+
     public function testHasGroupsReturnsFalseWhenNoItemsHaveChildren()
     {
         $this->assertFalse((new DocumentationSidebar())->hasGroups());
+    }
+
+    public function testHasGroupsReturnsTrueWhenAtLeastOneItemHasChildren()
+    {
+        self::mockConfig();
+        self::setupKernel();
+
+        $page = new DocumentationPage('foo');
+        $child = new DocumentationPage('bar');
+        $menu = new DocumentationSidebar([
+            NavItem::fromRoute($page->getRoute())->addChild(NavItem::fromRoute($child->getRoute())),
+        ]);
+
+        $this->assertTrue($menu->hasGroups());
     }
 
     protected function getItems(): array

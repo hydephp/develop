@@ -93,7 +93,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             '<link rel="stylesheet" href="../media/app.css">',
             '<a href="../docs/index.html">',
             '<a href="../docs/docs.html"',
-            '<a href="../index.html">Back to home page</a>',
+            '<a href="../">Back to home page</a>',
         ]);
     }
 }

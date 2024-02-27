@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
 use function app;
+use function is_string;
 
 class DocumentationSidebar extends NavigationMenu
 {
@@ -18,6 +21,42 @@ class DocumentationSidebar extends NavigationMenu
     public static function get(): static
     {
         return app('navigation.sidebar');
+    }
+
+    public function __construct(Arrayable|array $items = [])
+    {
+        parent::__construct($items);
+    }
+
+    public function getHeader(): string
+    {
+        return Config::get('docs.sidebar.header', 'Documentation');
+    }
+
+    public function getFooter(): ?string
+    {
+        $option = Config::get('docs.sidebar.footer', '[Back to home page](../)');
+
+        if (is_string($option)) {
+            return $option;
+        }
+
+        if ($option === true) {
+            /** @deprecated Backwards compatibility */
+            return '[Back to home page](../)';
+        }
+
+        return null;
+    }
+
+    public function hasFooter(): bool
+    {
+        return $this->getFooter() !== null;
+    }
+
+    public function isCollapsible(): bool
+    {
+        return Config::getBool('docs.sidebar.collapsible', true);
     }
 
     public function hasGroups(): bool

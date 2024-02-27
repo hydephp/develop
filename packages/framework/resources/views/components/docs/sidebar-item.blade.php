@@ -1,4 +1,3 @@
-@php /** @var \Hyde\Framework\Features\Navigation\NavItem $item */ @endphp
 @props(['grouped' => false])
 <li @class(['sidebar-item -ml-4 pl-4', $grouped
         ? 'active -ml-8 pl-8 bg-black/5 dark:bg-black/10'
@@ -14,7 +13,7 @@
 
         @if(config('docs.sidebar.table_of_contents.enabled', true))
             <span class="sr-only">Table of contents</span>
-            {!! ($page->getTableOfContents()) !!}
+            {!! $page->getTableOfContents() !!}
         @endif
     @else
         <a href="{{ $item->getDestination() }}" @class([$grouped
