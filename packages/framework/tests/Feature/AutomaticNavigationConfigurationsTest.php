@@ -1240,14 +1240,14 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     // Testing helpers
 
-    protected function assertSidebarEquals(array $expected, array $menuPages): void
+    protected function assertSidebarEquals(array $expected, array $menuPages): AssertableNavigationMenu
     {
-        $this->sidebar($menuPages)->assertEquals($expected);
+        return $this->sidebar($menuPages)->assertEquals($expected);
     }
 
-    protected function assertMenuEquals(array $expected, array $menuPages): void
+    protected function assertMenuEquals(array $expected, array $menuPages): AssertableNavigationMenu
     {
-        $this->menu($menuPages)->assertEquals($expected);
+        return $this->menu($menuPages)->assertEquals($expected);
     }
 
     #[NoReturn]
