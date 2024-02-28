@@ -202,12 +202,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithExplicitFrontMatterGroupUsesDropdownsRegardlessOfConfigSetting()
     {
-        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
-
         $this->assertMenuEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Bar', 'group' => 'group-1'],
-            ['label' => 'Baz', 'group' => 'group-1'],
+            ['label' => 'Group 1', 'children' => ['Foo', 'Bar', 'Baz']],
         ], [
             new MarkdownPage('foo', ['navigation.group' => 'Group 1']),
             new MarkdownPage('bar', ['navigation.group' => 'Group 1']),
@@ -217,12 +213,8 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuWithExplicitFrontMatterCategoryUsesDropdownsRegardlessOfConfigSetting()
     {
-        // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
-
         $this->assertMenuEquals([
-            ['label' => 'Foo', 'group' => 'group-1'],
-            ['label' => 'Bar', 'group' => 'group-1'],
-            ['label' => 'Baz', 'group' => 'group-1'],
+            ['label' => 'Group 1', 'children' => ['Foo', 'Bar', 'Baz']],
         ], [
             new MarkdownPage('foo', ['navigation.category' => 'Group 1']),
             new MarkdownPage('bar', ['navigation.category' => 'Group 1']),
