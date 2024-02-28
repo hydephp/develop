@@ -208,7 +208,17 @@ class NavItem implements Stringable
         return $this;
     }
 
-    // Todo add method to add multiple children at once?
+    /**
+     * Add multiple navigation items to the children of the navigation item.
+     */
+    public function addChildren(array $items): static
+    {
+        foreach ($items as $item) {
+            $this->addChild($item);
+        }
+
+        return $this;
+    }
 
     protected static function normalizeGroupKey(?string $group): ?string
     {
