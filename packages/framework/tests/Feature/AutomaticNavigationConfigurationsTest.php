@@ -200,7 +200,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testMainNavigationMenuWithFrontMatterGroup()
+    public function testMainNavigationMenuWithExplicitFrontMatterGroupUsesDropdownsRegardlessOfConfigSetting()
     {
         // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
 
@@ -215,7 +215,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testMainNavigationMenuWithFrontMatterCategory()
+    public function testMainNavigationMenuWithExplicitFrontMatterCategoryUsesDropdownsRegardlessOfConfigSetting()
     {
         // TODO: For new v2 system, this should insert a root item with the group name and the children as the pages
 
