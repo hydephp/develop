@@ -120,12 +120,12 @@ class NavigationMenuGenerator
 
     protected function canGroupRoute(Route $route): bool
     {
-        if (! $this->usesGroups) {
-            return false;
-        }
-
         if (! $this->generatesSidebar) {
             return $route->getPage()->navigationMenuGroup() !== null;
+        }
+
+        if (! $this->usesGroups) {
+            return false;
         }
 
         return true;
