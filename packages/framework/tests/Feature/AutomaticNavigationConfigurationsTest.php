@@ -399,7 +399,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationDropdownLabelsCanBeSetInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']); // TODO This should NOT be necessary when using front matter
         config(['hyde.navigation.labels' => ['hello' => 'World']]);
 
         $this->assertMenuEquals(['World'], [
@@ -1184,8 +1183,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainMenuNavigationGroupCasingUsingFrontMatter()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']); // TODO This should NOT be necessary when using front matter
-
         // If the user explicitly sets the group, we should respect that and assume it's already formatted correctly
 
         $this->assertMenuEquals(['Hello World'], [new MarkdownPage('foo', ['navigation.group' => 'Hello World'])]);
