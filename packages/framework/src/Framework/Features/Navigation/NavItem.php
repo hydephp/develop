@@ -93,7 +93,7 @@ class NavItem implements Stringable
     /**
      * Create a new dropdown navigation menu item.
      *
-     * @TODO: Might be more semantic to have this named something else, as it also includes sidebars groups.
+     * @TODO: Might be more semantic to have this named something else, as it also includes sidebars groups. (technically it only makes sense for the main navigation menu, but it's not enforced in the code, and the sidebar does use this method)
      *
      * @param  string  $label  The label of the dropdown item.
      * @param  array<NavItem>  $items  The items to be included in the dropdown.
