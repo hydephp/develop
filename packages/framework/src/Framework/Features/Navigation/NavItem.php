@@ -34,11 +34,7 @@ class NavItem implements Stringable
     /** The "slugified" version of the label used to uniquely identify the item for things like active state comparisons. */
     protected string $identifier;
 
-    /**
-     * Navigation items can be turned into dropdowns or sidebar groups by adding children.
-     *
-     * @var array<\Hyde\Framework\Features\Navigation\NavItem>
-     */
+    /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
     protected array $children;
 
     /**
