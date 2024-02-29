@@ -23,6 +23,8 @@ use function is_string;
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavItem::fromRoute() to use data from the route
  *   3. You can use NavItem::forLink() for an external or un-routed link
+ *
+ * Navigation items can be turned into dropdowns or sidebar groups by adding children.
  */
 class NavItem implements Stringable
 {
