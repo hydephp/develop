@@ -43,6 +43,8 @@ class NavItem implements Stringable
 
     /**
      * Create a new navigation menu item.
+     *
+     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $children
      */
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, array $children = [])
     {
@@ -208,6 +210,8 @@ class NavItem implements Stringable
 
     /**
      * Add multiple navigation items to the children of the navigation item.
+     *
+     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $items
      */
     public function addChildren(array $items): static
     {
