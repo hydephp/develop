@@ -31,8 +31,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
      */
     final public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
 
-    protected const CONFIG_OFFSET = 500;
-
     protected readonly ?string $label;
     protected readonly ?string $group;
     protected readonly ?bool $hidden;
@@ -230,7 +228,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
             return $this->offset(
                 array_flip($config)[$pageKey] ?? null,
-                self::CONFIG_OFFSET
+                NavigationMenu::MIDDLE
             );
         }
 
