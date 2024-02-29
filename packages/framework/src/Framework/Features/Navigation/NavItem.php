@@ -25,6 +25,8 @@ use function is_string;
  *   3. You can use NavItem::forLink() for an external or un-routed link
  *
  * Navigation items can be turned into dropdowns or sidebar groups by adding children.
+ * Note that doing so will mean that any link on the parent will no longer be clickable,
+ * as clicking the parent label will open the dropdown instead of leading to the destination.
  */
 class NavItem implements Stringable
 {
