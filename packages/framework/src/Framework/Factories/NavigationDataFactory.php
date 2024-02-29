@@ -228,7 +228,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
             return $this->offset(
                 array_flip($config)[$pageKey] ?? null,
-                NavigationMenu::MIDDLE
+                NavigationMenu::DEFAULT
             );
         }
 
