@@ -72,14 +72,6 @@ class NavItem implements Stringable
     }
 
     /**
-     * Create a new navigation menu item leading to an external URI.
-     */
-    public static function forLink(string $href, string $label, int $priority = NavigationMenu::DEFAULT): static
-    {
-        return new static($href, $label, $priority);
-    }
-
-    /**
      * Create a new navigation menu item leading to a Route instance.
      *
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route instance or route key
@@ -90,6 +82,14 @@ class NavItem implements Stringable
     public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
         return static::fromRoute($route instanceof Route ? $route : Routes::getOrFail($route), $label, $priority, $group);
+    }
+
+    /**
+     * Create a new navigation menu item leading to an external URI.
+     */
+    public static function forLink(string $href, string $label, int $priority = NavigationMenu::DEFAULT): static
+    {
+        return new static($href, $label, $priority);
     }
 
     /**
