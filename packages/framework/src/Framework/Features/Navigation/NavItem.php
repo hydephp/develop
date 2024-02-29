@@ -59,16 +59,6 @@ class NavItem implements Stringable
     }
 
     /**
-     * Create a new navigation menu item from a route.
-     *
-     * @deprecated Use NavItem::forRoute() instead.
-     */
-    public static function fromRoute(Route $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
-    {
-        return static::forRoute($route, $label, $priority, $group);
-    }
-
-    /**
      * Create a new navigation menu item leading to a Route instance.
      *
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route instance or route key
