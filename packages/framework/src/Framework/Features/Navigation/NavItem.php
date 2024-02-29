@@ -76,9 +76,9 @@ class NavItem implements Stringable
     }
 
     /**
-     * Create a new navigation menu item leading to a Route model.
+     * Create a new navigation menu item leading to a Route instance.
      *
-     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route model or route key
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route instance or route key
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
