@@ -60,6 +60,8 @@ class NavItem implements Stringable
 
     /**
      * Create a new navigation menu item from a route.
+     *
+     * @deprecated Use NavItem::forRoute() instead.
      */
     public static function fromRoute(Route $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
