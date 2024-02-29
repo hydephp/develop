@@ -193,7 +193,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Check if the NavItem instance is the current page.
+     * Check if the NavItem instance is the current page being rendered.
      */
     public function isCurrent(): bool
     {
