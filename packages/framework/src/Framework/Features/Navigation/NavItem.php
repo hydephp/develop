@@ -30,7 +30,7 @@ use function is_string;
  */
 class NavItem implements Stringable
 {
-    protected Route $destination;
+    protected ?Route $destination;
     protected string $label;
     protected int $priority;
     protected ?string $group;
@@ -46,7 +46,7 @@ class NavItem implements Stringable
      *
      * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $children
      */
-    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, array $children = [])
+    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, array $children = [])
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
