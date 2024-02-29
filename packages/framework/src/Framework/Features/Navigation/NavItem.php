@@ -42,7 +42,7 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item.
      */
-    public function __construct(Route|string $destination, string $label, int $priority = 500, ?string $group = null, array $children = [])
+    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::MIDDLE, ?string $group = null, array $children = [])
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
@@ -72,7 +72,7 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item leading to an external URI.
      */
-    public static function forLink(string $href, string $label, int $priority = 500): static
+    public static function forLink(string $href, string $label, int $priority = NavigationMenu::MIDDLE): static
     {
         return new static($href, $label, $priority);
     }
