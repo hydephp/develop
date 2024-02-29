@@ -17,6 +17,9 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 abstract class NavigationMenu
 {
+    public const DEFAULT = 500;
+    public const LAST = 999;
+
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavItem> */
     protected Collection $items;
 
