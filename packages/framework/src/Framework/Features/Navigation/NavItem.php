@@ -197,7 +197,7 @@ class NavItem implements Stringable
      */
     public function isCurrent(): bool
     {
-        return Hyde::currentRoute()->getLink() === $this->destination->getLink();
+        return $this->destination->is(Hyde::currentRoute());
     }
 
     /**
