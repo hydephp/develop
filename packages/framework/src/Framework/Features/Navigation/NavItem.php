@@ -83,12 +83,7 @@ class NavItem implements Stringable
      */
     public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
-        return new static(
-            $route instanceof Route ? $route : Routes::getOrFail($route),
-            $label ?? $route instanceof Route ? $route : Routes::getOrFail($route)->getPage()->navigationMenuLabel(),
-            $priority ?? $route instanceof Route ? $route : Routes::getOrFail($route)->getPage()->navigationMenuPriority(),
-            $group ?? $route instanceof Route ? $route : Routes::getOrFail($route)->getPage()->navigationMenuGroup(),
-        );
+        return static::fromRoute($route instanceof Route ? $route : Routes::getOrFail($route), $label, $priority, $group);
     }
 
     /**
