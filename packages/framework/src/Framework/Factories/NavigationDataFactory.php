@@ -10,6 +10,7 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 
 use function basename;
@@ -30,7 +31,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
      */
     final public const SCHEMA = NavigationSchema::NAVIGATION_SCHEMA;
 
-    protected const FALLBACK_PRIORITY = 999;
     protected const CONFIG_OFFSET = 500;
 
     protected readonly ?string $label;
@@ -99,7 +99,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->searchForPriorityInFrontMatter()
             ?? $this->searchForPriorityInConfigs()
-            ?? self::FALLBACK_PRIORITY;
+            ?? NavigationMenu::LAST;
     }
 
     private function searchForLabelInFrontMatter(): ?string
