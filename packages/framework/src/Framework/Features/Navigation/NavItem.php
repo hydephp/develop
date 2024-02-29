@@ -27,6 +27,7 @@ use function is_string;
  * Navigation items can be turned into dropdowns or sidebar groups by adding children.
  * Note that doing so will mean that any link on the parent will no longer be clickable,
  * as clicking the parent label will open the dropdown instead of leading to the destination.
+ * For this reason, dropdown items will have their destination set to null.
  */
 class NavItem implements Stringable
 {
@@ -109,7 +110,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Get the destination route of the navigation item.
+     * Get the destination route of the navigation item. For dropdowns, this will return null.
      */
     public function getDestination(): ?Route
     {
