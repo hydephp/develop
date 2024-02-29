@@ -205,6 +205,7 @@ class NavItem implements Stringable
         $item->group ??= $this->group;
 
         $this->children[] = $item;
+        $this->destination = null;
 
         return $this;
     }
