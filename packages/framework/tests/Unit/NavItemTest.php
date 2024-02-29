@@ -86,7 +86,7 @@ class NavItemTest extends UnitTestCase
         $item = new NavItem($route, 'Test', 500, null, $children);
 
         $this->assertSame('Test', $item->getLabel());
-        $this->assertSame($route, $item->getDestination());
+        $this->assertNull($item->getDestination());
         $this->assertSame(500, $item->getPriority());
 
         $this->assertCount(2, $item->getChildren());
@@ -111,7 +111,7 @@ class NavItemTest extends UnitTestCase
         $item = new NavItem('', 'Test', 500, null, $children);
 
         $this->assertSame('Test', $item->getLabel());
-        $this->assertSame('', $item->getDestination()->getLink());
+        $this->assertNull($item->getDestination());
 
         $this->assertCount(2, $item->getChildren());
         $this->assertSame($children, $item->getChildren());

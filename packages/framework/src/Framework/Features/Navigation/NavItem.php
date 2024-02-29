@@ -117,8 +117,12 @@ class NavItem implements Stringable
     /**
      * Get the destination route of the navigation item.
      */
-    public function getDestination(): Route
+    public function getDestination(): ?Route
     {
+        if ($this->hasChildren()) {
+            return null;
+        }
+
         return $this->destination;
     }
 
