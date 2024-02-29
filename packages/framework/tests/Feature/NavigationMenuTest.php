@@ -230,7 +230,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
         $expected = collect([
             NavItem::fromRoute(Routes::get('index')),
-            NavItem::dropdown('Foo', [
+            NavItem::forGroup('Foo', [
                 NavItem::fromRoute(Routes::get('foo/bar')),
             ]),
         ]);
@@ -251,7 +251,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals([
             NavItem::fromRoute(Routes::get('index')),
             NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
-            NavItem::dropdown('Bar', [
+            NavItem::forGroup('Bar', [
                 NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),
             ]),
         ], $menu->getItems()->all());

@@ -263,7 +263,7 @@ class NavItemTest extends UnitTestCase
 
     public function testDropdownFacade()
     {
-        $item = NavItem::dropdown('foo', []);
+        $item = NavItem::forGroup('foo', []);
 
         $this->assertSame('foo', $item->getLabel());
         $this->assertSame([], $item->getChildren());
@@ -276,14 +276,14 @@ class NavItemTest extends UnitTestCase
             new NavItem(new Route(new MarkdownPage()), 'bar'),
         ];
 
-        $item = NavItem::dropdown('foo', $children);
+        $item = NavItem::forGroup('foo', $children);
         $this->assertSame($children, $item->getChildren());
         $this->assertSame(999, $item->getPriority());
     }
 
     public function testDropdownFacadeWithCustomPriority()
     {
-        $item = NavItem::dropdown('foo', [], 500);
+        $item = NavItem::forGroup('foo', [], 500);
 
         $this->assertSame(500, $item->getPriority());
     }

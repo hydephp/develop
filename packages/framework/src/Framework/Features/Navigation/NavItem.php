@@ -95,13 +95,11 @@ class NavItem implements Stringable
     /**
      * Create a new dropdown navigation menu item.
      *
-     * @TODO: Might be more semantic to have this named something else, as it also includes sidebars groups. (technically it only makes sense for the main navigation menu, but it's not enforced in the code, and the sidebar does use this method)
-     *
      * @param  string  $label  The label of the dropdown item.
      * @param  array<NavItem>  $items  The items to be included in the dropdown.
      * @param  int|null  $priority  The priority of the dropdown item. Leave blank to use the default priority, which is last in the menu.
      */
-    public static function dropdown(string $label, array $items, ?int $priority = null): static
+    public static function forGroup(string $label, array $items, ?int $priority = null): static
     {
         return new static('', $label, $priority ?? NavigationMenu::LAST, $label, $items);
     }

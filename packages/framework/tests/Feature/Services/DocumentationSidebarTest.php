@@ -267,10 +267,10 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::dropdown('Bar', [
+                NavItem::forGroup('Bar', [
                     NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
                 ]),
-                NavItem::dropdown('Foo', [
+                NavItem::forGroup('Foo', [
                     NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
                 ]),
             ]),
@@ -288,7 +288,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::dropdown('Foo', [
+                NavItem::forGroup('Foo', [
                     NavItem::fromRoute(Routes::get('docs/bar'), priority: 999),
                     NavItem::fromRoute(Routes::get('docs/foo'), priority: 999),
                 ]),
