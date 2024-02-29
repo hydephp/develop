@@ -99,9 +99,9 @@ class NavItem implements Stringable
      * @param  array<NavItem>  $items  The items to be included in the dropdown.
      * @param  int|null  $priority  The priority of the dropdown item. Leave blank to use the default priority, which is last in the menu.
      */
-    public static function forGroup(string $label, array $items, ?int $priority = NavigationMenu::LAST): static
+    public static function forGroup(string $label, array $items, ?int $priority = null): static
     {
-        return new static('', $label, $priority, $label, $items);
+        return new static('', $label, $priority ?? NavigationMenu::LAST, $label, $items);
     }
 
     /**
