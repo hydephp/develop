@@ -17,7 +17,6 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 abstract class NavigationMenu
 {
-    public const FIRST = 0;
     public const MIDDLE = 500;
     public const LAST = 999;
 
