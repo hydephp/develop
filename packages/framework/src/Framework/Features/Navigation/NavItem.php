@@ -207,7 +207,7 @@ class NavItem implements Stringable
      */
     public function addChild(NavItem $item): static
     {
-        // Todo: Ensure that the item has a group identifier by creating it from the label if it doesn't exist?
+        $item->group ??= $this->group;
 
         $this->children[] = $item;
 
