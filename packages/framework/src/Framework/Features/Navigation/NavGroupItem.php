@@ -32,4 +32,19 @@ class NavGroupItem extends NavItem
     {
         return count($this->children) > 0;
     }
+
+    /**
+     * Add a navigation item to the children of the navigation item.
+     *
+     * This will turn the parent item into a dropdown. Its destination will be set to null.
+     */
+    public function addChild(NavItem $item): static
+    {
+        $item->group ??= $this->group;
+
+        $this->children[] = $item;
+        $this->route = null;
+
+        return $this;
+    }
 }

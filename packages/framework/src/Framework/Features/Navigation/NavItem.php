@@ -194,9 +194,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Add a navigation item to the children of the navigation item.
-     *
-     * This will turn the parent item into a dropdown. Its destination will be set to null.
+     * @deprecated Should not be called on this class
      */
     public function addChild(NavItem $item): static
     {
