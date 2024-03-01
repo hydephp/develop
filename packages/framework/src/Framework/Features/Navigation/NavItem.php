@@ -31,7 +31,7 @@ use function is_string;
  */
 class NavItem implements Stringable
 {
-    protected ?Route $destination;
+    protected ?Route $route;
     protected string $label;
     protected int $priority;
     protected ?string $group;
@@ -57,7 +57,7 @@ class NavItem implements Stringable
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
         }
 
-        $this->destination = $destination;
+        $this->route = $destination;
         $this->label = $label;
         $this->priority = $priority;
         $this->group = static::normalizeGroupKey($group);
@@ -118,7 +118,7 @@ class NavItem implements Stringable
      */
     public function getDestination(): ?Route
     {
-        return $this->destination;
+        return $this->route;
     }
 
     /**
@@ -126,7 +126,7 @@ class NavItem implements Stringable
      */
     public function getLink(): string
     {
-        return (string) $this->destination;
+        return (string) $this->route;
     }
 
     /**
@@ -194,7 +194,7 @@ class NavItem implements Stringable
      */
     public function isCurrent(): bool
     {
-        return Hyde::currentRoute()->getLink() === $this->destination->getLink();
+        return Hyde::currentRoute()->getLink() === $this->route->getLink();
     }
 
     /**
@@ -207,7 +207,7 @@ class NavItem implements Stringable
         $item->group ??= $this->group;
 
         $this->children[] = $item;
-        $this->destination = null;
+        $this->route = null;
 
         return $this;
     }
