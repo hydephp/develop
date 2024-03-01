@@ -39,7 +39,7 @@ class NavItem implements Stringable
     /** The "slugified" version of the label used to uniquely identify the item for things like active state comparisons. */
     protected string $identifier;
 
-    /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
+    /** @deprecated Use NavGroupItem::$items instead */
     protected array $children = [];
 
     /**
