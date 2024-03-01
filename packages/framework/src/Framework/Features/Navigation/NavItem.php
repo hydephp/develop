@@ -116,7 +116,7 @@ class NavItem implements Stringable
     /**
      * Get the destination route of the navigation item. For dropdowns, this will return null.
      */
-    public function getDestination(): ?Route
+    public function getRoute(): ?Route
     {
         return $this->route;
     }
@@ -144,7 +144,7 @@ class NavItem implements Stringable
      */
     public function getPriority(): int
     {
-        if ($this->hasChildren() && $this->children[0]->getDestination()->getPageClass() === DocumentationPage::class) {
+        if ($this->hasChildren() && $this->children[0]->getRoute()->getPageClass() === DocumentationPage::class) {
             return min($this->priority, collect($this->getChildren())->min(fn (NavItem $child): int => $child->getPriority()));
         }
 

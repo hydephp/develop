@@ -44,36 +44,36 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = new NavItem($route, 'Test', 500);
 
-        $this->assertSame($route, $item->getDestination());
+        $this->assertSame($route, $item->getRoute());
     }
 
     public function testPassingRouteInstanceToConstructorUsesRouteInstance()
     {
         $route = new Route(new MarkdownPage());
-        $this->assertSame($route, (new NavItem($route, 'Home'))->getDestination());
+        $this->assertSame($route, (new NavItem($route, 'Home'))->getRoute());
     }
 
     public function testPassingRouteKeyToConstructorUsesRouteInstance()
     {
         $route = Routes::get('index');
 
-        $this->assertSame($route, (new NavItem('index', 'Home'))->getDestination());
+        $this->assertSame($route, (new NavItem('index', 'Home'))->getRoute());
     }
 
     public function testPassingUrlToConstructorUsesExternalRoute()
     {
         $item = new NavItem('https://example.com', 'Home');
-        $this->assertInstanceOf(ExternalRoute::class, $item->getDestination());
-        $this->assertEquals(new ExternalRoute('https://example.com'), $item->getDestination());
-        $this->assertSame('https://example.com', (string) $item->getDestination());
+        $this->assertInstanceOf(ExternalRoute::class, $item->getRoute());
+        $this->assertEquals(new ExternalRoute('https://example.com'), $item->getRoute());
+        $this->assertSame('https://example.com', (string) $item->getRoute());
     }
 
     public function testPassingUnknownRouteKeyToConstructorUsesExternalRoute()
     {
         $item = new NavItem('foo', 'Home');
-        $this->assertInstanceOf(ExternalRoute::class, $item->getDestination());
-        $this->assertEquals(new ExternalRoute('foo'), $item->getDestination());
-        $this->assertSame('foo', (string) $item->getDestination());
+        $this->assertInstanceOf(ExternalRoute::class, $item->getRoute());
+        $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
+        $this->assertSame('foo', (string) $item->getRoute());
     }
 
     public function testCanConstructWithChildren()
@@ -86,7 +86,7 @@ class NavItemTest extends UnitTestCase
         $item = new NavItem($route, 'Test', 500, null, $children);
 
         $this->assertSame('Test', $item->getLabel());
-        $this->assertNull($item->getDestination());
+        $this->assertNull($item->getRoute());
         $this->assertSame(500, $item->getPriority());
 
         $this->assertCount(2, $item->getChildren());
@@ -111,7 +111,7 @@ class NavItemTest extends UnitTestCase
         $item = new NavItem('', 'Test', 500, null, $children);
 
         $this->assertSame('Test', $item->getLabel());
-        $this->assertNull($item->getDestination());
+        $this->assertNull($item->getRoute());
 
         $this->assertCount(2, $item->getChildren());
         $this->assertSame($children, $item->getChildren());
@@ -122,7 +122,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new InMemoryPage('foo'));
         $navItem = new NavItem($route, 'Page', 500);
 
-        $this->assertSame($route, $navItem->getDestination());
+        $this->assertSame($route, $navItem->getRoute());
     }
 
     public function testGetLink()
@@ -171,7 +171,7 @@ class NavItemTest extends UnitTestCase
         $route = new Route(new MarkdownPage());
         $item = NavItem::forRoute($route);
 
-        $this->assertSame($route, $item->getDestination());
+        $this->assertSame($route, $item->getRoute());
     }
 
     public function testToString()
@@ -185,7 +185,7 @@ class NavItemTest extends UnitTestCase
     {
         $item = NavItem::forLink('foo', 'bar');
 
-        $this->assertEquals(new ExternalRoute('foo'), $item->getDestination());
+        $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
         $this->assertSame('bar', $item->getLabel());
         $this->assertSame(500, $item->getPriority());
     }
@@ -200,7 +200,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('404');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route, $item->getDestination());
+        $this->assertSame($route, $item->getRoute());
         $this->assertSame('foo', $item->getLabel());
         $this->assertSame(999, $item->getPriority());
     }
@@ -210,7 +210,7 @@ class NavItemTest extends UnitTestCase
         $route = Routes::get('index');
         $item = NavItem::forRoute($route, 'foo');
 
-        $this->assertSame($route, $item->getDestination());
+        $this->assertSame($route, $item->getRoute());
         $this->assertSame('foo', $item->getLabel());
         $this->assertSame(0, $item->getPriority());
     }
