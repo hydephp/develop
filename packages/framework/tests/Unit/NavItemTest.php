@@ -95,8 +95,8 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('Foo', $item->getChildren()[0]->getLabel());
         $this->assertSame('Bar', $item->getChildren()[1]->getLabel());
 
-        $this->assertSame('foo.html', $item->getChildren()[0]->getLink());
-        $this->assertSame('bar.html', $item->getChildren()[1]->getLink());
+        $this->assertSame('foo.html', $item->getChildren()[0]->getUrl());
+        $this->assertSame('bar.html', $item->getChildren()[1]->getUrl());
 
         $this->assertSame(500, $item->getChildren()[0]->getPriority());
         $this->assertSame(500, $item->getChildren()[1]->getPriority());
@@ -128,7 +128,7 @@ class NavItemTest extends UnitTestCase
     public function testGetLink()
     {
         $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
-        $this->assertSame('foo.html', $navItem->getLink());
+        $this->assertSame('foo.html', $navItem->getUrl());
     }
 
     public function testGetLabel()

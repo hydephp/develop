@@ -110,7 +110,7 @@ class NavItem implements Stringable
      */
     public function __toString(): string
     {
-        return $this->getLink();
+        return $this->getUrl();
     }
 
     /**
@@ -124,7 +124,7 @@ class NavItem implements Stringable
     /**
      * Resolve the destination link of the navigation item.
      */
-    public function getLink(): string
+    public function getUrl(): string
     {
         return (string) $this->route;
     }
