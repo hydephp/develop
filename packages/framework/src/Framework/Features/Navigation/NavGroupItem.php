@@ -12,4 +12,16 @@ class NavGroupItem extends NavItem
      * @var array<\Hyde\Framework\Features\Navigation\NavItem>
      */
     protected array $children = [];
+
+    /**
+     * Get the children of the navigation item.
+     *
+     * For the main navigation menu, this stores any dropdown items.
+     *
+     * @return array<\Hyde\Framework\Features\Navigation\NavItem>
+     */
+    public function getChildren(): array
+    {
+        return $this->children;
+    }
 }
