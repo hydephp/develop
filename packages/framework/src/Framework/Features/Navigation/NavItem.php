@@ -27,10 +27,11 @@ use function is_string;
  * Navigation items can be turned into dropdowns or sidebar groups by adding children.
  * Note that doing so will mean that any link on the parent will no longer be clickable,
  * as clicking the parent label will open the dropdown instead of leading to the destination.
+ * For this reason, dropdown items will have their destination set to null.
  */
 class NavItem implements Stringable
 {
-    protected Route $destination;
+    protected ?Route $destination;
     protected string $label;
     protected int $priority;
     protected ?string $group;
@@ -39,12 +40,18 @@ class NavItem implements Stringable
     protected string $identifier;
 
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
-    protected array $children;
+    protected array $children = [];
 
     /**
      * Create a new navigation menu item.
+     *
+     * @param  \Hyde\Support\Models\Route|string|null  $destination  Route instance, route key, or external URI. For dropdowns/groups, this should be null.
+     * @param  string  $label  The label of the navigation item.
+     * @param  int  $priority  The priority to determine the order of the navigation item.
+     * @param  string|null  $group  The dropdown/group identifier of the navigation item, if any.
+     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $children  If the item is a dropdown, these are the items to be included in the dropdown.
      */
-    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, array $children = [])
+    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, array $children = [])
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
@@ -54,15 +61,22 @@ class NavItem implements Stringable
         $this->label = $label;
         $this->priority = $priority;
         $this->group = static::normalizeGroupKey($group);
-        $this->identifier = $this->makeIdentifier($label);
-        $this->children = $children;
+        $this->identifier = static::makeIdentifier($label);
+        $this->addChildren($children);
     }
 
     /**
-     * Create a new navigation menu item from a route.
+     * Create a new navigation menu item leading to a Route instance.
+     *
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route instance or route key
+     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page.
+     * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
+     * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
      */
-    public static function fromRoute(Route $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
+    public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
+        $route = $route instanceof Route ? $route : Routes::getOrFail($route);
+
         return new static(
             $route,
             $label ?? $route->getPage()->navigationMenuLabel(),
@@ -80,30 +94,15 @@ class NavItem implements Stringable
     }
 
     /**
-     * Create a new navigation menu item leading to a Route instance.
-     *
-     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route instance or route key
-     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page.
-     * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
-     * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
-     */
-    public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
-    {
-        return static::fromRoute($route instanceof Route ? $route : Routes::getOrFail($route), $label, $priority, $group);
-    }
-
-    /**
      * Create a new dropdown navigation menu item.
-     *
-     * @TODO: Might be more semantic to have this named something else, as it also includes sidebars groups. (technically it only makes sense for the main navigation menu, but it's not enforced in the code, and the sidebar does use this method)
      *
      * @param  string  $label  The label of the dropdown item.
      * @param  array<NavItem>  $items  The items to be included in the dropdown.
-     * @param  int|null  $priority  The priority of the dropdown item. Leave blank to use the default priority, which is last in the menu.
+     * @param  int  $priority  The priority of the dropdown item. Leave blank to use the default priority, which is last in the menu.
      */
-    public static function dropdown(string $label, array $items, ?int $priority = null): static
+    public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): static
     {
-        return new static('', $label, $priority ?? NavigationMenu::LAST, $label, $items);
+        return new static(null, $label, $priority, $label, $items);
     }
 
     /**
@@ -115,14 +114,10 @@ class NavItem implements Stringable
     }
 
     /**
-     * Get the destination route of the navigation item.
+     * Get the destination route of the navigation item. For dropdowns, this will return null.
      */
     public function getDestination(): ?Route
     {
-        if ($this->hasChildren()) {
-            return null;
-        }
-
         return $this->destination;
     }
 
@@ -195,27 +190,32 @@ class NavItem implements Stringable
     }
 
     /**
-     * Check if the NavItem instance is the current page.
+     * Check if the NavItem instance is the current page being rendered.
      */
     public function isCurrent(): bool
     {
-        return Hyde::currentRoute()->getLink() === (string) $this->destination;
+        return Hyde::currentRoute()->getLink() === $this->destination->getLink();
     }
 
     /**
      * Add a navigation item to the children of the navigation item.
+     *
+     * This will turn the parent item into a dropdown. Its destination will be set to null.
      */
     public function addChild(NavItem $item): static
     {
         $item->group ??= $this->group;
 
         $this->children[] = $item;
+        $this->destination = null;
 
         return $this;
     }
 
     /**
      * Add multiple navigation items to the children of the navigation item.
+     *
+     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $items
      */
     public function addChildren(array $items): static
     {

@@ -226,7 +226,7 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $page = new DocumentationPage('foo');
         $child = new DocumentationPage('bar');
         $menu = new DocumentationSidebar([
-            NavItem::fromRoute($page->getRoute())->addChild(NavItem::fromRoute($child->getRoute())),
+            NavItem::forRoute($page->getRoute())->addChild(NavItem::forRoute($child->getRoute())),
         ]);
 
         $this->assertTrue($menu->hasGroups());
