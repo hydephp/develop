@@ -40,7 +40,7 @@ class NavItem implements Stringable
     protected string $identifier;
 
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
-    protected array $children;
+    protected array $children = [];
 
     /**
      * Create a new navigation menu item.
