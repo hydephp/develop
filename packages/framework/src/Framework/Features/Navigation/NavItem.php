@@ -207,9 +207,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Add multiple navigation items to the children of the navigation item.
-     *
-     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $items
+     * @deprecated Should not be called on this class
      */
     public function addChildren(array $items): static
     {

@@ -47,4 +47,18 @@ class NavGroupItem extends NavItem
 
         return $this;
     }
+
+    /**
+     * Add multiple navigation items to the children of the navigation item.
+     *
+     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $items
+     */
+    public function addChildren(array $items): static
+    {
+        foreach ($items as $item) {
+            $this->addChild($item);
+        }
+
+        return $this;
+    }
 }
