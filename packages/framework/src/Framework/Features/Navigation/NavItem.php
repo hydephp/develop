@@ -170,6 +170,14 @@ class NavItem implements Stringable
     }
 
     /**
+     * @deprecated Should not be called on this class
+     */
+    public function getChildren(): array
+    {
+        return $this->children;
+    }
+
+    /**
      * Check if the NavItem instance has children.
      */
     public function hasChildren(): bool
