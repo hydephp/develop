@@ -146,7 +146,7 @@ class NavItemTest extends UnitTestCase
     public function testGetGroup()
     {
         $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
-        $this->assertNull($navItem->getGroup());
+        $this->assertNull($navItem->getGroupIdentifier());
     }
 
     public function testGetChildren()
@@ -325,28 +325,28 @@ class NavItemTest extends UnitTestCase
 
     public function testGetGroupWithNoGroup()
     {
-        $this->assertNull((new NavItem(new Route(new MarkdownPage()), 'Test', 500))->getGroup());
+        $this->assertNull((new NavItem(new Route(new MarkdownPage()), 'Test', 500))->getGroupIdentifier());
     }
 
     public function testGetGroupWithGroup()
     {
-        $this->assertSame('foo', (new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'))->getGroup());
+        $this->assertSame('foo', (new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'))->getGroupIdentifier());
     }
 
     public function testGetGroupFromRouteWithGroup()
     {
-        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroup());
+        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroupIdentifier());
     }
 
     public function testGetGroupForRouteWithGroup()
     {
-        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroup());
+        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroupIdentifier());
     }
 
     public function testGroupKeysAreNormalized()
     {
         $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar');
-        $this->assertSame('foo-bar', $item->getGroup());
+        $this->assertSame('foo-bar', $item->getGroupIdentifier());
     }
 
     public function testIdentifier()
@@ -434,8 +434,8 @@ class NavItemTest extends UnitTestCase
 
         $parent->addChild($child);
 
-        $this->assertSame('foo', $parent->getGroup());
-        $this->assertSame('bar', $child->getGroup());
+        $this->assertSame('foo', $parent->getGroupIdentifier());
+        $this->assertSame('bar', $child->getGroupIdentifier());
     }
 
     public function testAddingAnItemWithNoGroupKeyUsesParentIdentifier()
@@ -445,7 +445,7 @@ class NavItemTest extends UnitTestCase
 
         $parent->addChild($child);
 
-        $this->assertSame('foo', $parent->getGroup());
-        $this->assertSame('foo', $child->getGroup());
+        $this->assertSame('foo', $parent->getGroupIdentifier());
+        $this->assertSame('foo', $child->getGroupIdentifier());
     }
 }

@@ -156,7 +156,7 @@ class NavItem implements Stringable
      *
      * For sidebars this is the category key, for navigation menus this is the dropdown key.
      */
-    public function getGroup(): ?string
+    public function getGroupIdentifier(): ?string
     {
         return $this->group;
     }
