@@ -206,10 +206,6 @@ class NavItem implements Stringable
     {
         $item->group ??= $this->group;
 
-        if (!isset($this->children)) {
-            $this->children = [];
-        }
-
         $this->children[] = $item;
         $this->destination = null;
 
