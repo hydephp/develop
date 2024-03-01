@@ -160,7 +160,7 @@ class NavigationMenuGenerator
 
         $priority = $this->searchForGroupPriorityInConfig($groupKey);
 
-        return NavItem::forGroup($this->normalizeGroupLabel($label), [], $priority);
+        return NavItem::forGroup($this->normalizeGroupLabel($label), [], $priority ?? NavigationMenu::LAST);
     }
 
     protected function normalizeGroupLabel(string $label): string
