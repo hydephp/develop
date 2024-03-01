@@ -31,7 +31,7 @@ use function is_string;
  */
 class NavItem implements Stringable
 {
-    protected ?Route $destination;
+    protected ?Route $route;
     protected string $label;
     protected int $priority;
     protected ?string $group;
@@ -57,7 +57,7 @@ class NavItem implements Stringable
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
         }
 
-        $this->destination = $destination;
+        $this->route = $destination;
         $this->label = $label;
         $this->priority = $priority;
         $this->group = static::normalizeGroupKey($group);
@@ -110,23 +110,23 @@ class NavItem implements Stringable
      */
     public function __toString(): string
     {
-        return $this->getLink();
+        return $this->getUrl();
     }
 
     /**
      * Get the destination route of the navigation item. For dropdowns, this will return null.
      */
-    public function getDestination(): ?Route
+    public function getRoute(): ?Route
     {
-        return $this->destination;
+        return $this->route;
     }
 
     /**
      * Resolve the destination link of the navigation item.
      */
-    public function getLink(): string
+    public function getUrl(): string
     {
-        return (string) $this->destination;
+        return (string) $this->route;
     }
 
     /**
@@ -144,7 +144,7 @@ class NavItem implements Stringable
      */
     public function getPriority(): int
     {
-        if ($this->hasChildren() && $this->children[0]->getDestination()->getPageClass() === DocumentationPage::class) {
+        if ($this->hasChildren() && $this->children[0]->getRoute()->getPageClass() === DocumentationPage::class) {
             return min($this->priority, collect($this->getChildren())->min(fn (NavItem $child): int => $child->getPriority()));
         }
 
@@ -156,7 +156,7 @@ class NavItem implements Stringable
      *
      * For sidebars this is the category key, for navigation menus this is the dropdown key.
      */
-    public function getGroup(): ?string
+    public function getGroupIdentifier(): ?string
     {
         return $this->group;
     }
@@ -192,9 +192,9 @@ class NavItem implements Stringable
     /**
      * Check if the NavItem instance is the current page being rendered.
      */
-    public function isCurrent(): bool
+    public function isActive(): bool
     {
-        return Hyde::currentRoute()->getLink() === $this->destination->getLink();
+        return Hyde::currentRoute()->getLink() === $this->route->getLink();
     }
 
     /**
@@ -207,7 +207,7 @@ class NavItem implements Stringable
         $item->group ??= $this->group;
 
         $this->children[] = $item;
-        $this->destination = null;
+        $this->route = null;
 
         return $this;
     }
