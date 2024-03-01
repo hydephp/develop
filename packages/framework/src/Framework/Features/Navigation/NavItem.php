@@ -178,7 +178,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Check if the NavItem instance has children.
+     * @deprecated Should not be called on this class
      */
     public function hasChildren(): bool
     {

@@ -24,4 +24,12 @@ class NavGroupItem extends NavItem
     {
         return $this->children;
     }
+
+    /**
+     * Check if the NavItem instance has children.
+     */
+    public function hasChildren(): bool
+    {
+        return count($this->children) > 0;
+    }
 }
