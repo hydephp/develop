@@ -16,6 +16,12 @@ class NavGroupItem extends NavItem
      */
     protected array $children = [];
 
+    public function __construct(string $label, int $priority = NavigationMenu::DEFAULT, array $children = [])
+    {
+        parent::__construct(null, $label, $priority, $label);
+        $this->children = $children;
+    }
+
     /**
      * Get the children of the navigation item.
      *
