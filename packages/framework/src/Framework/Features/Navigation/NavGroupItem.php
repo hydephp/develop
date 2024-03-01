@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+/**
+ * @todo Consider extracting trait for shared code with navigation menu class
+ */
 class NavGroupItem extends NavItem
 {
     /**
