@@ -192,7 +192,7 @@ class NavItem implements Stringable
     /**
      * Check if the NavItem instance is the current page being rendered.
      */
-    public function isCurrent(): bool
+    public function isActive(): bool
     {
         return Hyde::currentRoute()->getLink() === $this->route->getLink();
     }

@@ -22,7 +22,7 @@ use Mockery;
  *
  * @covers \Hyde\Framework\Features\Navigation\NavItem
  *
- * @see \Hyde\Framework\Testing\Unit\NavItemIsCurrentHelperTest
+ * @see \Hyde\Framework\Testing\Unit\NavItemIsActiveHelperTest
  */
 class NavItemTest extends UnitTestCase
 {
@@ -309,8 +309,8 @@ class NavItemTest extends UnitTestCase
             'getRoute' => new Route(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
-        $this->assertTrue(NavItem::forRoute(new Route(new InMemoryPage('foo')))->isCurrent());
-        $this->assertFalse(NavItem::forRoute(new Route(new InMemoryPage('bar')))->isCurrent());
+        $this->assertTrue(NavItem::forRoute(new Route(new InMemoryPage('foo')))->isActive());
+        $this->assertFalse(NavItem::forRoute(new Route(new InMemoryPage('bar')))->isActive());
     }
 
     public function testIsCurrentWithExternalRoute()
@@ -319,8 +319,8 @@ class NavItemTest extends UnitTestCase
             'getRoute' => new Route(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
-        $this->assertFalse(NavItem::forLink('foo', 'bar')->isCurrent());
-        $this->assertFalse(NavItem::forLink('https://example.com', 'bar')->isCurrent());
+        $this->assertFalse(NavItem::forLink('foo', 'bar')->isActive());
+        $this->assertFalse(NavItem::forLink('https://example.com', 'bar')->isActive());
     }
 
     public function testGetGroupWithNoGroup()
