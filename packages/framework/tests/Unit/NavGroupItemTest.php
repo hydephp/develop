@@ -151,13 +151,13 @@ class NavGroupItemTest extends UnitTestCase
     public function testGetPriorityUsesDefaultPriority()
     {
         $parent = new NavGroupItem('Parent');
-        $this->assertSame(500, $parent->getPriority());
+        $this->assertSame(999, $parent->getPriority());
     }
 
     public function testGetPriorityWithNoChildrenUsesGroupPriority()
     {
         $parent = new NavGroupItem('Parent');
-        $this->assertSame(500, $parent->getPriority());
+        $this->assertSame(999, $parent->getPriority());
     }
 
     public function testGetPriorityWithChildrenUsesGroupPriority()
@@ -165,7 +165,7 @@ class NavGroupItemTest extends UnitTestCase
         $parent = new NavGroupItem('Parent');
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 400, 'foo');
         $parent->addChild($child);
-        $this->assertSame(500, $parent->getPriority());
+        $this->assertSame(999, $parent->getPriority());
     }
 
     public function testGetPriorityWithDocumentationPageChildrenUsesLowestPriority()
@@ -185,7 +185,7 @@ class NavGroupItemTest extends UnitTestCase
             $parent->addChild($child);
         }
 
-        $this->assertSame(500, $parent->getPriority());
+        $this->assertSame(999, $parent->getPriority());
     }
 
     public function testGetPriorityHandlesExternalUrlChild()
@@ -195,7 +195,7 @@ class NavGroupItemTest extends UnitTestCase
         $child = new NavItem('foo', 'Child', 400);
         $parent->addChild($child);
 
-        $this->assertSame(500, $parent->getPriority());
+        $this->assertSame(999, $parent->getPriority());
     }
 
     private function createNavItems(): array
