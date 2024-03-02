@@ -66,13 +66,13 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetChildrenWithNoChildren()
     {
-        $navItem = new NavGroupItem('Page', 500);
+        $navItem = new NavGroupItem('Page');
         $this->assertEmpty($navItem->getChildren());
     }
 
     public function testHasChildren()
     {
-        $item = new NavGroupItem('Test', 500);
+        $item = new NavGroupItem('Test');
         $this->assertFalse($item->hasChildren());
     }
 
@@ -84,7 +84,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanAddMultipleItemsToDropdown()
     {
-        $parent = new NavGroupItem('Parent', 500);
+        $parent = new NavGroupItem('Parent');
         $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', 500, 'foo');
         $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', 500, 'foo');
 
@@ -97,7 +97,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddChildrenMethodReturnsSelf()
     {
-        $parent = new NavGroupItem('Parent', 500);
+        $parent = new NavGroupItem('Parent');
         $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', 500, 'foo');
         $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', 500, 'foo');
 
@@ -106,7 +106,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
     {
-        $parent = new NavGroupItem('Parent', 500);
+        $parent = new NavGroupItem('Parent');
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'bar');
 
         $parent->addChild($child);
@@ -117,7 +117,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddingAnItemWithNoGroupKeyUsesParentIdentifier()
     {
-        $parent = new NavGroupItem('Parent', 500);
+        $parent = new NavGroupItem('Parent');
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500);
 
         $parent->addChild($child);
@@ -128,7 +128,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanAddItemToDropdown()
     {
-        $parent = new NavGroupItem('Parent', 500);
+        $parent = new NavGroupItem('Parent');
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
 
         $this->assertSame([], $parent->getChildren());
@@ -140,7 +140,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddChildMethodReturnsSelf()
     {
-        $parent = new NavGroupItem('Parent', 500);
+        $parent = new NavGroupItem('Parent');
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
 
         $this->assertSame($parent, $parent->addChild($child));
@@ -149,7 +149,7 @@ class NavGroupItemTest extends UnitTestCase
     private function createNavItems(): array
     {
         return array_map(function(string $page): NavItem {
-            return new NavItem(new Route(new InMemoryPage($page)), ucfirst($page), 500);
+            return new NavItem(new Route(new InMemoryPage($page)), ucfirst($page));
         }, ['foo', 'bar']);
     }
 }
