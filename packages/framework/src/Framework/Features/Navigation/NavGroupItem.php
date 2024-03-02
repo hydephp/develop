@@ -22,8 +22,7 @@ class NavGroupItem extends NavItem
      */
     protected array $children = [];
 
-    // Todo: Consider putting children before priority as it is more commonly used
-    public function __construct(string $label, int $priority = NavigationMenu::LAST, array $children = [])
+    public function __construct(string $label, array $children = [], int $priority = NavigationMenu::LAST)
     {
         parent::__construct(null, $label, $priority, static::normalizeGroupKey($label));
         $this->addChildren($children);

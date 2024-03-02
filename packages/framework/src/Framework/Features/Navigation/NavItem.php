@@ -99,7 +99,7 @@ class NavItem implements Stringable
      */
     public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): static
     {
-        return new NavGroupItem($label, $priority, $items);
+        return new NavGroupItem($label, $items, $priority);
     }
 
     /**
