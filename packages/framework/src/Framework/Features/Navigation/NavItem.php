@@ -48,7 +48,7 @@ class NavItem implements Stringable
      * @param  int  $priority  The priority to determine the order of the navigation item.
      * @param  string|null  $group  The dropdown/group identifier of the navigation item, if any.
      */
-    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, #[Deprecated] array $children = [])
+    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
