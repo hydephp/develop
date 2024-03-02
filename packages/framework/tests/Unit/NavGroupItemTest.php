@@ -24,14 +24,24 @@ class NavGroupItemTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function testCanConstructWithChildren()
+    public function testCanConstruct()
     {
-        $children = $this->createNavItems();
-        $item = new NavGroupItem('Test', $children, 500);
+        $item = new NavGroupItem('Test');
 
         $this->assertSame('Test', $item->getLabel());
         $this->assertNull($item->getRoute());
-        $this->assertSame(500, $item->getPriority());
+        $this->assertSame(999, $item->getPriority());
+    }
+
+    public function testCanConstructWithPriority()
+    {
+        $this->assertSame(500, (new NavGroupItem('Test', priority: 500))->getPriority());
+    }
+
+    public function testCanConstructWithChildren()
+    {
+        $children = $this->createNavItems();
+        $item = new NavGroupItem('Test', $children);
 
         $this->assertCount(2, $item->getChildren());
         $this->assertSame($children, $item->getChildren());
