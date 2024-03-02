@@ -180,7 +180,7 @@ class NavGroupItemTest extends UnitTestCase
         $parent = new NavGroupItem('Foo');
 
         foreach (HydeCoreExtension::getPageClasses() as $type) {
-            $child = new NavItem(new Route(new $type()), 'Child', 100);
+            $child = new NavItem(new Route(new $type()), 'Bar', 100);
             $parent->addChild($child);
         }
 
@@ -189,7 +189,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetPriorityHandlesExternalUrlChildGracefully()
     {
-        $parent = new NavGroupItem('Foo', [new NavItem('foo', 'Child', 100)]);
+        $parent = new NavGroupItem('Foo', [new NavItem('foo', 'Bar', 100)]);
 
         $this->assertSame(999, $parent->getPriority());
     }
