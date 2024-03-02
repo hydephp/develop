@@ -11,6 +11,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RenderData;
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\NavGroupItem;
 
@@ -173,6 +174,19 @@ class NavGroupItemTest extends UnitTestCase
         $child = new NavItem(new Route(new DocumentationPage()), 'Foo', 400);
         $parent->addChild($child);
         $this->assertSame(400, $parent->getPriority());
+    }
+
+    public function testGetPriorityHandlesMixedChildTypes()
+    {
+        $parent = new NavGroupItem('Parent');
+
+        $types = HydeCoreExtension::getPageClasses();
+        foreach ($types as $type) {
+            $child = new NavItem(new Route(new $type()), 'Child', 100);
+            $parent->addChild($child);
+        }
+
+        $this->assertSame(500, $parent->getPriority());
     }
 
     private function createNavItems(): array
