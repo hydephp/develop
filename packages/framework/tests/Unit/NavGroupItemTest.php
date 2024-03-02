@@ -132,7 +132,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testCanAddItemToDropdown()
     {
         $parent = new NavGroupItem('Foo');
-        $child = new NavItem(new Route(new MarkdownPage()), 'Child', group: 'foo');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Bar');
 
         $this->assertSame([], $parent->getChildren());
 
@@ -144,7 +144,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testAddChildMethodReturnsSelf()
     {
         $parent = new NavGroupItem('Foo');
-        $child = new NavItem(new Route(new MarkdownPage()), 'Child', group: 'foo');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Bar');
 
         $this->assertSame($parent, $parent->addChild($child));
     }
@@ -162,7 +162,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testGetPriorityWithChildrenUsesGroupPriority()
     {
         $parent = new NavGroupItem('Foo');
-        $child = new NavItem(new Route(new MarkdownPage()), 'Child', 400, 'foo');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Bar');
         $parent->addChild($child);
         $this->assertSame(999, $parent->getPriority());
     }
