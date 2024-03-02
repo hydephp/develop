@@ -25,6 +25,7 @@ class NavGroupItem extends NavItem
     public function __construct(string $label, array $children = [], int $priority = NavigationMenu::LAST)
     {
         parent::__construct(null, $label, $priority, static::normalizeGroupKey($label));
+
         $this->addChildren($children);
     }
 
