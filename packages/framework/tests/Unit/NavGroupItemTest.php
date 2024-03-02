@@ -96,11 +96,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testCanAddMultipleItemsToDropdown()
     {
         $group = new NavGroupItem('Foo');
-        
-        $items = [
-            new NavItem(new Route(new MarkdownPage()), 'Child 1', group: 'foo'),
-            new NavItem(new Route(new MarkdownPage()), 'Child 2', group: 'foo')
-        ];
+        $items = $this->createNavItems();
 
         $this->assertSame($items, $group->addChildren($items)->getChildren());
     }
