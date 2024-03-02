@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Pages\DocumentationPage;
+use JetBrains\PhpStorm\Deprecated;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
@@ -49,9 +50,8 @@ class NavItem implements Stringable
      * @param  string  $label  The label of the navigation item.
      * @param  int  $priority  The priority to determine the order of the navigation item.
      * @param  string|null  $group  The dropdown/group identifier of the navigation item, if any.
-     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $children  If the item is a dropdown, these are the items to be included in the dropdown.
      */
-    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, array $children = [])
+    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null, #[Deprecated] array $children = [])
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
