@@ -60,25 +60,25 @@ class NavGroupItemTest extends UnitTestCase
     {
         $children = $this->createNavItems();
 
-        $navItem = new NavGroupItem('Page', 500, $children);
+        $navItem = new NavGroupItem('Parent', 500, $children);
         $this->assertSame($children, $navItem->getChildren());
     }
 
     public function testGetChildrenWithNoChildren()
     {
-        $navItem = new NavGroupItem('Page');
+        $navItem = new NavGroupItem('Parent');
         $this->assertEmpty($navItem->getChildren());
     }
 
     public function testHasChildren()
     {
-        $item = new NavGroupItem('Test');
+        $item = new NavGroupItem('Parent');
         $this->assertFalse($item->hasChildren());
     }
 
     public function testHasChildrenWithChildren()
     {
-        $item = new NavGroupItem('Test', 500, $this->createNavItems());
+        $item = new NavGroupItem('Parent', 500, $this->createNavItems());
         $this->assertTrue($item->hasChildren());
     }
 
