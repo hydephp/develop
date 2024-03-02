@@ -148,6 +148,7 @@ class NavGroupItemTest extends UnitTestCase
 
     private function createNavItems(array $pages): array
     {
+        $pages = ['foo', 'bar'];
         $navItems = [];
         foreach ($pages as $page) {
             $navItems[] = new NavItem(new Route(new InMemoryPage($page)), ucfirst($page), 500);
