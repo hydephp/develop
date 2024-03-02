@@ -163,15 +163,8 @@ class NavGroupItemTest extends UnitTestCase
             new NavItem(new Route(new DocumentationPage()), 'Baz', 300),
         ];
 
-        $group = new NavGroupItem('Foo', $items);
-
-        $this->assertSame(100, $group->getPriority());
-
-        $items = array_reverse($items);
-
-        $group = new NavGroupItem('Foo', $items);
-
-        $this->assertSame(100, $group->getPriority());
+        $this->assertSame(100, (new NavGroupItem('Foo', $items))->getPriority());
+        $this->assertSame(100, (new NavGroupItem('Foo', array_reverse($items)))->getPriority());
     }
 
     public function testGetPriorityUsesGroupPriorityForMixedChildTypes()
