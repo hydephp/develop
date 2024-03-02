@@ -68,14 +68,12 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetChildrenWithNoChildren()
     {
-        $navItem = new NavGroupItem('Parent');
-        $this->assertEmpty($navItem->getChildren());
+        $this->assertEmpty((new NavGroupItem('Parent'))->getChildren());
     }
 
     public function testHasChildren()
     {
-        $item = new NavGroupItem('Parent');
-        $this->assertFalse($item->hasChildren());
+        $this->assertFalse((new NavGroupItem('Parent'))->hasChildren());
     }
 
     public function testHasChildrenWithChildren()
@@ -150,14 +148,12 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetPriorityUsesDefaultPriority()
     {
-        $parent = new NavGroupItem('Parent');
-        $this->assertSame(999, $parent->getPriority());
+        $this->assertSame(999, (new NavGroupItem('Parent'))->getPriority());
     }
 
     public function testGetPriorityWithNoChildrenUsesGroupPriority()
     {
-        $parent = new NavGroupItem('Parent');
-        $this->assertSame(999, $parent->getPriority());
+        $this->assertSame(999, (new NavGroupItem('Parent'))->getPriority());
     }
 
     public function testGetPriorityWithChildrenUsesGroupPriority()
