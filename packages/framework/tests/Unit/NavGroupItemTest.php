@@ -11,6 +11,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavGroupItem;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavGroupItem
@@ -32,12 +33,11 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanConstructWithChildren()
     {
-        $route = new Route(new MarkdownPage());
         $children = [
             new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
             new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
         ];
-        $item = new NavItem($route, 'Test', 500, null, $children);
+        $item = new NavGroupItem('Test', 500, $children);
 
         $this->assertSame('Test', $item->getLabel());
         $this->assertNull($item->getRoute());
@@ -62,7 +62,7 @@ class NavGroupItemTest extends UnitTestCase
             new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
             new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
         ];
-        $item = new NavItem('', 'Test', 500, null, $children);
+        $item = new NavGroupItem('Test', 500, $children);
 
         $this->assertSame('Test', $item->getLabel());
         $this->assertNull($item->getRoute());
@@ -78,25 +78,25 @@ class NavGroupItemTest extends UnitTestCase
             new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
         ];
 
-        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500, null, $children);
+        $navItem = new NavGroupItem('Page', 500, $children);
         $this->assertSame($children, $navItem->getChildren());
     }
 
     public function testGetChildrenWithNoChildren()
     {
-        $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $navItem = new NavGroupItem('Page', 500);
         $this->assertEmpty($navItem->getChildren());
     }
 
     public function testHasChildren()
     {
-        $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500);
+        $item = new NavGroupItem('Test', 500);
         $this->assertFalse($item->hasChildren());
     }
 
     public function testHasChildrenWithChildren()
     {
-        $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500, null, [
+        $item = new NavGroupItem('Test', 500, [
             new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
             new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
         ]);
@@ -105,7 +105,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanAddMultipleItemsToDropdown()
     {
-        $parent = new NavItem(new Route(new MarkdownPage()), 'Parent', 500, 'foo');
+        $parent = new NavGroupItem('Parent', 500);
         $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', 500, 'foo');
         $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', 500, 'foo');
 
@@ -118,7 +118,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddChildrenMethodReturnsSelf()
     {
-        $parent = new NavItem(new Route(new MarkdownPage()), 'Parent', 500, 'foo');
+        $parent = new NavGroupItem('Parent', 500);
         $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', 500, 'foo');
         $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', 500, 'foo');
 
@@ -127,29 +127,29 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
     {
-        $parent = new NavItem(new Route(new MarkdownPage()), 'Parent', 500, 'foo');
+        $parent = new NavGroupItem('Parent', 500);
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'bar');
 
         $parent->addChild($child);
 
-        $this->assertSame('foo', $parent->getGroupIdentifier());
+        $this->assertSame('parent', $parent->getGroupIdentifier());
         $this->assertSame('bar', $child->getGroupIdentifier());
     }
 
     public function testAddingAnItemWithNoGroupKeyUsesParentIdentifier()
     {
-        $parent = new NavItem(new Route(new MarkdownPage()), 'Parent', 500, 'foo');
+        $parent = new NavGroupItem('Parent', 500);
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500);
 
         $parent->addChild($child);
 
-        $this->assertSame('foo', $parent->getGroupIdentifier());
-        $this->assertSame('foo', $child->getGroupIdentifier());
+        $this->assertSame('parent', $parent->getGroupIdentifier());
+        $this->assertSame('parent', $child->getGroupIdentifier());
     }
 
     public function testCanAddItemToDropdown()
     {
-        $parent = new NavItem(new Route(new MarkdownPage()), 'Parent', 500, 'foo');
+        $parent = new NavGroupItem('Parent', 500);
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
 
         $this->assertSame([], $parent->getChildren());
@@ -161,7 +161,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddChildMethodReturnsSelf()
     {
-        $parent = new NavItem(new Route(new MarkdownPage()), 'Parent', 500, 'foo');
+        $parent = new NavGroupItem('Parent', 500);
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
 
         $this->assertSame($parent, $parent->addChild($child));
