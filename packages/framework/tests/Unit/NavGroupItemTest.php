@@ -50,7 +50,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testCanConstructWithChildrenWithoutRoute()
     {
         $children = $this->createNavItems();
-        $item = new NavGroupItem('Test', $children, 500);
+        $item = new NavGroupItem('Test', $children);
 
         $this->assertSame('Test', $item->getLabel());
         $this->assertNull($item->getRoute());
@@ -63,7 +63,7 @@ class NavGroupItemTest extends UnitTestCase
     {
         $children = $this->createNavItems();
 
-        $navItem = new NavGroupItem('Parent', $children, 500);
+        $navItem = new NavGroupItem('Parent', $children);
         $this->assertSame($children, $navItem->getChildren());
     }
 
@@ -79,7 +79,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testHasChildrenWithChildren()
     {
-        $item = new NavGroupItem('Parent', $this->createNavItems(), 500);
+        $item = new NavGroupItem('Parent', $this->createNavItems());
         $this->assertTrue($item->hasChildren());
     }
 
