@@ -175,7 +175,7 @@ class NavGroupItemTest extends UnitTestCase
         $this->assertSame(400, $parent->getPriority());
     }
 
-    public function testGetPriorityHandlesMixedChildTypes()
+    public function testGetPriorityUsesGroupPriorityForMixedChildTypes()
     {
         $parent = new NavGroupItem('Foo');
 
