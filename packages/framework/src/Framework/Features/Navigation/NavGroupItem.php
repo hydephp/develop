@@ -96,6 +96,8 @@ class NavGroupItem extends NavItem
 
     protected function containsOnlyDocumentationPages(): bool
     {
-        return collect($this->getChildren())->every(fn (NavItem $child): bool => $child->getRoute()->getPageClass() === DocumentationPage::class);
+        return collect($this->getChildren())->every(function (NavItem $child): bool {
+            return $child->getRoute()->getPageClass() === DocumentationPage::class;
+        });
     }
 }
