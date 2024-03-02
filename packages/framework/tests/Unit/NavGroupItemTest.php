@@ -65,8 +65,8 @@ class NavGroupItemTest extends UnitTestCase
     public function testGetChildren()
     {
         $children = $this->createNavItems();
-
         $navItem = new NavGroupItem('Foo', $children);
+
         $this->assertSame($children, $navItem->getChildren());
     }
 
