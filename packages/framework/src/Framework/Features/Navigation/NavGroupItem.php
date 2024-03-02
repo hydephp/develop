@@ -100,7 +100,7 @@ class NavGroupItem extends NavItem
                 return false;
             }
 
-            return $child->getRoute()->getPageClass() === DocumentationPage::class;
+            return $child->getRoute()->getPage() instanceof DocumentationPage;
         });
     }
 }
