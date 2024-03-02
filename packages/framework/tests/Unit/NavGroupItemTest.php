@@ -99,7 +99,9 @@ class NavGroupItemTest extends UnitTestCase
         $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', group: 'foo');
         $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', group: 'foo');
 
-        $this->assertSame([$child1, $child2], $group->addChildren([$child1, $child2])->getChildren());
+        $items = [$child1, $child2];
+        
+        $this->assertSame($items, $group->addChildren($items)->getChildren());
     }
 
     public function testAddChildrenMethodReturnsSelf()
