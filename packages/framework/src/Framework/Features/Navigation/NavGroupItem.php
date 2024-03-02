@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Pages\DocumentationPage;
+
+use function min;
+use function collect;
+
 /**
  * @todo Consider extracting trait for shared code with navigation menu class
  */
@@ -70,5 +75,19 @@ class NavGroupItem extends NavItem
         }
 
         return $this;
+    }
+
+    /**
+     * Get the priority to determine the order of the navigation item.
+     *
+     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
+     */
+    public function getPriority(): int
+    {
+        if ($this->hasChildren() && $this->children[0]->getRoute()->getPageClass() === DocumentationPage::class) {
+            return min($this->priority, collect($this->getChildren())->min(fn (NavItem $child): int => $child->getPriority()));
+        }
+
+        return parent::getPriority();
     }
 }
