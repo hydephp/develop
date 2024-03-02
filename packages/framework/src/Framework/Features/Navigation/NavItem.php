@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use JetBrains\PhpStorm\Deprecated;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
