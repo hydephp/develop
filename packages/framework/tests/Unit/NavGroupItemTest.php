@@ -148,7 +148,7 @@ class NavGroupItemTest extends UnitTestCase
 
     private function createNavItems(): array
     {
-        return array_map(function(string $page): NavItem {
+        return array_map(function (string $page): NavItem {
             return new NavItem(new Route(new InMemoryPage($page)), ucfirst($page));
         }, ['foo', 'bar']);
     }
