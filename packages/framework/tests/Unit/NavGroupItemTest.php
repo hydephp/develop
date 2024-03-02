@@ -170,9 +170,9 @@ class NavGroupItemTest extends UnitTestCase
     public function testGetPriorityWithDocumentationPageChildrenUsesLowestPriority()
     {
         $parent = new NavGroupItem('Foo');
-        $child = new NavItem(new Route(new DocumentationPage()), 'Foo', 400);
+        $child = new NavItem(new Route(new DocumentationPage()), 'Foo', 100);
         $parent->addChild($child);
-        $this->assertSame(400, $parent->getPriority());
+        $this->assertSame(100, $parent->getPriority());
     }
 
     public function testGetPriorityUsesGroupPriorityForMixedChildTypes()
@@ -191,7 +191,7 @@ class NavGroupItemTest extends UnitTestCase
     {
         $parent = new NavGroupItem('Foo');
 
-        $child = new NavItem('foo', 'Child', 400);
+        $child = new NavItem('foo', 'Child', 100);
         $parent->addChild($child);
 
         $this->assertSame(999, $parent->getPriority());
