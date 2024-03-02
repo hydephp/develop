@@ -69,11 +69,11 @@ class NavItem implements Stringable
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
      */
-    public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
+    public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): self
     {
         $route = $route instanceof Route ? $route : Routes::getOrFail($route);
 
-        return new static(
+        return new self(
             $route,
             $label ?? $route->getPage()->navigationMenuLabel(),
             $priority ?? $route->getPage()->navigationMenuPriority(),
@@ -84,9 +84,9 @@ class NavItem implements Stringable
     /**
      * Create a new navigation menu item leading to an external URI.
      */
-    public static function forLink(string $href, string $label, int $priority = NavigationMenu::DEFAULT): static
+    public static function forLink(string $href, string $label, int $priority = NavigationMenu::DEFAULT): self
     {
-        return new static($href, $label, $priority);
+        return new self($href, $label, $priority);
     }
 
     /**

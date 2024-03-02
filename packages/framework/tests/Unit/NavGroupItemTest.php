@@ -189,6 +189,24 @@ class NavGroupItemTest extends UnitTestCase
         $this->assertSame(999, (new NavGroupItem('Foo', [new NavItem('https://example.com', 'Bar', 100)]))->getPriority());
     }
 
+    public function testForRoute()
+    {
+        $item = NavGroupItem::forRoute(new Route(new InMemoryPage('foo')));
+
+        $this->assertInstanceOf(NavItem::class, $item);
+        $this->assertNotInstanceOf(NavGroupItem::class, $item);
+        $this->assertSame(NavItem::class, $item::class);
+    }
+
+    public function testForLink()
+    {
+        $item = NavGroupItem::forLink('foo', 'bar');
+
+        $this->assertInstanceOf(NavItem::class, $item);
+        $this->assertNotInstanceOf(NavGroupItem::class, $item);
+        $this->assertSame(NavItem::class, $item::class);
+    }
+
     protected function createNavItems(): array
     {
         return [
