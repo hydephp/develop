@@ -189,7 +189,7 @@ class NavGroupItemTest extends UnitTestCase
         $this->assertSame(999, (new NavGroupItem('Foo', [new NavItem('https://example.com', 'Bar', 100)]))->getPriority());
     }
 
-    private function createNavItems(): array
+    protected function createNavItems(): array
     {
         return [
             new NavItem(new Route(new InMemoryPage('foo')), 'Foo'),
