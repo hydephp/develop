@@ -87,8 +87,8 @@ class NavGroupItemTest extends UnitTestCase
     public function testCanAddMultipleItemsToDropdown()
     {
         $parent = new NavGroupItem('Parent');
-        $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', 500, 'foo');
-        $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', 500, 'foo');
+        $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', group: 'foo');
+        $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', group: 'foo');
 
         $this->assertSame([], $parent->getChildren());
 
@@ -100,8 +100,8 @@ class NavGroupItemTest extends UnitTestCase
     public function testAddChildrenMethodReturnsSelf()
     {
         $parent = new NavGroupItem('Parent');
-        $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', 500, 'foo');
-        $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', 500, 'foo');
+        $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', group: 'foo');
+        $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', group: 'foo');
 
         $this->assertSame($parent, $parent->addChildren([$child1, $child2]));
     }
@@ -109,7 +109,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
     {
         $parent = new NavGroupItem('Parent');
-        $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'bar');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Child', group: 'bar');
 
         $parent->addChild($child);
 
@@ -131,7 +131,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testCanAddItemToDropdown()
     {
         $parent = new NavGroupItem('Parent');
-        $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Child', group: 'foo');
 
         $this->assertSame([], $parent->getChildren());
 
@@ -143,7 +143,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testAddChildMethodReturnsSelf()
     {
         $parent = new NavGroupItem('Parent');
-        $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Child', group: 'foo');
 
         $this->assertSame($parent, $parent->addChild($child));
     }
