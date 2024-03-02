@@ -82,8 +82,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testHasChildrenWithChildren()
     {
-        $item = new NavGroupItem('Parent', $this->createNavItems());
-        $this->assertTrue($item->hasChildren());
+        $this->assertTrue((new NavGroupItem('Parent', $this->createNavItems()))->hasChildren());
     }
 
     public function testCanAddMultipleItemsToDropdown()
