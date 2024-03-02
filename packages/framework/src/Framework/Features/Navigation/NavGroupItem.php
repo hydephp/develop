@@ -12,6 +12,7 @@ use function collect;
 
 /**
  * @todo Consider extracting trait for shared code with navigation menu class
+ * @todo Consider inheritance issues with static constructors from NavItem class
  */
 class NavGroupItem extends NavItem
 {
