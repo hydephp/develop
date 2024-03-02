@@ -200,8 +200,8 @@ class NavGroupItemTest extends UnitTestCase
     private function createNavItems(): array
     {
         return [
-            new NavItem(new Route(new InMemoryPage('foo')), ucfirst('foo')),
-            new NavItem(new Route(new InMemoryPage('bar')), ucfirst('bar')),
+            new NavItem(new Route(new InMemoryPage('foo')), 'Foo'),
+            new NavItem(new Route(new InMemoryPage('bar')), 'Bar'),
         ];
     }
 }
