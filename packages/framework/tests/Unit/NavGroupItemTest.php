@@ -189,6 +189,16 @@ class NavGroupItemTest extends UnitTestCase
         $this->assertSame(500, $parent->getPriority());
     }
 
+    public function testGetPriorityHandlesExternalUrlChild()
+    {
+        $parent = new NavGroupItem('Parent');
+
+        $child = new NavItem('foo', 'Child', 400);
+        $parent->addChild($child);
+
+        $this->assertSame(500, $parent->getPriority());
+    }
+
     private function createNavItems(): array
     {
         return array_map(function (string $page): NavItem {

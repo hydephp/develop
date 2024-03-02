@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\ExternalRoute;
 
 use function min;
 use function collect;
@@ -82,8 +83,6 @@ class NavGroupItem extends NavItem
      * Get the priority to determine the order of the navigation item.
      *
      * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
-     *
-     * @todo Ensure support for external URLs
      */
     public function getPriority(): int
     {
@@ -97,6 +96,10 @@ class NavGroupItem extends NavItem
     protected function containsOnlyDocumentationPages(): bool
     {
         return collect($this->getChildren())->every(function (NavItem $child): bool {
+            if ($child->getRoute() instanceof ExternalRoute) {
+                return false;
+            }
+
             return $child->getRoute()->getPageClass() === DocumentationPage::class;
         });
     }
