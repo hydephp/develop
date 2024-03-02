@@ -37,7 +37,7 @@ class NavItem implements Stringable
     protected string $identifier;
 
     /** @deprecated Use NavGroupItem::$items instead */
-    protected array $children = [];
+    protected array $items = [];
 
     /**
      * Create a new navigation menu item.
@@ -161,9 +161,9 @@ class NavItem implements Stringable
     /**
      * @deprecated Should not be called on this class
      */
-    public function getChildren(): array
+    public function getItems(): array
     {
-        return $this->children;
+        return $this->items;
     }
 
     /**
@@ -171,7 +171,7 @@ class NavItem implements Stringable
      */
     public function hasChildren(): bool
     {
-        return count($this->children) > 0;
+        return count($this->items) > 0;
     }
 
     /**
@@ -189,7 +189,7 @@ class NavItem implements Stringable
     {
         $item->group ??= $this->group;
 
-        $this->children[] = $item;
+        $this->items[] = $item;
         $this->route = null;
 
         return $this;

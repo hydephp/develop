@@ -16,11 +16,9 @@ use function collect;
 class NavGroupItem extends NavItem
 {
     /**
-     * @deprecated Rename to $items
-     *
      * @var array<\Hyde\Framework\Features\Navigation\NavItem>
      */
-    protected array $children = [];
+    protected array $items = [];
 
     public function __construct(string $label, array $children = [], int $priority = NavigationMenu::LAST)
     {
@@ -36,9 +34,9 @@ class NavGroupItem extends NavItem
      *
      * @return array<\Hyde\Framework\Features\Navigation\NavItem>
      */
-    public function getChildren(): array
+    public function getItems(): array
     {
-        return $this->children;
+        return $this->items;
     }
 
     /**
@@ -46,7 +44,7 @@ class NavGroupItem extends NavItem
      */
     public function hasChildren(): bool
     {
-        return count($this->children) > 0;
+        return count($this->items) > 0;
     }
 
     /**
@@ -58,7 +56,7 @@ class NavGroupItem extends NavItem
     {
         $item->group ??= $this->group;
 
-        $this->children[] = $item;
+        $this->items[] = $item;
         $this->route = null;
 
         return $this;
@@ -86,7 +84,7 @@ class NavGroupItem extends NavItem
     public function getPriority(): int
     {
         if ($this->hasChildren() && $this->containsOnlyDocumentationPages()) {
-            return min($this->priority, collect($this->getChildren())->min(fn (NavItem $child): int => $child->getPriority()));
+            return min($this->priority, collect($this->getItems())->min(fn (NavItem $child): int => $child->getPriority()));
         }
 
         return parent::getPriority();
@@ -94,7 +92,7 @@ class NavGroupItem extends NavItem
 
     protected function containsOnlyDocumentationPages(): bool
     {
-        return collect($this->getChildren())->every(function (NavItem $child): bool {
+        return collect($this->getItems())->every(function (NavItem $child): bool {
             return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
     }

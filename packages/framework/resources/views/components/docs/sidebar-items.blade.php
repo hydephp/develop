@@ -15,7 +15,7 @@
                     @endif
                 </header>
                 <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list" @if($sidebar->isCollapsible()) x-show="groupOpen" @endif>
-                    @foreach ($group->getChildren() as $item)
+                    @foreach ($group->getItems() as $item)
                         @include('hyde::components.docs.sidebar-item', ['grouped' => true])
                     @endforeach
                 </ul>

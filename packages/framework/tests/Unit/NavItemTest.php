@@ -208,7 +208,7 @@ class NavItemTest extends UnitTestCase
         $item = NavItem::forGroup('foo', []);
 
         $this->assertSame('foo', $item->getLabel());
-        $this->assertSame([], $item->getChildren());
+        $this->assertSame([], $item->getItems());
         $this->assertSame(999, $item->getPriority());
     }
 
@@ -219,7 +219,7 @@ class NavItemTest extends UnitTestCase
         ];
 
         $item = NavItem::forGroup('foo', $children);
-        $this->assertSame($children, $item->getChildren());
+        $this->assertSame($children, $item->getItems());
         $this->assertSame(999, $item->getPriority());
     }
 

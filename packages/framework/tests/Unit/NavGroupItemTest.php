@@ -49,8 +49,8 @@ class NavGroupItemTest extends UnitTestCase
         $children = $this->createNavItems();
         $item = new NavGroupItem('Foo', $children);
 
-        $this->assertCount(2, $item->getChildren());
-        $this->assertSame($children, $item->getChildren());
+        $this->assertCount(2, $item->getItems());
+        $this->assertSame($children, $item->getItems());
     }
 
     public function testCanConstructWithChildrenWithoutRoute()
@@ -58,21 +58,21 @@ class NavGroupItemTest extends UnitTestCase
         $children = $this->createNavItems();
         $item = new NavGroupItem('Foo', $children);
 
-        $this->assertCount(2, $item->getChildren());
-        $this->assertSame($children, $item->getChildren());
+        $this->assertCount(2, $item->getItems());
+        $this->assertSame($children, $item->getItems());
     }
 
-    public function testGetChildren()
+    public function testGetItems()
     {
         $children = $this->createNavItems();
         $item = new NavGroupItem('Foo', $children);
 
-        $this->assertSame($children, $item->getChildren());
+        $this->assertSame($children, $item->getItems());
     }
 
-    public function testGetChildrenWithNoChildren()
+    public function testGetItemsWithNoItems()
     {
-        $this->assertEmpty((new NavGroupItem('Foo'))->getChildren());
+        $this->assertEmpty((new NavGroupItem('Foo'))->getItems());
     }
 
     public function testHasChildren()
@@ -90,7 +90,7 @@ class NavGroupItemTest extends UnitTestCase
         $group = new NavGroupItem('Foo');
         $child = new NavItem(new Route(new MarkdownPage()), 'Bar');
 
-        $this->assertSame([$child], $group->addChild($child)->getChildren());
+        $this->assertSame([$child], $group->addChild($child)->getItems());
     }
 
     public function testAddChildMethodReturnsSelf()
@@ -106,7 +106,7 @@ class NavGroupItemTest extends UnitTestCase
         $group = new NavGroupItem('Foo');
         $items = $this->createNavItems();
 
-        $this->assertSame($items, $group->addChildren($items)->getChildren());
+        $this->assertSame($items, $group->addChildren($items)->getItems());
     }
 
     public function testAddChildrenMethodReturnsSelf()
