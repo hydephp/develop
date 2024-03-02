@@ -180,8 +180,7 @@ class NavGroupItemTest extends UnitTestCase
     {
         $parent = new NavGroupItem('Parent');
 
-        $types = HydeCoreExtension::getPageClasses();
-        foreach ($types as $type) {
+        foreach (HydeCoreExtension::getPageClasses() as $type) {
             $child = new NavItem(new Route(new $type()), 'Child', 100);
             $parent->addChild($child);
         }
