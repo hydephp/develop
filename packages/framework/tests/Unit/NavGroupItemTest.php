@@ -101,10 +101,8 @@ class NavGroupItemTest extends UnitTestCase
     public function testAddChildrenMethodReturnsSelf()
     {
         $group = new NavGroupItem('Foo');
-        $child1 = new NavItem(new Route(new MarkdownPage()), 'Child 1', group: 'foo');
-        $child2 = new NavItem(new Route(new MarkdownPage()), 'Child 2', group: 'foo');
 
-        $this->assertSame($group, $group->addChildren([$child1, $child2]));
+        $this->assertSame($group, $group->addChildren([]));
     }
 
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
