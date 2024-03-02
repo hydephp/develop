@@ -33,7 +33,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanConstructWithChildren()
     {
-        $children = $this->createNavItems(['foo', 'bar']);
+        $children = $this->createNavItems();
         $item = new NavGroupItem('Test', 500, $children);
 
         $this->assertSame('Test', $item->getLabel());
@@ -46,7 +46,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanConstructWithChildrenWithoutRoute()
     {
-        $children = $this->createNavItems(['foo', 'bar']);
+        $children = $this->createNavItems();
         $item = new NavGroupItem('Test', 500, $children);
 
         $this->assertSame('Test', $item->getLabel());
@@ -58,7 +58,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetChildren()
     {
-        $children = $this->createNavItems(['foo', 'bar']);
+        $children = $this->createNavItems();
 
         $navItem = new NavGroupItem('Page', 500, $children);
         $this->assertSame($children, $navItem->getChildren());
@@ -78,7 +78,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testHasChildrenWithChildren()
     {
-        $item = new NavGroupItem('Test', 500, $this->createNavItems(['foo', 'bar']));
+        $item = new NavGroupItem('Test', 500, $this->createNavItems());
         $this->assertTrue($item->hasChildren());
     }
 
@@ -146,7 +146,7 @@ class NavGroupItemTest extends UnitTestCase
         $this->assertSame($parent, $parent->addChild($child));
     }
 
-    private function createNavItems(array $pages): array
+    private function createNavItems(): array
     {
         $pages = ['foo', 'bar'];
         $navItems = [];
