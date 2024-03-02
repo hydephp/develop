@@ -26,16 +26,22 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanConstruct()
     {
-        $item = new NavGroupItem('Test');
-
-        $this->assertSame('Test', $item->getLabel());
-        $this->assertNull($item->getRoute());
-        $this->assertSame(999, $item->getPriority());
+        $this->assertSame('Test', (new NavGroupItem('Test'))->getLabel());
     }
 
     public function testCanConstructWithPriority()
     {
         $this->assertSame(500, (new NavGroupItem('Test', priority: 500))->getPriority());
+    }
+
+    public function testDefaultPriorityValueIsLast()
+    {
+        $this->assertSame(999, (new NavGroupItem('Test'))->getPriority());
+    }
+
+    public function testDestinationIsAlwaysNull()
+    {
+        $this->assertNull((new NavGroupItem('Test'))->getRoute());
     }
 
     public function testCanConstructWithChildren()
@@ -51,9 +57,6 @@ class NavGroupItemTest extends UnitTestCase
     {
         $children = $this->createNavItems();
         $item = new NavGroupItem('Test', $children);
-
-        $this->assertSame('Test', $item->getLabel());
-        $this->assertNull($item->getRoute());
 
         $this->assertCount(2, $item->getChildren());
         $this->assertSame($children, $item->getChildren());
