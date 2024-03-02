@@ -189,16 +189,12 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetPriorityHandlesStringUrlChildGracefully()
     {
-        $group = new NavGroupItem('Foo', [new NavItem('foo', 'Bar', 100)]);
-
-        $this->assertSame(999, $group->getPriority());
+        $this->assertSame(999, (new NavGroupItem('Foo', [new NavItem('foo', 'Bar', 100)]))->getPriority());
     }
 
     public function testGetPriorityHandlesExternalUrlChildGracefully()
     {
-        $group = new NavGroupItem('Foo', [new NavItem('https://example.com', 'Bar', 100)]);
-
-        $this->assertSame(999, $group->getPriority());
+        $this->assertSame(999, (new NavGroupItem('Foo', [new NavItem('https://example.com', 'Bar', 100)]))->getPriority());
     }
 
     private function createNavItems(): array
