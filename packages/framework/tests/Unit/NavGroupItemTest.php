@@ -8,9 +8,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Models\Route;
-use Hyde\Support\Facades\Render;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Support\Models\RenderData;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\NavGroupItem;
@@ -26,11 +24,6 @@ class NavGroupItemTest extends UnitTestCase
 
         self::needsKernel();
         self::mockConfig();
-    }
-
-    protected function setUp(): void
-    {
-        Render::swap(new RenderData());
     }
 
     public function testCanConstructWithChildren()
