@@ -33,10 +33,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanConstructWithChildren()
     {
-        $children = [
-            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
-            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
-        ];
+        $children = $this->createNavItems(['foo', 'bar']);
         $item = new NavGroupItem('Test', 500, $children);
 
         $this->assertSame('Test', $item->getLabel());
@@ -45,23 +42,11 @@ class NavGroupItemTest extends UnitTestCase
 
         $this->assertCount(2, $item->getChildren());
         $this->assertSame($children, $item->getChildren());
-
-        $this->assertSame('Foo', $item->getChildren()[0]->getLabel());
-        $this->assertSame('Bar', $item->getChildren()[1]->getLabel());
-
-        $this->assertSame('foo.html', $item->getChildren()[0]->getUrl());
-        $this->assertSame('bar.html', $item->getChildren()[1]->getUrl());
-
-        $this->assertSame(500, $item->getChildren()[0]->getPriority());
-        $this->assertSame(500, $item->getChildren()[1]->getPriority());
     }
 
     public function testCanConstructWithChildrenWithoutRoute()
     {
-        $children = [
-            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
-            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
-        ];
+        $children = $this->createNavItems(['foo', 'bar']);
         $item = new NavGroupItem('Test', 500, $children);
 
         $this->assertSame('Test', $item->getLabel());
@@ -73,10 +58,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetChildren()
     {
-        $children = [
-            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
-            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
-        ];
+        $children = $this->createNavItems(['foo', 'bar']);
 
         $navItem = new NavGroupItem('Page', 500, $children);
         $this->assertSame($children, $navItem->getChildren());
@@ -96,10 +78,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testHasChildrenWithChildren()
     {
-        $item = new NavGroupItem('Test', 500, [
-            new NavItem(new Route(new InMemoryPage('foo')), 'Foo', 500),
-            new NavItem(new Route(new InMemoryPage('bar')), 'Bar', 500),
-        ]);
+        $item = new NavGroupItem('Test', 500, $this->createNavItems(['foo', 'bar']));
         $this->assertTrue($item->hasChildren());
     }
 
@@ -165,5 +144,15 @@ class NavGroupItemTest extends UnitTestCase
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
 
         $this->assertSame($parent, $parent->addChild($child));
+    }
+
+    private function createNavItems(array $pages): array
+    {
+        $navItems = [];
+        foreach ($pages as $page) {
+            $navItems[] = new NavItem(new Route(new InMemoryPage($page)), ucfirst($page), 500);
+        }
+
+        return $navItems;
     }
 }
