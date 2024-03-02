@@ -9,6 +9,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RenderData;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Framework\Features\Navigation\NavGroupItem;
@@ -144,6 +145,34 @@ class NavGroupItemTest extends UnitTestCase
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500, 'foo');
 
         $this->assertSame($parent, $parent->addChild($child));
+    }
+
+    public function testGetPriorityUsesDefaultPriority()
+    {
+        $parent = new NavGroupItem('Parent');
+        $this->assertSame(500, $parent->getPriority());
+    }
+
+    public function testGetPriorityWithNoChildrenUsesGroupPriority()
+    {
+        $parent = new NavGroupItem('Parent');
+        $this->assertSame(500, $parent->getPriority());
+    }
+
+    public function testGetPriorityWithChildrenUsesGroupPriority()
+    {
+        $parent = new NavGroupItem('Parent');
+        $child = new NavItem(new Route(new MarkdownPage()), 'Child', 400, 'foo');
+        $parent->addChild($child);
+        $this->assertSame(500, $parent->getPriority());
+    }
+
+    public function testGetPriorityWithDocumentationPageChildrenUsesLowestPriority()
+    {
+        $parent = new NavGroupItem('Parent');
+        $child = new NavItem(new Route(new DocumentationPage()), 'Foo', 400);
+        $parent->addChild($child);
+        $this->assertSame(400, $parent->getPriority());
     }
 
     private function createNavItems(): array
