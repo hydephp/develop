@@ -120,7 +120,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testAddingAnItemWithNoGroupKeyUsesParentIdentifier()
     {
         $parent = new NavGroupItem('Parent');
-        $child = new NavItem(new Route(new MarkdownPage()), 'Child', 500);
+        $child = new NavItem(new Route(new MarkdownPage()), 'Child');
 
         $parent->addChild($child);
 
