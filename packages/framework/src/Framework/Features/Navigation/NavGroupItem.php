@@ -82,6 +82,8 @@ class NavGroupItem extends NavItem
      * Get the priority to determine the order of the navigation item.
      *
      * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
+     *
+     * @todo Ensure support for external URLs
      */
     public function getPriority(): int
     {
