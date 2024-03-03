@@ -15,9 +15,7 @@ use function collect;
  */
 class NavGroupItem extends NavItem
 {
-    /**
-     * @var array<\Hyde\Framework\Features\Navigation\NavItem>
-     */
+    /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
     protected array $items = [];
 
     public function __construct(string $label, array $children = [], int $priority = NavigationMenu::LAST)
