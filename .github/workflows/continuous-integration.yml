@@ -2,407 +2,328 @@ name: 🚀 Test & Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
-
   run-smoke-tests:
     runs-on: ubuntu-latest
 
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: '8.1'
           extensions: fileinfo
-
       - uses: actions/checkout@v3
-
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Set environment to testing
         run: echo "ENV=testing" > .env
-
       - name: Output debug information
         run: php hyde debug
-
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/pest
         env:
           ENV: testing
 
-
   test-matrix:
     needs: run-smoke-tests
+    runs-on: '${{ matrix.os }}'
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        php: [8.1]
-    runs-on: ${{ matrix.os }}
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        php:
+          - 8.1
 
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
-          extensions: fileinfo, zip
+          php-version: '${{ matrix.php }}'
+          extensions: 'fileinfo, zip'
       - uses: actions/checkout@v3
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/pest --log-junit report.xml
-
       - name: Ping statistics server with test results
         run: |
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
 
   system-testing:
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        script: [ hyde-cli, project-styles ]
-    runs-on: ubuntu-latest
+        script:
+          - hyde-cli
+          - project-styles
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Run system tests (${{ matrix.script }})
         run: php monorepo/scripts/tests/${{ matrix.script }}.php
 
-
   build-hydefront-assets:
-
-    runs-on: ubuntu-latest
     needs: run-smoke-tests
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          cache: 'npm'
-
+          cache: npm
       - name: Install Node.js dependencies
-        working-directory: 'packages/hydefront'
+        working-directory: packages/hydefront
         run: npm ci
-
       - name: Build assets for production
-        working-directory: 'packages/hydefront'
+        working-directory: packages/hydefront
         run: npm run prod
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: 'hydefront'
-          path: 'packages/hydefront/dist'
-
+          name: hydefront
+          path: packages/hydefront/dist
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'packages/hydefront/dist'
+          add: packages/hydefront/dist
           message: 'Compile HydeFront assets for production'
           new_branch: compile-hydefront
 
-
   build-tailwindcss:
-
-    runs-on: ubuntu-latest
     needs: run-smoke-tests
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          cache: 'npm'
-
+          cache: npm
       - name: Install Node.js dependencies
         run: npm ci
-
       - name: Update Tailwind content path
-        run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
-
+        run: 'sed -i ''s/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/'' tailwind.config.js'
       - name: Build assets for production
         run: npm run prod
-
       - name: Copy compiled app.css file to HydeFront dist folder
         run: cp _media/app.css packages/hydefront/dist/app.css
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: '_media'
-          path: '_media'
-
+          name: _media
+          path: _media
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           add: '["_media/app.css", "packages/hydefront/dist/app.css"]'
           message: 'Compile TailwindCSS for production'
           new_branch: compile-tailwindcss
-          # Todo create PR or just push to master?
-
 
   build-test-coverage:
+    needs: run-smoke-tests
+    runs-on: ubuntu-latest
     environment:
       name: live-coverage-report
-      url: https://hydephp.github.io/develop/master/coverage/
-
-    runs-on: ubuntu-latest
-    needs: run-smoke-tests
+      url: 'https://hydephp.github.io/develop/master/coverage/'
 
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: '8.1'
           coverage: xdebug
           extensions: fileinfo
       - uses: actions/checkout@v3
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Set environment to testing
         run: echo "ENV=testing" > .env
-
       - name: Output debug information
         run: php hyde debug
-
       - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
         run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit build/junit.xml  --coverage-html build/coverage/html
         env:
           ENV: testing
-
       - uses: codecov/codecov-action@v3
         with:
-          files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
-          fail_ci_if_error: false # optional (default = false)
-          verbose: true # optional (default = false)
-
+          files: './build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml'
+          fail_ci_if_error: false
+          verbose: true
       - name: Ping statistics server with test results
         run: |
           cp build/junit.xml report.xml
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
-
       - name: Upload coverage artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: "coverage"
-          path: "build/coverage"
-
+          name: coverage
+          path: build/coverage
       - name: Copy Junit report
         run: cp build/junit.xml build/coverage/html/junit.xml
-
       - name: Upload HTML coverage artifact
         uses: actions/upload-artifact@v1
         with:
-          name: "html-coverage"
-          path: "build/coverage/html"
-
+          name: html-coverage
+          path: build/coverage/html
 
   build-api-documentation:
+    needs: run-smoke-tests
+    runs-on: ubuntu-latest
     environment:
       name: internal-api-docs
-      url: https://hydephp.github.io/develop/master/api-docs/
-
-    runs-on: ubuntu-latest
-    needs: run-smoke-tests
+      url: 'https://hydephp.github.io/develop/master/api-docs/'
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Download phpDocumentor
         run: |
           wget https://phpdoc.org/phpDocumentor.phar
           chmod +x phpDocumentor.phar
-
       - name: Run phpDocumentor
-        run:  php phpDocumentor.phar --directory="packages/framework/src" --target="build/api-documentation" --title="API Documentation"
-
+        run: php phpDocumentor.phar --directory="packages/framework/src" --target="build/api-documentation" --title="API Documentation"
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: 'api-documentation'
-          path: 'build/api-documentation'
-
+          name: api-documentation
+          path: build/api-documentation
 
   build-upcoming-documentation:
+    needs: run-smoke-tests
+    runs-on: ubuntu-latest
     environment:
       name: dev-docs
-      url: https://hydephp.github.io/develop/master/dev-docs/
-
-    runs-on: ubuntu-latest
-    needs: run-smoke-tests
+      url: 'https://hydephp.github.io/develop/master/dev-docs/'
 
     steps:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
-
+          php-version: '8.1'
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Download configuration
         run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config-dev-docs -O config.zip
-
       - name: Unzip configuration
         run: unzip config.zip -d temp
-
       - name: Copy configuration to root
-        run: cp -r temp/hydephp-develop-*/* .
-
+        run: 'cp -r temp/hydephp-develop-*/* .'
       - name: Move documentation files
         run: rm -rf _docs && mv -f docs _docs
-
       - name: Compile the static site
         run: php hyde build
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: 'dev-docs'
-          path: '_site/dev-docs'
-
+          name: dev-docs
+          path: _site/dev-docs
 
   build-preview-site:
+    needs: run-smoke-tests
+    runs-on: ubuntu-latest
     environment:
       name: live-preview-site
-      url: https://hydephp.github.io/develop/master/preview
-
-    runs-on: ubuntu-latest
-    needs: run-smoke-tests
+      url: 'https://hydephp.github.io/develop/master/preview'
 
     steps:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
-
+          php-version: '8.1'
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Download configuration
         run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config -O config.zip
-
       - name: Unzip configuration
         run: unzip config.zip -d temp
-
       - name: Copy configuration to root
-        run: cp -r temp/hydephp-develop-*/* .
-
+        run: 'cp -r temp/hydephp-develop-*/* .'
       - name: Output the origin reference to file
         run: echo ${{ github.sha }} > origin-ref
-
       - name: Publish the post feed homepage
         run: php hyde publish:homepage posts -n
-
       - name: Compile the static site
         run: php hyde build
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: 'site-preview'
-          path: '_site'
-
+          name: site-preview
+          path: _site
 
   build-test-fixture-docs:
-    # environment:
-    #  name:
-    #  url: https://hydephp.github.io/develop/master/test-fixtures/docs
-
-    runs-on: ubuntu-latest
     needs: run-smoke-tests
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
-
+          php-version: '8.1'
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Download source files
         run: wget https://github.com/caendesilva/hyde-example-documentation-site/archive/master.zip -O source.zip
-
       - name: Unzip source
         run: unzip source.zip -d temp
-
       - name: Copy source to root
-        run: cp -r temp/hyde-example-documentation-site-master/* .
-
+        run: 'cp -r temp/hyde-example-documentation-site-master/* .'
       - name: Compile the static site
         run: php hyde build
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: 'test-fixture-docs'
-          path: '_site'
-
+          name: test-fixture-docs
+          path: _site
 
   upload-generated-reports:
-    environment:
-      name: live-reports
-      url: https://hydephp.github.io/develop/master/
-
-    runs-on: ubuntu-latest
     needs:
       - run-smoke-tests
       - build-test-coverage
@@ -410,12 +331,15 @@ jobs:
       - build-upcoming-documentation
       - build-preview-site
       - build-test-fixture-docs
+    runs-on: ubuntu-latest
+    environment:
+      name: live-reports
+      url: 'https://hydephp.github.io/develop/master/'
 
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: 'gh-pages'
-
+          ref: gh-pages
       - name: Reset output directories
         run: |
           rm -rf master/coverage && mkdir master/coverage
@@ -423,63 +347,47 @@ jobs:
           rm -rf master/api-docs && mkdir master/api-docs
           rm -rf master/preview && mkdir master/preview
           rm -rf master/test-fixtures && mkdir master/test-fixtures
-
       - name: Download coverage report artifact
         uses: actions/download-artifact@v3
         with:
           name: html-coverage
           path: master/coverage
-
       - name: Download upcoming documentation artifact
         uses: actions/download-artifact@v3
         with:
           name: dev-docs
           path: master/dev-docs
-
       - name: Download API documentation artifact
         uses: actions/download-artifact@v3
         with:
           name: api-documentation
           path: master/api-docs
-
       - name: Download preview site artifact
         uses: actions/download-artifact@v3
         with:
           name: site-preview
           path: master/preview
-
       - name: Download test fixture docs artifact
         uses: actions/download-artifact@v3
         with:
           name: test-fixture-docs
           path: master/test-fixtures/docs
-
       - name: Create README.md
-        run: echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md
-
-      # Generate directory listing
-
+        run: "echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md"
       - name: Download directory listing generator script
         run: wget https://raw.githubusercontent.com/caendesilva/php-directory-listing/a741e74af1a3e5b8d8b730a437c1666945fbedab/directory-listing.php -O .build.php
-
       - name: Check download integrity
         run: |
           hash=$(sha256sum .build.php | awk '{print $1}')
           if [ $hash = "af021b1bef61e31f426dcbc80540aa192e5a7cecf0db4f6b946851ab3101627d" ] ; then echo "Checksum $hash matches"; else echo "Checksum $hash not matching!" && exit 1 ; fi
-
       - name: Set path labels
         run: |
           echo "hydephp/develop" > .dl-pathlabel
           echo "hydephp/develop/master" > master/.dl-pathlabel
-
       - name: Compile static root directory listing
         run: php .build.php
-
       - name: Compile static master directory listing
         run: cp .build.php master/.build.php && cd master && php .build.php
-
-      # End directory listing
-
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
@@ -487,135 +395,117 @@ jobs:
           add: '["master", "index.html"]'
           message: 'Upload live reports from test suite run ${{ github.sha }}'
 
-
   check-coding-standards:
     runs-on: ubuntu-latest
+
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: '8.1'
       - uses: actions/checkout@v3
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Check syntax (PHP Parallel Lint)
         run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
-
       - name: Check coding syntax/standards (PHP CodeSniffer)
-        run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true
-
+        run: 'vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true'
 
   run-static-analysis-psalm:
     runs-on: ubuntu-latest
+
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: '8.1'
       - uses: actions/checkout@v3
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Run static analysis (Psalm/Shepherd)
         run: vendor/bin/psalm --shepherd > psalmout.txt|| true
-
       - name: Ping CI server with type coverage results
         run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.sha }} master ${{ github.run_id }}
 
-
   run-static-analysis-phpstan:
     runs-on: ubuntu-latest
+
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: '8.1'
       - uses: actions/checkout@v3
-
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
       - name: Run static analysis (PHPStan)
         run: vendor/bin/phpstan analyse --ansi --level 1 packages/framework/src || true
 
-
   devskim-lint:
-    runs-on: ubuntu-20.04
     permissions:
       actions: read
       contents: read
       security-events: write
+    runs-on: ubuntu-20.04
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Run DevSkim scanner
         uses: microsoft/DevSkim-Action@v1
-
       - name: Upload DevSkim scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: devskim-results.sarif
 
-
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
-    needs: run-smoke-tests
-
     permissions:
       actions: read
       contents: read
       security-events: write
-
+    needs: run-smoke-tests
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'javascript' ]
-        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+        language:
+          - javascript
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
-          languages: ${{ matrix.language }}
-
+          languages: '${{ matrix.language }}'
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
-
   snyk-security:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/php@master
-        continue-on-error: true # To make sure that SARIF upload gets called
+        continue-on-error: true
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: '${{ secrets.SNYK_TOKEN }}'
         with:
-          args: --sarif-file-output=snyk.sarif
+          args: '--sarif-file-output=snyk.sarif'
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
 
-
   hydefront-lint:
     name: HydeFront Lint
-    runs-on: ubuntu-latest
     permissions:
       contents: read
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Run linter
         run: php packages/hydefront/.github/scripts/post-build.php
