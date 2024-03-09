@@ -83,7 +83,7 @@ class NavGroupItem extends NavItem
      */
     public function getPriority(): int
     {
-        if ($this->hasChildren() && $this->containsOnlyDocumentationPages()) {
+        if ($this->containsOnlyDocumentationPages()) {
             return min($this->priority, collect($this->getItems())->min(fn (NavItem $child): int => $child->getPriority()));
         }
 
