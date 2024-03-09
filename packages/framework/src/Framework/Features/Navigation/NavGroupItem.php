@@ -38,16 +38,6 @@ class NavGroupItem extends NavItem
     }
 
     /**
-     * Check if the NavItem instance has children.
-     *
-     * @deprecated This is no longer needed, as it does not make sense to check if a group has children. Compare the instance type instead.
-     */
-    public function hasChildren(): bool
-    {
-        return count($this->items) > 0;
-    }
-
-    /**
      * Add a navigation item to the children of the navigation item.
      *
      * This will turn the parent item into a dropdown. Its destination will be set to null.
