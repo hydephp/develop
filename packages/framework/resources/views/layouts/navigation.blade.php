@@ -36,7 +36,7 @@
             @foreach ($navigation->getItems() as $item)
                 <li class="md:mx-2">
                     @if($item instanceof \Hyde\Framework\Features\Navigation\NavGroupItem)
-                        <x-hyde::navigation.dropdown :label="$item->getLabel()" :items="$item->getChildren()"/>
+                        <x-hyde::navigation.dropdown :label="$item->getLabel()" :items="$item->getItems()"/>
                     @else
                         @include('hyde::components.navigation.navigation-link')
                     @endif
