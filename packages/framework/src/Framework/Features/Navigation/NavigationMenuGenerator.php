@@ -153,6 +153,16 @@ class NavigationMenuGenerator
 
         if ($group instanceof NavGroupItem) {
             return $group;
+        } elseif ($group instanceof NavItem) {
+            // We are trying to add children to an existing navigation menu item,
+            // so here we create a new instance to replace the base one, this
+            // does mean we lose the destination as we can't link to them.
+
+            $item = new NavGroupItem($group->getLabel(), [], $group->getPriority());
+
+            $this->items->put($groupKey, $item);
+
+            return $item;
         }
 
         return $this->createGroupItem($groupKey, $groupName);
