@@ -55,6 +55,21 @@ class NavigationMenuViewTest extends TestCase
         $this->assertStringNotContainsString('href="404.html"', $this->render());
     }
 
+    public function testNavigationMenuWithRootPages()
+    {
+        $this->file('_pages/foo.md');
+        $this->file('_pages/bar.md');
+
+        $this->artisan('rebuild _pages/foo.md');
+
+        $contents = file_get_contents(Hyde::path('_site/foo.html'));
+
+        $this->assertStringContainsString('<a href="foo.html" aria-current="page" class="', $contents);
+        $this->assertStringContainsString('<a href="bar.html"  class="', $contents);
+
+        Filesystem::unlink('_site/foo.html');
+    }
+
     public function testNavigationMenuLabelCanBeChangedInFrontMatter()
     {
         $this->file('_pages/foo.md', '---
