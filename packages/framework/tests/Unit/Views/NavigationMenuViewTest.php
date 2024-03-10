@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit\Views;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Pages\MarkdownPage;
 
 /**
  * @see resources/views/layouts/navigation.blade.php
@@ -57,17 +58,19 @@ class NavigationMenuViewTest extends TestCase
 
     public function testNavigationMenuWithRootPages()
     {
-        $this->file('_pages/foo.md');
-        $this->file('_pages/bar.md');
+        $foo = new MarkdownPage('foo');
+        $bar = new MarkdownPage('bar');
 
-        $this->artisan('rebuild _pages/foo.md');
+        Hyde::routes()->add($foo->getRoute());
+        Hyde::routes()->add($bar->getRoute());
 
-        $contents = file_get_contents(Hyde::path('_site/foo.html'));
+        $this->mockRoute($foo->getRoute());
+        $this->mockPage($foo);
+
+        $contents = $foo->compile();
 
         $this->assertStringContainsString('<a href="foo.html" aria-current="page" class="', $contents);
         $this->assertStringContainsString('<a href="bar.html"  class="', $contents);
-
-        Filesystem::unlink('_site/foo.html');
     }
 
     public function testNavigationMenuLabelCanBeChangedInFrontMatter()
