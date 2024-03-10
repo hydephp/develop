@@ -146,7 +146,7 @@ class NavigationMenuGenerator
         }
     }
 
-    protected function getOrCreateGroupItem(string $groupName): NavItem
+    protected function getOrCreateGroupItem(string $groupName): NavGroupItem
     {
         $groupKey = Str::slug($groupName);
         $group = $this->items->get($groupKey);
@@ -154,7 +154,7 @@ class NavigationMenuGenerator
         return $group ?? $this->createGroupItem($groupKey, $groupName);
     }
 
-    protected function createGroupItem(string $groupKey, string $groupName): NavItem
+    protected function createGroupItem(string $groupKey, string $groupName): NavGroupItem
     {
         $label = $this->searchForGroupLabelInConfig($groupKey) ?? $groupName;
 
