@@ -151,7 +151,11 @@ class NavigationMenuGenerator
         $groupKey = Str::slug($groupName);
         $group = $this->items->get($groupKey);
 
-        return $group ?? $this->createGroupItem($groupKey, $groupName);
+        if ($group instanceof NavGroupItem) {
+            return $group;
+        }
+
+        return $this->createGroupItem($groupKey, $groupName);
     }
 
     protected function createGroupItem(string $groupKey, string $groupName): NavGroupItem
