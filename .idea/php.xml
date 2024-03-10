@@ -158,9 +158,6 @@
       <path value="$PROJECT_DIR$/vendor/webmozart/path-util" />
       <path value="$PROJECT_DIR$/vendor/rector/rector" />
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/vendor/illuminate/translation" />
-      <path value="$PROJECT_DIR$/vendor/illuminate/validation" />
       <path value="$PROJECT_DIR$/vendor/jetbrains/phpstorm-attributes" />
       <path value="$PROJECT_DIR$/vendor/desilva/psalm-type-coverage" />
       <path value="$PROJECT_DIR$/vendor/fidry/cpu-core-counter" />
