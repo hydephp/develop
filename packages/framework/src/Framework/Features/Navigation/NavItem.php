@@ -167,14 +167,6 @@ class NavItem implements Stringable
     }
 
     /**
-     * @deprecated Should not be called on this class
-     */
-    public function hasChildren(): bool
-    {
-        return count($this->items) > 0;
-    }
-
-    /**
      * Check if the NavItem instance is the current page being rendered.
      */
     public function isActive(): bool
