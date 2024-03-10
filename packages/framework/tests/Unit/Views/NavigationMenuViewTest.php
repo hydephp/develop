@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Illuminate\Support\Str;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Pages\MarkdownPage;
 
 /**
  * @see resources/views/layouts/navigation.blade.php
@@ -53,6 +55,49 @@ class NavigationMenuViewTest extends TestCase
     public function testComponentNotContains404HtmlLink()
     {
         $this->assertStringNotContainsString('href="404.html"', $this->render());
+    }
+
+    public function testNavigationMenuWithRootPages()
+    {
+        $foo = new MarkdownPage('foo');
+        $bar = new MarkdownPage('bar');
+
+        Hyde::routes()->add($foo->getRoute());
+        Hyde::routes()->add($bar->getRoute());
+
+        $this->mockRoute($foo->getRoute());
+        $this->mockPage($foo);
+
+        $contents = $foo->compile();
+
+        $this->assertStringContainsString('<a href="foo.html" aria-current="page" class="', $contents);
+        $this->assertStringContainsString('<a href="bar.html"  class="', $contents);
+    }
+
+    public function testNavigationMenuWithDropdownPages()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        $foo = new MarkdownPage('foo');
+        $bar = new MarkdownPage('foo/bar');
+        $baz = new MarkdownPage('foo/baz');
+
+        Hyde::routes()->add($foo->getRoute());
+        Hyde::routes()->add($bar->getRoute());
+        Hyde::routes()->add($baz->getRoute());
+
+        $this->mockRoute($foo->getRoute());
+        $this->mockPage($foo);
+
+        $contents = $foo->compile();
+
+        $this->assertStringContainsString('dropdown-container', $contents);
+        $this->assertStringContainsString('dropdown-button', $contents);
+
+        $dropdown = Str::between($contents, '<ul class="dropdown-items', '</ul>');
+
+        $this->assertStringContainsString('<a href="foo/bar.html"', $dropdown);
+        $this->assertStringContainsString('<a href="foo/baz.html"', $dropdown);
     }
 
     public function testNavigationMenuLabelCanBeChangedInFrontMatter()
