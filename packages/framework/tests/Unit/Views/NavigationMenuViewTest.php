@@ -91,6 +91,9 @@ class NavigationMenuViewTest extends TestCase
 
         $contents = $foo->compile();
 
+        $this->assertStringContainsString('dropdown-container', $contents);
+        $this->assertStringContainsString('dropdown-button', $contents);
+
         $dropdown = Str::between($contents, '<ul class="dropdown-items', '</ul>');
 
         $this->assertStringContainsString('<a href="foo/bar.html"', $dropdown);
