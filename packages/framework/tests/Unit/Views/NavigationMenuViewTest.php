@@ -80,6 +80,32 @@ class NavigationMenuViewTest extends TestCase
     {
         config(['hyde.navigation.subdirectories' => 'dropdown']);
 
+        $page = new MarkdownPage('page');
+        $bar = new MarkdownPage('foo/bar');
+        $baz = new MarkdownPage('foo/baz');
+
+        Hyde::routes()->add($page->getRoute());
+        Hyde::routes()->add($bar->getRoute());
+        Hyde::routes()->add($baz->getRoute());
+
+        $this->mockRoute($page->getRoute());
+        $this->mockPage($page);
+
+        $contents = $page->compile();
+
+        $this->assertStringContainsString('dropdown-container', $contents);
+        $this->assertStringContainsString('dropdown-button', $contents);
+
+        $dropdown = Str::between($contents, '<ul class="dropdown-items', '</ul>');
+
+        $this->assertStringContainsString('<a href="foo/bar.html"', $dropdown);
+        $this->assertStringContainsString('<a href="foo/baz.html"', $dropdown);
+    }
+
+    public function testNavigationMenuWithDropdownPagesWithRootGroupPage()
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
         $foo = new MarkdownPage('foo');
         $bar = new MarkdownPage('foo/bar');
         $baz = new MarkdownPage('foo/baz');
