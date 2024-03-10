@@ -182,19 +182,6 @@ class NavItem implements Stringable
         return Hyde::currentRoute()->getLink() === $this->route->getLink();
     }
 
-    /**
-     * @deprecated Should not be called on this class
-     */
-    public function addChild(NavItem $item): static
-    {
-        $item->group ??= $this->group;
-
-        $this->items[] = $item;
-        $this->route = null;
-
-        return $this;
-    }
-
     protected static function normalizeGroupKey(?string $group): ?string
     {
         return $group ? Str::slug($group) : null;
