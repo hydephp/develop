@@ -195,18 +195,6 @@ class NavItem implements Stringable
         return $this;
     }
 
-    /**
-     * @deprecated Should not be called on this class
-     */
-    public function addChildren(array $items): static
-    {
-        foreach ($items as $item) {
-            $this->addChild($item);
-        }
-
-        return $this;
-    }
-
     protected static function normalizeGroupKey(?string $group): ?string
     {
         return $group ? Str::slug($group) : null;
