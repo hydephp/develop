@@ -159,14 +159,6 @@ class NavItem implements Stringable
     }
 
     /**
-     * @deprecated Should not be called on this class
-     */
-    public function getItems(): array
-    {
-        return $this->items;
-    }
-
-    /**
      * Check if the NavItem instance is the current page being rendered.
      */
     public function isActive(): bool
