@@ -158,6 +158,9 @@ class NavigationMenuGenerator
             // so here we create a new instance to replace the base one, this
             // does mean we lose the destination as we can't link to them.
 
+            // Todo: Add note in documentation about this behavior
+            // Example file structure: _pages/foo.md, _pages/foo/bar.md, _pages/foo/baz.md, here the link to foo will be lost.
+
             $item = new NavGroupItem($group->getLabel(), [], $group->getPriority());
 
             $this->items->put($groupKey, $item);
