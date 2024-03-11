@@ -98,6 +98,25 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->finish();
     }
 
+    public function testNavigationMenuWithDropdownPages()
+    {
+        $this->useSubdirectoriesAsDropdowns()
+           ->menu([
+               new MarkdownPage('index'),
+               new MarkdownPage('foo/bar'),
+               new MarkdownPage('foo/baz'),
+           ])
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertHasElement('dropdown')
+            ->assertHasElement('dropdown-items')
+            ->assertHasElement('dropdown-button')
+            ->finish();
+    }
+
     protected function withPages(array $pages): static
     {
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
