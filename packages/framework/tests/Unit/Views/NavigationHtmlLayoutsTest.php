@@ -113,8 +113,7 @@ class NavigationHtmlLayoutsTest extends TestCase
     {
         $this->withPages($withPages);
 
-        $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
-        app()->instance('navigation.main', $menu);
+        app()->instance('navigation.main', NavigationMenuGenerator::handle(MainNavigationMenu::class));
 
         return new RenderedMainNavigationMenu($this, $this->render('hyde::layouts.navigation'));
     }
@@ -123,8 +122,7 @@ class NavigationHtmlLayoutsTest extends TestCase
     {
         $this->withPages($withPages);
 
-        $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        app()->instance('navigation.sidebar', $menu);
+        app()->instance('navigation.sidebar', NavigationMenuGenerator::handle(DocumentationSidebar::class));
 
         return new RenderedDocumentationSidebarMenu($this, $this->render('hyde::components.docs.sidebar'));
     }
