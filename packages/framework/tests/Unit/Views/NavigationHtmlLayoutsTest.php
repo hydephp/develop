@@ -52,6 +52,8 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('theme-toggle-button')
             ->assertHasElement('navigation-toggle-button')
             ->assertHasElement('main-navigation-links')
+            ->assertDoesNotHaveElement('dropdown-button')
+            ->assertDoesNotHaveElement('dropdown')
             ->assertHasNoPages()
             ->finish();
     }
@@ -201,6 +203,26 @@ abstract class RenderedNavigationMenu
         }
 
         $this->test->assertNotNull($element, "Element with '$id' not found in the HTML.");
+
+        return $this;
+    }
+
+    public function assertDoesNotHaveElement(string $id): static
+    {
+        $element = $this->ast->getElementById($id);
+
+        if ($element === null) {
+            // Search for the element in the entire HTML.
+            $xpath = new DOMXPath($this->ast);
+            $element = $xpath->query("//*[@id='$id']")->item(0);
+
+            if ($element === null) {
+                // See if there is an element containing the ID as a class.
+                $element = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $id ')]")->item(0);
+            }
+        }
+
+        $this->test->assertNull($element, "Element with '$id' found in the HTML.");
 
         return $this;
     }
