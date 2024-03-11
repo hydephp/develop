@@ -47,7 +47,6 @@ class NavGroupItem extends NavItem
         $item->group ??= $this->group;
 
         $this->items[] = $item;
-        $this->route = null;
 
         return $this;
     }
