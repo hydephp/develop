@@ -60,7 +60,7 @@ class NavigationHtmlLayoutsTest extends TestCase
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
         app()->instance('navigation.main', $menu);
 
-        return new RenderedNavigationMenu($this, $this->render('hyde::layouts.navigation'));
+        return new RenderedNavigationMenu($this, $this->render('hyde::layouts.navigation'), MainNavigationMenu::class);
     }
 
     protected function sidebar(?array $withPages = null): RenderedNavigationMenu
@@ -72,7 +72,7 @@ class NavigationHtmlLayoutsTest extends TestCase
         $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
         app()->instance('navigation.sidebar', $menu);
 
-        return new RenderedNavigationMenu($this, $this->render('hyde::components.docs.sidebar'));
+        return new RenderedNavigationMenu($this, $this->render('hyde::components.docs.sidebar'), DocumentationSidebar::class);
     }
 
     protected function render(string $view): string
@@ -85,11 +85,13 @@ class RenderedNavigationMenu
 {
     protected NavigationHtmlLayoutsTest $test;
     protected string $html;
+    protected string $type;
 
-    public function __construct(NavigationHtmlLayoutsTest $test, string $html)
+    public function __construct(NavigationHtmlLayoutsTest $test, string $html, string $type)
     {
         $this->test = $test;
         $this->html = $html;
+        $this->type = $type;
     }
 
     public function assertTrue(): void
