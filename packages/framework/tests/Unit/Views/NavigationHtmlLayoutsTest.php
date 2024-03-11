@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Unit\Views;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Framework\Testing\Feature\TestKernel;
 
 /**
  * Very high level tests for navigation menu and sidebar view layouts.
@@ -29,5 +28,21 @@ class NavigationHtmlLayoutsTest extends TestCase
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
 
         return $this;
+    }
+}
+
+class TestKernel extends HydeKernel
+{
+    protected ?RouteCollection $mockRoutes = null;
+
+    public function setRoutes(Collection $routes): void
+    {
+        $this->mockRoutes = RouteCollection::make($routes);
+    }
+
+    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
+    public function routes(): RouteCollection
+    {
+        return $this->mockRoutes ?? parent::routes();
     }
 }
