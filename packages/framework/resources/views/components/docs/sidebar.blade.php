@@ -1,3 +1,7 @@
+@php
+    $sidebar = app('navigation.sidebar');
+@endphp
+
 <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
     <header id="sidebar-header" class="h-16">
         @include('hyde::components.docs.sidebar-brand')
