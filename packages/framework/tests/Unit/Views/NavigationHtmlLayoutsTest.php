@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use DOMXPath;
 use Hyde\Hyde;
 use DOMDocument;
 use Hyde\Testing\TestCase;
@@ -129,7 +130,15 @@ abstract class RenderedNavigationMenu
 
     public function assertHasElement(string $id): static
     {
-        $this->test->assertNotNull($this->ast->getElementById($id), 'Element with ID "'.$id.'" not found in the HTML.');
+        $element = $this->ast->getElementById($id);
+
+        if ($element === null) {
+            // Search for the element in the entire HTML.
+            $xpath = new DOMXPath($this->ast);
+            $element = $xpath->query("//*[@id='$id']")->item(0);
+        }
+
+        $this->test->assertNotNull($element, 'Element with ID "'.$id.'" not found in the HTML.');
 
         return $this;
     }
