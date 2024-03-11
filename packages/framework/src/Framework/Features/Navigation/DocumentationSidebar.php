@@ -69,8 +69,6 @@ class DocumentationSidebar extends NavigationMenu
      * Is a page within the group the current page? This is used to determine if the sidebar group should be open when loading the page.
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
-     *
-     * @deprecated This makes more sense as a method on the NavGroupItem class.
      */
     public function isGroupActive(#[Deprecated('We should be able to get all the needed data from the instance and render data')]string $group): bool
     {
