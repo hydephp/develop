@@ -42,7 +42,7 @@ class NavItem implements Stringable
      * @param  \Hyde\Support\Models\Route|string|null  $destination  Route instance, route key, or external URI. For dropdowns/groups, this should be null.
      * @param  string  $label  The label of the navigation item.
      * @param  int  $priority  The priority to determine the order of the navigation item.
-     * @param  string|null  $group  The dropdown/group identifier of the navigation item, if any.
+     * @param  string|null  $group  The dropdown/group key of the navigation item, if any.
      */
     public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
