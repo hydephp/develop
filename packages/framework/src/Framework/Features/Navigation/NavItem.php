@@ -33,9 +33,6 @@ class NavItem implements Stringable
     protected int $priority;
     protected ?string $group;
 
-    /** @deprecated The "slugified" version of the label used to uniquely identify the item for things like active state comparisons. */
-    protected string $identifier;
-
     /** @deprecated Use NavGroupItem::$items instead */
     protected array $items = [];
 
@@ -57,7 +54,6 @@ class NavItem implements Stringable
         $this->label = $label;
         $this->priority = $priority;
         $this->group = static::normalizeGroupKey($group);
-        $this->identifier = static::makeIdentifier($label);
     }
 
     /**
@@ -151,16 +147,6 @@ class NavItem implements Stringable
     public function getGroupKey(): ?string
     {
         return $this->group;
-    }
-
-    /**
-     * Get the identifier of the navigation item.
-     *
-     * @deprecated This only seems to be used by groups so might want to move it there and rename it to getGroupKey to match usages
-     */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
     }
 
     /**

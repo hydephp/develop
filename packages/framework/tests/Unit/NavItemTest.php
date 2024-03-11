@@ -275,40 +275,4 @@ class NavItemTest extends UnitTestCase
         $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar');
         $this->assertSame('foo-bar', $item->getGroupKey());
     }
-
-    public function testIdentifier()
-    {
-        $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Test', 500);
-
-        $this->assertSame('test', $item->getIdentifier());
-    }
-
-    public function testIdentifierWithCustomLabel()
-    {
-        $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Foo Bar', 500);
-
-        $this->assertSame('foo-bar', $item->getIdentifier());
-    }
-
-    public function testIdentifierFromRouteKey()
-    {
-        $item = NavItem::forRoute(Routes::get('index'));
-        $this->assertSame('home', $item->getIdentifier());
-    }
-
-    public function testIdentifierUsesLabelWhenRouteKeyIsFalsy()
-    {
-        $route = new Route(new MarkdownPage());
-        $item = new NavItem($route, 'Foo Bar', 500);
-
-        $this->assertSame('foo-bar', $item->getIdentifier());
-    }
-
-    public function testIdentifierUsesLabelForExternalRoute()
-    {
-        $item = NavItem::forLink('https://example.com', 'Foo Bar');
-        $this->assertSame('foo-bar', $item->getIdentifier());
-    }
 }
