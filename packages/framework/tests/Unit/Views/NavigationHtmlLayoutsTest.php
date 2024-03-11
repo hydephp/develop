@@ -136,6 +136,11 @@ abstract class RenderedNavigationMenu
             // Search for the element in the entire HTML.
             $xpath = new DOMXPath($this->ast);
             $element = $xpath->query("//*[@id='$id']")->item(0);
+
+            if ($element === null) {
+                // See if there is an element containing the ID as a class.
+                $element = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $id ')]")->item(0);
+            }
         }
 
         $this->test->assertNotNull($element, 'Element with ID "'.$id.'" not found in the HTML.');
