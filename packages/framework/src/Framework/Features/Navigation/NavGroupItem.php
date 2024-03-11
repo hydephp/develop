@@ -11,6 +11,8 @@ use function min;
 use function collect;
 
 /**
+ * Abstraction for a grouped navigation menu item. For main navigation menus, this is a dropdown.
+ *
  * @todo Consider extracting trait for shared code with navigation menu class
  */
 class NavGroupItem extends NavItem
@@ -26,7 +28,7 @@ class NavGroupItem extends NavItem
     }
 
     /**
-     * Get the children of the navigation item.
+     * Get the items of the grouped navigation item.
      *
      * For the main navigation menu, this stores any dropdown items.
      *
@@ -38,9 +40,7 @@ class NavGroupItem extends NavItem
     }
 
     /**
-     * Add a navigation item to the children of the navigation item.
-     *
-     * This will turn the parent item into a dropdown. Its destination will be set to null.
+     * Add a navigation item to the grouped navigation item.
      */
     public function addItem(NavItem $item): static
     {
@@ -52,7 +52,7 @@ class NavGroupItem extends NavItem
     }
 
     /**
-     * Add multiple navigation items to the children of the navigation item.
+     * Add multiple navigation items to the grouped navigation item.
      *
      * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $items
      */
@@ -66,7 +66,7 @@ class NavGroupItem extends NavItem
     }
 
     /**
-     * Get the priority to determine the order of the navigation item.
+     * Get the priority to determine the order of the grouped navigation item.
      *
      * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
      */
