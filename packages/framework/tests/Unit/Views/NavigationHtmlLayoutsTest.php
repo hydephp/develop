@@ -115,25 +115,8 @@ class RenderedNavigationMenu
     protected function parseHtml(): DOMDocument
     {
         $dom = new DOMDocument();
-        $document = $this->html;
 
-        $html = <<<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Document</title>
-</head>
-<body>
-    <main id="test-content">
-        $document
-    </main>
-</body>
-</html>
-HTML;
-
-        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_PARSEHUGE);
+        $dom->loadHTML($this->html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_PARSEHUGE);
 
         return $dom;
     }
