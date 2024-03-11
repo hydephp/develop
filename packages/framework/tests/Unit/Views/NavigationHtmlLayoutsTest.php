@@ -57,7 +57,7 @@ class NavigationHtmlLayoutsTest extends TestCase
         return $this;
     }
 
-    protected function menu(?array $withPages = null): RenderedNavigationMenu
+    protected function menu(?array $withPages = null): RenderedMainNavigationMenu
     {
         if ($withPages) {
             $this->withPages($withPages);
@@ -66,10 +66,10 @@ class NavigationHtmlLayoutsTest extends TestCase
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
         app()->instance('navigation.main', $menu);
 
-        return new RenderedNavigationMenu($this, $this->render('hyde::layouts.navigation'), MainNavigationMenu::class);
+        return new RenderedMainNavigationMenu($this, $this->render('hyde::layouts.navigation'));
     }
 
-    protected function sidebar(?array $withPages = null): RenderedNavigationMenu
+    protected function sidebar(?array $withPages = null): RenderedDocumentationSidebarMenu
     {
         if ($withPages) {
             $this->withPages($withPages);
@@ -78,7 +78,7 @@ class NavigationHtmlLayoutsTest extends TestCase
         $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
         app()->instance('navigation.sidebar', $menu);
 
-        return new RenderedNavigationMenu($this, $this->render('hyde::components.docs.sidebar'), DocumentationSidebar::class);
+        return new RenderedDocumentationSidebarMenu($this, $this->render('hyde::components.docs.sidebar'));
     }
 
     protected function render(string $view): string
@@ -87,18 +87,18 @@ class NavigationHtmlLayoutsTest extends TestCase
     }
 }
 
-class RenderedNavigationMenu
+abstract class RenderedNavigationMenu
 {
     protected readonly NavigationHtmlLayoutsTest $test;
     protected readonly string $html;
-    protected readonly string $type;
     protected readonly DOMDocument $ast;
 
-    public function __construct(NavigationHtmlLayoutsTest $test, string $html, string $type)
+    protected const TYPE = null;
+
+    public function __construct(NavigationHtmlLayoutsTest $test, string $html)
     {
         $this->test = $test;
         $this->html = $html;
-        $this->type = $type;
 
         $this->ast = $this->parseHtml();
 
@@ -114,7 +114,7 @@ class RenderedNavigationMenu
     public function dd(bool $writeHtml = true): void
     {
         if ($writeHtml) {
-            file_put_contents(Hyde::path(Str::kebab(class_basename($this->type)).'.html'), $this->html);
+            file_put_contents(Hyde::path(Str::kebab(class_basename(static::TYPE)).'.html'), $this->html);
         }
 
         exit(trim($this->html)."\n\n");
@@ -128,6 +128,16 @@ class RenderedNavigationMenu
 
         return $dom;
     }
+}
+
+class RenderedMainNavigationMenu extends RenderedNavigationMenu
+{
+    protected const TYPE = MainNavigationMenu::class;
+}
+
+class RenderedDocumentationSidebarMenu extends RenderedNavigationMenu
+{
+    protected const TYPE = DocumentationSidebar::class;
 }
 
 class TestKernel extends HydeKernel
