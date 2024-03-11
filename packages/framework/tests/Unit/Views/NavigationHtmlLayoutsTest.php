@@ -109,11 +109,6 @@ abstract class RenderedNavigationMenu
         $this->test->assertNotEmpty($this->html);
     }
 
-    public function assertTrue(): void
-    {
-        $this->test->assertTrue(true);
-    }
-
     public function assertHasId(string $id): static
     {
         $node = $this->ast->documentElement;
