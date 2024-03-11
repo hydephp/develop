@@ -48,7 +48,7 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('theme-toggle-button')
             ->assertHasElement('navigation-toggle-button')
             ->assertHasElement('main-navigation-links')
-            ->assertHasPages(['index.html' => 'Home'])
+            ->assertHasNoPages()
             ->finish();
     }
 
@@ -73,11 +73,9 @@ class NavigationHtmlLayoutsTest extends TestCase
         return $this;
     }
 
-    protected function menu(?array $withPages = null): RenderedMainNavigationMenu
+    protected function menu(array $withPages = []): RenderedMainNavigationMenu
     {
-        if ($withPages) {
-            $this->withPages($withPages);
-        }
+        $this->withPages($withPages);
 
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
         app()->instance('navigation.main', $menu);
@@ -85,11 +83,9 @@ class NavigationHtmlLayoutsTest extends TestCase
         return new RenderedMainNavigationMenu($this, $this->render('hyde::layouts.navigation'));
     }
 
-    protected function sidebar(?array $withPages = null): RenderedDocumentationSidebarMenu
+    protected function sidebar(array $withPages = []): RenderedDocumentationSidebarMenu
     {
-        if ($withPages) {
-            $this->withPages($withPages);
-        }
+        $this->withPages($withPages);
 
         $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
         app()->instance('navigation.sidebar', $menu);
