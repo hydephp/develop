@@ -22,7 +22,7 @@ class NavGroupItem extends NavItem
     {
         parent::__construct(null, $label, $priority, static::normalizeGroupKey($label));
 
-        $this->addChildren($children);
+        $this->addItems($children);
     }
 
     /**
@@ -57,7 +57,7 @@ class NavGroupItem extends NavItem
      *
      * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $items
      */
-    public function addChildren(array $items): static
+    public function addItems(array $items): static
     {
         foreach ($items as $item) {
             $this->addItem($item);

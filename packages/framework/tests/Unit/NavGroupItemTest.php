@@ -96,14 +96,14 @@ class NavGroupItemTest extends UnitTestCase
         $group = new NavGroupItem('Foo');
         $items = $this->createNavItems();
 
-        $this->assertSame($items, $group->addChildren($items)->getItems());
+        $this->assertSame($items, $group->addItems($items)->getItems());
     }
 
     public function testAddChildrenMethodReturnsSelf()
     {
         $group = new NavGroupItem('Foo');
 
-        $this->assertSame($group, $group->addChildren([]));
+        $this->assertSame($group, $group->addItems([]));
     }
 
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
