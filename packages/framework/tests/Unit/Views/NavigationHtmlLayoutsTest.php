@@ -101,6 +101,8 @@ class RenderedNavigationMenu
         $this->type = $type;
 
         $this->ast = $this->parseHtml();
+
+        $this->test->assertNotEmpty($this->html);
     }
 
     public function assertTrue(): void
