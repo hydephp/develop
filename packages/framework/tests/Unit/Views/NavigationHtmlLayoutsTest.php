@@ -133,11 +133,7 @@ class RenderedNavigationMenu
 </html>
 HTML;
 
-        try {
-            $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_PARSEHUGE);
-        } catch (Throwable $exception) {
-            throw $exception;
-        }
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_PARSEHUGE);
 
         return $dom;
     }
