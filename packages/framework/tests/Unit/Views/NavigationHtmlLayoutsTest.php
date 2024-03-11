@@ -98,6 +98,13 @@ class NavigationHtmlLayoutsTest extends TestCase
         return $this;
     }
 
+    protected function fromPage(string $mockedRoute): static
+    {
+        $this->mockCurrentPage($mockedRoute);
+
+        return $this;
+    }
+
     protected function menu(array $withPages = []): RenderedMainNavigationMenu
     {
         $this->withPages($withPages);
