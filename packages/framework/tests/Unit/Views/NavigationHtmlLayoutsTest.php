@@ -89,10 +89,10 @@ class NavigationHtmlLayoutsTest extends TestCase
 
 class RenderedNavigationMenu
 {
-    protected NavigationHtmlLayoutsTest $test;
-    protected string $html;
-    protected string $type;
-    protected DOMDocument $ast;
+    protected readonly NavigationHtmlLayoutsTest $test;
+    protected readonly string $html;
+    protected readonly string $type;
+    protected readonly DOMDocument $ast;
 
     public function __construct(NavigationHtmlLayoutsTest $test, string $html, string $type)
     {
