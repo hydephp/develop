@@ -181,7 +181,10 @@ abstract class RenderedNavigationMenu
     {
         $renderedPages = $this->getRenderedPages();
 
-        $this->test->assertSame($pages, $renderedPages);
+        $this->test->assertSame($pages, $renderedPages, sprintf('Rendered pages do not match expected pages: %s', json_encode([
+            'expected' => $pages,
+            'rendered' => $renderedPages,
+        ], JSON_PRETTY_PRINT)));
 
         return $this;
     }
