@@ -72,16 +72,7 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testNavigationMenuWithPages()
     {
-        $pages = [
-            new MarkdownPage('index'),
-            new MarkdownPage('404'),
-            new BladePage('about'),
-            new BladePage('hidden', ['navigation.hidden' => true]),
-            new InMemoryPage('custom', ['navigation.label' => 'Label']),
-            new HtmlPage('first', ['navigation.priority' => 1]),
-        ];
-
-        $this->menu($pages)
+        $this->menu($this->withExamplePages())
             ->assertHasPages([
                 'index.html' => 'Home',
                 'first.html' => 'First',
@@ -93,17 +84,8 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testNavigationMenuFromNestedRoute()
     {
-        $pages = [
-            new MarkdownPage('index'),
-            new MarkdownPage('404'),
-            new BladePage('about'),
-            new BladePage('hidden', ['navigation.hidden' => true]),
-            new InMemoryPage('custom', ['navigation.label' => 'Label']),
-            new HtmlPage('first', ['navigation.priority' => 1]),
-        ];
-
         $this->fromPage('nested/page')
-            ->menu($pages)
+            ->menu($this->withExamplePages())
             ->assertHasPages([
                 '../index.html' => 'Home',
                 '../first.html' => 'First',
@@ -150,6 +132,18 @@ class NavigationHtmlLayoutsTest extends TestCase
     protected function render(string $view): string
     {
         return view($view)->render();
+    }
+
+    protected function withExamplePages(): array
+    {
+        return [
+            new MarkdownPage('index'),
+            new MarkdownPage('404'),
+            new BladePage('about'),
+            new BladePage('hidden', ['navigation.hidden' => true]),
+            new InMemoryPage('custom', ['navigation.label' => 'Label']),
+            new HtmlPage('first', ['navigation.priority' => 1]),
+        ];
     }
 }
 
