@@ -61,13 +61,15 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        return $this->getItems()->contains(fn (NavItem $item): bool => $item->hasChildren());
+        return $this->getItems()->contains(fn (NavItem $item): bool => $item instanceof NavGroupItem);
     }
 
     /**
      * Is a page within the group the current page? This is used to determine if the sidebar group should be open when loading the page.
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
+     *
+     * We have this logic here because not all NavItem instances belong to sidebars, and we need data from both.
      */
     public function isGroupActive(string $group): bool
     {
@@ -86,11 +88,13 @@ class DocumentationSidebar extends NavigationMenu
     {
         // Unless the index page has a specific group set, the first group in the sidebar should be active.
 
+        // Todo: It may make more sense to handle this logic in the view, as it's a UI concern and this is a data model.
+
         $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
 
-        $firstGroupInSidebar = $this->getItems()->firstWhere(fn (NavItem $item): bool => $item->hasChildren());
+        $firstGroupInSidebar = $this->getItems()->firstWhere(fn (NavItem $item): bool => $item instanceof NavGroupItem);
 
-        $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar?->getIdentifier();
+        $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar?->getGroupKey();
 
         return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
     }

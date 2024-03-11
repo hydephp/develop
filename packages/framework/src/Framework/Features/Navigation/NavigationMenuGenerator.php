@@ -135,26 +135,43 @@ class NavigationMenuGenerator
     {
         $item = NavItem::forRoute($route);
 
-        $groupName = $this->generatesSidebar ? ($item->getGroupIdentifier() ?? 'Other') : $item->getGroupIdentifier();
+        $groupName = $this->generatesSidebar ? ($item->getGroupKey() ?? 'Other') : $item->getGroupKey();
 
         $groupItem = $this->getOrCreateGroupItem($groupName);
 
-        $groupItem->addChild($item);
+        $groupItem->addItem($item);
 
-        if (! $this->items->has($groupItem->getIdentifier())) {
-            $this->items->put($groupItem->getIdentifier(), $groupItem);
+        if (! $this->items->has($groupItem->getGroupKey())) {
+            $this->items->put($groupItem->getGroupKey(), $groupItem);
         }
     }
 
-    protected function getOrCreateGroupItem(string $groupName): NavItem
+    protected function getOrCreateGroupItem(string $groupName): NavGroupItem
     {
         $groupKey = Str::slug($groupName);
         $group = $this->items->get($groupKey);
 
-        return $group ?? $this->createGroupItem($groupKey, $groupName);
+        if ($group instanceof NavGroupItem) {
+            return $group;
+        } elseif ($group instanceof NavItem) {
+            // We are trying to add children to an existing navigation menu item,
+            // so here we create a new instance to replace the base one, this
+            // does mean we lose the destination as we can't link to them.
+
+            // Todo: Add note in documentation about this behavior
+            // Example file structure: _pages/foo.md, _pages/foo/bar.md, _pages/foo/baz.md, here the link to foo will be lost.
+
+            $item = new NavGroupItem($group->getLabel(), [], $group->getPriority());
+
+            $this->items->put($groupKey, $item);
+
+            return $item;
+        }
+
+        return $this->createGroupItem($groupKey, $groupName);
     }
 
-    protected function createGroupItem(string $groupKey, string $groupName): NavItem
+    protected function createGroupItem(string $groupKey, string $groupName): NavGroupItem
     {
         $label = $this->searchForGroupLabelInConfig($groupKey) ?? $groupName;
 

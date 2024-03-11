@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
-use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavGroupItem;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
@@ -218,15 +218,13 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertFalse((new DocumentationSidebar())->hasGroups());
     }
 
-    public function testHasGroupsReturnsTrueWhenAtLeastOneItemHasChildren()
+    public function testHasGroupsReturnsTrueWhenAtLeastOneItemIsNavGroupItemInstance()
     {
         self::mockConfig();
         self::setupKernel();
 
-        $page = new DocumentationPage('foo');
-        $child = new DocumentationPage('bar');
         $menu = new DocumentationSidebar([
-            NavItem::forRoute($page->getRoute())->addChild(NavItem::forRoute($child->getRoute())),
+            new NavGroupItem('foo', []),
         ]);
 
         $this->assertTrue($menu->hasGroups());

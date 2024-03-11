@@ -7,7 +7,7 @@
 @else
     <ul id="sidebar-items" role="list">
         @foreach ($sidebar->getItems() as $group)
-            <li class="sidebar-group" role="listitem" @if($sidebar->isCollapsible()) x-data="{ groupOpen: {{ $sidebar->isGroupActive($group->getIdentifier()) ? 'true' : 'false' }} }" @endif>
+            <li class="sidebar-group" role="listitem" @if($sidebar->isCollapsible()) x-data="{ groupOpen: {{ $sidebar->isGroupActive($group->getGroupKey()) ? 'true' : 'false' }} }" @endif>
                 <header @class(['sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center', 'group hover:bg-black/10' => $sidebar->isCollapsible()]) @if($sidebar->isCollapsible()) @click="groupOpen = ! groupOpen" @endif>
                     <h4 @class(['sidebar-group-heading text-base font-semibold', 'cursor-pointer dark:group-hover:text-white' => $sidebar->isCollapsible()])>{{ $group->getLabel() }}</h4>
                     @if($sidebar->isCollapsible())
@@ -15,7 +15,7 @@
                     @endif
                 </header>
                 <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list" @if($sidebar->isCollapsible()) x-show="groupOpen" @endif>
-                    @foreach ($group->getChildren() as $item)
+                    @foreach ($group->getItems() as $item)
                         @include('hyde::components.docs.sidebar-item', ['grouped' => true])
                     @endforeach
                 </ul>
