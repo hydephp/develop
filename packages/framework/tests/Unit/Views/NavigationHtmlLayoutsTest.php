@@ -51,6 +51,9 @@ class NavigationHtmlLayoutsTest extends TestCase
     {
         $this->sidebar()
             ->assertHasId('sidebar')
+            ->assertHasElement('sidebar-header')
+            ->assertHasElement('sidebar-navigation')
+            ->assertHasElement('sidebar-footer')
             ->finish();
     }
 
@@ -120,6 +123,13 @@ abstract class RenderedNavigationMenu
 
         $this->test->assertTrue($node->hasAttribute('id'));
         $this->test->assertSame($id, $node->getAttribute('id'));
+
+        return $this;
+    }
+
+    public function assertHasElement(string $id): static
+    {
+        $this->test->assertNotNull($this->ast->getElementById($id), 'Element with ID "'.$id.'" not found in the HTML.');
 
         return $this;
     }
