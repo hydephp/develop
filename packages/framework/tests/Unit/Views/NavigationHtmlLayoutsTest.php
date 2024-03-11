@@ -89,12 +89,15 @@ class RenderedNavigationMenu
     protected NavigationHtmlLayoutsTest $test;
     protected string $html;
     protected string $type;
+    protected DOMDocument $ast;
 
     public function __construct(NavigationHtmlLayoutsTest $test, string $html, string $type)
     {
         $this->test = $test;
         $this->html = $html;
         $this->type = $type;
+
+        $this->ast = $this->parseHtml();
     }
 
     public function assertTrue(): void
