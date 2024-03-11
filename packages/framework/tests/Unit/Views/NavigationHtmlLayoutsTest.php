@@ -127,6 +127,13 @@ class NavigationHtmlLayoutsTest extends TestCase
         return new RenderedDocumentationSidebarMenu($this, $this->render('hyde::components.docs.sidebar'));
     }
 
+    protected function useSubdirectoriesAsDropdowns(): static
+    {
+        config(['hyde.navigation.subdirectories' => 'dropdown']);
+
+        return $this;
+    }
+
     protected function render(string $view): string
     {
         return view($view)->render();
