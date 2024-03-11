@@ -148,7 +148,7 @@ abstract class RenderedNavigationMenu
             }
         }
 
-        $this->test->assertNotNull($element, "Element with ID '$id' not found in the HTML.");
+        $this->test->assertNotNull($element, "Element with '$id' not found in the HTML.");
 
         return $this;
     }
