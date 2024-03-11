@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Str;
 use Hyde\Foundation\HydeKernel;
+use JetBrains\PhpStorm\NoReturn;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
@@ -97,6 +100,15 @@ class RenderedNavigationMenu
     public function assertTrue(): void
     {
         $this->test->assertTrue(true);
+    }
+
+    #[NoReturn]
+    public function dd(bool $writeHtml = true): void
+    {
+        if ($writeHtml) {
+            file_put_contents(Hyde::path(Str::kebab(class_basename($this->type)).'.html'), $this->html);
+        }
+        exit(trim($this->html)."\n\n");
     }
 }
 
