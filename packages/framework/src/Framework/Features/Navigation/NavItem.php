@@ -161,9 +161,4 @@ class NavItem implements Stringable
     {
         return $group ? Str::slug($group) : null;
     }
-
-    protected static function makeIdentifier(string $label): string
-    {
-        return Str::slug($label);
-    }
 }
