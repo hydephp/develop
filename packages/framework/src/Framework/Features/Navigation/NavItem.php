@@ -143,8 +143,10 @@ class NavItem implements Stringable
     /**
      * Get the group identifier key of the navigation item, if any.
      *
+     * When using automatic subdirectory based groups, the subdirectory name is the group key.
+     * Otherwise, the group key is a "slugified" version of the group's label.
+     *
      * For sidebars this is the category key, for navigation menus this is the dropdown key.
-     * It's based on the "slugified" group label, or the subdirectory name if that is how.
      */
     public function getGroupKey(): ?string
     {
