@@ -45,6 +45,9 @@ class NavigationHtmlLayoutsTest extends TestCase
     {
         $this->menu()
             ->assertHasId('main-navigation')
+            ->assertHasElement('theme-toggle-button')
+            ->assertHasElement('navigation-toggle-button')
+            ->assertHasElement('main-navigation-links')
             ->finish();
     }
 
