@@ -92,7 +92,7 @@ class DocumentationSidebar extends NavigationMenu
 
         $firstGroupInSidebar = $this->getItems()->firstWhere(fn (NavItem $item): bool => $item instanceof NavGroupItem);
 
-        $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar?->getIdentifier();
+        $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar?->getGroupKey();
 
         return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
     }
