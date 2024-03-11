@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Hyde;
+use DOMDocument;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
 use Hyde\Foundation\HydeKernel;
