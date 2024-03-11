@@ -52,8 +52,9 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('theme-toggle-button')
             ->assertHasElement('navigation-toggle-button')
             ->assertHasElement('main-navigation-links')
-            ->assertDoesNotHaveElement('dropdown-button')
             ->assertDoesNotHaveElement('dropdown')
+            ->assertDoesNotHaveElement('dropdown-items')
+            ->assertDoesNotHaveElement('dropdown-button')
             ->assertHasNoPages()
             ->finish();
     }
