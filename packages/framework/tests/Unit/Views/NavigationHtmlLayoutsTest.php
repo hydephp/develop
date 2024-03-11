@@ -182,11 +182,24 @@ abstract class RenderedNavigationMenu
         return $dom;
     }
 
+    /** @return array<string, string> */
     protected function getRenderedPages(): array
     {
-        // Todo
+        $containerNodeId = static::TYPE === MainNavigationMenu::class ? 'main-navigation-links' : 'sidebar-items';
 
-        return [];
+        $this->assertHasElement($containerNodeId);
+
+        $containerNode = $this->ast->getElementById($containerNodeId);
+
+        $links = $containerNode->getElementsByTagName('a');
+
+        $pages = [];
+
+        foreach ($links as $link) {
+            $pages[$link->getAttribute('href')] = $link->textContent;
+        }
+
+        return $pages;
     }
 }
 
