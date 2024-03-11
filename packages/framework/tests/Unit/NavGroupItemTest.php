@@ -113,8 +113,8 @@ class NavGroupItemTest extends UnitTestCase
 
         $group->addChild($child);
 
-        $this->assertSame('foo', $group->getGroupIdentifier());
-        $this->assertSame('bar', $child->getGroupIdentifier());
+        $this->assertSame('foo', $group->getGroupKey());
+        $this->assertSame('bar', $child->getGroupKey());
     }
 
     public function testAddingAnItemWithNoGroupKeyUsesGroupIdentifier()
@@ -124,8 +124,8 @@ class NavGroupItemTest extends UnitTestCase
 
         $group->addChild($child);
 
-        $this->assertSame('foo', $group->getGroupIdentifier());
-        $this->assertSame('foo', $child->getGroupIdentifier());
+        $this->assertSame('foo', $group->getGroupKey());
+        $this->assertSame('foo', $child->getGroupKey());
     }
 
     public function testGetPriorityUsesDefaultPriority()

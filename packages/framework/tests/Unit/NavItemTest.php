@@ -105,7 +105,7 @@ class NavItemTest extends UnitTestCase
     public function testGetGroup()
     {
         $navItem = new NavItem(new Route(new InMemoryPage('foo')), 'Page', 500);
-        $this->assertNull($navItem->getGroupIdentifier());
+        $this->assertNull($navItem->getGroupKey());
     }
 
     public function testFromRoute()
@@ -252,28 +252,28 @@ class NavItemTest extends UnitTestCase
 
     public function testGetGroupWithNoGroup()
     {
-        $this->assertNull((new NavItem(new Route(new MarkdownPage()), 'Test', 500))->getGroupIdentifier());
+        $this->assertNull((new NavItem(new Route(new MarkdownPage()), 'Test', 500))->getGroupKey());
     }
 
     public function testGetGroupWithGroup()
     {
-        $this->assertSame('foo', (new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'))->getGroupIdentifier());
+        $this->assertSame('foo', (new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'))->getGroupKey());
     }
 
     public function testGetGroupFromRouteWithGroup()
     {
-        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroupIdentifier());
+        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroupKey());
     }
 
     public function testGetGroupForRouteWithGroup()
     {
-        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroupIdentifier());
+        $this->assertSame('foo', NavItem::forRoute(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroupKey());
     }
 
     public function testGroupKeysAreNormalized()
     {
         $item = new NavItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar');
-        $this->assertSame('foo-bar', $item->getGroupIdentifier());
+        $this->assertSame('foo-bar', $item->getGroupKey());
     }
 
     public function testIdentifier()

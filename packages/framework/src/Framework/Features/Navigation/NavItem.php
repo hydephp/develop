@@ -141,11 +141,11 @@ class NavItem implements Stringable
     }
 
     /**
-     * Get the group identifier of the navigation item, if any.
+     * Get the group identifier key of the navigation item, if any.
      *
      * For sidebars this is the category key, for navigation menus this is the dropdown key.
      */
-    public function getGroupIdentifier(): ?string
+    public function getGroupKey(): ?string
     {
         return $this->group;
     }
