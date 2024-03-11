@@ -42,12 +42,12 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testMainNavigationMenu()
     {
-        $this->menu()->assertTrue();
+        $this->menu()->assertHasId('main-navigation');
     }
 
     public function testDocumentationSidebarMenu()
     {
-        $this->sidebar()->assertTrue();
+        $this->sidebar()->assertHasId('sidebar');
     }
 
     protected function withPages(array $pages): static
@@ -108,6 +108,16 @@ abstract class RenderedNavigationMenu
     public function assertTrue(): void
     {
         $this->test->assertTrue(true);
+    }
+
+    public function assertHasId(string $id): static
+    {
+        $node = $this->ast->documentElement;
+
+        $this->test->assertTrue($node->hasAttribute('id'));
+        $this->test->assertSame($id, $node->getAttribute('id'));
+
+        return $this;
     }
 
     #[NoReturn]
