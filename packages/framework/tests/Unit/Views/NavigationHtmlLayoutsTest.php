@@ -108,6 +108,7 @@ class RenderedNavigationMenu
         if ($writeHtml) {
             file_put_contents(Hyde::path(Str::kebab(class_basename($this->type)).'.html'), $this->html);
         }
+
         exit(trim($this->html)."\n\n");
     }
 }
