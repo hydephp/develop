@@ -160,7 +160,7 @@ abstract class RenderedNavigationMenu
     {
         $renderedPages = $this->getRenderedPages();
 
-        $this->test->assertEquals($pages, $renderedPages);
+        $this->test->assertSame($pages, $renderedPages);
 
         return $this;
     }
