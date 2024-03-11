@@ -43,12 +43,14 @@ class NavigationHtmlLayoutsTest extends TestCase
     public function testMainNavigationMenu()
     {
         $menu = $this->menu();
+
         $menu->assertHasId('main-navigation');
     }
 
     public function testDocumentationSidebarMenu()
     {
         $sidebar = $this->sidebar();
+
         $sidebar->assertHasId('sidebar');
     }
 
