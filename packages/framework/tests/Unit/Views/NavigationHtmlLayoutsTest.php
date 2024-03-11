@@ -42,16 +42,16 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testMainNavigationMenu()
     {
-        $menu = $this->menu();
-
-        $menu->assertHasId('main-navigation');
+        $this->menu()
+            ->assertHasId('main-navigation')
+            ->finish();
     }
 
     public function testDocumentationSidebarMenu()
     {
-        $sidebar = $this->sidebar();
-
-        $sidebar->assertHasId('sidebar');
+        $this->sidebar()
+            ->assertHasId('sidebar')
+            ->finish();
     }
 
     protected function withPages(array $pages): static
@@ -107,6 +107,11 @@ abstract class RenderedNavigationMenu
         $this->ast = $this->parseHtml();
 
         $this->test->assertNotEmpty($this->html);
+    }
+
+    public function finish(): void
+    {
+        // Empty method to provide cleaner diffs when using method chaining.
     }
 
     public function assertHasId(string $id): static
