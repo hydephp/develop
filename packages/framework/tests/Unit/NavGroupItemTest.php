@@ -80,7 +80,7 @@ class NavGroupItemTest extends UnitTestCase
         $group = new NavGroupItem('Foo');
         $child = new NavItem(new Route(new MarkdownPage()), 'Bar');
 
-        $this->assertSame([$child], $group->addChild($child)->getItems());
+        $this->assertSame([$child], $group->addItem($child)->getItems());
     }
 
     public function testAddChildMethodReturnsSelf()
@@ -88,7 +88,7 @@ class NavGroupItemTest extends UnitTestCase
         $group = new NavGroupItem('Foo');
         $child = new NavItem(new Route(new MarkdownPage()), 'Bar');
 
-        $this->assertSame($group, $group->addChild($child));
+        $this->assertSame($group, $group->addItem($child));
     }
 
     public function testCanAddMultipleItemsToDropdown()
@@ -111,7 +111,7 @@ class NavGroupItemTest extends UnitTestCase
         $group = new NavGroupItem('Foo');
         $child = new NavItem(new Route(new MarkdownPage()), 'Child', group: 'bar');
 
-        $group->addChild($child);
+        $group->addItem($child);
 
         $this->assertSame('foo', $group->getGroupKey());
         $this->assertSame('bar', $child->getGroupKey());
@@ -122,7 +122,7 @@ class NavGroupItemTest extends UnitTestCase
         $group = new NavGroupItem('Foo');
         $child = new NavItem(new Route(new MarkdownPage()), 'Bar');
 
-        $group->addChild($child);
+        $group->addItem($child);
 
         $this->assertSame('foo', $group->getGroupKey());
         $this->assertSame('foo', $child->getGroupKey());
@@ -163,7 +163,7 @@ class NavGroupItemTest extends UnitTestCase
 
         foreach (HydeCoreExtension::getPageClasses() as $type) {
             $child = new NavItem(new Route(new $type()), 'Bar', 100);
-            $group->addChild($child);
+            $group->addItem($child);
         }
 
         $this->assertSame(999, $group->getPriority());

@@ -42,7 +42,7 @@ class NavGroupItem extends NavItem
      *
      * This will turn the parent item into a dropdown. Its destination will be set to null.
      */
-    public function addChild(NavItem $item): static
+    public function addItem(NavItem $item): static
     {
         $item->group ??= $this->group;
 
@@ -60,7 +60,7 @@ class NavGroupItem extends NavItem
     public function addChildren(array $items): static
     {
         foreach ($items as $item) {
-            $this->addChild($item);
+            $this->addItem($item);
         }
 
         return $this;
