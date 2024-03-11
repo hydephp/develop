@@ -91,6 +91,28 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->finish();
     }
 
+    public function testNavigationMenuFromNestedRoute()
+    {
+        $pages = [
+            new MarkdownPage('index'),
+            new MarkdownPage('404'),
+            new BladePage('about'),
+            new BladePage('hidden', ['navigation.hidden' => true]),
+            new InMemoryPage('custom', ['navigation.label' => 'Label']),
+            new HtmlPage('first', ['navigation.priority' => 1]),
+        ];
+
+        $this->fromPage('nested/page')
+            ->menu($pages)
+            ->assertHasPages([
+                '../index.html' => 'Home',
+                '../first.html' => 'First',
+                '../about.html' => 'About',
+                '../custom.html' => 'Label',
+            ])
+            ->finish();
+    }
+
     protected function withPages(array $pages): static
     {
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
