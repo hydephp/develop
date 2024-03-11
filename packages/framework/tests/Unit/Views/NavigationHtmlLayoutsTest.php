@@ -48,7 +48,7 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('theme-toggle-button')
             ->assertHasElement('navigation-toggle-button')
             ->assertHasElement('main-navigation-links')
-            ->assertHasNoPages()
+            ->assertHasPages(['index.html' => 'Home'])
             ->finish();
     }
 
@@ -152,6 +152,15 @@ abstract class RenderedNavigationMenu
         }
 
         $this->test->assertNotNull($element, "Element with '$id' not found in the HTML.");
+
+        return $this;
+    }
+
+    public function assertHasPages(array $pages): static
+    {
+        $renderedPages = $this->getRenderedPages();
+
+        $this->test->assertEquals($pages, $renderedPages);
 
         return $this;
     }
