@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Navigation;
 use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
+use JetBrains\PhpStorm\Deprecated;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
@@ -69,7 +70,7 @@ class DocumentationSidebar extends NavigationMenu
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
      */
-    public function isGroupActive(string $group): bool
+    public function isGroupActive(#[Deprecated('We should be able to get all the needed data from the instance and render data')]string $group): bool
     {
         $groupMatchesCurrentPageGroup = Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
         $currentPageIsIndexPageAndShouldBeActive = $this->isCurrentPageIndexPage() && $this->shouldIndexPageBeActive($group);
