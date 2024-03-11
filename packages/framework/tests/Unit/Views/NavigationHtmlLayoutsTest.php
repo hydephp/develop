@@ -48,6 +48,7 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('theme-toggle-button')
             ->assertHasElement('navigation-toggle-button')
             ->assertHasElement('main-navigation-links')
+            ->assertHasNoPages()
             ->finish();
     }
 
@@ -58,6 +59,7 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('sidebar-header')
             ->assertHasElement('sidebar-navigation')
             ->assertHasElement('sidebar-footer')
+            ->assertHasNoPages()
             ->finish();
     }
 
@@ -151,6 +153,13 @@ abstract class RenderedNavigationMenu
         return $this;
     }
 
+    public function assertHasNoPages(): static
+    {
+        $this->test->assertEmpty($this->getRenderedPages());
+
+        return $this;
+    }
+
     #[NoReturn]
     public function dd(bool $writeHtml = true): void
     {
@@ -168,6 +177,13 @@ abstract class RenderedNavigationMenu
         $dom->loadHTML($this->html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_PARSEHUGE);
 
         return $dom;
+    }
+
+    protected function getRenderedPages(): array
+    {
+        // Todo
+
+        return [];
     }
 }
 
