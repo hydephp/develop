@@ -97,7 +97,9 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     protected function withPages(array $pages): static
     {
-        return tap($this, fn () => $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute())));
+        $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
+
+        return $this;
     }
 
     protected function fromPage(string $mockedRoute): static
