@@ -8,6 +8,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * Very high level tests for navigation menu and sidebar view layouts.
+ *
+ * @see \Hyde\Framework\Testing\Feature\AutomaticNavigationConfigurationsTest
  */
 class NavigationHtmlLayoutsTest extends TestCase
 {
