@@ -18,11 +18,11 @@ class NavGroupItem extends NavItem
     /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
     protected array $items = [];
 
-    public function __construct(string $label, array $children = [], int $priority = NavigationMenu::LAST)
+    public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
     {
         parent::__construct(null, $label, $priority, static::normalizeGroupKey($label));
 
-        $this->addItems($children);
+        $this->addItems($items);
     }
 
     /**
