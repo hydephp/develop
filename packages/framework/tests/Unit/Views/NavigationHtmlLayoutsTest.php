@@ -57,8 +57,11 @@ class NavigationHtmlLayoutsTest extends TestCase
         $this->sidebar()
             ->assertHasId('sidebar')
             ->assertHasElement('sidebar-header')
+            ->assertHasElement('sidebar-brand')
             ->assertHasElement('sidebar-navigation')
             ->assertHasElement('sidebar-footer')
+            ->assertHasElement('theme-toggle-button')
+            ->assertHasElement('sidebar-items')
             ->assertHasNoPages()
             ->finish();
     }
