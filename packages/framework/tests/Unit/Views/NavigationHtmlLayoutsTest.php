@@ -9,8 +9,12 @@ namespace Hyde\Framework\Testing\Unit\Views;
 use DOMXPath;
 use Hyde\Hyde;
 use DOMDocument;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
+use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\HydeKernel;
 use JetBrains\PhpStorm\NoReturn;
 use Hyde\Pages\Concerns\HydePage;
@@ -63,6 +67,27 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('theme-toggle-button')
             ->assertHasElement('sidebar-items')
             ->assertHasNoPages()
+            ->finish();
+    }
+
+    public function testNavigationMenuWithPages()
+    {
+        $pages = [
+            new MarkdownPage('index'),
+            new MarkdownPage('404'),
+            new BladePage('about'),
+            new BladePage('hidden', ['navigation.hidden' => true]),
+            new InMemoryPage('custom', ['navigation.label' => 'Label']),
+            new HtmlPage('first', ['navigation.priority' => 1]),
+        ];
+
+        $this->menu($pages)
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'first.html' => 'First',
+                'about.html' => 'About',
+                'custom.html' => 'Label',
+            ])
             ->finish();
     }
 
