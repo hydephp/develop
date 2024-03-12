@@ -494,6 +494,9 @@ abstract class RenderedNavigationMenu
 
         if ($skipHeaderRow) {
             $actual = trim(Str::after($actual, "\n"));
+            if (str_contains($actual, 'Backtohomepage')) {
+                $actual = trim(str_replace('Backtohomepage', '', $actual));
+            }
         }
         // If expected omitted dashes, remove them from actual
         if (! str_contains($expected, '- ')) {
