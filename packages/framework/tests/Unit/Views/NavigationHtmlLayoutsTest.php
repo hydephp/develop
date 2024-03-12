@@ -494,8 +494,8 @@ abstract class RenderedNavigationMenu
 
         if ($skipHeaderRow) {
             $actual = trim(Str::after($actual, "\n"));
-            if (str_contains($actual, 'Backtohomepage')) {
-                $actual = trim(str_replace('Backtohomepage', '', $actual));
+            if (str_contains($actual, 'Back to home page')) {
+                $actual = trim(str_replace('Back to home page', '', $actual));
             }
         }
         // If expected omitted dashes, remove them from actual
@@ -631,6 +631,8 @@ abstract class RenderedNavigationMenu
         }
 
         $html = Str::replaceLast('</ul>', '', $html);
+
+        $html = str_replace(['HydePHPDocs', 'Toggledarktheme', 'Togglemenu', 'Backtohomepage'], ['HydePHP Docs', ' Toggle theme', 'Toggle menu', 'Back to home page'], $html);
 
         return trim(implode("\n", array_map('rtrim', explode("\n", $html))));
     }
