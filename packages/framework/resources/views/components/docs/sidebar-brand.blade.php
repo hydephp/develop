@@ -2,7 +2,7 @@
     <strong class="px-2">
         @if(DocumentationPage::home())
             <a href="{{ DocumentationPage::home() }}">
-                {{  $sidebar->getHeader() }}
+                {{ $sidebar->getHeader() }}
             </a>
         @else
             {{ $sidebar->getHeader() }}
