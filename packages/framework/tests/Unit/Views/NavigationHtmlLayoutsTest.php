@@ -475,7 +475,7 @@ abstract class RenderedNavigationMenu
         $this->test->assertSame($pages, $renderedPages, sprintf('Rendered pages do not match expected pages: %s', json_encode([
             'expected' => $pages,
             'rendered' => $renderedPages,
-        ], JSON_PRETTY_PRINT)));
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)));
 
         return $this;
     }
@@ -542,7 +542,7 @@ abstract class RenderedNavigationMenu
             $this->test->assertSame($expected, $actual, sprintf('Rendered dropdown does not match expected format: %s', json_encode([
                 'expected' => $expected,
                 'rendered' => $actual,
-            ], JSON_PRETTY_PRINT)));
+            ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)));
         }
 
         return $this;
