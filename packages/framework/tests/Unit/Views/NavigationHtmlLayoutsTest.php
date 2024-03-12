@@ -77,8 +77,7 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertDoesNotHaveElement('dropdown')
             ->assertDoesNotHaveElement('dropdown-items')
             ->assertDoesNotHaveElement('dropdown-button')
-            ->assertHasNoPages()
-            ->finish();
+            ->assertHasNoPages();
     }
 
     public function testDocumentationSidebarMenu()
@@ -91,8 +90,7 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('sidebar-footer')
             ->assertHasElement('theme-toggle-button')
             ->assertHasElement('sidebar-items')
-            ->assertHasNoPages()
-            ->finish();
+            ->assertHasNoPages();
     }
 
     public function testNavigationMenuWithPages()
@@ -103,8 +101,7 @@ class NavigationHtmlLayoutsTest extends TestCase
                 'first.html' => 'First',
                 'about.html' => 'About',
                 'custom.html' => 'Label',
-            ])
-            ->finish();
+            ]);
     }
 
     public function testNavigationMenuFromNestedRoute()
