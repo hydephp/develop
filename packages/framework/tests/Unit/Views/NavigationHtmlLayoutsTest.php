@@ -433,6 +433,16 @@ class NavigationHtmlLayoutsTest extends TestCase
             );
     }
 
+    public function testMenuHeader()
+    {
+        $this->menu()->assertHeaderIs('HydePHP');
+    }
+
+    public function testSidebarHeader()
+    {
+        $this->sidebar()->assertHeaderIs('HydePHP Docs');
+    }
+
     protected function fromPage(string $mockedRoute): static
     {
         $this->mockCurrentPage($mockedRoute);
@@ -620,6 +630,27 @@ abstract class RenderedNavigationMenu
     public function assertItemsLookLike(string $expected): static
     {
         return $this->assertLooksLike($expected, true);
+    }
+
+    public function assertHeaderIs(string $expected): static
+    {
+        if (static::TYPE === DocumentationSidebar::class) {
+            $elementId = 'sidebar-brand';
+            $nodeName = 'strong';
+        } else {
+            $elementId = 'main-navigation-brand';
+            $nodeName = 'a';
+        }
+
+        $this->assertHasElement($elementId);
+
+        $element = $this->ast->getElementById($elementId)->getElementsByTagName($nodeName)->item(0);
+
+        $this->test->assertNotNull($element, "No <$nodeName> element found in menu header");
+
+        $this->assertElementTextIs($element, $expected);
+
+        return $this;
     }
 
     #[NoReturn]
