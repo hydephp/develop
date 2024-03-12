@@ -114,7 +114,13 @@ class NavigationHtmlLayoutsTest extends TestCase
                 '../about.html' => 'About',
                 '../custom.html' => 'Label',
             ])
-            ->finish();
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - First
+                - About
+                - Label
+                HTML
+            );
     }
 
     public function testNavigationMenuWithDropdownPages()
