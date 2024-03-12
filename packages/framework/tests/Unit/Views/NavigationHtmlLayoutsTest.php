@@ -114,6 +114,14 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('dropdown')
             ->assertHasElement('dropdown-items')
             ->assertHasElement('dropdown-button')
+            ->assertItemsLookLike(<<<'HTML'
+- Home
+- Foo
+    - Bar
+    - Baz
+HTML
+
+            )
             ->finish();
     }
 
@@ -266,6 +274,30 @@ abstract class RenderedNavigationMenu
         return $this;
     }
 
+    public function assertLooksLike(string $expected, bool $skipHeaderRow = false): static
+    {
+        $actual = $this->makeTextRepresentation();
+
+        if ($skipHeaderRow) {
+            $actual = trim(Str::after($actual, "\n"));
+        }
+        // If expected omitted dashes, remove them from actual
+        if (! str_contains($expected, '- ')) {
+            $actual = str_replace('- ', '', $actual);
+        }
+        // If expected uses 4 spaces, replace with 2 spaces
+        $expected = str_replace('    ', '  ', $expected);
+
+        $this->test->assertSame($expected, $actual, sprintf("Actual HTML does not match expected text:\nExpected:\n%s\nActual:\n%s", $expected, $actual));
+
+        return $this;
+    }
+
+    public function assertItemsLookLike(string $expected): static
+    {
+        return $this->assertLooksLike($expected, true);
+    }
+
     #[NoReturn]
     public function dd(bool $writeHtml = true): void
     {
@@ -303,6 +335,39 @@ abstract class RenderedNavigationMenu
         }
 
         return $pages;
+    }
+
+    protected function makeTextRepresentation(): string
+    {
+        $html = str_replace(['<title>Open Menu</title>', '<title>Close Menu</title>'], ['Toggle menu', ''], $this->html);
+        $html = str_replace(['<li', '</li>'], ['<li-keep', '</li-keep>'], $html);
+        $html = str_replace(['<ul', '</ul>'], ['<ul-keep', '</ul-keep>'], $html);
+        $html = strip_tags($html, '<li-keep><ul-keep>');
+        $html = str_replace(['<li-keep', '</li-keep>'], ['<li', '</li>'], $html);
+        $html = str_replace(['<ul-keep', '</ul-keep>'], ['<ul', '</ul>'], $html);
+        $html = preg_replace('/<li[^>]*>/', '<li>', $html);
+        $html = preg_replace('/<ul[^>]*>/', '<ul>', $html);
+        $html = str_replace(['</li>'], '<br>', $html);
+        $html = preg_replace('/\s+/', '', $html);
+        $html = str_replace('<br>', "\n", $html);
+        $html = str_replace('<li>', '- ', $html);
+        $html = Str::replaceFirst('<ul>', "\n", $html);
+
+        // Indent each line within remaining uls
+        $innerUlCount = substr_count($html, '<ul>');
+        foreach (range(1, $innerUlCount) as $i) {
+            $html = Str::replaceFirst('</ul>', '</ul-first>', $html);
+            $innerUlContent = Str::between($html, '<ul>', '</ul-first>');
+            $id = md5($innerUlContent.$i);
+            $html = Str::replaceFirst($innerUlContent, $id, $html);
+            $innerUlContent = trim(str_replace("\n", "\n  ", $innerUlContent));
+
+            $html = str_replace('<ul>'.$id.'</ul-first>', "\n  ".$innerUlContent, $html);
+        }
+
+        $html = Str::replaceLast('</ul>', '', $html);
+
+        return trim(implode("\n", array_map('rtrim', explode("\n", $html))));
     }
 }
 
