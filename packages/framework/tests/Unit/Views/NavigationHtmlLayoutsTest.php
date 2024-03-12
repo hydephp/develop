@@ -106,7 +106,15 @@ class NavigationHtmlLayoutsTest extends TestCase
                 'first.html' => 'First',
                 'about.html' => 'About',
                 'custom.html' => 'Label',
-            ]);
+            ])
+            ->assertLooksLike(<<<'HTML'
+                HydePHP Toggle theme Toggle menu
+                - Home
+                - First
+                - About
+                - Label
+                HTML
+            );
     }
 
     public function testSidebarWithPages()
