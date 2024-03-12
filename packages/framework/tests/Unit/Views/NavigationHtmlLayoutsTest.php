@@ -8,6 +8,7 @@ namespace Hyde\Framework\Testing\Unit\Views;
 
 use DOMXPath;
 use Hyde\Hyde;
+use DOMElement;
 use DOMDocument;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
@@ -37,6 +38,7 @@ use function sprintf;
 use function explode;
 use function implode;
 use function array_map;
+use function is_string;
 use function strip_tags;
 use function array_keys;
 use function json_encode;
@@ -557,6 +559,19 @@ abstract class RenderedNavigationMenu
         }
 
         $this->test->assertNull($element, "Element with '$id' found in the HTML.");
+
+        return $this;
+    }
+
+    public function assertElementTextIs(DOMElement|string $element, string $expected): static
+    {
+        if (is_string($element)) {
+            $this->assertHasElement($element);
+
+            $element = $this->ast->getElementById($element);
+        }
+
+        $this->test->assertSame($expected, trim($element->textContent));
 
         return $this;
     }
