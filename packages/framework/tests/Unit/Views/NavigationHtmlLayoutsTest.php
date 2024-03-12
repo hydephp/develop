@@ -472,10 +472,10 @@ abstract class RenderedNavigationMenu
     {
         $renderedPages = $this->getRenderedPages();
 
-        $this->test->assertSame($pages, $renderedPages, sprintf('Rendered pages do not match expected pages: %s', json_encode([
+        $this->test->assertSame($pages, $renderedPages, sprintf('Rendered pages do not match expected pages: %s', $this->printSerializedArray([
             'expected' => $pages,
             'rendered' => $renderedPages,
-        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)));
+        ])));
 
         return $this;
     }
@@ -539,10 +539,10 @@ abstract class RenderedNavigationMenu
                 $actual = array_keys($actual);
             }
 
-            $this->test->assertSame($expected, $actual, sprintf('Rendered dropdown does not match expected format: %s', json_encode([
+            $this->test->assertSame($expected, $actual, sprintf('Rendered dropdown does not match expected format: %s', $this->printSerializedArray([
                 'expected' => $expected,
                 'rendered' => $actual,
-            ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)));
+            ])));
         }
 
         return $this;
@@ -629,6 +629,11 @@ abstract class RenderedNavigationMenu
         $html = Str::replaceLast('</ul>', '', $html);
 
         return trim(implode("\n", array_map('rtrim', explode("\n", $html))));
+    }
+
+    protected function printSerializedArray(array $data): string|false
+    {
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 }
 
