@@ -358,17 +358,17 @@ class NavigationHtmlLayoutsTest extends TestCase
             new DocumentationPage('bar'),
             new DocumentationPage('baz'),
         ])
-        ->assertHasPages([
-            'docs/foo.html' => 'Foo',
-            'docs/bar.html' => 'Bar',
-            'docs/baz.html' => 'Baz',
-        ])
-        ->assertItemsLookLike(<<<'HTML'
+            ->assertHasPages([
+                'docs/foo.html' => 'Foo',
+                'docs/bar.html' => 'Bar',
+                'docs/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
             Foo
             Bar
             Baz
             HTML
-        );
+            );
     }
 
     public function testSidebarFromNestedRoute()
@@ -395,32 +395,24 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testSidebarWithGroupedPages()
     {
-        $this->sidebar([
-            new DocumentationPage('index'),
-            new DocumentationPage('foo/bar'),
-            new DocumentationPage('foo/baz'),
-        ])
-        ->assertHasGroups()
-        ->assertHasPages([
-            'docs/bar.html' => 'Bar',
-            'docs/baz.html' => 'Baz',
-        ])
-        ->assertItemsLookLike(<<<'HTML'
+        $this->sidebar($this->withSidebarPages())
+            ->assertHasGroups()
+            ->assertHasPages([
+                'docs/bar.html' => 'Bar',
+                'docs/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
             - Foo
                 - Bar
                 - Baz
             HTML
-        );
+            );
     }
 
     public function testSidebarWithGroupedPagesWithoutFlattenedOutputPaths()
     {
         $this->withoutFlattenedOutputPaths()
-            ->sidebar([
-                new DocumentationPage('index'),
-                new DocumentationPage('foo/bar'),
-                new DocumentationPage('foo/baz'),
-            ])
+            ->sidebar($this->withSidebarPages())
             ->assertHasGroups()
             ->assertHasPages([
                 'docs/foo/bar.html' => 'Bar',
@@ -511,6 +503,15 @@ class NavigationHtmlLayoutsTest extends TestCase
             new BladePage('hidden', ['navigation.hidden' => true]),
             new InMemoryPage('custom', ['navigation.label' => 'Label']),
             new HtmlPage('first', ['navigation.priority' => 1]),
+        ];
+    }
+
+    protected function withSidebarPages(): array
+    {
+        return [
+            new DocumentationPage('index'),
+            new DocumentationPage('foo/bar'),
+            new DocumentationPage('foo/baz'),
         ];
     }
 }
