@@ -372,14 +372,16 @@ abstract class RenderedNavigationMenu
 
         // Indent each line within remaining uls
         $innerUlCount = substr_count($html, '<ul>');
-        foreach (range(1, $innerUlCount) as $i) {
-            $html = Str::replaceFirst('</ul>', '</ul-first>', $html);
-            $innerUlContent = Str::between($html, '<ul>', '</ul-first>');
-            $id = md5($innerUlContent.$i);
-            $html = Str::replaceFirst($innerUlContent, $id, $html);
-            $innerUlContent = trim(str_replace("\n", "\n  ", $innerUlContent));
+        if ($innerUlCount >= 1) {
+            foreach (range(1, $innerUlCount) as $i) {
+                $html = Str::replaceFirst('</ul>', '</ul-first>', $html);
+                $innerUlContent = Str::between($html, '<ul>', '</ul-first>');
+                $id = md5($innerUlContent.$i);
+                $html = Str::replaceFirst($innerUlContent, $id, $html);
+                $innerUlContent = trim(str_replace("\n", "\n  ", $innerUlContent));
 
-            $html = str_replace('<ul>'.$id.'</ul-first>', "\n  ".$innerUlContent, $html);
+                $html = str_replace('<ul>'.$id.'</ul-first>', "\n  ".$innerUlContent, $html);
+            }
         }
 
         $html = Str::replaceLast('</ul>', '', $html);
