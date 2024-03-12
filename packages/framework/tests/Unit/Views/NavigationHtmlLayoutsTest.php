@@ -54,6 +54,9 @@ use function file_put_contents;
 /**
  * Very high level tests for navigation menu and sidebar view layouts.
  *
+ * These tests provide a sort of structural visual testing that can signal smoke
+ * before end-to-end testing kicks in, as they take a long time to set up and run.
+ *
  * @see \Hyde\Framework\Testing\Feature\AutomaticNavigationConfigurationsTest
  */
 class NavigationHtmlLayoutsTest extends TestCase
