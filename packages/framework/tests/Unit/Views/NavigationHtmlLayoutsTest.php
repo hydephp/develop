@@ -419,7 +419,7 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testSidebarWithGroupedPages()
     {
-        $this->sidebar($this->withSidebarPages())
+        $this->sidebar($this->withGroupedSidebarPages())
             ->assertHasGroups()
             ->assertHasPages([
                 'docs/bar.html' => 'Bar',
@@ -436,7 +436,7 @@ class NavigationHtmlLayoutsTest extends TestCase
     public function testSidebarWithGroupedPagesWithoutFlattenedOutputPaths()
     {
         $this->withoutFlattenedOutputPaths()
-            ->sidebar($this->withSidebarPages())
+            ->sidebar($this->withGroupedSidebarPages())
             ->assertHasGroups()
             ->assertHasPages([
                 'docs/foo/bar.html' => 'Bar',
@@ -506,7 +506,7 @@ class NavigationHtmlLayoutsTest extends TestCase
         ];
     }
 
-    protected function withSidebarPages(): array
+    protected function withGroupedSidebarPages(): array
     {
         return [
             new DocumentationPage('index'),
