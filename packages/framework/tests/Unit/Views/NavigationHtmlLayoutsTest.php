@@ -755,7 +755,11 @@ abstract class RenderedNavigationMenu
 
         $html = Str::replaceLast('</ul>', '', $html);
 
-        $html = str_replace(['HydePHPDocs', 'themeToggle', 'Toggledarktheme', 'Togglemenu', 'Backtohomepage'], ['HydePHP Docs', 'theme Toggle', ' Toggle theme', 'Toggle menu', 'Back to home page'], $html);
+        $html = str_replace(
+            ['HydePHPDocs', 'themeToggle', 'Toggledarktheme', 'Togglemenu', 'Backtohomepage'],
+            ['HydePHP Docs', 'theme Toggle', ' Toggle theme', 'Toggle menu', 'Back to home page'],
+            $html
+        );
 
         return trim(implode("\n", array_map('rtrim', explode("\n", $html))));
     }
