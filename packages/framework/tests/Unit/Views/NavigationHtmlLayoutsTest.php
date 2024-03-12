@@ -136,9 +136,7 @@ class NavigationHtmlLayoutsTest extends TestCase
                 'foo/bar.html' => 'Bar',
                 'foo/baz.html' => 'Baz',
             ])
-            ->assertHasElement('dropdown')
-            ->assertHasElement('dropdown-items')
-            ->assertHasElement('dropdown-button')
+            ->assertHasDropdowns()
             ->assertItemsLookLike(<<<'HTML'
                 - Home
                 - Foo
@@ -161,9 +159,7 @@ class NavigationHtmlLayoutsTest extends TestCase
                 'foo/bar.html' => 'Bar',
                 'foo/baz.html' => 'Baz',
             ])
-            ->assertDoesNotHaveElement('dropdown')
-            ->assertDoesNotHaveElement('dropdown-items')
-            ->assertDoesNotHaveElement('dropdown-button')
+            ->assertDoesNotHaveDropdowns()
             ->assertItemsLookLike(<<<'HTML'
                 - Home
                 - Bar
@@ -343,6 +339,20 @@ abstract class RenderedNavigationMenu
     public function assertItemsLookLike(string $expected): static
     {
         return $this->assertLooksLike($expected, true);
+    }
+
+    public function assertHasDropdowns(): static
+    {
+        return $this->assertHasElement('dropdown')
+            ->assertHasElement('dropdown-items')
+            ->assertHasElement('dropdown-button');
+    }
+
+    public function assertDoesNotHaveDropdowns(): static
+    {
+        return $this->assertDoesNotHaveElement('dropdown')
+            ->assertDoesNotHaveElement('dropdown-items')
+            ->assertDoesNotHaveElement('dropdown-button');
     }
 
     #[NoReturn]
