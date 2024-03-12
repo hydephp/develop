@@ -631,7 +631,7 @@ abstract class RenderedNavigationMenu
         return trim(implode("\n", array_map('rtrim', explode("\n", $html))));
     }
 
-    protected function printSerializedArray(array $data): string|false
+    protected function printSerializedArray(array $data): string
     {
         $string = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
