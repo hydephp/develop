@@ -117,10 +117,12 @@ class NavigationHtmlLayoutsTest extends TestCase
                 'docs/bar.html' => 'Bar',
                 'docs/baz.html' => 'Baz',
             ])
-            ->assertItemsLookLike(<<<'HTML'
+            ->assertLooksLike(<<<'HTML'
+                HydePHP Docs Toggle theme
                 Foo
                 Bar
                 Baz
+                Back to home page
                 HTML
             );
     }
