@@ -559,52 +559,6 @@ abstract class RenderedNavigationMenu
         return $this->assertLooksLike($expected, true);
     }
 
-    public function assertHasDropdowns(?array $expected = null): static
-    {
-        $this->assertHasElement('dropdown');
-        $this->assertHasElement('dropdown-items');
-        $this->assertHasElement('dropdown-button');
-
-        if ($expected) {
-            $xpath = new DOMXPath($this->ast);
-            $dropdownItems = $xpath->query('//ul[contains(concat(" ", normalize-space(@class), " "), " dropdown-items ")]');
-
-            /** @var array<string, array<string> $actual */
-            $actual = [];
-
-            foreach ($dropdownItems as $dropdownItem) {
-                $button = $xpath->query('../preceding-sibling::button', $dropdownItem)->item(0);
-
-                $label = trim($button->textContent);
-
-                $children = array_values(array_filter(array_map('trim', explode("\n", $dropdownItem->textContent))));
-
-                $actual[$label] = $children;
-            }
-
-            // If expected is a list array, then remove values from actual
-            if (array_values($expected) === $expected) {
-                $actual = array_keys($actual);
-            }
-
-            $this->test->assertSame($expected, $actual, sprintf('Rendered dropdown does not match expected format: %s', $this->printSerializedArray([
-                'expected' => $expected,
-                'rendered' => $actual,
-            ])));
-        }
-
-        return $this;
-    }
-
-    public function assertDoesNotHaveDropdowns(): static
-    {
-        $this->assertDoesNotHaveElement('dropdown');
-        $this->assertDoesNotHaveElement('dropdown-items');
-        $this->assertDoesNotHaveElement('dropdown-button');
-
-        return $this;
-    }
-
     #[NoReturn]
     public function dd(bool $writeHtml = true): void
     {
@@ -701,6 +655,52 @@ abstract class RenderedNavigationMenu
 class RenderedMainNavigationMenu extends RenderedNavigationMenu
 {
     protected const TYPE = MainNavigationMenu::class;
+
+    public function assertHasDropdowns(?array $expected = null): static
+    {
+        $this->assertHasElement('dropdown');
+        $this->assertHasElement('dropdown-items');
+        $this->assertHasElement('dropdown-button');
+
+        if ($expected) {
+            $xpath = new DOMXPath($this->ast);
+            $dropdownItems = $xpath->query('//ul[contains(concat(" ", normalize-space(@class), " "), " dropdown-items ")]');
+
+            /** @var array<string, array<string> $actual */
+            $actual = [];
+
+            foreach ($dropdownItems as $dropdownItem) {
+                $button = $xpath->query('../preceding-sibling::button', $dropdownItem)->item(0);
+
+                $label = trim($button->textContent);
+
+                $children = array_values(array_filter(array_map('trim', explode("\n", $dropdownItem->textContent))));
+
+                $actual[$label] = $children;
+            }
+
+            // If expected is a list array, then remove values from actual
+            if (array_values($expected) === $expected) {
+                $actual = array_keys($actual);
+            }
+
+            $this->test->assertSame($expected, $actual, sprintf('Rendered dropdown does not match expected format: %s', $this->printSerializedArray([
+                'expected' => $expected,
+                'rendered' => $actual,
+            ])));
+        }
+
+        return $this;
+    }
+
+    public function assertDoesNotHaveDropdowns(): static
+    {
+        $this->assertDoesNotHaveElement('dropdown');
+        $this->assertDoesNotHaveElement('dropdown-items');
+        $this->assertDoesNotHaveElement('dropdown-button');
+
+        return $this;
+    }
 }
 
 class RenderedDocumentationSidebarMenu extends RenderedNavigationMenu
