@@ -36,10 +36,13 @@ use function explode;
 use function implode;
 use function array_map;
 use function strip_tags;
+use function array_keys;
 use function json_encode;
 use function str_replace;
 use function preg_replace;
 use function substr_count;
+use function array_filter;
+use function array_values;
 use function class_basename;
 use function file_put_contents;
 
@@ -131,7 +134,7 @@ class NavigationHtmlLayoutsTest extends TestCase
                 new MarkdownPage('foo/bar'),
                 new MarkdownPage('foo/baz'),
             ])
-            ->assertHasDropdowns(['Foo'])
+            ->assertHasDropdowns(['Foo' => ['Bar', 'Baz']])
             ->assertHasPages([
                 'index.html' => 'Home',
                 'foo/bar.html' => 'Bar',
@@ -341,35 +344,44 @@ abstract class RenderedNavigationMenu
         return $this->assertLooksLike($expected, true);
     }
 
-    public function assertHasDropdowns(?array $dropdownLabels = null): static
+    public function assertHasDropdowns(?array $expected = null): static
     {
         $this->assertHasElement('dropdown');
         $this->assertHasElement('dropdown-items');
         $this->assertHasElement('dropdown-button');
 
-        if ($dropdownLabels) {
+        if ($expected) {
             // Assert contains only the same count of dropdown labels
 
             // Get all ul.dropdown-items elements
             $xpath = new DOMXPath($this->ast);
             $dropdownItems = $xpath->query('//ul[contains(concat(" ", normalize-space(@class), " "), " dropdown-items ")]');
 
-            $foundLabels = [];
+            /** @var array<string, array<string> $actual */
+            $actual = [];
 
             foreach ($dropdownItems as $dropdownItem) {
                 // Get the preceding sibling button element
                 $button = $xpath->query('../preceding-sibling::button', $dropdownItem)->item(0);
 
                 // Get the text content of the button (label)
-                $label = $button->textContent;
+                $label = trim($button->textContent);
+
+                $innerText = $dropdownItem->textContent;
+                $children = array_values(array_filter(array_map('trim', explode("\n", $innerText))));
 
                 // Trim and add the label to the array
-                $foundLabels[] = trim($label);
+                $actual[$label] = $children;
             }
 
-            $this->test->assertSame($dropdownLabels, $foundLabels, sprintf('Rendered dropdown labels do not match expected labels: %s', json_encode([
-                'expected' => $dropdownLabels,
-                'rendered' => $foundLabels,
+            // If expected is a list array then remove values from actual
+            if (array_keys($expected) === range(0, count($expected) - 1)) {
+                $actual = array_keys($actual);
+            }
+
+            $this->test->assertSame($expected, $actual, sprintf('Rendered dropdown does not match expected format: %s', json_encode([
+                'expected' => $expected,
+                'rendered' => $actual,
             ], JSON_PRETTY_PRINT)));
         }
 
