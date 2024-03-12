@@ -193,6 +193,161 @@ class NavigationHtmlLayoutsTest extends TestCase
         return $this;
     }
 
+    public function testNavigationMenuWithFlatSubdirectoryPagesAndMatchingSubdirectoryPage()
+    {
+        $this->useSubdirectoryConfig('flat')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertDoesNotHaveDropdowns()
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo.html' => 'Foo',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - Foo
+                - Bar
+                - Baz
+                HTML
+            );
+    }
+
+    public function testNavigationMenuWithFlatSubdirectoryPagesAndMatchingSubdirectoryIndexPage()
+    {
+        $this->useSubdirectoryConfig('flat')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo/index'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertDoesNotHaveDropdowns()
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo/index.html' => 'Foo',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - Foo
+                - Bar
+                - Baz
+                HTML
+            );
+    }
+
+    public function testNavigationMenuWithFlatSubdirectoryPagesAndMatchingSubdirectoryAndIndexPage()
+    {
+        $this->useSubdirectoryConfig('flat')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo'),
+                new MarkdownPage('foo/index'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertDoesNotHaveDropdowns()
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo.html' => 'Foo',
+                'foo/index.html' => 'Foo',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - Foo
+                - Foo
+                - Bar
+                - Baz
+                HTML
+            );
+    }
+
+    public function testNavigationMenuWithDropdownSubdirectoryPagesAndMatchingSubdirectoryPage()
+    {
+        $this->useSubdirectoryConfig('dropdown')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertHasDropdowns()
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - Foo
+                    - Bar
+                    - Baz
+                HTML
+            );
+    }
+
+    public function testNavigationMenuWithDropdownSubdirectoryPagesAndMatchingSubdirectoryIndexPage()
+    {
+        $this->useSubdirectoryConfig('dropdown')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo/index'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertHasDropdowns()
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo/index.html' => 'Foo',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - Foo
+                    - Foo
+                    - Bar
+                    - Baz
+                HTML
+            );
+    }
+
+    public function testNavigationMenuWithDropdownSubdirectoryPagesAndMatchingSubdirectoryAndIndexPage()
+    {
+        $this->useSubdirectoryConfig('dropdown')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo'),
+                new MarkdownPage('foo/index'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertHasDropdowns()
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo/index.html' => 'Foo',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - Foo
+                    - Foo
+                    - Bar
+                    - Baz
+                HTML
+            );
+    }
+
     protected function fromPage(string $mockedRoute): static
     {
         $this->mockCurrentPage($mockedRoute);
