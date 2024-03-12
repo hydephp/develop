@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use DOMElement;
 use DOMDocument;
 use Hyde\Pages\HtmlPage;
+use Hyde\Facades\Config;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
@@ -441,6 +442,20 @@ class NavigationHtmlLayoutsTest extends TestCase
     public function testSidebarHeader()
     {
         $this->sidebar()->assertHeaderIs('HydePHP Docs');
+    }
+
+    public function testCustomMenuHeader()
+    {
+        Config::set('hyde.name', 'Example');
+
+        $this->menu()->assertHeaderIs('Example');
+    }
+
+    public function testCustomSidebarHeader()
+    {
+        Config::set('docs.sidebar.header', 'Documentation');
+
+        $this->sidebar()->assertHeaderIs('Documentation');
     }
 
     protected function fromPage(string $mockedRoute): static
