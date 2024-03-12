@@ -351,9 +351,6 @@ abstract class RenderedNavigationMenu
         $this->assertHasElement('dropdown-button');
 
         if ($expected) {
-            // Assert contains only the same count of dropdown labels
-
-            // Get all ul.dropdown-items elements
             $xpath = new DOMXPath($this->ast);
             $dropdownItems = $xpath->query('//ul[contains(concat(" ", normalize-space(@class), " "), " dropdown-items ")]');
 
@@ -361,20 +358,16 @@ abstract class RenderedNavigationMenu
             $actual = [];
 
             foreach ($dropdownItems as $dropdownItem) {
-                // Get the preceding sibling button element
                 $button = $xpath->query('../preceding-sibling::button', $dropdownItem)->item(0);
 
-                // Get the text content of the button (label)
                 $label = trim($button->textContent);
 
-                $innerText = $dropdownItem->textContent;
-                $children = array_values(array_filter(array_map('trim', explode("\n", $innerText))));
+                $children = array_values(array_filter(array_map('trim', explode("\n", $dropdownItem->textContent))));
 
-                // Trim and add the label to the array
                 $actual[$label] = $children;
             }
 
-            // If expected is a list array then remove values from actual
+            // If expected is a list array, then remove values from actual
             if (array_values($expected) === $expected) {
                 $actual = array_keys($actual);
             }
