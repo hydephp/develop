@@ -115,14 +115,12 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasElement('dropdown-items')
             ->assertHasElement('dropdown-button')
             ->assertItemsLookLike(<<<'HTML'
-- Home
-- Foo
-    - Bar
-    - Baz
-HTML
-
-            )
-            ->finish();
+                - Home
+                - Foo
+                    - Bar
+                    - Baz
+                HTML
+            );
     }
 
     protected function withPages(array $pages): static
