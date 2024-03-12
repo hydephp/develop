@@ -131,12 +131,12 @@ class NavigationHtmlLayoutsTest extends TestCase
                 new MarkdownPage('foo/bar'),
                 new MarkdownPage('foo/baz'),
             ])
+            ->assertHasDropdowns()
             ->assertHasPages([
                 'index.html' => 'Home',
                 'foo/bar.html' => 'Bar',
                 'foo/baz.html' => 'Baz',
             ])
-            ->assertHasDropdowns()
             ->assertItemsLookLike(<<<'HTML'
                 - Home
                 - Foo
@@ -154,12 +154,12 @@ class NavigationHtmlLayoutsTest extends TestCase
                 new MarkdownPage('foo/bar'),
                 new MarkdownPage('foo/baz'),
             ])
+            ->assertDoesNotHaveDropdowns()
             ->assertHasPages([
                 'index.html' => 'Home',
                 'foo/bar.html' => 'Bar',
                 'foo/baz.html' => 'Baz',
             ])
-            ->assertDoesNotHaveDropdowns()
             ->assertItemsLookLike(<<<'HTML'
                 - Home
                 - Bar
