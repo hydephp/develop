@@ -24,6 +24,25 @@ use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
+use function app;
+use function md5;
+use function view;
+use function trim;
+use function range;
+use function config;
+use function collect;
+use function sprintf;
+use function explode;
+use function implode;
+use function array_map;
+use function strip_tags;
+use function json_encode;
+use function str_replace;
+use function preg_replace;
+use function substr_count;
+use function class_basename;
+use function file_put_contents;
+
 /**
  * Very high level tests for navigation menu and sidebar view layouts.
  *
@@ -101,11 +120,11 @@ class NavigationHtmlLayoutsTest extends TestCase
     public function testNavigationMenuWithDropdownPages()
     {
         $this->useSubdirectoriesAsDropdowns()
-           ->menu([
-               new MarkdownPage('index'),
-               new MarkdownPage('foo/bar'),
-               new MarkdownPage('foo/baz'),
-           ])
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
             ->assertHasPages([
                 'index.html' => 'Home',
                 'foo/bar.html' => 'Bar',
