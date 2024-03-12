@@ -183,10 +183,7 @@ class NavigationHtmlLayoutsTest extends TestCase
             ->assertHasPages([
                 'index.html' => 'Home',
             ])
-            ->assertItemsLookLike(<<<'HTML'
-                - Home
-                HTML
-            );
+            ->assertItemsLookLike('- Home');
     }
 
     protected function withPages(array $pages): static
