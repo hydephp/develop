@@ -118,10 +118,10 @@ class NavigationHtmlLayoutsTest extends TestCase
                 'docs/baz.html' => 'Baz',
             ])
             ->assertItemsLookLike(<<<'HTML'
-            Foo
-            Bar
-            Baz
-            HTML
+                Foo
+                Bar
+                Baz
+                HTML
             );
     }
 
