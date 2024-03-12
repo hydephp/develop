@@ -111,12 +111,7 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testSidebarWithPages()
     {
-        $this->sidebar([
-            new DocumentationPage('index'),
-            new DocumentationPage('foo'),
-            new DocumentationPage('bar'),
-            new DocumentationPage('baz'),
-        ])
+        $this->sidebar($this->withSidebarPages())
             ->assertHasPages([
                 'docs/foo.html' => 'Foo',
                 'docs/bar.html' => 'Bar',
@@ -503,6 +498,16 @@ class NavigationHtmlLayoutsTest extends TestCase
             new BladePage('hidden', ['navigation.hidden' => true]),
             new InMemoryPage('custom', ['navigation.label' => 'Label']),
             new HtmlPage('first', ['navigation.priority' => 1]),
+        ];
+    }
+
+    protected function withSidebarPages(): array
+    {
+        return [
+            new DocumentationPage('index'),
+            new DocumentationPage('foo'),
+            new DocumentationPage('bar'),
+            new DocumentationPage('baz'),
         ];
     }
 
