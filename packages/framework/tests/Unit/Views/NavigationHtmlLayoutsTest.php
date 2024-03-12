@@ -410,6 +410,27 @@ class NavigationHtmlLayoutsTest extends TestCase
         );
     }
 
+    public function testSidebarWithGroupedPagesWithoutFlattenedOutputPaths()
+    {
+        $this->withoutFlattenedOutputPaths()
+            ->sidebar([
+                new DocumentationPage('index'),
+                new DocumentationPage('foo/bar'),
+                new DocumentationPage('foo/baz'),
+            ])
+            ->assertHasGroups()
+            ->assertHasPages([
+                'docs/foo/bar.html' => 'Bar',
+                'docs/foo/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+            - Foo
+                - Bar
+                - Baz
+            HTML
+            );
+    }
+
     protected function fromPage(string $mockedRoute): static
     {
         $this->mockCurrentPage($mockedRoute);
@@ -438,6 +459,13 @@ class NavigationHtmlLayoutsTest extends TestCase
     protected function useSubdirectoryConfig(string $option): static
     {
         config(['hyde.navigation.subdirectories' => $option]);
+
+        return $this;
+    }
+
+    protected function withoutFlattenedOutputPaths(): static
+    {
+        config(['docs.flattened_output_paths' => false]);
 
         return $this;
     }
