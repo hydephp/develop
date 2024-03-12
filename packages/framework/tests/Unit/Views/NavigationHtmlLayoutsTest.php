@@ -171,6 +171,24 @@ class NavigationHtmlLayoutsTest extends TestCase
             );
     }
 
+    public function testNavigationMenuWithHiddenSubdirectoryPages()
+    {
+        $this->useSubdirectoryConfig('hidden')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertDoesNotHaveDropdowns()
+            ->assertHasPages([
+                'index.html' => 'Home',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                HTML
+            );
+    }
+
     protected function withPages(array $pages): static
     {
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
