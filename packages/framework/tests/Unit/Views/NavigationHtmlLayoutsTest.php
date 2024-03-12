@@ -343,16 +343,20 @@ abstract class RenderedNavigationMenu
 
     public function assertHasDropdowns(): static
     {
-        return $this->assertHasElement('dropdown')
-            ->assertHasElement('dropdown-items')
-            ->assertHasElement('dropdown-button');
+        $this->assertHasElement('dropdown');
+        $this->assertHasElement('dropdown-items');
+        $this->assertHasElement('dropdown-button');
+
+        return $this;
     }
 
     public function assertDoesNotHaveDropdowns(): static
     {
-        return $this->assertDoesNotHaveElement('dropdown')
-            ->assertDoesNotHaveElement('dropdown-items')
-            ->assertDoesNotHaveElement('dropdown-button');
+        $this->assertDoesNotHaveElement('dropdown');
+        $this->assertDoesNotHaveElement('dropdown-items');
+        $this->assertDoesNotHaveElement('dropdown-button');
+
+        return $this;
     }
 
     #[NoReturn]
