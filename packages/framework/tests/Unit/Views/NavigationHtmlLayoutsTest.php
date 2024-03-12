@@ -109,6 +109,51 @@ class NavigationHtmlLayoutsTest extends TestCase
             ]);
     }
 
+    public function testSidebarWithPages()
+    {
+        $this->sidebar([
+            new DocumentationPage('index'),
+            new DocumentationPage('foo'),
+            new DocumentationPage('bar'),
+            new DocumentationPage('baz'),
+        ])
+            ->assertHasPages([
+                'docs/foo.html' => 'Foo',
+                'docs/bar.html' => 'Bar',
+                'docs/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+            Foo
+            Bar
+            Baz
+            HTML
+            );
+    }
+
+    public function testMenuHeader()
+    {
+        $this->menu()->assertHeaderIs('HydePHP');
+    }
+
+    public function testSidebarHeader()
+    {
+        $this->sidebar()->assertHeaderIs('HydePHP Docs');
+    }
+
+    public function testCustomMenuHeader()
+    {
+        Config::set('hyde.name', 'Example');
+
+        $this->menu()->assertHeaderIs('Example');
+    }
+
+    public function testCustomSidebarHeader()
+    {
+        Config::set('docs.sidebar.header', 'Documentation');
+
+        $this->sidebar()->assertHeaderIs('Documentation');
+    }
+
     public function testNavigationMenuFromNestedRoute()
     {
         $this->fromPage('nested/page')
@@ -350,27 +395,6 @@ class NavigationHtmlLayoutsTest extends TestCase
             );
     }
 
-    public function testSidebarWithPages()
-    {
-        $this->sidebar([
-            new DocumentationPage('index'),
-            new DocumentationPage('foo'),
-            new DocumentationPage('bar'),
-            new DocumentationPage('baz'),
-        ])
-            ->assertHasPages([
-                'docs/foo.html' => 'Foo',
-                'docs/bar.html' => 'Bar',
-                'docs/baz.html' => 'Baz',
-            ])
-            ->assertItemsLookLike(<<<'HTML'
-            Foo
-            Bar
-            Baz
-            HTML
-            );
-    }
-
     public function testSidebarFromNestedRoute()
     {
         $this->fromPage('nested/page')
@@ -424,30 +448,6 @@ class NavigationHtmlLayoutsTest extends TestCase
                 - Baz
             HTML
             );
-    }
-
-    public function testMenuHeader()
-    {
-        $this->menu()->assertHeaderIs('HydePHP');
-    }
-
-    public function testSidebarHeader()
-    {
-        $this->sidebar()->assertHeaderIs('HydePHP Docs');
-    }
-
-    public function testCustomMenuHeader()
-    {
-        Config::set('hyde.name', 'Example');
-
-        $this->menu()->assertHeaderIs('Example');
-    }
-
-    public function testCustomSidebarHeader()
-    {
-        Config::set('docs.sidebar.header', 'Documentation');
-
-        $this->sidebar()->assertHeaderIs('Documentation');
     }
 
     protected function fromPage(string $mockedRoute): static
