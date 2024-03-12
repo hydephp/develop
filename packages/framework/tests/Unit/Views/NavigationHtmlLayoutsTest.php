@@ -148,6 +148,30 @@ class NavigationHtmlLayoutsTest extends TestCase
             );
     }
 
+    public function testNavigationMenuWithFlatSubdirectoryPages()
+    {
+        $this->useSubdirectoryConfig('flat')
+            ->menu([
+                new MarkdownPage('index'),
+                new MarkdownPage('foo/bar'),
+                new MarkdownPage('foo/baz'),
+            ])
+            ->assertHasPages([
+                'index.html' => 'Home',
+                'foo/bar.html' => 'Bar',
+                'foo/baz.html' => 'Baz',
+            ])
+            ->assertDoesNotHaveElement('dropdown')
+            ->assertDoesNotHaveElement('dropdown-items')
+            ->assertDoesNotHaveElement('dropdown-button')
+            ->assertItemsLookLike(<<<'HTML'
+                - Home
+                - Bar
+                - Baz
+                HTML
+            );
+    }
+
     protected function withPages(array $pages): static
     {
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
