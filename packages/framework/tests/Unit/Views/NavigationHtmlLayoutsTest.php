@@ -18,6 +18,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\HydeKernel;
 use JetBrains\PhpStorm\NoReturn;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
@@ -342,6 +343,49 @@ class NavigationHtmlLayoutsTest extends TestCase
                     - Foo
                     - Bar
                     - Baz
+                HTML
+            );
+    }
+
+    public function testSidebarWithPages()
+    {
+        $this->sidebar([
+            new DocumentationPage('index'),
+            new DocumentationPage('foo'),
+            new DocumentationPage('bar'),
+            new DocumentationPage('baz'),
+        ])
+        ->assertHasPages([
+            'docs/foo.html' => 'Foo',
+            'docs/bar.html' => 'Bar',
+            'docs/baz.html' => 'Baz',
+        ])
+        ->assertItemsLookLike(<<<'HTML'
+            Foo
+            Bar
+            Baz
+            HTML
+        );
+    }
+
+    public function testSidebarFromNestedRoute()
+    {
+        $this->fromPage('nested/page')
+            ->sidebar([
+                new DocumentationPage('index'),
+                new DocumentationPage('foo'),
+                new DocumentationPage('bar'),
+                new DocumentationPage('baz'),
+            ])
+            ->assertHasPages([
+                '../docs/foo.html' => 'Foo',
+                '../docs/bar.html' => 'Bar',
+                '../docs/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Foo
+                - Bar
+                - Baz
                 HTML
             );
     }
