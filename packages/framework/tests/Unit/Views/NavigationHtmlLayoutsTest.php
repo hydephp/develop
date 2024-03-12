@@ -590,7 +590,7 @@ abstract class RenderedNavigationMenu
         $pages = [];
 
         foreach ($links as $link) {
-            $pages[$link->getAttribute('href')] = $link->textContent;
+            $pages[$link->getAttribute('href')] = trim($link->textContent);
         }
 
         return $pages;
