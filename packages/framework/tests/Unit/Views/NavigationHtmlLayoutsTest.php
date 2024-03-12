@@ -375,7 +375,7 @@ abstract class RenderedNavigationMenu
             }
 
             // If expected is a list array then remove values from actual
-            if (array_keys($expected) === range(0, count($expected) - 1)) {
+            if (array_values($expected) === $expected) {
                 $actual = array_keys($actual);
             }
 
