@@ -125,7 +125,7 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     public function testNavigationMenuWithDropdownPages()
     {
-        $this->useSubdirectoriesAsDropdowns()
+        $this->useSubdirectoryConfig('dropdown')
             ->menu([
                 new MarkdownPage('index'),
                 new MarkdownPage('foo/bar'),
@@ -180,9 +180,9 @@ class NavigationHtmlLayoutsTest extends TestCase
         return new RenderedDocumentationSidebarMenu($this, $this->render('hyde::components.docs.sidebar'));
     }
 
-    protected function useSubdirectoriesAsDropdowns(): static
+    protected function useSubdirectoryConfig(string $option): static
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectories' => $option]);
 
         return $this;
     }
