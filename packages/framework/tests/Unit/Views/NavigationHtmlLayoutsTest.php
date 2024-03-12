@@ -397,17 +397,17 @@ class NavigationHtmlLayoutsTest extends TestCase
             new DocumentationPage('foo/bar'),
             new DocumentationPage('foo/baz'),
         ])
-            ->assertHasGroups()
-            ->assertHasPages([
-                'docs/bar.html' => 'Bar',
-                'docs/baz.html' => 'Baz',
-            ])
-            ->assertItemsLookLike(<<<'HTML'
-                - Foo
-                    - Bar
-                    - Baz
-                HTML
-            );
+        ->assertHasGroups()
+        ->assertHasPages([
+            'docs/bar.html' => 'Bar',
+            'docs/baz.html' => 'Baz',
+        ])
+        ->assertItemsLookLike(<<<'HTML'
+            - Foo
+                - Bar
+                - Baz
+            HTML
+        );
     }
 
     protected function fromPage(string $mockedRoute): static
