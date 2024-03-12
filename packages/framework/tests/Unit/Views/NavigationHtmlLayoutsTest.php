@@ -131,7 +131,7 @@ class NavigationHtmlLayoutsTest extends TestCase
                 new MarkdownPage('foo/bar'),
                 new MarkdownPage('foo/baz'),
             ])
-            ->assertHasDropdowns()
+            ->assertHasDropdowns(['Foo'])
             ->assertHasPages([
                 'index.html' => 'Home',
                 'foo/bar.html' => 'Bar',
@@ -341,11 +341,37 @@ abstract class RenderedNavigationMenu
         return $this->assertLooksLike($expected, true);
     }
 
-    public function assertHasDropdowns(): static
+    public function assertHasDropdowns(?array $dropdownLabels = null): static
     {
         $this->assertHasElement('dropdown');
         $this->assertHasElement('dropdown-items');
         $this->assertHasElement('dropdown-button');
+
+        if ($dropdownLabels) {
+            // Assert contains only the same count of dropdown labels
+
+            // Get all ul.dropdown-items elements
+            $xpath = new DOMXPath($this->ast);
+            $dropdownItems = $xpath->query('//ul[contains(concat(" ", normalize-space(@class), " "), " dropdown-items ")]');
+
+            $foundLabels = [];
+
+            foreach ($dropdownItems as $dropdownItem) {
+                // Get the preceding sibling button element
+                $button = $xpath->query('../preceding-sibling::button', $dropdownItem)->item(0);
+
+                // Get the text content of the button (label)
+                $label = $button->textContent;
+
+                // Trim and add the label to the array
+                $foundLabels[] = trim($label);
+            }
+
+            $this->test->assertSame($dropdownLabels, $foundLabels, sprintf('Rendered dropdown labels do not match expected labels: %s', json_encode([
+                'expected' => $dropdownLabels,
+                'rendered' => $foundLabels,
+            ], JSON_PRETTY_PRINT)));
+        }
 
         return $this;
     }
