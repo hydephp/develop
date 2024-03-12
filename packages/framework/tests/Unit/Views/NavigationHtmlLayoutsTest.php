@@ -636,7 +636,6 @@ abstract class RenderedNavigationMenu
         $string = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         // Convert JSON to PHP array syntax
-
         $string = str_replace(['{', '}'], ['[', ']'], $string);
         $string = str_replace('": "', "' => '", $string);
         $string = str_replace('": [', "' => [", $string);
