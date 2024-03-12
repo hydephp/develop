@@ -29,6 +29,7 @@ use function md5;
 use function view;
 use function trim;
 use function range;
+use function rtrim;
 use function config;
 use function collect;
 use function sprintf;
