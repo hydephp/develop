@@ -633,7 +633,19 @@ abstract class RenderedNavigationMenu
 
     protected function printSerializedArray(array $data): string|false
     {
-        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $string = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+        // Convert JSON to PHP array syntax
+
+        $string = str_replace(['{', '}'], ['[', ']'], $string);
+        $string = str_replace('": "', "' => '", $string);
+        $string = str_replace('": [', "' => [", $string);
+        $string = str_replace('"', "'", $string);
+        $string = str_replace("'\n", "',\n", $string);
+        $string = str_replace(']', '],', $string);
+        $string = str_replace(',,', ',', $string);
+
+        return rtrim($string, ',');
     }
 }
 
