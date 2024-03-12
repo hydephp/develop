@@ -390,6 +390,26 @@ class NavigationHtmlLayoutsTest extends TestCase
             );
     }
 
+    public function testSidebarWithGroupedPages()
+    {
+        $this->sidebar([
+            new DocumentationPage('index'),
+            new DocumentationPage('foo/bar'),
+            new DocumentationPage('foo/baz'),
+        ])
+            ->assertHasGroups()
+            ->assertHasPages([
+                'docs/bar.html' => 'Bar',
+                'docs/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Foo
+                    - Bar
+                    - Baz
+                HTML
+            );
+    }
+
     protected function fromPage(string $mockedRoute): static
     {
         $this->mockCurrentPage($mockedRoute);
@@ -706,6 +726,28 @@ class RenderedMainNavigationMenu extends RenderedNavigationMenu
 class RenderedDocumentationSidebarMenu extends RenderedNavigationMenu
 {
     protected const TYPE = DocumentationSidebar::class;
+
+    public function assertHasGroups(): static
+    {
+        $this->assertHasElement('sidebar-group');
+        $this->assertHasElement('sidebar-group-items');
+        $this->assertHasElement('sidebar-group-heading');
+        $this->assertHasElement('sidebar-group-header');
+        $this->assertHasElement('sidebar-group-toggle');
+
+        return $this;
+    }
+
+    public function assertHasNoGroups(): static
+    {
+        $this->assertDoesNotHaveElement('sidebar-group');
+        $this->assertDoesNotHaveElement('sidebar-group-items');
+        $this->assertDoesNotHaveElement('sidebar-group-heading');
+        $this->assertDoesNotHaveElement('sidebar-group-header');
+        $this->assertDoesNotHaveElement('sidebar-group-toggle');
+
+        return $this;
+    }
 }
 
 class TestKernel extends HydeKernel
