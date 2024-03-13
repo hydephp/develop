@@ -697,6 +697,14 @@ abstract class RenderedNavigationMenu
         exit(trim($this->html)."\n\n");
     }
 
+    /** Get an element node and assert it is not null */
+    protected function getAssertedElement(string $id): DOMElement
+    {
+        $this->assertHasElement($id);
+
+        return $this->ast->getElementById($id);
+    }
+
     protected function parseHtml(): DOMDocument
     {
         $dom = new DOMDocument();
