@@ -14,6 +14,7 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Facades\Config;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
+use Hyde\Facades\Features;
 use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\InMemoryPage;
@@ -165,6 +166,13 @@ class NavigationHtmlLayoutsTest extends TestCase
     public function testSidebarHeaderHasThemeToggleButton()
     {
         $this->sidebar()->header()->assertHasThemeToggleButton();
+    }
+
+    public function testSidebarHeaderDoesNotHaveThemeToggleButtonWhenDarkmodeIsDisabled()
+    {
+        Features::mock('darkmode', false);
+
+        $this->sidebar()->header()->assertDoesNotHaveThemeToggleButton();
     }
 
     public function testNavigationMenuFromNestedRoute()
@@ -889,6 +897,22 @@ class RenderedDocumentationSidebarMenu extends RenderedNavigationMenu
 
             $this->test->assertNotNull($header, 'No theme toggle button found in sidebar header');
             $this->test->assertSame('Toggle dark theme', trim($header->textContent));
+        }
+
+        return $this;
+    }
+
+    public function assertDoesNotHaveThemeToggleButton(): static
+    {
+        if (! $this->scopeToHeader) {
+            $this->assertDoesNotHaveElement('theme-toggle-button');
+        } else {
+            $header = $this->getAssertedElement('sidebar-header');
+
+            $xpath = new DOMXPath($this->ast);
+            $header = $xpath->query('.//button[contains(concat(" ", normalize-space(@class), " "), " theme-toggle-button ")]', $header)->item(0);
+
+            $this->test->assertNull($header, 'Theme toggle button found in sidebar header');
         }
 
         return $this;
