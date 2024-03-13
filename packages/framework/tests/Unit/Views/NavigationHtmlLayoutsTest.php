@@ -438,6 +438,23 @@ class NavigationHtmlLayoutsTest extends TestCase
             );
     }
 
+    public function testSidebarWithoutGroupedPages()
+    {
+        $this->sidebar($this->withSidebarPages())
+            ->assertHasNoGroups()
+            ->assertHasPages([
+                'docs/foo.html' => 'Foo',
+                'docs/bar.html' => 'Bar',
+                'docs/baz.html' => 'Baz',
+            ])
+            ->assertItemsLookLike(<<<'HTML'
+                - Foo
+                - Bar
+                - Baz
+                HTML
+            );
+    }
+
     public function testSidebarWithGroupedPages()
     {
         $this->sidebar($this->withGroupedSidebarPages())
