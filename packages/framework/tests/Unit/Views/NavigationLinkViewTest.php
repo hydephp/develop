@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Hyde\Testing\TestsBladeViews;
+use Hyde\Testing\Support\TestView;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\View\ComponentAttributeBag;
 use Hyde\Framework\Features\Navigation\NavItem;
@@ -14,6 +16,8 @@ use Hyde\Testing\TestCase;
  */
 class NavigationLinkViewTest extends TestCase
 {
+    use TestsBladeViews;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -29,14 +33,22 @@ class NavigationLinkViewTest extends TestCase
         ])->render();
     }
 
+    protected function testView(?NavItem $item = null): TestView
+    {
+        return $this->test(view('hyde::components.navigation.navigation-link', [
+            'item' => $item ?? NavItem::forLink('foo.html', 'Foo'),
+            'attributes' => new ComponentAttributeBag(),
+        ]));
+    }
+
     public function testComponentLinksToRouteDestination()
     {
-        $this->assertStringContainsString('href="foo.html"', $this->render());
+        $this->testView()->assertAttributeIs('href', 'foo.html');
     }
 
     public function testComponentUsesTitle()
     {
-        $this->assertStringContainsString('Foo', $this->render());
+        $this->testView()->assertTextIs('Foo');
     }
 
     public function testComponentDoesNotHaveCurrentAttributesWhenCurrentRouteDoesNotMatch()

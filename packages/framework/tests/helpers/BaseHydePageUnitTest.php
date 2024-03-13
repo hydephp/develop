@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit\Pages;
+namespace Hyde\Framework\Testing\helpers;
 
+use Mockery;
+use Illuminate\View\Factory;
+use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
-use Hyde\Testing\CreatesTemporaryFiles;
-use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Facades\View;
-use Illuminate\View\Factory;
-use Mockery;
+use Hyde\Testing\CreatesTemporaryFiles;
 
 /**
  * Providers helpers and a contract for unit testing for the specified page class.
