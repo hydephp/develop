@@ -162,6 +162,11 @@ class NavigationHtmlLayoutsTest extends TestCase
         $this->sidebar()->assertHeaderIs('Documentation');
     }
 
+    public function testSidebarHeaderHasThemeToggleButton()
+    {
+        $this->sidebar()->header()->assertHasThemeToggleButton();
+    }
+
     public function testNavigationMenuFromNestedRoute()
     {
         $this->fromPage('nested/page')
