@@ -38,7 +38,7 @@
                     @if($item instanceof \Hyde\Framework\Features\Navigation\NavGroupItem)
                         <x-hyde::navigation.dropdown :label="$item->getLabel()" :items="$item->getItems()"/>
                     @else
-                        @include('hyde::components.navigation.navigation-link')
+                        <x-hyde::navigation.link :item="$item"/>
                     @endif
                 </li>
             @endforeach
