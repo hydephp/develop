@@ -48,4 +48,19 @@ class NavigationLinkViewTest extends TestCase
         $this->mockRoute(Routes::get('index'));
         $this->assertStringContainsString('aria-current="page"', $this->render(NavItem::forRoute(Routes::get('index'), 'Home')));
     }
+
+    public function testComponentDoesNotHaveActiveClassWhenNotActive()
+    {
+        $render = $this->render(NavItem::forRoute(Routes::get('index'), 'Home'));
+        $this->assertStringContainsString('navigation-link ', $render);
+        $this->assertStringNotContainsString('navigation-link-active', $render);
+    }
+
+    public function testComponentHasActiveClassWhenActive()
+    {
+        $this->mockRoute(Routes::get('index'));
+        $render = $this->render(NavItem::forRoute(Routes::get('index'), 'Home'));
+        $this->assertStringContainsString('navigation-link ', $render);
+        $this->assertStringContainsString('navigation-link-active', $render);
+    }
 }
