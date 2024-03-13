@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Foundation\Facades\Routes;
+use Illuminate\View\ComponentAttributeBag;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Testing\TestCase;
 
@@ -24,6 +25,7 @@ class NavigationLinkViewTest extends TestCase
     {
         return view('hyde::components.navigation.navigation-link', [
             'item' => $item ?? NavItem::forLink('foo.html', 'Foo'),
+            'attributes' => new ComponentAttributeBag(),
         ])->render();
     }
 
