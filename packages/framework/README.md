@@ -22,7 +22,7 @@ You don't _need_ to customize anything. But you _can_ customize everything.
 
 ### Links & Media
 
-Hyde has already been featured in the [Laravel News Podcast](https://laravel-news.com/podcast/836911) and in the [Symfony Station Communique](https://www.symfonystation.com/Symfony-Station-Communique-13-May-2022). You can find several tutorials on [DEV Community](https://dev.to/t/hydephp) and learn much more on the [HydePHP website](https://hydephp.com) and [official documentation](https://hydephp.com/docs).
+Hyde has already been featured in the [Laravel News Podcast](https://laravel-news.com/podcast/836911), the [Symfony Station Communique](https://www.symfonystation.com/Symfony-Station-Communique-13-May-2022), and in the [JetBrains PhpStorm blog](https://blog.jetbrains.com/phpstorm/2024/03/php-annotated-february-march-2024/). You can find several tutorials on [DEV Community](https://dev.to/t/hydephp) and learn much more on the [HydePHP website](https://hydephp.com) and [official documentation](https://hydephp.com/docs).
 
 ### Repositories
 
