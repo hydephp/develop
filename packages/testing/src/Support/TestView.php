@@ -34,6 +34,30 @@ class TestView extends \Illuminate\Testing\TestView
         return $this;
     }
 
+    /**
+     * Assert that the HTML attribute value is contained within the view.
+     *
+     * @return $this
+     */
+    public function assertAttributeIs(string $attributeName, string $expectedValue): static
+    {
+        PHPUnit::assertStringContainsString($attributeName.'="'.$expectedValue.'"', $this->rendered);
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given text is equals the view's text content.
+     *
+     * @return $this
+     */
+    public function assertTextIs(string $value): static
+    {
+        PHPUnit::assertSame($value, strip_tags($this->rendered));
+
+        return $this;
+    }
+
     protected function trimNewlinesAndIndentation(string $value): string
     {
         return str_replace(['    ', "\t", "\n", "\r"], '', $value);
