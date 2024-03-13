@@ -871,7 +871,24 @@ class RenderedDocumentationSidebarMenu extends RenderedNavigationMenu
 
         return $this;
     }
-    
+
+    public function assertHasThemeToggleButton(): static
+    {
+        if (! $this->scopeToHeader) {
+            $this->assertHasElement('theme-toggle-button');
+        } else {
+            $header = $this->getAssertedElement('sidebar-header');
+
+            $xpath = new DOMXPath($this->ast);
+            $header = $xpath->query('.//button[contains(concat(" ", normalize-space(@class), " "), " theme-toggle-button ")]', $header)->item(0);
+
+            $this->test->assertNotNull($header, 'No theme toggle button found in sidebar header');
+            $this->test->assertSame('Toggle dark theme', trim($header->textContent));
+        }
+
+        return $this;
+    }
+
     public function header(): static
     {
         $this->scopeToHeader = true;
