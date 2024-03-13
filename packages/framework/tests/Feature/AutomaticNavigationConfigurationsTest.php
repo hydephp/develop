@@ -26,6 +26,8 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 /**
  * High-level broad-spectrum tests for the automatic navigation configurations, testing various setups.
  *
+ * @see \Hyde\Framework\Testing\Unit\Views\NavigationHtmlLayoutsTest
+ *
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
