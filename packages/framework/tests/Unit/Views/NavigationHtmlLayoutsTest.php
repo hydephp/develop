@@ -840,6 +840,8 @@ class RenderedDocumentationSidebarMenu extends RenderedNavigationMenu
 {
     protected const TYPE = DocumentationSidebar::class;
 
+    protected bool $scopeToHeader = false;
+
     public function assertHasGroups(): static
     {
         $this->assertHasElement('sidebar-group');
@@ -858,6 +860,13 @@ class RenderedDocumentationSidebarMenu extends RenderedNavigationMenu
         $this->assertDoesNotHaveElement('sidebar-group-heading');
         $this->assertDoesNotHaveElement('sidebar-group-header');
         $this->assertDoesNotHaveElement('sidebar-group-toggle');
+
+        return $this;
+    }
+    
+    public function header(): static
+    {
+        $this->scopeToHeader = true;
 
         return $this;
     }
