@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Models\Route;
+use Hyde\Markdown\Models\Markdown;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
-use Hyde\Hyde;
-use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Markdown\Models\Markdown;
-use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\Route;
+use Hyde\Framework\Testing\helpers\BaseMarkdownPageUnitTest;
 
-require_once __DIR__.'/BaseMarkdownPageUnitTest.php';
+require_once __DIR__.'/../../helpers/BaseMarkdownPageUnitTest.php';
 
 /**
  * @covers \Hyde\Pages\MarkdownPost
