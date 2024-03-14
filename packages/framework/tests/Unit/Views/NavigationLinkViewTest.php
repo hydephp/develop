@@ -38,14 +38,9 @@ class NavigationLinkViewTest extends TestCase
     protected function testView(?NavItem $item = null): TestView
     {
         return $this->test(view('hyde::components.navigation.navigation-link', [
-            'item' => $item ?? NavItem::forLink('foo.html', 'Foo'),
+            'item' => $item ?? NavItem::forRoute(new Route(new InMemoryPage('foo')), 'Foo'),
             'attributes' => new ComponentAttributeBag(),
         ]));
-    }
-
-    protected function makeNavItemForPage(): NavItem
-    {
-        return NavItem::forRoute(new Route(new InMemoryPage('foo')), 'Foo');
     }
 
     public function testComponentLinksToRouteDestination()
@@ -56,7 +51,7 @@ class NavigationLinkViewTest extends TestCase
     public function testComponentResolvesRelativeLinksForRoutes()
     {
         $this->mockCurrentPage('foo/bar');
-        $this->testView($this->makeNavItemForPage())->assertAttributeIs('href', '../foo.html');
+        $this->testView()->assertAttributeIs('href', '../foo.html');
     }
 
     public function testComponentUsesTitle()
