@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support;
 
+use Hyde\Hyde;
+use Illuminate\Support\Str;
+use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Testing\Assert as PHPUnit;
 
 class TestView extends \Illuminate\Testing\TestView
@@ -41,7 +44,33 @@ class TestView extends \Illuminate\Testing\TestView
      */
     public function assertAttributeIs(string $attributeName, string $expectedValue): static
     {
-        PHPUnit::assertStringContainsString($attributeName.'="'.$expectedValue.'"', $this->rendered);
+        static::assertHasAttribute($attributeName);
+
+        PHPUnit::assertStringContainsString($attributeName.'="'.$expectedValue.'"', $this->rendered, "The attribute '$attributeName' with value '$expectedValue' was not found.");
+
+        return $this;
+    }
+
+    /**
+     * Assert that the HTML attribute is present within the view.
+     *
+     * @return $this
+     */
+    public function assertHasAttribute(string $attributeName): static
+    {
+        PHPUnit::assertStringContainsString($attributeName.'="', $this->rendered, "The attribute '$attributeName' was not found.");
+
+        return $this;
+    }
+
+    /**
+     * Assert that the HTML attribute is not present within the view.
+     *
+     * @return $this
+     */
+    public function assertDoesNotHaveAttribute(string $attributeName): static
+    {
+        PHPUnit::assertStringNotContainsString($attributeName.'="', $this->rendered, "The attribute '$attributeName' was found.");
 
         return $this;
     }
@@ -56,6 +85,17 @@ class TestView extends \Illuminate\Testing\TestView
         PHPUnit::assertSame($value, strip_tags($this->rendered));
 
         return $this;
+    }
+
+    #[NoReturn]
+    public function dd(bool $writeHtml = true): void
+    {
+        if ($writeHtml) {
+            $viewName = Str::after(Str::after(basename(class_basename($this->view->getName())), '.'), '.');
+            file_put_contents(Hyde::path(Str::kebab($viewName.'.html')), $this->rendered);
+        }
+
+        exit(trim($this->rendered)."\n\n");
     }
 
     protected function trimNewlinesAndIndentation(string $value): string
