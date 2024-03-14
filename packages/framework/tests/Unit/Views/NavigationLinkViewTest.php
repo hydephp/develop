@@ -53,6 +53,12 @@ class NavigationLinkViewTest extends TestCase
         $this->testView()->assertAttributeIs('href', 'foo.html');
     }
 
+    public function testComponentResolvesRelativeLinksForRoutes()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $this->testView($this->makeNavItemForPage())->assertAttributeIs('href', '../foo.html');
+    }
+
     public function testComponentUsesTitle()
     {
         $this->testView()->assertTextIs('Foo');
