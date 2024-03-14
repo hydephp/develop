@@ -61,9 +61,9 @@ class NavigationLinkViewTest extends TestCase
 
     public function testComponentDoesNotHaveCurrentAttributesWhenCurrentRouteDoesNotMatch()
     {
-        $render = $this->render(NavItem::forRoute(Routes::get('index'), 'Home'));
-        $this->assertStringNotContainsString('current', $render);
-        $this->assertStringNotContainsString('aria-current="page"', $render);
+        $this->testView()
+            ->assertDontSee('current')
+            ->assertDoesNotHaveAttribute('aria-current');
     }
 
     public function testComponentIsCurrentWhenCurrentRouteMatches()
