@@ -41,7 +41,33 @@ class TestView extends \Illuminate\Testing\TestView
      */
     public function assertAttributeIs(string $attributeName, string $expectedValue): static
     {
+        static::assertHasAttribute($attributeName);
+
         PHPUnit::assertStringContainsString($attributeName.'="'.$expectedValue.'"', $this->rendered, "The attribute '$attributeName' with value '$expectedValue' was not found.");
+
+        return $this;
+    }
+
+    /**
+     * Assert that the HTML attribute is present within the view.
+     *
+     * @return $this
+     */
+    public function assertHasAttribute(string $attributeName): static
+    {
+        PHPUnit::assertStringContainsString($attributeName.'="', $this->rendered, "The attribute '$attributeName' was not found.");
+
+        return $this;
+    }
+
+    /**
+     * Assert that the HTML attribute is not present within the view.
+     *
+     * @return $this
+     */
+    public function assertDoesNotHaveAttribute(string $attributeName): static
+    {
+        PHPUnit::assertStringNotContainsString($attributeName.'="', $this->rendered, "The attribute '$attributeName' was found.");
 
         return $this;
     }
