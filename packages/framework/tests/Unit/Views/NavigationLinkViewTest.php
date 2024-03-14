@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
+use Hyde\Pages\InMemoryPage;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Testing\Support\TestView;
 use Hyde\Foundation\Facades\Routes;
@@ -39,6 +41,11 @@ class NavigationLinkViewTest extends TestCase
             'item' => $item ?? NavItem::forLink('foo.html', 'Foo'),
             'attributes' => new ComponentAttributeBag(),
         ]));
+    }
+
+    protected function makeNavItemForPage(): NavItem
+    {
+        return NavItem::forRoute(new Route(new InMemoryPage('foo')), 'Foo');
     }
 
     public function testComponentLinksToRouteDestination()
