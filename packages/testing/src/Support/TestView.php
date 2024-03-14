@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support;
 
+use Hyde\Hyde;
+use Illuminate\Support\Str;
+use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Testing\Assert as PHPUnit;
 
 class TestView extends \Illuminate\Testing\TestView
@@ -82,6 +85,17 @@ class TestView extends \Illuminate\Testing\TestView
         PHPUnit::assertSame($value, strip_tags($this->rendered));
 
         return $this;
+    }
+
+    #[NoReturn]
+    public function dd(bool $writeHtml = true): void
+    {
+        if ($writeHtml) {
+            $viewName = Str::after(Str::after(basename(class_basename($this->view->getName())), '.'), '.');
+            file_put_contents(Hyde::path(Str::kebab($viewName.'.html')), $this->rendered);
+        }
+
+        exit(trim($this->rendered)."\n\n");
     }
 
     protected function trimNewlinesAndIndentation(string $value): string
