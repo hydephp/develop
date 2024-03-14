@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
@@ -25,5 +26,6 @@ trait InteractsWithPages
     protected function mockCurrentPage(string $currentPage): void
     {
         Render::share('routeKey', $currentPage);
+        Render::share('route', new Route(new InMemoryPage($currentPage)));
     }
 }
