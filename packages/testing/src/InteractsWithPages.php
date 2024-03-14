@@ -19,7 +19,7 @@ trait InteractsWithPages
     protected function mockPage(?HydePage $page = null, ?string $currentPage = null): void
     {
         Render::share('page', $page ?? new InMemoryPage());
-        Render::share('routeKey', $currentPage ?? 'PHPUnit');
+        Render::share('routeKey', $currentPage ?? 'foo');
     }
 
     protected function mockCurrentPage(string $currentPage): void
