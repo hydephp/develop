@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Str;
+use Hyde\Support\ReadingTime;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\MarkdownDocument;
 
@@ -279,7 +280,7 @@ class CodeIntelligence
 
         $extraData = [
             'Compression' => $data['Pruned model compression'],
-            'Reading time' => \Hyde\Support\ReadingTime::fromFile(OUTPUT_PATH.'/model-pruned.txt')->getFormatted('%d mins'),
+            'Reading time' => ReadingTime::fromFile(OUTPUT_PATH.'/model-pruned.txt')->getFormatted('%d mins'),
         ];
 
         foreach ($extraData as $key => $value) {
