@@ -8,7 +8,6 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Testing\Support\TestView;
-use Hyde\Foundation\Facades\Routes;
 use Illuminate\View\ComponentAttributeBag;
 use Hyde\Framework\Features\Navigation\NavItem;
 use Hyde\Testing\TestCase;
@@ -77,16 +76,16 @@ class NavigationLinkViewTest extends TestCase
 
     public function testComponentDoesNotHaveActiveClassWhenNotActive()
     {
-        $render = $this->render(NavItem::forRoute(Routes::get('index'), 'Home'));
-        $this->assertStringContainsString('navigation-link ', $render);
-        $this->assertStringNotContainsString('navigation-link-active', $render);
+        $this->testView()
+            ->assertSee('navigation-link ')
+            ->assertDontSee('navigation-link-active');
     }
 
     public function testComponentHasActiveClassWhenActive()
     {
-        $this->mockRoute(Routes::get('index'));
-        $render = $this->render(NavItem::forRoute(Routes::get('index'), 'Home'));
-        $this->assertStringContainsString('navigation-link ', $render);
-        $this->assertStringContainsString('navigation-link-active', $render);
+        $this->mockCurrentPage('foo')
+            ->testView()
+            ->assertSee('navigation-link ')
+            ->assertSee('navigation-link-active');
     }
 }
