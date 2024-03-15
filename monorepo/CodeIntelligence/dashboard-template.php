@@ -9,6 +9,7 @@ declare(strict_types=1);
 /* @var string $modelSections */
 /* @var string $markupStatistics */
 /* @var string $bladeFiles */
+/* @var string $bladeElementIdentifiers */
 ?>
 <!doctype html>
 <html lang="en">
@@ -118,9 +119,16 @@ declare(strict_types=1);
                     <h3>Blade Files</h3>
                     <?php echo $bladeFiles; ?>
                 </div>
+                <br>
+                 <div class="row">
+                    <h3>Found CSS Identifiers</h3>
+                     <div class="ps-2">
+                         <?php echo $bladeElementIdentifiers; ?>
+                     </div>
+                </div>
             </div>
         </section>
-        <br>
+        br
     </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

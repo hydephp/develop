@@ -93,6 +93,9 @@ class CodeIntelligence
     /** @var array<string, string> */
     protected array $bladeFiles;
 
+    /** @var array<string, int> */
+    protected array $bladeElementIdentifiers;
+
     public function __construct()
     {
         $this->kernel = new HydeKernel(BASE_PATH);
@@ -249,6 +252,7 @@ class CodeIntelligence
             'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
             'markupStatistics' => $this->formatMarkupStatistics(),
             'bladeFiles' => $this->formatBladeFileList(),
+            'bladeElementIdentifiers' => $this->formatBladeElementIdentifiers(),
         ];
     }
 
@@ -367,6 +371,7 @@ class CodeIntelligence
     public function generateMarkupAnalysis(): void
     {
         $this->bladeFiles = $this->findBladeFiles();
+        $this->bladeElementIdentifiers = $this->findBladeElementIdentifiers();
 
         $this->markupStatistics = [
             'bladeFileCount' => number_format(count($this->bladeFiles)),
@@ -393,6 +398,18 @@ class CodeIntelligence
         return $html;
     }
 
+    protected function formatBladeElementIdentifiers(): string
+    {
+        $html = '<ul>';
+
+        foreach ($this->bladeElementIdentifiers as $identifier => $count) {
+            $occurrence = $count === 1 ? 'occurrence' : 'occurrences';
+            $html .= sprintf('<li><code>#%s</code> <small>(%d %s)</small></li>', e($identifier), $count, $occurrence);
+        }
+
+        return $html;
+    }
+
     /** @return array<string> */
     protected function findBladeFiles(): array
     {
@@ -413,5 +430,25 @@ class CodeIntelligence
         }
 
         return $files;
+    }
+
+    /** @return array<string, int> */
+    protected function findBladeElementIdentifiers(): array
+    {
+        // Create a list of all element identifiers in the Blade files, along with the count of how many times they appear
+        $identifiers = [];
+
+        foreach ($this->bladeFiles as $contents) {
+            $matches = [];
+            preg_match_all('/id="([^"]+)"/', $contents, $matches);
+            foreach ($matches[1] as $match) {
+                $identifiers[$match] = ($identifiers[$match] ?? 0) + 1;
+            }
+        }
+
+        // Sort alphabetically
+        ksort($identifiers);
+
+        return $identifiers;
     }
 }
