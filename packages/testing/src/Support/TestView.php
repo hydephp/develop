@@ -97,6 +97,20 @@ class TestView extends \Illuminate\Testing\TestView
     }
 
     /**
+     * Assert that the given HTML ID is contained within the view.
+     *
+     * @return $this
+     */
+    public function assertHasId(string $id): static
+    {
+        $id = trim($id, '#');
+
+        PHPUnit::assertStringContainsString("id=\"$id\"", $this->rendered, "The id '$id' was not found.");
+
+        return $this;
+    }
+
+    /**
      * Assert that the given CSS class is contained within the view.
      *
      * @return $this
