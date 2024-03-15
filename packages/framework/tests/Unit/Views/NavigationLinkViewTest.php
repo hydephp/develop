@@ -26,14 +26,6 @@ class NavigationLinkViewTest extends TestCase
         $this->mockPage();
     }
 
-    protected function render(?NavItem $item = null): string
-    {
-        return view('hyde::components.navigation.navigation-link', [
-            'item' => $item ?? NavItem::forLink('foo.html', 'Foo'),
-            'attributes' => new ComponentAttributeBag(),
-        ])->render();
-    }
-
     protected function testView(?NavItem $item = null): TestView
     {
         return $this->test(view('hyde::components.navigation.navigation-link', [
