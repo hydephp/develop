@@ -373,7 +373,9 @@ class CodeIntelligence
     {
         // Todo
 
-        return implode("\n", array_map(fn ($key, $value) => sprintf('<div>%s: %s</div>', $key, $value), array_keys($this->markupStatistics), $this->markupStatistics));
+        return implode("\n", array_map(function ($key, $value) {
+            return sprintf('<div>%s: %s</div>', $key, $value);
+        }, array_keys($this->markupStatistics), $this->markupStatistics));
     }
 
     /** @return array<string> */
