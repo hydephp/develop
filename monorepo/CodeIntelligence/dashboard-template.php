@@ -8,6 +8,7 @@ declare(strict_types=1);
 /* @var string $modelRaw */
 /* @var string $modelSections */
 /* @var array<string, string> $markupStatistics */
+/* @var string $bladeFiles */
 ?>
 <!doctype html>
 <html lang="en">
@@ -112,6 +113,10 @@ declare(strict_types=1);
                             <?php echo $markupStatistics; ?>
                         </table>
                     </header>
+                </div>
+                <div class="row">
+                    <h3>Blade Files</h3>
+                    <?php echo $bladeFiles; ?>
                 </div>
             </div>
         </section>

@@ -248,6 +248,7 @@ class CodeIntelligence
             'headingsCount' => number_format(substr_count($this->makeHeadingsTable(), '<tr>') - 1),
             'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
             'markupStatistics' => $this->formatMarkupStatistics(),
+            'bladeFiles' => $this->formatBladeFileList(),
         ];
     }
 
@@ -379,6 +380,17 @@ class CodeIntelligence
         return implode("\n", array_map(function (string $key, string $value): string {
             return sprintf('<tr><td>%s:</td> <td class="text-end">%s</td></tr>', $this->kernel->makeTitle($key), $value);
         }, array_keys($this->markupStatistics), $this->markupStatistics));
+    }
+
+    protected function formatBladeFileList(): string
+    {
+        $html = '';
+
+        foreach ($this->bladeFiles as $file => $contents) {
+            $html .= '<details><summary>'.e($file).'</summary><textarea rows="10" cols="80" style="width: 100%; white-space: pre; font-family: monospace;">'.e($contents).'</textarea></details>';
+        }
+
+        return $html;
     }
 
     /** @return array<string> */
