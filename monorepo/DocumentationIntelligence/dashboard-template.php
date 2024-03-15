@@ -65,7 +65,8 @@
             <div class="col-12">
                 <h2>Model Data</h2>
 
-                <article>
+                <br>
+                <article class="my-2">
                     <h3>Full model</h3>
                     <details>
                         <summary>Click to view the model</summary>
@@ -75,7 +76,7 @@
                     </details>
                 </article>
                 <br>
-                <article>
+                <article class="my-2">
                     <h3>Sections</h3>
                     <details>
                         <summary>Click to view the sections</summary>
@@ -85,6 +86,8 @@
             </div>
         </div>
     </div>
+
+    <br>
 </main>
 
 </body>
