@@ -26,10 +26,10 @@ class NavigationLinkViewTest extends TestCase
         $this->mockPage();
     }
 
-    protected function testView(?NavItem $item = null): TestView
+    protected function testView(): TestView
     {
         return $this->test(view('hyde::components.navigation.navigation-link', [
-            'item' => $item ?? NavItem::forRoute(new Route(new InMemoryPage('foo')), 'Foo'),
+            'item' => NavItem::forRoute(new Route(new InMemoryPage('foo')), 'Foo'),
             'attributes' => new ComponentAttributeBag(),
         ]));
     }
