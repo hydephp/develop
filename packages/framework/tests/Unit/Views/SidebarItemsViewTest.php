@@ -20,10 +20,15 @@ class SidebarItemsViewTest extends TestCase
 {
     use TestsBladeViews;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->mockRoute();
+    }
+
     protected function testView(): TestView
     {
-        $this->mockRoute();
-
         Hyde::routes()->addRoute(new Route(new DocumentationPage('foo')));
         Hyde::routes()->addRoute(new Route(new DocumentationPage('bar')));
         Hyde::routes()->addRoute(new Route(new DocumentationPage('baz')));
