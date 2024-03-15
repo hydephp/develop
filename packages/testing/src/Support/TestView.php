@@ -83,6 +83,30 @@ class TestView extends \Illuminate\Testing\TestView
     }
 
     /**
+     * Assert that the given CSS class is contained within the view.
+     *
+     * @return $this
+     */
+    public function assertHasClass(string $class): static
+    {
+        PHPUnit::assertContains($class, $this->findClasses(), "The class '$class' was not found.");
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given CSS class is not contained within the view.
+     *
+     * @return $this
+     */
+    public function assertDoesNotHaveClass(string $class): static
+    {
+        PHPUnit::assertNotContains($class, $this->findClasses(), "The class '$class' was found.");
+
+        return $this;
+    }
+
+    /**
      * Assert that the given text is equals the view's text content.
      *
      * @return $this
@@ -108,5 +132,13 @@ class TestView extends \Illuminate\Testing\TestView
     protected function trimNewlinesAndIndentation(string $value): string
     {
         return str_replace(['    ', "\t", "\n", "\r"], '', $value);
+    }
+
+    /** @return array<string> */
+    protected function findClasses(): array
+    {
+        preg_match_all('/class="([^"]+)"/', $this->rendered, $matches);
+
+        return explode(' ', $matches[1][0]);
     }
 }
