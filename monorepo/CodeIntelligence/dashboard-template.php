@@ -7,6 +7,7 @@ declare(strict_types=1);
 /* @var string $headingsTable */
 /* @var string $modelRaw */
 /* @var string $modelSections */
+/* @var array<string, string> $markupStatistics */
 ?>
 <!doctype html>
 <html lang="en">
@@ -100,6 +101,18 @@ declare(strict_types=1);
                     </div>
                 </div>
             <br>
+        </section>
+
+        <section id="markup-tab-pane" class="tab-pane fade">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Markup Statistics</h2>
+                    </div>
+
+                    <?php echo $markupStatistics; ?>
+                </div>
+            </div>
         </section>
     </div>
 </main>

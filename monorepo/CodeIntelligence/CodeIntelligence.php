@@ -45,6 +45,9 @@ Command::main(function () {
     task('create pruned model', fn () => $generator->createPrunedModel());
     task('generate model data', fn () => $generator->getModelStatistics());
 
+    // Markup analysis
+    task('generate markup analysis', fn () => $generator->generateMarkupAnalysis());
+
     // Dashboard generation
     task('create dashboard page', fn () => $generator->createDashboardPage());
 
@@ -83,6 +86,9 @@ class CodeIntelligence
 
     /** @var array<string, \Hyde\Markdown\Models\MarkdownDocument> */
     protected array $pages = [];
+
+    /** @var array<string, string> */
+    protected array $markupStatistics;
 
     public function __construct()
     {
@@ -238,6 +244,7 @@ class CodeIntelligence
             'headingsTable' => $this->makeHeadingsTable(),
             'headingsCount' => number_format(substr_count($this->makeHeadingsTable(), '<tr>') - 1),
             'modelRaw' => e(file_get_contents(OUTPUT_PATH.'/model.txt')),
+            'markupStatistics' => $this->formatMarkupStatistics(),
         ];
     }
 
@@ -351,5 +358,21 @@ class CodeIntelligence
             'Pruned model lines' => number_format(count(file(OUTPUT_PATH.'/model-pruned.txt')) + 1),
             'Pruned model compression' => number_format((1 - (filesize(OUTPUT_PATH.'/model-pruned.txt') / filesize(OUTPUT_PATH.'/model.txt'))) * 100, 2).'%',
         ];
+    }
+
+    public function generateMarkupAnalysis(): void
+    {
+        // Todo
+
+        $this->markupStatistics = [
+            'foo' => 'bar',
+        ];
+    }
+
+    protected function formatMarkupStatistics(): string
+    {
+        // Todo
+
+        return implode("\n", array_map(fn ($key, $value) => sprintf('<div>%s: %s</div>', $key, $value), array_keys($this->markupStatistics), $this->markupStatistics));
     }
 }
