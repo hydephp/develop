@@ -61,7 +61,7 @@ declare(strict_types=1);
                 </div>
             </div>
 
-            <hr>
+            <div class="container"><hr></div>
 
             <div class="container">
                 <div class="row">
@@ -82,7 +82,7 @@ declare(strict_types=1);
                 </div>
             </div>
 
-            <hr>
+            <div class="container"><hr></div>
 
             <div class="container">
                 <div class="row">
