@@ -14,7 +14,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\MarkdownDocument;
 
 if (php_sapi_name() !== 'cli') {
-    // Run the file and proxy the dashboard page for a live browser view
+    // Run the file and proxy the dashboard page for a live browser preview
     exec('php '.realpath(__FILE__).' 2>&1', $output, $returnCode);
 
     if ($returnCode !== 0) {
