@@ -431,9 +431,12 @@ class CodeIntelligence
         foreach ($this->bladeElementClasses as $class => $count) {
             $occurrence = $count === 1 ? 'occurrence' : 'occurrences';
             $isKebabCase = Str::contains($class, '-') || (Str::kebab($class) === $class);
+            $hasInlineBladeDirectives = Str::startsWith($class, '@');
 
             if (! $isKebabCase) {
                 $errorString = '<span title="This class is not in kebab-case">⚠️</span>';
+            } elseif ($hasInlineBladeDirectives) {
+                $errorString = '<span title="This class contains Blade directives and could be improved by refactoring to a `@class()` syntax">⚠️</span>';
             } else {
                 $errorString = '';
             }
