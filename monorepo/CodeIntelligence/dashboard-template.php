@@ -52,13 +52,13 @@ declare(strict_types=1);
         <section id="documentation-tab-pane" class="tab-pane fade">
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
+                    <header class="col-12">
                         <h2>Statistics</h2>
                         <table class="table table-bordered table-sm w-fit">
                             <caption>Model Statistics</caption>
                             <?php echo $modelStatistics; ?>
                         </table>
-                    </div>
+                    </header>
                 </div>
                 <hr>
                 <div class="row">
@@ -106,9 +106,9 @@ declare(strict_types=1);
         <section id="markup-tab-pane" class="tab-pane fade">
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
+                    <header class="col-12">
                         <h2>Markup Statistics</h2>
-                    </div>
+                    </header>
 
                     <?php echo $markupStatistics; ?>
                 </div>
