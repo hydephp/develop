@@ -1,3 +1,10 @@
+<?php
+/* @var string $modelStatistics */
+/* @var string $headingsCount */
+/* @var string $headingsTable */
+/* @var string $modelRaw */
+/* @var string $modelSections */
+?>
 <!doctype html>
 <html lang="en">
 <head>
