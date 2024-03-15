@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 /**
  * @internal
+ *
+ * @usage php monorepo/scripts/FileFormatter.php [--git]
  */
 require_once __DIR__.'/../../vendor/autoload.php';
 
