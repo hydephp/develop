@@ -619,3 +619,12 @@ jobs:
 
       - name: Run linter
         run: php packages/hydefront/.github/scripts/post-build.php
+
+
+  test-monorepo-tools:
+    runs-on: ubuntu-latest
+    name: Test monorepo tools can run
+    steps:
+      - uses: actions/checkout@v3
+      - run: php monorepo/CodeIntelligence/CodeIntelligence.php
+      - run: php monorepo/scripts/FileFormatter.php

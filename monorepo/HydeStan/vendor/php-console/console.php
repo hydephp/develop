@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Desilva\Console;
+
 /**
  * Forked version that is simplified to work without Composer.
  *
