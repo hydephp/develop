@@ -2,6 +2,8 @@
 
 /**
  * @internal This script is part of the internal monorepo tools.
+ *
+ * @usage php monorepo/CodeIntelligence/CodeIntelligence.php
  */
 
 declare(strict_types=1);
