@@ -47,7 +47,7 @@ declare(strict_types=1);
         </ul>
     </nav>
 
-    <div class="tab-content">
+    <div class="tab-content mt-4">
         <section id="documentation-tab-pane" class="tab-pane fade show active">
             <div class="container">
                 <div class="row">
