@@ -34,6 +34,11 @@ class NavigationLinkViewTest extends TestCase
         ]));
     }
 
+    public function testComponentRenders()
+    {
+        $this->testView()->assertHasElement('<a>');
+    }
+
     public function testComponentLinksToRouteDestination()
     {
         $this->testView()->assertAttributeIs('href="foo.html"');
