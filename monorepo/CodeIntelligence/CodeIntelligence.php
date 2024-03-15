@@ -404,7 +404,10 @@ class CodeIntelligence
 
         foreach ($this->bladeElementIdentifiers as $identifier => $count) {
             $occurrence = $count === 1 ? 'occurrence' : 'occurrences';
-            $html .= sprintf('<li><code>#%s</code> <small>(%d %s)</small></li>', e($identifier), $count, $occurrence);
+            if (! str_contains($identifier, '$')) {
+                $identifier = '#'.$identifier;
+            }
+            $html .= sprintf('<li><code>%s</code> <small>(%d %s)</small></li>', e($identifier), $count, $occurrence);
         }
 
         return $html;
