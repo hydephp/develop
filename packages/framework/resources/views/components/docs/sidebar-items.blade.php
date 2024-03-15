@@ -6,6 +6,7 @@
     </ul>
 @else
     <ul id="sidebar-items" role="list">
+        @php /** @var \Hyde\Framework\Features\Navigation\NavGroupItem $group */ @endphp
         @foreach ($sidebar->getItems() as $group)
             <li class="sidebar-group" role="listitem" @if($sidebar->isCollapsible()) x-data="{ groupOpen: {{ $sidebar->isGroupActive($group->getGroupKey()) ? 'true' : 'false' }} }" @endif>
                 <header @class(['sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center', 'group hover:bg-black/10' => $sidebar->isCollapsible()]) @if($sidebar->isCollapsible()) @click="groupOpen = ! groupOpen" @endif>

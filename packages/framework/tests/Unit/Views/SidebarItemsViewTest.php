@@ -35,4 +35,9 @@ class SidebarItemsViewTest extends TestCase
     {
         $this->testView()->assertHasElement('#sidebar-items');
     }
+
+    public function testTypeAnnotationIsNotPresentInHtml()
+    {
+        $this->testView()->assertDontSee('@var')->assertDontSee('$group');
+    }
 }
