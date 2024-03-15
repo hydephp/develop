@@ -407,7 +407,7 @@ class CodeIntelligence
             if (! str_contains($identifier, '$')) {
                 $identifier = '#'.$identifier;
             }
-            $html .= sprintf('<li><code>%s</code> <small>(%d %s)</small></li>', e($identifier), $count, $occurrence);
+            $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small></li>', e($identifier), $count, $occurrence);
         }
 
         return $html;
