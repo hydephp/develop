@@ -36,69 +36,71 @@ declare(strict_types=1);
 </header>
 
 <main>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h2>Statistics</h2>
-                <table class="table table-bordered table-sm w-fit">
-                    <caption>Model Statistics</caption>
-                    <?php echo $modelStatistics; ?>
-                </table>
+    <section id="documentation">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Statistics</h2>
+                    <table class="table table-bordered table-sm w-fit">
+                        <caption>Model Statistics</caption>
+                        <?php echo $modelStatistics; ?>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
 
-    <hr>
+        <hr>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h2>Textual Analysis</h2>
-                <p class="lead">
-                    This can be used to get an overview of all the headings, to ensure a consistent writing style.
-                </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Textual Analysis</h2>
+                    <p class="lead">
+                        This can be used to get an overview of all the headings, to ensure a consistent writing style.
+                    </p>
 
-                <article>
-                    <h3>Headings <small>(<?php echo $headingsCount; ?>)</small></h3>
+                    <article>
+                        <h3>Headings <small>(<?php echo $headingsCount; ?>)</small></h3>
 
-                     <table class="table table-bordered table-sm w-fit">
-                         <?php echo $headingsTable; ?>
-                     </table>
-                </article>
+                         <table class="table table-bordered table-sm w-fit">
+                             <?php echo $headingsTable; ?>
+                         </table>
+                    </article>
+                </div>
             </div>
         </div>
-    </div>
 
-    <hr>
+        <hr>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h2>Model Data</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Model Data</h2>
 
-                <br>
-                <article class="my-2">
-                    <h3>Full model</h3>
-                    <details>
-                        <summary>Click to view the model</summary>
+                    <br>
+                    <article class="my-2">
+                        <h3>Full model</h3>
+                        <details>
+                            <summary>Click to view the model</summary>
 
-                        <textarea rows="30" cols="80" style="width: 100%; white-space: pre; font-family: monospace;"><?php echo $modelRaw; ?></textarea>
+                            <textarea rows="30" cols="80" style="width: 100%; white-space: pre; font-family: monospace;"><?php echo $modelRaw; ?></textarea>
 
-                    </details>
-                </article>
-                <br>
-                <article class="my-2">
-                    <h3>Sections</h3>
-                    <details>
-                        <summary>Click to view the sections</summary>
-                        <?php echo $modelSections; ?>
-                    </details>
-                </article>
+                        </details>
+                    </article>
+                    <br>
+                    <article class="my-2">
+                        <h3>Sections</h3>
+                        <details>
+                            <summary>Click to view the sections</summary>
+                            <?php echo $modelSections; ?>
+                        </details>
+                    </article>
+                </div>
             </div>
         </div>
-    </div>
 
-    <br>
+        <br>
+    </section>
 </main>
 
 </body>
