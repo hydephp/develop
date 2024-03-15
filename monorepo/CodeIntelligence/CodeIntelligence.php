@@ -90,6 +90,9 @@ class CodeIntelligence
     /** @var array<string, string> */
     protected array $markupStatistics;
 
+    /** @var array<string, string> */
+    protected array $bladeFiles;
+
     public function __construct()
     {
         $this->kernel = new HydeKernel(BASE_PATH);
@@ -362,12 +365,12 @@ class CodeIntelligence
 
     public function generateMarkupAnalysis(): void
     {
-        $bladeFiles = $this->findBladeFiles();
+        $this->bladeFiles = $this->findBladeFiles();
 
         $this->markupStatistics = [
-            'bladeFileCount' => number_format(count($bladeFiles)),
-            'bladeFileLines' => number_format(array_sum(array_map(fn (string $file): int => substr_count($file, "\n"), $bladeFiles))),
-            'bladeFileSize' => number_format(array_sum(array_map('strlen', $bladeFiles)) / 1024, 2).' KB',
+            'bladeFileCount' => number_format(count($this->bladeFiles)),
+            'bladeFileLines' => number_format(array_sum(array_map(fn (string $file): int => substr_count($file, "\n"), $this->bladeFiles))),
+            'bladeFileSize' => number_format(array_sum(array_map('strlen', $this->bladeFiles)) / 1024, 2).' KB',
         ];
     }
 
