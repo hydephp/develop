@@ -108,9 +108,10 @@ declare(strict_types=1);
                 <div class="row">
                     <header class="col-12">
                         <h2>Markup Statistics</h2>
+                        <table class='table table-bordered table-sm w-fit'>
+                            <?php echo $markupStatistics; ?>
+                        </table>
                     </header>
-
-                    <?php echo $markupStatistics; ?>
                 </div>
             </div>
         </section>

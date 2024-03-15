@@ -374,7 +374,7 @@ class CodeIntelligence
     protected function formatMarkupStatistics(): string
     {
         return implode("\n", array_map(function (string $key, string $value): string {
-            return sprintf('<div>%s: %s</div>', $this->kernel->makeTitle($key), $value);
+            return sprintf('<tr><td>%s:</td> <td class="text-end">%s</td></tr>', $this->kernel->makeTitle($key), $value);
         }, array_keys($this->markupStatistics), $this->markupStatistics));
     }
 
