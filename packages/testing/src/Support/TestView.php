@@ -42,8 +42,15 @@ class TestView extends \Illuminate\Testing\TestView
      *
      * @return $this
      */
-    public function assertAttributeIs(string $attributeName, string $expectedValue): static
+    public function assertAttributeIs(string $attribute, ?string $expectedValue = null): static
     {
+        if ($expectedValue === null) {
+            [$attributeName, $expectedValue] = explode('=', $attribute);
+            $expectedValue = trim($expectedValue, '"');
+        } else {
+            $attributeName = $attribute;
+        }
+
         static::assertHasAttribute($attributeName);
 
         PHPUnit::assertStringContainsString($attributeName.'="'.$expectedValue.'"', $this->rendered, "The attribute '$attributeName' with value '$expectedValue' was not found.");
