@@ -23,4 +23,9 @@ class SidebarItemsViewTest extends TestCase
             'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
         ]));
     }
+
+    public function testComponentRenders()
+    {
+        $this->testView()->assertHasElement('#sidebar-items');
+    }
 }
