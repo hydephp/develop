@@ -391,7 +391,7 @@ class CodeIntelligence
             $regex = new RegexIterator($iterator, '/^.+\.blade\.php$/i', RecursiveRegexIterator::GET_MATCH);
 
             foreach ($regex as $file) {
-                $files[] = substr($file[0], strlen(BASE_PATH) + 1);
+                $files[substr($file[0], strlen(BASE_PATH) + 1)] = file_get_contents($file[0]);
             }
         }
 
