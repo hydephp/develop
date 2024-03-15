@@ -362,7 +362,7 @@ class CodeIntelligence
 
     public function generateMarkupAnalysis(): void
     {
-        // Todo
+        $bladeFiles = $this->findBladeFiles();
 
         $this->markupStatistics = [
             'foo' => 'bar',
@@ -374,5 +374,27 @@ class CodeIntelligence
         // Todo
 
         return implode("\n", array_map(fn ($key, $value) => sprintf('<div>%s: %s</div>', $key, $value), array_keys($this->markupStatistics), $this->markupStatistics));
+    }
+
+    /** @return array<string> */
+    protected function findBladeFiles(): array
+    {
+        $sourceDirs = [
+            'packages/framework/resources/views',
+        ];
+
+        $files = [];
+
+        foreach ($sourceDirs as $sourceDir) {
+            $directory = new RecursiveDirectoryIterator(BASE_PATH.'/'.$sourceDir);
+            $iterator = new RecursiveIteratorIterator($directory);
+            $regex = new RegexIterator($iterator, '/^.+\.blade\.php$/i', RecursiveRegexIterator::GET_MATCH);
+
+            foreach ($regex as $file) {
+                $files[] = substr($file[0], strlen(BASE_PATH) + 1);
+            }
+        }
+
+        return $files;
     }
 }
