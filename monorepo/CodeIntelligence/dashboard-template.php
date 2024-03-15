@@ -110,6 +110,22 @@ declare(strict_types=1);
     </div>
 </main>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js' integrity='sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy' crossorigin='anonymous'></script>
+<script>
+    // Remember the last tab selected
+    const lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        const tab = document.getElementById(lastTab);
+        if (tab) {
+            tab.click();
+        }
+    }
 
+    // Save the last tab selected
+    document.querySelectorAll('.nav-link').forEach((tab) => {
+        tab.addEventListener('click', (event) => {
+            localStorage.setItem('lastTab', event.target.id);
+        });
+    });
+</script>
 </body>
 </html>
