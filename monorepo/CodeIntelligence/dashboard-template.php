@@ -7,7 +7,7 @@ declare(strict_types=1);
 /* @var string $headingsTable */
 /* @var string $modelRaw */
 /* @var string $modelSections */
-/* @var array<string, string> $markupStatistics */
+/* @var string $markupStatistics */
 /* @var string $bladeFiles */
 ?>
 <!doctype html>
