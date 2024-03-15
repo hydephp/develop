@@ -10,6 +10,7 @@ declare(strict_types=1);
 /* @var string $markupStatistics */
 /* @var string $bladeFiles */
 /* @var string $bladeElementIdentifiers */
+/* @var string $bladeElementClasses */
 ?>
 <!doctype html>
 <html lang="en">
@@ -124,6 +125,13 @@ declare(strict_types=1);
                     <h3>Found CSS Identifiers</h3>
                      <div class="ps-2">
                          <?php echo $bladeElementIdentifiers; ?>
+                     </div>
+                </div>
+                <br>
+                 <div class="row">
+                    <h3>Found CSS Classes</h3>
+                     <div class="ps-2">
+                         <?php echo $bladeElementClasses; ?>
                      </div>
                 </div>
             </div>

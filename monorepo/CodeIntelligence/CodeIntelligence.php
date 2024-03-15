@@ -255,6 +255,7 @@ class CodeIntelligence
             'markupStatistics' => $this->formatMarkupStatistics(),
             'bladeFiles' => $this->formatBladeFileList(),
             'bladeElementIdentifiers' => $this->formatBladeElementIdentifiers(),
+            'bladeElementClasses' => $this->formatBladeElementClasses(),
         ];
     }
 
@@ -418,6 +419,25 @@ class CodeIntelligence
                 $errorString = '';
             }
             $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small>%s</li>', e($identifier), $count, $occurrence, $errorString);
+        }
+
+        return $html;
+    }
+
+    protected function formatBladeElementClasses(): string
+    {
+        $html = '<ul>';
+
+        foreach ($this->bladeElementClasses as $class => $count) {
+            $occurrence = $count === 1 ? 'occurrence' : 'occurrences';
+            $isKebabCase = Str::contains($class, '-') || (Str::kebab($class) === $class);
+
+            if (! $isKebabCase) {
+                $errorString = '<span title="This class is not in kebab-case">⚠️</span>';
+            } else {
+                $errorString = '';
+            }
+            $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small>%s</li>', e($class), $count, $occurrence, $errorString);
         }
 
         return $html;
