@@ -554,6 +554,7 @@ class CodeIntelligence
                         'container',
                         'cursor-auto',
                         'cursor',
+                        'dark',
                         'drop',
                         'duration',
                         'fill',
@@ -579,10 +580,13 @@ class CodeIntelligence
                         'inset',
                         'invisible',
                         'invisible',
+                        'items',
+                        'justify',
                         'justify',
                         'leading',
                         'left',
                         'lg',
+                        'list',
                         'lowercase',
                         'm',
                         'max-h',
@@ -655,7 +659,6 @@ class CodeIntelligence
                         'xs',
                         'z',
                         'z',
-                        'dark',
                     ];
                     foreach ($tailwindClasses as $twClass) {
                         if (($class === $twClass) || str_starts_with($class, $twClass.'-') || str_starts_with($class, $twClass.':')) {
