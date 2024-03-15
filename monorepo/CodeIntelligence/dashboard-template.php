@@ -59,11 +59,9 @@ declare(strict_types=1);
                         </table>
                     </div>
                 </div>
-            </div>
 
-            <div class="container"><hr></div>
+                <hr>
 
-            <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <h2>Textual Analysis</h2>
@@ -80,11 +78,9 @@ declare(strict_types=1);
                         </article>
                     </div>
                 </div>
-            </div>
 
-            <div class="container"><hr></div>
+            <hr>
 
-            <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <h2>Model Data</h2>
@@ -109,8 +105,6 @@ declare(strict_types=1);
                         </article>
                     </div>
                 </div>
-            </div>
-
             <br>
         </section>
     </div>
