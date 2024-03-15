@@ -69,15 +69,15 @@ class NavigationLinkViewTest extends TestCase
     public function testComponentDoesNotHaveActiveClassWhenNotActive()
     {
         $this->testView()
-            ->assertSee('navigation-link ')
-            ->assertDontSee('navigation-link-active');
+            ->assertHasClass('navigation-link')
+            ->assertDoesNotHaveClass('navigation-link-active');
     }
 
     public function testComponentHasActiveClassWhenActive()
     {
         $this->mockCurrentPage('foo')
             ->testView()
-            ->assertSee('navigation-link ')
-            ->assertSee('navigation-link-active');
+            ->assertHasClass('navigation-link')
+            ->assertHasClass('navigation-link-active');
     }
 }
