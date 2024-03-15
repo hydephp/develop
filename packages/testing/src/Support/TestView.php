@@ -46,6 +46,10 @@ class TestView extends \Illuminate\Testing\TestView
     {
         $element = trim($element, '</>');
 
+        if (str_starts_with($element, '#')) {
+            return $this->assertHasId($element);
+        }
+
         PHPUnit::assertStringContainsString("<$element", $this->rendered, "The element '$element' was not found.");
 
         return $this;
