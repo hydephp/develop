@@ -38,6 +38,20 @@ class TestView extends \Illuminate\Testing\TestView
     }
 
     /**
+     * Assert that the given HTML element is contained within the view.
+     *
+     * @return $this
+     */
+    public function assertHasElement(string $element): static
+    {
+        $element = trim($element, '</>');
+
+        PHPUnit::assertStringContainsString("<$element", $this->rendered, "The element '$element' was not found.");
+
+        return $this;
+    }
+
+    /**
      * Assert that the HTML attribute value is contained within the view.
      *
      * @return $this
