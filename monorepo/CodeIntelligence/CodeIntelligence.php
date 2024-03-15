@@ -31,10 +31,10 @@ define('OUTPUT_PATH', realpath(__DIR__.'/results'));
 
 Command::main(function () {
     /** @var Command $this */
-    $this->info('Generating documentation intelligence...');
+    $this->info('Generating code and documentation intelligence...');
     $this->line();
 
-    $generator = new DocumentationIntelligence();
+    $generator = new CodeIntelligence();
 
     task('discover pages', fn () => $generator->discoverPages());
     task('assemble model', fn () => $generator->assembleModel());
@@ -71,7 +71,7 @@ Command::main(function () {
     return 0;
 });
 
-class DocumentationIntelligence
+class CodeIntelligence
 {
     protected HydeKernel $kernel;
 
