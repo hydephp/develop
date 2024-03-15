@@ -95,6 +95,8 @@ class CodeIntelligence
 
     /** @var array<string, int> */
     protected array $bladeElementIdentifiers;
+    /** @var array<string, int> */
+    protected array $bladeElementClasses;
 
     public function __construct()
     {
@@ -372,6 +374,7 @@ class CodeIntelligence
     {
         $this->bladeFiles = $this->findBladeFiles();
         $this->bladeElementIdentifiers = $this->findBladeElementIdentifiers();
+        $this->bladeElementClasses = $this->findBladeElementClasses();
 
         $this->markupStatistics = [
             'bladeFileCount' => number_format(count($this->bladeFiles)),
@@ -460,5 +463,42 @@ class CodeIntelligence
         ksort($identifiers);
 
         return $identifiers;
+    }
+
+    /** @return array<string, int> */
+    protected function findBladeElementClasses(): array
+    {
+        // Create a list of all element classes in the Blade files, along with the count of how many times they appear
+        $classes = [];
+
+        foreach ($this->bladeFiles as $contents) {
+            $matches = [];
+            preg_match_all('/class="([^"]+)"/', $contents, $matches);
+            foreach ($matches[1] as $match) {
+                $match = explode(' ', $match);
+                foreach ($match as $class) {
+                    $class = trim($class, '?:\'{}');
+
+                    if (blank($class)) {
+                        continue;
+                    }
+
+                    // Don't add Tailwind classes
+                    $tailwindClasses = ['-left', '-mb', '-ml', '-mr', '-mt', '-mx', '-my', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl', 'absolute', 'align', 'antialiased', 'appearance-none', 'appearance', 'auto-cols', 'auto-rows', 'bg', 'block', 'border-b', 'border-collapse', 'border-dashed', 'border-dotted', 'border-double', 'border-l', 'border-none', 'border-r', 'border-separate', 'border-solid', 'border-t', 'border-x', 'border-y', 'border', 'bottom', 'capitalize', 'clear', 'col-end', 'col-start', 'col', 'container', 'cursor-auto', 'cursor', 'drop', 'duration', 'fill', 'fixed', 'fixed', 'flex-grow', 'flex-shrink', 'flex', 'float', 'focus', 'font', 'fr', 'gap', 'grid-cols', 'grid-rows', 'grid', 'group', 'h', 'hidden', 'hover', 'inline', 'inset', 'inset', 'invisible', 'invisible', 'justify', 'leading', 'left', 'lg', 'lowercase', 'm', 'max-h', 'max-w', 'mb', 'md', 'min-h', 'min-w', 'ml', 'mr', 'mt', 'mx', 'my', 'not-prose', 'object', 'opacity', 'order', 'origin', 'overflow', 'overflow', 'overscroll', 'p', 'pb', 'pl', 'place', 'pr', 'prose', 'pt', 'px', 'py', 'relative', 'right', 'rotate', 'rounded-b', 'rounded-bl', 'rounded-br', 'rounded-l', 'rounded-r', 'rounded-t', 'rounded-tl', 'rounded-tr', 'rounded', 'row-end', 'row-start', 'row', 'scale', 'scroll', 'select', 'shadow', 'skew', 'sm', 'space', 'sr', 'static', 'sticky', 'table-auto', 'table-fixed', 'text', 'top', 'tracking', 'transform', 'transition', 'translate', 'uppercase', 'visible', 'visible', 'w', 'whitespace', 'xl', 'xs', 'z', 'z', 'dark'];
+                    foreach ($tailwindClasses as $twClass) {
+                        if (($class === $twClass) || str_starts_with($class, $twClass.'-') || str_starts_with($class, $twClass.':')) {
+                            continue 2; // Found a Tailwind class, skip it
+                        }
+                    }
+
+                    $classes[$class] = ($classes[$class] ?? 0) + 1;
+                }
+            }
+        }
+
+        // Sort alphabetically
+        ksort($classes);
+
+        return $classes;
     }
 }
