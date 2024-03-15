@@ -19,6 +19,8 @@ class SidebarItemsViewTest extends TestCase
 
     protected function testView(): TestView
     {
+        $this->mockRoute();
+
         return $this->test(view('hyde::components.docs.sidebar-items', [
             'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
         ]));
