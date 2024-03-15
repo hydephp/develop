@@ -60,6 +60,9 @@ Command::main(function () {
     ));
 
     $this->line();
+    $this->line('Dashboard page generated at '.OUTPUT_PATH.'/dashboard.html');
+
+    $this->line();
     $this->info(sprintf('Time taken: %s. Memory used: %s',
         number_format((microtime(true) - TIME_START) * 1000, 2).'ms',
         number_format(memory_get_peak_usage() / 1024 / 1024, 2).'MB'
