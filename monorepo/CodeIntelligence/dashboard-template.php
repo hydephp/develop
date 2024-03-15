@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /* @var string $modelStatistics */
 /* @var string $headingsCount */
 /* @var string $headingsTable */
