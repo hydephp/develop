@@ -418,7 +418,7 @@ class CodeIntelligence
             } else {
                 $errorString = '';
             }
-            $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small>%s</li>', e($identifier), $count, $occurrence, $errorString);
+            $html .= sprintf("<li><code>%s</code> <small class=\"text-muted\">(%d %s)</small>%s</li>\n", e($identifier), $count, $occurrence, $errorString);
         }
 
         return $html.'</ul>';
@@ -440,7 +440,7 @@ class CodeIntelligence
             } else {
                 $errorString = '';
             }
-            $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small>%s</li>', e($class), $count, $occurrence, $errorString);
+            $html .= sprintf("<li><code>%s</code> <small class=\"text-muted\">(%d %s)</small>%s</li>\n", e($class), $count, $occurrence, $errorString);
         }
 
         return $html.'</ul>';
