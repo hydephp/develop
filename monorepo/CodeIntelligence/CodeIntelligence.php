@@ -421,7 +421,7 @@ class CodeIntelligence
             $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small>%s</li>', e($identifier), $count, $occurrence, $errorString);
         }
 
-        return $html;
+        return $html.'</ul>';
     }
 
     protected function formatBladeElementClasses(): string
@@ -443,7 +443,7 @@ class CodeIntelligence
             $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small>%s</li>', e($class), $count, $occurrence, $errorString);
         }
 
-        return $html;
+        return $html.'</ul>';
     }
 
     /** @return array<string> */
