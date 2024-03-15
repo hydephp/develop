@@ -13,7 +13,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\MarkdownDocument;
 
 if (php_sapi_name() !== 'cli') {
-    // Run the file and proxy the dashboard page
+    // Run the file and proxy the dashboard page for a live browser view
     exec('php '.realpath(__FILE__).' 2>&1', $output, $returnCode);
 
     if ($returnCode !== 0) {
