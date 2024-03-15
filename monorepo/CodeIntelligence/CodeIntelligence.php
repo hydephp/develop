@@ -39,10 +39,13 @@ Command::main(function () {
 
     $generator = new CodeIntelligence();
 
+    // Documentation analysis
     task('discover pages', fn () => $generator->discoverPages());
     task('assemble model', fn () => $generator->assembleModel());
     task('create pruned model', fn () => $generator->createPrunedModel());
     task('generate model data', fn () => $generator->getModelStatistics());
+
+    // Dashboard generation
     task('create dashboard page', fn () => $generator->createDashboardPage());
 
     $this->line();
