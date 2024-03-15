@@ -143,6 +143,7 @@ declare(strict_types=1);
 <script>
     // Remember the last tab selected
     const lastTab = localStorage.getItem('lastTab');
+
     if (lastTab) {
         const tab = document.getElementById(lastTab);
         if (tab) {
