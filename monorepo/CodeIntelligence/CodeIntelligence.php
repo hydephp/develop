@@ -413,11 +413,9 @@ class CodeIntelligence
             if (! str_contains($identifier, '$')) {
                 $identifier = '#'.$identifier;
             }
-            if (! $isKebabCase) {
-                $errorString = '<span title="This identifier is not in kebab-case">⚠️</span>';
-            } else {
-                $errorString = '';
-            }
+
+            $errorString = $isKebabCase ? '' : '<span title="This identifier is not in kebab-case">⚠️</span>';
+
             $html .= sprintf("<li><code>%s</code> <small class=\"text-muted\">(%d %s)</small>%s</li>\n", e($identifier), $count, $occurrence, $errorString);
         }
 
@@ -429,7 +427,6 @@ class CodeIntelligence
         $html = '<ul>';
 
         foreach ($this->bladeElementClasses as $class => $count) {
-            $occurrence = $count === 1 ? 'occurrence' : 'occurrences';
             $isKebabCase = Str::contains($class, '-') || (Str::kebab($class) === $class);
             $hasInlineBladeDirectives = Str::startsWith($class, '@');
 
@@ -440,6 +437,9 @@ class CodeIntelligence
             } else {
                 $errorString = '';
             }
+
+            $occurrence = $count === 1 ? 'occurrence' : 'occurrences';
+
             $html .= sprintf("<li><code>%s</code> <small class=\"text-muted\">(%d %s)</small>%s</li>\n", e($class), $count, $occurrence, $errorString);
         }
 
