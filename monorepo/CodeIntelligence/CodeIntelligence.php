@@ -366,6 +366,8 @@ class CodeIntelligence
 
         $this->markupStatistics = [
             'bladeFileCount' => number_format(count($bladeFiles)),
+            'bladeFileLines' => number_format(array_sum(array_map(fn (string $file): int => substr_count($file, "\n"), $bladeFiles))),
+            'bladeFileSize' => number_format(array_sum(array_map('strlen', $bladeFiles)) / 1024, 2).' KB',
         ];
     }
 
