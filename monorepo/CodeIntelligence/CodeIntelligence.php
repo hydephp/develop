@@ -404,10 +404,17 @@ class CodeIntelligence
 
         foreach ($this->bladeElementIdentifiers as $identifier => $count) {
             $occurrence = $count === 1 ? 'occurrence' : 'occurrences';
+            $isKebabCase = Str::contains($identifier, '-') || (Str::kebab($identifier) === $identifier);
+
             if (! str_contains($identifier, '$')) {
                 $identifier = '#'.$identifier;
             }
-            $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small></li>', e($identifier), $count, $occurrence);
+            if (! $isKebabCase) {
+                $errorString = '<span title="This identifier is not in kebab-case">⚠️</span>';
+            } else {
+                $errorString = '';
+            }
+            $html .= sprintf('<li><code>%s</code> <small class="text-muted">(%d %s)</small>%s</li>', e($identifier), $count, $occurrence, $errorString);
         }
 
         return $html;
