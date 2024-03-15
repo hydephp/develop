@@ -374,7 +374,7 @@ class CodeIntelligence
         // Todo
 
         return implode("\n", array_map(function (string $key, string $value): string {
-            return sprintf('<div>%s: %s</div>', \Hyde\Hyde::makeTitle($key), $value);
+            return sprintf('<div>%s: %s</div>', $this->kernel->makeTitle($key), $value);
         }, array_keys($this->markupStatistics), $this->markupStatistics));
     }
 
