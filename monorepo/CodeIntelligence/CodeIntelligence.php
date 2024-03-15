@@ -365,7 +365,7 @@ class CodeIntelligence
         $bladeFiles = $this->findBladeFiles();
 
         $this->markupStatistics = [
-            'foo' => 'bar',
+            'bladeFileCount' => number_format(count($bladeFiles)),
         ];
     }
 
