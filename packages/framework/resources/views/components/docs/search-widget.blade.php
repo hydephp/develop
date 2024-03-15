@@ -48,5 +48,5 @@
         </footer>
     </aside>
 
-    <div id="search-window-backdrop" title="Click to close search window" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0"></div>
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
 </div>
