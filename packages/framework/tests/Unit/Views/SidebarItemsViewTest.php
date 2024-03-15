@@ -25,6 +25,8 @@ class SidebarItemsViewTest extends TestCase
         $this->mockRoute();
 
         Hyde::routes()->addRoute(new Route(new DocumentationPage('foo')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('bar')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('baz')));
 
         return $this->test(view('hyde::components.docs.sidebar-items', [
             'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),
