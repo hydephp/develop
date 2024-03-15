@@ -36,13 +36,14 @@ class NavigationLinkViewTest extends TestCase
 
     public function testComponentLinksToRouteDestination()
     {
-        $this->testView()->assertAttributeIs('href', 'foo.html');
+        $this->testView()->assertAttributeIs('href="foo.html"');
     }
 
     public function testComponentResolvesRelativeLinksForRoutes()
     {
         $this->mockCurrentPage('foo/bar');
-        $this->testView()->assertAttributeIs('href', '../foo.html');
+
+        $this->testView()->assertAttributeIs('href="../foo.html"');
     }
 
     public function testComponentUsesTitle()
@@ -59,8 +60,9 @@ class NavigationLinkViewTest extends TestCase
 
     public function testComponentIsCurrentWhenCurrentRouteMatches()
     {
-        $this->mockCurrentPage('foo')
-            ->testView()
+        $this->mockCurrentPage('foo');
+
+        $this->testView()
             ->assertSee('current')
             ->assertHasAttribute('aria-current')
             ->assertAttributeIs('aria-current="page"');
@@ -75,8 +77,9 @@ class NavigationLinkViewTest extends TestCase
 
     public function testComponentHasActiveClassWhenActive()
     {
-        $this->mockCurrentPage('foo')
-            ->testView()
+        $this->mockCurrentPage('foo');
+
+        $this->testView()
             ->assertHasClass('navigation-link')
             ->assertHasClass('navigation-link-active');
     }
