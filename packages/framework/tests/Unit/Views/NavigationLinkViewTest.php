@@ -71,7 +71,7 @@ class NavigationLinkViewTest extends TestCase
         $this->mockCurrentPage('foo')
             ->testView()
             ->assertSee('current')
-            ->assertAttributeIs('aria-current', 'page');
+            ->assertAttributeIs('aria-current="page"');
     }
 
     public function testComponentHasAriaCurrentWhenCurrentRouteMatches()
