@@ -1,9 +1,11 @@
-# Testing helpers for HydePHP
+# Internal testing helpers for HydePHP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hyde/testing.svg?style=flat-square)](https://packagist.org/packages/hyde/testing)
 [![Total Downloads](https://img.shields.io/packagist/dt/hyde/testing.svg?style=flat-square)](https://packagist.org/packages/hyde/testing)
 
-Warning: This package should only be used as a dev-dependency, and never in production.
+**Warning:** This package should only be used as a dev-dependency, and never in production.
+
+**Notice:** All code in this package is considered internal and should not be relied upon outside the HydePHP test suites.
 
 
 ## Installation
