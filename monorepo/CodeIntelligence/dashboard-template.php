@@ -59,9 +59,7 @@ declare(strict_types=1);
                         </table>
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="row">
                     <div class="col-12">
                         <h2>Textual Analysis</h2>
@@ -78,13 +76,10 @@ declare(strict_types=1);
                         </article>
                     </div>
                 </div>
-
-            <hr>
-
+                <hr>
                 <div class="row">
                     <div class="col-12">
                         <h2>Model Data</h2>
-
                         <br>
                         <article class="my-2">
                             <h3>Full model</h3>
@@ -92,7 +87,6 @@ declare(strict_types=1);
                                 <summary>Click to view the model</summary>
 
                                 <textarea rows="30" cols="80" style="width: 100%; white-space: pre; font-family: monospace;"><?php echo $modelRaw; ?></textarea>
-
                             </details>
                         </article>
                         <br>
@@ -109,7 +103,7 @@ declare(strict_types=1);
         </section>
     </div>
 </main>
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js' integrity='sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy' crossorigin='anonymous'></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script>
     // Remember the last tab selected
     const lastTab = localStorage.getItem('lastTab');
