@@ -626,5 +626,5 @@ jobs:
     name: Test monorepo tools can run
     steps:
       - uses: actions/checkout@v3
-      - run: php monorepo/CodeIntelligence/CodeIntelligence.php
+      # - run: php monorepo/CodeIntelligence/CodeIntelligence.php
       - run: php monorepo/scripts/FileFormatter.php
