@@ -68,6 +68,8 @@ class TestableHtmlDocument extends TestableHtmlElement
             return $this->createDumpListItem($key, $value);
         }, $data, array_keys($data))));
 
-        return sprintf("  <li><details><summary><strong>%s</strong></summary>%s  </details></li>\n", $data['tag'], $list);
+        $title = $node->text ? sprintf('<%s>%s</%s>', $node->tag, $node->text, $node->tag) : sprintf('<%s>', $node->tag);
+
+        return sprintf("  <li><details><summary><strong>%s</strong></summary>%s  </details></li>\n", e($title), $list);
     }
 }
