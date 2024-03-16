@@ -19,6 +19,7 @@ use function explode;
 use function sprintf;
 use function ucfirst;
 use function implode;
+use function is_array;
 use function array_map;
 use function microtime;
 use function array_keys;
@@ -206,6 +207,10 @@ class TestableHtmlDocument
                 return sprintf("      <li><strong>%s</strong>: <ul>%s</ul></li>\n", ucfirst($key), $value->map(function (TestableHtmlElement $node): string {
                     return $this->createDumpNodeMapEntry($node);
                 })->implode(''));
+            }
+
+            if (is_array($value)) {
+                $value = implode(', ', $value);
             }
 
             return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
