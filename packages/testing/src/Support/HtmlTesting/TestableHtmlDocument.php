@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing\Support\HtmlTesting;
 
 use DOMXPath;
+use Hyde\Hyde;
 use DOMElement;
 use DOMDocument;
 use JetBrains\PhpStorm\NoReturn;
@@ -40,8 +41,11 @@ class TestableHtmlDocument
     }
 
     #[NoReturn]
-    public function dd(): void
+    public function dd(bool $writeHtml = true): void
     {
+        if ($writeHtml) {
+            file_put_contents(Hyde::path('document-dump.html'), $this->html);
+        }
         dd($this->nodes);
     }
 }
