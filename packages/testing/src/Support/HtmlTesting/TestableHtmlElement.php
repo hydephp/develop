@@ -24,14 +24,19 @@ class TestableHtmlElement implements Arrayable
     public readonly Collection $nodes;
 
     protected ?TestableHtmlDocument $document = null;
+    protected ?TestableHtmlElement $parent = null;
 
-    public function __construct(string $html, int $level = 0, ?TestableHtmlDocument $document = null)
+    public function __construct(string $html, int $level = 0, ?TestableHtmlDocument $document = null, TestableHtmlElement $parent = null)
     {
         $this->html = $html;
         $this->level = $level;
 
         if ($document) {
             $this->document = $document;
+        }
+
+        if ($parent) {
+            $this->parent = $parent;
         }
 
         $this->tag = $this->parseTag($html);
