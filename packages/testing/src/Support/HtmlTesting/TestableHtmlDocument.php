@@ -54,11 +54,7 @@ class TestableHtmlDocument
      */
     public function tapElement(string $selector, callable $callback): static
     {
-        $element = $this->query($selector);
-
-        if (! $element) {
-            PHPUnit::fail("No element matching the selector '$selector' was found in the HTML.");
-        }
+        $element = $this->element($selector);
 
         $callback($element);
 
