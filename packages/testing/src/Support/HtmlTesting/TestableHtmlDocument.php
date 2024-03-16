@@ -60,6 +60,8 @@ class TestableHtmlDocument extends TestableHtmlElement
 
     protected function createDumpNodeMapEntry(TestableHtmlElement $node): string
     {
+        // Todo: Don't repeat flattened nodes present in tree
+
         $data = $node->toArray();
 
         $list = sprintf("\n    <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|Collection $value, string $key): string {
