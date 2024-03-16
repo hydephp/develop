@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Testing\Assert as PHPUnit;
 
+/**
+ * @todo Unify API with the TestableHtmlDocument and TestableHtmlElement classes.
+ */
 class TestView extends \Illuminate\Testing\TestView
 {
     /**
