@@ -115,7 +115,11 @@ class TestableHtmlDocument
         }, $data, array_keys($data))));
 
         if ($node->text) {
-            $text = $node->text;
+            if ($node->tag === 'style' && strlen($node->text) > 100) {
+                $text = substr($node->text, 0, 100).'...';
+            } else {
+                $text = $node->text;
+            }
             $title = sprintf('<%s>%s</%s>', $node->tag, $text, $node->tag);
         } else {
             $title = sprintf('<%s>', $node->tag);
