@@ -23,10 +23,16 @@ class TestableHtmlElement implements Arrayable
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     public readonly Collection $nodes;
 
-    public function __construct(string $html, int $level = 0)
+    protected ?TestableHtmlDocument $document = null;
+
+    public function __construct(string $html, int $level = 0, ?TestableHtmlDocument $document = null)
     {
         $this->html = $html;
         $this->level = $level;
+
+        if ($document) {
+            $this->document = $document;
+        }
 
         $this->tag = $this->parseTag($html);
         $this->text = $this->parseText($html);
@@ -58,7 +64,7 @@ class TestableHtmlElement implements Arrayable
         $nodes->forget(0);
 
         return $nodes->map(function (DOMElement $node): TestableHtmlElement {
-            return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1);
+            return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1, $this instanceof TestableHtmlDocument ? $this : null);
         });
     }
 
