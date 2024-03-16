@@ -167,8 +167,8 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         $array = $this->exampleElement()->toArray();
 
-        $this->assertEquals(['tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'id' => 'foo', 'classes' => ['bar']], $array);
-        $this->assertSame(['tag', 'text', 'nodes', 'id', 'classes'], array_keys($array));
+        $this->assertEquals(['id' => 'foo', 'tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'classes' => ['bar']], $array);
+        $this->assertSame(['id', 'tag', 'text', 'nodes', 'classes'], array_keys($array));
     }
 
     public function testToArrayWithChildren()
