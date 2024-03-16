@@ -41,10 +41,15 @@ class TestableHtmlDocument
     }
 
     #[NoReturn]
-    public function dd(bool $writeHtml = true): void
+    public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
     {
         if ($writeHtml) {
-            file_put_contents(Hyde::path('document-dump.html'), $this->html);
+            if ($dumpRawHtml) {
+                $html = $this->html;
+            } else {
+                // Todo
+            }
+            file_put_contents(Hyde::path('document-dump.html'), $html);
         }
         dd($this->nodes);
     }
