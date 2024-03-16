@@ -52,10 +52,8 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
             ->assertSee('<div>Bar</div>')
             ->complete();
 
-        $this->html($this->html)
-            ->tapElement('head > title', fn (TestableHtmlElement $element) => $element->assertSee('Welcome to HydePHP!'))
-            ->complete();
+        $this->assertInstanceOf(TestableHtmlDocument::class, $this->html($this->html)->tapElement('head > title', fn (TestableHtmlElement $element) => $element->assertSee('Welcome to HydePHP!')));
 
-        $this->html($this->html)->element('head > title')->assertSee('Welcome to HydePHP!')->complete();
+        $this->assertInstanceOf(TestableHtmlElement::class, $this->html($this->html)->element('head > title')->assertSee('Welcome to HydePHP!'));
     }
 }
