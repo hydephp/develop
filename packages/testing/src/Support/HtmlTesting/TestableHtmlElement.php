@@ -7,6 +7,7 @@ namespace Hyde\Testing\Support\HtmlTesting;
 use DOMElement;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Testing\Assert as PHPUnit;
 
 /**
  * A wrapper for an HTML element node, parsed into an assertable and queryable object.
@@ -56,6 +57,20 @@ class TestableHtmlElement implements Arrayable
             'nodes' => $this->nodes,
             'id' => $this->id,
         ];
+    }
+
+    public function hasClass(string $class): static
+    {
+        PHPUnit::assertContains($class, $this->classes, "The class '$class' was not found in the element.");
+
+        return $this;
+    }
+
+    public function doesNotHaveClass(string $class): static
+    {
+        PHPUnit::assertNotContains($class, $this->classes, "The class '$class' was found in the element.");
+
+        return $this;
     }
 
     protected function parseTag(string $html): string

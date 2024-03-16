@@ -174,6 +174,16 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertEquals(['tag' => 'div', 'text' => '', 'nodes' => collect([$element->nodes->first()]), 'id' => null], $element->toArray());
     }
 
+    public function testElementAssertHasClass()
+    {
+        $this->html('<div class="foo">Foo</div>')->getRootElement()->hasClass('foo');
+    }
+
+    public function testElementAssertDoesNotHaveClass()
+    {
+        $this->html('<div class="foo">Foo</div>')->getRootElement()->doesNotHaveClass('bar');
+    }
+
     protected function exampleElement(): TestableHtmlElement
     {
         return $this->html('<div id="foo">Foo</div>')->getElementById('foo');
