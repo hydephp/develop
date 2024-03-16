@@ -39,7 +39,9 @@ class TestableHtmlDocument
 
         $xpath = new DOMXPath($dom);
 
-        return collect($xpath->query('//*'))->map(function (DOMElement $node): TestableHtmlElement {
+        $nodes = collect($xpath->query('//*'));
+
+        return $nodes->map(function (DOMElement $node): TestableHtmlElement {
             return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1);
         });
     }
