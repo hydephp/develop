@@ -176,7 +176,7 @@ class TestableHtmlDocument
      *
      * @example $this->query('head > title')
      */
-    protected function query(string $selector): ?TestableHtmlElement
+    public function query(string $selector): ?TestableHtmlElement
     {
         $selectors = array_map('trim', explode('>', $selector));
 
