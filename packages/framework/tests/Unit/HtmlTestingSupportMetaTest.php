@@ -135,8 +135,8 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementNodesWithChild()
     {
-        $element = $this->html('<div><foo>Bar</foo></div>')->getRootElement();
-        $child = $element->nodes->first();
+        $child = $this->html('<div><foo>Bar</foo></div>')->getRootElement()->nodes->first();
+
         $this->assertInstanceOf(TestableHtmlElement::class, $child);
         $this->assertSame('foo', $child->tag);
         $this->assertSame('Bar', $child->text);
