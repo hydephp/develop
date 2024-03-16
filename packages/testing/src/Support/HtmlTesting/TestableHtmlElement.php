@@ -9,5 +9,10 @@ namespace Hyde\Testing\Support\HtmlTesting;
  */
 class TestableHtmlElement
 {
-    //
+    protected readonly string $html;
+
+    public function __construct(string $html)
+    {
+        $this->html = $html;
+    }
 }
