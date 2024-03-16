@@ -111,7 +111,7 @@ class TestableHtmlDocument
         return $this;
     }
 
-    public function dump(bool $writeHtml = true, bool $dumpRawHtml = false): void
+    public function dump(bool $writeHtml = true, bool $dumpRawHtml = false): string
     {
         if ($dumpRawHtml) {
             $html = $this->html;
@@ -129,6 +129,8 @@ class TestableHtmlDocument
 
         if ($writeHtml) {
             file_put_contents(Hyde::path('document-dump.html'), $html);
+        } else {
+            return $html;
         }
     }
 
