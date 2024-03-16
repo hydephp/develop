@@ -129,9 +129,9 @@ class TestableHtmlDocument
 
         if ($writeHtml) {
             file_put_contents(Hyde::path('document-dump.html'), $html);
-        } else {
-            return $html;
         }
+
+        return $html;
     }
 
     #[NoReturn]
