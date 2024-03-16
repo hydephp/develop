@@ -212,7 +212,7 @@ class TestableHtmlDocument
 
             if (is_array($value)) {
                 if (! is_numeric(array_key_first($value))) {
-                    $value = array_map(fn ($value, $key) => sprintf('%s: %s', $key, $value), $value, array_keys($value));
+                    $value = array_map(fn ($value, $key) => sprintf('%s: "%s"', $key, $value), $value, array_keys($value));
                 }
                 $value = implode(', ', $value);
             }
