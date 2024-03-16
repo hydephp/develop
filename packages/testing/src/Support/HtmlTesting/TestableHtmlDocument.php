@@ -116,7 +116,6 @@ class TestableHtmlDocument
 
         $title = $node->text ? sprintf('<%s>%s</%s>', $node->tag, $node->text, $node->tag) : sprintf('<%s>', $node->tag);
 
-        $details = $node->level === 0 ? 'details open' : 'details';
-        return sprintf("  <li><$details><summary><strong>%s</strong></summary>%s  </details></li>\n", e($title), $list);
+        return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->level === 0 ? 'details open' : 'details', e($title), $list);
     }
 }
