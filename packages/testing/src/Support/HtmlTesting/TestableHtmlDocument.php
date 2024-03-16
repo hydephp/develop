@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support\HtmlTesting;
 
-use DOMXPath;
 use Hyde\Hyde;
-use DOMElement;
-use DOMDocument;
 use Illuminate\Support\Arr;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Collection;
@@ -15,39 +12,12 @@ use Illuminate\Support\Collection;
 /**
  * A wrapper for an HTML document, parsed into an assertable and queryable object, with an abstract syntax tree.
  */
-class TestableHtmlDocument
+class TestableHtmlDocument extends TestableHtmlElement
 {
-    public readonly string $html;
-
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The document's element nodes. */
     public readonly Collection $nodes;
 
     public readonly int $level;
-
-    public function __construct(string $html)
-    {
-        $this->html = $html;
-        $this->level = 0;
-
-        $this->nodes = $this->parseNodes($html);
-    }
-
-    protected function parseNodes(string $html): Collection
-    {
-        $dom = new DOMDocument();
-        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-        $xpath = new DOMXPath($dom);
-
-        $nodes = collect($xpath->query('//*'));
-
-        // Forget the first node, which is the document itself.
-        $nodes->forget(0);
-
-        return $nodes->map(function (DOMElement $node): TestableHtmlElement {
-            return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1);
-        });
-    }
 
     #[NoReturn]
     public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
