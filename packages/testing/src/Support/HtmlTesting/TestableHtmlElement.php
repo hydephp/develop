@@ -34,6 +34,7 @@ class TestableHtmlElement implements Arrayable
         $this->nodes = $this->parseNodes($html);
     }
 
+    /** @return array{tag: string, text: string, level: int, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>} */
     public function toArray(): array
     {
         return [
