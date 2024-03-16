@@ -111,8 +111,7 @@ class TestableHtmlDocument
         return $this;
     }
 
-    #[NoReturn]
-    public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
+    public function dump(bool $writeHtml, bool $dumpRawHtml): void
     {
         if ($writeHtml) {
             if ($dumpRawHtml) {
@@ -130,6 +129,12 @@ class TestableHtmlDocument
             }
             file_put_contents(Hyde::path('document-dump.html'), $html);
         }
+    }
+
+    #[NoReturn]
+    public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
+    {
+        $this->dump($writeHtml, $dumpRawHtml);
         dd($this->nodes);
     }
 
