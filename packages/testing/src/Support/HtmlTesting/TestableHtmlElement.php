@@ -27,7 +27,7 @@ class TestableHtmlElement implements Arrayable
     protected ?TestableHtmlDocument $document = null;
     protected ?TestableHtmlElement $parent = null;
 
-    public function __construct(string $html, DOMElement $element, ?TestableHtmlDocument $document = null, TestableHtmlElement $parent = null, ?Collection $nodes = null)
+    public function __construct(string $html, DOMElement $element, ?TestableHtmlDocument $document = null, ?TestableHtmlElement $parent = null, ?Collection $nodes = null)
     {
         $this->html = $html;
         $this->element = $element;
