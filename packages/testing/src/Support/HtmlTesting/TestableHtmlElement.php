@@ -9,6 +9,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Testing\Assert as PHPUnit;
 
+use function trim;
+use function explode;
+use function preg_match;
+use function strip_tags;
+use function array_filter;
+
 /**
  * A wrapper for an HTML element node, parsed into an assertable and queryable object.
  */
