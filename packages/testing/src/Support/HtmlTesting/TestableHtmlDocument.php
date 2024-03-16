@@ -83,7 +83,8 @@ class TestableHtmlDocument
         $html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document Dump</title><style>body { font-family: sans-serif; } .node { margin-left: 1em; }</style></head><body><h1>Document Dump</h1>';
 
         $html .= '<h2>Abstract Syntax Tree Node Inspection</h2>';
-        $html .= sprintf("\n<details open><summary><strong>Document</strong></summary>\n<ul>%s</ul></details>\n", $this->nodes->map(function (TestableHtmlElement $node): string {
+        $openAllButton = '<a href="javascript:void;" onclick="document.querySelectorAll(\'details\').forEach((el) => el.open = true);this.remove();">Open All</a>';
+        $html .= sprintf("\n<details open><summary><strong>Document</strong> $openAllButton</summary>\n<ul>%s</ul></details>\n", $this->nodes->map(function (TestableHtmlElement $node): string {
             return $this->createDumpNodeMapEntry($node);
         })->implode(''));
 
