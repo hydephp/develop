@@ -13,7 +13,7 @@ class TestableHtmlElement
 {
     protected readonly string $html;
 
-    /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> */
+    /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     protected Collection $nodes;
 
     public function __construct(string $html)
