@@ -56,6 +56,10 @@ class TestableHtmlDocument extends TestableHtmlElement
 
         return sprintf("\n  <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|Collection $value, string $key): string {
             if ($value instanceof Collection) {
+                if ($value->isEmpty()) {
+                    return sprintf("    <li><strong>%s</strong>: <span>None</span></li>\n", ucfirst($key));
+                }
+
                 return sprintf("    <li><strong>%s</strong>: <ul>%s</ul></li>\n", ucfirst($key), $value->map(function (TestableHtmlElement $node): string {
                     return $this->createDumpNodeMapEntry($node);
                 })->implode(''));
