@@ -6,6 +6,7 @@ namespace Hyde\Testing\Support\HtmlTesting;
 
 use DOMXPath;
 use DOMDocument;
+use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Collection;
 
 /**
@@ -33,5 +34,11 @@ class TestableHtmlDocument
         $xpath = new DOMXPath($dom);
 
         return collect($xpath->query('//*'))->map(fn ($node) => new TestableHtmlElement($node->ownerDocument->saveHTML($node)));
+    }
+
+    #[NoReturn]
+    public function dd(): void
+    {
+        dd($this->nodes);
     }
 }
