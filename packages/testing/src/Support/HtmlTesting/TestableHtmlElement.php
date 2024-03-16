@@ -61,6 +61,6 @@ class TestableHtmlElement implements Arrayable
     {
         preg_match('/>([^<]+)</', $html, $matches);
 
-        return trim(strip_tags($matches[1] ?? ''));
+        return trim(strip_tags($matches[1] ?: $this->html));
     }
 }
