@@ -31,7 +31,7 @@ class TestableHtmlDocument
         $nodes = new Collection();
 
         $dom = new DOMDocument();
-        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_NONET | LIBXML_NOXMLDECL | LIBXML_COMPACT | LIBXML_PARSEHUGE);
 
         // Initiate recursive parsing from the root element
         foreach ($dom->childNodes as $childNode) {
