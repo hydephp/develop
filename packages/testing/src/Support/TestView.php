@@ -52,6 +52,16 @@ class TestView extends \Illuminate\Testing\TestView
     }
 
     /**
+     * Assert that the given string is contained exactly once within the view.
+     *
+     * @return $this
+     */
+    public function assertSeeOnce(string $value): static
+    {
+        return $this->assertSeeTimes($value, 1);
+    }
+
+    /**
      * Assert that the given HTML element is contained within the view.
      *
      * @return $this
