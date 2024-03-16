@@ -130,6 +130,6 @@ class TestableHtmlDocument
             $title = sprintf('<%s>', $node->tag);
         }
 
-        return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->level === 0 ? 'details open' : 'details', e($title), $list);
+        return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->tag === 'html' ? 'details open' : 'details', e($title), $list);
     }
 }
