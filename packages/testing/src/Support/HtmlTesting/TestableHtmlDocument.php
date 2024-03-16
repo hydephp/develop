@@ -211,11 +211,10 @@ class TestableHtmlDocument
             }
 
             if (is_array($value)) {
-                if (is_numeric(array_key_first($value))) {
-                    $value = implode(', ', $value);
-                } else {
-                    $value = implode(', ', array_map(fn ($value, $key) => sprintf('%s: %s', $key, $value), $value, array_keys($value)));
+                if (! is_numeric(array_key_first($value))) {
+                    $value = array_map(fn ($value, $key) => sprintf('%s: %s', $key, $value), $value, array_keys($value));
                 }
+                $value = implode(', ', $value);
             }
 
             return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
