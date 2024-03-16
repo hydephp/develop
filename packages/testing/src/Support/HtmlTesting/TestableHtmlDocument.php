@@ -68,6 +68,6 @@ class TestableHtmlDocument extends TestableHtmlElement
             return $this->createDumpListItem($key, $value);
         }, $data, array_keys($data))));
 
-        return $list;
+        return '<details><summary><strong>' . $data['tag'] . '</strong></summary>' . $list . '</details>';
     }
 }
