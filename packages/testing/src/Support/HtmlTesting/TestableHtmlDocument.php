@@ -115,7 +115,8 @@ class TestableHtmlDocument
         }, $data, array_keys($data))));
 
         if ($node->text) {
-            $title = sprintf('<%s>%s</%s>', $node->tag, $node->text, $node->tag);
+            $text = $node->text;
+            $title = sprintf('<%s>%s</%s>', $node->tag, $text, $node->tag);
         } else {
             $title = sprintf('<%s>', $node->tag);
         }
