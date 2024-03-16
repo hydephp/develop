@@ -58,25 +58,9 @@ class TestableHtmlDocument
 
     protected function createAstInspectionDump(): string
     {
-        // Remove HTML properties from dump
-        $data = array_merge((array) $this, [
-            'html' => '',
-            'nodes' => $this->nodes->map(function (TestableHtmlElement $node): TestableHtmlElement {
-                $reflection = new \ReflectionClass($node);
-
-                // Unset the HTML property
-                $reflectionProperty = $reflection->getProperty('html');
-                $reflectionProperty->setAccessible(true);
-                $reflectionProperty->setValue($node, '');
-
-                return $node;
-            })->toArray(),
-        ]);
-
         $dumper = new HtmlDumper();
         $cloner = new VarCloner();
-        $data = $cloner->cloneVar($data);
-
+        $data = $cloner->cloneVar($this);
         return $dumper->dump($data, true, ['maxDepth' => 5]);
     }
 }
