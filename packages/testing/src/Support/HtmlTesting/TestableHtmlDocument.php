@@ -30,6 +30,22 @@ class TestableHtmlDocument
     }
 
     /**
+     * Select an element from the document using a CSS selector.
+     *
+     * Note that this means all subsequent assertions will be scoped to the selected element.
+     */
+    public function element(string $selector): TestableHtmlElement
+    {
+        $element = $this->query($selector);
+
+        if (! $element) {
+            PHPUnit::fail("No element matching the selector '$selector' was found in the HTML.");
+        }
+
+        return $element;
+    }
+
+    /**
      * Execute a testing callback on an element matching the given CSS selector.
      *
      * This is useful for fluent assertions while retaining the method chains of this class.

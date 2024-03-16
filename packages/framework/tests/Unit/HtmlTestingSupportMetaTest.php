@@ -55,5 +55,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->html($this->html)
             ->tapElement('head > title', fn (TestableHtmlElement $element) => $element->assertSee('Welcome to HydePHP!'))
             ->complete();
+
+        $this->html($this->html)->element('head > title')->assertSee('Welcome to HydePHP!')->complete();
     }
 }
