@@ -64,6 +64,7 @@ class TestableHtmlElement implements Arrayable
         $nodes->forget(0);
 
         return $nodes->map(function (DOMElement $node): TestableHtmlElement {
+            // Todo: Backtrace the node's level.
             return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1, $this instanceof TestableHtmlDocument ? $this : null);
         });
     }
