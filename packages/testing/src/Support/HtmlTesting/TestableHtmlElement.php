@@ -30,6 +30,9 @@ class TestableHtmlElement implements Arrayable
     /** @var array<string> */
     public readonly array $classes;
 
+    /** @var array<array<string, scalar>> */
+    public readonly array $attributes;
+
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     public readonly Collection $nodes;
 
@@ -52,6 +55,7 @@ class TestableHtmlElement implements Arrayable
         $this->text = $this->parseText($html);
         $this->id = $this->parseId($element);
         $this->classes = $this->parseClasses($element);
+        $this->attributes = $this->parseAttributes($element);
     }
 
     /** @return array{id: ?string, tag: string, text: string, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>, classes: ?array} */
@@ -98,5 +102,16 @@ class TestableHtmlElement implements Arrayable
     protected function parseClasses(DOMElement $element): array
     {
         return array_filter(explode(' ', $element->getAttribute('class')));
+    }
+
+    protected function parseAttributes(DOMElement $element): array
+    {
+        $attributes = [];
+
+        foreach ($element->attributes as $attribute) {
+            $attributes[$attribute->name] = $attribute->value;
+        }
+
+        return $attributes;
     }
 }

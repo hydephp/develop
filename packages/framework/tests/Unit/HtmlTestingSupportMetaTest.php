@@ -134,6 +134,20 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame(['foo', 'bar'], $this->html('<div class="foo bar">Foo</div>')->getRootElement()->classes);
     }
 
+    public function testElementAttributes()
+    {
+        $this->assertSame([], $this->html('<div>Foo</div>')->getRootElement()->attributes);
+
+        /** @noinspection HtmlUnknownAttribute */
+        $this->assertSame([
+            'id' => 'id',
+            'class' => 'class',
+            'name' => 'test',
+            'foo' => 'bar',
+            'href' => 'https://example.com/',
+        ], $this->html('<div id="id" class="class" name="test" foo="bar" href="https://example.com/">Foo</div>')->getRootElement()->attributes);
+    }
+
     public function testElementNodes()
     {
         $this->assertNull($this->exampleElement()->nodes->first());
