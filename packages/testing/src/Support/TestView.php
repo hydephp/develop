@@ -38,6 +38,20 @@ class TestView extends \Illuminate\Testing\TestView
     }
 
     /**
+     * Assert that the given string is contained exactly `$times` within the view.
+     *
+     * @return $this
+     */
+    public function assertSeeTimes(string $value, int $times = 1): static
+    {
+        $count = substr_count($this->rendered, $value);
+
+        PHPUnit::assertSame($times, $count, "The string '$value' was found $count times, expected $times.");
+
+        return $this;
+    }
+
+    /**
      * Assert that the given HTML element is contained within the view.
      *
      * @return $this
