@@ -88,13 +88,10 @@ class TestableHtmlDocument
             return $this->createDumpNodeMapEntry($node);
         })->implode(''));
 
-        $html .= '<section style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1em;">';
-
-        $html .= sprintf('<div><h2>Document Preview</h2><iframe src="data:text/html;base64,%s" width="960px" height="600px"></iframe></div>', base64_encode($this->html));
-
-        $html .= sprintf('<div><h2>Raw HTML</h2><textarea cols="120" rows="30" readonly style="width: 960px; height: 600px; white-space: pre; font-family: monospace;">%s</textarea></div>', e($this->html));
-
-        $html .= '</section>';
+        $html .= '<section style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1em;">'.
+            sprintf('<div><h2>Document Preview</h2><iframe src="data:text/html;base64,%s" width="960px" height="600px"></iframe></div>', base64_encode($this->html)).
+            sprintf('<div><h2>Raw HTML</h2><textarea cols="120" rows="30" readonly style="width: 960px; height: 600px; white-space: pre; font-family: monospace;">%s</textarea></div>', e($this->html)).
+        '</section>';
 
         $html .= '</body></html>';
 
