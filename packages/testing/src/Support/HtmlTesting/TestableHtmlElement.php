@@ -22,7 +22,7 @@ class TestableHtmlElement implements Arrayable
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     public readonly Collection $nodes;
 
-    protected DOMElement $element;
+    public readonly DOMElement $element;
 
     protected ?TestableHtmlDocument $document = null;
     protected ?TestableHtmlElement $parent = null;
