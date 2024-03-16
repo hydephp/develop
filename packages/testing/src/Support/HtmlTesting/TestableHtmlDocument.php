@@ -197,7 +197,7 @@ class TestableHtmlDocument
     {
         $data = $node->toArray();
 
-        $list = sprintf("\n    <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|Collection $value, string $key): string {
+        $list = sprintf("\n    <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|iterable $value, string $key): string {
             if ($value instanceof Collection) {
                 if ($value->isEmpty()) {
                     return sprintf("      <li><strong>%s</strong>: <span>None</span></li>\n", ucfirst($key));
