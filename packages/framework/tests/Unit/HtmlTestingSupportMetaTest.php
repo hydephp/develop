@@ -128,6 +128,19 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertNull($this->html('<div>Foo</div>')->query('')->id);
     }
 
+    public function testElementNodes()
+    {
+        $this->assertNull($this->exampleElement()->nodes->first());
+    }
+
+    public function testElementNodesWithChildren()
+    {
+        $element = $this->html('<div><foo>Bar</foo></div>')->query('');
+        $this->assertInstanceOf(TestableHtmlElement::class, $element->nodes->first());
+        $this->assertSame('foo', $element->nodes->first()->tag);
+        $this->assertSame('Bar', $element->nodes->first()->text);
+    }
+
     public function testElementToArray()
     {
         $this->assertEquals(['tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'id' => 'foo'], $this->exampleElement()->toArray());
