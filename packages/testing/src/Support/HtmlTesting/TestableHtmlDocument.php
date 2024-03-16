@@ -68,12 +68,7 @@ class TestableHtmlDocument
     protected function parseNodeRecursive(DOMElement $element, ?TestableHtmlElement $parent = null): TestableHtmlElement
     {
         // Initialize a new TestableHtmlElement for this DOMElement
-        $htmlElement = new TestableHtmlElement(
-            $element->ownerDocument->saveHTML($element),
-            $element,
-            $this,
-            $parent,
-        );
+        $htmlElement = new TestableHtmlElement($element->ownerDocument->saveHTML($element), $element, $this, $parent);
 
         // Iterate through child nodes and recursively parse them
         foreach ($element->childNodes as $childNode) {
