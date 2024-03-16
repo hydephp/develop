@@ -103,44 +103,43 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementInstance()
     {
-        $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
-        $this->assertInstanceOf(TestableHtmlElement::class, $element);
+        $this->assertInstanceOf(TestableHtmlElement::class, $this->exampleElement());
     }
 
     public function testElementTag()
     {
-        $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
-        $this->assertSame('div', $element->tag);
+        $this->assertSame('div', $this->exampleElement()->tag);
     }
 
     public function testElementText()
     {
-        $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
-        $this->assertSame('Foo', $element->text);
+        $this->assertSame('Foo', $this->exampleElement()->text);
     }
 
     public function testElementHtml()
     {
-        $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
-        $this->assertSame('<div id="foo">Foo</div>', $element->html);
+        $this->assertSame('<div id="foo">Foo</div>', $this->exampleElement()->html);
     }
 
     public function testElementId()
     {
-        $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
-        $this->assertSame('foo', $element->id);
+        $this->assertSame('foo', $this->exampleElement()->id);
 
-        $element = $this->html('<div><bar></bar></div>')->query('');
-        $this->assertNull($element->id);
+        $this->assertNull($this->html('<div>Foo</div>')->query('')->id);
     }
 
     public function testElementToArray()
     {
-        $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
+        $element = $this->exampleElement();
         $this->assertEquals(['tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'id' => 'foo'], $element->toArray());
 
         $element = $this->html('<div><bar></bar></div>')->query('');
         $child = $element->nodes->first();
         $this->assertEquals(['tag' => 'div', 'text' => '', 'nodes' => collect([$child]), 'id' => null], $element->toArray());
+    }
+
+    protected function exampleElement(): TestableHtmlElement
+    {
+        return $this->html('<div id="foo">Foo</div>')->getElementById('foo');
     }
 }
