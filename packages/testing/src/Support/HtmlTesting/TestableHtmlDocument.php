@@ -54,9 +54,7 @@ class TestableHtmlDocument
      */
     public function tapElement(string $selector, callable $callback): static
     {
-        $element = $this->element($selector);
-
-        $callback($element);
+        $callback($this->element($selector));
 
         return $this;
     }
