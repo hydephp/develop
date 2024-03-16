@@ -36,7 +36,7 @@ class TestableHtmlDocument extends TestableHtmlElement
     {
         $html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document Dump</title><style>body { font-family: sans-serif; } .node { margin-left: 1em; }</style></head><body><h1>Document Dump</h1><h2>Abstract Syntax Tree Node Inspection</h2>';
 
-        $html .= sprintf("\n<div>%s</div>\n", $this->nodes->map(function (TestableHtmlElement $node): string {
+        $html .= sprintf("\n<details open><summary>Document</summary>\n<ul>%s</ul></details>\n", $this->nodes->map(function (TestableHtmlElement $node): string {
             return $this->createDumpNodeMapEntry($node);
         })->implode(''));
 
@@ -47,20 +47,20 @@ class TestableHtmlDocument extends TestableHtmlElement
 
     protected function createDumpListItem(string $key, string $value): string
     {
-        return sprintf("    <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
+        return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
     }
 
     protected function createDumpNodeMapEntry(TestableHtmlElement $node): string
     {
         $data = $node->toArray();
 
-        $list = sprintf("\n  <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|Collection $value, string $key): string {
+        $list = sprintf("\n    <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|Collection $value, string $key): string {
             if ($value instanceof Collection) {
                 if ($value->isEmpty()) {
-                    return sprintf("    <li><strong>%s</strong>: <span>None</span></li>\n", ucfirst($key));
+                    return sprintf("      <li><strong>%s</strong>: <span>None</span></li>\n", ucfirst($key));
                 }
 
-                return sprintf("    <li><strong>%s</strong>: <ul>%s</ul></li>\n", ucfirst($key), $value->map(function (TestableHtmlElement $node): string {
+                return sprintf("      <li><strong>%s</strong>: <ul>%s</ul></li>\n", ucfirst($key), $value->map(function (TestableHtmlElement $node): string {
                     return $this->createDumpNodeMapEntry($node);
                 })->implode(''));
             }
@@ -68,6 +68,6 @@ class TestableHtmlDocument extends TestableHtmlElement
             return $this->createDumpListItem($key, $value);
         }, $data, array_keys($data))));
 
-        return '<details><summary><strong>' . $data['tag'] . '</strong></summary>' . $list . '</details>';
+        return sprintf("  <li><details><summary><strong>%s</strong></summary>%s  </details></li>\n", $data['tag'], $list);
     }
 }
