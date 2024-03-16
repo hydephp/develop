@@ -67,16 +67,12 @@ class TestableHtmlElement implements Arrayable
 
     public function hasClass(string $class): static
     {
-        PHPUnit::assertContains($class, $this->classes, "The class '$class' was not found in the element.");
-
-        return $this;
+        return $this->doAssert(fn () => PHPUnit::assertContains($class, $this->classes, "The class '$class' was not found in the element."));
     }
 
     public function doesNotHaveClass(string $class): static
     {
-        PHPUnit::assertNotContains($class, $this->classes, "The class '$class' was found in the element.");
-
-        return $this;
+        return $this->doAssert(fn () => PHPUnit::assertNotContains($class, $this->classes, "The class '$class' was found in the element."));
     }
 
     protected function parseTag(string $html): string
