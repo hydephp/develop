@@ -34,16 +34,12 @@ class TestableHtmlDocument
 
     public function assertSee(string $value): static
     {
-        PHPUnit::assertStringContainsString($value, $this->html, "The string '$value' was not found in the HTML.");
-
-        return $this;
+        return $this->doAssert(fn () => PHPUnit::assertStringContainsString($value, $this->html, "The string '$value' was not found in the HTML."));
     }
 
     public function assertDontSee(string $value): static
     {
-        PHPUnit::assertStringNotContainsString($value, $this->html, "The string '$value' was found in the HTML.");
-
-        return $this;
+        return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString($value, $this->html, "The string '$value' was found in the HTML."));
     }
 
     #[NoReturn]
@@ -150,5 +146,12 @@ class TestableHtmlDocument
         }
 
         return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->tag === 'html' ? 'details open' : 'details', e($title), $list);
+    }
+
+    protected function doAssert(callable $assertion): static
+    {
+        $assertion();
+
+        return $this;
     }
 }
