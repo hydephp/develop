@@ -13,9 +13,7 @@ class TestableHtmlDocument
 {
     protected readonly string $html;
 
-    /**
-     * @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>
-     */
+    /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> */
     protected Collection $nodes;
 
     public function __construct(string $html)
