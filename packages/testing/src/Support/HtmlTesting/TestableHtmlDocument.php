@@ -11,6 +11,23 @@ use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\Assert as PHPUnit;
 
+use function e;
+use function dd;
+use function strlen;
+use function substr;
+use function explode;
+use function sprintf;
+use function ucfirst;
+use function implode;
+use function array_map;
+use function microtime;
+use function array_keys;
+use function array_shift;
+use function number_format;
+use function base64_encode;
+use function memory_get_usage;
+use function file_put_contents;
+
 /**
  * A wrapper for an HTML document, parsed into an assertable and queryable object, with an abstract syntax tree.
  */
@@ -161,7 +178,7 @@ class TestableHtmlDocument
         $html .= '<section style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1em;">'.
             sprintf('<div><h2>Document Preview</h2><iframe src="data:text/html;base64,%s" width="960px" height="600px"></iframe></div>', base64_encode($this->html)).
             sprintf('<div><h2>Raw HTML</h2><textarea cols="120" rows="30" readonly style="width: 960px; height: 600px; white-space: pre; font-family: monospace;">%s</textarea></div>', e($this->html)).
-        '</section>';
+            '</section>';
 
         $html .= '</body></html>';
 
