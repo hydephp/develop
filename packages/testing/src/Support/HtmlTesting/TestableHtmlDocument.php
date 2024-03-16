@@ -114,7 +114,11 @@ class TestableHtmlDocument
             return $this->createDumpListItem($key, $value);
         }, $data, array_keys($data))));
 
-        $title = $node->text ? sprintf('<%s>%s</%s>', $node->tag, $node->text, $node->tag) : sprintf('<%s>', $node->tag);
+        if ($node->text) {
+            $title = sprintf('<%s>%s</%s>', $node->tag, $node->text, $node->tag);
+        } else {
+            $title = sprintf('<%s>', $node->tag);
+        }
 
         return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->level === 0 ? 'details open' : 'details', e($title), $list);
     }
