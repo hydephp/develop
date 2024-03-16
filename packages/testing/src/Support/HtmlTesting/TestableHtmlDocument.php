@@ -22,9 +22,12 @@ class TestableHtmlDocument
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The document's element nodes. */
     public readonly Collection $nodes;
 
+    public readonly int $level;
+
     public function __construct(string $html)
     {
         $this->html = $html;
+        $this->level = 0;
 
         $this->nodes = $this->parseNodes($html);
     }
@@ -37,7 +40,7 @@ class TestableHtmlDocument
         $xpath = new DOMXPath($dom);
 
         return collect($xpath->query('//*'))->map(function (DOMElement $node): TestableHtmlElement {
-            return new TestableHtmlElement($node->ownerDocument->saveHTML($node));
+            return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1);
         });
     }
 

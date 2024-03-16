@@ -18,9 +18,12 @@ class TestableHtmlElement
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     public readonly Collection $nodes;
 
-    public function __construct(string $html)
+    public readonly int $level;
+
+    public function __construct(string $html, int $level = 0)
     {
         $this->html = $html;
+        $this->level = $level;
 
         $this->tag = $this->parseTag($html);
         $this->text = $this->parseText($html);
