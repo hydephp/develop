@@ -105,6 +105,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
 
+        $this->assertInstanceOf(TestableHtmlElement::class, $element);
         $this->assertSame('div', $element->tag);
         $this->assertSame('Foo', $element->text);
         $this->assertSame('<div id="foo">Foo</div>', $element->html);
