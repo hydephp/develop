@@ -54,7 +54,7 @@ class TestableHtmlDocument
 
     public function element(string $selector, callable $callback): static
     {
-        $element = $this->nodes->first(fn (TestableHtmlElement $node) => $node->tag === $selector);
+        $element = $this->query($selector);
 
         if (! $element) {
             PHPUnit::fail("No element matching the selector '$selector' was found in the HTML.");
@@ -169,6 +169,11 @@ class TestableHtmlDocument
         }
 
         return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->tag === 'html' ? 'details open' : 'details', e($title), $list);
+    }
+
+    protected function query(string $selector): ?TestableHtmlElement
+    {
+        return $this->nodes->first(fn(TestableHtmlElement $node) => $node->tag === $selector);
     }
 
     protected function doAssert(callable $assertion): static
