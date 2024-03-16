@@ -8,11 +8,12 @@ use DOMXPath;
 use DOMElement;
 use DOMDocument;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * A wrapper for an HTML element node, parsed into an assertable and queryable object.
  */
-class TestableHtmlElement
+class TestableHtmlElement implements Arrayable
 {
     public readonly string $html;
     public readonly string $tag;
@@ -31,6 +32,16 @@ class TestableHtmlElement
         $this->text = $this->parseText($html);
 
         $this->nodes = $this->parseNodes($html);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'tag' => $this->tag,
+            'text' => $this->text,
+            'level' => $this->level,
+            'nodes' => $this->nodes,
+        ];
     }
 
     protected function parseNodes(string $html): Collection
