@@ -173,7 +173,42 @@ class TestableHtmlDocument
 
     protected function query(string $selector): ?TestableHtmlElement
     {
-        return $this->nodes->first(fn(TestableHtmlElement $node) => $node->tag === $selector);
+        // Split the selector by '>'
+        $selectors = explode('>', $selector);
+
+        // Trim each selector
+        $selectors = array_map('trim', $selectors);
+
+        // Start with the root nodes
+        $currentNodes = $this->nodes;
+
+        // If $currentNodes contains only a single node and it's the <html> tag, use its children as the root nodes
+        if ($currentNodes->count() === 1 && $currentNodes->first()->tag === 'html') {
+            $currentNodes = $currentNodes->first()->nodes;
+        }
+
+        // Loop through each selector
+        foreach ($selectors as $selector) {
+            // Find matching nodes for the current selector
+            $matchingNodes = $currentNodes->flatMap(function ($node) use ($selector) {
+                return $node->nodes->filter(function ($child) use ($selector) {
+                    return $child->tag === $selector;
+                });
+            });
+
+            // If there are no matching nodes, return null
+            if ($matchingNodes->isEmpty()) {
+                return null;
+            }
+
+            // Update current nodes to the matching nodes for the next selector
+            $currentNodes = $matchingNodes->flatMap(function ($node) {
+                return $node->nodes;
+            });
+        }
+
+        // Return the first matching element
+        return $currentNodes->first();
     }
 
     protected function doAssert(callable $assertion): static
