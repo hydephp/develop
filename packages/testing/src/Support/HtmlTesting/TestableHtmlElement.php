@@ -17,11 +17,10 @@ class TestableHtmlElement
     public readonly string $html;
     public readonly string $tag;
     public readonly string $text;
+    public readonly int $level;
 
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     public readonly Collection $nodes;
-
-    public readonly int $level;
 
     public function __construct(string $html, int $level = 0)
     {
