@@ -32,4 +32,11 @@ trait HtmlTestingAssertions
     {
         return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString(e($value), $this->html, "The escaped string '$value' was found in the HTML."));
     }
+
+    protected function doAssert(callable $assertion): static
+    {
+        $assertion();
+
+        return $this;
+    }
 }

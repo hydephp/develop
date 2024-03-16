@@ -178,11 +178,4 @@ class TestableHtmlDocument
         // Scope the node's child nodes to the selector
         return $node->nodes->filter(fn (TestableHtmlElement $node) => $node->tag === $selector);
     }
-
-    protected function doAssert(callable $assertion): static
-    {
-        $assertion();
-
-        return $this;
-    }
 }
