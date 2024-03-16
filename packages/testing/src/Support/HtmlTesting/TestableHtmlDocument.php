@@ -59,6 +59,41 @@ class TestableHtmlDocument
         return $this;
     }
 
+    /**
+     * Using CSS style selectors, this method allows for querying the document's nodes.
+     *
+     * @example $this->query('head > title')
+     */
+    public function query(string $selector): ?TestableHtmlElement
+    {
+        $selectors = array_map('trim', explode('>', $selector));
+
+        $nodes = $this->nodes;
+
+        // While we have any selectors left, we continue to narrow down the nodes
+        while ($selector = array_shift($selectors)) {
+            $node = $nodes->first();
+
+            if ($node === null) {
+                return null;
+            }
+
+            $nodes = $this->queryCursorNode($selector, $node);
+        }
+
+        return $nodes->first();
+    }
+
+    public function getRootElement(): TestableHtmlElement
+    {
+        return $this->nodes->first();
+    }
+
+    public function getElementById(string $id): ?TestableHtmlElement
+    {
+        return $this->nodes->first(fn (TestableHtmlElement $node) => $node->element->getAttribute('id') === $id);
+    }
+
     #[NoReturn]
     public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
     {
@@ -163,41 +198,6 @@ class TestableHtmlDocument
         }
 
         return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->tag === 'html' ? 'details open' : 'details', e($title), $list);
-    }
-
-    /**
-     * Using CSS style selectors, this method allows for querying the document's nodes.
-     *
-     * @example $this->query('head > title')
-     */
-    public function query(string $selector): ?TestableHtmlElement
-    {
-        $selectors = array_map('trim', explode('>', $selector));
-
-        $nodes = $this->nodes;
-
-        // While we have any selectors left, we continue to narrow down the nodes
-        while ($selector = array_shift($selectors)) {
-            $node = $nodes->first();
-
-            if ($node === null) {
-                return null;
-            }
-
-            $nodes = $this->queryCursorNode($selector, $node);
-        }
-
-        return $nodes->first();
-    }
-
-    public function getRootElement(): TestableHtmlElement
-    {
-        return $this->nodes->first();
-    }
-
-    public function getElementById(string $id): ?TestableHtmlElement
-    {
-        return $this->nodes->first(fn (TestableHtmlElement $node) => $node->element->getAttribute('id') === $id);
     }
 
     protected function queryCursorNode(string $selector, TestableHtmlElement $node): Collection
