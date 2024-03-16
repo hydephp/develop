@@ -43,6 +43,26 @@ class SidebarItemsViewTest extends TestCase
         $this->testView()->assertHasElement('#sidebar-items');
     }
 
+    public function testViewDoesNotContainActiveStateWhenNoPageIsActive()
+    {
+        $this->testView()
+            ->assertDontSee('active')
+            ->assertDontSee('Table of contents')
+            ->assertDoesNotHaveAttribute('aria-current');
+    }
+
+    public function testViewContainsActiveStateWhenPageIsActive()
+    {
+        $this->mockCurrentPage('docs/foo');
+        $this->mockPage(new DocumentationPage('foo'));
+
+        $this->testView()
+            ->assertSee('active')
+            ->assertSee('Table of contents')
+            ->assertHasAttribute('aria-current')
+            ->assertAttributeIs('aria-current="true"');
+    }
+
     public function testTypeAnnotationIsNotPresentInHtml()
     {
         $this->testView()->assertDontSee('@var')->assertDontSee('$group');
