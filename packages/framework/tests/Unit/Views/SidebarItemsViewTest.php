@@ -40,7 +40,7 @@ class SidebarItemsViewTest extends TestCase
 
     public function testComponentRenders()
     {
-        $this->testView()->assertHasElement('#sidebar-items')->assertSeeTimes('sidebar-item ', 3);
+        $this->testView()->assertHasElement('#sidebar-items')->assertSeeTimes('listitem', 3);
     }
 
     public function testViewDoesNotContainActiveStateWhenNoPageIsActive()
