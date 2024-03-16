@@ -92,4 +92,13 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
         $this->assertNull($this->html('<div id="foo">Foo</div>')->getElementById('bar'));
     }
+
+    public function testElementData()
+    {
+        $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
+
+        $this->assertSame('div', $element->tag);
+        $this->assertSame('Foo', $element->text);
+        $this->assertSame('<div id="foo">Foo</div>', $element->html);
+    }
 }
