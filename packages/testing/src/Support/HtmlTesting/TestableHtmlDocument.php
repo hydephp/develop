@@ -16,11 +16,14 @@ use Illuminate\Support\Collection;
  */
 class TestableHtmlDocument
 {
+    public readonly string $html;
+
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The document's element nodes. */
     public readonly Collection $nodes;
 
     public function __construct(string $html)
     {
+        $this->html = $html;
         $this->nodes = $this->parseNodes($html);
     }
 
