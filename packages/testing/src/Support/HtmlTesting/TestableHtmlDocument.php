@@ -173,42 +173,37 @@ class TestableHtmlDocument
 
     protected function query(string $selector): ?TestableHtmlElement
     {
-        // Split the selector by '>'
-        $selectors = explode('>', $selector);
+        // Using CSS style selectors, this method allows for querying the document's nodes.
+        // For each selector, we narrow down the nodes
 
-        // Trim each selector
+        // Example selector: 'head > title'
+
+        $selectors = explode('>', $selector);
         $selectors = array_map('trim', $selectors);
 
-        // Start with the root nodes
-        $currentNodes = $this->nodes;
 
-        // If $currentNodes contains only a single node and it's the <html> tag, use its children as the root nodes
-        if ($currentNodes->count() === 1 && $currentNodes->first()->tag === 'html') {
-            $currentNodes = $currentNodes->first()->nodes;
+        $nodes = $this->nodes;
+
+        // If $currentNodes contains only a single node, and it's the <html> tag, use its children as the root nodes
+        if ($nodes->count() === 1 && $nodes->first()->tag === 'html') {
+            $nodes = $nodes->first()->nodes;
         }
 
-        // Loop through each selector
-        foreach ($selectors as $selector) {
-            // Find matching nodes for the current selector
-            $matchingNodes = $currentNodes->flatMap(function ($node) use ($selector) {
-                return $node->nodes->filter(function ($child) use ($selector) {
-                    return $child->tag === $selector;
-                });
-            });
-
-            // If there are no matching nodes, return null
-            if ($matchingNodes->isEmpty()) {
+        // While selectors is not empty, we keep narrowing down the nodes
+        while ($selector = array_shift($selectors)) {
+            // Check if the selector matches any of the root nodes
+            $nodes = $nodes->filter(fn (TestableHtmlElement $node) => $node->tag === $selector);
+            if ($nodes->isEmpty()) {
                 return null;
             }
-
-            // Update current nodes to the matching nodes for the next selector
-            $currentNodes = $matchingNodes->flatMap(function ($node) {
-                return $node->nodes;
-            });
         }
 
-        // Return the first matching element
-        return $currentNodes->first();
+        // If we have any nodes left, we return the first one
+        if ($nodes->isNotEmpty()) {
+            return $nodes->first();
+        }
+
+        return null;
     }
 
     protected function doAssert(callable $assertion): static
