@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support\HtmlTesting;
 
-use DOMXPath;
-use DOMElement;
-use DOMDocument;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -26,7 +23,7 @@ class TestableHtmlElement implements Arrayable
     protected ?TestableHtmlDocument $document = null;
     protected ?TestableHtmlElement $parent = null;
 
-    public function __construct(string $html, int $level = 0, ?TestableHtmlDocument $document = null, TestableHtmlElement $parent = null)
+    public function __construct(string $html, int $level = 0, ?TestableHtmlDocument $document = null, TestableHtmlElement $parent = null, ?Collection $nodes = null)
     {
         $this->html = $html;
         $this->level = $level;
@@ -39,10 +36,10 @@ class TestableHtmlElement implements Arrayable
             $this->parent = $parent;
         }
 
+        $this->nodes = $nodes ?? new Collection();
+
         $this->tag = $this->parseTag($html);
         $this->text = $this->parseText($html);
-
-        $this->nodes = $this->parseNodes($html);
     }
 
     /** @return array{tag: string, text: string, level: int, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>} */
@@ -54,24 +51,6 @@ class TestableHtmlElement implements Arrayable
             'level' => $this->level,
             'nodes' => $this->nodes,
         ];
-    }
-
-    protected function parseNodes(string $html): Collection
-    {
-        $dom = new DOMDocument();
-        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-        $xpath = new DOMXPath($dom);
-
-        $nodes = collect($xpath->query('//*'));
-
-        // Forget the first node, which is the document itself.
-        $nodes->forget(0);
-
-        return $nodes->map(function (DOMElement $node): TestableHtmlElement {
-            // Todo: Backtrace the node's level.
-            return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1, $this instanceof TestableHtmlDocument ? $this : null);
-        });
     }
 
     protected function parseTag(string $html): string
