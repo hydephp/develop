@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support\HtmlTesting;
 
+use DOMXPath;
+use DOMElement;
+use DOMDocument;
 use Illuminate\Support\Collection;
 
 /**
@@ -27,6 +30,25 @@ class TestableHtmlElement
 
         $this->tag = $this->parseTag($html);
         $this->text = $this->parseText($html);
+
+        $this->nodes = $this->parseNodes($html);
+    }
+
+    protected function parseNodes(string $html): Collection
+    {
+        $dom = new DOMDocument();
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $xpath = new DOMXPath($dom);
+
+        $nodes = collect($xpath->query('//*'));
+
+        // Forget the first node, which is the document itself.
+        $nodes->forget(0);
+
+        return $nodes->map(function (DOMElement $node): TestableHtmlElement {
+            return new TestableHtmlElement($node->ownerDocument->saveHTML($node), $this->level + 1);
+        });
     }
 
     protected function parseTag(string $html): string
