@@ -29,6 +29,11 @@ class TestableHtmlDocument
         $this->nodes = $this->parseNodes($html);
     }
 
+    /**
+     * Execute a testing callback on an element matching the given CSS selector.
+     *
+     * This is useful for fluent assertions while retaining the method chains of this class.
+     */
     public function tapElement(string $selector, callable $callback): static
     {
         $element = $this->query($selector);
