@@ -90,6 +90,9 @@ class TestableHtmlDocument
         $html .= '<h2>Document Preview</h2>';
         $html .= sprintf('<iframe src="data:text/html;base64,%s" width="960px" height="600px"></iframe>', base64_encode($this->html));
 
+        $html .= '<h2>Raw HTML</h2>';
+        $html .= sprintf('<textarea cols="120" rows="30" readonly style="width: 960px; white-space: pre; font-family: monospace;">%s</textarea>', e($this->html));
+
         $html .= '</body></html>';
 
         return $html;
