@@ -196,6 +196,11 @@ class TestableHtmlDocument
         return $nodes->first();
     }
 
+    public function getElementById(string $id): ?TestableHtmlElement
+    {
+        return $this->nodes->first(fn (TestableHtmlElement $node) => $node->element->getAttribute('id') === $id);
+    }
+
     protected function queryCursorNode(string $selector, TestableHtmlElement $node): Collection
     {
         // Scope the node's child nodes to the selector

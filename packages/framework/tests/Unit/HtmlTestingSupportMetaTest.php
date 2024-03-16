@@ -83,4 +83,13 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame('bar', $this->html('<foo><bar /></foo>')->query('bar')->tag);
         $this->assertSame('bar', $this->html('<foo><bar></bar></foo>')->query('bar')->tag);
     }
+
+    public function testGetElementById()
+    {
+        $this->assertInstanceOf(TestableHtmlElement::class,
+            $this->html('<div id="foo">Foo</div>')->getElementById('foo')->assertSee('Foo')
+        );
+
+        $this->assertNull($this->html('<div id="foo">Foo</div>')->getElementById('bar'));
+    }
 }
