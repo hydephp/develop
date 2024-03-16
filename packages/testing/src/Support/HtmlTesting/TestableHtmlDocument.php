@@ -57,24 +57,22 @@ class TestableHtmlDocument
 
     protected function createAstInspectionDump(): string
     {
-        $html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document Dump</title><style>body { font-family: sans-serif; } .node { margin-left: 1em; }</style></head><body><h1>Document Dump</h1>';
+        $html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document Dump</title><style>body { font-family: sans-serif; } .node { margin-left: 1em; }</style></head><body><h1>Document Dump</h1><h2>Abstract Syntax Tree Node Inspection</h2>';
 
-        $html .= '<h2>Abstract Syntax Tree Node Inspection</h2>';
-        $html .= "\n".'<div>'.$this->nodes->map(function (TestableHtmlElement $node): string {
+        $html .= sprintf("\n<div>%s</div>\n", $this->nodes->map(function (TestableHtmlElement $node): string {
             $data = Arr::except((array) $node, ['html']);
 
-            return "\n".'  <ul class="node">'."\n".
-                implode('', array_map(function (string|Collection $value, string $key): string {
-                    if ($value instanceof Collection) {
-                        return '      <li>'.$key.': <ul>'.implode('', $value->map(function (TestableHtmlElement $node): string {
-                            return '<li><strong>'.ucfirst($node->tag).'</strong>: <span>'.$node->text.'</span></li>';
-                        })->all()).'</ul></li>'."\n";
-                    }
+            return sprintf("\n  <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|Collection $value, string $key): string {
+                if ($value instanceof Collection) {
+                    return sprintf("      <li>%s: <ul>%s</ul></li>\n", $key, implode('', $value->map(function (TestableHtmlElement $node): string {
+                        return sprintf('<li><strong>%s</strong>: <span>%s</span></li>', ucfirst($node->tag), $node->text);
+                    })->all()));
+                }
 
-                    return '    <li><strong>'.ucfirst($key).'</strong>: <span>'.$value.'</span></li>'."\n";
-                }, $data, array_keys($data)))
-            .'  </ul>'."\n";
-        })->implode('').'</div>'."\n";
+                return sprintf("    <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
+            }, $data, array_keys($data))));
+        })->implode(''));
+
         $html .= '</body></html>';
 
         return $html;
