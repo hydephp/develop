@@ -125,7 +125,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         $this->assertSame('foo', $this->exampleElement()->id);
 
-        $this->assertNull($this->html('<div>Foo</div>')->query('')->id);
+        $this->assertNull($this->html('<div>Foo</div>')->getRootElement()->id);
     }
 
     public function testElementNodes()
@@ -135,7 +135,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementNodesWithChild()
     {
-        $element = $this->html('<div><foo>Bar</foo></div>')->query('');
+        $element = $this->html('<div><foo>Bar</foo></div>')->getRootElement();
         $child = $element->nodes->first();
         $this->assertInstanceOf(TestableHtmlElement::class, $child);
         $this->assertSame('foo', $child->tag);
@@ -144,7 +144,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementNodesWithChildren()
     {
-        $element = $this->html('<div><foo>Bar</foo><bar>Baz<small>Foo</small></bar></div>')->query('');
+        $element = $this->html('<div><foo>Bar</foo><bar>Baz<small>Foo</small></bar></div>')->getRootElement();
 
         $this->assertCount(2, $element->nodes);
         $this->assertSame('foo', $element->nodes->first()->tag);
@@ -164,7 +164,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testToArrayWithChildren()
     {
-        $element = $this->html('<div><bar></bar></div>')->query('');
+        $element = $this->html('<div><bar></bar></div>')->getRootElement();
         $this->assertEquals(['tag' => 'div', 'text' => '', 'nodes' => collect([$element->nodes->first()]), 'id' => null], $element->toArray());
     }
 
