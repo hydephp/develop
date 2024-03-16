@@ -111,7 +111,7 @@ class TestableHtmlDocument
         return $this;
     }
 
-    public function dump(bool $writeHtml, bool $dumpRawHtml): void
+    public function dump(bool $writeHtml = true, bool $dumpRawHtml = false): void
     {
         if ($writeHtml) {
             if ($dumpRawHtml) {
