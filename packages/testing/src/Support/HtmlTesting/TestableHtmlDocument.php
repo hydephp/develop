@@ -49,13 +49,18 @@ class TestableHtmlDocument
             if ($dumpRawHtml) {
                 $html = $this->html;
             } else {
-                $dumper = new HtmlDumper();
-                $cloner = new VarCloner();
-                $data = $cloner->cloneVar($this);
-                $html = $dumper->dump($data, true, ['maxDepth' => 5]);
+                $html = $this->createAstInspectionDump();
             }
             file_put_contents(Hyde::path('document-dump.html'), $html);
         }
         dd($this->nodes);
+    }
+
+    protected function createAstInspectionDump(): string
+    {
+        $dumper = new HtmlDumper();
+        $cloner = new VarCloner();
+        $data = $cloner->cloneVar($this);
+        return $dumper->dump($data, true, ['maxDepth' => 5]);
     }
 }
