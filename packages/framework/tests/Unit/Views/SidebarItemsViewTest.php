@@ -57,8 +57,8 @@ class SidebarItemsViewTest extends TestCase
         $this->mockPage(new DocumentationPage('foo'));
 
         $this->testView()
-            ->assertSee('active')
-            ->assertSee('Table of contents')
+            ->assertSeeOnce('active')
+            ->assertSeeOnce('Table of contents')
             ->assertHasAttribute('aria-current')
             ->assertAttributeIs('aria-current="true"');
     }
