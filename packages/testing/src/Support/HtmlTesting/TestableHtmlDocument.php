@@ -26,7 +26,6 @@ use function array_keys;
 use function is_numeric;
 use function array_shift;
 use function str_contains;
-use function substr_count;
 use function number_format;
 use function base64_encode;
 use function memory_get_usage;
@@ -220,11 +219,6 @@ class TestableHtmlDocument
                     }, $value, array_keys($value));
                 }
                 $value = implode(', ', $value);
-            }
-
-            // If value is compressed minified code, like CSS, we put it in an overflow container
-            if ((strlen($value) > 100) && (substr_count(trim($value), "\n") < 2)) {
-                $value = sprintf('<div style="overflow-x: auto; max-width: 80ch; white-space: pre; font-family: monospace;">%s</div>', e($value));
             }
 
             return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
