@@ -11,12 +11,12 @@ use Illuminate\Support\Collection;
  */
 class TestableHtmlElement
 {
-    protected readonly string $html;
-    protected readonly string $tag;
-    protected readonly string $text;
+    public readonly string $html;
+    public readonly string $tag;
+    public readonly string $text;
 
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
-    protected readonly Collection $nodes;
+    public readonly Collection $nodes;
 
     public function __construct(string $html)
     {
