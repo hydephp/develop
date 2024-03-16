@@ -177,22 +177,27 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementToArray()
     {
-        $array = $this->exampleElement()->toArray();
-
-        $this->assertSame(['id' => 'foo', 'tag' => 'div', 'text' => 'Foo', 'classes' => ['bar']], $array);
+        $this->assertSame(
+            ['id' => 'foo', 'tag' => 'div', 'text' => 'Foo', 'classes' => ['bar']],
+            $this->exampleElement()->toArray()
+        );
     }
 
     public function testToArrayWithChildren()
     {
-        $element = $this->html('<div><bar></bar></div>')->getRootElement();
-        $this->assertEquals(['tag' => 'div', 'nodes' => collect([$element->nodes->first()])], $element->toArray());
+        $this->assertEquals(
+            ['tag' => 'div', 'nodes' => collect([$this->html('<div><bar></bar></div>')->getRootElement()->nodes->first()])],
+            $this->html('<div><bar></bar></div>')->getRootElement()->toArray()
+        );
     }
 
     public function testToArrayWithAttributes()
     {
         /** @noinspection HtmlUnknownAttribute */
-        $element = $this->html('<div id="id" class="class" name="name">Bar</div>')->getRootElement();
-        $this->assertSame(['id' => 'id', 'tag' => 'div', 'text' => 'Bar', 'classes' => ['class'], 'attributes' => ['name' => 'name']], $element->toArray());
+        $this->assertSame(
+            ['id' => 'id', 'tag' => 'div', 'text' => 'Bar', 'classes' => ['class'], 'attributes' => ['name' => 'name']],
+            $this->html('<div id="id" class="class" name="name">Bar</div>')->getRootElement()->toArray()
+        );
     }
 
     public function testElementAssertHasClass()
