@@ -54,7 +54,7 @@ class TestableHtmlElement implements Arrayable
         $this->classes = $this->parseClasses($element);
     }
 
-    /** @return array{tag: string, text: string, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>, id: string} */
+    /** @return array{tag: string, text: string, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>, id: string, classes: array} */
     public function toArray(): array
     {
         return [
@@ -62,6 +62,7 @@ class TestableHtmlElement implements Arrayable
             'text' => $this->text,
             'nodes' => $this->nodes,
             'id' => $this->id,
+            'classes' => $this->classes,
         ];
     }
 
