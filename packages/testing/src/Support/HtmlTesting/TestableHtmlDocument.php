@@ -16,6 +16,8 @@ use Illuminate\Testing\Assert as PHPUnit;
  */
 class TestableHtmlDocument
 {
+    use HtmlTestingAssertions;
+
     public readonly string $html;
 
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The document's element nodes. */
@@ -25,31 +27,6 @@ class TestableHtmlDocument
     {
         $this->html = $html;
         $this->nodes = $this->parseNodes($html);
-    }
-
-    public function complete(): void
-    {
-        // Just an empty helper so we get easier Git diffs when adding new assertions.
-    }
-
-    public function assertSee(string $value): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertStringContainsString($value, $this->html, "The string '$value' was not found in the HTML."));
-    }
-
-    public function assertDontSee(string $value): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString($value, $this->html, "The string '$value' was found in the HTML."));
-    }
-
-    public function assertSeeEscaped(string $value): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertStringContainsString(e($value), $this->html, "The escaped string '$value' was not found in the HTML."));
-    }
-
-    public function assertDontSeeEscaped(string $value): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString(e($value), $this->html, "The escaped string '$value' was found in the HTML."));
     }
 
     public function element(string $selector, callable $callback): static

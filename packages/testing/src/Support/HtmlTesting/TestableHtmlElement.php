@@ -13,6 +13,8 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class TestableHtmlElement implements Arrayable
 {
+    use HtmlTestingAssertions;
+
     public readonly string $html;
     public readonly string $tag;
     public readonly string $text;
