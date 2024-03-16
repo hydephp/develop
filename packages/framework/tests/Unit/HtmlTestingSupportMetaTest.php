@@ -179,8 +179,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         $array = $this->exampleElement()->toArray();
 
-        $this->assertEquals(['id' => 'foo', 'tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'classes' => ['bar']], $array);
-        $this->assertSame(['id', 'tag', 'text', 'nodes', 'classes'], array_keys($array));
+        $this->assertSame(['id' => 'foo', 'tag' => 'div', 'text' => 'Foo', 'classes' => ['bar']], $array);
     }
 
     public function testToArrayWithChildren()
@@ -193,7 +192,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         /** @noinspection HtmlUnknownAttribute */
         $element = $this->html('<div id="id" class="class" name="name">Bar</div>')->getRootElement();
-        $this->assertEquals(['id' => 'id', 'tag' => 'div', 'text' => 'Bar', 'nodes' => collect(), 'classes' => ['class'], 'attributes' => ['name' => 'name']], $element->toArray());
+        $this->assertSame(['id' => 'id', 'tag' => 'div', 'text' => 'Bar', 'classes' => ['class'], 'attributes' => ['name' => 'name']], $element->toArray());
     }
 
     public function testElementAssertHasClass()

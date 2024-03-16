@@ -11,6 +11,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Testing\Assert as PHPUnit;
 
 use function trim;
+use function filled;
 use function explode;
 use function preg_match;
 use function strip_tags;
@@ -69,7 +70,7 @@ class TestableHtmlElement implements Arrayable
             'nodes' => $this->nodes,
             'classes' => $this->classes,
             'attributes' => $this->attributes,
-        ]);
+        ], fn ($value): bool => filled($value));
     }
 
     public function hasClass(string $class): static
