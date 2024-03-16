@@ -87,7 +87,7 @@ class TestableHtmlDocument
             return $this->createDumpNodeMapEntry($node);
         })->implode(''));
 
-        $html .= '<h3>Document Preview</h3>';
+        $html .= '<h2>Document Preview</h2>';
         $html .= sprintf('<iframe src="data:text/html;base64,%s" width="960px" height="600px"></iframe>', base64_encode($this->html));
 
         $html .= '</body></html>';
