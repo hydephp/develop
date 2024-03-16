@@ -118,7 +118,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementHtml()
     {
-        $this->assertSame('<div id="foo">Foo</div>', $this->exampleElement()->html);
+        $this->assertSame('<div id="foo" class="bar">Foo</div>', $this->exampleElement()->html);
     }
 
     public function testElementId()
@@ -165,7 +165,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementToArray()
     {
-        $this->assertEquals(['tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'id' => 'foo'], $this->exampleElement()->toArray());
+        $this->assertEquals(['tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'id' => 'foo', 'classes' => ['bar']], $this->exampleElement()->toArray());
     }
 
     public function testToArrayWithChildren()
@@ -198,6 +198,6 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     protected function exampleElement(): TestableHtmlElement
     {
-        return $this->html('<div id="foo">Foo</div>')->getElementById('foo');
+        return $this->html('<div id="foo" class="bar">Foo</div>')->getElementById('foo');
     }
 }
