@@ -165,13 +165,13 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementToArray()
     {
-        $this->assertEquals(['tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'id' => 'foo', 'classes' => []], $this->exampleElement()->toArray());
+        $this->assertEquals(['tag' => 'div', 'text' => 'Foo', 'nodes' => collect(), 'id' => 'foo'], $this->exampleElement()->toArray());
     }
 
     public function testToArrayWithChildren()
     {
         $element = $this->html('<div><bar></bar></div>')->getRootElement();
-        $this->assertEquals(['tag' => 'div', 'text' => '', 'nodes' => collect([$element->nodes->first()]), 'id' => null, 'classes' => []], $element->toArray());
+        $this->assertEquals(['tag' => 'div', 'nodes' => collect([$element->nodes->first()])], $element->toArray());
     }
 
     public function testElementAssertHasClass()
