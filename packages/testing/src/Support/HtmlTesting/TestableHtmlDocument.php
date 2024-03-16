@@ -25,7 +25,19 @@ class TestableHtmlDocument extends TestableHtmlElement
             if ($dumpRawHtml) {
                 $html = $this->html;
             } else {
+                // Start the timer
+                $timeStart = microtime(true);
+                // Reset memory usage
+                memory_get_usage(true);
+
                 $html = $this->createAstInspectionDump();
+
+                // End the timer (and format to ms)
+                $timeEnd = number_format((microtime(true) - $timeStart) * 1000, 2);
+                // Get the memory usage (and format to mb)
+                $memoryUsage = number_format(memory_get_usage(true) / 1024 / 1024, 2);
+
+                $html .= sprintf("\n<p>Generated in %s ms, using %s MB of memory.</p>", $timeEnd, $memoryUsage);
             }
             file_put_contents(Hyde::path('document-dump.html'), $html);
         }
