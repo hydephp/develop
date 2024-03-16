@@ -188,14 +188,19 @@ class TestableHtmlDocument
         if ($nodes->count() === 1 && $nodes->first()->tag === 'html') {
             $nodes = $nodes->first()->nodes;
         }
+        // Get the first selector
+        $selector = array_shift($selectors);
 
-        // While selectors is not empty, we keep narrowing down the nodes
-        while ($selector = array_shift($selectors)) {
-            // Check if the selector matches any of the root nodes
-            $nodes = $nodes->filter(fn (TestableHtmlElement $node) => $node->tag === $selector);
-            if ($nodes->isEmpty()) {
+        $nodes = $this->queryCursorNode($selector, $nodes);
+
+        // If we have any selectors left, we continue to narrow down the nodes
+        while ($selectors) {
+            $selector = array_shift($selectors);
+            $node = $nodes->first();
+            if (! $node) {
                 return null;
             }
+            $nodes = $this->queryCursorNode($selector, $node->nodes);
         }
 
         // If we have any nodes left, we return the first one
@@ -203,7 +208,14 @@ class TestableHtmlDocument
             return $nodes->first();
         }
 
+        // If we have no nodes left, we return null
         return null;
+    }
+
+    protected function queryCursorNode(string $selector, Collection $nodes): Collection
+    {
+        // Check if nodes have the tag we're looking for
+        return $nodes->filter(fn(TestableHtmlElement $node) => $node->tag === $selector);
     }
 
     protected function doAssert(callable $assertion): static
