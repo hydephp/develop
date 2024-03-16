@@ -10,6 +10,8 @@ use DOMElement;
 use DOMDocument;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Collection;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 /**
  * A wrapper for an HTML document, parsed into an assertable and queryable object, with an abstract syntax tree.
@@ -47,7 +49,10 @@ class TestableHtmlDocument
             if ($dumpRawHtml) {
                 $html = $this->html;
             } else {
-                // Todo
+                $dumper = new HtmlDumper();
+                $cloner = new VarCloner();
+                $data = $cloner->cloneVar($this);
+                $html = $dumper->dump($data, true, ['maxDepth' => 5]);
             }
             file_put_contents(Hyde::path('document-dump.html'), $html);
         }
