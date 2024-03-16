@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\TestsBladeViews;
+use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
 
 /**
  * Meta test for the HTML testing support.
@@ -29,5 +30,10 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         self::needsKernel();
 
         $this->html ??= file_get_contents(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'));
+    }
+
+    public function testHtmlHelper()
+    {
+        $this->assertInstanceOf(TestableHtmlDocument::class, $this->html($this->html));
     }
 }
