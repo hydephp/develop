@@ -16,7 +16,7 @@ class TestableHtmlElement
     protected readonly string $text;
 
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
-    protected Collection $nodes;
+    protected readonly Collection $nodes;
 
     public function __construct(string $html)
     {

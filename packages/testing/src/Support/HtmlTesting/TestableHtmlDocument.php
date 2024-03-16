@@ -19,7 +19,7 @@ class TestableHtmlDocument
     protected readonly string $html;
 
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The document's element nodes. */
-    protected Collection $nodes;
+    protected readonly Collection $nodes;
 
     public function __construct(string $html)
     {
