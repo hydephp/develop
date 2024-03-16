@@ -50,8 +50,8 @@ class TestableHtmlElement implements Arrayable
 
         $this->tag = $this->parseTag($html);
         $this->text = $this->parseText($html);
-        $this->id = $element->getAttribute('id') ?: null;
-        $this->classes = array_filter(explode(' ', $element->getAttribute('class')));
+        $this->id = $this->parseId($element);
+        $this->classes = $this->parseClasses($element);
     }
 
     /** @return array{tag: string, text: string, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>, id: string} */
@@ -87,5 +87,15 @@ class TestableHtmlElement implements Arrayable
         preg_match('/>([^<]+)</', $html, $matches);
 
         return trim(strip_tags($matches[1] ?? ''));
+    }
+
+    protected function parseId(DOMElement $element): ?string
+    {
+        return $element->getAttribute('id') ?: null;
+    }
+
+    protected function parseClasses(DOMElement $element): array
+    {
+        return array_filter(explode(' ', $element->getAttribute('class')));
     }
 }
