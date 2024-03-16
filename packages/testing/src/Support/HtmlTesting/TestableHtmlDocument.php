@@ -171,51 +171,35 @@ class TestableHtmlDocument
         return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->tag === 'html' ? 'details open' : 'details', e($title), $list);
     }
 
+    /**
+     * Using CSS style selectors, this method allows for querying the document's nodes.
+     *
+     * @example $this->query('head > title')
+     */
     protected function query(string $selector): ?TestableHtmlElement
     {
-        // Using CSS style selectors, this method allows for querying the document's nodes.
-        // For each selector, we narrow down the nodes
-
-        // Example selector: 'head > title'
-
-        $selectors = explode('>', $selector);
-        $selectors = array_map('trim', $selectors);
-
+        $selectors = array_map('trim', explode('>', $selector));
 
         $nodes = $this->nodes;
 
-        // If $currentNodes contains only a single node, and it's the <html> tag, use its children as the root nodes
-        if ($nodes->count() === 1 && $nodes->first()->tag === 'html') {
-            $nodes = $nodes->first()->nodes;
-        }
-        // Get the first selector
-        $selector = array_shift($selectors);
-
-        $nodes = $this->queryCursorNode($selector, $nodes);
-
-        // If we have any selectors left, we continue to narrow down the nodes
-        while ($selectors) {
-            $selector = array_shift($selectors);
+        // While we have any selectors left, we continue to narrow down the nodes
+        while ($selector = array_shift($selectors)) {
             $node = $nodes->first();
-            if (! $node) {
+
+            if ($node === null) {
                 return null;
             }
-            $nodes = $this->queryCursorNode($selector, $node->nodes);
+
+            $nodes = $this->queryCursorNode($selector, $node);
         }
 
-        // If we have any nodes left, we return the first one
-        if ($nodes->isNotEmpty()) {
-            return $nodes->first();
-        }
-
-        // If we have no nodes left, we return null
-        return null;
+        return $nodes->first();
     }
 
-    protected function queryCursorNode(string $selector, Collection $nodes): Collection
+    protected function queryCursorNode(string $selector, TestableHtmlElement $node): Collection
     {
-        // Check if nodes have the tag we're looking for
-        return $nodes->filter(fn(TestableHtmlElement $node) => $node->tag === $selector);
+        // Scope the node's child nodes to the selector
+        return $node->nodes->filter(fn (TestableHtmlElement $node) => $node->tag === $selector);
     }
 
     protected function doAssert(callable $assertion): static
