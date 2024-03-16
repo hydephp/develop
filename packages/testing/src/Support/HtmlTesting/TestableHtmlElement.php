@@ -60,16 +60,16 @@ class TestableHtmlElement implements Arrayable
         $this->attributes = $this->parseAttributes($element);
     }
 
-    /** @return array{id: ?string, tag: string, text: string, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>, classes: ?array, attributes: ?array} */
+    /** @return array{id: ?string, tag: string, text: string, classes: ?array, attributes: ?array, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>} */
     public function toArray(): array
     {
         return array_filter([
             'id' => $this->id,
             'tag' => $this->tag,
             'text' => $this->text,
-            'nodes' => $this->nodes,
             'classes' => $this->classes,
             'attributes' => $this->attributes,
+            'nodes' => $this->nodes,
         ], fn ($value): bool => filled($value));
     }
 

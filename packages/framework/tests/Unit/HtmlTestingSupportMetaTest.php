@@ -189,6 +189,11 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
             ['tag' => 'div', 'nodes' => collect([$this->html('<div><bar></bar></div>')->getRootElement()->nodes->first()])],
             $this->html('<div><bar></bar></div>')->getRootElement()->toArray()
         );
+
+        $this->assertSame(
+            ['id', 'tag', 'text', 'classes', 'attributes', 'nodes'],
+            array_keys($this->html('<div id="id" class="class" name="name">Foo<bar></bar></div>')->getRootElement()->toArray()
+        ));
     }
 
     public function testToArrayWithAttributes()
