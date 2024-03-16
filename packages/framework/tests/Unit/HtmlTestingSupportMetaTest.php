@@ -76,4 +76,11 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
         $this->assertNull($this->html($this->html)->query('head > title > h1'));
     }
+
+    public function testQueryWithEdgeCases()
+    {
+        $this->assertSame('foo', $this->html('<foo>')->query('')->tag);
+        $this->assertSame('bar', $this->html('<foo><bar /></foo>')->query('bar')->tag);
+        $this->assertSame('bar', $this->html('<foo><bar></bar></foo>')->query('bar')->tag);
+    }
 }
