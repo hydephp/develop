@@ -184,6 +184,18 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->html('<div class="foo">Foo</div>')->getRootElement()->doesNotHaveClass('bar');
     }
 
+    public function testDumpHelper()
+    {
+        $dump = $this->html($this->html)->dump(false);
+
+        $this->assertStringContainsString('Document Dump', $dump);
+        $this->assertStringContainsString('Document Preview', $dump);
+        $this->assertStringContainsString('Raw HTML', $dump);
+        $this->assertStringContainsString('Nodes', $dump);
+
+        $this->assertStringContainsString(e('<title>Welcome to HydePHP!</title>'), $dump);
+    }
+
     protected function exampleElement(): TestableHtmlElement
     {
         return $this->html('<div id="foo">Foo</div>')->getElementById('foo');
