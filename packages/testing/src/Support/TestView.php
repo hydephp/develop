@@ -58,7 +58,7 @@ class TestView extends \Illuminate\Testing\TestView
      */
     public function assertSeeOnce(string $value): static
     {
-        return $this->assertSeeTimes($value, 1);
+        return $this->assertSeeTimes($value);
     }
 
     /**
