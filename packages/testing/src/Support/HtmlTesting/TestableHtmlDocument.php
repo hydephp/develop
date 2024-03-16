@@ -25,6 +25,7 @@ use function microtime;
 use function array_keys;
 use function is_numeric;
 use function array_shift;
+use function str_contains;
 use function number_format;
 use function base64_encode;
 use function memory_get_usage;
@@ -212,7 +213,7 @@ class TestableHtmlDocument
 
             if (is_array($value)) {
                 if (! is_numeric(array_key_first($value))) {
-                    $value = array_map(fn ($value, $key) => sprintf('%s: "%s"', $key, $value), $value, array_keys($value));
+                    $value = array_map(fn ($value, $key) => sprintf('%s: %s', $key, str_contains($value, ' ') ? "\"$value\"" : $value), $value, array_keys($value));
                 }
                 $value = implode(', ', $value);
             }
