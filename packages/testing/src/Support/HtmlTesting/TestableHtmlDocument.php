@@ -33,6 +33,7 @@ class TestableHtmlDocument
      * Select an element from the document using a CSS selector.
      *
      * Note that this means all subsequent assertions will be scoped to the selected element.
+     * Use {@see self::tapElement()} to execute a callback on the selected element while retaining the method chains.
      */
     public function element(string $selector): TestableHtmlElement
     {
@@ -49,6 +50,7 @@ class TestableHtmlDocument
      * Execute a testing callback on an element matching the given CSS selector.
      *
      * This is useful for fluent assertions while retaining the method chains of this class.
+     * Use {@see self::element()} to scope subsequent assertions to the selected element.
      */
     public function tapElement(string $selector, callable $callback): static
     {
