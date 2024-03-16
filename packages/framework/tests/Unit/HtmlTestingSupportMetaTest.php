@@ -189,6 +189,13 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertEquals(['tag' => 'div', 'nodes' => collect([$element->nodes->first()])], $element->toArray());
     }
 
+    public function testToArrayWithAttributes()
+    {
+        /** @noinspection HtmlUnknownAttribute */
+        $element = $this->html('<div id="id" class="class" name="name">Bar</div>')->getRootElement();
+        $this->assertEquals(['id' => 'id', 'tag' => 'div', 'text' => 'Bar', 'nodes' => collect(), 'classes' => ['class'], 'attributes' => ['name' => 'name']], $element->toArray());
+    }
+
     public function testElementAssertHasClass()
     {
         $this->html('<div class="foo">Foo</div>')->getRootElement()->hasClass('foo');
