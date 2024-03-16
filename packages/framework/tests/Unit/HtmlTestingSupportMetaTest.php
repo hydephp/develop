@@ -93,6 +93,14 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertNull($this->html('<div id="foo">Foo</div>')->getElementById('bar'));
     }
 
+    public function testGetRootElement()
+    {
+        $element = $this->html('<div>Foo</div>')->getRootElement();
+
+        $this->assertInstanceOf(TestableHtmlElement::class, $element);
+        $this->assertSame('<div>Foo</div>', $element->html);
+    }
+
     public function testElementData()
     {
         $element = $this->html('<div id="foo">Foo</div>')->getElementById('foo');
