@@ -23,6 +23,7 @@ use function is_array;
 use function array_map;
 use function microtime;
 use function array_keys;
+use function is_numeric;
 use function array_shift;
 use function number_format;
 use function base64_encode;
@@ -210,7 +211,11 @@ class TestableHtmlDocument
             }
 
             if (is_array($value)) {
-                $value = implode(', ', $value);
+                if (is_numeric(array_key_first($value))) {
+                    $value = implode(', ', $value);
+                } else {
+                    $value = implode(', ', array_map(fn ($value, $key) => sprintf('%s: %s', $key, $value), $value, array_keys($value)));
+                }
             }
 
             return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
