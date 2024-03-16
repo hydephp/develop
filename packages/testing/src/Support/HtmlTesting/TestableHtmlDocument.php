@@ -8,10 +8,9 @@ use DOMXPath;
 use Hyde\Hyde;
 use DOMElement;
 use DOMDocument;
+use Illuminate\Support\Arr;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Collection;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 /**
  * A wrapper for an HTML document, parsed into an assertable and queryable object, with an abstract syntax tree.
@@ -58,9 +57,26 @@ class TestableHtmlDocument
 
     protected function createAstInspectionDump(): string
     {
-        $dumper = new HtmlDumper();
-        $cloner = new VarCloner();
-        $data = $cloner->cloneVar($this);
-        return $dumper->dump($data, true, ['maxDepth' => 5]);
+        $html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document Dump</title><style>body { font-family: sans-serif; } .node { margin-left: 1em; }</style></head><body><h1>Document Dump</h1>';
+
+        $html .= '<h2>Abstract Syntax Tree Node Inspection</h2>';
+        $html .= "\n".'<div>'.$this->nodes->map(function (TestableHtmlElement $node): string {
+            $data = Arr::except((array) $node, ['html']);
+
+            return "\n".'  <ul class="node">'."\n".
+                implode('', array_map(function (string|Collection $value, string $key): string {
+                    if ($value instanceof Collection) {
+                        return '      <li>'.$key.': <ul>'.implode('', $value->map(function (TestableHtmlElement $node): string {
+                            return '<li><strong>'.ucfirst($node->tag).'</strong>: <span>'.$node->text.'</span></li>';
+                        })->all()).'</ul></li>'."\n";
+                    }
+
+                    return '    <li><strong>'.ucfirst($key).'</strong>: <span>'.$value.'</span></li>'."\n";
+                }, $data, array_keys($data)))
+            .'  </ul>'."\n";
+        })->implode('').'</div>'."\n";
+        $html .= '</body></html>';
+
+        return $html;
     }
 }
