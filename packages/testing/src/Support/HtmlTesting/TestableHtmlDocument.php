@@ -141,6 +141,7 @@ class TestableHtmlDocument
     public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
     {
         $this->dump($writeHtml, $dumpRawHtml);
+
         dd($this->nodes);
     }
 
