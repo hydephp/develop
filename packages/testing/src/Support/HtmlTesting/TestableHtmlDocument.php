@@ -73,7 +73,6 @@ class TestableHtmlDocument
             $element,
             $this,
             $parent,
-            new Collection() // ensure child nodes will be collected within a Collection
         );
 
         // Iterate through child nodes and recursively parse them
