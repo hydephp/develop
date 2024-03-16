@@ -44,12 +44,12 @@ class TestableHtmlDocument
         foreach ($elements as $element) {
             // If it is a root element, add it to the nodes collection
             if ($element->parentNode instanceof DOMDocument) {
-                $nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $this, null));
+                $nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $element, $this, null));
             }
 
             // If it is a child element, add it to the last node in the nodes collection
             if ($element->parentNode instanceof DOMElement) {
-                $nodes->last()->nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $this, $nodes->last()));
+                $nodes->last()->nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $element, $this, $nodes->last()));
             }
         }
 

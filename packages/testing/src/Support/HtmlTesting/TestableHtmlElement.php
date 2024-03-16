@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support\HtmlTesting;
 
+use DOMElement;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -19,12 +20,15 @@ class TestableHtmlElement implements Arrayable
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     public readonly Collection $nodes;
 
+    protected DOMElement $element;
+
     protected ?TestableHtmlDocument $document = null;
     protected ?TestableHtmlElement $parent = null;
 
-    public function __construct(string $html, ?TestableHtmlDocument $document = null, TestableHtmlElement $parent = null, ?Collection $nodes = null)
+    public function __construct(string $html, DOMElement $element, ?TestableHtmlDocument $document = null, TestableHtmlElement $parent = null, ?Collection $nodes = null)
     {
         $this->html = $html;
+        $this->element = $element;
 
         if ($document) {
             $this->document = $document;
