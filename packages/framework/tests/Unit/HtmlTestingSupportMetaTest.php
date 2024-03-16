@@ -43,5 +43,12 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
             ->assertSee('<title>Welcome to HydePHP!</title>')
             ->assertDontSee('<title>Unwelcome to HydePHP!</title>')
             ->complete();
+
+        $this->html(e('<div>Foo</div>').'<div>Bar</div>')
+            ->assertSeeEscaped('<div>Foo</div>')
+            ->assertDontSeeEscaped('<div>Bar</div>')
+            ->assertDontSee('<div>Foo</div>')
+            ->assertSee('<div>Bar</div>')
+            ->complete();
     }
 }

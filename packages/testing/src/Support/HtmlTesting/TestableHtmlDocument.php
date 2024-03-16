@@ -42,6 +42,16 @@ class TestableHtmlDocument
         return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString($value, $this->html, "The string '$value' was found in the HTML."));
     }
 
+    public function assertSeeEscaped(string $value): static
+    {
+        return $this->doAssert(fn () => PHPUnit::assertStringContainsString(e($value), $this->html, "The escaped string '$value' was not found in the HTML."));
+    }
+
+    public function assertDontSeeEscaped(string $value): static
+    {
+        return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString(e($value), $this->html, "The escaped string '$value' was found in the HTML."));
+    }
+
     #[NoReturn]
     public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
     {
