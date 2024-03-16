@@ -88,11 +88,6 @@ class TestableHtmlDocument
         return $html;
     }
 
-    protected function createDumpListItem(string $key, string $value): string
-    {
-        return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
-    }
-
     protected function createDumpNodeMapEntry(TestableHtmlElement $node): string
     {
         $data = $node->toArray();
@@ -108,7 +103,7 @@ class TestableHtmlDocument
                 })->implode(''));
             }
 
-            return $this->createDumpListItem($key, $value);
+            return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
         }, $data, array_keys($data))));
 
         if ($node->text) {
