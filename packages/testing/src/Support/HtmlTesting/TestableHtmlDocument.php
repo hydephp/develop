@@ -29,7 +29,7 @@ class TestableHtmlDocument
         $this->nodes = $this->parseNodes($html);
     }
 
-    public function element(string $selector, callable $callback): static
+    public function tapElement(string $selector, callable $callback): static
     {
         $element = $this->query($selector);
 
