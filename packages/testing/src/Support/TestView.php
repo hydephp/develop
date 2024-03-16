@@ -44,6 +44,8 @@ class TestView extends \Illuminate\Testing\TestView
      */
     public function assertSeeTimes(string $value, int $times = 1): static
     {
+        $this->assertSee($value, false);
+
         $count = substr_count($this->rendered, $value);
 
         PHPUnit::assertSame($times, $count, "The string '$value' was found $count times, expected $times.");
