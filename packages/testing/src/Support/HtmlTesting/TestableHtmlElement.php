@@ -24,17 +24,15 @@ class TestableHtmlElement implements Arrayable
 
     public readonly DOMElement $element;
 
-    protected ?TestableHtmlDocument $document = null;
+    protected TestableHtmlDocument $document;
     protected ?TestableHtmlElement $parent = null;
 
-    public function __construct(string $html, DOMElement $element, ?TestableHtmlDocument $document = null, ?TestableHtmlElement $parent = null, ?Collection $nodes = null)
+    public function __construct(string $html, DOMElement $element, TestableHtmlDocument $document, ?TestableHtmlElement $parent = null, ?Collection $nodes = null)
     {
         $this->html = $html;
         $this->element = $element;
 
-        if ($document) {
-            $this->document = $document;
-        }
+        $this->document = $document;
 
         if ($parent) {
             $this->parent = $parent;
