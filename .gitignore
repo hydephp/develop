@@ -22,4 +22,5 @@
 /tests/fixtures/example-sites/*/storage
 /tests/fixtures/example-sites/*/_site
 /tests/fixtures/example-sites/*/*.lock
-.idea/php-test-framework.xml # Temporary patch, see https://youtrack.jetbrains.com/issue/WI-76125/PhpStorm-has-started-to-add-an-undesired-line-to-.idea-php-test-framework.xml-when-running-Pest-PHPUnit-tests
+# Temporary patch, see https://youtrack.jetbrains.com/issue/WI-76125/PhpStorm-has-started-to-add-an-undesired-line-to-.idea-php-test-framework.xml-when-running-Pest-PHPUnit-tests
+.idea/php-test-framework.xml
