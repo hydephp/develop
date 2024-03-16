@@ -18,6 +18,7 @@ class TestableHtmlElement implements Arrayable
     public readonly string $html;
     public readonly string $tag;
     public readonly string $text;
+    public readonly ?string $id;
 
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The element's child nodes. */
     public readonly Collection $nodes;
@@ -39,15 +40,17 @@ class TestableHtmlElement implements Arrayable
 
         $this->tag = $this->parseTag($html);
         $this->text = $this->parseText($html);
+        $this->id = $element->getAttribute('id') ?: null;
     }
 
-    /** @return array{tag: string, text: string, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>} */
+    /** @return array{tag: string, text: string, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>, id: string} */
     public function toArray(): array
     {
         return [
             'tag' => $this->tag,
             'text' => $this->text,
             'nodes' => $this->nodes,
+            'id' => $this->id,
         ];
     }
 
