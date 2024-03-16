@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support\HtmlTesting;
 
-use DOMXPath;
 use Hyde\Hyde;
 use DOMElement;
 use DOMDocument;
@@ -29,31 +28,40 @@ class TestableHtmlDocument
 
     protected function parseNodes(string $html): Collection
     {
-        // This function parses the HTML into an abstract syntax tree (AST) of nodes, which can be inspected and queried.
-        // It follows the same logical DOM structure, so <div><p>Text</p></div> would be represented as: div -> p
-
         $nodes = new Collection();
 
         $dom = new DOMDocument();
         $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-        $xpath = new DOMXPath($dom);
-
-        $elements = $xpath->query('//*');
-
-        foreach ($elements as $element) {
-            // If it is a root element, add it to the nodes collection
-            if ($element->parentNode instanceof DOMDocument) {
-                $nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $element, $this, null));
-            }
-
-            // If it is a child element, add it to the last node in the nodes collection
-            if ($element->parentNode instanceof DOMElement) {
-                $nodes->last()->nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $element, $this, $nodes->last()));
+        // Initiate recursive parsing from the root element
+        foreach ($dom->childNodes as $childNode) {
+            if ($childNode instanceof DOMElement) {
+                $nodes->push($this->parseNodeRecursive($childNode));
             }
         }
 
         return $nodes;
+    }
+
+    protected function parseNodeRecursive(DOMElement $element, ?TestableHtmlElement $parent = null): TestableHtmlElement
+    {
+        // Initialize a new TestableHtmlElement for this DOMElement
+        $htmlElement = new TestableHtmlElement(
+            $element->ownerDocument->saveHTML($element),
+            $element,
+            $this,
+            $parent,
+            new Collection() // ensure child nodes will be collected within a Collection
+        );
+
+        // Iterate through child nodes and recursively parse them
+        foreach ($element->childNodes as $childNode) {
+            if ($childNode instanceof DOMElement) {
+                $htmlElement->nodes->push($this->parseNodeRecursive($childNode, $htmlElement));
+            }
+        }
+
+        return $htmlElement;
     }
 
     #[NoReturn]
