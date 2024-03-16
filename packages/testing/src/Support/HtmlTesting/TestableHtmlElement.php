@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
  */
 class TestableHtmlElement
 {
-    public readonly string $html;
+    protected string $html;
     public readonly string $tag;
     public readonly string $text;
 
