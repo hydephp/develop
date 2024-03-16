@@ -140,8 +140,6 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
         /** @noinspection HtmlUnknownAttribute */
         $this->assertSame([
-            'id' => 'id',
-            'class' => 'class',
             'name' => 'test',
             'foo' => 'bar',
             'href' => 'https://example.com/',

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing\Support\HtmlTesting;
 
 use DOMElement;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Testing\Assert as PHPUnit;
@@ -112,6 +113,6 @@ class TestableHtmlElement implements Arrayable
             $attributes[$attribute->name] = $attribute->value;
         }
 
-        return $attributes;
+        return Arr::except($attributes, ['id', 'class']);
     }
 }
