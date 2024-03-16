@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support\HtmlTesting;
 
+use DOMXPath;
+use DOMDocument;
 use Illuminate\Support\Collection;
 
 /**
@@ -19,5 +21,17 @@ class TestableHtmlDocument
     public function __construct(string $html)
     {
         $this->html = $html;
+
+        $this->nodes = $this->parseNodes($html);
+    }
+
+    protected function parseNodes(string $html): Collection
+    {
+        $dom = new DOMDocument();
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $xpath = new DOMXPath($dom);
+
+        return collect($xpath->query('//*'))->map(fn ($node) => new TestableHtmlElement($node->ownerDocument->saveHTML($node)));
     }
 }
