@@ -19,11 +19,8 @@ class TestableHtmlDocument
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The document's element nodes. */
     public readonly Collection $nodes;
 
-    public readonly int $level;
-
     public function __construct(string $html)
     {
-        $this->level = 0;
         $this->nodes = $this->parseNodes($html);
     }
 
@@ -44,12 +41,12 @@ class TestableHtmlDocument
         foreach ($elements as $element) {
             // If it is a root element, add it to the nodes collection
             if ($element->parentNode instanceof DOMDocument) {
-                $nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $this->level, $this, null));
+                $nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $this, null));
             }
 
             // If it is a child element, add it to the last node in the nodes collection
             if ($element->parentNode instanceof DOMElement) {
-                $nodes->last()->nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $this->level + 1, $this, $nodes->last()));
+                $nodes->last()->nodes->push(new TestableHtmlElement($element->ownerDocument->saveHTML($element), $this, $nodes->last()));
             }
         }
 
