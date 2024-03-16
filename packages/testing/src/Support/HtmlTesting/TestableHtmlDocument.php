@@ -9,6 +9,7 @@ use DOMElement;
 use DOMDocument;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Support\Collection;
+use Illuminate\Testing\Assert as PHPUnit;
 
 /**
  * A wrapper for an HTML document, parsed into an assertable and queryable object, with an abstract syntax tree.
@@ -24,6 +25,25 @@ class TestableHtmlDocument
     {
         $this->html = $html;
         $this->nodes = $this->parseNodes($html);
+    }
+
+    public function complete(): void
+    {
+        // Just an empty helper so we get easier Git diffs when adding new assertions.
+    }
+
+    public function assertSee(string $value): static
+    {
+        PHPUnit::assertStringContainsString($value, $this->html, "The string '$value' was not found in the HTML.");
+
+        return $this;
+    }
+
+    public function assertDontSee(string $value): static
+    {
+        PHPUnit::assertStringNotContainsString($value, $this->html, "The string '$value' was found in the HTML.");
+
+        return $this;
     }
 
     #[NoReturn]

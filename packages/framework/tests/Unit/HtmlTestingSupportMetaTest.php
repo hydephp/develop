@@ -36,4 +36,12 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         $this->assertInstanceOf(TestableHtmlDocument::class, $this->html($this->html));
     }
+
+    public function testAssertionHelpers()
+    {
+        $this->html($this->html)
+            ->assertSee('<title>Welcome to HydePHP!</title>')
+            ->assertDontSee('<title>Unwelcome to HydePHP!</title>')
+            ->complete();
+    }
 }
