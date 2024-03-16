@@ -52,6 +52,19 @@ class TestableHtmlDocument
         return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString(e($value), $this->html, "The escaped string '$value' was found in the HTML."));
     }
 
+    public function element(string $selector, callable $callback): static
+    {
+        $element = $this->nodes->first(fn (TestableHtmlElement $node) => $node->tag === $selector);
+
+        if (! $element) {
+            PHPUnit::fail("No element matching the selector '$selector' was found in the HTML.");
+        }
+
+        $callback($element);
+
+        return $this;
+    }
+
     #[NoReturn]
     public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
     {

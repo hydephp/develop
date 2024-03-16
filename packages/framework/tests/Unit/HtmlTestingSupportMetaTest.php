@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\TestsBladeViews;
+use Hyde\Testing\Support\HtmlTesting\TestableHtmlElement;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
 
 /**
@@ -49,6 +50,10 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
             ->assertDontSeeEscaped('<div>Bar</div>')
             ->assertDontSee('<div>Foo</div>')
             ->assertSee('<div>Bar</div>')
+            ->complete();
+
+        $this->html($this->html)
+            ->element('head > title', fn (TestableHtmlElement $element) => $element->assertSee('Welcome to HydePHP!'))
             ->complete();
     }
 }
