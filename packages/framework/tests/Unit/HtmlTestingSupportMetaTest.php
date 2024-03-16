@@ -42,18 +42,20 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         $this->html($this->html)
             ->assertSee('<title>Welcome to HydePHP!</title>')
-            ->assertDontSee('<title>Unwelcome to HydePHP!</title>')
-            ->complete();
+            ->assertDontSee('<title>Unwelcome to HydePHP!</title>');
 
         $this->html(e('<div>Foo</div>').'<div>Bar</div>')
             ->assertSeeEscaped('<div>Foo</div>')
             ->assertDontSeeEscaped('<div>Bar</div>')
             ->assertDontSee('<div>Foo</div>')
-            ->assertSee('<div>Bar</div>')
-            ->complete();
+            ->assertSee('<div>Bar</div>');
 
-        $this->assertInstanceOf(TestableHtmlDocument::class, $this->html($this->html)->tapElement('head > title', fn (TestableHtmlElement $element) => $element->assertSee('Welcome to HydePHP!')));
+        $this->assertInstanceOf(TestableHtmlDocument::class,
+            $this->html($this->html)->tapElement('head > title', fn (TestableHtmlElement $element) => $element->assertSee('Welcome to HydePHP!'))
+        );
 
-        $this->assertInstanceOf(TestableHtmlElement::class, $this->html($this->html)->element('head > title')->assertSee('Welcome to HydePHP!'));
+        $this->assertInstanceOf(TestableHtmlElement::class,
+            $this->html($this->html)->element('head > title')->assertSee('Welcome to HydePHP!')
+        );
     }
 }
