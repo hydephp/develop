@@ -80,7 +80,21 @@ class TestableHtmlDocument
      */
     public function getElementsByClass(string $class): Collection
     {
-        return $this->nodes->filter(fn (TestableHtmlElement $node) => in_array($class, $node->classes, true));
+        $matchingNodes = collect();
+
+        $traverse = function (self|TestableHtmlElement $node) use (&$traverse, $class, &$matchingNodes) {
+            if ($node->classes && in_array($class, $node->classes, true)) {
+                $matchingNodes->push($node);
+            }
+
+            foreach ($node->nodes as $childNode) {
+                $traverse($childNode);
+            }
+        };
+
+        $traverse($this);
+
+        return $matchingNodes;
     }
 
     /**
