@@ -227,6 +227,26 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertStringContainsString(e('<title>Welcome to HydePHP!</title>'), $dump);
     }
 
+    public function testGetStructure()
+    {
+        $html = <<<'HTML'
+        <main>
+            <div>
+                <h1>Foo</h1>
+                <p>Bar <small>Baz</small></p>
+            </div>
+        </main>
+        HTML;
+
+        $this->assertSame(<<<'TXT'
+        main
+            div
+                h1
+                p
+                    small
+        TXT, $this->html($html)->getStructure());
+    }
+
     protected function exampleElement(): TestableHtmlElement
     {
         return $this->html('<div id="foo" class="bar">Foo</div>')->getElementById('foo');

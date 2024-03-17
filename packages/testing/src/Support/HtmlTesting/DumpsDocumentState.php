@@ -20,6 +20,7 @@ use function array_map;
 use function microtime;
 use function is_numeric;
 use function array_keys;
+use function str_repeat;
 use function base64_encode;
 use function number_format;
 use function memory_get_usage;
@@ -53,6 +54,26 @@ trait DumpsDocumentState
         $this->dump($writeHtml);
 
         dd($this->nodes);
+    }
+
+    public function getStructure(): string
+    {
+        // Create a structure map of the document, containing only the tag names and their children
+
+        $structure = '';
+
+        $this->nodes->each(function (TestableHtmlElement $node) use (&$structure) {
+            $structure .= $this->createStructureMapEntry($node, 0);
+        });
+
+        return trim($structure);
+    }
+
+    protected function createStructureMapEntry(TestableHtmlElement $node, int $level): string
+    {
+        return sprintf("\n%s%s%s", str_repeat('    ', $level), $node->tag, $node->nodes->map(function (TestableHtmlElement $node) use ($level): string {
+            return $this->createStructureMapEntry($node, $level + 1);
+        })->implode(''));
     }
 
     protected function createAstInspectionDump(): string
