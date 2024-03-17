@@ -29,6 +29,30 @@ use function file_put_contents;
 /** @internal Single use trait for {@see \Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument} */
 trait DumpsDocumentState
 {
+    public function getStructure(): string
+    {
+        // Create a structure map of the document, containing only the tag names and their children
+
+        $structure = '';
+
+        $this->nodes->each(function (TestableHtmlElement $node) use (&$structure) {
+            $structure .= $this->createStructureMapEntry($node, 0);
+        });
+
+        return trim($structure);
+    }
+
+    public function getTextRepresentation(): string
+    {
+        $text = '';
+
+        $this->nodes->each(function (TestableHtmlElement $node) use (&$text) {
+            $text .= $this->createTextMapEntry($node);
+        });
+
+        return trim($text);
+    }
+
     public function dump(bool $writeHtml = true): string
     {
         $timeStart = microtime(true);
@@ -54,30 +78,6 @@ trait DumpsDocumentState
         $this->dump($writeHtml);
 
         dd($this->nodes);
-    }
-
-    public function getStructure(): string
-    {
-        // Create a structure map of the document, containing only the tag names and their children
-
-        $structure = '';
-
-        $this->nodes->each(function (TestableHtmlElement $node) use (&$structure) {
-            $structure .= $this->createStructureMapEntry($node, 0);
-        });
-
-        return trim($structure);
-    }
-
-    public function getTextRepresentation(): string
-    {
-        $text = '';
-
-        $this->nodes->each(function (TestableHtmlElement $node) use (&$text) {
-            $text .= $this->createTextMapEntry($node);
-        });
-
-        return trim($text);
     }
 
     protected function createStructureMapEntry(TestableHtmlElement $node, int $level): string
