@@ -238,14 +238,15 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         </main>
         HTML;
 
-        $this->assertSame(<<<'TXT'
+        $expected = <<<'TXT'
         main
             div
                 h1
                 p
                     small
-        TXT,
-        $this->html($html)->getStructure());
+        TXT;
+
+        $this->assertSame($expected, $this->html($html)->getStructure());
     }
 
     public function testGetTextRepresentation()
@@ -259,11 +260,12 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         </main>
         HTML;
 
-        $this->assertSame(<<<'TXT'
+        $expected = <<<'TXT'
         Foo
         Bar Baz
-        TXT,
-        $this->html($html)->getTextRepresentation());
+        TXT;
+
+        $this->assertSame($expected, $this->html($html)->getTextRepresentation());
     }
 
     public function testGetTextRepresentationWithMultipleLines()
@@ -280,16 +282,16 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         </main>
         HTML;
 
-        $this->assertSame(<<<'TXT'
+        $expected = <<<'TXT'
         Foo
         Bar Baz
         Line 2 
         Line 3
         Line 3
-        TXT,
-        $this->html($html)->getTextRepresentation());
-    }
+        TXT;
 
+        $this->assertSame($expected, $this->html($html)->getTextRepresentation());
+    }
 
     protected function exampleElement(): TestableHtmlElement
     {
