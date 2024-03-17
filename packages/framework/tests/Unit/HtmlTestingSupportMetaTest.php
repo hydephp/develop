@@ -244,7 +244,8 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
                 h1
                 p
                     small
-        TXT, $this->html($html)->getStructure());
+        TXT,
+        $this->html($html)->getStructure());
     }
 
     public function testGetTextRepresentation()
@@ -259,9 +260,10 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         HTML;
 
         $this->assertSame(<<<'TXT'
-            Foo
-            Bar Baz
-            TXT, $this->html($html)->getTextRepresentation());
+        Foo
+        Bar Baz
+        TXT,
+        $this->html($html)->getTextRepresentation());
     }
 
     public function testGetTextRepresentationWithMultipleLines()
@@ -279,12 +281,13 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         HTML;
 
         $this->assertSame(<<<'TXT'
-            Foo
-            Bar Baz
-            Line 2 
-            Line 3
-            Line 3
-            TXT, $this->html($html)->getTextRepresentation());
+        Foo
+        Bar Baz
+        Line 2 
+        Line 3
+        Line 3
+        TXT,
+        $this->html($html)->getTextRepresentation());
     }
 
 
