@@ -74,6 +74,16 @@ class TestableHtmlDocument
     }
 
     /**
+     * Get a collection of elements with the given class name.
+     *
+     * @return \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>
+     */
+    public function getElementsByClass(string $class): Collection
+    {
+        return $this->nodes->filter(fn (TestableHtmlElement $node) => in_array($class, $node->classes, true));
+    }
+
+    /**
      * Execute a testing callback on an element matching the given CSS selector or ID.
      *
      * This is useful for fluent assertions while retaining the method chains of this class.

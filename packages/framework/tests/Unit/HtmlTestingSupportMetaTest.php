@@ -119,6 +119,12 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->html('<foo><bar>Baz</bar></foo>')->element('foo');
     }
 
+    public function testGetElementsByClass()
+    {
+        $this->assertCount(1, $this->html('<div class="foo">Foo</div>')->getElementsByClass('foo'));
+        $this->assertCount(0, $this->html('<div class="foo">Foo</div>')->getElementsByClass('bar'));
+    }
+
     public function testQuery()
     {
         $this->assertInstanceOf(TestableHtmlElement::class,
