@@ -82,8 +82,8 @@ class TestableHtmlDocument
     {
         $matchingNodes = collect();
 
-        $traverse = function (self|TestableHtmlElement $node) use (&$traverse, $class, &$matchingNodes) {
-            if ($node->classes && in_array($class, $node->classes, true)) {
+        $traverse = function (TestableHtmlElement $node) use (&$traverse, $class, &$matchingNodes) {
+            if (in_array($class, $node->classes, true)) {
                 $matchingNodes->push($node);
             }
 
@@ -92,7 +92,7 @@ class TestableHtmlDocument
             }
         };
 
-        $traverse($this);
+        $traverse($this->getRootElement());
 
         return $matchingNodes;
     }
