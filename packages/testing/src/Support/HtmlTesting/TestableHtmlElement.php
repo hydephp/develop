@@ -96,10 +96,7 @@ class TestableHtmlElement implements Arrayable
 
         $text = trim(strip_tags($matches[1] ?? ''));
 
-        // Longer than 200 chars
-        $isMinifiedLongLine = strlen($text) > 200;
-
-        if (($this->tag === 'style' || $this->tag === 'script') && $isMinifiedLongLine) {
+        if (($this->tag === 'style' || $this->tag === 'script') && (strlen($text) > 200)) {
             return "(Inline $this->tag content)";
         }
 
