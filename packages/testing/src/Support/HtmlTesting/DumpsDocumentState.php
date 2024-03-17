@@ -116,10 +116,10 @@ trait DumpsDocumentState
         '</section>';
 
         $html .= '<h3>Node Structure</h3>';
-        $html .= sprintf('<pre><code>%s</code></pre>', $this->getStructure());
+        $html .= sprintf('<div style="max-width: 1440px; overflow-x: auto; border: 1px solid #333; padding: 0.5rem 1rem;"><pre><code>%s</code></pre></div>', $this->getStructure());
 
         $html .= '<h3>Text Representation</h3>';
-        $html .= sprintf('<pre><code>%s</code></pre>', $this->getTextRepresentation());
+        $html .= sprintf('<div style="max-width: 1440px; overflow-x: auto; border: 1px solid #333; padding: 0.5rem 1rem;"><pre><code>%s</code></pre></div>', $this->getTextRepresentation());
 
         $html .= '</body></html>';
 
