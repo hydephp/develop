@@ -76,7 +76,7 @@ trait DumpsDocumentState
         $text = '';
 
         $this->nodes->each(function (TestableHtmlElement $node) use (&$text) {
-            $text .= $this->createTextMapEntry($node, 0);
+            $text .= $this->createTextMapEntry($node);
         });
 
         return trim($text);
@@ -89,22 +89,15 @@ trait DumpsDocumentState
         })->implode(''));
     }
 
-    protected function createTextMapEntry(TestableHtmlElement $node, int $level, bool $addNewline = true): string
+    protected function createTextMapEntry(TestableHtmlElement $node, bool $addNewline = true): string
     {
-        $isInline = in_array($node->tag, ['a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite', 'code', 'dfn', 'em', 'i', 'img', 'input', 'kbd', 'label', 'map', 'object', 'q', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var']);
+        $childEntries = $node->nodes->map(function (TestableHtmlElement $node): string {
+            $isInline = in_array($node->tag, ['a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite', 'code', 'dfn', 'em', 'i', 'img', 'input', 'kbd', 'label', 'map', 'object', 'q', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var']);
 
-        $indentation = $isInline ? ' ' : str_repeat('    ', $level);
-
-        $childEntries = $node->nodes->map(function (TestableHtmlElement $node) use ($isInline, $level): string {
-            // If there is no text in this node, or if it's an inline element, we don't want to increase the level
-            if ($node->text && ! $isInline) {
-                $level++;
-            }
-
-            return $this->createTextMapEntry($node, $level, ! $isInline);
+            return $this->createTextMapEntry($node, ! $isInline);
         })->implode('');
 
-        return sprintf('%s%s%s%s', $indentation, $node->text, $childEntries, $addNewline ? "\n" : '');
+        return sprintf('%s%s%s', $addNewline ? "\n" : ' ', $node->text, $childEntries);
     }
 
     protected function createAstInspectionDump(): string
