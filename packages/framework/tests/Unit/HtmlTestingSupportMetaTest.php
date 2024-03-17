@@ -273,6 +273,34 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame($expected, $this->html($html)->getTextRepresentation());
     }
 
+    public function testComplexTextRepresentationParsing()
+    {
+        $expected = <<<'HTML'
+Welcome to HydePHP!
+(Inline style content)
+(Inline style content)
+
+
+
+
+ You're running on HydePHP
+
+
+Leap into the future of static HTML blogs and documentation with the tools you already know and love.
+                        Made with Tailwind, Laravel, and Coffee.
+
+This is the default homepage stored as index.blade.php, however you can publish any of the built-in views using the following command:
+php hyde php hyde php hyde publish:homepage
+ Resources for getting started
+
+ Documentation
+ Getting Started
+ GitHub Source Code
+HTML;
+
+        $this->assertSame($expected, $this->html($this->html)->getTextRepresentation());
+    }
+
     public function testAssertStructureLooksLike()
     {
         $html = <<<'HTML'
