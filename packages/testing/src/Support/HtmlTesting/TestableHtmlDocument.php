@@ -77,7 +77,7 @@ class TestableHtmlDocument
      * Execute a testing callback on an element matching the given CSS selector or ID.
      *
      * This is useful for fluent assertions while retaining the method chains of this class.
-     * Use {@see self::getElementUsingQuery()} to scope subsequent assertions to the selected element.
+     * Use {@see self::element()} to scope subsequent assertions to the selected element.
      */
     public function tapElement(string $selector, callable $callback): static
     {
