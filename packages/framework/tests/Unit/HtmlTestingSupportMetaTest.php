@@ -155,6 +155,24 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame(['Foo', 'Bar', 'Baz'], $collection->map->text->filter()->values()->all());
     }
 
+    public function testFluentClassAssertions()
+    {
+        $html = <<<'HTML'
+        <div>
+            <div class="foo">Foo</div>
+            <div class="foo">Foo</div>
+            <div class="foo">Foo</div>
+        </div>
+        HTML;
+
+        $collection = $this->html($html)->getElementsByClass('foo');
+
+        $this->assertSame(
+            $collection->each(fn (TestableHtmlElement $element) => $element->assertSee('Foo')),
+            $collection->each->assertSee('Foo')
+        );
+    }
+
     public function testQuery()
     {
         $this->assertInstanceOf(TestableHtmlElement::class,
