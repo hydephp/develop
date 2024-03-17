@@ -82,7 +82,7 @@ class TestableHtmlDocument
     {
         $matchingNodes = collect();
 
-        $traverse = function (TestableHtmlElement $node) use (&$traverse, $class, &$matchingNodes) {
+        $traverse = function (TestableHtmlElement $node) use (&$traverse, $class, &$matchingNodes): void {
             if (in_array($class, $node->classes, true)) {
                 $matchingNodes->push($node);
             }
