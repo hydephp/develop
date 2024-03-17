@@ -62,6 +62,13 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         );
     }
 
+    public function testTapElementUsingId()
+    {
+        $this->assertInstanceOf(TestableHtmlDocument::class,
+            $this->html('<div id="foo">Foo</div>')->tapElement('#foo', fn (TestableHtmlElement $element) => $element->assertSee('Foo'))
+        );
+    }
+
     public function testGetElementUsingQuery()
     {
         $this->assertInstanceOf(TestableHtmlElement::class,
