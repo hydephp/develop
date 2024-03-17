@@ -101,6 +101,84 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame('<div>Foo</div>', $element->html);
     }
 
+    public function testDumpHelper()
+    {
+        $dump = $this->html($this->html)->dump(false);
+
+        $this->assertStringContainsString('Document Dump', $dump);
+        $this->assertStringContainsString('Document Preview', $dump);
+        $this->assertStringContainsString('Raw HTML', $dump);
+        $this->assertStringContainsString('Nodes', $dump);
+
+        $this->assertStringContainsString(e('<title>Welcome to HydePHP!</title>'), $dump);
+    }
+
+    public function testGetStructure()
+    {
+        $html = <<<'HTML'
+        <main>
+            <div>
+                <h1>Foo</h1>
+                <p>Bar <small>Baz</small></p>
+            </div>
+        </main>
+        HTML;
+
+        $expected = <<<'TXT'
+        main
+            div
+                h1
+                p
+                    small
+        TXT;
+
+        $this->assertSame($expected, $this->html($html)->getStructure());
+    }
+
+    public function testGetTextRepresentation()
+    {
+        $html = <<<'HTML'
+        <main>
+            <div>
+                <h1>Foo</h1>
+                <p>Bar <small>Baz</small></p>
+            </div>
+        </main>
+        HTML;
+
+        $expected = <<<'TXT'
+        Foo
+        Bar Baz
+        TXT;
+
+        $this->assertSame($expected, $this->html($html)->getTextRepresentation());
+    }
+
+    public function testGetTextRepresentationWithMultipleLines()
+    {
+        $html = <<<'HTML'
+        <main>
+            <div>
+                <h1>Foo</h1>
+                <p>Bar <small>Baz</small></p>
+            </div>
+            <div>Line 2</div>
+            <br>
+            <div><p>Line 3</p></div>
+        </main>
+        HTML;
+
+        $expected = <<<'TXT'
+        Foo
+        Bar Baz
+        Line 2 
+        Line 3
+        Line 3
+        TXT;
+
+        $this->assertSame($expected, $this->html($html)->getTextRepresentation());
+    }
+
     public function testElementInstance()
     {
         $this->assertInstanceOf(TestableHtmlElement::class, $this->exampleElement());
@@ -213,84 +291,6 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     public function testElementAssertDoesNotHaveClass()
     {
         $this->html('<div class="foo">Foo</div>')->getRootElement()->doesNotHaveClass('bar');
-    }
-
-    public function testDumpHelper()
-    {
-        $dump = $this->html($this->html)->dump(false);
-
-        $this->assertStringContainsString('Document Dump', $dump);
-        $this->assertStringContainsString('Document Preview', $dump);
-        $this->assertStringContainsString('Raw HTML', $dump);
-        $this->assertStringContainsString('Nodes', $dump);
-
-        $this->assertStringContainsString(e('<title>Welcome to HydePHP!</title>'), $dump);
-    }
-
-    public function testGetStructure()
-    {
-        $html = <<<'HTML'
-        <main>
-            <div>
-                <h1>Foo</h1>
-                <p>Bar <small>Baz</small></p>
-            </div>
-        </main>
-        HTML;
-
-        $expected = <<<'TXT'
-        main
-            div
-                h1
-                p
-                    small
-        TXT;
-
-        $this->assertSame($expected, $this->html($html)->getStructure());
-    }
-
-    public function testGetTextRepresentation()
-    {
-        $html = <<<'HTML'
-        <main>
-            <div>
-                <h1>Foo</h1>
-                <p>Bar <small>Baz</small></p>
-            </div>
-        </main>
-        HTML;
-
-        $expected = <<<'TXT'
-        Foo
-        Bar Baz
-        TXT;
-
-        $this->assertSame($expected, $this->html($html)->getTextRepresentation());
-    }
-
-    public function testGetTextRepresentationWithMultipleLines()
-    {
-        $html = <<<'HTML'
-        <main>
-            <div>
-                <h1>Foo</h1>
-                <p>Bar <small>Baz</small></p>
-            </div>
-            <div>Line 2</div>
-            <br>
-            <div><p>Line 3</p></div>
-        </main>
-        HTML;
-
-        $expected = <<<'TXT'
-        Foo
-        Bar Baz
-        Line 2 
-        Line 3
-        Line 3
-        TXT;
-
-        $this->assertSame($expected, $this->html($html)->getTextRepresentation());
     }
 
     protected function exampleElement(): TestableHtmlElement
