@@ -11,8 +11,6 @@ use Illuminate\Support\Collection;
 use function e;
 use function dd;
 use function trim;
-use function strlen;
-use function substr;
 use function sprintf;
 use function ucfirst;
 use function implode;
@@ -156,12 +154,7 @@ trait DumpsDocumentState
         }, $data, array_keys($data))));
 
         if ($node->text) {
-            if ($node->tag === 'style' && strlen($node->text) > 100) {
-                $text = substr($node->text, 0, 100).'...';
-            } else {
-                $text = $node->text;
-            }
-            $title = sprintf('<%s>%s</%s>', $node->tag, $text, $node->tag);
+            $title = sprintf('<%s>%s</%s>', $node->tag, $node->text, $node->tag);
         } else {
             $title = sprintf('<%s>', $node->tag);
         }
