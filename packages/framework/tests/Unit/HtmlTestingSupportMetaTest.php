@@ -61,10 +61,10 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         );
     }
 
-    public function testAssertElement()
+    public function testGetElementUsingQuery()
     {
         $this->assertInstanceOf(TestableHtmlElement::class,
-            $this->html($this->html)->element('head > title')->assertSee('Welcome to HydePHP!')
+            $this->html($this->html)->getElementUsingQuery('head > title')->assertSee('Welcome to HydePHP!')
         );
     }
 

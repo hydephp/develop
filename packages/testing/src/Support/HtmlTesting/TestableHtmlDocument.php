@@ -69,7 +69,7 @@ class TestableHtmlDocument
      * Note that this means all subsequent assertions will be scoped to the selected element.
      * Use {@see self::tapElement()} to execute a callback on the selected element while retaining the method chains.
      */
-    public function element(string $selector): TestableHtmlElement
+    public function getElementUsingQuery(string $selector): TestableHtmlElement
     {
         $element = $this->query($selector);
 
@@ -84,11 +84,11 @@ class TestableHtmlDocument
      * Execute a testing callback on an element matching the given CSS selector.
      *
      * This is useful for fluent assertions while retaining the method chains of this class.
-     * Use {@see self::element()} to scope subsequent assertions to the selected element.
+     * Use {@see self::getElementUsingQuery()} to scope subsequent assertions to the selected element.
      */
     public function tapElement(string $selector, callable $callback): static
     {
-        $callback($this->element($selector));
+        $callback($this->getElementUsingQuery($selector));
 
         return $this;
     }
