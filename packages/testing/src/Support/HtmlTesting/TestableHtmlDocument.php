@@ -41,11 +41,6 @@ class TestableHtmlDocument
         return $this->nodes->first();
     }
 
-    public function getElementById(string $id): ?TestableHtmlElement
-    {
-        return $this->nodes->first(fn (TestableHtmlElement $node) => $node->element->getAttribute('id') === $id);
-    }
-
     public function getElement(string $element): ?TestableHtmlElement
     {
         $searchSyntax = null;
@@ -61,6 +56,11 @@ class TestableHtmlDocument
             'css' => $this->query($element),
             default => throw new InvalidArgumentException("The selector syntax '$element' is not supported."),
         };
+    }
+
+    public function getElementById(string $id): ?TestableHtmlElement
+    {
+        return $this->nodes->first(fn (TestableHtmlElement $node) => $node->element->getAttribute('id') === $id);
     }
 
     /**
