@@ -28,21 +28,17 @@ use function file_put_contents;
 /** @internal Single use trait for {@see \Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument} */
 trait DumpsDocumentState
 {
-    public function dump(bool $writeHtml = true, bool $dumpRawHtml = false): string
+    public function dump(bool $writeHtml = true): string
     {
-        if ($dumpRawHtml) {
-            $html = $this->html;
-        } else {
-            $timeStart = microtime(true);
-            memory_get_usage(true);
+        $timeStart = microtime(true);
+        memory_get_usage(true);
 
-            $html = $this->createAstInspectionDump();
+        $html = $this->createAstInspectionDump();
 
-            $timeEnd = number_format((microtime(true) - $timeStart) * 1000, 2);
-            $memoryUsage = number_format(memory_get_usage(true) / 1024 / 1024, 2);
+        $timeEnd = number_format((microtime(true) - $timeStart) * 1000, 2);
+        $memoryUsage = number_format(memory_get_usage(true) / 1024 / 1024, 2);
 
-            $html .= sprintf("\n<footer><p><small>Generated in %s ms, using %s MB of memory.</small></p></footer>", $timeEnd, $memoryUsage);
-        }
+        $html .= sprintf("\n<footer><p><small>Generated in %s ms, using %s MB of memory.</small></p></footer>", $timeEnd, $memoryUsage);
 
         if ($writeHtml) {
             file_put_contents(Hyde::path('document-dump.html'), $html);
@@ -52,9 +48,9 @@ trait DumpsDocumentState
     }
 
     #[NoReturn]
-    public function dd(bool $writeHtml = true, bool $dumpRawHtml = false): void
+    public function dd(bool $writeHtml = true): void
     {
-        $this->dump($writeHtml, $dumpRawHtml);
+        $this->dump($writeHtml);
 
         dd($this->nodes);
     }
