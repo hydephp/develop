@@ -14,8 +14,6 @@ use Hyde\Testing\Common\BaseHydePageUnitTest;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 
-require_once __DIR__.'/../../helpers/BaseHydePageUnitTest.php';
-
 /**
  * @covers \Hyde\Pages\InMemoryPage
  *

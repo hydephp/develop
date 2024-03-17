@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Common;
 
-require_once __DIR__.'/BaseHydePageUnitTest.php';
-
 /**
  * Providers helpers and a contract for unit testing for the specified page class.
  *

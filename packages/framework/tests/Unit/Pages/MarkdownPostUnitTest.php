@@ -15,8 +15,6 @@ use Hyde\Testing\Common\BaseMarkdownPageUnitTest;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 
-require_once __DIR__.'/../../helpers/BaseMarkdownPageUnitTest.php';
-
 /**
  * @covers \Hyde\Pages\MarkdownPost
  */
