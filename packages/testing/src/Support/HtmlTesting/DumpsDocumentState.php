@@ -57,6 +57,7 @@ trait DumpsDocumentState
 
         $text = array_map('trim', $text);
         $text = array_filter($text, 'trim');
+        $text = array_filter($text, fn (string $line): bool => in_array($line, ['(Inline style content)', '(Inline script content)']) === false);
 
         $text = implode("\n", $text);
 
