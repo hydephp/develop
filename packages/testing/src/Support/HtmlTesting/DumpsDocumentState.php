@@ -37,7 +37,7 @@ trait DumpsDocumentState
 
         $structure = '';
 
-        $this->nodes->each(function (TestableHtmlElement $node) use (&$structure) {
+        $this->nodes->each(function (TestableHtmlElement $node) use (&$structure): void {
             $structure .= $this->createStructureMapEntry($node, 0);
         });
 
@@ -48,7 +48,7 @@ trait DumpsDocumentState
     {
         $text = '';
 
-        $this->nodes->each(function (TestableHtmlElement $node) use (&$text) {
+        $this->nodes->each(function (TestableHtmlElement $node) use (&$text): void {
             $text .= $this->createTextMapEntry($node);
         });
 
