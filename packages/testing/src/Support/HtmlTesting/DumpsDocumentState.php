@@ -70,7 +70,7 @@ trait DumpsDocumentState
         $timeEnd = number_format((microtime(true) - $timeStart) * 1000, 2);
         $memoryUsage = number_format(memory_get_usage(true) / 1024 / 1024, 2);
 
-        $html .= sprintf("\n<footer><p><small>Generated in %s ms, using %s MB of memory.</small></p></footer>", $timeEnd, $memoryUsage);
+        $html = str_replace('{{ $footer }}', sprintf("\n<footer><p><small>Generated in %s ms, using %s MB of memory.</small></p></footer>", $timeEnd, $memoryUsage), $html);
 
         if ($writeHtml) {
             file_put_contents(Hyde::path('document-dump.html'), $html);
@@ -127,6 +127,7 @@ trait DumpsDocumentState
         $html .= sprintf('<div style="max-width: 1440px; overflow-x: auto; border: 1px solid #333; padding: 0.5rem 1rem;"><pre><code>%s</code></pre></div>', $this->getTextRepresentation());
 
         $html .= '<hr>';
+        $html .= '{{ $footer }}';
 
         $html .= '</body></html>';
 
