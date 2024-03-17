@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
+use InvalidArgumentException;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlElement;
@@ -127,7 +128,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
     public function testElementUsingUnknownSyntax()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("The selector syntax 'foo' is not supported.");
 
         $this->html('<foo><bar>Baz</bar></foo>')->element('foo');
