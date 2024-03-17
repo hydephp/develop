@@ -92,13 +92,13 @@ class TestableHtmlElement implements Arrayable
 
     protected function parseText(string $html): string
     {
-        if ($this->tag === 'style' || $this->tag === 'script') {
-            return "(Inline $this->tag content)";
-        }
-
         preg_match('/>([^<]+)</', $html, $matches);
 
         $text = trim(strip_tags($matches[1] ?? ''));
+
+        if ($this->tag === 'style' || $this->tag === 'script') {
+            return "(Inline $this->tag content)";
+        }
 
         return $text;
     }
