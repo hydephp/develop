@@ -107,30 +107,30 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame('<div>Foo</div>', $element->html);
     }
 
-    public function testGetElementUsingId()
+    public function testElementUsingId()
     {
         $this->assertInstanceOf(TestableHtmlElement::class,
-            $this->html('<div id="foo"><div class="bar">Baz</div></div>')->getElement('#foo')->assertSee('Baz')
+            $this->html('<div id="foo"><div class="bar">Baz</div></div>')->element('#foo')->assertSee('Baz')
         );
 
-        $this->assertNull($this->html('<div id="foo"><div class="bar">Baz</div></div>')->getElement('#bar'));
+        $this->assertNull($this->html('<div id="foo"><div class="bar">Baz</div></div>')->element('#bar'));
     }
 
-    public function testGetElementUsingSelector()
+    public function testElementUsingSelector()
     {
         $this->assertInstanceOf(TestableHtmlElement::class,
-            $this->html('<div><foo><bar>Baz</bar></foo></div>')->getElement('foo > bar')->assertSee('Baz')
+            $this->html('<div><foo><bar>Baz</bar></foo></div>')->element('foo > bar')->assertSee('Baz')
         );
 
-        $this->assertNull($this->html('<div><foo><bar>Baz</bar></foo></div>')->getElement('foo > baz'));
+        $this->assertNull($this->html('<div><foo><bar>Baz</bar></foo></div>')->element('foo > baz'));
     }
 
-    public function testGetElementUsingUnknownSyntax()
+    public function testElementUsingUnknownSyntax()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("The selector syntax 'foo' is not supported.");
 
-        $this->html('<foo><bar>Baz</bar></foo>')->getElement('foo');
+        $this->html('<foo><bar>Baz</bar></foo>')->element('foo');
     }
 
     public function testDumpHelper()

@@ -41,7 +41,7 @@ class TestableHtmlDocument
         return $this->nodes->first();
     }
 
-    public function getElement(string $element): ?TestableHtmlElement
+    public function element(string $element): ?TestableHtmlElement
     {
         $searchSyntax = null;
         if (str_starts_with($element, '#')) {
