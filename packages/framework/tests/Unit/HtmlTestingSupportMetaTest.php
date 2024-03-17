@@ -179,6 +179,47 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame($expected, $this->html($html)->getTextRepresentation());
     }
 
+    public function testAssertStructureLooksLike()
+    {
+        $html = <<<'HTML'
+        <main>
+            <div>
+                <h1>Foo</h1>
+                <p>Bar <small>Baz</small></p>
+            </div>
+        </main>
+        HTML;
+
+        $expected = <<<'TXT'
+        main
+            div
+                h1
+                p
+                    small
+        TXT;
+
+        $this->html($html)->assertStructureLooksLike($expected);
+    }
+
+    public function testAssertLooksLike()
+    {
+        $html = <<<'HTML'
+        <main>
+            <div>
+                <h1>Foo</h1>
+                <p>Bar <small>Baz</small></p>
+            </div>
+        </main>
+        HTML;
+
+        $expected = <<<'TXT'
+        Foo
+        Bar Baz
+        TXT;
+
+        $this->html($html)->assertLooksLike($expected);
+    }
+
     public function testElementInstance()
     {
         $this->assertInstanceOf(TestableHtmlElement::class, $this->exampleElement());
