@@ -130,7 +130,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $document = $this->html('<div class="foo">Foo</div><div class="foo">Bar</div>');
 
         $this->assertContainsOnlyInstancesOf(TestableHtmlElement::class, $document->getElementsByClass('foo'));
-        $this->assertSame(['Foo', 'Bar'], $document->getElementsByClass('foo')->map(fn (TestableHtmlElement $element) => $element->text)->all());
+        $this->assertSame(['Foo', 'Bar'], $document->getElementsByClass('foo')->map->text->all());
     }
 
     public function testGetElementsByClassWithChildNodes()
