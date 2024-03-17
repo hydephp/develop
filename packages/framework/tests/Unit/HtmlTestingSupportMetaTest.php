@@ -76,26 +76,12 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         );
     }
 
-    public function testQuery()
+    public function testGetRootElement()
     {
-        $this->assertInstanceOf(TestableHtmlElement::class,
-            $this->html($this->html)->query('head > title')->assertSee('Welcome to HydePHP!')
-        );
+        $element = $this->html('<div>Foo</div>')->getRootElement();
 
-        $this->assertNull($this->html($this->html)->query('head > title > h1'));
-    }
-
-    public function testQueryWithEdgeCases()
-    {
-        $this->assertSame('foo', $this->html('<foo>')->query('')->tag);
-        $this->assertSame('bar', $this->html('<foo><bar /></foo>')->query('bar')->tag);
-        $this->assertSame('bar', $this->html('<foo><bar></bar></foo>')->query('bar')->tag);
-        $this->assertSame('bar', $this->html('<foo><bar>Baz</bar></foo>')->query('bar')->tag);
-
-        $this->assertSame('foo', $this->html('<div><foo></div>')->query('foo')->tag);
-        $this->assertSame('bar', $this->html('<div><foo><bar /></foo></div>')->query('foo > bar')->tag);
-        $this->assertSame('bar', $this->html('<div><foo><bar></bar></foo></div>')->query('foo > bar')->tag);
-        $this->assertSame('bar', $this->html('<div><foo><bar>Baz</bar></foo></div>')->query('foo > bar')->tag);
+        $this->assertInstanceOf(TestableHtmlElement::class, $element);
+        $this->assertSame('<div>Foo</div>', $element->html);
     }
 
     public function testGetElementById()
@@ -105,14 +91,6 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         );
 
         $this->assertNull($this->html('<div id="foo">Foo</div>')->getElementById('bar'));
-    }
-
-    public function testGetRootElement()
-    {
-        $element = $this->html('<div>Foo</div>')->getRootElement();
-
-        $this->assertInstanceOf(TestableHtmlElement::class, $element);
-        $this->assertSame('<div>Foo</div>', $element->html);
     }
 
     public function testElementUsingId()
@@ -139,6 +117,28 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->expectExceptionMessage("The selector syntax 'foo' is not supported.");
 
         $this->html('<foo><bar>Baz</bar></foo>')->element('foo');
+    }
+
+    public function testQuery()
+    {
+        $this->assertInstanceOf(TestableHtmlElement::class,
+            $this->html($this->html)->query('head > title')->assertSee('Welcome to HydePHP!')
+        );
+
+        $this->assertNull($this->html($this->html)->query('head > title > h1'));
+    }
+
+    public function testQueryWithEdgeCases()
+    {
+        $this->assertSame('foo', $this->html('<foo>')->query('')->tag);
+        $this->assertSame('bar', $this->html('<foo><bar /></foo>')->query('bar')->tag);
+        $this->assertSame('bar', $this->html('<foo><bar></bar></foo>')->query('bar')->tag);
+        $this->assertSame('bar', $this->html('<foo><bar>Baz</bar></foo>')->query('bar')->tag);
+
+        $this->assertSame('foo', $this->html('<div><foo></div>')->query('foo')->tag);
+        $this->assertSame('bar', $this->html('<div><foo><bar /></foo></div>')->query('foo > bar')->tag);
+        $this->assertSame('bar', $this->html('<div><foo><bar></bar></foo></div>')->query('foo > bar')->tag);
+        $this->assertSame('bar', $this->html('<div><foo><bar>Baz</bar></foo></div>')->query('foo > bar')->tag);
     }
 
     public function testDumpHelper()
