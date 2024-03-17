@@ -17,6 +17,7 @@ use function sprintf;
 use function ucfirst;
 use function implode;
 use function is_array;
+use function in_array;
 use function array_map;
 use function microtime;
 use function is_numeric;
@@ -88,15 +89,20 @@ trait DumpsDocumentState
         })->implode(''));
     }
 
-    protected function createTextMapEntry(TestableHtmlElement $node, int $level): string
+    protected function createTextMapEntry(TestableHtmlElement $node, int $level, bool $addNewline = true): string
     {
-        return sprintf("\n%s%s%s", str_repeat('    ', $level), $node->text, $node->nodes->map(function (TestableHtmlElement $node) use ($level): string {
+        $isInline = in_array($node->tag, ['a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite', 'code', 'dfn', 'em', 'i', 'img', 'input', 'kbd', 'label', 'map', 'object', 'q', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var']);
+
+        $newline = $addNewline ? "\n" : '';
+
+        return sprintf("%s%s%s$newline", $isInline ? ' ' : str_repeat('    ', $level), $node->text, $node->nodes->map(function (TestableHtmlElement $node) use ($isInline, $level): string {
             // If there is no text in this node we don't want to increase the level
-            if ($node->text) {
+            // The same goes if the element is an inline element
+            if ($node->text && ! $isInline) {
                 $level++;
             }
 
-            return $this->createTextMapEntry($node, $level);
+            return $this->createTextMapEntry($node, $level, ! $isInline);
         })->implode(''));
     }
 
