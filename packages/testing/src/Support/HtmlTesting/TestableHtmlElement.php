@@ -12,6 +12,7 @@ use Illuminate\Testing\Assert as PHPUnit;
 
 use function trim;
 use function filled;
+use function strlen;
 use function explode;
 use function preg_match;
 use function strip_tags;
