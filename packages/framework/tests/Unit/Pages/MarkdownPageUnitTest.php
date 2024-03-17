@@ -11,9 +11,9 @@ use Hyde\Support\Models\Route;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Testing\Common\BaseMarkdownPageUnitTest;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
-use Hyde\Framework\Testing\helpers\BaseMarkdownPageUnitTest;
 
 require_once __DIR__.'/../../helpers/BaseMarkdownPageUnitTest.php';
 
