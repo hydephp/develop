@@ -154,7 +154,7 @@ trait DumpsDocumentState
         }, $data, array_keys($data))));
 
         if ($node->text) {
-            $title = sprintf('<%s>%s</%s>', $node->tag, $node->text, $node->tag);
+            $title = sprintf('<%s>%s</%s>', $node->tag, e($node->text), $node->tag);
         } else {
             $title = sprintf('<%s>', $node->tag);
         }
