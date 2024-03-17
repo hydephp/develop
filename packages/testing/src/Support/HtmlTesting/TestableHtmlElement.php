@@ -98,7 +98,9 @@ class TestableHtmlElement implements Arrayable
 
         preg_match('/>([^<]+)</', $html, $matches);
 
-        return trim(strip_tags($matches[1] ?? ''));
+        $text = trim(strip_tags($matches[1] ?? ''));
+
+        return $text;
     }
 
     protected function parseId(DOMElement $element): ?string
