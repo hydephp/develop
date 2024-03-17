@@ -46,13 +46,12 @@ class TestableHtmlDocument
         $searchSyntax = null;
         if (str_starts_with($element, '#')) {
             $searchSyntax = 'id';
-            $element = substr($element, 1);
         } elseif (str_contains($element, '>')) {
             $searchSyntax = 'css';
         }
 
         return match ($searchSyntax) {
-            'id' => $this->getElementById($element),
+            'id' => $this->getElementById(substr($element, 1)),
             'css' => $this->query($element),
             default => throw new InvalidArgumentException("The selector syntax '$element' is not supported."),
         };
