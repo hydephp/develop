@@ -43,16 +43,9 @@ class TestableHtmlDocument
 
     public function element(string $element): ?TestableHtmlElement
     {
-        $searchSyntax = null;
-        if (str_starts_with($element, '#')) {
-            $searchSyntax = 'id';
-        } elseif (str_contains($element, '>')) {
-            $searchSyntax = 'css';
-        }
-
-        return match ($searchSyntax) {
-            'id' => $this->getElementById(substr($element, 1)),
-            'css' => $this->query($element),
+        return match (true) {
+            str_starts_with($element, '#') => $this->getElementById(substr($element, 1)),
+            str_contains($element, '>') => $this->query($element),
             default => throw new InvalidArgumentException("The selector syntax '$element' is not supported."),
         };
     }
