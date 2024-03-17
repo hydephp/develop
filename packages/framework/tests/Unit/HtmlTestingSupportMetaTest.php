@@ -125,6 +125,14 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertCount(0, $this->html('<div class="foo">Foo</div>')->getElementsByClass('bar'));
     }
 
+    public function testGetElementsByClassTypes()
+    {
+        $document = $this->html('<div class="foo">Foo</div><div class="foo">Bar</div>');
+
+        $this->assertContainsOnlyInstancesOf(TestableHtmlElement::class, $document->getElementsByClass('foo'));
+        $this->assertSame(['Foo', 'Bar'], $document->getElementsByClass('foo')->map(fn (TestableHtmlElement $element) => $element->text)->all());
+    }
+
     public function testGetElementsByClassWithChildNodes()
     {
         $html = <<<'HTML'
