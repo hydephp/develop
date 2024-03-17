@@ -107,6 +107,32 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $this->assertSame('<div>Foo</div>', $element->html);
     }
 
+    public function testGetElementUsingId()
+    {
+        $this->assertInstanceOf(TestableHtmlElement::class,
+            $this->html('<div id="foo"><div class="bar">Baz</div></div>')->getElement('#foo')->assertSee('Baz')
+        );
+
+        $this->assertNull($this->html('<div id="foo"><div class="bar">Baz</div></div>')->getElement('#bar'));
+    }
+
+    public function testGetElementUsingSelector()
+    {
+        $this->assertInstanceOf(TestableHtmlElement::class,
+            $this->html('<div><foo><bar>Baz</bar></foo></div>')->getElement('foo > bar')->assertSee('Baz')
+        );
+
+        $this->assertNull($this->html('<div><foo><bar>Baz</bar></foo></div>')->getElement('foo > baz'));
+    }
+
+    public function testGetElementUsingUnknownSyntax()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("The selector syntax 'foo' is not supported.");
+
+        $this->html('<foo><bar>Baz</bar></foo>')->getElement('foo');
+    }
+
     public function testDumpHelper()
     {
         $dump = $this->html($this->html)->dump(false);

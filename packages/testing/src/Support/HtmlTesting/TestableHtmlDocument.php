@@ -6,12 +6,15 @@ namespace Hyde\Testing\Support\HtmlTesting;
 
 use DOMElement;
 use DOMDocument;
+use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\Assert as PHPUnit;
 
+use function substr;
 use function explode;
 use function array_map;
 use function array_shift;
+use function str_starts_with;
 
 /**
  * A wrapper for an HTML document, parsed into an assertable and queryable object, with an abstract syntax tree.
@@ -41,6 +44,23 @@ class TestableHtmlDocument
     public function getElementById(string $id): ?TestableHtmlElement
     {
         return $this->nodes->first(fn (TestableHtmlElement $node) => $node->element->getAttribute('id') === $id);
+    }
+
+    public function getElement(string $element): ?TestableHtmlElement
+    {
+        $searchSyntax = null;
+        if (str_starts_with($element, '#')) {
+            $searchSyntax = 'id';
+            $element = substr($element, 1);
+        } elseif (str_contains($element, '>')) {
+            $searchSyntax = 'css';
+        }
+
+        return match ($searchSyntax) {
+            'id' => $this->getElementById($element),
+            'css' => $this->query($element),
+            default => throw new InvalidArgumentException("The selector syntax '$element' is not supported."),
+        };
     }
 
     /**
