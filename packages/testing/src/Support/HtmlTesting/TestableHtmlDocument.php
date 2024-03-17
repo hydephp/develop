@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\Assert as PHPUnit;
 
+use function trim;
 use function substr;
 use function explode;
 use function array_map;
@@ -105,7 +106,7 @@ class TestableHtmlDocument
      */
     public function query(string $selector): ?TestableHtmlElement
     {
-        $selectors = array_map('trim', explode('>', $selector));
+        $selectors = array_map('trim', explode('>', trim($selector, '> ')));
 
         $nodes = $this->nodes;
 
