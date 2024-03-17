@@ -96,8 +96,7 @@ trait DumpsDocumentState
         $newline = $addNewline ? "\n" : '';
 
         return sprintf("%s%s%s$newline", $isInline ? ' ' : str_repeat('    ', $level), $node->text, $node->nodes->map(function (TestableHtmlElement $node) use ($isInline, $level): string {
-            // If there is no text in this node we don't want to increase the level
-            // The same goes if the element is an inline element
+            // If there is no text in this node, or if it's an inline element, we don't want to increase the level
             if ($node->text && ! $isInline) {
                 $level++;
             }
