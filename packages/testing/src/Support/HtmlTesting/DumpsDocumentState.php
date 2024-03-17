@@ -93,7 +93,6 @@ trait DumpsDocumentState
     {
         $isInline = in_array($node->tag, ['a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite', 'code', 'dfn', 'em', 'i', 'img', 'input', 'kbd', 'label', 'map', 'object', 'q', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var']);
 
-        $newline = $addNewline ? "\n" : '';
         $indentation = $isInline ? ' ' : str_repeat('    ', $level);
 
         $childEntries = $node->nodes->map(function (TestableHtmlElement $node) use ($isInline, $level): string {
@@ -105,7 +104,7 @@ trait DumpsDocumentState
             return $this->createTextMapEntry($node, $level, ! $isInline);
         })->implode('');
 
-        return $indentation . $node->text . $childEntries . $newline;
+        return sprintf('%s%s%s%s', $indentation, $node->text, $childEntries, $addNewline ? "\n" : '');
     }
 
     protected function createAstInspectionDump(): string
