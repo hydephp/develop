@@ -25,6 +25,7 @@ class TestableHtmlDocument
 
     /** @var \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement> The document's element nodes. */
     public readonly Collection $nodes;
+    protected DOMDocument $document;
 
     public function __construct(string $html)
     {
@@ -110,6 +111,8 @@ class TestableHtmlDocument
                 $nodes->push($this->parseNodeRecursive($childNode));
             }
         }
+
+        $this->document = $dom;
 
         return $nodes;
     }
