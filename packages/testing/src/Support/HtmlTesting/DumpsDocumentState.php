@@ -133,19 +133,18 @@ trait DumpsDocumentState
         return $html;
     }
 
-    protected function createDumpNodeMapEntry(TestableHtmlElement $node, int $level = 0): string
+    protected function createDumpNodeMapEntry(TestableHtmlElement $node): string
     {
         $data = $node->toArray();
 
-        $indentation = str_repeat('    ', $level);
-        $list = sprintf("\n$indentation    <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|iterable $value, string $key) use ($level, $indentation): string {
+        $list = sprintf("\n    <ul class=\"node\">\n%s  </ul>\n", implode('', array_map(function (string|iterable $value, string $key): string {
             if ($value instanceof Collection) {
                 if ($value->isEmpty()) {
-                    return sprintf("$indentation      <li><strong>%s</strong>: <span>None</span></li>\n", ucfirst($key));
+                    return sprintf("      <li><strong>%s</strong>: <span>None</span></li>\n", ucfirst($key));
                 }
 
-                return sprintf("$indentation      <li><strong>%s</strong>: <ul>%s</ul></li>\n", ucfirst($key), $value->map(function (TestableHtmlElement $node) use ($level): string {
-                    return $this->createDumpNodeMapEntry($node, $level + 1);
+                return sprintf("      <li><strong>%s</strong>: <ul>%s</ul></li>\n", ucfirst($key), $value->map(function (TestableHtmlElement $node): string {
+                    return $this->createDumpNodeMapEntry($node);
                 })->implode(''));
             }
 
@@ -158,7 +157,7 @@ trait DumpsDocumentState
                 $value = implode(', ', $value);
             }
 
-            return sprintf("$indentation       <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
+            return sprintf("      <li><strong>%s</strong>: <span>%s</span></li>\n", ucfirst($key), $value);
         }, $data, array_keys($data))));
 
         if ($node->text) {
@@ -167,6 +166,6 @@ trait DumpsDocumentState
             $title = sprintf('<%s>', $node->tag);
         }
 
-        return sprintf("  <li><%s><summary><strong>%s</strong>\n$indentation</summary> %s  </details></li>\n", $node->tag === 'html' ? 'details open' : 'details', e($title), $list);
+        return sprintf("  <li><%s><summary><strong>%s</strong></summary>%s  </details></li>\n", $node->tag === 'html' ? 'details open' : 'details', e($title), $list);
     }
 }
