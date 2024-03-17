@@ -94,15 +94,18 @@ trait DumpsDocumentState
         $isInline = in_array($node->tag, ['a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite', 'code', 'dfn', 'em', 'i', 'img', 'input', 'kbd', 'label', 'map', 'object', 'q', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var']);
 
         $newline = $addNewline ? "\n" : '';
+        $indentation = $isInline ? ' ' : str_repeat('    ', $level);
 
-        return sprintf("%s%s%s$newline", $isInline ? ' ' : str_repeat('    ', $level), $node->text, $node->nodes->map(function (TestableHtmlElement $node) use ($isInline, $level): string {
+        $childEntries = $node->nodes->map(function (TestableHtmlElement $node) use ($isInline, $level): string {
             // If there is no text in this node, or if it's an inline element, we don't want to increase the level
             if ($node->text && ! $isInline) {
                 $level++;
             }
 
             return $this->createTextMapEntry($node, $level, ! $isInline);
-        })->implode(''));
+        })->implode('');
+
+        return sprintf("%s%s%s$newline", $indentation, $node->text, $childEntries);
     }
 
     protected function createAstInspectionDump(): string
