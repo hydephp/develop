@@ -126,12 +126,7 @@ trait DumpsDocumentState
         $html .= '<h3>Text Representation</h3>';
         $html .= sprintf('<div style="max-width: 1440px; overflow-x: auto; border: 1px solid #333; padding: 0.5rem 1rem;"><pre><code>%s</code></pre></div>', $this->getTextRepresentation());
 
-        $html .= '<hr>';
-        $html .= '{{ $footer }}';
-
-        $html .= '</body></html>';
-
-        return $html;
+        return $html.'<hr>'.'{{ $footer }}'.'</body></html>';
     }
 
     protected function createDumpNodeMapEntry(TestableHtmlElement $node): string
