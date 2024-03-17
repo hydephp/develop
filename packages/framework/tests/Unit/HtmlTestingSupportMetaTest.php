@@ -265,7 +265,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         $expected = <<<'TXT'
         Foo
         Bar Baz
-        Line 2 
+        Line 2
         Line 3
         Line 3
         TXT;
@@ -279,23 +279,15 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 Welcome to HydePHP!
 (Inline style content)
 (Inline style content)
-
-
-
-
- You're running on HydePHP
-
-
+You're running on HydePHP
 Leap into the future of static HTML blogs and documentation with the tools you already know and love.
-                        Made with Tailwind, Laravel, and Coffee.
-
+Made with Tailwind, Laravel, and Coffee.
 This is the default homepage stored as index.blade.php, however you can publish any of the built-in views using the following command:
 php hyde php hyde php hyde publish:homepage
- Resources for getting started
-
- Documentation
- Getting Started
- GitHub Source Code
+Resources for getting started
+Documentation
+Getting Started
+GitHub Source Code
 HTML;
 
         $this->assertSame($expected, $this->html($this->html)->getTextRepresentation());

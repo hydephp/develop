@@ -14,6 +14,7 @@ use function trim;
 use function sprintf;
 use function ucfirst;
 use function implode;
+use function explode;
 use function is_array;
 use function in_array;
 use function array_map;
@@ -21,6 +22,7 @@ use function microtime;
 use function is_numeric;
 use function array_keys;
 use function str_repeat;
+use function array_filter;
 use function base64_encode;
 use function number_format;
 use function memory_get_usage;
@@ -50,6 +52,13 @@ trait DumpsDocumentState
         $this->nodes->each(function (TestableHtmlElement $node) use (&$text) {
             $text .= $this->createTextMapEntry($node);
         });
+
+        $text = explode("\n", $text);
+
+        $text = array_map('trim', $text);
+        $text = array_filter($text, 'trim');
+
+        $text = implode("\n", $text);
 
         return trim($text);
     }
