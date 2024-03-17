@@ -42,6 +42,7 @@ trait DumpsDocumentState
         return trim($structure);
     }
 
+    // TODO: Improve complex text state parsing
     public function getTextRepresentation(): string
     {
         $text = '';
