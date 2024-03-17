@@ -64,32 +64,6 @@ class TestableHtmlDocument
     }
 
     /**
-     * Using CSS style selectors, this method allows for querying the document's nodes.
-     * Note that the first element in the DOM is skipped, so you don't need to start with `html` or `body`.
-     *
-     * @example $this->query('head > title')
-     */
-    public function query(string $selector): ?TestableHtmlElement
-    {
-        $selectors = array_map('trim', explode('>', $selector));
-
-        $nodes = $this->nodes;
-
-        // While we have any selectors left, we continue to narrow down the nodes
-        while ($selector = array_shift($selectors)) {
-            $node = $nodes->first();
-
-            if ($node === null) {
-                return null;
-            }
-
-            $nodes = $this->queryCursorNode($selector, $node);
-        }
-
-        return $nodes->first();
-    }
-
-    /**
      * Select an element from the document using a CSS selector.
      *
      * Note that this means all subsequent assertions will be scoped to the selected element.
@@ -129,6 +103,32 @@ class TestableHtmlDocument
     public function assertLooksLike($expected): static
     {
         return $this->doAssert(fn () => PHPUnit::assertSame($expected, $this->getTextRepresentation(), 'The HTML text does not look like expected.'));
+    }
+
+    /**
+     * Using CSS style selectors, this method allows for querying the document's nodes.
+     * Note that the first element in the DOM is skipped, so you don't need to start with `html` or `body`.
+     *
+     * @example $this->query('head > title')
+     */
+    public function query(string $selector): ?TestableHtmlElement
+    {
+        $selectors = array_map('trim', explode('>', $selector));
+
+        $nodes = $this->nodes;
+
+        // While we have any selectors left, we continue to narrow down the nodes
+        while ($selector = array_shift($selectors)) {
+            $node = $nodes->first();
+
+            if ($node === null) {
+                return null;
+            }
+
+            $nodes = $this->queryCursorNode($selector, $node);
+        }
+
+        return $nodes->first();
     }
 
     protected function parseNodes(string $html): Collection
