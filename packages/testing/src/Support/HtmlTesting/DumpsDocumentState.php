@@ -53,14 +53,11 @@ trait DumpsDocumentState
         });
 
         $text = explode("\n", $text);
-
         $text = array_map('trim', $text);
         $text = array_filter($text, 'trim');
         $text = array_filter($text, fn (string $line): bool => in_array($line, ['(Inline style content)', '(Inline script content)']) === false);
 
-        $text = implode("\n", $text);
-
-        return trim($text);
+        return trim(implode("\n", $text));
     }
 
     public function dump(bool $writeHtml = true): string
