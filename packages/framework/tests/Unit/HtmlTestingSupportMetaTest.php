@@ -260,7 +260,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
         $this->assertSame(<<<'TXT'
             Foo
-            Bar Baz
+                Bar Baz
             TXT, $this->html($html)->getTextRepresentation());
     }
 
