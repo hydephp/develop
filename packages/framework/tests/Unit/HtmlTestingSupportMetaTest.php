@@ -247,6 +247,23 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
         TXT, $this->html($html)->getStructure());
     }
 
+    public function testGetTextRepresentation()
+    {
+        $html = <<<'HTML'
+        <main>
+            <div>
+                <h1>Foo</h1>
+                <p>Bar <small>Baz</small></p>
+            </div>
+        </main>
+        HTML;
+
+        $this->assertSame(<<<'TXT'
+            Foo
+            Bar Baz
+            TXT, $this->html($html)->getTextRepresentation());
+    }
+
     protected function exampleElement(): TestableHtmlElement
     {
         return $this->html('<div id="foo" class="bar">Foo</div>')->getElementById('foo');
