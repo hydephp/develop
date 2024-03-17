@@ -45,6 +45,7 @@ class TestableHtmlDocument
 
     /**
      * Using CSS style selectors, this method allows for querying the document's nodes.
+     * Note that the first element in the DOM is skipped, so you don't need to start with `html` or `body`.
      *
      * @example $this->query('head > title')
      */
