@@ -33,18 +33,6 @@ trait HtmlTestingAssertions
         return $this->doAssert(fn () => PHPUnit::assertStringNotContainsString(e($value), $this->html, "The escaped string '$value' was found in the HTML."));
     }
 
-    /** @note Use this sparingly, as you generally should not care about the exact HTML structure. */
-    public function assertStructureLooksLike($expected): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertSame($expected, $this->getStructure(), 'The HTML structure does not look like expected.'));
-    }
-
-    /** A better alternative to assertStructureLooksLike, as it only cares about the visible text. */
-    public function assertLooksLike($expected): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertSame($expected, $this->getTextRepresentation(), 'The HTML text does not look like expected.'));
-    }
-
     protected function doAssert(callable $assertion): static
     {
         $assertion();

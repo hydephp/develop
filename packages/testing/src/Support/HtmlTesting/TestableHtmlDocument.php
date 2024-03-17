@@ -98,6 +98,18 @@ class TestableHtmlDocument
         return $this;
     }
 
+    /** @note Use this sparingly, as you generally should not care about the exact HTML structure. */
+    public function assertStructureLooksLike($expected): static
+    {
+        return $this->doAssert(fn () => PHPUnit::assertSame($expected, $this->getStructure(), 'The HTML structure does not look like expected.'));
+    }
+
+    /** A better alternative to assertStructureLooksLike, as it only cares about the visible text. */
+    public function assertLooksLike($expected): static
+    {
+        return $this->doAssert(fn () => PHPUnit::assertSame($expected, $this->getTextRepresentation(), 'The HTML text does not look like expected.'));
+    }
+
     protected function parseNodes(string $html): Collection
     {
         $nodes = new Collection();
