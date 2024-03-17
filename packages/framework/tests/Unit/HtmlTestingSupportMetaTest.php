@@ -192,8 +192,8 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
         $this->assertSame(
             ['id', 'tag', 'text', 'classes', 'attributes', 'nodes'],
-            array_keys($this->html('<div id="id" class="class" name="name">Foo<bar></bar></div>')->getRootElement()->toArray()
-            ));
+            array_keys($this->html('<div id="id" class="class" name="name">Foo<bar></bar></div>')->getRootElement()->toArray())
+        );
     }
 
     public function testToArrayWithAttributes()
