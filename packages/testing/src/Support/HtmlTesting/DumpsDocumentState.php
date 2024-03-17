@@ -105,7 +105,7 @@ trait DumpsDocumentState
             return $this->createTextMapEntry($node, $level, ! $isInline);
         })->implode('');
 
-        return sprintf("%s%s%s$newline", $indentation, $node->text, $childEntries);
+        return $indentation . $node->text . $childEntries . $newline;
     }
 
     protected function createAstInspectionDump(): string
