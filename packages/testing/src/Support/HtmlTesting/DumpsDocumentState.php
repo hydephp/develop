@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 
 use function e;
 use function dd;
+use function trim;
 use function strlen;
 use function substr;
 use function sprintf;
@@ -69,10 +70,28 @@ trait DumpsDocumentState
         return trim($structure);
     }
 
+    public function getTextRepresentation(): string
+    {
+        $text = '';
+
+        $this->nodes->each(function (TestableHtmlElement $node) use (&$text) {
+            $text .= $this->createTextMapEntry($node, 0);
+        });
+
+        return trim($text);
+    }
+
     protected function createStructureMapEntry(TestableHtmlElement $node, int $level): string
     {
         return sprintf("\n%s%s%s", str_repeat('    ', $level), $node->tag, $node->nodes->map(function (TestableHtmlElement $node) use ($level): string {
             return $this->createStructureMapEntry($node, $level + 1);
+        })->implode(''));
+    }
+
+    protected function createTextMapEntry(TestableHtmlElement $node, int $level): string
+    {
+        return sprintf("\n%s%s%s", str_repeat('    ', $level), $node->text, $node->nodes->map(function (TestableHtmlElement $node) use ($level): string {
+            return $this->createTextMapEntry($node, $level + 1);
         })->implode(''));
     }
 
