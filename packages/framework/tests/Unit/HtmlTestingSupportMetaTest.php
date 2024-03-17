@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use InvalidArgumentException;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\TestsBladeViews;
+use Illuminate\Support\Collection;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlElement;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
 
@@ -129,22 +130,29 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         $document = $this->html('<div class="foo">Foo</div><div class="foo">Bar</div>');
 
-        $this->assertContainsOnlyInstancesOf(TestableHtmlElement::class, $document->getElementsByClass('foo'));
-        $this->assertSame(['Foo', 'Bar'], $document->getElementsByClass('foo')->map->text->all());
+        $collection = $document->getElementsByClass('foo');
+
+        $this->assertInstanceOf(Collection::class, $collection);
+        $this->assertContainsOnlyInstancesOf(TestableHtmlElement::class, $collection);
+        $this->assertSame(['Foo', 'Bar'], $collection->map->text->all());
     }
 
     public function testGetElementsByClassWithChildNodes()
     {
         $html = <<<'HTML'
         <div class="foo">
-            <div class="foo bar">Baz</div>
+            <div class="foo bar">Foo</div>
             <div class="foo bar">
-                <div class="foo bar baz">Baz</div>
+                <div class="foo bar baz">Bar <span class="foo">Baz</span></div>
             </div>
         </div>
         HTML;
 
-        $this->assertCount(4, $this->html($html)->getElementsByClass('foo'));
+        $collection = $this->html($html)->getElementsByClass('foo');
+
+        $this->assertCount(5, $collection);
+        $this->assertContainsOnlyInstancesOf(TestableHtmlElement::class, $collection);
+        $this->assertSame(['Foo', 'Bar', 'Baz'], $collection->map->text->filter()->values()->all());
     }
 
     public function testQuery()
