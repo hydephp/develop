@@ -91,7 +91,12 @@ trait DumpsDocumentState
     protected function createTextMapEntry(TestableHtmlElement $node, int $level): string
     {
         return sprintf("\n%s%s%s", str_repeat('    ', $level), $node->text, $node->nodes->map(function (TestableHtmlElement $node) use ($level): string {
-            return $this->createTextMapEntry($node, $level + 1);
+            // If there is no text in this node we don't want to increase the level
+            if ($node->text) {
+                $level++;
+            }
+
+            return $this->createTextMapEntry($node, $level);
         })->implode(''));
     }
 
