@@ -45,13 +45,13 @@ trait DumpsDocumentState
     // TODO: Improve complex text state parsing
     public function getTextRepresentation(): string
     {
-        $text = '';
+        $text = [];
 
         $this->nodes->each(function (TestableHtmlElement $node) use (&$text) {
-            $text .= $this->createTextMapEntry($node);
+            $text[] =  $this->createTextMapEntry($node);
         });
 
-        return trim($text);
+        return trim(implode('', $text));
     }
 
     public function dump(bool $writeHtml = true): string
