@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 
 use function trim;
-use function filled;
 use function strlen;
 use function explode;
 use function preg_match;
@@ -69,8 +68,8 @@ class TestableHtmlElement implements Arrayable
             'text' => $this->text,
             'classes' => $this->classes,
             'attributes' => $this->attributes,
-            'nodes' => $this->nodes,
-        ], fn ($value): bool => filled($value));
+            'nodes' => $this->nodes->count() ? $this->nodes : null,
+        ]);
     }
 
     protected function parseTag(string $html): string
