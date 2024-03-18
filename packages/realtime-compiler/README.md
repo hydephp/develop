@@ -16,5 +16,5 @@ The following table shows the supported versions of this package.
 |:-------------|---------|--------------------|-------------------------|
 | Release      | 3.x     | :white_check_mark: | Latest                  |
 | 0.x Beta     | 2.x     | :x:                | End of Life: 2023-12-31 |
-| 0.x Alpha    | 1.x LTS | :shield:           | End of Life: 2023-03-01 |
+| 0.x Alpha    | 1.x LTS | :x:                | End of Life: 2023-03-01 |
 | 0.x Alpha    | < 1.0   | :x:                | Alpha                   |
