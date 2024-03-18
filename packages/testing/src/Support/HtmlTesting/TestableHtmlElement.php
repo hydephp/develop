@@ -74,6 +74,16 @@ class TestableHtmlElement implements Arrayable
         ], fn ($value): bool => filled($value));
     }
 
+    public function hasId(string $id): static
+    {
+        return $this->doAssert(fn () => PHPUnit::assertSame($id, $this->id, 'The id attribute did not have the expected value.'));
+    }
+
+    public function doesNotHaveId(string $id): static
+    {
+        return $this->doAssert(fn () => PHPUnit::assertNotSame($id, $this->id, 'The id attribute had the unexpected value.'));
+    }
+
     public function hasClass(string $class): static
     {
         return $this->doAssert(fn () => PHPUnit::assertContains($class, $this->classes, "The class '$class' was not found in the element."));

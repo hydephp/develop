@@ -437,6 +437,16 @@ HTML;
         );
     }
 
+    public function testElementHasId()
+    {
+        $this->html('<div id="foo">Foo</div>')->getRootElement()->hasId('foo');
+    }
+
+    public function testElementDoesNotHaveId()
+    {
+        $this->html('<div>Foo</div>')->getRootElement()->doesNotHaveId('foo');
+    }
+
     public function testElementAssertHasClass()
     {
         $this->html('<div class="foo">Foo</div>')->getRootElement()->hasClass('foo');
