@@ -19,6 +19,8 @@ use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
  * @see \Hyde\Testing\Support\HtmlTesting
  *
  * @coversNothing
+ *
+ * @noinspection HtmlUnknownAttribute
  */
 class HtmlTestingSupportMetaTest extends UnitTestCase
 {
@@ -369,7 +371,6 @@ HTML;
     {
         $this->assertSame([], $this->html('<div>Foo</div>')->getRootElement()->attributes);
 
-        /** @noinspection HtmlUnknownAttribute */
         $this->assertSame([
             'name' => 'test',
             'foo' => 'bar',
@@ -429,7 +430,6 @@ HTML;
 
     public function testToArrayWithAttributes()
     {
-        /** @noinspection HtmlUnknownAttribute */
         $this->assertSame(
             ['id' => 'id', 'tag' => 'div', 'text' => 'Bar', 'classes' => ['class'], 'attributes' => ['name' => 'name']],
             $this->html('<div id="id" class="class" name="name">Bar</div>')->getRootElement()->toArray()
