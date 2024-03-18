@@ -39,12 +39,13 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-              const visualTestsLabel = labels.find(label => label.name === 'run-visual-tests');
+
+            const visualTestsLabel = labels.find(label => label.name === 'run-visual-tests');
               if (visualTestsLabel) {
-              await github.rest.issues.removeLabel({
-              issue_number: context.issue.number,
-              name: 'run-visual-tests',
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-        }
+                await github.rest.issues.removeLabel({
+                  issue_number: context.issue.number,
+                  name: 'run-visual-tests',
+                  owner: context.repo.owner,
+                  repo: context.repo.repo
+                });
+              }
