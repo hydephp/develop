@@ -77,7 +77,8 @@ trait HtmlTestingAssertions
         return $this->doElementAssert(fn () => PHPUnit::assertArrayNotHasKey($attribute, $this->attributes, "The attribute '$attribute' was found in the element."));
     }
 
-    protected function doAssert(callable $assertion): static
+    /** @internal */
+    public function doAssert(callable $assertion): static
     {
         $assertion();
 
