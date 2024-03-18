@@ -1,4 +1,4 @@
-<button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+<button id="search-menu-button" x-on:click="searchWindowOpen = ! searchWindowOpen"
         :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
         class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
         aria-label="Toggle search window">
