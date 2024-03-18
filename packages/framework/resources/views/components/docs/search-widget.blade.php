@@ -14,7 +14,7 @@
         </svg>
     </span>
 </button>
-<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+<button id="search-menu-button-mobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
         :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
         class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
         aria-label="Toggle search menu">
