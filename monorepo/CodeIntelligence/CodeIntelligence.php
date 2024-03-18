@@ -497,7 +497,7 @@ class CodeIntelligence
 
         foreach ($this->bladeFiles as $contents) {
             $matches = [];
-            preg_match_all('/class="([^"]+)"/', $contents, $matches);
+            preg_match_all('/class="([^"]+)"(?![^<]*:class)/', $contents, $matches);
             foreach ($matches[1] as $match) {
                 $match = explode(' ', $match);
                 foreach ($match as $class) {
