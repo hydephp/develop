@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection HtmlUnknownAttribute */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
@@ -19,8 +21,6 @@ use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
  * @see \Hyde\Testing\Support\HtmlTesting
  *
  * @coversNothing
- *
- * @noinspection HtmlUnknownAttribute
  */
 class HtmlTestingSupportMetaTest extends UnitTestCase
 {
