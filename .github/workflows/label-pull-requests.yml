@@ -2,27 +2,50 @@ name: 🏷 Label Pull Requests
 
 on:
   pull_request:
-    types: [opened, edited, reopened]
+    types: [opened, edited, reopened, closed]
 
 jobs:
 
-    label-pull-requests:
-        runs-on: ubuntu-latest
-        permissions:
-          contents: read
-          pull-requests: write
+  label-pull-requests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
-        steps:
-          # If PR title starts with "Internal: " then add the "Internal" label
-          - name: Label Internal Pull Requests
-            if: "startsWith(github.event.pull_request.title, 'Internal: ')"
-            uses: actions/github-script@v7
-            with:
-              github-token: ${{ secrets.GITHUB_TOKEN }}
-              script: |
-                github.rest.issues.addLabels({
-                    issue_number: context.issue.number,
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    labels: ['Internal']
-                })
+    steps:
+      # If PR title starts with "Internal: " then add the "Internal" label
+      - name: Label Internal Pull Requests
+        if: "startsWith(github.event.pull_request.title, 'Internal: ')"
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['Internal']
+            })
+
+      # Remove "run-visual-tests" label if the pull request is closed
+      - name: Remove run-visual-tests Label
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const visualTestsLabel = labels.find(label => label.name === 'run-visual-tests');
+            if (visualTestsLabel) {
+              await github.rest.issues.removeLabel({
+                issue_number: context.issue.number,
+                name: 'run-visual-tests',
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              });
+            }
