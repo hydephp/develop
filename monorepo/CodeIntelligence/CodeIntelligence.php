@@ -496,8 +496,24 @@ class CodeIntelligence
         $classes = [];
 
         foreach ($this->bladeFiles as $contents) {
+            // Extract static classes from dynamic Alpine.js classes containing boolean logic
+            $contents = preg_replace_callback('/:class=(["\'])(.*?)\1/', function (array $matches): string {
+                $staticClasses = '';
+                $dynamicClasses = $matches[2];
+
+                // Parse the dynamic classes to separate static classes
+                preg_match_all('/\'\s*([^\'\s]*)\s*\'/', $dynamicClasses, $staticMatches);
+                if (! empty($staticMatches[1])) {
+                    $staticClasses = sprintf('class="%s"', implode(' ', $staticMatches[1]));
+                }
+
+                return $staticClasses;
+            }, $contents);
+
             $matches = [];
+
             preg_match_all('/class="([^"]+)"/', $contents, $matches);
+
             foreach ($matches[1] as $match) {
                 $match = explode(' ', $match);
                 foreach ($match as $class) {
