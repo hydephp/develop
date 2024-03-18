@@ -506,7 +506,7 @@ class CodeIntelligence
                     // Parse the dynamic classes to separate static classes
                     preg_match_all('/\'\s*([^\'\s]*)\s*\'/', $dynamicClasses, $staticMatches);
                     if (! empty($staticMatches[1])) {
-                        $staticClasses = 'class="'.implode(' ', $staticMatches[1]).'"';
+                        $staticClasses = sprintf('class="%s"', implode(' ', $staticMatches[1]));
                     }
 
                     return $staticClasses;
