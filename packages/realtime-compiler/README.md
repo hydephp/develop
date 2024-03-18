@@ -15,6 +15,6 @@ The following table shows the supported versions of this package.
 | Hyde Version | Version | Supported          | Notes                                         |
 |:-------------|---------|--------------------|-----------------------------------------------|
 | Release      | 3.x     | :white_check_mark: | Latest                                        |
-| Beta         | 2.x     | :x:                | Security fixes only (End of Life: 2023-12-31) |
-| Alpha        | 1.x LTS | :shield:           | End of Life: 2023-03-01                       |
-| Alpha        | < 1.0   | :x:                | Alpha                                         |
+| 0.x Beta     | 2.x     | :x:                | Security fixes only (End of Life: 2023-12-31) |
+| 0.x Alpha    | 1.x LTS | :shield:           | End of Life: 2023-03-01                       |
+| 0.x Alpha    | < 1.0   | :x:                | Alpha                                         |
