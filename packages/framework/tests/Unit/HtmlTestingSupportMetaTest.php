@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\TestsBladeViews;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\ExpectationFailedException;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlElement;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
 
@@ -444,6 +445,30 @@ HTML;
     public function testElementAssertDoesNotHaveClass()
     {
         $this->html('<div class="foo">Foo</div>')->getRootElement()->doesNotHaveClass('bar');
+    }
+
+    public function testElementAssertHasAttribute()
+    {
+        $this->html('<div name="foo">Foo</div>')->getRootElement()->hasAttribute('name');
+    }
+
+    public function testElementAssertDoesNotHaveAttribute()
+    {
+        $this->html('<div name="foo">Foo</div>')->getRootElement()->doesNotHaveAttribute('href');
+    }
+
+    public function testElementAssertHasAttributeWithValue()
+    {
+        $this->html('<div name="foo">Foo</div>')->getRootElement()->hasAttribute('name', 'foo');
+    }
+
+    public function testElementAssertHasAttributeWithWrongValue()
+    {
+        try {
+            $this->html('<div name="foo">Foo</div>')->getRootElement()->hasAttribute('name', 'bar');
+        } catch (ExpectationFailedException $exception) {
+            $this->assertSame("The attribute 'name' did not have the expected value.\nFailed asserting that two strings are identical.", $exception->getMessage());
+        }
     }
 
     protected function exampleElement(): TestableHtmlElement

@@ -84,6 +84,22 @@ class TestableHtmlElement implements Arrayable
         return $this->doAssert(fn () => PHPUnit::assertNotContains($class, $this->classes, "The class '$class' was found in the element."));
     }
 
+    public function hasAttribute(string $attribute, ?string $value = null): static
+    {
+        $this->doAssert(fn () => PHPUnit::assertArrayHasKey($attribute, $this->attributes, "The attribute '$attribute' was not found in the element."));
+
+        if ($value) {
+            return $this->doAssert(fn () => PHPUnit::assertSame($value, $this->attributes[$attribute], "The attribute '$attribute' did not have the expected value."));
+        }
+
+        return $this;
+    }
+
+    public function doesNotHaveAttribute(string $attribute): static
+    {
+        return $this->doAssert(fn () => PHPUnit::assertArrayNotHasKey($attribute, $this->attributes, "The attribute '$attribute' was found in the element."));
+    }
+
     protected function parseTag(string $html): string
     {
         preg_match('/^<([a-z0-9-]+)/i', $html, $matches);
