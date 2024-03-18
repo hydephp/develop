@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing\Support\HtmlTesting;
 
+use Closure;
 use Illuminate\Testing\Assert as PHPUnit;
 
 trait HtmlTestingAssertions
@@ -78,14 +79,14 @@ trait HtmlTestingAssertions
     }
 
     /** @internal */
-    public function doAssert(callable $assertion): static
+    public function doAssert(Closure $assertion): static
     {
         $assertion();
 
         return $this;
     }
 
-    protected function doElementAssert(callable $assertion): static
+    protected function doElementAssert(Closure $assertion): static
     {
         return $this->doAssert($assertion);
     }
