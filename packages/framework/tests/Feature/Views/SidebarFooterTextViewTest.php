@@ -15,7 +15,7 @@ class SidebarFooterTextViewTest extends TestCase
 
     public function testSidebarFooterTextViewWithDefaultConfig()
     {
-        $view = $this->test(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
+        $view = $this->view(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
 
         $view->assertSeeHtml('<a href="../">Back to home page</a>');
     }
@@ -24,7 +24,7 @@ class SidebarFooterTextViewTest extends TestCase
     {
         Config::set('docs.sidebar.footer', true);
 
-        $view = $this->test(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
+        $view = $this->view(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
 
         $view->assertSeeHtml('<a href="../">Back to home page</a>');
     }
@@ -33,7 +33,7 @@ class SidebarFooterTextViewTest extends TestCase
     {
         Config::set('docs.sidebar.footer', 'Your Markdown String Here');
 
-        $view = $this->test(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
+        $view = $this->view(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
 
         $view->assertSeeText('Your Markdown String Here');
     }

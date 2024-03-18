@@ -8,10 +8,8 @@ use DOMElement;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Testing\Assert as PHPUnit;
 
 use function trim;
-use function filled;
 use function strlen;
 use function explode;
 use function preg_match;
@@ -61,7 +59,7 @@ class TestableHtmlElement implements Arrayable
         $this->attributes = $this->parseAttributes($element);
     }
 
-    /** @return array{id: ?string, tag: string, text: string, classes: ?array, attributes: ?array, nodes: \Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>} */
+    /** @return array{id: ?string, tag: string, text: string, classes: ?array, attributes: ?array, nodes: ?\Illuminate\Support\Collection<\Hyde\Testing\Support\HtmlTesting\TestableHtmlElement>} */
     public function toArray(): array
     {
         return array_filter([
@@ -70,18 +68,8 @@ class TestableHtmlElement implements Arrayable
             'text' => $this->text,
             'classes' => $this->classes,
             'attributes' => $this->attributes,
-            'nodes' => $this->nodes,
-        ], fn ($value): bool => filled($value));
-    }
-
-    public function hasClass(string $class): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertContains($class, $this->classes, "The class '$class' was not found in the element."));
-    }
-
-    public function doesNotHaveClass(string $class): static
-    {
-        return $this->doAssert(fn () => PHPUnit::assertNotContains($class, $this->classes, "The class '$class' was found in the element."));
+            'nodes' => $this->nodes->count() ? $this->nodes : null,
+        ]);
     }
 
     protected function parseTag(string $html): string
