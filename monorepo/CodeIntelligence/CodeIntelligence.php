@@ -499,7 +499,7 @@ class CodeIntelligence
             // Extract static classes from dynamic Alpine.js classes containing boolean logic
             $contents = preg_replace_callback(
                 '/:class=(["\'])(.*?)\1/',
-                function ($matches) {
+                function (array $matches): string {
                     $staticClasses = '';
                     $dynamicClasses = $matches[2];
 
