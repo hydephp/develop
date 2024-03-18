@@ -86,8 +86,18 @@ trait HtmlTestingAssertions
         return $this;
     }
 
-    protected function doElementAssert(Closure $assertion): static
+    protected function doElementAssert(Closure $assertion): TestableHtmlElement
     {
+        // Proxy to the root element if we're a TestableHtmlDocument.
+        if ($this instanceof TestableHtmlDocument) {
+            $rootElement = $this->getRootElement();
+
+            // Bind closure to the root element.
+            $assertion = $assertion->bindTo($rootElement);
+
+            return $rootElement->doAssert($assertion);
+        }
+
         return $this->doAssert($assertion);
     }
 }

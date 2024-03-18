@@ -491,6 +491,21 @@ HTML;
         $this->html('<div class="foo">Foo</div>')->getRootElement()->hasAttribute('class', 'foo');
     }
 
+    public function testAssertionCallsOnDocumentAreForwardedToRootElement()
+    {
+        $this->assertInstanceOf(TestableHtmlElement::class,
+            $this->html('<div id="foo" class="bar">Foo</div>')
+                ->assertSee('Foo')
+                ->hasId('foo')
+                ->doesNotHaveId('bar')
+                ->hasClass('bar')
+                ->doesNotHaveClass('baz')
+                ->hasAttribute('class', 'bar')
+                ->doesNotHaveAttribute('href')
+                ->assertSee('Foo')
+        );
+    }
+
     protected function exampleElement(): TestableHtmlElement
     {
         return $this->html('<div id="foo" class="bar">Foo</div>')->getElementById('foo');
