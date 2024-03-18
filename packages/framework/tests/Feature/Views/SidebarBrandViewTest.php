@@ -16,7 +16,7 @@ class SidebarBrandViewTest extends TestCase
 
     public function testSidebarBrandView()
     {
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('HydePHP Docs');
         $view->assertSee('theme-toggle-button');
@@ -27,7 +27,7 @@ class SidebarBrandViewTest extends TestCase
     {
         Hyde::routes()->addRoute((new DocumentationPage('index'))->getRoute());
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('HydePHP Docs');
         $view->assertSee('theme-toggle-button');
@@ -38,7 +38,7 @@ class SidebarBrandViewTest extends TestCase
     {
         config(['docs.sidebar' => []]);
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('Documentation');
         $view->assertDontSee('HydePHP Docs');
@@ -50,7 +50,7 @@ class SidebarBrandViewTest extends TestCase
 
         config(['docs.sidebar' => []]);
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('Documentation');
         $view->assertSeeHtml('<a href="docs/index.html">Documentation</a>', true);
@@ -63,7 +63,7 @@ class SidebarBrandViewTest extends TestCase
         $mock->shouldReceive('hasFeature')->with('darkmode')->andReturn(false);
         HydeKernel::setInstance($mock);
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('HydePHP Docs');
         $view->assertDontSee('theme-toggle-button');

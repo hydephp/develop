@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection HtmlUnknownAttribute */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
@@ -9,6 +11,7 @@ use InvalidArgumentException;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\TestsBladeViews;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\ExpectationFailedException;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlElement;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
 
@@ -369,7 +372,6 @@ HTML;
     {
         $this->assertSame([], $this->html('<div>Foo</div>')->getRootElement()->attributes);
 
-        /** @noinspection HtmlUnknownAttribute */
         $this->assertSame([
             'name' => 'test',
             'foo' => 'bar',
@@ -429,21 +431,79 @@ HTML;
 
     public function testToArrayWithAttributes()
     {
-        /** @noinspection HtmlUnknownAttribute */
         $this->assertSame(
             ['id' => 'id', 'tag' => 'div', 'text' => 'Bar', 'classes' => ['class'], 'attributes' => ['name' => 'name']],
             $this->html('<div id="id" class="class" name="name">Bar</div>')->getRootElement()->toArray()
         );
     }
 
+    public function testElementAssertHasId()
+    {
+        $this->html('<div id="foo">Foo</div>')->getRootElement()->assertHasId('foo');
+    }
+
+    public function testElementAssertDoesNotHaveId()
+    {
+        $this->html('<div>Foo</div>')->getRootElement()->assertDoesNotHaveId('foo');
+    }
+
     public function testElementAssertHasClass()
     {
-        $this->html('<div class="foo">Foo</div>')->getRootElement()->hasClass('foo');
+        $this->html('<div class="foo">Foo</div>')->getRootElement()->assertHasClass('foo');
     }
 
     public function testElementAssertDoesNotHaveClass()
     {
-        $this->html('<div class="foo">Foo</div>')->getRootElement()->doesNotHaveClass('bar');
+        $this->html('<div class="foo">Foo</div>')->getRootElement()->assertDoesNotHaveClass('bar');
+    }
+
+    public function testElementAssertHasAttribute()
+    {
+        $this->html('<div name="foo">Foo</div>')->getRootElement()->assertHasAttribute('name');
+    }
+
+    public function testElementAssertDoesNotHaveAttribute()
+    {
+        $this->html('<div name="foo">Foo</div>')->getRootElement()->assertDoesNotHaveAttribute('href');
+    }
+
+    public function testElementAssertHasAttributeWithValue()
+    {
+        $this->html('<div name="foo">Foo</div>')->getRootElement()->assertHasAttribute('name', 'foo');
+    }
+
+    public function testElementAssertHasAttributeWithWrongValue()
+    {
+        try {
+            $this->html('<div name="foo">Foo</div>')->getRootElement()->assertHasAttribute('name', 'bar');
+        } catch (ExpectationFailedException $exception) {
+            $this->assertSame("The attribute 'name' did not have the expected value.\nFailed asserting that two strings are identical.", $exception->getMessage());
+        }
+    }
+
+    public function testElementAssertHasAttributeForwardsIdAssertions()
+    {
+        $this->html('<div id="foo">Foo</div>')->getRootElement()->assertHasAttribute('id', 'foo');
+    }
+
+    public function testElementAssertHasAttributeForwardsClassAssertions()
+    {
+        $this->html('<div class="foo">Foo</div>')->getRootElement()->assertHasAttribute('class', 'foo');
+    }
+
+    public function testAssertionCallsOnDocumentAreForwardedToRootElement()
+    {
+        $this->assertInstanceOf(TestableHtmlElement::class,
+            $this->html('<div id="foo" class="bar">Foo</div>')
+                ->assertSee('Foo')
+                ->assertHasId('foo')
+                ->assertDoesNotHaveId('bar')
+                ->assertHasClass('bar')
+                ->assertDoesNotHaveClass('baz')
+                ->assertHasAttribute('class', 'bar')
+                ->assertDoesNotHaveAttribute('href')
+                ->assertSee('Foo')
+        );
     }
 
     protected function exampleElement(): TestableHtmlElement
