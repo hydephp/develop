@@ -42,6 +42,6 @@ Changes in HydeFront are tied to those in the Hyde Framework and differing versi
 
 | Hyde Version | Version | Supported          | Notes                   |
 |:-------------|---------|--------------------|-------------------------|
-| 1.x          | 3.x     | :white_check_mark: | Latest                  |
+| 1.x LTS      | 3.x     | :white_check_mark: | Latest                  |
 | 0.x Beta     | 2.x     | :x:                | Unsupported             |
 | 0.x Alpha    | 1.x     | :x:                | Unsupported             |
