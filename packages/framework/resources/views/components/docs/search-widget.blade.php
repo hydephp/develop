@@ -26,7 +26,7 @@
 
 <div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
      class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
-    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+    <aside x-on:click.away="searchWindowOpen = false" id="search-menu"
            class="prose dark:prose-invert bg-white dark:bg-gray-800  z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
         <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
             <strong>Search the documentation site</strong>
