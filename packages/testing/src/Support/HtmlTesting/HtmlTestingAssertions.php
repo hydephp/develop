@@ -39,4 +39,9 @@ trait HtmlTestingAssertions
 
         return $this;
     }
+
+    protected function doElementAssert(callable $assertion): static
+    {
+        return $this->doAssert($assertion);
+    }
 }

@@ -76,22 +76,22 @@ class TestableHtmlElement implements Arrayable
 
     public function hasId(string $id): static
     {
-        return $this->doAssert(fn () => PHPUnit::assertSame($id, $this->id, 'The id attribute did not have the expected value.'));
+        return $this->doElementAssert(fn () => PHPUnit::assertSame($id, $this->id, 'The id attribute did not have the expected value.'));
     }
 
     public function doesNotHaveId(string $id): static
     {
-        return $this->doAssert(fn () => PHPUnit::assertNotSame($id, $this->id, 'The id attribute had the unexpected value.'));
+        return $this->doElementAssert(fn () => PHPUnit::assertNotSame($id, $this->id, 'The id attribute had the unexpected value.'));
     }
 
     public function hasClass(string $class): static
     {
-        return $this->doAssert(fn () => PHPUnit::assertContains($class, $this->classes, "The class '$class' was not found in the element."));
+        return $this->doElementAssert(fn () => PHPUnit::assertContains($class, $this->classes, "The class '$class' was not found in the element."));
     }
 
     public function doesNotHaveClass(string $class): static
     {
-        return $this->doAssert(fn () => PHPUnit::assertNotContains($class, $this->classes, "The class '$class' was found in the element."));
+        return $this->doElementAssert(fn () => PHPUnit::assertNotContains($class, $this->classes, "The class '$class' was found in the element."));
     }
 
     public function hasAttribute(string $attribute, ?string $value = null): static
@@ -104,10 +104,10 @@ class TestableHtmlElement implements Arrayable
             return $this->hasClass($value);
         }
 
-        $this->doAssert(fn () => PHPUnit::assertArrayHasKey($attribute, $this->attributes, "The attribute '$attribute' was not found in the element."));
+        $this->doElementAssert(fn () => PHPUnit::assertArrayHasKey($attribute, $this->attributes, "The attribute '$attribute' was not found in the element."));
 
         if ($value) {
-            return $this->doAssert(fn () => PHPUnit::assertSame($value, $this->attributes[$attribute], "The attribute '$attribute' did not have the expected value."));
+            return $this->doElementAssert(fn () => PHPUnit::assertSame($value, $this->attributes[$attribute], "The attribute '$attribute' did not have the expected value."));
         }
 
         return $this;
@@ -115,7 +115,7 @@ class TestableHtmlElement implements Arrayable
 
     public function doesNotHaveAttribute(string $attribute): static
     {
-        return $this->doAssert(fn () => PHPUnit::assertArrayNotHasKey($attribute, $this->attributes, "The attribute '$attribute' was found in the element."));
+        return $this->doElementAssert(fn () => PHPUnit::assertArrayNotHasKey($attribute, $this->attributes, "The attribute '$attribute' was found in the element."));
     }
 
     protected function parseTag(string $html): string
