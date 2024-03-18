@@ -96,6 +96,14 @@ class TestableHtmlElement implements Arrayable
 
     public function hasAttribute(string $attribute, ?string $value = null): static
     {
+        if ($attribute === 'id') {
+            return $this->hasId($value);
+        }
+
+        if ($attribute === 'class') {
+            return $this->hasClass($value);
+        }
+
         $this->doAssert(fn () => PHPUnit::assertArrayHasKey($attribute, $this->attributes, "The attribute '$attribute' was not found in the element."));
 
         if ($value) {

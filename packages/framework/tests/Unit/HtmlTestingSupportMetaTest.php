@@ -481,6 +481,16 @@ HTML;
         }
     }
 
+    public function testElementAssertHasAttributeForwardsIdAssertions()
+    {
+        $this->html('<div id="foo">Foo</div>')->getRootElement()->hasAttribute('id', 'foo');
+    }
+
+    public function testElementAssertHasAttributeForwardsClassAssertions()
+    {
+        $this->html('<div class="foo">Foo</div>')->getRootElement()->hasAttribute('class', 'foo');
+    }
+
     protected function exampleElement(): TestableHtmlElement
     {
         return $this->html('<div id="foo" class="bar">Foo</div>')->getElementById('foo');
