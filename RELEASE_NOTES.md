@@ -75,6 +75,7 @@ Some HTML IDs have been renamed to follow a more consistent naming convention.
 
 If you have used any of the following selectors in custom code you wrote yourself, you will need to update to use the new changed IDs.
 
+#### https://github.com/hydephp/develop/pull/1622
 - Rename HTML ID `#searchMenu` to `#search-menu`
 - Rename HTML ID `#searchMenuButton` to `#search-menu-button`
 - Rename HTML ID `#searchMenuButtonMobile` to `#search-menu-button-mobile`
