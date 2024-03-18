@@ -496,6 +496,9 @@ class CodeIntelligence
         $classes = [];
 
         foreach ($this->bladeFiles as $contents) {
+            // First split out dynamic Alpine classes containing boolean logic, so that both paths are counted
+            // For example: ":class=active ? 'bg-blue-500' : 'bg-red-500'" is replaced with "class='bg-blue-500' class='bg-red-500'"
+
             $matches = [];
             preg_match_all('/class="([^"]+)"/', $contents, $matches);
             foreach ($matches[1] as $match) {
