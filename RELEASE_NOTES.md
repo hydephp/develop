@@ -69,6 +69,18 @@ If you have previously used this method directly and expected a string to be ret
 
 If you want to retain the previous state where a string is always returned, you can use the new `NavItem::getLink()` method instead, which will resolve the route immediately.
 
+### HTML ID changes
+
+Some HTML IDs have been renamed to follow a more consistent naming convention.
+
+If you have used any of the following selectors in custom code you wrote yourself, you will need to update to use the new changed IDs.
+
+#### https://github.com/hydephp/develop/pull/1622
+- Rename HTML ID `#searchMenu` to `#search-menu`
+- Rename HTML ID `#searchMenuButton` to `#search-menu-button`
+- Rename HTML ID `#searchMenuButtonMobile` to `#search-menu-button-mobile`
+
+
 ### New documentation search implementation
 
 As the new documentation search implementation brings changes to their code API you may need to adapt your code

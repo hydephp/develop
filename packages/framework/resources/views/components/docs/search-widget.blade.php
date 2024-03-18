@@ -1,4 +1,4 @@
-<button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+<button id="search-menu-button" x-on:click="searchWindowOpen = ! searchWindowOpen"
         :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
         class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
         aria-label="Toggle search window">
@@ -14,7 +14,7 @@
         </svg>
     </span>
 </button>
-<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+<button id="search-menu-button-mobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
         :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
         class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
         aria-label="Toggle search menu">
@@ -26,7 +26,7 @@
 
 <div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
      class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
-    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+    <aside x-on:click.away="searchWindowOpen = false" id="search-menu"
            class="prose dark:prose-invert bg-white dark:bg-gray-800  z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
         <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
             <strong>Search the documentation site</strong>
