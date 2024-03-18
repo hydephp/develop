@@ -16,7 +16,7 @@ trait TestsBladeViews
     /**
      * Test a Blade view.
      */
-    protected function test(string|View $view, $data = []): TestView
+    protected function view(string|View $view, $data = []): TestView
     {
         $data = array_merge($this->testViewData(), $data);
 
