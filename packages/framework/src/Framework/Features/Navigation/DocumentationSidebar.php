@@ -88,8 +88,6 @@ class DocumentationSidebar extends NavigationMenu
     {
         // Unless the index page has a specific group set, the first group in the sidebar should be active.
 
-        // Todo: It may make more sense to handle this logic in the view, as it's a UI concern and this is a data model.
-
         $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
 
         $firstGroupInSidebar = $this->getItems()->firstWhere(fn (NavItem $item): bool => $item instanceof NavGroupItem);
