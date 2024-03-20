@@ -17,7 +17,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Redirect;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
-use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavGroupItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
@@ -33,7 +33,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\NavItem
+ * @covers \Hyde\Framework\Features\Navigation\NavigationItem
  */
 class AutomaticNavigationConfigurationsTest extends TestCase
 {
@@ -1281,7 +1281,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     }
 }
 
-class TestNavItem
+class TestNavigationItem
 {
     public readonly string $label;
     public readonly ?string $group;
@@ -1293,7 +1293,7 @@ class TestNavItem
         $this->label = $label;
         $this->group = $group;
         $this->priority = $priority;
-        $this->children = collect($children)->map(fn (NavItem $child) => $child->getLabel())->toArray();
+        $this->children = collect($children)->map(fn (NavigationItem $child) => $child->getLabel())->toArray();
     }
 
     public static function properties(): array
@@ -1319,12 +1319,12 @@ class AssertableNavigationMenu
     /** A simplified serialized format for comparisons */
     public function state(): array
     {
-        return $this->items->map(function (NavItem $item): TestNavItem {
-            return new TestNavItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof NavGroupItem ? $item->getItems() : []);
+        return $this->items->map(function (NavigationItem $item): TestNavigationItem {
+            return new TestNavigationItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof NavGroupItem ? $item->getItems() : []);
         })->toArray();
     }
 
-    public function getState(int $index): ?TestNavItem
+    public function getState(int $index): ?TestNavigationItem
     {
         return $this->state()[$index] ?? null;
     }
@@ -1345,7 +1345,7 @@ class AssertableNavigationMenu
                 $item = ['label' => $item];
             }
 
-            foreach (TestNavItem::properties() as $property) {
+            foreach (TestNavigationItem::properties() as $property) {
                 if ($this->getState($index) !== null) {
                     if (isset($item[$property])) {
                         $a = $item[$property];

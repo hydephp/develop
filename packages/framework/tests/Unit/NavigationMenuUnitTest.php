@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Hyde\Support\Models\ExternalRoute;
-use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 
 /**
@@ -121,8 +121,8 @@ class NavigationMenuUnitTest extends UnitTestCase
         ];
     }
 
-    protected function item(string $destination, string $label, int $priority = 500): NavItem
+    protected function item(string $destination, string $label, int $priority = 500): NavigationItem
     {
-        return new NavItem(new ExternalRoute($destination), $label, $priority);
+        return new NavigationItem(new ExternalRoute($destination), $label, $priority);
     }
 }

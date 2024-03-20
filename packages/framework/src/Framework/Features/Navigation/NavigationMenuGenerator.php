@@ -24,7 +24,7 @@ use function strtolower;
  */
 class NavigationMenuGenerator
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavItem> */
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavigationItem> */
     protected Collection $items;
 
     /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
@@ -71,7 +71,7 @@ class NavigationMenuGenerator
                 if ($this->canGroupRoute($route)) {
                     $this->addRouteToGroup($route);
                 } else {
-                    $this->items->put($route->getRouteKey(), NavItem::forRoute($route));
+                    $this->items->put($route->getRouteKey(), NavigationItem::forRoute($route));
                 }
             }
         });
@@ -79,10 +79,10 @@ class NavigationMenuGenerator
         if ($this->generatesSidebar) {
             // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
             if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
-                $this->items->push(NavItem::forRoute(DocumentationPage::home()));
+                $this->items->push(NavigationItem::forRoute(DocumentationPage::home()));
             }
         } else {
-            collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavItem $item): void {
+            collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavigationItem $item): void {
                 // Since these were added explicitly by the user, we can assume they should always be shown
                 $this->items->push($item);
             });
@@ -133,7 +133,7 @@ class NavigationMenuGenerator
 
     protected function addRouteToGroup(Route $route): void
     {
-        $item = NavItem::forRoute($route);
+        $item = NavigationItem::forRoute($route);
 
         $groupName = $this->generatesSidebar ? ($item->getGroupKey() ?? 'Other') : $item->getGroupKey();
 
@@ -153,7 +153,7 @@ class NavigationMenuGenerator
 
         if ($group instanceof NavGroupItem) {
             return $group;
-        } elseif ($group instanceof NavItem) {
+        } elseif ($group instanceof NavigationItem) {
             // We are trying to add children to an existing navigation menu item,
             // so here we create a new instance to replace the base one, this
             // does mean we lose the destination as we can't link to them.
@@ -177,7 +177,7 @@ class NavigationMenuGenerator
 
         $priority = $this->searchForGroupPriorityInConfig($groupKey);
 
-        return NavItem::forGroup($this->normalizeGroupLabel($label), [], $priority ?? NavigationMenu::LAST);
+        return NavigationItem::forGroup($this->normalizeGroupLabel($label), [], $priority ?? NavigationMenu::LAST);
     }
 
     protected function normalizeGroupLabel(string $label): string

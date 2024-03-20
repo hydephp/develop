@@ -15,9 +15,9 @@ use function collect;
  *
  * @todo Consider extracting trait for shared code with navigation menu class
  */
-class NavGroupItem extends NavItem
+class NavGroupItem extends NavigationItem
 {
-    /** @var array<\Hyde\Framework\Features\Navigation\NavItem> */
+    /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     protected array $items = [];
 
     public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
@@ -32,7 +32,7 @@ class NavGroupItem extends NavItem
      *
      * For the main navigation menu, this stores any dropdown items.
      *
-     * @return array<\Hyde\Framework\Features\Navigation\NavItem>
+     * @return array<\Hyde\Framework\Features\Navigation\NavigationItem>
      */
     public function getItems(): array
     {
@@ -42,7 +42,7 @@ class NavGroupItem extends NavItem
     /**
      * Add a navigation item to the grouped navigation item.
      */
-    public function addItem(NavItem $item): static
+    public function addItem(NavigationItem $item): static
     {
         $item->group ??= $this->group;
 
@@ -54,7 +54,7 @@ class NavGroupItem extends NavItem
     /**
      * Add multiple navigation items to the grouped navigation item.
      *
-     * @param  array<\Hyde\Framework\Features\Navigation\NavItem>  $items
+     * @param  array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items
      */
     public function addItems(array $items): static
     {
@@ -73,7 +73,7 @@ class NavGroupItem extends NavItem
     public function getPriority(): int
     {
         if ($this->containsOnlyDocumentationPages()) {
-            return min($this->priority, collect($this->getItems())->min(fn (NavItem $child): int => $child->getPriority()));
+            return min($this->priority, collect($this->getItems())->min(fn (NavigationItem $child): int => $child->getPriority()));
         }
 
         return parent::getPriority();
@@ -85,7 +85,7 @@ class NavGroupItem extends NavItem
             return false;
         }
 
-        return collect($this->getItems())->every(function (NavItem $child): bool {
+        return collect($this->getItems())->every(function (NavigationItem $child): bool {
             return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
     }
