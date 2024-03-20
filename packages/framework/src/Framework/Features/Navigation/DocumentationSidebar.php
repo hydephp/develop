@@ -85,12 +85,14 @@ class DocumentationSidebar extends NavigationMenu
     {
         // Unless the index page has a specific group set, the first group in the sidebar should be active when on the index page.
 
-        $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
+        if (Render::getPage()->navigationMenuGroup() !== null) {
+            return false;
+        }
 
         $firstGroupInSidebar = $this->getItems()->firstOrFail();
 
         $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar->getGroupKey();
 
-        return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
+        return $groupIsTheFirstOneInSidebar;
     }
 }
