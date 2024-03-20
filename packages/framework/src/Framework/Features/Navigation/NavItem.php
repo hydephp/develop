@@ -26,7 +26,7 @@ class NavItem implements Stringable
     protected ?Route $route;
     protected string $label;
     protected int $priority;
-    protected ?string $group;
+    protected ?string $group = null;
 
     /** @deprecated Use NavGroupItem::$items instead */
     protected array $items = [];
