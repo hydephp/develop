@@ -87,7 +87,7 @@ class DocumentationSidebar extends NavigationMenu
 
         $indexPageHasNoSetGroup = Render::getPage()->navigationMenuGroup() === null;
 
-        $firstGroupInSidebar = $this->getItems()->first();
+        $firstGroupInSidebar = $this->getItems()->firstOrFail();
 
         $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar->getGroupKey();
 
