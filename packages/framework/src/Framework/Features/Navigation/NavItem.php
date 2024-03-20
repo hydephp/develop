@@ -28,9 +28,6 @@ class NavItem implements Stringable
     protected int $priority;
     protected ?string $group = null;
 
-    /** @deprecated Use NavGroupItem::$items instead */
-    protected array $items = [];
-
     /**
      * Create a new navigation menu item.
      *
