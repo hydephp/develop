@@ -83,7 +83,7 @@ class DocumentationSidebar extends NavigationMenu
 
     private function shouldIndexPageBeActive(string $group): bool
     {
-        // Unless the index page has a specific group set, the first group in the sidebar should be active when on the index page.
+        // Unless the index page has a specific group set, the first group in the sidebar should be active visiting the index page.
 
         if (Render::getPage()->navigationMenuGroup() !== null) {
             return false;
