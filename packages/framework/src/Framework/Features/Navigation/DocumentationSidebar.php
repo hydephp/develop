@@ -10,6 +10,7 @@ use Hyde\Support\Facades\Render;
 use Illuminate\Contracts\Support\Arrayable;
 
 use function app;
+use function filled;
 use function is_string;
 
 class DocumentationSidebar extends NavigationMenu
@@ -85,7 +86,7 @@ class DocumentationSidebar extends NavigationMenu
     {
         // Unless the index page has a specific group set, the first group in the sidebar should be active visiting the index page.
 
-        if (Render::getPage()->navigationMenuGroup() !== null) {
+        if (filled(Render::getPage()->navigationMenuGroup())) {
             return false;
         }
 
