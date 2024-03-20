@@ -8,7 +8,6 @@ use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Str;
 
 use function app;
 use function is_string;
@@ -68,7 +67,7 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function isGroupActive(string $group): bool
     {
-        $groupMatchesCurrentPageGroup = Str::slug(Render::getPage()->navigationMenuGroup()) === $group;
+        $groupMatchesCurrentPageGroup = NavItem::normalizeGroupKey(Render::getPage()->navigationMenuGroup()) === $group;
         $currentPageIsIndexPageAndShouldBeActive = $this->isCurrentPageIndexPage() && $this->shouldIndexPageBeActive($group);
 
         return $groupMatchesCurrentPageGroup || $currentPageIsIndexPageAndShouldBeActive;
