@@ -35,13 +35,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function getFooter(): ?string
     {
-        $option = Config::get('docs.sidebar.footer', '[Back to home page](../)');
-
-        if (is_string($option)) {
-            return $option;
-        }
-
-        return null;
+        return Config::getNullableString('docs.sidebar.footer', '[Back to home page](../)');
     }
 
     public function hasFooter(): bool
