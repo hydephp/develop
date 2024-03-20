@@ -90,8 +90,6 @@ class DocumentationSidebar extends NavigationMenu
             return false;
         }
 
-        $firstGroupInSidebar = $this->getItems()->firstOrFail();
-
-        return $group === $firstGroupInSidebar->getGroupKey();
+        return $group === $this->getItems()->firstOrFail()->getGroupKey();
     }
 }
