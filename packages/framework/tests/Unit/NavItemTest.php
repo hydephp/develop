@@ -284,4 +284,9 @@ class NavItemTest extends UnitTestCase
         $this->assertSame('foo-bar', NavItem::normalizeGroupKey('foo-bar'));
         $this->assertSame('foo-bar', NavItem::normalizeGroupKey(' foo bar '));
     }
+
+    public function testNormalizeGroupKeyReturnsNullForNull()
+    {
+        $this->assertNull(NavItem::normalizeGroupKey(null));
+    }
 }
