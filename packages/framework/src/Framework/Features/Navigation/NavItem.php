@@ -152,8 +152,8 @@ class NavItem implements Stringable
         return Hyde::currentRoute()->getLink() === $this->route->getLink();
     }
 
-    public static function normalizeGroupKey(string $group): string
+    public static function normalizeGroupKey(?string $group): ?string
     {
-        return Str::slug($group);
+        return $group ? Str::slug($group) : null;
     }
 }
