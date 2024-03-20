@@ -20,15 +20,6 @@ class SidebarFooterTextViewTest extends TestCase
         $view->assertSeeHtml('<a href="../">Back to home page</a>');
     }
 
-    public function testSidebarFooterTextViewWhenConfigOptionIsTrue()
-    {
-        Config::set('docs.sidebar.footer', true);
-
-        $view = $this->view(view('hyde::components.docs.sidebar-footer-text', $this->withSidebar()));
-
-        $view->assertSeeHtml('<a href="../">Back to home page</a>');
-    }
-
     public function testSidebarFooterTextViewWhenConfigOptionIsMarkdownString()
     {
         Config::set('docs.sidebar.footer', 'Your Markdown String Here');

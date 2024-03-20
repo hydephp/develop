@@ -41,11 +41,6 @@ class DocumentationSidebar extends NavigationMenu
             return $option;
         }
 
-        if ($option === true) {
-            /** @deprecated Backwards compatibility */
-            return '[Back to home page](../)';
-        }
-
         return null;
     }
 
