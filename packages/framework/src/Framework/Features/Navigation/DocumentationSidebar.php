@@ -89,7 +89,7 @@ class DocumentationSidebar extends NavigationMenu
 
         $firstGroupInSidebar = $this->getItems()->first();
 
-        $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar?->getGroupKey();
+        $groupIsTheFirstOneInSidebar = $group === $firstGroupInSidebar->getGroupKey();
 
         return $indexPageHasNoSetGroup && $groupIsTheFirstOneInSidebar;
     }
