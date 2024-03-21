@@ -80,6 +80,8 @@ class NavigationItem implements Stringable
     /**
      * Create a new dropdown navigation menu item.
      *
+     * @deprecated Use NavigationGroup::create() instead.
+     *
      * TODO: Move to GroupedNavigationItem::create() as this solves the naming issue, and because it makes little sense for it to be here. It also resolves the self/static issue.
      *
      * @param  string  $label  The label of the dropdown item.
