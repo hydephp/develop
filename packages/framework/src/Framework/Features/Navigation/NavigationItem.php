@@ -18,10 +18,10 @@ use function is_string;
  *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
- *   2. You can use NavItem::fromRoute() to use data from the route
- *   3. You can use NavItem::forLink() for an external or un-routed link
+ *   2. You can use NavigationItem::fromRoute() to use data from the route
+ *   3. You can use NavigationItem::forLink() for an external or un-routed link
  */
-class NavItem implements Stringable
+class NavigationItem implements Stringable
 {
     protected ?Route $route;
     protected string $label;
@@ -83,12 +83,12 @@ class NavItem implements Stringable
      * Create a new dropdown navigation menu item.
      *
      * @param  string  $label  The label of the dropdown item.
-     * @param  array<NavItem>  $items  The items to be included in the dropdown.
+     * @param  array<NavigationItem>  $items  The items to be included in the dropdown.
      * @param  int  $priority  The priority of the dropdown item. Leave blank to use the default priority, which is last in the menu.
      */
-    public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): NavGroupItem
+    public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): GroupedNavigationItem
     {
-        return new NavGroupItem($label, $items, $priority);
+        return new GroupedNavigationItem($label, $items, $priority);
     }
 
     /**
@@ -145,7 +145,7 @@ class NavItem implements Stringable
     }
 
     /**
-     * Check if the NavItem instance is the current page being rendered.
+     * Check if the NavigationItem instance is the current page being rendered.
      */
     public function isActive(): bool
     {

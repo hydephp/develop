@@ -56,7 +56,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        return $this->getItems()->contains(fn (NavItem $item): bool => $item instanceof NavGroupItem);
+        return $this->getItems()->contains(fn (NavigationItem $item): bool => $item instanceof GroupedNavigationItem);
     }
 
     /**
@@ -66,11 +66,11 @@ class DocumentationSidebar extends NavigationMenu
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
      *
-     * We have this logic here because not all NavItem instances belong to sidebars, and we need data from both.
+     * We have this logic here because not all NavigationItem instances belong to sidebars, and we need data from both.
      */
     public function isGroupActive(string $group): bool
     {
-        $groupMatchesCurrentPageGroup = NavItem::normalizeGroupKey(Render::getPage()->navigationMenuGroup()) === $group;
+        $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey(Render::getPage()->navigationMenuGroup()) === $group;
 
         if ($this->isCurrentPageIndexPage()) {
             return $this->shouldIndexPageBeActive($group) || $groupMatchesCurrentPageGroup;

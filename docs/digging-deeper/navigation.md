@@ -230,18 +230,18 @@ To remove items from being automatically added, simply add the page's route key 
 
 ### Adding Custom Navigation Menu Links
 
-You can easily add custom navigation menu links similar to how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
+You can easily add custom navigation menu links similar to how we add Authors. Simply add a `NavigationItem` model to the `navigation.custom` array.
 
-When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the
+When linking to an external site, you should use the `NavigationItem::forLink()` method facade. The first two arguments are the
 destination and label, both required. The third argument is the priority, which is optional, and defaults to `500`.
 
 ```php
 // filepath config/hyde.php
-use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 
 'navigation' => [
     'custom' => [
-        NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+        NavigationItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
     ]
 ]
 ```
@@ -314,14 +314,14 @@ use Hyde\Framework\Features\Navigation\BaseNavigationMenu;
 Within the `BaseNavigationMenu` class, you will find the main logic for how the menus are generated,
 while the child implementations contain the extra logic tailored for their specific use cases.
 
-All the navigation menus store the menu items in their `$items` array containing instances of the `NavItem` class.
+All the navigation menus store the menu items in their `$items` array containing instances of the `NavigationItem` class.
 
-The `NavItem` class is a simple class that contains the label and URL of the menu item and is used to represent each item in the menu.
-Dropdowns are represented by `DropdownNavItem` instances, which extend the `NavItem` class and contain an array of additional `NavItem` instances.
+The `NavigationItem` class is a simple class that contains the label and URL of the menu item and is used to represent each item in the menu.
+Dropdowns are represented by `DropdownNavigationItem` instances, which extend the `NavigationItem` class and contain an array of additional `NavigationItem` instances.
 
 ```php
-use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Framework\Features\Navigation\DropdownNavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
+use Hyde\Framework\Features\Navigation\DropdownNavigationItem;
 ```
 
 ## The Navigation API

@@ -9,7 +9,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Testing\Support\TestView;
 use Illuminate\View\ComponentAttributeBag;
-use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Testing\TestCase;
 
 /**
@@ -29,7 +29,7 @@ class NavigationLinkViewTest extends TestCase
     protected function testView(): TestView
     {
         return $this->view(view('hyde::components.navigation.navigation-link', [
-            'item' => NavItem::forRoute(new Route(new InMemoryPage('foo')), 'Foo'),
+            'item' => NavigationItem::forRoute(new Route(new InMemoryPage('foo')), 'Foo'),
             'attributes' => new ComponentAttributeBag(),
         ]));
     }

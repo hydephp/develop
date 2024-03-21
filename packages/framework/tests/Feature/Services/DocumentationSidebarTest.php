@@ -8,7 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
@@ -23,7 +23,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
  * @covers \Hyde\Framework\Factories\Concerns\HasFactory
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Features\Navigation\NavItem
+ * @covers \Hyde\Framework\Features\Navigation\NavigationItem
  *
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  */
@@ -86,9 +86,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::forRoute(Routes::get('docs/a'), priority: 999),
-                NavItem::forRoute(Routes::get('docs/b'), priority: 999),
-                NavItem::forRoute(Routes::get('docs/c'), priority: 999),
+                NavigationItem::forRoute(Routes::get('docs/a'), priority: 999),
+                NavigationItem::forRoute(Routes::get('docs/b'), priority: 999),
+                NavigationItem::forRoute(Routes::get('docs/c'), priority: 999),
             ]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
@@ -107,9 +107,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::forRoute(Routes::get('docs/c'), priority: 250 + 250),
-                NavItem::forRoute(Routes::get('docs/b'), priority: 250 + 251),
-                NavItem::forRoute(Routes::get('docs/a'), priority: 250 + 252),
+                NavigationItem::forRoute(Routes::get('docs/c'), priority: 250 + 250),
+                NavigationItem::forRoute(Routes::get('docs/b'), priority: 250 + 251),
+                NavigationItem::forRoute(Routes::get('docs/a'), priority: 250 + 252),
             ]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
@@ -146,9 +146,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::forRoute(Routes::get('docs/first'), priority: 250 + 250),
-                NavItem::forRoute(Routes::get('docs/second'), priority: 250 + 252),
-                NavItem::forRoute(Routes::get('docs/third'), priority: 250 + 300),
+                NavigationItem::forRoute(Routes::get('docs/first'), priority: 250 + 250),
+                NavigationItem::forRoute(Routes::get('docs/second'), priority: 250 + 252),
+                NavigationItem::forRoute(Routes::get('docs/third'), priority: 250 + 300),
             ]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
@@ -195,7 +195,7 @@ class DocumentationSidebarTest extends TestCase
         Filesystem::touch('_docs/index.md');
 
         $this->assertEquals(
-            collect([NavItem::forRoute(Routes::get('docs/foo'), priority: 999)]),
+            collect([NavigationItem::forRoute(Routes::get('docs/foo'), priority: 999)]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
     }
@@ -267,11 +267,11 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::forGroup('Bar', [
-                    NavItem::forRoute(Routes::get('docs/bar'), priority: 999),
+                NavigationItem::forGroup('Bar', [
+                    NavigationItem::forRoute(Routes::get('docs/bar'), priority: 999),
                 ]),
-                NavItem::forGroup('Foo', [
-                    NavItem::forRoute(Routes::get('docs/foo'), priority: 999),
+                NavigationItem::forGroup('Foo', [
+                    NavigationItem::forRoute(Routes::get('docs/foo'), priority: 999),
                 ]),
             ]),
             $sidebar->getItems()
@@ -288,9 +288,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavItem::forGroup('Foo', [
-                    NavItem::forRoute(Routes::get('docs/bar'), priority: 999),
-                    NavItem::forRoute(Routes::get('docs/foo'), priority: 999),
+                NavigationItem::forGroup('Foo', [
+                    NavigationItem::forRoute(Routes::get('docs/bar'), priority: 999),
+                    NavigationItem::forRoute(Routes::get('docs/foo'), priority: 999),
                 ]),
             ]),
             $sidebar->getItems()
@@ -312,7 +312,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertCount(1, $sidebar->getItems());
         $this->assertEquals(
-            collect([NavItem::forRoute(Routes::get('docs/index'))]),
+            collect([NavigationItem::forRoute(Routes::get('docs/index'))]),
             $sidebar->getItems()
         );
     }
@@ -325,7 +325,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertCount(1, $sidebar->getItems());
         $this->assertEquals(
-            collect([NavItem::forRoute(Routes::get('docs/test-0'))]),
+            collect([NavigationItem::forRoute(Routes::get('docs/test-0'))]),
             $sidebar->getItems()
         );
     }
