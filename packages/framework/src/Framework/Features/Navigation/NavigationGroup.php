@@ -32,6 +32,7 @@ class NavigationGroup
 
     public function addItem(NavigationItem $item): static
     {
+        /** @deprecated I don't think we necessarily need to care about this */
         $item->group ??= $this->group;
 
         $this->items[] = $item;
