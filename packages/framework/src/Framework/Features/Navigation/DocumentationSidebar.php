@@ -92,6 +92,6 @@ class DocumentationSidebar extends NavigationMenu
             return false;
         }
 
-        return $group === $this->getItems()->firstOrFail()->getKey();
+        return $group === $this->getItems()->firstOrFail()->getGroupKey();
     }
 }
