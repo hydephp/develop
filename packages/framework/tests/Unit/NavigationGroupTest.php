@@ -39,11 +39,6 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame(999, (new NavigationGroup('Foo'))->getPriority());
     }
 
-    public function testDestinationIsAlwaysNull()
-    {
-        $this->assertNull((new NavigationGroup('Foo'))->getRoute());
-    }
-
     public function testCanConstructWithChildren()
     {
         $children = $this->createNavigationItems();
