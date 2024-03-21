@@ -16,6 +16,8 @@ use function is_string;
 /**
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
  *
+ * @todo Consider adding a NavigationElement contract to this class and new NavigationGroup class for shared methods and to allow easier type hinting.
+ *
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavigationItem::fromRoute() to use data from the route
