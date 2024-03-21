@@ -72,12 +72,6 @@ class NavigationGroup
         return $this;
     }
 
-    /** Get the key that identifies the group */
-    public function getKey(): string
-    {
-        return Str::slug($this->label);
-    }
-
     /**
      * Get the priority to determine the order of the grouped navigation item.
      *
@@ -103,5 +97,11 @@ class NavigationGroup
         return collect($this->getItems())->every(function (NavigationItem $child): bool {
             return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
+    }
+
+    /** Get the key that identifies the group */
+    public function getKey(): string
+    {
+        return Str::slug($this->label);
     }
 }
