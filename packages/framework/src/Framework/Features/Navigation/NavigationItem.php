@@ -61,7 +61,14 @@ class NavigationItem implements Stringable
      */
     public static function create(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
-        // TODO: Implement create() method.
+        $route = $route instanceof Route ? $route : Routes::getOrFail($route);
+
+        return new self(
+            $route,
+            $label ?? $route->getPage()->navigationMenuLabel(),
+            $priority ?? $route->getPage()->navigationMenuPriority(),
+            $group ?? $route->getPage()->navigationMenuGroup(),
+        );
     }
 
     /**
@@ -76,14 +83,7 @@ class NavigationItem implements Stringable
      */
     public static function forRoute(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): self
     {
-        $route = $route instanceof Route ? $route : Routes::getOrFail($route);
-
-        return new self(
-            $route,
-            $label ?? $route->getPage()->navigationMenuLabel(),
-            $priority ?? $route->getPage()->navigationMenuPriority(),
-            $group ?? $route->getPage()->navigationMenuGroup(),
-        );
+        return self::create($route, $label, $priority, $group);
     }
 
     /**
