@@ -84,7 +84,7 @@ class NavigationItem implements Stringable
      */
     public static function forLink(string $href, string $label, int $priority = NavigationMenu::DEFAULT): self
     {
-        return new self($href, $label, $priority);
+        return self::create($href, $label, $priority);
     }
 
     /**
