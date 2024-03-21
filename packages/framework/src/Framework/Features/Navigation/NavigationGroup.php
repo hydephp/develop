@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Illuminate\Support\Str;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ExternalRoute;
 
@@ -39,7 +40,7 @@ class NavigationGroup
     public function addItem(NavigationItem $item): static
     {
         /** @deprecated I don't think we necessarily need to care about this */
-        $item->group ??= $this->group;
+        $item->setGroup($item->getGroupKey() ?? Str::slug($this->label));
 
         $this->items[] = $item;
 
