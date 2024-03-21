@@ -73,6 +73,8 @@ class NavigationItem implements Stringable
                 $group ?? $route->getPage()->navigationMenuGroup(),
             );
         }
+
+        return new self($route, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
     }
 
     /**
