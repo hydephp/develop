@@ -122,7 +122,7 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame('index.html', (string) NavigationItem::create(Routes::get('index')));
     }
 
-    public function testForLink()
+    public function testCreateWithLink()
     {
         $item = NavigationItem::forLink('foo', 'bar');
 
@@ -131,7 +131,7 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame(500, $item->getPriority());
     }
 
-    public function testForLinkWithCustomPriority()
+    public function testCreateWithLinkWithCustomPriority()
     {
         $this->assertSame(100, NavigationItem::forLink('foo', 'bar', 100)->getPriority());
     }

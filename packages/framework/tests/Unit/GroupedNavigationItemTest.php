@@ -188,7 +188,7 @@ class GroupedNavigationItemTest extends UnitTestCase
         $this->assertSame(NavigationItem::class, $item::class);
     }
 
-    public function testForLink()
+    public function testCreateWithLink()
     {
         $item = GroupedNavigationItem::forLink('foo', 'bar');
 
