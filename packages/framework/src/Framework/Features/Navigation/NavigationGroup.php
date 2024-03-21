@@ -10,4 +10,12 @@ class NavigationGroup
     protected array $items = [];
     protected string $label;
     protected int $priority;
+
+    public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
+    {
+        $this->label = $label;
+        $this->priority = $priority;
+
+        $this->addItems($items);
+    }
 }
