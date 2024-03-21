@@ -23,4 +23,10 @@ class NavigationGroup
     {
         return new static($label, $items, $priority);
     }
+
+    /** @return array<\Hyde\Framework\Features\Navigation\NavigationItem> */
+    public function getItems(): array
+    {
+        return $this->items;
+    }
 }
