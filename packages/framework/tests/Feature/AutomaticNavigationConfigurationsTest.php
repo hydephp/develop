@@ -18,7 +18,7 @@ use Hyde\Support\Models\Redirect;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavigationItem;
-use Hyde\Framework\Features\Navigation\GroupedNavigationItem;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
@@ -1320,7 +1320,7 @@ class AssertableNavigationMenu
     public function state(): array
     {
         return $this->items->map(function (NavigationItem $item): TestNavigationItem {
-            return new TestNavigationItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof GroupedNavigationItem ? $item->getItems() : []);
+            return new TestNavigationItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof NavigationGroup ? $item->getItems() : []);
         })->toArray();
     }
 
