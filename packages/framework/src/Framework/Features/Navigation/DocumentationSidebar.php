@@ -56,7 +56,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function hasGroups(): bool
     {
-        return $this->getItems()->contains(fn (NavigationItem $item): bool => $item instanceof NavigationGroup);
+        return $this->getItems()->contains(fn (NavigationItem|NavigationGroup $item): bool => $item instanceof NavigationGroup);
     }
 
     /**

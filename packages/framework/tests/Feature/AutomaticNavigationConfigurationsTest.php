@@ -1293,7 +1293,7 @@ class TestNavigationItem
         $this->label = $label;
         $this->group = $group;
         $this->priority = $priority;
-        $this->children = collect($children)->map(fn (NavigationItem $child) => $child->getLabel())->toArray();
+        $this->children = collect($children)->map(fn (NavigationItem|NavigationGroup $child) => $child->getLabel())->toArray();
     }
 
     public static function properties(): array
@@ -1319,7 +1319,7 @@ class AssertableNavigationMenu
     /** A simplified serialized format for comparisons */
     public function state(): array
     {
-        return $this->items->map(function (NavigationItem $item): TestNavigationItem {
+        return $this->items->map(function (NavigationItem|NavigationGroup $item): TestNavigationItem {
             return new TestNavigationItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof NavigationGroup ? $item->getItems() : []);
         })->toArray();
     }
