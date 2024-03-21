@@ -124,7 +124,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithLink()
     {
-        $item = NavigationItem::forLink('foo', 'bar');
+        $item = NavigationItem::create('foo', 'bar');
 
         $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
         $this->assertSame('bar', $item->getLabel());
@@ -133,7 +133,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithLinkWithCustomPriority()
     {
-        $this->assertSame(100, NavigationItem::forLink('foo', 'bar', 100)->getPriority());
+        $this->assertSame(100, NavigationItem::create('foo', 'bar', 100)->getPriority());
     }
 
     public function testCreate()
@@ -244,8 +244,8 @@ class NavigationItemTest extends UnitTestCase
             'getRoute' => new Route(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
-        $this->assertFalse(NavigationItem::forLink('foo', 'bar')->isActive());
-        $this->assertFalse(NavigationItem::forLink('https://example.com', 'bar')->isActive());
+        $this->assertFalse(NavigationItem::create('foo', 'bar')->isActive());
+        $this->assertFalse(NavigationItem::create('https://example.com', 'bar')->isActive());
     }
 
     public function testGetGroupWithNoGroup()

@@ -190,7 +190,7 @@ class GroupedNavigationItemTest extends UnitTestCase
 
     public function testCreateWithLink()
     {
-        $item = GroupedNavigationItem::forLink('foo', 'bar');
+        $item = GroupedNavigationItem::create('foo', 'bar');
 
         $this->assertInstanceOf(NavigationItem::class, $item);
         $this->assertNotInstanceOf(GroupedNavigationItem::class, $item);

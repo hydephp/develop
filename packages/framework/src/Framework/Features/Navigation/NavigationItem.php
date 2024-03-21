@@ -19,7 +19,7 @@ use function is_string;
  * You have a few options to construct a navigation menu item:
  *   1. You can supply a Route directly and explicit properties to the constructor
  *   2. You can use NavigationItem::fromRoute() to use data from the route
- *   3. You can use NavigationItem::forLink() for an external or un-routed link
+ *   3. You can use NavigationItem::create() for an external or un-routed link
  */
 class NavigationItem implements Stringable
 {
@@ -75,16 +75,6 @@ class NavigationItem implements Stringable
         }
 
         return new self($route, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
-    }
-
-    /**
-     * Create a new navigation menu item leading to an external URI.
-     *
-     * TODO: Merge into a create method
-     */
-    public static function forLink(string $href, string $label, int $priority = NavigationMenu::DEFAULT): self
-    {
-        return self::create($href, $label, $priority);
     }
 
     /**

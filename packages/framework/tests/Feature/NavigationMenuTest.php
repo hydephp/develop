@@ -93,13 +93,13 @@ class NavigationMenuTest extends TestCase
 
     public function testExternalLinkCanBeAddedInConfig()
     {
-        config(['hyde.navigation.custom' => [NavigationItem::forLink('https://example.com', 'foo')]]);
+        config(['hyde.navigation.custom' => [NavigationItem::create('https://example.com', 'foo')]]);
 
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
-            NavigationItem::forLink('https://example.com', 'foo'),
+            NavigationItem::create('https://example.com', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -108,13 +108,13 @@ class NavigationMenuTest extends TestCase
 
     public function testPathLinkCanBeAddedInConfig()
     {
-        config(['hyde.navigation.custom' => [NavigationItem::forLink('foo', 'foo')]]);
+        config(['hyde.navigation.custom' => [NavigationItem::create('foo', 'foo')]]);
 
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
-            NavigationItem::forLink('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -124,16 +124,16 @@ class NavigationMenuTest extends TestCase
     public function testDuplicatesAreNotRemovedWhenAddingInConfig()
     {
         config(['hyde.navigation.custom' => [
-            NavigationItem::forLink('foo', 'foo'),
-            NavigationItem::forLink('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
         ]]);
 
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
-            NavigationItem::forLink('foo', 'foo'),
-            NavigationItem::forLink('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -143,16 +143,16 @@ class NavigationMenuTest extends TestCase
     public function testDuplicatesAreNotRemovedWhenAddingInConfigRegardlessOfDestination()
     {
         config(['hyde.navigation.custom' => [
-            NavigationItem::forLink('foo', 'foo'),
-            NavigationItem::forLink('bar', 'foo'),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('bar', 'foo'),
         ]]);
 
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
-            NavigationItem::forLink('foo', 'foo'),
-            NavigationItem::forLink('bar', 'foo'),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('bar', 'foo'),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -163,13 +163,13 @@ class NavigationMenuTest extends TestCase
     {
         $this->file('_pages/foo.md');
 
-        config(['hyde.navigation.custom' => [NavigationItem::forLink('bar', 'Foo')]]);
+        config(['hyde.navigation.custom' => [NavigationItem::create('bar', 'Foo')]]);
 
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
-            NavigationItem::forLink('bar', 'Foo'),
+            NavigationItem::create('bar', 'Foo'),
             NavigationItem::create(Routes::get('foo')),
         ]);
 
