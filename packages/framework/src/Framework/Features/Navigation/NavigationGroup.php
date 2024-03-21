@@ -46,16 +46,6 @@ class NavigationGroup
         return $this->label;
     }
 
-    /**
-     * @todo Put into contract shared with NavigationItem class
-     *
-     * Get the priority to determine the order of the navigation item.
-     */
-    public function getPriority(): int
-    {
-        return $this->priority;
-    }
-
     /** @return array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     public function getItems(): array
     {
@@ -84,6 +74,8 @@ class NavigationGroup
 
     /**
      * Get the priority to determine the order of the grouped navigation item.
+     *
+     * @todo Put into contract shared with NavigationItem class
      *
      * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown itself has a lower priority.
      */
