@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\ExternalRoute;
+
+use function min;
+use function collect;
+
 class NavigationGroup
 {
     /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
@@ -48,5 +54,30 @@ class NavigationGroup
         }
 
         return $this;
+    }
+
+    /**
+     * Get the priority to determine the order of the grouped navigation item.
+     *
+     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown itself has a lower priority.
+     */
+    public function getPriority(): int
+    {
+        if ($this->containsOnlyDocumentationPages()) {
+            return min($this->priority, collect($this->getItems())->min(fn (NavigationItem $child): int => $child->getPriority()));
+        }
+
+        return $this->priority;
+    }
+
+    protected function containsOnlyDocumentationPages(): bool
+    {
+        if (empty($this->getItems())) {
+            return false;
+        }
+
+        return collect($this->getItems())->every(function (NavigationItem $child): bool {
+            return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
+        });
     }
 }
