@@ -8,4 +8,6 @@ class NavigationGroup
 {
     /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     protected array $items = [];
+    protected string $label;
+    protected int $priority;
 }
