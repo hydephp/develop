@@ -59,7 +59,7 @@ class NavigationItem implements Stringable
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page.
      */
-    public static function create(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): static
+    public static function create(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): self
     {
         $route = $route instanceof Route ? $route : Routes::getOrFail($route);
 
