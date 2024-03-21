@@ -54,27 +54,27 @@ class NavigationItem implements Stringable
     /**
      * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
      *
-     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $route  Route instance or route key, or external URI.
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>  $destination  Route instance or route key, or external URI.
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page, if there is one tied to the route.
      */
-    public static function create(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): self
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): self
     {
-        if (is_string($route)) {
-            $route = Routes::get($route) ?? new ExternalRoute($route);
+        if (is_string($destination)) {
+            $destination = Routes::get($destination) ?? new ExternalRoute($destination);
         }
 
-        if ($route instanceof Route && ! $route instanceof ExternalRoute) {
+        if ($destination instanceof Route && ! $destination instanceof ExternalRoute) {
             return new self(
-                $route,
-                $label ?? $route->getPage()->navigationMenuLabel(),
-                $priority ?? $route->getPage()->navigationMenuPriority(),
-                $group ?? $route->getPage()->navigationMenuGroup(),
+                $destination,
+                $label ?? $destination->getPage()->navigationMenuLabel(),
+                $priority ?? $destination->getPage()->navigationMenuPriority(),
+                $group ?? $destination->getPage()->navigationMenuGroup(),
             );
         }
 
-        return new self($route, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
+        return new self($destination, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
     }
 
     /**
