@@ -38,7 +38,7 @@ class NavigationMenuTest extends TestCase
     public function testGetItemsReturnsItems()
     {
         $this->assertEquals(collect([
-            NavigationItem::forRoute(Routes::get('index')),
+            NavigationItem::create(Routes::get('index')),
         ]), $this->createNavigationMenu()->getItems());
     }
 
@@ -67,9 +67,9 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
-            NavigationItem::forRoute(Routes::get('foo')),
-            NavigationItem::forRoute(Routes::get('docs/index')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('foo')),
+            NavigationItem::create(Routes::get('docs/index')),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -83,8 +83,8 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
-            NavigationItem::forRoute(Routes::get('foo')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('foo')),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -98,7 +98,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
+            NavigationItem::create(Routes::get('index')),
             NavigationItem::forLink('https://example.com', 'foo'),
         ]);
 
@@ -113,7 +113,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
+            NavigationItem::create(Routes::get('index')),
             NavigationItem::forLink('foo', 'foo'),
         ]);
 
@@ -131,7 +131,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
+            NavigationItem::create(Routes::get('index')),
             NavigationItem::forLink('foo', 'foo'),
             NavigationItem::forLink('foo', 'foo'),
         ]);
@@ -150,7 +150,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
+            NavigationItem::create(Routes::get('index')),
             NavigationItem::forLink('foo', 'foo'),
             NavigationItem::forLink('bar', 'foo'),
         ]);
@@ -168,9 +168,9 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
+            NavigationItem::create(Routes::get('index')),
             NavigationItem::forLink('bar', 'Foo'),
-            NavigationItem::forRoute(Routes::get('foo')),
+            NavigationItem::create(Routes::get('foo')),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -185,8 +185,8 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
-            NavigationItem::forRoute(Routes::get('docs/index')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('docs/index')),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -199,7 +199,7 @@ class NavigationMenuTest extends TestCase
         $this->file('_pages/foo/bar.md');
 
         $menu = $this->createNavigationMenu();
-        $expected = collect([NavigationItem::forRoute(Routes::get('index'))]);
+        $expected = collect([NavigationItem::create(Routes::get('index'))]);
 
         $this->assertCount(count($expected), $menu->getItems());
         $this->assertEquals($expected, $menu->getItems());
@@ -213,8 +213,8 @@ class NavigationMenuTest extends TestCase
 
         $menu = $this->createNavigationMenu();
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
-            NavigationItem::forRoute(Routes::get('foo/bar')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('foo/bar')),
         ]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -229,9 +229,9 @@ class NavigationMenuTest extends TestCase
 
         $menu = $this->createNavigationMenu();
         $expected = collect([
-            NavigationItem::forRoute(Routes::get('index')),
+            NavigationItem::create(Routes::get('index')),
             NavigationItem::forGroup('Foo', [
-                NavigationItem::forRoute(Routes::get('foo/bar')),
+                NavigationItem::create(Routes::get('foo/bar')),
             ]),
         ]);
 
@@ -249,10 +249,10 @@ class NavigationMenuTest extends TestCase
 
         $this->assertCount(3, $menu->getItems());
         $this->assertEquals([
-            NavigationItem::forRoute(Routes::get('index')),
-            NavigationItem::forRoute((new MarkdownPage('foo'))->getRoute()),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create((new MarkdownPage('foo'))->getRoute()),
             NavigationItem::forGroup('Bar', [
-                NavigationItem::forRoute((new MarkdownPage('bar/baz'))->getRoute()),
+                NavigationItem::create((new MarkdownPage('bar/baz'))->getRoute()),
             ]),
         ], $menu->getItems()->all());
     }

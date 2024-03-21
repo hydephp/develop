@@ -179,9 +179,9 @@ class GroupedNavigationItemTest extends UnitTestCase
         $this->assertSame(999, (new GroupedNavigationItem('Foo', [new NavigationItem('https://example.com', 'Bar', 100)]))->getPriority());
     }
 
-    public function testForRoute()
+    public function testCreate()
     {
-        $item = GroupedNavigationItem::forRoute(new Route(new InMemoryPage('foo')));
+        $item = GroupedNavigationItem::create(new Route(new InMemoryPage('foo')));
 
         $this->assertInstanceOf(NavigationItem::class, $item);
         $this->assertNotInstanceOf(GroupedNavigationItem::class, $item);

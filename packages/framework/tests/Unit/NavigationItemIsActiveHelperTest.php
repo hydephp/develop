@@ -34,19 +34,19 @@ class NavigationItemIsActiveHelperTest extends UnitTestCase
     public function testIsCurrent()
     {
         $this->mockRenderData($this->makeRoute('foo'));
-        $this->assertFalse(NavigationItem::forRoute($this->makeRoute('bar'))->isActive());
+        $this->assertFalse(NavigationItem::create($this->makeRoute('bar'))->isActive());
     }
 
     public function testIsCurrentWhenCurrent()
     {
         $this->mockRenderData($this->makeRoute('foo'));
-        $this->assertTrue(NavigationItem::forRoute($this->makeRoute('foo'))->isActive());
+        $this->assertTrue(NavigationItem::create($this->makeRoute('foo'))->isActive());
     }
 
     public function testIsCurrentUsingCurrentRoute()
     {
         $this->mockRenderData($this->makeRoute('index'));
-        $this->assertTrue(NavigationItem::forRoute(Routes::get('index'))->isActive());
+        $this->assertTrue(NavigationItem::create(Routes::get('index'))->isActive());
     }
 
     public function testIsCurrentUsingCurrentLink()
@@ -58,13 +58,13 @@ class NavigationItemIsActiveHelperTest extends UnitTestCase
     public function testIsCurrentWhenNotCurrent()
     {
         $this->mockRenderData($this->makeRoute('foo'));
-        $this->assertFalse(NavigationItem::forRoute($this->makeRoute('bar'))->isActive());
+        $this->assertFalse(NavigationItem::create($this->makeRoute('bar'))->isActive());
     }
 
     public function testIsCurrentUsingNotCurrentRoute()
     {
         $this->mockRenderData($this->makeRoute('foo'));
-        $this->assertFalse(NavigationItem::forRoute(Routes::get('index'))->isActive());
+        $this->assertFalse(NavigationItem::create(Routes::get('index'))->isActive());
     }
 
     public function testIsCurrentUsingNotCurrentLink()
@@ -76,49 +76,49 @@ class NavigationItemIsActiveHelperTest extends UnitTestCase
     public function testIsCurrentWithNestedCurrentPage()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertFalse(NavigationItem::forRoute($this->makeRoute('bar'))->isActive());
+        $this->assertFalse(NavigationItem::create($this->makeRoute('bar'))->isActive());
     }
 
     public function testIsCurrentWhenCurrentWithNestedCurrentPage()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertTrue(NavigationItem::forRoute($this->makeRoute('foo/bar'))->isActive());
+        $this->assertTrue(NavigationItem::create($this->makeRoute('foo/bar'))->isActive());
     }
 
     public function testIsCurrentWithNestedCurrentPageWhenNested()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertTrue(NavigationItem::forRoute($this->makeRoute('foo/bar'))->isActive());
+        $this->assertTrue(NavigationItem::create($this->makeRoute('foo/bar'))->isActive());
     }
 
     public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenNested()
     {
         $this->mockRenderData($this->makeRoute('foo/bar'));
-        $this->assertFalse(NavigationItem::forRoute($this->makeRoute('foo/baz'))->isActive());
+        $this->assertFalse(NavigationItem::create($this->makeRoute('foo/baz'))->isActive());
     }
 
     public function testIsCurrentWithNestedCurrentPageWhenVeryNested()
     {
         $this->mockRenderData($this->makeRoute('foo/bar/baz'));
-        $this->assertTrue(NavigationItem::forRoute($this->makeRoute('foo/bar/baz'))->isActive());
+        $this->assertTrue(NavigationItem::create($this->makeRoute('foo/bar/baz'))->isActive());
     }
 
     public function testIsCurrentWhenCurrentWithNestedCurrentPageWhenVeryNested()
     {
         $this->mockRenderData($this->makeRoute('foo/bar/baz'));
-        $this->assertFalse(NavigationItem::forRoute($this->makeRoute('foo/baz/bar'))->isActive());
+        $this->assertFalse(NavigationItem::create($this->makeRoute('foo/baz/bar'))->isActive());
     }
 
     public function testIsCurrentWithNestedCurrentPageWhenVeryDifferingNested()
     {
         $this->mockRenderData($this->makeRoute('foo'));
-        $this->assertFalse(NavigationItem::forRoute($this->makeRoute('foo/bar/baz'))->isActive());
+        $this->assertFalse(NavigationItem::create($this->makeRoute('foo/bar/baz'))->isActive());
     }
 
     public function testIsCurrentWithNestedCurrentPageWhenVeryDifferingNestedInverse()
     {
         $this->mockRenderData($this->makeRoute('foo/bar/baz'));
-        $this->assertFalse(NavigationItem::forRoute($this->makeRoute('foo'))->isActive());
+        $this->assertFalse(NavigationItem::create($this->makeRoute('foo'))->isActive());
     }
 
     public function testIsCurrentUsingCurrentLinkWithNestedCurrentPage()

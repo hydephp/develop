@@ -86,9 +86,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavigationItem::forRoute(Routes::get('docs/a'), priority: 999),
-                NavigationItem::forRoute(Routes::get('docs/b'), priority: 999),
-                NavigationItem::forRoute(Routes::get('docs/c'), priority: 999),
+                NavigationItem::create(Routes::get('docs/a'), priority: 999),
+                NavigationItem::create(Routes::get('docs/b'), priority: 999),
+                NavigationItem::create(Routes::get('docs/c'), priority: 999),
             ]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
@@ -107,9 +107,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavigationItem::forRoute(Routes::get('docs/c'), priority: 250 + 250),
-                NavigationItem::forRoute(Routes::get('docs/b'), priority: 250 + 251),
-                NavigationItem::forRoute(Routes::get('docs/a'), priority: 250 + 252),
+                NavigationItem::create(Routes::get('docs/c'), priority: 250 + 250),
+                NavigationItem::create(Routes::get('docs/b'), priority: 250 + 251),
+                NavigationItem::create(Routes::get('docs/a'), priority: 250 + 252),
             ]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
@@ -146,9 +146,9 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavigationItem::forRoute(Routes::get('docs/first'), priority: 250 + 250),
-                NavigationItem::forRoute(Routes::get('docs/second'), priority: 250 + 252),
-                NavigationItem::forRoute(Routes::get('docs/third'), priority: 250 + 300),
+                NavigationItem::create(Routes::get('docs/first'), priority: 250 + 250),
+                NavigationItem::create(Routes::get('docs/second'), priority: 250 + 252),
+                NavigationItem::create(Routes::get('docs/third'), priority: 250 + 300),
             ]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
@@ -195,7 +195,7 @@ class DocumentationSidebarTest extends TestCase
         Filesystem::touch('_docs/index.md');
 
         $this->assertEquals(
-            collect([NavigationItem::forRoute(Routes::get('docs/foo'), priority: 999)]),
+            collect([NavigationItem::create(Routes::get('docs/foo'), priority: 999)]),
             NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()
         );
     }
@@ -268,10 +268,10 @@ class DocumentationSidebarTest extends TestCase
         $this->assertEquals(
             collect([
                 NavigationItem::forGroup('Bar', [
-                    NavigationItem::forRoute(Routes::get('docs/bar'), priority: 999),
+                    NavigationItem::create(Routes::get('docs/bar'), priority: 999),
                 ]),
                 NavigationItem::forGroup('Foo', [
-                    NavigationItem::forRoute(Routes::get('docs/foo'), priority: 999),
+                    NavigationItem::create(Routes::get('docs/foo'), priority: 999),
                 ]),
             ]),
             $sidebar->getItems()
@@ -289,8 +289,8 @@ class DocumentationSidebarTest extends TestCase
         $this->assertEquals(
             collect([
                 NavigationItem::forGroup('Foo', [
-                    NavigationItem::forRoute(Routes::get('docs/bar'), priority: 999),
-                    NavigationItem::forRoute(Routes::get('docs/foo'), priority: 999),
+                    NavigationItem::create(Routes::get('docs/bar'), priority: 999),
+                    NavigationItem::create(Routes::get('docs/foo'), priority: 999),
                 ]),
             ]),
             $sidebar->getItems()
@@ -312,7 +312,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertCount(1, $sidebar->getItems());
         $this->assertEquals(
-            collect([NavigationItem::forRoute(Routes::get('docs/index'))]),
+            collect([NavigationItem::create(Routes::get('docs/index'))]),
             $sidebar->getItems()
         );
     }
@@ -325,7 +325,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertCount(1, $sidebar->getItems());
         $this->assertEquals(
-            collect([NavigationItem::forRoute(Routes::get('docs/test-0'))]),
+            collect([NavigationItem::create(Routes::get('docs/test-0'))]),
             $sidebar->getItems()
         );
     }

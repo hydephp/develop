@@ -71,7 +71,7 @@ class NavigationMenuGenerator
                 if ($this->canGroupRoute($route)) {
                     $this->addRouteToGroup($route);
                 } else {
-                    $this->items->put($route->getRouteKey(), NavigationItem::forRoute($route));
+                    $this->items->put($route->getRouteKey(), NavigationItem::create($route));
                 }
             }
         });
@@ -79,7 +79,7 @@ class NavigationMenuGenerator
         if ($this->generatesSidebar) {
             // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
             if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
-                $this->items->push(NavigationItem::forRoute(DocumentationPage::home()));
+                $this->items->push(NavigationItem::create(DocumentationPage::home()));
             }
         } else {
             collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavigationItem $item): void {
@@ -133,7 +133,7 @@ class NavigationMenuGenerator
 
     protected function addRouteToGroup(Route $route): void
     {
-        $item = NavigationItem::forRoute($route);
+        $item = NavigationItem::create($route);
 
         $groupName = $this->generatesSidebar ? ($item->getGroupKey() ?? 'Other') : $item->getGroupKey();
 
