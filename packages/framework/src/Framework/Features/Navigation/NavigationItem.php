@@ -29,7 +29,7 @@ class NavigationItem implements Stringable
     protected ?string $group = null;
 
     /**
-     * Create a new navigation menu item.
+     * Create a new navigation menu item with your own properties.
      *
      * @param  \Hyde\Support\Models\Route|string|null  $destination  Route instance, route key, or external URI. For dropdowns/groups, this should be null.
      * @param  string  $label  The label of the navigation item.
