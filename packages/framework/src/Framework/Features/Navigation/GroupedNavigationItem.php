@@ -15,6 +15,8 @@ use function collect;
  * Abstraction for a grouped navigation menu item. For main navigation menus, this is a dropdown.
  *
  * @todo Consider extracting trait for shared code with navigation menu class
+ *
+ * @deprecated Use NavigationGroup instead
  */
 class GroupedNavigationItem extends NavigationItem
 {
