@@ -52,6 +52,14 @@ class NavigationItem implements Stringable
     }
 
     /**
+     * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
+     */
+    public static function create(): static
+    {
+        // TODO: Implement create() method.
+    }
+
+    /**
      * Create a new navigation menu item leading to a Route instance.
      *
      * TODO: Merge into a create method
