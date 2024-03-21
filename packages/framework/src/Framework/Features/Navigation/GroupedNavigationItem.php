@@ -15,7 +15,7 @@ use function collect;
  *
  * @todo Consider extracting trait for shared code with navigation menu class
  */
-class NavGroupItem extends NavigationItem
+class GroupedNavigationItem extends NavigationItem
 {
     /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     protected array $items = [];

@@ -11,12 +11,12 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\NavigationItem;
-use Hyde\Framework\Features\Navigation\NavGroupItem;
+use Hyde\Framework\Features\Navigation\GroupedNavigationItem;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NavGroupItem
+ * @covers \Hyde\Framework\Features\Navigation\GroupedNavigationItem
  */
-class NavGroupItemTest extends UnitTestCase
+class GroupedNavigationItemTest extends UnitTestCase
 {
     public static function setUpBeforeClass(): void
     {
@@ -26,28 +26,28 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanConstruct()
     {
-        $this->assertSame('Foo', (new NavGroupItem('Foo'))->getLabel());
+        $this->assertSame('Foo', (new GroupedNavigationItem('Foo'))->getLabel());
     }
 
     public function testCanConstructWithPriority()
     {
-        $this->assertSame(500, (new NavGroupItem('Foo', priority: 500))->getPriority());
+        $this->assertSame(500, (new GroupedNavigationItem('Foo', priority: 500))->getPriority());
     }
 
     public function testDefaultPriorityValueIsLast()
     {
-        $this->assertSame(999, (new NavGroupItem('Foo'))->getPriority());
+        $this->assertSame(999, (new GroupedNavigationItem('Foo'))->getPriority());
     }
 
     public function testDestinationIsAlwaysNull()
     {
-        $this->assertNull((new NavGroupItem('Foo'))->getRoute());
+        $this->assertNull((new GroupedNavigationItem('Foo'))->getRoute());
     }
 
     public function testCanConstructWithChildren()
     {
         $children = $this->createNavigationItems();
-        $item = new NavGroupItem('Foo', $children);
+        $item = new GroupedNavigationItem('Foo', $children);
 
         $this->assertCount(2, $item->getItems());
         $this->assertSame($children, $item->getItems());
@@ -56,7 +56,7 @@ class NavGroupItemTest extends UnitTestCase
     public function testCanConstructWithChildrenWithoutRoute()
     {
         $children = $this->createNavigationItems();
-        $item = new NavGroupItem('Foo', $children);
+        $item = new GroupedNavigationItem('Foo', $children);
 
         $this->assertCount(2, $item->getItems());
         $this->assertSame($children, $item->getItems());
@@ -65,19 +65,19 @@ class NavGroupItemTest extends UnitTestCase
     public function testGetItems()
     {
         $children = $this->createNavigationItems();
-        $item = new NavGroupItem('Foo', $children);
+        $item = new GroupedNavigationItem('Foo', $children);
 
         $this->assertSame($children, $item->getItems());
     }
 
     public function testGetItemsWithNoItems()
     {
-        $this->assertEmpty((new NavGroupItem('Foo'))->getItems());
+        $this->assertEmpty((new GroupedNavigationItem('Foo'))->getItems());
     }
 
     public function testCanAddItemToDropdown()
     {
-        $group = new NavGroupItem('Foo');
+        $group = new GroupedNavigationItem('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
         $this->assertSame([$child], $group->addItem($child)->getItems());
@@ -85,7 +85,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddChildMethodReturnsSelf()
     {
-        $group = new NavGroupItem('Foo');
+        $group = new GroupedNavigationItem('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
         $this->assertSame($group, $group->addItem($child));
@@ -93,7 +93,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testCanAddMultipleItemsToDropdown()
     {
-        $group = new NavGroupItem('Foo');
+        $group = new GroupedNavigationItem('Foo');
         $items = $this->createNavigationItems();
 
         $this->assertSame($items, $group->addItems($items)->getItems());
@@ -101,14 +101,14 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddChildrenMethodReturnsSelf()
     {
-        $group = new NavGroupItem('Foo');
+        $group = new GroupedNavigationItem('Foo');
 
         $this->assertSame($group, $group->addItems([]));
     }
 
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
     {
-        $group = new NavGroupItem('Foo');
+        $group = new GroupedNavigationItem('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Child', group: 'bar');
 
         $group->addItem($child);
@@ -119,7 +119,7 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testAddingAnItemWithNoGroupKeyUsesGroupIdentifier()
     {
-        $group = new NavGroupItem('Foo');
+        $group = new GroupedNavigationItem('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
         $group->addItem($child);
@@ -130,17 +130,17 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetPriorityUsesDefaultPriority()
     {
-        $this->assertSame(999, (new NavGroupItem('Foo'))->getPriority());
+        $this->assertSame(999, (new GroupedNavigationItem('Foo'))->getPriority());
     }
 
     public function testGetPriorityWithNoChildrenUsesGroupPriority()
     {
-        $this->assertSame(999, (new NavGroupItem('Foo'))->getPriority());
+        $this->assertSame(999, (new GroupedNavigationItem('Foo'))->getPriority());
     }
 
     public function testGetPriorityWithChildrenUsesGroupPriority()
     {
-        $group = new NavGroupItem('Foo', [new NavigationItem(new Route(new MarkdownPage()), 'Bar', 100)]);
+        $group = new GroupedNavigationItem('Foo', [new NavigationItem(new Route(new MarkdownPage()), 'Bar', 100)]);
 
         $this->assertSame(999, $group->getPriority());
     }
@@ -153,13 +153,13 @@ class NavGroupItemTest extends UnitTestCase
             new NavigationItem(new Route(new DocumentationPage()), 'Baz', 300),
         ];
 
-        $this->assertSame(100, (new NavGroupItem('Foo', $items))->getPriority());
-        $this->assertSame(100, (new NavGroupItem('Foo', array_reverse($items)))->getPriority());
+        $this->assertSame(100, (new GroupedNavigationItem('Foo', $items))->getPriority());
+        $this->assertSame(100, (new GroupedNavigationItem('Foo', array_reverse($items)))->getPriority());
     }
 
     public function testGetPriorityUsesGroupPriorityForMixedChildTypes()
     {
-        $group = new NavGroupItem('Foo');
+        $group = new GroupedNavigationItem('Foo');
 
         foreach (HydeCoreExtension::getPageClasses() as $type) {
             $child = new NavigationItem(new Route(new $type()), 'Bar', 100);
@@ -171,29 +171,29 @@ class NavGroupItemTest extends UnitTestCase
 
     public function testGetPriorityHandlesStringUrlChildGracefully()
     {
-        $this->assertSame(999, (new NavGroupItem('Foo', [new NavigationItem('foo', 'Bar', 100)]))->getPriority());
+        $this->assertSame(999, (new GroupedNavigationItem('Foo', [new NavigationItem('foo', 'Bar', 100)]))->getPriority());
     }
 
     public function testGetPriorityHandlesExternalUrlChildGracefully()
     {
-        $this->assertSame(999, (new NavGroupItem('Foo', [new NavigationItem('https://example.com', 'Bar', 100)]))->getPriority());
+        $this->assertSame(999, (new GroupedNavigationItem('Foo', [new NavigationItem('https://example.com', 'Bar', 100)]))->getPriority());
     }
 
     public function testForRoute()
     {
-        $item = NavGroupItem::forRoute(new Route(new InMemoryPage('foo')));
+        $item = GroupedNavigationItem::forRoute(new Route(new InMemoryPage('foo')));
 
         $this->assertInstanceOf(NavigationItem::class, $item);
-        $this->assertNotInstanceOf(NavGroupItem::class, $item);
+        $this->assertNotInstanceOf(GroupedNavigationItem::class, $item);
         $this->assertSame(NavigationItem::class, $item::class);
     }
 
     public function testForLink()
     {
-        $item = NavGroupItem::forLink('foo', 'bar');
+        $item = GroupedNavigationItem::forLink('foo', 'bar');
 
         $this->assertInstanceOf(NavigationItem::class, $item);
-        $this->assertNotInstanceOf(NavGroupItem::class, $item);
+        $this->assertNotInstanceOf(GroupedNavigationItem::class, $item);
         $this->assertSame(NavigationItem::class, $item::class);
     }
 

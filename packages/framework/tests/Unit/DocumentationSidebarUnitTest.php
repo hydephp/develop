@@ -8,7 +8,7 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationItem;
-use Hyde\Framework\Features\Navigation\NavGroupItem;
+use Hyde\Framework\Features\Navigation\GroupedNavigationItem;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
@@ -204,13 +204,13 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertFalse((new DocumentationSidebar())->hasGroups());
     }
 
-    public function testHasGroupsReturnsTrueWhenAtLeastOneItemIsNavGroupItemInstance()
+    public function testHasGroupsReturnsTrueWhenAtLeastOneItemIsGroupedNavigationItemInstance()
     {
         self::mockConfig();
         self::setupKernel();
 
         $menu = new DocumentationSidebar([
-            new NavGroupItem('foo', []),
+            new GroupedNavigationItem('foo', []),
         ]);
 
         $this->assertTrue($menu->hasGroups());

@@ -146,12 +146,12 @@ class NavigationMenuGenerator
         }
     }
 
-    protected function getOrCreateGroupItem(string $groupName): NavGroupItem
+    protected function getOrCreateGroupItem(string $groupName): GroupedNavigationItem
     {
         $groupKey = Str::slug($groupName);
         $group = $this->items->get($groupKey);
 
-        if ($group instanceof NavGroupItem) {
+        if ($group instanceof GroupedNavigationItem) {
             return $group;
         } elseif ($group instanceof NavigationItem) {
             // We are trying to add children to an existing navigation menu item,
@@ -161,7 +161,7 @@ class NavigationMenuGenerator
             // Todo: Add note in documentation about this behavior
             // Example file structure: _pages/foo.md, _pages/foo/bar.md, _pages/foo/baz.md, here the link to foo will be lost.
 
-            $item = new NavGroupItem($group->getLabel(), [], $group->getPriority());
+            $item = new GroupedNavigationItem($group->getLabel(), [], $group->getPriority());
 
             $this->items->put($groupKey, $item);
 
@@ -171,7 +171,7 @@ class NavigationMenuGenerator
         return $this->createGroupItem($groupKey, $groupName);
     }
 
-    protected function createGroupItem(string $groupKey, string $groupName): NavGroupItem
+    protected function createGroupItem(string $groupKey, string $groupName): GroupedNavigationItem
     {
         $label = $this->searchForGroupLabelInConfig($groupKey) ?? $groupName;
 
