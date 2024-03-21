@@ -6,5 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 class NavigationGroup
 {
-    //
+    /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
+    protected array $items = [];
 }
