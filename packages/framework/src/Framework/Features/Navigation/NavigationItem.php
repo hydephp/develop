@@ -65,7 +65,7 @@ class NavigationItem implements Stringable
             $route = Routes::get($route);
         }
 
-        if ($route instanceof Route) {
+        if ($route instanceof Route && ! $route instanceof ExternalRoute) {
             return new self(
                 $route,
                 $label ?? $route->getPage()->navigationMenuLabel(),
