@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\ExternalRoute;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
@@ -167,8 +166,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithMissingRouteKey()
     {
-        $this->expectException(RouteNotFoundException::class);
-        NavigationItem::create('foo', 'foo');
+        $this->assertInstanceOf(ExternalRoute::class, NavigationItem::create('foo', 'foo')->getRoute());
     }
 
     public function testCreateWithCustomPriority()
