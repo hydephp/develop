@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ExternalRoute;
 
@@ -25,6 +26,11 @@ class GroupedNavigationItem extends NavigationItem
         parent::__construct(null, $label, $priority, static::normalizeGroupKey($label));
 
         $this->addItems($items);
+    }
+
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): NavigationItem
+    {
+        return parent::create($destination, $label, $priority, $group);
     }
 
     /**
