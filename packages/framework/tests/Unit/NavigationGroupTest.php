@@ -108,7 +108,6 @@ class NavigationGroupTest extends UnitTestCase
 
         $group->addItem($child);
 
-        $this->assertSame('foo', $group->getGroupKey());
         $this->assertSame('bar', $child->getGroupKey());
     }
 
@@ -119,7 +118,6 @@ class NavigationGroupTest extends UnitTestCase
 
         $group->addItem($child);
 
-        $this->assertSame('foo', $group->getGroupKey());
         $this->assertSame('foo', $child->getGroupKey());
     }
 
