@@ -99,7 +99,7 @@ class NavigationGroup
         });
     }
 
-    /** @experimental This may not be needed. */
+    /** @todo Put into contract shared with NavigationItem class */
     public function getGroupKey(): string
     {
         return Str::slug($this->label);
