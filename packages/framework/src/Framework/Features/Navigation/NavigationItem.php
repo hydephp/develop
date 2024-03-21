@@ -62,7 +62,7 @@ class NavigationItem implements Stringable
     public static function create(Route|string $route, ?string $label = null, ?int $priority = null, ?string $group = null): self
     {
         if (! $route instanceof Route) {
-            $route = Routes::get($route);
+            $route = Routes::get($route) ?? new ExternalRoute($route);
         }
 
         if ($route instanceof Route && ! $route instanceof ExternalRoute) {
