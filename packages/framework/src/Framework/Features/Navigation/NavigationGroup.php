@@ -29,4 +29,23 @@ class NavigationGroup
     {
         return $this->items;
     }
+
+    public function addItem(NavigationItem $item): static
+    {
+        $item->group ??= $this->group;
+
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    /** @param  array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */
+    public function addItems(array $items): static
+    {
+        foreach ($items as $item) {
+            $this->addItem($item);
+        }
+
+        return $this;
+    }
 }
