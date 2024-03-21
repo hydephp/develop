@@ -98,4 +98,10 @@ class NavigationGroup
             return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
     }
+
+    /** @experimental This may not be needed. */
+    public function getGroupKey(): string
+    {
+        return Str::slug($this->label);
+    }
 }
