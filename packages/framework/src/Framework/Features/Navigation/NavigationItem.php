@@ -63,12 +63,14 @@ class NavigationItem implements Stringable
     {
         $route = $route instanceof Route ? $route : Routes::getOrFail($route);
 
-        return new self(
-            $route,
-            $label ?? $route->getPage()->navigationMenuLabel(),
-            $priority ?? $route->getPage()->navigationMenuPriority(),
-            $group ?? $route->getPage()->navigationMenuGroup(),
-        );
+        if ($route instanceof Route) {
+            return new self(
+                $route,
+                $label ?? $route->getPage()->navigationMenuLabel(),
+                $priority ?? $route->getPage()->navigationMenuPriority(),
+                $group ?? $route->getPage()->navigationMenuGroup(),
+            );
+        }
     }
 
     /**
