@@ -36,6 +36,26 @@ class NavigationGroup
         return new static($label, $items, $priority);
     }
 
+    /**
+     * @todo Put into contract shared with NavigationItem class
+     *
+     * Get the label of the navigation item.
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @todo Put into contract shared with NavigationItem class
+     *
+     * Get the priority to determine the order of the navigation item.
+     */
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
     /** @return array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     public function getItems(): array
     {
