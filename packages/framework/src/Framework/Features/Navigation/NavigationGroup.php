@@ -18,4 +18,9 @@ class NavigationGroup
 
         $this->addItems($items);
     }
+
+    public static function create(string $label, array $items = [], int $priority = NavigationMenu::LAST): static
+    {
+        return new static($label, $items, $priority);
+    }
 }
