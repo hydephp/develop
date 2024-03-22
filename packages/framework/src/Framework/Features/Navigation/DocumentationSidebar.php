@@ -65,6 +65,7 @@ class DocumentationSidebar extends NavigationMenu
             return null;
         }
 
+        /** @var DocumentationPage $currentPage */
         $currentPage = Render::getPage();
 
         return $this->items->first(function (NavigationGroup $item) use ($currentPage): bool {
