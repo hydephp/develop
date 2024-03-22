@@ -62,7 +62,7 @@ class DocumentationSidebar extends NavigationMenu
     public function getActiveGroup(): ?NavigationGroup
     {
         return $this->items->first(function (NavigationItem|NavigationGroup $item): bool {
-            return $this->isGroupActive($item->getGroupKey());
+            return $this->legacy_isGroupActive($item->getGroupKey());
         });
     }
 
@@ -78,6 +78,12 @@ class DocumentationSidebar extends NavigationMenu
      * We have this logic here because not all NavigationItem instances belong to sidebars, and we need data from both.
      */
     public function isGroupActive(string $group): bool
+    {
+        return $this->legacy_isGroupActive($group);
+    }
+
+    /** @deprecated Temporary method to aid in refactoring. */
+    public function legacy_isGroupActive(string $group): bool
     {
         $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey(Render::getPage()->navigationMenuGroup()) === $group;
 
