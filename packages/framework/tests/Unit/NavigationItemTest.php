@@ -14,6 +14,7 @@ use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\NavigationElement;
 
 /**
@@ -209,7 +210,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testDropdownFacade()
     {
-        $item = NavigationItem::forGroup('foo', []);
+        $item = NavigationGroup::create('foo');
 
         $this->assertSame('foo', $item->getLabel());
         $this->assertSame([], $item->getItems());
@@ -222,14 +223,14 @@ class NavigationItemTest extends UnitTestCase
             new NavigationItem(new Route(new MarkdownPage()), 'bar'),
         ];
 
-        $item = NavigationItem::forGroup('foo', $children);
+        $item = NavigationGroup::create('foo', $children);
         $this->assertSame($children, $item->getItems());
         $this->assertSame(999, $item->getPriority());
     }
 
     public function testDropdownFacadeWithCustomPriority()
     {
-        $item = NavigationItem::forGroup('foo', [], 500);
+        $item = NavigationGroup::create('foo', [], 500);
 
         $this->assertSame(500, $item->getPriority());
     }

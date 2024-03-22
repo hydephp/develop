@@ -78,22 +78,6 @@ class NavigationItem implements NavigationElement, Stringable
     }
 
     /**
-     * Create a new dropdown navigation menu item.
-     *
-     * @deprecated Use NavigationGroup::create() instead.
-     *
-     * TODO: Move to NavigationGroup::create() as this solves the naming issue, and because it makes little sense for it to be here. It also resolves the self/static issue.
-     *
-     * @param  string  $label  The label of the dropdown item.
-     * @param  array<NavigationItem>  $items  The items to be included in the dropdown.
-     * @param  int  $priority  The priority of the dropdown item. Leave blank to use the default priority, which is last in the menu.
-     */
-    public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): NavigationGroup
-    {
-        return NavigationGroup::create($label, $items, $priority);
-    }
-
-    /**
      * Resolve a link to the navigation item.
      */
     public function __toString(): string

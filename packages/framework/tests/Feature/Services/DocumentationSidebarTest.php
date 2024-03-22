@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Hyde;
@@ -267,10 +268,10 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavigationItem::forGroup('Bar', [
+                NavigationGroup::create('Bar', [
                     NavigationItem::create(Routes::get('docs/bar'), priority: 999),
                 ]),
-                NavigationItem::forGroup('Foo', [
+                NavigationGroup::create('Foo', [
                     NavigationItem::create(Routes::get('docs/foo'), priority: 999),
                 ]),
             ]),
@@ -288,7 +289,7 @@ class DocumentationSidebarTest extends TestCase
 
         $this->assertEquals(
             collect([
-                NavigationItem::forGroup('Foo', [
+                NavigationGroup::create('Foo', [
                     NavigationItem::create(Routes::get('docs/bar'), priority: 999),
                     NavigationItem::create(Routes::get('docs/foo'), priority: 999),
                 ]),

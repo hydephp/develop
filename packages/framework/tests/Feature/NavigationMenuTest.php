@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\ExternalRoute;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\MarkdownPage;
@@ -230,7 +231,7 @@ class NavigationMenuTest extends TestCase
         $menu = $this->createNavigationMenu();
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
-            NavigationItem::forGroup('Foo', [
+            NavigationGroup::create('Foo', [
                 NavigationItem::create(Routes::get('foo/bar')),
             ]),
         ]);
@@ -251,7 +252,7 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals([
             NavigationItem::create(Routes::get('index')),
             NavigationItem::create((new MarkdownPage('foo'))->getRoute()),
-            NavigationItem::forGroup('Bar', [
+            NavigationGroup::create('Bar', [
                 NavigationItem::create((new MarkdownPage('bar/baz'))->getRoute()),
             ]),
         ], $menu->getItems()->all());
