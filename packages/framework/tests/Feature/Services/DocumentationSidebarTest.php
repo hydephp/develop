@@ -209,12 +209,14 @@ class DocumentationSidebarTest extends TestCase
 
     public function testIsGroupActiveReturnsTrueWhenSuppliedGroupIsActive()
     {
+        $this->makePage('foo', ['navigation.group' => 'foo']);
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
         $this->assertTrue(NavigationMenuGenerator::handle(DocumentationSidebar::class)->isGroupActive('foo'));
     }
 
     public function testIsGroupActiveReturnsTrueForDifferingCasing()
     {
+        $this->makePage('foo', ['navigation.group' => 'Foo Bar']);
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'Foo Bar']));
         $this->assertTrue(NavigationMenuGenerator::handle(DocumentationSidebar::class)->isGroupActive('foo-bar'));
     }
