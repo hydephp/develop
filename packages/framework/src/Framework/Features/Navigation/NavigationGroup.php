@@ -63,12 +63,11 @@ class NavigationGroup implements NavigationElement
 
     /**
      * Get the priority to determine the order of the grouped navigation item.
-     *
-     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
      */
     public function getPriority(): int
     {
         if ($this->containsOnlyDocumentationPages()) {
+            // For sidebar groups, we use the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
             return min($this->priority, collect($this->getItems())->min(fn (NavigationItem $child): int => $child->getPriority()));
         }
 
