@@ -111,14 +111,14 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame('bar', $child->getGroupKey());
     }
 
-    public function testAddingAnItemWithNoGroupKeyUsesGroupIdentifier()
+    public function testAddingAnItemWithNoGroupKeyDoesNotModifyGroupIdentifier()
     {
         $group = new NavigationGroup('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
         $group->addItem($child);
 
-        $this->assertSame('foo', $child->getGroupKey());
+        $this->assertNull($child->getGroupKey());
     }
 
     public function testGetPriorityUsesDefaultPriority()

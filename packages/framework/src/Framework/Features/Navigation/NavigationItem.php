@@ -161,10 +161,4 @@ class NavigationItem implements Stringable
     {
         return $group ? Str::slug($group) : null;
     }
-
-    /** @deprecated Temporary to reduce issues during refactoring */
-    public function setGroup(string $group): void
-    {
-        $this->group = $group;
-    }
 }
