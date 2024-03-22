@@ -62,6 +62,14 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertInstanceOf(NavigationGroup::class, new NavigationGroup('Foo'));
     }
 
+    public function testCreate()
+    {
+        $this->assertEquals(
+            new NavigationGroup('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100),
+            NavigationGroup::create('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100)
+        );
+    }
+
     public function testGetItems()
     {
         $children = $this->createNavigationItems();
@@ -175,14 +183,6 @@ class NavigationGroupTest extends UnitTestCase
     public function testGetPriorityHandlesExternalUrlChildGracefully()
     {
         $this->assertSame(999, (new NavigationGroup('Foo', [new NavigationItem('https://example.com', 'Bar', 100)]))->getPriority());
-    }
-
-    public function testCreate()
-    {
-        $this->assertEquals(
-            new NavigationGroup('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100),
-            NavigationGroup::create('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100)
-        );
     }
 
     protected function createNavigationItems(): array
