@@ -48,6 +48,7 @@ jobs:
           curl -X POST --fail-with-body \
             -H "Content-Type: multipart/form-data" \
             -H "Authorization: Bearer $bearerToken" \
+            -H "Accept: application/json" \
             -F "commit=$commit" \
             -F "status=$status" \
             https://ci.hydephp.com/api/test-run-reports
