@@ -31,6 +31,7 @@ jobs:
         run: vendor/bin/pest --stop-on-failure --log-junit report.xml
 
       - name: Ping continuous integration server with test status
+        if: always()
         run: |
           echo TODO: Implement smoke test status check
 
