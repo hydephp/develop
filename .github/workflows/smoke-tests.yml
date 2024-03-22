@@ -35,6 +35,7 @@ jobs:
         run: |
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
           commit="${{ github.event.pull_request.head.sha }}"
+          url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
               status=false
@@ -46,7 +47,7 @@ jobs:
             -H "Authorization: Bearer $bearerToken" \
             -H "Content-Type: application/json" \
             -H "Accept: application/json" \
-            -d '{"commit":"'"$commit"'", "status":'$status'}' \
+            -d '{"commit":"'"$commit"'", "status":'$status', "url":"'"$url"'"}' \
             https://ci.hydephp.com/api/test-run-reports
   
       - name: Ping statistics server with test results
