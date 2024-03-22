@@ -108,11 +108,15 @@ class DocumentationSidebar extends NavigationMenu
     {
         // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
 
+        if ($this->groupMatchesCurrentPageGroup($currentPage, $group)) {
+            return true;
+        }
+
         if (filled($currentPage->navigationMenuGroup())) {
             return false;
         }
 
-        return ($group === $this->getItems()->firstOrFail()->getGroupKey()) || $this->groupMatchesCurrentPageGroup($currentPage, $group);
+        return $group === $this->getItems()->firstOrFail()->getGroupKey();
     }
 
     protected function groupMatchesCurrentPageGroup(HydePage $currentPage, string $group): bool
