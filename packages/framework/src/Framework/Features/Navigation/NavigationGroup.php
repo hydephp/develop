@@ -78,11 +78,7 @@ class NavigationGroup implements NavigationElement
 
     protected function containsOnlyDocumentationPages(): bool
     {
-        if (empty($this->getItems())) {
-            return false;
-        }
-
-        return collect($this->getItems())->every(function (NavigationItem $child): bool {
+        return $this->getItems() && collect($this->getItems())->every(function (NavigationItem $child): bool {
             return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
     }
