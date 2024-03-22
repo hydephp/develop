@@ -13,7 +13,7 @@ use function min;
 use function collect;
 
 /**
- * Abstraction for a grouped navigation menu item. For main navigation menus, this is a dropdown.
+ * Abstraction for a grouped navigation menu item, like a dropdown or a sidebar group.
  */
 class NavigationGroup implements NavigationElement
 {
