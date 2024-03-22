@@ -93,7 +93,7 @@ class DocumentationSidebar extends NavigationMenu
     protected function legacy_isGroupActive(string $group, HydePage $currentPage): bool
     {
         if ($this->isCurrentPageIndexPage($currentPage)) {
-            return $this->shouldIndexPageBeActive($group, $currentPage) || $this->groupMatchesCurrentPageGroup($currentPage, $group);
+            return $this->shouldIndexPageBeActive($group, $currentPage);
         }
 
         return $this->groupMatchesCurrentPageGroup($currentPage, $group);
@@ -112,7 +112,7 @@ class DocumentationSidebar extends NavigationMenu
             return false;
         }
 
-        return $group === $this->getItems()->firstOrFail()->getGroupKey();
+        return ($group === $this->getItems()->firstOrFail()->getGroupKey()) || $this->groupMatchesCurrentPageGroup($currentPage, $group);
     }
 
     protected function groupMatchesCurrentPageGroup(HydePage $currentPage, string $group): bool
