@@ -31,7 +31,7 @@ jobs:
         run: vendor/bin/pest --stop-on-failure --log-junit report.xml
 
       - name: Ping continuous integration server with test status
-        if: always()
+        if: always() && github.event.repository.full_name == 'hydephp/develop'
         run: |
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
           commit="${{ github.event.pull_request.head.sha }}"
