@@ -28,7 +28,6 @@ jobs:
 
       - name: Run smoke tests
         id: smoke-tests
-        continue-on-error: true
         run: vendor/bin/pest --stop-on-failure --log-junit report.xml
 
       - name: Ping statistics server with test results
