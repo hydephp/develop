@@ -36,10 +36,10 @@ jobs:
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
           commit="${{ github.event.pull_request.head.sha }}"
 
-          if [ -f "report.xml" ]; then
-              status="true"
+          if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
+              status=false
           else
-              status="false"
+              status=true
           fi
           
           curl -X POST --fail-with-body \
