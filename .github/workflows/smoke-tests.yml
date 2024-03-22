@@ -46,11 +46,10 @@ jobs:
           fi
           
           curl -X POST --fail-with-body \
-            -H "Content-Type: multipart/form-data" \
+            -H "Content-Type: application/json" \
             -H "Authorization: Bearer $bearerToken" \
             -H "Accept: application/json" \
-            -F "commit=$commit" \
-            -F "status=$status" \
+            -d '{"commit":"'"$commit"'", "status":'$status'}' \
             https://ci.hydephp.com/api/test-run-reports
   
       - name: Ping statistics server with test results
