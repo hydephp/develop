@@ -92,7 +92,7 @@ class DocumentationSidebar extends NavigationMenu
     /** @deprecated Temporary method to aid in refactoring. */
     protected function legacy_isGroupActive(string $group, HydePage $currentPage): bool
     {
-        $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup()) === $group;
+        $groupMatchesCurrentPageGroup = $this->groupMatchesCurrentPageGroup($currentPage, $group);
 
         if ($this->isCurrentPageIndexPage($currentPage)) {
             return $this->shouldIndexPageBeActive($group, $currentPage) || $groupMatchesCurrentPageGroup;
@@ -115,5 +115,10 @@ class DocumentationSidebar extends NavigationMenu
         }
 
         return $group === $this->getItems()->firstOrFail()->getGroupKey();
+    }
+
+    protected function groupMatchesCurrentPageGroup(HydePage $currentPage, string $group): bool
+    {
+        return NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup()) === $group;
     }
 }
