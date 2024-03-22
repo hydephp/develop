@@ -79,7 +79,7 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function isGroupActive(string $group): bool
     {
-        return $this->legacy_isGroupActive($group);
+        return $group === $this->getActiveGroup()?->getGroupKey();
     }
 
     /** @deprecated Temporary method to aid in refactoring. */
