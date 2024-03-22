@@ -96,6 +96,19 @@ class NavigationMenuUnitTest extends UnitTestCase
         $this->assertSame([$item1, $item2], $menu->getItems()->all());
     }
 
+    public function testCanAddMultipleItemsAtOnce()
+    {
+        $menu = new MainNavigationMenu();
+
+        $item1 = $this->item('/', 'Home');
+        $item2 = $this->item('/about', 'About');
+
+        $menu->add([$item1, $item2]);
+
+        $this->assertCount(2, $menu->getItems());
+        $this->assertSame([$item1, $item2], $menu->getItems()->all());
+    }
+
     public function testItemsAreInTheOrderTheyWereAddedWhenThereAreNoCustomPriorities()
     {
         $menu = new MainNavigationMenu();

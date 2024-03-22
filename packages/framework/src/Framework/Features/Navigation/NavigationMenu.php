@@ -53,11 +53,21 @@ abstract class NavigationMenu
     }
 
     /**
-     * Add a navigation item to the navigation menu.
+     * Add one or more navigation items to the navigation menu.
+     *
+     * @param  \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>  $items
      */
-    public function add(NavigationItem|NavigationGroup $item): void
+    public function add(NavigationItem|NavigationGroup|array $items): void
     {
-        $this->items->add($item);
+        if (is_array($items)) {
+            foreach ($items as $item) {
+                $this->addItem($item);
+            }
+
+            return;
+        }
+
+        $this->addItem($items);
     }
 
     /** Type safe helper to add a navigation item to the menu. */
