@@ -69,6 +69,10 @@ class DocumentationSidebar extends NavigationMenu
 
         $currentPage = Render::getPage();
 
+        if ($currentPage === null) {
+            return null;
+        }
+
         return $this->items->first(function (NavigationGroup $item) use ($currentPage): bool {
             return $item->getGroupKey() && $this->legacy_isGroupActive($item->getGroupKey(), $currentPage);
         }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
