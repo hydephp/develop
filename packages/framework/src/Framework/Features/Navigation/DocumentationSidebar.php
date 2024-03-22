@@ -59,11 +59,11 @@ class DocumentationSidebar extends NavigationMenu
         return $this->getItems()->contains(fn (NavigationItem|NavigationGroup $item): bool => $item instanceof NavigationGroup);
     }
 
-    public function getActiveGroup(): ?string
+    public function getActiveGroup(): ?NavigationGroup
     {
         return $this->items->first(function (NavigationItem|NavigationGroup $item): bool {
             return $this->isGroupActive($item->getGroupKey());
-        })?->getGroupKey();
+        });
     }
 
     /**
