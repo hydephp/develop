@@ -34,7 +34,7 @@ jobs:
         if: always()
         run: |
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
-          commit="${{ github.sha }}"
+          commit="${{ github.event.pull_request.head.sha }}"
 
           if [ -f "report.xml" ]; then
               status="true"
