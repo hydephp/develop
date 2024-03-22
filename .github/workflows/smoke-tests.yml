@@ -41,7 +41,7 @@ jobs:
           else
               status=true
           fi
-          
+
           curl -X POST --fail-with-body \
             -H "Authorization: Bearer $bearerToken" \
             -H "Content-Type: application/json" \
