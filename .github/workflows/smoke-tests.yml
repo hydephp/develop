@@ -27,6 +27,7 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run smoke tests
+        id: smoke-tests
         run: vendor/bin/pest --stop-on-failure --log-junit report.xml
 
       - name: Ping statistics server with test results
