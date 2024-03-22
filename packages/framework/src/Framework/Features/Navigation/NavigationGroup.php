@@ -36,11 +36,6 @@ class NavigationGroup implements NavigationElement
         return new static($label, $items, $priority);
     }
 
-    /**
-     * @todo Put into contract shared with NavigationItem class
-     *
-     * Get the label of the navigation item.
-     */
     public function getLabel(): string
     {
         return $this->label;
@@ -69,7 +64,6 @@ class NavigationGroup implements NavigationElement
         return $this;
     }
 
-    /** @todo Put into contract shared with NavigationItem class */
     public function getGroupKey(): string
     {
         return Str::slug($this->label);
@@ -77,8 +71,6 @@ class NavigationGroup implements NavigationElement
 
     /**
      * Get the priority to determine the order of the grouped navigation item.
-     *
-     * @todo Put into contract shared with NavigationItem class
      *
      * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown itself has a lower priority.
      */
