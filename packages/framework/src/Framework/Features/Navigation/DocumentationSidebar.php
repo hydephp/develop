@@ -61,9 +61,13 @@ class DocumentationSidebar extends NavigationMenu
 
     public function getActiveGroup(): ?NavigationGroup
     {
-        return $this->items->first(function (NavigationItem|NavigationGroup $item): bool {
+        if (! $this->hasGroups()) {
+            return null;
+        }
+
+        return $this->items->first(function (NavigationGroup $item): bool {
             return $item->getGroupKey() && $this->legacy_isGroupActive($item->getGroupKey());
-        }) ?? $this->items->first(fn (NavigationItem|NavigationGroup $item): bool => $item->getLabel() === 'Other');
+        }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
     }
 
     /**

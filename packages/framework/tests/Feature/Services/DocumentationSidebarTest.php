@@ -201,6 +201,16 @@ class DocumentationSidebarTest extends TestCase
         );
     }
 
+//    public function testGetActiveGroup()
+//    {
+//        $this->makePage('foo', ['navigation.group' => 'foo']);
+//        $this->makePage('bar', ['navigation.group' => 'bar']);
+//        $this->makePage('baz');
+//
+//        Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
+//        dd(NavigationMenuGenerator::handle(DocumentationSidebar::class)->getActiveGroup());
+//    }
+
     public function testIsGroupActiveReturnsFalseWhenSuppliedGroupIsNotActive()
     {
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
