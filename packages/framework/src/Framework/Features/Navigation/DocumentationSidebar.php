@@ -92,13 +92,11 @@ class DocumentationSidebar extends NavigationMenu
     /** @deprecated Temporary method to aid in refactoring. */
     protected function legacy_isGroupActive(string $group, HydePage $currentPage): bool
     {
-        $groupMatchesCurrentPageGroup = $this->groupMatchesCurrentPageGroup($currentPage, $group);
-
         if ($this->isCurrentPageIndexPage($currentPage)) {
-            return $this->shouldIndexPageBeActive($group, $currentPage) || $groupMatchesCurrentPageGroup;
+            return $this->shouldIndexPageBeActive($group, $currentPage) || $this->groupMatchesCurrentPageGroup($currentPage, $group);
         }
 
-        return $groupMatchesCurrentPageGroup;
+        return $this->groupMatchesCurrentPageGroup($currentPage, $group);
     }
 
     private function isCurrentPageIndexPage(HydePage $currentPage): bool
