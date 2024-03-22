@@ -179,24 +179,10 @@ class NavigationGroupTest extends UnitTestCase
 
     public function testCreate()
     {
-        $this->markTestSkipped('TODO: Reimplement this test');
-
-        $item = NavigationGroup::create(new Route(new InMemoryPage('foo')));
-
-        $this->assertInstanceOf(NavigationItem::class, $item);
-        $this->assertNotInstanceOf(NavigationGroup::class, $item);
-        $this->assertSame(NavigationItem::class, $item::class);
-    }
-
-    public function testCreateWithLink()
-    {
-        $this->markTestSkipped('TODO: Reimplement this test');
-
-        $item = NavigationGroup::create('foo', 'bar');
-
-        $this->assertInstanceOf(NavigationItem::class, $item);
-        $this->assertNotInstanceOf(NavigationGroup::class, $item);
-        $this->assertSame(NavigationItem::class, $item::class);
+        $this->assertEquals(
+            new NavigationGroup('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100),
+            NavigationGroup::create('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100)
+        );
     }
 
     protected function createNavigationItems(): array
