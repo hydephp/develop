@@ -86,7 +86,6 @@ class NavigationGroup implements NavigationElement
         });
     }
 
-    /** Type safe helper to add a navigation item to the group. */
     protected function addItem(NavigationItem $item): void
     {
         $this->items[] = $item;
