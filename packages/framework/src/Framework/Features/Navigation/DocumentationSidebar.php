@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Navigation;
 use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
+use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Contracts\Support\Arrayable;
 
 use function app;
@@ -89,7 +90,7 @@ class DocumentationSidebar extends NavigationMenu
     }
 
     /** @deprecated Temporary method to aid in refactoring. */
-    protected function legacy_isGroupActive(string $group, DocumentationPage $currentPage): bool
+    protected function legacy_isGroupActive(string $group, HydePage $currentPage): bool
     {
         $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup()) === $group;
 
@@ -100,12 +101,12 @@ class DocumentationSidebar extends NavigationMenu
         return $groupMatchesCurrentPageGroup;
     }
 
-    private function isCurrentPageIndexPage(DocumentationPage $currentPage): bool
+    private function isCurrentPageIndexPage(HydePage $currentPage): bool
     {
         return $currentPage->getRoute()->is(DocumentationPage::homeRouteName());
     }
 
-    private function shouldIndexPageBeActive(string $group, DocumentationPage $currentPage): bool
+    private function shouldIndexPageBeActive(string $group, HydePage $currentPage): bool
     {
         // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
 
