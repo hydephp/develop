@@ -61,7 +61,9 @@ class DocumentationSidebar extends NavigationMenu
 
     public function getActiveGroup(): ?string
     {
-        return Render::getPage()->navigationMenuGroup();
+        return $this->items->first(function (NavigationItem|NavigationGroup $item): bool {
+            return $this->isGroupActive($item->getGroupKey());
+        })?->getGroupKey();
     }
 
     /**
