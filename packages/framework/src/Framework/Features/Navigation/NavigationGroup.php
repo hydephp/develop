@@ -50,7 +50,7 @@ class NavigationGroup implements NavigationElement
     public function add(NavigationItem|array $items): static
     {
         foreach (Arr::wrap($items) as $item) {
-            $this->pushItem($item);
+            $this->addItem($item);
         }
 
         return $this;
@@ -87,7 +87,7 @@ class NavigationGroup implements NavigationElement
     }
 
     /** Type safe helper to add a navigation item to the group. */
-    protected function pushItem(NavigationItem $item): void
+    protected function addItem(NavigationItem $item): void
     {
         $this->items[] = $item;
     }
