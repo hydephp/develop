@@ -33,10 +33,6 @@ jobs:
       - name: Ping continuous integration server with test status
         if: always()
         run: |
-          # Needs:
-          # 'commit' => 'required|string',
-          # 'status' => 'required|boolean',
-        
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
           commit="${{ github.sha }}"
           if [ -f "report.xml" ]; then
@@ -46,8 +42,8 @@ jobs:
           fi
           
           curl -X POST --fail-with-body \
-            -H "Content-Type: application/json" \
             -H "Authorization: Bearer $bearerToken" \
+            -H "Content-Type: application/json" \
             -H "Accept: application/json" \
             -d '{"commit":"'"$commit"'", "status":'$status'}' \
             https://ci.hydephp.com/api/test-run-reports
