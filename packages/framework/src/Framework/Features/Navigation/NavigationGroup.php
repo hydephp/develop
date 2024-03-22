@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ExternalRoute;
 
@@ -26,7 +27,7 @@ class NavigationGroup implements NavigationElement
         $this->label = $label;
         $this->priority = $priority;
 
-        $this->addItems($items);
+        $this->addItem($items);
     }
 
     public static function create(string $label, array $items = [], int $priority = NavigationMenu::LAST): static
@@ -45,18 +46,11 @@ class NavigationGroup implements NavigationElement
         return $this->items;
     }
 
-    public function addItem(NavigationItem $item): static
+    /** @param  \Hyde\Framework\Features\Navigation\NavigationItem|array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */
+    public function addItem(NavigationItem|array $items): static
     {
-        $this->items[] = $item;
-
-        return $this;
-    }
-
-    /** @param  array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */
-    public function addItems(array $items): static
-    {
-        foreach ($items as $item) {
-            $this->addItem($item);
+        foreach (Arr::wrap($items) as $item) {
+            $this->pushItem($item);
         }
 
         return $this;
@@ -90,5 +84,11 @@ class NavigationGroup implements NavigationElement
         return collect($this->getItems())->every(function (NavigationItem $child): bool {
             return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
+    }
+
+    /** Type safe helper to add a navigation item to the group. */
+    protected function pushItem(NavigationItem $item): void
+    {
+        $this->items[] = $item;
     }
 }

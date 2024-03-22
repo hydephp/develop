@@ -104,14 +104,14 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $items = $this->createNavigationItems();
 
-        $this->assertSame($items, $group->addItems($items)->getItems());
+        $this->assertSame($items, $group->addItem($items)->getItems());
     }
 
     public function testAddChildrenMethodReturnsSelf()
     {
         $group = new NavigationGroup('Foo');
 
-        $this->assertSame($group, $group->addItems([]));
+        $this->assertSame($group, $group->addItem([]));
     }
 
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
@@ -190,7 +190,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
 
         $this->assertSame($group, $group->addItem(new NavigationItem(new Route(new MarkdownPage()), 'Bar')));
-        $this->assertSame($group, $group->addItems([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
+        $this->assertSame($group, $group->addItem([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
     }
 
     protected function createNavigationItems(): array
