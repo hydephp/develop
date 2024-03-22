@@ -61,9 +61,6 @@ class NavigationGroup implements NavigationElement
         return Str::slug($this->label);
     }
 
-    /**
-     * Get the priority to determine the order of the grouped navigation item.
-     */
     public function getPriority(): int
     {
         if ($this->containsOnlyDocumentationPages()) {
