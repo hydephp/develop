@@ -59,6 +59,11 @@ class DocumentationSidebar extends NavigationMenu
         return $this->getItems()->contains(fn (NavigationItem|NavigationGroup $item): bool => $item instanceof NavigationGroup);
     }
 
+    public function getActiveGroup(): ?string
+    {
+        return Render::getPage()->navigationMenuGroup();
+    }
+
     /**
      * Is a page within the group the current page? This is used to determine if the sidebar group should be open when loading the page.
      *
