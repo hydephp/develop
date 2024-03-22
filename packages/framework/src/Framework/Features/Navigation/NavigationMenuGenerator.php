@@ -139,7 +139,7 @@ class NavigationMenuGenerator
 
         $groupItem = $this->getOrCreateGroupItem($groupName);
 
-        $groupItem->addItem($item);
+        $groupItem->add($item);
 
         if (! $this->items->has($groupItem->getGroupKey())) {
             $this->items->put($groupItem->getGroupKey(), $groupItem);

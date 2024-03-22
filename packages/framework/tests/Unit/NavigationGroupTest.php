@@ -88,7 +88,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
-        $this->assertSame([$child], $group->addItem($child)->getItems());
+        $this->assertSame([$child], $group->add($child)->getItems());
     }
 
     public function testAddChildMethodReturnsSelf()
@@ -96,7 +96,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
-        $this->assertSame($group, $group->addItem($child));
+        $this->assertSame($group, $group->add($child));
     }
 
     public function testCanAddMultipleItemsToDropdown()
@@ -104,14 +104,14 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $items = $this->createNavigationItems();
 
-        $this->assertSame($items, $group->addItem($items)->getItems());
+        $this->assertSame($items, $group->add($items)->getItems());
     }
 
     public function testAddChildrenMethodReturnsSelf()
     {
         $group = new NavigationGroup('Foo');
 
-        $this->assertSame($group, $group->addItem([]));
+        $this->assertSame($group, $group->add([]));
     }
 
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
@@ -119,7 +119,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Child', group: 'bar');
 
-        $group->addItem($child);
+        $group->add($child);
 
         $this->assertSame('bar', $child->getGroupKey());
     }
@@ -129,7 +129,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
-        $group->addItem($child);
+        $group->add($child);
 
         $this->assertNull($child->getGroupKey());
     }
@@ -169,7 +169,7 @@ class NavigationGroupTest extends UnitTestCase
 
         foreach (HydeCoreExtension::getPageClasses() as $type) {
             $child = new NavigationItem(new Route(new $type()), 'Bar', 100);
-            $group->addItem($child);
+            $group->add($child);
         }
 
         $this->assertSame(999, $group->getPriority());
@@ -189,8 +189,8 @@ class NavigationGroupTest extends UnitTestCase
     {
         $group = new NavigationGroup('Foo');
 
-        $this->assertSame($group, $group->addItem(new NavigationItem(new Route(new MarkdownPage()), 'Bar')));
-        $this->assertSame($group, $group->addItem([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
+        $this->assertSame($group, $group->add(new NavigationItem(new Route(new MarkdownPage()), 'Bar')));
+        $this->assertSame($group, $group->add([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
     }
 
     protected function createNavigationItems(): array

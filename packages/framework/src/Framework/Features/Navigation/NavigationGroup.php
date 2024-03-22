@@ -27,7 +27,7 @@ class NavigationGroup implements NavigationElement
         $this->label = $label;
         $this->priority = $priority;
 
-        $this->addItem($items);
+        $this->add($items);
     }
 
     public static function create(string $label, array $items = [], int $priority = NavigationMenu::LAST): static
@@ -47,7 +47,7 @@ class NavigationGroup implements NavigationElement
     }
 
     /** @param  \Hyde\Framework\Features\Navigation\NavigationItem|array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */
-    public function addItem(NavigationItem|array $items): static
+    public function add(NavigationItem|array $items): static
     {
         foreach (Arr::wrap($items) as $item) {
             $this->pushItem($item);
