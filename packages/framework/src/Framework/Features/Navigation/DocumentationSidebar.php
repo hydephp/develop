@@ -62,6 +62,8 @@ class DocumentationSidebar extends NavigationMenu
     /**
      * Is a page within the group the current page? This is used to determine if the sidebar group should be open when loading the page.
      *
+     * @todo See if we can make this deterministic, so we pre-discover which group will be active, without having to weirdly check this in the view.
+     *
      * @internal This method is used in the sidebar view to determine if a group should be open, and is not intended to be used in other contexts.
      *
      * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
