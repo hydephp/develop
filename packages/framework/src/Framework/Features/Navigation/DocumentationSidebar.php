@@ -87,7 +87,7 @@ class DocumentationSidebar extends NavigationMenu
     }
 
     /** @deprecated Temporary method to aid in refactoring. */
-    public function legacy_isGroupActive(string $group): bool
+    protected function legacy_isGroupActive(string $group): bool
     {
         $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey(Render::getPage()->navigationMenuGroup()) === $group;
 
