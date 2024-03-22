@@ -139,6 +139,15 @@ class NavigationMenuUnitTest extends UnitTestCase
         $this->assertSame([$item1, $item2, $item3], $menu->getItems()->all());
     }
 
+    public function testModifierMethodsAreFluentlyChainable()
+    {
+        $menu = new MainNavigationMenu();
+
+        $item = $this->item('/', 'Home');
+
+        $this->assertSame($menu, $menu->add($item));
+    }
+
     protected function getItems(): array
     {
         return [

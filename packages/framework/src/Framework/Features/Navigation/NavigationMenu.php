@@ -58,11 +58,13 @@ abstract class NavigationMenu
      *
      * @param  \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>  $items
      */
-    public function add(NavigationItem|NavigationGroup|array $items): void
+    public function add(NavigationItem|NavigationGroup|array $items): static
     {
         foreach (Arr::wrap($items) as $item) {
             $this->addItem($item);
         }
+
+        return $this;
     }
 
     /** Type safe helper to add a navigation item to the menu. */
