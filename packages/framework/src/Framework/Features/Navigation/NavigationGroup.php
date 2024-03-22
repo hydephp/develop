@@ -72,7 +72,7 @@ class NavigationGroup implements NavigationElement
     /**
      * Get the priority to determine the order of the grouped navigation item.
      *
-     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown itself has a lower priority.
+     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
      */
     public function getPriority(): int
     {
