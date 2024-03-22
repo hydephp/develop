@@ -57,6 +57,12 @@ abstract class NavigationMenu
      */
     public function add(NavigationItem|NavigationGroup $item): void
     {
+        $this->items->add($item);
+    }
+
+    /** Type safe helper to add a navigation item to the menu. */
+    protected function addItem(NavigationItem|NavigationGroup $item): void
+    {
         $this->items->push($item);
     }
 }
