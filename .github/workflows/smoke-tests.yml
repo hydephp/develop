@@ -33,8 +33,25 @@ jobs:
       - name: Ping continuous integration server with test status
         if: always()
         run: |
-          echo TODO: Implement smoke test status check
-
+          # Needs:
+          # 'commit' => 'required|string',
+          # 'status' => 'required|boolean',
+        
+          bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
+          commit="${{ github.sha }}"
+          if [ -f "report.xml" ]; then
+              status="true"
+          else
+              status="false"
+          fi
+          
+          curl -X POST --fail-with-body \
+            -H "Content-Type: multipart/form-data" \
+            -H "Authorization: Bearer $bearerToken" \
+            -F "commit=$commit" \
+            -F "status=$status" \
+            https://ci.hydephp.com/api/test-run-reports
+  
       - name: Ping statistics server with test results
         run: |
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
