@@ -185,6 +185,14 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame(999, (new NavigationGroup('Foo', [new NavigationItem('https://example.com', 'Bar', 100)]))->getPriority());
     }
 
+    public function testModifierMethodsAreFluentlyChainable()
+    {
+        $group = new NavigationGroup('Foo');
+
+        $this->assertSame($group, $group->addItem(new NavigationItem(new Route(new MarkdownPage()), 'Bar')));
+        $this->assertSame($group, $group->addItems([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
+    }
+
     protected function createNavigationItems(): array
     {
         return [
