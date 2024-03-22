@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -59,15 +60,9 @@ abstract class NavigationMenu
      */
     public function add(NavigationItem|NavigationGroup|array $items): void
     {
-        if (is_array($items)) {
-            foreach ($items as $item) {
-                $this->addItem($item);
-            }
-
-            return;
+        foreach (Arr::wrap($items) as $item) {
+            $this->addItem($item);
         }
-
-        $this->addItem($items);
     }
 
     /** Type safe helper to add a navigation item to the menu. */
