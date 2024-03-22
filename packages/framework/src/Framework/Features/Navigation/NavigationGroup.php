@@ -40,6 +40,21 @@ class NavigationGroup implements NavigationElement
         return $this->label;
     }
 
+    public function getGroupKey(): string
+    {
+        return Str::slug($this->label);
+    }
+
+    public function getPriority(): int
+    {
+        if ($this->containsOnlyDocumentationPages()) {
+            // For sidebar groups, we use the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
+            return min($this->priority, collect($this->getItems())->min(fn (NavigationItem $child): int => $child->getPriority()));
+        }
+
+        return $this->priority;
+    }
+
     /** @return array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     public function getItems(): array
     {
@@ -56,19 +71,9 @@ class NavigationGroup implements NavigationElement
         return $this;
     }
 
-    public function getGroupKey(): string
+    protected function addItem(NavigationItem $item): void
     {
-        return Str::slug($this->label);
-    }
-
-    public function getPriority(): int
-    {
-        if ($this->containsOnlyDocumentationPages()) {
-            // For sidebar groups, we use the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
-            return min($this->priority, collect($this->getItems())->min(fn (NavigationItem $child): int => $child->getPriority()));
-        }
-
-        return $this->priority;
+        $this->items[] = $item;
     }
 
     protected function containsOnlyDocumentationPages(): bool
@@ -80,10 +85,5 @@ class NavigationGroup implements NavigationElement
         return collect($this->getItems())->every(function (NavigationItem $child): bool {
             return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
-    }
-
-    protected function addItem(NavigationItem $item): void
-    {
-        $this->items[] = $item;
     }
 }
