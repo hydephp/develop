@@ -23,7 +23,7 @@ use function is_string;
  *   2. You can use NavigationItem::fromRoute() to use data from the route
  *   3. You can use NavigationItem::create() for an external or un-routed link
  */
-class NavigationItem implements Stringable
+class NavigationItem implements NavigationElement, Stringable
 {
     protected ?Route $route;
     protected string $label;

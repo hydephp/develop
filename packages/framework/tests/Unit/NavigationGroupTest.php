@@ -57,6 +57,11 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame($children, $item->getItems());
     }
 
+    public function testIsInstanceOfNavigationElement()
+    {
+        $this->assertInstanceOf(NavigationGroup::class, new NavigationGroup('Foo'));
+    }
+
     public function testGetItems()
     {
         $children = $this->createNavigationItems();
