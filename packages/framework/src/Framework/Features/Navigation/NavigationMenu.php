@@ -8,6 +8,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 
+use function Hyde\evaluate_arrayable;
+
 /**
  * Represents a site navigation menu, and contains all of its navigation items.
  *
@@ -28,7 +30,7 @@ abstract class NavigationMenu
     {
         $this->items = new Collection();
 
-        $this->add($items instanceof Arrayable ? $items->toArray() : $items);
+        $this->add(evaluate_arrayable($items));
     }
 
     /**
