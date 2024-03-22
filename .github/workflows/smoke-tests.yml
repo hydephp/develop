@@ -35,6 +35,7 @@ jobs:
         run: |
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
           commit="${{ github.sha }}"
+
           if [ -f "report.xml" ]; then
               status="true"
           else
