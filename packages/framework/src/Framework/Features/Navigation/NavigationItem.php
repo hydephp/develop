@@ -90,7 +90,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): NavigationGroup
     {
-        return new NavigationGroup($label, $items, $priority);
+        return NavigationGroup::create($label, $items, $priority);
     }
 
     /**
