@@ -20,7 +20,7 @@ abstract class NavigationMenu
     public const DEFAULT = 500;
     public const LAST = 999;
 
-    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem> */
+    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
     protected Collection $items;
 
     public function __construct(Arrayable|array $items = [])
@@ -41,7 +41,7 @@ abstract class NavigationMenu
      *
      * Items are automatically sorted by their priority, falling back to the order they were added.
      *
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem>
+     * @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>
      */
     public function getItems(): Collection
     {
@@ -49,13 +49,13 @@ abstract class NavigationMenu
         // so any sorting we do in generator actions will only be partial. This way, we can ensure
         // that the items are always freshly sorted by their priorities when they are retrieved.
 
-        return $this->items->sortBy(fn (NavigationItem $item) => $item->getPriority())->values();
+        return $this->items->sortBy(fn (NavigationItem|NavigationGroup $item) => $item->getPriority())->values();
     }
 
     /**
      * Add a navigation item to the navigation menu.
      */
-    public function add(NavigationItem $item): void
+    public function add(NavigationItem|NavigationGroup $item): void
     {
         $this->items->push($item);
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Support\Models\Route;
+use Illuminate\Support\Str;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\ExternalRoute;
 
@@ -16,52 +16,45 @@ use function collect;
  *
  * @todo Consider extracting trait for shared code with navigation menu class
  */
-class GroupedNavigationItem extends NavigationItem
+class NavigationGroup implements NavigationElement
 {
     /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     protected array $items = [];
+    protected string $label;
+    protected int $priority;
 
     public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
     {
-        parent::__construct(null, $label, $priority, static::normalizeGroupKey($label));
+        $this->label = $label;
+        $this->priority = $priority;
 
         $this->addItems($items);
     }
 
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): NavigationItem
+    public static function create(string $label, array $items = [], int $priority = NavigationMenu::LAST): static
     {
-        return parent::create($destination, $label, $priority, $group);
+        return new static($label, $items, $priority);
     }
 
-    /**
-     * Get the items of the grouped navigation item.
-     *
-     * For the main navigation menu, this stores any dropdown items.
-     *
-     * @return array<\Hyde\Framework\Features\Navigation\NavigationItem>
-     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /** @return array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     public function getItems(): array
     {
         return $this->items;
     }
 
-    /**
-     * Add a navigation item to the grouped navigation item.
-     */
     public function addItem(NavigationItem $item): static
     {
-        $item->group ??= $this->group;
-
         $this->items[] = $item;
 
         return $this;
     }
 
-    /**
-     * Add multiple navigation items to the grouped navigation item.
-     *
-     * @param  array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items
-     */
+    /** @param  array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */
     public function addItems(array $items): static
     {
         foreach ($items as $item) {
@@ -71,10 +64,15 @@ class GroupedNavigationItem extends NavigationItem
         return $this;
     }
 
+    public function getGroupKey(): string
+    {
+        return Str::slug($this->label);
+    }
+
     /**
      * Get the priority to determine the order of the grouped navigation item.
      *
-     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown has a lower priority.
+     * For sidebar groups, this is the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
      */
     public function getPriority(): int
     {
@@ -82,7 +80,7 @@ class GroupedNavigationItem extends NavigationItem
             return min($this->priority, collect($this->getItems())->min(fn (NavigationItem $child): int => $child->getPriority()));
         }
 
-        return parent::getPriority();
+        return $this->priority;
     }
 
     protected function containsOnlyDocumentationPages(): bool

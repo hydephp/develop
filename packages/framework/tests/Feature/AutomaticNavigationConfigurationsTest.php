@@ -18,7 +18,7 @@ use Hyde\Support\Models\Redirect;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Features\Navigation\NavigationItem;
-use Hyde\Framework\Features\Navigation\GroupedNavigationItem;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
@@ -1293,7 +1293,7 @@ class TestNavigationItem
         $this->label = $label;
         $this->group = $group;
         $this->priority = $priority;
-        $this->children = collect($children)->map(fn (NavigationItem $child) => $child->getLabel())->toArray();
+        $this->children = collect($children)->map(fn (NavigationItem|NavigationGroup $child) => $child->getLabel())->toArray();
     }
 
     public static function properties(): array
@@ -1319,8 +1319,8 @@ class AssertableNavigationMenu
     /** A simplified serialized format for comparisons */
     public function state(): array
     {
-        return $this->items->map(function (NavigationItem $item): TestNavigationItem {
-            return new TestNavigationItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof GroupedNavigationItem ? $item->getItems() : []);
+        return $this->items->map(function (NavigationItem|NavigationGroup $item): TestNavigationItem {
+            return new TestNavigationItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof NavigationGroup ? $item->getItems() : []);
         })->toArray();
     }
 

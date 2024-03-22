@@ -37,7 +37,7 @@
         <ul aria-label="Navigation links" class="md:flex-grow md:flex justify-end">
             @foreach ($navigation->getItems() as $item)
                 <li class="md:mx-2">
-                    @if($item instanceof \Hyde\Framework\Features\Navigation\GroupedNavigationItem)
+                    @if($item instanceof \Hyde\Framework\Features\Navigation\NavigationGroup)
                         <x-hyde::navigation.dropdown :label="$item->getLabel()" :items="$item->getItems()"/>
                     @else
                         <x-hyde::navigation.navigation-link :item="$item"/>

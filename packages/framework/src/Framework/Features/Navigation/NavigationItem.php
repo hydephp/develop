@@ -21,7 +21,7 @@ use function is_string;
  *   2. You can use NavigationItem::fromRoute() to use data from the route
  *   3. You can use NavigationItem::create() for an external or un-routed link
  */
-class NavigationItem implements Stringable
+class NavigationItem implements NavigationElement, Stringable
 {
     protected ?Route $route;
     protected string $label;
@@ -80,15 +80,17 @@ class NavigationItem implements Stringable
     /**
      * Create a new dropdown navigation menu item.
      *
-     * TODO: Move to GroupedNavigationItem::create() as this solves the naming issue, and because it makes little sense for it to be here. It also resolves the self/static issue.
+     * @deprecated Use NavigationGroup::create() instead.
+     *
+     * TODO: Move to NavigationGroup::create() as this solves the naming issue, and because it makes little sense for it to be here. It also resolves the self/static issue.
      *
      * @param  string  $label  The label of the dropdown item.
      * @param  array<NavigationItem>  $items  The items to be included in the dropdown.
      * @param  int  $priority  The priority of the dropdown item. Leave blank to use the default priority, which is last in the menu.
      */
-    public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): GroupedNavigationItem
+    public static function forGroup(string $label, array $items, int $priority = NavigationMenu::LAST): NavigationGroup
     {
-        return new GroupedNavigationItem($label, $items, $priority);
+        return new NavigationGroup($label, $items, $priority);
     }
 
     /**
@@ -133,11 +135,6 @@ class NavigationItem implements Stringable
 
     /**
      * Get the group identifier key of the navigation item, if any.
-     *
-     * For sidebars this is the category key, for navigation menus this is the dropdown key.
-     *
-     * When using automatic subdirectory based groups, the subdirectory name is the group key.
-     * Otherwise, the group key is a "slugified" version of the group's label.
      */
     public function getGroupKey(): ?string
     {
