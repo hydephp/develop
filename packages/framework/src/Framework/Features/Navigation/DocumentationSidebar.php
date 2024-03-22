@@ -66,7 +66,7 @@ class DocumentationSidebar extends NavigationMenu
         }
 
         return $this->items->first(function (NavigationGroup $item): bool {
-            return $item->getGroupKey() && $this->legacy_isGroupActive($item->getGroupKey());
+            return $item->getGroupKey() && $this->legacy_isGroupActive($item->getGroupKey(), Render::getPage());
         }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
     }
 
@@ -87,27 +87,27 @@ class DocumentationSidebar extends NavigationMenu
     }
 
     /** @deprecated Temporary method to aid in refactoring. */
-    protected function legacy_isGroupActive(string $group): bool
+    protected function legacy_isGroupActive(string $group, DocumentationPage $currentPage): bool
     {
-        $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey(Render::getPage()->navigationMenuGroup()) === $group;
+        $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup()) === $group;
 
-        if ($this->isCurrentPageIndexPage()) {
-            return $this->shouldIndexPageBeActive($group) || $groupMatchesCurrentPageGroup;
+        if ($this->isCurrentPageIndexPage($currentPage)) {
+            return $this->shouldIndexPageBeActive($group, $currentPage) || $groupMatchesCurrentPageGroup;
         }
 
         return $groupMatchesCurrentPageGroup;
     }
 
-    private function isCurrentPageIndexPage(): bool
+    private function isCurrentPageIndexPage(DocumentationPage $currentPage): bool
     {
-        return Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName());
+        return $currentPage->getRoute()->is(DocumentationPage::homeRouteName());
     }
 
-    private function shouldIndexPageBeActive(string $group): bool
+    private function shouldIndexPageBeActive(string $group, DocumentationPage $currentPage): bool
     {
         // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
 
-        if (filled(Render::getPage()->navigationMenuGroup())) {
+        if (filled($currentPage->navigationMenuGroup())) {
             return false;
         }
 
