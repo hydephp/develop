@@ -150,6 +150,21 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $this->assertNull((new DocumentationSidebar([new NavigationItem('foo', 'Foo')]))->getActiveGroup());
     }
 
+    public function testGetActiveGroupReturnsFirstGroupWhenRenderingIndexPage()
+    {
+
+    }
+
+    public function testGetActiveGroupReturnsFirstGroupByLowestPriorityWhenRenderingIndexPage()
+    {
+
+    }
+
+    public function testGetActiveGroupReturnsExplicitlySetIndexPageGroupWhenRenderingIndexPage()
+    {
+
+    }
+
     protected function mockCurrentPageForActiveGroup(string $group, string $identifier = 'foo'): void
     {
         $this->renderData->setPage(new DocumentationPage($identifier, ['navigation.group' => $group]));
