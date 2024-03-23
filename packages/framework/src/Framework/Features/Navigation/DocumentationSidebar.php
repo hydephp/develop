@@ -63,6 +63,10 @@ class DocumentationSidebar extends NavigationMenu
 
     public function getActiveGroup(): ?NavigationGroup
     {
+        if ($this->items->isEmpty()) {
+            throw new BadMethodCallException('Cannot get the active group when there are no items.');
+        }
+
         if (! $this->hasGroups()) {
             throw new BadMethodCallException('Cannot get the active group when there are no groups.');
         }
