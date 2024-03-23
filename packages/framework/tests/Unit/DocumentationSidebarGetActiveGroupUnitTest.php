@@ -63,8 +63,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         // Create the sidebar
         foreach ($items as $group => $groupItems) {
             $groupItems = array_map(fn (string $item): NavigationItem => new NavigationItem($item, $item), $groupItems);
-            $group = new NavigationGroup($group, $groupItems);
-            $items[$group->getGroupKey()] = $group;
+            $items[$group] = new NavigationGroup($group, $groupItems);
         }
 
         $sidebar = new DocumentationSidebar($items);
