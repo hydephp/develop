@@ -44,6 +44,12 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $this->assertNull($menu->getActiveGroup());
     }
 
+    public function testActiveGroupIsNullWhenThereAreNoGroups()
+    {
+        $menu = new DocumentationSidebar();
+        $this->assertNull($menu->getActiveGroup());
+    }
+
     public function testActiveGroupIsNullWhenNoGroupIsActive()
     {
         $this->assertNull($this->sidebar()->getActiveGroup());
