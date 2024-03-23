@@ -67,6 +67,8 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function getActiveGroup(): ?NavigationGroup
     {
+        // A group is active when it contains the current page being rendered
+
         if ($this->items->isEmpty() || (! $this->hasGroups()) || (! $this->isCollapsible())) {
             return null;
         }
