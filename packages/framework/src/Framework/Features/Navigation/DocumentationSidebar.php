@@ -99,7 +99,11 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function isGroupActive(string $group): bool
     {
-        return $group === $this->getActiveGroup()?->getGroupKey();
+        try {
+            return $group === $this->getActiveGroup()?->getGroupKey();
+        } catch (BadMethodCallException) {
+            return false;
+        }
     }
 
     /** @deprecated Temporary method to aid in refactoring. */
