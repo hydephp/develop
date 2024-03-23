@@ -67,15 +67,11 @@ class DocumentationSidebar extends NavigationMenu
     {
         // A group is active when it contains the current page being rendered
 
-        if ($this->items->isEmpty() || (! $this->hasGroups()) || (! $this->isCollapsible())) {
+        if ($this->items->isEmpty() || (! $this->hasGroups()) || (! $this->isCollapsible()) || Render::getPage() === null) {
             return null;
         }
 
         $currentPage = Render::getPage();
-
-        if ($currentPage === null) {
-            return null;
-        }
 
         if ($currentPage->getRoute()->is(DocumentationPage::homeRouteName()) && blank($currentPage->navigationMenuGroup())) {
             // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
