@@ -40,6 +40,36 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
+    public function testGetActiveGroup()
+    {
+        // The sidebar structure
+        $items = [
+            // Group keys
+            'getting-started' => [
+                // Group items
+                'Introduction',
+                'Installation',
+            ],
+            'configuration' => [
+                'Configuration',
+                'Environment Variables',
+            ],
+            'usage' => [
+                'Routing',
+                'Middleware',
+            ],
+        ];
+
+        // Create the sidebar
+        foreach ($items as $group => $groupItems) {
+            $groupItems = array_map(fn (string $item): NavigationItem => new NavigationItem($item, $item), $groupItems);
+            $group = new NavigationGroup($group, $groupItems);
+            $items[$group->getGroupKey()] = $group;
+        }
+
+        $sidebar = new DocumentationSidebar($items);
+    }
+
     public function testGetActiveGroupIsNullWhenNoItemsExist()
     {
         $this->assertNull((new DocumentationSidebar())->getActiveGroup());
