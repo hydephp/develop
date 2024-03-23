@@ -61,6 +61,9 @@ class DocumentationSidebar extends NavigationMenu
         return $this->getItems()->contains(fn (NavigationItem|NavigationGroup $item): bool => $item instanceof NavigationGroup);
     }
 
+    /**
+     * Get the group that should be open when the sidebar is loaded.
+     */
     public function getActiveGroup(): ?NavigationGroup
     {
         if ($this->items->isEmpty()) {
