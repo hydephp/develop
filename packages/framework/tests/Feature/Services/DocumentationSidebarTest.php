@@ -27,6 +27,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Framework\Features\Navigation\NavigationItem
  *
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
+ * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  */
 class DocumentationSidebarTest extends TestCase
 {

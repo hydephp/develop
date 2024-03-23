@@ -8,6 +8,9 @@ use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ *
+ * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
+ * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  */
 class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 {
