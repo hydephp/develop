@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
+use BadMethodCallException;
 use Illuminate\View\Factory;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
@@ -12,6 +13,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RenderData;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Facades\View;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
@@ -38,16 +40,20 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         Render::swap($this->renderData);
     }
 
-    public function testActiveGroupIsNullInitially()
+    public function testCannotGetActiveGroupWhenNoItemsExist()
     {
-        $menu = new DocumentationSidebar();
-        $this->assertNull($menu->getActiveGroup());
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot get the active group when there are no items.');
+
+        (new DocumentationSidebar())->getActiveGroup();
     }
 
-    public function testActiveGroupIsNullWhenThereAreNoGroups()
+    public function testCannotGetActiveGroupWhenNoGroupsExist()
     {
-        $menu = new DocumentationSidebar();
-        $this->assertNull($menu->getActiveGroup());
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot get the active group when there are no groups.');
+
+        (new DocumentationSidebar([new NavigationItem('foo', 'Foo')]))->getActiveGroup();
     }
 
     public function testActiveGroupIsNullWhenNoGroupIsActive()
