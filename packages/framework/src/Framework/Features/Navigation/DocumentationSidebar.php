@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
+use BadMethodCallException;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Pages\Concerns\HydePage;
@@ -63,13 +64,11 @@ class DocumentationSidebar extends NavigationMenu
     public function getActiveGroup(): ?NavigationGroup
     {
         if (! $this->hasGroups()) {
-            // Todo: Would it make more sense to throw an exception here?
-            return null;
+            throw new BadMethodCallException('Cannot get the active group when there are no groups.');
         }
 
         if (! $this->isCollapsible()) {
-            // Todo: Would it make more sense to throw an exception here?
-            return null;
+            throw new BadMethodCallException('Cannot get the active group when the sidebar is not collapsible.');
         }
 
         $currentPage = Render::getPage();
