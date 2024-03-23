@@ -78,6 +78,8 @@ class DocumentationSidebar extends NavigationMenu
         }
 
         if ($this->isCurrentPageIndexPage($currentPage) && blank($currentPage->navigationMenuGroup())) {
+            // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
+
             return $this->items->sortBy(fn (NavigationGroup $item): int => $item->getPriority())->first();
         }
 
