@@ -63,10 +63,12 @@ class DocumentationSidebar extends NavigationMenu
     public function getActiveGroup(): ?NavigationGroup
     {
         if (! $this->hasGroups()) {
+            // Todo: Would it make more sense to throw an exception here?
             return null;
         }
 
         if (! $this->isCollapsible()) {
+            // Todo: Would it make more sense to throw an exception here?
             return null;
         }
 
