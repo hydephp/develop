@@ -27,13 +27,16 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
     protected static bool $needsConfig = true;
     protected static bool $needsKernel = true;
 
+    protected RenderData $renderData;
+    protected DocumentationSidebar $menu;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         View::swap(Mockery::mock(Factory::class)->makePartial());
-        $renderData = new RenderData();
-        Render::swap($renderData);
+        $this->renderData = new RenderData();
+        Render::swap($this->renderData);
 
         $pages = [
             'foo' => 'one',
@@ -45,30 +48,25 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
             $page = new DocumentationPage($page, ['navigation.group' => $group]);
             Routes::addRoute($page->getRoute());
         }
+
+        $this->menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
     }
 
     public function testActiveGroupIsNullInitially()
     {
-        $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertNull($menu->getActiveGroup());
+        $this->assertNull($this->menu->getActiveGroup());
     }
 
     public function testSetActiveGroup()
     {
-        $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
+        $this->renderData->setPage(new DocumentationPage('foo', ['navigation.group' => 'one']));
 
-        $renderData = Render::getFacadeRoot();
-        $renderData->setPage(new DocumentationPage('foo', ['navigation.group' => 'one']));
-
-        $this->assertInstanceOf(NavigationGroup::class, $menu->getActiveGroup());
-        $this->assertSame('one', $menu->getActiveGroup()->getGroupKey());
+        $this->assertInstanceOf(NavigationGroup::class, $this->menu->getActiveGroup());
+        $this->assertSame('one', $this->menu->getActiveGroup()->getGroupKey());
     }
 
     public function testActiveGroupUpdatesWithPageChanges()
     {
-        $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $renderData = Render::getFacadeRoot();
-
         $pages = [
             'foo' => 'one',
             'bar' => 'two',
@@ -76,16 +74,14 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         ];
 
         foreach ($pages as $page => $group) {
-            $renderData->setPage(new DocumentationPage($page, ['navigation.group' => $group]));
-            $this->assertSame($group, $menu->getActiveGroup()->getGroupKey());
+            $this->renderData->setPage(new DocumentationPage($page, ['navigation.group' => $group]));
+            $this->assertSame($group, $this->menu->getActiveGroup()->getGroupKey());
         }
     }
 
     public function testActiveGroupItems()
     {
-        $menu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $renderData = Render::getFacadeRoot();
-        $renderData->setPage(new DocumentationPage('foo', ['navigation.group' => 'one']));
+        $this->renderData->setPage(new DocumentationPage('foo', ['navigation.group' => 'one']));
 
         $expectedItems = [
             'one' => true,
@@ -93,8 +89,8 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
             'three' => false,
         ];
 
-        $actualItems = $menu->getItems()->mapWithKeys(fn (NavigationGroup $item): array => [
-            $item->getGroupKey() => $item === $menu->getActiveGroup(),
+        $actualItems = $this->menu->getItems()->mapWithKeys(fn (NavigationGroup $item): array => [
+            $item->getGroupKey() => $item === $this->menu->getActiveGroup(),
         ])->all();
 
         $this->assertSame($expectedItems, $actualItems);
