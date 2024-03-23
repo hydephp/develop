@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
-use BadMethodCallException;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Pages\Concerns\HydePage;
@@ -96,11 +95,7 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function isGroupActive(string $group): bool
     {
-        try {
-            return $group === $this->getActiveGroup()?->getGroupKey();
-        } catch (BadMethodCallException) {
-            return false;
-        }
+        return $group === $this->getActiveGroup()?->getGroupKey();
     }
 
     /** @deprecated Temporary method to aid in refactoring. */
