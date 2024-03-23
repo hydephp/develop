@@ -64,20 +64,12 @@ class DocumentationSidebar extends NavigationMenu
     /**
      * Get the group that should be open when the sidebar is loaded.
      *
-     * @experimental This method is experimental and may be changed or made internal in the future. If internal, we will not need the validation checks.
+     * @internal This method offloads logic for the sidebar view, and is not intended to be used in other contexts.
      */
     public function getActiveGroup(): ?NavigationGroup
     {
-        if ($this->items->isEmpty()) {
-            throw new BadMethodCallException('Cannot get the active group when there are no items.');
-        }
-
-        if (! $this->hasGroups()) {
-            throw new BadMethodCallException('Cannot get the active group when there are no groups.');
-        }
-
-        if (! $this->isCollapsible()) {
-            throw new BadMethodCallException('Cannot get the active group when the sidebar is not collapsible.');
+        if ($this->items->isEmpty() || (! $this->hasGroups()) || (! $this->isCollapsible())) {
+            return null;
         }
 
         $currentPage = Render::getPage();

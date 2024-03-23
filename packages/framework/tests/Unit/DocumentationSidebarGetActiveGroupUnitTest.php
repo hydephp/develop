@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
-use BadMethodCallException;
 use Illuminate\View\Factory;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
@@ -41,30 +40,21 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function testCannotGetActiveGroupWhenNoItemsExist()
+    public function testGetActiveGroupIsNullWhenNoItemsExist()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Cannot get the active group when there are no items.');
-
-        (new DocumentationSidebar())->getActiveGroup();
+        $this->assertNull((new DocumentationSidebar())->getActiveGroup());
     }
 
-    public function testCannotGetActiveGroupWhenNoGroupsExist()
+    public function testGetActiveGroupIsNullWhenNoGroupsExist()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Cannot get the active group when there are no groups.');
-
-        (new DocumentationSidebar([new NavigationItem('foo', 'Foo')]))->getActiveGroup();
+        $this->assertNull((new DocumentationSidebar([new NavigationItem('foo', 'Foo')]))->getActiveGroup());
     }
 
-    public function testCannotGetActiveGroupWhenSidebarsAreNotCollapsible()
+    public function testGetActiveGroupIsNullWhenSidebarsAreNotCollapsible()
     {
         self::mockConfig(['docs.sidebar.collapsible' => false]);
 
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Cannot get the active group when the sidebar is not collapsible.');
-
-        (new DocumentationSidebar([new NavigationGroup('foo')]))->getActiveGroup();
+        $this->assertNull((new DocumentationSidebar([new NavigationGroup('foo')]))->getActiveGroup());
     }
 
     public function testActiveGroupIsNullWhenNoGroupIsActive()
