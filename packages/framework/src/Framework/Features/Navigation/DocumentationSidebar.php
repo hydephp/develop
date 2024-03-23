@@ -79,6 +79,6 @@ class DocumentationSidebar extends NavigationMenu
         return $this->items->first(function (NavigationGroup $group) use ($currentPage): bool {
             // A group is active when it contains the current page being rendered
             return $group->getGroupKey() === NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup());
-        }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
+        });
     }
 }
