@@ -66,6 +66,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         // Create the sidebar
         return new DocumentationSidebar($items);
     }
+
     public function testNoActiveGroupWhenNoneExists()
     {
         $this->assertNull($this->createSidebar()->getActiveGroup());
