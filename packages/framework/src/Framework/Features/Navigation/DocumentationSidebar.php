@@ -63,7 +63,10 @@ class DocumentationSidebar extends NavigationMenu
     public function getActiveGroup(): ?NavigationGroup
     {
         if (! $this->hasGroups()) {
-            // Todo we should also consider checking if the sidebar is collapsible, because if it isn't all groups are always active.
+            return null;
+        }
+
+        if (! $this->isCollapsible()) {
             return null;
         }
 
