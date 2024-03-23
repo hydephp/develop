@@ -63,6 +63,8 @@ class DocumentationSidebar extends NavigationMenu
 
     /**
      * Get the group that should be open when the sidebar is loaded.
+     *
+     * @experimental This method is experimental and may be changed or made internal in the future. If internal, we will not need the validation checks.
      */
     public function getActiveGroup(): ?NavigationGroup
     {
