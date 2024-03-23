@@ -65,8 +65,6 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function getActiveGroup(): ?NavigationGroup
     {
-        // A group is active when it contains the current page being rendered
-
         if ($this->items->isEmpty() || (! $this->hasGroups()) || (! $this->isCollapsible()) || Render::getPage() === null) {
             return null;
         }
@@ -75,11 +73,11 @@ class DocumentationSidebar extends NavigationMenu
 
         if ($currentPage->getRoute()->is(DocumentationPage::homeRouteName()) && blank($currentPage->navigationMenuGroup())) {
             // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
-
             return $this->items->sortBy(fn (NavigationGroup $item): int => $item->getPriority())->first();
         }
 
         return $this->items->first(function (NavigationGroup $item) use ($currentPage): bool {
+            // A group is active when it contains the current page being rendered
             return $item->getGroupKey() === NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup());
         }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
     }
