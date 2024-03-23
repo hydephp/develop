@@ -57,6 +57,16 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         (new DocumentationSidebar([new NavigationItem('foo', 'Foo')]))->getActiveGroup();
     }
 
+    public function testCannotGetActiveGroupWhenSidebarsAreNotCollapsible()
+    {
+        self::mockConfig(['docs.sidebar.collapsible' => false]);
+
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot get the active group when the sidebar is not collapsible.');
+
+        (new DocumentationSidebar([new NavigationGroup('foo')]))->getActiveGroup();
+    }
+
     public function testActiveGroupIsNullWhenNoGroupIsActive()
     {
         $this->assertNull($this->sidebar()->getActiveGroup());
