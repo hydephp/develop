@@ -113,7 +113,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         ];
 
         foreach ($pages as $page => $group) {
-            $this->mockCurrentPageForActiveGroup($group);
+            $this->mockCurrentPageForActiveGroup($group, $page);
             $this->assertSame($group, $this->sidebar()->getActiveGroup()->getGroupKey());
         }
     }
@@ -151,8 +151,8 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         return NavigationMenuGenerator::handle(DocumentationSidebar::class);
     }
 
-    protected function mockCurrentPageForActiveGroup(string $group): void
+    protected function mockCurrentPageForActiveGroup(string $group, string $identifier = 'foo'): void
     {
-        $this->renderData->setPage(new DocumentationPage('foo', ['navigation.group' => $group]));
+        $this->renderData->setPage(new DocumentationPage($identifier, ['navigation.group' => $group]));
     }
 }
