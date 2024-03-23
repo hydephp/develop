@@ -40,31 +40,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 
     public function testGetActiveGroup()
     {
-        // The sidebar structure
-        $items = [
-            // Group keys
-            'getting-started' => [
-                // Group items
-                'Introduction',
-                'Installation',
-            ],
-            'configuration' => [
-                'Configuration',
-                'Environment Variables',
-            ],
-            'usage' => [
-                'Routing',
-                'Middleware',
-            ],
-        ];
-
-        // Create the sidebar items
-        foreach ($items as $groupKey => $groupItems) {
-            $items[$groupKey] = new NavigationGroup($groupKey, array_map(fn (string $item): NavigationItem => new NavigationItem($item, $item), $groupItems));
-        }
-
-        // Create the sidebar
-        $sidebar = new DocumentationSidebar($items);
+        $sidebar = $this->createSidebar();
 
         // Assert is null when there is no active group
         $this->assertNull($sidebar->getActiveGroup());
@@ -129,5 +105,34 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
     protected function mockCurrentPageForActiveGroup(string $group, string $identifier = 'foo'): void
     {
         $this->renderData->setPage(new DocumentationPage($identifier, ['navigation.group' => $group]));
+    }
+
+    protected function createSidebar(): DocumentationSidebar
+    {
+        // The sidebar structure
+        $items = [
+            // Group keys
+            'getting-started' => [
+                // Group items
+                'Introduction',
+                'Installation',
+            ],
+            'configuration' => [
+                'Configuration',
+                'Environment Variables',
+            ],
+            'usage' => [
+                'Routing',
+                'Middleware',
+            ],
+        ];
+
+        // Create the sidebar items
+        foreach ($items as $groupKey => $groupItems) {
+            $items[$groupKey] = new NavigationGroup($groupKey, array_map(fn (string $item): NavigationItem => new NavigationItem($item, $item), $groupItems));
+        }
+
+        // Create the sidebar
+        return new DocumentationSidebar($items);
     }
 }
