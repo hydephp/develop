@@ -66,57 +66,87 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         // Create the sidebar
         return new DocumentationSidebar($items);
     }
-
-    public function testGetActiveGroup()
+    public function testNoActiveGroupWhenNoneExists()
     {
         $sidebar = $this->createSidebar();
-
-        // Assert is null when there is no active group
         $this->assertNull($sidebar->getActiveGroup());
+    }
 
-        // Assert is null when active group is outside the sidebar
+    public function testNoActiveGroupWhenOutsideSidebar()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('foo');
         $this->assertNull($sidebar->getActiveGroup());
+    }
 
-        // Assert is null when sidebar is not collapsible
+    public function testNoActiveGroupWhenSidebarNotCollapsible()
+    {
+        $sidebar = $this->createSidebar();
         self::mockConfig(['docs.sidebar.collapsible' => false]);
         $this->mockCurrentPageForActiveGroup('getting-started');
         $this->assertNull($sidebar->getActiveGroup());
         self::mockConfig(['docs.sidebar.collapsible' => true]);
+    }
 
-        // Assert the active group
+    public function testActiveGroupGettingStarted()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('getting-started');
         $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group
+    public function testActiveGroupConfiguration()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('configuration');
         $this->assertSame('configuration', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group
+    public function testActiveGroupUsage()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('usage');
         $this->assertSame('usage', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group for identifier within the group
+    public function testActiveGroupWithIdentifierGettingStarted()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('getting-started', 'Introduction');
         $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group for identifier within the group
+    public function testActiveGroupWithIdentifierConfiguration()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('configuration', 'Configuration');
         $this->assertSame('configuration', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group for identifier within the group
+    public function testActiveGroupWithIdentifierUsage()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('usage', 'Routing');
         $this->assertSame('usage', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group for with group key having different casing
+    public function testActiveGroupDifferentCasingGettingStarted()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('GETTING-STARTED');
         $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group for with group key having different casing
+    public function testActiveGroupDifferentCasingGettingStarted2()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('Getting-Started');
         $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+    }
 
-        // Assert the active group for with group key having different casing
+    public function testActiveGroupDifferentCasingGettingStarted3()
+    {
+        $sidebar = $this->createSidebar();
         $this->mockCurrentPageForActiveGroup('getting-started');
         $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
     }
