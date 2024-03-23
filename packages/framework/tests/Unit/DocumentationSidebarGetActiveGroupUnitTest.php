@@ -62,7 +62,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $this->assertNull($this->sidebar()->getActiveGroup());
     }
 
-    public function testSetActiveGroup()
+    public function testWithActiveGroup()
     {
         $this->renderData->setPage(new DocumentationPage('foo', ['navigation.group' => 'one']));
 
