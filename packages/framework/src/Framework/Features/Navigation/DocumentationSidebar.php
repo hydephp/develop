@@ -10,7 +10,6 @@ use Hyde\Support\Facades\Render;
 use Illuminate\Contracts\Support\Arrayable;
 
 use function app;
-use function filled;
 use function is_string;
 
 class DocumentationSidebar extends NavigationMenu
@@ -60,38 +59,26 @@ class DocumentationSidebar extends NavigationMenu
     }
 
     /**
-     * Is a page within the group the current page? This is used to determine if the sidebar group should be open when loading the page.
+     * Get the group that should be open when the sidebar is loaded.
      *
-     * @internal This method is used in the sidebar view to determine if a group should be open, and is not intended to be used in other contexts.
-     *
-     * For index pages, this will also return true for the first group in the menu, unless the index page has a specific group set.
-     *
-     * We have this logic here because not all NavigationItem instances belong to sidebars, and we need data from both.
+     * @internal This method offloads logic for the sidebar view, and is not intended to be used in other contexts.
      */
-    public function isGroupActive(string $group): bool
+    public function getActiveGroup(): ?NavigationGroup
     {
-        $groupMatchesCurrentPageGroup = NavigationItem::normalizeGroupKey(Render::getPage()->navigationMenuGroup()) === $group;
-
-        if ($this->isCurrentPageIndexPage()) {
-            return $this->shouldIndexPageBeActive($group) || $groupMatchesCurrentPageGroup;
+        if ($this->items->isEmpty() || (! $this->hasGroups()) || (! $this->isCollapsible()) || Render::getPage() === null) {
+            return null;
         }
 
-        return $groupMatchesCurrentPageGroup;
-    }
+        $currentPage = Render::getPage();
 
-    private function isCurrentPageIndexPage(): bool
-    {
-        return Render::getPage()->getRoute()->is(DocumentationPage::homeRouteName());
-    }
-
-    private function shouldIndexPageBeActive(string $group): bool
-    {
-        // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
-
-        if (filled(Render::getPage()->navigationMenuGroup())) {
-            return false;
+        if ($currentPage->getRoute()->is(DocumentationPage::homeRouteName()) && blank($currentPage->navigationMenuGroup())) {
+            // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
+            return $this->items->sortBy(fn (NavigationGroup $item): int => $item->getPriority())->first();
         }
 
-        return $group === $this->getItems()->firstOrFail()->getGroupKey();
+        return $this->items->first(function (NavigationGroup $group) use ($currentPage): bool {
+            // A group is active when it contains the current page being rendered.
+            return $group->getGroupKey() === NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup());
+        });
     }
 }

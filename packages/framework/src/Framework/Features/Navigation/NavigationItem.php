@@ -26,6 +26,8 @@ class NavigationItem implements NavigationElement, Stringable
     protected ?Route $route;
     protected string $label;
     protected int $priority;
+
+    // TODO: Do we actually need this? We should just care if it's physically stored in a group.
     protected ?string $group = null;
 
     /**
