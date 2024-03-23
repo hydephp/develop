@@ -7,11 +7,9 @@ namespace Hyde\Framework\Features\Navigation;
 use Hyde\Facades\Config;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
-use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Contracts\Support\Arrayable;
 
 use function app;
-use function filled;
 use function is_string;
 
 class DocumentationSidebar extends NavigationMenu
@@ -88,38 +86,8 @@ class DocumentationSidebar extends NavigationMenu
         }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
     }
 
-    /** @deprecated Temporary method to aid in refactoring. */
-    protected function legacy_isGroupActive(string $group, HydePage $currentPage): bool
-    {
-        if ($this->isCurrentPageIndexPage($currentPage)) {
-            return $this->shouldIndexPageBeActive($group, $currentPage);
-        }
-
-        return $this->groupMatchesCurrentPageGroup($currentPage, $group);
-    }
-
     private function isCurrentPageIndexPage(HydePage $currentPage): bool
     {
         return $currentPage->getRoute()->is(DocumentationPage::homeRouteName());
-    }
-
-    private function shouldIndexPageBeActive(string $group, HydePage $currentPage): bool
-    {
-        // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
-
-        if ($this->groupMatchesCurrentPageGroup($currentPage, $group)) {
-            return true;
-        }
-
-        if (filled($currentPage->navigationMenuGroup())) {
-            return false;
-        }
-
-        return $group === $this->getItems()->firstOrFail()->getGroupKey();
-    }
-
-    protected function groupMatchesCurrentPageGroup(HydePage $currentPage, string $group): bool
-    {
-        return NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup()) === $group;
     }
 }
