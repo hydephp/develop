@@ -150,6 +150,12 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $this->assertNull((new DocumentationSidebar([new NavigationItem('foo', 'Foo')]))->getActiveGroup());
     }
 
+    public function testGetActiveGroupIsNullIfTheSetGroupIsNotPresentInTheSidebarItems()
+    {
+        $this->renderData->setPage(new DocumentationPage('foo', ['navigation.group' => 'foo']));
+        $this->assertNull($this->createSidebar()->getActiveGroup());
+    }
+
     public function testGetActiveGroupReturnsFirstGroupWhenRenderingIndexPage()
     {
         $this->renderData->setPage(new DocumentationPage('index'));
