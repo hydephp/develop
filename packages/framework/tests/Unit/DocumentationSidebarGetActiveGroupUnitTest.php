@@ -70,6 +70,52 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 
         // Assert is null when there is no active group
         $this->assertNull($sidebar->getActiveGroup());
+
+        // Assert is null when active group is outside the sidebar
+        $this->mockCurrentPageForActiveGroup('foo');
+        $this->assertNull($sidebar->getActiveGroup());
+
+        // Assert is null when sidebar is not collapsible
+        self::mockConfig(['docs.sidebar.collapsible' => false]);
+        $this->mockCurrentPageForActiveGroup('getting-started');
+        $this->assertNull($sidebar->getActiveGroup());
+        self::mockConfig(['docs.sidebar.collapsible' => true]);
+
+        // Assert the active group
+        $this->mockCurrentPageForActiveGroup('getting-started');
+        $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group
+        $this->mockCurrentPageForActiveGroup('configuration');
+        $this->assertSame('configuration', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group
+        $this->mockCurrentPageForActiveGroup('usage');
+        $this->assertSame('usage', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group for identifier within the group
+        $this->mockCurrentPageForActiveGroup('getting-started', 'Introduction');
+        $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group for identifier within the group
+        $this->mockCurrentPageForActiveGroup('configuration', 'Configuration');
+        $this->assertSame('configuration', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group for identifier within the group
+        $this->mockCurrentPageForActiveGroup('usage', 'Routing');
+        $this->assertSame('usage', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group for with group key having different casing
+        $this->mockCurrentPageForActiveGroup('GETTING-STARTED');
+        $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group for with group key having different casing
+        $this->mockCurrentPageForActiveGroup('Getting-Started');
+        $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
+
+        // Assert the active group for with group key having different casing
+        $this->mockCurrentPageForActiveGroup('getting-started');
+        $this->assertSame('getting-started', $sidebar->getActiveGroup()->getGroupKey());
     }
 
     public function testGetActiveGroupIsNullWhenNoItemsExist()
