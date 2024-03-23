@@ -110,7 +110,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
             'baz' => 'three',
         ];
 
-        foreach ($pages as $page => $group) {
+        foreach ($pages as $group) {
             $this->mockCurrentPageForActiveGroup($group);
             $this->assertSame($group, $this->sidebar()->getActiveGroup()->getGroupKey());
         }
