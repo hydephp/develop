@@ -26,7 +26,6 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  */
 class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 {
-    protected static bool $needsConfig = true;
     protected static bool $needsKernel = true;
 
     protected RenderData $renderData;
@@ -38,6 +37,8 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         View::swap(Mockery::mock(Factory::class)->makePartial());
         $this->renderData = new RenderData();
         Render::swap($this->renderData);
+
+        self::mockConfig();
     }
 
     public function testCannotGetActiveGroupWhenNoItemsExist()
