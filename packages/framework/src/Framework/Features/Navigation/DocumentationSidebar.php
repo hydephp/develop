@@ -77,7 +77,7 @@ class DocumentationSidebar extends NavigationMenu
             return null;
         }
 
-        if ($this->isCurrentPageIndexPage($currentPage) && blank($currentPage->navigationMenuGroup())) {
+        if ($currentPage->getRoute()->is(DocumentationPage::homeRouteName()) && blank($currentPage->navigationMenuGroup())) {
             // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
 
             return $this->items->sortBy(fn (NavigationGroup $item): int => $item->getPriority())->first();
@@ -86,10 +86,5 @@ class DocumentationSidebar extends NavigationMenu
         return $this->items->first(function (NavigationGroup $item) use ($currentPage): bool {
             return $item->getGroupKey() === NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup());
         }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
-    }
-
-    private function isCurrentPageIndexPage(HydePage $currentPage): bool
-    {
-        return $currentPage->getRoute()->is(DocumentationPage::homeRouteName());
     }
 }
