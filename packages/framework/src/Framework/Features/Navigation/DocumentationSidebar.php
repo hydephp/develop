@@ -79,6 +79,10 @@ class DocumentationSidebar extends NavigationMenu
             return null;
         }
 
+        if ($this->isCurrentPageIndexPage($currentPage) && blank($currentPage->navigationMenuGroup())) {
+            return $this->items->sortBy(fn (NavigationGroup $item): int => $item->getPriority())->first();
+        }
+
         return $this->items->first(function (NavigationGroup $item) use ($currentPage): bool {
             return $item->getGroupKey() === NavigationItem::normalizeGroupKey($currentPage->navigationMenuGroup());
         }) ?? $this->items->first(fn (NavigationGroup $item): bool => $item->getLabel() === 'Other');
