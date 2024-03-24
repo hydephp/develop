@@ -58,12 +58,11 @@ class NavigationItemTest extends UnitTestCase
         $this->assertEquals($route, (new NavigationItem($route, 'Home'))->getPage()->getRoute());
     }
 
-    public function testPassingRouteKeyToConstructorUsesRouteInstance()
+    public function testPassingRouteKeyToConstructorUsesDestinationAsLink()
     {
-        $route = Routes::get('index');
         $item = new NavigationItem('index', 'Home');
-        $this->assertNotNull($item->getPage());
-        $this->assertSame($route->getPage(), $item->getPage());
+        $this->assertNull($item->getPage());
+        $this->assertSame('index', $item->getLink());
     }
 
     public function testPassingUrlToConstructorSetsRouteToNull()
@@ -207,6 +206,14 @@ class NavigationItemTest extends UnitTestCase
     public function testCreateWithCustomPriority()
     {
         $this->assertSame(100, NavigationItem::create(Routes::get('index'), 'foo', 100)->getPriority());
+    }
+
+    public function testPassingRouteKeyToStaticConstructorUsesRouteInstance()
+    {
+        $route = Routes::get('index');
+        $item = NavigationItem::create('index', 'Home');
+        $this->assertNotNull($item->getPage());
+        $this->assertSame($route->getPage(), $item->getPage());
     }
 
     public function testRouteBasedNavigationItemDestinationsAreResolvedRelatively()

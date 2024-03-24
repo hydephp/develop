@@ -23,7 +23,7 @@ use function is_string;
  */
 class NavigationItem implements NavigationElement, Stringable
 {
-    protected NavigationDestination $destination;
+    protected string|Route $destination;
     protected string $label;
     protected int $priority;
 
@@ -40,7 +40,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
-        $this->destination = new NavigationDestination($destination);
+        $this->destination = $destination;
 
         $this->label = $label;
         $this->priority = $priority;
@@ -87,7 +87,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function getPage(): ?HydePage
     {
-        return $this->destination->getRoute()?->getPage();
+        return $this->destination instanceof Route ? $this->destination->getPage() : null;
     }
 
     /**
@@ -95,7 +95,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function getLink(): string
     {
-        return $this->destination->getLink();
+        return (string) $this->destination;
     }
 
     /**
