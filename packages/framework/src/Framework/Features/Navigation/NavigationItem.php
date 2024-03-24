@@ -138,8 +138,13 @@ class NavigationItem implements NavigationElement, Stringable
         return $group ? Str::slug($group) : null;
     }
 
+    /** @experimental This feature may be removed before release, and the label will just fall back to the input $url */
     protected static function makeTitleFromUrl(string $url): string
     {
-        return $url;
+        $basename = basename($url);
+        $basename = Str::replaceFirst('www.', '', $basename);
+        $basename = Str::replaceLast('.html', '', $basename);
+
+        return Hyde::makeTitle($basename);
     }
 }
