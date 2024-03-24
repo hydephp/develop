@@ -47,8 +47,8 @@ class NavigationItem implements NavigationElement, Stringable
      * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
      *
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or external URI.
-     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
+     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      */
     public static function create(Route|string $destination, ?string $label = null, ?int $priority = null): static
     {
