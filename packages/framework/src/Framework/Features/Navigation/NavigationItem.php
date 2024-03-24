@@ -9,7 +9,6 @@ use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
 use Stringable;
-use Hyde\Support\Models\ExternalRoute;
 
 use function is_string;
 
@@ -64,7 +63,7 @@ class NavigationItem implements NavigationElement, Stringable
             $destination = Routes::get($destination);
         }
 
-        if ($destination instanceof Route && ! $destination instanceof ExternalRoute) {
+        if ($destination instanceof Route) {
             return new self(
                 $destination,
                 $label ?? $destination->getPage()->navigationMenuLabel(),
