@@ -6,7 +6,6 @@ namespace Hyde\Support\Models;
 
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\RouteContract;
 
 /**
@@ -19,8 +18,6 @@ use Hyde\Support\Contracts\RouteContract;
  */
 class Route extends BaseRoute implements RouteContract
 {
-    use Serializable;
-
     protected HydePage $page;
 
     public function __construct(HydePage $page)
