@@ -24,6 +24,11 @@ class ExternalRoute extends Route
         return $this->destination;
     }
 
+    public function is(Route|RouteKey|string $route): bool
+    {
+        return $route instanceof ExternalRoute && $route->destination === $this->destination;
+    }
+
     /** @return array{destination: string} */
     public function toArray(): array
     {
