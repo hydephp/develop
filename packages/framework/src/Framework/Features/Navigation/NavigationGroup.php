@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\Navigation;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Support\Models\ExternalRoute;
 
 use function min;
 use function collect;
@@ -79,7 +78,7 @@ class NavigationGroup implements NavigationElement
     protected function containsOnlyDocumentationPages(): bool
     {
         return count($this->getItems()) && collect($this->getItems())->every(function (NavigationItem $child): bool {
-            return (! $child->getRoute() instanceof ExternalRoute) && $child->getRoute()->getPage() instanceof DocumentationPage;
+            return ($child->getRoute() !== null) && $child->getRoute()->getPage() instanceof DocumentationPage;
         });
     }
 }
