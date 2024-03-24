@@ -27,7 +27,7 @@ class NavigationItem implements NavigationElement, Stringable
     protected string $label;
     protected int $priority;
 
-    // TODO: Do we actually need this? We should just care if it's physically stored in a group. Adding the group key here doesn't magically make it appear in the group, it needs to be added to the group's items array, so why should we care about the key here?
+    /** @deprecated Do we actually need this? We should just care if it's physically stored in a group. Adding the group key here doesn't magically make it appear in the group, it needs to be added to the group's items array, so why should we care about the key here? */
     protected ?string $group = null;
 
     /**
