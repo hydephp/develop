@@ -42,6 +42,8 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
+        $this->destination = new NavigationDestination($destination);
+
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
         }
