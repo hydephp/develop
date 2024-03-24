@@ -50,7 +50,7 @@ class NavigationItem implements NavigationElement, Stringable
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
      */
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, #[Deprecated] ?string $group = null): static
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null): static
     {
         if (is_string($destination) && Routes::has($destination)) {
             $destination = Routes::get($destination);
