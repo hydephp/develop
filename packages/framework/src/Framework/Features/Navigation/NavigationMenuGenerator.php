@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -149,7 +148,7 @@ class NavigationMenuGenerator
 
     protected function getOrCreateGroupItem(string $groupName): NavigationGroup
     {
-        $groupKey = Str::slug($groupName);
+        $groupKey = NavigationItem::normalizeGroupKey($groupName);
         $group = $this->items->get($groupKey);
 
         if ($group instanceof NavigationGroup) {
