@@ -229,7 +229,7 @@ class NavigationItemTest extends UnitTestCase
         ];
 
         foreach ($links as $link) {
-            $this->assertSame($link, NavigationItem::create($link)->getLink());
+            $this->assertSame($link, NavigationItem::create($link)->getLabel());
         }
     }
 
