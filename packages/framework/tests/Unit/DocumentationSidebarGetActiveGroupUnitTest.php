@@ -89,55 +89,55 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
     public function testActiveGroupGettingStarted()
     {
         $this->mockCurrentPageForActiveGroup('getting-started');
-        $this->assertSame('getting-started', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('getting-started', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupConfiguration()
     {
         $this->mockCurrentPageForActiveGroup('configuration');
-        $this->assertSame('configuration', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('configuration', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupUsage()
     {
         $this->mockCurrentPageForActiveGroup('usage');
-        $this->assertSame('usage', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('usage', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupWithIdentifierGettingStarted()
     {
         $this->mockCurrentPageForActiveGroup('getting-started', 'Introduction');
-        $this->assertSame('getting-started', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('getting-started', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupWithIdentifierConfiguration()
     {
         $this->mockCurrentPageForActiveGroup('configuration', 'Configuration');
-        $this->assertSame('configuration', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('configuration', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupWithIdentifierUsage()
     {
         $this->mockCurrentPageForActiveGroup('usage', 'Routing');
-        $this->assertSame('usage', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('usage', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupDifferentCasingGettingStarted()
     {
         $this->mockCurrentPageForActiveGroup('GETTING-STARTED');
-        $this->assertSame('getting-started', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('getting-started', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupDifferentCasingGettingStarted2()
     {
         $this->mockCurrentPageForActiveGroup('Getting-Started');
-        $this->assertSame('getting-started', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('getting-started', $this->getActiveGroupKey());
     }
 
     public function testActiveGroupDifferentCasingGettingStarted3()
     {
         $this->mockCurrentPageForActiveGroup('getting-started');
-        $this->assertSame('getting-started', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('getting-started', $this->getActiveGroupKey());
     }
 
     public function testGetActiveGroupIsNullWhenNoItemsExist()
@@ -159,7 +159,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
     public function testGetActiveGroupReturnsFirstGroupWhenRenderingIndexPage()
     {
         $this->renderData->setPage(new DocumentationPage('index'));
-        $this->assertSame('getting-started', $this->createSidebar()->getActiveGroup()->getGroupKey());
+        $this->assertSame('getting-started', $this->getActiveGroupKey());
     }
 
     public function testGetActiveGroupReturnsFirstGroupByLowestPriorityWhenRenderingIndexPage()
@@ -168,7 +168,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $sidebar->add(new NavigationGroup('other', [new NavigationItem('Other', 'Other')], 0));
 
         $this->renderData->setPage(new DocumentationPage('index'));
-        $this->assertSame('other', $sidebar->getActiveGroup()->getGroupKey());
+        $this->assertSame('other', $this->getActiveGroupKey($sidebar));
     }
 
     public function testGetActiveGroupReturnsExplicitlySetIndexPageGroupWhenRenderingIndexPage()
@@ -176,7 +176,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $sidebar = $this->createSidebar();
 
         $this->renderData->setPage(new DocumentationPage('index', ['navigation.group' => 'usage']));
-        $this->assertSame('usage', $sidebar->getActiveGroup()->getGroupKey());
+        $this->assertSame('usage', $this->getActiveGroupKey($sidebar));
     }
 
     public function testGetActiveGroupReturnsExplicitlySetIndexPageGroupWhenRenderingIndexPageRegardlessOfPriorities()
@@ -185,11 +185,18 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $sidebar->add(new NavigationGroup('other', [new NavigationItem('Other', 'Other')], 0));
 
         $this->renderData->setPage(new DocumentationPage('index', ['navigation.group' => 'usage']));
-        $this->assertSame('usage', $sidebar->getActiveGroup()->getGroupKey());
+        $this->assertSame('usage', $this->getActiveGroupKey($sidebar));
     }
 
     protected function mockCurrentPageForActiveGroup(string $group, string $identifier = 'foo'): void
     {
         $this->renderData->setPage(new DocumentationPage($identifier, ['navigation.group' => $group]));
+    }
+
+    protected function getActiveGroupKey(?DocumentationSidebar $sidebar = null): string
+    {
+        $sidebar ??= $this->createSidebar();
+
+        return $sidebar->getActiveGroup()->getGroupKey();
     }
 }
