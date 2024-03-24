@@ -23,7 +23,7 @@ use function is_string;
  */
 class NavigationItem implements NavigationElement, Stringable
 {
-    protected ?Route $route;
+    protected Route $route;
     protected string $label;
     protected int $priority;
 
