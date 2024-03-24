@@ -56,7 +56,7 @@ class NavigationItem implements NavigationElement, Stringable
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page, if there is one tied to the route.
      */
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): self
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
         if (is_string($destination) && Routes::has($destination)) {
             $destination = Routes::get($destination);
@@ -68,7 +68,7 @@ class NavigationItem implements NavigationElement, Stringable
             $group ??= $destination->getPage()->navigationMenuGroup();
         }
 
-        return new self($destination, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
+        return new static($destination, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
     }
 
     /**
