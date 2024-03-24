@@ -25,6 +25,7 @@ class NavigationItem implements NavigationElement, Stringable
 {
     /** @deprecated */
     protected Route $route;
+    protected NavigationDestination $destination;
     protected string $label;
     protected int $priority;
 
