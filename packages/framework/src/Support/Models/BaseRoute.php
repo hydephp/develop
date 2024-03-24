@@ -6,7 +6,7 @@ namespace Hyde\Support\Models;
 
 use Hyde\Support\Contracts\RouteContract;
 
-class BaseRoute implements RouteContract
+abstract class BaseRoute implements RouteContract
 {
     //
 }
