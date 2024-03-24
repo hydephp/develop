@@ -59,7 +59,6 @@ class NavigationItem implements NavigationElement, Stringable
         if ($destination instanceof Route) {
             $label ??= $destination->getPage()->navigationMenuLabel();
             $priority ??= $destination->getPage()->navigationMenuPriority();
-            $group ??= $destination->getPage()->navigationMenuGroup();
         }
 
         return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT);
