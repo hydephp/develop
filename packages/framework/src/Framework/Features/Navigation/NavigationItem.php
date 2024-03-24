@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
@@ -81,6 +82,14 @@ class NavigationItem implements NavigationElement, Stringable
     public function __toString(): string
     {
         return $this->getUrl();
+    }
+
+    /**
+     * If the navigation item is a link to a routed page, get the corresponding page instance.
+     */
+    public function getPage(): ?HydePage
+    {
+        return $this->destination->getRoute()?->getPage();
     }
 
     /**
