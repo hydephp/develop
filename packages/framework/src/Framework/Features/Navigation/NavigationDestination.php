@@ -25,6 +25,11 @@ class NavigationDestination implements Stringable
 
     public function __toString(): string
     {
+        return $this->getLink();
+    }
+
+    public function getLink(): string
+    {
         return (string) $this->destination;
     }
 }
