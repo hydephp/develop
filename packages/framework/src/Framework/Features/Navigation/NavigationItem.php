@@ -141,7 +141,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function isActive(): bool
     {
-        return Hyde::currentRoute()->getLink() === $this->route->getLink();
+        return Hyde::currentRoute()->getLink() === $this->destination->getLink();
     }
 
     /** @return ($group is null ? null : string) */
