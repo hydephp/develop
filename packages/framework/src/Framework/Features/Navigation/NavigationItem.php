@@ -34,7 +34,6 @@ class NavigationItem implements NavigationElement, Stringable
      * @param  \Hyde\Support\Models\Route|string  $destination  Route instance, route key, or external URI.
      * @param  string  $label  The label of the navigation item.
      * @param  int  $priority  The priority to determine the order of the navigation item.
-     * @param  string|null  $group  The dropdown/group key of the navigation item, if any.
      */
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, #[Deprecated] ?string $group = null)
     {
@@ -52,7 +51,6 @@ class NavigationItem implements NavigationElement, Stringable
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or external URI.
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
-     * @param  string|null  $group  Leave blank to use the group of the route's corresponding page, if there is one tied to the route.
      */
     public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, #[Deprecated] ?string $group = null): static
     {
