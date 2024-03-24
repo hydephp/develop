@@ -45,9 +45,7 @@ class NavigationItem implements NavigationElement, Stringable
         $this->label = $label;
         $this->priority = $priority;
 
-        if ($group !== null) {
-            $this->group = static::normalizeGroupKey($group);
-        }
+        $this->group = static::normalizeGroupKey($group);
     }
 
     /**
