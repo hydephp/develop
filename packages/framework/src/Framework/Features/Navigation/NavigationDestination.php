@@ -15,4 +15,9 @@ class NavigationDestination implements Stringable
     {
         $this->destination = $destination;
     }
+
+    public function __toString(): string
+    {
+        return (string) $this->destination;
+    }
 }
