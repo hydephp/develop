@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Models;
 
-class BaseRoute
+use Hyde\Support\Contracts\RouteContract;
+
+class BaseRoute implements RouteContract
 {
     //
 }
