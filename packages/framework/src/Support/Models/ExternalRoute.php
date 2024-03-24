@@ -23,9 +23,9 @@ class ExternalRoute extends BaseRoute
         return $this->destination;
     }
 
-    public function is(Route|RouteKey|string $route): bool
+    public function is(PageRoute|RouteKey|string $route): bool
     {
-        if ($route instanceof Route) {
+        if ($route instanceof PageRoute) {
             return $this->getLink() === $route->getLink();
         }
 

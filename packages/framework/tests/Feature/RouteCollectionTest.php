@@ -13,7 +13,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
@@ -32,8 +32,8 @@ class RouteCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
 
         $this->assertEquals([
-            '404' => new Route(new BladePage('404')),
-            'index' => new Route(new BladePage('index')),
+            '404' => new PageRoute(new BladePage('404')),
+            'index' => new PageRoute(new BladePage('index')),
         ], $collection->all());
     }
 
@@ -54,11 +54,11 @@ class RouteCollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
 
         $this->assertEquals([
-            'blade' => new Route(new BladePage('blade')),
-            'markdown' => new Route(new MarkdownPage('markdown')),
-            'html' => new Route(new HtmlPage('html')),
-            'posts/post' => new Route(new MarkdownPost('post')),
-            'docs/docs' => new Route(new DocumentationPage('docs')),
+            'blade' => new PageRoute(new BladePage('blade')),
+            'markdown' => new PageRoute(new MarkdownPage('markdown')),
+            'html' => new PageRoute(new HtmlPage('html')),
+            'posts/post' => new PageRoute(new MarkdownPost('post')),
+            'docs/docs' => new PageRoute(new DocumentationPage('docs')),
         ], $collection->all());
 
         $this->restoreDefaultPages();
@@ -90,11 +90,11 @@ class RouteCollectionTest extends TestCase
         $collection = Hyde::routes();
 
         $this->assertCount(5, $collection);
-        $this->assertEquals(new Route(new BladePage('blade')), Routes::getRoutes(BladePage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPage('markdown')), Routes::getRoutes(MarkdownPage::class)->first());
-        $this->assertEquals(new Route(new MarkdownPost('post')), Routes::getRoutes(MarkdownPost::class)->first());
-        $this->assertEquals(new Route(new DocumentationPage('docs')), Routes::getRoutes(DocumentationPage::class)->first());
-        $this->assertEquals(new Route(new HtmlPage('html')), Routes::getRoutes(HtmlPage::class)->first());
+        $this->assertEquals(new PageRoute(new BladePage('blade')), Routes::getRoutes(BladePage::class)->first());
+        $this->assertEquals(new PageRoute(new MarkdownPage('markdown')), Routes::getRoutes(MarkdownPage::class)->first());
+        $this->assertEquals(new PageRoute(new MarkdownPost('post')), Routes::getRoutes(MarkdownPost::class)->first());
+        $this->assertEquals(new PageRoute(new DocumentationPage('docs')), Routes::getRoutes(DocumentationPage::class)->first());
+        $this->assertEquals(new PageRoute(new HtmlPage('html')), Routes::getRoutes(HtmlPage::class)->first());
 
         $this->restoreDefaultPages();
         $this->restoreDocumentationSearch();
@@ -104,20 +104,20 @@ class RouteCollectionTest extends TestCase
     {
         $collection = Hyde::routes();
         $this->assertCount(2, $collection);
-        $collection->addRoute(new Route(new BladePage('new')));
+        $collection->addRoute(new PageRoute(new BladePage('new')));
         $this->assertCount(3, $collection);
-        $this->assertEquals(new Route(new BladePage('new')), $collection->last());
+        $this->assertEquals(new PageRoute(new BladePage('new')), $collection->last());
     }
 
     public function testGetRoute()
     {
-        $this->assertEquals(new Route(new BladePage('index')), Routes::getRoute('index'));
+        $this->assertEquals(new PageRoute(new BladePage('index')), Routes::getRoute('index'));
     }
 
     public function testGetRouteWithNonExistingRoute()
     {
         $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage('Route [non-existing] not found');
+        $this->expectExceptionMessage('PageRoute [non-existing] not found');
         Routes::getRoute('non-existing');
     }
 }

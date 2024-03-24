@@ -21,7 +21,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Filesystem\SourceFile;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
 
@@ -295,7 +295,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      * The route key is the page URL path, relative to the site root, but without any file extensions.
      * For example, if the page will be saved to `_site/docs/index.html`, the key is `docs/index`.
      *
-     * Route keys are used to identify page routes, similar to how named routes work in Laravel,
+     * PageRoute keys are used to identify page routes, similar to how named routes work in Laravel,
      * only that here the name is not just arbitrary, but also defines the output location,
      * as the route key is used to determine the output path which is `$routeKey.html`.
      */
@@ -307,9 +307,9 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get the route object for the page.
      */
-    public function getRoute(): Route
+    public function getRoute(): PageRoute
     {
-        return Routes::get($this->getRouteKey()) ?? new Route($this);
+        return Routes::get($this->getRouteKey()) ?? new PageRoute($this);
     }
 
     /**

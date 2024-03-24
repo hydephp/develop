@@ -9,7 +9,7 @@ use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
 
@@ -235,7 +235,7 @@ class NavigationItemIsActiveHelperTest extends UnitTestCase
         $this->assertFalse(NavigationItem::create('/foo/bar/baz', 'foo')->isActive());
     }
 
-    protected function mockRenderData(Route $route): void
+    protected function mockRenderData(PageRoute $route): void
     {
         Render::swap(Mockery::mock(RenderData::class, [
             'getRoute' => $route,
@@ -243,8 +243,8 @@ class NavigationItemIsActiveHelperTest extends UnitTestCase
         ]));
     }
 
-    protected function makeRoute(string $identifier): Route
+    protected function makeRoute(string $identifier): PageRoute
     {
-        return new Route(new InMemoryPage($identifier));
+        return new PageRoute(new InMemoryPage($identifier));
     }
 }

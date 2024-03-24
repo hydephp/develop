@@ -8,12 +8,12 @@ use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Support\Models\Route
+ * @covers \Hyde\Support\Models\PageRoute
  */
 class RouteTest extends UnitTestCase
 {
@@ -26,18 +26,18 @@ class RouteTest extends UnitTestCase
 
     public function testConstructorCreatesRouteFromPageModel()
     {
-        $this->assertInstanceOf(Route::class, new Route(new MarkdownPage()));
+        $this->assertInstanceOf(PageRoute::class, new PageRoute(new MarkdownPage()));
     }
 
     public function testGetPageTypeReturnsFullyQualifiedClassName()
     {
-        $this->assertSame(MarkdownPage::class, (new Route(new MarkdownPage()))->getPageClass());
+        $this->assertSame(MarkdownPage::class, (new PageRoute(new MarkdownPage()))->getPageClass());
     }
 
     public function testGetSourceModelReturnsPageModel()
     {
         $page = new MarkdownPage();
-        $route = new Route($page);
+        $route = new PageRoute($page);
 
         $this->assertInstanceOf(MarkdownPage::class, $route->getPage());
         $this->assertSame($page, $route->getPage());
@@ -46,24 +46,24 @@ class RouteTest extends UnitTestCase
     public function testGetRouteKeyReturnsPagePath()
     {
         $page = new MarkdownPage();
-        $this->assertSame($page->getRouteKey(), (new Route($page))->getRouteKey());
+        $this->assertSame($page->getRouteKey(), (new PageRoute($page))->getRouteKey());
     }
 
     public function testGetSourceFilePathReturnsPageSourcePath()
     {
         $page = new MarkdownPage();
-        $this->assertSame($page->getSourcePath(), (new Route($page))->getSourcePath());
+        $this->assertSame($page->getSourcePath(), (new PageRoute($page))->getSourcePath());
     }
 
     public function testGetOutputFilePathReturnsPageOutputPath()
     {
         $page = new MarkdownPage();
-        $this->assertSame($page->getOutputPath(), (new Route($page))->getOutputPath());
+        $this->assertSame($page->getOutputPath(), (new PageRoute($page))->getOutputPath());
     }
 
     public function testGetLinkReturnsCorrectPathForRootPages()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
 
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('foo.html', $route->getLink());
@@ -71,7 +71,7 @@ class RouteTest extends UnitTestCase
 
     public function testGetLinkReturnsCorrectPathForNestedPages()
     {
-        $route = new Route(new MarkdownPage('foo/bar'));
+        $route = new PageRoute(new MarkdownPage('foo/bar'));
 
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('foo/bar.html', $route->getLink());
@@ -79,7 +79,7 @@ class RouteTest extends UnitTestCase
 
     public function testGetLinkReturnsCorrectPathForNestedCurrentPage()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
         Render::shouldReceive('getRouteKey')->andReturn('foo/bar');
 
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
@@ -89,7 +89,7 @@ class RouteTest extends UnitTestCase
     public function testGetLinkReturnsPrettyUrlIfEnabled()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
 
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('foo', $route->getLink());
@@ -97,44 +97,44 @@ class RouteTest extends UnitTestCase
 
     public function testToStringIsAliasForGetLink()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
         $this->assertSame($route->getLink(), (string) $route);
     }
 
     public function testIsWithRouteReturnsTrueWhenTrue()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
         $this->assertTrue($route->is($route));
     }
 
     public function testIsWithRouteReturnsFalseWhenFalse()
     {
-        $route = new Route(new MarkdownPage('foo'));
-        $route2 = new Route(new MarkdownPage('bar'));
+        $route = new PageRoute(new MarkdownPage('foo'));
+        $route2 = new PageRoute(new MarkdownPage('bar'));
         $this->assertFalse($route->is($route2));
     }
 
     public function testIsWithRouteKeyReturnsTrueWhenTrue()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
         $this->assertTrue($route->is('foo'));
     }
 
     public function testIsWithRouteKeyReturnsFalseWhenFalse()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
         $this->assertFalse($route->is('bar'));
     }
 
     public function testIsWithRouteKeyObjectReturnsTrueWhenTrue()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
         $this->assertTrue($route->is(new RouteKey('foo')));
     }
 
     public function testIsWithRouteKeyObjectReturnsTrueWhenFalse()
     {
-        $route = new Route(new MarkdownPage('foo'));
+        $route = new PageRoute(new MarkdownPage('foo'));
         $this->assertFalse($route->is(new RouteKey('bar')));
     }
 

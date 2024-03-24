@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Views\Components\RelatedPublicationsComponent;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
@@ -32,7 +32,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo');
         $page = new PublicationPage('foo', type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $component = new RelatedPublicationsComponent();
         $this->assertEquals(new Collection(), $component->relatedPublications);
@@ -42,7 +42,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $component = new RelatedPublicationsComponent();
         $this->assertEquals(new Collection(), $component->relatedPublications);
@@ -52,7 +52,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $component = new RelatedPublicationsComponent();
         $this->assertEquals(new Collection(), $component->relatedPublications);
@@ -62,7 +62,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $otherPage = new PublicationPage('bar', ['foo' => 'bar'], type: $type);
         Hyde::pages()->addPage($page);
@@ -76,7 +76,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $otherPage = new PublicationPage('bar', ['foo' => 'baz'], type: $type);
         Hyde::pages()->addPage($page);
@@ -90,7 +90,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $otherPage = new PublicationPage('bar', ['foo' => 'bar'], type: $type);
         Hyde::pages()->addPage($page);
@@ -104,7 +104,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $page1 = new PublicationPage('page-1', ['foo' => 'bar'], type: $type);
         $page2 = new PublicationPage('page-2', ['foo' => 'bar'], type: $type);
@@ -132,7 +132,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $page1 = new PublicationPage('page-1', ['foo' => 'bar'], type: $type);
         $page2 = new PublicationPage('page-2', ['foo' => 'bar'], type: $type);
@@ -158,7 +158,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $page1 = new PublicationPage('page-1', ['foo' => 'foo'], type: $type);
         $page2 = new PublicationPage('page-2', ['foo' => 'bar'], type: $type);
@@ -183,7 +183,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $page1 = new PublicationPage('page-1', ['foo' => 'bar', '__createdAt' => Carbon::now()->addDays(1)], type: $type);
         $page2 = new PublicationPage('page-2', ['foo' => 'bar', '__createdAt' => Carbon::now()->addDays(2)], type: $type);
@@ -211,7 +211,7 @@ class RelatedPublicationsComponentTest extends TestCase
     {
         $type = new PublicationType('foo', fields: [['name' => 'foo', 'type' => 'tag']]);
         $page = new PublicationPage('foo', ['foo' => 'bar'], type: $type);
-        $this->mockRoute(new Route($page));
+        $this->mockRoute(new PageRoute($page));
 
         $time = time();
         $page1 = new PublicationPage('page-1', ['foo' => 'bar', '__createdAt' => $time], type: $type);

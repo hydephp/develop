@@ -23,9 +23,9 @@ php hyde route:list
 
 ### Accessing routes
 
-Each route in your site is represented by a Route object. It's very easy to get a Route object instance from the Router's index.
+Each route in your site is represented by a PageRoute object. It's very easy to get a PageRoute object instance from the Router's index.
 There are a few ways to do this, but most commonly you'll use the Routes facade's `get()` method where you provide a route key,
-and it will return the Route object. The route key is generally `<page-output-directory/page-identifier>`. Here are some examples:
+and it will return the PageRoute object. The route key is generally `<page-output-directory/page-identifier>`. Here are some examples:
 
 ```php
 // Source file: _pages/index.md/index.blade.php

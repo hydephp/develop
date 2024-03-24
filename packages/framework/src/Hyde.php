@@ -11,7 +11,7 @@ use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\HtmlString;
@@ -38,7 +38,7 @@ use JetBrains\PhpStorm\Pure;
  * @method static string mediaLink(string $destination, bool $validate = false)
  * @method static string asset(string $name, bool $preferQualifiedUrl = false)
  * @method static string url(string $path = '')
- * @method static Route|null route(string $key)
+ * @method static PageRoute|null route(string $key)
  * @method static string makeTitle(string $value)
  * @method static string normalizeNewlines(string $string)
  * @method static string stripNewlines(string $string)
@@ -53,8 +53,8 @@ use JetBrains\PhpStorm\Pure;
  * @method static Features features()
  * @method static FileCollection<SourceFile> files()
  * @method static PageCollection<HydePage> pages()
- * @method static RouteCollection<Route> routes()
- * @method static Route|null currentRoute()
+ * @method static RouteCollection<PageRoute> routes()
+ * @method static PageRoute|null currentRoute()
  * @method static HydeKernel getInstance()
  * @method static Filesystem filesystem()
  * @method static array getRegisteredExtensions()

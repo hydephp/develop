@@ -27,7 +27,7 @@ No description provided.
 
 ```php
 // torchlight! {"lineNumbers": false}
-Hyde::routes(): \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+Hyde::routes(): \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\PageRoute>
 ```
 
 <!-- End generated docs for Hyde\Foundation\Concerns\HandlesFoundationCollections -->

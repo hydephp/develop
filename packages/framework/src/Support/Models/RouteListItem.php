@@ -18,9 +18,9 @@ use function str_starts_with;
  */
 class RouteListItem implements Arrayable
 {
-    protected Route $route;
+    protected PageRoute $route;
 
-    public function __construct(Route $route)
+    public function __construct(PageRoute $route)
     {
         $this->route = $route;
     }

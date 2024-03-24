@@ -63,12 +63,12 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testRouteNotFoundExceptionWithDefaultMessage()
     {
-        $this->assertSame('Route not found.', (new RouteNotFoundException())->getMessage());
+        $this->assertSame('PageRoute not found.', (new RouteNotFoundException())->getMessage());
     }
 
     public function testRouteNotFoundExceptionWithRouteKey()
     {
-        $this->assertSame('Route [foo] not found.', (new RouteNotFoundException('foo'))->getMessage());
+        $this->assertSame('PageRoute [foo] not found.', (new RouteNotFoundException('foo'))->getMessage());
     }
 
     public function testUnsupportedPageTypeExceptionWithDefaultMessage()

@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\View;
@@ -144,7 +144,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
 
     protected function mockPage(MarkdownPage $page): void
     {
-        Render::shouldReceive('getRoute')->once()->andReturn(new Route($page));
+        Render::shouldReceive('getRoute')->once()->andReturn(new PageRoute($page));
         Render::shouldReceive('getRouteKey')->andReturn($page->getOutputPath());
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Facades\Config;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -153,7 +153,7 @@ class Hyperlinks
     /**
      * Get a route instance by its key from the kernel's route collection.
      */
-    public function route(string $key): ?Route
+    public function route(string $key): ?PageRoute
     {
         return $this->kernel->routes()->get($key);
     }

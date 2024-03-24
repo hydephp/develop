@@ -27,7 +27,7 @@ Get the route for the page being rendered.
 
 ```php
 // torchlight! {"lineNumbers": false}
-Hyde::currentRoute(): Hyde\Support\Models\Route
+Hyde::currentRoute(): Hyde\Support\Models\PageRoute
 ```
 
 #### `currentPage()`

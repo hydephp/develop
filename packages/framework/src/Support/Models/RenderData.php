@@ -21,7 +21,7 @@ use function property_exists;
 class RenderData implements Arrayable
 {
     protected HydePage $page;
-    protected Route $route;
+    protected PageRoute $route;
     protected string $routeKey;
 
     public function setPage(HydePage $page): void
@@ -38,7 +38,7 @@ class RenderData implements Arrayable
         return $this->page ?? null;
     }
 
-    public function getRoute(): ?Route
+    public function getRoute(): ?PageRoute
     {
         return $this->route ?? null;
     }
@@ -70,7 +70,7 @@ class RenderData implements Arrayable
     }
 
     /**
-     * @return array{render: \Hyde\Support\Models\RenderData, page: \Hyde\Pages\Concerns\HydePage|null, route: \Hyde\Support\Models\Route|null, routeKey: string|null}
+     * @return array{render: \Hyde\Support\Models\RenderData, page: \Hyde\Pages\Concerns\HydePage|null, route: \Hyde\Support\Models\PageRoute|null, routeKey: string|null}
      */
     public function toArray(): array
     {

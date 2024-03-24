@@ -54,7 +54,7 @@ No description provided.
 
 ```php
 // torchlight! {"lineNumbers": false}
-Hyde::route(string $key): Hyde\Support\Models\Route
+Hyde::route(string $key): Hyde\Support\Models\PageRoute
 ```
 
 #### `hasSiteUrl()`

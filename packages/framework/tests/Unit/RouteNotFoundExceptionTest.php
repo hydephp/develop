@@ -22,7 +22,7 @@ class RouteNotFoundExceptionTest extends UnitTestCase
     public function testItThrowsAnExceptionWhenPageTypeIsNotSupported()
     {
         $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage('Route [not-found] not found.');
+        $this->expectExceptionMessage('PageRoute [not-found] not found.');
         $this->expectExceptionCode(404);
 
         throw new RouteNotFoundException('not-found');

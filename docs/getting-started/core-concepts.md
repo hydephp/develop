@@ -78,7 +78,7 @@ All source and output directories are configurable, but the defaults are as foll
 | Media Assets   | `_media/`        | `_site/media/`   | Common asset types  |
 
 
-## Paths, Identifiers, and Route Keys
+## Paths, Identifiers, and PageRoute Keys
 
 Since HydePHP automatically discovers and compiles content files, it is important to understand how HydePHP handles paths,
 as the file names and directories they are in will directly influence how the page will be compiled.
@@ -87,7 +87,7 @@ As such, it will be helpful for you to know about the following terms:
 
 - **Path:** The full path to a file, including the file name, directory, and extension.
 - **Identifier:** The unique identifier for a page. Unique only within the same page type.
-- **Route key:** The key used to access the page in the routing system. Unique across all site pages.
+- **PageRoute key:** The key used to access the page in the routing system. Unique across all site pages.
 
 Both the identifier and route key are derived from the path of the page. The identifier is the path without the file
 extension, and relative to the page type source directory. The route key is the output directory plus the identifier.
@@ -180,8 +180,8 @@ During the build of each page, Hyde will inject some data available to all Blade
 any custom Blade templates, you can safely ignore this section. If you are, here are the three global variables you can use:
 
 - `$page`: The [Page Object](#page-models) for the current page.
-- `$route`: The [Route Object](#automatic-routing) for the current page.
-- `$routeKey`: The [Route Key](#paths-identifiers-and-route-keys) for the current page.
+- `$route`: The [PageRoute Object](#automatic-routing) for the current page.
+- `$routeKey`: The [PageRoute Key](#paths-identifiers-and-route-keys) for the current page.
 
 The `$page` variable is likely to the most important one, as it contains all the data for the current page.
 Depending on the page type, you will have different helpers available. But `$page->matter()` is likely to be very helpful.
@@ -240,7 +240,7 @@ This will help you understand the documentation and codebase better, as well as 
 - [Page Types](#page-types)
 - [Page Identifiers](#page-identifiers)
 - [Routes](#routes)
-- [Route Keys](#route-keys)
+- [PageRoute Keys](#route-keys)
 
 </div>
 
@@ -325,7 +325,7 @@ Content files, including Markdown and Blade files, are automatically discovered 
 During autodiscovery, Hyde also generates dynamic data to enrich your content based on the page type.
 
 In short the autodiscovery is split into three steps:
-`File discovery -> Page parsing -> Route generation`
+`File discovery -> Page parsing -> PageRoute generation`
 
 ### Page Types
 
@@ -339,13 +339,13 @@ The identifier is used to generate the route key, which is used to generate the 
 
 ### Routes
 
-All pages are internally bound to a Route object, through the route key. During the build process, each route is
+All pages are internally bound to a PageRoute object, through the route key. During the build process, each route is
 compiled to HTML using the page object's data, and saved to the output directory with a file name created from the route key.
 Since routes are generated automatically during autodiscovery, there is no need to create them manually.
 
-### Route Keys
+### PageRoute Keys
 
 The route key is the URL path relative to the site webroot, without the file extension. The route key is the common
-identifier binding Page objects to Route objects, and is used to generate the file name for the compiled HTML file.
+identifier binding Page objects to PageRoute objects, and is used to generate the file name for the compiled HTML file.
 
-Route keys generation can be visualised as follows: `<PageClass::OutputDirectory>/<PageIdentifier>`
+PageRoute keys generation can be visualised as follows: `<PageClass::OutputDirectory>/<PageIdentifier>`

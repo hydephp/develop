@@ -15,7 +15,7 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
@@ -130,7 +130,7 @@ class HydeExtensionFeatureTest extends TestCase
         RouteCollection::init(app(HydeKernel::class))->boot();
 
         $this->assertArrayHasKey('foo/bar', Routes::all());
-        $this->assertEquals(new Route(new TestPageClass('bar')), Routes::get('foo/bar'));
+        $this->assertEquals(new PageRoute(new TestPageClass('bar')), Routes::get('foo/bar'));
     }
 
     protected function markTestSuccessful(): void

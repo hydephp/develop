@@ -317,7 +317,7 @@ return [
     |
     | If you are looking to customize the main navigation menu, this is the place!
     |
-    | All these settings uses Route Keys to identify the page you want to configure.
+    | All these settings uses PageRoute Keys to identify the page you want to configure.
     | A route key is simply the URL path to the page, without the file extension.
     | So `_site/posts/hello-world.html` has the route key 'posts/hello-world'.
     |

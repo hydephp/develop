@@ -7,7 +7,7 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 
 /**
@@ -32,8 +32,8 @@ class PublicationPageTest extends TestCase
         $this->createPublicationFiles();
 
         $page = PublicationPage::get('test-publication/foo');
-        $this->assertInstanceOf(Route::class, $page->getRoute());
-        $this->assertEquals(new Route($page), $page->getRoute());
+        $this->assertInstanceOf(PageRoute::class, $page->getRoute());
+        $this->assertEquals(new PageRoute($page), $page->getRoute());
         $this->assertSame($page->getRoute()->getLink(), $page->getLink());
         $this->assertArrayHasKey($page->getSourcePath(), Hyde::pages());
         $this->assertArrayHasKey($page->getRouteKey(), Hyde::routes());

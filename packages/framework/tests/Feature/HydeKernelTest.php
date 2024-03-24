@@ -20,7 +20,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\HtmlString;
@@ -87,9 +87,9 @@ class HydeKernelTest extends TestCase
 
     public function testCurrentRouteHelperReturnsCurrentRouteObject()
     {
-        $expected = new Route(new MarkdownPage());
+        $expected = new PageRoute(new MarkdownPage());
         Render::share('route', $expected);
-        $this->assertInstanceOf(Route::class, Hyde::currentRoute());
+        $this->assertInstanceOf(PageRoute::class, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
     }
 

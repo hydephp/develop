@@ -15,7 +15,7 @@ use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\PublicationsExtension;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\SourceFile;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 
 /**
@@ -219,13 +219,13 @@ class PublicationsExtensionTest extends TestCase
             'publication/index',
         ], $routes);
 
-        $this->assertContainsOnlyInstancesOf(Route::class, $booted->getRoutes());
+        $this->assertContainsOnlyInstancesOf(PageRoute::class, $booted->getRoutes());
 
-        $this->assertEquals(new Route(new PublicationPage('foo', [], '', PublicationType::get('publication'))),
+        $this->assertEquals(new PageRoute(new PublicationPage('foo', [], '', PublicationType::get('publication'))),
             $booted->getRoutes()->get('publication/foo')
         );
 
-        $this->assertEquals(new Route(new PublicationListPage(PublicationType::get('publication'))),
+        $this->assertEquals(new PageRoute(new PublicationListPage(PublicationType::get('publication'))),
             $booted->getRoutes()->get('publication/index')
         );
     }

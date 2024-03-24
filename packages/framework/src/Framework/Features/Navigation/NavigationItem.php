@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Illuminate\Support\Str;
 use Stringable;
 use Hyde\Support\Models\ExternalRoute;
@@ -17,13 +17,13 @@ use function is_string;
  * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
  *
  * You have a few options to construct a navigation menu item:
- *   1. You can supply a Route directly and explicit properties to the constructor
+ *   1. You can supply a PageRoute directly and explicit properties to the constructor
  *   2. You can use NavigationItem::fromRoute() to use data from the route
  *   3. You can use NavigationItem::create() for an external or un-routed link
  */
 class NavigationItem implements NavigationElement, Stringable
 {
-    protected ?Route $route;
+    protected ?PageRoute $route;
     protected string $label;
     protected int $priority;
 
@@ -33,12 +33,12 @@ class NavigationItem implements NavigationElement, Stringable
     /**
      * Create a new navigation menu item with your own properties.
      *
-     * @param  \Hyde\Support\Models\Route|string|null  $destination  Route instance, route key, or external URI. For dropdowns/groups, this should be null.
+     * @param  \Hyde\Support\Models\PageRoute|string|null  $destination  PageRoute instance, route key, or external URI. For dropdowns/groups, this should be null.
      * @param  string  $label  The label of the navigation item.
      * @param  int  $priority  The priority to determine the order of the navigation item.
      * @param  string|null  $group  The dropdown/group key of the navigation item, if any.
      */
-    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
+    public function __construct(PageRoute|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
@@ -54,20 +54,20 @@ class NavigationItem implements NavigationElement, Stringable
     }
 
     /**
-     * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
+     * Create a new navigation menu item, automatically filling in the properties from a PageRoute instance if provided.
      *
-     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or external URI.
+     * @param  \Hyde\Support\Models\PageRoute|string<\Hyde\Support\Models\RouteKey>|string  $destination  PageRoute instance or route key, or external URI.
      * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page, if there is one tied to the route.
      */
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): self
+    public static function create(PageRoute|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): self
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);
         }
 
-        if ($destination instanceof Route && ! $destination instanceof ExternalRoute) {
+        if ($destination instanceof PageRoute && ! $destination instanceof ExternalRoute) {
             return new self(
                 $destination,
                 $label ?? $destination->getPage()->navigationMenuLabel(),
@@ -90,7 +90,7 @@ class NavigationItem implements NavigationElement, Stringable
     /**
      * Get the destination route of the navigation item. For dropdowns, this will return null.
      */
-    public function getRoute(): ?Route
+    public function getRoute(): ?PageRoute
     {
         return $this->route;
     }

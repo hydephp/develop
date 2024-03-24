@@ -129,7 +129,7 @@ class DashboardController extends BaseController
         ];
     }
 
-    /** @return array<string, \Hyde\Support\Models\Route> */
+    /** @return array<string, \Hyde\Support\Models\PageRoute> */
     public function getPageList(): array
     {
         return Hyde::routes()->all();

@@ -11,7 +11,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
@@ -42,7 +42,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testConstruct()
     {
-        $route = new Route(new MarkdownPage());
+        $route = new PageRoute(new MarkdownPage());
         $item = new NavigationItem($route, 'Test', 500);
 
         $this->assertSame($route, $item->getRoute());
@@ -50,12 +50,12 @@ class NavigationItemTest extends UnitTestCase
 
     public function testIsInstanceOfNavigationElement()
     {
-        $this->assertInstanceOf(NavigationElement::class, new NavigationItem(new Route(new MarkdownPage()), 'Test', 500));
+        $this->assertInstanceOf(NavigationElement::class, new NavigationItem(new PageRoute(new MarkdownPage()), 'Test', 500));
     }
 
     public function testPassingRouteInstanceToConstructorUsesRouteInstance()
     {
-        $route = new Route(new MarkdownPage());
+        $route = new PageRoute(new MarkdownPage());
         $this->assertSame($route, (new NavigationItem($route, 'Home'))->getRoute());
     }
 
@@ -84,7 +84,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testGetDestination()
     {
-        $route = new Route(new InMemoryPage('foo'));
+        $route = new PageRoute(new InMemoryPage('foo'));
         $NavigationItem = new NavigationItem($route, 'Page', 500);
 
         $this->assertSame($route, $NavigationItem->getRoute());
@@ -92,31 +92,31 @@ class NavigationItemTest extends UnitTestCase
 
     public function testGetLink()
     {
-        $NavigationItem = new NavigationItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $NavigationItem = new NavigationItem(new PageRoute(new InMemoryPage('foo')), 'Page', 500);
         $this->assertSame('foo.html', $NavigationItem->getUrl());
     }
 
     public function testGetLabel()
     {
-        $NavigationItem = new NavigationItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $NavigationItem = new NavigationItem(new PageRoute(new InMemoryPage('foo')), 'Page', 500);
         $this->assertSame('Page', $NavigationItem->getLabel());
     }
 
     public function testGetPriority()
     {
-        $NavigationItem = new NavigationItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $NavigationItem = new NavigationItem(new PageRoute(new InMemoryPage('foo')), 'Page', 500);
         $this->assertSame(500, $NavigationItem->getPriority());
     }
 
     public function testGetGroup()
     {
-        $NavigationItem = new NavigationItem(new Route(new InMemoryPage('foo')), 'Page', 500);
+        $NavigationItem = new NavigationItem(new PageRoute(new InMemoryPage('foo')), 'Page', 500);
         $this->assertNull($NavigationItem->getGroupKey());
     }
 
     public function testFromRoute()
     {
-        $route = new Route(new MarkdownPage());
+        $route = new PageRoute(new MarkdownPage());
         $item = NavigationItem::create($route);
 
         $this->assertSame($route, $item->getRoute());
@@ -184,28 +184,28 @@ class NavigationItemTest extends UnitTestCase
     public function testRouteBasedNavigationItemDestinationsAreResolvedRelatively()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => new Route(new InMemoryPage('foo')),
+            'getRoute' => new PageRoute(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
 
-        $this->assertSame('foo.html', (string) NavigationItem::create(new Route(new InMemoryPage('foo'))));
-        $this->assertSame('foo/bar.html', (string) NavigationItem::create(new Route(new InMemoryPage('foo/bar'))));
+        $this->assertSame('foo.html', (string) NavigationItem::create(new PageRoute(new InMemoryPage('foo'))));
+        $this->assertSame('foo/bar.html', (string) NavigationItem::create(new PageRoute(new InMemoryPage('foo/bar'))));
 
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => new Route(new InMemoryPage('foo/bar')),
+            'getRoute' => new PageRoute(new InMemoryPage('foo/bar')),
             'getRouteKey' => 'foo/bar',
         ]));
 
-        $this->assertSame('../foo.html', (string) NavigationItem::create(new Route(new InMemoryPage('foo'))));
-        $this->assertSame('../foo/bar.html', (string) NavigationItem::create(new Route(new InMemoryPage('foo/bar'))));
+        $this->assertSame('../foo.html', (string) NavigationItem::create(new PageRoute(new InMemoryPage('foo'))));
+        $this->assertSame('../foo/bar.html', (string) NavigationItem::create(new PageRoute(new InMemoryPage('foo/bar'))));
 
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => new Route(new InMemoryPage('foo/bar/baz')),
+            'getRoute' => new PageRoute(new InMemoryPage('foo/bar/baz')),
             'getRouteKey' => 'foo/bar/baz',
         ]));
 
-        $this->assertSame('../../foo.html', (string) NavigationItem::create(new Route(new InMemoryPage('foo'))));
-        $this->assertSame('../../foo/bar.html', (string) NavigationItem::create(new Route(new InMemoryPage('foo/bar'))));
+        $this->assertSame('../../foo.html', (string) NavigationItem::create(new PageRoute(new InMemoryPage('foo'))));
+        $this->assertSame('../../foo/bar.html', (string) NavigationItem::create(new PageRoute(new InMemoryPage('foo/bar'))));
     }
 
     public function testDropdownFacade()
@@ -220,7 +220,7 @@ class NavigationItemTest extends UnitTestCase
     public function testDropdownFacadeWithChildren()
     {
         $children = [
-            new NavigationItem(new Route(new MarkdownPage()), 'bar'),
+            new NavigationItem(new PageRoute(new MarkdownPage()), 'bar'),
         ];
 
         $item = NavigationGroup::create('foo', $children);
@@ -238,17 +238,17 @@ class NavigationItemTest extends UnitTestCase
     public function testIsCurrent()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => new Route(new InMemoryPage('foo')),
+            'getRoute' => new PageRoute(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
-        $this->assertTrue(NavigationItem::create(new Route(new InMemoryPage('foo')))->isActive());
-        $this->assertFalse(NavigationItem::create(new Route(new InMemoryPage('bar')))->isActive());
+        $this->assertTrue(NavigationItem::create(new PageRoute(new InMemoryPage('foo')))->isActive());
+        $this->assertFalse(NavigationItem::create(new PageRoute(new InMemoryPage('bar')))->isActive());
     }
 
     public function testIsCurrentWithExternalRoute()
     {
         Render::swap(Mockery::mock(RenderData::class, [
-            'getRoute' => new Route(new InMemoryPage('foo')),
+            'getRoute' => new PageRoute(new InMemoryPage('foo')),
             'getRouteKey' => 'foo',
         ]));
         $this->assertFalse(NavigationItem::create('foo', 'bar')->isActive());
@@ -257,27 +257,27 @@ class NavigationItemTest extends UnitTestCase
 
     public function testGetGroupWithNoGroup()
     {
-        $this->assertNull((new NavigationItem(new Route(new MarkdownPage()), 'Test', 500))->getGroupKey());
+        $this->assertNull((new NavigationItem(new PageRoute(new MarkdownPage()), 'Test', 500))->getGroupKey());
     }
 
     public function testGetGroupWithGroup()
     {
-        $this->assertSame('foo', (new NavigationItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'))->getGroupKey());
+        $this->assertSame('foo', (new NavigationItem(new PageRoute(new MarkdownPage()), 'Test', 500, 'foo'))->getGroupKey());
     }
 
     public function testGetGroupFromRouteWithGroup()
     {
-        $this->assertSame('foo', NavigationItem::create(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroupKey());
+        $this->assertSame('foo', NavigationItem::create(new PageRoute(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroupKey());
     }
 
     public function testGetGroupCreateWithGroup()
     {
-        $this->assertSame('foo', NavigationItem::create(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroupKey());
+        $this->assertSame('foo', NavigationItem::create(new PageRoute(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroupKey());
     }
 
     public function testGroupKeysAreNormalized()
     {
-        $item = new NavigationItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar');
+        $item = new NavigationItem(new PageRoute(new MarkdownPage()), 'Test', 500, 'Foo Bar');
         $this->assertSame('foo-bar', $item->getGroupKey());
     }
 

@@ -9,7 +9,7 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
@@ -53,7 +53,7 @@ class BuildService
 
         $collection = Routes::getRoutes($pageClass);
 
-        $this->withProgressBar($collection, function (Route $route): void {
+        $this->withProgressBar($collection, function (PageRoute $route): void {
             StaticPageBuilder::handle($route->getPage());
         });
 

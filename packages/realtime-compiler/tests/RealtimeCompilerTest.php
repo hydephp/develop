@@ -94,7 +94,7 @@ test('handle throws route not found exception for missing route', function () {
 
     $kernel = new HttpKernel();
     $kernel->handle(new Request());
-})->throws(RouteNotFoundException::class, 'Route [missing] not found');
+})->throws(RouteNotFoundException::class, 'PageRoute [missing] not found');
 
 test('handle sends 404 error response for missing asset', function () {
     mockRoute('missing.css');

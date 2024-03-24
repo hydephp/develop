@@ -231,7 +231,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tr>
-                                    @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
+                                    @foreach(['Page Type', 'PageRoute Key', 'Source File', 'Output File', 'Identifier'] as $header)
                                         <th>{{ $header }}</th>
                                     @endforeach
                                     <th class="text-end">Actions</th>

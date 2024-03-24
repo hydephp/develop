@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler\Http;
 
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Desilva\Microserve\Response;
 use Hyde\Support\Models\Redirect;
 use Hyde\Markdown\Models\Markdown;
@@ -84,7 +84,7 @@ class LiveEditController extends BaseController
         ])), $html);
     }
 
-    protected function redirectToPage(Route $route): HtmlResponse
+    protected function redirectToPage(PageRoute $route): HtmlResponse
     {
         $redirectPage = new Redirect($this->request->path, "../$route");
         Hyde::shareViewData($redirectPage);

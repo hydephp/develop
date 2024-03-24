@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 
 /**
@@ -67,7 +67,7 @@ class RouteListCommandTest extends TestCase
     {
         Hyde::routes()->forget('404');
         Hyde::routes()->forget('index');
-        Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
+        Hyde::routes()->put('foo', new PageRoute(new InMemoryPage('foo')));
 
         $this->artisan('route:list')
             ->expectsTable($this->headers(), [[
@@ -87,7 +87,7 @@ class RouteListCommandTest extends TestCase
         $page->macro('typeLabel', function () {
             return 'Foo';
         });
-        Hyde::routes()->put('foo', new Route($page));
+        Hyde::routes()->put('foo', new PageRoute($page));
 
         $this->artisan('route:list')
             ->expectsTable($this->headers(), [[
@@ -100,6 +100,6 @@ class RouteListCommandTest extends TestCase
 
     protected function headers(): array
     {
-        return ['Page Type', 'Source File', 'Output File', 'Route Key'];
+        return ['Page Type', 'Source File', 'Output File', 'PageRoute Key'];
     }
 }

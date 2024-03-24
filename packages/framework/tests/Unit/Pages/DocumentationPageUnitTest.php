@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\FrontMatter;
@@ -160,7 +160,7 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
 
     public function testGetRoute()
     {
-        $this->assertInstanceOf(Route::class, (new DocumentationPage())->getRoute());
+        $this->assertInstanceOf(PageRoute::class, (new DocumentationPage())->getRoute());
     }
 
     public function testGetIdentifier()

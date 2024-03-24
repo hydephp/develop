@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Pages\InMemoryPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Testing\Support\TestView;
 use Illuminate\View\ComponentAttributeBag;
@@ -29,7 +29,7 @@ class NavigationLinkViewTest extends TestCase
     protected function testView(): TestView
     {
         return $this->view(view('hyde::components.navigation.navigation-link', [
-            'item' => NavigationItem::create(new Route(new InMemoryPage('foo')), 'Foo'),
+            'item' => NavigationItem::create(new PageRoute(new InMemoryPage('foo')), 'Foo'),
             'attributes' => new ComponentAttributeBag(),
         ]));
     }

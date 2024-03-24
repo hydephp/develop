@@ -6,7 +6,7 @@ namespace Hyde\Foundation\Concerns;
 
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -34,7 +34,7 @@ trait ManagesViewData
     /**
      * Get the route for the page being rendered.
      */
-    public function currentRoute(): ?Route
+    public function currentRoute(): ?PageRoute
     {
         return Render::getRoute();
     }

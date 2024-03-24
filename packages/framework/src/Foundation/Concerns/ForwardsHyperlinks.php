@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -38,7 +38,7 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->url($path);
     }
 
-    public function route(string $key): ?Route
+    public function route(string $key): ?PageRoute
     {
         return $this->hyperlinks->route($key);
     }

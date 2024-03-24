@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Foundation\Kernel\PageCollection;
@@ -190,7 +190,7 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
 
     public function testGetRoute()
     {
-        $this->assertInstanceOf(Route::class, (new InMemoryPage('foo'))->getRoute());
+        $this->assertInstanceOf(PageRoute::class, (new InMemoryPage('foo'))->getRoute());
     }
 
     public function testGetIdentifier()

@@ -8,7 +8,7 @@ use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 
 use function trim;
 use function sprintf;
@@ -29,7 +29,7 @@ class DocumentationPage extends BaseMarkdownPage
     public static string $outputDirectory = 'docs';
     public static string $template = 'hyde::layouts/docs';
 
-    public static function home(): ?Route
+    public static function home(): ?PageRoute
     {
         return Routes::get(static::homeRouteName());
     }

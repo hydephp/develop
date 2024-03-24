@@ -9,7 +9,7 @@ use Stringable;
 use function unslash;
 
 /**
- * Route keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.
+ * PageRoute keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.
  * This class both provides a data object for normalized type-hintable values, and general related helper methods.
  *
  * In short, the route key is the URL path relative to the site webroot, without the file extension.

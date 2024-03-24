@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
@@ -45,17 +45,17 @@ class NavigationMenuTest extends TestCase
 
     public function testItemsAreSortedByPriority()
     {
-        Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.priority' => 1])));
-        Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.priority' => 2])));
-        Routes::addRoute(new Route(new MarkdownPage('baz', ['navigation.priority' => 3])));
+        Routes::addRoute(new PageRoute(new MarkdownPage('foo', ['navigation.priority' => 1])));
+        Routes::addRoute(new PageRoute(new MarkdownPage('bar', ['navigation.priority' => 2])));
+        Routes::addRoute(new PageRoute(new MarkdownPage('baz', ['navigation.priority' => 3])));
 
         $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], $this->createNavigationMenu()->getItems()->map(fn ($item) => $item->getLabel())->toArray());
     }
 
     public function testItemsWithHiddenPropertySetToTrueAreNotAdded()
     {
-        Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.hidden' => true])));
-        Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.hidden' => false])));
+        Routes::addRoute(new PageRoute(new MarkdownPage('foo', ['navigation.hidden' => true])));
+        Routes::addRoute(new PageRoute(new MarkdownPage('bar', ['navigation.hidden' => false])));
 
         $this->assertSame(['Home', 'Bar'], $this->createNavigationMenu()->getItems()->map(fn ($item) => $item->getLabel())->toArray());
     }

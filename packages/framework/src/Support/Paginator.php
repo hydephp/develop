@@ -6,7 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Hyde;
 use InvalidArgumentException;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
@@ -145,7 +145,7 @@ class Paginator
         return $this->currentPage + 1;
     }
 
-    public function previous(): false|string|Route
+    public function previous(): false|string|PageRoute
     {
         if (! $this->canNavigateBack()) {
             return false;
@@ -158,7 +158,7 @@ class Paginator
         return $this->getRoute(-1);
     }
 
-    public function next(): false|string|Route
+    public function next(): false|string|PageRoute
     {
         if (! $this->canNavigateForward()) {
             return false;
@@ -197,7 +197,7 @@ class Paginator
         return Hyde::formatLink("{$this->formatPageName($offset)}.html");
     }
 
-    protected function getRoute(int $offset): Route|string
+    protected function getRoute(int $offset): PageRoute|string
     {
         return Routes::get("$this->routeBasename/{$this->formatPageName($offset)}") ?? Hyde::formatLink("$this->routeBasename/{$this->formatPageName($offset)}");
     }

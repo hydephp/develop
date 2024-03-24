@@ -237,7 +237,7 @@ This is an alias of the `Hyde::route()` facade method and allows you to get a ro
 route('index'); // Returns the route instance with the given key
 ```
 
-If a route does not exist, `null` will be returned. Route instances can be cast to strings to resolve a link to the page.
+If a route does not exist, `null` will be returned. PageRoute instances can be cast to strings to resolve a link to the page.
 
 **Example usage:**
 

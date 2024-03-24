@@ -9,7 +9,7 @@ No description provided.
 
 ```php
 // torchlight! {"lineNumbers": false}
-DocumentationPage::home(): Hyde\Support\Models\Route
+DocumentationPage::home(): Hyde\Support\Models\PageRoute
 ```
 
 #### `homeRouteName()`

@@ -7,13 +7,13 @@ namespace Hyde\Testing;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 
 trait InteractsWithPages
 {
-    protected function mockRoute(?Route $route = null): static
+    protected function mockRoute(?PageRoute $route = null): static
     {
-        Render::share('route', $route ?? (new Route(new InMemoryPage())));
+        Render::share('route', $route ?? (new PageRoute(new InMemoryPage())));
 
         return $this;
     }
@@ -29,7 +29,7 @@ trait InteractsWithPages
     protected function mockCurrentPage(string $currentPage): static
     {
         Render::share('routeKey', $currentPage);
-        Render::share('route', new Route(new InMemoryPage($currentPage)));
+        Render::share('route', new PageRoute(new InMemoryPage($currentPage)));
 
         return $this;
     }

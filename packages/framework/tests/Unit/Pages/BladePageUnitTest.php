@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Testing\Common\BaseHydePageUnitTest;
@@ -152,7 +152,7 @@ class BladePageUnitTest extends BaseHydePageUnitTest
 
     public function testGetRoute()
     {
-        $this->assertInstanceOf(Route::class, (new BladePage())->getRoute());
+        $this->assertInstanceOf(PageRoute::class, (new BladePage())->getRoute());
     }
 
     public function testGetIdentifier()

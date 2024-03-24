@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Support\Models\RouteList;
 use Hyde\Testing\TestCase;
 
@@ -40,7 +40,7 @@ class RouteListTest extends TestCase
             'Page Type',
             'Source File',
             'Output File',
-            'Route Key',
+            'PageRoute Key',
         ], (new RouteList())->headers());
     }
 
@@ -48,7 +48,7 @@ class RouteListTest extends TestCase
     {
         Hyde::routes()->forget('404');
         Hyde::routes()->forget('index');
-        Hyde::routes()->put('foo', new Route(new InMemoryPage('foo')));
+        Hyde::routes()->put('foo', new PageRoute(new InMemoryPage('foo')));
 
         $this->assertSame([
             [

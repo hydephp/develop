@@ -15,7 +15,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 
 /**
@@ -189,7 +189,7 @@ class PublicationPageUnitTest extends TestCase
 
     public function testGetRoute()
     {
-        $this->assertInstanceOf(Route::class, (new PublicationPage('', [], '', $this->pubType()))->getRoute());
+        $this->assertInstanceOf(PageRoute::class, (new PublicationPage('', [], '', $this->pubType()))->getRoute());
     }
 
     public function testGetIdentifier()

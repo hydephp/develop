@@ -9,14 +9,14 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Contracts\RouteContract;
 
 /**
- * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
+ * The PageRoute class bridges the gaps between Hyde pages and their respective compiled static webpages
  * by providing helper methods and information allowing you to easily access and interact with the
  * various paths associated with a page, both source and compiled file paths as well as the URL.
  *
  * If you visualize a web of this class's properties, you should be able to see how this
  * class links them all together, and what powerful information you can gain from it.
  */
-class Route extends BaseRoute implements RouteContract
+class PageRoute extends BaseRoute implements RouteContract
 {
     protected HydePage $page;
 
@@ -67,9 +67,9 @@ class Route extends BaseRoute implements RouteContract
     /**
      * Determine if the route instance matches another route or route key.
      */
-    public function is(Route|RouteKey|string $route): bool
+    public function is(PageRoute|RouteKey|string $route): bool
     {
-        if ($route instanceof Route) {
+        if ($route instanceof PageRoute) {
             return $this->getRouteKey() === $route->getRouteKey();
         }
 

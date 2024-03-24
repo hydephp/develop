@@ -31,7 +31,7 @@ trait HandlesFoundationCollections
         return $this->pages;
     }
 
-    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
+    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\PageRoute> */
     public function routes(): RouteCollection
     {
         $this->needsToBeBooted();

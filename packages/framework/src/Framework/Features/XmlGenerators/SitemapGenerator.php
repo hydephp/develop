@@ -12,7 +12,7 @@ use Hyde\Facades\Config;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Concerns\TracksExecutionTime;
@@ -33,7 +33,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     public function generate(): static
     {
-        Routes::all()->each(function (Route $route): void {
+        Routes::all()->each(function (PageRoute $route): void {
             $this->addRoute($route);
         });
 
@@ -55,7 +55,7 @@ class SitemapGenerator extends BaseXmlGenerator
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
     }
 
-    protected function addRoute(Route $route): void
+    protected function addRoute(PageRoute $route): void
     {
         $urlItem = $this->xmlElement->addChild('url');
 
@@ -106,7 +106,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return (string) $this->getExecutionTimeInMs();
     }
 
-    protected function resolveRouteLink(Route $route): string
+    protected function resolveRouteLink(PageRoute $route): string
     {
         $baseUrl = Config::getNullableString('hyde.url');
 

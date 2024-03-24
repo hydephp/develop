@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
@@ -65,7 +65,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
 
     public function testRelativeLinksAcrossPagesRetainsIntegrity()
     {
-        Routes::getRoutes()->each(function (Route $route): void {
+        Routes::getRoutes()->each(function (PageRoute $route): void {
             StaticPageBuilder::handle($route->getPage());
         });
 

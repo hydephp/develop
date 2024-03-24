@@ -217,7 +217,7 @@ Get the route key for the page.
 
 The route key is the page URL path, relative to the site root, but without any file extensions. For example, if the page will be saved to `_site/docs/index.html`, the key is `docs/index`.
 
-Route keys are used to identify page routes, similar to how named routes work in Laravel, only that here the name is not just arbitrary, but also defines the output location, as the route key is used to determine the output path which is `$routeKey.html`.
+PageRoute keys are used to identify page routes, similar to how named routes work in Laravel, only that here the name is not just arbitrary, but also defines the output location, as the route key is used to determine the output path which is `$routeKey.html`.
 
 ```php
 // torchlight! {"lineNumbers": false}
@@ -230,7 +230,7 @@ Get the route object for the page.
 
 ```php
 // torchlight! {"lineNumbers": false}
-$page->getRoute(): Hyde\Support\Models\Route
+$page->getRoute(): Hyde\Support\Models\PageRoute
 ```
 
 #### `getLink()`

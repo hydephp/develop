@@ -7,7 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Support\Models\RouteList;
 use Hyde\Support\Models\RouteListItem;
 
@@ -38,7 +38,7 @@ class RouteListCommand extends Command
     {
         return new class extends RouteList
         {
-            protected static function routeToListItem(Route $route): RouteListItem
+            protected static function routeToListItem(PageRoute $route): RouteListItem
             {
                 return new class($route) extends RouteListItem
                 {

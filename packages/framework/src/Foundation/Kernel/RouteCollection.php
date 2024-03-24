@@ -7,19 +7,19 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 
 /**
  * The RouteCollection contains all the page routes, making it the pseudo-router for Hyde,
  * as it maps each page to the eventual URL that will be used to access it once built.
  *
- * @template T of \Hyde\Support\Models\Route
+ * @template T of \Hyde\Support\Models\PageRoute
  *
  * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
- * @property array<string, Route> $items The routes in the collection.
+ * @property array<string, PageRoute> $items The routes in the collection.
  *
- * @method Route|null get(string $key, Route $default = null)
+ * @method PageRoute|null get(string $key, PageRoute $default = null)
  *
  * This class is stored as a singleton in the HydeKernel.
  * You would commonly access it via the facade or Hyde helper:
@@ -29,7 +29,7 @@ use Hyde\Support\Models\Route;
  */
 final class RouteCollection extends BaseFoundationCollection
 {
-    public function addRoute(Route $route): void
+    public function addRoute(PageRoute $route): void
     {
         $this->put($route->getRouteKey(), $route);
     }
@@ -37,7 +37,7 @@ final class RouteCollection extends BaseFoundationCollection
     protected function runDiscovery(): void
     {
         $this->kernel->pages()->each(function (HydePage $page): void {
-            $this->addRoute(new Route($page));
+            $this->addRoute(new PageRoute($page));
         });
     }
 
@@ -48,18 +48,18 @@ final class RouteCollection extends BaseFoundationCollection
         }
     }
 
-    public function getRoute(string $routeKey): Route
+    public function getRoute(string $routeKey): PageRoute
     {
         return $this->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\PageRoute>
      */
     public function getRoutes(?string $pageClass = null): RouteCollection
     {
-        return $pageClass ? $this->filter(function (Route $route) use ($pageClass): bool {
+        return $pageClass ? $this->filter(function (PageRoute $route) use ($pageClass): bool {
             return $route->getPage() instanceof $pageClass;
         }) : $this;
     }

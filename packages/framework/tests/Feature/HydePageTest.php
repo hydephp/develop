@@ -18,7 +18,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestCase;
 
 /**
@@ -623,7 +623,7 @@ class HydePageTest extends TestCase
     public function testGetRouteReturnsPageRoute()
     {
         $page = new MarkdownPage();
-        $this->assertEquals(new Route($page), $page->getRoute());
+        $this->assertEquals(new PageRoute($page), $page->getRoute());
     }
 
     public function testGetRouteReturnsTheRouteObjectFromTheRouterIndex()
@@ -1150,8 +1150,8 @@ class HydePageTest extends TestCase
         foreach ($pages as $page) {
             $page = new $page('foo');
 
-            $this->assertInstanceOf(Route::class, $page->getRoute());
-            $this->assertEquals(new Route($page), $page->getRoute());
+            $this->assertInstanceOf(PageRoute::class, $page->getRoute());
+            $this->assertEquals(new PageRoute($page), $page->getRoute());
             $this->assertSame($page->getRoute()->getLink(), $page->getLink());
 
             Filesystem::touch($page::sourcePath('foo'));

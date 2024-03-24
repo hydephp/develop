@@ -42,7 +42,7 @@ namespace {
             /**
              * Get a page route by its key.
              */
-            function route(string $key): ?Hyde\Support\Models\Route
+            function route(string $key): ?Hyde\Support\Models\PageRoute
             {
                 return hyde()->route($key);
             }

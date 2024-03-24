@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\NavigationItem;
@@ -65,8 +65,8 @@ class NavigationGroupTest extends UnitTestCase
     public function testCreate()
     {
         $this->assertEquals(
-            new NavigationGroup('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100),
-            NavigationGroup::create('Foo', [new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo')], 100)
+            new NavigationGroup('Foo', [new NavigationItem(new PageRoute(new InMemoryPage('foo')), 'Foo')], 100),
+            NavigationGroup::create('Foo', [new NavigationItem(new PageRoute(new InMemoryPage('foo')), 'Foo')], 100)
         );
     }
 
@@ -86,7 +86,7 @@ class NavigationGroupTest extends UnitTestCase
     public function testCanAddItemToDropdown()
     {
         $group = new NavigationGroup('Foo');
-        $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
+        $child = new NavigationItem(new PageRoute(new MarkdownPage()), 'Bar');
 
         $this->assertSame([$child], $group->add($child)->getItems());
     }
@@ -94,7 +94,7 @@ class NavigationGroupTest extends UnitTestCase
     public function testAddChildMethodReturnsSelf()
     {
         $group = new NavigationGroup('Foo');
-        $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
+        $child = new NavigationItem(new PageRoute(new MarkdownPage()), 'Bar');
 
         $this->assertSame($group, $group->add($child));
     }
@@ -117,7 +117,7 @@ class NavigationGroupTest extends UnitTestCase
     public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
     {
         $group = new NavigationGroup('Foo');
-        $child = new NavigationItem(new Route(new MarkdownPage()), 'Child', group: 'bar');
+        $child = new NavigationItem(new PageRoute(new MarkdownPage()), 'Child', group: 'bar');
 
         $group->add($child);
 
@@ -127,7 +127,7 @@ class NavigationGroupTest extends UnitTestCase
     public function testAddingAnItemWithNoGroupKeyDoesNotModifyGroupIdentifier()
     {
         $group = new NavigationGroup('Foo');
-        $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
+        $child = new NavigationItem(new PageRoute(new MarkdownPage()), 'Bar');
 
         $group->add($child);
 
@@ -146,7 +146,7 @@ class NavigationGroupTest extends UnitTestCase
 
     public function testGetPriorityWithChildrenUsesGroupPriority()
     {
-        $group = new NavigationGroup('Foo', [new NavigationItem(new Route(new MarkdownPage()), 'Bar', 100)]);
+        $group = new NavigationGroup('Foo', [new NavigationItem(new PageRoute(new MarkdownPage()), 'Bar', 100)]);
 
         $this->assertSame(999, $group->getPriority());
     }
@@ -154,9 +154,9 @@ class NavigationGroupTest extends UnitTestCase
     public function testGetPriorityWithDocumentationPageChildrenUsesLowestPriority()
     {
         $items = [
-            new NavigationItem(new Route(new DocumentationPage()), 'Foo', 100),
-            new NavigationItem(new Route(new DocumentationPage()), 'Bar', 200),
-            new NavigationItem(new Route(new DocumentationPage()), 'Baz', 300),
+            new NavigationItem(new PageRoute(new DocumentationPage()), 'Foo', 100),
+            new NavigationItem(new PageRoute(new DocumentationPage()), 'Bar', 200),
+            new NavigationItem(new PageRoute(new DocumentationPage()), 'Baz', 300),
         ];
 
         $this->assertSame(100, (new NavigationGroup('Foo', $items))->getPriority());
@@ -168,7 +168,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
 
         foreach (HydeCoreExtension::getPageClasses() as $type) {
-            $child = new NavigationItem(new Route(new $type()), 'Bar', 100);
+            $child = new NavigationItem(new PageRoute(new $type()), 'Bar', 100);
             $group->add($child);
         }
 
@@ -189,15 +189,15 @@ class NavigationGroupTest extends UnitTestCase
     {
         $group = new NavigationGroup('Foo');
 
-        $this->assertSame($group, $group->add(new NavigationItem(new Route(new MarkdownPage()), 'Bar')));
-        $this->assertSame($group, $group->add([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
+        $this->assertSame($group, $group->add(new NavigationItem(new PageRoute(new MarkdownPage()), 'Bar')));
+        $this->assertSame($group, $group->add([new NavigationItem(new PageRoute(new MarkdownPage()), 'Bar')]));
     }
 
     protected function createNavigationItems(): array
     {
         return [
-            new NavigationItem(new Route(new InMemoryPage('foo')), 'Foo'),
-            new NavigationItem(new Route(new InMemoryPage('bar')), 'Bar'),
+            new NavigationItem(new PageRoute(new InMemoryPage('foo')), 'Foo'),
+            new NavigationItem(new PageRoute(new InMemoryPage('bar')), 'Bar'),
         ];
     }
 }

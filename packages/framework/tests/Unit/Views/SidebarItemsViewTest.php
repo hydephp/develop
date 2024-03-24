@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Hyde\Support\Models\Route;
+use Hyde\Support\Models\PageRoute;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\Support\TestView;
@@ -29,9 +29,9 @@ class SidebarItemsViewTest extends TestCase
 
     protected function testView(): TestView
     {
-        Hyde::routes()->addRoute(new Route(new DocumentationPage('foo')));
-        Hyde::routes()->addRoute(new Route(new DocumentationPage('bar')));
-        Hyde::routes()->addRoute(new Route(new DocumentationPage('baz')));
+        Hyde::routes()->addRoute(new PageRoute(new DocumentationPage('foo')));
+        Hyde::routes()->addRoute(new PageRoute(new DocumentationPage('bar')));
+        Hyde::routes()->addRoute(new PageRoute(new DocumentationPage('baz')));
 
         return $this->view(view('hyde::components.docs.sidebar-items', [
             'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class),

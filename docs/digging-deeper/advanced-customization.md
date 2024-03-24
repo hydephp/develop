@@ -74,7 +74,7 @@ public function register(): void
 ## Customizing Output Directories
 
 Like source directories, the output directories are also important as they determine the output path for the compiled pages.
->warning Note that changing output directories also affects the route keys, as those are based on the output directory. <p>Scroll down to see the [Route key impact](#route-key-impact) section for more information.</p>
+>warning Note that changing output directories also affects the route keys, as those are based on the output directory. <p>Scroll down to see the [PageRoute key impact](#route-key-impact) section for more information.</p>
 
 Each option is relative to the site's `output_directory` setting. Setting a value to `''` will output the page to the site root.
 
@@ -109,7 +109,7 @@ public function register(): void
 }
 ```
 
-### Route key impact
+### PageRoute key impact
 
 For example, changing the output directory of Markdown posts to `blog` instead of `posts` will change the route key base from `posts` to `blog`.
 This means that a file stored as `_posts/hello-world.md` will have the route key `blog/hello-world` instead of `posts/hello-world`,
