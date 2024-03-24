@@ -116,7 +116,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function getGroupKey(): ?string
     {
-        return $this->group;
+        return $this->getPage()?->navigationMenuGroup();
     }
 
     /**
