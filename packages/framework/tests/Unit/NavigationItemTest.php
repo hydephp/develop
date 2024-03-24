@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
@@ -131,7 +130,8 @@ class NavigationItemTest extends UnitTestCase
     {
         $item = NavigationItem::create('foo', 'bar');
 
-        $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
+        $this->assertNull($item->getRoute());
+        $this->assertSame('foo', $item->getUrl());
         $this->assertSame('bar', $item->getLabel());
         $this->assertSame(500, $item->getPriority());
     }
@@ -171,7 +171,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithMissingRouteKey()
     {
-        $this->assertInstanceOf(ExternalRoute::class, NavigationItem::create('foo', 'foo')->getRoute());
+        $this->assertNull(NavigationItem::create('foo', 'foo')->getRoute());
     }
 
     public function testCreateWithCustomPriority()
