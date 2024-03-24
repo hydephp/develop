@@ -243,7 +243,7 @@ class NavigationItemTest extends UnitTestCase
         $this->assertFalse(NavigationItem::create(new Route(new InMemoryPage('bar')))->isActive());
     }
 
-    public function testIsCurrentWithExternalRoute()
+    public function testIsCurrentWithLink()
     {
         Render::swap(Mockery::mock(RenderData::class, [
             'getRoute' => new Route(new InMemoryPage('foo')),
