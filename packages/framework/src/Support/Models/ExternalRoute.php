@@ -23,4 +23,12 @@ class ExternalRoute extends Route
     {
         return $this->destination;
     }
+
+    /** @return array{destination: string} */
+    public function toArray(): array
+    {
+        return [
+            'destination' => $this->destination,
+        ];
+    }
 }
