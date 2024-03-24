@@ -225,7 +225,7 @@ class DocumentationSidebarTest extends TestCase
     {
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('bar' === $mainNavigationMenu->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('bar' === $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueWhenSuppliedGroupIsActive()
@@ -233,7 +233,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('foo', ['navigation.group' => 'foo']);
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('foo' === $mainNavigationMenu->getActiveGroup()?->getGroupKey());
+        $this->assertTrue('foo' === $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueForDifferingCasing()
@@ -241,7 +241,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('foo', ['navigation.group' => 'Foo Bar']);
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'Foo Bar']));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('foo-bar' === $mainNavigationMenu->getActiveGroup()?->getGroupKey());
+        $this->assertTrue('foo-bar' === $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueFirstGroupOfIndexPage()
@@ -253,11 +253,11 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu2 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('bar' === $mainNavigationMenu2->getActiveGroup()?->getGroupKey());
+        $this->assertTrue('bar' === $this->getGroupKey($mainNavigationMenu2));
         $mainNavigationMenu1 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('foo' === $mainNavigationMenu1->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('foo' === $this->getGroupKey($mainNavigationMenu1));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('baz' === $mainNavigationMenu->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('baz' === $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueFirstSortedGroupOfIndexPage()
@@ -269,11 +269,11 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu2 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('foo' === $mainNavigationMenu2->getActiveGroup()?->getGroupKey());
+        $this->assertTrue('foo' === $this->getGroupKey($mainNavigationMenu2));
         $mainNavigationMenu1 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('bar' === $mainNavigationMenu1->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('bar' === $this->getGroupKey($mainNavigationMenu1));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('baz' === $mainNavigationMenu->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('baz' === $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testAutomaticIndexPageGroupExpansionRespectsCustomNavigationMenuSettings()
@@ -285,11 +285,11 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu2 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('foo' === $mainNavigationMenu2->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('foo' === $this->getGroupKey($mainNavigationMenu2));
         $mainNavigationMenu1 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('bar' === $mainNavigationMenu1->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('bar' === $this->getGroupKey($mainNavigationMenu1));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('baz' === $mainNavigationMenu->getActiveGroup()?->getGroupKey());
+        $this->assertTrue('baz' === $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testCanHaveMultipleGroupedPagesWithTheSameNameLabels()
@@ -338,7 +338,7 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('foo' === $mainNavigationMenu->getActiveGroup()?->getGroupKey());
+        $this->assertFalse('foo' === $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIndexPageAddedToSidebarWhenItIsTheOnlyPage()
@@ -379,5 +379,10 @@ class DocumentationSidebarTest extends TestCase
             Hyde::path('_docs/'.$name.'.md'),
             (new ConvertsArrayToFrontMatter)->execute($matter ?? [])
         );
+    }
+
+    protected function getGroupKey(DocumentationSidebar $menu): ?string
+    {
+        return $menu->getActiveGroup()?->getGroupKey();
     }
 }
