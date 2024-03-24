@@ -1,4 +1,5 @@
 @props(['grouped' => false])
+@php /** @var \Hyde\Framework\Features\Navigation\NavigationItem $item */ @endphp
 <li @class(['sidebar-item -ml-4 pl-4', $grouped
         ? 'active -ml-8 pl-8 bg-black/5 dark:bg-black/10'
         : 'active bg-black/5 dark:bg-black/10' => $item->isActive()
