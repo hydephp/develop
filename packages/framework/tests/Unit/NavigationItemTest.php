@@ -66,22 +66,18 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame($route, (new NavigationItem('index', 'Home'))->getRoute());
     }
 
-    public function testPassingUrlToConstructorUsesExternalRoute()
+    public function testPassingUrlToConstructorSetsRouteToNull()
     {
-        $this->markTestSkipped('Todo: Reimplement this test for https://github.com/hydephp/develop/pull/1636');
         $item = new NavigationItem('https://example.com', 'Home');
-        $this->assertInstanceOf(ExternalRoute::class, $item->getRoute());
-        $this->assertEquals(new ExternalRoute('https://example.com'), $item->getRoute());
-        $this->assertSame('https://example.com', (string) $item->getRoute());
+        $this->assertNull($item->getRoute());
+        $this->assertSame('https://example.com', $item->getUrl());
     }
 
-    public function testPassingUnknownRouteKeyToConstructorUsesExternalRoute()
+    public function testPassingUnknownRouteKeyToConstructorSetsRouteToNull()
     {
-        $this->markTestSkipped('Todo: Reimplement this test for https://github.com/hydephp/develop/pull/1636');
         $item = new NavigationItem('foo', 'Home');
-        $this->assertInstanceOf(ExternalRoute::class, $item->getRoute());
-        $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
-        $this->assertSame('foo', (string) $item->getRoute());
+        $this->assertNull($item->getRoute());
+        $this->assertSame('foo', $item->getUrl());
     }
 
     public function testGetDestination()
