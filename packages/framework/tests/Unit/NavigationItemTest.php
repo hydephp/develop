@@ -41,10 +41,10 @@ class NavigationItemTest extends UnitTestCase
 
     public function testConstruct()
     {
-        $route = new Route(new MarkdownPage());
-        $item = new NavigationItem($route, 'Test', 500);
-
-        $this->assertSame($route, $item->getRoute());
+        $this->assertInstanceOf(NavigationItem::class, new NavigationItem('foo', 'Test'));
+        $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test'));
+        $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test', 500));
+        $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'));
     }
 
     public function testIsInstanceOfNavigationElement()
@@ -55,36 +55,45 @@ class NavigationItemTest extends UnitTestCase
     public function testPassingRouteInstanceToConstructorUsesRouteInstance()
     {
         $route = new Route(new MarkdownPage());
-        $this->assertSame($route, (new NavigationItem($route, 'Home'))->getRoute());
+        $this->assertEquals($route, (new NavigationItem($route, 'Home'))->getPage()->getRoute());
     }
 
     public function testPassingRouteKeyToConstructorUsesRouteInstance()
     {
         $route = Routes::get('index');
-
-        $this->assertSame($route, (new NavigationItem('index', 'Home'))->getRoute());
+        $item = new NavigationItem('index', 'Home');
+        $this->assertNotNull($item->getPage());
+        $this->assertSame($route->getPage(), $item->getPage());
     }
 
     public function testPassingUrlToConstructorSetsRouteToNull()
     {
         $item = new NavigationItem('https://example.com', 'Home');
-        $this->assertNull($item->getRoute());
+        $this->assertNull($item->getPage());
         $this->assertSame('https://example.com', $item->getUrl());
     }
 
     public function testPassingUnknownRouteKeyToConstructorSetsRouteToNull()
     {
         $item = new NavigationItem('foo', 'Home');
-        $this->assertNull($item->getRoute());
+        $this->assertNull($item->getPage());
         $this->assertSame('foo', $item->getUrl());
     }
 
-    public function testGetDestination()
+    public function testCanGetPage()
+    {
+        $page = new MarkdownPage();
+        $item = new NavigationItem(new Route($page), 'Test', 500);
+
+        $this->assertSame($page, $item->getPage());
+    }
+
+    public function testGetPageRoute()
     {
         $route = new Route(new InMemoryPage('foo'));
         $NavigationItem = new NavigationItem($route, 'Page', 500);
 
-        $this->assertSame($route, $NavigationItem->getRoute());
+        $this->assertEquals($route, $NavigationItem->getPage()->getRoute());
     }
 
     public function testGetLink()
@@ -113,10 +122,12 @@ class NavigationItemTest extends UnitTestCase
 
     public function testFromRoute()
     {
-        $route = new Route(new MarkdownPage());
+        $page = new MarkdownPage();
+        $route = new Route($page);
         $item = NavigationItem::create($route);
 
-        $this->assertSame($route, $item->getRoute());
+        $this->assertSame($page, $item->getPage());
+        $this->assertEquals($route, $item->getPage()->getRoute());
     }
 
     public function testToString()
@@ -130,7 +141,7 @@ class NavigationItemTest extends UnitTestCase
     {
         $item = NavigationItem::create('foo', 'bar');
 
-        $this->assertNull($item->getRoute());
+        $this->assertNull($item->getPage());
         $this->assertSame('foo', $item->getUrl());
         $this->assertSame('bar', $item->getLabel());
         $this->assertSame(500, $item->getPriority());
@@ -146,19 +157,38 @@ class NavigationItemTest extends UnitTestCase
         $route = Routes::get('404');
         $item = NavigationItem::create($route, 'foo');
 
-        $this->assertSame($route, $item->getRoute());
+        $this->assertSame($route->getPage(), $item->getPage());
         $this->assertSame('foo', $item->getLabel());
         $this->assertSame(999, $item->getPriority());
+        $this->assertEquals($route, $item->getPage()->getRoute());
+        $this->assertSame('404.html', $item->getUrl());
+        $this->assertSame('404.html', (string) $item);
+        $this->assertNull($item->getGroupKey());
     }
 
     public function testForIndexRoute()
     {
         $route = Routes::get('index');
-        $item = NavigationItem::create($route, 'foo');
+        $item = NavigationItem::create($route);
 
-        $this->assertSame($route, $item->getRoute());
-        $this->assertSame('foo', $item->getLabel());
+        $this->assertSame($route->getPage(), $item->getPage());
+        $this->assertSame('Home', $item->getLabel());
         $this->assertSame(0, $item->getPriority());
+        $this->assertEquals($route, $item->getPage()->getRoute());
+        $this->assertSame('index.html', $item->getUrl());
+        $this->assertSame('index.html', (string) $item);
+        $this->assertNull($item->getGroupKey());
+    }
+
+    public function testCreateWithLabels()
+    {
+        $route = Routes::get('404');
+        $item = NavigationItem::create($route, 'foo');
+        $this->assertSame('foo', $item->getLabel());
+
+        $route = Routes::get('index');
+        $item = NavigationItem::create($route);
+        $this->assertSame('Home', $item->getLabel());
     }
 
     public function testCreateWithRouteKey()
@@ -171,7 +201,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithMissingRouteKey()
     {
-        $this->assertNull(NavigationItem::create('foo', 'foo')->getRoute());
+        $this->assertNull(NavigationItem::create('foo', 'foo')->getPage());
     }
 
     public function testCreateWithCustomPriority()
