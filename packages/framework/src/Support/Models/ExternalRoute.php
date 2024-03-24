@@ -9,7 +9,7 @@ namespace Hyde\Support\Models;
  *
  * @experimental Take caution when using this class, as it may be subject to change.
  */
-class ExternalRoute extends Route
+class ExternalRoute extends BaseRoute
 {
     protected string $destination;
 
