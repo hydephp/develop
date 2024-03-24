@@ -25,7 +25,11 @@ class ExternalRoute extends BaseRoute
 
     public function is(Route|RouteKey|string $route): bool
     {
-        return $route instanceof ExternalRoute && $route->destination === $this->destination;
+        if ($route instanceof Route) {
+            return $this->getLink() === $route->getLink();
+        }
+
+        return $this->getLink() === (string) $route;
     }
 
     /** @return array{destination: string} */
