@@ -96,7 +96,7 @@ class NavigationItem implements NavigationElement, Stringable
     /**
      * Resolve the destination link of the navigation item.
      *
-     * @deprecated May be renamed to getLink() in the future.
+     * @deprecated May be renamed to getLink() in the future to better match its usage, and to match the Route class.
      */
     public function getUrl(): string
     {
