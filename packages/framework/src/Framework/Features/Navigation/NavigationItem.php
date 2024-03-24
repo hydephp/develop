@@ -23,7 +23,7 @@ use function is_string;
  */
 class NavigationItem implements NavigationElement, Stringable
 {
-    protected ?Route $route;
+    protected Route $route;
     protected string $label;
     protected int $priority;
 
@@ -33,12 +33,12 @@ class NavigationItem implements NavigationElement, Stringable
     /**
      * Create a new navigation menu item with your own properties.
      *
-     * @param  \Hyde\Support\Models\Route|string|null  $destination  Route instance, route key, or external URI. For dropdowns/groups, this should be null.
+     * @param  \Hyde\Support\Models\Route|string  $destination  Route instance, route key, or external URI.
      * @param  string  $label  The label of the navigation item.
      * @param  int  $priority  The priority to determine the order of the navigation item.
      * @param  string|null  $group  The dropdown/group key of the navigation item, if any.
      */
-    public function __construct(Route|string|null $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
+    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
         if (is_string($destination)) {
             $destination = Routes::get($destination) ?? new ExternalRoute($destination);

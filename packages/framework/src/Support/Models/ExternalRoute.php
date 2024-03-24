@@ -8,6 +8,7 @@ namespace Hyde\Support\Models;
  * A route that leads to an external URI.
  *
  * @experimental Take caution when using this class, as it may be subject to change.
+ *
  * @deprecated This class may be removed before release.
  */
 class ExternalRoute extends Route
