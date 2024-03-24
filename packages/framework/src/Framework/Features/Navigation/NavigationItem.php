@@ -83,14 +83,6 @@ class NavigationItem implements NavigationElement, Stringable
     }
 
     /**
-     * If the navigation item is a link to a routed page, get the corresponding page instance.
-     */
-    public function getPage(): ?HydePage
-    {
-        return $this->destination instanceof Route ? $this->destination->getPage() : null;
-    }
-
-    /**
      * Resolve the destination link of the navigation item.
      */
     public function getLink(): string
@@ -125,6 +117,14 @@ class NavigationItem implements NavigationElement, Stringable
     public function getGroupKey(): ?string
     {
         return $this->group;
+    }
+
+    /**
+     * If the navigation item is a link to a routed page, get the corresponding page instance.
+     */
+    public function getPage(): ?HydePage
+    {
+        return $this->destination instanceof Route ? $this->destination->getPage() : null;
     }
 
     /**
