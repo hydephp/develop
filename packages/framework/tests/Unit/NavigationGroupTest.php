@@ -182,11 +182,6 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey(' foo bar '));
     }
 
-    public function testNormalizeGroupKeyReturnsNullForNull()
-    {
-        $this->assertNull(NavigationGroup::normalizeGroupKey(null));
-    }
-
     protected function createNavigationItems(): array
     {
         return [

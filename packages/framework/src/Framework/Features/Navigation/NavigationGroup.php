@@ -82,9 +82,8 @@ class NavigationGroup implements NavigationElement
         });
     }
 
-    /** @return ($group is null ? null : string) */
-    public static function normalizeGroupKey(?string $group): ?string
+    public static function normalizeGroupKey(string $group): string
     {
-        return $group ? Str::slug($group) : null;
+        return Str::slug($group);
     }
 }
