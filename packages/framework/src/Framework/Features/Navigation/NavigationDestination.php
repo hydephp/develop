@@ -6,6 +6,9 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Stringable;
 use Hyde\Support\Models\Route;
+use Hyde\Foundation\Facades\Routes;
+
+use function is_string;
 
 class NavigationDestination implements Stringable
 {
@@ -13,6 +16,10 @@ class NavigationDestination implements Stringable
 
     public function __construct(Route|string $destination)
     {
+        if (is_string($destination) && Routes::has($destination)) {
+            $destination = Routes::get($destination);
+        }
+
         $this->destination = $destination;
     }
 
