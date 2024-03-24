@@ -173,6 +173,20 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame($group, $group->add([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
     }
 
+    public function testNormalizeGroupKeyCreatesSlugs()
+    {
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('Foo Bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('foo bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('foo_bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('foo-bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey(' foo bar '));
+    }
+
+    public function testNormalizeGroupKeyReturnsNullForNull()
+    {
+        $this->assertNull(NavigationGroup::normalizeGroupKey(null));
+    }
+
     protected function createNavigationItems(): array
     {
         return [

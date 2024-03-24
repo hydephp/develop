@@ -148,7 +148,7 @@ class NavigationMenuGenerator
 
     protected function getOrCreateGroupItem(string $groupName): NavigationGroup
     {
-        $groupKey = NavigationItem::normalizeGroupKey($groupName);
+        $groupKey = NavigationGroup::normalizeGroupKey($groupName);
         $group = $this->items->get($groupKey);
 
         if ($group instanceof NavigationGroup) {

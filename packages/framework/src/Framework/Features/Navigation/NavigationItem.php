@@ -8,7 +8,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
-use Illuminate\Support\Str;
 use Stringable;
 
 use function is_string;
@@ -109,11 +108,5 @@ class NavigationItem implements NavigationElement, Stringable
     public function isActive(): bool
     {
         return Hyde::currentRoute()->getLink() === $this->getLink();
-    }
-
-    /** @return ($group is null ? null : string) */
-    public static function normalizeGroupKey(?string $group): ?string
-    {
-        return $group ? Str::slug($group) : null;
     }
 }

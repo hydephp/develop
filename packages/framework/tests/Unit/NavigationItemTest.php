@@ -305,18 +305,4 @@ class NavigationItemTest extends UnitTestCase
         $this->assertFalse(NavigationItem::create('foo', 'bar')->isActive());
         $this->assertFalse(NavigationItem::create('https://example.com', 'bar')->isActive());
     }
-
-    public function testNormalizeGroupKeyCreatesSlugs()
-    {
-        $this->assertSame('foo-bar', NavigationItem::normalizeGroupKey('Foo Bar'));
-        $this->assertSame('foo-bar', NavigationItem::normalizeGroupKey('foo bar'));
-        $this->assertSame('foo-bar', NavigationItem::normalizeGroupKey('foo_bar'));
-        $this->assertSame('foo-bar', NavigationItem::normalizeGroupKey('foo-bar'));
-        $this->assertSame('foo-bar', NavigationItem::normalizeGroupKey(' foo bar '));
-    }
-
-    public function testNormalizeGroupKeyReturnsNullForNull()
-    {
-        $this->assertNull(NavigationItem::normalizeGroupKey(null));
-    }
 }
