@@ -104,7 +104,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function getUrl(): string
     {
-        return (string) $this->route;
+        return $this->destination->getLink();
     }
 
     /**
