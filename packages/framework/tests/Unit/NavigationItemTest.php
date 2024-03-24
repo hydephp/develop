@@ -208,6 +208,11 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame(100, NavigationItem::create(Routes::get('index'), 'foo', 100)->getPriority());
     }
 
+    public function testCreateWithNullLabelForRoute()
+    {
+        $this->assertSame('Home', NavigationItem::create('index')->getLabel());
+    }
+
     public function testCreateWithNullLabel()
     {
         $this->assertSame('', NavigationItem::create('foo')->getLabel());
