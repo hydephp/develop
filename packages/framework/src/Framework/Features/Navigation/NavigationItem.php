@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
@@ -22,7 +23,7 @@ use function is_string;
  */
 class NavigationItem implements NavigationElement, Stringable
 {
-    protected NavigationDestination $destination;
+    protected string|Route $destination;
     protected string $label;
     protected int $priority;
 
@@ -39,14 +40,12 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
-        $this->destination = new NavigationDestination($destination);
+        $this->destination = $destination;
 
         $this->label = $label;
         $this->priority = $priority;
 
-        if ($group !== null) {
-            $this->group = static::normalizeGroupKey($group);
-        }
+        $this->group = static::normalizeGroupKey($group);
     }
 
     /**
@@ -57,22 +56,19 @@ class NavigationItem implements NavigationElement, Stringable
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $group  Leave blank to use the group of the route's corresponding page, if there is one tied to the route.
      */
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): self
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): static
     {
         if (is_string($destination) && Routes::has($destination)) {
             $destination = Routes::get($destination);
         }
 
         if ($destination instanceof Route) {
-            return new self(
-                $destination,
-                $label ?? $destination->getPage()->navigationMenuLabel(),
-                $priority ?? $destination->getPage()->navigationMenuPriority(),
-                $group ?? $destination->getPage()->navigationMenuGroup(),
-            );
+            $label ??= $destination->getPage()->navigationMenuLabel();
+            $priority ??= $destination->getPage()->navigationMenuPriority();
+            $group ??= $destination->getPage()->navigationMenuGroup();
         }
 
-        return new self($destination, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
+        return new static($destination, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
     }
 
     /**
@@ -80,27 +76,15 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function __toString(): string
     {
-        return $this->getUrl();
-    }
-
-    /**
-     * Get the destination route of the navigation item. For dropdowns, this will return null.
-     *
-     * @deprecated To simplify the class, we may remove this as we probably don't need it.
-     */
-    public function getRoute(): ?Route
-    {
-        return $this->destination->getRoute();
+        return $this->getLink();
     }
 
     /**
      * Resolve the destination link of the navigation item.
-     *
-     * @deprecated May be renamed to getLink() in the future to better match its usage, and to match the Route class.
      */
-    public function getUrl(): string
+    public function getLink(): string
     {
-        return $this->destination->getLink();
+        return (string) $this->destination;
     }
 
     /**
@@ -133,11 +117,19 @@ class NavigationItem implements NavigationElement, Stringable
     }
 
     /**
+     * If the navigation item is a link to a routed page, get the corresponding page instance.
+     */
+    public function getPage(): ?HydePage
+    {
+        return $this->destination instanceof Route ? $this->destination->getPage() : null;
+    }
+
+    /**
      * Check if the NavigationItem instance is the current page being rendered.
      */
     public function isActive(): bool
     {
-        return Hyde::currentRoute()->getLink() === $this->getUrl();
+        return Hyde::currentRoute()->getLink() === $this->getLink();
     }
 
     /** @return ($group is null ? null : string) */
