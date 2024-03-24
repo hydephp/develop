@@ -162,7 +162,7 @@ class DocumentationSidebarTest extends TestCase
 
         /** @var NavigationItem $item */
         $item = collect(NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()->first()->getItems())->first();
-        $this->assertEquals('bar', $item->getGroupKey());
+        $this->assertSame('bar', $item->getGroupKey());
     }
 
     public function testHasGroupsReturnsFalseWhenThereAreNoGroups()
