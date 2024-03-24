@@ -35,7 +35,7 @@ class NavigationItem implements NavigationElement, Stringable
      * @param  string  $label  The label of the navigation item.
      * @param  int  $priority  The priority to determine the order of the navigation item.
      */
-    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, #[Deprecated] ?string $group = null)
+    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT)
     {
         $this->destination = $destination;
 
@@ -62,7 +62,7 @@ class NavigationItem implements NavigationElement, Stringable
             $group ??= $destination->getPage()->navigationMenuGroup();
         }
 
-        return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT, $group);
+        return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT);
     }
 
     /**

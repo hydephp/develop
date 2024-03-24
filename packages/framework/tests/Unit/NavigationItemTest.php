@@ -44,7 +44,6 @@ class NavigationItemTest extends UnitTestCase
         $this->assertInstanceOf(NavigationItem::class, new NavigationItem('foo', 'Test'));
         $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test'));
         $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test', 500));
-        $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'));
     }
 
     public function testIsInstanceOfNavigationElement()
