@@ -159,7 +159,8 @@ class DocumentationSidebarTest extends TestCase
     public function testGroupCanBeSetInFrontMatter()
     {
         $this->makePage('foo', ['navigation.group' => 'bar']);
-        $this->assertEquals('bar', collect(NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()->first()->getItems())->first()->getGroupKey());
+        $firstItem = collect(NavigationMenuGenerator::handle(DocumentationSidebar::class)->getItems()->first()->getItems())->first();
+        $this->assertEquals('bar', $firstItem->getGroupKey());
     }
 
     public function testHasGroupsReturnsFalseWhenThereAreNoGroups()
