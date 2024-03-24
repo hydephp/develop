@@ -68,7 +68,7 @@ class NavigationItem implements NavigationElement, Stringable
             $group ??= $destination->getPage()->navigationMenuGroup();
         }
 
-        return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT, $group);
+        return new static($destination, $label ?? static::makeTitleFromUrl($destination), $priority ?? NavigationMenu::DEFAULT, $group);
     }
 
     /**
@@ -136,5 +136,10 @@ class NavigationItem implements NavigationElement, Stringable
     public static function normalizeGroupKey(?string $group): ?string
     {
         return $group ? Str::slug($group) : null;
+    }
+
+    protected static function makeTitleFromUrl(string $url): string
+    {
+        return $url;
     }
 }
