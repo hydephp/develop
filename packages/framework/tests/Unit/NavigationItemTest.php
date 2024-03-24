@@ -129,7 +129,6 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithLink()
     {
-        $this->markTestSkipped('Todo: Reimplement this test for https://github.com/hydephp/develop/pull/1636');
         $item = NavigationItem::create('foo', 'bar');
 
         $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
@@ -172,7 +171,6 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithMissingRouteKey()
     {
-        $this->markTestSkipped('Todo: Reimplement this test for https://github.com/hydephp/develop/pull/1636');
         $this->assertInstanceOf(ExternalRoute::class, NavigationItem::create('foo', 'foo')->getRoute());
     }
 
