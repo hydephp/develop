@@ -162,6 +162,12 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
         $this->assertSame('getting-started', $this->getActiveGroupKey());
     }
 
+    public function testGetActiveGroupReturnsExplicitlySetIndexPageGroupWhenRenderingIndexPage()
+    {
+        $this->renderData->setPage(new DocumentationPage('index', ['navigation.group' => 'usage']));
+        $this->assertSame('usage', $this->getActiveGroupKey($this->createSidebar()));
+    }
+
     public function testGetActiveGroupReturnsFirstGroupByLowestPriorityWhenRenderingIndexPage()
     {
         $sidebar = $this->createSidebar();
@@ -169,12 +175,6 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 
         $this->renderData->setPage(new DocumentationPage('index'));
         $this->assertSame('other', $this->getActiveGroupKey($sidebar));
-    }
-
-    public function testGetActiveGroupReturnsExplicitlySetIndexPageGroupWhenRenderingIndexPage()
-    {
-        $this->renderData->setPage(new DocumentationPage('index', ['navigation.group' => 'usage']));
-        $this->assertSame('usage', $this->getActiveGroupKey($this->createSidebar()));
     }
 
     public function testGetActiveGroupReturnsExplicitlySetIndexPageGroupWhenRenderingIndexPageRegardlessOfPriorities()
