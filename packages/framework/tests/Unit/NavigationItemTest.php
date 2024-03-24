@@ -113,12 +113,6 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame(500, $NavigationItem->getPriority());
     }
 
-    public function testGetGroup()
-    {
-        $NavigationItem = new NavigationItem(new Route(new InMemoryPage('foo')), 'Page', 500);
-        $this->assertNull($NavigationItem->getGroupKey());
-    }
-
     public function testFromRoute()
     {
         $page = new MarkdownPage();
@@ -162,7 +156,6 @@ class NavigationItemTest extends UnitTestCase
         $this->assertEquals($route, $item->getPage()->getRoute());
         $this->assertSame('404.html', $item->getLink());
         $this->assertSame('404.html', (string) $item);
-        $this->assertNull($item->getGroupKey());
     }
 
     public function testForIndexRoute()
@@ -176,7 +169,6 @@ class NavigationItemTest extends UnitTestCase
         $this->assertEquals($route, $item->getPage()->getRoute());
         $this->assertSame('index.html', $item->getLink());
         $this->assertSame('index.html', (string) $item);
-        $this->assertNull($item->getGroupKey());
     }
 
     public function testCreateWithLabels()
@@ -313,32 +305,6 @@ class NavigationItemTest extends UnitTestCase
         ]));
         $this->assertFalse(NavigationItem::create('foo', 'bar')->isActive());
         $this->assertFalse(NavigationItem::create('https://example.com', 'bar')->isActive());
-    }
-
-    public function testGetGroupWithNoGroup()
-    {
-        $this->assertNull((new NavigationItem(new Route(new MarkdownPage()), 'Test', 500))->getGroupKey());
-    }
-
-    public function testGetGroupWithGroup()
-    {
-        $this->assertSame('foo', (new NavigationItem(new Route(new MarkdownPage()), 'Test', 500, 'foo'))->getGroupKey());
-    }
-
-    public function testGetGroupFromRouteWithGroup()
-    {
-        $this->assertSame('foo', NavigationItem::create(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])))->getGroupKey());
-    }
-
-    public function testGetGroupCreateWithGroup()
-    {
-        $this->assertSame('foo', NavigationItem::create(new Route(new MarkdownPage(matter: ['navigation.group' => 'foo'])), 'foo')->getGroupKey());
-    }
-
-    public function testGroupKeysAreNormalized()
-    {
-        $item = new NavigationItem(new Route(new MarkdownPage()), 'Test', 500, 'Foo Bar');
-        $this->assertSame('foo-bar', $item->getGroupKey());
     }
 
     public function testNormalizeGroupKeyCreatesSlugs()
