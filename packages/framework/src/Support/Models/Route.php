@@ -7,8 +7,7 @@ namespace Hyde\Support\Models;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Concerns\Serializable;
-use Hyde\Support\Contracts\SerializableContract;
-use Stringable;
+use Hyde\Support\Contracts\RouteContract;
 
 /**
  * The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
@@ -18,7 +17,7 @@ use Stringable;
  * If you visualize a web of this class's properties, you should be able to see how this
  * class links them all together, and what powerful information you can gain from it.
  */
-class Route implements Stringable, SerializableContract
+class Route implements RouteContract
 {
     use Serializable;
 
