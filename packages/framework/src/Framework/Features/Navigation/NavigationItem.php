@@ -23,8 +23,6 @@ use function is_string;
  */
 class NavigationItem implements NavigationElement, Stringable
 {
-    /** @deprecated */
-    protected Route $route;
     protected NavigationDestination $destination;
     protected string $label;
     protected int $priority;
@@ -44,11 +42,6 @@ class NavigationItem implements NavigationElement, Stringable
     {
         $this->destination = new NavigationDestination($destination);
 
-        if (is_string($destination)) {
-            $destination = Routes::get($destination) ?? new ExternalRoute($destination);
-        }
-
-        $this->route = $destination;
         $this->label = $label;
         $this->priority = $priority;
 
