@@ -209,9 +209,6 @@ class DocumentationSidebarUnitTest extends UnitTestCase
 
     public function testHasGroupsReturnsTrueWhenAtLeastOneItemIsNavigationGroupInstance()
     {
-        self::mockConfig();
-        self::setupKernel();
-
         $menu = new DocumentationSidebar([
             new NavigationGroup('foo', []),
         ]);
