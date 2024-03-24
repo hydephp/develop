@@ -93,16 +93,6 @@ class NavigationItem implements NavigationElement, Stringable
     }
 
     /**
-     * Get the destination route of the navigation item. For dropdowns, this will return null.
-     *
-     * @deprecated To simplify the class, we may remove this as we probably don't need it.
-     */
-    public function getRoute(): ?Route
-    {
-        return $this->destination->getRoute();
-    }
-
-    /**
      * Resolve the destination link of the navigation item.
      *
      * @deprecated May be renamed to getLink() in the future to better match its usage, and to match the Route class.
