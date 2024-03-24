@@ -32,4 +32,10 @@ class NavigationDestination implements Stringable
     {
         return (string) $this->destination;
     }
+
+    /** @experimental */
+    public function getRoute(): ?Route
+    {
+        return $this->destination instanceof Route ? $this->destination : null;
+    }
 }
