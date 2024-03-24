@@ -70,14 +70,14 @@ class NavigationItemTest extends UnitTestCase
     {
         $item = new NavigationItem('https://example.com', 'Home');
         $this->assertNull($item->getPage());
-        $this->assertSame('https://example.com', $item->getUrl());
+        $this->assertSame('https://example.com', $item->getLink());
     }
 
     public function testPassingUnknownRouteKeyToConstructorSetsRouteToNull()
     {
         $item = new NavigationItem('foo', 'Home');
         $this->assertNull($item->getPage());
-        $this->assertSame('foo', $item->getUrl());
+        $this->assertSame('foo', $item->getLink());
     }
 
     public function testCanGetPage()
@@ -99,7 +99,7 @@ class NavigationItemTest extends UnitTestCase
     public function testGetLink()
     {
         $NavigationItem = new NavigationItem(new Route(new InMemoryPage('foo')), 'Page', 500);
-        $this->assertSame('foo.html', $NavigationItem->getUrl());
+        $this->assertSame('foo.html', $NavigationItem->getLink());
     }
 
     public function testGetLabel()
@@ -142,7 +142,7 @@ class NavigationItemTest extends UnitTestCase
         $item = NavigationItem::create('foo', 'bar');
 
         $this->assertNull($item->getPage());
-        $this->assertSame('foo', $item->getUrl());
+        $this->assertSame('foo', $item->getLink());
         $this->assertSame('bar', $item->getLabel());
         $this->assertSame(500, $item->getPriority());
     }
@@ -161,7 +161,7 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame('foo', $item->getLabel());
         $this->assertSame(999, $item->getPriority());
         $this->assertEquals($route, $item->getPage()->getRoute());
-        $this->assertSame('404.html', $item->getUrl());
+        $this->assertSame('404.html', $item->getLink());
         $this->assertSame('404.html', (string) $item);
         $this->assertNull($item->getGroupKey());
     }
@@ -175,7 +175,7 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame('Home', $item->getLabel());
         $this->assertSame(0, $item->getPriority());
         $this->assertEquals($route, $item->getPage()->getRoute());
-        $this->assertSame('index.html', $item->getUrl());
+        $this->assertSame('index.html', $item->getLink());
         $this->assertSame('index.html', (string) $item);
         $this->assertNull($item->getGroupKey());
     }

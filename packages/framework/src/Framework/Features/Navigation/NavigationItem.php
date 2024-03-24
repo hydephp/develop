@@ -81,7 +81,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function __toString(): string
     {
-        return $this->getUrl();
+        return $this->getLink();
     }
 
     /**
@@ -94,10 +94,8 @@ class NavigationItem implements NavigationElement, Stringable
 
     /**
      * Resolve the destination link of the navigation item.
-     *
-     * @deprecated May be renamed to getLink() in the future to better match its usage, and to match the Route class.
      */
-    public function getUrl(): string
+    public function getLink(): string
     {
         return $this->destination->getLink();
     }
@@ -136,7 +134,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function isActive(): bool
     {
-        return Hyde::currentRoute()->getLink() === $this->getUrl();
+        return Hyde::currentRoute()->getLink() === $this->getLink();
     }
 
     /** @return ($group is null ? null : string) */
