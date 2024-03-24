@@ -68,7 +68,7 @@ class NavigationItem implements NavigationElement, Stringable
             $group ??= $destination->getPage()->navigationMenuGroup();
         }
 
-        return new static($destination, $label ?? '', $priority ?? NavigationMenu::DEFAULT, $group);
+        return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT, $group);
     }
 
     /**
