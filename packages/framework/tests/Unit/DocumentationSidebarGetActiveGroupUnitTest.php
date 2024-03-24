@@ -170,8 +170,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 
     public function testGetActiveGroupReturnsFirstGroupByLowestPriorityWhenRenderingIndexPage()
     {
-        $sidebar = $this->createSidebar();
-        $sidebar->add(new NavigationGroup('other', [new NavigationItem('Other', 'Other')], 0));
+        $sidebar = $this->createSidebar()->add(new NavigationGroup('other', [new NavigationItem('Other', 'Other')], 0));
 
         $this->renderData->setPage(new DocumentationPage('index'));
         $this->assertSame('other', $this->getActiveGroupKey($sidebar));
@@ -179,8 +178,7 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 
     public function testGetActiveGroupReturnsExplicitlySetIndexPageGroupWhenRenderingIndexPageRegardlessOfPriorities()
     {
-        $sidebar = $this->createSidebar();
-        $sidebar->add(new NavigationGroup('other', [new NavigationItem('Other', 'Other')], 0));
+        $sidebar = $this->createSidebar()->add(new NavigationGroup('other', [new NavigationItem('Other', 'Other')], 0));
 
         $this->renderData->setPage(new DocumentationPage('index', ['navigation.group' => 'usage']));
         $this->assertSame('usage', $this->getActiveGroupKey($sidebar));
