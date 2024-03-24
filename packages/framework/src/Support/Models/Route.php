@@ -29,14 +29,6 @@ class Route extends BaseRoute implements RouteContract
     }
 
     /**
-     * Cast a route object into a string that can be used in a href attribute.
-     */
-    public function __toString(): string
-    {
-        return $this->getLink();
-    }
-
-    /**
      * Generate a link to the route destination, relative to the current route, and supports pretty URLs.
      */
     public function getLink(): string
