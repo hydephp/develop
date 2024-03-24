@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\NavigationItem;
@@ -268,7 +267,7 @@ class NavigationMenuTest extends TestCase
         Hyde::boot();
 
         $navigation = app('navigation.main');
-        $navigation->add(new NavigationItem(new ExternalRoute('/foo'), 'Foo'));
+        $navigation->add(new NavigationItem('/foo', 'Foo'));
 
         $this->assertCount(2, $navigation->getItems());
         $this->assertSame('Foo', $navigation->getItems()->last()->getLabel());

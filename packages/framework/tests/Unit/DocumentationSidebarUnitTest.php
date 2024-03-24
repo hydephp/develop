@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
-use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
@@ -21,6 +20,9 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
  */
 class DocumentationSidebarUnitTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     // Base menu tests
 
     public function testCanConstruct()
@@ -207,9 +209,6 @@ class DocumentationSidebarUnitTest extends UnitTestCase
 
     public function testHasGroupsReturnsTrueWhenAtLeastOneItemIsNavigationGroupInstance()
     {
-        self::mockConfig();
-        self::setupKernel();
-
         $menu = new DocumentationSidebar([
             new NavigationGroup('foo', []),
         ]);
@@ -228,6 +227,6 @@ class DocumentationSidebarUnitTest extends UnitTestCase
 
     protected function item(string $destination, string $label, int $priority = 500): NavigationItem
     {
-        return new NavigationItem(new ExternalRoute($destination), $label, $priority);
+        return new NavigationItem($destination, $label, $priority);
     }
 }

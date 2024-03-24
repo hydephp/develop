@@ -9,7 +9,6 @@ use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Str;
 use Stringable;
-use Hyde\Support\Models\ExternalRoute;
 
 use function is_string;
 
@@ -23,7 +22,7 @@ use function is_string;
  */
 class NavigationItem implements NavigationElement, Stringable
 {
-    protected Route $route;
+    protected NavigationDestination $destination;
     protected string $label;
     protected int $priority;
 
@@ -40,11 +39,8 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
     {
-        if (is_string($destination)) {
-            $destination = Routes::get($destination) ?? new ExternalRoute($destination);
-        }
+        $this->destination = new NavigationDestination($destination);
 
-        $this->route = $destination;
         $this->label = $label;
         $this->priority = $priority;
 
@@ -63,11 +59,11 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): self
     {
-        if (is_string($destination)) {
-            $destination = Routes::get($destination) ?? new ExternalRoute($destination);
+        if (is_string($destination) && Routes::has($destination)) {
+            $destination = Routes::get($destination);
         }
 
-        if ($destination instanceof Route && ! $destination instanceof ExternalRoute) {
+        if ($destination instanceof Route) {
             return new self(
                 $destination,
                 $label ?? $destination->getPage()->navigationMenuLabel(),
@@ -89,18 +85,22 @@ class NavigationItem implements NavigationElement, Stringable
 
     /**
      * Get the destination route of the navigation item. For dropdowns, this will return null.
+     *
+     * @deprecated To simplify the class, we may remove this as we probably don't need it.
      */
     public function getRoute(): ?Route
     {
-        return $this->route;
+        return $this->destination->getRoute();
     }
 
     /**
      * Resolve the destination link of the navigation item.
+     *
+     * @deprecated May be renamed to getLink() in the future to better match its usage, and to match the Route class.
      */
     public function getUrl(): string
     {
-        return (string) $this->route;
+        return $this->destination->getLink();
     }
 
     /**
@@ -137,7 +137,7 @@ class NavigationItem implements NavigationElement, Stringable
      */
     public function isActive(): bool
     {
-        return Hyde::currentRoute()->getLink() === $this->route->getLink();
+        return Hyde::currentRoute()->getLink() === $this->getUrl();
     }
 
     /** @return ($group is null ? null : string) */

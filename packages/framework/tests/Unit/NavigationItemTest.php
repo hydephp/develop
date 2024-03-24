@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Support\Models\ExternalRoute;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
@@ -66,20 +65,18 @@ class NavigationItemTest extends UnitTestCase
         $this->assertSame($route, (new NavigationItem('index', 'Home'))->getRoute());
     }
 
-    public function testPassingUrlToConstructorUsesExternalRoute()
+    public function testPassingUrlToConstructorSetsRouteToNull()
     {
         $item = new NavigationItem('https://example.com', 'Home');
-        $this->assertInstanceOf(ExternalRoute::class, $item->getRoute());
-        $this->assertEquals(new ExternalRoute('https://example.com'), $item->getRoute());
-        $this->assertSame('https://example.com', (string) $item->getRoute());
+        $this->assertNull($item->getRoute());
+        $this->assertSame('https://example.com', $item->getUrl());
     }
 
-    public function testPassingUnknownRouteKeyToConstructorUsesExternalRoute()
+    public function testPassingUnknownRouteKeyToConstructorSetsRouteToNull()
     {
         $item = new NavigationItem('foo', 'Home');
-        $this->assertInstanceOf(ExternalRoute::class, $item->getRoute());
-        $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
-        $this->assertSame('foo', (string) $item->getRoute());
+        $this->assertNull($item->getRoute());
+        $this->assertSame('foo', $item->getUrl());
     }
 
     public function testGetDestination()
@@ -133,7 +130,8 @@ class NavigationItemTest extends UnitTestCase
     {
         $item = NavigationItem::create('foo', 'bar');
 
-        $this->assertEquals(new ExternalRoute('foo'), $item->getRoute());
+        $this->assertNull($item->getRoute());
+        $this->assertSame('foo', $item->getUrl());
         $this->assertSame('bar', $item->getLabel());
         $this->assertSame(500, $item->getPriority());
     }
@@ -173,7 +171,7 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithMissingRouteKey()
     {
-        $this->assertInstanceOf(ExternalRoute::class, NavigationItem::create('foo', 'foo')->getRoute());
+        $this->assertNull(NavigationItem::create('foo', 'foo')->getRoute());
     }
 
     public function testCreateWithCustomPriority()
@@ -245,7 +243,7 @@ class NavigationItemTest extends UnitTestCase
         $this->assertFalse(NavigationItem::create(new Route(new InMemoryPage('bar')))->isActive());
     }
 
-    public function testIsCurrentWithExternalRoute()
+    public function testIsCurrentWithLink()
     {
         Render::swap(Mockery::mock(RenderData::class, [
             'getRoute' => new Route(new InMemoryPage('foo')),
