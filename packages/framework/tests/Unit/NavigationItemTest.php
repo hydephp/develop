@@ -215,40 +215,22 @@ class NavigationItemTest extends UnitTestCase
 
     public function testCreateWithNullLabel()
     {
-        $this->assertSame('Foo', NavigationItem::create('foo')->getLabel());
-    }
+        $this->assertSame('foo', NavigationItem::create('foo')->getLabel());
 
-    public function testCreateWithNullLabelForLinks()
-    {
-        $this->assertSame('Example.com', NavigationItem::create('example.com')->getLabel());
-        $this->assertSame('Example.com', NavigationItem::create('example.com/')->getLabel());
-        $this->assertSame('Example.com', NavigationItem::create('https://example.com/')->getLabel());
-    }
+        $links = [
+            'www.example.com',
+            'https://example.com',
+            'https://example.com/',
+            'https://example.com/foo',
+            'https://example.com/foo/',
+            'https://example.com/foo/bar',
+            'https://example.com/foo/bar.html',
+            'https://example.com/foo/bar.png',
+        ];
 
-    public function testCreateWithNullLabelForLinksWithSubdomain()
-    {
-        $this->assertSame('Example.com', NavigationItem::create('www.example.com')->getLabel());
-        $this->assertSame('Example.com', NavigationItem::create('www.example.com/')->getLabel());
-        $this->assertSame('Example.com', NavigationItem::create('https://www.example.com')->getLabel());
-        $this->assertSame('Example.com', NavigationItem::create('https://www.example.com/')->getLabel());
-    }
-
-    public function testCreateWithNullLabelForLinksWithPages()
-    {
-        $this->assertSame('Foo', NavigationItem::create('https://example.com/foo')->getLabel());
-        $this->assertSame('Foo', NavigationItem::create('https://example.com/foo/')->getLabel());
-        $this->assertSame('Bar', NavigationItem::create('https://example.com/foo/bar')->getLabel());
-        $this->assertSame('Bar', NavigationItem::create('https://example.com/foo/bar/')->getLabel());
-    }
-
-    public function testCreateWithNullLabelForLinkWithPageWithHtmlExtension()
-    {
-        $this->assertSame('Bar', NavigationItem::create('https://example.com/foo/bar.html')->getLabel());
-    }
-
-    public function testCreateWithNullLabelForLinkWithPageWithOtherExtension()
-    {
-        $this->assertSame('Bar.png', NavigationItem::create('https://example.com/foo/bar.png')->getLabel());
+        foreach ($links as $link) {
+            $this->assertSame($link, NavigationItem::create($link)->getLabel());
+        }
     }
 
     public function testPassingRouteKeyToStaticConstructorUsesRouteInstance()
