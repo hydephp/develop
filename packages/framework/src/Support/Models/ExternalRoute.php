@@ -13,7 +13,6 @@ class ExternalRoute extends BaseRoute
 {
     protected string $destination;
 
-    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(string $destination)
     {
         $this->destination = $destination;
