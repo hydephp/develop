@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -135,7 +134,8 @@ class NavigationMenuGenerator
     {
         $item = NavigationItem::create($route);
 
-        $groupName = $this->generatesSidebar ? ($item->getGroupKey() ?? 'Other') : $item->getGroupKey();
+        $groupKey = $item->getPage()->navigationMenuGroup();
+        $groupName = $this->generatesSidebar ? ($groupKey ?? 'Other') : $groupKey;
 
         $groupItem = $this->getOrCreateGroupItem($groupName);
 
@@ -148,7 +148,7 @@ class NavigationMenuGenerator
 
     protected function getOrCreateGroupItem(string $groupName): NavigationGroup
     {
-        $groupKey = Str::slug($groupName);
+        $groupKey = NavigationGroup::normalizeGroupKey($groupName);
         $group = $this->items->get($groupKey);
 
         if ($group instanceof NavigationGroup) {

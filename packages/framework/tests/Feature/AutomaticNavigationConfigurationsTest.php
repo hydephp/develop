@@ -1284,21 +1284,19 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 class TestNavigationItem
 {
     public readonly string $label;
-    public readonly ?string $group;
     public readonly int $priority;
     public readonly array $children;
 
-    public function __construct(string $label, ?string $group, int $priority, array $children)
+    public function __construct(string $label, int $priority, array $children)
     {
         $this->label = $label;
-        $this->group = $group;
         $this->priority = $priority;
         $this->children = collect($children)->map(fn (NavigationItem|NavigationGroup $child) => $child->getLabel())->toArray();
     }
 
     public static function properties(): array
     {
-        return ['label', 'group', 'priority', 'children'];
+        return ['label', 'priority', 'children'];
     }
 }
 
@@ -1320,7 +1318,7 @@ class AssertableNavigationMenu
     public function state(): array
     {
         return $this->items->map(function (NavigationItem|NavigationGroup $item): TestNavigationItem {
-            return new TestNavigationItem($item->getLabel(), $item->getGroupKey(), $item->getPriority(), $item instanceof NavigationGroup ? $item->getItems() : []);
+            return new TestNavigationItem($item->getLabel(), $item->getPriority(), $item instanceof NavigationGroup ? $item->getItems() : []);
         })->toArray();
     }
 

@@ -8,7 +8,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
-use Illuminate\Support\Str;
 use Stringable;
 
 use function is_string;
@@ -27,36 +26,29 @@ class NavigationItem implements NavigationElement, Stringable
     protected string $label;
     protected int $priority;
 
-    // TODO: Do we actually need this? We should just care if it's physically stored in a group.
-    protected ?string $group = null;
-
     /**
      * Create a new navigation menu item with your own properties.
      *
      * @param  \Hyde\Support\Models\Route|string  $destination  Route instance, route key, or external URI.
      * @param  string  $label  The label of the navigation item.
      * @param  int  $priority  The priority to determine the order of the navigation item.
-     * @param  string|null  $group  The dropdown/group key of the navigation item, if any.
      */
-    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT, ?string $group = null)
+    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT)
     {
         $this->destination = $destination;
 
         $this->label = $label;
         $this->priority = $priority;
-
-        $this->group = static::normalizeGroupKey($group);
     }
 
     /**
      * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
      *
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or external URI.
-     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
-     * @param  string|null  $group  Leave blank to use the group of the route's corresponding page, if there is one tied to the route.
+     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
      */
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, ?string $group = null): static
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null): static
     {
         if (is_string($destination) && Routes::has($destination)) {
             $destination = Routes::get($destination);
@@ -65,10 +57,9 @@ class NavigationItem implements NavigationElement, Stringable
         if ($destination instanceof Route) {
             $label ??= $destination->getPage()->navigationMenuLabel();
             $priority ??= $destination->getPage()->navigationMenuPriority();
-            $group ??= $destination->getPage()->navigationMenuGroup();
         }
 
-        return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT, $group);
+        return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT);
     }
 
     /**
@@ -104,19 +95,6 @@ class NavigationItem implements NavigationElement, Stringable
     }
 
     /**
-     * Get the group identifier key of the navigation item, if any.
-     *
-     *  For sidebars this is the category key, for navigation menus this is the dropdown key.
-     *
-     *  When using automatic subdirectory based groups, the subdirectory name is the group key.
-     *  Otherwise, the group key is a 'slugified' version of the group's label.
-     */
-    public function getGroupKey(): ?string
-    {
-        return $this->group;
-    }
-
-    /**
      * If the navigation item is a link to a routed page, get the corresponding page instance.
      */
     public function getPage(): ?HydePage
@@ -130,11 +108,5 @@ class NavigationItem implements NavigationElement, Stringable
     public function isActive(): bool
     {
         return Hyde::currentRoute()->getLink() === $this->getLink();
-    }
-
-    /** @return ($group is null ? null : string) */
-    public static function normalizeGroupKey(?string $group): ?string
-    {
-        return $group ? Str::slug($group) : null;
     }
 }

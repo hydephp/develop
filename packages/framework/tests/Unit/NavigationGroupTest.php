@@ -114,26 +114,6 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame($group, $group->add([]));
     }
 
-    public function testAddingAnItemWithAGroupKeyKeepsTheSetGroupKey()
-    {
-        $group = new NavigationGroup('Foo');
-        $child = new NavigationItem(new Route(new MarkdownPage()), 'Child', group: 'bar');
-
-        $group->add($child);
-
-        $this->assertSame('bar', $child->getGroupKey());
-    }
-
-    public function testAddingAnItemWithNoGroupKeyDoesNotModifyGroupIdentifier()
-    {
-        $group = new NavigationGroup('Foo');
-        $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
-
-        $group->add($child);
-
-        $this->assertNull($child->getGroupKey());
-    }
-
     public function testGetPriorityUsesDefaultPriority()
     {
         $this->assertSame(999, (new NavigationGroup('Foo'))->getPriority());
@@ -191,6 +171,15 @@ class NavigationGroupTest extends UnitTestCase
 
         $this->assertSame($group, $group->add(new NavigationItem(new Route(new MarkdownPage()), 'Bar')));
         $this->assertSame($group, $group->add([new NavigationItem(new Route(new MarkdownPage()), 'Bar')]));
+    }
+
+    public function testNormalizeGroupKeyCreatesSlugs()
+    {
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('Foo Bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('foo bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('foo_bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey('foo-bar'));
+        $this->assertSame('foo-bar', NavigationGroup::normalizeGroupKey(' foo bar '));
     }
 
     protected function createNavigationItems(): array
