@@ -10,4 +10,9 @@ use Hyde\Support\Models\Route;
 class NavigationDestination implements Stringable
 {
     protected Route|string $destination;
+
+    public function __construct(Route|string $destination)
+    {
+        $this->destination = $destination;
+    }
 }
