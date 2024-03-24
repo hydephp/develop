@@ -135,7 +135,11 @@ class NavigationMenuGenerator
     {
         $item = NavigationItem::create($route);
 
-        $groupName = $this->generatesSidebar ? ($item->getGroupKey() ?? 'Other') : $item->getGroupKey();
+        if ($this->generatesSidebar) {
+            $groupName = ($item->getGroupKey() ?? 'Other');
+        } else {
+            $groupName = $item->getGroupKey();
+        }
 
         $groupItem = $this->getOrCreateGroupItem($groupName);
 
