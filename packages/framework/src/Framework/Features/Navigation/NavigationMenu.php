@@ -63,6 +63,16 @@ class NavigationMenu implements Arrayable
         return $this;
     }
 
+    /**
+     * Get the navigation items in the menu as an array.
+     *
+     * @return array<array<string, mixed>>
+     */
+    public function toArray(): array
+    {
+        //
+    }
+
     protected function addItem(NavigationItem|NavigationGroup $item): void
     {
         $this->items->push($item);
