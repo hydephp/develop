@@ -7,10 +7,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
-use Throwable;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
@@ -189,21 +187,7 @@ class SidebarViewTest extends TestCase
         app()->instance('navigation.sidebar', $sidebar);
         view()->share('sidebar', $sidebar);
 
-        try {
-            $this->html = $view->render();
-            /** @noinspection LaravelFunctionsInspection */
-            if (env('TEST_HTML_DEBUG', false)) {
-                file_put_contents(Hyde::path('_site/test.html'), $this->html);
-                echo "\e[0;32mCreated file: \e[0m".realpath(Hyde::path('_site/test.html'));
-            }
-        } catch (Throwable $exception) {
-            /** @noinspection LaravelFunctionsInspection */
-            if (env('TEST_HTML_DEBUG', false)) {
-                throw $exception;
-            }
-            $this->fail($exception->getMessage());
-        }
-
+        $this->html = $view->render();
         $this->assertIsString($this->html);
 
         return $this;
