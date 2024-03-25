@@ -43,8 +43,21 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
         $this->assertSame(['bar'], $this->getRouteKeys());
     }
 
+    public function testWithPagesWhenSupplyingStrings()
+    {
+        $this->withPages(['foo', 'bar', 'baz']);
+
+        $this->assertSame(['foo', 'bar', 'baz'], $this->getRouteKeys());
+        $this->assertContainsOnlyInstancesOf(InMemoryPage::class, $this->getRoutePages());
+    }
+
     protected function getRouteKeys()
     {
         return $this->kernel->routes()->map(fn (Route $route) => $route->getRouteKey())->all();
+    }
+
+    protected function getRoutePages()
+    {
+        return $this->kernel->routes()->map(fn (Route $route) => $route->getPage())->all();
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Kernel\RouteCollection;
@@ -19,12 +20,15 @@ trait MocksKernelFeatures
     /**
      * Create a new mock kernel with the given pages added to its routes.
      *
-     * @param  array<\Hyde\Pages\Concerns\HydePage>  $pages
+     * @param  array<\Hyde\Pages\Concerns\HydePage|string>  $pages
      * @return $this
      */
     protected function withPages(array $pages): static
     {
         $this->setupTestKernel();
+
+        // If the given pages are strings, convert them to InMemoryPage instances.
+        $pages = collect($pages)->map(fn (HydePage|string $page): HydePage => is_string($page) ? new InMemoryPage($page) : $page);
 
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
 
