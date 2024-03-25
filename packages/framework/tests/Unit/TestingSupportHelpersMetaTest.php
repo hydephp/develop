@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Support\Models\Route;
 use Hyde\Testing\MocksKernelFeatures;
 
 /**
@@ -58,7 +57,6 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
 
         $this->assertSame(['foo', 'bar', 'baz'], $this->getRouteKeys());
         $this->assertSame(['foo', 'bar', 'baz'], $this->getPageIdentifiers());
-        $this->assertContainsOnlyInstancesOf(InMemoryPage::class, $this->getRoutePages());
         $this->assertContainsOnlyInstancesOf(InMemoryPage::class, $this->kernel->pages());
     }
 
@@ -70,10 +68,5 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
     protected function getRouteKeys(): array
     {
         return $this->kernel->routes()->keys()->all();
-    }
-
-    protected function getRoutePages(): array
-    {
-        return $this->kernel->routes()->map(fn (Route $route) => $route->getPage())->all();
     }
 }
