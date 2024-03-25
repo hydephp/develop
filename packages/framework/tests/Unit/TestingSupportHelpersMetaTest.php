@@ -19,5 +19,8 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
 {
     use MocksKernelFeatures;
 
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     //
 }
