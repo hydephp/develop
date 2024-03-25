@@ -68,7 +68,7 @@ class NavigationMenu implements Arrayable
      *
      * @experimental This method is experimental and may be changed before release.
      *
-     * @return array<array<string, mixed>>
+     * @return array<int, array{url: string, title: string, active: bool}>
      */
     public function toArray(): array
     {
