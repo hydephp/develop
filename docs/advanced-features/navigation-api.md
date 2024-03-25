@@ -14,3 +14,13 @@ However, if you are interested in creating your own custom navigation menus, you
 
 This article is intended for advanced users, as most users will not need to create custom navigation menus.
 For this reason, the documentation is very code-driven due to the technical nature of the API.
+
+## Overview
+
+The Navigation API consists of a set of classes within the `Hyde\Framework\Features\Navigation` namespace.
+
+Together, these form an object-oriented way to create and interact with navigation menus and their items.
+
+In short, a navigation menu is an instance of the `NavigationMenu` class. Each menu contains a collection of `NavigationItem` or `NavigationGroup` classes.
+The former represents a single item in the menu, while the latter represents a group of items.
+
