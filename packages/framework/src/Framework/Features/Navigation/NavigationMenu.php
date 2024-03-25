@@ -68,7 +68,7 @@ class NavigationMenu implements Arrayable
      *
      * @experimental This method is experimental and may be changed before release.
      *
-     * @return array<int, array{link: string, label: string, active: bool}>
+     * @return array<int, array{link: string, label: string}>
      */
     public function toArray(): array
     {
@@ -76,7 +76,6 @@ class NavigationMenu implements Arrayable
             return [
                 'link' => $item->getLink(),
                 'label' => $item->getLabel(),
-                'active' => $item->isActive(),
             ];
         })->all();
     }

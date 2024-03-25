@@ -28,9 +28,9 @@ class NavigationAPITest extends TestCase
         ]);
 
         $this->assertSame([
-            ['link' => 'index.html', 'label' => 'Home', 'active' => false],
-            ['link' => 'about.html', 'label' => 'About', 'active' => false],
-            ['link' => 'contact.html', 'label' => 'Contact', 'active' => false],
+            ['link' => 'index.html', 'label' => 'Home'],
+            ['link' => 'about.html', 'label' => 'About'],
+            ['link' => 'contact.html', 'label' => 'Contact'],
         ], $menu->toArray());
     }
 }
