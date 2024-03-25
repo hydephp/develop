@@ -43,3 +43,31 @@ class NavigationMenu {
 }
 ```
 
+### Built-in Menus
+
+HydePHP comes with two built-in menus: the main navigation menu and the documentation sidebar.
+
+These are bound into the service container as singletons and can be accessed through dependency injection.
+
+```php
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+
+/** @var \Hyde\Framework\Features\Navigation\MainNavigationMenu $menu */
+$menu = app('navigation.main')
+
+/** @var DocumentationSidebar $sidebar */
+$sidebar= app('navigation.sidebar')
+```
+
+You can also get them through the static `get` helpers on the menu classes themselves.
+
+```php
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+
+$menu = MainNavigationMenu::get();
+$sidebar = DocumentationSidebar::get();
+```
+
+>info Developer tip: The menus are only generated *after* the Hyde Kernel is booted. If you are getting BindingResolutionExceptions, ensure that you are not trying to access the menus too early in the application lifecycle. (Consider using the `booted` event.) 
