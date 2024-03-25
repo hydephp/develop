@@ -24,13 +24,9 @@ trait MocksKernelFeatures
      */
     protected function withPages(array $pages): static
     {
-        if (isset($this->kernel)) {
-            $kernel = $this->kernel;
-        } else {
-            $kernel = new TestKernel();
-            $this->kernel = $kernel;
-            HydeKernel::setInstance($kernel);
-        }
+        $kernel = new TestKernel();
+        $this->kernel = $kernel;
+        HydeKernel::setInstance($kernel);
 
         $kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
 
