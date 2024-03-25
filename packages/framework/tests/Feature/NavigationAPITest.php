@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Arr;
@@ -12,6 +13,8 @@ use Hyde\Testing\MocksKernelFeatures;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
  * High level tests for the Navigation API to go along with the code-driven documentation.
@@ -19,6 +22,23 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
 class NavigationAPITest extends TestCase
 {
     use MocksKernelFeatures;
+
+    public function testServiceContainerMenus()
+    {
+        // The NavigationServiceProvider binds the main and sidebar navigation menus into the service container.
+
+        Hyde::boot();
+
+        // You can access the menus from the service container.
+
+        $this->assertInstanceOf(MainNavigationMenu::class, app('navigation.main'));
+        $this->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
+
+        // You can also use the facade to access the menus.
+
+        $this->assertSame(app('navigation.main'), MainNavigationMenu::get());
+        $this->assertSame(app('navigation.sidebar'), DocumentationSidebar::get());
+    }
 
     public function testNavigationItems()
     {
