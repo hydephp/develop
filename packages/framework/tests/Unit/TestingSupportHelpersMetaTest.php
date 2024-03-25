@@ -51,12 +51,12 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
         $this->assertContainsOnlyInstancesOf(InMemoryPage::class, $this->getRoutePages());
     }
 
-    protected function getRouteKeys()
+    protected function getRouteKeys(): array
     {
         return $this->kernel->routes()->map(fn (Route $route) => $route->getRouteKey())->all();
     }
 
-    protected function getRoutePages()
+    protected function getRoutePages(): array
     {
         return $this->kernel->routes()->map(fn (Route $route) => $route->getPage())->all();
     }
