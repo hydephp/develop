@@ -30,8 +30,17 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
 
         $this->withPages([$page]);
 
+        $this->assertSame([$page], $this->kernel->pages()->all());
         $this->assertEquals([$page->getRoute()], $this->kernel->routes()->all());
-        $this->assertSame($page, $this->kernel->routes()->first()->getPage());
+    }
+
+    public function testWithPagesReplacesExistingPages()
+    {
+        $this->withPages([new InMemoryPage('foo')]);
+        $this->assertSame(['foo'], $this->getPageIdentifiers());
+
+        $this->withPages([new InMemoryPage('bar')]);
+        $this->assertSame(['bar'], $this->getPageIdentifiers());
     }
 
     public function testWithPagesReplacesExistingRoutes()
@@ -48,7 +57,14 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
         $this->withPages(['foo', 'bar', 'baz']);
 
         $this->assertSame(['foo', 'bar', 'baz'], $this->getRouteKeys());
+        $this->assertSame(['foo', 'bar', 'baz'], $this->getPageIdentifiers());
         $this->assertContainsOnlyInstancesOf(InMemoryPage::class, $this->getRoutePages());
+        $this->assertContainsOnlyInstancesOf(InMemoryPage::class, $this->kernel->pages());
+    }
+
+    protected function getPageIdentifiers()
+    {
+        return $this->kernel->pages()->map(fn (InMemoryPage $page) => $page->getIdentifier())->all();
     }
 
     protected function getRouteKeys(): array
