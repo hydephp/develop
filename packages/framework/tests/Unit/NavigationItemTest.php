@@ -14,7 +14,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
-use Hyde\Framework\Features\Navigation\NavigationElement;
 
 /**
  * This unit test covers the basics of the NavigationItem class.
@@ -44,11 +43,6 @@ class NavigationItemTest extends UnitTestCase
         $this->assertInstanceOf(NavigationItem::class, new NavigationItem('foo', 'Test'));
         $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test'));
         $this->assertInstanceOf(NavigationItem::class, new NavigationItem(new Route(new MarkdownPage()), 'Test', 500));
-    }
-
-    public function testIsInstanceOfNavigationElement()
-    {
-        $this->assertInstanceOf(NavigationElement::class, new NavigationItem(new Route(new MarkdownPage()), 'Test', 500));
     }
 
     public function testPassingRouteInstanceToConstructorUsesRouteInstance()
