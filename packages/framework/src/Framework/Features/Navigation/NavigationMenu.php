@@ -66,6 +66,8 @@ class NavigationMenu implements Arrayable
     /**
      * Get the navigation items in the menu as an array.
      *
+     * @experimental This method is experimental and may be changed before release.
+     *
      * @return array<array<string, mixed>>
      */
     public function toArray(): array
