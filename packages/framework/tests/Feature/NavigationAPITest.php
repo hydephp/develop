@@ -29,9 +29,9 @@ class NavigationAPITest extends TestCase
         ]);
 
         $this->assertSame([
-            'index.html' => 'Home',
-            'about.html' => 'About',
-            'contact.html' => 'Contact',
+            'Home' => 'index.html',
+            'About' => 'about.html',
+            'Contact' => 'contact.html',
         ], $menu->toArray());
     }
 
@@ -48,12 +48,11 @@ class NavigationAPITest extends TestCase
         ]);
 
         $this->assertSame([
-            'index.html' => 'Home',
-            [
-                'label' => 'About',
+            'Home' => 'index.html',
+            'About' => [
                 'items' => [
-                    'about.html' => 'About Us',
-                    'contact.html' => 'Contact Us',
+                    'About Us' => 'about.html',
+                    'Contact Us' => 'contact.html',
                 ],
             ],
         ], $menu->toArray());

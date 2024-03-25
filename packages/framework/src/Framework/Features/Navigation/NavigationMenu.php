@@ -74,16 +74,17 @@ class NavigationMenu implements Arrayable
     {
         return $this->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item): array {
             if ($item instanceof NavigationGroup) {
-                return [[
-                    'label' => $item->getLabel(),
-                    'items' => Arr::mapWithKeys($item->getItems(), fn (NavigationItem $item): array => [
-                        $item->getLink() => $item->getLabel(),
-                    ]),
-                ]];
+                return [
+                    $item->getLabel() => [
+                        'items' => Arr::mapWithKeys($item->getItems(), fn (NavigationItem $item): array => [
+                            $item->getLabel() => $item->getLink(),
+                        ]),
+                    ]
+                ];
             }
 
             return [
-                $item->getLink() => $item->getLabel(),
+                $item->getLabel() => $item->getLink(),
             ];
         })->all();
     }
