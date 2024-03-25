@@ -24,3 +24,22 @@ Together, these form an object-oriented way to create and interact with navigati
 In short, a navigation menu is an instance of the `NavigationMenu` class. Each menu contains a collection of `NavigationItem` or `NavigationGroup` classes.
 The former represents a single item in the menu, while the latter represents a group of items.
 
+### Visualisation
+
+Here is a visual representation of the structure of a navigation menu:
+
+```php
+namespace Hyde\Framework\Features\Navigation;
+
+class NavigationMenu {
+    protected Collection $items = [
+        new NavigationItem(destination: 'index.html', label: 'Home'),
+        new NavigationItem(destination: 'posts.html', label: 'Blog'),
+        new NavigationGroup(label: 'About', items: [
+            new NavigationItem(destination: 'about.html', label: 'About Us'),
+            new NavigationItem(destination: 'team.html', label: 'Our Team'),
+        ]),
+    ];
+}
+```
+
