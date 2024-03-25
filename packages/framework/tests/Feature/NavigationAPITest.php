@@ -33,23 +33,6 @@ class NavigationAPITest extends TestCase
             ['link' => 'about.html', 'label' => 'About'],
             ['link' => 'contact.html', 'label' => 'Contact'],
         ], $menu->toArray());
-
-        $this->assertSame(<<<JSON
-        [
-            {
-                "link": "index.html",
-                "label": "Home"
-            },
-            {
-                "link": "about.html",
-                "label": "About"
-            },
-            {
-                "link": "contact.html",
-                "label": "Contact"
-            }
-        ]
-        JSON, $menu->toJson(JSON_PRETTY_PRINT));
     }
 
     public function testNavigationMenusWithGroups()

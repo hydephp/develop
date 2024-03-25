@@ -6,8 +6,6 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Hyde\Support\Concerns\Serializable;
-use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 
 use function Hyde\evaluate_arrayable;
@@ -20,10 +18,8 @@ use function Hyde\evaluate_arrayable;
  * @example `$menu = app('navigation.main');` for the main navigation menu.
  * @example `$menu = app('navigation.sidebar');` for the documentation sidebar.
  */
-class NavigationMenu implements SerializableContract
+class NavigationMenu implements Arrayable
 {
-    use Serializable;
-
     public const DEFAULT = 500;
     public const LAST = 999;
 
