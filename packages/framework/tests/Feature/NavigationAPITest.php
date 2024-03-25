@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Arr;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Testing\MocksKernelFeatures;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
@@ -32,7 +33,7 @@ class NavigationAPITest extends TestCase
             'Home' => 'index.html',
             'About' => 'about.html',
             'Contact' => 'contact.html',
-        ], $menu->toArray());
+        ], $this->toArray($menu));
     }
 
     public function testNavigationMenusWithGroups()
@@ -55,6 +56,23 @@ class NavigationAPITest extends TestCase
                     'Contact Us' => 'contact.html',
                 ],
             ],
-        ], $menu->toArray());
+        ], $this->toArray($menu));
+    }
+
+    protected function toArray(NavigationMenu $menu): array
+    {
+        return $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item): array {
+            if ($item instanceof NavigationGroup) {
+                return [
+                    $item->getLabel() => [
+                        'items' => Arr::mapWithKeys($item->getItems(), function (NavigationItem $item): array {
+                            return [$item->getLabel() => $item->getLink()];
+                        }),
+                    ],
+                ];
+            }
+
+            return [$item->getLabel() => $item->getLink()];
+        })->all();
     }
 }

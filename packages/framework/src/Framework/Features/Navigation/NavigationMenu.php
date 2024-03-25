@@ -18,7 +18,7 @@ use function Hyde\evaluate_arrayable;
  * @example `$menu = app('navigation.main');` for the main navigation menu.
  * @example `$menu = app('navigation.sidebar');` for the documentation sidebar.
  */
-class NavigationMenu implements Arrayable
+class NavigationMenu
 {
     public const DEFAULT = 500;
     public const LAST = 999;
@@ -61,30 +61,6 @@ class NavigationMenu implements Arrayable
         }
 
         return $this;
-    }
-
-    /**
-     * Get the navigation items in the menu as an array.
-     *
-     * @experimental This method is experimental and may be changed before release.
-     *
-     * @return array<string, string|array{items: array<string, string>}>
-     */
-    public function toArray(): array
-    {
-        return $this->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item): array {
-            if ($item instanceof NavigationGroup) {
-                return [
-                    $item->getLabel() => [
-                        'items' => Arr::mapWithKeys($item->getItems(), function (NavigationItem $item): array {
-                            return [$item->getLabel() => $item->getLink()];
-                        }),
-                    ],
-                ];
-            }
-
-            return [$item->getLabel() => $item->getLink()];
-        })->all();
     }
 
     protected function addItem(NavigationItem|NavigationGroup $item): void
