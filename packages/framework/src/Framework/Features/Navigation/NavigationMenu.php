@@ -72,7 +72,13 @@ class NavigationMenu implements Arrayable
      */
     public function toArray(): array
     {
-        //
+        return $this->getItems()->map(function (NavigationItem|NavigationGroup $item): array {
+            return [
+                'url' => $item->getLink(),
+                'title' => $item->getLabel(),
+                'active' => $item->isActive(),
+            ];
+        })->all();
     }
 
     protected function addItem(NavigationItem|NavigationGroup $item): void

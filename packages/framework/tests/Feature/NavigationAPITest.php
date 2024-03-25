@@ -27,6 +27,10 @@ class NavigationAPITest extends TestCase
             new NavigationItem(Routes::get('contact'), 'Contact'),
         ]);
 
-        $this->assertCount(3, $menu->getItems());
+        $this->assertSame([
+            ['url' => 'index.html', 'title' => 'Home', 'active' => false],
+            ['url' => 'about.html', 'title' => 'About', 'active' => false],
+            ['url' => 'contact.html', 'title' => 'Contact', 'active' => false],
+        ], $menu->toArray());
     }
 }
