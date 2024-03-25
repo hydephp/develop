@@ -77,15 +77,13 @@ class NavigationMenu implements Arrayable
                 return [
                     'label' => $item->getLabel(),
                     'items' => array_map(fn (NavigationItem $item): array => [
-                        'link' => $item->getLink(),
-                        'label' => $item->getLabel(),
+                        $item->getLink() => $item->getLabel(),
                     ], $item->getItems()),
                 ];
             }
 
             return [
-                'link' => $item->getLink(),
-                'label' => $item->getLabel(),
+                $item->getLink() => $item->getLabel(),
             ];
         })->all();
     }
