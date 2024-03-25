@@ -9,7 +9,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
-use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
 
 /**
  * A trait to mock kernel features for testing.
@@ -51,12 +51,12 @@ class TestKernel extends HydeKernel
     protected ?PageCollection $mockPages = null;
     protected ?RouteCollection $mockRoutes = null;
 
-    public function setPages(Arrayable $pages): void
+    public function setPages(Collection $pages): void
     {
         $this->mockPages = PageCollection::make($pages);
     }
 
-    public function setRoutes(Arrayable $routes): void
+    public function setRoutes(Collection $routes): void
     {
         $this->mockRoutes = RouteCollection::make($routes);
     }
