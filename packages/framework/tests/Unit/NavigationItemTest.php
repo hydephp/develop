@@ -299,4 +299,9 @@ class NavigationItemTest extends UnitTestCase
         $this->assertFalse(NavigationItem::create('foo', 'bar')->isActive());
         $this->assertFalse(NavigationItem::create('https://example.com', 'bar')->isActive());
     }
+
+    public function testIsCurrentIsNullSafe()
+    {
+        $this->assertFalse(NavigationItem::create('foo', 'bar')->isActive());
+    }
 }
