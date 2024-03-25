@@ -12,6 +12,9 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Illuminate\Support\Collection;
 
+use function collect;
+use function is_string;
+
 /**
  * A trait to mock kernel features for testing.
  *
