@@ -30,9 +30,10 @@ trait MocksKernelFeatures
 
         // If the given pages are strings, convert them to InMemoryPage instances.
         $pages = collect($pages)->map(fn (HydePage|string $page): HydePage => is_string($page) ? new InMemoryPage($page) : $page);
+        $routes = collect($pages)->map(fn (HydePage $page) => $page->getRoute());
 
         $this->kernel->setPages($pages);
-        $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
+        $this->kernel->setRoutes($routes);
 
         return $this;
     }
