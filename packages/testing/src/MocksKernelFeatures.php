@@ -24,12 +24,18 @@ trait MocksKernelFeatures
      */
     protected function withPages(array $pages): static
     {
-        $this->kernel = new TestKernel();
-        HydeKernel::setInstance($this->kernel);
+        $this->setupTestKernel();
 
         $this->kernel->setRoutes(collect($pages)->map(fn (HydePage $page) => $page->getRoute()));
 
         return $this;
+    }
+
+    protected function setupTestKernel(): void
+    {
+        $this->kernel = new TestKernel();
+
+        HydeKernel::setInstance($this->kernel);
     }
 }
 
