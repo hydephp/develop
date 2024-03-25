@@ -68,11 +68,21 @@ class NavigationMenu implements Arrayable
      *
      * @experimental This method is experimental and may be changed before release.
      *
-     * @return array<int, array{link: string, label: string}>
+     * @return array<int, array{link?: string, label: string, items?: array<int, array{link: string, label: string}>}>
      */
     public function toArray(): array
     {
         return $this->getItems()->map(function (NavigationItem|NavigationGroup $item): array {
+            if ($item instanceof NavigationGroup) {
+                return [
+                    'label' => $item->getLabel(),
+                    'items' => array_map(fn (NavigationItem $item): array => [
+                        'link' => $item->getLink(),
+                        'label' => $item->getLabel(),
+                    ], $item->getItems()),
+                ];
+            }
+
             return [
                 'link' => $item->getLink(),
                 'label' => $item->getLabel(),
