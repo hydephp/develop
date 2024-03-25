@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing;
 
 use Hyde\Pages\InMemoryPage;
+use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Kernel\PageCollection;
@@ -53,12 +54,12 @@ class TestKernel extends HydeKernel
 
     public function setPages(Collection $pages): void
     {
-        $this->mockPages = PageCollection::make($pages);
+        $this->mockPages = PageCollection::make($pages->mapWithKeys(fn (HydePage $page) => [$page->getIdentifier() => $page]));
     }
 
     public function setRoutes(Collection $routes): void
     {
-        $this->mockRoutes = RouteCollection::make($routes);
+        $this->mockRoutes = RouteCollection::make($routes->mapWithKeys(fn (Route $route) => [$route->getRouteKey() => $route]));
     }
 
     /** @return \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concerns\HydePage> */

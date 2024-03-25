@@ -30,8 +30,8 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
 
         $this->withPages([$page]);
 
-        $this->assertSame([$page], $this->kernel->pages()->all());
-        $this->assertEquals([$page->getRoute()], $this->kernel->routes()->all());
+        $this->assertSame(['foo' => $page], $this->kernel->pages()->all());
+        $this->assertEquals(['foo' => $page->getRoute()], $this->kernel->routes()->all());
     }
 
     public function testWithPagesReplacesExistingPages()
@@ -64,12 +64,12 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
 
     protected function getPageIdentifiers()
     {
-        return $this->kernel->pages()->map(fn (InMemoryPage $page) => $page->getIdentifier())->all();
+        return $this->kernel->pages()->keys()->all();
     }
 
     protected function getRouteKeys(): array
     {
-        return $this->kernel->routes()->map(fn (Route $route) => $route->getRouteKey())->all();
+        return $this->kernel->routes()->keys()->all();
     }
 
     protected function getRoutePages(): array
