@@ -18,7 +18,7 @@ use function Hyde\evaluate_arrayable;
  * @example `$menu = app('navigation.main');` for the main navigation menu.
  * @example `$menu = app('navigation.sidebar');` for the documentation sidebar.
  */
-class NavigationMenu
+class NavigationMenu implements Arrayable
 {
     public const DEFAULT = 500;
     public const LAST = 999;
