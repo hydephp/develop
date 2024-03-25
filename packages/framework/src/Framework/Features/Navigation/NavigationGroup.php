@@ -14,7 +14,7 @@ use function collect;
 /**
  * Abstraction for a grouped navigation menu item, like a dropdown or a sidebar group.
  */
-class NavigationGroup implements NavigationElement
+class NavigationGroup
 {
     /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     protected array $items = [];
