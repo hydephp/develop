@@ -57,6 +57,7 @@ class TestingSupportHelpersMetaTest extends UnitTestCase
 
         $this->assertSame(['foo', 'bar', 'baz'], $this->getRouteKeys());
         $this->assertSame(['foo', 'bar', 'baz'], $this->getPageIdentifiers());
+
         $this->assertContainsOnlyInstancesOf(InMemoryPage::class, $this->kernel->pages());
     }
 
