@@ -13,7 +13,7 @@ use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 
 /**
- * High level tests for the Navigation API.
+ * High level tests for the Navigation API to go along with the documentation.
  */
 class NavigationAPITest extends TestCase
 {
@@ -34,6 +34,13 @@ class NavigationAPITest extends TestCase
             'About' => 'about.html',
             'Contact' => 'contact.html',
         ], $this->toArray($menu));
+
+        foreach ($menu->getItems() as $item) {
+            $this->assertInstanceOf(NavigationItem::class, $item);
+
+            $this->assertIsString($item->getLabel());
+            $this->assertIsString($item->getLink());
+        }
     }
 
     public function testNavigationMenusWithGroups()
