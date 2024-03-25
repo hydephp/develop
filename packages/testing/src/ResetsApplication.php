@@ -50,6 +50,28 @@ trait ResetsApplication
         copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 
+    /** @experimental We may want to make this a part of {@see static::withoutDefaultPages()} */
+    protected function withoutDocumentationSearch(): void
+    {
+        $features = config('hyde.features');
+
+        $flipped = array_flip($features);
+        unset($flipped['documentation-search']);
+        $features = array_flip($flipped);
+
+        config(['hyde.features' => $features]);
+    }
+
+    /** @experimental We may want to make this a part of {@see static::restoreDefaultPages()} */
+    protected function restoreDocumentationSearch(): void
+    {
+        $features = config('hyde.features');
+
+        $features[] = 'documentation-search';
+
+        config(['hyde.features' => $features]);
+    }
+
     protected static function unlinkUnlessDefault(string $filepath): void
     {
         $protected = [

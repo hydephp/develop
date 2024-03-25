@@ -51,6 +51,8 @@ class PageModelGetHelperTest extends TestCase
 
     public function testDocumentationPageGetHelperReturnsDocumentationPageCollection()
     {
+        $this->withoutDocumentationSearch();
+
         Filesystem::touch('_docs/test-page.md');
 
         $collection = DocumentationPage::all();
@@ -59,5 +61,7 @@ class PageModelGetHelperTest extends TestCase
         $this->assertContainsOnlyInstancesOf(DocumentationPage::class, $collection);
 
         Filesystem::unlink('_docs/test-page.md');
+
+        $this->restoreDocumentationSearch();
     }
 }

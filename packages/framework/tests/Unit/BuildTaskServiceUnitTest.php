@@ -8,7 +8,6 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSearch;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
@@ -40,6 +39,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         self::mockConfig(['hyde' => [
             'empty_output_directory' => false,
             'generate_build_manifest' => false,
+            'transfer_media_assets' => false,
         ]]);
         $this->createService();
     }
@@ -165,11 +165,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testGenerateRssFeedExtendsPostBuildTask()
     {
         $this->assertInstanceOf(PostBuildTask::class, new GenerateRssFeed());
-    }
-
-    public function testGenerateSearchExtendsPostBuildTask()
-    {
-        $this->assertInstanceOf(PostBuildTask::class, new GenerateSearch());
     }
 
     public function testGenerateSitemapExtendsPostBuildTask()
