@@ -188,7 +188,7 @@ new NavigationItem('index');
 new NavigationItem(Routes::get('index'));
 
 // Setting the label and/or priorities will override inferred data.
-new NavigationItem(Routes::get('index'), 'Custom Label', 10);
+new NavigationItem(Routes::get('index'), 'Custom Label', 25);
 ```
 
 Using a route key is more concise, but will not provide type safety as it will be treated as a link if the route does not exist,
@@ -205,7 +205,7 @@ If you do not set a label for links, the label will default to the URL, and if y
 new NavigationItem('https://example.com');
 
 // You can also set a custom label and priority to override the defaults.
-new NavigationItem('https://example.com', 'External Link', 10);
+new NavigationItem('https://example.com', 'External Link', 25);
 ```
 
 While it is discouraged to use external URLs for internal pages, as Hyde won't be able to resolve relative links or check active states,
