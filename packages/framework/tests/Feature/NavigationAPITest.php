@@ -61,14 +61,14 @@ class NavigationAPITest extends TestCase
         // The constructors take three parameters: the destination, the label, and the optional priority.
         // The destination can be a Route instance, a route key string, or an external URL.
 
+        // Using a Route instance will automatically fill in the label and priority from the route's connected page.
+        $item = new NavigationItem(Routes::get('index'));
+        $this->assertData(['destination' => 'index.html', 'label' => 'Home', 'priority' => 0], $item);
+
         // Using a route key provides the same functionality as using a Route instance.
         // Make sure the route exists otherwise it will be treated as a link.
         $item = new NavigationItem('index');
         $this->assertEquals(new NavigationItem(Routes::get('index')), $item);
-
-        // Using a Route instance will automatically fill in the label and priority from the route's connected page.
-        $item = new NavigationItem(Routes::get('index'));
-        $this->assertData(['destination' => 'index.html', 'label' => 'Home', 'priority' => 0], $item);
 
         // Setting the label and/or priorities will override the page's data.
         $item = new NavigationItem(Routes::get('index'), 'Custom Label', 10);
