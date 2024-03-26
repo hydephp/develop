@@ -70,3 +70,16 @@ $sidebar = DocumentationSidebar::get();
 ```
 
 >info Developer tip: The menus are only generated *after* the Hyde Kernel is booted. If you are getting BindingResolutionExceptions, ensure that you are not trying to access the menus too early in the application lifecycle. (Consider using the `booted` event.) 
+
+## Creating Custom Menus
+
+### Overview
+
+When creating a custom menu, there are two ways to go about it:
+
+1. You can construct a NavigationMenu instance directly and add items to it. This works great for smaller menus that don't need any special logic, for example a footer menu or social media links.
+2. You can create a custom class that extends the NavigationMenu class. This is useful for larger menus that require more complex logic, or that you want to reuse in multiple places in your application or in a package.
+
+In both cases, the underlying API is the same, and you can use the helper methods and features provided by the APIs.
+
+In this section, you will first see some high level overviews of how the API can be used, then we'll dive in deeper and take a look at each class and method in detail.
