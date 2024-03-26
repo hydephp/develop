@@ -201,7 +201,10 @@ You can also create navigation items that link to external URLs by providing a f
 If you do not set a label for links, the label will default to the URL, and if you do not set a priority, it will default to `500`.
 
 ```php
+// This will lead directly to the link, and use it as the label with a priority of 500.
 $item = new NavigationItem('https://example.com');
+
+// You can also set a custom label and priority to override the defaults.
 $item = new NavigationItem('https://example.com', 'External Link', 10);
 ```
 
