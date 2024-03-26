@@ -56,7 +56,9 @@ class NavigationItem implements Stringable
     }
 
     /**
-     * Resolve the destination link of the navigation item. This can then be used in the `href` attribute of an anchor tag.
+     * Resolve the destination link of the navigation item.
+     *
+     * This can then be used in the `href` attribute of an anchor tag.
      *
      * If the destination is a Route, it will be resolved using the Route's link.
      * Otherwise, it will be returned as is for external links using URLs.
