@@ -22,6 +22,11 @@ $route = \Hyde\Support\Facades\Render::getRoute();
 /** @var string $routeKey The route key for the page being compiled/previewed */
 $routeKey = \Hyde\Support\Facades\Render::getRouteKey();
 
+// Variables available only to some page types
+
+/** @var \Hyde\Framework\Features\Navigation\DocumentationSidebar $sidebar */
+$sidebar = app('navigation.sidebar');
+
 // Facades (aliased in app/config.php)
 
 /** @mixin \Hyde\Foundation\HydeKernel */

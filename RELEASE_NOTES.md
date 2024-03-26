@@ -11,11 +11,15 @@ This serves two purposes:
 
 ### Added
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
+- Added a new `NavigationItem::getLink()` method contain the previous `NavigationItem::getDestination()` logic, to return the link URL.
 
 ### Changed
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
+- Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
+- Breaking: The `NavigationItem` class now always stores the destination as a `Route` instance.
+- Breaking: The `NavigationItem::getDestination()` method now returns its `Route` instance.
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -55,6 +59,26 @@ want to adapt your code to interact with the new `InMemoryPage`, which is genera
 For more information, see https://github.com/hydephp/develop/pull/1498.
 
 ## Low impact
+
+### Navigation item changes
+
+The `NavigationItem::getDestination()` method now returns its `Route` instance. This allows for deferring the route evaluation.
+
+If you have previously used this method directly and expected a string to be returned, you may need to adapt your code to handle the new return type.
+
+If you want to retain the previous state where a string is always returned, you can use the new `NavigationItem::getLink()` method instead, which will resolve the route immediately.
+
+### HTML ID changes
+
+Some HTML IDs have been renamed to follow a more consistent naming convention.
+
+If you have used any of the following selectors in custom code you wrote yourself, you will need to update to use the new changed IDs.
+
+#### https://github.com/hydephp/develop/pull/1622
+- Rename HTML ID `#searchMenu` to `#search-menu`
+- Rename HTML ID `#searchMenuButton` to `#search-menu-button`
+- Rename HTML ID `#searchMenuButtonMobile` to `#search-menu-button-mobile`
+
 
 ### New documentation search implementation
 
