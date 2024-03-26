@@ -178,21 +178,21 @@ Using the HydePHP routing system is the recommended way to create navigation ite
 as they will automatically have links resolved to the correct URL, and Hyde can check if the items are active.
 Additionally, Hyde will use the page data as the label and priority defaults unless you override them.
 
-Create routed navigation items by providing either a `Route` instance or a route key string as the destination.
+You can create routed navigation items by providing either a `Route` instance or a route key string as the destination.
 
 ```php
-// Using a Route instance will automatically fill in the label and priority from the route's connected page.
+// Using a route key string.
+$item = new NavigationItem('index');
+
+// Using the Routes facade to get a Route instance.
 $item = new NavigationItem(Routes::get('index'));
-// ['destination' => 'index.html', 'label' => 'Home', 'priority' => 0]
 
-// Using a route key provides the same functionality as using a Route instance.
-// Make sure the route exists otherwise it will be treated as a link.
-$item = new NavigationItem('index'); // Exactly the same as above, but without type safety.
-
-// Setting the label and/or priorities will override the page's data.
+// Setting the label and/or priorities will override inferred data.
 $item = new NavigationItem(Routes::get('index'), 'Custom Label', 10);
-// ['destination' => 'index.html', 'label' => 'Custom Label', 'priority' => 10]
 ```
+
+Using a route key is more concise, but will not provide type safety as it will be treated as a link if the route does not exist,
+whereas providing an invalid route key to the `Routes` facade will throw an exception. It's up to you which one you prefer.
 
 ## NavigationGroup
 
