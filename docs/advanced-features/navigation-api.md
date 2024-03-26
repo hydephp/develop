@@ -14,6 +14,7 @@ However, if you are interested in creating your own custom navigation menus, you
 
 This article is intended for advanced users, as most users will not need to create custom navigation menus.
 For this reason, the documentation is very code-driven due to the technical nature of the API.
+We'll also be mixing in some practical examples of Blade and PHP code to illustrate how you can use the API in your own projects.
 
 ## Overview
 
