@@ -151,6 +151,12 @@ Below is a reference of the classes and methods available in the Navigation API.
 
 ### NavigationMenu
 
+The `NavigationMenu` class represents a navigation menu. It contains a collection of items, which can be either `NavigationItem` or `NavigationGroup` instances.
+
 ### NavigationItem
 
+The `NavigationItem` class represents a single item in a navigation menu. It contains information such as the destination link, label, and priority for ordering in the menu.
+
 ### NavigationGroup
+
+The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label and a collection of items. This class is often used to create submenus or dropdowns in a navigation menu.
