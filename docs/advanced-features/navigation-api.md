@@ -144,3 +144,13 @@ Here are some general tips to keep in mind when working with the Navigation API:
 - The navigation menu items is stored in a Laravel Collection, and is type safe to support both `NavigationItem` and `NavigationGroup` instances. 
 - You can also construct NavigationItem instances directly, but the `create` method is a convenient shorthand, and can fill in data from routes, if you use them.
 - It's also possible to set an item's priority as the third parameter, but here we don't need it, as they default to the order they are added.
+
+## Class Reference
+
+Below is a reference of the classes and methods available in the Navigation API.
+
+### NavigationMenu
+
+### NavigationItem
+
+### NavigationGroup
