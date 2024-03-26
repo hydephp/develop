@@ -26,13 +26,6 @@ class NavigationItem implements Stringable
     protected string $label;
     protected int $priority;
 
-    /**
-     * Create a new navigation menu item with your own properties.
-     *
-     * @param  \Hyde\Support\Models\Route|string  $destination  Route instance, route key, or external URI.
-     * @param  string  $label  The label of the navigation item.
-     * @param  int  $priority  The priority to determine the order of the navigation item.
-     */
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT)
     {
         $this->destination = $destination;
