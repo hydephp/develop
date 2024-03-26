@@ -98,6 +98,7 @@ class NavigationItem implements Stringable
         return Hyde::currentRoute()?->getLink() === $this->getLink();
     }
 
+    /** @return array{Route|string, string, int} */
     protected static function make(Route|string $destination, ?string $label = null, ?int $priority = null): array
     {
         // Automatically resolve the destination if it's a route key.
