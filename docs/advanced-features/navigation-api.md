@@ -86,16 +86,16 @@ In this section, you will first see some high level overviews of how the API can
 
 ### High Level Example
 
-Here is a high level example of how you can create a custom menu, and how to actually utilize it into something useful: A menu with social media links for a site footer.
+To illustrate how you can create a custom menu, let's make something useful: A footer menu with social media links.
 
 #### Step 1: Create the Menu
 
+To create our menu, we start by constructing a new NavigationMenu instance.
+We can then add our social media links as NavigationItem instances to the menu.
+
 ```php
-// To create our menu, we start by constructing a new NavigationMenu instance
 $menu = new NavigationMenu();
 
-// We can then add our social media links to the menu.
-// We do this by adding NavigationItem instances to the menu.
 $menu->add([
     // The first parameter is the URL, and the second is the label.
     NavigationItem::create('https://twitter.com/hydephp', 'Twitter'),
@@ -104,8 +104,41 @@ $menu->add([
 ]);
 ```
 
-#### Tips:
- 
+#### Step 2: Display the Menu
+
+We can now iterate over the menu items to render them in our footer.
+
+```blade
+<footer>
+    <ul>
+        @foreach ($menu->getItems() as $item)
+            <li><a href="{{ $item->getLink() }}">{{ $item->getLabel() }}</a></li>
+        @endforeach
+    </ul>
+</footer>
+```
+
+This will result in the following HTML:
+
+```html
+<footer>
+    <ul>
+        <li><a href="https://twitter.com/hydephp">Twitter</a></li>
+        <li><a href="https://github.com/hydephp">GitHub</a></li>
+        <li><a href="https://hydephp.com">Website</a></li>
+    </ul>
+</footer>
+```
+
+#### Next Steps & Tips
+
+Of course, this is an incredibly simplistic example to illustrate the core concepts.
+Where the Navigation API really shines is in more complex scenarios where you want to utilize things like
+HydePHP Routes to resolve dynamic relative urls, and to use features like groups, priorities, and active states helpers to check if a menu item is the current page being viewed.
+
+The object-oriented nature of the API also makes this perfect for package developers wanting to create dynamic and reusable navigation menus that even can be further extended and customized by the end user.
+
+Here are some general tips to keep in mind when working with the Navigation API:
 - You can use the `add` method to add single items or arrays of items. You can also pass an array of items directly to the menu constructor.
 - The navigation menu items is stored in a Laravel Collection, and is type safe to support both `NavigationItem` and `NavigationGroup` instances. 
 - You can also construct NavigationItem instances directly, but the `create` method is a convenient shorthand, and can fill in data from routes, if you use them.

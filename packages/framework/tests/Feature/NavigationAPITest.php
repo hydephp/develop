@@ -10,6 +10,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Testing\MocksKernelFeatures;
+use Illuminate\Support\Facades\Blade;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
@@ -168,6 +169,27 @@ class NavigationAPITest extends TestCase
             NavigationItem::create('https://github.com/hydephp', 'GitHub'),
             NavigationItem::create('https://hydephp.com', 'Website'),
         ]);
+
+        $rendered = Blade::render(/** @lang Blade */ <<<'BLADE'
+        {{-- We can now iterate over the menu items to render them in our footer. --}}
+        <footer>
+            <ul>
+                @foreach ($menu->getItems() as $item)
+                    <li><a href="{{ $item->getLink() }}">{{ $item->getLabel() }}</a></li>
+                @endforeach
+            </ul>
+        </footer>
+        BLADE, ['menu' => $menu]);
+
+        $this->assertSameIgnoringIndentation(<<<'HTML'
+        <footer>
+            <ul>
+                <li><a href="https://twitter.com/hydephp">Twitter</a></li>
+                <li><a href="https://github.com/hydephp">GitHub</a></li>
+                <li><a href="https://hydephp.com">Website</a></li>
+            </ul>
+        </footer>
+        HTML, $rendered);
     }
 
     protected function toArray(NavigationMenu $menu): array
@@ -185,5 +207,18 @@ class NavigationAPITest extends TestCase
 
             return [$item->getLabel() => $item->getLink()];
         })->all();
+    }
+
+    protected function assertSameIgnoringIndentation(string $expected, string $actual): void
+    {
+        $this->assertSame(
+            $this->removeIndentation(trim($expected)),
+            $this->removeIndentation(trim($actual))
+        );
+    }
+
+    protected function removeIndentation(string $actual): string
+    {
+        return implode("\n", array_map('trim', explode("\n", $actual)));
     }
 }
