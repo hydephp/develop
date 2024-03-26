@@ -219,6 +219,26 @@ class NavigationItemTest extends UnitTestCase
         }
     }
 
+    public function testConstructWithNullLabel()
+    {
+        $this->assertSame('foo', (new NavigationItem('foo'))->getLabel());
+
+        $links = [
+            'www.example.com',
+            'https://example.com',
+            'https://example.com/',
+            'https://example.com/foo',
+            'https://example.com/foo/',
+            'https://example.com/foo/bar',
+            'https://example.com/foo/bar.html',
+            'https://example.com/foo/bar.png',
+        ];
+
+        foreach ($links as $link) {
+            $this->assertSame($link, (new NavigationItem($link))->getLabel());
+        }
+    }
+
     public function testPassingRouteKeyToStaticConstructorUsesRouteInstance()
     {
         $route = Routes::get('index');
