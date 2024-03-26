@@ -163,6 +163,37 @@ The `NavigationMenu` class represents a navigation menu. It contains a collectio
 
 The `NavigationItem` class is an abstraction for a navigation menu item containing useful information like the destination, label, and priority.
 
+### Quick Reference
+
+Here is a quick reference of the methods available on the NavigationItem class:
+
+```php
+// Create a new NavigationItem instance.
+$item = NavigationItem::create($destination, $label, $priority): NavigationItem;
+
+// Get the link of the item.
+$item->getLink(): string;
+
+// Get the label of the item.
+$item->getLabel(): string;
+
+// Get the priority of the item.
+$item->getPriority(): int;
+
+// Check if the item is active. (Only works when the destination is a route)
+$item->isActive(): bool; 
+```
+
+### Blade Example
+
+Here is an example of how you can put it all together in a Blade template:
+
+```blade
+<a href="{{ $item->getLink() }}" @class(['active' => $item->isActive()])>
+    {{ $item->getLabel() }}
+</a>
+```
+
 ### Creating Navigation Items
 
 There are two syntaxes for creating NavigationItem instances, you can use a standard constructor or the static create method.
