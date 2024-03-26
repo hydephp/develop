@@ -155,8 +155,9 @@ The `NavigationMenu` class represents a navigation menu. It contains a collectio
 
 ### NavigationItem
 
-The `NavigationItem` class represents a single item in a navigation menu. It contains information such as the destination link, label, and priority for ordering in the menu.
+The `NavigationItem` class represents a single item in a navigation menu. It contains information such as the destination link or route, a label, and priority for ordering in the menu.
 
 ### NavigationGroup
 
-The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label and a collection of items. This class is often used to create submenus or dropdowns in a navigation menu.
+The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label, priority, and a collection of navigation items.
+This class is often used to create submenus or dropdowns in a navigation menu.
