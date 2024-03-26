@@ -79,7 +79,7 @@ class NavigationAPITest extends TestCase
         $this->assertData(['destination' => 'https://example.com', 'label' => 'External Link', 'priority' => 10], $item);
 
         // If you do not set a label for links, the label will default to the URL.
-        // And if uf you do not set a priority, it will default to 500.
+        // And if you do not set a priority, it will default to 500.
         $item = new NavigationItem('https://example.com');
         $this->assertData(['destination' => 'https://example.com', 'label' => 'https://example.com', 'priority' => 500], $item);
 
