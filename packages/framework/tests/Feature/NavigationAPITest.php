@@ -177,8 +177,8 @@ class NavigationAPITest extends TestCase
 
         $menu = new NavigationMenu([
             new NavigationItem('foo', 'foo', 10),
-            new NavigationItem('bar', 'bar', 5),
             new NavigationItem('baz', 'baz', 15),
+            new NavigationItem('bar', 'bar', 5),
         ]);
 
         $this->assertSame([
