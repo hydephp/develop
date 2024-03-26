@@ -23,10 +23,9 @@ class NavigationItem implements Stringable
 
     public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT)
     {
-        $this->destination = $destination;
-
         $this->label = $label;
         $this->priority = $priority;
+        $this->destination = $destination;
     }
 
     /**
