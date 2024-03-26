@@ -37,16 +37,7 @@ class NavigationItem implements Stringable
      */
     public static function create(Route|string $destination, ?string $label = null, ?int $priority = null): static
     {
-        if (is_string($destination) && Routes::has($destination)) {
-            $destination = Routes::get($destination);
-        }
-
-        if ($destination instanceof Route) {
-            $label ??= $destination->getPage()->navigationMenuLabel();
-            $priority ??= $destination->getPage()->navigationMenuPriority();
-        }
-
-        return new static($destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT);
+        return new static(...self::make($destination, $label, $priority));
     }
 
     /**
@@ -95,5 +86,19 @@ class NavigationItem implements Stringable
     public function isActive(): bool
     {
         return Hyde::currentRoute()?->getLink() === $this->getLink();
+    }
+
+    protected static function make(Route|string $destination, ?string $label = null, ?int $priority = null): array
+    {
+        if (is_string($destination) && Routes::has($destination)) {
+            $destination = Routes::get($destination);
+        }
+
+        if ($destination instanceof Route) {
+            $label ??= $destination->getPage()->navigationMenuLabel();
+            $priority ??= $destination->getPage()->navigationMenuPriority();
+        }
+
+        return [$destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT];
     }
 }
