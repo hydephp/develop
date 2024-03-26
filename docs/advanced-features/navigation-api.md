@@ -155,119 +155,44 @@ The `NavigationMenu` class represents a navigation menu. It contains a collectio
 
 ## NavigationItem
 
-The `NavigationItem` class represents a single item in a navigation menu. It contains information such as the destination link or route, a label, and priority for ordering in the menu.
+The `NavigationItem` class is an abstraction for a navigation menu item containing useful information like the destination, label, and priority.
 
-Here is the constructor signature and a quick reference of the methods available on the `NavigationItem` class, and their types. Keep on reading to see more detailed examples and explanations.
+### Creating Navigation Items
+
+There are two syntaxes for creating NavigationItem instances, you can use a standard constructor or the static create method.
+Both options provide the exact same signature and functionality, so it's just a matter of preference which one you use.
+
+The constructors take three parameters: the destination, the label, and the optional priority.
+The destination can be a `Route` instance, a route key string, or an external URL.
 
 ```php
 use Hyde\Framework\Features\Navigation\NavigationItem;
 
-$item = new NavigationItem(Route|string $destination, string $label, int $priority = 500);
-
-$item->getLink():  string; // Returns the resolved link route or destination URL.
-$item->getLabel(): string; // Returns the label of the item.
-$item->isActive(): bool;   // Returns true if the item is the page being rendered.
-$item->getPriority(): int; // Returns the priority of the item.
-$item->getPage(): ?HydePage; // Returns the underlying Page instance, if there is one.
+$item = new NavigationItem($destination, $label, $priority);
+$item = NavigationItem::create($destination, $label, $priority);
 ```
 
-### Creating Navigation Items
+#### Using Routes
 
-There are several ways to create navigation items using the `NavigationItem` class.
+Using the HydePHP routing system is the recommended way to create navigation items leading to pages within your project,
+as they will automatically have links resolved to the correct URL, and Hyde can check if the items are active.
+Additionally, Hyde will use the page data as the label and priority defaults unless you override them.
 
-#### Direct instantiation
-
-You can create instances directly by passing either a URL or a Route instance to the constructor. 
-
-The first parameter is the destination, the second is the label, and the third optional parameter is the priority.
+Create routed navigation items by providing either a `Route` instance or a route key string as the destination.
 
 ```php
-$item = new NavigationItem('index', 'Home');
-$item = new NavigationItem(Routes::get('index'), 'Home');
-$item = new NavigationItem('https://example.com', 'External Link');
+// Using a Route instance will automatically fill in the label and priority from the route's connected page.
+$item = new NavigationItem(Routes::get('index'));
+// ['destination' => 'index.html', 'label' => 'Home', 'priority' => 0]
+
+// Using a route key provides the same functionality as using a Route instance.
+// Make sure the route exists otherwise it will be treated as a link.
+$item = new NavigationItem('index'); // Exactly the same as above, but without type safety.
+
+// Setting the label and/or priorities will override the page's data.
+$item = new NavigationItem(Routes::get('index'), 'Custom Label', 10);
+// ['destination' => 'index.html', 'label' => 'Custom Label', 'priority' => 10]
 ```
-
-#### Setting Priority
-
-You can set the priority of the item, which determines its position in the menu.
-
-```php
-$item = new NavigationItem(Routes::get('index'), 'Home', 25);
-```
-
-#### Static Creation Method
-
-You can use the static `create` method, which can automatically fill in the label and priority from a Route.
-
-```php
-$item = NavigationItem::create(Routes::get('index'));
-```
-
-You can also pass a custom label and priority to the `create` method to override the defaults.
-
-```php
-$item = NavigationItem::create(Routes::get('index'), 'Custom Label', 50);
-```
-
-#### Using Route Keys and URLs
-
-The `create` method works with route keys and URLs.
-
-```php
-$item = NavigationItem::create('index');
-$item = NavigationItem::create('https://example.com');
-```
-
-Unless you pass a custom label to URL items, the label will be the URL itself.
-
-```php
-$item = NavigationItem::create('https://example.com');
-```
-
-### Navigation Item Methods
-
-### Getting Label and Link
-
-```php
-$item = NavigationItem::create('index');
-
-// Get the label of the item.
-$item->getLabel(); // Returns 'Home'
-
-// Get the link of the item.
-$item->getLink(); // Returns 'index.html'
-```
-
-You can also get the link by casting the item to a string.
-
-```php
-(string) $item; // Returns 'index.html'
-```
-
-### Getting Priority
-
-```php
-$item->getPriority(); // Returns 0
-```
-
-### Getting Page Instance
-
-You can get the underlying Page instance of the item, if it exists.
-
-```php
-$item->getPage(); // Returns instance of BladePage or null
-```
-
-### Checking Active State
-
-You can check if the item is active (i.e., the current page being rendered).
-
-```php
-$item->isActive(); // Returns false
-```
-
-This concludes the documentation for the `NavigationItem` class.
-
 
 ## NavigationGroup
 
