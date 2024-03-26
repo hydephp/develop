@@ -45,9 +45,8 @@ class NavigationMenu {
 
 ### Built-in Menus
 
-HydePHP comes with two built-in menus: the main navigation menu and the documentation sidebar.
-
-These are bound into the service container as singletons and can be accessed through dependency injection.
+HydePHP comes with two built-in menus: the main navigation menu and the documentation sidebar, both represented as child classes of the `NavigationMenu` class.
+They are bound into the service container as singletons and can be accessed through dependency injection.
 
 ```php
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
