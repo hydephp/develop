@@ -19,6 +19,14 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
  * High level tests for the Navigation API to go along with the code-driven documentation.
+ *
+ * @see \Hyde\Framework\Features\Navigation\
+ *
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationItem
+ * @covers \Hyde\Framework\Features\Navigation\NavigationGroup
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  */
 class NavigationAPITest extends TestCase
 {
