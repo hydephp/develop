@@ -194,6 +194,8 @@ Here is an example of how you can put it all together in a Blade template:
 </a>
 ```
 
+This will output an anchor tag with the correct link and label, and if the item is active, it will add an `active` class to the tag.
+
 ### Creating Navigation Items
 
 There are two syntaxes for creating NavigationItem instances, you can use a standard constructor or the static create method.
