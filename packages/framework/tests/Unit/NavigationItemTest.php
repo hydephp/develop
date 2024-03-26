@@ -51,11 +51,12 @@ class NavigationItemTest extends UnitTestCase
         $this->assertEquals($route, (new NavigationItem($route, 'Home'))->getPage()->getRoute());
     }
 
-    public function testPassingRouteKeyToConstructorUsesDestinationAsLink()
+    public function testPassingRouteKeyToConstructorUsesDestinationAsRoute()
     {
         $item = new NavigationItem('index', 'Home');
-        $this->assertNull($item->getPage());
-        $this->assertSame('index', $item->getLink());
+        $this->assertSame(Routes::get('index')->getPage(), $item->getPage());
+        $this->assertSame('index', $item->getPage()->getRouteKey());
+        $this->assertSame('index.html', $item->getLink());
     }
 
     public function testPassingUrlToConstructorSetsRouteToNull()
