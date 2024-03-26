@@ -157,6 +157,37 @@ class NavigationAPITest extends TestCase
         ], $this->toArray($menu));
     }
 
+    public function testItemSorting()
+    {
+        // Test items without priorities are returned in the order they were added.
+
+        $menu = new NavigationMenu([
+            new NavigationItem('foo', 'foo'),
+            new NavigationItem('bar', 'bar'),
+            new NavigationItem('baz', 'baz'),
+        ]);
+
+        $this->assertSame([
+            'foo' => 'foo',
+            'bar' => 'bar',
+            'baz' => 'baz',
+        ], $this->toArray($menu));
+
+        // Test items with priorities are sorted by priority.
+
+        $menu = new NavigationMenu([
+            new NavigationItem('foo', 'foo', 10),
+            new NavigationItem('bar', 'bar', 5),
+            new NavigationItem('baz', 'baz', 15),
+        ]);
+
+        $this->assertSame([
+            'bar' => 'bar',
+            'foo' => 'foo',
+            'baz' => 'baz',
+        ], $this->toArray($menu));
+    }
+
     public function testSocialMediaFooterLinkExample()
     {
         // To create our menu, we start by constructing a new NavigationMenu instance
