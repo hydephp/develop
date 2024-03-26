@@ -83,3 +83,30 @@ When creating a custom menu, there are two ways to go about it:
 In both cases, the underlying API is the same, and you can use the helper methods and features provided by the APIs.
 
 In this section, you will first see some high level overviews of how the API can be used, then we'll dive in deeper and take a look at each class and method in detail.
+
+### High Level Example
+
+Here is a high level example of how you can create a custom menu, and how to actually utilize it into something useful: A menu with social media links for a site footer.
+
+#### Step 1: Create the Menu
+
+```php
+// To create our menu, we start by constructing a new NavigationMenu instance
+$menu = new NavigationMenu();
+
+// We can then add our social media links to the menu.
+// We do this by adding NavigationItem instances to the menu.
+$menu->add([
+    // The first parameter is the URL, and the second is the label.
+    NavigationItem::create('https://twitter.com/hydephp', 'Twitter'),
+    NavigationItem::create('https://github.com/hydephp', 'GitHub'),
+    NavigationItem::create('https://hydephp.com', 'Website'),
+]);
+```
+
+#### Tips:
+ 
+- You can use the `add` method to add single items or arrays of items. You can also pass an array of items directly to the menu constructor.
+- The navigation menu items is stored in a Laravel Collection, and is type safe to support both `NavigationItem` and `NavigationGroup` instances. 
+- You can also construct NavigationItem instances directly, but the `create` method is a convenient shorthand, and can fill in data from routes, if you use them.
+- It's also possible to set an item's priority as the third parameter, but here we don't need it, as they default to the order they are added.

@@ -155,6 +155,21 @@ class NavigationAPITest extends TestCase
         ], $this->toArray($menu));
     }
 
+    public function testSocialMediaFooterLinkExample()
+    {
+        // To create our menu, we start by constructing a new NavigationMenu instance
+        $menu = new NavigationMenu();
+
+        // We can then add our social media links to the menu.
+        // We do this by adding NavigationItem instances to the menu.
+        $menu->add([
+            // The first parameter is the URL, and the second is the label.
+            NavigationItem::create('https://twitter.com/hydephp', 'Twitter'),
+            NavigationItem::create('https://github.com/hydephp', 'GitHub'),
+            NavigationItem::create('https://hydephp.com', 'Website'),
+        ]);
+    }
+
     protected function toArray(NavigationMenu $menu): array
     {
         return $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item): array {
