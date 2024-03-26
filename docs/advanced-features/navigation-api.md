@@ -182,16 +182,15 @@ Create routed navigation items by providing either a `Route` instance or a route
 
 ```php
 // Using a Route instance will automatically fill in the label and priority from the route's connected page.
-$item = new NavigationItem(Routes::get('index'));
-// ['destination' => 'index.html', 'label' => 'Home', 'priority' => 0]
-
-// Using a route key provides the same functionality as using a Route instance.
+// Using a route key provides the same functionality as using a Route instance, trading a bit of type safety for convenience.
 // Make sure the route exists otherwise it will be treated as a link.
-$item = new NavigationItem('index'); // Exactly the same as above, but without type safety.
+$item = new NavigationItem('index');
+
+//
+$item = new NavigationItem(Routes::get('index'));
 
 // Setting the label and/or priorities will override the page's data.
-$item = new NavigationItem(Routes::get('index'), 'Custom Label', 10);
-// ['destination' => 'index.html', 'label' => 'Custom Label', 'priority' => 10]
+$item = new NavigationItem(Routes::get('index'), 'Custom Label', 100);
 ```
 
 ## NavigationGroup
