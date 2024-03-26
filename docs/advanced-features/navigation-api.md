@@ -70,7 +70,7 @@ $menu = MainNavigationMenu::get();
 $sidebar = DocumentationSidebar::get();
 ```
 
->info Developer tip: The menus are only generated *after* the Hyde Kernel is booted. If you are getting BindingResolutionExceptions, ensure that you are not trying to access the menus too early in the application lifecycle. (Consider using the `booted` event.) 
+>info Developer tip: The menus are only generated *after* the Hyde Kernel is booted. If you are getting BindingResolutionExceptions, ensure that you are not trying to access the menus too early in the application lifecycle. (Consider using the `booted` event.)
 
 ## Creating Custom Menus
 
@@ -141,7 +141,7 @@ The object-oriented nature of the API also makes this perfect for package develo
 
 Here are some general tips to keep in mind when working with the Navigation API:
 - You can use the `add` method to add single items or arrays of items. You can also pass an array of items directly to the menu constructor.
-- The navigation menu items is stored in a Laravel Collection, and is type safe to support both `NavigationItem` and `NavigationGroup` instances. 
+- The navigation menu items is stored in a Laravel Collection, and is type safe to support both `NavigationItem` and `NavigationGroup` instances.
 - You can also construct NavigationItem instances directly, but the `create` method is a convenient shorthand, and can fill in data from routes, if you use them.
 - It's also possible to set an item's priority as the third parameter, but here we don't need it, as they default to the order they are added.
 
