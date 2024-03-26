@@ -13,7 +13,9 @@ use Stringable;
 use function is_string;
 
 /**
- * Abstraction for a navigation menu item. Used by the MainNavigationMenu and DocumentationSidebar classes.
+ * Abstraction for a navigation menu item containing useful information like the destination, label, and priority.
+ *
+ * It is used by the MainNavigationMenu and DocumentationSidebar classes.
  */
 class NavigationItem implements Stringable
 {
@@ -21,7 +23,14 @@ class NavigationItem implements Stringable
     protected string $label;
     protected int $priority;
 
-    public function __construct(Route|string $destination, string $label, int $priority = NavigationMenu::DEFAULT)
+    /**
+     * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
+     *
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or an external URI.
+     * @param  string|null  $label  If not provided, Hyde will try to get it from the route's connected page, or from the URL.
+     * @param  int|null  $priority  If not provided, Hyde will try to get it from the route or the default priority of 500.
+     */
+    public function __construct(Route|string $destination, ?string $label = null, ?int $priority = null)
     {
         [$this->destination, $this->label, $this->priority] = self::make($destination, $label, $priority);
     }
@@ -29,9 +38,9 @@ class NavigationItem implements Stringable
     /**
      * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
      *
-     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or external URI.
-     * @param  string|null  $label  Leave blank to use the label of the route's corresponding page, if there is one tied to the route.
-     * @param  int|null  $priority  Leave blank to use the priority of the route's corresponding page, if there is one tied to the route.
+     * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or an external URI.
+     * @param  string|null  $label  If not provided, Hyde will try to get it from the route's connected page, or from the URL.
+     * @param  int|null  $priority  If not provided, Hyde will try to get it from the route or the default priority of 500.
      */
     public static function create(Route|string $destination, ?string $label = null, ?int $priority = null): static
     {
@@ -39,7 +48,7 @@ class NavigationItem implements Stringable
     }
 
     /**
-     * Resolve a link to the navigation item.
+     * Resolve a link to the navigation item. See `getLink()` for more information.
      */
     public function __toString(): string
     {
@@ -47,7 +56,10 @@ class NavigationItem implements Stringable
     }
 
     /**
-     * Resolve the destination link of the navigation item.
+     * Resolve the destination link of the navigation item. This can then be used in the `href` attribute of an anchor tag.
+     *
+     * If the destination is a Route, it will be resolved using the Route's link.
+     * Otherwise, it will be returned as is for external links using URLs.
      */
     public function getLink(): string
     {
@@ -88,11 +100,13 @@ class NavigationItem implements Stringable
 
     protected static function make(Route|string $destination, ?string $label = null, ?int $priority = null): array
     {
+        // Automatically resolve the destination if it's a route key.
         if (is_string($destination) && Routes::has($destination)) {
             $destination = Routes::get($destination);
         }
 
         if ($destination instanceof Route) {
+            // Try to fill in missing properties from the route's connected page.
             $label ??= $destination->getPage()->navigationMenuLabel();
             $priority ??= $destination->getPage()->navigationMenuPriority();
         }
