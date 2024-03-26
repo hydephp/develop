@@ -194,6 +194,22 @@ $item = new NavigationItem(Routes::get('index'), 'Custom Label', 10);
 Using a route key is more concise, but will not provide type safety as it will be treated as a link if the route does not exist,
 whereas providing an invalid route key to the `Routes` facade will throw an exception. It's up to you which one you prefer.
 
+#### Using External URLs
+
+You can also create navigation items that link to external URLs by providing a full URL as the destination.
+
+If you do not set a label for links, the label will default to the URL, and if you do not set a priority, it will default to `500`.
+
+```php
+$item = new NavigationItem('https://example.com');
+$item = new NavigationItem('https://example.com', 'External Link', 10);
+```
+
+While it is discouraged to use external URLs for internal pages, as Hyde won't be able to resolve relative links or check active states,
+they are excellent for any time you want an absolute link to an external site or resource.
+
+Note that Hyde will not validate or modify the URL, so you are responsible for ensuring it's correct.
+
 ## NavigationGroup
 
 The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label, priority, and a collection of navigation items.
