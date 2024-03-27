@@ -192,6 +192,10 @@ $item->isActive(): bool;
 Here is an example of how you can put it all together in a Blade template:
 
 ```blade
+@php
+    $item = new NavigationItem('index.html', 'Home');
+@endphp
+
 <a href="{{ $item->getLink() }}" @class(['active' => $item->isActive()])>
     {{ $item->getLabel() }}
 </a>
