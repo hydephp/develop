@@ -170,6 +170,7 @@ Here is a quick reference of the methods available on the NavigationItem class:
 ```php
 // Create a new NavigationItem instance.
 $item = NavigationItem::create($destination, $label, $priority): NavigationItem;
+$item = new NavigationItem($destination, $label, $priority); // Same as above.
 
 // Get the link of the item.
 $item->getLink(): string;
