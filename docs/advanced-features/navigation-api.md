@@ -393,3 +393,20 @@ This is useful if you want to check for a specific query parameter, or if you wa
 
 The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label, priority, and a collection of navigation items.
 This class is often used to create submenus or dropdowns in a navigation menu.
+
+### Quick Reference
+
+Here is a quick reference of the methods available on the `NavigationGroup` class:
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationGroup;
+
+// Create a new NavigationGroup instance.
+$group = new NavigationGroup($label, $items = [], $priority = 500);
+
+// Add a single item or an array of items to the group.
+$group->add(new NavigationItem());
+
+// Get the label of the group.
+$group->getLabel(): string;
+```
