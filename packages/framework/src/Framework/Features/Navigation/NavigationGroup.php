@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Hyde\Pages\DocumentationPage;
 
 use function min;
@@ -16,13 +17,14 @@ use function collect;
  */
 class NavigationGroup
 {
-    /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem> */
-    protected array $items = [];
+    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem> */
+    protected Collection $items;
     protected string $label;
     protected int $priority;
 
     public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
     {
+        $this->items = new Collection();
         $this->label = $label;
         $this->priority = $priority;
 
@@ -57,7 +59,7 @@ class NavigationGroup
     /** @return array<\Hyde\Framework\Features\Navigation\NavigationItem> */
     public function getItems(): array
     {
-        return $this->items;
+        return $this->items->all();
     }
 
     /** @param  \Hyde\Framework\Features\Navigation\NavigationItem|array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */
@@ -72,7 +74,7 @@ class NavigationGroup
 
     protected function addItem(NavigationItem $item): void
     {
-        $this->items[] = $item;
+        $this->items->push($item);
     }
 
     protected function containsOnlyDocumentationPages(): bool
