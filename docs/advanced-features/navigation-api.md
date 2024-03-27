@@ -168,6 +168,8 @@ The `NavigationItem` class is an abstraction for a navigation menu item containi
 Here is a quick reference of the methods available on the NavigationItem class:
 
 ```php
+use Hyde\Framework\Features\Navigation\NavigationItem;
+
 // Create a new NavigationItem instance.
 $item = NavigationItem::create($destination, $label, $priority): NavigationItem;
 $item = new NavigationItem($destination, $label, $priority); // Same as above.
