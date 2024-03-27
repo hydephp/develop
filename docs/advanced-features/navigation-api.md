@@ -176,20 +176,6 @@ $menu->add([new NavigationItem()]);
 $menu->getItems(): Collection<NavigationItem|NavigationGroup>
 ```
 
-### Blade Example
-
-Here is an example of how you can put it all together in a Blade template:
-
-```blade
-<ul>
-    @foreach ($menu->getItems() as $item)
-        <li><a href="{{ $item->getLink() }}">{{ $item->getLabel() }}</a></li>
-    @endforeach
-</ul>
-```
-
-This will output an unordered list with the correct links and labels for each item in the menu.
-
 ### Creating Navigation Menus
 
 You can create a new NavigationMenu instance by calling the constructor and optionally providing an array or Collection of NavigationItem and/or NavigationGroup instances.
