@@ -322,9 +322,7 @@ they are excellent for any time you want an absolute link to an external site or
 
 Note that Hyde will not validate or modify the URL, so you are responsible for ensuring it's correct.
 
-### Method Reference
-
-#### Accessing the resolved links `getLink`
+### Accessing the resolved links
 
 The `getLink` method is designed to return a link that can be used in the `href` attribute of an anchor tag.
 
@@ -344,7 +342,7 @@ $item->getLink(); // Outputs 'https://example.com'
 <a href="{{ $item }}">{{ $item->getLabel() }}</a>
 ```
 
-#### Accessing the label `getLabel`
+### Accessing the label
 
 The `getLabel` method returns the label of the item. This is the text that will be displayed in the navigation menu.
 
@@ -353,7 +351,7 @@ $item = new NavigationItem('index', 'Home');
 $item->getLabel(); // Outputs 'Home'
 ```
 
-#### Accessing the priority `getPriority`
+### Accessing the priority
 
 The `getPriority` method returns the priority of the item. This is a number that determines the order in which the items are displayed in the menu, where lower numbers come first.
 
@@ -362,7 +360,7 @@ $item = new NavigationItem('index', 'Home', 25);
 $item->getPriority(); // Outputs 25
 ```
 
-#### Checking if the item is active `isActive`
+### Checking if the item is active
 
 The `isActive` method checks if the item is active (by comparing it to the Hyde page being compiled at the moment). This is useful for highlighting the current page in the navigation menu.
 
