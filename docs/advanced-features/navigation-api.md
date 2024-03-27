@@ -178,7 +178,15 @@ $menu->getItems(): Collection<NavigationItem|NavigationGroup>
 
 ### Creating Navigation Menus
 
-You can create a new NavigationMenu instance by calling the constructor and optionally providing an array or Collection of NavigationItem and/or NavigationGroup instances.
+You can create a new NavigationMenu instance by simply calling the constructor, optionally providing an array of items.
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+
+$menu = new NavigationMenu($items = []);
+```
+
+Here is how to provide an array or Collection of NavigationItem and/or NavigationGroup instances directly to the constructor.
 
 ```php
 use Hyde\Framework\Features\Navigation\NavigationMenu;
@@ -202,10 +210,12 @@ You can also add items to the menu after it has been created by using the `add` 
 The `add` method can take a single item or an array of items, and will return the menu instance to allow for method chaining.
 
 ```php
-$menu->add([
-    new NavigationItem('privacy.html', 'Privacy Policy'),
-    new NavigationItem('terms.html', 'Terms of Service'),
-])->add(new NavigationItem('contact.html', 'Contact Us'));
+$menu = (new NavigationMenu())
+    ->add(new NavigationItem('contact.html', 'Contact Us'))
+    ->add([
+        new NavigationItem('privacy.html', 'Privacy Policy'),
+        new NavigationItem('terms.html', 'Terms of Service'),
+    ]);
 ```
 
 ### Accessing Items in the Menu
