@@ -252,6 +252,54 @@ they are excellent for any time you want an absolute link to an external site or
 
 Note that Hyde will not validate or modify the URL, so you are responsible for ensuring it's correct.
 
+### Method Reference
+
+#### Accessing the resolved links `getLink`
+
+The `getLink` method is designed to return a link that can be used in the `href` attribute of an anchor tag.
+
+If the destination is a route, the link will be resolved to the correct URL, using relative paths if possible. It will also respect the pretty URL setting.
+
+```php
+$item = new NavigationItem(Routes::get('index'));
+$item->getLink(); // Outputs 'index.html' 
+
+$item = new NavigationItem('https://example.com');
+$item->getLink(); // Outputs 'https://example.com'
+```
+
+**Tip:** The item instances automatically turns into the resolved link when cast to a string. Perfect for your Blade templates!
+
+```blade
+<a href="{{ $item }}">{{ $item->getLabel() }}</a>
+```
+
+#### Accessing the label `getLabel`
+
+The `getLabel` method returns the label of the item. This is the text that will be displayed in the navigation menu.
+
+```php
+$item = new NavigationItem('index', 'Home');
+$item->getLabel(); // Outputs 'Home'
+```
+
+#### Accessing the priority `getPriority`
+
+The `getPriority` method returns the priority of the item. This is a number that determines the order in which the items are displayed in the menu, where lower numbers come first.
+
+```php
+$item = new NavigationItem('index', 'Home', 25);
+$item->getPriority(); // Outputs 25
+```
+
+#### Checking if the item is active `isActive`
+
+The `isActive` method checks if the item is active (by comparing it to the Hyde page being compiled at the moment). This is useful for highlighting the current page in the navigation menu.
+
+```php
+$item = new NavigationItem('index');
+$item->isActive(); // Outputs true if the item is the current page, otherwise false.
+```
 
 ## NavigationGroup
 
