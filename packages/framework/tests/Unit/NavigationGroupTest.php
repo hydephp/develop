@@ -45,8 +45,8 @@ class NavigationGroupTest extends UnitTestCase
         $children = $this->createNavigationItems();
         $item = new NavigationGroup('Foo', $children);
 
-        $this->assertCount(2, $item->getItems());
-        $this->assertSame($children, $item->getItems());
+        $this->assertCount(2, $item->getItems()->all());
+        $this->assertSame($children, $item->getItems()->all());
     }
 
     public function testCanConstructWithChildrenWithoutRoute()
@@ -54,8 +54,8 @@ class NavigationGroupTest extends UnitTestCase
         $children = $this->createNavigationItems();
         $item = new NavigationGroup('Foo', $children);
 
-        $this->assertCount(2, $item->getItems());
-        $this->assertSame($children, $item->getItems());
+        $this->assertCount(2, $item->getItems()->all());
+        $this->assertSame($children, $item->getItems()->all());
     }
 
     public function testCreate()
@@ -71,12 +71,13 @@ class NavigationGroupTest extends UnitTestCase
         $children = $this->createNavigationItems();
         $item = new NavigationGroup('Foo', $children);
 
-        $this->assertSame($children, $item->getItems());
+        $this->assertSame($children, $item->getItems()->all());
+        $this->assertEquals(collect($children), $item->getItems());
     }
 
     public function testGetItemsWithNoItems()
     {
-        $this->assertEmpty((new NavigationGroup('Foo'))->getItems());
+        $this->assertEmpty((new NavigationGroup('Foo'))->getItems()->all());
     }
 
     public function testCanAddItemToDropdown()
@@ -84,7 +85,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $child = new NavigationItem(new Route(new MarkdownPage()), 'Bar');
 
-        $this->assertSame([$child], $group->add($child)->getItems());
+        $this->assertSame([$child], $group->add($child)->getItems()->all());
     }
 
     public function testAddChildMethodReturnsSelf()
@@ -100,7 +101,7 @@ class NavigationGroupTest extends UnitTestCase
         $group = new NavigationGroup('Foo');
         $items = $this->createNavigationItems();
 
-        $this->assertSame($items, $group->add($items)->getItems());
+        $this->assertSame($items, $group->add($items)->getItems()->all());
     }
 
     public function testAddChildrenMethodReturnsSelf()

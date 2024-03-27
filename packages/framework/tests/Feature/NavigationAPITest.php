@@ -230,7 +230,7 @@ class NavigationAPITest extends TestCase
             if ($item instanceof NavigationGroup) {
                 return [
                     $item->getLabel() => [
-                        'items' => Arr::mapWithKeys($item->getItems(), function (NavigationItem $item): array {
+                        'items' => Arr::mapWithKeys($item->getItems()->all(), function (NavigationItem $item): array {
                             return [$item->getLabel() => $item->getLink()];
                         }),
                     ],

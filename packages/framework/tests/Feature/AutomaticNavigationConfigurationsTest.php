@@ -1318,7 +1318,7 @@ class AssertableNavigationMenu
     public function state(): array
     {
         return $this->items->map(function (NavigationItem|NavigationGroup $item): TestNavigationItem {
-            return new TestNavigationItem($item->getLabel(), $item->getPriority(), $item instanceof NavigationGroup ? $item->getItems() : []);
+            return new TestNavigationItem($item->getLabel(), $item->getPriority(), $item instanceof NavigationGroup ? $item->getItems()->all() : []);
         })->toArray();
     }
 

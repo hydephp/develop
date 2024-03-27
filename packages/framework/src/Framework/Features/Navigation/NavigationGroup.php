@@ -56,10 +56,10 @@ class NavigationGroup
         return $this->priority;
     }
 
-    /** @return array<\Hyde\Framework\Features\Navigation\NavigationItem> */
-    public function getItems(): array
+    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem> */
+    public function getItems(): Collection
     {
-        return $this->items->all();
+        return $this->items;
     }
 
     /** @param  \Hyde\Framework\Features\Navigation\NavigationItem|array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */

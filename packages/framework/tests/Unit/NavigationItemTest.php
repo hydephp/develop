@@ -279,7 +279,7 @@ class NavigationItemTest extends UnitTestCase
         $item = NavigationGroup::create('foo');
 
         $this->assertSame('foo', $item->getLabel());
-        $this->assertSame([], $item->getItems());
+        $this->assertSame([], $item->getItems()->all());
         $this->assertSame(999, $item->getPriority());
     }
 
@@ -290,7 +290,7 @@ class NavigationItemTest extends UnitTestCase
         ];
 
         $item = NavigationGroup::create('foo', $children);
-        $this->assertSame($children, $item->getItems());
+        $this->assertSame($children, $item->getItems()->all());
         $this->assertSame(999, $item->getPriority());
     }
 
