@@ -158,6 +158,86 @@ Below is a reference of the classes and methods available in the Navigation API.
 
 The `NavigationMenu` class represents a navigation menu. It contains a collection of items, which can be either `NavigationItem` or `NavigationGroup` instances.
 
+### Quick Reference
+
+Here is a quick reference of the methods available on the NavigationMenu class:
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+
+// Create a new NavigationMenu instance, optionally providing an array of items.
+$menu = new NavigationMenu($items = []);
+
+// Add a single item or an array of items to the menu.
+$menu->add(new NavigationItem()): $this;
+$menu->add([new NavigationItem()]): $this;
+
+// Get all items in the menu as a sorted Collection.
+$menu->getItems(): Collection;
+```
+
+### Blade Example
+
+Here is an example of how you can put it all together in a Blade template:
+
+```blade
+@php
+    $menu = new NavigationMenu([
+        new NavigationItem('index.html', 'Home'),
+        new NavigationItem('posts.html', 'Blog'),
+    ]);
+@endphp
+
+<ul>
+    @foreach ($menu->getItems() as $item)
+        <li><a href="{{ $item->getLink() }}">{{ $item->getLabel() }}</a></li>
+    @endforeach
+</ul>
+```
+
+This will output an unordered list with the correct links and labels for each item in the menu.
+
+### Creating Navigation Menus
+
+You can create a new NavigationMenu instance by calling the constructor and optionally providing an array or Collection of NavigationItem and/or NavigationGroup instances.
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationItem;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
+
+$menu = new NavigationMenu([
+    new NavigationItem('index.html', 'Home'),
+    new NavigationItem('posts.html', 'Blog'),
+    new NavigationGroup('About', [
+        new NavigationItem('about.html', 'About Us'),
+        new NavigationItem('team.html', 'Our Team'),
+    ]),
+]);
+```
+
+### Adding Items to the Menu
+
+You can also add items to the menu after it has been created by using the `add` method.
+
+The `add` method can take a single item or an array of items, and will return the menu instance to allow for method chaining.
+
+```php
+$menu->add([
+    new NavigationItem('privacy.html', 'Privacy Policy'),
+    new NavigationItem('terms.html', 'Terms of Service'),
+])->add(new NavigationItem('contact.html', 'Contact Us'));
+```
+
+### Accessing Items in the Menu
+
+You can access all items in the menu by calling the `getItems` method, which will return a Collection of all items in the menu.
+
+```php
+$items = $menu->getItems();
+```
+
+The items will automatically be sorted by their priority, with lower numbers coming first, defaulting go the order they were added if no priority is set.
 
 ## NavigationItem
 
