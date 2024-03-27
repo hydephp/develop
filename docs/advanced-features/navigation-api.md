@@ -205,9 +205,7 @@ $menu = new NavigationMenu([
 
 ### Adding Items to the Menu
 
-You can also add items to the menu after it has been created by using the `add` method.
-
-The `add` method can take a single item or an array of items, and will return the menu instance to allow for method chaining.
+You can also add items to the menu after it has been created by using the `add` method which can take a single item or an array of items, and can be fluently chained.
 
 ```php
 $menu = (new NavigationMenu())
