@@ -186,7 +186,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenu;
 $menu = new NavigationMenu($items = []);
 ```
 
-Here is how to provide an array or Collection of NavigationItem and/or NavigationGroup instances directly to the constructor.
+Here is how to provide an array or Collection of `NavigationItem` and/or `NavigationGroup` instances directly to the constructor.
 
 ```php
 use Hyde\Framework\Features\Navigation\NavigationMenu;
@@ -218,7 +218,7 @@ $menu = (new NavigationMenu())
 
 ### Accessing Items in the Menu
 
-You can access all items in the menu by calling the `getItems` method, which will return a Collection of all items in the menu.
+You can access all items in the menu by calling the `getItems` method, which will return a `Collection` of all items in the menu.
 
 ```php
 $items = $menu->getItems();
@@ -232,7 +232,7 @@ The `NavigationItem` class is an abstraction for a navigation menu item containi
 
 ### Quick Reference
 
-Here is a quick reference of the methods available on the NavigationItem class:
+Here is a quick reference of the methods available on the `NavigationItem` class:
 
 ```php
 use Hyde\Framework\Features\Navigation\NavigationItem;
@@ -268,7 +268,7 @@ This will output an anchor tag with the correct link and label, and if the item 
 
 ### Creating Navigation Items
 
-There are two syntaxes for creating NavigationItem instances, you can use a standard constructor or the static create method.
+There are two syntaxes for creating `NavigationItem` instances, you can use a standard constructor or the static create method.
 Both options provide the exact same signature and functionality, so it's just a matter of preference which one you use.
 
 The constructors take three parameters: the destination, the label, and the optional priority.
