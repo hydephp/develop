@@ -169,11 +169,11 @@ use Hyde\Framework\Features\Navigation\NavigationMenu;
 $menu = new NavigationMenu($items = []);
 
 // Add a single item or an array of items to the menu.
-$menu->add(new NavigationItem()): $this;
-$menu->add([new NavigationItem()]): $this;
+$menu->add(new NavigationItem());
+$menu->add([new NavigationItem()]);
 
 // Get all items in the menu as a sorted Collection.
-$menu->getItems(): Collection;
+$menu->getItems(): Collection<NavigationItem|NavigationGroup>
 ```
 
 ### Blade Example
@@ -181,13 +181,6 @@ $menu->getItems(): Collection;
 Here is an example of how you can put it all together in a Blade template:
 
 ```blade
-@php
-    $menu = new NavigationMenu([
-        new NavigationItem('index.html', 'Home'),
-        new NavigationItem('posts.html', 'Blog'),
-    ]);
-@endphp
-
 <ul>
     @foreach ($menu->getItems() as $item)
         <li><a href="{{ $item->getLink() }}">{{ $item->getLabel() }}</a></li>
