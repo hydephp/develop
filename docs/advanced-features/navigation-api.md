@@ -224,7 +224,7 @@ You can access all items in the menu by calling the `getItems` method, which wil
 $items = $menu->getItems();
 ```
 
-The items will automatically be sorted by their priority, with lower numbers coming first, defaulting go the order they were added if no priority is set.
+The items will automatically be sorted by their priority, with lower numbers coming first, defaulting to the order they were added if no priority is set.
 
 ## NavigationItem
 
