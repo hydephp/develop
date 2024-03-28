@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use Hyde\Pages\DocumentationPage;
 
 use function min;
@@ -14,20 +13,17 @@ use function collect;
 /**
  * Abstraction for a grouped navigation menu item, like a dropdown or a sidebar group.
  */
-class NavigationGroup
+class NavigationGroup extends NavigationMenu
 {
-    use HasNavigationItems;
-
     protected string $label;
     protected int $priority;
 
     public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
     {
-        $this->items = new Collection();
+        parent::__construct($items);
+
         $this->label = $label;
         $this->priority = $priority;
-
-        $this->add($items);
     }
 
     public static function create(string $label, array $items = [], int $priority = NavigationMenu::LAST): static
