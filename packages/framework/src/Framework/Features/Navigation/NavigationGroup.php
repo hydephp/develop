@@ -59,7 +59,7 @@ class NavigationGroup
     /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem> */
     public function getItems(): Collection
     {
-        return $this->items;
+        return $this->items->sortBy(fn (NavigationItem|NavigationGroup $item) => $item->getPriority())->values();
     }
 
     /** @param \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> $items */
