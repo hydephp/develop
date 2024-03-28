@@ -21,10 +21,10 @@ class NavigationGroup extends NavigationMenu
 
     public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
     {
+        parent::__construct($items);
+
         $this->label = $label;
         $this->priority = $priority;
-
-        parent::__construct($items);
     }
 
     public static function create(string $label, array $items = [], int $priority = NavigationMenu::LAST): static
