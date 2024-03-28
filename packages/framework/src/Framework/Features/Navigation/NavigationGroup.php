@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Hyde\Pages\DocumentationPage;
 
@@ -19,8 +18,6 @@ class NavigationGroup
 {
     use HasNavigationItems;
 
-    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem> */
-    protected Collection $items;
     protected string $label;
     protected int $priority;
 
@@ -56,27 +53,6 @@ class NavigationGroup
         }
 
         return $this->priority;
-    }
-
-    /** @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem> */
-    public function getItems(): Collection
-    {
-        return $this->items->sortBy(fn (NavigationItem|NavigationGroup $item) => $item->getPriority())->values();
-    }
-
-    /** @param \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> $items */
-    public function add(NavigationItem|NavigationGroup|array $items): static
-    {
-        foreach (Arr::wrap($items) as $item) {
-            $this->addItem($item);
-        }
-
-        return $this;
-    }
-
-    protected function addItem(NavigationItem|NavigationGroup $item): void
-    {
-        $this->items->push($item);
     }
 
     protected function containsOnlyDocumentationPages(): bool
