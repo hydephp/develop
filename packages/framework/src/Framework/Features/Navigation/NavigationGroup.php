@@ -17,6 +17,8 @@ use function collect;
  */
 class NavigationGroup
 {
+    use HasNavigationItems;
+
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem> */
     protected Collection $items;
     protected string $label;

@@ -20,6 +20,8 @@ use function Hyde\evaluate_arrayable;
  */
 class NavigationMenu
 {
+    use HasNavigationItems;
+
     public const DEFAULT = 500;
     public const LAST = 999;
 
