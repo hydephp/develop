@@ -62,8 +62,8 @@ class NavigationGroup
         return $this->items;
     }
 
-    /** @param  \Hyde\Framework\Features\Navigation\NavigationItem|array<\Hyde\Framework\Features\Navigation\NavigationItem>  $items */
-    public function add(NavigationItem|array $items): static
+    /** @param \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> $items */
+    public function add(NavigationItem|NavigationGroup|array $items): static
     {
         foreach (Arr::wrap($items) as $item) {
             $this->addItem($item);
@@ -72,7 +72,7 @@ class NavigationGroup
         return $this;
     }
 
-    protected function addItem(NavigationItem $item): void
+    protected function addItem(NavigationItem|NavigationGroup $item): void
     {
         $this->items->push($item);
     }

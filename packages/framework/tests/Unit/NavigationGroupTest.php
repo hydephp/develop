@@ -104,6 +104,14 @@ class NavigationGroupTest extends UnitTestCase
         $this->assertSame($items, $group->add($items)->getItems()->all());
     }
 
+    public function testCanAddGroupsToDropdown()
+    {
+        $group = new NavigationGroup('Foo');
+        $child = new NavigationGroup('Bar');
+
+        $this->assertSame([$child], $group->add($child)->getItems()->all());
+    }
+
     public function testAddChildrenMethodReturnsSelf()
     {
         $group = new NavigationGroup('Foo');
