@@ -14,18 +14,17 @@ use function collect;
 /**
  * Abstraction for a grouped navigation menu item, like a dropdown or a sidebar group.
  */
-class NavigationGroup
+class NavigationGroup extends NavigationMenu
 {
     protected string $label;
     protected int $priority;
 
     public function __construct(string $label, array $items = [], int $priority = NavigationMenu::LAST)
     {
-        $this->items = new Collection();
         $this->label = $label;
         $this->priority = $priority;
 
-        $this->add($items);
+        parent::__construct($items);
     }
 
     public static function create(string $label, array $items = [], int $priority = NavigationMenu::LAST): static
