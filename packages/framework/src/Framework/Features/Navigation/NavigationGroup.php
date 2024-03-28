@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use Hyde\Pages\DocumentationPage;
 
 use function min;
