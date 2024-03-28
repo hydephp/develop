@@ -16,8 +16,6 @@ use function collect;
  */
 class NavigationGroup
 {
-    use HasNavigationItems;
-
     protected string $label;
     protected int $priority;
 
