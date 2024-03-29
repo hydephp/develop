@@ -392,9 +392,9 @@ This is useful if you want to check for a specific query parameter, or if you wa
 ## NavigationGroup
 
 The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label, priority, and a collection of navigation items.
-This class is often used to create submenus or dropdowns in a navigation menu. 
+This class is often used to create submenus or dropdowns in a navigation menu.
 
-The `NavigationGroup` class extends the `NavigationMenu` class, and thus inherits the same base methods and functionality, 
+The `NavigationGroup` class extends the `NavigationMenu` class, and thus inherits the same base methods and functionality,
 while also having shared methods with the `NavigationItem` class to render the groups in a Blade view.
 
 ### Quick Reference
