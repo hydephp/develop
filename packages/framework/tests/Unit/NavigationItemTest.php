@@ -51,11 +51,12 @@ class NavigationItemTest extends UnitTestCase
         $this->assertEquals($route, (new NavigationItem($route, 'Home'))->getPage()->getRoute());
     }
 
-    public function testPassingRouteKeyToConstructorUsesDestinationAsLink()
+    public function testPassingRouteKeyToConstructorUsesDestinationAsRoute()
     {
         $item = new NavigationItem('index', 'Home');
-        $this->assertNull($item->getPage());
-        $this->assertSame('index', $item->getLink());
+        $this->assertSame(Routes::get('index')->getPage(), $item->getPage());
+        $this->assertSame('index', $item->getPage()->getRouteKey());
+        $this->assertSame('index.html', $item->getLink());
     }
 
     public function testPassingUrlToConstructorSetsRouteToNull()
@@ -218,6 +219,26 @@ class NavigationItemTest extends UnitTestCase
         }
     }
 
+    public function testConstructWithNullLabel()
+    {
+        $this->assertSame('foo', (new NavigationItem('foo'))->getLabel());
+
+        $links = [
+            'www.example.com',
+            'https://example.com',
+            'https://example.com/',
+            'https://example.com/foo',
+            'https://example.com/foo/',
+            'https://example.com/foo/bar',
+            'https://example.com/foo/bar.html',
+            'https://example.com/foo/bar.png',
+        ];
+
+        foreach ($links as $link) {
+            $this->assertSame($link, (new NavigationItem($link))->getLabel());
+        }
+    }
+
     public function testPassingRouteKeyToStaticConstructorUsesRouteInstance()
     {
         $route = Routes::get('index');
@@ -258,7 +279,7 @@ class NavigationItemTest extends UnitTestCase
         $item = NavigationGroup::create('foo');
 
         $this->assertSame('foo', $item->getLabel());
-        $this->assertSame([], $item->getItems());
+        $this->assertSame([], $item->getItems()->all());
         $this->assertSame(999, $item->getPriority());
     }
 
@@ -269,7 +290,7 @@ class NavigationItemTest extends UnitTestCase
         ];
 
         $item = NavigationGroup::create('foo', $children);
-        $this->assertSame($children, $item->getItems());
+        $this->assertSame($children, $item->getItems()->all());
         $this->assertSame(999, $item->getPriority());
     }
 

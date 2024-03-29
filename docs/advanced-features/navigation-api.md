@@ -7,6 +7,7 @@ navigation:
 
 >warning This article covers advanced information that is only relevant if you want to create custom navigation menus. Instead, you may want to read the [Navigation](navigation) article for a general overview.
 
+
 ## Abstract
 
 This article describes the Navigation API introduced in HydePHP v2. Both the main navigation menu and the documentation sidebar bundled with HydePHP are built with this API.
@@ -15,6 +16,7 @@ However, if you are interested in creating your own custom navigation menus, you
 This article is intended for advanced users, as most users will not need to create custom navigation menus.
 For this reason, the documentation is very code-driven due to the technical nature of the API.
 We'll also be mixing in some practical examples of Blade and PHP code to illustrate how you can use the API in your own projects.
+
 
 ## Overview
 
@@ -70,7 +72,8 @@ $menu = MainNavigationMenu::get();
 $sidebar = DocumentationSidebar::get();
 ```
 
->info Developer tip: The menus are only generated *after* the Hyde Kernel is booted. If you are getting BindingResolutionExceptions, ensure that you are not trying to access the menus too early in the application lifecycle. (Consider using the `booted` event.) 
+>info Developer tip: The menus are only generated *after* the Hyde Kernel is booted. If you are getting BindingResolutionExceptions, ensure that you are not trying to access the menus too early in the application lifecycle. (Consider using the `booted` event.)
+
 
 ## Creating Custom Menus
 
@@ -141,135 +144,290 @@ The object-oriented nature of the API also makes this perfect for package develo
 
 Here are some general tips to keep in mind when working with the Navigation API:
 - You can use the `add` method to add single items or arrays of items. You can also pass an array of items directly to the menu constructor.
-- The navigation menu items is stored in a Laravel Collection, and is type safe to support both `NavigationItem` and `NavigationGroup` instances. 
+- The navigation menu items is stored in a Laravel Collection, and is type safe to support both `NavigationItem` and `NavigationGroup` instances.
 - You can also construct NavigationItem instances directly, but the `create` method is a convenient shorthand, and can fill in data from routes, if you use them.
 - It's also possible to set an item's priority as the third parameter, but here we don't need it, as they default to the order they are added.
+
 
 ## Class Reference
 
 Below is a reference of the classes and methods available in the Navigation API.
 
+
 ## NavigationMenu
 
 The `NavigationMenu` class represents a navigation menu. It contains a collection of items, which can be either `NavigationItem` or `NavigationGroup` instances.
 
+### Quick Reference
+
+Here is a quick reference of the methods available on the NavigationMenu class:
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+
+// Create a new NavigationMenu instance, optionally providing an array of items.
+$menu = new NavigationMenu($items = []);
+
+// Add a single item or an array of items to the menu.
+$menu->add(new NavigationItem());
+$menu->add([new NavigationItem()]);
+
+// Get all items in the menu as a sorted Collection.
+$menu->getItems(): Collection<NavigationItem|NavigationGroup>
+```
+
+### Creating Navigation Menus
+
+You can create a new NavigationMenu instance by simply calling the constructor, optionally providing an array of items.
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+
+$menu = new NavigationMenu($items = []);
+```
+
+Here is how to provide an array or Collection of `NavigationItem` and/or `NavigationGroup` instances directly to the constructor.
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationItem;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
+
+$menu = new NavigationMenu([
+    new NavigationItem('index.html', 'Home'),
+    new NavigationItem('posts.html', 'Blog'),
+    new NavigationGroup('About', [
+        new NavigationItem('about.html', 'About Us'),
+        new NavigationItem('team.html', 'Our Team'),
+    ]),
+]);
+```
+
+### Adding Items to the Menu
+
+You can also add items to the menu after it has been created by using the `add` method which can take a single item or an array of items, and can be fluently chained.
+
+```php
+$menu = (new NavigationMenu())
+    ->add(new NavigationItem('contact.html', 'Contact Us'))
+    ->add([
+        new NavigationItem('privacy.html', 'Privacy Policy'),
+        new NavigationItem('terms.html', 'Terms of Service'),
+    ]);
+```
+
+### Accessing Items in the Menu
+
+You can access all items in the menu by calling the `getItems` method, which will return a `Collection` of all items in the menu.
+
+```php
+$items = $menu->getItems();
+```
+
+The items will automatically be sorted by their priority, with lower numbers coming first, defaulting to the order they were added if no priority is set.
+
 ## NavigationItem
 
-The `NavigationItem` class represents a single item in a navigation menu. It contains information such as the destination link or route, a label, and priority for ordering in the menu.
+The `NavigationItem` class is an abstraction for a navigation menu item containing useful information like the destination, label, and priority.
 
-Here is the constructor signature and a quick reference of the methods available on the `NavigationItem` class, and their types. Keep on reading to see more detailed examples and explanations.
+### Quick Reference
+
+Here is a quick reference of the methods available on the `NavigationItem` class:
 
 ```php
 use Hyde\Framework\Features\Navigation\NavigationItem;
 
-$item = new NavigationItem(Route|string $destination, string $label, int $priority = 500);
+// Create a new NavigationItem instance.
+$item = NavigationItem::create($destination, $label, $priority): NavigationItem;
+$item = new NavigationItem($destination, $label, $priority); // Same as above.
 
-$item->getLink():  string; // Returns the resolved link route or destination URL.
-$item->getLabel(): string; // Returns the label of the item.
-$item->isActive(): bool;   // Returns true if the item is the page being rendered.
-$item->getPriority(): int; // Returns the priority of the item.
-$item->getPage(): ?HydePage; // Returns the underlying Page instance, if there is one.
+// Get the link of the item.
+$item->getLink(): string;
+
+// Get the label of the item.
+$item->getLabel(): string;
+
+// Get the priority of the item.
+$item->getPriority(): int;
+
+// Check if the item is active. (Only works when the destination is a route)
+$item->isActive(): bool; 
 ```
+
+### Blade Example
+
+Here is an example of how you can put it all together in a Blade template:
+
+```blade
+<a href="{{ $item->getLink() }}" @class(['active' => $item->isActive()])>
+    {{ $item->getLabel() }}
+</a>
+```
+
+This will output an anchor tag with the correct link and label, and if the item is active, it will add an `active` class to the tag.
 
 ### Creating Navigation Items
 
-There are several ways to create navigation items using the `NavigationItem` class.
+There are two syntaxes for creating `NavigationItem` instances, you can use a standard constructor or the static create method.
+Both options provide the exact same signature and functionality, so it's just a matter of preference which one you use.
 
-#### Direct instantiation
+The constructors take three parameters: the destination, the label, and the optional priority.
+The destination can be a `Route` instance, a route key string, or an external URL.
 
-You can create instances directly by passing either a URL or a Route instance to the constructor. 
+```php
+use Hyde\Framework\Features\Navigation\NavigationItem;
 
-The first parameter is the destination, the second is the label, and the third optional parameter is the priority.
+$item = new NavigationItem($destination, $label, $priority);
+$item = NavigationItem::create($destination, $label, $priority);
+```
+
+#### Using Routes
+
+Using the HydePHP routing system is the recommended way to create navigation items leading to pages within your project,
+as they will automatically have links resolved to the correct URL, and Hyde can check if the items are active.
+Additionally, Hyde will use the page data as the label and priority defaults unless you override them.
+
+You can create routed navigation items by providing either a `Route` instance or a route key string as the destination.
+
+```php
+// Using a route key string.
+new NavigationItem('index');
+
+// Using the Routes facade to get a Route instance.
+new NavigationItem(Routes::get('index'));
+
+// Setting the label and/or priorities will override inferred data.
+new NavigationItem(Routes::get('index'), 'Custom Label', 25);
+```
+
+Using a route key is more concise, but will not provide type safety as it will be treated as a link if the route does not exist,
+whereas providing an invalid route key to the `Routes` facade will throw an exception. It's up to you which one you prefer.
+
+#### Using External URLs
+
+You can also create navigation items that link to external URLs by providing a full URL as the destination.
+
+If you do not set a label for links, the label will default to the URL, and if you do not set a priority, it will default to `500`.
+
+```php
+// This will lead directly to the link, and use it as the label with a priority of 500.
+new NavigationItem('https://example.com');
+
+// You can also set a custom label and priority to override the defaults.
+new NavigationItem('https://example.com', 'External Link', 25);
+```
+
+While it is discouraged to use external URLs for internal pages, as Hyde won't be able to resolve relative links or check active states,
+they are excellent for any time you want an absolute link to an external site or resource.
+
+Note that Hyde will not validate or modify the URL, so you are responsible for ensuring it's correct.
+
+### Accessing the resolved links
+
+The `getLink` method is designed to return a link that can be used in the `href` attribute of an anchor tag.
+
+If the destination is a route, the link will be resolved to the correct URL, using relative paths if possible. It will also respect the pretty URL setting.
+
+```php
+$item = new NavigationItem(Routes::get('index'));
+$item->getLink(); // Outputs 'index.html' 
+
+$item = new NavigationItem('https://example.com');
+$item->getLink(); // Outputs 'https://example.com'
+```
+
+**Tip:** The item instances automatically turns into the resolved link when cast to a string. Perfect for your Blade templates!
+
+```blade
+<a href="{{ $item }}">{{ $item->getLabel() }}</a>
+```
+
+### Accessing the label
+
+The `getLabel` method returns the label of the item. This is the text that will be displayed in the navigation menu.
 
 ```php
 $item = new NavigationItem('index', 'Home');
-$item = new NavigationItem(Routes::get('index'), 'Home');
-$item = new NavigationItem('https://example.com', 'External Link');
+$item->getLabel(); // Outputs 'Home'
 ```
 
-#### Setting Priority
+### Accessing the priority
 
-You can set the priority of the item, which determines its position in the menu.
+The `getPriority` method returns the priority of the item. This is a number that determines the order in which the items are displayed in the menu, where lower numbers come first.
 
 ```php
-$item = new NavigationItem(Routes::get('index'), 'Home', 25);
+$item = new NavigationItem('index', 'Home', 25);
+$item->getPriority(); // Outputs 25
 ```
 
-#### Static Creation Method
+### Checking if the item is active
 
-You can use the static `create` method, which can automatically fill in the label and priority from a Route.
+The `isActive` method checks if the item is active (by comparing it to the Hyde page being compiled at the moment). This is useful for highlighting the current page in the navigation menu.
 
 ```php
-$item = NavigationItem::create(Routes::get('index'));
+$item = new NavigationItem('index');
+$item->isActive(); // Outputs true if the item is the current page, otherwise false.
 ```
 
-You can also pass a custom label and priority to the `create` method to override the defaults.
+<!--
+Generated by Copilot, kinda cool, maybe something to implement?
+
+### Advanced Usage
+
+#### Customizing the Active State
+
+By default, the `isActive` method will check if the item's destination matches the current page being compiled.
+
+However, you can also provide a custom callback to the method to determine if the item is active.
 
 ```php
-$item = NavigationItem::create(Routes::get('index'), 'Custom Label', 50);
+$item = new NavigationItem('index');
+$item->isActive(fn($item) => $item->getLink() === 'index.html');
 ```
 
-#### Using Route Keys and URLs
-
-The `create` method works with route keys and URLs.
-
-```php
-$item = NavigationItem::create('index');
-$item = NavigationItem::create('https://example.com');
-```
-
-Unless you pass a custom label to URL items, the label will be the URL itself.
-
-```php
-$item = NavigationItem::create('https://example.com');
-```
-
-### Navigation Item Methods
-
-### Getting Label and Link
-
-```php
-$item = NavigationItem::create('index');
-
-// Get the label of the item.
-$item->getLabel(); // Returns 'Home'
-
-// Get the link of the item.
-$item->getLink(); // Returns 'index.html'
-```
-
-You can also get the link by casting the item to a string.
-
-```php
-(string) $item; // Returns 'index.html'
-```
-
-### Getting Priority
-
-```php
-$item->getPriority(); // Returns 0
-```
-
-### Getting Page Instance
-
-You can get the underlying Page instance of the item, if it exists.
-
-```php
-$item->getPage(); // Returns instance of BladePage or null
-```
-
-### Checking Active State
-
-You can check if the item is active (i.e., the current page being rendered).
-
-```php
-$item->isActive(); // Returns false
-```
-
-This concludes the documentation for the `NavigationItem` class.
+This is useful if you want to check for a specific query parameter, or if you want to check if the item is active based on a more complex condition.
+-->
 
 
 ## NavigationGroup
 
 The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label, priority, and a collection of navigation items.
 This class is often used to create submenus or dropdowns in a navigation menu.
+
+The `NavigationGroup` class extends the `NavigationMenu` class, and thus inherits the same base methods and functionality,
+while also having shared methods with the `NavigationItem` class to render the groups in a Blade view.
+
+### Quick Reference
+
+Here is a quick reference of the methods available on the `NavigationGroup` class:
+
+```php
+use Hyde\Framework\Features\Navigation\NavigationGroup;
+
+// Create a new NavigationGroup instance.
+$group = new NavigationGroup($label, $items = [], $priority = 500);
+
+// Add a single item or an array of items to the group.
+$group->add(new NavigationItem());
+$group->add([new NavigationItem()]);
+
+// Get all items in the group as a Collection sorted by priority.
+$group->getItems(): Collection<NavigationItem|NavigationGroup>
+
+// Get the label of the group.
+$group->getLabel(): string;
+
+// Get the priority of the group.
+$group->getPriority(): int;
+
+// Get the group key, which is a normalized kebab-case version of the label.
+$group->getGroupKey(): string;
+```
+
+As the `NavigationGroup` class extends the `NavigationMenu` class, please see the `NavigationMenu` section for detailed information of the methods available.
+
+### Usage Scenarios
+
+HydePHP uses the `NavigationGroup` class to create dropdowns in the main navigation menu and the category groups in the documentation sidebar.
+
+In your own custom menus, you can use this class for the same types of functionality, and you can even nest groups within groups to create complex navigation structures.

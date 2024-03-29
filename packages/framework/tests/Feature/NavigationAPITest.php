@@ -51,44 +51,37 @@ class NavigationAPITest extends TestCase
 
     public function testNavigationItems()
     {
-        // Each navigation item is represented by a NavigationItem instance containing the needed information.
+        // The NavigationItem class is an abstraction for a navigation menu item containing useful information like the destination, label, and priority.
 
         // ## Creating Navigation Items
 
-        // There are a few ways to create navigation items, depending on your needs.
+        // There are two syntaxes for creating NavigationItem instances, you can use a standard constructor or the static create method.
+        // Both options provide the exact same signature and functionality, so it's just a matter of preference which one you use.
 
-        // You can create instances directly by passing either a URL or Route instance to the constructor.
-        $item = new NavigationItem(Routes::get('index'), 'Home');
-        $this->assertInstanceOf(NavigationItem::class, $item);
-        $item = new NavigationItem('https://example.com', 'External Link');
-        $this->assertInstanceOf(NavigationItem::class, $item);
+        // The constructors take three parameters: the destination, the label, and the optional priority.
+        // The destination can be a Route instance, a route key string, or an external URL.
 
-        // You can also set the priority of the item, which determines its position in the menu.
-        $item = new NavigationItem(Routes::get('index'), 'Home', 25);
-        $this->assertSame(25, $item->getPriority());
+        // Using a Route instance will automatically fill in the label and priority from the route's connected page.
+        $item = new NavigationItem(Routes::get('index'));
+        $this->assertData(['destination' => 'index.html', 'label' => 'Home', 'priority' => 0], $item);
 
-        // You can also create instances using the static create method, which can automatically fill in the label and priority from a Route.
-        $item = NavigationItem::create(Routes::get('index'));
-        $this->assertSame('Home', $item->getLabel());
-        $this->assertSame(0, $item->getPriority());
+        // Using a route key provides the same functionality as using a Route instance.
+        // Make sure the route exists otherwise it will be treated as a link.
+        $item = new NavigationItem('index');
+        $this->assertEquals(new NavigationItem(Routes::get('index')), $item);
 
-        // You can also pass a custom label and priority to the create method to override the defaults.
-        $item = NavigationItem::create(Routes::get('index'), 'Custom Label', 50);
-        $this->assertSame('Custom Label', $item->getLabel());
-        $this->assertSame(50, $item->getPriority());
+        // Setting the label and/or priorities will override the page's data.
+        $item = new NavigationItem(Routes::get('index'), 'Custom Label', 10);
+        $this->assertData(['destination' => 'index.html', 'label' => 'Custom Label', 'priority' => 10], $item);
 
-        // The create method also works with route keys.
-        $item = NavigationItem::create('index');
-        $this->assertSame('Home', $item->getLabel());
-        $this->assertEquals(NavigationItem::create('index'), NavigationItem::create(Routes::get('index')));
+        // You can also pass an external URL as the destination.
+        $item = new NavigationItem('https://example.com', 'External Link', 10);
+        $this->assertData(['destination' => 'https://example.com', 'label' => 'External Link', 'priority' => 10], $item);
 
-        // You can also pass a URL to the create method.
-        $item = NavigationItem::create('https://example.com');
-        $this->assertSame('https://example.com', $item->getLink());
-
-        // Unless you pass a custom label to URL items, the label will be the URL itself.
-        $item = NavigationItem::create('https://example.com');
-        $this->assertSame('https://example.com', $item->getLabel());
+        // If you do not set a label for links, the label will default to the URL.
+        // And if you do not set a priority, it will default to 500.
+        $item = new NavigationItem('https://example.com');
+        $this->assertData(['destination' => 'https://example.com', 'label' => 'https://example.com', 'priority' => 500], $item);
 
         // ## Navigation Item Methods
 
@@ -164,6 +157,37 @@ class NavigationAPITest extends TestCase
         ], $this->toArray($menu));
     }
 
+    public function testItemSorting()
+    {
+        // Test items without priorities are returned in the order they were added.
+
+        $menu = new NavigationMenu([
+            new NavigationItem('foo', 'foo'),
+            new NavigationItem('bar', 'bar'),
+            new NavigationItem('baz', 'baz'),
+        ]);
+
+        $this->assertSame([
+            'foo' => 'foo',
+            'bar' => 'bar',
+            'baz' => 'baz',
+        ], $this->toArray($menu));
+
+        // Test items with priorities are sorted by priority.
+
+        $menu = new NavigationMenu([
+            new NavigationItem('foo', 'foo', 10),
+            new NavigationItem('baz', 'baz', 15),
+            new NavigationItem('bar', 'bar', 5),
+        ]);
+
+        $this->assertSame([
+            'bar' => 'bar',
+            'foo' => 'foo',
+            'baz' => 'baz',
+        ], $this->toArray($menu));
+    }
+
     public function testSocialMediaFooterLinkExample()
     {
         // To create our menu, we start by constructing a new NavigationMenu instance
@@ -206,7 +230,7 @@ class NavigationAPITest extends TestCase
             if ($item instanceof NavigationGroup) {
                 return [
                     $item->getLabel() => [
-                        'items' => Arr::mapWithKeys($item->getItems(), function (NavigationItem $item): array {
+                        'items' => Arr::mapWithKeys($item->getItems()->all(), function (NavigationItem $item): array {
                             return [$item->getLabel() => $item->getLink()];
                         }),
                     ],
@@ -228,5 +252,16 @@ class NavigationAPITest extends TestCase
     protected function removeIndentation(string $actual): string
     {
         return implode("\n", array_map('trim', explode("\n", $actual)));
+    }
+
+    protected function assertData(array $expected, NavigationItem $item): void
+    {
+        $actual = [
+            'destination' => $item->getLink(),
+            'label' => $item->getLabel(),
+            'priority' => $item->getPriority(),
+        ];
+
+        $this->assertSame($expected, $actual);
     }
 }
