@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Hyde\Pages\DocumentationPage;
 
 use function min;
-use function collect;
 
 /**
  * Abstraction for a grouped navigation menu item, like a dropdown or a sidebar group.
@@ -45,7 +44,7 @@ class NavigationGroup extends NavigationMenu
     {
         if ($this->containsOnlyDocumentationPages()) {
             // For sidebar groups, we use the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
-            return min($this->priority, collect($this->getItems())->min(fn (NavigationItem $item): int => $item->getPriority()));
+            return min($this->priority, $this->getItems()->min(fn (NavigationItem $item): int => $item->getPriority()));
         }
 
         return $this->priority;
@@ -53,7 +52,7 @@ class NavigationGroup extends NavigationMenu
 
     protected function containsOnlyDocumentationPages(): bool
     {
-        return count($this->getItems()) && collect($this->getItems())->every(function (NavigationItem $item): bool {
+        return count($this->getItems()) && $this->getItems()->every(function (NavigationItem $item): bool {
             return $item->getPage() instanceof DocumentationPage;
         });
     }
