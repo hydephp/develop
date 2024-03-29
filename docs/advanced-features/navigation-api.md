@@ -392,7 +392,10 @@ This is useful if you want to check for a specific query parameter, or if you wa
 ## NavigationGroup
 
 The `NavigationGroup` class represents a group of items in a navigation menu. It contains a label, priority, and a collection of navigation items.
-This class is often used to create submenus or dropdowns in a navigation menu.
+This class is often used to create submenus or dropdowns in a navigation menu. 
+
+The `NavigationGroup` class extends the `NavigationMenu` class, and thus inherits the same base methods and functionality, 
+while also having shared methods with the `NavigationItem` class to render the groups in a Blade view.
 
 ### Quick Reference
 
@@ -406,7 +409,25 @@ $group = new NavigationGroup($label, $items = [], $priority = 500);
 
 // Add a single item or an array of items to the group.
 $group->add(new NavigationItem());
+$group->add([new NavigationItem()]);
+
+// Get all items in the group as a Collection sorted by priority.
+$group->getItems(): Collection<NavigationItem|NavigationGroup>
 
 // Get the label of the group.
 $group->getLabel(): string;
+
+// Get the priority of the group.
+$group->getPriority(): int;
+
+// Get the group key, which is a normalized kebab-case version of the label.
+$group->getGroupKey(): string;
 ```
+
+As the `NavigationGroup` class extends the `NavigationMenu` class, please see the `NavigationMenu` section for detailed information of the methods available.
+
+### Usage Scenarios
+
+HydePHP uses the `NavigationGroup` class to create dropdowns in the main navigation menu and the category groups in the documentation sidebar.
+
+In your own custom menus, you can use this class for the same types of functionality, and you can even nest groups within groups to create complex navigation structures.
