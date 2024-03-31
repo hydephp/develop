@@ -294,6 +294,11 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
+#### Dropdown menu notes
+
+Here are some things to keep in mind when using dropdown menus, regardless of the configuration:
+- Dropdowns take priority over standard items. So if you have a dropdown with the key `about` and a page with the key `about`, the dropdown will be created, and the page won't be in the menu.
+  - For example: With this file structure: `_pages/foo.md`, `_pages/foo/bar.md`, `_pages/foo/baz.md`, the link to `foo` will be lost.
 
 ## Digging Deeper into the internals
 
