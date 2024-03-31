@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\AssetService;
@@ -22,6 +25,7 @@ use Illuminate\Support\Facades\Artisan;
  * @covers \Hyde\Framework\HydeServiceProvider
  * @covers \Hyde\Framework\Concerns\RegistersFileLocations
  * @covers \Hyde\Foundation\Providers\ConfigurationServiceProvider
+ * @covers \Hyde\Foundation\Providers\NavigationServiceProvider
  * @covers \Hyde\Foundation\Providers\ViewServiceProvider
  */
 class HydeServiceProviderTest extends TestCase
@@ -316,5 +320,47 @@ class HydeServiceProviderTest extends TestCase
         $this->assertEquals('foo', MarkdownPage::outputDirectory());
         $this->assertEquals('foo', MarkdownPost::outputDirectory());
         $this->assertEquals('foo', DocumentationPage::outputDirectory());
+    }
+
+    public function testCannotGetMainNavigationMenuFromContainerBeforeKernelIsBooted()
+    {
+        $this->expectException(BindingResolutionException::class);
+
+        app('navigation.main');
+    }
+
+    public function testCannotGetDocumentationSidebarFromContainerBeforeKernelIsBooted()
+    {
+        $this->expectException(BindingResolutionException::class);
+
+        app('navigation.sidebar');
+    }
+
+    public function testCanGetMainNavigationMenuFromContainer()
+    {
+        Hyde::boot();
+
+        $this->assertInstanceOf(MainNavigationMenu::class, app('navigation.main'));
+    }
+
+    public function testCanGetDocumentationSidebarFromContainer()
+    {
+        Hyde::boot();
+
+        $this->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
+    }
+
+    public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
+    {
+        Hyde::boot();
+
+        $this->assertSame(app('navigation.main'), MainNavigationMenu::get());
+    }
+
+    public function testCanGetDocumentationSidebarFromContainerUsingShorthand()
+    {
+        Hyde::boot();
+
+        $this->assertSame(app('navigation.sidebar'), DocumentationSidebar::get());
     }
 }

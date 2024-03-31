@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Foundation\Facades\Routes;
-use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Support\Models\Route;
+use Hyde\Testing\TestsBladeViews;
+use Hyde\Testing\Support\TestView;
+use Illuminate\View\ComponentAttributeBag;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Testing\TestCase;
 
 /**
@@ -13,6 +17,8 @@ use Hyde\Testing\TestCase;
  */
 class NavigationLinkViewTest extends TestCase
 {
+    use TestsBladeViews;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -20,32 +26,66 @@ class NavigationLinkViewTest extends TestCase
         $this->mockPage();
     }
 
-    protected function render(?NavItem $item = null): string
+    protected function testView(): TestView
     {
-        return view('hyde::components.navigation.navigation-link', [
-            'item' => $item ?? NavItem::forLink('foo.html', 'Foo'),
-        ])->render();
+        return $this->view(view('hyde::components.navigation.navigation-link', [
+            'item' => NavigationItem::create(new Route(new InMemoryPage('foo')), 'Foo'),
+            'attributes' => new ComponentAttributeBag(),
+        ]));
+    }
+
+    public function testComponentRenders()
+    {
+        $this->testView()->assertHasElement('<a>');
     }
 
     public function testComponentLinksToRouteDestination()
     {
-        $this->assertStringContainsString('href="foo.html"', $this->render());
+        $this->testView()->assertAttributeIs('href="foo.html"');
+    }
+
+    public function testComponentResolvesRelativeLinksForRoutes()
+    {
+        $this->mockCurrentPage('foo/bar');
+
+        $this->testView()->assertAttributeIs('href="../foo.html"');
     }
 
     public function testComponentUsesTitle()
     {
-        $this->assertStringContainsString('Foo', $this->render());
+        $this->testView()->assertTextIs('Foo');
+    }
+
+    public function testComponentDoesNotHaveCurrentAttributesWhenCurrentRouteDoesNotMatch()
+    {
+        $this->testView()
+            ->assertDontSee('current')
+            ->assertDoesNotHaveAttribute('aria-current');
     }
 
     public function testComponentIsCurrentWhenCurrentRouteMatches()
     {
-        $this->mockRoute(Routes::get('index'));
-        $this->assertStringContainsString('current', $this->render(NavItem::forRoute(Routes::get('index'), 'Home')));
+        $this->mockCurrentPage('foo');
+
+        $this->testView()
+            ->assertSee('current')
+            ->assertHasAttribute('aria-current')
+            ->assertAttributeIs('aria-current="page"');
     }
 
-    public function testComponentHasAriaCurrentWhenCurrentRouteMatches()
+    public function testComponentDoesNotHaveActiveClassWhenNotActive()
     {
-        $this->mockRoute(Routes::get('index'));
-        $this->assertStringContainsString('aria-current="page"', $this->render(NavItem::forRoute(Routes::get('index'), 'Home')));
+        $this->testView()
+            ->assertHasClass('navigation-link')
+            ->assertDoesNotHaveClass('navigation-link-active');
+    }
+
+    public function testComponentHasActiveClassWhenActive()
+    {
+        $this->mockCurrentPage('foo');
+
+        $this->testView()
+            ->assertHasClass('navigation-link')
+            ->assertHasClass('navigation-link-active');
     }
 }

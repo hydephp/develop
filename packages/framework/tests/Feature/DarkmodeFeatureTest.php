@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
@@ -38,6 +39,8 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testLayoutHasToggleButtonAndScriptWhenEnabled()
     {
+        Hyde::boot();
+
         Config::set('hyde.features', [
             Features::markdownPages(),
             Features::bladePages(),
@@ -75,6 +78,8 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testDarkModeThemeButtonIsHiddenInLayoutsWhenDisabled()
     {
+        Hyde::boot();
+
         Config::set('hyde.features', [
             Features::markdownPages(),
             Features::bladePages(),

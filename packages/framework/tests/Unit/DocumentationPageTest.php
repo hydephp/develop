@@ -195,10 +195,10 @@ class DocumentationPageTest extends TestCase
     {
         $this->assertIsBool(DocumentationPage::hasTableOfContents());
 
-        Config::set('docs.table_of_contents.enabled', true);
+        Config::set('docs.sidebar.table_of_contents.enabled', true);
         $this->assertTrue(DocumentationPage::hasTableOfContents());
 
-        Config::set('docs.table_of_contents.enabled', false);
+        Config::set('docs.sidebar.table_of_contents.enabled', false);
         $this->assertFalse(DocumentationPage::hasTableOfContents());
     }
 

@@ -122,12 +122,12 @@ Next up, let's look at how to customize the navigation menus using the config fi
 - To customize the navigation menu, use the setting `navigation.order` in the `hyde.php` config.
 - When customizing the navigation menu, you should use the [route key](core-concepts#route-keys) of the page.
 
-- To customize the sidebar, use the setting `sidebar_order` in the `docs.php` config.
+- To customize the sidebar, use the setting `sidebar.order` in the `docs.php` config.
 - When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
 
 ### Changing the priorities
 
-The `navigation.order` and `sidebar_order` settings allow you to customize the order of the pages in the navigation menus.
+The `navigation.order` and `sidebar.order` settings allow you to customize the order of the pages in the navigation menus.
 
 #### Basic syntax for changing the priorities
 
@@ -149,10 +149,12 @@ The offset is added to make it easier to place pages earlier in the list using f
 ```php
 // filepath: config/docs.php
 
-'sidebar_order' => [
-    'readme', // Gets priority 500
-    'installation', // Gets priority 501
-    'getting-started', // Gets priority 502
+'sidebar' => [
+    'order' => [
+        'readme', // Gets priority 500
+        'installation', // Gets priority 501
+        'getting-started', // Gets priority 502
+    ]
 ]
 ```
 
@@ -175,10 +177,12 @@ You can also specify explicit priorities by adding a value to the array key:
 ```php
 // filepath: config/docs.php
 
-'sidebar_order' => [
-    'readme' => 10, // Gets priority 10
-    'installation' => 15, // Gets priority 15
-    'getting-started' => 20, // Gets priority 20
+'sidebar' => [
+    'order' => [
+        'readme' => 10, // Gets priority 10
+        'installation' => 15, // Gets priority 15
+        'getting-started' => 20, // Gets priority 20
+    ]
 ]
 ```
 
@@ -226,18 +230,18 @@ To remove items from being automatically added, simply add the page's route key 
 
 ### Adding Custom Navigation Menu Links
 
-You can easily add custom navigation menu links similar to how we add Authors. Simply add a `NavItem` model to the `navigation.custom` array.
+You can easily add custom navigation menu links similar to how we add Authors. Simply add a `NavigationItem` model to the `navigation.custom` array.
 
-When linking to an external site, you should use the `NavItem::forLink()` method facade. The first two arguments are the
+When linking to an external site, you should use the `NavigationItem::create()` method facade. The first two arguments are the
 destination and label, both required. The third argument is the priority, which is optional, and defaults to `500`.
 
 ```php
 // filepath config/hyde.php
-use Hyde\Framework\Features\Navigation\NavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 
 'navigation' => [
     'custom' => [
-        NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+        NavigationItem::create('https://github.com/hydephp/hyde', 'GitHub', 200),
     ]
 ]
 ```
@@ -290,30 +294,41 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
+#### Dropdown menu notes
+
+Here are some things to keep in mind when using dropdown menus, regardless of the configuration:
+- Dropdowns take priority over standard items. So if you have a dropdown with the key `about` and a page with the key `about`, the dropdown will be created, and the page won't be in the menu.
+  - For example: With this file structure: `_pages/foo.md`, `_pages/foo/bar.md`, `_pages/foo/baz.md`, the link to `foo` will be lost.
 
 ## Digging Deeper into the internals
 
-While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
-The best way to learn about this is to look at the source code, so here is a high-level overview with details on where to look in the source code.
+While not required to know, you may find it interesting to learn more about how the navigation is handled internally. Here is a high level overview,
+but you can find more detailed information in the [Navigation API](navigation-api) documentation.
 
-The main navigation menu is the `NavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class.
-Both extend the same `BaseNavigationMenu` class:
+The main navigation menu is the `MainNavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class. Both extend the same base `NavigationMenu` class.
 
 ```php
-use Hyde\Framework\Features\Navigation\NavigationMenu;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use Hyde\Framework\Features\Navigation\BaseNavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 ```
 
-Within the `BaseNavigationMenu` class, you will find the main logic for how the menus are generated,
+Within the base `NavigationMenu` class, you will find the main logic for how the menus are generated,
 while the child implementations contain the extra logic tailored for their specific use cases.
 
-All the navigation menus store the menu items in their `$items` array containing instances of the `NavItem` class.
+All the navigation menus store the menu items in their `$items` collection containing instances of the `NavigationItem` class.
 
-The `NavItem` class is a simple class that contains the label and URL of the menu item and is used to represent each item in the menu.
-Dropdowns are represented by `DropdownNavItem` instances, which extend the `NavItem` class and contain an array of additional `NavItem` instances.
+The `NavigationItem` class is a simple class that contains the label and URL of the menu item and is used to represent each item in the menu.
+Dropdowns are represented by `NavigationGroup` instances, which extend the `NavigationMenu` class and contain a collection of additional `NavigationItem` instances.
 
 ```php
-use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Framework\Features\Navigation\DropdownNavItem;
+use Hyde\Framework\Features\Navigation\NavigationItem;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 ```
+
+## The Navigation API
+
+If you want to interact with the site navigation programmatically, or if you want to create complex custom menus, you can do so through the new Navigation API.
+For most cases you don't need this, as Hyde creates the navigation for you. But it can be useful for advanced users and package developers.
+
+The Navigation API consists of a set of PHP classes, allowing you to fluently interact with the navigation menus. You can learn more about the API in the [Navigation API](navigation-api) documentation.

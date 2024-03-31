@@ -259,7 +259,7 @@ Learn more in the [Navigation Menu](navigation) documentation.
 
 #### Customizing the documentation sidebar
 
-- To customize the sidebar, use the setting `sidebar_order` in the `docs.php` config.
+- To customize the sidebar, use the setting `sidebar.order` in the `docs.php` config.
 - When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
 
 Learn more in the [Documentation Pages](documentation-pages) documentation.

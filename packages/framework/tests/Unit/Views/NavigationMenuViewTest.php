@@ -20,6 +20,8 @@ class NavigationMenuViewTest extends TestCase
         parent::setUp();
         $this->mockRoute();
         $this->mockPage();
+
+        Hyde::boot();
     }
 
     protected function render(): string
@@ -71,7 +73,7 @@ class NavigationMenuViewTest extends TestCase
         $contents = $foo->compile();
 
         $this->assertStringContainsString('<a href="foo.html" aria-current="page" class="', $contents);
-        $this->assertStringContainsString('<a href="bar.html"  class="', $contents);
+        $this->assertStringContainsString('<a href="bar.html" class="', $contents);
     }
 
     public function testNavigationMenuWithDropdownPages()

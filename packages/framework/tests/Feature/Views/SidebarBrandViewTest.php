@@ -9,6 +9,7 @@ use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 class SidebarBrandViewTest extends TestCase
 {
@@ -67,5 +68,12 @@ class SidebarBrandViewTest extends TestCase
 
         $view->assertSee('HydePHP Docs');
         $view->assertDontSee('theme-toggle-button');
+    }
+
+    protected function testViewData(): array
+    {
+        return [
+            'sidebar' => new DocumentationSidebar(),
+        ];
     }
 }

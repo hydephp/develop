@@ -4,37 +4,42 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use BadMethodCallException;
+use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Framework\Features\Navigation\DropdownNavItem;
-use Hyde\Framework\Features\Navigation\NavigationMenu;
-use Hyde\Framework\Features\Navigation\NavItem;
-use Hyde\Pages\DocumentationPage;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\BaseNavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
+ *
+ * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
  */
 class NavigationMenuTest extends TestCase
 {
     public function testConstructor()
     {
-        $this->assertInstanceOf(NavigationMenu::class, NavigationMenu::create());
+        $this->assertInstanceOf(MainNavigationMenu::class, $this->createNavigationMenu());
     }
 
-    public function testGenerateMethodCreatesCollectionOfNavItems()
+    public function testGenerateMethodCreatesCollectionOfNavigationItems()
     {
-        $this->assertInstanceOf(Collection::class, NavigationMenu::create()->items);
+        $this->assertInstanceOf(Collection::class, $this->createNavigationMenu()->getItems());
+        $this->assertContainsOnlyInstancesOf(NavigationItem::class, $this->createNavigationMenu()->getItems());
     }
 
     public function testGetItemsReturnsItems()
     {
-        $this->assertEquals(NavigationMenu::create()->items, NavigationMenu::create()->getItems());
+        $this->assertEquals(collect([
+            NavigationItem::create(Routes::get('index')),
+        ]), $this->createNavigationMenu()->getItems());
     }
 
     public function testItemsAreSortedByPriority()
@@ -43,7 +48,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.priority' => 2])));
         Routes::addRoute(new Route(new MarkdownPage('baz', ['navigation.priority' => 3])));
 
-        $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], NavigationMenu::create()->items->pluck('label')->toArray());
+        $this->assertSame(['Home', 'Foo', 'Bar', 'Baz'], $this->createNavigationMenu()->getItems()->map(fn ($item) => $item->getLabel())->toArray());
     }
 
     public function testItemsWithHiddenPropertySetToTrueAreNotAdded()
@@ -51,7 +56,7 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute(new Route(new MarkdownPage('foo', ['navigation.hidden' => true])));
         Routes::addRoute(new Route(new MarkdownPage('bar', ['navigation.hidden' => false])));
 
-        $this->assertSame(['Home', 'Bar'], NavigationMenu::create()->items->pluck('label')->toArray());
+        $this->assertSame(['Home', 'Bar'], $this->createNavigationMenu()->getItems()->map(fn ($item) => $item->getLabel())->toArray());
     }
 
     public function testCreatedCollectionIsSortedByNavigationMenuPriority()
@@ -59,119 +64,117 @@ class NavigationMenuTest extends TestCase
         $this->file('_pages/foo.md');
         $this->file('_docs/index.md');
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::fromRoute(Routes::get('foo')),
-            NavItem::fromRoute(Routes::get('docs/index')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('foo')),
+            NavigationItem::create(Routes::get('docs/index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testIsSortedAutomaticallyWhenUsingNavigationMenuCreate()
     {
         $this->file('_pages/foo.md');
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::fromRoute(Routes::get('foo')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('foo')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
-    }
-
-    public function testCollectionOnlyContainsNavItems()
-    {
-        $this->assertContainsOnlyInstancesOf(NavItem::class, NavigationMenu::create()->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testExternalLinkCanBeAddedInConfig()
     {
-        config(['hyde.navigation.custom' => [NavItem::forLink('https://example.com', 'foo')]]);
+        config(['hyde.navigation.custom' => [NavigationItem::create('https://example.com', 'foo')]]);
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::forLink('https://example.com', 'foo'),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('https://example.com', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPathLinkCanBeAddedInConfig()
     {
-        config(['hyde.navigation.custom' => [NavItem::forLink('foo', 'foo')]]);
+        config(['hyde.navigation.custom' => [NavigationItem::create('foo', 'foo')]]);
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::forLink('foo', 'foo'),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
-    public function testDuplicatesAreRemovedWhenAddingInConfig()
+    public function testDuplicatesAreNotRemovedWhenAddingInConfig()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::forLink('foo', 'foo'),
-            NavItem::forLink('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
         ]]);
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::forLink('foo', 'foo'),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('foo', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
-    public function testDuplicatesAreRemovedWhenAddingInConfigRegardlessOfDestination()
+    public function testDuplicatesAreNotRemovedWhenAddingInConfigRegardlessOfDestination()
     {
         config(['hyde.navigation.custom' => [
-            NavItem::forLink('foo', 'foo'),
-            NavItem::forLink('bar', 'foo'),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('bar', 'foo'),
         ]]);
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::forLink('foo', 'foo'),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('foo', 'foo'),
+            NavigationItem::create('bar', 'foo'),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testConfigItemsTakePrecedenceOverGeneratedItems()
     {
         $this->file('_pages/foo.md');
 
-        config(['hyde.navigation.custom' => [NavItem::forLink('bar', 'Foo')]]);
+        config(['hyde.navigation.custom' => [NavigationItem::create('bar', 'Foo')]]);
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::forLink('bar', 'Foo'),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('bar', 'Foo'),
+            NavigationItem::create(Routes::get('foo')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testDocumentationPagesThatAreNotIndexAreNotAddedToTheMenu()
@@ -179,15 +182,15 @@ class NavigationMenuTest extends TestCase
         $this->file('_docs/foo.md');
         $this->file('_docs/index.md');
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::fromRoute(Routes::get('docs/index')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('docs/index')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPagesInSubdirectoriesAreNotAddedToTheNavigationMenu()
@@ -195,11 +198,11 @@ class NavigationMenuTest extends TestCase
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
-        $menu = NavigationMenu::create();
-        $expected = collect([NavItem::fromRoute(Routes::get('index'))]);
+        $menu = $this->createNavigationMenu();
+        $expected = collect([NavigationItem::create(Routes::get('index'))]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPagesInSubdirectoriesCanBeAddedToTheNavigationMenuWithConfigFlatSetting()
@@ -208,14 +211,14 @@ class NavigationMenuTest extends TestCase
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::fromRoute(Routes::get('foo/bar')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create(Routes::get('foo/bar')),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPagesInSubdirectoriesAreNotAddedToTheNavigationMenuWithConfigDropdownSetting()
@@ -224,132 +227,16 @@ class NavigationMenuTest extends TestCase
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
         $expected = collect([
-            NavItem::fromRoute(Routes::get('index')),
-            DropdownNavItem::fromArray('foo', [
-                NavItem::fromRoute(Routes::get('foo/bar')),
+            NavigationItem::create(Routes::get('index')),
+            NavigationGroup::create('Foo', [
+                NavigationItem::create(Routes::get('foo/bar')),
             ]),
         ]);
 
-        $this->assertCount(count($expected), $menu->items);
-        $this->assertEquals($expected, $menu->items);
-    }
-
-    public function testHasDropdownsReturnsFalseWhenThereAreNoDropdowns()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = NavigationMenu::create();
-        $this->assertFalse($menu->hasDropdowns());
-    }
-
-    public function testHasDropdownsReturnsTrueWhenThereAreDropdowns()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $menu = NavigationMenu::create();
-        $this->assertTrue($menu->hasDropdowns());
-    }
-
-    public function testHasDropdownsAlwaysReturnsFalseWhenDropdownsAreDisabled()
-    {
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $this->assertFalse(NavigationMenu::create()->hasDropdowns());
-    }
-
-    public function testGetDropdownsReturnsEmptyArrayThereAreNoDropdowns()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        $menu = NavigationMenu::create();
-        $this->assertCount(0, $menu->getDropdowns());
-        $this->assertSame([], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsReturnsCorrectArrayWhenThereAreDropdowns()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        $menu = NavigationMenu::create();
-        $this->assertCount(1, $menu->getDropdowns());
-
-        $this->assertEquals([
-            DropdownNavItem::fromArray('foo', [
-                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-            ]), ], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsWithMultipleItems()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        Routes::addRoute((new MarkdownPage('foo/baz'))->getRoute());
-        $menu = NavigationMenu::create();
-
-        $this->assertCount(1, $menu->getDropdowns());
-
-        $this->assertEquals([
-            DropdownNavItem::fromArray('foo', [
-                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
-            ]),
-        ], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsWithMultipleDropdowns()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new MarkdownPage('foo/bar'))->getRoute());
-        Routes::addRoute((new MarkdownPage('foo/baz'))->getRoute());
-        Routes::addRoute((new MarkdownPage('cat/hat'))->getRoute());
-
-        $menu = NavigationMenu::create();
-
-        $this->assertCount(2, $menu->getDropdowns());
-
-        $this->assertEquals([
-            DropdownNavItem::fromArray('foo', [
-                NavItem::fromRoute((new MarkdownPage('foo/bar'))->getRoute()),
-                NavItem::fromRoute((new MarkdownPage('foo/baz'))->getRoute()),
-            ]),
-            DropdownNavItem::fromArray('cat', [
-                NavItem::fromRoute((new MarkdownPage('cat/hat'))->getRoute()),
-            ]),
-        ], $menu->getDropdowns());
-    }
-
-    public function testGetDropdownsThrowsExceptionWhenDisabled()
-    {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Dropdowns are not enabled. Enable it by setting `hyde.navigation.subdirectories` to `dropdown`.');
-
-        $menu = NavigationMenu::create();
-        $menu->getDropdowns();
-    }
-
-    public function testDocumentationPagesDoNotGetAddedToDropdowns()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new DocumentationPage('foo'))->getRoute());
-        Routes::addRoute((new DocumentationPage('bar/baz'))->getRoute());
-        $menu = NavigationMenu::create();
-
-        $this->assertFalse($menu->hasDropdowns());
-        $this->assertCount(0, $menu->getDropdowns());
-    }
-
-    public function testBlogPostsDoNotGetAddedToDropdowns()
-    {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
-
-        Routes::addRoute((new MarkdownPost('foo'))->getRoute());
-        Routes::addRoute((new MarkdownPost('bar/baz'))->getRoute());
-
-        $menu = NavigationMenu::create();
-        $this->assertFalse($menu->hasDropdowns());
-        $this->assertCount(0, $menu->getDropdowns());
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
     }
 
     public function testPagesInDropdownsDoNotGetAddedToTheMainNavigation()
@@ -358,29 +245,36 @@ class NavigationMenuTest extends TestCase
 
         Routes::push((new MarkdownPage('foo'))->getRoute());
         Routes::push((new MarkdownPage('bar/baz'))->getRoute());
-        $menu = NavigationMenu::create();
+        $menu = $this->createNavigationMenu();
 
-        $this->assertCount(3, $menu->items);
+        $this->assertCount(3, $menu->getItems());
         $this->assertEquals([
-            NavItem::fromRoute(Routes::get('index')),
-            NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
-            DropdownNavItem::fromArray('bar', [
-                NavItem::fromRoute((new MarkdownPage('bar/baz'))->getRoute()),
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create((new MarkdownPage('foo'))->getRoute()),
+            NavigationGroup::create('Bar', [
+                NavigationItem::create((new MarkdownPage('bar/baz'))->getRoute()),
             ]),
-        ], $menu->items->all());
+        ], $menu->getItems()->all());
     }
 
-    public function testDropdownMenuItemsAreSortedByPriority()
+    public function testCanGetMenuFromServiceContainer()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        $this->assertEquals($this->createNavigationMenu(), app('navigation.main'));
+    }
 
-        Routes::addRoute(new Route(new MarkdownPage('foo/foo', ['navigation.priority' => 1])));
-        Routes::addRoute(new Route(new MarkdownPage('foo/bar', ['navigation.priority' => 2])));
-        Routes::addRoute(new Route(new MarkdownPage('foo/baz', ['navigation.priority' => 3])));
+    public function testCanAddItemsToMainNavigationMenuResolvedFromContainer()
+    {
+        Hyde::boot();
 
-        $menu = NavigationMenu::create();
-        $dropdowns = $menu->getDropdowns();
+        $navigation = app('navigation.main');
+        $navigation->add(new NavigationItem('/foo', 'Foo'));
 
-        $this->assertSame(['Foo', 'Bar', 'Baz'], $dropdowns[0]->getItems()->pluck('label')->toArray());
+        $this->assertCount(2, $navigation->getItems());
+        $this->assertSame('Foo', $navigation->getItems()->last()->getLabel());
+    }
+
+    protected function createNavigationMenu(): MainNavigationMenu
+    {
+        return NavigationMenuGenerator::handle(MainNavigationMenu::class);
     }
 }
