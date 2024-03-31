@@ -297,36 +297,33 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 ## Digging Deeper into the internals
 
-While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
-The best way to learn about this is to look at the source code, so here is a high-level overview with details on where to look in the source code.
+While not required to know, you may find it interesting to learn more about how the navigation is handled internally. Here is a high level overview,
+but you can find more detailed information in the [Navigation API](navigation-api) documentation.
 
-The main navigation menu is the `MainNavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class.
-Both extend the same `BaseNavigationMenu` class:
+The main navigation menu is the `MainNavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class. Both extend the same base `NavigationMenu` class.
 
 ```php
-// TODO: Update these examples
-
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use Hyde\Framework\Features\Navigation\BaseNavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationMenu;
 ```
 
-Within the `BaseNavigationMenu` class, you will find the main logic for how the menus are generated,
+Within the base `NavigationMenu` class, you will find the main logic for how the menus are generated,
 while the child implementations contain the extra logic tailored for their specific use cases.
 
-All the navigation menus store the menu items in their `$items` array containing instances of the `NavigationItem` class.
+All the navigation menus store the menu items in their `$items` collection containing instances of the `NavigationItem` class.
 
 The `NavigationItem` class is a simple class that contains the label and URL of the menu item and is used to represent each item in the menu.
-Dropdowns are represented by `DropdownNavigationItem` instances, which extend the `NavigationItem` class and contain an array of additional `NavigationItem` instances.
+Dropdowns are represented by `NavigationGroup` instances, which extend the `NavigationMenu` class and contain a collection of additional `NavigationItem` instances.
 
 ```php
 use Hyde\Framework\Features\Navigation\NavigationItem;
-use Hyde\Framework\Features\Navigation\DropdownNavigationItem;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 ```
 
 ## The Navigation API
 
-If you want to interact with the site navigation programmatically, or if you want to create complex custom, you can do so through the new Navigation API.
+If you want to interact with the site navigation programmatically, or if you want to create complex custom menus, you can do so through the new Navigation API.
 For most cases you don't need this, as Hyde creates the navigation for you. But it can be useful for advanced users and package developers.
 
 The Navigation API consists of a set of PHP classes, allowing you to fluently interact with the navigation menus. You can learn more about the API in the [Navigation API](navigation-api) documentation.
