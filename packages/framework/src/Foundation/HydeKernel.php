@@ -74,6 +74,7 @@ class HydeKernel implements SerializableContract
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
+        $this->features = new Features;
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
 
