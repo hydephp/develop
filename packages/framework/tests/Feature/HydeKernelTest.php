@@ -542,6 +542,13 @@ class HydeKernelTest extends TestCase
         Hyde::kernel()->boot();
         $this->assertTrue(Hyde::isBooted());
     }
+
+    public function testFeaturesClassIsBoundAsSingleton()
+    {
+        $kernel = new HydeKernel();
+
+        $this->assertSame($kernel->features(), $kernel->features());
+    }
 }
 
 class CallableClass
