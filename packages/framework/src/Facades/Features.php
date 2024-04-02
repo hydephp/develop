@@ -214,6 +214,6 @@ class Features implements SerializableContract
 
     protected function boot(): array
     {
-        return Config::getArray('hyde.features', []);
+        return Config::getArray('hyde.features', static::getDefaultOptions());
     }
 }
