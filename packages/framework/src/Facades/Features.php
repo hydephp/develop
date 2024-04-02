@@ -43,6 +43,11 @@ class Features implements SerializableContract
      */
     protected array $enabled = [];
 
+    public function __construct()
+    {
+        $this->enabled = $this->boot();
+    }
+
     /**
      * Determine if the given specified is enabled.
      */
@@ -205,5 +210,10 @@ class Features implements SerializableContract
             // Integrations
             static::torchlight(),
         ];
+    }
+
+    protected function boot(): array
+    {
+        return []; // @todo Implement boot method
     }
 }
