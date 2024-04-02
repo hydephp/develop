@@ -48,6 +48,7 @@ class Features implements SerializableContract
         $this->enabled = $this->boot();
     }
 
+    /** @experimental This method may change before its release. */
     public function getEnabled(): array
     {
         return $this->enabled;
