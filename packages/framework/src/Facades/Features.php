@@ -48,6 +48,11 @@ class Features implements SerializableContract
         $this->enabled = $this->boot();
     }
 
+    public function getEnabled(): array
+    {
+        return $this->enabled;
+    }
+
     /**
      * Determine if the given specified is enabled.
      */
