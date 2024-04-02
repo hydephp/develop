@@ -37,6 +37,13 @@ class Features implements SerializableContract
     use MockableFeatures;
 
     /**
+     * The features that are enabled.
+     *
+     * @var array<string>
+     */
+    protected array $enabled = [];
+
+    /**
      * Determine if the given specified is enabled.
      */
     public static function enabled(string $feature): bool
