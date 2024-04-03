@@ -124,4 +124,74 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::rss());
         $this->assertFalse(Features::hasDarkmode());
     }
+
+    public function testGetEnabledUsesDefaultOptionsByDefault()
+    {
+        $features = new Features();
+
+        $default = $this->defaultOptions();
+
+        $this->assertSame($default, $features->getEnabled());
+    }
+
+    public function testGetEnabledUsesDefaultOptionsWhenConfigIsEmpty()
+    {
+        config(['hyde' => []]);
+
+        $features = new Features();
+
+        $default = $this->defaultOptions();
+
+        $this->assertSame($default, $features->getEnabled());
+    }
+
+    public function testGetEnabledUsesConfiguredOptions()
+    {
+        $config = [
+            Features::htmlPages(),
+            Features::markdownPosts(),
+            Features::bladePages(),
+        ];
+
+        config(['hyde.features' => $config]);
+
+        $features = new Features();
+        $this->assertSame($config, $features->getEnabled());
+    }
+
+    public function testCannotUseArbitraryValuesInEnabledOptions()
+    {
+        $this->markTestSkipped('Todo: Implement if it is worth the complexity.');
+
+        $config = [
+            Features::htmlPages(),
+            Features::markdownPosts(),
+            Features::bladePages(),
+            'foo',
+        ];
+
+        config(['hyde.features' => $config]);
+
+        $features = new Features();
+        $this->assertSame(array_slice($config, 0, 3), $features->getEnabled());
+    }
+
+    protected function defaultOptions(): array
+    {
+        return [
+            // Page Modules
+            Features::htmlPages(),
+            Features::markdownPosts(),
+            Features::bladePages(),
+            Features::markdownPages(),
+            Features::documentationPages(),
+
+            // Frontend Features
+            Features::darkmode(),
+            Features::documentationSearch(),
+
+            // Integrations
+            Features::torchlight(),
+        ];
+    }
 }
