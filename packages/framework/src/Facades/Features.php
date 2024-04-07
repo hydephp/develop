@@ -46,9 +46,7 @@ class Features implements SerializableContract
     /** @experimental This method may change before its release. */
     public function getEnabled(): array
     {
-        if ($this->enabled === []) {
-            $this->boot();
-        }
+        $this->booted();
 
         return $this->enabled;
     }
@@ -220,5 +218,15 @@ class Features implements SerializableContract
     protected function boot(): void
     {
         $this->enabled = Config::getArray('hyde.features', static::getDefaultOptions());
+    }
+
+    /** @internal */
+    public function booted(): static
+    {
+        if ($this->enabled === []) {
+            $this->boot();
+        }
+
+        return $this;
     }
 }

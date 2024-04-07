@@ -89,7 +89,7 @@ class HydeKernel implements SerializableContract
 
     public function features(): Features
     {
-        return $this->features;
+        return $this->features->booted();
     }
 
     public function hasFeature(string $feature): bool
