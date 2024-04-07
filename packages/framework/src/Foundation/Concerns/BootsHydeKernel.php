@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
-use Hyde\Facades\Features;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
@@ -43,7 +42,6 @@ trait BootsHydeKernel
 
         $this->booting = true;
 
-        $this->features = new Features;
         $this->files = FileCollection::init($this);
         $this->pages = PageCollection::init($this);
         $this->routes = RouteCollection::init($this);
