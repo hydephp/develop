@@ -30,11 +30,13 @@ trait MockableFeatures
         static::$mockedInstances[$feature] = $enabled;
     }
 
+    /** @deprecated Will not be needed after refactor */
     public static function resolveMockedInstance(string $feature): ?bool
     {
         return static::$mockedInstances[$feature] ?? null;
     }
 
+    /** @deprecated Will not be needed after refactor */
     public static function clearMockedInstances(): void
     {
         static::$mockedInstances = [];
