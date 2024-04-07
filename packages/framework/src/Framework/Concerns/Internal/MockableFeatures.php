@@ -20,15 +20,11 @@ trait MockableFeatures
     /** @param string|array<string, bool> $feature */
     public static function mock(string|array $feature, bool $enabled = true): void
     {
-        if (is_array($feature)) {
-            foreach ($feature as $key => $value) {
-                static::mock($key, $value);
-            }
+        $features = is_array($feature) ? $feature : [$feature => $enabled];
 
-            return;
+        foreach ($features as $feature => $enabled) {
+            Hyde::features()->features[$feature] = $enabled;
         }
-
-        Hyde::features()->features[$feature] = $enabled;
     }
 
     /** @deprecated Will not be needed after refactor */
