@@ -17,8 +17,6 @@ use function is_array;
  */
 trait MockableFeatures
 {
-    /** @deprecated */
-    protected static array $mockedInstances = [];
     protected array $mocks = [];
 
     public static function mock(string|array $feature, ?bool $enabled = null): void
@@ -33,8 +31,6 @@ trait MockableFeatures
 
         $instance = Hyde::features();
         $instance->features[$feature] = $enabled;
-
-        static::$mockedInstances[$feature] = $enabled;
     }
 
     /** @deprecated Will not be needed after refactor */
@@ -43,11 +39,5 @@ trait MockableFeatures
         $instance = Hyde::features();
 
         return $instance->features[$feature] ?? null;
-    }
-
-    /** @deprecated Will not be needed after refactor */
-    public static function clearMockedInstances(): void
-    {
-        static::$mockedInstances = [];
     }
 }
