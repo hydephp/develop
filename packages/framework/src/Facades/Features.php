@@ -215,7 +215,8 @@ class Features implements SerializableContract
         ];
     }
 
-    protected function boot(): void
+    /** @internal Reboot the features from configuration. */
+    public function boot(): void
     {
         $this->enabled = Config::getArray('hyde.features', static::getDefaultOptions());
     }
