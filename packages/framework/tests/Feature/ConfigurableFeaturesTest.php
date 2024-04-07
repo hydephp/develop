@@ -163,8 +163,6 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testCannotUseArbitraryValuesInEnabledOptions()
     {
-        $this->markTestSkipped('Todo: Implement if it is worth the complexity.');
-
         $config = [
             Features::htmlPages(),
             Features::markdownPosts(),
@@ -175,7 +173,16 @@ class ConfigurableFeaturesTest extends TestCase
         config(['hyde.features' => $config]);
 
         $features = new Features();
-        $this->assertSame(array_slice($config, 0, 3), $features->getFeatures());
+        $this->assertSame([
+            'html-pages' => true,
+            'markdown-posts' => true,
+            'blade-pages' => true,
+            'markdown-pages' => false,
+            'documentation-pages' => false,
+            'darkmode' => false,
+            'documentation-search' => false,
+            'torchlight' => false,
+        ], $features->getFeatures());
     }
 
     protected function defaultOptions(): array
