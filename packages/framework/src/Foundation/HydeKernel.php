@@ -77,6 +77,7 @@ class HydeKernel implements SerializableContract
 
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
+        $this->features = new Features;
 
         $this->registerExtension(HydeCoreExtension::class);
     }
