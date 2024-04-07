@@ -27,15 +27,12 @@ trait MockableFeatures
             return;
         }
 
-        $instance = Hyde::features();
-        $instance->features[$feature] = $enabled;
+        Hyde::features()->features[$feature] = $enabled;
     }
 
     /** @deprecated Will not be needed after refactor */
     protected static function resolveMockedInstance(string $feature): ?bool
     {
-        $instance = Hyde::features();
-
-        return $instance->features[$feature] ?? null;
+        return Hyde::features()->features[$feature] ?? null;
     }
 }
