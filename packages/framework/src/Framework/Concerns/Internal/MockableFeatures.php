@@ -15,6 +15,7 @@ use function is_array;
  */
 trait MockableFeatures
 {
+    /** @deprecated */
     protected static array $mockedInstances = [];
 
     public static function mock(string|array $feature, ?bool $enabled = null): void
