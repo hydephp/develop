@@ -273,6 +273,7 @@ class HydeKernelTest extends TestCase
 
     public function testToArrayMethod()
     {
+        // AssertSame cannot be used as features is reinstantiated on each call
         $this->assertEquals([
             'basePath' => Hyde::getBasePath(),
             'sourceRoot' => Hyde::getSourceRoot(),
