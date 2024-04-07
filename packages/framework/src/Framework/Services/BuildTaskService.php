@@ -161,6 +161,6 @@ class BuildTaskService
 
     private function canGenerateFeed(): bool
     {
-        return Features::rss();
+        return Features::hasRss();
     }
 }

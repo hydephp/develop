@@ -169,11 +169,9 @@ class Features implements SerializableContract
     }
 
     /**
-     * @deprecated Rename to `hasRss`?
-     *
      * Can an RSS feed be generated?
      */
-    public static function rss(): bool
+    public static function hasRss(): bool
     {
         return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
             && static::hasMarkdownPosts()

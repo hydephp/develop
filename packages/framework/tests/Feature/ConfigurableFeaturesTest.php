@@ -27,7 +27,7 @@ class ConfigurableFeaturesTest extends TestCase
     public function testHasFeatureReturnsTrueWhenFeatureIsEnabled()
     {
         foreach (get_class_methods(Features::class) as $method) {
-            if (str_starts_with($method, 'has') && $method !== 'hasDocumentationSearch' && $method !== 'hasTorchlight') {
+            if (str_starts_with($method, 'has') && $method !== 'hasDocumentationSearch' && $method !== 'hasTorchlight' && $method !== 'hasRss') {
                 $this->assertTrue(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
             }
         }
@@ -92,10 +92,10 @@ class ConfigurableFeaturesTest extends TestCase
     public function testDynamicFeaturesCanBeMocked()
     {
         Features::mock('rss', true);
-        $this->assertTrue(Features::rss());
+        $this->assertTrue(Features::hasRss());
 
         Features::mock('rss', false);
-        $this->assertFalse(Features::rss());
+        $this->assertFalse(Features::hasRss());
     }
 
     public function testMultipleFeaturesCanBeMocked()
@@ -105,7 +105,7 @@ class ConfigurableFeaturesTest extends TestCase
             'darkmode' => true,
         ]);
 
-        $this->assertTrue(Features::rss());
+        $this->assertTrue(Features::hasRss());
         $this->assertTrue(Features::hasDarkmode());
 
         Features::mock([
@@ -113,7 +113,7 @@ class ConfigurableFeaturesTest extends TestCase
             'darkmode' => false,
         ]);
 
-        $this->assertFalse(Features::rss());
+        $this->assertFalse(Features::hasRss());
         $this->assertFalse(Features::hasDarkmode());
     }
 
