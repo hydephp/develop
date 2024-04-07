@@ -27,6 +27,7 @@ class DarkmodeFeatureTest extends TestCase
     public function testHasDarkmode()
     {
         Config::set('hyde.features', []);
+        Hyde::features()->boot();
 
         $this->assertFalse(Features::hasDarkmode());
 
@@ -34,6 +35,7 @@ class DarkmodeFeatureTest extends TestCase
             Features::darkmode(),
         ]);
 
+        Hyde::features()->boot();
         $this->assertTrue(Features::hasDarkmode());
     }
 
@@ -84,6 +86,8 @@ class DarkmodeFeatureTest extends TestCase
             Features::markdownPages(),
             Features::bladePages(),
         ]);
+
+        Hyde::features()->boot();
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
