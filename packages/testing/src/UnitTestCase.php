@@ -36,6 +36,11 @@ abstract class UnitTestCase extends BaseTestCase
 
     protected static function setupKernel(): void
     {
+        // If a config is not bound we bind it
+        if (! app()->bound('config')) {
+            self::mockConfig();
+        }
+
         HydeKernel::setInstance(new HydeKernel());
         self::$hasSetUpKernel = true;
     }
