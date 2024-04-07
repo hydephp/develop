@@ -43,14 +43,13 @@ class Features implements SerializableContract
      */
     protected array $enabled = [];
 
-    public function __construct()
-    {
-        $this->boot();
-    }
-
     /** @experimental This method may change before its release. */
     public function getEnabled(): array
     {
+        if ($this->enabled === []) {
+            $this->boot();
+        }
+
         return $this->enabled;
     }
 
