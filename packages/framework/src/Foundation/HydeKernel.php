@@ -88,9 +88,6 @@ class HydeKernel implements SerializableContract
 
     public function features(): Features
     {
-        /** @experimental May cause side effects */
-        $this->needsToBeBooted();
-
         return $this->features;
     }
 
