@@ -162,7 +162,11 @@ class Features implements SerializableContract
     // in the config file, require preconditions to be met.
     // ====================================================
 
-    /** Can a sitemap be generated? */
+    /**
+     * @deprecated Rename to `hasSitemap`?
+     *
+     * Can a sitemap be generated?
+     */
     public static function sitemap(): bool
     {
         return static::resolveMockedInstance('sitemap') ?? Hyde::hasSiteUrl()
@@ -170,7 +174,11 @@ class Features implements SerializableContract
             && extension_loaded('simplexml');
     }
 
-    /** Can an RSS feed be generated? */
+    /**
+     * @deprecated Rename to `hasRss`?
+     *
+     * Can an RSS feed be generated?
+     */
     public static function rss(): bool
     {
         return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
