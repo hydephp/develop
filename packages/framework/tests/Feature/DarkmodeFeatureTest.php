@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 
 /**
  * @covers \Hyde\Facades\Features::darkmode
@@ -24,30 +24,31 @@ class DarkmodeFeatureTest extends TestCase
         $this->mockPage();
     }
 
-    public function testHasDarkmode()
+    public function testHasDarkmodeIsFalseWhenNotSet()
     {
         Config::set('hyde.features', []);
-        Hyde::features()->boot();
 
         $this->assertFalse(Features::hasDarkmode());
+    }
 
+    public function testHasDarkmodeIsTrueWhenSet()
+    {
         Config::set('hyde.features', [
             Features::darkmode(),
         ]);
 
-        Hyde::features()->boot();
         $this->assertTrue(Features::hasDarkmode());
     }
 
     public function testLayoutHasToggleButtonAndScriptWhenEnabled()
     {
-        Hyde::boot();
-
         Config::set('hyde.features', [
             Features::markdownPages(),
             Features::bladePages(),
             Features::darkmode(),
         ]);
+
+        app()->instance('navigation.main', new MainNavigationMenu());
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
@@ -80,14 +81,12 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testDarkModeThemeButtonIsHiddenInLayoutsWhenDisabled()
     {
-        Hyde::boot();
-
         Config::set('hyde.features', [
             Features::markdownPages(),
             Features::bladePages(),
         ]);
 
-        Hyde::features()->boot();
+        app()->instance('navigation.main', new MainNavigationMenu());
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
