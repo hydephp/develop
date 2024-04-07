@@ -39,9 +39,9 @@ class Features implements SerializableContract
     /**
      * The features that are enabled.
      *
-     * @var array<string>
+     * @var array<string, bool>
      */
-    protected array $enabled = [];
+    protected array $features = [];
 
     public function __construct()
     {
@@ -49,9 +49,9 @@ class Features implements SerializableContract
     }
 
     /** @experimental This method may change before its release. */
-    public function getEnabled(): array
+    public function getFeatures(): array
     {
-        return $this->enabled;
+        return $this->features;
     }
 
     /**
@@ -59,9 +59,7 @@ class Features implements SerializableContract
      */
     public static function enabled(string $feature): bool
     {
-        return static::resolveMockedInstance($feature) ?? in_array(
-            $feature, Hyde::features()->getEnabled()
-        );
+        return Hyde::features()->getFeatures()[$feature] ?? false;
     }
 
     // ================================================
@@ -207,6 +205,7 @@ class Features implements SerializableContract
             ])->toArray();
     }
 
+    /** @return array<string> */
     protected static function getDefaultOptions(): array
     {
         return [
@@ -228,6 +227,28 @@ class Features implements SerializableContract
 
     protected function boot(): void
     {
-        $this->enabled = Config::getArray('hyde.features', static::getDefaultOptions());
+        $options = static::getDefaultOptions();
+
+        $enabled = [];
+
+        // Set all default features to false
+        foreach ($options as $feature) {
+            $enabled[$feature] = false;
+        }
+
+        // Set all features to true if they are enabled in the config file
+        foreach ($this->getConfiguredFeatures() as $feature) {
+            if (in_array($feature, $options)) {
+                $enabled[$feature] = true;
+            }
+        }
+
+        $this->features = $enabled;
+    }
+
+    /** @return array<string> */
+    protected function getConfiguredFeatures(): array
+    {
+        return Config::getArray('hyde.features', static::getDefaultOptions());
     }
 }

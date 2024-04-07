@@ -16,10 +16,9 @@ class ConfigurableFeaturesTest extends TestCase
     public function testHasFeatureReturnsFalseWhenFeatureIsNotEnabled()
     {
         Config::set('hyde.features', []);
-        // Foreach method in Features class that begins with "has"
+
         foreach (get_class_methods(Features::class) as $method) {
             if (str_starts_with($method, 'has')) {
-                // Call method and assert false
                 $this->assertFalse(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
             }
         }
@@ -27,17 +26,10 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testHasFeatureReturnsTrueWhenFeatureIsEnabled()
     {
-        $features = [];
         foreach (get_class_methods(Features::class) as $method) {
-            if (! str_starts_with($method, 'has') && $method !== 'enabled') {
-                $features[] = '\Hyde\Framework\Helpers\Features::'.$method.'()';
+            if (str_starts_with($method, 'has') && $method !== 'hasDocumentationSearch' && $method !== 'hasTorchlight') {
+                $this->assertTrue(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
             }
-        }
-
-        Config::set('hyde.features', $features);
-
-        foreach ($features as $feature) {
-            $this->assertTrue(Features::enabled($feature), 'Method '.$feature.' should return true when feature is enabled');
         }
     }
 
@@ -131,7 +123,7 @@ class ConfigurableFeaturesTest extends TestCase
 
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, $features->getEnabled());
+        $this->assertSame($default, $features->getFeatures());
     }
 
     public function testGetEnabledUsesDefaultOptionsWhenConfigIsEmpty()
@@ -142,7 +134,7 @@ class ConfigurableFeaturesTest extends TestCase
 
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, $features->getEnabled());
+        $this->assertSame($default, $features->getFeatures());
     }
 
     public function testGetEnabledUsesConfiguredOptions()
@@ -152,11 +144,21 @@ class ConfigurableFeaturesTest extends TestCase
             Features::markdownPosts(),
             Features::bladePages(),
         ];
+        $expected = [
+            Features::htmlPages() => true,
+            Features::markdownPosts() => true,
+            Features::bladePages() => true,
+            'markdown-pages' => false,
+            'documentation-pages' => false,
+            'darkmode' => false,
+            'documentation-search' => false,
+            'torchlight' => false,
+        ];
 
         config(['hyde.features' => $config]);
 
         $features = new Features();
-        $this->assertSame($config, $features->getEnabled());
+        $this->assertSame($expected, $features->getFeatures());
     }
 
     public function testCannotUseArbitraryValuesInEnabledOptions()
@@ -173,25 +175,20 @@ class ConfigurableFeaturesTest extends TestCase
         config(['hyde.features' => $config]);
 
         $features = new Features();
-        $this->assertSame(array_slice($config, 0, 3), $features->getEnabled());
+        $this->assertSame(array_slice($config, 0, 3), $features->getFeatures());
     }
 
     protected function defaultOptions(): array
     {
         return [
-            // Page Modules
-            Features::htmlPages(),
-            Features::markdownPosts(),
-            Features::bladePages(),
-            Features::markdownPages(),
-            Features::documentationPages(),
-
-            // Frontend Features
-            Features::darkmode(),
-            Features::documentationSearch(),
-
-            // Integrations
-            Features::torchlight(),
+            'html-pages' => true,
+            'markdown-posts' => true,
+            'blade-pages' => true,
+            'markdown-pages' => true,
+            'documentation-pages' => true,
+            'darkmode' => true,
+            'documentation-search' => true,
+            'torchlight' => true,
         ];
     }
 }
