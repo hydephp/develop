@@ -77,7 +77,6 @@ class HydeKernel implements SerializableContract
 
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
-        $this->features = new Features;
 
         $this->registerExtension(HydeCoreExtension::class);
     }
@@ -89,7 +88,7 @@ class HydeKernel implements SerializableContract
 
     public function features(): Features
     {
-        return $this->features->booted();
+        return $this->features ??= new Features();
     }
 
     public function hasFeature(string $feature): bool

@@ -45,11 +45,14 @@ class Features implements SerializableContract
 
     protected bool $booted = false;
 
+    public function __construct()
+    {
+        $this->boot();
+    }
+
     /** @experimental This method may change before its release. */
     public function getEnabled(): array
     {
-        $this->booted();
-
         return $this->enabled;
     }
 
@@ -231,15 +234,5 @@ class Features implements SerializableContract
         $this->enabled = Config::getArray('hyde.features', static::getDefaultOptions());
 
         $this->booted = true;
-    }
-
-    /** @internal */
-    public function booted(): static
-    {
-        if (! $this->booted) {
-            $this->boot();
-        }
-
-        return $this;
     }
 }
