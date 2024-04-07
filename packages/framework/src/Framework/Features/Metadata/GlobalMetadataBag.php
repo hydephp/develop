@@ -28,7 +28,7 @@ class GlobalMetadataBag extends MetadataBag
             $metadata->add($item);
         }
 
-        if (Features::sitemap()) {
+        if (Features::hasSitemap()) {
             $metadata->add(Meta::link('sitemap', Hyde::url('sitemap.xml'), [
                 'type' => 'application/xml', 'title' => 'Sitemap',
             ]));

@@ -159,11 +159,9 @@ class Features implements SerializableContract
     // ====================================================
 
     /**
-     * @deprecated Rename to `hasSitemap`?
-     *
      * Can a sitemap be generated?
      */
-    public static function sitemap(): bool
+    public static function hasSitemap(): bool
     {
         return static::resolveMockedInstance('sitemap') ?? Hyde::hasSiteUrl()
             && Config::getBool('hyde.generate_sitemap', true)

@@ -18,7 +18,7 @@ class ConfigurableFeaturesTest extends TestCase
         Config::set('hyde.features', []);
 
         foreach (get_class_methods(Features::class) as $method) {
-            if (str_starts_with($method, 'has')) {
+            if (str_starts_with($method, 'has') && $method !== 'hasSitemap') {
                 $this->assertFalse(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
             }
         }
@@ -36,20 +36,20 @@ class ConfigurableFeaturesTest extends TestCase
     public function testCanGenerateSitemapHelperReturnsTrueIfHydeHasBaseUrl()
     {
         config(['hyde.url' => 'foo']);
-        $this->assertTrue(Features::sitemap());
+        $this->assertTrue(Features::hasSitemap());
     }
 
     public function testCanGenerateSitemapHelperReturnsFalseIfHydeDoesNotHaveBaseUrl()
     {
         config(['hyde.url' => '']);
-        $this->assertFalse(Features::sitemap());
+        $this->assertFalse(Features::hasSitemap());
     }
 
     public function testCanGenerateSitemapHelperReturnsFalseIfSitemapsAreDisabledInConfig()
     {
         config(['hyde.url' => 'foo']);
         config(['hyde.generate_sitemap' => false]);
-        $this->assertFalse(Features::sitemap());
+        $this->assertFalse(Features::hasSitemap());
     }
 
     public function testToArrayMethodReturnsMethodArray()
