@@ -18,7 +18,7 @@ use function is_array;
 trait MockableFeatures
 {
     /** @param string|array<string, bool> $feature */
-    public static function mock(string|array $feature, ?bool $enabled = null): void
+    public static function mock(string|array $feature, bool $enabled = true): void
     {
         if (is_array($feature)) {
             foreach ($feature as $key => $value) {
