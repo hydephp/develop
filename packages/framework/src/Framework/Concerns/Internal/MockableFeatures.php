@@ -26,10 +26,4 @@ trait MockableFeatures
             Hyde::features()->features[$feature] = $enabled;
         }
     }
-
-    /** @deprecated Will not be needed after refactor */
-    protected static function resolveMockedInstance(string $feature): ?bool
-    {
-        return Hyde::features()->features[$feature] ?? null;
-    }
 }

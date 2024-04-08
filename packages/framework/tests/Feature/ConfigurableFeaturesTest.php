@@ -89,31 +89,22 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::hasDarkmode());
     }
 
-    public function testDynamicFeaturesCanBeMocked()
-    {
-        Features::mock('rss', true);
-        $this->assertTrue(Features::hasRss());
-
-        Features::mock('rss', false);
-        $this->assertFalse(Features::hasRss());
-    }
-
     public function testMultipleFeaturesCanBeMocked()
     {
         Features::mock([
-            'rss' => true,
+            'blade-pages' => true,
             'darkmode' => true,
         ]);
 
-        $this->assertTrue(Features::hasRss());
+        $this->assertTrue(Features::hasBladePages());
         $this->assertTrue(Features::hasDarkmode());
 
         Features::mock([
-            'rss' => false,
+            'blade-pages' => false,
             'darkmode' => false,
         ]);
 
-        $this->assertFalse(Features::hasRss());
+        $this->assertFalse(Features::hasBladePages());
         $this->assertFalse(Features::hasDarkmode());
     }
 

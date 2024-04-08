@@ -163,7 +163,7 @@ class Features implements SerializableContract
      */
     public static function hasSitemap(): bool
     {
-        return static::resolveMockedInstance('sitemap') ?? Hyde::hasSiteUrl()
+        return Hyde::hasSiteUrl()
             && Config::getBool('hyde.generate_sitemap', true)
             && extension_loaded('simplexml');
     }
@@ -173,7 +173,7 @@ class Features implements SerializableContract
      */
     public static function hasRss(): bool
     {
-        return static::resolveMockedInstance('rss') ?? Hyde::hasSiteUrl()
+        return Hyde::hasSiteUrl()
             && static::hasMarkdownPosts()
             && Config::getBool('hyde.rss.enabled', true)
             && extension_loaded('simplexml')
