@@ -163,7 +163,7 @@ class Features implements SerializableContract
 
     /**
      * Torchlight is by default enabled automatically when an API token
-     * is set in the .env file but is disabled when running tests.
+     * is set in the `.env` file but is disabled when running tests.
      */
     public static function hasTorchlight(): bool
     {
