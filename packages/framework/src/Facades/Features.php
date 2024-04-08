@@ -46,12 +46,6 @@ class Features implements SerializableContract
         $this->features = $this->boot();
     }
 
-    /** @experimental This method may change before its release. */
-    public function getFeatures(): array
-    {
-        return $this->features;
-    }
-
     /**
      * Determine if the given specified is enabled.
      */
@@ -68,6 +62,16 @@ class Features implements SerializableContract
     public static function enabled(): array
     {
         return array_keys(array_filter(Hyde::features()->getFeatures()));
+    }
+
+    /**
+     * Get all features and their status.
+     *
+     * @return array<string, bool>
+     */
+    public static function getFeatures(): array
+    {
+        return Hyde::features()->toArray();
     }
 
     // =================================================

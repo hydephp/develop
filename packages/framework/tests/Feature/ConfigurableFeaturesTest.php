@@ -170,22 +170,18 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testGetEnabledUsesDefaultOptionsByDefault()
     {
-        $features = new Features();
-
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, $features->getFeatures());
+        $this->assertSame($default, Features::getFeatures());
     }
 
     public function testGetEnabledUsesDefaultOptionsWhenConfigIsEmpty()
     {
         config(['hyde' => []]);
 
-        $features = new Features();
-
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, $features->getFeatures());
+        $this->assertSame($default, Features::getFeatures());
     }
 
     public function testGetEnabledUsesConfiguredOptions()
@@ -208,8 +204,7 @@ class ConfigurableFeaturesTest extends TestCase
 
         config(['hyde.features' => $config]);
 
-        $features = new Features();
-        $this->assertSame($expected, $features->getFeatures());
+        $this->assertSame($expected, Features::getFeatures());
     }
 
     public function testCannotUseArbitraryValuesInEnabledOptions()
