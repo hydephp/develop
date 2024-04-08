@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
+- The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
 
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
