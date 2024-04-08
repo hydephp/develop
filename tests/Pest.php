@@ -16,7 +16,7 @@ declare(strict_types=1);
 use Hyde\Testing\TestCase;
 
 uses(TestCase::class)->in('Feature');
-uses(TestCase::class)->in(__DIR__.'/../packages/framework/tests/Unit');
+uses(\Hyde\Testing\UnitTestCase::class)->in(__DIR__.'/../packages/framework/tests/Unit');
 
 /*
 |--------------------------------------------------------------------------
