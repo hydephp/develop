@@ -4,15 +4,37 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Facades\Features;
-use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\Config;
+use Hyde\Testing\UnitTestCase;
+use Hyde\Foundation\HydeKernel;
 
 /**
  * @covers \Hyde\Facades\Features
  */
-class ConfigurableFeaturesTest extends TestCase
+class ConfigurableFeaturesTest extends UnitTestCase
 {
+    protected static array $defaultConfig;
+
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        self::$defaultConfig = require Hyde::path('config/hyde.php');
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        self::mockConfig();
+
+        HydeKernel::setInstance(new HydeKernel());
+    }
+
     public function testHasHtmlPagesReturnsFalseWhenFeatureIsNotEnabled()
     {
         $this->expectMethodReturnsFalse('hasHtmlPages');
@@ -96,6 +118,7 @@ class ConfigurableFeaturesTest extends TestCase
     public function testCanGenerateSitemapHelperReturnsTrueIfHydeHasBaseUrl()
     {
         config(['hyde.url' => 'foo']);
+
         $this->assertTrue(Features::hasSitemap());
     }
 
@@ -241,13 +264,18 @@ class ConfigurableFeaturesTest extends TestCase
 
     protected function expectMethodReturnsFalse(string $method): void
     {
-        Config::set('hyde.features', []);
-
         $this->assertFalse(Features::$method(), "Method '$method' should return false when feature is not enabled");
     }
 
     protected function expectMethodReturnsTrue(string $method): void
     {
+        $this->mockDefaultConfig();
+
         $this->assertTrue(Features::$method(), "Method '$method' should return true when feature is enabled");
+    }
+
+    protected function mockDefaultConfig(): void
+    {
+        self::mockConfig(['hyde' => self::$defaultConfig]);
     }
 }
