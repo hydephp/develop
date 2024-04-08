@@ -13,24 +13,84 @@ use Illuminate\Support\Facades\Config;
  */
 class ConfigurableFeaturesTest extends TestCase
 {
-    public function testHasFeatureReturnsFalseWhenFeatureIsNotEnabled()
+    public function testHasHtmlPagesReturnsFalseWhenFeatureIsNotEnabled()
     {
-        Config::set('hyde.features', []);
-
-        foreach (get_class_methods(Features::class) as $method) {
-            if (str_starts_with($method, 'has') && $method !== 'hasSitemap') {
-                $this->expectMethodReturnsFalse($method);
-            }
-        }
+        $this->expectMethodReturnsFalse('hasHtmlPages');
     }
 
-    public function testHasFeatureReturnsTrueWhenFeatureIsEnabled()
+    public function testHasBladePagesReturnsFalseWhenFeatureIsNotEnabled()
     {
-        foreach (get_class_methods(Features::class) as $method) {
-            if (str_starts_with($method, 'has') && $method !== 'hasDocumentationSearch' && $method !== 'hasTorchlight' && $method !== 'hasRss') {
-                $this->expectMethodReturnsTrue($method);
-            }
-        }
+        $this->expectMethodReturnsFalse('hasBladePages');
+    }
+
+    public function testHasMarkdownPagesReturnsFalseWhenFeatureIsNotEnabled()
+    {
+        $this->expectMethodReturnsFalse('hasMarkdownPages');
+    }
+
+    public function testHasMarkdownPostsReturnsFalseWhenFeatureIsNotEnabled()
+    {
+        $this->expectMethodReturnsFalse('hasMarkdownPosts');
+    }
+
+    public function testHasDocumentationPagesReturnsFalseWhenFeatureIsNotEnabled()
+    {
+        $this->expectMethodReturnsFalse('hasDocumentationPages');
+    }
+
+    public function testHasDocumentationSearchReturnsFalseWhenFeatureIsNotEnabled()
+    {
+        $this->expectMethodReturnsFalse('hasDocumentationSearch');
+    }
+
+    public function testHasDarkmodeReturnsFalseWhenFeatureIsNotEnabled()
+    {
+        $this->expectMethodReturnsFalse('hasDarkmode');
+    }
+
+    public function testHasTorchlightReturnsFalseWhenFeatureIsNotEnabled()
+    {
+        $this->expectMethodReturnsFalse('hasTorchlight');
+    }
+
+    public function testHasRssReturnsFalseWhenFeatureIsNotEnabled()
+    {
+        $this->expectMethodReturnsFalse('hasRss');
+    }
+
+    public function testHasHtmlPagesReturnsTrueWhenFeatureIsEnabled()
+    {
+        $this->expectMethodReturnsTrue('hasHtmlPages');
+    }
+
+    public function testHasBladePagesReturnsTrueWhenFeatureIsEnabled()
+    {
+        $this->expectMethodReturnsTrue('hasBladePages');
+    }
+
+    public function testHasMarkdownPagesReturnsTrueWhenFeatureIsEnabled()
+    {
+        $this->expectMethodReturnsTrue('hasMarkdownPages');
+    }
+
+    public function testHasMarkdownPostsReturnsTrueWhenFeatureIsEnabled()
+    {
+        $this->expectMethodReturnsTrue('hasMarkdownPosts');
+    }
+
+    public function testHasDocumentationPagesReturnsTrueWhenFeatureIsEnabled()
+    {
+        $this->expectMethodReturnsTrue('hasDocumentationPages');
+    }
+
+    public function testHasDarkmodeReturnsTrueWhenFeatureIsEnabled()
+    {
+        $this->expectMethodReturnsTrue('hasDarkmode');
+    }
+
+    public function testHasSitemapReturnsTrueWhenFeatureIsEnabled()
+    {
+        $this->expectMethodReturnsTrue('hasSitemap');
     }
 
     public function testCanGenerateSitemapHelperReturnsTrueIfHydeHasBaseUrl()
@@ -192,6 +252,8 @@ class ConfigurableFeaturesTest extends TestCase
 
     protected function expectMethodReturnsFalse(string $method): void
     {
+        Config::set('hyde.features', []);
+
         $this->assertFalse(Features::$method(), "Method '$method' should return false when feature is not enabled");
     }
 
