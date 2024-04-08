@@ -20,8 +20,6 @@ use function app;
 
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
- *
- * @see https://jetstream.laravel.com/
  */
 class Features implements SerializableContract
 {
