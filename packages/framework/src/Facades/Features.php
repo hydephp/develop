@@ -7,6 +7,7 @@ namespace Hyde\Facades;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Foundation\Concerns\Feature;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 
