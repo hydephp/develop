@@ -41,7 +41,7 @@ class Features implements SerializableContract
     /**
      * Determine if the given specified is enabled.
      */
-    public static function has(string $feature): bool
+    public static function has(Feature $feature): bool
     {
         return in_array($feature, static::enabled());
     }
