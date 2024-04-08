@@ -182,6 +182,8 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testCannotUseArbitraryValuesInEnabledOptions()
     {
+        $this->expectException(\TypeError::class); // Todo: Consider if we should handle this again by ignoring it, or throw with a more specific message
+
         $config = [
             Features::htmlPages(),
             Features::markdownPosts(),

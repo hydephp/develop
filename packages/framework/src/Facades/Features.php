@@ -12,7 +12,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 
 use function is_array;
-use function array_keys;
+use function array_map;
 use function array_filter;
 use function extension_loaded;
 use function in_array;
@@ -29,9 +29,7 @@ class Features implements SerializableContract
     /**
      * The features that are enabled.
      *
-     * @todo Simplify internal state complexity
-     *
-     * @var array<string, bool>
+     * @var array<string>
      */
     protected array $features = [];
 
@@ -55,7 +53,7 @@ class Features implements SerializableContract
      */
     public static function enabled(): array
     {
-        return array_keys(array_filter(Hyde::features()->toArray()));
+        return Hyde::features()->features;
     }
 
     // =================================================
@@ -192,7 +190,7 @@ class Features implements SerializableContract
     {
         return collect(Feature::cases())
             ->mapWithKeys(fn (Feature $feature): array => [
-                 $feature->value => isset($this->features[$feature->value]),
+                $feature->value => in_array($feature->value, $this->features),
             ])->toArray();
     }
 
@@ -204,23 +202,7 @@ class Features implements SerializableContract
 
     protected function boot(): array
     {
-        $options = static::getDefaultOptions();
-
-        $enabled = [];
-
-        // Set all default features to false
-        foreach ($options as $feature) {
-            $enabled[$feature->value] = false;
-        }
-
-        // Set all features to true if they are enabled in the config file
-        foreach ($this->getConfiguredFeatures() as $feature) {
-            if (in_array($feature, $options)) {
-                $enabled[$feature->value] = true;
-            }
-        }
-
-        return $enabled;
+        return array_map(fn (Feature $feature): string => $feature->value, $this->getConfiguredFeatures());
     }
 
     /** @return array<Feature> */
@@ -239,7 +221,12 @@ class Features implements SerializableContract
         $features = is_array($feature) ? $feature : [$feature => $enabled];
 
         foreach ($features as $feature => $enabled) {
-            Hyde::features()->features[$feature] = $enabled;
+            if ($enabled !== true) {
+                Hyde::features()->features = array_filter(Hyde::features()->features, fn (string $search): bool => $search !== $feature);
+                continue;
+            }
+
+            Hyde::features()->features[] = $feature;
         }
     }
 }
