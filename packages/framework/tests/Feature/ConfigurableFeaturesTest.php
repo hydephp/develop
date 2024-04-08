@@ -218,12 +218,11 @@ class ConfigurableFeaturesTest extends TestCase
 
         config(['hyde.features' => $config]);
 
-        $features = new Features();
         $this->assertSame([
             'html-pages',
             'markdown-posts',
             'blade-pages',
-        ], $features->enabled());
+        ], Hyde::features()->enabled());
     }
 
     protected function defaultOptions(): array
