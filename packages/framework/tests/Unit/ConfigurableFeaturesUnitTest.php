@@ -11,7 +11,7 @@ beforeEach(function () {
     $this->needsKernel();
 });
 
-test('expect has method returns false when feature is disabled', function (Feature $feature) {
+test('has feature method returns false when feature is disabled', function (Feature $feature) {
     $method = "has$feature->name";
 
     Config::set('hyde.features', []);
@@ -20,7 +20,7 @@ test('expect has method returns false when feature is disabled', function (Featu
     $this->assertFalse(Features::$method(), "Method '$method' should return false when feature is not enabled");
 })->with(Feature::cases())->covers(Hyde\Facades\Features::class);
 
-test('expect has method returns true when feature is enabled', function (Feature $feature) {
+test('has feature method returns true when feature is enabled', function (Feature $feature) {
     $method = "has$feature->name";
 
     Config::set('hyde.features', [$feature]);
