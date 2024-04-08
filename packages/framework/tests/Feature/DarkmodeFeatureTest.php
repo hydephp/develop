@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
@@ -81,12 +82,12 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testDarkModeThemeButtonIsHiddenInLayoutsWhenDisabled()
     {
+        Hyde::boot();
+
         Config::set('hyde.features', [
             Features::markdownPages(),
             Features::bladePages(),
         ]);
-
-        app()->instance('navigation.main', new MainNavigationMenu());
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
@@ -100,11 +101,11 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testDarkModeThemeButtonIsHiddenInDocumentationPagesWhenDisabled()
     {
+        Hyde::boot();
+
         Config::set('hyde.features', [
             Features::documentationPages(),
         ]);
-
-        view()->share('page', new DocumentationPage());
 
         $view = view('hyde::layouts/docs')->with([
             'title' => 'foo',
