@@ -19,7 +19,7 @@ class ConfigurableFeaturesTest extends TestCase
 
         foreach (get_class_methods(Features::class) as $method) {
             if (str_starts_with($method, 'has') && $method !== 'hasSitemap') {
-                $this->assertFalse(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
+                $this->expectMethodReturnsFalse($method);
             }
         }
     }
@@ -28,7 +28,7 @@ class ConfigurableFeaturesTest extends TestCase
     {
         foreach (get_class_methods(Features::class) as $method) {
             if (str_starts_with($method, 'has') && $method !== 'hasDocumentationSearch' && $method !== 'hasTorchlight' && $method !== 'hasRss') {
-                $this->assertTrue(Features::$method(), 'Method '.$method.' should return true when feature is enabled');
+                $this->expectMethodReturnsTrue($method);
             }
         }
     }
@@ -188,5 +188,15 @@ class ConfigurableFeaturesTest extends TestCase
             'documentation-search' => true,
             'torchlight' => true,
         ];
+    }
+
+    protected function expectMethodReturnsFalse(string $method): void
+    {
+        $this->assertFalse(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
+    }
+
+    protected function expectMethodReturnsTrue(string $method): void
+    {
+        $this->assertTrue(Features::$method(), 'Method '.$method.' should return true when feature is enabled');
     }
 }
