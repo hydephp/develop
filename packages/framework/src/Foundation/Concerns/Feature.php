@@ -13,5 +13,17 @@ namespace Hyde\Foundation\Concerns;
  */
 enum Feature
 {
-    //
+    // Page Modules
+    case HtmlPages;
+    case MarkdownPosts;
+    case BladePages;
+    case MarkdownPages;
+    case DocumentationPages;
+
+    // Frontend Features
+    case Darkmode;
+    case DocumentationSearch;
+
+    // Integrations
+    case Torchlight;
 }
