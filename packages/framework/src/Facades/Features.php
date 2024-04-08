@@ -57,7 +57,7 @@ class Features implements SerializableContract
      */
     public static function has(string $feature): bool
     {
-        return Hyde::features()->getFeatures()[$feature] ?? false;
+        return in_array($feature, static::enabled());
     }
 
     public static function enabled(): array
