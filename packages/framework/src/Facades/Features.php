@@ -203,7 +203,7 @@ class Features implements SerializableContract
         return $this->features;
     }
 
-    /** @return array<string> */
+    /** @return array<Feature> */
     protected static function getDefaultOptions(): array
     {
         return [
@@ -244,7 +244,7 @@ class Features implements SerializableContract
         return $enabled;
     }
 
-    /** @return array<string> */
+    /** @return array<Feature> */
     protected function getConfiguredFeatures(): array
     {
         return Config::getArray('hyde.features', static::getDefaultOptions());
