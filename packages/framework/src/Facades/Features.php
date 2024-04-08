@@ -22,6 +22,7 @@ use function app;
  * @internal Until this class is split into a service/manager class, it should not be used outside of Hyde as the API is subject to change.
  *
  * @todo Split facade logic to service/manager class. (Initial and mock data could be set with boot/set methods)
+ * @todo Add new enabled method to get just the enabled options array, and another called options/status/similar to get all options with their status.
  * Based entirely on Laravel Jetstream (License MIT)
  *
  * @see https://jetstream.laravel.com/
@@ -51,10 +52,8 @@ class Features implements SerializableContract
 
     /**
      * Determine if the given specified is enabled.
-     *
-     * @todo Rename to has() and add new enabled method to get just the enabled options array, and another called options/status/similar to get all options with their status.
      */
-    public static function enabled(string $feature): bool
+    public static function has(string $feature): bool
     {
         return Hyde::features()->getFeatures()[$feature] ?? false;
     }
@@ -65,39 +64,39 @@ class Features implements SerializableContract
 
     public static function hasHtmlPages(): bool
     {
-        return static::enabled(static::htmlPages());
+        return static::has(static::htmlPages());
     }
 
     public static function hasBladePages(): bool
     {
-        return static::enabled(static::bladePages());
+        return static::has(static::bladePages());
     }
 
     public static function hasMarkdownPages(): bool
     {
-        return static::enabled(static::markdownPages());
+        return static::has(static::markdownPages());
     }
 
     public static function hasMarkdownPosts(): bool
     {
-        return static::enabled(static::markdownPosts());
+        return static::has(static::markdownPosts());
     }
 
     public static function hasDocumentationPages(): bool
     {
-        return static::enabled(static::documentationPages());
+        return static::has(static::documentationPages());
     }
 
     public static function hasDocumentationSearch(): bool
     {
-        return static::enabled(static::documentationSearch())
+        return static::has(static::documentationSearch())
             && static::hasDocumentationPages()
             && count(DocumentationPage::files()) > 0;
     }
 
     public static function hasDarkmode(): bool
     {
-        return static::enabled(static::darkmode());
+        return static::has(static::darkmode());
     }
 
     /**
@@ -106,7 +105,7 @@ class Features implements SerializableContract
      */
     public static function hasTorchlight(): bool
     {
-        return static::enabled(static::torchlight())
+        return static::has(static::torchlight())
             && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
     }

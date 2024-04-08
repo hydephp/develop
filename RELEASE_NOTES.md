@@ -90,6 +90,7 @@ For more information, see https://github.com/hydephp/develop/pull/1498.
 
 The following methods in the `Features` class have been renamed to follow a more consistent naming convention:
 
+- `Features::enabled()` has been renamed to `Features::has()`
 - `Features::sitemap()` has been renamed to `Features::hasSitemap()`
 - `Features::rss()` has been renamed to `Features::hasRss()`
 

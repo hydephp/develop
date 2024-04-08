@@ -76,7 +76,7 @@ class HydeKernelTest extends TestCase
 
     public function testHasFeatureHelperCallsMethodOnFeaturesClass()
     {
-        $this->assertSame(Features::enabled('foo'), Hyde::hasFeature('foo'));
+        $this->assertSame(Features::has('foo'), Hyde::hasFeature('foo'));
     }
 
     public function testCurrentPageHelperReturnsCurrentPageName()
