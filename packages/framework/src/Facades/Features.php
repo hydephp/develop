@@ -104,24 +104,6 @@ class Features implements SerializableContract
         return static::has(static::darkmode());
     }
 
-    public static function hasDocumentationSearch(): bool
-    {
-        return static::has(static::documentationSearch())
-            && static::hasDocumentationPages()
-            && count(DocumentationPage::files()) > 0;
-    }
-
-    /**
-     * Torchlight is by default enabled automatically when an API token
-     * is set in the .env file but is disabled when running tests.
-     */
-    public static function hasTorchlight(): bool
-    {
-        return static::has(static::torchlight())
-            && (Config::getNullableString('torchlight.token') !== null)
-            && (app('env') !== 'testing');
-    }
-
     // =================================================
     // Configure features to be used in the config file.
     // =================================================
@@ -191,6 +173,24 @@ class Features implements SerializableContract
             && Config::getBool('hyde.rss.enabled', true)
             && extension_loaded('simplexml')
             && count(MarkdownPost::files()) > 0;
+    }
+
+    /**
+     * Torchlight is by default enabled automatically when an API token
+     * is set in the .env file but is disabled when running tests.
+     */
+    public static function hasTorchlight(): bool
+    {
+        return static::has(static::torchlight())
+            && (Config::getNullableString('torchlight.token') !== null)
+            && (app('env') !== 'testing');
+    }
+
+    public static function hasDocumentationSearch(): bool
+    {
+        return static::has(static::documentationSearch())
+            && static::hasDocumentationPages()
+            && count(DocumentationPage::files()) > 0;
     }
 
     /**
