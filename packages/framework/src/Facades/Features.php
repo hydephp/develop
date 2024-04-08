@@ -21,12 +21,6 @@ use function app;
 /**
  * Allows features to be enabled and disabled in a simple object-oriented manner.
  *
- * @internal Until this class is split into a service/manager class, it should not be used outside of Hyde as the API is subject to change.
- *
- * @todo Split facade logic to service/manager class. (Initial and mock data could be set with boot/set methods)
- * @todo Add new enabled method to get just the enabled options array, and another called options/status/similar to get all options with their status.
- * Based entirely on Laravel Jetstream (License MIT)
- *
  * @see https://jetstream.laravel.com/
  */
 class Features implements SerializableContract
