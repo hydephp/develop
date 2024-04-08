@@ -121,7 +121,7 @@ class ValidationService
 
     public function check_a_torchlight_api_token_is_set(Result $result): Result
     {
-        if (! Features::enabled(Features::torchlight())) {
+        if (! Features::has(Features::torchlight())) {
             return $result->skip('Check a Torchlight API token is set')
                 ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
         }

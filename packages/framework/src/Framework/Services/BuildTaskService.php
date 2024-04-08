@@ -156,11 +156,11 @@ class BuildTaskService
 
     private function canGenerateSitemap(): bool
     {
-        return Features::sitemap();
+        return Features::hasSitemap();
     }
 
     private function canGenerateFeed(): bool
     {
-        return Features::rss();
+        return Features::hasRss();
     }
 }

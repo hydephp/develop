@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
+- The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
 
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
@@ -82,6 +83,18 @@ In case you have customized the `GenerateSearch` post-build task you may, depend
 want to adapt your code to interact with the new `InMemoryPage`, which is generated in the `HydeCoreExtension` class.
 
 For more information, see https://github.com/hydephp/develop/pull/1498.
+
+## Medium impact
+
+### Features class method renames
+
+The following methods in the `Features` class have been renamed to follow a more consistent naming convention:
+
+- `Features::enabled()` has been renamed to `Features::has()`
+- `Features::sitemap()` has been renamed to `Features::hasSitemap()`
+- `Features::rss()` has been renamed to `Features::hasRss()`
+
+Note that this class was previously marked as internal in v1, but the change is logged here in case it was used in configuration files or custom code.
 
 ## Low impact
 

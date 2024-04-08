@@ -58,6 +58,7 @@ class HydeKernel implements SerializableContract
     protected string $outputDirectory = '_site';
     protected string $mediaDirectory = '_media';
 
+    protected Features $features;
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
 
@@ -73,6 +74,7 @@ class HydeKernel implements SerializableContract
     public function __construct(?string $basePath = null)
     {
         $this->setBasePath($basePath ?? getcwd());
+
         $this->filesystem = new Filesystem($this);
         $this->hyperlinks = new Hyperlinks($this);
 
@@ -86,12 +88,12 @@ class HydeKernel implements SerializableContract
 
     public function features(): Features
     {
-        return new Features;
+        return $this->features ??= new Features();
     }
 
     public function hasFeature(string $feature): bool
     {
-        return Features::enabled($feature);
+        return Features::has($feature);
     }
 
     /** @inheritDoc */

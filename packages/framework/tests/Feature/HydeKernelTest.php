@@ -76,7 +76,7 @@ class HydeKernelTest extends TestCase
 
     public function testHasFeatureHelperCallsMethodOnFeaturesClass()
     {
-        $this->assertSame(Features::enabled('foo'), Hyde::hasFeature('foo'));
+        $this->assertSame(Features::has('foo'), Hyde::hasFeature('foo'));
     }
 
     public function testCurrentPageHelperReturnsCurrentPageName()
@@ -273,8 +273,7 @@ class HydeKernelTest extends TestCase
 
     public function testToArrayMethod()
     {
-        // AssertSame cannot be used as features is reinstantiated on each call
-        $this->assertEquals([
+        $this->assertSame([
             'basePath' => Hyde::getBasePath(),
             'sourceRoot' => Hyde::getSourceRoot(),
             'outputDirectory' => Hyde::getOutputDirectory(),
@@ -541,6 +540,13 @@ class HydeKernelTest extends TestCase
         $this->assertFalse(Hyde::isBooted());
         Hyde::kernel()->boot();
         $this->assertTrue(Hyde::isBooted());
+    }
+
+    public function testFeaturesClassIsBoundAsSingleton()
+    {
+        $kernel = new HydeKernel();
+
+        $this->assertSame($kernel->features(), $kernel->features());
     }
 }
 
