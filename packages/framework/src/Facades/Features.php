@@ -194,12 +194,6 @@ class Features implements SerializableContract
             ])->toArray();
     }
 
-    /** @return array<Feature> */
-    protected static function getDefaultOptions(): array
-    {
-        return Feature::cases();
-    }
-
     protected function boot(): array
     {
         return array_map(fn (Feature $feature): string => $feature->value, $this->getConfiguredFeatures());
@@ -208,7 +202,7 @@ class Features implements SerializableContract
     /** @return array<Feature> */
     protected function getConfiguredFeatures(): array
     {
-        return Config::getArray('hyde.features', static::getDefaultOptions());
+        return Config::getArray('hyde.features', Feature::cases());
     }
 
     /**
