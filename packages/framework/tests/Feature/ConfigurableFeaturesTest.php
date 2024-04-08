@@ -28,7 +28,7 @@ class ConfigurableFeaturesTest extends TestCase
     {
         foreach (get_class_methods(Features::class) as $method) {
             if (str_starts_with($method, 'has') && $method !== 'hasDocumentationSearch' && $method !== 'hasTorchlight' && $method !== 'hasRss') {
-                $this->assertTrue(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
+                $this->assertTrue(Features::$method(), 'Method '.$method.' should return true when feature is enabled');
             }
         }
     }
