@@ -10,6 +10,7 @@ use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Concerns\Feature;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
@@ -76,7 +77,8 @@ class HydeKernelTest extends TestCase
 
     public function testHasFeatureHelperCallsMethodOnFeaturesClass()
     {
-        $this->assertSame(Features::has('foo'), Hyde::hasFeature('foo'));
+        $this->assertSame(Features::has(Feature::BladePages), Hyde::hasFeature(Feature::BladePages));
+        $this->assertSame(Features::has(Feature::BladePages), Hyde::hasFeature('blade-pages'));
     }
 
     public function testCurrentPageHelperReturnsCurrentPageName()
