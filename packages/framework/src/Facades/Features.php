@@ -231,7 +231,7 @@ class Features implements SerializableContract
      *
      * @param  string|array<string, bool>  $feature
      */
-    public static function mock(string|array $feature, bool $enabled = true): void
+    public static function mock(string|array $feature, bool $enabled = null): void
     {
         $features = is_array($feature) ? $feature : [$feature => $enabled];
 
