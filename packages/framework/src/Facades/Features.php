@@ -29,6 +29,8 @@ class Features implements SerializableContract
     /**
      * The features that are enabled.
      *
+     * @todo Simplify internal state complexity
+     *
      * @var array<string, bool>
      */
     protected array $features = [];
