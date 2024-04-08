@@ -206,21 +206,7 @@ class Features implements SerializableContract
     /** @return array<Feature> */
     protected static function getDefaultOptions(): array
     {
-        return [
-            // Page Modules
-            static::htmlPages(),
-            static::markdownPosts(),
-            static::bladePages(),
-            static::markdownPages(),
-            static::documentationPages(),
-
-            // Frontend Features
-            static::darkmode(),
-            static::documentationSearch(),
-
-            // Integrations
-            static::torchlight(),
-        ];
+        return Feature::cases();
     }
 
     protected function boot(): array
