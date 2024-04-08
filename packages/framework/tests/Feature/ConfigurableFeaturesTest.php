@@ -9,6 +9,8 @@ use Hyde\Facades\Features;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
+use function config;
+
 /**
  * @covers \Hyde\Facades\Features
  */
@@ -95,6 +97,28 @@ class ConfigurableFeaturesTest extends TestCase
             'documentation-search' => false,
             'torchlight' => false,
         ], (new Features)->toArray());
+    }
+
+    public function testSerializedClassState()
+    {
+        config(['hyde.features' => [
+            Features::htmlPages(),
+            Features::markdownPosts(),
+            Features::bladePages(),
+        ]]);
+
+        $this->assertSame(<<<'JSON'
+        {
+            "html-pages": true,
+            "markdown-posts": true,
+            "blade-pages": true,
+            "markdown-pages": false,
+            "documentation-pages": false,
+            "darkmode": false,
+            "documentation-search": false,
+            "torchlight": false
+        }
+        JSON, (new Features)->toJson(JSON_PRETTY_PRINT));
     }
 
     public function testFeaturesCanBeMocked()
