@@ -51,6 +51,8 @@ class Features implements SerializableContract
 
     /**
      * Determine if the given specified is enabled.
+     *
+     * @todo Rename to has() and add new enabled method to get just the enabled options array, and another called options/status/similar to get all options with their status.
      */
     public static function enabled(string $feature): bool
     {
