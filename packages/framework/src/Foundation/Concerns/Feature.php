@@ -7,6 +7,8 @@ namespace Hyde\Foundation\Concerns;
 /**
  * A configurable feature that belongs to the Features class.
  *
+ * @see \Hyde\Facades\Features
+ *
  * @experimental This class may change significantly before its release.
  */
 enum Feature
