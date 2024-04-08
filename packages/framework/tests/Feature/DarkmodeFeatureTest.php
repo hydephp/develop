@@ -82,12 +82,12 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testDarkModeThemeButtonIsHiddenInLayoutsWhenDisabled()
     {
-        Hyde::boot();
-
         Config::set('hyde.features', [
             Features::markdownPages(),
             Features::bladePages(),
         ]);
+
+        Hyde::boot();
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
