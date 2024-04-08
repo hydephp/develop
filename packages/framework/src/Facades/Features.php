@@ -43,7 +43,7 @@ class Features implements SerializableContract
 
     public function __construct()
     {
-        $this->boot();
+        $this->features = $this->boot();
     }
 
     /** @experimental This method may change before its release. */
@@ -225,7 +225,7 @@ class Features implements SerializableContract
         ];
     }
 
-    protected function boot(): void
+    protected function boot(): array
     {
         $options = static::getDefaultOptions();
 
@@ -243,7 +243,7 @@ class Features implements SerializableContract
             }
         }
 
-        $this->features = $enabled;
+        return $enabled;
     }
 
     /** @return array<string> */
