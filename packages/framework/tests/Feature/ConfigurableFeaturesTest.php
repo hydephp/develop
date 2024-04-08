@@ -192,11 +192,11 @@ class ConfigurableFeaturesTest extends TestCase
 
     protected function expectMethodReturnsFalse(string $method): void
     {
-        $this->assertFalse(Features::$method(), 'Method '.$method.' should return false when feature is not enabled');
+        $this->assertFalse(Features::$method(), "Method '$method' should return false when feature is not enabled");
     }
 
     protected function expectMethodReturnsTrue(string $method): void
     {
-        $this->assertTrue(Features::$method(), 'Method '.$method.' should return true when feature is enabled');
+        $this->assertTrue(Features::$method(), "Method '$method' should return true when feature is enabled");
     }
 }
