@@ -43,7 +43,7 @@ class Features implements SerializableContract
      */
     public static function has(Feature $feature): bool
     {
-        return in_array($feature, static::enabled());
+        return in_array($feature->value, static::enabled());
     }
 
     /**
