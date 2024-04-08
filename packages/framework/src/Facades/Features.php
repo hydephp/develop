@@ -60,6 +60,11 @@ class Features implements SerializableContract
         return in_array($feature, static::enabled());
     }
 
+    /**
+     * Get all enabled features.
+     *
+     * @return array<string>
+     */
     public static function enabled(): array
     {
         return array_keys(array_filter(Hyde::features()->getFeatures()));
