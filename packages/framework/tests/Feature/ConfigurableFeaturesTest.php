@@ -63,30 +63,18 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::hasSitemap());
     }
 
-    public function testToArrayMethodReturnsMethodArray()
-    {
-        $array = (new Features)->toArray();
-        $this->assertIsArray($array);
-        $this->assertNotEmpty($array);
-        foreach ($array as $feature => $enabled) {
-            $this->assertIsString($feature);
-            $this->assertIsBool($enabled);
-            $this->assertStringStartsNotWith('has', $feature);
-        }
-    }
-
     public function testToArrayMethodContainsAllSettings()
     {
         $this->assertSame([
-            'html-pages',
-            'markdown-posts',
-            'blade-pages',
-            'markdown-pages',
-            'documentation-pages',
-            'darkmode',
-            'documentation-search',
-            'torchlight',
-        ], array_keys((new Features)->toArray()));
+            'html-pages' => true,
+            'markdown-posts' => true,
+            'blade-pages' => true,
+            'markdown-pages' => true,
+            'documentation-pages' => true,
+            'darkmode' => true,
+            'documentation-search' => true,
+            'torchlight' => true,
+        ], (new Features)->toArray());
     }
 
     public function testFeaturesCanBeMocked()
