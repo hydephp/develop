@@ -137,20 +137,17 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testGetEnabledUsesConfiguredOptions()
     {
-        $config = [
+        config(['hyde.features' => [
             Features::htmlPages(),
             Features::markdownPosts(),
             Features::bladePages(),
-        ];
-        $expected = [
+        ]]);
+
+        $this->assertSame([
             'html-pages',
             'markdown-posts',
             'blade-pages',
-        ];
-
-        config(['hyde.features' => $config]);
-
-        $this->assertSame($expected, Features::enabled());
+        ], Features::enabled());
     }
 
     public function testCannotUseArbitraryValuesInEnabledOptions()
