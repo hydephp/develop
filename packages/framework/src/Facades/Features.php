@@ -11,6 +11,8 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
 
+use function array_keys;
+use function array_filter;
 use function extension_loaded;
 use function in_array;
 use function count;
@@ -56,6 +58,11 @@ class Features implements SerializableContract
     public static function has(string $feature): bool
     {
         return Hyde::features()->getFeatures()[$feature] ?? false;
+    }
+
+    public static function enabled(): array
+    {
+        return array_keys(array_filter(Hyde::features()->getFeatures()));
     }
 
     // ================================================
