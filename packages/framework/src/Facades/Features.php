@@ -99,16 +99,16 @@ class Features implements SerializableContract
         return static::has(static::documentationPages());
     }
 
+    public static function hasDarkmode(): bool
+    {
+        return static::has(static::darkmode());
+    }
+
     public static function hasDocumentationSearch(): bool
     {
         return static::has(static::documentationSearch())
             && static::hasDocumentationPages()
             && count(DocumentationPage::files()) > 0;
-    }
-
-    public static function hasDarkmode(): bool
-    {
-        return static::has(static::darkmode());
     }
 
     /**
