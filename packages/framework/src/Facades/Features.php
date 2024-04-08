@@ -231,13 +231,13 @@ class Features implements SerializableContract
 
         // Set all default features to false
         foreach ($options as $feature) {
-            $enabled[$feature] = false;
+            $enabled[$feature->value] = false;
         }
 
         // Set all features to true if they are enabled in the config file
         foreach ($this->getConfiguredFeatures() as $feature) {
             if (in_array($feature, $options)) {
-                $enabled[$feature] = true;
+                $enabled[$feature->value] = true;
             }
         }
 
