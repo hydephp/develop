@@ -33,3 +33,9 @@ test('has feature method returns true when feature is enabled', function (Featur
         Feature::Torchlight,
     ]))
 )->covers(Hyde\Facades\Features::class);
+
+test('all enum cases have a features accessor', function (Feature $feature) {
+    $method = "has$feature->name";
+
+    $this->assertTrue(method_exists(Features::class, $method), "Method '$method' should exist on Features facade");
+})->with(Feature::cases())->covers(Hyde\Facades\Features::class);
