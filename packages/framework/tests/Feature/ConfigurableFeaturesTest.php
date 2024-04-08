@@ -143,9 +143,9 @@ class ConfigurableFeaturesTest extends TestCase
             Features::bladePages(),
         ];
         $expected = [
-            Features::htmlPages() => true,
-            Features::markdownPosts() => true,
-            Features::bladePages() => true,
+            Features::htmlPages()->value => true,
+            Features::markdownPosts()->value => true,
+            Features::bladePages()->value => true,
             'markdown-pages' => false,
             'documentation-pages' => false,
             'darkmode' => false,
