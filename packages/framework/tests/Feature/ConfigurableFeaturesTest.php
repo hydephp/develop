@@ -77,18 +77,16 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testToArrayMethodContainsAllSettings()
     {
-        $array = (new Features)->toArray();
-
-        $this->assertArrayHasKey('html-pages', $array);
-        $this->assertArrayHasKey('markdown-posts', $array);
-        $this->assertArrayHasKey('blade-pages', $array);
-        $this->assertArrayHasKey('markdown-pages', $array);
-        $this->assertArrayHasKey('documentation-pages', $array);
-        $this->assertArrayHasKey('darkmode', $array);
-        $this->assertArrayHasKey('documentation-search', $array);
-        $this->assertArrayHasKey('torchlight', $array);
-
-        $this->assertCount(8, $array);
+        $this->assertSame([
+            'html-pages',
+            'markdown-posts',
+            'blade-pages',
+            'markdown-pages',
+            'documentation-pages',
+            'darkmode',
+            'documentation-search',
+            'torchlight',
+        ], array_keys((new Features)->toArray()));
     }
 
     public function testFeaturesCanBeMocked()
