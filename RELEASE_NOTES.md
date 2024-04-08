@@ -83,6 +83,17 @@ want to adapt your code to interact with the new `InMemoryPage`, which is genera
 
 For more information, see https://github.com/hydephp/develop/pull/1498.
 
+## Medium impact
+
+### Features class method renames
+
+The following methods in the `Features` class have been renamed to follow a more consistent naming convention:
+
+- `Features::sitemap()` has been renamed to `Features::hasSitemap()`
+- `Features::rss()` has been renamed to `Features::hasRss()`
+
+Note that this class was previously marked as internal in v1, but the change is logged here in case it was used in configuration files or custom code.
+
 ## Low impact
 
 ### Navigation internal changes
