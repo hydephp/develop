@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
@@ -87,7 +86,7 @@ class DarkmodeFeatureTest extends TestCase
             Features::bladePages(),
         ]);
 
-        Hyde::boot();
+        app()->instance('navigation.main', new MainNavigationMenu());
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
