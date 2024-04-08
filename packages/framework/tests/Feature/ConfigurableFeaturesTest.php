@@ -14,31 +14,6 @@ use Illuminate\Support\Facades\Config;
  */
 class ConfigurableFeaturesTest extends TestCase
 {
-    public function testHasHtmlPagesReturnsFalseWhenFeatureIsNotEnabled()
-    {
-        $this->expectMethodReturnsFalse('hasHtmlPages');
-    }
-
-    public function testHasBladePagesReturnsFalseWhenFeatureIsNotEnabled()
-    {
-        $this->expectMethodReturnsFalse('hasBladePages');
-    }
-
-    public function testHasMarkdownPagesReturnsFalseWhenFeatureIsNotEnabled()
-    {
-        $this->expectMethodReturnsFalse('hasMarkdownPages');
-    }
-
-    public function testHasMarkdownPostsReturnsFalseWhenFeatureIsNotEnabled()
-    {
-        $this->expectMethodReturnsFalse('hasMarkdownPosts');
-    }
-
-    public function testHasDocumentationPagesReturnsFalseWhenFeatureIsNotEnabled()
-    {
-        $this->expectMethodReturnsFalse('hasDocumentationPages');
-    }
-
     public function testHasDocumentationSearchReturnsFalseWhenFeatureIsNotEnabled()
     {
         $this->expectMethodReturnsFalse('hasDocumentationSearch');
@@ -57,31 +32,6 @@ class ConfigurableFeaturesTest extends TestCase
     public function testHasRssReturnsFalseWhenFeatureIsNotEnabled()
     {
         $this->expectMethodReturnsFalse('hasRss');
-    }
-
-    public function testHasHtmlPagesReturnsTrueWhenFeatureIsEnabled()
-    {
-        $this->expectMethodReturnsTrue('hasHtmlPages');
-    }
-
-    public function testHasBladePagesReturnsTrueWhenFeatureIsEnabled()
-    {
-        $this->expectMethodReturnsTrue('hasBladePages');
-    }
-
-    public function testHasMarkdownPagesReturnsTrueWhenFeatureIsEnabled()
-    {
-        $this->expectMethodReturnsTrue('hasMarkdownPages');
-    }
-
-    public function testHasMarkdownPostsReturnsTrueWhenFeatureIsEnabled()
-    {
-        $this->expectMethodReturnsTrue('hasMarkdownPosts');
-    }
-
-    public function testHasDocumentationPagesReturnsTrueWhenFeatureIsEnabled()
-    {
-        $this->expectMethodReturnsTrue('hasDocumentationPages');
     }
 
     public function testHasDarkmodeReturnsTrueWhenFeatureIsEnabled()
