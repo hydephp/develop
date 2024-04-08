@@ -70,40 +70,6 @@ class Features implements SerializableContract
         return array_keys(array_filter(Hyde::features()->getFeatures()));
     }
 
-    // ================================================
-    // Determine if a given feature is enabled.
-    // ================================================
-
-    public static function hasHtmlPages(): bool
-    {
-        return static::has(static::htmlPages());
-    }
-
-    public static function hasBladePages(): bool
-    {
-        return static::has(static::bladePages());
-    }
-
-    public static function hasMarkdownPages(): bool
-    {
-        return static::has(static::markdownPages());
-    }
-
-    public static function hasMarkdownPosts(): bool
-    {
-        return static::has(static::markdownPosts());
-    }
-
-    public static function hasDocumentationPages(): bool
-    {
-        return static::has(static::documentationPages());
-    }
-
-    public static function hasDarkmode(): bool
-    {
-        return static::has(static::darkmode());
-    }
-
     // =================================================
     // Configure features to be used in the config file.
     // =================================================
@@ -146,6 +112,40 @@ class Features implements SerializableContract
     public static function torchlight(): string
     {
         return 'torchlight';
+    }
+
+    // ================================================
+    // Determine if a given feature is enabled.
+    // ================================================
+
+    public static function hasHtmlPages(): bool
+    {
+        return static::has(static::htmlPages());
+    }
+
+    public static function hasBladePages(): bool
+    {
+        return static::has(static::bladePages());
+    }
+
+    public static function hasMarkdownPages(): bool
+    {
+        return static::has(static::markdownPages());
+    }
+
+    public static function hasMarkdownPosts(): bool
+    {
+        return static::has(static::markdownPosts());
+    }
+
+    public static function hasDocumentationPages(): bool
+    {
+        return static::has(static::documentationPages());
+    }
+
+    public static function hasDarkmode(): bool
+    {
+        return static::has(static::darkmode());
     }
 
     // ====================================================
