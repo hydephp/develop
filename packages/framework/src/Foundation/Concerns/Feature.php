@@ -11,19 +11,19 @@ namespace Hyde\Foundation\Concerns;
  *
  * @experimental This class may change significantly before its release.
  */
-enum Feature
+enum Feature: string
 {
     // Page Modules
-    case HtmlPages;
-    case MarkdownPosts;
-    case BladePages;
-    case MarkdownPages;
-    case DocumentationPages;
+    case HtmlPages = 'html-pages';
+    case MarkdownPosts = 'markdown-posts';
+    case BladePages = 'blade-pages';
+    case MarkdownPages = 'markdown-pages';
+    case DocumentationPages = 'documentation-pages';
 
     // Frontend Features
-    case Darkmode;
-    case DocumentationSearch;
+    case Darkmode = 'darkmode';
+    case DocumentationSearch = 'documentation-search';
 
     // Integrations
-    case Torchlight;
+    case Torchlight = 'torchlight';
 }
