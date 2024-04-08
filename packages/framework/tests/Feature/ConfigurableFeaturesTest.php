@@ -225,15 +225,10 @@ class ConfigurableFeaturesTest extends TestCase
 
         $features = new Features();
         $this->assertSame([
-            'html-pages' => true,
-            'markdown-posts' => true,
-            'blade-pages' => true,
-            'markdown-pages' => false,
-            'documentation-pages' => false,
-            'darkmode' => false,
-            'documentation-search' => false,
-            'torchlight' => false,
-        ], $features->getFeatures());
+            'html-pages',
+            'markdown-posts',
+            'blade-pages',
+        ], $features->enabled());
     }
 
     protected function defaultOptions(): array
