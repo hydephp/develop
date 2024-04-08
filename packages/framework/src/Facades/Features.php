@@ -191,8 +191,8 @@ class Features implements SerializableContract
     public function toArray(): array
     {
         return collect(Feature::cases())
-            ->mapWithKeys(fn (Feature $case): array => [
-                $case->value => $this->features[$case->value],
+            ->mapWithKeys(fn (Feature $feature): array => [
+                $feature->value => $this->features[$feature->value],
             ])->toArray();
     }
 
