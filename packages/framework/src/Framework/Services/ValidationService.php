@@ -10,6 +10,7 @@ use Hyde\Facades\Features;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Foundation\Concerns\Feature;
 use Hyde\Support\Models\ValidationResult as Result;
 
 use function count;
@@ -121,7 +122,7 @@ class ValidationService
 
     public function check_a_torchlight_api_token_is_set(Result $result): Result
     {
-        if (! Features::has(Features::torchlight())) {
+        if (! Features::has(Feature::Torchlight)) {
             return $result->skip('Check a Torchlight API token is set')
                 ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
         }

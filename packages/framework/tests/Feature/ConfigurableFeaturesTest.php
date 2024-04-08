@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Facades\Features;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\Concerns\Feature;
 use Illuminate\Support\Facades\Config;
 
 use function config;
@@ -82,9 +83,9 @@ class ConfigurableFeaturesTest extends TestCase
     public function testToArrayMethodContainsAllSettingsIncludingFalseValues()
     {
         config(['hyde.features' => [
-            Features::htmlPages(),
-            Features::markdownPosts(),
-            Features::bladePages(),
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
         ]]);
 
         $this->assertSame([
@@ -102,9 +103,9 @@ class ConfigurableFeaturesTest extends TestCase
     public function testSerializedClassState()
     {
         config(['hyde.features' => [
-            Features::htmlPages(),
-            Features::markdownPosts(),
-            Features::bladePages(),
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
         ]]);
 
         $this->assertSame(<<<'JSON'
@@ -168,9 +169,9 @@ class ConfigurableFeaturesTest extends TestCase
     public function testGetEnabledUsesConfiguredOptions()
     {
         config(['hyde.features' => [
-            Features::htmlPages(),
-            Features::markdownPosts(),
-            Features::bladePages(),
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
         ]]);
 
         $this->assertSame([
@@ -185,9 +186,9 @@ class ConfigurableFeaturesTest extends TestCase
         $this->expectException(\TypeError::class); // Todo: Consider if we should handle this again by ignoring it, or throw with a more specific message
 
         $config = [
-            Features::htmlPages(),
-            Features::markdownPosts(),
-            Features::bladePages(),
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
             'foo',
         ];
 

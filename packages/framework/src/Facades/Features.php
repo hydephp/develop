@@ -56,82 +56,38 @@ class Features implements SerializableContract
         return Hyde::features()->features;
     }
 
-    // =================================================
-    // Configure features to be used in the config file.
-    // =================================================
-
-    public static function htmlPages(): Feature
-    {
-        return Feature::HtmlPages;
-    }
-
-    public static function bladePages(): Feature
-    {
-        return Feature::BladePages;
-    }
-
-    public static function markdownPages(): Feature
-    {
-        return Feature::MarkdownPages;
-    }
-
-    public static function markdownPosts(): Feature
-    {
-        return Feature::MarkdownPosts;
-    }
-
-    public static function documentationPages(): Feature
-    {
-        return Feature::DocumentationPages;
-    }
-
-    public static function documentationSearch(): Feature
-    {
-        return Feature::DocumentationSearch;
-    }
-
-    public static function darkmode(): Feature
-    {
-        return Feature::Darkmode;
-    }
-
-    public static function torchlight(): Feature
-    {
-        return Feature::Torchlight;
-    }
-
     // ================================================
     // Determine if a given feature is enabled.
     // ================================================
 
     public static function hasHtmlPages(): bool
     {
-        return static::has(static::htmlPages());
+        return static::has(Feature::HtmlPages);
     }
 
     public static function hasBladePages(): bool
     {
-        return static::has(static::bladePages());
+        return static::has(Feature::BladePages);
     }
 
     public static function hasMarkdownPages(): bool
     {
-        return static::has(static::markdownPages());
+        return static::has(Feature::MarkdownPages);
     }
 
     public static function hasMarkdownPosts(): bool
     {
-        return static::has(static::markdownPosts());
+        return static::has(Feature::MarkdownPosts);
     }
 
     public static function hasDocumentationPages(): bool
     {
-        return static::has(static::documentationPages());
+        return static::has(Feature::DocumentationPages);
     }
 
     public static function hasDarkmode(): bool
     {
-        return static::has(static::darkmode());
+        return static::has(Feature::Darkmode);
     }
 
     // ====================================================
@@ -167,14 +123,14 @@ class Features implements SerializableContract
      */
     public static function hasTorchlight(): bool
     {
-        return static::has(static::torchlight())
+        return static::has(Feature::Torchlight)
             && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
     }
 
     public static function hasDocumentationSearch(): bool
     {
-        return static::has(static::documentationSearch())
+        return static::has(Feature::DocumentationSearch)
             && static::hasDocumentationPages()
             && count(DocumentationPage::files()) > 0;
     }

@@ -15,6 +15,7 @@ This serves two purposes:
 
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
+- **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
@@ -70,6 +71,55 @@ The following configuration entries have been updated:
 -  Changed configuration option `docs.table_of_contents` to `docs.sidebar.table_of_contents` in https://github.com/hydephp/develop/pull/1584
 -  Upgrade path: Move the `table_of_contents` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
 
+### Features configuration changes
+
+The `hyde.features` configuration format has changed to use Enums instead of static method calls. This change is breaking as it will require you to update your `config/hyde.php` file.
+
+#### Instead of
+
+```php
+// filepath: config/hyde.php
+
+'features' => [
+    // Page Modules
+    Features::htmlPages(),
+    Features::markdownPosts(),
+    Features::bladePages(),
+    Features::markdownPages(),
+    Features::documentationPages(),
+    
+    // Frontend Features
+    Features::darkmode(),
+    Features::documentationSearch(),
+    
+    // Integrations
+    Features::torchlight(),
+],
+```
+
+#### Use instead
+
+```php
+// filepath: config/hyde.php
+
+'features' => [
+    // Page Modules
+    Feature::HtmlPages,
+    Feature::MarkdownPosts,
+    Feature::BladePages,
+    Feature::MarkdownPages,
+    Feature::DocumentationPages,
+
+    // Frontend Features
+    Feature::Darkmode,
+    Feature::DocumentationSearch,
+
+    // Integrations
+    Feature::Torchlight,
+],
+```
+
+Of course, if you have disabled any of the features, do not include them in the new array.
 
 ## General impact
 

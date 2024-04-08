@@ -23,8 +23,8 @@
 */
 
 use Hyde\Facades\Author;
-use Hyde\Facades\Features;
 use Hyde\Facades\Meta;
+use Hyde\Foundation\Concerns\Feature;
 
 return [
 
@@ -248,24 +248,23 @@ return [
     |
     | Some of Hyde's features are optional. Feel free to disable the features
     | you don't need by removing or commenting them out from this array.
-    | This config concept is directly inspired by Laravel Jetstream.
     |
     */
 
     'features' => [
         // Page Modules
-        Features::htmlPages(),
-        Features::markdownPosts(),
-        Features::bladePages(),
-        Features::markdownPages(),
-        Features::documentationPages(),
+        Feature::HtmlPages,
+        Feature::MarkdownPosts,
+        Feature::BladePages,
+        Feature::MarkdownPages,
+        Feature::DocumentationPages,
 
         // Frontend Features
-        Features::darkmode(),
-        Features::documentationSearch(),
+        Feature::Darkmode,
+        Feature::DocumentationSearch,
 
         // Integrations
-        Features::torchlight(),
+        Feature::Torchlight,
     ],
 
     /*

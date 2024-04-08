@@ -290,12 +290,12 @@ that runs during the build command, and a frontend JavaScript plugin that adds t
 
 >info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)?
 
-The search feature is enabled by default. You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
+The search feature is enabled by default. You can disable it by removing the `DocumentationSearch` option from the Hyde `Features` config array.
 
 ```php
 // filepath: config/hyde.php
 'features' => [
-    Features::documentationSearch(), // [tl! --]
+    Feature::DocumentationSearch, // [tl! --]
 ],
 ```
 
