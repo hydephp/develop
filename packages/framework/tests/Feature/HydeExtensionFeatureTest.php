@@ -104,7 +104,6 @@ class HydeExtensionFeatureTest extends TestCase
 
         $this->directory('foo');
         $this->file('foo/bar.txt');
-        $this->kernel->boot();
 
         $this->assertArrayHasKey('foo/bar.txt', Files::all());
         $this->assertEquals(new SourceFile('foo/bar.txt', TestPageClass::class), Files::get('foo/bar.txt'));
