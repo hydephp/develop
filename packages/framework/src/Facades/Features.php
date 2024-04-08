@@ -9,8 +9,8 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
-use Hyde\Framework\Concerns\Internal\MockableFeatures;
 
+use function is_array;
 use function array_keys;
 use function array_filter;
 use function extension_loaded;
@@ -32,7 +32,6 @@ use function app;
 class Features implements SerializableContract
 {
     use Serializable;
-    use MockableFeatures;
 
     /**
      * The features that are enabled.
@@ -254,5 +253,19 @@ class Features implements SerializableContract
     protected function getConfiguredFeatures(): array
     {
         return Config::getArray('hyde.features', static::getDefaultOptions());
+    }
+
+    /**
+     * @internal This method is not covered by the backward compatibility promise.
+     *
+     * @param  string|array<string, bool>  $feature
+     */
+    public static function mock(string|array $feature, bool $enabled = true): void
+    {
+        $features = is_array($feature) ? $feature : [$feature => $enabled];
+
+        foreach ($features as $feature => $enabled) {
+            Hyde::features()->features[$feature] = $enabled;
+        }
     }
 }
