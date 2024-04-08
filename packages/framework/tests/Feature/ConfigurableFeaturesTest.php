@@ -123,7 +123,7 @@ class ConfigurableFeaturesTest extends TestCase
     {
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, Features::getFeatures());
+        $this->assertSame($default, Features::enabled());
     }
 
     public function testGetEnabledUsesDefaultOptionsWhenConfigIsEmpty()
@@ -132,7 +132,7 @@ class ConfigurableFeaturesTest extends TestCase
 
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, Features::getFeatures());
+        $this->assertSame($default, Features::enabled());
     }
 
     public function testGetEnabledUsesConfiguredOptions()
@@ -143,19 +143,14 @@ class ConfigurableFeaturesTest extends TestCase
             Features::bladePages(),
         ];
         $expected = [
-            Features::htmlPages()->value => true,
-            Features::markdownPosts()->value => true,
-            Features::bladePages()->value => true,
-            'markdown-pages' => false,
-            'documentation-pages' => false,
-            'darkmode' => false,
-            'documentation-search' => false,
-            'torchlight' => false,
+            'html-pages',
+            'markdown-posts',
+            'blade-pages',
         ];
 
         config(['hyde.features' => $config]);
 
-        $this->assertSame($expected, Features::getFeatures());
+        $this->assertSame($expected, Features::enabled());
     }
 
     public function testCannotUseArbitraryValuesInEnabledOptions()
@@ -179,14 +174,14 @@ class ConfigurableFeaturesTest extends TestCase
     protected function defaultOptions(): array
     {
         return [
-            'html-pages' => true,
-            'markdown-posts' => true,
-            'blade-pages' => true,
-            'markdown-pages' => true,
-            'documentation-pages' => true,
-            'darkmode' => true,
-            'documentation-search' => true,
-            'torchlight' => true,
+            'html-pages',
+            'markdown-posts',
+            'blade-pages',
+            'markdown-pages',
+            'documentation-pages',
+            'darkmode',
+            'documentation-search',
+            'torchlight',
         ];
     }
 

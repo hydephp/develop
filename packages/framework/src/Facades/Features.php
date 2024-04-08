@@ -53,19 +53,7 @@ class Features implements SerializableContract
      */
     public static function enabled(): array
     {
-        return array_keys(array_filter(Hyde::features()->getFeatures()));
-    }
-
-    /**
-     * Get all features and their status.
-     *
-     * @deprecated This method might not actually provide value, as it's not interesting information to have.
-     *
-     * @return array<string, bool>
-     */
-    public static function getFeatures(): array
-    {
-        return Hyde::features()->toArray();
+        return array_keys(array_filter(Hyde::features()->toArray()));
     }
 
     // =================================================
