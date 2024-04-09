@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Enums\Feature;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use JetBrains\PhpStorm\Deprecated;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
@@ -106,6 +107,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::HtmlPages` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::HtmlPages Enum case', replacement: 'Feature::HtmlPages', since: '1.6.0')]
     public static function htmlPages(): Feature
     {
         return Feature::HtmlPages;
@@ -114,6 +116,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::BladePages` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::BladePages Enum case', replacement: 'Feature::BladePages', since: '1.6.0')]
     public static function bladePages(): Feature
     {
         return Feature::BladePages;
@@ -122,6 +125,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::MarkdownPages` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::MarkdownPages Enum case', replacement: 'Feature::MarkdownPages', since: '1.6.0')]
     public static function markdownPages(): Feature
     {
         return Feature::MarkdownPages;
@@ -130,6 +134,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::MarkdownPosts` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::MarkdownPosts Enum case', replacement: 'Feature::MarkdownPosts', since: '1.6.0')]
     public static function markdownPosts(): Feature
     {
         return Feature::MarkdownPosts;
@@ -138,6 +143,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::DocumentationPages` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::DocumentationPages Enum case', replacement: 'Feature::DocumentationPages', since: '1.6.0')]
     public static function documentationPages(): Feature
     {
         return Feature::DocumentationPages;
@@ -146,6 +152,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::DocumentationSearch` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::DocumentationSearch Enum case', replacement: 'Feature::DocumentationSearch', since: '1.6.0')]
     public static function documentationSearch(): Feature
     {
         return Feature::DocumentationSearch;
@@ -154,6 +161,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::Darkmode` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::Darkmode Enum case', replacement: 'Feature::Darkmode', since: '1.6.0')]
     public static function darkmode(): Feature
     {
         return Feature::Darkmode;
@@ -162,6 +170,7 @@ class Features implements SerializableContract
     /**
      * @deprecated This method will be removed in v2.0. Please use `Feature::Torchlight` instead.
      */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::Torchlight Enum case', replacement: 'Feature::Torchlight', since: '1.6.0')]
     public static function torchlight(): Feature
     {
         return Feature::Torchlight;
