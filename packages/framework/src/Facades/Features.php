@@ -29,7 +29,7 @@ class Features implements SerializableContract
     /**
      * The features that are enabled.
      *
-     * @var array<Feature>
+     * @var array<\Hyde\Foundation\Concerns\Feature>
      */
     protected array $features = [];
 
