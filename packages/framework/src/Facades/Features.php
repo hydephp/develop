@@ -145,7 +145,9 @@ class Features implements SerializableContract
 
     protected function boot(): array
     {
-        return Arr::map($this->getConfiguredFeatures(), fn (Feature $feature): string => $feature->value);
+        return Arr::map($this->getConfiguredFeatures(), function (Feature $feature): string {
+            return $feature->value;
+        });
     }
 
     /** @return array<Feature> */
