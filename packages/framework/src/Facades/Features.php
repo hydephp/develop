@@ -54,39 +54,39 @@ class Features implements SerializableContract
 
     public static function hasHtmlPages(): bool
     {
-        return static::enabled(static::htmlPages());
+        return static::enabled(Feature::HtmlPages);
     }
 
     public static function hasBladePages(): bool
     {
-        return static::enabled(static::bladePages());
+        return static::enabled(Feature::BladePages);
     }
 
     public static function hasMarkdownPages(): bool
     {
-        return static::enabled(static::markdownPages());
+        return static::enabled(Feature::MarkdownPages);
     }
 
     public static function hasMarkdownPosts(): bool
     {
-        return static::enabled(static::markdownPosts());
+        return static::enabled(Feature::MarkdownPosts);
     }
 
     public static function hasDocumentationPages(): bool
     {
-        return static::enabled(static::documentationPages());
+        return static::enabled(Feature::DocumentationPages);
     }
 
     public static function hasDocumentationSearch(): bool
     {
-        return static::enabled(static::documentationSearch())
+        return static::enabled(Feature::DocumentationSearch)
             && static::hasDocumentationPages()
             && count(DocumentationPage::files()) > 0;
     }
 
     public static function hasDarkmode(): bool
     {
-        return static::enabled(static::darkmode());
+        return static::enabled(Feature::Darkmode);
     }
 
     /**
@@ -95,7 +95,7 @@ class Features implements SerializableContract
      */
     public static function hasTorchlight(): bool
     {
-        return static::enabled(static::torchlight())
+        return static::enabled(Feature::Torchlight)
             && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
     }
@@ -203,18 +203,18 @@ class Features implements SerializableContract
     {
         return [
             // Page Modules
-            static::htmlPages(),
-            static::markdownPosts(),
-            static::bladePages(),
-            static::markdownPages(),
-            static::documentationPages(),
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+            Feature::MarkdownPages,
+            Feature::DocumentationPages,
 
             // Frontend Features
-            static::darkmode(),
-            static::documentationSearch(),
+            Feature::Darkmode,
+            Feature::DocumentationSearch,
 
             // Integrations
-            static::torchlight(),
+            Feature::Torchlight,
         ];
     }
 }
