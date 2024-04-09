@@ -35,7 +35,7 @@ class Features implements SerializableContract
 
     public function __construct()
     {
-        $this->features = $this->getConfiguredFeatures();
+        $this->features = Config::getArray('hyde.features', Feature::cases());
     }
 
     /**
@@ -141,12 +141,6 @@ class Features implements SerializableContract
         return Arr::mapWithKeys(Feature::cases(), fn (Feature $feature): array => [
             $feature->value => static::has($feature),
         ]);
-    }
-
-    /** @return array<Feature> */
-    protected function getConfiguredFeatures(): array
-    {
-        return Config::getArray('hyde.features', Feature::cases());
     }
 
     /**
