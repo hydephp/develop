@@ -118,6 +118,16 @@ class Features implements SerializableContract
     }
 
     /**
+     * Should documentation search be enabled?
+     */
+    public static function hasDocumentationSearch(): bool
+    {
+        return static::has(Feature::DocumentationSearch)
+            && static::hasDocumentationPages()
+            && count(DocumentationPage::files()) > 0;
+    }
+
+    /**
      * Torchlight is by default enabled automatically when an API token
      * is set in the `.env` file but is disabled when running tests.
      */
@@ -126,16 +136,6 @@ class Features implements SerializableContract
         return static::has(Feature::Torchlight)
             && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
-    }
-
-    /**
-     * Should documentation search be enabled?
-     */
-    public static function hasDocumentationSearch(): bool
-    {
-        return static::has(Feature::DocumentationSearch)
-            && static::hasDocumentationPages()
-            && count(DocumentationPage::files()) > 0;
     }
 
     /**
