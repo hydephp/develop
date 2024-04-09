@@ -35,7 +35,7 @@ class Features implements SerializableContract
 
     public function __construct()
     {
-        $this->features = $this->boot();
+        $this->features = $this->getConfiguredFeatures();
     }
 
     /**
@@ -141,11 +141,6 @@ class Features implements SerializableContract
         return Arr::mapWithKeys(Feature::cases(), fn (Feature $feature): array => [
             $feature->value => static::has($feature),
         ]);
-    }
-
-    protected function boot(): array
-    {
-        return $this->getConfiguredFeatures();
     }
 
     /** @return array<Feature> */
