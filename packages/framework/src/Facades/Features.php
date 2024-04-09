@@ -13,7 +13,6 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
 
 use function is_array;
-use function array_map;
 use function array_filter;
 use function extension_loaded;
 use function in_array;
@@ -146,7 +145,7 @@ class Features implements SerializableContract
 
     protected function boot(): array
     {
-        return array_map(fn (Feature $feature): string => $feature->value, $this->getConfiguredFeatures());
+        return Arr::map($this->getConfiguredFeatures(), fn (Feature $feature): string => $feature->value);
     }
 
     /** @return array<Feature> */
