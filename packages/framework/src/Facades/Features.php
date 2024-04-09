@@ -103,41 +103,65 @@ class Features implements SerializableContract
     // Configure features to be used in the config file.
     // =================================================
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::HtmlPages` instead.
+     */
     public static function htmlPages(): Feature
     {
         return Feature::HtmlPages;
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::BladePages` instead.
+     */
     public static function bladePages(): Feature
     {
         return Feature::BladePages;
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::MarkdownPages` instead.
+     */
     public static function markdownPages(): Feature
     {
         return Feature::MarkdownPages;
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::MarkdownPosts` instead.
+     */
     public static function markdownPosts(): Feature
     {
         return Feature::MarkdownPosts;
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::DocumentationPages` instead.
+     */
     public static function documentationPages(): Feature
     {
         return Feature::DocumentationPages;
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::DocumentationSearch` instead.
+     */
     public static function documentationSearch(): Feature
     {
         return Feature::DocumentationSearch;
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::Darkmode` instead.
+     */
     public static function darkmode(): Feature
     {
         return Feature::Darkmode;
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `Feature::Torchlight` instead.
+     */
     public static function torchlight(): Feature
     {
         return Feature::Torchlight;
