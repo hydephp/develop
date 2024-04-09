@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Hyde;
+use Hyde\Enums\Feature;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Concerns\Serializable;
@@ -104,42 +105,42 @@ class Features implements SerializableContract
 
     public static function htmlPages(): string
     {
-        return 'html-pages';
+        return Feature::HtmlPages->value;
     }
 
     public static function bladePages(): string
     {
-        return 'blade-pages';
+        return Feature::BladePages->value;
     }
 
     public static function markdownPages(): string
     {
-        return 'markdown-pages';
+        return Feature::MarkdownPages->value;
     }
 
     public static function markdownPosts(): string
     {
-        return 'markdown-posts';
+        return Feature::MarkdownPosts->value;
     }
 
     public static function documentationPages(): string
     {
-        return 'documentation-pages';
+        return Feature::DocumentationPages->value;
     }
 
     public static function documentationSearch(): string
     {
-        return 'documentation-search';
+        return Feature::DocumentationSearch->value;
     }
 
     public static function darkmode(): string
     {
-        return 'darkmode';
+        return Feature::Darkmode->value;
     }
 
     public static function torchlight(): string
     {
-        return 'torchlight';
+        return Feature::Torchlight->value;
     }
 
     // ====================================================
