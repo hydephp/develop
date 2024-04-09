@@ -128,6 +128,9 @@ class Features implements SerializableContract
             && (app('env') !== 'testing');
     }
 
+    /**
+     * Should documentation search be enabled?
+     */
     public static function hasDocumentationSearch(): bool
     {
         return static::has(Feature::DocumentationSearch)
