@@ -7,7 +7,10 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Facades\Features;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\Concerns\Feature;
 use Illuminate\Support\Facades\Config;
+
+use function config;
 
 /**
  * @covers \Hyde\Facades\Features
@@ -63,32 +66,60 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::hasSitemap());
     }
 
-    public function testToArrayMethodReturnsMethodArray()
-    {
-        $array = (new Features)->toArray();
-        $this->assertIsArray($array);
-        $this->assertNotEmpty($array);
-        foreach ($array as $feature => $enabled) {
-            $this->assertIsString($feature);
-            $this->assertIsBool($enabled);
-            $this->assertStringStartsNotWith('has', $feature);
-        }
-    }
-
     public function testToArrayMethodContainsAllSettings()
     {
-        $array = (new Features)->toArray();
+        $this->assertSame([
+            'html-pages' => true,
+            'markdown-posts' => true,
+            'blade-pages' => true,
+            'markdown-pages' => true,
+            'documentation-pages' => true,
+            'darkmode' => true,
+            'documentation-search' => true,
+            'torchlight' => true,
+        ], (new Features)->toArray());
+    }
 
-        $this->assertArrayHasKey('html-pages', $array);
-        $this->assertArrayHasKey('markdown-posts', $array);
-        $this->assertArrayHasKey('blade-pages', $array);
-        $this->assertArrayHasKey('markdown-pages', $array);
-        $this->assertArrayHasKey('documentation-pages', $array);
-        $this->assertArrayHasKey('darkmode', $array);
-        $this->assertArrayHasKey('documentation-search', $array);
-        $this->assertArrayHasKey('torchlight', $array);
+    public function testToArrayMethodContainsAllSettingsIncludingFalseValues()
+    {
+        config(['hyde.features' => [
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+        ]]);
 
-        $this->assertCount(8, $array);
+        $this->assertSame([
+            'html-pages' => true,
+            'markdown-posts' => true,
+            'blade-pages' => true,
+            'markdown-pages' => false,
+            'documentation-pages' => false,
+            'darkmode' => false,
+            'documentation-search' => false,
+            'torchlight' => false,
+        ], (new Features)->toArray());
+    }
+
+    public function testSerializedClassState()
+    {
+        config(['hyde.features' => [
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+        ]]);
+
+        $this->assertSame(<<<'JSON'
+        {
+            "html-pages": true,
+            "markdown-posts": true,
+            "blade-pages": true,
+            "markdown-pages": false,
+            "documentation-pages": false,
+            "darkmode": false,
+            "documentation-search": false,
+            "torchlight": false
+        }
+        JSON, (new Features)->toJson(JSON_PRETTY_PRINT));
     }
 
     public function testFeaturesCanBeMocked()
@@ -123,7 +154,7 @@ class ConfigurableFeaturesTest extends TestCase
     {
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, Features::getFeatures());
+        $this->assertSame($default, Features::enabled());
     }
 
     public function testGetEnabledUsesDefaultOptionsWhenConfigIsEmpty()
@@ -132,38 +163,32 @@ class ConfigurableFeaturesTest extends TestCase
 
         $default = $this->defaultOptions();
 
-        $this->assertSame($default, Features::getFeatures());
+        $this->assertSame($default, Features::enabled());
     }
 
     public function testGetEnabledUsesConfiguredOptions()
     {
-        $config = [
-            Features::htmlPages(),
-            Features::markdownPosts(),
-            Features::bladePages(),
-        ];
-        $expected = [
-            Features::htmlPages() => true,
-            Features::markdownPosts() => true,
-            Features::bladePages() => true,
-            'markdown-pages' => false,
-            'documentation-pages' => false,
-            'darkmode' => false,
-            'documentation-search' => false,
-            'torchlight' => false,
-        ];
+        config(['hyde.features' => [
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+        ]]);
 
-        config(['hyde.features' => $config]);
-
-        $this->assertSame($expected, Features::getFeatures());
+        $this->assertSame([
+            'html-pages',
+            'markdown-posts',
+            'blade-pages',
+        ], Features::enabled());
     }
 
     public function testCannotUseArbitraryValuesInEnabledOptions()
     {
+        $this->expectException(\TypeError::class); // Todo: Consider if we should handle this again by ignoring it, or throw with a more specific message
+
         $config = [
-            Features::htmlPages(),
-            Features::markdownPosts(),
-            Features::bladePages(),
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
             'foo',
         ];
 
@@ -179,14 +204,14 @@ class ConfigurableFeaturesTest extends TestCase
     protected function defaultOptions(): array
     {
         return [
-            'html-pages' => true,
-            'markdown-posts' => true,
-            'blade-pages' => true,
-            'markdown-pages' => true,
-            'documentation-pages' => true,
-            'darkmode' => true,
-            'documentation-search' => true,
-            'torchlight' => true,
+            'html-pages',
+            'markdown-posts',
+            'blade-pages',
+            'markdown-pages',
+            'documentation-pages',
+            'darkmode',
+            'documentation-search',
+            'torchlight',
         ];
     }
 

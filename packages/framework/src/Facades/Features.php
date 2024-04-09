@@ -7,11 +7,12 @@ namespace Hyde\Facades;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Foundation\Concerns\Feature;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Illuminate\Support\Arr;
 
 use function is_array;
-use function array_keys;
 use function array_filter;
 use function extension_loaded;
 use function in_array;
@@ -28,21 +29,21 @@ class Features implements SerializableContract
     /**
      * The features that are enabled.
      *
-     * @var array<string, bool>
+     * @var array<\Hyde\Foundation\Concerns\Feature>
      */
     protected array $features = [];
 
     public function __construct()
     {
-        $this->features = $this->boot();
+        $this->features = Config::getArray('hyde.features', Feature::cases());
     }
 
     /**
      * Determine if the given specified is enabled.
      */
-    public static function has(string $feature): bool
+    public static function has(Feature $feature): bool
     {
-        return in_array($feature, static::enabled());
+        return in_array($feature, Hyde::features()->features);
     }
 
     /**
@@ -52,103 +53,38 @@ class Features implements SerializableContract
      */
     public static function enabled(): array
     {
-        return array_keys(array_filter(Hyde::features()->getFeatures()));
+        return Arr::map(Hyde::features()->features, fn (Feature $feature): string => $feature->value);
     }
-
-    /**
-     * Get all features and their status.
-     *
-     * @deprecated This method might not actually provide value, as it's not interesting information to have.
-     *
-     * @return array<string, bool>
-     */
-    public static function getFeatures(): array
-    {
-        return Hyde::features()->toArray();
-    }
-
-    // =================================================
-    // Configure features to be used in the config file.
-    // =================================================
-
-    public static function htmlPages(): string
-    {
-        return 'html-pages';
-    }
-
-    public static function bladePages(): string
-    {
-        return 'blade-pages';
-    }
-
-    public static function markdownPages(): string
-    {
-        return 'markdown-pages';
-    }
-
-    public static function markdownPosts(): string
-    {
-        return 'markdown-posts';
-    }
-
-    public static function documentationPages(): string
-    {
-        return 'documentation-pages';
-    }
-
-    public static function documentationSearch(): string
-    {
-        return 'documentation-search';
-    }
-
-    public static function darkmode(): string
-    {
-        return 'darkmode';
-    }
-
-    public static function torchlight(): string
-    {
-        return 'torchlight';
-    }
-
-    // ================================================
-    // Determine if a given feature is enabled.
-    // ================================================
 
     public static function hasHtmlPages(): bool
     {
-        return static::has(static::htmlPages());
+        return static::has(Feature::HtmlPages);
     }
 
     public static function hasBladePages(): bool
     {
-        return static::has(static::bladePages());
+        return static::has(Feature::BladePages);
     }
 
     public static function hasMarkdownPages(): bool
     {
-        return static::has(static::markdownPages());
+        return static::has(Feature::MarkdownPages);
     }
 
     public static function hasMarkdownPosts(): bool
     {
-        return static::has(static::markdownPosts());
+        return static::has(Feature::MarkdownPosts);
     }
 
     public static function hasDocumentationPages(): bool
     {
-        return static::has(static::documentationPages());
+        return static::has(Feature::DocumentationPages);
     }
 
     public static function hasDarkmode(): bool
     {
-        return static::has(static::darkmode());
+        return static::has(Feature::Darkmode);
     }
-
-    // ====================================================
-    // Dynamic features that in addition to being enabled
-    // in the config file, require preconditions to be met.
-    // ====================================================
 
     /**
      * Can a sitemap be generated?
@@ -173,21 +109,24 @@ class Features implements SerializableContract
     }
 
     /**
+     * Should documentation search be enabled?
+     */
+    public static function hasDocumentationSearch(): bool
+    {
+        return static::has(Feature::DocumentationSearch)
+            && static::hasDocumentationPages()
+            && count(DocumentationPage::files()) > 0;
+    }
+
+    /**
      * Torchlight is by default enabled automatically when an API token
-     * is set in the .env file but is disabled when running tests.
+     * is set in the `.env` file but is disabled when running tests.
      */
     public static function hasTorchlight(): bool
     {
-        return static::has(static::torchlight())
+        return static::has(Feature::Torchlight)
             && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
-    }
-
-    public static function hasDocumentationSearch(): bool
-    {
-        return static::has(static::documentationSearch())
-            && static::hasDocumentationPages()
-            && count(DocumentationPage::files()) > 0;
     }
 
     /**
@@ -199,54 +138,9 @@ class Features implements SerializableContract
      */
     public function toArray(): array
     {
-        return $this->features;
-    }
-
-    /** @return array<string> */
-    protected static function getDefaultOptions(): array
-    {
-        return [
-            // Page Modules
-            static::htmlPages(),
-            static::markdownPosts(),
-            static::bladePages(),
-            static::markdownPages(),
-            static::documentationPages(),
-
-            // Frontend Features
-            static::darkmode(),
-            static::documentationSearch(),
-
-            // Integrations
-            static::torchlight(),
-        ];
-    }
-
-    protected function boot(): array
-    {
-        $options = static::getDefaultOptions();
-
-        $enabled = [];
-
-        // Set all default features to false
-        foreach ($options as $feature) {
-            $enabled[$feature] = false;
-        }
-
-        // Set all features to true if they are enabled in the config file
-        foreach ($this->getConfiguredFeatures() as $feature) {
-            if (in_array($feature, $options)) {
-                $enabled[$feature] = true;
-            }
-        }
-
-        return $enabled;
-    }
-
-    /** @return array<string> */
-    protected function getConfiguredFeatures(): array
-    {
-        return Config::getArray('hyde.features', static::getDefaultOptions());
+        return Arr::mapWithKeys(Feature::cases(), fn (Feature $feature): array => [
+            $feature->value => static::has($feature),
+        ]);
     }
 
     /**
@@ -254,12 +148,14 @@ class Features implements SerializableContract
      *
      * @param  string|array<string, bool>  $feature
      */
-    public static function mock(string|array $feature, bool $enabled = true): void
+    public static function mock(string|array $feature, bool $enabled = null): void
     {
-        $features = is_array($feature) ? $feature : [$feature => $enabled];
-
-        foreach ($features as $feature => $enabled) {
-            Hyde::features()->features[$feature] = $enabled;
+        foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
+            if ($enabled !== true) {
+                Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => $search !== Feature::from($feature));
+            } else {
+                Hyde::features()->features[] = Feature::from($feature);
+            }
         }
     }
 }

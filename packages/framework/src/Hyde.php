@@ -6,6 +6,7 @@ namespace Hyde;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Concerns\Feature;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\PageCollection;
@@ -58,7 +59,7 @@ use JetBrains\PhpStorm\Pure;
  * @method static HydeKernel getInstance()
  * @method static Filesystem filesystem()
  * @method static array getRegisteredExtensions()
- * @method static bool hasFeature(string $feature)
+ * @method static bool hasFeature(Feature|string $feature)
  * @method static bool hasSiteUrl()
  * @method static void setInstance(HydeKernel $instance)
  * @method static void setBasePath(string $basePath)

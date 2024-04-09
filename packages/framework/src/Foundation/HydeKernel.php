@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
+use Hyde\Foundation\Concerns\Feature;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Foundation\Kernel\FileCollection;
@@ -91,9 +92,9 @@ class HydeKernel implements SerializableContract
         return $this->features ??= new Features();
     }
 
-    public function hasFeature(string $feature): bool
+    public function hasFeature(Feature|string $feature): bool
     {
-        return Features::has($feature);
+        return Features::has($feature instanceof Feature ? $feature : Feature::from($feature));
     }
 
     /** @inheritDoc */

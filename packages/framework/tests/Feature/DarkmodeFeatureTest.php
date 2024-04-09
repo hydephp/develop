@@ -7,11 +7,11 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\Concerns\Feature;
 use Illuminate\Support\Facades\Config;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 
 /**
- * @covers \Hyde\Facades\Features::darkmode
  * @covers \Hyde\Facades\Features::hasDarkmode
  */
 class DarkmodeFeatureTest extends TestCase
@@ -34,7 +34,7 @@ class DarkmodeFeatureTest extends TestCase
     public function testHasDarkmodeIsTrueWhenSet()
     {
         Config::set('hyde.features', [
-            Features::darkmode(),
+            Feature::Darkmode,
         ]);
 
         $this->assertTrue(Features::hasDarkmode());
@@ -43,9 +43,9 @@ class DarkmodeFeatureTest extends TestCase
     public function testLayoutHasToggleButtonAndScriptWhenEnabled()
     {
         Config::set('hyde.features', [
-            Features::markdownPages(),
-            Features::bladePages(),
-            Features::darkmode(),
+            Feature::MarkdownPages,
+            Feature::BladePages,
+            Feature::Darkmode,
         ]);
 
         app()->instance('navigation.main', new MainNavigationMenu());
@@ -63,8 +63,8 @@ class DarkmodeFeatureTest extends TestCase
     public function testDocumentationPageHasToggleButtonAndScriptWhenEnabled()
     {
         Config::set('hyde.features', [
-            Features::documentationPages(),
-            Features::darkmode(),
+            Feature::DocumentationPages,
+            Feature::Darkmode,
         ]);
 
         view()->share('page', new DocumentationPage());
@@ -82,8 +82,8 @@ class DarkmodeFeatureTest extends TestCase
     public function testDarkModeThemeButtonIsHiddenInLayoutsWhenDisabled()
     {
         Config::set('hyde.features', [
-            Features::markdownPages(),
-            Features::bladePages(),
+            Feature::MarkdownPages,
+            Feature::BladePages,
         ]);
 
         app()->instance('navigation.main', new MainNavigationMenu());
@@ -101,7 +101,7 @@ class DarkmodeFeatureTest extends TestCase
     public function testDarkModeThemeButtonIsHiddenInDocumentationPagesWhenDisabled()
     {
         Config::set('hyde.features', [
-            Features::documentationPages(),
+            Feature::DocumentationPages,
         ]);
 
         view()->share('page', new DocumentationPage());

@@ -6,6 +6,7 @@ namespace Hyde\Testing;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
+use Hyde\Foundation\Concerns\Feature;
 
 trait ResetsApplication
 {
@@ -55,9 +56,7 @@ trait ResetsApplication
     {
         $features = config('hyde.features');
 
-        $flipped = array_flip($features);
-        unset($flipped['documentation-search']);
-        $features = array_flip($flipped);
+        $features = array_filter($features, fn (Feature $feature): bool => $feature !== Feature::DocumentationSearch);
 
         config(['hyde.features' => $features]);
     }
@@ -67,7 +66,7 @@ trait ResetsApplication
     {
         $features = config('hyde.features');
 
-        $features[] = 'documentation-search';
+        $features[] = Feature::DocumentationSearch;
 
         config(['hyde.features' => $features]);
     }
