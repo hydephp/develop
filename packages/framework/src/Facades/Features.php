@@ -56,7 +56,7 @@ class Features implements SerializableContract
      */
     public static function enabled(): array
     {
-        return Arr::map(Hyde::features()->features, fn (Feature $feature): string => $feature->key());
+        return Arr::map(Hyde::features()->features, fn (Feature $feature): string => Str::kebab($feature->name));
     }
 
     public static function hasHtmlPages(): bool
@@ -142,7 +142,7 @@ class Features implements SerializableContract
     public function toArray(): array
     {
         return Arr::mapWithKeys(Feature::cases(), fn (Feature $feature): array => [
-            $feature->key() => static::has($feature),
+            Str::kebab($feature->name) => static::has($feature),
         ]);
     }
 

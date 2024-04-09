@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Enums;
 
-use Illuminate\Support\Str;
-
 /**
  * A configurable feature that belongs to the Features class.
  *
@@ -26,9 +24,4 @@ enum Feature: string
 
     // Integrations
     case Torchlight = 'torchlight';
-
-    public function key(): string
-    {
-        return Str::kebab($this->name);
-    }
 }
