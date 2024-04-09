@@ -9,7 +9,7 @@ namespace Hyde\Enums;
  *
  * @see \Hyde\Facades\Features
  */
-enum Feature
+enum Feature: string
 {
     //
 }
