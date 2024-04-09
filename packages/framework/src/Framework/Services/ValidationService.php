@@ -10,7 +10,7 @@ use Hyde\Facades\Features;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 use Hyde\Support\Models\ValidationResult as Result;
 
 use function count;

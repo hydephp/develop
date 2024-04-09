@@ -6,7 +6,7 @@ namespace Hyde\Testing;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 
 trait ResetsApplication
 {

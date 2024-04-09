@@ -10,7 +10,7 @@ use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;

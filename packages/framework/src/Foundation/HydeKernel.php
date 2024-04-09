@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use Hyde\Facades\Features;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Foundation\Kernel\FileCollection;

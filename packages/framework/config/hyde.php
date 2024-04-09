@@ -24,7 +24,7 @@
 
 use Hyde\Facades\Author;
 use Hyde\Facades\Meta;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 
 return [
 

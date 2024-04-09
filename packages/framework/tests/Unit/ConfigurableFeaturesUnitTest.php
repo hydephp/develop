@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Hyde\Facades\Features;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 use Illuminate\Support\Facades\Config;
 
 beforeEach(function () {

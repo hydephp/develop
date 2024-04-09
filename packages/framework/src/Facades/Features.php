@@ -7,7 +7,7 @@ namespace Hyde\Facades;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
@@ -29,7 +29,7 @@ class Features implements SerializableContract
     /**
      * The features that are enabled.
      *
-     * @var array<\Hyde\Foundation\Concerns\Feature>
+     * @var array<\Hyde\Enums\Feature>
      */
     protected array $features = [];
 

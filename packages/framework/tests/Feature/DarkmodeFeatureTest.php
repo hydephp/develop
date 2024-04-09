@@ -7,7 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
-use Hyde\Foundation\Concerns\Feature;
+use Hyde\Enums\Feature;
 use Illuminate\Support\Facades\Config;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 

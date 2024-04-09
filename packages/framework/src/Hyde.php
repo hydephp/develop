@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde;
 
+use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Foundation\Concerns\Feature;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\PageCollection;
