@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Enums;
 
+use Illuminate\Support\Str;
+
 /**
  * A configurable feature that belongs to the Features class.
  *
@@ -27,6 +29,6 @@ enum Feature: string
 
     public function key(): string
     {
-        return $this->value;
+        return Str::kebab($this->name);
     }
 }
