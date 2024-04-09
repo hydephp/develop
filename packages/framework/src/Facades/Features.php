@@ -56,10 +56,6 @@ class Features implements SerializableContract
         return Hyde::features()->features;
     }
 
-    // ================================================
-    // Determine if a given feature is enabled.
-    // ================================================
-
     public static function hasHtmlPages(): bool
     {
         return static::has(Feature::HtmlPages);
@@ -89,11 +85,6 @@ class Features implements SerializableContract
     {
         return static::has(Feature::Darkmode);
     }
-
-    // ====================================================
-    // Dynamic features that in addition to being enabled
-    // in the config file, require preconditions to be met.
-    // ====================================================
 
     /**
      * Can a sitemap be generated?
