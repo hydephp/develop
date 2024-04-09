@@ -103,44 +103,44 @@ class Features implements SerializableContract
     // Configure features to be used in the config file.
     // =================================================
 
-    public static function htmlPages(): string
+    public static function htmlPages(): Feature
     {
-        return Feature::HtmlPages->value;
+        return Feature::HtmlPages;
     }
 
-    public static function bladePages(): string
+    public static function bladePages(): Feature
     {
-        return Feature::BladePages->value;
+        return Feature::BladePages;
     }
 
-    public static function markdownPages(): string
+    public static function markdownPages(): Feature
     {
-        return Feature::MarkdownPages->value;
+        return Feature::MarkdownPages;
     }
 
-    public static function markdownPosts(): string
+    public static function markdownPosts(): Feature
     {
-        return Feature::MarkdownPosts->value;
+        return Feature::MarkdownPosts;
     }
 
-    public static function documentationPages(): string
+    public static function documentationPages(): Feature
     {
-        return Feature::DocumentationPages->value;
+        return Feature::DocumentationPages;
     }
 
-    public static function documentationSearch(): string
+    public static function documentationSearch(): Feature
     {
-        return Feature::DocumentationSearch->value;
+        return Feature::DocumentationSearch;
     }
 
-    public static function darkmode(): string
+    public static function darkmode(): Feature
     {
-        return Feature::Darkmode->value;
+        return Feature::Darkmode;
     }
 
-    public static function torchlight(): string
+    public static function torchlight(): Feature
     {
-        return Feature::Torchlight->value;
+        return Feature::Torchlight;
     }
 
     // ====================================================
