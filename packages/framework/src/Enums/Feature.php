@@ -24,4 +24,9 @@ enum Feature: string
 
     // Integrations
     case Torchlight = 'torchlight';
+
+    public function key(): string
+    {
+        return $this->value;
+    }
 }
