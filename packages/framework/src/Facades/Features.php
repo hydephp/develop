@@ -29,7 +29,7 @@ class Features implements SerializableContract
     /**
      * The features that are enabled.
      *
-     * @var array<string>
+     * @var array<Feature>
      */
     protected array $features = [];
 
@@ -43,7 +43,7 @@ class Features implements SerializableContract
      */
     public static function has(Feature $feature): bool
     {
-        return in_array($feature->value, static::enabled());
+        return in_array($feature, Hyde::features()->features);
     }
 
     /**
@@ -53,7 +53,7 @@ class Features implements SerializableContract
      */
     public static function enabled(): array
     {
-        return Hyde::features()->features;
+        return Arr::map(Hyde::features()->features, fn (Feature $feature): string => $feature->value);
     }
 
     public static function hasHtmlPages(): bool
@@ -139,15 +139,13 @@ class Features implements SerializableContract
     public function toArray(): array
     {
         return Arr::mapWithKeys(Feature::cases(), fn (Feature $feature): array => [
-            $feature->value => in_array($feature->value, $this->features),
+            $feature->value => static::has($feature),
         ]);
     }
 
     protected function boot(): array
     {
-        return Arr::map($this->getConfiguredFeatures(), function (Feature $feature): string {
-            return $feature->value;
-        });
+        return $this->getConfiguredFeatures();
     }
 
     /** @return array<Feature> */
@@ -165,9 +163,9 @@ class Features implements SerializableContract
     {
         foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
             if ($enabled !== true) {
-                Hyde::features()->features = array_filter(Hyde::features()->features, fn (string $search): bool => $search !== $feature);
+                Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => $search !== Feature::from($feature));
             } else {
-                Hyde::features()->features[] = $feature;
+                Hyde::features()->features[] = Feature::from($feature);
             }
         }
     }
