@@ -10,6 +10,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Concerns\Feature;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
+use Illuminate\Support\Arr;
 
 use function is_array;
 use function array_map;
@@ -138,10 +139,9 @@ class Features implements SerializableContract
      */
     public function toArray(): array
     {
-        return collect(Feature::cases())
-            ->mapWithKeys(fn (Feature $feature): array => [
-                $feature->value => in_array($feature->value, $this->features),
-            ])->toArray();
+        return Arr::mapWithKeys(Feature::cases(), fn (Feature $feature): array => [
+            $feature->value => in_array($feature->value, $this->features),
+        ]);
     }
 
     protected function boot(): array
