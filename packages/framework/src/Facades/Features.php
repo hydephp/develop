@@ -40,7 +40,7 @@ class Features implements SerializableContract
     /**
      * Determine if the given specified is enabled.
      */
-    public static function enabled(string $feature): bool
+    public static function enabled(Feature|string $feature): bool
     {
         return static::resolveMockedInstance($feature) ?? in_array(
             $feature, Config::getArray('hyde.features', static::getDefaultOptions())
