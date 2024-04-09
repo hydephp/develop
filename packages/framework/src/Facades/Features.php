@@ -168,10 +168,9 @@ class Features implements SerializableContract
         foreach ($features as $feature => $enabled) {
             if ($enabled !== true) {
                 Hyde::features()->features = array_filter(Hyde::features()->features, fn (string $search): bool => $search !== $feature);
-                continue;
+            } else {
+                Hyde::features()->features[] = $feature;
             }
-
-            Hyde::features()->features[] = $feature;
         }
     }
 }
