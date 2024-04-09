@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Hyde;
+use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Enums\Feature;
@@ -12,6 +13,8 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
 
+use function ucfirst;
+use function collect;
 use function is_array;
 use function array_filter;
 use function extension_loaded;
@@ -151,7 +154,7 @@ class Features implements SerializableContract
     public static function mock(string|array $feature, bool $enabled = null): void
     {
         foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
-            $feature = Feature::from($feature);
+            $feature = collect(Feature::cases())->firstOrFail(fn (Feature $search): bool => $search->name === ucfirst(Str::camel($feature)));
 
             if ($enabled !== true) {
                 Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => $search !== $feature);
