@@ -37,8 +37,10 @@ In order to prepare your project for HydePHP v2.0, you should update your `confi
 Your new config array should look like this:
 
 ```php
+    // Make sure to import the new Feature enum at the top of the file 
     use Hyde\Enums\Feature;
     
+    // Then replace your enabled features with the new Feature enum cases
     'features' => [
         // Page Modules
         Feature::HtmlPages,
@@ -56,4 +58,4 @@ Your new config array should look like this:
     ],
 ```
 
-If you need more help, you can see detailed upgrade instructions in the pull request https://github.com/hydephp/develop/pull/1650
+If you need more help, you can see detailed upgrade instructions with screenshots in the pull request https://github.com/hydephp/develop/pull/1650
