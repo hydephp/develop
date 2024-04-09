@@ -164,10 +164,10 @@ class Features implements SerializableContract
     public static function mock(string|array $feature, bool $enabled = null): void
     {
         foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
-            if ($enabled !== true) {
-                Hyde::features()->features = array_filter(Hyde::features()->features, fn (string $search): bool => $search !== $feature);
-            } else {
+            if ($enabled === true) {
                 Hyde::features()->features[] = $feature;
+            } else {
+                Hyde::features()->features = array_filter(Hyde::features()->features, fn (string $search): bool => $search !== $feature);
             }
         }
     }
