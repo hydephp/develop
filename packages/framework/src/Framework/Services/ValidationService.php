@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use Hyde\Enums\Feature;
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Pages\BladePage;
@@ -121,7 +122,7 @@ class ValidationService
 
     public function check_a_torchlight_api_token_is_set(Result $result): Result
     {
-        if (! Features::enabled(Features::torchlight())) {
+        if (! Features::enabled(Feature::Torchlight)) {
             return $result->skip('Check a Torchlight API token is set')
                 ->withTip('Torchlight is an API for code syntax highlighting. You can enable it in the Hyde config.');
         }
