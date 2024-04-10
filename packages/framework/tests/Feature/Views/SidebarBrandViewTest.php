@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Views;
 
 use Hyde\Hyde;
+use Hyde\Enums\Feature;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestsBladeViews;
@@ -60,7 +61,7 @@ class SidebarBrandViewTest extends TestCase
     public function testSidebarBrandViewWithoutDarkmodeFeature()
     {
         $mock = $this->mock(HydeKernel::class)->makePartial();
-        $mock->shouldReceive('hasFeature')->with('darkmode')->andReturn(false);
+        $mock->shouldReceive('hasFeature')->with(Feature::Darkmode)->andReturn(false);
         HydeKernel::setInstance($mock);
 
         $view = $this->view(view('hyde::components.docs.sidebar-brand'));

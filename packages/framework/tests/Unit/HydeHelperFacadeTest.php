@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -31,7 +32,7 @@ class HydeHelperFacadeTest extends TestCase
     public function testHydeHasFeatureShorthandCallsStaticMethodOnFeaturesClass()
     {
         $this->assertTrue(
-            Hyde::hasFeature('markdown-posts')
+            Hyde::hasFeature(Feature::MarkdownPosts)
         );
     }
 }
