@@ -102,6 +102,8 @@ class HydeKernel implements SerializableContract
     public function hasFeature(Feature|string $feature): bool
     {
         if (is_string($feature)) {
+            /** @see https://github.com/hydephp/develop/pull/1650 */
+
             // @codeCoverageIgnoreStart
 
             $message = 'Passing a string to HydeKernel::hasFeature() is deprecated. Use a Feature enum case instead.';
