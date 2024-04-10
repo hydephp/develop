@@ -4,13 +4,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Framework\Views\Components\BreadcrumbsComponent;
+use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
-use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
+use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 
 /**
  * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
