@@ -109,10 +109,9 @@ class HydeKernel implements SerializableContract
             $message = 'Passing a string to HydeKernel::hasFeature() is deprecated. Use a Feature enum case instead.';
             trigger_deprecation('hydephp/hyde', '1.5.0', $message);
 
-            BuildWarnings::report(sprintf("%s\n    <fg=gray>Replace </><fg=default>`%s`</><fg=gray> with </><fg=default>`%s`</><fg=gray> \n    in file %s:%s</>",
-                $message,
-                'HydeKernel::hasFeature('.var_export($feature, true).')',
-                'HydeKernel::hasFeature(Feature::'.str($feature)->camel()->ucfirst()->toString().')',
+            BuildWarnings::report(sprintf("$message\n    <fg=gray>Replace </><fg=default>`%s`</><fg=gray> with </><fg=default>`%s`</><fg=gray> \n    in file %s:%s</>",
+                sprintf('HydeKernel::hasFeature(%s)', var_export($feature, true)),
+                sprintf('HydeKernel::hasFeature(Feature::%s)', str($feature)->camel()->ucfirst()->toString()),
                 debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['file'],
                 debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['line']
             ));
