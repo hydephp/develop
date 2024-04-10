@@ -6,7 +6,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Views;
 
-use Hyde\Hyde;
 use Throwable;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
@@ -161,16 +160,7 @@ class SidebarViewTest extends TestCase
     {
         try {
             $this->html = $view->render();
-            /** @noinspection LaravelFunctionsInspection */
-            if (env('TEST_HTML_DEBUG', false)) {
-                file_put_contents(Hyde::path('_site/test.html'), $this->html);
-                echo "\e[0;32mCreated file: \e[0m".realpath(Hyde::path('_site/test.html'));
-            }
         } catch (Throwable $exception) {
-            /** @noinspection LaravelFunctionsInspection */
-            if (env('TEST_HTML_DEBUG', false)) {
-                throw $exception;
-            }
             $this->fail($exception->getMessage());
         }
 
