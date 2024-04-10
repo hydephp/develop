@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Testing\UnitTestCase;
+use Illuminate\Support\Facades\File;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\BladePage;
-use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\ValidatesExistence
  * @covers \Hyde\Framework\Exceptions\FileNotFoundException
  */
-class ValidatesExistenceTest extends TestCase
+class ValidatesExistenceTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     public function testValidateExistenceDoesNothingIfFileExists()
     {
         $class = new ValidatesExistenceTestClass();
@@ -26,6 +29,8 @@ class ValidatesExistenceTest extends TestCase
 
     public function testValidateExistenceThrowsFileNotFoundExceptionIfFileDoesNotExist()
     {
+        File::shouldReceive('missing')->andReturn(true);
+
         $this->expectException(FileNotFoundException::class);
 
         $class = new ValidatesExistenceTestClass();
