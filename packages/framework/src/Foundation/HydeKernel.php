@@ -116,7 +116,7 @@ class HydeKernel implements SerializableContract
                 debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['line']
             ));
 
-            $feature = Feature::from($feature);
+            $feature = Feature::match($feature);
 
             // @codeCoverageIgnoreEnd
         }
