@@ -4,13 +4,13 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Feature\Views;
 
-use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Hyde;
+use Throwable;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
-use Throwable;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
  * Very high level test of the sidebar views and their combinations of layouts.
