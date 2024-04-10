@@ -15,8 +15,8 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\Str;
 
-use function str;
 use function getcwd;
 use function sprintf;
 use function is_string;
@@ -111,7 +111,7 @@ class HydeKernel implements SerializableContract
 
             BuildWarnings::report(sprintf("$message\n    <fg=gray>Replace </><fg=default>`%s`</><fg=gray> with </><fg=default>`%s`</><fg=gray> \n    in file %s:%s</>",
                 sprintf('HydeKernel::hasFeature(%s)', var_export($feature, true)),
-                sprintf('HydeKernel::hasFeature(Feature::%s)', str($feature)->camel()->ucfirst()->toString()),
+                sprintf('HydeKernel::hasFeature(Feature::%s)', Str::studly($feature)),
                 debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['file'],
                 debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['line']
             ));
