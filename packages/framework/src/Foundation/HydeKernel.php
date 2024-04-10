@@ -15,6 +15,8 @@ use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
 
+use function trigger_deprecation;
+
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
  *
@@ -92,6 +94,10 @@ class HydeKernel implements SerializableContract
 
     public function hasFeature(Feature|string $feature): bool
     {
+        if (is_string($feature)) {
+            trigger_deprecation('hydephp/hyde', '1.5.0', 'Passing a string to HydeKernel::hasFeature() is deprecated. Use a Feature enum case instead.');
+        }
+
         return Features::enabled(is_string($feature) ? Feature::from($feature) : $feature);
     }
 
