@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Enums\Feature;
+use Illuminate\Support\Str;
 
 use function is_array;
 
@@ -29,16 +30,16 @@ trait MockableFeatures
             return;
         }
 
-        static::$mockedInstances[$feature] = $enabled;
+        static::$mockedInstances[Str::studly($feature)] = $enabled;
     }
 
     public static function resolveMockedInstance(Feature|string $feature): ?bool
     {
         if ($feature instanceof Feature) {
-            $feature = $feature->value;
+            $feature = $feature->name;
         }
 
-        return static::$mockedInstances[$feature] ?? null;
+        return static::$mockedInstances[Str::studly($feature)] ?? null;
     }
 
     public static function clearMockedInstances(): void
