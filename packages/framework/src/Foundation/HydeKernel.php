@@ -6,6 +6,7 @@ namespace Hyde\Foundation;
 
 use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
+use Hyde\Support\BuildWarnings;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Foundation\Kernel\FileCollection;
@@ -15,6 +16,12 @@ use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
 
+use function str;
+use function getcwd;
+use function sprintf;
+use function is_string;
+use function var_export;
+use function debug_backtrace;
 use function trigger_deprecation;
 
 /**
@@ -95,7 +102,16 @@ class HydeKernel implements SerializableContract
     public function hasFeature(Feature|string $feature): bool
     {
         if (is_string($feature)) {
-            trigger_deprecation('hydephp/hyde', '1.5.0', 'Passing a string to HydeKernel::hasFeature() is deprecated. Use a Feature enum case instead.');
+            $message = 'Passing a string to HydeKernel::hasFeature() is deprecated. Use a Feature enum case instead.';
+            trigger_deprecation('hydephp/hyde', '1.5.0', $message);
+
+            BuildWarnings::report(sprintf("%s\n    <fg=gray>Replace </><fg=default>`%s`</><fg=gray> with </><fg=default>`%s`</><fg=gray> \n    in file %s:%s</>",
+                $message,
+                'HydeKernel::hasFeature('.var_export($feature, true).')',
+                'HydeKernel::hasFeature(Feature::'.str($feature)->camel()->ucfirst()->toString().')',
+                debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['file'],
+                debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['line']
+            ));
         }
 
         return Features::enabled(is_string($feature) ? Feature::from($feature) : $feature);
