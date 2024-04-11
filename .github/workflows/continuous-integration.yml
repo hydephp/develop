@@ -47,7 +47,7 @@ jobs:
         if: always() && github.event.repository.full_name == 'hydephp/develop'
         run: |
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
-          commit="${{ github.event.pull_request.head.sha }}"
+          commit="${{ github.sha }}"
           url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
