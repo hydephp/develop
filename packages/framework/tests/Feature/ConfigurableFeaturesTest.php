@@ -106,18 +106,14 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testMultipleFeaturesCanBeMocked()
     {
-        Features::mock([
-            'rss' => true,
-            'darkmode' => true,
-        ]);
+        Features::mock('rss', true);
+        Features::mock('darkmode', true);
 
         $this->assertTrue(Features::rss());
         $this->assertTrue(Features::hasDarkmode());
 
-        Features::mock([
-            'rss' => false,
-            'darkmode' => false,
-        ]);
+        Features::mock('rss', false);
+        Features::mock('darkmode', false);
 
         $this->assertFalse(Features::rss());
         $this->assertFalse(Features::hasDarkmode());

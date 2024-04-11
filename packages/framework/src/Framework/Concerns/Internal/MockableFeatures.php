@@ -7,8 +7,6 @@ namespace Hyde\Framework\Concerns\Internal;
 use Hyde\Enums\Feature;
 use Illuminate\Support\Str;
 
-use function is_array;
-
 /**
  * Allows the Features class to be mocked.
  *
@@ -20,16 +18,8 @@ trait MockableFeatures
 {
     protected static array $mockedInstances = [];
 
-    public static function mock(string|array $feature, ?bool $enabled = null): void
+    public static function mock(string $feature, bool $enabled): void
     {
-        if (is_array($feature)) {
-            foreach ($feature as $key => $value) {
-                static::mock($key, $value);
-            }
-
-            return;
-        }
-
         static::$mockedInstances[Str::studly($feature)] = $enabled;
     }
 
