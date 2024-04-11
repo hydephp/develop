@@ -12,7 +12,7 @@
 {{-- App Stylesheets --}}
 @include('hyde::layouts.styles')
 
-@if(Hyde::hasFeature('darkmode'))
+@if(Features::hasDarkmode()))
     {{-- Check the local storage for theme preference to avoid FOUC --}}
     <meta id="meta-color-scheme" name="color-scheme" content="{{ config('hyde.default_color_scheme', 'light') }}">
     <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>

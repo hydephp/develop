@@ -59,7 +59,7 @@ use JetBrains\PhpStorm\Pure;
  * @method static HydeKernel getInstance()
  * @method static Filesystem filesystem()
  * @method static array getRegisteredExtensions()
- * @method static bool hasFeature(Feature|string $feature)
+ * @method static bool hasFeature(Feature $feature)
  * @method static bool hasSiteUrl()
  * @method static void setInstance(HydeKernel $instance)
  * @method static void setBasePath(string $basePath)

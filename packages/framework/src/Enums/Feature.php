@@ -9,19 +9,19 @@ namespace Hyde\Enums;
  *
  * @see \Hyde\Facades\Features
  */
-enum Feature: string
+enum Feature
 {
     // Page Modules
-    case HtmlPages = 'html-pages';
-    case MarkdownPosts = 'markdown-posts';
-    case BladePages = 'blade-pages';
-    case MarkdownPages = 'markdown-pages';
-    case DocumentationPages = 'documentation-pages';
+    case HtmlPages;
+    case MarkdownPosts;
+    case BladePages;
+    case MarkdownPages;
+    case DocumentationPages;
 
     // Frontend Features
-    case Darkmode = 'darkmode';
-    case DocumentationSearch = 'documentation-search';
+    case Darkmode;
+    case DocumentationSearch;
 
     // Integrations
-    case Torchlight = 'torchlight';
+    case Torchlight;
 }

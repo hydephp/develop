@@ -43,7 +43,7 @@ class Features implements SerializableContract
      */
     public static function enabled(Feature $feature): bool
     {
-        return static::resolveMockedInstance($feature->value) ?? in_array(
+        return static::resolveMockedInstance($feature->name) ?? in_array(
             $feature, Config::getArray('hyde.features', static::getDefaultOptions())
         );
     }
