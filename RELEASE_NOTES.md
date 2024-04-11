@@ -17,7 +17,6 @@ This serves two purposes:
 
 ### Changed
 - The `features` array in the `config/hyde.php` configuration file is now an array of `Feature` enums in https://github.com/hydephp/develop/pull/1650
-- Internal: Updated the `Features::toArray` representation to use `camelCase` instead of `kebab-case` https://github.com/hydephp/develop/pull/1652 (the class is marked as internal, thus the change is not considered breaking)
 
 ### Deprecated
 - Deprecated the static `Features` flag methods used in the configuration files in https://github.com/hydephp/develop/pull/1650 and will be removed in HydePHP v2.0
