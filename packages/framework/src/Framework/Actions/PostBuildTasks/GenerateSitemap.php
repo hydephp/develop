@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 
+use function Hyde\path_join;
 use function file_put_contents;
 
 class GenerateSitemap extends PostBuildTask
@@ -24,6 +25,6 @@ class GenerateSitemap extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile(Hyde::getOutputDirectory().'/sitemap.xml')->withExecutionTime();
+        $this->createdSiteFile(path_join(Hyde::getOutputDirectory(), 'sitemap.xml'))->withExecutionTime();
     }
 }

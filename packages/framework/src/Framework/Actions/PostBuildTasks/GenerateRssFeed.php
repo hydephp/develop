@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
+use function Hyde\path_join;
 use function file_put_contents;
 
 class GenerateRssFeed extends PostBuildTask
@@ -24,6 +25,6 @@ class GenerateRssFeed extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile(Hyde::getOutputDirectory().'/'.RssFeedGenerator::getFilename())->withExecutionTime();
+        $this->createdSiteFile(path_join(Hyde::getOutputDirectory(), RssFeedGenerator::getFilename()))->withExecutionTime();
     }
 }
