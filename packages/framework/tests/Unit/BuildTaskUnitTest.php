@@ -52,6 +52,15 @@ class BuildTaskUnitTest extends UnitTestCase
         $task->run($output);
         $this->assertTrue($task->isset('output'));
     }
+
+    public function testItPrintsStartMessage()
+    {
+        $task = new BufferedTestBuildTask();
+
+        $task->run();
+
+        $this->assertStringContainsString('Running generic build task', $task->buffer[0]);
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
