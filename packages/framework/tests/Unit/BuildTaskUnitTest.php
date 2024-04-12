@@ -67,6 +67,17 @@ class BuildTaskUnitTest extends UnitTestCase
         $this->assertStringContainsString('Done in', $task->buffer[1]);
         $this->assertStringContainsString('ms', $task->buffer[1]);
     }
+
+    public function testRunMethodHandlesTask()
+    {
+        $task = new InspectableTestBuildTask();
+
+        $this->assertFalse($task->property('wasHandled'));
+
+        $task->run();
+
+        $this->assertTrue($task->property('wasHandled'));
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
@@ -79,9 +90,11 @@ class EmptyTestBuildTask extends BuildTask
 
 class InspectableTestBuildTask extends BuildTask
 {
+    protected bool $wasHandled = false;
+
     public function handle(): void
     {
-        // Do nothing
+        $this->wasHandled = true;
     }
 
     public function isset(string $name): bool
