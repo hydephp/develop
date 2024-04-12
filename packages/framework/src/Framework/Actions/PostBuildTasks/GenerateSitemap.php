@@ -6,24 +6,30 @@ namespace Hyde\Framework\Actions\PostBuildTasks;
 
 use Hyde\Hyde;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
+use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 
 use function file_put_contents;
 
 class GenerateSitemap extends PostBuildTask
 {
+    use InteractsWithDirectories;
+
     public static string $message = 'Generating sitemap';
+
+    protected string $path;
 
     public function handle(): void
     {
-        file_put_contents(
-            Hyde::sitePath('sitemap.xml'),
-            SitemapGenerator::make()
-        );
+        $this->path = Hyde::sitePath('sitemap.xml');
+
+        $this->needsParentDirectory($this->path);
+
+        file_put_contents($this->path, SitemapGenerator::make());
     }
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile('_site/sitemap.xml')->withExecutionTime();
+        $this->createdSiteFile($this->path)->withExecutionTime();
     }
 }
