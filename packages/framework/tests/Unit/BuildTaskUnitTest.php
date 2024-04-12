@@ -111,6 +111,11 @@ class InspectableTestBuildTask extends BuildTask
     {
         return $this->{$name}(...$args);
     }
+
+    public function set(string $name, mixed $value): void
+    {
+        $this->{$name} = $value;
+    }
 }
 
 class BufferedTestBuildTask extends InspectableTestBuildTask
