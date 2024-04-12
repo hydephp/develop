@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Mockery;
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Console\OutputStyle;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 
 /**
@@ -36,6 +38,18 @@ class BuildTaskUnitTest extends UnitTestCase
         $task->run();
 
         $this->assertFalse($task->isset('output'));
+    }
+
+    public function testItCanRunWithOutput()
+    {
+        $task = new InspectableTestBuildTask();
+
+        $output = Mockery::mock(OutputStyle::class);
+        $output->shouldReceive('write')->once();
+        $output->shouldReceive('writeln')->once();
+
+        $task->run($output);
+        $this->assertTrue($task->isset('output'));
     }
 }
 
