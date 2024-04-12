@@ -138,6 +138,16 @@ class BuildTaskUnitTest extends UnitTestCase
         $this->assertSame('<fg=gray>Done in 1,234.56ms</>', $task->buffer[0]);
     }
 
+    public function testCanWriteToOutput()
+    {
+        $task = new BufferedTestBuildTask();
+
+        $task->write('foo');
+        $task->writeln('bar');
+
+        $this->assertSame(['foo', 'bar'], $task->buffer);
+    }
+
     public function testWithExecutionTime()
     {
         $task = tap(new BufferedTestBuildTask(), function ($task) {
