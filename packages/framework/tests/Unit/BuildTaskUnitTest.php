@@ -78,6 +78,17 @@ class BuildTaskUnitTest extends UnitTestCase
 
         $this->assertTrue($task->property('wasHandled'));
     }
+
+    public function testRunMethodReturnsExitCode()
+    {
+        $task = new InspectableTestBuildTask();
+
+        $this->assertEquals(0, $task->run());
+
+        $task->set('exitCode', 1);
+
+        $this->assertEquals(1, $task->run());
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
