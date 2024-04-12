@@ -35,6 +35,8 @@ This serves two purposes:
 
 In order to prepare your project for HydePHP v2.0, you should update your `config/hyde.php` configuration file to use the new `Feature` enum for the `features` array.
 
+You can see the changes to make in your Hyde project by looking at the following pull request https://github.com/hydephp/hyde/pull/250/files
+
 Your new config array should look like this:
 
 ```php
