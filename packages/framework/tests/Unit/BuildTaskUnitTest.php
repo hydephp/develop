@@ -108,6 +108,13 @@ class BuildTaskUnitTest extends UnitTestCase
 
         $this->assertSame('<comment>Running generic build task...</comment>', trim($task->buffer[0]));
     }
+
+    public function testCanPrintCustomStartMessage()
+    {
+        $task = tap(new BufferedTestBuildTaskWithCustomMessage(), fn ($task) => $task->printStartMessage());
+
+        $this->assertSame('<comment>Custom message...</comment>', trim($task->buffer[0]));
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
