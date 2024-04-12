@@ -27,3 +27,16 @@ class EmptyTestBuildTask extends BuildTask
         // Do nothing
     }
 }
+
+class InspectableTestBuildTask extends BuildTask
+{
+    public function handle(): void
+    {
+        // Do nothing
+    }
+
+    public function property(string $name): mixed
+    {
+        return $this->{$name};
+    }
+}
