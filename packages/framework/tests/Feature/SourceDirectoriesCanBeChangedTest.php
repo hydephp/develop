@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Illuminate\Support\Facades\File;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -17,6 +18,13 @@ use Hyde\Testing\TestCase;
  */
 class SourceDirectoriesCanBeChangedTest extends TestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        parent::tearDownAfterClass();
+
+        File::deleteDirectory('_source');
+    }
+
     public function testBaselines()
     {
         $this->assertEquals('_pages', HtmlPage::sourceDirectory());
