@@ -146,7 +146,6 @@ class BuildTaskUnitTest extends UnitTestCase
         });
 
         $this->assertSame($task, $task->withExecutionTime());
-
         $this->assertSame(' in 1,234.56ms', $task->buffer[0]);
     }
 }
