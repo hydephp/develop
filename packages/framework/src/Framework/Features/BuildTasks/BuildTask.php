@@ -57,7 +57,7 @@ abstract class BuildTask
                 $this->writeln("<error>{$exception->getMessage()}</error>");
             }
 
-           $this->exitCode = $exception->getCode();
+            $this->exitCode = $exception->getCode();
         }
 
         $this->write("\n");
