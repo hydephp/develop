@@ -88,6 +88,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           functionalities: network
+          fail_ci_if_error: true
 
       - name: Ping statistics server with test results
         run: |
