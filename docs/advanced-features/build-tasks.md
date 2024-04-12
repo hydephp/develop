@@ -152,3 +152,24 @@ class MyServiceProvider extends ServiceProvider
     }
 }
 ```
+
+## Error handling
+
+If an exception is thrown in a build task, the build command will catch it and display the error message to the user.
+
+## Helper methods
+
+### Output helpers
+
+When a build task is called by the site build command, it gets access to the Laravel and Symfony console output helpers through the `$output` property.
+
+```php
+public function handle(): void
+{
+    /** @var \Illuminate\Console\OutputStyle $output */
+
+    $this->output->info('Hello World!');
+    $this->output->error('Something went wrong!');
+    $this->output->writeln('This is a line of text');
+}
+```
