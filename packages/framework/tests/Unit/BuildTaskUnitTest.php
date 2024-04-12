@@ -97,10 +97,7 @@ class BuildTaskUnitTest extends UnitTestCase
 
     public function testCanGetCustomMessage()
     {
-        $task = new class extends BufferedTestBuildTask
-        {
-            protected static string $message = 'Custom message';
-        };
+        $task = new BufferedTestBuildTaskWithCustomMessage();
 
         $this->assertSame('Custom message', $task->getMessage());
     }
@@ -164,4 +161,9 @@ class BufferedTestBuildTask extends InspectableTestBuildTask
     {
         $this->buffer[] = $message;
     }
+}
+
+class BufferedTestBuildTaskWithCustomMessage extends BufferedTestBuildTask
+{
+    protected static string $message = 'Custom message';
 }
