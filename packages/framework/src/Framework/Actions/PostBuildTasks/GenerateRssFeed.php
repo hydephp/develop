@@ -24,6 +24,6 @@ class GenerateRssFeed extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile('_site/'.RssFeedGenerator::getFilename())->withExecutionTime();
+        $this->createdSiteFile(Hyde::getOutputDirectory().'/'.RssFeedGenerator::getFilename())->withExecutionTime();
     }
 }

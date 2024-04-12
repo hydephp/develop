@@ -24,6 +24,6 @@ class GenerateSitemap extends PostBuildTask
 
     public function printFinishMessage(): void
     {
-        $this->createdSiteFile('_site/sitemap.xml')->withExecutionTime();
+        $this->createdSiteFile(Hyde::getOutputDirectory().'/sitemap.xml')->withExecutionTime();
     }
 }
