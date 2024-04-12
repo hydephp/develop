@@ -84,6 +84,12 @@ abstract class BuildTask
         $this->output?->writeln($message);
     }
 
+    /** Write a fluent message to the output that the task is skipping. */
+    public function skip(string $reason): void
+    {
+        throw new BuildTaskSkippedException($reason);
+    }
+
     /** Write a fluent message to the output that the task created the specified file. */
     public function createdSiteFile(string $path): static
     {
