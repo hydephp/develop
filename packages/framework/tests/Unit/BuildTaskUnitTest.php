@@ -55,18 +55,14 @@ class BuildTaskUnitTest extends UnitTestCase
 
     public function testItPrintsStartMessage()
     {
-        $task = new BufferedTestBuildTask();
-
-        $task->run();
+        $task = tap(new BufferedTestBuildTask(), fn ($task) => $task->run());
 
         $this->assertStringContainsString('Running generic build task', $task->buffer[0]);
     }
 
     public function testItPrintsFinishMessage()
     {
-        $task = new BufferedTestBuildTask();
-
-        $task->run();
+        $task = tap(new BufferedTestBuildTask(), fn ($task) => $task->run());
 
         $this->assertStringContainsString('Done in', $task->buffer[1]);
         $this->assertStringContainsString('ms', $task->buffer[1]);
