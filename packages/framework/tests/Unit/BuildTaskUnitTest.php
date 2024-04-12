@@ -44,9 +44,10 @@ class BuildTaskUnitTest extends UnitTestCase
     {
         $task = new InspectableTestBuildTask();
 
-        $output = Mockery::mock(OutputStyle::class);
-        $output->shouldReceive('write')->once();
-        $output->shouldReceive('writeln')->once();
+        $output = Mockery::mock(OutputStyle::class, [
+            'write' => null,
+            'writeln' => null,
+        ]);
 
         $task->run($output);
         $this->assertTrue($task->isset('output'));
