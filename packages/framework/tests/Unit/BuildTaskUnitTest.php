@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
+use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
@@ -157,6 +158,28 @@ class BuildTaskUnitTest extends UnitTestCase
 
         $this->assertSame($task, $task->withExecutionTime());
         $this->assertSame(' in 1,234.56ms', $task->buffer[0]);
+    }
+
+    public function testCreatedSiteFile()
+    {
+        self::needsKernel();
+
+        $task = new BufferedTestBuildTask();
+
+        $task->createdSiteFile('foo');
+
+        $this->assertSame("\n > Created <info>foo</info>", $task->buffer[0]);
+    }
+
+    public function testCreatedSiteFileWithAbsolutePath()
+    {
+        self::needsKernel();
+
+        $task = new BufferedTestBuildTask();
+
+        $task->createdSiteFile(Hyde::path('foo'));
+
+        $this->assertSame("\n > Created <info>foo</info>", $task->buffer[0]);
     }
 }
 
