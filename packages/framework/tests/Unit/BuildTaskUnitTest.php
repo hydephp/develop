@@ -18,6 +18,16 @@ class BuildTaskUnitTest extends UnitTestCase
 
         $this->assertInstanceOf(BuildTask::class, $task);
     }
+
+    public function testItTracksExecutionTime()
+    {
+        $task = new InspectableTestBuildTask();
+
+        $task->run();
+
+        $this->assertTrue($task->isset('timeStart'));
+        $this->assertGreaterThan(0, $task->property('timeStart'));
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
