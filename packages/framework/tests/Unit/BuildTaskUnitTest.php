@@ -14,14 +14,16 @@ class BuildTaskUnitTest extends UnitTestCase
 {
     public function testCanCreateBuildTask()
     {
-        $task = new class extends BuildTask
-        {
-            public function handle(): void
-            {
-                // Do nothing
-            }
-        };
+        $task = new EmptyTestBuildTask();
 
         $this->assertInstanceOf(BuildTask::class, $task);
+    }
+}
+
+class EmptyTestBuildTask extends BuildTask
+{
+    public function handle(): void
+    {
+        // Do nothing
     }
 }
