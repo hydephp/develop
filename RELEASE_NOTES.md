@@ -25,6 +25,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
+- Fixed a bug where the sitemap and RSS feed generator commands did not work when the `_site/` directory was not present in https://github.com/hydephp/develop/pull/1654
 - Realtime Compiler: Fixed responsive dashboard table issue in https://github.com/hydephp/develop/pull/1595
 
 ### Security
