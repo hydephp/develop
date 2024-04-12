@@ -176,6 +176,8 @@ public function handle(): void
 
 ### Skipping tasks
 
+>info This feature was added in HydePHP v1.6.0
+
 If you for some reason need to skip the task during its execution, you can call the `skip()` method.
 
 ```php
