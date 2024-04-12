@@ -28,6 +28,15 @@ class BuildTaskUnitTest extends UnitTestCase
         $this->assertTrue($task->isset('timeStart'));
         $this->assertGreaterThan(0, $task->property('timeStart'));
     }
+
+    public function testItCanRunWithoutOutput()
+    {
+        $task = new InspectableTestBuildTask();
+
+        $task->run();
+
+        $this->assertFalse($task->isset('output'));
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
