@@ -20,10 +20,7 @@ class GenerateRssFeed extends PostBuildTask
     {
         $this->path = Hyde::sitePath(RssFeedGenerator::getFilename());
 
-        file_put_contents(
-            $this->path,
-            RssFeedGenerator::make()
-        );
+        file_put_contents($this->path, RssFeedGenerator::make());
     }
 
     public function printFinishMessage(): void

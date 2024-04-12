@@ -20,10 +20,7 @@ class GenerateSitemap extends PostBuildTask
     {
         $this->path = Hyde::sitePath('sitemap.xml');
 
-        file_put_contents(
-            $this->path,
-            SitemapGenerator::make()
-        );
+        file_put_contents($this->path, SitemapGenerator::make());
     }
 
     public function printFinishMessage(): void
