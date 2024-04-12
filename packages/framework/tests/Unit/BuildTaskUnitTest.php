@@ -44,4 +44,9 @@ class InspectableTestBuildTask extends BuildTask
     {
         return $this->{$name};
     }
+
+    public function call(string $name, mixed ...$args): mixed
+    {
+        return $this->{$name}(...$args);
+    }
 }
