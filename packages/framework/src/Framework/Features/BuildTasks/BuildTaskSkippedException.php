@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\BuildTasks;
 
-class BuildTaskSkippedException
+use RuntimeException;
+
+class BuildTaskSkippedException extends RuntimeException
 {
     //
 }
