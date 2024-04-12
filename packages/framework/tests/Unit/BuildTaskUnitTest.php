@@ -115,6 +115,28 @@ class BuildTaskUnitTest extends UnitTestCase
 
         $this->assertSame('<comment>Custom message...</comment>', trim($task->buffer[0]));
     }
+
+    public function testCanPrintFinishMessage()
+    {
+        $task = tap(new BufferedTestBuildTask(), function ($task) {
+            $task->set('timeStart', time());
+            $task->printFinishMessage();
+        });
+
+        $this->assertStringContainsString('Done in', $task->buffer[0]);
+        $this->assertStringContainsString('ms', $task->buffer[0]);
+    }
+
+    public function testFinishMessagePrintingFormatsExecutionTime()
+    {
+        $task = tap(new BufferedTestBuildTask(), function ($task) {
+            $task->set('timeStart', 1000);
+            $task->mockClock(1001.23456);
+            $task->printFinishMessage();
+        });
+
+        $this->assertSame('<fg=gray>Done in 1,234.56ms</>', $task->buffer[0]);
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
@@ -128,6 +150,7 @@ class EmptyTestBuildTask extends BuildTask
 class InspectableTestBuildTask extends BuildTask
 {
     protected bool $wasHandled = false;
+    protected float $mockedEndTime;
 
     public function handle(): void
     {
@@ -152,6 +175,20 @@ class InspectableTestBuildTask extends BuildTask
     public function set(string $name, mixed $value): void
     {
         $this->{$name} = $value;
+    }
+
+    public function mockClock(float $time): void
+    {
+        $this->mockedEndTime = $time;
+    }
+
+    protected function stopClock(): float
+    {
+        if (isset($this->mockedEndTime)) {
+            return $this->mockedEndTime - $this->timeStart;
+        }
+
+        return parent::stopClock();
     }
 }
 
