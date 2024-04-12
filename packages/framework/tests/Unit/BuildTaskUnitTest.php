@@ -149,17 +149,6 @@ class BuildTaskUnitTest extends UnitTestCase
         $this->assertSame(['foo', 'bar'], $task->buffer);
     }
 
-    public function testWithExecutionTime()
-    {
-        $task = tap(new BufferedTestBuildTask(), function ($task) {
-            $task->set('timeStart', 1000);
-            $task->mockClock(1001.23456);
-        });
-
-        $this->assertSame($task, $task->withExecutionTime());
-        $this->assertSame(' in 1,234.56ms', $task->buffer[0]);
-    }
-
     public function testCreatedSiteFile()
     {
         self::needsKernel();
@@ -180,6 +169,17 @@ class BuildTaskUnitTest extends UnitTestCase
         $task->createdSiteFile(Hyde::path('foo'));
 
         $this->assertSame("\n > Created <info>foo</info>", $task->buffer[0]);
+    }
+
+    public function testWithExecutionTime()
+    {
+        $task = tap(new BufferedTestBuildTask(), function ($task) {
+            $task->set('timeStart', 1000);
+            $task->mockClock(1001.23456);
+        });
+
+        $this->assertSame($task, $task->withExecutionTime());
+        $this->assertSame(' in 1,234.56ms', $task->buffer[0]);
     }
 }
 
