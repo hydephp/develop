@@ -89,6 +89,21 @@ class BuildTaskUnitTest extends UnitTestCase
 
         $this->assertSame(1, $task->run());
     }
+
+    public function testCanGetMessage()
+    {
+        $this->assertSame('Running generic build task', (new BufferedTestBuildTask())->getMessage());
+    }
+
+    public function testCanGetCustomMessage()
+    {
+        $task = new class extends BufferedTestBuildTask
+        {
+            protected static string $message = 'Custom message';
+        };
+
+        $this->assertSame('Custom message', $task->getMessage());
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
