@@ -84,3 +84,18 @@ class InspectableTestBuildTask extends BuildTask
         return $this->{$name}(...$args);
     }
 }
+
+class BufferedTestBuildTask extends InspectableTestBuildTask
+{
+    public array $buffer = [];
+
+    public function write(string $message): void
+    {
+        $this->buffer[] = $message;
+    }
+
+    public function writeln(string $message): void
+    {
+        $this->buffer[] = $message;
+    }
+}
