@@ -35,6 +35,11 @@ class InspectableTestBuildTask extends BuildTask
         // Do nothing
     }
 
+    public function isset(string $name): bool
+    {
+        return isset($this->{$name});
+    }
+
     public function property(string $name): mixed
     {
         return $this->{$name};
