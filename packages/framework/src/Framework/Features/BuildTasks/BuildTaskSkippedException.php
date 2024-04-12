@@ -8,5 +8,8 @@ use RuntimeException;
 
 class BuildTaskSkippedException extends RuntimeException
 {
-    //
+    public function __construct(string $message = 'Task was skipped', int $code = 0)
+    {
+        parent::__construct($message, $code);
+    }
 }
