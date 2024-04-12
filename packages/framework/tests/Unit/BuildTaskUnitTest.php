@@ -83,11 +83,11 @@ class BuildTaskUnitTest extends UnitTestCase
     {
         $task = new InspectableTestBuildTask();
 
-        $this->assertEquals(0, $task->run());
+        $this->assertSame(0, $task->run());
 
         $task->set('exitCode', 1);
 
-        $this->assertEquals(1, $task->run());
+        $this->assertSame(1, $task->run());
     }
 }
 
