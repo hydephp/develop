@@ -84,7 +84,11 @@ abstract class BuildTask
         $this->output?->writeln($message);
     }
 
-    /** Write a fluent message to the output that the task is skipping. */
+    /**
+     * Write a fluent message to the output that the task is skipping.
+     *
+     * @throws \Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException
+     */
     public function skip(string $reason): void
     {
         throw new BuildTaskSkippedException($reason);
