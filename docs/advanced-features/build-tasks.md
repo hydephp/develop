@@ -173,3 +173,20 @@ public function handle(): void
     $this->output->writeln('This is a line of text');
 }
 ```
+
+### Skipping tasks
+
+If you for some reason need to skip the task during its execution, you can call the `skip()` method.
+
+```php
+public function handle(): void
+{
+    if ($this->someCondition() !== true) {
+        $this->skip('Some condition was not met');
+        
+        // The task will not be executed past this point
+    }
+}
+```
+
+This will then halt the execution of the task, and display a notice with the message you provided to the console.
