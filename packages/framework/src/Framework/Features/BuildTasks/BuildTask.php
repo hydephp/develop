@@ -91,7 +91,7 @@ abstract class BuildTask
     }
 
     /**
-     * Write a fluent message to the output that the task is skipping.
+     * Write a fluent message to the output that the task is skipping and halt the execution.
      *
      * @throws \Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException
      */
