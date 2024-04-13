@@ -19,6 +19,7 @@ This serves two purposes:
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
+- The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 
