@@ -186,13 +186,11 @@ class BuildTaskUnitTest extends UnitTestCase
 
     public function testTaskSkipping()
     {
-        $task = new BufferedTestBuildTask();
-
-        $task->mockHandle(function (BufferedTestBuildTask $task) {
-            $task->skip();
+        $task = tap(new BufferedTestBuildTask(), function (BufferedTestBuildTask $task) {
+            $task->mockHandle(function (BufferedTestBuildTask $task) {
+                $task->skip();
+            })->run();
         });
-
-        $task->run();
 
         $this->assertSame(0, $task->property('exitCode'));
         $this->assertSame('<bg=yellow>Skipped</>', $task->buffer[1]);
@@ -201,13 +199,11 @@ class BuildTaskUnitTest extends UnitTestCase
 
     public function testTaskSkippingWithCustomMessage()
     {
-        $task = new BufferedTestBuildTask();
-
-        $task->mockHandle(function (BufferedTestBuildTask $task) {
-            $task->skip('Custom reason');
+        $task = tap(new BufferedTestBuildTask(), function (BufferedTestBuildTask $task) {
+            $task->mockHandle(function (BufferedTestBuildTask $task) {
+                $task->skip('Custom reason');
+            })->run();
         });
-
-        $task->run();
 
         $this->assertSame(0, $task->property('exitCode'));
         $this->assertSame('<bg=yellow>Skipped</>', $task->buffer[1]);
@@ -278,9 +274,11 @@ class InspectableTestBuildTask extends BuildTask
         $this->mockedEndTime = $time;
     }
 
-    public function mockHandle(Closure $handle): void
+    public function mockHandle(Closure $handle): static
     {
         $this->mockHandle = $handle;
+
+        return $this;
     }
 
     protected function stopClock(): float
