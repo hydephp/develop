@@ -14,6 +14,7 @@ This serves two purposes:
 - Added a `Hyde::route()` helper to the `Hyde` facade in https://github.com/hydephp/develop/pull/1591
 - Added new global helper functions (`asset()`, `route()`, `url()`) in https://github.com/hydephp/develop/pull/1592
 - Added a new `Feature` enum to improve the `Features` facade in https://github.com/hydephp/develop/pull/1650
+- Added a helper to `->skip()` build tasks in https://github.com/hydephp/develop/pull/1656
 
 ### Changed
 - The `features` array in the `config/hyde.php` configuration file is now an array of `Feature` enums in https://github.com/hydephp/develop/pull/1650
