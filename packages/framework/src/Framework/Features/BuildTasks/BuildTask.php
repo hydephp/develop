@@ -95,9 +95,9 @@ abstract class BuildTask
      *
      * @throws \Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException
      */
-    public function skip(string $reason): void
+    public function skip(string $reason = null): void
     {
-        throw new BuildTaskSkippedException($reason);
+        throw new BuildTaskSkippedException($reason ?? 'Task was skipped');
     }
 
     /** Write a fluent message to the output that the task created the specified file. */
