@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Hyde;
+use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Enums\Feature;
@@ -12,6 +13,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
 
+use function collect;
 use function is_array;
 use function array_filter;
 use function extension_loaded;
@@ -53,7 +55,7 @@ class Features implements SerializableContract
      */
     public static function enabled(): array
     {
-        return Arr::map(Hyde::features()->features, fn (Feature $feature): string => $feature->value);
+        return Arr::map(Hyde::features()->features, fn (Feature $feature): string => Str::kebab($feature->name));
     }
 
     public static function hasHtmlPages(): bool
@@ -139,7 +141,7 @@ class Features implements SerializableContract
     public function toArray(): array
     {
         return Arr::mapWithKeys(Feature::cases(), fn (Feature $feature): array => [
-            $feature->value => static::has($feature),
+            Str::kebab($feature->name) => static::has($feature),
         ]);
     }
 
@@ -152,9 +154,9 @@ class Features implements SerializableContract
     {
         foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
             if ($enabled !== true) {
-                Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => $search !== Feature::from($feature));
+                Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => Str::kebab($search->name) !== $feature);
             } else {
-                Hyde::features()->features[] = Feature::from($feature);
+                Hyde::features()->features[] = collect(Feature::cases())->firstOrFail(fn (Feature $search): bool => Str::kebab($search->name) === $feature);
             }
         }
     }
