@@ -188,9 +188,6 @@ class BuildTaskUnitTest extends UnitTestCase
     {
         $task = new BufferedTestBuildTask();
 
-        $task->set('exitCode', 0);
-        $task->set('timeStart', time());
-
         $task->mockHandle(function () {
             throw new Exception('Test exception', 123);
         });
