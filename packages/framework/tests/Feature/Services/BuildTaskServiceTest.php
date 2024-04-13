@@ -30,6 +30,8 @@ class BuildTaskServiceTest extends TestCase
      */
     public function testBuildCommandCanRunBuildTasks()
     {
+        config(['hyde.url' => 'https://example.com']);
+
         $this->artisan('build')
             ->expectsOutputToContain('Removing all files from build directory')
             ->expectsOutputToContain('Generating sitemap')

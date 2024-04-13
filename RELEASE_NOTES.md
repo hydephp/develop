@@ -18,6 +18,7 @@ This serves two purposes:
 
 ### Changed
 - The `features` array in the `config/hyde.php` configuration file is now an array of `Feature` enums in https://github.com/hydephp/develop/pull/1650
+- Sitemap generation will now be skipped if a base URL is not set, as Google now will not index sitemaps without a base URL in https://github.com/hydephp/develop/pull/1660
 
 ### Deprecated
 - Deprecated the static `Features` flag methods used in the configuration files in https://github.com/hydephp/develop/pull/1650 and will be removed in HydePHP v2.0
