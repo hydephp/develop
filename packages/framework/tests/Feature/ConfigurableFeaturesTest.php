@@ -133,18 +133,14 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testMultipleFeaturesCanBeMocked()
     {
-        Features::mock([
-            'blade-pages' => true,
-            'darkmode' => true,
-        ]);
+        Features::mock('blade-pages', true);
+        Features::mock('darkmode', true);
 
         $this->assertTrue(Features::hasBladePages());
         $this->assertTrue(Features::hasDarkmode());
 
-        Features::mock([
-            'blade-pages' => false,
-            'darkmode' => false,
-        ]);
+        Features::mock('blade-pages', false);
+        Features::mock('darkmode', false);
 
         $this->assertFalse(Features::hasBladePages());
         $this->assertFalse(Features::hasDarkmode());

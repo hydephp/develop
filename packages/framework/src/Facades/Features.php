@@ -14,7 +14,6 @@ use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
 
 use function collect;
-use function is_array;
 use function array_filter;
 use function extension_loaded;
 use function in_array;
@@ -145,21 +144,15 @@ class Features implements SerializableContract
         ]);
     }
 
-    /**
-     * @internal This method is not covered by the backward compatibility promise.
-     *
-     * @param  string|array<string, bool>  $feature
-     */
-    public static function mock(string|array $feature, bool $enabled = null): void
+    /** @internal This method is not covered by the backward compatibility promise. */
+    public static function mock(string $feature, bool $enabled = null): void
     {
-        foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
-            if ($enabled === true) {
-                // Add the feature if it doesn't already exist.
-                Hyde::features()->features[] = collect(Feature::cases())->firstOrFail(fn (Feature $search): bool => Str::kebab($search->name) === $feature);
-            } else {
-                // Remove the feature if it exists.
-                Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => Str::kebab($search->name) !== $feature);
-            }
+        if ($enabled === true) {
+            // Add the feature if it doesn't already exist.
+            Hyde::features()->features[] = collect(Feature::cases())->firstOrFail(fn (Feature $search): bool => Str::kebab($search->name) === $feature);
+        } else {
+            // Remove the feature if it exists.
+            Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => Str::kebab($search->name) !== $feature);
         }
     }
 }
