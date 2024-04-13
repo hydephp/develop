@@ -193,7 +193,7 @@ class BuildTaskUnitTest extends UnitTestCase
         });
 
         $this->assertSame(0, $task->property('exitCode'));
-        $this->assertSame('<bg=yellow>Skipped</>', $task->buffer[1]);
+        $this->assertSame('<bg=yellow>Skipped</>', trim($task->buffer[1]));
         $this->assertSame('<fg=gray> > Task was skipped</>', $task->buffer[2]);
     }
 
@@ -206,7 +206,7 @@ class BuildTaskUnitTest extends UnitTestCase
         });
 
         $this->assertSame(0, $task->property('exitCode'));
-        $this->assertSame('<bg=yellow>Skipped</>', $task->buffer[1]);
+        $this->assertSame('<bg=yellow>Skipped</>', trim($task->buffer[1]));
         $this->assertSame('<fg=gray> > Custom reason</>', $task->buffer[2]);
     }
 
@@ -221,7 +221,7 @@ class BuildTaskUnitTest extends UnitTestCase
         $task->run();
 
         $this->assertSame(123, $task->property('exitCode'));
-        $this->assertSame('<error>Failed</error>', $task->buffer[1]);
+        $this->assertSame('<error>Failed</error>', trim($task->buffer[1]));
         $this->assertSame('<error>Test exception</error>', $task->buffer[2]);
     }
 }

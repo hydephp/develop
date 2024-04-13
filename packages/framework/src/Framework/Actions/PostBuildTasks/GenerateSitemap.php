@@ -21,6 +21,10 @@ class GenerateSitemap extends PostBuildTask
 
     public function handle(): void
     {
+        if (blank(Hyde::url()) || str_starts_with(Hyde::url(), 'http://localhost')) {
+            $this->skip('Cannot generate sitemap without a valid base URL');
+        }
+
         $this->path = Hyde::sitePath('sitemap.xml');
 
         $this->needsParentDirectory($this->path);

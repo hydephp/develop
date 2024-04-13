@@ -50,11 +50,11 @@ abstract class BuildTask
             $this->printFinishMessage();
         } catch (Throwable $exception) {
             if ($exception instanceof BuildTaskSkippedException) {
-                $this->writeln('<bg=yellow>Skipped</>');
-                $this->writeln("<fg=gray> > {$exception->getMessage()}</>");
+                $this->write("<bg=yellow>Skipped</>\n");
+                $this->write("<fg=gray> > {$exception->getMessage()}</>");
             } else {
-                $this->writeln('<error>Failed</error>');
-                $this->writeln("<error>{$exception->getMessage()}</error>");
+                $this->write("<error>Failed</error>\n");
+                $this->write("<error>{$exception->getMessage()}</error>");
             }
 
             $this->exitCode = $exception->getCode();
