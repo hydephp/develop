@@ -154,8 +154,10 @@ class Features implements SerializableContract
     {
         foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
             if ($enabled === true) {
+                // Add the feature if it doesn't already exist.
                 Hyde::features()->features[] = collect(Feature::cases())->firstOrFail(fn (Feature $search): bool => Str::kebab($search->name) === $feature);
             } else {
+                // Remove the feature if it exists.
                 Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => Str::kebab($search->name) !== $feature);
             }
         }
