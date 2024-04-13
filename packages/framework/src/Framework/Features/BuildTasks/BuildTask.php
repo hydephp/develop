@@ -49,8 +49,14 @@ abstract class BuildTask
             $this->handle();
             $this->printFinishMessage();
         } catch (Throwable $exception) {
-            $this->writeln('<error>Failed</error>');
-            $this->writeln("<error>{$exception->getMessage()}</error>");
+            if ($exception instanceof BuildTaskSkippedException) {
+                $this->writeln('<bg=yellow>Skipped</>');
+                $this->writeln("<fg=gray> > {$exception->getMessage()}</>");
+            } else {
+                $this->writeln('<error>Failed</error>');
+                $this->writeln("<error>{$exception->getMessage()}</error>");
+            }
+
             $this->exitCode = $exception->getCode();
         }
 
@@ -82,6 +88,16 @@ abstract class BuildTask
     public function writeln(string $message): void
     {
         $this->output?->writeln($message);
+    }
+
+    /**
+     * Write a fluent message to the output that the task is skipping and halt the execution.
+     *
+     * @throws \Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException
+     */
+    public function skip(string $reason = 'Task was skipped'): void
+    {
+        throw new BuildTaskSkippedException($reason);
     }
 
     /** Write a fluent message to the output that the task created the specified file. */

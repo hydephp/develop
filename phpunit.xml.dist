@@ -12,11 +12,11 @@
         <testsuite name="FeatureHyde">
             <directory suffix="Test.php">./packages/hyde/tests</directory>
         </testsuite>
-        <testsuite name="FeatureFramework">
-            <directory suffix="Test.php">./packages/framework/tests/Feature</directory>
-        </testsuite>
         <testsuite name="UnitFramework">
             <directory suffix="Test.php">./packages/framework/tests/Unit</directory>
+        </testsuite>
+        <testsuite name="FeatureFramework">
+            <directory suffix="Test.php">./packages/framework/tests/Feature</directory>
         </testsuite>
         <testsuite name="Publications">
             <directory suffix="Test.php">./packages/publications/tests</directory>
