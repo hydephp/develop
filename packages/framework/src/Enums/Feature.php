@@ -24,19 +24,4 @@ enum Feature
 
     // Integrations
     case Torchlight;
-
-    /** @deprecated Temporary kebab case support */
-    public static function from(string $name): self
-    {
-        return match ($name) {
-            'html-pages' => self::HtmlPages,
-            'markdown-posts' => self::MarkdownPosts,
-            'blade-pages' => self::BladePages,
-            'markdown-pages' => self::MarkdownPages,
-            'documentation-pages' => self::DocumentationPages,
-            'darkmode' => self::Darkmode,
-            'documentation-search' => self::DocumentationSearch,
-            'torchlight' => self::Torchlight,
-        };
-    }
 }

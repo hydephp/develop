@@ -13,6 +13,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Support\Arr;
 
+use function collect;
 use function is_array;
 use function array_filter;
 use function extension_loaded;
@@ -152,12 +153,10 @@ class Features implements SerializableContract
     public static function mock(string|array $feature, bool $enabled = null): void
     {
         foreach (is_array($feature) ? $feature : [$feature => $enabled] as $feature => $enabled) {
-            $feature = Feature::from($feature);
-
             if ($enabled !== true) {
-                Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => $search !== $feature);
+                Hyde::features()->features = array_filter(Hyde::features()->features, fn (Feature $search): bool => Str::kebab($search->name) !== $feature);
             } else {
-                Hyde::features()->features[] = $feature;
+                Hyde::features()->features[] = collect(Feature::cases())->firstOrFail(fn (Feature $search): bool => Str::kebab($search->name) === $feature);
             }
         }
     }

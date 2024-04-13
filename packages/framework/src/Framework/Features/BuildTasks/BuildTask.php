@@ -20,7 +20,7 @@ abstract class BuildTask
     use TracksExecutionTime;
 
     /** @var string The message that will be displayed when the task is run. */
-    protected static string $message = 'Running generic build task';
+    protected static string $message = 'Running build task';
 
     protected int $exitCode = Command::SUCCESS;
 
@@ -49,8 +49,14 @@ abstract class BuildTask
             $this->handle();
             $this->printFinishMessage();
         } catch (Throwable $exception) {
-            $this->writeln('<error>Failed</error>');
-            $this->writeln("<error>{$exception->getMessage()}</error>");
+            if ($exception instanceof BuildTaskSkippedException) {
+                $this->write("<bg=yellow>Skipped</>\n");
+                $this->write("<fg=gray> > {$exception->getMessage()}</>");
+            } else {
+                $this->write("<error>Failed</error>\n");
+                $this->write("<error>{$exception->getMessage()}</error>");
+            }
+
             $this->exitCode = $exception->getCode();
         }
 
@@ -82,6 +88,16 @@ abstract class BuildTask
     public function writeln(string $message): void
     {
         $this->output?->writeln($message);
+    }
+
+    /**
+     * Write a fluent message to the output that the task is skipping and halt the execution.
+     *
+     * @throws \Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException
+     */
+    public function skip(string $reason = 'Task was skipped'): void
+    {
+        throw new BuildTaskSkippedException($reason);
     }
 
     /** Write a fluent message to the output that the task created the specified file. */
