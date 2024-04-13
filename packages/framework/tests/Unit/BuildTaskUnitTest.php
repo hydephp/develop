@@ -173,7 +173,7 @@ class BuildTaskUnitTest extends UnitTestCase
 
     public function testWithExecutionTime()
     {
-        $task = tap(new BufferedTestBuildTask(), function ($task) {
+        $task = tap(new BufferedTestBuildTask(), function (BufferedTestBuildTask $task) {
             $task->set('timeStart', 1000);
             $task->mockClock(1001.23456);
         });
