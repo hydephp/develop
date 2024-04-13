@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
+use Closure;
 use Hyde\Hyde;
+use Exception;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
@@ -181,6 +183,24 @@ class BuildTaskUnitTest extends UnitTestCase
         $this->assertSame($task, $task->withExecutionTime());
         $this->assertSame(' in 1,234.56ms', $task->buffer[0]);
     }
+
+    public function testExceptionHandling()
+    {
+        $task = new BufferedTestBuildTask();
+
+        $task->set('exitCode', 0);
+        $task->set('timeStart', time());
+
+        $task->mockHandle(function () {
+            throw new Exception('Test exception', 123);
+        });
+
+        $task->run();
+
+        $this->assertSame(123, $task->property('exitCode'));
+        $this->assertSame('<error>Failed</error>', $task->buffer[1]);
+        $this->assertSame('<error>Test exception</error>', $task->buffer[2]);
+    }
 }
 
 class EmptyTestBuildTask extends BuildTask
@@ -195,10 +215,15 @@ class InspectableTestBuildTask extends BuildTask
 {
     protected bool $wasHandled = false;
     protected float $mockedEndTime;
+    protected Closure $mockHandle;
 
     public function handle(): void
     {
-        $this->wasHandled = true;
+        if (isset($this->mockHandle)) {
+            ($this->mockHandle)();
+        } else {
+            $this->wasHandled = true;
+        }
     }
 
     public function isset(string $name): bool
@@ -224,6 +249,11 @@ class InspectableTestBuildTask extends BuildTask
     public function mockClock(float $time): void
     {
         $this->mockedEndTime = $time;
+    }
+
+    public function mockHandle(Closure $handle): void
+    {
+        $this->mockHandle = $handle;
     }
 
     protected function stopClock(): float
