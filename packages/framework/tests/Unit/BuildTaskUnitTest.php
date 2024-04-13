@@ -184,6 +184,36 @@ class BuildTaskUnitTest extends UnitTestCase
         $this->assertSame(' in 1,234.56ms', $task->buffer[0]);
     }
 
+    public function testTaskSkipping()
+    {
+        $task = new BufferedTestBuildTask();
+
+        $task->mockHandle(function (BufferedTestBuildTask $task) {
+            $task->skip();
+        });
+
+        $task->run();
+
+        $this->assertSame(0, $task->property('exitCode'));
+        $this->assertSame('<bg=yellow>Skipped</>', $task->buffer[1]);
+        $this->assertSame('<fg=gray> > Task was skipped</>', $task->buffer[2]);
+    }
+
+    public function testTaskSkippingWithCustomMessage()
+    {
+        $task = new BufferedTestBuildTask();
+
+        $task->mockHandle(function (BufferedTestBuildTask $task) {
+            $task->skip('Custom reason');
+        });
+
+        $task->run();
+
+        $this->assertSame(0, $task->property('exitCode'));
+        $this->assertSame('<bg=yellow>Skipped</>', $task->buffer[1]);
+        $this->assertSame('<fg=gray> > Custom reason</>', $task->buffer[2]);
+    }
+
     public function testExceptionHandling()
     {
         $task = new BufferedTestBuildTask();
@@ -217,7 +247,7 @@ class InspectableTestBuildTask extends BuildTask
     public function handle(): void
     {
         if (isset($this->mockHandle)) {
-            ($this->mockHandle)();
+            ($this->mockHandle)($this);
         } else {
             $this->wasHandled = true;
         }
