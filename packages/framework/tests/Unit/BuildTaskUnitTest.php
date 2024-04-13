@@ -60,7 +60,7 @@ class BuildTaskUnitTest extends UnitTestCase
     {
         $task = tap(new BufferedTestBuildTask(), fn ($task) => $task->run());
 
-        $this->assertStringContainsString('Running generic build task', $task->buffer[0]);
+        $this->assertStringContainsString('Running build task', $task->buffer[0]);
     }
 
     public function testItPrintsFinishMessage()
@@ -95,7 +95,7 @@ class BuildTaskUnitTest extends UnitTestCase
 
     public function testCanGetMessage()
     {
-        $this->assertSame('Running generic build task', (new BufferedTestBuildTask())->getMessage());
+        $this->assertSame('Running build task', (new BufferedTestBuildTask())->getMessage());
     }
 
     public function testCanGetCustomMessage()
@@ -109,7 +109,7 @@ class BuildTaskUnitTest extends UnitTestCase
     {
         $task = tap(new BufferedTestBuildTask(), fn ($task) => $task->printStartMessage());
 
-        $this->assertSame('<comment>Running generic build task...</comment>', trim($task->buffer[0]));
+        $this->assertSame('<comment>Running build task...</comment>', trim($task->buffer[0]));
     }
 
     public function testCanPrintCustomStartMessage()
