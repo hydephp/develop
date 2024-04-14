@@ -38,8 +38,8 @@ class SourceFileParserTest extends TestCase
         $this->assertInstanceOf(MarkdownPage::class, $page);
         $this->assertSame('foo', $page->identifier);
         $this->assertSame('Foo Bar Baz', $page->title);
-        $this->assertEquals('# Foo Bar', $page->markdown);
         $this->assertSame('# Foo Bar', $page->markdown->body());
+        $this->assertEquals('# Foo Bar', $page->markdown);
     }
 
     public function testMarkdownPostParser()
@@ -52,8 +52,8 @@ class SourceFileParserTest extends TestCase
         $this->assertInstanceOf(MarkdownPost::class, $page);
         $this->assertSame('foo', $page->identifier);
         $this->assertSame('Foo Bar Baz', $page->title);
-        $this->assertEquals('# Foo Bar', $page->markdown);
         $this->assertSame('# Foo Bar', $page->markdown->body());
+        $this->assertEquals('# Foo Bar', $page->markdown);
     }
 
     public function testDocumentationPageParser()
@@ -66,8 +66,8 @@ class SourceFileParserTest extends TestCase
         $this->assertInstanceOf(DocumentationPage::class, $page);
         $this->assertSame('foo', $page->identifier);
         $this->assertSame('Foo Bar Baz', $page->title);
-        $this->assertEquals('# Foo Bar', $page->markdown);
         $this->assertSame('# Foo Bar', $page->markdown->body());
+        $this->assertEquals('# Foo Bar', $page->markdown);
     }
 
     public function testHtmlPageParser()
