@@ -21,7 +21,6 @@ class BladeDownProcessorTest extends TestCase
     {
         $this->assertSame(
             "Foo\nHello World!\nBar",
-
             BladeDownProcessor::render("Foo\n[Blade]: {{ 'Hello World!' }}\nBar")
         );
     }
