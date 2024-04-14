@@ -67,6 +67,7 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
 
         $this->file('_posts/test-post.md');
         StaticPageBuilder::handle(Pages::getPage('_posts/test-post.md'));
+
         $this->assertFileExists(Hyde::path('_site/build/posts/test-post.html'));
 
         File::deleteDirectory(Hyde::path('_site/build'));
