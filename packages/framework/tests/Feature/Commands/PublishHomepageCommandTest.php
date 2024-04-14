@@ -23,6 +23,10 @@ class PublishHomepageCommandTest extends TestCase
 
     protected function tearDown(): void
     {
+        if (Filesystem::exists('_pages/index.blade.php')) {
+            Filesystem::unlink('_pages/index.blade.php');
+        }
+
         $this->restoreDefaultPages();
 
         parent::tearDown();
@@ -39,7 +43,7 @@ class PublishHomepageCommandTest extends TestCase
             ->expectsConfirmation('Would you like to rebuild the site?')
             ->assertExitCode(0);
 
-        $this->assertFileExistsThenDeleteIt();
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }
 
     public function testCommandReturnsExpectedOutputWithRebuild()
@@ -50,7 +54,7 @@ class PublishHomepageCommandTest extends TestCase
             ->expectsOutput('Site is built!')
             ->assertExitCode(0);
 
-        $this->assertFileExistsThenDeleteIt();
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
         $this->resetSite();
     }
 
@@ -65,7 +69,7 @@ class PublishHomepageCommandTest extends TestCase
             ->expectsConfirmation('Would you like to rebuild the site?')
             ->assertExitCode(0);
 
-        $this->assertFileExistsThenDeleteIt();
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }
 
     public function testCommandShowsFeedbackOutputWhenSupplyingAHomepageName()
@@ -75,7 +79,7 @@ class PublishHomepageCommandTest extends TestCase
             ->expectsConfirmation('Would you like to rebuild the site?', false)
             ->assertExitCode(0);
 
-        $this->assertFileExistsThenDeleteIt();
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }
 
     public function testCommandHandlesErrorCode404()
@@ -93,9 +97,9 @@ class PublishHomepageCommandTest extends TestCase
         $this->artisan('publish:homepage welcome')
             ->assertExitCode(409);
 
-        $this->assertEquals('foo', file_get_contents(Hyde::path('_pages/index.blade.php')));
+        $this->assertSame('foo', file_get_contents(Hyde::path('_pages/index.blade.php')));
 
-        $this->assertFileExistsThenDeleteIt();
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }
 
     public function testCommandOverwritesModifiedFilesIfForceFlagIsSet()
@@ -107,7 +111,7 @@ class PublishHomepageCommandTest extends TestCase
 
         $this->assertNotEquals('foo', file_get_contents(Hyde::path('_pages/index.blade.php')));
 
-        $this->assertFileExistsThenDeleteIt();
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }
 
     public function testCommandDoesNotReturn409IfTheCurrentFileIsADefaultFile()
@@ -117,12 +121,6 @@ class PublishHomepageCommandTest extends TestCase
         $this->artisan('publish:homepage welcome --no-interaction')
             ->assertExitCode(0);
 
-        $this->assertFileExistsThenDeleteIt();
-    }
-
-    protected function assertFileExistsThenDeleteIt(): void
-    {
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
-        Filesystem::unlink('_pages/index.blade.php');
     }
 }
