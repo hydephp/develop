@@ -56,7 +56,7 @@ class BuildTaskServiceTest extends TestCase
         $service = $this->makeService();
         $tasks = $service->getRegisteredTasks();
 
-        $this->assertEquals(1, count(array_keys($tasks, SecondBuildTask::class)));
+        $this->assertSame(1, count(array_keys($tasks, SecondBuildTask::class)));
     }
 
     public function testGetPostBuildTasksMergesDuplicateKeys()
@@ -67,7 +67,7 @@ class BuildTaskServiceTest extends TestCase
         $service = $this->makeService();
         $tasks = $service->getRegisteredTasks();
 
-        $this->assertEquals(1, count(array_keys($tasks, TestBuildTask::class)));
+        $this->assertSame(1, count(array_keys($tasks, TestBuildTask::class)));
     }
 
     public function testRunPostBuildTasksRunsConfiguredTasks()
@@ -92,7 +92,7 @@ class BuildTaskServiceTest extends TestCase
             }
         })->run();
 
-        $this->assertEquals(1, $return);
+        $this->assertSame(1, $return);
     }
 
     public function testFindTasksInAppDirectoryMethodDiscoversTasksInAppDirectory()
