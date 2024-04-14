@@ -426,14 +426,14 @@ class DocumentationSidebarTest extends TestCase
     protected function createTestFiles(int $count = 5): void
     {
         for ($i = 0; $i < $count; $i++) {
-            Filesystem::touch('_docs/test-'.$i.'.md');
+            Filesystem::touch("_docs/test-{$i}.md");
         }
     }
 
     protected function makePage(string $name, ?array $matter = null): void
     {
         file_put_contents(
-            Hyde::path('_docs/'.$name.'.md'),
+            Hyde::path("_docs/{$name}.md"),
             (new ConvertsArrayToFrontMatter)->execute($matter ?? [])
         );
     }
