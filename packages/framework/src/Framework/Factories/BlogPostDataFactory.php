@@ -108,17 +108,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     private function makeDescriptionFromMarkdownBody(): string
     {
-        return $this->truncateMarkdown($this->stripMarkdownFromBody($this->markdown->body()));
-    }
-
-    private function truncateMarkdown(string $markdown): string
-    {
-        return Str::limit($markdown, 125);
-    }
-
-    private function stripMarkdownFromBody(string $body): string
-    {
-        return (new ConvertsMarkdownToPlainText($body))->execute();
+        return Str::limit((new ConvertsMarkdownToPlainText($this->markdown->body()))->execute(), 125);
     }
 
     protected function getMatter(string $key): string|null|array
