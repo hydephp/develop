@@ -36,11 +36,11 @@ list:
 ---
 
 YAML;
-        $this->assertEquals(str_replace("\r", '', $expected), (new ConvertsArrayToFrontMatter)->execute($array));
+        $this->assertSame(str_replace("\r", '', $expected), (new ConvertsArrayToFrontMatter)->execute($array));
     }
 
     public function testActionReturnsEmptyStringIfArrayIsEmpty()
     {
-        $this->assertEquals('', (new ConvertsArrayToFrontMatter)->execute([]));
+        $this->assertSame('', (new ConvertsArrayToFrontMatter)->execute([]));
     }
 }
