@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
@@ -30,7 +31,7 @@ class DarkmodeFeatureTest extends TestCase
         $this->assertFalse(Features::hasDarkmode());
 
         Config::set('hyde.features', [
-            Features::darkmode(),
+            Feature::Darkmode,
         ]);
 
         $this->assertTrue(Features::hasDarkmode());
@@ -39,9 +40,9 @@ class DarkmodeFeatureTest extends TestCase
     public function testLayoutHasToggleButtonAndScriptWhenEnabled()
     {
         Config::set('hyde.features', [
-            Features::markdownPages(),
-            Features::bladePages(),
-            Features::darkmode(),
+            Feature::MarkdownPages,
+            Feature::BladePages,
+            Feature::Darkmode,
         ]);
 
         $view = view('hyde::layouts/page')->with([
@@ -57,8 +58,8 @@ class DarkmodeFeatureTest extends TestCase
     public function testDocumentationPageHasToggleButtonAndScriptWhenEnabled()
     {
         Config::set('hyde.features', [
-            Features::documentationPages(),
-            Features::darkmode(),
+            Feature::DocumentationPages,
+            Feature::Darkmode,
         ]);
 
         view()->share('page', new DocumentationPage());
@@ -76,8 +77,8 @@ class DarkmodeFeatureTest extends TestCase
     public function testDarkModeThemeButtonIsHiddenInLayoutsWhenDisabled()
     {
         Config::set('hyde.features', [
-            Features::markdownPages(),
-            Features::bladePages(),
+            Feature::MarkdownPages,
+            Feature::BladePages,
         ]);
 
         $view = view('hyde::layouts/page')->with([
@@ -93,7 +94,7 @@ class DarkmodeFeatureTest extends TestCase
     public function testDarkModeThemeButtonIsHiddenInDocumentationPagesWhenDisabled()
     {
         Config::set('hyde.features', [
-            Features::documentationPages(),
+            Feature::DocumentationPages,
         ]);
 
         view()->share('page', new DocumentationPage());

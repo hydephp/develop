@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit\Views\Components;
+namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Foundation\Facades\Routes;
-use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
+use Hyde\Support\Facades\Render;
+use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Facades\Blade;
 
 /**

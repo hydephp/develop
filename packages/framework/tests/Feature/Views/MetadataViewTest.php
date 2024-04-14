@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Feature\Views;
 
-use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\HydeKernel;
 
 /**
  * This tests ensures all metadata is rendered correctly in the compiled pages.

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
+use Hyde\Support\BuildWarnings;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Foundation\Kernel\FileCollection;
@@ -13,6 +15,14 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Support\Concerns\Serializable;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\Str;
+
+use function getcwd;
+use function sprintf;
+use function is_string;
+use function var_export;
+use function debug_backtrace;
+use function trigger_deprecation;
 
 /**
  * Encapsulates a HydePHP project, providing helpful methods for interacting with it.
@@ -89,8 +99,37 @@ class HydeKernel implements SerializableContract
         return new Features;
     }
 
-    public function hasFeature(string $feature): bool
+    public function hasFeature(Feature|string $feature): bool
     {
+        if (is_string($feature)) {
+            /** @see https://github.com/hydephp/develop/pull/1650 */
+
+            // @codeCoverageIgnoreStart
+
+            $message = 'Passing a string to HydeKernel::hasFeature() is deprecated. Use a Feature enum case instead.';
+            trigger_deprecation('hydephp/hyde', '1.5.0', $message);
+
+            BuildWarnings::report(sprintf("$message\n    <fg=gray>Replace </><fg=default>`%s`</><fg=gray> with </><fg=default>`%s`</><fg=gray> \n    in file %s:%s</>",
+                sprintf('HydeKernel::hasFeature(%s)', var_export($feature, true)),
+                sprintf('HydeKernel::hasFeature(Feature::%s)', Str::studly($feature)),
+                debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['file'],
+                debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['line']
+            ));
+
+            $feature = match ($feature) {
+                'html-pages' => Feature::HtmlPages,
+                'markdown-posts' => Feature::MarkdownPosts,
+                'blade-pages' => Feature::BladePages,
+                'markdown-pages' => Feature::MarkdownPages,
+                'documentation-pages' => Feature::DocumentationPages,
+                'darkmode' => Feature::Darkmode,
+                'documentation-search' => Feature::DocumentationSearch,
+                'torchlight' => Feature::Torchlight,
+            };
+
+            // @codeCoverageIgnoreEnd
+        }
+
         return Features::enabled($feature);
     }
 

@@ -70,11 +70,11 @@ class DebugCommand extends Command
 
     protected function printEnabledFeatures(): void
     {
-        /** @var array<string, string> $features */
+        /** @var array<\Hyde\Enums\Feature> $features */
         $features = Config::getArray('hyde.features', []);
 
         foreach ($features as $feature) {
-            $this->line(" - $feature");
+            $this->line(" - $feature->name");
         }
     }
 }
