@@ -19,7 +19,8 @@ class HasTableOfContentsTest extends UnitTestCase
 
     public function testConstructorCreatesTableOfContentsString()
     {
-        $this->assertSame('<ul class="table-of-contents"><li><a href="#title">Title</a></li></ul>',
+        $this->assertSame(
+            '<ul class="table-of-contents"><li><a href="#title">Title</a></li></ul>',
             str_replace("\n", '', (new DocumentationPage(markdown: '## Title'))->getTableOfContents())
         );
     }
