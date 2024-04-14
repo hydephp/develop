@@ -57,7 +57,6 @@ class PageModelConstructorsTest extends TestCase
         mkdir(Hyde::path('_docs/foo'));
         touch(Hyde::path('_docs/foo/bar.md'));
 
-        /** @var \Hyde\Pages\DocumentationPage $page */
         $page = DocumentationPage::parse('foo/bar');
         $this->assertSame('foo', $page->navigationMenuGroup());
 
