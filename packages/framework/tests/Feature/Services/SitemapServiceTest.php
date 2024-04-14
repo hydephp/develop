@@ -1,9 +1,12 @@
 <?php
 
+/** @noinspection PhpComposerExtensionStubsInspection */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use SimpleXMLElement;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
@@ -30,7 +33,7 @@ class SitemapServiceTest extends TestCase
     public function testServiceInstantiatesXmlElement()
     {
         $service = new SitemapGenerator();
-        $this->assertInstanceOf('SimpleXMLElement', $service->getXmlElement());
+        $this->assertInstanceOf(SimpleXMLElement::class, $service->getXmlElement());
     }
 
     public function testGenerateAddsDefaultPagesToXml()

@@ -1,9 +1,12 @@
 <?php
 
+/** @noinspection PhpComposerExtensionStubsInspection */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use SimpleXMLElement;
 use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
@@ -19,7 +22,7 @@ class RssFeedServiceTest extends TestCase
     public function testServiceInstantiatesXmlElement()
     {
         $service = new RssFeedGenerator();
-        $this->assertInstanceOf('SimpleXMLElement', $service->getXmlElement());
+        $this->assertInstanceOf(SimpleXMLElement::class, $service->getXmlElement());
     }
 
     public function testXmlRootElementIsSetToRss20()
