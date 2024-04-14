@@ -15,11 +15,8 @@ use function Hyde\unixsum_file;
  */
 class GenerateBuildManifestTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-        self::mockConfig();
-    }
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
 
     public function testActionGeneratesBuildManifest()
     {
