@@ -53,7 +53,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->verifyMockeryExpectations();
 
         // Reset the kernel instance
-        self::needsKernel();
+        self::setupKernel();
     }
 
     public function testConstruct()
