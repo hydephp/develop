@@ -17,6 +17,7 @@ class BladeMatterParserTest extends TestCase
     {
         $parser = new BladeMatterParser('@php($foo = "bar")');
         $parser->parse();
+
         $this->assertSame(['foo' => 'bar'], $parser->get());
     }
 
@@ -31,6 +32,7 @@ class BladeMatterParserTest extends TestCase
     public function testParseFileHelperMethod()
     {
         $this->file('foo', 'foo');
+
         $this->assertSame(
             (new BladeMatterParser('foo'))->parse()->get(),
             BladeMatterParser::parseFile('foo')
@@ -44,6 +46,7 @@ class BladeMatterParserTest extends TestCase
         @php($bar = 'baz')
         @php($baz = 'qux')
         BLADE;
+
         $this->assertSame(['foo' => 'bar', 'bar' => 'baz', 'baz' => 'qux'], BladeMatterParser::parseString($document));
     }
 
@@ -64,6 +67,7 @@ class BladeMatterParserTest extends TestCase
     public function testCanParseFrontMatterWithArray()
     {
         $document = "@php(\$foo = ['bar' => 'baz'])";
+
         $this->assertSame(['foo' => ['bar' => 'baz']], BladeMatterParser::parseString($document));
     }
 
@@ -126,12 +130,14 @@ class BladeMatterParserTest extends TestCase
     public function testParseInvalidArrayString()
     {
         $this->expectException(RuntimeException::class);
+
         ParserTestClass::parseArrayString('foo');
     }
 
     public function testParseMultidimensionalArrayString()
     {
         $this->expectException(RuntimeException::class);
+
         ParserTestClass::parseArrayString('["foo" => ["bar" => "baz"]]');
     }
 }
