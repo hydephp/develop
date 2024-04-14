@@ -109,7 +109,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     private function makeDescriptionFromMarkdownBody(): string
     {
-        return $this->getTruncatedMarkdown($this->markdown->body());
+        return $this->getTruncatedMarkdown($this->stripMarkdownFromBody($this->markdown->body()));
     }
 
     private function getTruncatedMarkdown(string $markdown): string
@@ -119,6 +119,13 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         }
 
         return $markdown;
+    }
+
+    private function stripMarkdownFromBody(string $body): string
+    {
+        // Todo
+
+        return $body;
     }
 
     protected function getMatter(string $key): string|null|array
