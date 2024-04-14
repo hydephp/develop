@@ -23,7 +23,9 @@ class MarkdownDocumentTest extends UnitTestCase
     {
         parent::setUpBeforeClass();
 
-        app()->instance('files', new Filesystem());
+        app()->singleton('files', function () {
+            return new \Illuminate\Filesystem\Filesystem();
+        });
     }
 
     public function testConstructorCreatesNewMarkdownDocument()
