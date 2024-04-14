@@ -72,7 +72,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function makeDescription(): string
     {
-        return $this->getMatter('description') ?? $this->getTruncatedMarkdown($this->markdown->body());
+        return $this->getMatter('description') ?? $this->getDescriptionFromMarkdownBody();
     }
 
     protected function makeCategory(): ?string
@@ -105,6 +105,11 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         }
 
         return null;
+    }
+
+    private function getDescriptionFromMarkdownBody(): string
+    {
+        return $this->getTruncatedMarkdown($this->markdown->body());
     }
 
     private function getTruncatedMarkdown(string $markdown): string
