@@ -14,9 +14,7 @@ class MarkdownFacadeTest extends UnitTestCase
 {
     public function testRender(): void
     {
-        $markdown = '# Hello World!';
-
-        $html = Markdown::render($markdown);
+        $html = Markdown::render('# Hello World!');
 
         $this->assertIsString($html);
         $this->assertEquals("<h1>Hello World!</h1>\n", $html);
