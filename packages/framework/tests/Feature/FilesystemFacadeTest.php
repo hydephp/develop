@@ -44,14 +44,16 @@ class FilesystemFacadeTest extends TestCase
             Hyde::path('baz'),
         ], Hyde::path('pattern/*.md'), 0);
 
+        $expected = Collection::make(['foo', 'bar', 'baz']);
+        $actual = Filesystem::smartGlob('pattern/*.md');
         $this->assertEquals(
-            Collection::make(['foo', 'bar', 'baz']),
-            Filesystem::smartGlob('pattern/*.md')
+            $expected,
+            $actual
         );
 
         $this->assertSame(
-            Collection::make(['foo', 'bar', 'baz'])->all(),
-            Filesystem::smartGlob('pattern/*.md')->all()
+            $expected->all(),
+            $actual->all()
         );
     }
 
