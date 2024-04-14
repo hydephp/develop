@@ -287,13 +287,26 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->mockKernelFilesystem();
 
         $this->can($this->createService(...));
+
+        $this->assertSame([], $this->service->getRegisteredTasks());
     }
 
     public function testServiceFindsTasksInAppDirectory()
     {
-        $this->mockKernelFilesystem();
+        $files = [
+            'app/Actions/GenerateBuildManifestBuildTask.php' => GenerateBuildManifest::class,
+            'app/Actions/GenerateRssFeedBuildTask.php' => GenerateRssFeed::class,
+            'app/Actions/GenerateSearchBuildTask.php' => GenerateSearch::class,
+        ];
+        $this->mockKernelFilesystem($files);
 
         $this->can($this->createService(...));
+
+        $this->assertSame([
+            'Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest',
+            'Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed',
+            'Hyde\Framework\Actions\PostBuildTasks\GenerateSearch',
+        ], $this->service->getRegisteredTasks());
     }
 
     /** Assert that the given closure can be executed */
@@ -317,12 +330,12 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         Mockery::close();
     }
 
-    protected function mockKernelFilesystem(): void
+    protected function mockKernelFilesystem(array $files = []): void
     {
         $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])
             ->makePartial()->shouldReceive('smartGlob')->once()
             ->with('app/Actions/*BuildTask.php', 0)
-            ->andReturn(collect())->getMock();
+            ->andReturn(collect($files))->getMock();
 
         // Inject mock into Kernel
         (new ReflectionClass(HydeKernel::getInstance()))->getProperty('filesystem')->setValue(HydeKernel::getInstance(), $filesystem);
