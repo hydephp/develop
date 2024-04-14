@@ -224,7 +224,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForRemoteImage(): int
     {
-        // Check if the --no-api flag is set when running the build command, and if so, skip the API call.
+        // API calls can be skipped in the config, or by setting the --no-api flag when running the build command.
         if (Config::getBool('hyde.api_calls', true)) {
             /** @var string[][] $headers */
             $headers = Http::withHeaders([
