@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
@@ -17,8 +16,7 @@ class HasTableOfContentsTest extends TestCase
 {
     public function testConstructorCreatesTableOfContentsString()
     {
-        $page = new DocumentationPage();
-        $page->markdown = new Markdown('## Title');
+        $page = new DocumentationPage(markdown: '## Title');
 
         $this->assertSame('<ul class="table-of-contents"><li><a href="#title">Title</a></li></ul>', str_replace("\n", '', $page->getTableOfContents()));
     }
