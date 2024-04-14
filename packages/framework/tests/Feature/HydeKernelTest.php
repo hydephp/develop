@@ -324,12 +324,14 @@ class HydeKernelTest extends TestCase
         try {
             $version = trim(shell_exec('git describe --abbrev=0 --tags'));
         } catch (Throwable) {
+            // Gracefully skip the test if the version cannot be fetched
             $this->markTestSkipped('Could not get version from Git');
         }
 
         if ('v'.HydeKernel::VERSION === $version) {
             $this->assertSame('v'.HydeKernel::VERSION, $version);
         } else {
+            // Gracefully skip the test if the version is not up-to-date
             $this->markTestSkipped('Version constant does not match Git version!');
         }
     }
