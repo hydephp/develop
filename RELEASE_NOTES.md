@@ -29,6 +29,7 @@ This serves two purposes:
 ### Fixed
 - Fixed a bug where the sitemap and RSS feed generator commands did not work when the `_site/` directory was not present in https://github.com/hydephp/develop/pull/1654
 - Fixed extra newlines being written to console for failing build tasks in https://github.com/hydephp/develop/pull/1661
+- Markdown formatting will now be stripped when generating an automatic blog post description when none is set in https://github.com/hydephp/develop/pull/1662 (fixes https://github.com/hydephp/develop/issues/1634)
 - Realtime Compiler: Fixed responsive dashboard table issue in https://github.com/hydephp/develop/pull/1595
 
 ### Security
