@@ -430,11 +430,11 @@ class DocumentationSidebarTest extends TestCase
         }
     }
 
-    protected function makePage(string $name, ?array $matter = null): void
+    protected function makePage(string $name, array $matter = []): void
     {
         file_put_contents(
             Hyde::path("_docs/{$name}.md"),
-            (new ConvertsArrayToFrontMatter)->execute($matter ?? [])
+            (new ConvertsArrayToFrontMatter)->execute($matter)
         );
     }
 }
