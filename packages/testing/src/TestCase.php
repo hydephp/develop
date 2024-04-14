@@ -70,10 +70,8 @@ abstract class TestCase extends BaseTestCase
         config(['app.throw_on_console_exception' => $throw]);
     }
 
-    public function assertTrue_property_exists($object_or_class, string $property): bool
+    public function assertTrue_property_exists($object_or_class, string $property): void
     {
         $this->assertObjectHasProperty($property, $object_or_class);
-
-        return true;
     }
 }
