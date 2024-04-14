@@ -72,7 +72,7 @@ abstract class TestCase extends BaseTestCase
 
     public function assertTrue_property_exists($object_or_class, string $property): bool
     {
-        $this->assertTrue(property_exists($object_or_class, $property));
+        $this->assertObjectHasProperty($property, $object_or_class);
 
         return true;
     }
