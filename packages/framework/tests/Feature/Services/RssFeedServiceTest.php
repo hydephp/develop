@@ -35,7 +35,7 @@ class RssFeedServiceTest extends TestCase
     public function testXmlElementHasChannelElement()
     {
         $service = new RssFeedGenerator();
-        $this->assertTrue_property_exists($service->getXmlElement(), 'channel');
+        $this->assertObjectHasProperty('channel', $service->getXmlElement());
     }
 
     public function testXmlChannelElementHasRequiredElements()
@@ -46,9 +46,9 @@ class RssFeedServiceTest extends TestCase
 
         $service = new RssFeedGenerator();
 
-        $this->assertTrue_property_exists($service->getXmlElement()->channel, 'title');
-        $this->assertTrue_property_exists($service->getXmlElement()->channel, 'link');
-        $this->assertTrue_property_exists($service->getXmlElement()->channel, 'description');
+        $this->assertObjectHasProperty('title', $service->getXmlElement()->channel);
+        $this->assertObjectHasProperty('link', $service->getXmlElement()->channel);
+        $this->assertObjectHasProperty('description', $service->getXmlElement()->channel);
 
         $this->assertEquals('Test Blog', $service->getXmlElement()->channel->title);
         $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
@@ -61,15 +61,15 @@ class RssFeedServiceTest extends TestCase
 
         $service = new RssFeedGenerator();
 
-        $this->assertTrue_property_exists($service->getXmlElement()->channel, 'link');
+        $this->assertObjectHasProperty('link', $service->getXmlElement()->channel);
         $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
         $this->assertEquals('https://example.com/feed.xml',
             $service->getXmlElement()->channel->children('atom', true)->link->attributes()->href
         );
 
-        $this->assertTrue_property_exists($service->getXmlElement()->channel, 'language');
-        $this->assertTrue_property_exists($service->getXmlElement()->channel, 'generator');
-        $this->assertTrue_property_exists($service->getXmlElement()->channel, 'lastBuildDate');
+        $this->assertObjectHasProperty('language', $service->getXmlElement()->channel);
+        $this->assertObjectHasProperty('generator', $service->getXmlElement()->channel);
+        $this->assertObjectHasProperty('lastBuildDate', $service->getXmlElement()->channel);
     }
 
     public function testXmlChannelDataCanBeCustomized()
@@ -118,7 +118,7 @@ class RssFeedServiceTest extends TestCase
         $this->assertEquals('Hyde', $item->children('dc', true)->creator);
         $this->assertEquals('test', $item->category);
 
-        $this->assertTrue_property_exists($item, 'enclosure');
+        $this->assertObjectHasProperty('enclosure', $item);
         $this->assertEquals('https://example.com/media/rss-test.jpg', $item->enclosure->attributes()->url);
         $this->assertEquals('image/jpeg', $item->enclosure->attributes()->type);
         $this->assertEquals('8', $item->enclosure->attributes()->length);
