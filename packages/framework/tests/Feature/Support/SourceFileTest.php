@@ -34,25 +34,27 @@ class SourceFileTest extends TestCase
         $this->assertSame(MarkdownPage::class, $file->pageClass);
     }
 
-    public function can_make()
+    public function testCanMake()
     {
         $this->assertEquals(new SourceFile('foo'), SourceFile::make('foo'));
     }
 
     public function testCanMakeWithModelClass()
     {
-        $this->assertEquals(new SourceFile('foo', MarkdownPage::class),
-            SourceFile::make('foo', MarkdownPage::class));
+        $this->assertEquals(
+            new SourceFile('foo', MarkdownPage::class),
+            SourceFile::make('foo', MarkdownPage::class)
+        );
     }
 
     public function testCanConstructWithNestedPaths()
     {
-        $this->assertEquals('path/to/file.txt', SourceFile::make('path/to/file.txt')->path);
+        $this->assertSame('path/to/file.txt', SourceFile::make('path/to/file.txt')->path);
     }
 
     public function testAbsolutePathIsNormalizedToRelative()
     {
-        $this->assertEquals('foo', SourceFile::make(Hyde::path('foo'))->path);
+        $this->assertSame('foo', SourceFile::make(Hyde::path('foo'))->path);
     }
 
     public function testGetNameReturnsNameOfFile()
@@ -102,6 +104,7 @@ class SourceFileTest extends TestCase
     public function testToArrayWithEmptyFileWithNoExtension()
     {
         $this->file('foo');
+
         $this->assertSame([
             'name' => 'foo',
             'path' => 'foo',
@@ -113,11 +116,13 @@ class SourceFileTest extends TestCase
     {
         mkdir(Hyde::path('foo'));
         touch(Hyde::path('foo/bar.txt'));
+
         $this->assertSame([
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
             'pageClass' => HydePage::class,
         ], SourceFile::make('foo/bar.txt')->toArray());
+
         Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
