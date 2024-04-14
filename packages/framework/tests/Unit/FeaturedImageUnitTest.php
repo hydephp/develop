@@ -25,43 +25,43 @@ class FeaturedImageUnitTest extends UnitTestCase
     public function testGetAltText()
     {
         $this->assertNull((new NullImage)->getAltText());
-        $this->assertEquals('alt', (new FilledImage)->getAltText());
+        $this->assertSame('alt', (new FilledImage)->getAltText());
     }
 
     public function testGetTitleText()
     {
         $this->assertNull((new NullImage)->getTitleText());
-        $this->assertEquals('title', (new FilledImage)->getTitleText());
+        $this->assertSame('title', (new FilledImage)->getTitleText());
     }
 
     public function testGetAuthorName()
     {
         $this->assertNull((new NullImage)->getAuthorName());
-        $this->assertEquals('author', (new FilledImage)->getAuthorName());
+        $this->assertSame('author', (new FilledImage)->getAuthorName());
     }
 
     public function testGetAuthorUrl()
     {
         $this->assertNull((new NullImage)->getAuthorUrl());
-        $this->assertEquals('authorUrl', (new FilledImage)->getAuthorUrl());
+        $this->assertSame('authorUrl', (new FilledImage)->getAuthorUrl());
     }
 
     public function testGetCopyrightText()
     {
         $this->assertNull((new NullImage)->getCopyrightText());
-        $this->assertEquals('copyright', (new FilledImage)->getCopyrightText());
+        $this->assertSame('copyright', (new FilledImage)->getCopyrightText());
     }
 
     public function testGetLicenseName()
     {
         $this->assertNull((new NullImage)->getLicenseName());
-        $this->assertEquals('license', (new FilledImage)->getLicenseName());
+        $this->assertSame('license', (new FilledImage)->getLicenseName());
     }
 
     public function testGetLicenseUrl()
     {
         $this->assertNull((new NullImage)->getLicenseUrl());
-        $this->assertEquals('licenseUrl', (new FilledImage)->getLicenseUrl());
+        $this->assertSame('licenseUrl', (new FilledImage)->getLicenseUrl());
     }
 
     public function testHasAltText()
@@ -108,14 +108,14 @@ class FeaturedImageUnitTest extends UnitTestCase
 
     public function testGetType()
     {
-        $this->assertEquals('local', (new LocalImage)->getType());
-        $this->assertEquals('remote', (new RemoteImage)->getType());
+        $this->assertSame('local', (new LocalImage)->getType());
+        $this->assertSame('remote', (new RemoteImage)->getType());
     }
 
     public function testGetContentLength()
     {
-        $this->assertEquals(0, (new NullImage)->getContentLength());
-        $this->assertEquals(0, (new FilledImage)->getContentLength());
+        $this->assertSame(0, (new NullImage)->getContentLength());
+        $this->assertSame(0, (new FilledImage)->getContentLength());
     }
 
     public function testFeaturedImageGetContentLengthWithNoSource()
@@ -124,7 +124,7 @@ class FeaturedImageUnitTest extends UnitTestCase
         $this->expectExceptionMessage('Featured image [_media/foo] not found.');
 
         $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
-        $this->assertEquals(0, $image->getContentLength());
+        $this->assertSame(0, $image->getContentLength());
     }
 
     public function testCanConstructFeaturedImageWithRemoteSource()
@@ -132,7 +132,7 @@ class FeaturedImageUnitTest extends UnitTestCase
         $image = new FeaturedImage('http/foo', ...$this->defaultArguments());
 
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('http/foo', $image->getSource());
+        $this->assertSame('http/foo', $image->getSource());
     }
 
     public function testCanConstructFeaturedImageWithHttps()
@@ -140,7 +140,7 @@ class FeaturedImageUnitTest extends UnitTestCase
         $image = new FeaturedImage('https/foo', ...$this->defaultArguments());
 
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('https/foo', $image->getSource());
+        $this->assertSame('https/foo', $image->getSource());
     }
 
     protected function defaultArguments(): array
