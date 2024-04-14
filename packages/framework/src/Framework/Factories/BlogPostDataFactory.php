@@ -110,10 +110,10 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     private function makeDescriptionFromMarkdownBody(): string
     {
-        return $this->getTruncatedMarkdown($this->stripMarkdownFromBody($this->markdown->body()));
+        return $this->truncateMarkdown($this->stripMarkdownFromBody($this->markdown->body()));
     }
 
-    private function getTruncatedMarkdown(string $markdown): string
+    private function truncateMarkdown(string $markdown): string
     {
         if (strlen($markdown) >= 128) {
             return substr($markdown, 0, 125).'...';
