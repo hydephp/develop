@@ -46,15 +46,9 @@ class FilesystemFacadeTest extends TestCase
 
         $expected = Collection::make(['foo', 'bar', 'baz']);
         $actual = Filesystem::smartGlob('pattern/*.md');
-        $this->assertEquals(
-            $expected,
-            $actual
-        );
 
-        $this->assertSame(
-            $expected->all(),
-            $actual->all()
-        );
+        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected->all(), $actual->all());
     }
 
     public function testTouch()
