@@ -45,6 +45,7 @@ class RssFeedServiceTest extends TestCase
         config(['hyde.rss.description' => 'Test Blog RSS Feed']);
 
         $service = new RssFeedGenerator();
+
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'title'));
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'link'));
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'description'));
@@ -59,10 +60,12 @@ class RssFeedServiceTest extends TestCase
         config(['hyde.url' => 'https://example.com']);
 
         $service = new RssFeedGenerator();
+
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'link'));
         $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
         $this->assertEquals('https://example.com/feed.xml',
-            $service->getXmlElement()->channel->children('atom', true)->link->attributes()->href);
+            $service->getXmlElement()->channel->children('atom', true)->link->attributes()->href
+        );
 
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'language'));
         $this->assertTrue(property_exists($service->getXmlElement()->channel, 'generator'));
