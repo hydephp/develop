@@ -41,6 +41,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
             'empty_output_directory' => false,
             'generate_build_manifest' => false,
         ]]);
+
         $this->createService();
     }
 
