@@ -306,6 +306,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('baz', ['navigation.group' => 'baz']);
 
         Render::setPage(DocumentationPage::get('index'));
+
         $this->assertTrue(DocumentationSidebar::create()->isGroupActive('bar'));
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('foo'));
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('baz'));
@@ -319,6 +320,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('baz', ['navigation.group' => 'baz', 'navigation.priority' => 3]);
 
         Render::setPage(DocumentationPage::get('index'));
+
         $this->assertTrue(DocumentationSidebar::create()->isGroupActive('foo'));
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('bar'));
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('baz'));
@@ -332,6 +334,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('baz', ['navigation.group' => 'baz', 'navigation.priority' => 3]);
 
         Render::setPage(DocumentationPage::get('index'));
+
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('foo'));
         $this->assertFalse(DocumentationSidebar::create()->isGroupActive('bar'));
         $this->assertTrue(DocumentationSidebar::create()->isGroupActive('baz'));
@@ -409,6 +412,7 @@ class DocumentationSidebarTest extends TestCase
     public function testIndexPageNotAddedToSidebarWhenOtherPagesExist()
     {
         $this->createTestFiles(1);
+
         Filesystem::touch('_docs/index.md');
         $sidebar = DocumentationSidebar::create();
 
