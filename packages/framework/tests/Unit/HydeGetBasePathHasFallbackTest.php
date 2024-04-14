@@ -8,8 +8,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * Class HydeGetBasePathHasFallbackTest.
- *
  * @covers \Hyde\Foundation\HydeKernel::getBasePath
  */
 class HydeGetBasePathHasFallbackTest extends TestCase

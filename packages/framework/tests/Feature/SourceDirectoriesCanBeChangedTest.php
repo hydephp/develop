@@ -13,9 +13,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
-/**
- * Class SourceDirectoriesCanBeChangedTest.
- */
 class SourceDirectoriesCanBeChangedTest extends TestCase
 {
     public static function tearDownAfterClass(): void

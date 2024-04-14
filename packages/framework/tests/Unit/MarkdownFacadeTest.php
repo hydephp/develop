@@ -8,8 +8,6 @@ use Hyde\Markdown\Models\Markdown;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class MarkdownConverterTest.
- *
  * @covers \Hyde\Markdown\Models\Markdown
  */
 class MarkdownFacadeTest extends TestCase

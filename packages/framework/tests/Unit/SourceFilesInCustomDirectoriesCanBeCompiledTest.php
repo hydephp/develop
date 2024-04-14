@@ -15,9 +15,6 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
-/**
- * Class SourceFilesInCustomDirectoriesCanBeCompiledTest.
- */
 class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 {
     protected function setUp(): void

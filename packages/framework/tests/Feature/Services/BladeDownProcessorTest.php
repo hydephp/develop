@@ -8,8 +8,6 @@ use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Testing\TestCase;
 
 /**
- * Class BladeDownProcessorTest.
- *
  * @covers \Hyde\Markdown\Processing\BladeDownProcessor
  */
 class BladeDownProcessorTest extends TestCase

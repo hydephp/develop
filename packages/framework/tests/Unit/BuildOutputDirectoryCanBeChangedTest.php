@@ -11,9 +11,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
-/**
- * Class BuildOutputDirectoryCanBeChangedTest.
- */
 class BuildOutputDirectoryCanBeChangedTest extends TestCase
 {
     public function testSiteOutputDirectoryCanBeChangedForSiteBuilds()

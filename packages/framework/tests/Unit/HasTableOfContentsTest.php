@@ -9,8 +9,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
 /**
- * Class HasTableOfContentsTest.
- *
  * @covers \Hyde\Pages\DocumentationPage
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest

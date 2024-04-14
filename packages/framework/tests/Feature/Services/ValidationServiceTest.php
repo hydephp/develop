@@ -11,8 +11,6 @@ use Hyde\Support\Models\ValidationResult;
 use Hyde\Testing\TestCase;
 
 /**
- * Class ValidationServiceTest.
- *
  * @covers \Hyde\Framework\Services\ValidationService
  * @covers \Hyde\Support\Models\ValidationResult
  *

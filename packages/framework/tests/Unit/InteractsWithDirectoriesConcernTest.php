@@ -10,8 +10,6 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * Class InteractsWithDirectoriesConcernTest.
- *
  * @covers \Hyde\Framework\Concerns\InteractsWithDirectories
  */
 class InteractsWithDirectoriesConcernTest extends TestCase
