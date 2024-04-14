@@ -16,9 +16,8 @@
     <footer>
         @isset($post->date)
             <span class="opacity-75">
-            <span itemprop="dateCreated datePublished">
-                {{ $post->date->short }}</span>{{ isset($post->author) ? ',' : '' }}
-        </span>
+                <span itemprop="dateCreated datePublished">{{ $post->date->short }}</span>{{ isset($post->author) ? ',' : '' }}
+            </span>
         @endisset
         @isset($post->author)
             <span itemprop="author" itemscope itemtype="https://schema.org/Person">
@@ -39,8 +38,8 @@
     @endisset
 
     <footer>
-        <a href="{{ $post->getRoute() }}"
-           class="text-indigo-500 hover:underline font-medium">
-            Read post</a>
+        <a href="{{ $post->getRoute() }}" class="text-indigo-500 hover:underline font-medium">
+            Read post
+        </a>
     </footer>
 </article>
