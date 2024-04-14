@@ -295,8 +295,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
 
         $this->createService();
-
-        self::setupKernel();
     }
 
     public function testServiceFindsTasksInAppDirectory()
@@ -311,8 +309,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
 
         $this->createService();
-
-        self::setupKernel();
     }
 
     /** Assert that the given closure can be executed */
