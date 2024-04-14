@@ -248,6 +248,7 @@ class DocumentationPageTest extends TestCase
 
         $this->assertNotNull($page->matter());
         $this->assertNotEmpty($page->matter());
+
         $this->assertEquals(new FrontMatter($expected), $page->matter());
         $this->assertSame($expected, $page->matter()->get());
     }
