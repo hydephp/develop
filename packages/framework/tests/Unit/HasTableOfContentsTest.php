@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Pages\DocumentationPage;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Pages\DocumentationPage
  *
  * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
  */
-class HasTableOfContentsTest extends TestCase
+class HasTableOfContentsTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     public function testConstructorCreatesTableOfContentsString()
     {
         $page = new DocumentationPage(markdown: '## Title');
