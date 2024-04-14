@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Testing\UnitTestCase;
 use Hyde\Markdown\Models\Markdown;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Hyde\Markdown\Models\Markdown
  */
-class MarkdownFacadeTest extends TestCase
+class MarkdownFacadeTest extends UnitTestCase
 {
     public function testRender(): void
     {

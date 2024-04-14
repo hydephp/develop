@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Filesystem\Filesystem;
 use Mockery;
-use PHPUnit\Framework\TestCase;
 
 use function Hyde\unixsum;
 use function Hyde\unixsum_file;
 
-class UnixsumTest extends TestCase
+class UnixsumTest extends UnitTestCase
 {
     public function testMethodReturnsString()
     {
