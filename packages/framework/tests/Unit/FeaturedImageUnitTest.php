@@ -22,93 +22,153 @@ class FeaturedImageUnitTest extends UnitTestCase
         $this->assertInstanceOf(FeaturedImage::class, new FeaturedImage('foo'));
     }
 
-    public function testGetAltText()
+    public function testGetAltTextWithoutData()
     {
         $this->assertNull((new NullImage)->getAltText());
+    }
+
+    public function testGetAltTextWithData()
+    {
         $this->assertSame('alt', (new FilledImage)->getAltText());
     }
 
-    public function testGetTitleText()
+    public function testGetTitleTextWithoutData()
     {
         $this->assertNull((new NullImage)->getTitleText());
+    }
+
+    public function testGetTitleTextWithData()
+    {
         $this->assertSame('title', (new FilledImage)->getTitleText());
     }
 
-    public function testGetAuthorName()
+    public function testGetAuthorNameWithoutData()
     {
         $this->assertNull((new NullImage)->getAuthorName());
+    }
+
+    public function testGetAuthorNameWithData()
+    {
         $this->assertSame('author', (new FilledImage)->getAuthorName());
     }
 
-    public function testGetAuthorUrl()
+    public function testGetAuthorUrlWithoutData()
     {
         $this->assertNull((new NullImage)->getAuthorUrl());
+    }
+
+    public function testGetAuthorUrlWithData()
+    {
         $this->assertSame('authorUrl', (new FilledImage)->getAuthorUrl());
     }
 
-    public function testGetCopyrightText()
+    public function testGetCopyrightTextWithoutData()
     {
         $this->assertNull((new NullImage)->getCopyrightText());
+    }
+
+    public function testGetCopyrightTextWithData()
+    {
         $this->assertSame('copyright', (new FilledImage)->getCopyrightText());
     }
 
-    public function testGetLicenseName()
+    public function testGetLicenseNameWithoutData()
     {
         $this->assertNull((new NullImage)->getLicenseName());
+    }
+
+    public function testGetLicenseNameWithData()
+    {
         $this->assertSame('license', (new FilledImage)->getLicenseName());
     }
 
-    public function testGetLicenseUrl()
+    public function testGetLicenseUrlWithoutData()
     {
         $this->assertNull((new NullImage)->getLicenseUrl());
+    }
+
+    public function testGetLicenseUrlWithData()
+    {
         $this->assertSame('licenseUrl', (new FilledImage)->getLicenseUrl());
     }
 
-    public function testHasAltText()
+    public function testHasAltTextWithoutData()
     {
         $this->assertFalse((new NullImage)->hasAltText());
+    }
+
+    public function testHasAltTextWithData()
+    {
         $this->assertTrue((new FilledImage)->hasAltText());
     }
 
-    public function testHasTitleText()
+    public function testHasTitleTextWithoutData()
     {
         $this->assertFalse((new NullImage)->hasTitleText());
+    }
+
+    public function testHasTitleTextWithData()
+    {
         $this->assertTrue((new FilledImage)->hasTitleText());
     }
 
-    public function testHasAuthorName()
+    public function testHasAuthorNameWithoutData()
     {
         $this->assertFalse((new NullImage)->hasAuthorName());
+    }
+
+    public function testHasAuthorNameWithData()
+    {
         $this->assertTrue((new FilledImage)->hasAuthorName());
     }
 
-    public function testHasAuthorUrl()
+    public function testHasAuthorUrlWithoutData()
     {
         $this->assertFalse((new NullImage)->hasAuthorUrl());
+    }
+
+    public function testHasAuthorUrlWithData()
+    {
         $this->assertTrue((new FilledImage)->hasAuthorUrl());
     }
 
-    public function testHasCopyrightText()
+    public function testHasCopyrightTextWithoutData()
     {
         $this->assertFalse((new NullImage)->hasCopyrightText());
+    }
+
+    public function testHasCopyrightTextWithData()
+    {
         $this->assertTrue((new FilledImage)->hasCopyrightText());
     }
 
-    public function testHasLicenseName()
+    public function testHasLicenseNameWithoutData()
     {
         $this->assertFalse((new NullImage)->hasLicenseName());
+    }
+
+    public function testHasLicenseNameWithData()
+    {
         $this->assertTrue((new FilledImage)->hasLicenseName());
     }
 
-    public function testHasLicenseUrl()
+    public function testHasLicenseUrlWithoutData()
     {
         $this->assertFalse((new NullImage)->hasLicenseUrl());
+    }
+
+    public function testHasLicenseUrlWithData()
+    {
         $this->assertTrue((new FilledImage)->hasLicenseUrl());
     }
 
-    public function testGetType()
+    public function testGetTypeForLocalImage()
     {
         $this->assertSame('local', (new LocalImage)->getType());
+    }
+
+    public function testGetTypeForRemoteImage()
+    {
         $this->assertSame('remote', (new RemoteImage)->getType());
     }
 
