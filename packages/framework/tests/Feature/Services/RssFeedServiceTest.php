@@ -111,9 +111,11 @@ class RssFeedServiceTest extends TestCase
         $this->assertCount(1, $service->getXmlElement()->channel->item);
 
         $item = $service->getXmlElement()->channel->item[0];
+
         $this->assertEquals('RSS', $item->title);
         $this->assertEquals('RSS description', $item->description);
         $this->assertEquals('https://example.com/posts/rss.html', $item->link);
+
         $this->assertEquals(date(DATE_RSS, strtotime('2022-05-19T10:15:30+00:00')), $item->pubDate);
         $this->assertEquals('Hyde', $item->children('dc', true)->creator);
         $this->assertEquals('test', $item->category);
@@ -142,6 +144,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['hyde.url' => 'foo']);
         $this->file('_posts/foo.md');
+
         $this->assertTrue(Features::rss());
     }
 
@@ -149,6 +152,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['hyde.url' => '']);
         $this->file('_posts/foo.md');
+
         $this->assertFalse(Features::rss());
     }
 
@@ -156,6 +160,7 @@ class RssFeedServiceTest extends TestCase
     {
         config(['hyde.url' => 'foo']);
         config(['hyde.rss.enabled' => false]);
+
         $this->assertFalse(Features::rss());
     }
 }
