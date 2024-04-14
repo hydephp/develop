@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Closure;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
@@ -148,14 +149,12 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testCanSetOutputWithNull()
     {
-        $this->service->setOutput(null);
-        $this->markTestSuccessful();
+        $this->can(fn () => $this->service->setOutput(null));
     }
 
     public function testCanSetOutputWithOutputStyle()
     {
-        $this->service->setOutput(Mockery::mock(OutputStyle::class));
-        $this->markTestSuccessful();
+        $this->can(fn () => $this->service->setOutput(Mockery::mock(OutputStyle::class)));
     }
 
     public function testGenerateBuildManifestExtendsPostBuildTask()
@@ -180,28 +179,28 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testCanRunPreBuildTasks()
     {
-        $this->service->runPreBuildTasks();
-        $this->markTestSuccessful();
+        $this->can($this->service->runPreBuildTasks(...));
     }
 
     public function testCanRunPostBuildTasks()
     {
-        $this->service->runPostBuildTasks();
-        $this->markTestSuccessful();
+        $this->can($this->service->runPostBuildTasks(...));
     }
 
     public function testCanRunPreBuildTasksWithTasks()
     {
-        $this->service->registerTask(TestPreBuildTask::class);
-        $this->service->runPreBuildTasks();
-        $this->markTestSuccessful();
+        $this->can(function () {
+            $this->service->registerTask(TestPreBuildTask::class);
+            $this->service->runPreBuildTasks();
+        });
     }
 
     public function testCanRunPostBuildTasksWithTasks()
     {
-        $this->service->registerTask(TestPostBuildTask::class);
-        $this->service->runPostBuildTasks();
-        $this->markTestSuccessful();
+        $this->can(function () {
+            $this->service->registerTask(TestPostBuildTask::class);
+            $this->service->runPostBuildTasks();
+        });
     }
 
     public function testRunPreBuildTasksCallsHandleMethods()
@@ -307,6 +306,14 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     protected function markTestSuccessful(): void
     {
         $this->assertTrue(true);
+    }
+
+    /** Assert that the given closure can be executed */
+    protected function can(Closure $ability): void
+    {
+        $ability();
+
+        $this->markTestSuccessful();
     }
 
     protected function createService(): BuildTaskService
