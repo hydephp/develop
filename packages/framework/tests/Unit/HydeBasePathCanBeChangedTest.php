@@ -26,6 +26,5 @@ class HydeBasePathCanBeChangedTest extends UnitTestCase
         $this->assertSame('/foo/bar', Hyde::path());
 
         Hyde::setBasePath($basePath);
-
     }
 }
