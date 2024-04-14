@@ -98,6 +98,7 @@ class SemanticDocumentationArticle
     protected function normalizeBody(): void
     {
         // Remove possible trailing newlines added by the Markdown compiler to normalize the body.
+
         $this->body = trim($this->body, "\n");
     }
 
@@ -139,9 +140,7 @@ class SemanticDocumentationArticle
         ])->render();
     }
 
-    /**
-     * Do we satisfy the requirements to render an edit source button in the supplied position?
-     */
+    /** Do we satisfy the requirements to render an edit source button in the supplied position? */
     protected function canRenderSourceLink(string $inPosition): bool
     {
         $config = Config::getString('docs.edit_source_link_position', 'both');
@@ -150,9 +149,7 @@ class SemanticDocumentationArticle
         return ($this->page->getOnlineSourcePath() !== false) && in_array($inPosition, $positions);
     }
 
-    /**
-     * Does the current document use Torchlight?
-     */
+    /** Does the current document use Torchlight? */
     public function hasTorchlight(): bool
     {
         return Features::hasTorchlight() && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
