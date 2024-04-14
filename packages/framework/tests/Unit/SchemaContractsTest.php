@@ -128,7 +128,7 @@ class SchemaContractsTest extends UnitTestCase
         }
     }
 
-    private function assertClassHasConstant(string $constant, string $schema)
+    private function assertClassHasConstant(string $constant, string $schema): void
     {
         $this->assertTrue(
             defined("$schema::$constant"),
