@@ -38,8 +38,11 @@ class FileCollectionTest extends TestCase
     public function testGetFileReturnsParsedFileObjectForGivenFilePath()
     {
         $this->file('_pages/foo.blade.php');
-        $this->assertEquals(new SourceFile('_pages/foo.blade.php', BladePage::class),
-            Files::getFile('_pages/foo.blade.php'));
+
+        $this->assertEquals(
+            new SourceFile('_pages/foo.blade.php', BladePage::class),
+            Files::getFile('_pages/foo.blade.php')
+        );
     }
 
     public function testGetFileThrowsExceptionWhenFileIsNotFound()
