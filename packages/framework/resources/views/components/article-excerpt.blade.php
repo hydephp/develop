@@ -16,9 +16,8 @@
     <footer>
         @isset($post->date)
             <span class="opacity-75">
-            <span itemprop="dateCreated datePublished">
-                {{ $post->date->short }}</span>{{ isset($post->author) ? ',' : '' }}
-        </span>
+                <span itemprop="dateCreated datePublished">{{ $post->date->short }}</span>{{ isset($post->author) ? ',' : '' }}
+            </span>
         @endisset
         @isset($post->author)
             <span itemprop="author" itemscope itemtype="https://schema.org/Person">
