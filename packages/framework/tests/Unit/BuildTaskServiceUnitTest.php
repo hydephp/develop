@@ -284,28 +284,14 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testServiceSearchesForTasksInAppDirectory()
     {
-        $kernel = HydeKernel::getInstance();
-        $filesystem = Mockery::mock(Filesystem::class, [$kernel])
-            ->makePartial()->shouldReceive('smartGlob')->once()
-            ->with('app/Actions/*BuildTask.php', 0)
-            ->andReturn(collect())->getMock();
-
-        // Inject mock into Kernel (No better way to do this at the moment)
-        (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
+        $this->mockKernelFilesystem();
 
         $this->createService();
     }
 
     public function testServiceFindsTasksInAppDirectory()
     {
-        $kernel = HydeKernel::getInstance();
-        $filesystem = Mockery::mock(Filesystem::class, [$kernel])->makePartial()
-            ->shouldReceive('smartGlob')->once()
-            ->with('app/Actions/*BuildTask.php', 0)
-            ->andReturn(collect())->getMock();
-
-        // Inject mock into Kernel
-        (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
+        $this->mockKernelFilesystem();
 
         $this->createService();
     }
@@ -329,6 +315,17 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     {
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
         Mockery::close();
+    }
+
+    protected function mockKernelFilesystem(): void
+    {
+        $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])
+            ->makePartial()->shouldReceive('smartGlob')->once()
+            ->with('app/Actions/*BuildTask.php', 0)
+            ->andReturn(collect())->getMock();
+
+        // Inject mock into Kernel
+        (new ReflectionClass(HydeKernel::getInstance()))->getProperty('filesystem')->setValue(HydeKernel::getInstance(), $filesystem);
     }
 }
 
