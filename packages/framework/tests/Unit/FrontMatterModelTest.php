@@ -30,6 +30,7 @@ class FrontMatterModelTest extends UnitTestCase
     public function testStaticFromArrayMethodCreatesNewFrontMatterModel()
     {
         $matter = FrontMatter::fromArray(['foo' => 'bar']);
+
         $this->assertInstanceOf(FrontMatter::class, $matter);
         $this->assertSame(['foo' => 'bar'], $matter->toArray());
     }
@@ -37,6 +38,7 @@ class FrontMatterModelTest extends UnitTestCase
     public function testToStringMagicMethodConvertsModelArrayIntoYamlFrontMatter()
     {
         $matter = new FrontMatter(['foo' => 'bar']);
+
         $this->assertSame("---\nfoo: bar\n---\n", (string) (new FrontMatter(['foo' => 'bar'])));
     }
 
@@ -68,6 +70,7 @@ class FrontMatterModelTest extends UnitTestCase
     public function testGetMethodReturnsSpecifiedDefaultValueIfPropertyDoesNotExist()
     {
         $matter = new FrontMatter();
+
         $this->assertSame('default', $matter->get('bar', 'default'));
     }
 
@@ -84,6 +87,7 @@ class FrontMatterModelTest extends UnitTestCase
     public function testSetMethodReturnsSelf()
     {
         $matter = new FrontMatter();
+
         $this->assertSame($matter, $matter->set('foo', 'bar'));
     }
 
