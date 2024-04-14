@@ -327,6 +327,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     protected function verifyMockeryExpectations(): void
     {
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+
         Mockery::close();
     }
 
