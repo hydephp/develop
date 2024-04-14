@@ -17,8 +17,7 @@ use function str_contains;
 use function trim;
 
 /**
- * Class to make Hyde documentation pages smarter,
- * by dynamically enriching them with semantic HTML.
+ * Class to make Hyde documentation pages smarter by dynamically enriching them with semantic HTML.
  */
 class SemanticDocumentationArticle
 {
