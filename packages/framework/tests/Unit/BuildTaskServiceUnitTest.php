@@ -352,36 +352,36 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
 class InstantiableTestBuildTask extends BuildTask
 {
-    use VoidHandle;
+    use VoidHandleMethod;
 }
 
 class TestBuildTask extends PostBuildTask
 {
-    use VoidHandle;
+    use VoidHandleMethod;
 }
 
 class TestPreBuildTask extends PreBuildTask
 {
-    use VoidHandle;
+    use VoidHandleMethod;
 }
 
 class TestPostBuildTask extends PostBuildTask
 {
-    use VoidHandle;
+    use VoidHandleMethod;
 }
 
 class TestBuildTaskNotExtendingChildren extends BuildTask
 {
-    use VoidHandle;
+    use VoidHandleMethod;
 }
 
 /** Test class to test overloading */
 class GenerateSitemap extends FrameworkGenerateSitemap
 {
-    use VoidHandle;
+    use VoidHandleMethod;
 }
 
-trait VoidHandle
+trait VoidHandleMethod
 {
     public function handle(): void
     {
