@@ -130,16 +130,16 @@ class FeaturedImageUnitTest extends UnitTestCase
     public function testCanConstructFeaturedImageWithRemoteSource()
     {
         $image = new FeaturedImage('http/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(FeaturedImage::class, $image);
 
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('http/foo', $image->getSource());
     }
 
     public function testCanConstructFeaturedImageWithHttps()
     {
         $image = new FeaturedImage('https/foo', ...$this->defaultArguments());
-        $this->assertInstanceOf(FeaturedImage::class, $image);
 
+        $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertEquals('https/foo', $image->getSource());
     }
 
