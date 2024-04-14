@@ -49,4 +49,10 @@ class MarkdownPostHelpersTest extends TestCase
         $post = MarkdownPost::make('foo-bar', [], str_repeat('a', 128));
         $this->assertEquals(str_repeat('a', 125).'...', $post->description);
     }
+
+    public function testDynamicDescriptionStripsMarkdown()
+    {
+        $post = MarkdownPost::make('foo-bar', [], '## This is a **bold** description with [a link](https://example.com) and <code>more</code>');
+        $this->assertEquals('This is a bold description with a link and more', $post->description);
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
@@ -123,9 +124,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     private function stripMarkdownFromBody(string $body): string
     {
-        // Todo
-
-        return $body;
+        return (new ConvertsMarkdownToPlainText($body))->execute();
     }
 
     protected function getMatter(string $key): string|null|array
