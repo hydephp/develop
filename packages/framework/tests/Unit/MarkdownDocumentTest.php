@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -20,13 +19,11 @@ class MarkdownDocumentTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    public static function setUpBeforeClass(): void
+    public static function tearDownAfterClass(): void
     {
-        parent::setUpBeforeClass();
+        parent::tearDownAfterClass();
 
-        app()->singleton('files', function () {
-            return new \Hyde\Foundation\Kernel\Filesystem(HydeKernel::getInstance());
-        });
+        app()->forgetInstances();
     }
 
     public function testConstructorCreatesNewMarkdownDocument()
