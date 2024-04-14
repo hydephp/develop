@@ -39,8 +39,8 @@
     @endisset
 
     <footer>
-        <a href="{{ $post->getRoute() }}"
-           class="text-indigo-500 hover:underline font-medium">
-            Read post</a>
+        <a href="{{ $post->getRoute() }}" class="text-indigo-500 hover:underline font-medium">
+            Read post
+        </a>
     </footer>
 </article>
