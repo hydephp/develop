@@ -25,8 +25,8 @@ class GetLatestMarkdownPostsTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(MarkdownPost::class, $collection);
 
-        $this->assertEquals('new', $collection->first()->identifier);
-        $this->assertEquals('old', $collection->last()->identifier);
+        $this->assertSame('new', $collection->first()->identifier);
+        $this->assertSame('old', $collection->last()->identifier);
 
         Filesystem::unlink('_posts/new.md');
         Filesystem::unlink('_posts/old.md');
