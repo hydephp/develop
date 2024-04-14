@@ -220,7 +220,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-
     }
 
     public function testRunPostBuildTasksCallsHandleMethods()
