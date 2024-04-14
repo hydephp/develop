@@ -20,11 +20,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class FoundationFacadesTest extends UnitTestCase
 {
-    public static function setupBeforeClass(): void
-    {
-        self::needsKernel();
-        self::mockConfig();
-    }
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
 
     public function testFilesFacade()
     {
