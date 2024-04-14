@@ -38,6 +38,7 @@ class GlobalMetadataBagTest extends TestCase
         $actual = GlobalMetadataBag::make()->get();
 
         $this->assertEquals($expected, $actual);
+        $this->assertSame(array_keys($expected), array_keys($actual));
     }
 
     public function testSiteMetadataAutomaticallyAddsSitemapWhenEnabled()
