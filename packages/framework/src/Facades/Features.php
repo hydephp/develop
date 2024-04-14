@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Hyde;
+use Hyde\Enums\Feature;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use JetBrains\PhpStorm\Deprecated;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Hyde\Framework\Concerns\Internal\MockableFeatures;
@@ -39,9 +41,9 @@ class Features implements SerializableContract
     /**
      * Determine if the given specified is enabled.
      */
-    public static function enabled(string $feature): bool
+    public static function enabled(Feature $feature): bool
     {
-        return static::resolveMockedInstance($feature) ?? in_array(
+        return static::resolveMockedInstance($feature->name) ?? in_array(
             $feature, Config::getArray('hyde.features', static::getDefaultOptions())
         );
     }
@@ -52,39 +54,39 @@ class Features implements SerializableContract
 
     public static function hasHtmlPages(): bool
     {
-        return static::enabled(static::htmlPages());
+        return static::enabled(Feature::HtmlPages);
     }
 
     public static function hasBladePages(): bool
     {
-        return static::enabled(static::bladePages());
+        return static::enabled(Feature::BladePages);
     }
 
     public static function hasMarkdownPages(): bool
     {
-        return static::enabled(static::markdownPages());
+        return static::enabled(Feature::MarkdownPages);
     }
 
     public static function hasMarkdownPosts(): bool
     {
-        return static::enabled(static::markdownPosts());
+        return static::enabled(Feature::MarkdownPosts);
     }
 
     public static function hasDocumentationPages(): bool
     {
-        return static::enabled(static::documentationPages());
+        return static::enabled(Feature::DocumentationPages);
     }
 
     public static function hasDocumentationSearch(): bool
     {
-        return static::enabled(static::documentationSearch())
+        return static::enabled(Feature::DocumentationSearch)
             && static::hasDocumentationPages()
             && count(DocumentationPage::files()) > 0;
     }
 
     public static function hasDarkmode(): bool
     {
-        return static::enabled(static::darkmode());
+        return static::enabled(Feature::Darkmode);
     }
 
     /**
@@ -93,7 +95,7 @@ class Features implements SerializableContract
      */
     public static function hasTorchlight(): bool
     {
-        return static::enabled(static::torchlight())
+        return static::enabled(Feature::Torchlight)
             && (Config::getNullableString('torchlight.token') !== null)
             && (app('env') !== 'testing');
     }
@@ -102,44 +104,60 @@ class Features implements SerializableContract
     // Configure features to be used in the config file.
     // =================================================
 
-    public static function htmlPages(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::HtmlPages` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::HtmlPages Enum case', replacement: 'Feature::HtmlPages', since: '1.6.0')]
+    public static function htmlPages(): Feature
     {
-        return 'html-pages';
+        return Feature::HtmlPages;
     }
 
-    public static function bladePages(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::BladePages` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::BladePages Enum case', replacement: 'Feature::BladePages', since: '1.6.0')]
+    public static function bladePages(): Feature
     {
-        return 'blade-pages';
+        return Feature::BladePages;
     }
 
-    public static function markdownPages(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::MarkdownPages` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::MarkdownPages Enum case', replacement: 'Feature::MarkdownPages', since: '1.6.0')]
+    public static function markdownPages(): Feature
     {
-        return 'markdown-pages';
+        return Feature::MarkdownPages;
     }
 
-    public static function markdownPosts(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::MarkdownPosts` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::MarkdownPosts Enum case', replacement: 'Feature::MarkdownPosts', since: '1.6.0')]
+    public static function markdownPosts(): Feature
     {
-        return 'markdown-posts';
+        return Feature::MarkdownPosts;
     }
 
-    public static function documentationPages(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::DocumentationPages` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::DocumentationPages Enum case', replacement: 'Feature::DocumentationPages', since: '1.6.0')]
+    public static function documentationPages(): Feature
     {
-        return 'documentation-pages';
+        return Feature::DocumentationPages;
     }
 
-    public static function documentationSearch(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::DocumentationSearch` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::DocumentationSearch Enum case', replacement: 'Feature::DocumentationSearch', since: '1.6.0')]
+    public static function documentationSearch(): Feature
     {
-        return 'documentation-search';
+        return Feature::DocumentationSearch;
     }
 
-    public static function darkmode(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::Darkmode` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::Darkmode Enum case', replacement: 'Feature::Darkmode', since: '1.6.0')]
+    public static function darkmode(): Feature
     {
-        return 'darkmode';
+        return Feature::Darkmode;
     }
 
-    public static function torchlight(): string
+    /** @deprecated This method will be removed in v2.0. Please use `Feature::Torchlight` instead. */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Enums\Feature::Torchlight Enum case', replacement: 'Feature::Torchlight', since: '1.6.0')]
+    public static function torchlight(): Feature
     {
-        return 'torchlight';
+        return Feature::Torchlight;
     }
 
     // ====================================================
@@ -185,18 +203,18 @@ class Features implements SerializableContract
     {
         return [
             // Page Modules
-            static::htmlPages(),
-            static::markdownPosts(),
-            static::bladePages(),
-            static::markdownPages(),
-            static::documentationPages(),
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+            Feature::MarkdownPages,
+            Feature::DocumentationPages,
 
             // Frontend Features
-            static::darkmode(),
-            static::documentationSearch(),
+            Feature::Darkmode,
+            Feature::DocumentationSearch,
 
             // Integrations
-            static::torchlight(),
+            Feature::Torchlight,
         ];
     }
 }

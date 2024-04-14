@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Views\Components\BreadcrumbsComponent;
+use Mockery;
+use Illuminate\View\Factory;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Support\Facades\Facade;
+use Hyde\Support\Facades\Render;
 use Illuminate\Support\Facades\View;
-use Illuminate\View\Factory;
-use Mockery;
+use Illuminate\Support\Facades\Facade;
+use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 
 /**
  * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
  *
- * @see \Hyde\Framework\Testing\Unit\BreadcrumbsComponentViewTest
+ * @see \Hyde\Framework\Testing\Unit\Views\BreadcrumbsComponentViewTest
  */
 class BreadcrumbsComponentTest extends UnitTestCase
 {

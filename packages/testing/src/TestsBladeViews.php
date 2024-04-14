@@ -6,6 +6,7 @@ namespace Hyde\Testing;
 
 use Illuminate\View\View;
 use Hyde\Testing\Support\TestView;
+use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
 
 /**
  * Provides a more fluent way to test Blade views.
@@ -15,7 +16,7 @@ trait TestsBladeViews
     /**
      * Test a Blade view.
      */
-    protected function test(string|View $view, $data = []): TestView
+    protected function view(string|View $view, $data = []): TestView
     {
         $data = array_merge($this->testViewData(), $data);
 
@@ -24,6 +25,14 @@ trait TestsBladeViews
         }
 
         return new TestView(view($view, $data));
+    }
+
+    /**
+     * Create a testable HTML document instance.
+     */
+    protected function html(string $html): TestableHtmlDocument
+    {
+        return new TestableHtmlDocument($html);
     }
 
     /**

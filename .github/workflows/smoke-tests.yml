@@ -1,4 +1,6 @@
-# This workflow is especially helpful for pull requests to quickly see if the other tests will definitely fail
+# This workflow is especially helpful for pull requests to quickly see if the other tests will definitely fail.
+# In order to get even quicker feedback, we also ping our Continuous Integration server to get a status check
+# as soon as we know the outcome, as the GitHub Actions Pull Request UI takes a little bit to update.
 
 name: 🔥 Smoke Tests
 
@@ -25,8 +27,29 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run smoke tests
+        id: smoke-tests
         run: vendor/bin/pest --stop-on-failure --log-junit report.xml
 
+      - name: Ping continuous integration server with test status
+        if: always() && github.event.repository.full_name == 'hydephp/develop'
+        run: |
+          bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
+          commit="${{ github.event.pull_request.head.sha }}"
+          url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
+              status=false
+          else
+              status=true
+          fi
+
+          curl -X POST --fail-with-body \
+            -H "Authorization: Bearer $bearerToken" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -d '{"commit":"'"$commit"'", "status":'$status', "url":"'"$url"'"}' \
+            https://ci.hydephp.com/api/test-run-reports
+  
       - name: Ping statistics server with test results
         run: |
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\helpers;
+namespace Hyde\Testing\Common;
 
 use Mockery;
 use Illuminate\View\Factory;

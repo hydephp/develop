@@ -34,6 +34,14 @@ HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default
 - jsDelivr https://www.jsdelivr.com/package/npm/hydefront
 
 
-## Warranty:
+## Supported Versions & Warranty
 
-HydeFront is not intended to be used for standalone projects and comes with no warranties. Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
+HydeFront is not intended to be used for standalone projects and comes with no warranties.
+
+Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
+
+| Hyde Version | Version | Supported          | Notes                   |
+|:-------------|---------|--------------------|-------------------------|
+| 1.x LTS      | 3.x     | :white_check_mark: | Latest                  |
+| 0.x Beta     | 2.x     | :x:                | Unsupported             |
+| 0.x Alpha    | 1.x     | :x:                | Unsupported             |

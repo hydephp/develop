@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Config;
  *
  * @see StaticSiteBuilderPostModuleTest
  */
-class AuthorPostsIntegrationTest extends TestCase
+class PostsAuthorIntegrationTest extends TestCase
 {
     protected function setUp(): void
     {

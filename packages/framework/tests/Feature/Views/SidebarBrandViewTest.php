@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Views;
 
 use Hyde\Hyde;
+use Hyde\Facades\Features;
 use Hyde\Testing\TestCase;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Pages\DocumentationPage;
 
@@ -16,7 +16,7 @@ class SidebarBrandViewTest extends TestCase
 
     public function testSidebarBrandView()
     {
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('HydePHP Docs');
         $view->assertSee('theme-toggle-button');
@@ -27,7 +27,7 @@ class SidebarBrandViewTest extends TestCase
     {
         Hyde::routes()->addRoute((new DocumentationPage('index'))->getRoute());
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('HydePHP Docs');
         $view->assertSee('theme-toggle-button');
@@ -38,7 +38,7 @@ class SidebarBrandViewTest extends TestCase
     {
         config(['docs.sidebar' => []]);
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('Documentation');
         $view->assertDontSee('HydePHP Docs');
@@ -50,7 +50,7 @@ class SidebarBrandViewTest extends TestCase
 
         config(['docs.sidebar' => []]);
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('Documentation');
         $view->assertSeeHtml('<a href="docs/index.html">Documentation</a>', true);
@@ -59,11 +59,9 @@ class SidebarBrandViewTest extends TestCase
 
     public function testSidebarBrandViewWithoutDarkmodeFeature()
     {
-        $mock = $this->mock(HydeKernel::class)->makePartial();
-        $mock->shouldReceive('hasFeature')->with('darkmode')->andReturn(false);
-        HydeKernel::setInstance($mock);
+        Features::mock('darkmode', false);
 
-        $view = $this->test(view('hyde::components.docs.sidebar-brand'));
+        $view = $this->view(view('hyde::components.docs.sidebar-brand'));
 
         $view->assertSee('HydePHP Docs');
         $view->assertDontSee('theme-toggle-button');

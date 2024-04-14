@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Throwable;
+use Hyde\Enums\Feature;
 use Composer\InstalledVersions;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
@@ -76,7 +77,8 @@ class HydeKernelTest extends TestCase
 
     public function testHasFeatureHelperCallsMethodOnFeaturesClass()
     {
-        $this->assertSame(Features::enabled('foo'), Hyde::hasFeature('foo'));
+        $this->assertSame(Features::enabled(Feature::BladePages), Hyde::hasFeature(Feature::BladePages));
+        $this->assertSame(Features::enabled(Feature::BladePages), Hyde::hasFeature('blade-pages'));
     }
 
     public function testCurrentPageHelperReturnsCurrentPageName()

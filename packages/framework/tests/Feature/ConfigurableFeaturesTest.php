@@ -29,15 +29,13 @@ class ConfigurableFeaturesTest extends TestCase
     {
         $features = [];
         foreach (get_class_methods(Features::class) as $method) {
-            if (! str_starts_with($method, 'has') && $method !== 'enabled') {
-                $features[] = '\Hyde\Framework\Helpers\Features::'.$method.'()';
+            if (str_starts_with($method, 'has') && $method !== 'hasDocumentationSearch' && $method !== 'hasTorchlight') {
+                $features[] = $method;
             }
         }
 
-        Config::set('hyde.features', $features);
-
-        foreach ($features as $feature) {
-            $this->assertTrue(Features::enabled($feature), 'Method '.$feature.' should return true when feature is enabled');
+        foreach ($features as $method) {
+            $this->assertTrue(Features::$method(), 'Method '.$method.' should return true when feature is enabled');
         }
     }
 
@@ -108,18 +106,14 @@ class ConfigurableFeaturesTest extends TestCase
 
     public function testMultipleFeaturesCanBeMocked()
     {
-        Features::mock([
-            'rss' => true,
-            'darkmode' => true,
-        ]);
+        Features::mock('rss', true);
+        Features::mock('darkmode', true);
 
         $this->assertTrue(Features::rss());
         $this->assertTrue(Features::hasDarkmode());
 
-        Features::mock([
-            'rss' => false,
-            'darkmode' => false,
-        ]);
+        Features::mock('rss', false);
+        Features::mock('darkmode', false);
 
         $this->assertFalse(Features::rss());
         $this->assertFalse(Features::hasDarkmode());

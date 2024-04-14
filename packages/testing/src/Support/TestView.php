@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 use JetBrains\PhpStorm\NoReturn;
 use Illuminate\Testing\Assert as PHPUnit;
 
+/**
+ * @todo Unify API with the TestableHtmlDocument and TestableHtmlElement classes.
+ */
 class TestView extends \Illuminate\Testing\TestView
 {
     /**
@@ -38,6 +41,32 @@ class TestView extends \Illuminate\Testing\TestView
     }
 
     /**
+     * Assert that the given string is contained exactly `$times` within the view.
+     *
+     * @return $this
+     */
+    public function assertSeeTimes(string $value, int $times = 1): static
+    {
+        $this->assertSee($value, false);
+
+        $count = substr_count($this->rendered, $value);
+
+        PHPUnit::assertSame($times, $count, "The string '$value' was found $count times, expected $times.");
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given string is contained exactly once within the view.
+     *
+     * @return $this
+     */
+    public function assertSeeOnce(string $value): static
+    {
+        return $this->assertSeeTimes($value);
+    }
+
+    /**
      * Assert that the given HTML element is contained within the view.
      *
      * @return $this
@@ -45,6 +74,10 @@ class TestView extends \Illuminate\Testing\TestView
     public function assertHasElement(string $element): static
     {
         $element = trim($element, '</>');
+
+        if (str_starts_with($element, '#')) {
+            return $this->assertHasId($element);
+        }
 
         PHPUnit::assertStringContainsString("<$element", $this->rendered, "The element '$element' was not found.");
 
@@ -92,6 +125,20 @@ class TestView extends \Illuminate\Testing\TestView
     public function assertDoesNotHaveAttribute(string $attributeName): static
     {
         PHPUnit::assertStringNotContainsString($attributeName.'="', $this->rendered, "The attribute '$attributeName' was found.");
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given HTML ID is contained within the view.
+     *
+     * @return $this
+     */
+    public function assertHasId(string $id): static
+    {
+        $id = trim($id, '#');
+
+        PHPUnit::assertStringContainsString("id=\"$id\"", $this->rendered, "The id '$id' was not found.");
 
         return $this;
     }

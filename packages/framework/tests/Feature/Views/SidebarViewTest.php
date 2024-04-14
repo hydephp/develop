@@ -4,13 +4,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Feature\Views;
 
-use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use Hyde\Hyde;
+use Throwable;
 use Hyde\Testing\TestCase;
 use Illuminate\Contracts\View\View;
-use Throwable;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
  * Very high level test of the sidebar views and their combinations of layouts.
@@ -39,8 +38,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<a href="index.html">Back to home page</a>')
             ->assertSeeHtml('<span class="sr-only">Toggle dark theme</span>')
             ->assertDontSee('<a href="docs/index.html">')
-            ->assertDontSee('<li class="sidebar-item')
-            ->allGood();
+            ->assertDontSee('<li class="sidebar-item');
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
@@ -66,8 +64,7 @@ class SidebarViewTest extends TestCase
         $this->renderComponent(view('hyde::components.docs.sidebar'))
             ->assertSeeHtml('<footer id="sidebar-footer"')
             ->assertSeeHtml('<p>My <strong>Markdown</strong> Footer Text</p>')
-            ->assertDontSee('Back to home page')
-            ->allGood();
+            ->assertDontSee('Back to home page');
     }
 
     public function testBaseSidebarCustomHeaderBrand()
@@ -76,8 +73,7 @@ class SidebarViewTest extends TestCase
 
         $this->renderComponent(view('hyde::components.docs.sidebar'))
             ->assertSeeText('My Custom Header')
-            ->assertDontSee('HydePHP Docs')
-            ->allGood();
+            ->assertDontSee('HydePHP Docs');
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-brand'));
     }
@@ -92,8 +88,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('<a href="docs/index.html">')
             ->assertSeeHtml('<nav id="sidebar-navigation"')
             ->assertSeeHtml('<ul id="sidebar-items" role="list" class="pl-2">')
-            ->assertSeeHtml('<li class="sidebar-item')
-            ->allGood();
+            ->assertSeeHtml('<li class="sidebar-item');
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
@@ -120,8 +115,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('class="sidebar-group-toggle')
             ->assertSeeHtml('class="sidebar-group-toggle-icon')
             ->assertSeeHtml('class="sidebar-group-items')
-            ->assertSee('groupOpen')
-            ->allGood();
+            ->assertSee('groupOpen');
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
@@ -152,8 +146,7 @@ class SidebarViewTest extends TestCase
             ->assertSeeHtml('class="sidebar-group-items')
             ->assertDontSee('sidebar-group-toggle')
             ->assertDontSee('sidebar-group-toggle-icon')
-            ->assertDontSee('groupOpen')
-            ->allGood();
+            ->assertDontSee('groupOpen');
 
         $this->assertViewWasRendered(view('hyde::components.docs.sidebar-items', [
             'sidebar' => DocumentationSidebar::create(),
@@ -167,16 +160,7 @@ class SidebarViewTest extends TestCase
     {
         try {
             $this->html = $view->render();
-            /** @noinspection LaravelFunctionsInspection */
-            if (env('TEST_HTML_DEBUG', false)) {
-                file_put_contents(Hyde::path('_site/test.html'), $this->html);
-                echo "\e[0;32mCreated file: \e[0m".realpath(Hyde::path('_site/test.html'));
-            }
         } catch (Throwable $exception) {
-            /** @noinspection LaravelFunctionsInspection */
-            if (env('TEST_HTML_DEBUG', false)) {
-                throw $exception;
-            }
             $this->fail($exception->getMessage());
         }
 
@@ -223,13 +207,6 @@ class SidebarViewTest extends TestCase
     protected function assertDontSee(string $text): self
     {
         $this->assertStringNotContainsString($text, $this->html);
-
-        return $this;
-    }
-
-    protected function allGood(): self
-    {
-        // Just an empty helper so we get easier Git diffs when adding new assertions.
 
         return $this;
     }
