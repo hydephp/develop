@@ -17,7 +17,7 @@ class BladeMatterParserTest extends TestCase
     {
         $parser = new BladeMatterParser('@php($foo = "bar")');
         $parser->parse();
-        $this->assertEquals(['foo' => 'bar'], $parser->get());
+        $this->assertSame(['foo' => 'bar'], $parser->get());
     }
 
     public function testParseStringHelperMethod()
@@ -44,7 +44,7 @@ class BladeMatterParserTest extends TestCase
         @php($bar = 'baz')
         @php($baz = 'qux')
         BLADE;
-        $this->assertEquals(['foo' => 'bar', 'bar' => 'baz', 'baz' => 'qux'], BladeMatterParser::parseString($document));
+        $this->assertSame(['foo' => 'bar', 'bar' => 'baz', 'baz' => 'qux'], BladeMatterParser::parseString($document));
     }
 
     public function testCanParseFrontMatterWithVariousFormats()
@@ -57,14 +57,14 @@ class BladeMatterParserTest extends TestCase
         ];
 
         foreach ($matrix as $input => $expected) {
-            $this->assertEquals($expected, BladeMatterParser::parseString($input));
+            $this->assertSame($expected, BladeMatterParser::parseString($input));
         }
     }
 
     public function testCanParseFrontMatterWithArray()
     {
         $document = "@php(\$foo = ['bar' => 'baz'])";
-        $this->assertEquals(['foo' => ['bar' => 'baz']], BladeMatterParser::parseString($document));
+        $this->assertSame(['foo' => ['bar' => 'baz']], BladeMatterParser::parseString($document));
     }
 
     public function testLineMatchesFrontMatter()
