@@ -291,12 +291,12 @@ class HydeKernelTest extends TestCase
 
     public function testJsonSerializeMethod()
     {
-        $this->assertEquals(Hyde::kernel()->jsonSerialize(), collect(Hyde::toArray())->toArray());
+        $this->assertSame(Hyde::kernel()->jsonSerialize(), collect(Hyde::toArray())->toArray());
     }
 
     public function testToJsonMethod()
     {
-        $this->assertEquals(Hyde::kernel()->toJson(), json_encode(Hyde::toArray()));
+        $this->assertSame(Hyde::kernel()->toJson(), json_encode(Hyde::toArray()));
     }
 
     public function testVersionConstantIsAValidSemverString()
@@ -435,12 +435,12 @@ class HydeKernelTest extends TestCase
 
     public function testMediaOutputDirectoryCanBeChangedInConfiguration()
     {
-        $this->assertEquals('_media', Hyde::getMediaDirectory());
+        $this->assertSame('_media', Hyde::getMediaDirectory());
 
         config(['hyde.media_directory' => '_assets']);
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('_assets', Hyde::getMediaDirectory());
+        $this->assertSame('_assets', Hyde::getMediaDirectory());
     }
 
     public function testCanAccessKernelFluentlyUsingTheFacade()
@@ -522,7 +522,7 @@ class HydeKernelTest extends TestCase
         });
 
         $this->assertSame($page, Pages::getPage('foo'));
-        $this->assertEquals($page->getRoute(), Routes::getRoute('foo'));
+        $this->assertSame($page->getRoute(), Routes::getRoute('foo'));
     }
 
     public function testIsBootedReturnsFalseWhenNotBooted()

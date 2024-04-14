@@ -24,7 +24,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(PostAuthor::class, $post->author);
-        $this->assertEquals('John Doe', $post->author->username);
+        $this->assertSame('John Doe', $post->author->username);
         $this->assertNull($post->author->name);
         $this->assertNull($post->author->website);
     }
@@ -40,9 +40,9 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(PostAuthor::class, $post->author);
-        $this->assertEquals('john_doe', $post->author->username);
-        $this->assertEquals('John Doe', $post->author->name);
-        $this->assertEquals('https://example.com', $post->author->website);
+        $this->assertSame('john_doe', $post->author->username);
+        $this->assertSame('John Doe', $post->author->name);
+        $this->assertSame('https://example.com', $post->author->website);
     }
 
     public function testConstructorCanCreateANewImageInstanceFromAString()
@@ -52,7 +52,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(FeaturedImage::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
+        $this->assertSame('https://example.com/image.jpg', $post->image->getSource());
     }
 
     public function testConstructorCanCreateANewImageInstanceFromAnArray()
@@ -64,7 +64,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(FeaturedImage::class, $post->image);
-        $this->assertEquals('https://example.com/image.jpg', $post->image->getSource());
+        $this->assertSame('https://example.com/image.jpg', $post->image->getSource());
     }
 
     public function testConstructorCanCreateANewDateStringInstanceFromMatter()
@@ -74,7 +74,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(DateString::class, $post->date);
-        $this->assertEquals('Jan 1st, 2022', $post->date->short);
+        $this->assertSame('Jan 1st, 2022', $post->date->short);
     }
 
     public function testFeaturedImageCanBeConstructedReturnsNullWhenNoImageIsSetInThePageMatter()
@@ -88,7 +88,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('media/foo.png', $image->getSource());
+        $this->assertSame('media/foo.png', $image->getSource());
     }
 
     public function testFeaturedImageCanBeConstructedReturnsImageObjectWithRemotePathWhenMatterIsString()
@@ -96,7 +96,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => 'https://example.com/foo.png']);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('https://example.com/foo.png', $image->getSource());
+        $this->assertSame('https://example.com/foo.png', $image->getSource());
     }
 
     public function testFeaturedImageCanBeConstructedReturnsImageObjectWithSuppliedDataWhenMatterIsArray()
@@ -104,7 +104,7 @@ class MarkdownPostTest extends TestCase
         $page = MarkdownPost::make(matter: ['image' => ['source' => 'foo.png', 'titleText' => 'bar']]);
         $image = $page->image;
         $this->assertInstanceOf(FeaturedImage::class, $image);
-        $this->assertEquals('media/foo.png', $image->getSource());
-        $this->assertEquals('bar', $image->getTitleText());
+        $this->assertSame('media/foo.png', $image->getSource());
+        $this->assertSame('bar', $image->getTitleText());
     }
 }
