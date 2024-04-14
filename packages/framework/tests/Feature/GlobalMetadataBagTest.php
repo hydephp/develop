@@ -27,13 +27,17 @@ class GlobalMetadataBagTest extends TestCase
             'baz',
         ]]);
 
-        $this->assertEquals([
+        $expected = [
             'links:foo' => Meta::link('foo', 'bar'),
             'metadata:foo' => Meta::name('foo', 'bar'),
             'properties:foo' => Meta::property('foo', 'bar'),
             'generics:0' => 'bar',
             'generics:1' => 'baz',
-        ], GlobalMetadataBag::make()->get());
+        ];
+
+        $actual = GlobalMetadataBag::make()->get();
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSiteMetadataAutomaticallyAddsSitemapWhenEnabled()
