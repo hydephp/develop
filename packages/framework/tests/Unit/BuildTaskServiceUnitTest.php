@@ -323,9 +323,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     protected function createService(): BuildTaskService
     {
-        $this->service = new BuildTaskService();
-
-        return $this->service;
+        return tap(new BuildTaskService(), fn (BuildTaskService $service) => $this->service = $service);
     }
 
     protected function verifyMockeryExpectations(): void
