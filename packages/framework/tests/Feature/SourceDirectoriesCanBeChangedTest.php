@@ -72,10 +72,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
     {
         MarkdownPost::setSourceDirectory('_source/posts');
 
-        $this->assertSame(
-            '_source/posts',
-            MarkdownPost::sourceDirectory()
-        );
+        $this->assertSame('_source/posts', MarkdownPost::sourceDirectory());
     }
 
     public function testAutodiscoveryDiscoversPostsInCustomDirectory()
@@ -85,10 +82,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         MarkdownPost::setSourceDirectory('_source');
 
-        $this->assertSame(
-            ['test'],
-            MarkdownPost::files()
-        );
+        $this->assertSame(['test'], MarkdownPost::files());
     }
 
     public function testAutodiscoveryDiscoversPostsInCustomSubdirectory()
@@ -98,9 +92,6 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         MarkdownPost::setSourceDirectory('_source/posts');
 
-        $this->assertSame(
-            ['test'],
-            MarkdownPost::files()
-        );
+        $this->assertSame(['test'], MarkdownPost::files());
     }
 }
