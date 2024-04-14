@@ -58,12 +58,12 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
 
     public function testSiteOutputDirectoryCanBeChangedInConfiguration()
     {
-        $this->assertEquals('_site', Hyde::kernel()->getOutputDirectory());
+        $this->assertSame('_site', Hyde::kernel()->getOutputDirectory());
 
         config(['hyde.output_directory' => '_site/build']);
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('_site/build', Hyde::kernel()->getOutputDirectory());
+        $this->assertSame('_site/build', Hyde::kernel()->getOutputDirectory());
 
         $this->file('_posts/test-post.md');
         StaticPageBuilder::handle(Pages::getPage('_posts/test-post.md'));
@@ -75,6 +75,6 @@ class BuildOutputDirectoryCanBeChangedTest extends TestCase
     public function testSiteOutputDirectoryPathIsNormalizedToTrimTrailingSlashes()
     {
         Hyde::setOutputDirectory('foo/bar/');
-        $this->assertEquals('foo/bar', Hyde::kernel()->getOutputDirectory());
+        $this->assertSame('foo/bar', Hyde::kernel()->getOutputDirectory());
     }
 }
