@@ -25,6 +25,7 @@ class PageModelConstructorsTest extends TestCase
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'My Title']);
         $page = MarkdownPage::parse('foo');
+
         $this->assertSame('My Title', $page->title);
     }
 
@@ -47,8 +48,8 @@ class PageModelConstructorsTest extends TestCase
     public function testDocumentationPageParserCanGetGroupFromFrontMatter()
     {
         $this->markdown('_docs/foo.md', '# Foo Bar', ['navigation.group' => 'foo']);
-
         $page = DocumentationPage::parse('foo');
+
         $this->assertSame('foo', $page->navigationMenuGroup());
     }
 
