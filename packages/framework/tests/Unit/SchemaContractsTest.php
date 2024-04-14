@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
+ *
  * This requires contributors to consider the impact of their changes as schema changes are rarely backwards compatible.
  *
  * @see \Hyde\Markdown\Contracts\FrontMatter\PageSchema
