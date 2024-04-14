@@ -31,10 +31,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 {
     protected BuildTaskService $service;
 
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     protected function setUp(): void
     {

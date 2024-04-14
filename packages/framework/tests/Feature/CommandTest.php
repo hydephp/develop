@@ -17,10 +17,7 @@ use Symfony\Component\Console\Style\OutputStyle;
  */
 class CommandTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     public static function tearDownAfterClass(): void
     {

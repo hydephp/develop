@@ -15,10 +15,7 @@ use Hyde\Testing\UnitTestCase;
  */
 class FeaturedImageUnitTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     public function testCanConstruct()
     {
