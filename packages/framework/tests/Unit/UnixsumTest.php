@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
-use Hyde\Foundation\HydeKernel;
 use Illuminate\Filesystem\Filesystem;
 use Mockery;
 
@@ -21,7 +20,7 @@ class UnixsumTest extends UnitTestCase
 
     public function testMethodReturnsStringWithLengthOf32()
     {
-        $this->assertEquals(32, strlen(unixsum('foo')));
+        $this->assertSame(32, strlen(unixsum('foo')));
     }
 
     public function testMethodReturnsStringMatchingExpectedFormat()
@@ -31,7 +30,7 @@ class UnixsumTest extends UnitTestCase
 
     public function testMethodReturnsSameValueForSameStringUsingNormalMethod()
     {
-        $this->assertEquals(md5('foo'), unixsum('foo'));
+        $this->assertSame(md5('foo'), unixsum('foo'));
     }
 
     public function testMethodReturnsDifferentValueForDifferentString()
@@ -51,27 +50,27 @@ class UnixsumTest extends UnitTestCase
 
     public function testMethodReturnsSameValueRegardlessOfEndOfLineSequence()
     {
-        $this->assertEquals(unixsum('foo'), unixsum('foo'));
-        $this->assertEquals(unixsum("foo\n"), unixsum("foo\n"));
-        $this->assertEquals(unixsum("foo\n"), unixsum("foo\r"));
-        $this->assertEquals(unixsum("foo\n"), unixsum("foo\r\n"));
+        $this->assertSame(unixsum('foo'), unixsum('foo'));
+        $this->assertSame(unixsum("foo\n"), unixsum("foo\n"));
+        $this->assertSame(unixsum("foo\n"), unixsum("foo\r"));
+        $this->assertSame(unixsum("foo\n"), unixsum("foo\r\n"));
     }
 
     public function testMethodReturnsSameValueForStringWithMixedEndOfLineSequences()
     {
-        $this->assertEquals(unixsum("foo\nbar\r\nbaz\r\n"),
-            unixsum("foo\nbar\nbaz\n"));
+        $this->assertSame(unixsum("foo\nbar\r\nbaz\r\n"), unixsum("foo\nbar\nbaz\n"));
     }
 
     public function testMethodReturnsSameValueWhenLoadedFromFileUsingShorthand()
     {
+        self::needsKernel();
+
         $string = "foo\nbar\r\nbaz\r\n";
 
-        HydeKernel::setInstance(new HydeKernel());
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('get')->andReturn($string);
-        app()->instance(Filesystem::class, $filesystem);
+        app()->instance(Filesystem::class, Mockery::mock(Filesystem::class, [
+            'get' => $string,
+        ]));
 
-        $this->assertEquals(unixsum($string), unixsum_file('foo'));
+        $this->assertSame(unixsum($string), unixsum_file('foo'));
     }
 }
