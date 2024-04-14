@@ -14,10 +14,7 @@ use Hyde\Testing\UnitTestCase;
  */
 class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::mockConfig();
-    }
+    protected static bool $needsConfig = true;
 
     public function testCanGenerateTableOfContents()
     {
