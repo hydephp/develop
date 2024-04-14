@@ -9,6 +9,7 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 
+use function blank;
 use function file_put_contents;
 
 class GenerateSitemap extends PostBuildTask
