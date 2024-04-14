@@ -146,13 +146,13 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertSame([GenerateSitemap::class], $this->service->getRegisteredTasks());
     }
 
-    public function testSetOutputWithNull()
+    public function testCanSetOutputWithNull()
     {
         $this->service->setOutput(null);
         $this->markTestSuccessful();
     }
 
-    public function testSetOutputWithOutputStyle()
+    public function testCanSetOutputWithOutputStyle()
     {
         $this->service->setOutput(Mockery::mock(OutputStyle::class));
         $this->markTestSuccessful();
@@ -178,26 +178,26 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertInstanceOf(PostBuildTask::class, new FrameworkGenerateSitemap());
     }
 
-    public function testRunPreBuildTasks()
+    public function testCanRunPreBuildTasks()
     {
         $this->service->runPreBuildTasks();
         $this->markTestSuccessful();
     }
 
-    public function testRunPostBuildTasks()
+    public function testCanRunPostBuildTasks()
     {
         $this->service->runPostBuildTasks();
         $this->markTestSuccessful();
     }
 
-    public function testRunPreBuildTasksWithTasks()
+    public function testCanRunPreBuildTasksWithTasks()
     {
         $this->service->registerTask(TestPreBuildTask::class);
         $this->service->runPreBuildTasks();
         $this->markTestSuccessful();
     }
 
-    public function testRunPostBuildTasksWithTasks()
+    public function testCanRunPostBuildTasksWithTasks()
     {
         $this->service->registerTask(TestPostBuildTask::class);
         $this->service->runPostBuildTasks();
