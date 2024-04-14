@@ -20,9 +20,9 @@ class HydeFileHelpersTest extends TestCase
         $this->assertEquals('foo', Hyde::currentRouteKey());
     }
 
-    public function testCurrentPageFallsBackToEmptyStringIfCurrentPageViewPropertyIsNotSet()
+    public function testCurrentPageFallsBackToNullStringIfCurrentPageViewPropertyIsNotSet()
     {
-        $this->assertEquals('', Hyde::currentRouteKey());
+        $this->assertNull(Hyde::currentRouteKey());
     }
 
     public function testCurrentRouteReturnsCurrentRouteViewProperty()
