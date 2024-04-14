@@ -46,6 +46,13 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->createService();
     }
 
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->verifyMockeryExpectations();
+    }
+
     public function testConstruct()
     {
         $this->assertInstanceOf(BuildTaskService::class, new BuildTaskService());
@@ -208,7 +215,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testRunPostBuildTasksCallsHandleMethods()
@@ -216,7 +223,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testRunPreBuildTasksCallsRunMethods()
@@ -224,7 +231,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testRunPostBuildTasksCallsRunMethods()
@@ -232,7 +239,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testRunPreBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
@@ -240,7 +247,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testRunPostBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
@@ -248,7 +255,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testRunPreBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
@@ -258,7 +265,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testRunPostBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
@@ -268,7 +275,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
+
     }
 
     public function testServiceSearchesForTasksInAppDirectory()
@@ -283,7 +290,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
 
         $this->createService();
-        $this->verifyMockeryExpectations();
+
         self::setupKernel();
     }
 
@@ -299,7 +306,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
 
         $this->createService();
-        $this->verifyMockeryExpectations();
+
         self::setupKernel();
     }
 
