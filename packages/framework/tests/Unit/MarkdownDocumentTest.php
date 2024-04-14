@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -24,7 +25,7 @@ class MarkdownDocumentTest extends UnitTestCase
         parent::setUpBeforeClass();
 
         app()->singleton('files', function () {
-            return new \Illuminate\Filesystem\Filesystem();
+            return new \Hyde\Foundation\Kernel\Filesystem(HydeKernel::getInstance());
         });
     }
 
