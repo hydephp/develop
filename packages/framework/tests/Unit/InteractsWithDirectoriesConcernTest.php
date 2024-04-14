@@ -55,6 +55,7 @@ class InteractsWithDirectoriesConcernTest extends TestCase
     {
         $this->needsDirectory('foo');
         $this->needsDirectory('foo');
+
         $this->assertDirectoryExists(Hyde::path('foo'));
     }
 
@@ -67,6 +68,7 @@ class InteractsWithDirectoriesConcernTest extends TestCase
     public function testNeedsDirectoriesCreatesMultipleDirectories()
     {
         $this->needsDirectories(['foo', 'bar']);
+
         $this->assertDirectoryExists(Hyde::path('foo'));
         $this->assertDirectoryExists(Hyde::path('bar'));
 
