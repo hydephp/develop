@@ -84,15 +84,13 @@ class BuildTaskServiceTest extends TestCase
 
     public function testExceptionHandlerShowsErrorMessageAndExitsWithCode1WithoutThrowingException()
     {
-        $return = (new class extends BuildTask
+        $this->assertSame(1, (new class extends BuildTask
         {
             public function handle(): void
             {
                 throw new Exception('foo', 1);
             }
-        })->run();
-
-        $this->assertSame(1, $return);
+        })->run());
     }
 
     public function testFindTasksInAppDirectoryMethodDiscoversTasksInAppDirectory()
