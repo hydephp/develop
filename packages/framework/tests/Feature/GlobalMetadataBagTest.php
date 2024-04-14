@@ -17,7 +17,7 @@ class GlobalMetadataBagTest extends TestCase
 {
     public function testSiteMetadataAddsConfigDefinedMetadata()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.meta' => [
             Meta::link('foo', 'bar'),
@@ -38,7 +38,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testSiteMetadataAutomaticallyAddsSitemapWhenEnabled()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.generate_sitemap' => true]);
@@ -48,7 +48,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testSiteMetadataSitemapUsesConfiguredSiteUrl()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'bar']);
         config(['hyde.generate_sitemap' => true]);
@@ -58,7 +58,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testSiteMetadataAutomaticallyAddsRssFeedWhenEnabled()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.rss.enabled' => true]);
@@ -69,7 +69,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testSiteMetadataRssFeedUsesConfiguredSiteUrl()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'bar']);
         config(['hyde.rss.enabled' => true]);
@@ -80,7 +80,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testSiteMetadataRssFeedUsesConfiguredSiteName()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.name' => 'Site']);
@@ -95,7 +95,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testSiteMetadataRssFeedUsesConfiguredRssFileName()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.rss.filename' => 'posts.rss']);
@@ -110,7 +110,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testMetadataExistingInTheCurrentPageIsNotAdded()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         $duplicate = Meta::name('remove', 'me');
         $keep = Meta::name('keep', 'this');
@@ -131,7 +131,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testMetadataExistingInTheCurrentPageIsNotAddedRegardlessOfItsValue()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.meta' => [Meta::name('foo', 'bar')]]);
 
@@ -144,7 +144,7 @@ class GlobalMetadataBagTest extends TestCase
         $this->assertSame([], GlobalMetadataBag::make()->get());
     }
 
-    protected function emptyConfig(): void
+    protected function withEmptyConfig(): void
     {
         config(['hyde.url' => null]);
         config(['hyde.meta' => []]);
