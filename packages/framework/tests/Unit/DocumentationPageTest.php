@@ -80,6 +80,7 @@ class DocumentationPageTest extends TestCase
     public function testCanGetOnlineSourcePathWithSourceFileLocationBase()
     {
         config(['docs.source_file_location_base' => 'docs.example.com/edit']);
+
         $page = DocumentationPage::make('foo');
         $this->assertSame('docs.example.com/edit/foo.md', $page->getOnlineSourcePath());
     }
@@ -104,6 +105,7 @@ class DocumentationPageTest extends TestCase
     {
         config(['hyde.output_directories.documentation-page' => 'foo']);
         (new HydeServiceProvider($this->app))->register();
+
         $this->assertSame('foo', DocumentationPage::outputDirectory());
     }
 
@@ -148,8 +150,10 @@ class DocumentationPageTest extends TestCase
     public function testHomeMethodReturnsDocsIndexRouteWhenItExists()
     {
         Filesystem::touch('_docs/index.md');
+
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertSame(Routes::get('docs/index'), DocumentationPage::home());
+
         Filesystem::unlink('_docs/index.md');
     }
 
@@ -157,10 +161,13 @@ class DocumentationPageTest extends TestCase
     {
         config(['hyde.output_directories.documentation-page' => 'foo']);
         (new HydeServiceProvider($this->app))->register();
+
         mkdir(Hyde::path('foo'));
         Filesystem::touch('_docs/index.md');
+
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertSame(Routes::get('foo/index'), DocumentationPage::home());
+
         Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }
@@ -169,11 +176,14 @@ class DocumentationPageTest extends TestCase
     {
         config(['hyde.output_directories.documentation-page' => 'foo/bar']);
         (new HydeServiceProvider($this->app))->register();
+
         mkdir(Hyde::path('foo'));
         mkdir(Hyde::path('foo/bar'));
         Filesystem::touch('_docs/index.md');
+
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
         $this->assertSame(Routes::get('foo/bar/index'), DocumentationPage::home());
+
         Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }
@@ -205,12 +215,14 @@ class DocumentationPageTest extends TestCase
     public function testCompiledPagesOriginatingInSubdirectoriesGetOutputToRootDocsPath()
     {
         $page = DocumentationPage::make('foo/bar');
+
         $this->assertSame('docs/bar.html', $page->getOutputPath());
     }
 
     public function testCompiledPagesOriginatingInSubdirectoriesGetOutputToRootDocsPathWhenUsingFlattenedOutputPaths()
     {
         Config::set('docs.flattened_output_paths', true);
+
         $page = DocumentationPage::make('foo/bar');
         $this->assertSame('docs/bar.html', $page->getOutputPath());
     }
@@ -218,6 +230,7 @@ class DocumentationPageTest extends TestCase
     public function testCompiledPagesOriginatingInSubdirectoriesRetainSubdirectoryStructureWhenNotUsingFlattenedOutputPaths()
     {
         Config::set('docs.flattened_output_paths', false);
+
         $page = DocumentationPage::make('foo/bar');
         $this->assertSame('docs/foo/bar.html', $page->getOutputPath());
     }
@@ -230,10 +243,13 @@ class DocumentationPageTest extends TestCase
                 'baz' => 'qux',
             ],
         ]);
+
         $page = DocumentationPage::parse('foo');
+
         $this->assertNotNull($page->matter());
         $this->assertNotEmpty($page->matter());
         $this->assertEquals(new FrontMatter($expected), $page->matter());
+        $this->assertSame($expected, $page->matter()->get());
     }
 
     public function testPageCanBeHiddenFromSidebarUsingFrontMatter()
@@ -243,6 +259,7 @@ class DocumentationPageTest extends TestCase
                 'hidden' => true,
             ],
         ]);
+
         $page = DocumentationPage::parse('foo');
         $this->assertFalse($page->showInNavigation());
     }
@@ -250,6 +267,7 @@ class DocumentationPageTest extends TestCase
     public function testPageIsVisibleInSidebarWithoutUsingFrontMatter()
     {
         $this->markdown('_docs/foo.md');
+
         $page = DocumentationPage::parse('foo');
         $this->assertTrue($page->showInNavigation());
     }
@@ -261,6 +279,7 @@ navigation:
     priority: 10
 ---
 ');
+
         $page = DocumentationPage::parse('foo');
         $this->assertSame(10, $page->navigationMenuPriority());
     }
@@ -272,6 +291,7 @@ navigation:
     label: Bar
 ---
 ');
+
         $page = DocumentationPage::parse('foo');
         $this->assertSame('Bar', $page->navigationMenuLabel());
     }
