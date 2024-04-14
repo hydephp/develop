@@ -91,6 +91,7 @@ class HydeKernelTest extends TestCase
     {
         $expected = new Route(new MarkdownPage());
         Render::share('route', $expected);
+
         $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
     }
@@ -99,6 +100,7 @@ class HydeKernelTest extends TestCase
     {
         $expected = new MarkdownPage();
         Render::share('page', $expected);
+
         $this->assertInstanceOf(HydePage::class, Hyde::currentPage());
         $this->assertSame($expected, Hyde::currentPage());
     }
@@ -260,10 +262,6 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
 
         $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
-        $this->assertSame(Hyde::path('_pages'), BladePage::path());
-        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
-        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
-        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
         $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
         $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
@@ -372,6 +370,7 @@ class HydeKernelTest extends TestCase
     public function testCanSetOutputDirectory()
     {
         Hyde::setOutputDirectory('foo');
+
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
@@ -379,6 +378,7 @@ class HydeKernelTest extends TestCase
     public function testCanSetOutputDirectoryToAbsoluteProjectPath()
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
+
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
@@ -432,6 +432,7 @@ class HydeKernelTest extends TestCase
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
         Hyde::setMediaDirectory('bar');
+
         $this->assertSame(Hyde::path('foo/bar'), Hyde::siteMediaPath());
     }
 
@@ -449,6 +450,10 @@ class HydeKernelTest extends TestCase
     {
         $this->assertInstanceOf(HydeKernel::class, Hyde::kernel());
         $this->assertSame(HydeKernel::getInstance(), Hyde::kernel());
+    }
+
+    public function testCanAccessKernelSymbolsFluentlyUsingTheFacade()
+    {
         $this->assertSame(HydeKernel::VERSION, Hyde::kernel()->version());
     }
 
@@ -519,6 +524,7 @@ class HydeKernelTest extends TestCase
         $kernel = HydeKernel::getInstance();
 
         $page = new InMemoryPage('foo');
+
         $kernel->booting(function (HydeKernel $kernel) use ($page): void {
             $kernel->pages()->addPage($page);
         });
@@ -537,6 +543,7 @@ class HydeKernelTest extends TestCase
     {
         $kernel = new HydeKernel();
         $kernel->boot();
+
         $this->assertTrue($kernel->isBooted());
     }
 
