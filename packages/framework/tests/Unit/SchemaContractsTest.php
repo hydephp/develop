@@ -96,7 +96,7 @@ class SchemaContractsTest extends UnitTestCase
 
         $schemas = array_values($schemas);
 
-        $this->assertEquals(self::SCHEMAS, $schemas);
+        $this->assertSame(self::SCHEMAS, $schemas);
     }
 
     public function testAllSchemasExtendFrontMatterSchemaInterface()
