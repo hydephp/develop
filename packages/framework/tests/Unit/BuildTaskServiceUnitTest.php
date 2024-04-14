@@ -303,17 +303,12 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         self::setupKernel();
     }
 
-    protected function markTestSuccessful(): void
-    {
-        $this->assertTrue(true);
-    }
-
     /** Assert that the given closure can be executed */
     protected function can(Closure $ability): void
     {
         $ability();
 
-        $this->markTestSuccessful();
+        $this->assertTrue(true);
     }
 
     protected function createService(): BuildTaskService
