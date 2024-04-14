@@ -46,24 +46,27 @@ class HydeSmartDocsTest extends TestCase
         $this->assertEquals('', $article->renderBody());
     }
 
+    public function testRenderedContentIsHtmlable()
+    {
+        $article = $this->makeArticle("# Header Content \n\n Body Content");
+
+        $this->assertInstanceOf(HtmlString::class, $article->renderHeader());
+        $this->assertInstanceOf(HtmlString::class, $article->renderBody());
+        $this->assertInstanceOf(HtmlString::class, $article->renderFooter());
+    }
+
     public function testCreateHelperCreatesNewInstanceAndProcessesIt()
     {
         $article = $this->makeArticle();
 
         $this->assertInstanceOf(SemanticDocumentationArticle::class, $article);
 
-        $this->assertSame(
-            '<p>Hello world.</p>',
-            $article->renderBody()->toHtml()
-        );
+        $this->assertEquals('<p>Hello world.</p>', $article->renderBody());
     }
 
     public function testRenderHeaderReturnsTheExtractedHeader()
     {
-        $this->assertSame(
-            '<h1>Foo</h1>',
-            $this->makeArticle()->renderHeader()->toHtml()
-        );
+        $this->assertSame('<h1>Foo</h1>', $this->makeArticle()->renderHeader()->toHtml());
     }
 
     public function testRenderHeaderReturnsTheExtractedHeaderWithVaryingNewlines()
@@ -108,10 +111,7 @@ class HydeSmartDocsTest extends TestCase
 
     public function testRenderFooterIsEmptyByDefault()
     {
-        $this->assertSame(
-            '',
-            $this->makeArticle()->renderFooter()->toHtml()
-        );
+        $this->assertSame('', $this->makeArticle()->renderFooter()->toHtml());
     }
 
     public function testAddDynamicHeaderContentAddsSourceLinkWhenConditionsAreMet()
@@ -119,7 +119,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'header']);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+        $this->assertSameIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
         HTML, $this->makeArticle()->renderHeader());
     }
@@ -129,7 +129,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.source_file_location_base' => 'https://example.com/']);
         config(['docs.edit_source_link_position' => 'footer']);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+        $this->assertSameIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
         HTML, $this->makeArticle()->renderFooter());
     }
@@ -141,11 +141,11 @@ class HydeSmartDocsTest extends TestCase
 
         $article = $this->makeArticle();
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+        $this->assertSameIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
         HTML, $article->renderHeader());
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+        $this->assertSameIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Edit Source</a></p>
         HTML, $article->renderFooter());
     }
@@ -156,7 +156,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+        $this->assertSameIgnoringNewlinesAndIndentation(<<<'HTML'
             <h1>Foo</h1><p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
         HTML, $this->makeArticle()->renderHeader());
     }
@@ -167,7 +167,7 @@ class HydeSmartDocsTest extends TestCase
         config(['docs.edit_source_link_position' => 'both']);
         config(['docs.edit_source_link_text' => 'Go to Source']);
 
-        $this->assertEqualsIgnoringNewlinesAndIndentation(<<<'HTML'
+        $this->assertSameIgnoringNewlinesAndIndentation(<<<'HTML'
             <p class="edit-page-link"><a href="https://example.com/foo.md">Go to Source</a></p>
         HTML, $this->makeArticle()->renderFooter());
     }
@@ -228,9 +228,9 @@ class HydeSmartDocsTest extends TestCase
         return DocumentationPage::parse('foo');
     }
 
-    protected function assertEqualsIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
+    protected function assertSameIgnoringNewlinesAndIndentation(string $expected, HtmlString $actual): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->stripNewlinesAndIndentation($expected),
             $this->stripNewlinesAndIndentation($actual->toHtml()),
         );
