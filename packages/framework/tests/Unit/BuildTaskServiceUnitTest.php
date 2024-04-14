@@ -51,6 +51,9 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         parent::tearDown();
 
         $this->verifyMockeryExpectations();
+
+        // Reset the kernel instance
+        self::needsKernel();
     }
 
     public function testConstruct()
