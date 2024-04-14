@@ -21,7 +21,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
     {
         parent::setUp();
 
-        is_dir(Hyde::path('testSourceDir')) || mkdir(Hyde::path('testSourceDir'));
+        is_dir(Hyde::path('testSourceDir')) || Filesystem::makeDirectory('testSourceDir');
     }
 
     protected function tearDown(): void
@@ -33,7 +33,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
     public function testMarkdownPostsInChangedDirectoryCanBeCompiled()
     {
-        mkdir(Hyde::path('testSourceDir/blog'));
+        Filesystem::makeDirectory('testSourceDir/blog');
         Filesystem::touch('testSourceDir/blog/test.md');
 
         MarkdownPost::setSourceDirectory('testSourceDir/blog');
@@ -41,12 +41,13 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         StaticPageBuilder::handle(MarkdownPost::parse('test'));
 
         $this->assertFileExists(Hyde::path('_site/posts/test.html'));
+
         Filesystem::unlink('_site/posts/test.html');
     }
 
     public function testMarkdownPagesInChangedDirectoryCanBeCompiled()
     {
-        mkdir(Hyde::path('testSourceDir/pages'));
+        Filesystem::makeDirectory('testSourceDir/pages');
         Filesystem::touch('testSourceDir/pages/test.md');
 
         MarkdownPage::setSourceDirectory('testSourceDir/pages');
@@ -59,7 +60,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
 
     public function testDocumentationPagesInChangedDirectoryCanBeCompiled()
     {
-        mkdir(Hyde::path('testSourceDir/documentation'));
+        Filesystem::makeDirectory('testSourceDir/documentation');
         Filesystem::touch('testSourceDir/documentation/test.md');
 
         DocumentationPage::setSourceDirectory('testSourceDir/documentation');
@@ -67,12 +68,13 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         StaticPageBuilder::handle(DocumentationPage::parse('test'));
 
         $this->assertFileExists(Hyde::path('_site/docs/test.html'));
+
         Filesystem::unlink('_site/docs/test.html');
     }
 
     public function testBladePagesInChangedDirectoryCanBeCompiled()
     {
-        mkdir(Hyde::path('testSourceDir/blade'));
+        Filesystem::makeDirectory('testSourceDir/blade');
         Filesystem::touch('testSourceDir/blade/test.blade.php');
 
         BladePage::setSourceDirectory('testSourceDir/blade');
@@ -81,6 +83,7 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         StaticPageBuilder::handle(BladePage::parse('test'));
 
         $this->assertFileExists(Hyde::path('_site/test.html'));
+
         Filesystem::unlink('_site/test.html');
     }
 }
