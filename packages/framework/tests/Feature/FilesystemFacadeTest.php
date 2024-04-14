@@ -48,6 +48,11 @@ class FilesystemFacadeTest extends TestCase
             Collection::make(['foo', 'bar', 'baz']),
             Filesystem::smartGlob('pattern/*.md')
         );
+
+        $this->assertSame(
+            Collection::make(['foo', 'bar', 'baz'])->all(),
+            Filesystem::smartGlob('pattern/*.md')->all()
+        );
     }
 
     public function testTouch()
