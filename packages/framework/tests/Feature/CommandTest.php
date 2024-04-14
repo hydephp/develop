@@ -188,7 +188,7 @@ class CommandTest extends UnitTestCase
             $condition = str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
             $this->assertTrue($condition);
 
-            return $condition;
+            return true;
         });
         $command->setOutput($output);
 
