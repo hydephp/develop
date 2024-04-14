@@ -22,7 +22,7 @@ class MediaFileTest extends TestCase
         $this->assertSame('foo', $file->path);
     }
 
-    public function can_make()
+    public function testCanMake()
     {
         $this->assertEquals(new MediaFile('foo'), MediaFile::make('foo'));
     }
