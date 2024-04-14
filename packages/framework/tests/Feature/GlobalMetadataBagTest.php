@@ -26,6 +26,7 @@ class GlobalMetadataBagTest extends TestCase
             'foo' => 'bar',
             'baz',
         ]]);
+
         $this->assertEquals([
             'links:foo' => Meta::link('foo', 'bar'),
             'metadata:foo' => Meta::name('foo', 'bar'),
