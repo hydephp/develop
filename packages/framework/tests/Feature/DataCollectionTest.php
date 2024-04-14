@@ -68,7 +68,6 @@ class DataCollectionTest extends TestCase
 
     public function testFindMarkdownFilesMethodReturnsEmptyArrayIfTheSpecifiedDirectoryDoesNotExist()
     {
-        $class = new DataCollections();
         $this->assertIsArray(DataCollections::markdown('foo')->keys()->toArray());
         $this->assertEmpty(DataCollections::markdown('foo')->keys()->toArray());
     }
@@ -77,7 +76,6 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
 
-        $class = new DataCollections();
         $this->assertIsArray(DataCollections::markdown('foo')->keys()->toArray());
         $this->assertEmpty(DataCollections::markdown('foo')->keys()->toArray());
     }
