@@ -84,9 +84,12 @@ class MarkdownDocumentTest extends UnitTestCase
     public function testFromFileMethodReturnsNewMarkdownDocument()
     {
         file_put_contents('_pages/foo.md', "---\nfoo: bar\n---\nHello, world!");
+
         $markdown = Markdown::fromFile('_pages/foo.md');
+
         $this->assertInstanceOf(Markdown::class, $markdown);
         $this->assertSame('Hello, world!', $markdown->body());
+
         Filesystem::unlink('_pages/foo.md');
     }
 
