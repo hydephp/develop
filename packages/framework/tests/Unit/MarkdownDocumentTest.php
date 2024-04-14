@@ -19,6 +19,13 @@ class MarkdownDocumentTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        app()->instance('filesystem', new Filesystem());
+    }
+
     public function testConstructorCreatesNewMarkdownDocument()
     {
         $document = new MarkdownDocument([], '');
