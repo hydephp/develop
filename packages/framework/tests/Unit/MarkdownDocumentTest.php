@@ -8,24 +8,15 @@ use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\MarkdownDocument;
-use Hyde\Testing\UnitTestCase;
+use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
 
 /**
  * @covers \Hyde\Markdown\Models\MarkdownDocument
  * @covers \Hyde\Markdown\Models\Markdown
  */
-class MarkdownDocumentTest extends UnitTestCase
+class MarkdownDocumentTest extends TestCase
 {
-    protected static bool $needsKernel = true;
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-
-        app()->forgetInstances();
-    }
-
     public function testConstructorCreatesNewMarkdownDocument()
     {
         $document = new MarkdownDocument([], '');
