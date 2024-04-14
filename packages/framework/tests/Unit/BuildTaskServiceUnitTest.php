@@ -286,14 +286,14 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     {
         $this->mockKernelFilesystem();
 
-        $this->createService();
+        $this->can($this->createService(...));
     }
 
     public function testServiceFindsTasksInAppDirectory()
     {
         $this->mockKernelFilesystem();
 
-        $this->createService();
+        $this->can($this->createService(...));
     }
 
     /** Assert that the given closure can be executed */
