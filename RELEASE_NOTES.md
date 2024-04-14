@@ -14,9 +14,11 @@ This serves two purposes:
 - Added a `Hyde::route()` helper to the `Hyde` facade in https://github.com/hydephp/develop/pull/1591
 - Added new global helper functions (`asset()`, `route()`, `url()`) in https://github.com/hydephp/develop/pull/1592
 - Added a new `Feature` enum to improve the `Features` facade in https://github.com/hydephp/develop/pull/1650
+- Added a helper to `->skip()` build tasks in https://github.com/hydephp/develop/pull/1656
 
 ### Changed
 - The `features` array in the `config/hyde.php` configuration file is now an array of `Feature` enums in https://github.com/hydephp/develop/pull/1650
+- Sitemap generation will now be skipped if a base URL is not set, as Google now will not index sitemaps without a base URL in https://github.com/hydephp/develop/pull/1660
 
 ### Deprecated
 - Deprecated the static `Features` flag methods used in the configuration files in https://github.com/hydephp/develop/pull/1650 and will be removed in HydePHP v2.0
@@ -26,6 +28,7 @@ This serves two purposes:
 
 ### Fixed
 - Fixed a bug where the sitemap and RSS feed generator commands did not work when the `_site/` directory was not present in https://github.com/hydephp/develop/pull/1654
+- Fixed extra newlines being written to console for failing build tasks in https://github.com/hydephp/develop/pull/1661
 - Realtime Compiler: Fixed responsive dashboard table issue in https://github.com/hydephp/develop/pull/1595
 
 ### Security
