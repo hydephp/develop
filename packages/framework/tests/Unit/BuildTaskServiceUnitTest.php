@@ -51,9 +51,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         parent::tearDown();
 
         $this->verifyMockeryExpectations();
-
-        // Reset the kernel instance
-        self::setupKernel();
     }
 
     public function testConstruct()
@@ -292,6 +289,8 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->can($this->createService(...));
 
         $this->assertSame([], $this->service->getRegisteredTasks());
+
+        $this->resetKernelInstance();
     }
 
     public function testServiceFindsTasksInAppDirectory()
@@ -310,6 +309,8 @@ class BuildTaskServiceUnitTest extends UnitTestCase
             'Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed',
             'Hyde\Framework\Actions\PostBuildTasks\GenerateSearch',
         ], $this->service->getRegisteredTasks());
+
+        $this->resetKernelInstance();
     }
 
     /** Assert that the given closure can be executed */
@@ -343,6 +344,11 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         // Inject mock into Kernel
         (new ReflectionClass(HydeKernel::getInstance()))->getProperty('filesystem')->setValue(HydeKernel::getInstance(), $filesystem);
+    }
+
+    protected function resetKernelInstance(): void
+    {
+        HydeKernel::setInstance(new HydeKernel());
     }
 }
 
