@@ -217,6 +217,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testRunPreBuildTasksCallsHandleMethods()
     {
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
 
@@ -225,61 +226,61 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testRunPostBuildTasksCallsHandleMethods()
     {
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-
     }
 
     public function testRunPreBuildTasksCallsRunMethods()
     {
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-
     }
 
     public function testRunPostBuildTasksCallsRunMethods()
     {
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-
     }
 
     public function testRunPreBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
     {
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-
     }
 
     public function testRunPostBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
     {
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-
     }
 
     public function testRunPreBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+
         $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-
     }
 
     public function testRunPostBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+
         $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-
     }
 
     public function testServiceSearchesForTasksInAppDirectory()
