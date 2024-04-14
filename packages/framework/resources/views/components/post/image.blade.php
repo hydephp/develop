@@ -4,8 +4,7 @@
     $image = $page->image;
 @endphp
 <figure aria-label="Cover image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" role="doc-cover">
-    <img src="{{ $image->getSource() }}" alt="{{ $image->getAltText() ?? '' }}" title="{{ $image->getTitleText() ?? '' }}"
-         itemprop="image" class="mb-0">
+    <img src="{{ $image->getSource() }}" alt="{{ $image->getAltText() ?? '' }}" title="{{ $image->getTitleText() ?? '' }}" itemprop="image" class="mb-0">
     <figcaption aria-label="Image caption" itemprop="caption">
         @if($image->hasAuthorName())
             <span>Image by</span>
