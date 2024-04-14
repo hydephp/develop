@@ -21,6 +21,7 @@ class GetLatestMarkdownPostsTest extends TestCase
         file_put_contents(Hyde::path('_posts/old.md'), "---\ndate: '2021-01-01 12:00'\n---\n");
 
         $collection = MarkdownPost::getLatestPosts();
+
         $this->assertCount(2, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(MarkdownPost::class, $collection);
