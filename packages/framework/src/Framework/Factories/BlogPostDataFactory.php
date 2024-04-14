@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
@@ -72,7 +73,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function makeDescription(): string
     {
-        return $this->getMatter('description') ?? $this->getTruncatedMarkdown($this->markdown->body());
+        return $this->getMatter('description') ?? $this->makeDescriptionFromMarkdownBody();
     }
 
     protected function makeCategory(): ?string
@@ -107,6 +108,11 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         return null;
     }
 
+    private function makeDescriptionFromMarkdownBody(): string
+    {
+        return $this->getTruncatedMarkdown($this->stripMarkdownFromBody($this->markdown->body()));
+    }
+
     private function getTruncatedMarkdown(string $markdown): string
     {
         if (strlen($markdown) >= 128) {
@@ -114,6 +120,11 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         }
 
         return $markdown;
+    }
+
+    private function stripMarkdownFromBody(string $body): string
+    {
+        return (new ConvertsMarkdownToPlainText($body))->execute();
     }
 
     protected function getMatter(string $key): string|null|array
