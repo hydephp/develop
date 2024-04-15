@@ -94,7 +94,10 @@ class Markdown implements Arrayable, Stringable, Htmlable
         if ($pageClass !== null) {
             return (new MarkdownService($markdown, $pageClass))->parse();
         } else {
-            return (string) app(MarkdownConverter::class)->convert($markdown);
+            /** @var MarkdownConverter $converter */
+            $converter = app(MarkdownConverter::class);
+
+            return (string) $converter->convert($markdown);
         }
     }
 }
