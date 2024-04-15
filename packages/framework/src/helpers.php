@@ -144,13 +144,6 @@ namespace Hyde {
     }
 
     if (! function_exists('\Hyde\evaluate_arrayable')) {
-        /**
-         * Evaluate an arrayable object or an array to an array.
-         *
-         * @template T
-         * @param array<T>|Arrayable<T> $array
-         * @return array<T>
-         */
         function evaluate_arrayable(array|Arrayable $array): array
         {
             return $array instanceof Arrayable ? $array->toArray() : $array;
