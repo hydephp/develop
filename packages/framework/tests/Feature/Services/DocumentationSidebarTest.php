@@ -140,8 +140,10 @@ class DocumentationSidebarTest extends TestCase
             'third',
             'second',
         ]);
+
         Filesystem::touch('_docs/first.md');
         Filesystem::touch('_docs/second.md');
+
         file_put_contents(Hyde::path('_docs/third.md'),
             (new ConvertsArrayToFrontMatter)->execute(['navigation.priority' => 250 + 300])
         );
