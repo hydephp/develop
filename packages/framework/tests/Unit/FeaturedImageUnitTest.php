@@ -17,7 +17,7 @@ class FeaturedImageUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    protected const DEFAULT_ARGUMENTS = ['alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl'];
+    protected const ARGUMENTS = ['alt', 'title', 'author', 'authorUrl', 'copyright', 'license', 'licenseUrl'];
 
     public function testCanConstruct()
     {
@@ -185,13 +185,13 @@ class FeaturedImageUnitTest extends UnitTestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('Featured image [_media/foo] not found.');
 
-        $image = new FeaturedImage('_media/foo', ...self::DEFAULT_ARGUMENTS);
+        $image = new FeaturedImage('_media/foo', ...self::ARGUMENTS);
         $this->assertSame(0, $image->getContentLength());
     }
 
     public function testCanConstructFeaturedImageWithRemoteSource()
     {
-        $image = new FeaturedImage('http/foo', ...self::DEFAULT_ARGUMENTS);
+        $image = new FeaturedImage('http/foo', ...self::ARGUMENTS);
 
         $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertSame('http/foo', $image->getSource());
@@ -199,7 +199,7 @@ class FeaturedImageUnitTest extends UnitTestCase
 
     public function testCanConstructFeaturedImageWithHttps()
     {
-        $image = new FeaturedImage('https/foo', ...self::DEFAULT_ARGUMENTS);
+        $image = new FeaturedImage('https/foo', ...self::ARGUMENTS);
 
         $this->assertInstanceOf(FeaturedImage::class, $image);
         $this->assertSame('https/foo', $image->getSource());
