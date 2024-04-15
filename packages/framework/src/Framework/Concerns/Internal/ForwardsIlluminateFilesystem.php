@@ -59,7 +59,7 @@ use function is_int;
  * @method static bool isWritable(string $path)
  * @method static bool hasSameHash(string $firstFile, string $secondFile)
  * @method static bool isFile(string $file)
- * @method static array glob(string $pattern, int $flags = 0)
+ * @method static array<string> glob(string $pattern, int $flags = 0)
  * @method static SplFileInfo[] files(string $directory, bool $hidden = false)
  * @method static SplFileInfo[] allFiles(string $directory, bool $hidden = false)
  * @method static array directories(string $directory)
