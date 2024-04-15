@@ -27,10 +27,7 @@ class FilesystemTest extends UnitTestCase
 
     protected Filesystem $filesystem;
 
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     protected function setUp(): void
     {

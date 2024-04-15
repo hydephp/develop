@@ -53,7 +53,7 @@ class RenderData implements Arrayable
         View::share($this->toArray());
     }
 
-    public function share(string $key, mixed $value): void
+    public function share(string $key, HydePage|Route|string $value): void
     {
         if (property_exists($this, $key)) {
             $this->{$key} = $value;

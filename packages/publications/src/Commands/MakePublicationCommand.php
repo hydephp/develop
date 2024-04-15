@@ -151,14 +151,15 @@ class MakePublicationCommand extends ValidatingCommand
 
         $mediaFiles = Publications::getMediaForType($this->publicationType);
         if ($mediaFiles->isEmpty()) {
-            return $this->handleEmptyMediaFilesCollection($field);
+            $this->handleEmptyMediaFilesCollection($field);
+
+            return null;
         }
 
         return new PublicationFieldValue(PublicationFieldTypes::Media, $this->choice('Which file would you like to use?', $mediaFiles->toArray()));
     }
 
-    /** @return null */
-    protected function handleEmptyMediaFilesCollection(PublicationFieldDefinition $field)
+    protected function handleEmptyMediaFilesCollection(PublicationFieldDefinition $field): void
     {
         $directory = sprintf('directory %s/%s/', Hyde::getMediaDirectory(),
             $this->publicationType->getIdentifier()
@@ -172,7 +173,7 @@ class MakePublicationCommand extends ValidatingCommand
         $this->warn("<fg=red>Warning:</> No media files found in $directory");
         if ($this->confirm('Would you like to skip this field?', true)) {
             // We could have a choice here, where 0 skips, and 1 reloads the media files
-            return null;
+            return;
         } else {
             throw new InvalidArgumentException('Unable to locate any media files for this publication type');
         }

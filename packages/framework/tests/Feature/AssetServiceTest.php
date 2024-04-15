@@ -18,26 +18,33 @@ class AssetServiceTest extends TestCase
     public function testMediaLinkReturnsMediaPathWithCacheKey()
     {
         $service = new AssetService();
+
         $this->assertIsString($path = $service->mediaLink('app.css'));
-        $this->assertEquals('media/app.css?v='.md5_file(Hyde::path('_media/app.css')), $path);
+        $this->assertSame('media/app.css?v='.md5_file(Hyde::path('_media/app.css')), $path);
     }
 
     public function testMediaLinkReturnsMediaPathWithoutCacheKeyIfCacheBustingIsDisabled()
     {
         config(['hyde.enable_cache_busting' => false]);
+
         $service = new AssetService();
-        $this->assertIsString($path = $service->mediaLink('app.css'));
-        $this->assertEquals('media/app.css', $path);
+        $path = $service->mediaLink('app.css');
+
+        $this->assertIsString($path);
+        $this->assertSame('media/app.css', $path);
     }
 
     public function testMediaLinkSupportsCustomMediaDirectories()
     {
         $this->directory('_assets');
         $this->file('_assets/app.css');
+
         Hyde::setMediaDirectory('_assets');
 
         $service = new AssetService();
-        $this->assertIsString($path = $service->mediaLink('app.css'));
-        $this->assertEquals('assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')), $path);
+        $path = $service->mediaLink('app.css');
+
+        $this->assertIsString($path);
+        $this->assertSame('assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')), $path);
     }
 }

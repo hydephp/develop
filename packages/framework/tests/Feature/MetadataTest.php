@@ -57,34 +57,37 @@ class MetadataTest extends TestCase
 
         $this->assertNotNull($page->metadata);
         $this->assertInstanceOf(MetadataBag::class, $page->metadata);
-        $this->assertEquals([], $page->metadata->get());
+        $this->assertSame([], $page->metadata->get());
     }
 
     public function testLinkItemModel()
     {
         $item = new LinkElement('rel', 'href');
-        $this->assertEquals('rel', $item->uniqueKey());
-        $this->assertEquals('<link rel="rel" href="href">', (string) $item);
+
+        $this->assertSame('rel', $item->uniqueKey());
+        $this->assertSame('<link rel="rel" href="href">', (string) $item);
 
         $item = new LinkElement('rel', 'href', ['attr' => 'value']);
-        $this->assertEquals('<link rel="rel" href="href" attr="value">', (string) $item);
+        $this->assertSame('<link rel="rel" href="href" attr="value">', (string) $item);
     }
 
     public function testMetadataItemModel()
     {
         $item = new MetadataElement('name', 'content');
-        $this->assertEquals('name', $item->uniqueKey());
-        $this->assertEquals('<meta name="name" content="content">', (string) $item);
+
+        $this->assertSame('name', $item->uniqueKey());
+        $this->assertSame('<meta name="name" content="content">', (string) $item);
     }
 
     public function testOpenGraphItemModel()
     {
         $item = new OpenGraphElement('property', 'content');
-        $this->assertEquals('property', $item->uniqueKey());
-        $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
+
+        $this->assertSame('property', $item->uniqueKey());
+        $this->assertSame('<meta property="og:property" content="content">', (string) $item);
 
         $item = new OpenGraphElement('og:property', 'content');
-        $this->assertEquals('<meta property="og:property" content="content">', (string) $item);
+        $this->assertSame('<meta property="og:property" content="content">', (string) $item);
     }
 
     public function testLinkItemCanBeAdded()
@@ -157,12 +160,13 @@ class MetadataTest extends TestCase
     public function testRenderReturnsHtmlStringOfImplodedMetadataArrays()
     {
         $page = new MarkdownPage();
+
         $page->metadata->add(Meta::link('foo', 'bar'));
         $page->metadata->add(Meta::name('foo', 'bar'));
         $page->metadata->add(Meta::property('foo', 'bar'));
         $page->metadata->add('foo');
 
-        $this->assertEquals(implode("\n", [
+        $this->assertSame(implode("\n", [
             '<link rel="foo" href="bar">',
             '<meta name="foo" content="bar">',
             '<meta property="og:foo" content="bar">',
@@ -176,8 +180,10 @@ class MetadataTest extends TestCase
         config(['hyde.meta' => [
             Meta::name('foo', 'bar'),
         ]]);
+
         $page = new MarkdownPage();
         $page->metadata->add(Meta::name('foo', 'baz'));
+
         $this->assertEquals([
             'metadata:foo' => Meta::name('foo', 'baz'),
         ], $page->metadata->get());
@@ -188,6 +194,7 @@ class MetadataTest extends TestCase
         config(['hyde.meta' => [
             Meta::name('twitter:title', 'bar'),
         ]]);
+
         $page = MarkdownPage::make(matter: ['title' => 'baz']);
 
         $this->assertEquals([
@@ -199,6 +206,7 @@ class MetadataTest extends TestCase
     public function testDoesNotAddCanonicalLinkWhenBaseUrlIsNotSet()
     {
         config(['hyde.url' => null]);
+
         $page = MarkdownPage::make('bar');
 
         $this->assertStringNotContainsString('<link rel="canonical"', $page->metadata->render());
@@ -207,6 +215,7 @@ class MetadataTest extends TestCase
     public function testDoesNotAddCanonicalLinkWhenIdentifierIsNotSet()
     {
         config(['hyde.url' => 'foo']);
+
         $page = MarkdownPage::make();
 
         $this->assertStringNotContainsString('<link rel="canonical"', $page->metadata->render());
@@ -215,6 +224,7 @@ class MetadataTest extends TestCase
     public function testAddsCanonicalLinkWhenBaseUrlAndIdentifierIsSet()
     {
         config(['hyde.url' => 'foo']);
+
         $page = MarkdownPage::make('bar');
 
         $this->assertStringContainsString('<link rel="canonical" href="foo/bar.html">', $page->metadata->render());
@@ -224,6 +234,7 @@ class MetadataTest extends TestCase
     {
         config(['hyde.url' => 'foo']);
         config(['hyde.pretty_urls' => true]);
+
         $page = MarkdownPage::make('bar');
 
         $this->assertStringContainsString('<link rel="canonical" href="foo/bar">', $page->metadata->render());
@@ -232,9 +243,11 @@ class MetadataTest extends TestCase
     public function testCanOverrideCanonicalLinkWithFrontMatter()
     {
         config(['hyde.url' => 'foo']);
+
         $page = MarkdownPage::make('bar', [
             'canonicalUrl' => 'canonical',
         ]);
+
         $this->assertStringContainsString('<link rel="canonical" href="canonical">', $page->metadata->render());
     }
 
@@ -242,7 +255,7 @@ class MetadataTest extends TestCase
     {
         $page = MarkdownPage::make(matter: ['title' => 'Foo Bar']);
 
-        $this->assertEquals(
+        $this->assertSame(
             '<meta name="twitter:title" content="HydePHP - Foo Bar">'."\n".
             '<meta property="og:title" content="HydePHP - Foo Bar">',
             $page->metadata->render()
@@ -253,80 +266,90 @@ class MetadataTest extends TestCase
     {
         $page = MarkdownPage::make(matter: ['title' => null]);
 
-        $this->assertEquals('',
-            $page->metadata->render()
-        );
+        $this->assertSame('', $page->metadata->render());
     }
 
     public function testAddsDescriptionWhenDescriptionIsSetInPost()
     {
         $page = MarkdownPost::make(matter: ['description' => 'My Description']);
+
         $this->assertPageHasMetadata($page, '<meta name="description" content="My Description">');
     }
 
     public function testDoesNotAddDescriptionWhenDescriptionIsNotSetInPost()
     {
         $page = new MarkdownPost();
+
         $this->assertPageDoesNotHaveMetadata($page, '<meta name="description" content="My Description">');
     }
 
     public function testAddsAuthorWhenAuthorIsSetInPost()
     {
         $page = MarkdownPost::make(matter: ['author' => 'My Author']);
+
         $this->assertPageHasMetadata($page, '<meta name="author" content="My Author">');
     }
 
     public function testDoesNotAddAuthorWhenAuthorIsNotSetInPost()
     {
         $page = new MarkdownPost();
+
         $this->assertPageDoesNotHaveMetadata($page, '<meta name="author" content="My Author">');
     }
 
     public function testAddsKeywordsWhenCategoryIsSetInPost()
     {
         $page = MarkdownPost::make(matter: ['category' => 'My Category']);
+
         $this->assertPageHasMetadata($page, '<meta name="keywords" content="My Category">');
     }
 
     public function testDoesNotAddKeywordsWhenCategoryIsNotSetInPost()
     {
         $page = new MarkdownPost();
+
         $this->assertPageDoesNotHaveMetadata($page, '<meta name="keywords" content="My Category">');
     }
 
     public function testAddsUrlPropertyWhenCanonicalUrlIsSetInPost()
     {
         $page = MarkdownPost::make(matter: ['canonicalUrl' => 'example.html']);
+
         $this->assertPageHasMetadata($page, '<meta property="og:url" content="example.html">');
     }
 
     public function testDoesNotAddUrlPropertyWhenCanonicalUrlIsNotSetInPost()
     {
         $page = new MarkdownPost();
+
         $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
     }
 
     public function testDoesNotAddUrlPropertyWhenCanonicalUrlIsNull()
     {
         $page = MarkdownPost::make(matter: ['canonicalUrl' => null]);
+
         $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
     }
 
     public function testAddsTitlePropertyWhenTitleIsSetInPost()
     {
         $page = MarkdownPost::make(matter: ['title' => 'My Title']);
+
         $this->assertPageHasMetadata($page, '<meta property="og:title" content="HydePHP - My Title">');
     }
 
     public function testDoesNotAddTitlePropertyWhenTitleIsNotSetInPost()
     {
         $page = new MarkdownPost();
+
         $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:title"');
     }
 
     public function testAddsPublishedTimePropertyWhenDateIsSetInPost()
     {
         $page = MarkdownPost::make(matter: ['date' => '2022-01-01']);
+
         $this->assertPageHasMetadata($page, '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">');
     }
 
@@ -339,6 +362,7 @@ class MetadataTest extends TestCase
     public function testAddsImagePropertyWhenImageIsSetInPost()
     {
         $page = MarkdownPost::make(matter: ['image' => 'image.jpg']);
+
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="../media/image.jpg">');
     }
 
@@ -351,13 +375,15 @@ class MetadataTest extends TestCase
     public function testAddsTypePropertyAutomatically()
     {
         $page = MarkdownPost::make();
+
         $this->assertPageHasMetadata($page, '<meta property="og:type" content="article">');
     }
 
     public function testDynamicPostMetaPropertiesReturnsBaseArrayWhenInitializedWithEmptyFrontMatter()
     {
         $page = MarkdownPost::make();
-        $this->assertEquals('<meta property="og:type" content="article">', $page->metadata->render());
+
+        $this->assertSame('<meta property="og:type" content="article">', $page->metadata->render());
     }
 
     public function testDynamicPostMetaPropertiesContainsImageMetadataWhenFeaturedImageSetToString()
@@ -390,6 +416,7 @@ class MetadataTest extends TestCase
     public function testDynamicPostMetaPropertiesContainsImageLinkThatIsAlwaysRelativeForNestedOutputDirectories()
     {
         MarkdownPost::setOutputDirectory('_posts/foo');
+
         $page = MarkdownPost::make(matter: [
             'image' => 'foo.jpg',
         ]);
@@ -400,6 +427,7 @@ class MetadataTest extends TestCase
     public function testDynamicPostMetaPropertiesContainsImageLinkThatIsAlwaysRelativeForNestedPostsAndNestedOutputDirectories()
     {
         MarkdownPost::setOutputDirectory('_posts/foo');
+
         $page = MarkdownPost::make('bar/baz', matter: [
             'image' => 'foo.jpg',
         ]);
@@ -410,6 +438,7 @@ class MetadataTest extends TestCase
     public function testDynamicPostMetaPropertiesContainsImageLinkThatUsesTheConfiguredMediaDirectory()
     {
         Hyde::setMediaDirectory('assets');
+
         $page = MarkdownPost::make(matter: [
             'image' => 'foo.jpg',
         ]);
@@ -446,6 +475,7 @@ class MetadataTest extends TestCase
                 'username' => 'username',
             ],
         ]);
+
         $this->assertPageHasMetadata($page, '<meta name="author" content="username">');
     }
 

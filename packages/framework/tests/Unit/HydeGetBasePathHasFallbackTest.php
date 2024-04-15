@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
- * Class HydeGetBasePathHasFallbackTest.
- *
  * @covers \Hyde\Foundation\HydeKernel::getBasePath
  */
-class HydeGetBasePathHasFallbackTest extends TestCase
+class HydeGetBasePathHasFallbackTest extends UnitTestCase
 {
-    public function testHydeGetBasePathFallsBackToGetcwd()
+    protected static bool $needsKernel = true;
+
+    public function testHydeGetBasePathFallsBackToCurrentWorkingDirectory()
     {
         $mock = new class extends Hyde
         {
             public static string $basePath;
         };
-        $this->assertEquals(getcwd(), $mock::getBasePath());
+
+        $this->assertSame(getcwd(), $mock::getBasePath());
     }
 }

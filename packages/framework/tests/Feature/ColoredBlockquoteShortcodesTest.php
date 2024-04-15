@@ -8,8 +8,6 @@ use Hyde\Markdown\Processing\ColoredBlockquotes;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * Class ColoredBlockquoteShortcodesTest.
- *
  * @covers \Hyde\Markdown\Processing\ColoredBlockquotes
  */
 class ColoredBlockquoteShortcodesTest extends UnitTestCase

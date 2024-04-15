@@ -63,7 +63,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         protected readonly ?string $licenseUrl = null,
         protected readonly ?string $copyrightText = null
     ) {
-        $this->type = $this->isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
+        $this->type = self::isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
     }
 
@@ -224,7 +224,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForRemoteImage(): int
     {
-        // Check if the --no-api flag is set when running the build command, and if so, skip the API call.
+        // API calls can be skipped in the config, or by setting the --no-api flag when running the build command.
         if (Config::getBool('hyde.api_calls', true)) {
             /** @var string[][] $headers */
             $headers = Http::withHeaders([

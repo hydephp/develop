@@ -91,6 +91,7 @@ class HydeKernelTest extends TestCase
     {
         $expected = new Route(new MarkdownPage());
         Render::share('route', $expected);
+
         $this->assertInstanceOf(Route::class, Hyde::currentRoute());
         $this->assertSame($expected, Hyde::currentRoute());
     }
@@ -99,6 +100,7 @@ class HydeKernelTest extends TestCase
     {
         $expected = new MarkdownPage();
         Render::share('page', $expected);
+
         $this->assertInstanceOf(HydePage::class, Hyde::currentPage());
         $this->assertSame($expected, Hyde::currentPage());
     }
@@ -260,10 +262,6 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
 
         $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
-        $this->assertSame(Hyde::path('_pages'), BladePage::path());
-        $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
-        $this->assertSame(Hyde::path('_posts'), MarkdownPost::path());
-        $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
         $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
         $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
@@ -291,18 +289,18 @@ class HydeKernelTest extends TestCase
 
     public function testJsonSerializeMethod()
     {
-        $this->assertEquals(Hyde::kernel()->jsonSerialize(), collect(Hyde::toArray())->toArray());
+        $this->assertSame(Hyde::kernel()->jsonSerialize(), collect(Hyde::toArray())->toArray());
     }
 
     public function testToJsonMethod()
     {
-        $this->assertEquals(Hyde::kernel()->toJson(), json_encode(Hyde::toArray()));
+        $this->assertSame(Hyde::kernel()->toJson(), json_encode(Hyde::toArray()));
     }
 
     public function testVersionConstantIsAValidSemverString()
     {
-        // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-stringd
         $this->assertMatchesRegularExpression(
+            // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
             '/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/',
             HydeKernel::VERSION
         );
@@ -324,12 +322,14 @@ class HydeKernelTest extends TestCase
         try {
             $version = trim(shell_exec('git describe --abbrev=0 --tags'));
         } catch (Throwable) {
+            // Gracefully skip the test if the version cannot be fetched
             $this->markTestSkipped('Could not get version from Git');
         }
 
         if ('v'.HydeKernel::VERSION === $version) {
             $this->assertSame('v'.HydeKernel::VERSION, $version);
         } else {
+            // Gracefully skip the test if the version is not up-to-date
             $this->markTestSkipped('Version constant does not match Git version!');
         }
     }
@@ -370,6 +370,7 @@ class HydeKernelTest extends TestCase
     public function testCanSetOutputDirectory()
     {
         Hyde::setOutputDirectory('foo');
+
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
@@ -377,6 +378,7 @@ class HydeKernelTest extends TestCase
     public function testCanSetOutputDirectoryToAbsoluteProjectPath()
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
+
         $this->assertSame('foo', Hyde::getOutputDirectory());
         $this->assertSame(Hyde::path('foo'), Hyde::sitePath());
     }
@@ -430,23 +432,28 @@ class HydeKernelTest extends TestCase
     {
         Hyde::setOutputDirectory(Hyde::path('foo'));
         Hyde::setMediaDirectory('bar');
+
         $this->assertSame(Hyde::path('foo/bar'), Hyde::siteMediaPath());
     }
 
     public function testMediaOutputDirectoryCanBeChangedInConfiguration()
     {
-        $this->assertEquals('_media', Hyde::getMediaDirectory());
+        $this->assertSame('_media', Hyde::getMediaDirectory());
 
         config(['hyde.media_directory' => '_assets']);
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('_assets', Hyde::getMediaDirectory());
+        $this->assertSame('_assets', Hyde::getMediaDirectory());
     }
 
     public function testCanAccessKernelFluentlyUsingTheFacade()
     {
         $this->assertInstanceOf(HydeKernel::class, Hyde::kernel());
         $this->assertSame(HydeKernel::getInstance(), Hyde::kernel());
+    }
+
+    public function testCanAccessKernelSymbolsFluentlyUsingTheFacade()
+    {
         $this->assertSame(HydeKernel::VERSION, Hyde::kernel()->version());
     }
 
@@ -517,12 +524,13 @@ class HydeKernelTest extends TestCase
         $kernel = HydeKernel::getInstance();
 
         $page = new InMemoryPage('foo');
+
         $kernel->booting(function (HydeKernel $kernel) use ($page): void {
             $kernel->pages()->addPage($page);
         });
 
         $this->assertSame($page, Pages::getPage('foo'));
-        $this->assertEquals($page->getRoute(), Routes::getRoute('foo'));
+        $this->assertSame($page->getRoute(), Routes::getRoute('foo'));
     }
 
     public function testIsBootedReturnsFalseWhenNotBooted()
@@ -535,6 +543,7 @@ class HydeKernelTest extends TestCase
     {
         $kernel = new HydeKernel();
         $kernel->boot();
+
         $this->assertTrue($kernel->isBooted());
     }
 

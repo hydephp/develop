@@ -17,7 +17,7 @@ class GlobalMetadataBagTest extends TestCase
 {
     public function testSiteMetadataAddsConfigDefinedMetadata()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.meta' => [
             Meta::link('foo', 'bar'),
@@ -26,60 +26,66 @@ class GlobalMetadataBagTest extends TestCase
             'foo' => 'bar',
             'baz',
         ]]);
-        $this->assertEquals([
+
+        $expected = [
             'links:foo' => Meta::link('foo', 'bar'),
             'metadata:foo' => Meta::name('foo', 'bar'),
             'properties:foo' => Meta::property('foo', 'bar'),
             'generics:0' => 'bar',
             'generics:1' => 'baz',
-        ], GlobalMetadataBag::make()->get());
+        ];
+
+        $actual = GlobalMetadataBag::make()->get();
+
+        $this->assertEquals($expected, $actual);
+        $this->assertSame(array_keys($expected), array_keys($actual));
     }
 
     public function testSiteMetadataAutomaticallyAddsSitemapWhenEnabled()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.generate_sitemap' => true]);
 
-        $this->assertEquals('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
+        $this->assertSame('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
 
     public function testSiteMetadataSitemapUsesConfiguredSiteUrl()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'bar']);
         config(['hyde.generate_sitemap' => true]);
 
-        $this->assertEquals('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
+        $this->assertSame('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
 
     public function testSiteMetadataAutomaticallyAddsRssFeedWhenEnabled()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
+        $this->assertSame('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
     }
 
     public function testSiteMetadataRssFeedUsesConfiguredSiteUrl()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'bar']);
         config(['hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
+        $this->assertSame('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
     }
 
     public function testSiteMetadataRssFeedUsesConfiguredSiteName()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.name' => 'Site']);
@@ -89,12 +95,12 @@ class GlobalMetadataBagTest extends TestCase
         config(['hyde' => $config]);
         $this->file('_posts/foo.md');
 
-        $this->assertEquals('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', GlobalMetadataBag::make()->render());
+        $this->assertSame('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="Site RSS Feed">', GlobalMetadataBag::make()->render());
     }
 
     public function testSiteMetadataRssFeedUsesConfiguredRssFileName()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.url' => 'foo']);
         config(['hyde.rss.filename' => 'posts.rss']);
@@ -109,7 +115,7 @@ class GlobalMetadataBagTest extends TestCase
 
     public function testMetadataExistingInTheCurrentPageIsNotAdded()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         $duplicate = Meta::name('remove', 'me');
         $keep = Meta::name('keep', 'this');
@@ -125,12 +131,12 @@ class GlobalMetadataBagTest extends TestCase
         Render::share('routeKey', 'foo');
         Render::share('page', $page);
 
-        $this->assertEquals(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
+        $this->assertSame(['metadata:keep' => $keep], GlobalMetadataBag::make()->get());
     }
 
     public function testMetadataExistingInTheCurrentPageIsNotAddedRegardlessOfItsValue()
     {
-        $this->emptyConfig();
+        $this->withEmptyConfig();
 
         config(['hyde.meta' => [Meta::name('foo', 'bar')]]);
 
@@ -140,10 +146,10 @@ class GlobalMetadataBagTest extends TestCase
         Render::share('routeKey', 'foo');
         Render::share('page', $page);
 
-        $this->assertEquals([], GlobalMetadataBag::make()->get());
+        $this->assertSame([], GlobalMetadataBag::make()->get());
     }
 
-    protected function emptyConfig(): void
+    protected function withEmptyConfig(): void
     {
         config(['hyde.url' => null]);
         config(['hyde.meta' => []]);

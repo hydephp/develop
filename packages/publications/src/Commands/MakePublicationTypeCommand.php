@@ -161,7 +161,7 @@ class MakePublicationTypeCommand extends ValidatingCommand
         );
     }
 
-    protected function checkIfFieldIsDuplicate($name): bool
+    protected function checkIfFieldIsDuplicate(string $name): bool
     {
         if ($this->fields->where('name', $name)->count() > 0) {
             $this->error("Field name [$name] already exists!");

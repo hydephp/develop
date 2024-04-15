@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Closure;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
@@ -30,10 +31,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 {
     protected BuildTaskService $service;
 
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     protected function setUp(): void
     {
@@ -41,7 +39,15 @@ class BuildTaskServiceUnitTest extends UnitTestCase
             'empty_output_directory' => false,
             'generate_build_manifest' => false,
         ]]);
+
         $this->createService();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->verifyMockeryExpectations();
     }
 
     public function testConstruct()
@@ -145,16 +151,18 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertSame([GenerateSitemap::class], $this->service->getRegisteredTasks());
     }
 
-    public function testSetOutputWithNull()
+    public function testCanSetOutputWithNull()
     {
-        $this->service->setOutput(null);
-        $this->markTestSuccessful();
+        $this->can(function () {
+            $this->service->setOutput(null);
+        });
     }
 
-    public function testSetOutputWithOutputStyle()
+    public function testCanSetOutputWithOutputStyle()
     {
-        $this->service->setOutput(Mockery::mock(OutputStyle::class));
-        $this->markTestSuccessful();
+        $this->can(function () {
+            $this->service->setOutput(Mockery::mock(OutputStyle::class));
+        });
     }
 
     public function testGenerateBuildManifestExtendsPostBuildTask()
@@ -177,193 +185,200 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertInstanceOf(PostBuildTask::class, new FrameworkGenerateSitemap());
     }
 
-    public function testRunPreBuildTasks()
+    public function testCanRunPreBuildTasks()
     {
-        $this->service->runPreBuildTasks();
-        $this->markTestSuccessful();
+        $this->can($this->service->runPreBuildTasks(...));
     }
 
-    public function testRunPostBuildTasks()
+    public function testCanRunPostBuildTasks()
     {
-        $this->service->runPostBuildTasks();
-        $this->markTestSuccessful();
+        $this->can($this->service->runPostBuildTasks(...));
     }
 
-    public function testRunPreBuildTasksWithTasks()
+    public function testCanRunPreBuildTasksWithTasks()
     {
-        $this->service->registerTask(TestPreBuildTask::class);
-        $this->service->runPreBuildTasks();
-        $this->markTestSuccessful();
+        $this->can(function () {
+            $this->service->registerTask(TestPreBuildTask::class);
+            $this->service->runPreBuildTasks();
+        });
     }
 
-    public function testRunPostBuildTasksWithTasks()
+    public function testCanRunPostBuildTasksWithTasks()
     {
-        $this->service->registerTask(TestPostBuildTask::class);
-        $this->service->runPostBuildTasks();
-        $this->markTestSuccessful();
+        $this->can(function () {
+            $this->service->registerTask(TestPostBuildTask::class);
+            $this->service->runPostBuildTasks();
+        });
     }
 
     public function testRunPreBuildTasksCallsHandleMethods()
     {
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testRunPostBuildTasksCallsHandleMethods()
     {
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testRunPreBuildTasksCallsRunMethods()
     {
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testRunPostBuildTasksCallsRunMethods()
     {
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testRunPreBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
     {
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testRunPostBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
     {
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testRunPreBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+
         $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testRunPostBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
         $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+
         $this->service->setOutput($output);
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
-        $this->verifyMockeryExpectations();
     }
 
     public function testServiceSearchesForTasksInAppDirectory()
     {
-        $kernel = HydeKernel::getInstance();
-        $filesystem = Mockery::mock(Filesystem::class, [$kernel])
-            ->makePartial()->shouldReceive('smartGlob')->once()
-            ->with('app/Actions/*BuildTask.php', 0)
-            ->andReturn(collect())->getMock();
+        $this->mockKernelFilesystem();
 
-        // Inject mock into Kernel (No better way to do this at the moment)
-        (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
+        $this->can($this->createService(...));
 
-        $this->createService();
-        $this->verifyMockeryExpectations();
-        self::setupKernel();
+        $this->assertSame([], $this->service->getRegisteredTasks());
+
+        $this->resetKernelInstance();
     }
 
     public function testServiceFindsTasksInAppDirectory()
     {
-        $kernel = HydeKernel::getInstance();
-        $filesystem = Mockery::mock(Filesystem::class, [$kernel])->makePartial()
-            ->shouldReceive('smartGlob')->once()
-            ->with('app/Actions/*BuildTask.php', 0)
-            ->andReturn(collect())->getMock();
+        $files = [
+            'app/Actions/GenerateBuildManifestBuildTask.php' => GenerateBuildManifest::class,
+            'app/Actions/GenerateRssFeedBuildTask.php' => GenerateRssFeed::class,
+            'app/Actions/GenerateSearchBuildTask.php' => GenerateSearch::class,
+        ];
+        $this->mockKernelFilesystem($files);
 
-        // Inject mock into Kernel
-        (new ReflectionClass($kernel))->getProperty('filesystem')->setValue($kernel, $filesystem);
+        $this->can($this->createService(...));
 
-        $this->createService();
-        $this->verifyMockeryExpectations();
-        self::setupKernel();
+        $this->assertSame([
+            'Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest',
+            'Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed',
+            'Hyde\Framework\Actions\PostBuildTasks\GenerateSearch',
+        ], $this->service->getRegisteredTasks());
+
+        $this->resetKernelInstance();
     }
 
-    protected function markTestSuccessful(): void
+    /** Assert that the given closure can be executed */
+    protected function can(Closure $ability): void
     {
+        $ability();
+
         $this->assertTrue(true);
     }
 
     protected function createService(): BuildTaskService
     {
-        $this->service = new BuildTaskService();
-
-        return $this->service;
+        return tap(new BuildTaskService(), fn (BuildTaskService $service) => $this->service = $service);
     }
 
     protected function verifyMockeryExpectations(): void
     {
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+
         Mockery::close();
+    }
+
+    protected function mockKernelFilesystem(array $files = []): void
+    {
+        $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])
+            ->makePartial()->shouldReceive('smartGlob')->once()
+            ->with('app/Actions/*BuildTask.php', 0)
+            ->andReturn(collect($files))->getMock();
+
+        // Inject mock into Kernel
+        (new ReflectionClass(HydeKernel::getInstance()))->getProperty('filesystem')->setValue(HydeKernel::getInstance(), $filesystem);
+    }
+
+    protected function resetKernelInstance(): void
+    {
+        HydeKernel::setInstance(new HydeKernel());
     }
 }
 
 class InstantiableTestBuildTask extends BuildTask
 {
-    public function handle(): void
-    {
-        //
-    }
+    use VoidHandleMethod;
 }
 
 class TestBuildTask extends PostBuildTask
 {
-    public function handle(): void
-    {
-        //
-    }
+    use VoidHandleMethod;
 }
 
 class TestPreBuildTask extends PreBuildTask
 {
-    public function handle(): void
-    {
-        //
-    }
+    use VoidHandleMethod;
 }
 
 class TestPostBuildTask extends PostBuildTask
 {
-    public function handle(): void
-    {
-        //
-    }
+    use VoidHandleMethod;
 }
 
 class TestBuildTaskNotExtendingChildren extends BuildTask
 {
-    public function handle(): void
-    {
-        //
-    }
+    use VoidHandleMethod;
 }
 
 /** Test class to test overloading */
 class GenerateSitemap extends FrameworkGenerateSitemap
+{
+    use VoidHandleMethod;
+}
+
+trait VoidHandleMethod
 {
     public function handle(): void
     {

@@ -41,12 +41,14 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     public function testGetHostSelectionWithConfigOption()
     {
         self::mockConfig(['hyde.server.host' => 'foo']);
+
         $this->assertSame('foo', $this->getMock()->getHostSelection());
     }
 
     public function testGetHostSelectionWithHostOptionAndConfigOption()
     {
         self::mockConfig(['hyde.server.host' => 'foo']);
+
         $this->assertSame('bar', $this->getMock(['host' => 'bar'])->getHostSelection());
     }
 
@@ -63,12 +65,14 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     public function testGetPortSelectionWithConfigOption()
     {
         self::mockConfig(['hyde.server.port' => 8082]);
+
         $this->assertSame(8082, $this->getMock()->getPortSelection());
     }
 
     public function testGetPortSelectionWithPortOptionAndConfigOption()
     {
         self::mockConfig(['hyde.server.port' => 8082]);
+
         $this->assertSame(8081, $this->getMock(['port' => 8081])->getPortSelection());
     }
 
@@ -230,6 +234,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         };
 
         $command->safeHandle();
+
         $this->assertTrue($command->openInBrowserCalled);
     }
 

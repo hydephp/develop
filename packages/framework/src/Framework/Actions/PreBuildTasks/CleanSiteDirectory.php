@@ -6,10 +6,9 @@ namespace Hyde\Framework\Actions\PreBuildTasks;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
-use Illuminate\Support\Facades\File;
 
-use function array_map;
 use function basename;
 use function glob;
 use function in_array;
@@ -22,8 +21,8 @@ class CleanSiteDirectory extends PreBuildTask
     public function handle(): void
     {
         if ($this->isItSafeToCleanOutputDirectory()) {
-            array_map('unlink', glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
-            File::cleanDirectory(Hyde::siteMediaPath());
+            Filesystem::unlink(glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
+            Filesystem::cleanDirectory(Hyde::siteMediaPath());
         }
     }
 

@@ -20,11 +20,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class RouteFacadeTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-        self::mockConfig();
-    }
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
 
     public function testRouteFacadeAllMethodReturnsAllRoutes()
     {
@@ -34,6 +31,7 @@ class RouteFacadeTest extends UnitTestCase
     public function testGetOrFailThrowsExceptionIfRouteIsNotFound()
     {
         $this->expectException(RouteNotFoundException::class);
+
         Routes::getOrFail('not-found');
     }
 
@@ -55,22 +53,28 @@ class RouteFacadeTest extends UnitTestCase
     public function testGetSupportsDotNotation()
     {
         Hyde::routes()->add(new Route(new MarkdownPost('foo')));
+
         $this->assertSame(Routes::get('posts/foo'), Routes::get('posts.foo'));
     }
 
     public function testCurrentReturnsCurrentRoute()
     {
         $route = new Route(new MarkdownPage('foo'));
+
         Render::shouldReceive('getRoute')->andReturn($route);
+
         $this->assertSame($route, Routes::current());
-        Render::swap(new RenderData());
+
+        $this->resetMockInstance();
     }
 
     public function testCurrentReturnsNullIfRouteIsNotFound()
     {
         Render::shouldReceive('getRoute')->andReturn(null);
+
         $this->assertNull(Routes::current());
-        Render::swap(new RenderData());
+
+        $this->resetMockInstance();
     }
 
     public function testExistsForExistingRoute()
@@ -81,5 +85,10 @@ class RouteFacadeTest extends UnitTestCase
     public function testExistsForNonExistingRoute()
     {
         $this->assertFalse(Routes::exists('not-found'));
+    }
+
+    protected function resetMockInstance(): void
+    {
+        Render::swap(new RenderData());
     }
 }

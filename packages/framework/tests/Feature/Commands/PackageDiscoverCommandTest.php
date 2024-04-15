@@ -17,7 +17,7 @@ class PackageDiscoverCommandTest extends TestCase
     {
         $this->artisan('package:discover')->assertExitCode(0);
 
-        $this->assertEquals(Hyde::path('app/storage/framework/cache/packages.php'),
+        $this->assertSame(Hyde::path('app/storage/framework/cache/packages.php'),
             $this->app->make(PackageManifest::class)->manifestPath
         );
 

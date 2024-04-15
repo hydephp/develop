@@ -23,8 +23,9 @@ class SourceFileParserTest extends TestCase
 
         $parser = new SourceFileParser(BladePage::class, 'foo');
         $page = $parser->get();
+
         $this->assertInstanceOf(BladePage::class, $page);
-        $this->assertEquals('foo', $page->identifier);
+        $this->assertSame('foo', $page->identifier);
     }
 
     public function testMarkdownPageParser()
@@ -33,10 +34,12 @@ class SourceFileParserTest extends TestCase
 
         $parser = new SourceFileParser(MarkdownPage::class, 'foo');
         $page = $parser->get();
+
         $this->assertInstanceOf(MarkdownPage::class, $page);
-        $this->assertEquals('foo', $page->identifier);
+        $this->assertSame('foo', $page->identifier);
+        $this->assertSame('Foo Bar Baz', $page->title);
+        $this->assertSame('# Foo Bar', $page->markdown->body());
         $this->assertEquals('# Foo Bar', $page->markdown);
-        $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
     public function testMarkdownPostParser()
@@ -45,10 +48,12 @@ class SourceFileParserTest extends TestCase
 
         $parser = new SourceFileParser(MarkdownPost::class, 'foo');
         $page = $parser->get();
+
         $this->assertInstanceOf(MarkdownPost::class, $page);
-        $this->assertEquals('foo', $page->identifier);
+        $this->assertSame('foo', $page->identifier);
+        $this->assertSame('Foo Bar Baz', $page->title);
+        $this->assertSame('# Foo Bar', $page->markdown->body());
         $this->assertEquals('# Foo Bar', $page->markdown);
-        $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
     public function testDocumentationPageParser()
@@ -57,10 +62,12 @@ class SourceFileParserTest extends TestCase
 
         $parser = new SourceFileParser(DocumentationPage::class, 'foo');
         $page = $parser->get();
+
         $this->assertInstanceOf(DocumentationPage::class, $page);
-        $this->assertEquals('foo', $page->identifier);
+        $this->assertSame('foo', $page->identifier);
+        $this->assertSame('Foo Bar Baz', $page->title);
+        $this->assertSame('# Foo Bar', $page->markdown->body());
         $this->assertEquals('# Foo Bar', $page->markdown);
-        $this->assertEquals('Foo Bar Baz', $page->title);
     }
 
     public function testHtmlPageParser()
@@ -69,29 +76,33 @@ class SourceFileParserTest extends TestCase
 
         $parser = new SourceFileParser(HtmlPage::class, 'foo');
         $page = $parser->get();
+
         $this->assertInstanceOf(HtmlPage::class, $page);
-        $this->assertEquals('foo', $page->identifier);
-        $this->assertEquals('<h1>Foo Bar</h1>', $page->contents());
+        $this->assertSame('foo', $page->identifier);
+        $this->assertSame('<h1>Foo Bar</h1>', $page->contents());
     }
 
     public function testParsedPageIsRunThroughDynamicConstructor()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'Foo Bar Baz']);
         $page = MarkdownPage::parse('foo');
-        $this->assertEquals('Foo Bar Baz', $page->title);
+
+        $this->assertSame('Foo Bar Baz', $page->title);
     }
 
     public function testBladePageDataIsParsedToFrontMatter()
     {
         $this->file('_pages/foo.blade.php', "@php(\$foo = 'bar')\n");
         $page = BladePage::parse('foo');
-        $this->assertEquals('bar', $page->data('foo'));
+
+        $this->assertSame('bar', $page->data('foo'));
     }
 
     public function testBladePageMatterIsUsedForThePageTitle()
     {
         $this->file('_pages/foo.blade.php', "@php(\$title = 'Foo Bar')\n");
         $page = BladePage::parse('foo');
-        $this->assertEquals('Foo Bar', $page->data('title'));
+
+        $this->assertSame('Foo Bar', $page->data('title'));
     }
 }

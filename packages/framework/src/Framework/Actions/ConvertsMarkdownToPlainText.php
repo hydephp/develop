@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use function trim;
 use function rtrim;
+use function is_numeric;
 use function str_ends_with;
 use function str_starts_with;
 use function substr;

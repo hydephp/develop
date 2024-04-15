@@ -399,8 +399,11 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     public function getCanonicalUrl(): ?string
     {
-        if (! empty($this->matter('canonicalUrl'))) {
-            return $this->matter('canonicalUrl');
+        /** @var ?string $value */
+        $value = $this->matter('canonicalUrl');
+
+        if (! empty($value)) {
+            return $value;
         }
 
         if (Hyde::hasSiteUrl() && ! empty($this->identifier)) {

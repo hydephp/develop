@@ -71,17 +71,17 @@ class HydeServiceProviderTest extends TestCase
         MarkdownPost::setSourceDirectory('');
         DocumentationPage::setSourceDirectory('');
 
-        $this->assertEquals('', BladePage::sourceDirectory());
-        $this->assertEquals('', MarkdownPage::sourceDirectory());
-        $this->assertEquals('', MarkdownPost::sourceDirectory());
-        $this->assertEquals('', DocumentationPage::sourceDirectory());
+        $this->assertSame('', BladePage::sourceDirectory());
+        $this->assertSame('', MarkdownPage::sourceDirectory());
+        $this->assertSame('', MarkdownPost::sourceDirectory());
+        $this->assertSame('', DocumentationPage::sourceDirectory());
 
         $this->provider->register();
 
-        $this->assertEquals('_pages', BladePage::sourceDirectory());
-        $this->assertEquals('_pages', MarkdownPage::sourceDirectory());
-        $this->assertEquals('_posts', MarkdownPost::sourceDirectory());
-        $this->assertEquals('_docs', DocumentationPage::sourceDirectory());
+        $this->assertSame('_pages', BladePage::sourceDirectory());
+        $this->assertSame('_pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('_posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('_docs', DocumentationPage::sourceDirectory());
     }
 
     public function testProviderRegistersOutputDirectories()
@@ -91,17 +91,17 @@ class HydeServiceProviderTest extends TestCase
         MarkdownPost::setOutputDirectory('foo');
         DocumentationPage::setOutputDirectory('foo');
 
-        $this->assertEquals('foo', BladePage::outputDirectory());
-        $this->assertEquals('foo', MarkdownPage::outputDirectory());
-        $this->assertEquals('foo', MarkdownPost::outputDirectory());
-        $this->assertEquals('foo', DocumentationPage::outputDirectory());
+        $this->assertSame('foo', BladePage::outputDirectory());
+        $this->assertSame('foo', MarkdownPage::outputDirectory());
+        $this->assertSame('foo', MarkdownPost::outputDirectory());
+        $this->assertSame('foo', DocumentationPage::outputDirectory());
 
         $this->provider->register();
 
-        $this->assertEquals('', BladePage::outputDirectory());
-        $this->assertEquals('', MarkdownPage::outputDirectory());
-        $this->assertEquals('posts', MarkdownPost::outputDirectory());
-        $this->assertEquals('docs', DocumentationPage::outputDirectory());
+        $this->assertSame('', BladePage::outputDirectory());
+        $this->assertSame('', MarkdownPage::outputDirectory());
+        $this->assertSame('posts', MarkdownPost::outputDirectory());
+        $this->assertSame('docs', DocumentationPage::outputDirectory());
     }
 
     public function testCustomSourceRootsAreAppliedToThePageModels()
@@ -134,46 +134,46 @@ class HydeServiceProviderTest extends TestCase
 
     public function testProviderRegistersSiteOutputDirectory()
     {
-        $this->assertEquals('_site', Hyde::getOutputDirectory());
+        $this->assertSame('_site', Hyde::getOutputDirectory());
 
         config(['hyde.output_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals('foo', Hyde::getOutputDirectory());
+        $this->assertSame('foo', Hyde::getOutputDirectory());
     }
 
     public function testProviderRegistersMediaDirectory()
     {
-        $this->assertEquals('_media', Hyde::getMediaDirectory());
+        $this->assertSame('_media', Hyde::getMediaDirectory());
 
         config(['hyde.media_directory' => 'foo']);
 
         $this->provider->register();
 
-        $this->assertEquals('foo', Hyde::getMediaDirectory());
-        $this->assertEquals('foo', Hyde::getMediaOutputDirectory());
+        $this->assertSame('foo', Hyde::getMediaDirectory());
+        $this->assertSame('foo', Hyde::getMediaOutputDirectory());
     }
 
     public function testProviderRegistersBladeViewDiscoveryLocationForConfiguredBladeViewPath()
     {
         config(['view.paths' => []]);
-        $this->assertEquals([], config('view.paths'));
+        $this->assertSame([], config('view.paths'));
 
         $this->provider->register();
 
-        $this->assertEquals([realpath(Hyde::path('_pages'))], config('view.paths'));
+        $this->assertSame([realpath(Hyde::path('_pages'))], config('view.paths'));
     }
 
     public function testBladeViewLocationsAreOnlyRegisteredOncePerKey()
     {
         config(['view.paths' => []]);
-        $this->assertEquals([], config('view.paths'));
+        $this->assertSame([], config('view.paths'));
 
         $this->provider->register();
         $this->provider->register();
 
-        $this->assertEquals([realpath(Hyde::path('_pages'))], config('view.paths'));
+        $this->assertSame([realpath(Hyde::path('_pages'))], config('view.paths'));
     }
 
     public function testProviderRegistersConsoleCommands()
@@ -206,7 +206,7 @@ class HydeServiceProviderTest extends TestCase
         $pages = HydeCoreExtension::getPageClasses();
 
         // Assert we are testing all page models
-        $this->assertEquals([
+        $this->assertSame([
             HtmlPage::class,
             BladePage::class,
             MarkdownPage::class,
@@ -254,11 +254,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::sourceDirectory());
-        $this->assertEquals('foo', BladePage::sourceDirectory());
-        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
-        $this->assertEquals('foo', MarkdownPost::sourceDirectory());
-        $this->assertEquals('foo', DocumentationPage::sourceDirectory());
+        $this->assertSame('foo', HtmlPage::sourceDirectory());
+        $this->assertSame('foo', BladePage::sourceDirectory());
+        $this->assertSame('foo', MarkdownPage::sourceDirectory());
+        $this->assertSame('foo', MarkdownPost::sourceDirectory());
+        $this->assertSame('foo', DocumentationPage::sourceDirectory());
     }
 
     public function testSourceDirectoriesCanBeSetUsingKebabCaseClassNames()
@@ -273,11 +273,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::sourceDirectory());
-        $this->assertEquals('foo', BladePage::sourceDirectory());
-        $this->assertEquals('foo', MarkdownPage::sourceDirectory());
-        $this->assertEquals('foo', MarkdownPost::sourceDirectory());
-        $this->assertEquals('foo', DocumentationPage::sourceDirectory());
+        $this->assertSame('foo', HtmlPage::sourceDirectory());
+        $this->assertSame('foo', BladePage::sourceDirectory());
+        $this->assertSame('foo', MarkdownPage::sourceDirectory());
+        $this->assertSame('foo', MarkdownPost::sourceDirectory());
+        $this->assertSame('foo', DocumentationPage::sourceDirectory());
     }
 
     public function testProviderRegistersOutputDirectoriesUsingOptionsInConfiguration()
@@ -292,11 +292,11 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::outputDirectory());
-        $this->assertEquals('foo', BladePage::outputDirectory());
-        $this->assertEquals('foo', MarkdownPage::outputDirectory());
-        $this->assertEquals('foo', MarkdownPost::outputDirectory());
-        $this->assertEquals('foo', DocumentationPage::outputDirectory());
+        $this->assertSame('foo', HtmlPage::outputDirectory());
+        $this->assertSame('foo', BladePage::outputDirectory());
+        $this->assertSame('foo', MarkdownPage::outputDirectory());
+        $this->assertSame('foo', MarkdownPost::outputDirectory());
+        $this->assertSame('foo', DocumentationPage::outputDirectory());
     }
 
     public function testOutputDirectoriesCanBeSetUsingKebabCaseClassNames()
@@ -311,10 +311,10 @@ class HydeServiceProviderTest extends TestCase
 
         $this->provider->register();
 
-        $this->assertEquals('foo', HtmlPage::outputDirectory());
-        $this->assertEquals('foo', BladePage::outputDirectory());
-        $this->assertEquals('foo', MarkdownPage::outputDirectory());
-        $this->assertEquals('foo', MarkdownPost::outputDirectory());
-        $this->assertEquals('foo', DocumentationPage::outputDirectory());
+        $this->assertSame('foo', HtmlPage::outputDirectory());
+        $this->assertSame('foo', BladePage::outputDirectory());
+        $this->assertSame('foo', MarkdownPage::outputDirectory());
+        $this->assertSame('foo', MarkdownPost::outputDirectory());
+        $this->assertSame('foo', DocumentationPage::outputDirectory());
     }
 }

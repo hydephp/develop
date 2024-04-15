@@ -1,9 +1,12 @@
 <?php
 
+/** @noinspection PhpComposerExtensionStubsInspection */
+
 declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
+use SimpleXMLElement;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
@@ -22,6 +25,7 @@ class SitemapServiceTest extends TestCase
 
         File::deleteDirectory(Hyde::path('_pages'));
         File::makeDirectory(Hyde::path('_pages'));
+
         copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
         copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
@@ -29,7 +33,7 @@ class SitemapServiceTest extends TestCase
     public function testServiceInstantiatesXmlElement()
     {
         $service = new SitemapGenerator();
-        $this->assertInstanceOf('SimpleXMLElement', $service->getXmlElement());
+        $this->assertInstanceOf(SimpleXMLElement::class, $service->getXmlElement());
     }
 
     public function testGenerateAddsDefaultPagesToXml()
@@ -81,6 +85,7 @@ class SitemapServiceTest extends TestCase
     {
         $service = new SitemapGenerator();
         $service->generate();
+
         $xml = $service->getXml();
 
         $this->assertIsString($xml);
@@ -99,12 +104,14 @@ class SitemapServiceTest extends TestCase
     {
         config(['hyde.pretty_urls' => false]);
         config(['hyde.url' => 'https://example.com']);
+
         Filesystem::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $url = $service->getXmlElement()->url[0];
+
         $this->assertEquals('https://example.com/0-test.html', $url->loc);
         $this->assertEquals('daily', $url->changefreq);
         $this->assertTrue(isset($url->lastmod));
@@ -116,6 +123,7 @@ class SitemapServiceTest extends TestCase
     {
         config(['hyde.pretty_urls' => true]);
         config(['hyde.url' => 'https://example.com']);
+
         Filesystem::touch('_pages/0-test.blade.php');
 
         $service = new SitemapGenerator();
@@ -130,6 +138,7 @@ class SitemapServiceTest extends TestCase
     public function testAllRouteTypesAreDiscovered()
     {
         config(['hyde.url' => 'foo']);
+
         Filesystem::unlink(['_pages/index.blade.php', '_pages/404.blade.php']);
 
         $files = [

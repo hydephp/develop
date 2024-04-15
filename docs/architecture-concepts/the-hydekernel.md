@@ -41,7 +41,7 @@ app(HydeKernel::class)->version();
 hyde()->version();
 ```
 
-The Kernel instance is constructed in `bootstrap.php`, and is available globally as `$hyde`.
+The Kernel instance is constructed and bound in the `app/bootstrap.php` file.
 
 
 ## The Kernel Lifecycle

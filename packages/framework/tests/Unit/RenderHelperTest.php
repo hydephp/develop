@@ -2,21 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
+use Mockery;
+use TypeError;
 use Hyde\Pages\MarkdownPage;
+use Illuminate\View\Factory;
+use InvalidArgumentException;
+use Hyde\Support\Models\Route;
+use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
-use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\View;
-use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Support\Models\RenderData
  * @covers \Hyde\Support\Facades\Render
  */
-class RenderHelperTest extends TestCase
+class RenderHelperTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Render::swap(new RenderData());
+        View::swap(Mockery::mock(Factory::class)->makePartial());
+    }
+
     public function testSetAndGetPage()
     {
         $this->assertNull(Render::getPage());
@@ -62,12 +77,33 @@ class RenderHelperTest extends TestCase
         $this->assertSame($page->getRouteKey(), View::shared('routeKey'));
     }
 
-    public function testShare()
+    public function testShareRouteKey()
     {
         $this->assertNull(Render::getRouteKey());
 
-        Render::share('routeKey', 'bar');
-        $this->assertSame('bar', Render::getRouteKey());
+        Render::share('routeKey', 'foo');
+
+        $this->assertSame('foo', Render::getRouteKey());
+    }
+
+    public function testShareRoute()
+    {
+        $this->assertNull(Render::getRoute());
+
+        $route = new Route(new MarkdownPage());
+        Render::share('route', $route);
+
+        $this->assertSame($route, Render::getRoute());
+    }
+
+    public function testSharePage()
+    {
+        $this->assertNull(Render::getPage());
+
+        $page = new MarkdownPage();
+        Render::share('page', $page);
+
+        $this->assertSame($page, Render::getPage());
     }
 
     public function testShareInvalidProperty()
@@ -76,6 +112,22 @@ class RenderHelperTest extends TestCase
         $this->expectExceptionMessage("Property 'foo' does not exist on Hyde\Support\Models\Render");
 
         Render::share('foo', 'bar');
+    }
+
+    public function testShareInvalidType()
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Hyde\Support\Models\RenderData::share(): Argument #2 ($value) must be of type Hyde\Pages\Concerns\HydePage|Hyde\Support\Models\Route|string, array given');
+
+        Render::share('route', ['foo']);
+    }
+
+    public function testShareInvalidTypeForProperty()
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Cannot assign string to property Hyde\Support\Models\RenderData::$route of type Hyde\Support\Models\Route');
+
+        Render::share('route', 'bar');
     }
 
     public function testShareCascadesDataToView()

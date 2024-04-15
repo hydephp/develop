@@ -21,10 +21,7 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
  */
 class CustomExceptionsTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     public function testFileConflictExceptionWithDefaultMessage()
     {

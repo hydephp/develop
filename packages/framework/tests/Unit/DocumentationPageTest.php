@@ -31,7 +31,7 @@ class DocumentationPageTest extends TestCase
     public function testCanGetCurrentPagePath()
     {
         $page = DocumentationPage::make('foo');
-        $this->assertEquals('docs/foo', $page->getRouteKey());
+        $this->assertSame('docs/foo', $page->getRouteKey());
     }
 
     public function testCanGetCurrentCustomPagePath()
@@ -40,7 +40,7 @@ class DocumentationPageTest extends TestCase
         (new HydeServiceProvider($this->app))->register();
 
         $page = DocumentationPage::make('foo');
-        $this->assertEquals('documentation/latest/foo', $page->getRouteKey());
+        $this->assertSame('documentation/latest/foo', $page->getRouteKey());
     }
 
     public function testCanGetCurrentPagePathWhenUsingFlattenedOutputPaths()
@@ -48,13 +48,13 @@ class DocumentationPageTest extends TestCase
         Config::set('docs.flattened_output_paths', true);
 
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('docs/bar', $page->getRouteKey());
+        $this->assertSame('docs/bar', $page->getRouteKey());
 
         config(['hyde.output_directories.documentation-page' => 'documentation/latest/']);
         (new HydeServiceProvider($this->app))->register();
 
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('documentation/latest/bar', $page->getRouteKey());
+        $this->assertSame('documentation/latest/bar', $page->getRouteKey());
     }
 
     public function testCanGetCurrentPagePathWhenNotUsingFlattenedOutputPaths()
@@ -62,13 +62,13 @@ class DocumentationPageTest extends TestCase
         Config::set('docs.flattened_output_paths', false);
 
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('docs/foo/bar', $page->getRouteKey());
+        $this->assertSame('docs/foo/bar', $page->getRouteKey());
 
         config(['hyde.output_directories.documentation-page' => 'documentation/latest/']);
         (new HydeServiceProvider($this->app))->register();
 
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('documentation/latest/foo/bar', $page->getRouteKey());
+        $this->assertSame('documentation/latest/foo/bar', $page->getRouteKey());
     }
 
     public function testCanGetOnlineSourcePath()
@@ -80,8 +80,9 @@ class DocumentationPageTest extends TestCase
     public function testCanGetOnlineSourcePathWithSourceFileLocationBase()
     {
         config(['docs.source_file_location_base' => 'docs.example.com/edit']);
+
         $page = DocumentationPage::make('foo');
-        $this->assertEquals('docs.example.com/edit/foo.md', $page->getOnlineSourcePath());
+        $this->assertSame('docs.example.com/edit/foo.md', $page->getOnlineSourcePath());
     }
 
     public function testCanGetOnlineSourcePathWithTrailingSlash()
@@ -89,22 +90,23 @@ class DocumentationPageTest extends TestCase
         $page = DocumentationPage::make('foo');
 
         config(['docs.source_file_location_base' => 'edit/']);
-        $this->assertEquals('edit/foo.md', $page->getOnlineSourcePath());
+        $this->assertSame('edit/foo.md', $page->getOnlineSourcePath());
 
         config(['docs.source_file_location_base' => 'edit']);
-        $this->assertEquals('edit/foo.md', $page->getOnlineSourcePath());
+        $this->assertSame('edit/foo.md', $page->getOnlineSourcePath());
     }
 
     public function testCanGetDocumentationOutputPath()
     {
-        $this->assertEquals('docs', DocumentationPage::outputDirectory());
+        $this->assertSame('docs', DocumentationPage::outputDirectory());
     }
 
     public function testCanGetDocumentationOutputPathWithCustomOutputDirectory()
     {
         config(['hyde.output_directories.documentation-page' => 'foo']);
         (new HydeServiceProvider($this->app))->register();
-        $this->assertEquals('foo', DocumentationPage::outputDirectory());
+
+        $this->assertSame('foo', DocumentationPage::outputDirectory());
     }
 
     public function testCanGetDocumentationOutputPathWithTrailingSlashes()
@@ -120,13 +122,13 @@ class DocumentationPageTest extends TestCase
         foreach ($tests as $test) {
             config(['hyde.output_directories.documentation-page' => $test]);
             (new HydeServiceProvider($this->app))->register();
-            $this->assertEquals('foo', DocumentationPage::outputDirectory());
+            $this->assertSame('foo', DocumentationPage::outputDirectory());
         }
     }
 
     public function testGetSourcePathReturnsQualifiedBasename()
     {
-        $this->assertEquals(
+        $this->assertSame(
             DocumentationPage::sourcePath('foo'),
             (new DocumentationPage(identifier: 'foo'))->getSourcePath()
         );
@@ -134,7 +136,7 @@ class DocumentationPageTest extends TestCase
 
     public function testGetSourcePathReturnsQualifiedBasenameForNestedPage()
     {
-        $this->assertEquals(
+        $this->assertSame(
             DocumentationPage::sourcePath('foo/bar'),
             (new DocumentationPage(identifier: 'foo/bar'))->getSourcePath()
         );
@@ -148,8 +150,10 @@ class DocumentationPageTest extends TestCase
     public function testHomeMethodReturnsDocsIndexRouteWhenItExists()
     {
         Filesystem::touch('_docs/index.md');
+
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
-        $this->assertEquals(Routes::get('docs/index'), DocumentationPage::home());
+        $this->assertSame(Routes::get('docs/index'), DocumentationPage::home());
+
         Filesystem::unlink('_docs/index.md');
     }
 
@@ -157,10 +161,13 @@ class DocumentationPageTest extends TestCase
     {
         config(['hyde.output_directories.documentation-page' => 'foo']);
         (new HydeServiceProvider($this->app))->register();
+
         mkdir(Hyde::path('foo'));
         Filesystem::touch('_docs/index.md');
+
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
-        $this->assertEquals(Routes::get('foo/index'), DocumentationPage::home());
+        $this->assertSame(Routes::get('foo/index'), DocumentationPage::home());
+
         Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }
@@ -169,11 +176,14 @@ class DocumentationPageTest extends TestCase
     {
         config(['hyde.output_directories.documentation-page' => 'foo/bar']);
         (new HydeServiceProvider($this->app))->register();
+
         mkdir(Hyde::path('foo'));
         mkdir(Hyde::path('foo/bar'));
         Filesystem::touch('_docs/index.md');
+
         $this->assertInstanceOf(Route::class, DocumentationPage::home());
-        $this->assertEquals(Routes::get('foo/bar/index'), DocumentationPage::home());
+        $this->assertSame(Routes::get('foo/bar/index'), DocumentationPage::home());
+
         Filesystem::unlink('_docs/index.md');
         File::deleteDirectory(Hyde::path('foo'));
     }
@@ -205,21 +215,24 @@ class DocumentationPageTest extends TestCase
     public function testCompiledPagesOriginatingInSubdirectoriesGetOutputToRootDocsPath()
     {
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('docs/bar.html', $page->getOutputPath());
+
+        $this->assertSame('docs/bar.html', $page->getOutputPath());
     }
 
     public function testCompiledPagesOriginatingInSubdirectoriesGetOutputToRootDocsPathWhenUsingFlattenedOutputPaths()
     {
         Config::set('docs.flattened_output_paths', true);
+
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('docs/bar.html', $page->getOutputPath());
+        $this->assertSame('docs/bar.html', $page->getOutputPath());
     }
 
     public function testCompiledPagesOriginatingInSubdirectoriesRetainSubdirectoryStructureWhenNotUsingFlattenedOutputPaths()
     {
         Config::set('docs.flattened_output_paths', false);
+
         $page = DocumentationPage::make('foo/bar');
-        $this->assertEquals('docs/foo/bar.html', $page->getOutputPath());
+        $this->assertSame('docs/foo/bar.html', $page->getOutputPath());
     }
 
     public function testPageHasFrontMatter()
@@ -230,10 +243,14 @@ class DocumentationPageTest extends TestCase
                 'baz' => 'qux',
             ],
         ]);
+
         $page = DocumentationPage::parse('foo');
+
         $this->assertNotNull($page->matter());
         $this->assertNotEmpty($page->matter());
+
         $this->assertEquals(new FrontMatter($expected), $page->matter());
+        $this->assertSame($expected, $page->matter()->get());
     }
 
     public function testPageCanBeHiddenFromSidebarUsingFrontMatter()
@@ -243,6 +260,7 @@ class DocumentationPageTest extends TestCase
                 'hidden' => true,
             ],
         ]);
+
         $page = DocumentationPage::parse('foo');
         $this->assertFalse($page->showInNavigation());
     }
@@ -250,6 +268,7 @@ class DocumentationPageTest extends TestCase
     public function testPageIsVisibleInSidebarWithoutUsingFrontMatter()
     {
         $this->markdown('_docs/foo.md');
+
         $page = DocumentationPage::parse('foo');
         $this->assertTrue($page->showInNavigation());
     }
@@ -261,8 +280,9 @@ navigation:
     priority: 10
 ---
 ');
+
         $page = DocumentationPage::parse('foo');
-        $this->assertEquals(10, $page->navigationMenuPriority());
+        $this->assertSame(10, $page->navigationMenuPriority());
     }
 
     public function testPageCanSetSidebarLabelUsingFrontMatter()
@@ -272,7 +292,8 @@ navigation:
     label: Bar
 ---
 ');
+
         $page = DocumentationPage::parse('foo');
-        $this->assertEquals('Bar', $page->navigationMenuLabel());
+        $this->assertSame('Bar', $page->navigationMenuLabel());
     }
 }

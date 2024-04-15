@@ -18,23 +18,24 @@ class MediaFileTest extends TestCase
     public function testCanConstruct()
     {
         $file = new MediaFile('foo');
+
         $this->assertInstanceOf(MediaFile::class, $file);
         $this->assertSame('foo', $file->path);
     }
 
-    public function can_make()
+    public function testCanMake()
     {
         $this->assertEquals(new MediaFile('foo'), MediaFile::make('foo'));
     }
 
     public function testCanConstructWithNestedPaths()
     {
-        $this->assertEquals('path/to/file.txt', MediaFile::make('path/to/file.txt')->path);
+        $this->assertSame('path/to/file.txt', MediaFile::make('path/to/file.txt')->path);
     }
 
     public function testAbsolutePathIsNormalizedToRelative()
     {
-        $this->assertEquals('foo', MediaFile::make(Hyde::path('foo'))->path);
+        $this->assertSame('foo', MediaFile::make(Hyde::path('foo'))->path);
     }
 
     public function testGetNameReturnsNameOfFile()
@@ -85,6 +86,7 @@ class MediaFileTest extends TestCase
     public function testToArrayWithEmptyFileWithNoExtension()
     {
         $this->file('foo', 'foo bar');
+
         $this->assertSame([
             'name' => 'foo',
             'path' => 'foo',
@@ -97,12 +99,14 @@ class MediaFileTest extends TestCase
     {
         mkdir(Hyde::path('foo'));
         touch(Hyde::path('foo/bar.txt'));
+
         $this->assertSame([
             'name' => 'bar.txt',
             'path' => 'foo/bar.txt',
             'length' => 0,
             'mimeType' => 'text/plain',
         ], MediaFile::make('foo/bar.txt')->toArray());
+
         Filesystem::unlink('foo/bar.txt');
         rmdir(Hyde::path('foo'));
     }
@@ -125,6 +129,7 @@ class MediaFileTest extends TestCase
 
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [foo] not found.');
+
         MediaFile::make('foo')->getContentLength();
     }
 
@@ -132,6 +137,7 @@ class MediaFileTest extends TestCase
     {
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [foo] not found.');
+
         MediaFile::make('foo')->getContentLength();
     }
 
@@ -174,17 +180,18 @@ class MediaFileTest extends TestCase
     public function testAllHelperDoesNotIncludeNonMediaFiles()
     {
         $this->file('_media/foo.blade.php');
+
         $this->assertEquals([
             'app.css' => new MediaFile('_media/app.css'),
         ], MediaFile::all());
     }
 
-    public function testFilesHelper()
+    public function testFilesHelperReturnsAllMediaFiles()
     {
         $this->assertSame(['app.css'], MediaFile::files());
     }
 
-    public function testGetIdentifier()
+    public function testGetIdentifierReturnsIdentifier()
     {
         $this->assertSame('foo', MediaFile::make('foo')->getIdentifier());
     }

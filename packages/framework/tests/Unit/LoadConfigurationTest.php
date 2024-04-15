@@ -66,6 +66,6 @@ class LoadConfigurationEnvironmentTestClass extends LoadConfiguration
 
     protected function getEnv(string $name): string|false|null
     {
-        return $this->env[$name];
+        return $this->env[$name] ?? null;
     }
 }

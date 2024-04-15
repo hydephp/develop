@@ -8,9 +8,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
-/**
- * Class TestBuildStaticSiteCommandFlagToEnablePrettyUrlsTest.
- */
 class TestBuildStaticSiteCommandFlagToEnablePrettyUrlsTest extends TestCase
 {
     public function testPrettyUrlsCanBeEnabledWithFlag()

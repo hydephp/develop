@@ -19,7 +19,7 @@ class LoadConfiguration extends BaseLoadConfiguration
     /** Get all the configuration files for the application. */
     protected function getConfigurationFiles(Application $app): array
     {
-        return (array) tap(parent::getConfigurationFiles($app), function (array &$files) use ($app): void {
+        return (array) tap(parent::getConfigurationFiles($app), /** @param array<string, string> $files */ function (array &$files) use ($app): void {
             // Inject our custom config file which is stored in `app/config.php`.
             $files['app'] ??= $app->basePath().DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'config.php';
         });

@@ -18,10 +18,7 @@ use Mockery;
  */
 class DataCollectionUnitTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     public function testClassHasStaticSourceDirectoryProperty()
     {

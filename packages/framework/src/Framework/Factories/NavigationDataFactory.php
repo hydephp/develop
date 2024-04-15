@@ -120,7 +120,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ?? $this->invert($this->getMatter('navigation.visible'));
     }
 
-    private function isPageHiddenInNavigationConfiguration(): ?bool
+    private function isPageHiddenInNavigationConfiguration(): bool
     {
         return in_array($this->routeKey, Config::getArray('hyde.navigation.exclude', ['404']));
     }
@@ -182,9 +182,13 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->parseNavigationPriorityConfig($config, 'routeKey');
     }
 
-    /** @param array<string, int>|array<string> $config */
+    /**
+     * @param  array<string, int>|array<string>  $config
+     * @param  'routeKey'|'identifier'  $pageKeyName
+     */
     private function parseNavigationPriorityConfig(array $config, string $pageKeyName): ?int
     {
+        /** @var string $pageKey */
         $pageKey = $this->{$pageKeyName};
 
         // Check if the config entry is a flat array or a keyed array.
@@ -228,7 +232,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return Config::getString('hyde.navigation.subdirectories', 'hidden');
     }
 
-    /** @param class-string $class */
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $class */
     protected function isInstanceOf(string $class): bool
     {
         return is_a($this->pageClass, $class, true);
@@ -246,6 +250,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function getMatter(string $key): string|null|int|bool
     {
-        return $this->matter->get($key);
+        /** @var string|null|int|bool $value */
+        $value = $this->matter->get($key);
+
+        return $value;
     }
 }
