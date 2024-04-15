@@ -179,6 +179,15 @@
       <path value="$PROJECT_DIR$/vendor/illuminate/cache" />
       <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/phpbench/container" />
+      <path value="$PROJECT_DIR$/vendor/phpbench/dom" />
+      <path value="$PROJECT_DIR$/vendor/phpbench/phpbench" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-type-coverage" />
+      <path value="$PROJECT_DIR$/vendor/tomasvotruba/type-coverage" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
