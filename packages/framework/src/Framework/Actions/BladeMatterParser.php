@@ -175,6 +175,7 @@ class BladeMatterParser
             // Add key/value pair to array
             $key = (string) static::getValueWithType(trim(trim($pair[0]), "'"));
             $value = static::getValueWithType(trim(trim($pair[1]), "'"));
+
             $array[$key] = $value;
         }
 
