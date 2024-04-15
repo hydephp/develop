@@ -22,7 +22,7 @@ class PaginatorTest extends TestCase
 
     public function testGetPaginatedPageCollection()
     {
-        $this->assertEquals(collect([]), (new Paginator())->getPaginatedItems());
+        $this->assertEquals(collect(), (new Paginator())->getPaginatedItems());
     }
 
     public function testGetPaginatedPageCollectionWithPages()
