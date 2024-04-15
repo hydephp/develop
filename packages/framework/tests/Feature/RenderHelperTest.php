@@ -4,21 +4,34 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Mockery;
 use TypeError;
+use InvalidArgumentException;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
+use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
-use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\View;
-use InvalidArgumentException;
+use Illuminate\View\Factory;
 
 /**
  * @covers \Hyde\Support\Models\RenderData
  * @covers \Hyde\Support\Facades\Render
  */
-class RenderHelperTest extends TestCase
+class RenderHelperTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Render::swap(new RenderData());
+        View::swap(Mockery::mock(Factory::class)->makePartial());
+    }
+
     public function testSetAndGetPage()
     {
         $this->assertNull(Render::getPage());
