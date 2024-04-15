@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Pages\MarkdownPage;
+use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Hyde\Testing\TestCase;
@@ -62,12 +63,33 @@ class RenderHelperTest extends TestCase
         $this->assertSame($page->getRouteKey(), View::shared('routeKey'));
     }
 
-    public function testShare()
+    public function testShareRouteKey()
     {
         $this->assertNull(Render::getRouteKey());
 
-        Render::share('routeKey', 'bar');
-        $this->assertSame('bar', Render::getRouteKey());
+        Render::share('routeKey', 'foo');
+
+        $this->assertSame('foo', Render::getRouteKey());
+    }
+
+    public function testShareRoute()
+    {
+        $this->assertNull(Render::getRoute());
+
+        $route = new Route(new MarkdownPage());
+        Render::share('route', $route);
+
+        $this->assertSame($route, Render::getRoute());
+    }
+
+    public function testSharePage()
+    {
+        $this->assertNull(Render::getPage());
+
+        $page = new MarkdownPage();
+        Render::share('page', $page);
+
+        $this->assertSame($page, Render::getPage());
     }
 
     public function testShareInvalidProperty()
