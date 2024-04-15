@@ -184,7 +184,7 @@ class ValidationServiceTest extends TestCase
     public function testValidationResultMessageReturnsMessage()
     {
         $result = new ValidationResult();
-        $this->assertEquals('Generic check', $result->message());
+        $this->assertSame('Generic check', $result->message());
     }
 
     public function testValidationResultPassedReturnsTrueWhenPassedIsTrue()
@@ -228,6 +228,6 @@ class ValidationServiceTest extends TestCase
 
         $result->withTip('foo');
 
-        $this->assertEquals('foo', $result->tip());
+        $this->assertSame('foo', $result->tip());
     }
 }
