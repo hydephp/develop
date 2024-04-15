@@ -203,6 +203,9 @@ class NavigationMenuGenerator
 
     protected function getConfigArray(string $key): array
     {
-        return Config::getArray($key, []);
+        /** @var array<string, string|int>|array<array-key, string> $array */
+        $array = Config::getArray($key, []);
+
+        return $array;
     }
 }
