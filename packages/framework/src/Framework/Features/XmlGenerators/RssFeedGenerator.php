@@ -121,6 +121,8 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function getChannel(): SimpleXMLElement
     {
+        assert($this->xmlElement->channel instanceof SimpleXMLElement);
+
         return $this->xmlElement->channel;
     }
 }
