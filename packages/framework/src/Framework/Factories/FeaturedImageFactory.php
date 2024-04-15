@@ -91,6 +91,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
 
     protected function getStringMatter(string $key): ?string
     {
+        /** @var string|null $value */
         $value = $this->matter->get($key);
 
         return is_string($value) ? $value : null;
