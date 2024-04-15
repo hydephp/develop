@@ -16,6 +16,8 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 
 use function date;
+use function assert;
+use function sprintf;
 
 /**
  * @see https://validator.w3.org/feed/docs/rss2.html
