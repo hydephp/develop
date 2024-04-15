@@ -141,7 +141,7 @@ class BuildSiteCommand extends Command
 
         $output = shell_exec(sprintf(
             '%s%s',
-            (string) app()->environment() === 'testing' ? 'echo ' : '',
+            app()->environment('testing') ? 'echo ' : '',
             $command
         ));
 
