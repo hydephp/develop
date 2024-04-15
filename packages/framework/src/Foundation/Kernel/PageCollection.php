@@ -49,7 +49,7 @@ final class PageCollection extends BaseFoundationCollection
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass */
-    protected static function parsePage(string $pageClass, string $path)
+    protected static function parsePage(string $pageClass, string $path): HydePage
     {
         return $pageClass::parse($pageClass::pathToIdentifier($path));
     }
