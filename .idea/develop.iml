@@ -53,6 +53,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/jolicode/php-os-helper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/error-handler" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/pestphp/pest-plugin-type-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tomasvotruba/type-coverage" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
