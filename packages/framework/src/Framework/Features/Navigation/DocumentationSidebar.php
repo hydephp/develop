@@ -29,7 +29,7 @@ class DocumentationSidebar extends NavigationMenu
 
     public function getHeader(): string
     {
-        return Config::get('docs.sidebar.header', 'Documentation');
+        return Config::getString('docs.sidebar.header', 'Documentation');
     }
 
     public function getFooter(): ?string
