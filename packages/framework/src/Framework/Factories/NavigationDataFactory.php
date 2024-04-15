@@ -188,6 +188,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
      */
     private function parseNavigationPriorityConfig(array $config, string $pageKeyName): ?int
     {
+        /** @var string $pageKey */
         $pageKey = $this->{$pageKeyName};
 
         // Check if the config entry is a flat array or a keyed array.
