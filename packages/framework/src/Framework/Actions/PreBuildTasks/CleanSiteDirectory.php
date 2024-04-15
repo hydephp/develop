@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
-use Illuminate\Support\Facades\File;
 
 use function basename;
 use function glob;
@@ -23,7 +22,7 @@ class CleanSiteDirectory extends PreBuildTask
     {
         if ($this->isItSafeToCleanOutputDirectory()) {
             Filesystem::unlink(glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
-            File::cleanDirectory(Hyde::siteMediaPath());
+            Filesystem::cleanDirectory(Hyde::siteMediaPath());
         }
     }
 
