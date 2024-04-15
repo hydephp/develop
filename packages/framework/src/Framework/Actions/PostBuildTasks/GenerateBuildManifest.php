@@ -77,7 +77,7 @@ class GenerateBuildManifest extends PostBuildTask
         ], JSON_PRETTY_PRINT);
     }
 
-    public function setOutput(OutputStyle $output)
+    public function setOutput(OutputStyle $output): void
     {
         // Disable output
     }

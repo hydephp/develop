@@ -17,10 +17,7 @@ use Symfony\Component\Console\Style\OutputStyle;
  */
 class CommandTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-    }
+    protected static bool $needsKernel = true;
 
     public static function tearDownAfterClass(): void
     {
@@ -185,19 +182,20 @@ class CommandTest extends UnitTestCase
     public function testSafeHandleException()
     {
         self::mockConfig();
+
         $command = new SafeThrowingTestCommand();
+
         $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
         $output->shouldReceive('writeln')->once()->withArgs(function (string $message) {
             $condition = str_starts_with($message, '<error>Error: This is a test at '.__FILE__.':');
             $this->assertTrue($condition);
 
-            return $condition;
+            return true;
         });
+
         $command->setOutput($output);
 
-        $code = $command->handle();
-
-        $this->assertSame(1, $code);
+        $this->assertSame(1, $command->handle());
     }
 
     public function testCanEnableThrowOnException()
@@ -206,13 +204,14 @@ class CommandTest extends UnitTestCase
         $this->expectExceptionMessage('This is a test');
 
         self::mockConfig(['app.throw_on_console_exception' => true]);
+
         $command = new SafeThrowingTestCommand();
+
         $output = Mockery::mock(\Illuminate\Console\OutputStyle::class);
         $output->shouldReceive('writeln')->once();
         $command->setOutput($output);
-        $code = $command->handle();
 
-        $this->assertSame(1, $code);
+        $this->assertSame(1, $command->handle());
     }
 
     public function testAskForString()
@@ -304,7 +303,7 @@ class MockableTestCommand extends Command
         return 0;
     }
 
-    public function setMockedOutput($output)
+    public function setMockedOutput($output): void
     {
         $this->output = $output;
     }

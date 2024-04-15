@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 
 /**
  * A state test to ensure the schemas can't be changed without breaking the tests.
+ *
  * This requires contributors to consider the impact of their changes as schema changes are rarely backwards compatible.
  *
  * @see \Hyde\Markdown\Contracts\FrontMatter\PageSchema
@@ -96,7 +97,7 @@ class SchemaContractsTest extends UnitTestCase
 
         $schemas = array_values($schemas);
 
-        $this->assertEquals(self::SCHEMAS, $schemas);
+        $this->assertSame(self::SCHEMAS, $schemas);
     }
 
     public function testAllSchemasExtendFrontMatterSchemaInterface()
@@ -128,7 +129,7 @@ class SchemaContractsTest extends UnitTestCase
         }
     }
 
-    private function assertClassHasConstant(string $constant, string $schema)
+    protected function assertClassHasConstant(string $constant, string $schema): void
     {
         $this->assertTrue(
             defined("$schema::$constant"),

@@ -21,7 +21,7 @@ beforeEach(function () {
     putenv('SERVER_LIVE_EDIT=false');
 });
 
-test('handle routes index page', function () {
+it('handles routes index page', function () {
     putenv('SERVER_DASHBOARD=false');
     mockRoute('');
 
@@ -40,7 +40,7 @@ test('handle routes index page', function () {
     Filesystem::unlink('_site/index.html');
 });
 
-test('handle routes custom pages', function () {
+it('handles routes custom pages', function () {
     mockRoute('foo');
 
     Filesystem::put('_pages/foo.md', '# Hello World!');
@@ -58,7 +58,7 @@ test('handle routes custom pages', function () {
     Filesystem::unlink('_site/foo.html');
 });
 
-test('handle routes pages with .html extension', function () {
+it('handles routes pages with .html extension', function () {
     mockRoute('foo.html');
 
     Filesystem::put('_pages/foo.md', '# Hello World!');
@@ -76,7 +76,7 @@ test('handle routes pages with .html extension', function () {
     Filesystem::unlink('_site/foo.html');
 });
 
-test('handle routes static assets', function () {
+it('handles routes static assets', function () {
     mockRoute('media/app.css');
 
     $kernel = new HttpKernel();
@@ -89,14 +89,14 @@ test('handle routes static assets', function () {
     expect($response->body)->toBe(file_get_contents(\Hyde\Hyde::path('_media/app.css')));
 });
 
-test('handle throws route not found exception for missing route', function () {
+it('handles throws route not found exception for missing route', function () {
     mockRoute('missing');
 
     $kernel = new HttpKernel();
     $kernel->handle(new Request());
 })->throws(RouteNotFoundException::class, 'Route [missing] not found');
 
-test('handle sends 404 error response for missing asset', function () {
+it('handles sends 404 error response for missing asset', function () {
     mockRoute('missing.css');
 
     $kernel = new HttpKernel();

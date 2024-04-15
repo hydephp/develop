@@ -38,8 +38,11 @@ class FileCollectionTest extends TestCase
     public function testGetFileReturnsParsedFileObjectForGivenFilePath()
     {
         $this->file('_pages/foo.blade.php');
-        $this->assertEquals(new SourceFile('_pages/foo.blade.php', BladePage::class),
-            Files::getFile('_pages/foo.blade.php'));
+
+        $this->assertEquals(
+            new SourceFile('_pages/foo.blade.php', BladePage::class),
+            Files::getFile('_pages/foo.blade.php')
+        );
     }
 
     public function testGetFileThrowsExceptionWhenFileIsNotFound()
@@ -63,7 +66,7 @@ class FileCollectionTest extends TestCase
         $this->withoutDefaultPages();
         $this->file('_pages/foo.txt');
 
-        $this->assertEquals([], Files::getFiles()->all());
+        $this->assertSame([], Files::getFiles()->all());
 
         $this->restoreDefaultPages();
     }
@@ -99,6 +102,7 @@ class FileCollectionTest extends TestCase
     {
         $this->file('_docs/foo.md');
         $collection = FileCollection::init(Hyde::getInstance())->boot();
+
         $this->assertArrayHasKey('_docs/foo.md', $collection->toArray());
         $this->assertEquals(new SourceFile('_docs/foo.md', DocumentationPage::class), $collection->get('_docs/foo.md'));
     }

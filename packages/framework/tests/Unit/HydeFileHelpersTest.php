@@ -17,18 +17,18 @@ class HydeFileHelpersTest extends TestCase
     public function testCurrentPageReturnsCurrentPageViewProperty()
     {
         Render::share('routeKey', 'foo');
-        $this->assertEquals('foo', Hyde::currentRouteKey());
+        $this->assertSame('foo', Hyde::currentRouteKey());
     }
 
-    public function testCurrentPageFallsBackToEmptyStringIfCurrentPageViewPropertyIsNotSet()
+    public function testCurrentPageFallsBackToNullStringIfCurrentPageViewPropertyIsNotSet()
     {
-        $this->assertEquals('', Hyde::currentRouteKey());
+        $this->assertNull(Hyde::currentRouteKey());
     }
 
     public function testCurrentRouteReturnsCurrentRouteViewProperty()
     {
         Render::share('route', Routes::get('index'));
-        $this->assertEquals(Routes::get('index'), Hyde::currentRoute());
+        $this->assertSame(Routes::get('index'), Hyde::currentRoute());
     }
 
     public function testCurrentRouteFallsBackToNullIfCurrentRouteViewPropertyIsNotSet()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Factories;
 
+use Illuminate\Support\Str;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
@@ -12,9 +13,6 @@ use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Models\DateString;
-
-use function strlen;
-use function substr;
 
 /**
  * Streamlines the data construction specific to a blog post.
@@ -110,25 +108,14 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     private function makeDescriptionFromMarkdownBody(): string
     {
-        return $this->getTruncatedMarkdown($this->stripMarkdownFromBody($this->markdown->body()));
-    }
-
-    private function getTruncatedMarkdown(string $markdown): string
-    {
-        if (strlen($markdown) >= 128) {
-            return substr($markdown, 0, 125).'...';
-        }
-
-        return $markdown;
-    }
-
-    private function stripMarkdownFromBody(string $body): string
-    {
-        return (new ConvertsMarkdownToPlainText($body))->execute();
+        return Str::limit((new ConvertsMarkdownToPlainText($this->markdown->body()))->execute(), 125);
     }
 
     protected function getMatter(string $key): string|null|array
     {
-        return $this->matter->get($key);
+        /** @var string|null|array $value */
+        $value = $this->matter->get($key);
+
+        return $value;
     }
 }

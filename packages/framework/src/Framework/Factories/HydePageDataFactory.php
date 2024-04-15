@@ -28,10 +28,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     protected readonly string $title;
     protected readonly ?NavigationData $navigation;
-    private readonly string $routeKey;
-    private readonly string $outputPath;
     private readonly string $identifier;
-    private readonly string $pageClass;
     private readonly Markdown|false $markdown;
     private readonly FrontMatter $matter;
 
@@ -39,10 +36,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     {
         $this->matter = $this->pageData->matter;
         $this->markdown = $this->pageData->markdown;
-        $this->pageClass = $this->pageData->pageClass;
         $this->identifier = $this->pageData->identifier;
-        $this->outputPath = $this->pageData->outputPath;
-        $this->routeKey = $this->pageData->routeKey;
 
         $this->title = $this->makeTitle();
         $this->navigation = $this->makeNavigation();
@@ -101,6 +95,9 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     protected function getMatter(string $key): string|null
     {
-        return $this->matter->get($key);
+        /** @var ?string $value */
+        $value = $this->matter->get($key);
+
+        return $value;
     }
 }

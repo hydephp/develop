@@ -8,22 +8,19 @@ use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Testing\TestCase;
 
 /**
- * Class BladeDownProcessorTest.
- *
  * @covers \Hyde\Markdown\Processing\BladeDownProcessor
  */
 class BladeDownProcessorTest extends TestCase
 {
     public function testItRendersBladeEchoSyntax()
     {
-        $this->assertEquals('Hello World!', BladeDownProcessor::render('[Blade]: {{ "Hello World!" }}'));
+        $this->assertSame('Hello World!', BladeDownProcessor::render('[Blade]: {{ "Hello World!" }}'));
     }
 
     public function testItRendersBladeWithinMultilineMarkdown()
     {
-        $this->assertEquals(
+        $this->assertSame(
             "Foo\nHello World!\nBar",
-
             BladeDownProcessor::render("Foo\n[Blade]: {{ 'Hello World!' }}\nBar")
         );
     }
@@ -38,25 +35,25 @@ class BladeDownProcessorTest extends TestCase
             'views/hello.blade.php'
         ), 'Hello World!');
 
-        $this->assertEquals('Hello World!', BladeDownProcessor::render('[Blade]: @include("hello")'));
+        $this->assertSame('Hello World!', BladeDownProcessor::render('[Blade]: @include("hello")'));
 
         unlink(resource_path('views/hello.blade.php'));
     }
 
     public function testDirectiveIsCaseInsensitive()
     {
-        $this->assertEquals('Hello World!', BladeDownProcessor::render('[blade]: {{ "Hello World!" }}'));
+        $this->assertSame('Hello World!', BladeDownProcessor::render('[blade]: {{ "Hello World!" }}'));
     }
 
     public function testDirectiveIsIgnoredIfItIsNotAtTheStartOfALine()
     {
-        $this->assertEquals('Example: [Blade]: {{ "Hello World!" }}',
+        $this->assertSame('Example: [Blade]: {{ "Hello World!" }}',
             BladeDownProcessor::render('Example: [Blade]: {{ "Hello World!" }}'));
     }
 
     public function testItRendersBladeEchoSyntaxWithVariables()
     {
-        $this->assertEquals('Hello World!', BladeDownProcessor::render('[Blade]: {{ $foo }}', ['foo' => 'Hello World!']));
+        $this->assertSame('Hello World!', BladeDownProcessor::render('[Blade]: {{ $foo }}', ['foo' => 'Hello World!']));
     }
 
     public function testItRendersBladeViewsWithVariables()
@@ -65,18 +62,18 @@ class BladeDownProcessorTest extends TestCase
             'views/hello.blade.php'
         ), 'Hello {{ $name }}!');
 
-        $this->assertEquals('Hello John!', BladeDownProcessor::render('[Blade]: @include("hello", ["name" => "John"])'));
+        $this->assertSame('Hello John!', BladeDownProcessor::render('[Blade]: @include("hello", ["name" => "John"])'));
 
         unlink(resource_path('views/hello.blade.php'));
     }
 
     public function testPreprocessMethodExpandsShortcode()
     {
-        $this->assertEquals('<!-- HYDE[Blade]: {{ $foo }} -->', BladeDownProcessor::preprocess('[Blade]: {{ $foo }}'));
+        $this->assertSame('<!-- HYDE[Blade]: {{ $foo }} -->', BladeDownProcessor::preprocess('[Blade]: {{ $foo }}'));
     }
 
     public function testProcessMethodRendersShortcode()
     {
-        $this->assertEquals('Hello World!', BladeDownProcessor::postprocess('<!-- HYDE[Blade]: {{ $foo }} -->', ['foo' => 'Hello World!']));
+        $this->assertSame('Hello World!', BladeDownProcessor::postprocess('<!-- HYDE[Blade]: {{ $foo }} -->', ['foo' => 'Hello World!']));
     }
 }

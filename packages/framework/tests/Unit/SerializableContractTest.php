@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @see \Hyde\Support\Contracts\SerializableContract
  */
-class SerializableContractTest extends TestCase
+class SerializableContractTest extends UnitTestCase
 {
     public function testInterface()
     {

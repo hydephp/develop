@@ -46,6 +46,7 @@ use JetBrains\PhpStorm\Pure;
  * @method static string trimSlashes(string $string)
  * @method static HtmlString markdown(string $text, bool $stripIndentation = false)
  * @method static string currentPage()
+ * @method static string currentRouteKey()
  * @method static string getBasePath()
  * @method static string getSourceRoot()
  * @method static string getOutputDirectory()

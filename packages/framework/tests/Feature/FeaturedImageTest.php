@@ -47,7 +47,7 @@ class FeaturedImageTest extends TestCase
         $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
         $this->assertInstanceOf(FeaturedImage::class, $image);
 
-        $this->assertEquals('media/foo', $image->getSource());
+        $this->assertSame('media/foo', $image->getSource());
     }
 
     public function testFeaturedImageGetContentLength()
@@ -55,7 +55,7 @@ class FeaturedImageTest extends TestCase
         $this->file('_media/foo', 'image');
 
         $image = new FeaturedImage('_media/foo', ...$this->defaultArguments());
-        $this->assertEquals(5, $image->getContentLength());
+        $this->assertSame(5, $image->getContentLength());
     }
 
     public function testFeaturedImageGetContentLengthWithRemoteSource()
@@ -67,7 +67,7 @@ class FeaturedImageTest extends TestCase
         });
 
         $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
-        $this->assertEquals(16, $image->getContentLength());
+        $this->assertSame(16, $image->getContentLength());
     }
 
     public function testFeaturedImageGetContentLengthWithRemoteSourceAndNotFoundResponse()
@@ -77,7 +77,7 @@ class FeaturedImageTest extends TestCase
         });
 
         $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
-        $this->assertEquals(0, $image->getContentLength());
+        $this->assertSame(0, $image->getContentLength());
     }
 
     public function testFeaturedImageGetContentLengthWithRemoteSourceAndInvalidResponse()
@@ -89,23 +89,23 @@ class FeaturedImageTest extends TestCase
         });
 
         $image = new FeaturedImage('https://hyde.test/static/image.png', ...$this->defaultArguments());
-        $this->assertEquals(0, $image->getContentLength());
+        $this->assertSame(0, $image->getContentLength());
     }
 
     public function testGetSourceMethod()
     {
-        $this->assertEquals('media/foo', (new FeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
+        $this->assertSame('media/foo', (new FeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
 
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'media/foo']))->getSource());
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '_media/foo']))->getSource());
+        $this->assertSame('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
+        $this->assertSame('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'media/foo']))->getSource());
+        $this->assertSame('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '_media/foo']))->getSource());
 
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
-        $this->assertEquals('//foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '//foo']))->getSource());
-        $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'http']))->getSource());
+        $this->assertSame('media/foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());
+        $this->assertSame('//foo', FeaturedImageFactory::make(new FrontMatter(['image.source' => '//foo']))->getSource());
+        $this->assertSame('http', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'http']))->getSource());
 
-        $this->assertEquals('media/foo', FeaturedImageFactory::make(new FrontMatter(['image' => 'foo']))->getSource());
-        $this->assertEquals('http', FeaturedImageFactory::make(new FrontMatter(['image' => 'http']))->getSource());
+        $this->assertSame('media/foo', FeaturedImageFactory::make(new FrontMatter(['image' => 'foo']))->getSource());
+        $this->assertSame('http', FeaturedImageFactory::make(new FrontMatter(['image' => 'http']))->getSource());
     }
 
     protected function defaultArguments(): array

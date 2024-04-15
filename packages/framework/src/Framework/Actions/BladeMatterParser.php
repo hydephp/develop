@@ -136,7 +136,11 @@ class BladeMatterParser
 
         // This will cast integers, floats, and booleans to their respective types
         // Still working on a way to handle multidimensional arrays and objects
-        return json_decode($value) ?? $value;
+
+        /** @var scalar|null $decoded */
+        $decoded = json_decode($value);
+
+        return $decoded ?? $value;
     }
 
     /** @return array<string, scalar> */
@@ -153,7 +157,7 @@ class BladeMatterParser
         }
 
         // Check if string is multidimensional (not yet supported)
-        if (substr_count($string, '[') > 1 || substr_count($string, ']') > 1) {
+        if ((substr_count($string, '[') > 1) || (substr_count($string, ']') > 1)) {
             throw new RuntimeException('Failed parsing BladeMatter array. Multidimensional arrays are not supported yet.');
         }
 
@@ -171,6 +175,7 @@ class BladeMatterParser
             // Add key/value pair to array
             $key = (string) static::getValueWithType(trim(trim($pair[0]), "'"));
             $value = static::getValueWithType(trim(trim($pair[1]), "'"));
+
             $array[$key] = $value;
         }
 

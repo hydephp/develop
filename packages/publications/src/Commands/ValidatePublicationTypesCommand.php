@@ -125,7 +125,7 @@ class ValidatePublicationTypesCommand extends ValidatingCommand
         }
     }
 
-    protected function outputSummary($timeStart): void
+    protected function outputSummary(float $timeStart): void
     {
         $this->newLine();
         $this->info(sprintf('All done in %sms using %sMB peak memory!',

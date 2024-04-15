@@ -13,9 +13,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
-/**
- * Class SourceDirectoriesCanBeChangedTest.
- */
 class SourceDirectoriesCanBeChangedTest extends TestCase
 {
     public static function tearDownAfterClass(): void
@@ -27,11 +24,11 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
     public function testBaselines()
     {
-        $this->assertEquals('_pages', HtmlPage::sourceDirectory());
-        $this->assertEquals('_pages', BladePage::sourceDirectory());
-        $this->assertEquals('_pages', MarkdownPage::sourceDirectory());
-        $this->assertEquals('_posts', MarkdownPost::sourceDirectory());
-        $this->assertEquals('_docs', DocumentationPage::sourceDirectory());
+        $this->assertSame('_pages', HtmlPage::sourceDirectory());
+        $this->assertSame('_pages', BladePage::sourceDirectory());
+        $this->assertSame('_pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('_posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('_docs', DocumentationPage::sourceDirectory());
     }
 
     public function testSourceDirectoriesCanBeChangedProgrammatically()
@@ -42,11 +39,11 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
         MarkdownPost::setSourceDirectory('.source/posts');
         DocumentationPage::setSourceDirectory('.source/docs');
 
-        $this->assertEquals('.source/pages', HtmlPage::sourceDirectory());
-        $this->assertEquals('.source/pages', BladePage::sourceDirectory());
-        $this->assertEquals('.source/pages', MarkdownPage::sourceDirectory());
-        $this->assertEquals('.source/posts', MarkdownPost::sourceDirectory());
-        $this->assertEquals('.source/docs', DocumentationPage::sourceDirectory());
+        $this->assertSame('.source/pages', HtmlPage::sourceDirectory());
+        $this->assertSame('.source/pages', BladePage::sourceDirectory());
+        $this->assertSame('.source/pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('.source/posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('.source/docs', DocumentationPage::sourceDirectory());
     }
 
     public function testSourceDirectoriesCanBeChangedInConfig()
@@ -61,21 +58,18 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         (new HydeServiceProvider($this->app))->register();
 
-        $this->assertEquals('.source/pages', HtmlPage::sourceDirectory());
-        $this->assertEquals('.source/pages', BladePage::sourceDirectory());
-        $this->assertEquals('.source/pages', MarkdownPage::sourceDirectory());
-        $this->assertEquals('.source/posts', MarkdownPost::sourceDirectory());
-        $this->assertEquals('.source/docs', DocumentationPage::sourceDirectory());
+        $this->assertSame('.source/pages', HtmlPage::sourceDirectory());
+        $this->assertSame('.source/pages', BladePage::sourceDirectory());
+        $this->assertSame('.source/pages', MarkdownPage::sourceDirectory());
+        $this->assertSame('.source/posts', MarkdownPost::sourceDirectory());
+        $this->assertSame('.source/docs', DocumentationPage::sourceDirectory());
     }
 
     public function testBuildServiceRecognizesChangedDirectory()
     {
         MarkdownPost::setSourceDirectory('_source/posts');
 
-        $this->assertEquals(
-            '_source/posts',
-            MarkdownPost::sourceDirectory()
-        );
+        $this->assertSame('_source/posts', MarkdownPost::sourceDirectory());
     }
 
     public function testAutodiscoveryDiscoversPostsInCustomDirectory()
@@ -85,10 +79,7 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         MarkdownPost::setSourceDirectory('_source');
 
-        $this->assertEquals(
-            ['test'],
-            MarkdownPost::files()
-        );
+        $this->assertSame(['test'], MarkdownPost::files());
     }
 
     public function testAutodiscoveryDiscoversPostsInCustomSubdirectory()
@@ -98,9 +89,6 @@ class SourceDirectoriesCanBeChangedTest extends TestCase
 
         MarkdownPost::setSourceDirectory('_source/posts');
 
-        $this->assertEquals(
-            ['test'],
-            MarkdownPost::files()
-        );
+        $this->assertSame(['test'], MarkdownPost::files());
     }
 }

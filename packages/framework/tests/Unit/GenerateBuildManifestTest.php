@@ -15,11 +15,8 @@ use function Hyde\unixsum_file;
  */
 class GenerateBuildManifestTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::needsKernel();
-        self::mockConfig();
-    }
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
 
     public function testActionGeneratesBuildManifest()
     {
@@ -41,13 +38,13 @@ class GenerateBuildManifestTest extends UnitTestCase
         $this->assertArrayHasKey('source_hash', $manifest['pages'][404]);
         $this->assertArrayHasKey('output_hash', $manifest['pages'][404]);
 
-        $this->assertEquals('_pages/404.blade.php', $manifest['pages'][404]['source_path']);
-        $this->assertEquals('_pages/index.blade.php', $manifest['pages']['index']['source_path']);
+        $this->assertSame('_pages/404.blade.php', $manifest['pages'][404]['source_path']);
+        $this->assertSame('_pages/index.blade.php', $manifest['pages']['index']['source_path']);
 
-        $this->assertEquals('404.html', $manifest['pages'][404]['output_path']);
-        $this->assertEquals('index.html', $manifest['pages']['index']['output_path']);
+        $this->assertSame('404.html', $manifest['pages'][404]['output_path']);
+        $this->assertSame('index.html', $manifest['pages']['index']['output_path']);
 
-        $this->assertEquals(unixsum_file(Hyde::path('_pages/404.blade.php')), $manifest['pages'][404]['source_hash']);
+        $this->assertSame(unixsum_file(Hyde::path('_pages/404.blade.php')), $manifest['pages'][404]['source_hash']);
         $this->assertNull($manifest['pages'][404]['output_hash']);
     }
 }

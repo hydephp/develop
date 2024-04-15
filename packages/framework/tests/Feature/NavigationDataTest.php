@@ -33,10 +33,10 @@ class NavigationDataTest extends UnitTestCase
     {
         $navigationData = new NavigationData('label', 1, true, 'group');
 
-        $this->assertEquals('label', $navigationData->label);
-        $this->assertEquals('group', $navigationData->group);
-        $this->assertEquals(true, $navigationData->hidden);
-        $this->assertEquals(1, $navigationData->priority);
+        $this->assertSame('label', $navigationData->label);
+        $this->assertSame('group', $navigationData->group);
+        $this->assertSame(true, $navigationData->hidden);
+        $this->assertSame(1, $navigationData->priority);
     }
 
     public function testMake()
@@ -61,6 +61,7 @@ class NavigationDataTest extends UnitTestCase
         $reflection = new ReflectionClass($class);
 
         $schema = [];
+
         foreach (get_class_vars($class) as $name => $void) {
             $schema[$name] = $reflection->getProperty($name)->getType()->getName();
         }

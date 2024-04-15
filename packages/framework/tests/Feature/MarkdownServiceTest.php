@@ -22,7 +22,7 @@ class MarkdownServiceTest extends TestCase
         $html = (new MarkdownService($markdown))->parse();
 
         $this->assertIsString($html);
-        $this->assertEquals("<h1>Hello World!</h1>\n", $html);
+        $this->assertSame("<h1>Hello World!</h1>\n", $html);
     }
 
     public function testServiceCanParseMarkdownToHtmlWithPermalinks()
@@ -32,7 +32,7 @@ class MarkdownServiceTest extends TestCase
         $html = (new MarkdownService($markdown))->withPermalinks()->parse();
 
         $this->assertIsString($html);
-        $this->assertEquals(
+        $this->assertSame(
             '<h2>Hello World!<a id="hello-world" href="#hello-world" class="heading-permalink" aria-hidden="true" '.
             'title="Permalink">#</a></h2>'."\n",
             $html
@@ -72,7 +72,7 @@ class MarkdownServiceTest extends TestCase
     public function testBladedownIsNotEnabledByDefault()
     {
         $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
-        $this->assertEquals("<p>[Blade]: {{ &quot;Hello World!&quot; }}</p>\n", $service->parse());
+        $this->assertSame("<p>[Blade]: {{ &quot;Hello World!&quot; }}</p>\n", $service->parse());
     }
 
     public function testBladedownCanBeEnabled()
@@ -80,7 +80,7 @@ class MarkdownServiceTest extends TestCase
         config(['markdown.enable_blade' => true]);
         $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
         $service->addFeature('bladedown')->parse();
-        $this->assertEquals("Hello World!\n", $service->parse());
+        $this->assertSame("Hello World!\n", $service->parse());
     }
 
     public function testRawHtmlTagsAreStrippedByDefault()
@@ -88,7 +88,7 @@ class MarkdownServiceTest extends TestCase
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
         $service = new MarkdownService($markdown);
         $html = $service->parse();
-        $this->assertEquals("<p>foo</p>&lt;style>bar&lt;/style>&lt;script>hat&lt;/script>\n", $html);
+        $this->assertSame("<p>foo</p>&lt;style>bar&lt;/style>&lt;script>hat&lt;/script>\n", $html);
     }
 
     public function testRawHtmlTagsAreNotStrippedWhenExplicitlyEnabled()
@@ -97,7 +97,7 @@ class MarkdownServiceTest extends TestCase
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
         $service = new MarkdownService($markdown);
         $html = $service->parse();
-        $this->assertEquals("<p>foo</p><style>bar</style><script>hat</script>\n", $html);
+        $this->assertSame("<p>foo</p><style>bar</style><script>hat</script>\n", $html);
     }
 
     public function testHasFeaturesArray()

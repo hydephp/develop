@@ -71,13 +71,18 @@ class Paginator
 
     public function getItemsForPage(): Collection
     {
-        return $this->paginatedItems->get($this->currentPage - 1);
+        /** @var Collection $paginated */
+        $paginated = $this->paginatedItems->get($this->currentPage - 1);
+
+        return $paginated;
     }
 
     public function getPageLinks(): array
     {
         $array = [];
+
         $pageRange = range(1, $this->totalPages());
+
         if (isset($this->routeBasename)) {
             foreach ($pageRange as $number) {
                 $array[$number] = Routes::get("$this->routeBasename/page-$number") ?? Hyde::formatLink("$this->routeBasename/page-$number");

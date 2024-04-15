@@ -70,6 +70,7 @@ class MakePageCommandTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('The page type [invalid] is not supported.');
         $this->expectExceptionCode(400);
+
         $this->artisan('make:page "foo test page" --type=invalid')->assertExitCode(400);
     }
 
@@ -92,6 +93,7 @@ class MakePageCommandTest extends TestCase
         $this->artisan('make:page "foo test page" --type="documentation"')->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_docs/foo-test-page.md'));
+
         Filesystem::unlink('_docs/foo-test-page.md');
     }
 
@@ -102,9 +104,10 @@ class MakePageCommandTest extends TestCase
         $this->expectException(FileConflictException::class);
         $this->expectExceptionMessage('File [_pages/foo-test-page.md] already exists.');
         $this->expectExceptionCode(409);
+
         $this->artisan('make:page "foo test page"')->assertExitCode(409);
 
-        $this->assertEquals('This should not be overwritten', file_get_contents($this->markdownPath));
+        $this->assertSame('This should not be overwritten', file_get_contents($this->markdownPath));
     }
 
     public function testCommandOverwritesExistingFilesWhenForceOptionIsUsed()
@@ -152,6 +155,7 @@ class MakePageCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_docs/foo-test-page.md'));
+
         Filesystem::unlink('_docs/foo-test-page.md');
     }
 }

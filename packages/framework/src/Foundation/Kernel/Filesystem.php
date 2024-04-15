@@ -16,7 +16,6 @@ use function str_replace;
 use function array_map;
 use function is_string;
 use function is_array;
-use function collect;
 use function str_starts_with;
 use function unslash;
 use function unlink;
@@ -198,8 +197,9 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function smartGlob(string $pattern, int $flags = 0): Collection
     {
-        return collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
-            ->map(fn (string $path): string => $this->pathToRelative($path))
-            ->values();
+        /** @var \Illuminate\Support\Collection<int, string> $files */
+        $files = collect(\Hyde\Facades\Filesystem::glob($pattern, $flags));
+
+        return $files->map(fn (string $path): string => $this->pathToRelative($path));
     }
 }

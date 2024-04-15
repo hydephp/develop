@@ -44,10 +44,11 @@ class FilesystemFacadeTest extends TestCase
             Hyde::path('baz'),
         ], Hyde::path('pattern/*.md'), 0);
 
-        $this->assertEquals(
-            Collection::make(['foo', 'bar', 'baz']),
-            Filesystem::smartGlob('pattern/*.md')
-        );
+        $expected = Collection::make(['foo', 'bar', 'baz']);
+        $actual = Filesystem::smartGlob('pattern/*.md');
+
+        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected->all(), $actual->all());
     }
 
     public function testTouch()
@@ -55,12 +56,14 @@ class FilesystemFacadeTest extends TestCase
         Filesystem::touch('foo');
 
         $this->assertFileExists(Hyde::path('foo'));
+
         Filesystem::unlink('foo');
     }
 
     public function testUnlink()
     {
         touch(Hyde::path('foo'));
+
         Filesystem::unlink('foo');
 
         $this->assertFileDoesNotExist(Hyde::path('foo'));
@@ -69,6 +72,7 @@ class FilesystemFacadeTest extends TestCase
     public function testUnlinkIfExists()
     {
         touch(Hyde::path('foo'));
+
         Filesystem::unlinkIfExists('foo');
 
         $this->assertFileDoesNotExist(Hyde::path('foo'));
@@ -437,6 +441,7 @@ class FilesystemFacadeTest extends TestCase
     public function testMethodWithMixedSequentialAndNamedArgumentsSkippingMiddleOne()
     {
         Filesystem::makeDirectory('foo', recursive: true);
+
         $this->assertDirectoryExists(Hyde::path('foo'));
 
         rmdir(Hyde::path('foo'));

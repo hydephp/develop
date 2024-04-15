@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Services;
+namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
+use Hyde\Framework\Services\ViewDiffService;
 
 use function Hyde\unixsum;
 use function Hyde\unixsum_file;
@@ -14,12 +14,13 @@ use function Hyde\unixsum_file;
 /**
  * @covers \Hyde\Framework\Services\ViewDiffService
  */
-class ViewDiffServiceTest extends TestCase
+class ViewDiffServiceTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     public function testGetFilecache()
     {
-        $fileCacheService = new ViewDiffService();
-        $fileCache = $fileCacheService->getViewFileHashIndex();
+        $fileCache = ViewDiffService::getViewFileHashIndex();
 
         $this->assertIsArray($fileCache);
         $this->assertArrayHasKey('resources/views/layouts/app.blade.php', $fileCache);
@@ -29,26 +30,21 @@ class ViewDiffServiceTest extends TestCase
 
     public function testGetChecksums()
     {
-        $fileCacheService = new ViewDiffService();
-        $checksums = $fileCacheService->getChecksums();
+        $checksums = ViewDiffService::getChecksums();
 
         $this->assertIsArray($checksums);
-        $this->assertEquals(32, strlen($checksums[0]));
+        $this->assertSame(32, strlen($checksums[0]));
     }
 
     public function testChecksumMatchesAny()
     {
-        $fileCacheService = new ViewDiffService();
-
-        $this->assertTrue($fileCacheService->checksumMatchesAny(
+        $this->assertTrue(ViewDiffService::checksumMatchesAny(
             unixsum_file(Hyde::vendorPath('resources/views/layouts/app.blade.php'))
         ));
     }
 
     public function testChecksumMatchesAnyFalse()
     {
-        $fileCacheService = new ViewDiffService();
-
-        $this->assertFalse($fileCacheService->checksumMatchesAny(unixsum('foo')));
+        $this->assertFalse(ViewDiffService::checksumMatchesAny(unixsum('foo')));
     }
 }

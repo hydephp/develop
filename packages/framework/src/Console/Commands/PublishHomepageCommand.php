@@ -64,8 +64,8 @@ class PublishHomepageCommand extends Command
 
         Artisan::call('vendor:publish', [
             '--tag' => $this->options[$selected]['group'] ?? $selected,
-            '--force' => true, // Todo add force state dynamically depending on existing file state
-        ], ! $tagExists ? $this->output : null);
+            '--force' => true,
+        ], $tagExists ? null : $this->output); // If the tag doesn't exist, we pass the output to use the called command's error output.
 
         if ($tagExists) {
             $this->infoComment("Published page [$selected]");

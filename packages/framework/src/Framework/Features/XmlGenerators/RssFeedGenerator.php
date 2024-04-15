@@ -16,6 +16,9 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 
 use function date;
+use function assert;
+use function sprintf;
+use function implode;
 
 /**
  * @see https://validator.w3.org/feed/docs/rss2.html
@@ -33,8 +36,11 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     protected function constructBaseElement(): void
     {
-        $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>
-            <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />');
+        $this->xmlElement = new SimpleXMLElement(implode("\n", [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" />',
+        ]));
+
         $this->xmlElement->addChild('channel');
 
         $this->addBaseChannelItems();
@@ -44,6 +50,7 @@ class RssFeedGenerator extends BaseXmlGenerator
     protected function addItem(MarkdownPost $post): void
     {
         $item = $this->getChannel()->addChild('item');
+
         $this->addChild($item, 'title', $post->title);
         $this->addChild($item, 'description', $post->description);
 
@@ -71,6 +78,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
+
             $image->addAttribute('url', Hyde::url($post->image->getSource()));
             $image->addAttribute('type', $this->getImageType($post->image));
             $image->addAttribute('length', $this->getImageLength($post->image));
@@ -92,6 +100,7 @@ class RssFeedGenerator extends BaseXmlGenerator
     protected function addAtomLinkItem(): void
     {
         $atomLink = $this->getChannel()->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
+
         $atomLink->addAttribute('href', $this->escape(Hyde::url($this->getFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
@@ -115,11 +124,13 @@ class RssFeedGenerator extends BaseXmlGenerator
 
     public static function getDescription(): string
     {
-        return Config::getString('hyde.rss.description', Site::name().' RSS Feed');
+        return Config::getString('hyde.rss.description', sprintf('%s RSS Feed', Site::name()));
     }
 
     protected function getChannel(): SimpleXMLElement
     {
+        assert($this->xmlElement->channel instanceof SimpleXMLElement);
+
         return $this->xmlElement->channel;
     }
 }

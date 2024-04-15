@@ -59,7 +59,7 @@ use function is_int;
  * @method static bool isWritable(string $path)
  * @method static bool hasSameHash(string $firstFile, string $secondFile)
  * @method static bool isFile(string $file)
- * @method static array glob(string $pattern, int $flags = 0)
+ * @method static array<string> glob(string $pattern, int $flags = 0)
  * @method static SplFileInfo[] files(string $directory, bool $hidden = false)
  * @method static SplFileInfo[] allFiles(string $directory, bool $hidden = false)
  * @method static array directories(string $directory)
@@ -89,10 +89,7 @@ trait ForwardsIlluminateFilesystem
     protected static function qualifyArguments(array $parameterNames, array $arguments): Collection
     {
         return collect($arguments)->mapWithKeys(function (string|array|int|bool $argumentValue, int|string $key) use ($parameterNames): string|array|int|bool {
-            $argumentsToQualify = [
-                'path', 'paths', 'file', 'target', 'directory', 'destination', 'firstFile', 'secondFile',
-                'pattern', 'link', 'from', 'to',
-            ];
+            $argumentsToQualify = ['path', 'paths', 'file', 'target', 'directory', 'destination', 'firstFile', 'secondFile', 'pattern', 'link', 'from', 'to'];
 
             if (is_int($key)) {
                 // If the argument is not named, we'll retrieve it from the reflection data.
