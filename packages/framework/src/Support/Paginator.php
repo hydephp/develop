@@ -71,7 +71,10 @@ class Paginator
 
     public function getItemsForPage(): Collection
     {
-        return $this->paginatedItems->get($this->currentPage - 1);
+        /** @var Collection $paginated */
+        $paginated = $this->paginatedItems->get($this->currentPage - 1);
+
+        return $paginated;
     }
 
     public function getPageLinks(): array
