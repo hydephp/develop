@@ -139,11 +139,7 @@ class BuildSiteCommand extends Command
     {
         $this->info($message.' This may take a second.');
 
-        $output = Process::command(sprintf(
-            '%s%s',
-            app()->environment('testing') ? 'echo ' : '',
-            $command
-        ))->run();
+        $output = Process::command($command)->run();
 
         $this->line($output->output() ?? sprintf(
             '<fg=red>Could not %s! Is NPM installed?</>',

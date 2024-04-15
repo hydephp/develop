@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Support\BuildWarnings;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
 
 /**
  * @covers \Hyde\Console\Commands\BuildSiteCommand
@@ -22,6 +23,8 @@ class StaticSiteServiceTest extends TestCase
         parent::setUp();
 
         $this->resetSite();
+
+        Process::preventStrayProcesses();
     }
 
     protected function tearDown(): void
@@ -128,11 +131,17 @@ class StaticSiteServiceTest extends TestCase
 
     public function testNodeActionOutputs()
     {
+        Process::fake();
+
         $this->artisan('build --run-prettier --run-dev --run-prod')
             ->expectsOutput('Prettifying code! This may take a second.')
             ->expectsOutput('Building frontend assets for development! This may take a second.')
             ->expectsOutput('Building frontend assets for production! This may take a second.')
             ->assertExitCode(0);
+
+        Process::assertRan(fn ($process) => $process->command === 'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line');
+        Process::assertRan(fn ($process) => $process->command === 'npm run dev');
+        Process::assertRan(fn ($process) => $process->command === 'npm run prod');
     }
 
     public function testPrettyUrlsOptionOutput()
