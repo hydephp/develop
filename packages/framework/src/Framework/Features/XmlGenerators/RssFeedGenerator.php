@@ -92,6 +92,7 @@ class RssFeedGenerator extends BaseXmlGenerator
     protected function addAtomLinkItem(): void
     {
         $atomLink = $this->getChannel()->addChild('atom:link', namespace: 'http://www.w3.org/2005/Atom');
+
         $atomLink->addAttribute('href', $this->escape(Hyde::url($this->getFilename())));
         $atomLink->addAttribute('rel', 'self');
         $atomLink->addAttribute('type', 'application/rss+xml');
