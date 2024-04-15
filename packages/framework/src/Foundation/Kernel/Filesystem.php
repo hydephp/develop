@@ -200,7 +200,7 @@ class Filesystem
     {
         return collect(array_map(
             fn (string $path): string => $this->pathToRelative($path),
-            \Hyde\Facades\Filesystem::glob($pattern, $flags)
+            \Hyde\Facades\Filesystem::glob($pattern, $flags) ?? []
         ));
     }
 }
