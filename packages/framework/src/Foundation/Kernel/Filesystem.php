@@ -197,9 +197,9 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function smartGlob(string $pattern, int $flags = 0): Collection
     {
-        /** @var \Illuminate\Support\Collection<int, string> $collection */
-        $collection = collect(\Hyde\Facades\Filesystem::glob($pattern, $flags));
+        /** @var \Illuminate\Support\Collection<int, string> $files */
+        $files = collect(\Hyde\Facades\Filesystem::glob($pattern, $flags));
 
-        return $collection->map(fn (string $path): string => $this->pathToRelative($path));
+        return $files->map(fn (string $path): string => $this->pathToRelative($path));
     }
 }
