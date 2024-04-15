@@ -34,6 +34,7 @@
       <excludeFolder url="file://$MODULE_DIR$/app/storage/framework" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/path-util" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/openlss/lib-array2xml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vimeo/psalm" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/uri-template" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brianium/paratest" />
