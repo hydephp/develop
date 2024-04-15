@@ -34,7 +34,10 @@ class NavigationMenu
     {
         $this->items = new Collection();
 
-        $this->add(evaluate_arrayable($items));
+        /** @var array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> $items */
+        $items = evaluate_arrayable($items);
+
+        $this->add($items);
     }
 
     /**
