@@ -46,6 +46,7 @@ class RssFeedGenerator extends BaseXmlGenerator
     protected function addItem(MarkdownPost $post): void
     {
         $item = $this->getChannel()->addChild('item');
+
         $this->addChild($item, 'title', $post->title);
         $this->addChild($item, 'description', $post->description);
 
@@ -73,6 +74,7 @@ class RssFeedGenerator extends BaseXmlGenerator
 
         if (isset($post->image)) {
             $image = $item->addChild('enclosure');
+
             $image->addAttribute('url', Hyde::url($post->image->getSource()));
             $image->addAttribute('type', $this->getImageType($post->image));
             $image->addAttribute('length', $this->getImageLength($post->image));
