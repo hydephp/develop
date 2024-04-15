@@ -26,7 +26,7 @@ class NavigationMenu
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
     protected Collection $items;
 
-    /** @param  \Illuminate\Contracts\Support\Arrayable<array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>>|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>  $items */
+    /** @param  \Illuminate\Contracts\Support\Arrayable<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>  $items */
     public function __construct(Arrayable|array $items = [])
     {
         $this->items = new Collection();
