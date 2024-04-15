@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use TypeError;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
@@ -98,6 +99,14 @@ class RenderHelperTest extends TestCase
         $this->expectExceptionMessage("Property 'foo' does not exist on Hyde\Support\Models\Render");
 
         Render::share('foo', 'bar');
+    }
+
+    public function testShareInvalidType()
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Cannot assign string to property Hyde\Support\Models\RenderData::$route of type Hyde\Support\Models\Route');
+
+        Render::share('route', 'bar');
     }
 
     public function testShareCascadesDataToView()
