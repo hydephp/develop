@@ -19,10 +19,7 @@ class DocumentationSidebar extends NavigationMenu
      */
     public static function get(): static
     {
-        /** @var self::class $menu */
-        $menu = app('navigation.sidebar');
-
-        return $menu;
+        return app('navigation.sidebar');
     }
 
     public function __construct(Arrayable|array $items = [])

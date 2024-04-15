@@ -10,9 +10,6 @@ class MainNavigationMenu extends NavigationMenu
 {
     public static function get(): static
     {
-        /** @var self::class $menu */
-        $menu = app('navigation.main');
-
-        return $menu;
+        return app('navigation.main');
     }
 }
