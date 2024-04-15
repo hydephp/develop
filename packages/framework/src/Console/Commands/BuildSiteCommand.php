@@ -10,11 +10,11 @@ use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
+use Illuminate\Support\Facades\Process;
 
 use function memory_get_peak_usage;
 use function number_format;
 use function array_search;
-use function shell_exec;
 use function microtime;
 use function sprintf;
 use function app;
@@ -139,13 +139,13 @@ class BuildSiteCommand extends Command
     {
         $this->info($message.' This may take a second.');
 
-        $output = shell_exec(sprintf(
+        $output = Process::command(sprintf(
             '%s%s',
             app()->environment('testing') ? 'echo ' : '',
             $command
-        ));
+        ))->run();
 
-        $this->line($output ?? sprintf(
+        $this->line($output->output() ?? sprintf(
             '<fg=red>Could not %s! Is NPM installed?</>',
             $actionMessage ?? 'run script'
         ));
