@@ -18,8 +18,7 @@ class ViewDiffServiceTest extends TestCase
 {
     public function testGetFilecache()
     {
-        $fileCacheService = new ViewDiffService();
-        $fileCache = $fileCacheService->getViewFileHashIndex();
+        $fileCache = ViewDiffService::getViewFileHashIndex();
 
         $this->assertIsArray($fileCache);
         $this->assertArrayHasKey('resources/views/layouts/app.blade.php', $fileCache);
@@ -29,8 +28,7 @@ class ViewDiffServiceTest extends TestCase
 
     public function testGetChecksums()
     {
-        $fileCacheService = new ViewDiffService();
-        $checksums = $fileCacheService->getChecksums();
+        $checksums = ViewDiffService::getChecksums();
 
         $this->assertIsArray($checksums);
         $this->assertEquals(32, strlen($checksums[0]));
@@ -38,17 +36,13 @@ class ViewDiffServiceTest extends TestCase
 
     public function testChecksumMatchesAny()
     {
-        $fileCacheService = new ViewDiffService();
-
-        $this->assertTrue($fileCacheService->checksumMatchesAny(
+        $this->assertTrue(ViewDiffService::checksumMatchesAny(
             unixsum_file(Hyde::vendorPath('resources/views/layouts/app.blade.php'))
         ));
     }
 
     public function testChecksumMatchesAnyFalse()
     {
-        $fileCacheService = new ViewDiffService();
-
-        $this->assertFalse($fileCacheService->checksumMatchesAny(unixsum('foo')));
+        $this->assertFalse(ViewDiffService::checksumMatchesAny(unixsum('foo')));
     }
 }
