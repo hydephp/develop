@@ -201,6 +201,7 @@ class NavigationMenuGenerator
         return $this->getConfigArray($key)[$groupKey] ?? null;
     }
 
+    /** @return array<string|int, string|int> */
     protected function getConfigArray(string $key): array
     {
         /** @var array<string|int, string|int> $array */
