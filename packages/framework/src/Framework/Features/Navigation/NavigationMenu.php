@@ -23,7 +23,11 @@ class NavigationMenu
     public const DEFAULT = 500;
     public const LAST = 999;
 
-    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
+    /**
+     * @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>
+     * @template T of NavigationItem|NavigationGroup
+     * @template TValue of T
+     */
     protected Collection $items;
 
     public function __construct(Arrayable|array $items = [])
