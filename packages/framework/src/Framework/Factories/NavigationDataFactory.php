@@ -120,7 +120,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ?? $this->invert($this->getMatter('navigation.visible'));
     }
 
-    private function isPageHiddenInNavigationConfiguration(): ?bool
+    private function isPageHiddenInNavigationConfiguration(): bool
     {
         return in_array($this->routeKey, Config::getArray('hyde.navigation.exclude', ['404']));
     }
