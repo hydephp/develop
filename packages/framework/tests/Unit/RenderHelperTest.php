@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
 use TypeError;
-use InvalidArgumentException;
 use Hyde\Pages\MarkdownPage;
+use Illuminate\View\Factory;
+use InvalidArgumentException;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\View;
-use Illuminate\View\Factory;
 
 /**
  * @covers \Hyde\Support\Models\RenderData
