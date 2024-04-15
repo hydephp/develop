@@ -14,6 +14,8 @@ use Hyde\Support\ReadingTime;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Markdown\Models\MarkdownDocument;
 
+use function Hyde\normalize_slashes;
+
 if (php_sapi_name() !== 'cli') {
     // Run the file and proxy the dashboard page for a live browser preview
     exec('php '.realpath(__FILE__).' 2>&1', $output, $returnCode);
@@ -70,7 +72,7 @@ Command::main(function () {
     ));
 
     $this->line();
-    $this->line('Dashboard page generated at file:///'.\Hyde\normalize_slashes(realpath(OUTPUT_PATH.'/dashboard.html')));
+    $this->line(sprintf('Dashboard page generated at file:///%s', normalize_slashes(realpath(OUTPUT_PATH.'/dashboard.html'))));
 
     $this->line();
     $this->info(sprintf('Time taken: %s. Memory used: %s',
