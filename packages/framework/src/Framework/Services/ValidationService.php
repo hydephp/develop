@@ -39,7 +39,10 @@ class ValidationService
 
     public function run(string $check): Result
     {
-        return $this->{$check}(new Result);
+        $result = new Result;
+        $this->{$check}($result);
+
+        return $result;
     }
 
     public function check_validators_can_run(Result $result): Result
