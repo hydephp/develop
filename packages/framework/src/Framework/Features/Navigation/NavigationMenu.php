@@ -56,6 +56,7 @@ class NavigationMenu
      */
     public function add(NavigationItem|NavigationGroup|array $items): static
     {
+        /** @var \Hyde\Framework\Features\Navigation\NavigationItem $item */
         foreach (Arr::wrap($items) as $item) {
             $this->addItem($item);
         }
