@@ -31,7 +31,7 @@ class ViewDiffServiceTest extends TestCase
         $checksums = ViewDiffService::getChecksums();
 
         $this->assertIsArray($checksums);
-        $this->assertEquals(32, strlen($checksums[0]));
+        $this->assertSame(32, strlen($checksums[0]));
     }
 
     public function testChecksumMatchesAny()
