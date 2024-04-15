@@ -3,10 +3,12 @@
   <component name="PHPUnit">
     <option name="directories">
       <list>
-        <option value="$PROJECT_DIR$/packages/hyde/tests/Feature" />
-        <option value="$PROJECT_DIR$/packages/framework/tests/Feature" />
+        <option value="$PROJECT_DIR$/packages/hyde/tests" />
         <option value="$PROJECT_DIR$/packages/framework/tests/Unit" />
+        <option value="$PROJECT_DIR$/packages/framework/tests/Feature" />
+        <option value="$PROJECT_DIR$/packages/publications/tests" />
         <option value="$PROJECT_DIR$/packages/realtime-compiler/tests" />
+        <option value="$PROJECT_DIR$/packages/hyde/tests/Feature" />
         <option value="$PROJECT_DIR$/tests" />
       </list>
     </option>
