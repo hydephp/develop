@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services;
 
-use Hyde\Framework\Services\ViewDiffService;
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
+use Hyde\Framework\Services\ViewDiffService;
 
 use function Hyde\unixsum;
 use function Hyde\unixsum_file;
@@ -14,8 +14,10 @@ use function Hyde\unixsum_file;
 /**
  * @covers \Hyde\Framework\Services\ViewDiffService
  */
-class ViewDiffServiceTest extends TestCase
+class ViewDiffServiceTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     public function testGetFilecache()
     {
         $fileCache = ViewDiffService::getViewFileHashIndex();
