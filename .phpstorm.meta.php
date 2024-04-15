@@ -5,4 +5,7 @@ namespace PHPSTORM_META {
         'navigation.main' => \Hyde\Framework\Features\Navigation\MainNavigationMenu::class,
         'navigation.sidebar' => \Hyde\Framework\Features\Navigation\DocumentationSidebar::class,
     ]));
+    override((new \Illuminate\Contracts\Container\Container())->make(0), map([
+        \Hyde\Foundation\HydeKernel::class => \Hyde\Foundation\HydeKernel::class,
+    ]));
 }
