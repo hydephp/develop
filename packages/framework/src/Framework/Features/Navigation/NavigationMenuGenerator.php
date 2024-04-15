@@ -23,7 +23,7 @@ use function strtolower;
  */
 class NavigationMenuGenerator
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavigationItem> */
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
     protected Collection $items;
 
     /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
