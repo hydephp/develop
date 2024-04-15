@@ -199,8 +199,7 @@ class Filesystem
     {
         /** @var \Illuminate\Support\Collection<int, string> $collection */
         $collection = collect(\Hyde\Facades\Filesystem::glob($pattern, $flags))
-            ->map(fn (string $path): string => $this->pathToRelative($path))
-            ->values();
+            ->map(fn (string $path): string => $this->pathToRelative($path));
 
         return $collection;
     }
