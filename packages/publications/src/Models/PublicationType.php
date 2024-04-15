@@ -134,6 +134,7 @@ class PublicationType implements SerializableContract
         return $array;
     }
 
+    /** @param  int  $options */
     public function toJson($options = JSON_PRETTY_PRINT): string
     {
         return json_encode($this->toArray(), $options);
