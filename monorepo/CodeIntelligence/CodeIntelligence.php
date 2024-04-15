@@ -70,7 +70,7 @@ Command::main(function () {
     ));
 
     $this->line();
-    $this->line('Dashboard page generated at '.OUTPUT_PATH.'/dashboard.html');
+    $this->line('Dashboard page generated at file:///'.\Hyde\normalize_slashes(realpath(OUTPUT_PATH.'/dashboard.html')));
 
     $this->line();
     $this->info(sprintf('Time taken: %s. Memory used: %s',
