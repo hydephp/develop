@@ -104,7 +104,7 @@ class RenderHelperTest extends TestCase
     public function testShareInvalidType()
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage('Cannot assign array to property Hyde\Support\Models\RenderData::$route of type Hyde\Support\Models\Route');
+        $this->expectExceptionMessage('Hyde\Support\Models\RenderData::share(): Argument #2 ($value) must be of type Hyde\Pages\Concerns\HydePage|Hyde\Support\Models\Route|string, array given');
 
         Render::share('route', ['foo']);
     }
