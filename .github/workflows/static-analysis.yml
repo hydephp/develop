@@ -20,6 +20,9 @@ jobs:
         id: analysis
         run: vendor/bin/psalm > psalmout.txt || exit 0
 
+      - name: Print Psalm output
+        run: cat psalmout.txt
+
         # Send the reports to the CI server to calculate type coverage and send back commit status checks
       - name: Ping CI server with type coverage results
         if: github.event.repository.full_name == 'hydephp/develop'
