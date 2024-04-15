@@ -182,7 +182,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         return $this->parseNavigationPriorityConfig($config, 'routeKey');
     }
 
-    /** @param array<string, int>|array<string> $config */
+    /**
+     * @param  array<string, int>|array<string>  $config
+     * @param  'routeKey'|'identifier'  $pageKeyName
+     */
     private function parseNavigationPriorityConfig(array $config, string $pageKeyName): ?int
     {
         $pageKey = $this->{$pageKeyName};
