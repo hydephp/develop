@@ -90,6 +90,7 @@
       <data directive="@props" injection="true" prefix="&lt;?php $attributes = $attributes-&gt;exceptProps(" suffix="); ?&gt;" />
       <data directive="@push" injection="true" prefix="&lt;?php $__env-&gt;startPush(" suffix="); ?&gt;" />
       <data directive="@pushonce" injection="true" prefix="&lt;?php $__php_storm_push_once_params = [" suffix="]; if (!$__env-&gt;hasRenderedOnce($__php_storm_push_once_params[1])): $__env-&gt;markAsRenderedOnce($__php_storm_push_once_params[1]); $__env-&gt;startPush($__php_storm_push_once_params[0]); ?&gt;" />
+      <data directive="@ray" injection="true" prefix="&lt;?php ray(" suffix="); ?&gt;" />
       <data directive="@section" injection="true" prefix="&lt;?php $__env-&gt;startSection(" suffix="); ?&gt;" />
       <data directive="@sectionMissing" injection="true" prefix="&lt;?php if (empty(trim($__env-&gt;yieldContent(" suffix=")))): ?&gt;" />
       <data directive="@selected" injection="true" prefix="&lt;?php if(" suffix=") {echo 'selected';}?&gt;" />
