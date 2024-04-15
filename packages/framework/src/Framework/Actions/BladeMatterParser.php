@@ -157,7 +157,7 @@ class BladeMatterParser
         }
 
         // Check if string is multidimensional (not yet supported)
-        if (substr_count($string, '[') > 1 || substr_count($string, ']') > 1) {
+        if ((substr_count($string, '[') > 1) || (substr_count($string, ']') > 1)) {
             throw new RuntimeException('Failed parsing BladeMatter array. Multidimensional arrays are not supported yet.');
         }
 
