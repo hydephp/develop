@@ -20,10 +20,7 @@ use function Hyde\evaluate_arrayable;
  */
 class NavigationMenu
 {
-    /** @var int The default priority for navigation items. */
     public const DEFAULT = 500;
-
-    /** @var int Place the item last in the menu. */
     public const LAST = 999;
 
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
