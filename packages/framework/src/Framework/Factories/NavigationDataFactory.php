@@ -246,6 +246,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function getMatter(string $key): string|null|int|bool
     {
-        return $this->matter->get($key);
+        /** @var string|null|int|bool $value */
+        $value = $this->matter->get($key);
+
+        return $value;
     }
 }
