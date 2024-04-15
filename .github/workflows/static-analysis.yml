@@ -24,3 +24,16 @@ jobs:
       - name: Ping CI server with type coverage results
         if: github.event.repository.full_name == 'hydephp/develop'
         run: php monorepo/scripts/ping-ci-server-with-type-coverage.php ${{ secrets.CI_SERVER_TOKEN }} ${{ github.event.pull_request.head.sha }} ${{ github.head_ref }} ${{ github.run_id }}
+
+  type-coverage:
+    name: Check Type Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run Pest Type Coverage
+        run: ./vendor/bin/pest --type-coverage
