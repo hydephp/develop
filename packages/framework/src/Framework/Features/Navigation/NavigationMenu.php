@@ -23,10 +23,10 @@ class NavigationMenu
     public const DEFAULT = 500;
     public const LAST = 999;
 
-    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
+    /** @var \Illuminate\Support\Collection<array-key, \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
     protected Collection $items;
 
-    /** @param  \Illuminate\Contracts\Support\Arrayable<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>  $items */
+    /** @param  \Illuminate\Contracts\Support\Arrayable<array-key, \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>  $items */
     public function __construct(Arrayable|array $items = [])
     {
         $this->items = new Collection();
@@ -42,7 +42,7 @@ class NavigationMenu
      *
      * Items are automatically sorted by their priority, falling back to the order they were added.
      *
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>
+     * @return \Illuminate\Support\Collection<array-key, \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>
      */
     public function getItems(): Collection
     {
