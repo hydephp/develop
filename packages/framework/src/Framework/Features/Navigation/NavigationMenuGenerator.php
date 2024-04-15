@@ -191,13 +191,18 @@ class NavigationMenuGenerator
     {
         $key = $this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels';
 
-        return Config::getArray($key, [])[$groupKey] ?? null;
+        return $this->getConfigArray($key, $groupKey);
     }
 
     protected function searchForGroupPriorityInConfig(string $groupKey): ?int
     {
         $key = $this->generatesSidebar ? 'docs.sidebar.order' : 'hyde.navigation.order';
 
+        return $this->getConfigArray($key, $groupKey);
+    }
+
+    protected function getConfigArray(string $key, string $groupKey): mixed
+    {
         return Config::getArray($key, [])[$groupKey] ?? null;
     }
 }
