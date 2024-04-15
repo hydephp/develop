@@ -65,7 +65,7 @@ class PublishHomepageCommand extends Command
         Artisan::call('vendor:publish', [
             '--tag' => $this->options[$selected]['group'] ?? $selected,
             '--force' => true,
-        ], ! $tagExists ? $this->output : null);
+        ], $tagExists ? null : $this->output);
 
         if ($tagExists) {
             $this->infoComment("Published page [$selected]");
