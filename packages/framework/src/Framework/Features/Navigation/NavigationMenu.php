@@ -17,20 +17,26 @@ use function Hyde\evaluate_arrayable;
  *
  * @example `$menu = app('navigation.main');` for the main navigation menu.
  * @example `$menu = app('navigation.sidebar');` for the documentation sidebar.
+ *
+ * @template T of NavigationItem|NavigationGroup
  */
 class NavigationMenu
 {
     public const DEFAULT = 500;
     public const LAST = 999;
 
-    /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
+    /** @var \Illuminate\Support\Collection<array-key, T> */
     protected Collection $items;
 
+    /** @param  \Illuminate\Contracts\Support\Arrayable<array-key, T>|array<T>  $items */
     public function __construct(Arrayable|array $items = [])
     {
         $this->items = new Collection();
 
-        $this->add(evaluate_arrayable($items));
+        /** @var array<T> $items */
+        $items = evaluate_arrayable($items);
+
+        $this->add($items);
     }
 
     /**
@@ -38,7 +44,7 @@ class NavigationMenu
      *
      * Items are automatically sorted by their priority, falling back to the order they were added.
      *
-     * @return \Illuminate\Support\Collection<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>
+     * @return \Illuminate\Support\Collection<array-key, T>
      */
     public function getItems(): Collection
     {
@@ -52,10 +58,11 @@ class NavigationMenu
     /**
      * Add one or more navigation items to the navigation menu.
      *
-     * @param  \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup|array<\Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup>  $items
+     * @param  T|array<T>  $items
      */
     public function add(NavigationItem|NavigationGroup|array $items): static
     {
+        /** @var T $item */
         foreach (Arr::wrap($items) as $item) {
             $this->addItem($item);
         }

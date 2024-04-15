@@ -23,7 +23,7 @@ use function strtolower;
  */
 class NavigationMenuGenerator
 {
-    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavigationItem> */
+    /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
     protected Collection $items;
 
     /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
@@ -189,15 +189,20 @@ class NavigationMenuGenerator
 
     protected function searchForGroupLabelInConfig(string $groupKey): ?string
     {
-        $key = $this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels';
-
-        return Config::getArray($key, [])[$groupKey] ?? null;
+        return $this->getConfigArray($this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels')[$groupKey] ?? null;
     }
 
     protected function searchForGroupPriorityInConfig(string $groupKey): ?int
     {
-        $key = $this->generatesSidebar ? 'docs.sidebar.order' : 'hyde.navigation.order';
+        return $this->getConfigArray($this->generatesSidebar ? 'docs.sidebar.order' : 'hyde.navigation.order')[$groupKey] ?? null;
+    }
 
-        return Config::getArray($key, [])[$groupKey] ?? null;
+    /** @return array<string|int, string|int> */
+    protected function getConfigArray(string $key): array
+    {
+        /** @var array<string|int, string|int> $array */
+        $array = Config::getArray($key, []);
+
+        return $array;
     }
 }

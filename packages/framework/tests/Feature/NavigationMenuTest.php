@@ -199,6 +199,7 @@ class NavigationMenuTest extends TestCase
         $this->file('_pages/foo/bar.md');
 
         $menu = $this->createNavigationMenu();
+
         $expected = collect([NavigationItem::create(Routes::get('index'))]);
 
         $this->assertCount(count($expected), $menu->getItems());
@@ -212,6 +213,7 @@ class NavigationMenuTest extends TestCase
         $this->file('_pages/foo/bar.md');
 
         $menu = $this->createNavigationMenu();
+
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
             NavigationItem::create(Routes::get('foo/bar')),
@@ -228,6 +230,7 @@ class NavigationMenuTest extends TestCase
         $this->file('_pages/foo/bar.md');
 
         $menu = $this->createNavigationMenu();
+
         $expected = collect([
             NavigationItem::create(Routes::get('index')),
             NavigationGroup::create('Foo', [
@@ -245,6 +248,7 @@ class NavigationMenuTest extends TestCase
 
         Routes::push((new MarkdownPage('foo'))->getRoute());
         Routes::push((new MarkdownPage('bar/baz'))->getRoute());
+
         $menu = $this->createNavigationMenu();
 
         $this->assertCount(3, $menu->getItems());

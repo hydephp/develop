@@ -44,7 +44,7 @@ class NavigationGroup extends NavigationMenu
     {
         if ($this->containsOnlyDocumentationPages()) {
             // For sidebar groups, we use the priority of the lowest priority child, unless the dropdown instance itself has a lower priority.
-            return min($this->priority, $this->getItems()->min(fn (NavigationItem $item): int => $item->getPriority()));
+            return (int) min($this->priority, $this->getItems()->min(fn (NavigationItem $item): int => $item->getPriority()));
         }
 
         return $this->priority;

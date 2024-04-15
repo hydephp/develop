@@ -1327,11 +1327,6 @@ class AssertableNavigationMenu
         return $this->state()[$index] ?? null;
     }
 
-    public function ddState(): void
-    {
-        dd($this->state());
-    }
-
     /**
      * @param  array  $expected  The expected state format
      * @param  bool  $strict  If false, missing array keys are ignored
