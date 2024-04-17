@@ -22,7 +22,7 @@ This serves two purposes:
 - Updated the debug command to print the binary path when running in a standalone Phar in https://github.com/hydephp/develop/pull/1667
 
 ### Deprecated
-- Deprecated the static `Features` flag methods used in the configuration files in https://github.com/hydephp/develop/pull/1650 and will be removed in HydePHP v2.0
+- Deprecated the static `Features` flag methods used in the configuration files in https://github.com/hydephp/develop/pull/1650 which will be removed in HydePHP v2.0
 
 ### Removed
 - for now removed features.
