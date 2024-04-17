@@ -48,6 +48,10 @@ Please see the "Breaking changes & upgrade guide" section below for more informa
 
 Please read through this section to ensure your site upgrades smoothly.
 
+## Before you start
+
+Before you start, please upgrade your application to at least HydePHP v1.6 as that version contains helpers to make the upgrade process easier.
+
 ## High impact
 
 ### Navigation system rewrite
