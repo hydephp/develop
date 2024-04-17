@@ -36,7 +36,7 @@ No description provided.
 
 ```php
 // torchlight! {"lineNumbers": false}
-Hyde::hasFeature(string $feature): bool
+Hyde::hasFeature(Hyde\Enums\Feature $feature): bool
 ```
 
 #### `toArray()`
