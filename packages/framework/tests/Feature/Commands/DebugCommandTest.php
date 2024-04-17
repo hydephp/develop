@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Mockery;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\PharSupport;
+use Illuminate\Console\OutputStyle;
+use Hyde\Console\Commands\DebugCommand;
 
 /**
  * @covers \Hyde\Console\Commands\DebugCommand
@@ -45,5 +49,34 @@ class DebugCommandTest extends TestCase
             ->expectsOutputToContain('(vendor)')
             ->expectsOutputToContain('(real)')
             ->assertExitCode(0);
+    }
+
+    public function testItPrintsPharDebugInformation()
+    {
+        PharSupport::mock('running', true);
+
+        $wasCalled = false;
+
+        $output = Mockery::mock(OutputStyle::class, [
+            'writeln' => null,
+            'newLine' => null,
+            'isVerbose' => false,
+        ])->makePartial();
+
+        $output->shouldReceive('writeln')->withArgs(function ($message) use (&$wasCalled) {
+            if (str_contains($message, 'Application binary path:')) {
+                $wasCalled = true;
+            }
+
+            return true;
+        });
+
+        $command = new DebugCommand();
+        $command->setOutput($output);
+        $command->handle();
+
+        $this->assertTrue($wasCalled, 'Expected "Application binary path" to be called');
+
+        PharSupport::clearMocks();
     }
 }
