@@ -9,11 +9,10 @@ use Hyde\Support\Models\Route;
 use Hyde\Console\Concerns\Command;
 use Hyde\Support\Internal\RouteListItem;
 
-use function ucwords;
 use function array_map;
 use function array_keys;
-use function str_replace;
 use function array_values;
+use function Hyde\make_title;
 
 /**
  * Display the list of site routes.
@@ -45,7 +44,7 @@ class RouteListCommand extends Command
     protected function makeHeader(array $routes): array
     {
         return array_map(function (string $key): string {
-            return ucwords(str_replace('_', ' ', $key));
+            return make_title($key);
         }, array_keys($routes[0]));
     }
 }
