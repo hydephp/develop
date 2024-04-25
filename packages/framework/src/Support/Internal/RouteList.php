@@ -6,9 +6,7 @@ namespace Hyde\Support\Internal;
 
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
-use Illuminate\Contracts\Support\Arrayable;
 
-use function collect;
 use function ucwords;
 use function array_map;
 use function array_keys;
@@ -17,7 +15,7 @@ use function str_replace;
 /**
  * @internal This class is internal and should not be depended on outside the HydePHP framework code.
  */
-class RouteList implements Arrayable
+class RouteList
 {
     /** @var array<integer, array<string, string>> */
     protected array $routes;
@@ -27,7 +25,7 @@ class RouteList implements Arrayable
         $this->routes = $this->generate();
     }
 
-    public function toArray(): array
+    public function body(): array
     {
         return $this->routes;
     }
