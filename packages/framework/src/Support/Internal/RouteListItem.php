@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Hyde\Console\Concerns\Command;
-use Illuminate\Contracts\Support\Arrayable;
 
 use function sprintf;
 use function file_exists;
@@ -18,7 +17,7 @@ use function str_starts_with;
 /**
  * @internal This class is internal and should not be depended on outside the HydePHP framework code.
  */
-class RouteListItem implements Arrayable
+class RouteListItem
 {
     protected Route $route;
 
@@ -27,7 +26,7 @@ class RouteListItem implements Arrayable
         $this->route = $route;
     }
 
-    public function toArray(): array
+    public function getColumns(): array
     {
         return [
             'page_type' => $this->stylePageType($this->route->getPageClass()),

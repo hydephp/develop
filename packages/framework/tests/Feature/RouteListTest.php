@@ -51,7 +51,7 @@ class RouteListTest extends TestCase
                 'output_file' => '_site/index.html',
                 'route_key' => 'index',
             ],
-        ], (new RouteList())->toArray());
+        ], (new RouteList())->rows());
     }
 
     public function testHeaders()
@@ -61,7 +61,7 @@ class RouteListTest extends TestCase
             'Source File',
             'Output File',
             'Route Key',
-        ], (new RouteList())->headers());
+        ], (new RouteList())->header());
     }
 
     public function testWithDynamicPages()
@@ -77,6 +77,6 @@ class RouteListTest extends TestCase
                 'output_file' => '_site/foo.html',
                 'route_key' => 'foo',
             ],
-        ], (new RouteList())->toArray());
+        ], (new RouteList())->rows());
     }
 }

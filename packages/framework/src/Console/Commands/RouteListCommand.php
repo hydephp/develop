@@ -22,7 +22,7 @@ class RouteListCommand extends Command
     {
         $routes = new RouteList();
 
-        $this->table($routes->headers(), $routes->body());
+        $this->table($routes->header(), $routes->rows());
 
         return Command::SUCCESS;
     }

@@ -25,12 +25,12 @@ class RouteList
         $this->routes = $this->generate();
     }
 
-    public function body(): array
+    public function rows(): array
     {
         return $this->routes;
     }
 
-    public function headers(): array
+    public function header(): array
     {
         return array_map(function (string $key): string {
             return ucwords(str_replace('_', ' ', $key));
@@ -40,7 +40,7 @@ class RouteList
     protected function generate(): array
     {
         return array_map(function (Route $route): array {
-            return (new RouteListItem($route))->toArray();
+            return (new RouteListItem($route))->getColumns();
         }, array_values(Hyde::routes()->all()));
     }
 }
