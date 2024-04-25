@@ -30,9 +30,9 @@ class RouteListCommand extends Command
     {
         $routes = $this->generate();
 
-        [$header, $rows] = ([$this->header($routes), $routes]);
+        $header = $this->header($routes);
 
-        $this->table($header, $rows);
+        $this->table($header, $routes);
 
         return Command::SUCCESS;
     }
