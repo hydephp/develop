@@ -44,6 +44,7 @@ class RouteListItem
         $type = $this->getPageType($class);
 
         $page = $this->route->getPage();
+
         /** @experimental The typeLabel macro is experimental */
         if ($page instanceof InMemoryPage && $page->hasMacro('typeLabel')) {
             $type .= sprintf(' <fg=gray>(%s)</>', (string) $page->__call('typeLabel', []));
