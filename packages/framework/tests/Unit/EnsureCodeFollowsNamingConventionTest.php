@@ -54,7 +54,7 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
             }
 
             $instance = new $class(...$params);
-            $description = $reflection->getProperty('description')->getValue($instance);
+            $description = $instance->getDescription();
 
             $this->assertIsString($description);
             $this->assertNotEmpty($description);
