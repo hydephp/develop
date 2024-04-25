@@ -12,11 +12,11 @@ jobs:
   dusk-browser-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -47,27 +47,27 @@ jobs:
 
       - name: Upload Screenshots
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: screenshots
           path: tests/Browser/screenshots
 
       - name: Upload Compiled Source
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: dusk-source
           path: tests/Browser/source
 
       - name: Upload Console Logs
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: dusk-console
           path: tests/Browser/console
 
       - name: Upload app.css
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: 'app.css'
           path: '_media/app.css'
@@ -80,13 +80,13 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'run-visual-tests') || github.event_name == 'push'
     steps:
       - name: Download Dusk generated pages
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: dusk-source
           path: _site
 
       - name: Download app.css
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: app.css
           path: _site/media
