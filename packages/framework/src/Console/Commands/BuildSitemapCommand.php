@@ -16,7 +16,7 @@ class BuildSitemapCommand extends Command
     protected $signature = 'build:sitemap';
 
     /** @var string */
-    protected $description = 'Generate the sitemap.xml';
+    protected $description = 'Generate the sitemap.xml file';
 
     public function handle(): int
     {
