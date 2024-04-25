@@ -35,9 +35,7 @@ class RouteListCommand extends Command
 
     protected function generate(): array
     {
-        return array_map(function (Route $route): array {
-            return RouteListItem::format($route);
-        }, array_values(Hyde::routes()->all()));
+        return array_map(RouteListItem::class.'::format', array_values(Hyde::routes()->all()));
     }
 
     protected function makeHeader(array $routes): array
