@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Hyde\Console\Concerns\Command;
-use Hyde\Support\Internal\RouteList;
+use Hyde\Support\Internal\RouteListItem;
+
+use function ucwords;
+use function array_map;
+use function array_keys;
+use function str_replace;
+use function array_values;
 
 /**
  * Display the list of site routes.
@@ -29,8 +37,22 @@ class RouteListCommand extends Command
 
     protected function extracted(): array
     {
-        $routes = new RouteList();
+        $routes = $this->generate();
 
-        return [$routes->header(), $routes->rows()];
+        return [$this->header($routes), $routes];
+    }
+
+    protected function header(array $routes): array
+    {
+        return array_map(function (string $key): string {
+            return ucwords(str_replace('_', ' ', $key));
+        }, array_keys($routes[0]));
+    }
+
+    protected function generate(): array
+    {
+        return array_map(function (Route $route): array {
+            return (new RouteListItem($route))->getColumns();
+        }, array_values(Hyde::routes()->all()));
     }
 }
