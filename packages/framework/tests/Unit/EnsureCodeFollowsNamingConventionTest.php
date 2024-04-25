@@ -58,6 +58,26 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 
             $this->assertIsString($description);
             $this->assertNotEmpty($description);
+
+            $this->assertTrue($description[0] === strtoupper($description[0]),
+                "Command class $class description does not start with an uppercase letter.\n ".realpath($filepath)
+            );
+
+            $this->assertTrue($description[strlen($description) - 1] !== '.' && $description[strlen($description) - 1] !== '!' && $description[strlen($description) - 1] !== '?',
+                "Command class $class description ends with a period or another punctuation mark.\n ".realpath($filepath)
+            );
+
+            $this->assertSame($description, trim($description),
+                'Command class '.$class.' description has leading or trailing whitespace.'
+            );
+
+            $this->assertStringNotContainsString('  ', $description,
+                'Command class '.$class.' description has multiple consecutive spaces.'
+            );
+
+            $this->assertStringNotContainsString("\n", $description,
+                'Command class '.$class.' description has a newline character.'
+            );
         }
     }
 
