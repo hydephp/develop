@@ -22,6 +22,11 @@ class RouteListItem
 {
     protected Route $route;
 
+    public static function format(Route $route): array
+    {
+        return (new static($route))->getColumns();
+    }
+
     public function __construct(Route $route)
     {
         $this->route = $route;
