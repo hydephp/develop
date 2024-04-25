@@ -9,6 +9,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Hyde\Console\Concerns\Command;
 
+use function filled;
 use function sprintf;
 use function file_exists;
 use function class_basename;
@@ -94,6 +95,6 @@ class RouteListItem
 
     protected function isPageDiscoverable(): bool
     {
-        return $this->route->getSourcePath() && ! $this->route->getPage() instanceof InMemoryPage;
+        return filled($this->route->getSourcePath()) && ! $this->route->getPage() instanceof InMemoryPage;
     }
 }
