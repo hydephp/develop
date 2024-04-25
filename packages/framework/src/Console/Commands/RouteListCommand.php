@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
-use Hyde\Support\Models\Route;
 use Hyde\Console\Concerns\Command;
 use Hyde\Support\Internal\RouteListItem;
 
