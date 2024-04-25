@@ -27,12 +27,12 @@ class RouteListItem
         return (new static($route))->getColumns();
     }
 
-    public function __construct(Route $route)
+    protected function __construct(Route $route)
     {
         $this->route = $route;
     }
 
-    public function getColumns(): array
+    protected function getColumns(): array
     {
         return [
             'page_type' => $this->stylePageType($this->route->getPageClass()),
