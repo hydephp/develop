@@ -30,12 +30,12 @@ class RouteListCommand extends Command
     {
         $routes = $this->generate();
 
-        $this->table($this->header($routes), $routes);
+        $this->table($this->makeHeader($routes), $routes);
 
         return Command::SUCCESS;
     }
 
-    protected function header(array $routes): array
+    protected function makeHeader(array $routes): array
     {
         return array_map(function (string $key): string {
             return ucwords(str_replace('_', ' ', $key));
