@@ -12,7 +12,6 @@ use Hyde\Support\Internal\RouteListItem;
 use function array_map;
 use function array_keys;
 use function array_values;
-use function Hyde\make_title;
 
 /**
  * Display the list of site routes.
@@ -43,8 +42,6 @@ class RouteListCommand extends Command
 
     protected function makeHeader(array $routes): array
     {
-        return array_map(function (string $key): string {
-            return make_title($key);
-        }, array_keys($routes[0]));
+        return array_map('\Hyde\make_title', array_keys($routes[0]));
     }
 }
