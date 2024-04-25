@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Hyde;
+use Hyde\Testing\TestCase;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
-use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Console\Commands\RouteListCommand
- * @covers \Hyde\Support\Models\RouteListItem
+ * @covers \Hyde\Support\Internal\RouteListItem
  *
  * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */

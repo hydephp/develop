@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
+use Hyde\Testing\TestCase;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
-use Hyde\Support\Models\RouteList;
-use Hyde\Testing\TestCase;
+use Hyde\Support\Internal\RouteList;
 
 /**
- * @covers \Hyde\Support\Models\RouteList
- * @covers \Hyde\Support\Models\RouteListItem
+ * @covers \Hyde\Support\Internal\RouteList
+ * @covers \Hyde\Support\Internal\RouteListItem
  */
 class RouteListTest extends TestCase
 {
