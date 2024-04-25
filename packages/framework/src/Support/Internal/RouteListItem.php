@@ -68,9 +68,9 @@ class RouteListItem implements Arrayable
             : $this->getOutputPath($path);
     }
 
-    protected function href(string $link, string $label): string
+    protected function styleRouteKey(string $key): string
     {
-        return "<href=$link>$label</>";
+        return $key;
     }
 
     protected function getPageType(string $class): string
@@ -88,9 +88,9 @@ class RouteListItem implements Arrayable
         return Hyde::getOutputDirectory()."/$path";
     }
 
-    protected function styleRouteKey(string $key): string
+    protected function href(string $link, string $label): string
     {
-        return $key;
+        return "<href=$link>$label</>";
     }
 
     protected function isPageDiscoverable(): bool
