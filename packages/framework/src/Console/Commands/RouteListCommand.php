@@ -20,10 +20,17 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        $routes = new RouteList();
+        [$header, $rows] = $this->extracted();
 
-        $this->table($routes->header(), $routes->rows());
+        $this->table($header, $rows);
 
         return Command::SUCCESS;
+    }
+
+    protected function extracted(): array
+    {
+        $routes = new RouteList();
+
+        return [$routes->header(), $routes->rows()];
     }
 }
