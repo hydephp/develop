@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Models;
+namespace Hyde\Support\Internal;
 
 use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Illuminate\Contracts\Support\Arrayable;
 
-use function array_keys;
-use function array_map;
 use function collect;
-use function str_replace;
 use function ucwords;
+use function array_map;
+use function array_keys;
+use function str_replace;
 
 /**
- * @internal This class is experimental and is subject to change.
- *
- * @experimental This class is experimental and is subject to change.
+ * @internal This class is internal and should not be depended on outside the HydePHP framework code.
  */
 class RouteList implements Arrayable
 {

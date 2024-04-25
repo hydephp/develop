@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Support\Models;
+namespace Hyde\Support\Internal;
 
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Support\Models\Route;
 use Illuminate\Contracts\Support\Arrayable;
 
 use function class_basename;
 use function str_starts_with;
 
 /**
- * @internal This class is experimental and is subject to change.
- *
- * @experimental This class is experimental and is subject to change.
+ * @internal This class is internal and should not be depended on outside the HydePHP framework code.
  */
 class RouteListItem implements Arrayable
 {

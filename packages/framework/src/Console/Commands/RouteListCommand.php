@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Console\Concerns\Command;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
-use Hyde\Support\Models\RouteList;
-use Hyde\Support\Models\RouteListItem;
+use Hyde\Console\Concerns\Command;
+use Hyde\Support\Internal\RouteList;
+use Hyde\Support\Internal\RouteListItem;
 
-use function file_exists;
 use function sprintf;
+use function file_exists;
 
 /**
  * Display the list of site routes.
