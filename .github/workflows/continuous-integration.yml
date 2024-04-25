@@ -15,14 +15,14 @@ jobs:
           php-version: "8.1"
           extensions: fileinfo
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -82,7 +82,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: fileinfo, zip
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Run system tests (${{ matrix.script }})
         run: php monorepo/scripts/tests/${{ matrix.script }}.php
@@ -115,7 +115,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -131,7 +131,7 @@ jobs:
         run: npm run prod
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'hydefront'
           path: 'packages/hydefront/dist'
@@ -150,7 +150,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -170,7 +170,7 @@ jobs:
         run: cp _media/app.css packages/hydefront/dist/app.css
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: '_media'
           path: '_media'
@@ -198,11 +198,11 @@ jobs:
           php-version: "8.1"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -223,7 +223,7 @@ jobs:
         env:
           ENV: testing
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
           fail_ci_if_error: false # optional (default = false)
@@ -236,7 +236,7 @@ jobs:
           php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
 
       - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: "coverage"
           path: "build/coverage"
@@ -245,7 +245,7 @@ jobs:
         run: cp build/junit.xml build/coverage/html/junit.xml
 
       - name: Upload HTML coverage artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: "html-coverage"
           path: "build/coverage/html"
@@ -260,7 +260,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Download phpDocumentor
         run: |
@@ -271,7 +271,7 @@ jobs:
         run:  php phpDocumentor.phar --directory="packages/framework/src" --target="build/api-documentation" --title="API Documentation"
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'api-documentation'
           path: 'build/api-documentation'
@@ -286,14 +286,14 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.1"
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -319,7 +319,7 @@ jobs:
         run: php hyde build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'dev-docs'
           path: '_site/dev-docs'
@@ -334,14 +334,14 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.1"
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -370,7 +370,7 @@ jobs:
         run: php hyde build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'site-preview'
           path: '_site'
@@ -385,14 +385,14 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.1"
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -415,7 +415,7 @@ jobs:
         run: php hyde build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'test-fixture-docs'
           path: '_site'
@@ -436,7 +436,7 @@ jobs:
       - build-test-fixture-docs
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: 'gh-pages'
 
@@ -449,31 +449,31 @@ jobs:
           rm -rf master/test-fixtures && mkdir master/test-fixtures
 
       - name: Download coverage report artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: html-coverage
           path: master/coverage
 
       - name: Download upcoming documentation artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dev-docs
           path: master/dev-docs
 
       - name: Download API documentation artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: api-documentation
           path: master/api-docs
 
       - name: Download preview site artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: site-preview
           path: master/preview
 
       - name: Download test fixture docs artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: test-fixture-docs
           path: master/test-fixtures/docs
@@ -518,7 +518,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.1"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -536,7 +536,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.1"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -554,7 +554,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.1"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -571,7 +571,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Run DevSkim scanner
         uses: microsoft/DevSkim-Action@v1
@@ -600,7 +600,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -639,7 +639,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Run linter
         run: php packages/hydefront/.github/scripts/post-build.php
@@ -649,7 +649,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test monorepo tools can run
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - run: php monorepo/CodeIntelligence/CodeIntelligence.php
       - run: php monorepo/scripts/FileFormatter.php

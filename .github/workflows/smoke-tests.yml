@@ -12,11 +12,11 @@ jobs:
   run-smoke-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -36,6 +36,12 @@ jobs:
           bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
           commit="${{ github.event.pull_request.head.sha }}"
           url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # If bearerToken is not set, we we exit early as we are probably running on a fork
+          if [ -z "$bearerToken" ]; then
+              echo "Exiting early as bearerToken is not set"
+              exit 0
+          fi  
 
           if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
               status=false
@@ -64,11 +70,11 @@ jobs:
           php-version: "8.1"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -88,7 +94,6 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
 
       - name: Ping statistics server with test results
         run: |
