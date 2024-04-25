@@ -27,10 +27,10 @@ class RouteListItem
         $item = new static($route);
 
         return [
-            'page_type' => $item->stylePageType($item->route->getPageClass()),
-            'source_file' => $item->styleSourcePath($item->route->getSourcePath()),
-            'output_file' => $item->styleOutputPath($item->route->getOutputPath()),
-            'route_key' => $item->styleRouteKey($item->route->getRouteKey()),
+            'page_type' => $item->stylePageType($route->getPageClass()),
+            'source_file' => $item->styleSourcePath($route->getSourcePath()),
+            'output_file' => $item->styleOutputPath($route->getOutputPath()),
+            'route_key' => $item->styleRouteKey($route->getRouteKey()),
         ];
     }
 
