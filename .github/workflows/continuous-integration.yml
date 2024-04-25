@@ -131,7 +131,7 @@ jobs:
         run: npm run prod
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'hydefront'
           path: 'packages/hydefront/dist'
@@ -170,7 +170,7 @@ jobs:
         run: cp _media/app.css packages/hydefront/dist/app.css
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: '_media'
           path: '_media'
@@ -236,7 +236,7 @@ jobs:
           php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
 
       - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: "coverage"
           path: "build/coverage"
@@ -245,7 +245,7 @@ jobs:
         run: cp build/junit.xml build/coverage/html/junit.xml
 
       - name: Upload HTML coverage artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: "html-coverage"
           path: "build/coverage/html"
@@ -271,7 +271,7 @@ jobs:
         run:  php phpDocumentor.phar --directory="packages/framework/src" --target="build/api-documentation" --title="API Documentation"
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'api-documentation'
           path: 'build/api-documentation'
@@ -319,7 +319,7 @@ jobs:
         run: php hyde build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'dev-docs'
           path: '_site/dev-docs'
@@ -370,7 +370,7 @@ jobs:
         run: php hyde build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'site-preview'
           path: '_site'
@@ -415,7 +415,7 @@ jobs:
         run: php hyde build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'test-fixture-docs'
           path: '_site'
