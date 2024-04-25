@@ -28,18 +28,13 @@ class RouteListCommand extends Command
 
     public function handle(): int
     {
-        [$header, $rows] = $this->extracted();
+        $routes = $this->generate();
+
+        [$header, $rows] = ([$this->header($routes), $routes]);
 
         $this->table($header, $rows);
 
         return Command::SUCCESS;
-    }
-
-    protected function extracted(): array
-    {
-        $routes = $this->generate();
-
-        return [$this->header($routes), $routes];
     }
 
     protected function header(array $routes): array
