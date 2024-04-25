@@ -16,6 +16,26 @@ use Hyde\Support\Internal\RouteList;
  */
 class RouteListTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        [$page404, $pageIndex] = Hyde::routes()->values();
+
+        // Run without files to not use the href links
+        $this->withoutDefaultPages();
+
+        Hyde::routes()->put('404', $page404);
+        Hyde::routes()->put('index', $pageIndex);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->restoreDefaultPages();
+
+        parent::tearDown();
+    }
+
     public function testRouteList()
     {
         $this->assertSame([
@@ -53,7 +73,7 @@ class RouteListTest extends TestCase
         $this->assertSame([
             [
                 'page_type' => 'InMemoryPage',
-                'source_file' => 'none',
+                'source_file' => '<fg=gray>none</>',
                 'output_file' => '_site/foo.html',
                 'route_key' => 'foo',
             ],
