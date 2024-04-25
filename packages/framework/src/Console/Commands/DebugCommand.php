@@ -7,11 +7,13 @@ namespace Hyde\Console\Commands;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Composer\InstalledVersions;
+use Hyde\Foundation\PharSupport;
 use LaravelZero\Framework\Commands\Command;
 
 use function str_replace;
 use function realpath;
 use function app;
+use function get_included_files;
 
 /**
  * Print debug information.
@@ -50,6 +52,10 @@ class DebugCommand extends Command
             $this->printVerbosePathInformation();
         } else {
             $this->comment('Project directory: '.Hyde::path());
+
+            if (PharSupport::running()) {
+                $this->comment('Application binary path: '.get_included_files()[0]);
+            }
         }
         $this->newLine();
 

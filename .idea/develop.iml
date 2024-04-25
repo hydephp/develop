@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests" isTestSource="true" packagePrefix="Hyde\Framework\Testing\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/src" isTestSource="false" packagePrefix="Hyde\RealtimeCompiler\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" packagePrefix="Hyde\Framework\Testing\Feature\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" packagePrefix="Hyde\Framework\Testing\Unit\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/publications/src" isTestSource="false" packagePrefix="Hyde\Publications\" />
@@ -15,6 +16,13 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
+      <sourceFolder url="file://$MODULE_DIR$/monorepo/DevTools/src" isTestSource="false" packagePrefix="Hyde\MonorepoDevTools\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/hyde/app" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/testing/src" isTestSource="false" packagePrefix="Hyde\Testing\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/docs/app" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/docs/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/src" isTestSource="false" packagePrefix="Hyde\UIKit\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde/framework" />
       <excludeFolder url="file://$MODULE_DIR$/packages/realtime-compiler/vendor/hyde" />
