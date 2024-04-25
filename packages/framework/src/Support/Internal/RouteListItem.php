@@ -24,22 +24,19 @@ class RouteListItem
 
     public static function format(Route $route): array
     {
-        return (new static($route))->getColumns();
+        $item = new static($route);
+
+        return [
+            'page_type' => $item->stylePageType($item->route->getPageClass()),
+            'source_file' => $item->styleSourcePath($item->route->getSourcePath()),
+            'output_file' => $item->styleOutputPath($item->route->getOutputPath()),
+            'route_key' => $item->styleRouteKey($item->route->getRouteKey()),
+        ];
     }
 
     protected function __construct(Route $route)
     {
         $this->route = $route;
-    }
-
-    protected function getColumns(): array
-    {
-        return [
-            'page_type' => $this->stylePageType($this->route->getPageClass()),
-            'source_file' => $this->styleSourcePath($this->route->getSourcePath()),
-            'output_file' => $this->styleOutputPath($this->route->getOutputPath()),
-            'route_key' => $this->styleRouteKey($this->route->getRouteKey()),
-        ];
     }
 
     protected function stylePageType(string $class): string
