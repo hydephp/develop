@@ -37,6 +37,12 @@ jobs:
           commit="${{ github.event.pull_request.head.sha }}"
           url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
+          # If bearerToken is not set, we we exit early as we are probably running on a fork
+          if [ -z "$bearerToken" ]; then
+              echo "Exiting early as bearerToken is not set"
+              exit 0
+          fi  
+
           if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
               status=false
           else
