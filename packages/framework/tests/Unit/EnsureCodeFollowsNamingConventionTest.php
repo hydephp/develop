@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Illuminate\Filesystem\Filesystem;
 use Hyde\Framework\Actions\BladeMatterParser;
+use Hyde\Console\Commands\VendorPublishCommand;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Actions\MarkdownFileParser;
@@ -30,6 +32,8 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
 
     public function testCommandsDescriptionsFollowNamingConventions()
     {
+        self::mockConfig();
+
         $files = glob('vendor/hyde/framework/src/Console/Commands/*.php');
 
         $this->assertNotEmpty($files, 'No commands found.');
@@ -42,6 +46,18 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
             $this->assertTrue($reflection->hasProperty('description') && $reflection->getProperty('description')->isProtected(),
                 "Command class $class does not have a protected \$description property.\n ".realpath($filepath)
             );
+
+            if ($class === VendorPublishCommand::class) {
+                $params = [new Filesystem()];
+            } else {
+                $params = [];
+            }
+
+            $instance = new $class(...$params);
+            $description = $reflection->getProperty('description')->getValue($instance);
+
+            $this->assertIsString($description);
+            $this->assertNotEmpty($description);
         }
     }
 
