@@ -43,6 +43,6 @@ class RouteList implements Arrayable
     {
         return array_map(function (Route $route): array {
             return (new RouteListItem($route))->toArray();
-        }, Hyde::routes()->values()->all());
+        }, array_values(Hyde::routes()->all()));
     }
 }
