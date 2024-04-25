@@ -12,7 +12,7 @@ jobs:
   run-smoke-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Composer packages
         id: composer-cache
@@ -70,7 +70,7 @@ jobs:
           php-version: "8.1"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Composer packages
         id: composer-cache
