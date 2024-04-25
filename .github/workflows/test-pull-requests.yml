@@ -16,7 +16,7 @@ jobs:
           php-version: "8.1"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
@@ -67,7 +67,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: fileinfo, zip
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
