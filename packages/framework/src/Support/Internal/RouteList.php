@@ -41,8 +41,8 @@ class RouteList implements Arrayable
 
     protected function generate(): array
     {
-        return Hyde::routes()->map(function (Route $route): array {
+        return array_map(function (Route $route): array {
             return (new RouteListItem($route))->toArray();
-        })->values()->toArray();
+        }, Hyde::routes()->values()->all());
     }
 }
