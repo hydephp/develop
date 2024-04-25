@@ -28,6 +28,23 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
         }
     }
 
+    public function testCommandsDescriptionsFollowNamingConventions()
+    {
+        $files = glob('vendor/hyde/framework/src/Console/Commands/*.php');
+
+        $this->assertNotEmpty($files, 'No commands found.');
+
+        // Commands must have a string $description property
+        foreach ($files as $filepath) {
+            $class = 'Hyde\\Console\\Commands\\'.basename($filepath, '.php');
+            $reflection = new ReflectionClass($class);
+
+            $this->assertTrue($reflection->hasProperty('description') && $reflection->getProperty('description')->isProtected(),
+                "Command class $class does not have a protected \$description property.\n ".realpath($filepath)
+            );
+        }
+    }
+
     public function testActionEntryPointsFollowNamingConventions()
     {
         $files = glob('vendor/hyde/framework/src/Framework/Actions/*.php');
