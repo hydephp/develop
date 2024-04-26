@@ -152,7 +152,9 @@ class ServeCommand extends Command
             default => null
         };
 
-        $process = $binary ? Process::command(sprintf('%s http://%s:%d', $binary, $this->getHostSelection(), $this->getPortSelection()))->run() : null;
+        $command = sprintf('%s http://%s:%d', $binary, $this->getHostSelection(), $this->getPortSelection());
+
+        $process = $binary ? Process::command($command)->run() : null;
 
         if (! $process || $process->failed()) {
             $this->warn('Unable to open the site preview in the browser on your system:');
