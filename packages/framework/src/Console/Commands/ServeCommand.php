@@ -33,7 +33,7 @@ class ServeCommand extends Command
         {--dashboard= : Enable the realtime compiler dashboard. (Overrides config setting)}
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
-        {--open= : Open the site preview in the browser.}
+        {--open=false : Open the site preview in the browser.}
     ';
 
     /** @var string */
