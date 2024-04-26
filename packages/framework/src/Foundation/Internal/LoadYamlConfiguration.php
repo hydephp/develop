@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Internal;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Env;
 use Symfony\Component\Yaml\Yaml;
 
 use function array_key_first;
@@ -67,7 +68,11 @@ class LoadYamlConfiguration
 
     protected function mergeEnvironmentVariables(): void
     {
-        //
+        if (Env::get('SITE_NAME') === null) {
+            if (isset($this->yaml['name'])) {
+                Env::getRepository()->set('SITE_NAME', $this->yaml['name']);
+            }
+        }
     }
 
     protected function mergeParsedConfiguration(): void
