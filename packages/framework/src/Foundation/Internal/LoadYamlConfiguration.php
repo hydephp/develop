@@ -40,6 +40,8 @@ class LoadYamlConfiguration
         if ($this->hasYamlConfigFile()) {
             $this->yaml = $this->getYaml();
 
+            $this->mergeEnvironmentVariables();
+
             $this->mergeParsedConfiguration();
         }
     }
@@ -61,6 +63,11 @@ class LoadYamlConfiguration
         return file_exists(Hyde::path('hyde.yml'))
             ? Hyde::path('hyde.yml')
             : Hyde::path('hyde.yaml');
+    }
+
+    protected function mergeEnvironmentVariables(): void
+    {
+        //
     }
 
     protected function mergeParsedConfiguration(): void
