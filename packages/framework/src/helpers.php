@@ -178,3 +178,17 @@ namespace Hyde {
         }
     }
 }
+
+namespace Hyde\Config {
+    use Closure;
+    use Hyde\Support\Internal\DeferredOption;
+
+    use function function_exists;
+
+    if (! function_exists('\Hyde\Config\defer')) {
+        function defer(Closure $closure): DeferredOption
+        {
+            return new DeferredOption($closure);
+        }
+    }
+}
