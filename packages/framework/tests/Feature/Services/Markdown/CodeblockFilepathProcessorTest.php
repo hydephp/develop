@@ -17,7 +17,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $markdown = "\n```php\n// filepath: foo.php\necho 'Hello World';\n```";
         $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
 
-        $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function testPreprocessAcceptsMultipleFilepathFormats()
@@ -37,7 +37,7 @@ class CodeblockFilepathProcessorTest extends TestCase
             $markdown = "\n```php\n{$pattern}foo.php\necho 'Hello World';\n```";
             $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
 
-            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
     }
 
@@ -54,7 +54,7 @@ class CodeblockFilepathProcessorTest extends TestCase
             $markdown = "\n```php\n{$pattern}foo.php\necho 'Hello World';\n```";
             $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
 
-            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
     }
 
@@ -72,7 +72,7 @@ class CodeblockFilepathProcessorTest extends TestCase
             $markdown = "\n```$language\n// filepath: foo.$language\nfoo\n```";
             $expected = "\n<!-- HYDE[Filepath]foo.$language -->\n```$language\nfoo\n```";
 
-            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
     }
 
