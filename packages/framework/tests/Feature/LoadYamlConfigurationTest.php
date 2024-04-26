@@ -265,9 +265,22 @@ class LoadYamlConfigurationTest extends TestCase
     public function testSettingSiteNameSetsSidebarHeader()
     {
         config(['hyde' => []]);
+        config(['docs' => []]);
 
         $this->file('hyde.yml', <<<'YAML'
         name: Example
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('Example', Config::get('docs.sidebar.header'));
+    }
+
+    public function testSettingSiteNameMergesSidebarHeader()
+    {
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        name: Example Docs
         YAML);
         $this->runBootstrapper();
 
