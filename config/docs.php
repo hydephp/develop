@@ -1,5 +1,7 @@
 <?php
 
+use function Hyde\Config\defer;
+
 /*
 |--------------------------------------------------------------------------
 | Documentation Module Settings
@@ -25,7 +27,7 @@ return [
 
     'sidebar' => [
         // The title in the sidebar header
-        'header' => env('SITE_NAME', 'HydePHP').' Docs',
+        'header' => defer(fn () => config('hyde.name').' Docs'),
 
         // When using a grouped sidebar, should the groups be collapsible?
         'collapsible' => true,
