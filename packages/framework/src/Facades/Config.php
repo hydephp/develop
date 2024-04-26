@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Closure;
 use TypeError;
+use Hyde\Support\Internal\DeferredOption;
 
 use function sprintf;
 use function gettype;
@@ -55,6 +57,14 @@ class Config extends \Illuminate\Support\Facades\Config
         }
 
         return (string) self::validated($value, 'string', $key);
+    }
+
+    /**
+     * @experimental Defer resolving a configuration value until after the application has been created.
+     */
+    public static function defer(Closure $option): DeferredOption
+    {
+        return new DeferredOption($option);
     }
 
     protected static function validated(mixed $value, string $type, string $key): mixed
