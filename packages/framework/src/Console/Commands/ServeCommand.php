@@ -153,6 +153,7 @@ class ServeCommand extends Command
         };
 
         $command = sprintf('%s http://%s:%d', $binary, $this->getHostSelection(), $this->getPortSelection());
+        $command = rtrim($command, '/');
 
         $process = $binary ? Process::command($command)->run() : null;
 
