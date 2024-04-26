@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Internal;
 
 use Closure;
+use Illuminate\Config\Repository;
 
 class DeferredOption
 {
@@ -15,8 +16,8 @@ class DeferredOption
         $this->closure = $closure;
     }
 
-    public function __invoke(): mixed
+    public function __invoke(Repository $config): mixed
     {
-        return $this->closure->__invoke();
+        return $this->closure->__invoke($config);
     }
 }

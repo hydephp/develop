@@ -102,7 +102,7 @@ class LoadConfiguration extends BaseLoadConfiguration
             }
 
             if ($value instanceof DeferredOption) {
-                $repository->set($key, $value());
+                $repository->set($key, $value($repository));
             }
         }
     }

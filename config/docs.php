@@ -27,7 +27,7 @@ return [
 
     'sidebar' => [
         // The title in the sidebar header
-        'header' => defer(fn () => config('hyde.name').' Docs'),
+        'header' => defer(fn (\Illuminate\Config\Repository $config): string => $config->get('hyde.name').' Docs'),
 
         // When using a grouped sidebar, should the groups be collapsible?
         'collapsible' => true,
