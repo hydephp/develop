@@ -32,11 +32,13 @@ class RouteListCommand extends Command
         return Command::SUCCESS;
     }
 
+    /** @return array<integer, array<string, string>>  */
     protected function generate(): array
     {
         return array_map(RouteListItem::format(...), array_values(Hyde::routes()->all()));
     }
 
+    /** @param array<integer, array<string, string>> $routes */
     protected function makeHeader(array $routes): array
     {
         return array_map(Hyde::makeTitle(...), array_keys($routes[0]));
