@@ -303,6 +303,8 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Custom', Config::get('docs.sidebar.header'));
     }
 
+    // Todo test when not SITE_NAME is set in env
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
