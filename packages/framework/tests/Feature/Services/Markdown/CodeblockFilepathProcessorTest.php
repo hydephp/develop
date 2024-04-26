@@ -58,6 +58,44 @@ class CodeblockFilepathProcessorTest extends TestCase
         }
     }
 
+    public function testPreprocessCanUseHtmlComments()
+    {
+        $markdown = <<<'MD'
+        
+        ```html
+        <!-- filepath: foo.html -->
+        <p>Hello World</p>
+        ```
+        MD;
+
+        $expected = <<<'MD'
+
+        <!-- HYDE[Filepath]foo.html -->
+        ```html
+        <p>Hello World</p>
+        ```
+        MD;
+
+        $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
+    }
+
+    public function testPreprocessCanUseHtmlCommentsWithDifferentPatterns()
+    {
+        $patterns = [
+            '<!-- filepath: ',
+            '<!-- Filepath: ',
+            '<!-- FilePath: ',
+            '<!-- FILEPATH: ',
+        ];
+
+        foreach ($patterns as $pattern) {
+            $markdown = "\n```html\n{$pattern}foo.html\n<p>Hello World</p>\n```";
+            $expected = "\n<!-- HYDE[Filepath]foo.html -->\n```html\n<p>Hello World</p>\n```";
+
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        }
+    }
+
     public function testPreprocessAcceptsMultipleLanguages()
     {
         $languages = [
