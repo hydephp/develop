@@ -29,6 +29,8 @@ use function file_exists;
  */
 class LoadYamlConfiguration
 {
+    protected array $yaml;
+
     /**
      * Performs a core task that needs to be performed on
      * early stages of the framework.
@@ -36,6 +38,8 @@ class LoadYamlConfiguration
     public function bootstrap(): void
     {
         if ($this->hasYamlConfigFile()) {
+            $this->yaml = $this->getYaml();
+
             $this->mergeParsedConfiguration();
         }
     }
@@ -61,7 +65,7 @@ class LoadYamlConfiguration
 
     protected function mergeParsedConfiguration(): void
     {
-        $yaml = $this->getYaml();
+        $yaml = $this->yaml;
 
         // If the Yaml file contains namespaces, we merge those using more granular logic
         // that only applies the namespace data to each configuration namespace.
