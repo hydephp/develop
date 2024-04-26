@@ -145,14 +145,14 @@ class ServeCommand extends Command
 
     protected function openInBrowser(): void
     {
-        $command = match (PHP_OS_FAMILY) {
+        $binary = match (PHP_OS_FAMILY) {
             'Windows' => 'start',
             'Darwin' => 'open',
             'Linux' => 'xdg-open',
             default => null
         };
 
-        $process = $command ? Process::command(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->run() : null;
+        $process = $binary ? Process::command(sprintf('%s http://%s:%d', $binary, $this->getHostSelection(), $this->getPortSelection()))->run() : null;
 
         if (! $process || $process->failed()) {
             $this->warn('Unable to open the site preview in the browser on your system:');
