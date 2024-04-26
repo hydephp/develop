@@ -30,6 +30,7 @@ use function file_exists;
  */
 class LoadYamlConfiguration
 {
+    protected array $config;
     protected array $yaml;
 
     /**
@@ -38,6 +39,8 @@ class LoadYamlConfiguration
      */
     public function bootstrap(): void
     {
+        $this->config = Config::all();
+
         if ($this->hasYamlConfigFile()) {
             $this->yaml = $this->getYaml();
 
@@ -45,6 +48,8 @@ class LoadYamlConfiguration
 
             $this->mergeParsedConfiguration();
         }
+
+        Config::set($this->config);
     }
 
     protected function hasYamlConfigFile(): bool
@@ -98,10 +103,10 @@ class LoadYamlConfiguration
 
     protected function mergeConfiguration(string $namespace, array $yamlData): void
     {
-        Config::set($namespace, array_merge(
-            Config::getArray($namespace, []),
+        $this->config[$namespace] = array_merge(
+            $this->config[$namespace] ?? [],
             $yamlData
-        ));
+        );
     }
 
     protected function configurationContainsNamespaces(array $yaml): bool
