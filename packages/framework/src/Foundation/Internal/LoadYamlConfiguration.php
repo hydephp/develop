@@ -68,9 +68,11 @@ class LoadYamlConfiguration
 
     protected function mergeEnvironmentVariables(): void
     {
-        if (Env::get('SITE_NAME') === null) {
+        $repository = Env::getRepository();
+
+        if ($repository->get('SITE_NAME') === null) {
             if (isset($this->yaml['name'])) {
-                Env::getRepository()->set('SITE_NAME', $this->yaml['name']);
+                $repository->set('SITE_NAME', $this->yaml['name']);
             }
         }
     }
