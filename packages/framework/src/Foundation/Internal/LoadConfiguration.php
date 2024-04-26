@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
+use Hyde\Support\Internal\DeferredOption;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
@@ -33,6 +34,8 @@ class LoadConfiguration extends BaseLoadConfiguration
         $this->mergeConfigurationFiles($repository);
 
         $this->loadRuntimeConfiguration($app, $repository);
+
+        $this->evaluateDeferredOptions($repository);
     }
 
     private function mergeConfigurationFiles(Repository $repository): void
@@ -82,6 +85,25 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         if ($this->getEnv($environmentKey) !== false) {
             $repository->set($configKey, $this->getEnv($environmentKey) === 'enabled');
+        }
+    }
+
+    private function evaluateDeferredOptions(Repository $repository): void
+    {
+        // Recursively iterate through the configuration and evaluate any deferred options.
+        $this->recursiveIterateDeferredOptionEvaluation($repository, $repository->all());
+    }
+
+    private function recursiveIterateDeferredOptionEvaluation(Repository $repository, array $array): void
+    {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $this->recursiveIterateDeferredOptionEvaluation($repository, $value);
+            }
+
+            if ($value instanceof DeferredOption) {
+                $repository->set($key, $value());
+            }
         }
     }
 
