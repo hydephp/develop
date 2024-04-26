@@ -74,8 +74,6 @@ class CodeblockFilepathProcessorTest extends TestCase
 
             $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
-
-        $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function testPreprocessAcceptsMultipleInputBlocks()
