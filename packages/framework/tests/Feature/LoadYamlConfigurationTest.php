@@ -262,6 +262,16 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame($expected, Config::get('two'));
     }
 
+    public function testSettingSiteNameSetsSidebarHeader()
+    {
+        //
+    }
+
+    public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecified()
+    {
+        //
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
