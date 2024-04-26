@@ -46,7 +46,7 @@ class ServeCommand extends Command
         $this->configureOutput();
         $this->printStartMessage();
 
-        if ($this->option('open')) {
+        if ($this->option('open') !== 'false') {
             $this->openInBrowser();
         }
 
