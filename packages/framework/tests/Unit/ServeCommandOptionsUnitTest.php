@@ -227,7 +227,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
             {
             }
 
-            protected function openInBrowser(): void
+            protected function openInBrowser(string $path = '/'): void
             {
                 $this->openInBrowserCalled = true;
             }
@@ -304,7 +304,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
  * @method getEnvironmentVariables
  * @method parseEnvironmentOption(string $name)
  * @method checkArgvForOption(string $name)
- * @method openInBrowser()
+ * @method openInBrowser(string $path = '/')
  */
 class ServeCommandMock extends ServeCommand
 {

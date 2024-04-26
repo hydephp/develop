@@ -47,7 +47,7 @@ class ServeCommand extends Command
         $this->printStartMessage();
 
         if ($this->option('open') !== 'false') {
-            $this->openInBrowser();
+            $this->openInBrowser((string) $this->option('open'));
         }
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
@@ -143,7 +143,7 @@ class ServeCommand extends Command
         return null;
     }
 
-    protected function openInBrowser(): void
+    protected function openInBrowser(string $path = '/'): void
     {
         $binary = match (PHP_OS_FAMILY) {
             'Windows' => 'start',
