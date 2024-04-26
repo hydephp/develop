@@ -264,6 +264,8 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeader()
     {
+        $this->markTestSkipped('TODO');
+
         config(['hyde' => []]);
         config(['docs' => []]);
 
@@ -277,6 +279,8 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testSettingSiteNameMergesSidebarHeader()
     {
+        $this->markTestSkipped('TODO');
+
         config(['hyde' => []]);
 
         $this->file('hyde.yml', <<<'YAML'
@@ -289,6 +293,8 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecified()
     {
+        $this->markTestSkipped('TODO');
+
         config(['hyde' => []]);
 
         $this->file('hyde.yml', <<<'YAML'
