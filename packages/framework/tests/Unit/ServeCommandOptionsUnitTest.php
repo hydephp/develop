@@ -32,6 +32,8 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     {
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
 
+        Mockery::close();
+
         parent::tearDown();
     }
 
@@ -285,10 +287,6 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         Process::shouldReceive('errorOutput')->once()->andReturn("Missing suitable 'open' binary.");
 
         $command->openInBrowser();
-
-        Mockery::close();
-
-        $this->assertTrue(true);
     }
 
     protected function getTestRunnerBinary(): string
