@@ -247,6 +247,70 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertTrue($command->openInBrowserCalled);
     }
 
+    public function testWithOpenArgumentWhenString()
+    {
+        HydeKernel::setInstance(new HydeKernel());
+
+        $command = new class(['open' => '']) extends ServeCommandMock
+        {
+            public bool $openInBrowserCalled = false;
+
+            // Void unrelated methods
+            protected function configureOutput(): void
+            {
+            }
+
+            protected function printStartMessage(): void
+            {
+            }
+
+            protected function runServerProcess(string $command): void
+            {
+            }
+
+            protected function openInBrowser(string $path = '/'): void
+            {
+                $this->openInBrowserCalled = true;
+            }
+        };
+
+        $command->safeHandle();
+
+        $this->assertTrue($command->openInBrowserCalled);
+    }
+
+    public function testWithOpenArgumentWhenPath()
+    {
+        HydeKernel::setInstance(new HydeKernel());
+
+        $command = new class(['open' => 'dashboard']) extends ServeCommandMock
+        {
+            public string $openInBrowserPath = '';
+
+            // Void unrelated methods
+            protected function configureOutput(): void
+            {
+            }
+
+            protected function printStartMessage(): void
+            {
+            }
+
+            protected function runServerProcess(string $command): void
+            {
+            }
+
+            protected function openInBrowser(string $path = '/'): void
+            {
+                $this->openInBrowserPath = $path;
+            }
+        };
+
+        $command->safeHandle();
+
+        $this->assertSame('dashboard', $command->openInBrowserPath);
+    }
+
     public function testOpenInBrowser()
     {
         $output = $this->createMock(OutputStyle::class);
@@ -262,6 +326,31 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         Process::shouldReceive('failed')->once()->andReturn(false);
 
         $command->openInBrowser();
+    }
+
+    public function testOpenInBrowserWithPath()
+    {
+        Process::shouldReceive('command')->once()->with("{$this->getTestRunnerBinary()} http://localhost:8080/dashboard")->andReturnSelf();
+        Process::shouldReceive('run')->once()->andReturnSelf();
+        Process::shouldReceive('failed')->once()->andReturn(false);
+
+        $this->getMock()->openInBrowser('dashboard');
+    }
+
+    public function testOpenInBrowserWithPathNormalizesPaths()
+    {
+        Process::shouldReceive('run')->andReturnSelf();
+        Process::shouldReceive('failed')->andReturn(false);
+
+        Process::shouldReceive('command')->times(3)->with("{$this->getTestRunnerBinary()} http://localhost:8080")->andReturnSelf();
+        Process::shouldReceive('command')->once()->with("{$this->getTestRunnerBinary()} http://localhost:8080/dashboard")->andReturnSelf();
+        Process::shouldReceive('command')->once()->with("{$this->getTestRunnerBinary()} http://localhost:8080/foo/bar")->andReturnSelf();
+
+        $this->getMock()->openInBrowser('');
+        $this->getMock()->openInBrowser('/');
+        $this->getMock()->openInBrowser('//');
+        $this->getMock()->openInBrowser('dashboard/');
+        $this->getMock()->openInBrowser('foo/bar/');
     }
 
     public function testOpenInBrowserThatFails()
