@@ -28,6 +28,13 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         ]);
     }
 
+    protected function tearDown(): void
+    {
+        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+
+        parent::tearDown();
+    }
+
     public function testGetHostSelection()
     {
         $this->assertSame('localhost', $this->getMock()->getHostSelection());
