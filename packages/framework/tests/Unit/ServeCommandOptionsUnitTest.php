@@ -253,11 +253,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command = $this->getMock(['--open' => true]);
         $command->setOutput($output);
 
-        $binary = match (PHP_OS_FAMILY) {
-            'Darwin' => 'open',
-            'Windows' => 'start',
-            default => 'xdg-open',
-        };
+        $binary = $this->getTestRunnerBinary();
 
         Process::shouldReceive('command')->once()->with("$binary http://localhost:8080")->andReturnSelf();
         Process::shouldReceive('run')->once()->andReturnSelf();
@@ -281,11 +277,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command = $this->getMock(['--open' => true]);
         $command->setOutput($output);
 
-        $binary = match (PHP_OS_FAMILY) {
-            'Darwin' => 'open',
-            'Windows' => 'start',
-            default => 'xdg-open',
-        };
+        $binary = $this->getTestRunnerBinary();
 
         Process::shouldReceive('command')->once()->with("$binary http://localhost:8080")->andReturnSelf();
         Process::shouldReceive('run')->once()->andReturnSelf();
@@ -297,6 +289,15 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         Mockery::close();
 
         $this->assertTrue(true);
+    }
+
+    protected function getTestRunnerBinary(): string
+    {
+        return match (PHP_OS_FAMILY) {
+            'Darwin' => 'open',
+            'Windows' => 'start',
+            default => 'xdg-open',
+        };
     }
 
     protected function getMock(array $options = []): ServeCommandMock
