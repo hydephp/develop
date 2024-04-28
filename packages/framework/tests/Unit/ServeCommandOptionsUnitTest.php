@@ -223,28 +223,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     {
         HydeKernel::setInstance(new HydeKernel());
 
-        $command = new class(['open' => true]) extends ServeCommandMock
-        {
-            public bool $openInBrowserCalled = false;
-
-            // Void unrelated methods
-            protected function configureOutput(): void
-            {
-            }
-
-            protected function printStartMessage(): void
-            {
-            }
-
-            protected function runServerProcess(string $command): void
-            {
-            }
-
-            protected function openInBrowser(string $path = '/'): void
-            {
-                $this->openInBrowserCalled = true;
-            }
-        };
+        $command = $this->getOpenServeCommandMock(['open' => true]);
 
         $command->safeHandle();
 
@@ -255,28 +234,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     {
         HydeKernel::setInstance(new HydeKernel());
 
-        $command = new class(['open' => '']) extends ServeCommandMock
-        {
-            public bool $openInBrowserCalled = false;
-
-            // Void unrelated methods
-            protected function configureOutput(): void
-            {
-            }
-
-            protected function printStartMessage(): void
-            {
-            }
-
-            protected function runServerProcess(string $command): void
-            {
-            }
-
-            protected function openInBrowser(string $path = '/'): void
-            {
-                $this->openInBrowserCalled = true;
-            }
-        };
+        $command = $this->getOpenServeCommandMock(['open' => '']);
 
         $command->safeHandle();
 
@@ -287,28 +245,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     {
         HydeKernel::setInstance(new HydeKernel());
 
-        $command = new class(['open' => 'dashboard']) extends ServeCommandMock
-        {
-            public string $openInBrowserPath = '';
-
-            // Void unrelated methods
-            protected function configureOutput(): void
-            {
-            }
-
-            protected function printStartMessage(): void
-            {
-            }
-
-            protected function runServerProcess(string $command): void
-            {
-            }
-
-            protected function openInBrowser(string $path = '/'): void
-            {
-                $this->openInBrowserPath = $path;
-            }
-        };
+        $command = $this->getOpenServeCommandMock(['open' => 'dashboard']);
 
         $command->safeHandle();
 
@@ -394,6 +331,34 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     protected function getMock(array $options = []): ServeCommandMock
     {
         return new ServeCommandMock($options);
+    }
+
+    protected function getOpenServeCommandMock(array $arguments): ServeCommandMock
+    {
+        return new class($arguments) extends ServeCommandMock
+        {
+            public bool $openInBrowserCalled = false;
+            public string $openInBrowserPath = '';
+
+            // Void unrelated methods
+            protected function configureOutput(): void
+            {
+            }
+
+            protected function printStartMessage(): void
+            {
+            }
+
+            protected function runServerProcess(string $command): void
+            {
+            }
+
+            protected function openInBrowser(string $path = '/'): void
+            {
+                $this->openInBrowserCalled = true;
+                $this->openInBrowserPath = $path;
+            }
+        };
     }
 }
 
