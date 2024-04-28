@@ -89,9 +89,9 @@ class Features implements SerializableContract
         return static::enabled(Feature::Darkmode);
     }
 
-    public static function hasDarkmodeButtons(): bool
+    public static function hasThemeToggleButtons(): bool
     {
-        return static::hasDarkmode() && Config::getBool('hyde.darkmode_buttons', true);
+        return static::hasDarkmode() && Config::getBool('hyde.theme_toggle_buttons', true);
     }
 
     /**

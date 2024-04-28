@@ -111,7 +111,7 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testDarkModeThemeButtonIsHiddenWhenThemeToggleIsDisabled()
     {
-        Config::set('hyde.darkmode_buttons', false);
+        Config::set('hyde.theme_toggle_buttons', false);
 
         $view = view('hyde::layouts/page')->with([
             'title' => 'foo',
@@ -125,7 +125,7 @@ class DarkmodeFeatureTest extends TestCase
 
     public function testDarkModeThemeButtonIsHiddenFromDocumentationPagesWhenThemeToggleIsDisabled()
     {
-        Config::set('hyde.darkmode_buttons', false);
+        Config::set('hyde.theme_toggle_buttons', false);
 
         view()->share('page', new DocumentationPage());
 
