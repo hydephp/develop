@@ -181,7 +181,7 @@ jobs:
           add: '["_media/app.css", "packages/hydefront/dist/app.css"]'
           message: 'Compile TailwindCSS for production'
           new_branch: compile-tailwindcss
-          push: '--set-upstream --force'
+          push: '--set-upstream origin compile-tailwindcss --force'
           # Todo create PR or just push to master?
 
 
