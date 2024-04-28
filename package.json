@@ -6,7 +6,7 @@
         "watch": "mix watch"
     },
     "devDependencies": {
-        "@tailwindcss/typography": "^0.5.12",
+        "@tailwindcss/typography": "^0.5.13",
         "autoprefixer": "^10.4.19",
         "hydefront": "^3.3.0",
         "laravel-mix": "^6.0.49",
