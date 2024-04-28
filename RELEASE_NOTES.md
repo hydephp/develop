@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Added support for using HTML comments to create Markdown code block filepath labels in https://github.com/hydephp/develop/pull/1693
+- You can now specify which path to open when using the `--open` option in the serve command in https://github.com/hydephp/develop/pull/1694
 
 ### Changed
 - for changes in existing functionality.
