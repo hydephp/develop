@@ -58,6 +58,43 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::sitemap());
     }
 
+    public function testHasDarkmodeButtonsReturnsTrueWhenDarkmodeEnabledAndConfigTrue()
+    {
+        // Enable dark mode and set hyde.darkmode_buttons config option to true
+        Features::mock('darkmode', true);
+        config(['hyde.darkmode_buttons' => true]);
+
+        $this->assertTrue(Features::hasDarkmodeButtons());
+    }
+
+    public function testHasDarkmodeButtonsReturnsFalseWhenDarkmodeDisabled()
+    {
+        // Disable dark mode
+        Features::mock('darkmode', false);
+        // It doesn't matter what the config value is here
+
+        $this->assertFalse(Features::hasDarkmodeButtons());
+    }
+
+    public function testHasDarkmodeButtonsReturnsFalseWhenConfigFalse()
+    {
+        // Enable dark mode
+        Features::mock('darkmode', true);
+        // Set hyde.darkmode_buttons config option to false
+        config(['hyde.darkmode_buttons' => false]);
+
+        $this->assertFalse(Features::hasDarkmodeButtons());
+    }
+
+    public function testHasDarkmodeButtonsReturnsFalseWhenDarkmodeEnabledAndConfigNotSet()
+    {
+        // Enable dark mode
+        Features::mock('darkmode', true);
+        // Config option not set, default value assumed to be true
+
+        $this->assertFalse(Features::hasDarkmodeButtons());
+    }
+
     public function testToArrayMethodReturnsMethodArray()
     {
         $array = (new Features)->toArray();
