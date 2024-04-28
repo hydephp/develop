@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Mockery;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\HydeKernel;
+use Illuminate\Process\Factory;
 use Illuminate\Console\OutputStyle;
 use Hyde\Console\Commands\ServeCommand;
 use Illuminate\Support\Facades\Process;
@@ -26,6 +27,9 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
             'hyde.server.host' => 'localhost',
             'hyde.server.port' => 8080,
         ]);
+
+        Process::swap(new Factory());
+        Process::preventStrayProcesses();
     }
 
     protected function tearDown(): void
