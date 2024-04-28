@@ -10,6 +10,7 @@ use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\HtmlString;
 
+use function array_merge;
 use function preg_replace;
 use function str_contains;
 use function str_ireplace;
@@ -36,6 +37,8 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         '/* filepath ',
         '# filepath: ',
         '# filepath ',
+        '<!-- filepath: ',
+        '<!-- filepath ',
     ];
 
     /**
@@ -52,7 +55,7 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
                 // We then replace these markers in the post-processor.
                 $lines[$index - 2] .= sprintf(
                     "\n<!-- HYDE[Filepath]%s -->",
-                    trim(str_ireplace(static::$patterns, '', $line))
+                    trim(str_ireplace(array_merge(static::$patterns, ['-->']), '', $line))
                 );
 
                 // Remove the original comment lines

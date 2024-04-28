@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Mockery;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\HydeKernel;
+use Illuminate\Process\Factory;
 use Illuminate\Console\OutputStyle;
 use Hyde\Console\Commands\ServeCommand;
 use Illuminate\Support\Facades\Process;
@@ -26,6 +27,18 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
             'hyde.server.host' => 'localhost',
             'hyde.server.port' => 8080,
         ]);
+
+        Process::swap(new Factory());
+        Process::preventStrayProcesses();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+
+        Mockery::close();
+
+        parent::tearDown();
     }
 
     public function testGetHostSelection()
@@ -210,32 +223,33 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     {
         HydeKernel::setInstance(new HydeKernel());
 
-        $command = new class(['open' => true]) extends ServeCommandMock
-        {
-            public bool $openInBrowserCalled = false;
-
-            // Void unrelated methods
-            protected function configureOutput(): void
-            {
-            }
-
-            protected function printStartMessage(): void
-            {
-            }
-
-            protected function runServerProcess(string $command): void
-            {
-            }
-
-            protected function openInBrowser(): void
-            {
-                $this->openInBrowserCalled = true;
-            }
-        };
+        $command = $this->getOpenServeCommandMock(['open' => true]);
 
         $command->safeHandle();
 
         $this->assertTrue($command->openInBrowserCalled);
+    }
+
+    public function testWithOpenArgumentWhenString()
+    {
+        HydeKernel::setInstance(new HydeKernel());
+
+        $command = $this->getOpenServeCommandMock(['open' => '']);
+
+        $command->safeHandle();
+
+        $this->assertTrue($command->openInBrowserCalled);
+    }
+
+    public function testWithOpenArgumentWhenPath()
+    {
+        HydeKernel::setInstance(new HydeKernel());
+
+        $command = $this->getOpenServeCommandMock(['open' => 'dashboard']);
+
+        $command->safeHandle();
+
+        $this->assertSame('dashboard', $command->openInBrowserPath);
     }
 
     public function testOpenInBrowser()
@@ -246,17 +260,38 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command = $this->getMock(['--open' => true]);
         $command->setOutput($output);
 
-        $binary = match (PHP_OS_FAMILY) {
-            'Darwin' => 'open',
-            'Windows' => 'start',
-            default => 'xdg-open',
-        };
+        $binary = $this->getTestRunnerBinary();
 
         Process::shouldReceive('command')->once()->with("$binary http://localhost:8080")->andReturnSelf();
         Process::shouldReceive('run')->once()->andReturnSelf();
         Process::shouldReceive('failed')->once()->andReturn(false);
 
         $command->openInBrowser();
+    }
+
+    public function testOpenInBrowserWithPath()
+    {
+        Process::shouldReceive('command')->once()->with("{$this->getTestRunnerBinary()} http://localhost:8080/dashboard")->andReturnSelf();
+        Process::shouldReceive('run')->once()->andReturnSelf();
+        Process::shouldReceive('failed')->once()->andReturn(false);
+
+        $this->getMock()->openInBrowser('dashboard');
+    }
+
+    public function testOpenInBrowserWithPathNormalizesPaths()
+    {
+        Process::shouldReceive('run')->andReturnSelf();
+        Process::shouldReceive('failed')->andReturn(false);
+
+        Process::shouldReceive('command')->times(3)->with("{$this->getTestRunnerBinary()} http://localhost:8080")->andReturnSelf();
+        Process::shouldReceive('command')->once()->with("{$this->getTestRunnerBinary()} http://localhost:8080/dashboard")->andReturnSelf();
+        Process::shouldReceive('command')->once()->with("{$this->getTestRunnerBinary()} http://localhost:8080/foo/bar")->andReturnSelf();
+
+        $this->getMock()->openInBrowser('');
+        $this->getMock()->openInBrowser('/');
+        $this->getMock()->openInBrowser('//');
+        $this->getMock()->openInBrowser('dashboard/');
+        $this->getMock()->openInBrowser('foo/bar/');
     }
 
     public function testOpenInBrowserThatFails()
@@ -274,11 +309,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command = $this->getMock(['--open' => true]);
         $command->setOutput($output);
 
-        $binary = match (PHP_OS_FAMILY) {
-            'Darwin' => 'open',
-            'Windows' => 'start',
-            default => 'xdg-open',
-        };
+        $binary = $this->getTestRunnerBinary();
 
         Process::shouldReceive('command')->once()->with("$binary http://localhost:8080")->andReturnSelf();
         Process::shouldReceive('run')->once()->andReturnSelf();
@@ -286,15 +317,48 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         Process::shouldReceive('errorOutput')->once()->andReturn("Missing suitable 'open' binary.");
 
         $command->openInBrowser();
+    }
 
-        Mockery::close();
-
-        $this->assertTrue(true);
+    protected function getTestRunnerBinary(): string
+    {
+        return match (PHP_OS_FAMILY) {
+            'Darwin' => 'open',
+            'Windows' => 'start',
+            default => 'xdg-open',
+        };
     }
 
     protected function getMock(array $options = []): ServeCommandMock
     {
         return new ServeCommandMock($options);
+    }
+
+    protected function getOpenServeCommandMock(array $arguments): ServeCommandMock
+    {
+        return new class($arguments) extends ServeCommandMock
+        {
+            public bool $openInBrowserCalled = false;
+            public string $openInBrowserPath = '';
+
+            // Void unrelated methods
+            protected function configureOutput(): void
+            {
+            }
+
+            protected function printStartMessage(): void
+            {
+            }
+
+            protected function runServerProcess(string $command): void
+            {
+            }
+
+            protected function openInBrowser(string $path = '/'): void
+            {
+                $this->openInBrowserCalled = true;
+                $this->openInBrowserPath = $path;
+            }
+        };
     }
 }
 
@@ -304,7 +368,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
  * @method getEnvironmentVariables
  * @method parseEnvironmentOption(string $name)
  * @method checkArgvForOption(string $name)
- * @method openInBrowser()
+ * @method openInBrowser(string $path = '/')
  */
 class ServeCommandMock extends ServeCommand
 {

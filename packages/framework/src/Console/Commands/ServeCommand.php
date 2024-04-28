@@ -33,7 +33,7 @@ class ServeCommand extends Command
         {--dashboard= : Enable the realtime compiler dashboard. (Overrides config setting)}
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
-        {--open : Open the site preview in the browser.}
+        {--open=false : Open the site preview in the browser.}
     ';
 
     /** @var string */
@@ -46,8 +46,8 @@ class ServeCommand extends Command
         $this->configureOutput();
         $this->printStartMessage();
 
-        if ($this->option('open')) {
-            $this->openInBrowser();
+        if ($this->option('open') !== 'false') {
+            $this->openInBrowser((string) $this->option('open'));
         }
 
         $this->runServerProcess(sprintf('php -S %s:%d %s',
@@ -143,16 +143,19 @@ class ServeCommand extends Command
         return null;
     }
 
-    protected function openInBrowser(): void
+    protected function openInBrowser(string $path = '/'): void
     {
-        $command = match (PHP_OS_FAMILY) {
+        $binary = match (PHP_OS_FAMILY) {
             'Windows' => 'start',
             'Darwin' => 'open',
             'Linux' => 'xdg-open',
             default => null
         };
 
-        $process = $command ? Process::command(sprintf('%s http://%s:%d', $command, $this->getHostSelection(), $this->getPortSelection()))->run() : null;
+        $command = sprintf('%s http://%s:%d', $binary, $this->getHostSelection(), $this->getPortSelection());
+        $command = rtrim("$command/$path", '/');
+
+        $process = $binary ? Process::command($command)->run() : null;
 
         if (! $process || $process->failed()) {
             $this->warn('Unable to open the site preview in the browser on your system:');

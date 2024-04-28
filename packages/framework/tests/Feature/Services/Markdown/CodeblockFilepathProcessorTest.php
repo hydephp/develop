@@ -17,7 +17,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         $markdown = "\n```php\n// filepath: foo.php\necho 'Hello World';\n```";
         $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
 
-        $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function testPreprocessAcceptsMultipleFilepathFormats()
@@ -37,7 +37,7 @@ class CodeblockFilepathProcessorTest extends TestCase
             $markdown = "\n```php\n{$pattern}foo.php\necho 'Hello World';\n```";
             $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
 
-            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
     }
 
@@ -54,7 +54,45 @@ class CodeblockFilepathProcessorTest extends TestCase
             $markdown = "\n```php\n{$pattern}foo.php\necho 'Hello World';\n```";
             $expected = "\n<!-- HYDE[Filepath]foo.php -->\n```php\necho 'Hello World';\n```";
 
-            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
+        }
+    }
+
+    public function testPreprocessCanUseHtmlComments()
+    {
+        $markdown = <<<'MD'
+        
+        ```html
+        <!-- filepath: foo.html -->
+        <p>Hello World</p>
+        ```
+        MD;
+
+        $expected = <<<'MD'
+
+        <!-- HYDE[Filepath]foo.html -->
+        ```html
+        <p>Hello World</p>
+        ```
+        MD;
+
+        $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
+    }
+
+    public function testPreprocessCanUseHtmlCommentsWithDifferentPatterns()
+    {
+        $patterns = [
+            '<!-- filepath: ',
+            '<!-- Filepath: ',
+            '<!-- FilePath: ',
+            '<!-- FILEPATH: ',
+        ];
+
+        foreach ($patterns as $pattern) {
+            $markdown = "\n```html\n{$pattern}foo.html\n<p>Hello World</p>\n```";
+            $expected = "\n<!-- HYDE[Filepath]foo.html -->\n```html\n<p>Hello World</p>\n```";
+
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
     }
 
@@ -72,10 +110,8 @@ class CodeblockFilepathProcessorTest extends TestCase
             $markdown = "\n```$language\n// filepath: foo.$language\nfoo\n```";
             $expected = "\n<!-- HYDE[Filepath]foo.$language -->\n```$language\nfoo\n```";
 
-            $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
+            $this->assertSame($expected, CodeblockFilepathProcessor::preprocess($markdown));
         }
-
-        $this->assertEquals($expected, CodeblockFilepathProcessor::preprocess($markdown));
     }
 
     public function testPreprocessAcceptsMultipleInputBlocks()
