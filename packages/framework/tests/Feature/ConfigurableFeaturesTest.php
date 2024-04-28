@@ -86,13 +86,13 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::hasDarkmodeButtons());
     }
 
-    public function testHasDarkmodeButtonsReturnsFalseWhenDarkmodeEnabledAndConfigNotSet()
+    public function testHasDarkmodeButtonsReturnsTrueWhenDarkmodeEnabledAndConfigNotSet()
     {
         // Enable dark mode
         Features::mock('darkmode', true);
         // Config option not set, default value assumed to be true
 
-        $this->assertFalse(Features::hasDarkmodeButtons());
+        $this->assertTrue(Features::hasDarkmodeButtons());
     }
 
     public function testToArrayMethodReturnsMethodArray()
