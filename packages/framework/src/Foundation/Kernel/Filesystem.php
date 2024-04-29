@@ -9,12 +9,12 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Support\Collection;
 
+use function collect;
 use function Hyde\normalize_slashes;
 use function Hyde\path_join;
 use function file_exists;
 use function str_replace;
 use function array_map;
-use function is_string;
 use function is_array;
 use function str_starts_with;
 use function unslash;
@@ -153,15 +153,9 @@ class Filesystem
      */
     public function touch(string|array $path): bool
     {
-        if (is_string($path)) {
+        return collect($path)->map(function (string $path): bool {
             return touch($this->path($path));
-        }
-
-        foreach ($path as $p) {
-            touch($this->path($p));
-        }
-
-        return true;
+        })->contains(false) === false;
     }
 
     /**
@@ -171,15 +165,9 @@ class Filesystem
      */
     public function unlink(string|array $path): bool
     {
-        if (is_string($path)) {
+        return collect($path)->map(function (string $path): bool {
             return unlink($this->path($path));
-        }
-
-        foreach ($path as $p) {
-            unlink($this->path($p));
-        }
-
-        return true;
+        })->contains(false) === false;
     }
 
     /**
