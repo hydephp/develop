@@ -73,11 +73,11 @@ class Filesystem
      * Touch one or more files in the project's directory.
      *
      * @param  string|array  $path
-     * @return bool
+     * @return void
      */
-    public static function touch(string|array $path): bool
+    public static function touch(string|array $path): void
     {
-        return self::kernel()->filesystem()->touch($path);
+        self::kernel()->filesystem()->touch($path);
     }
 
     /**

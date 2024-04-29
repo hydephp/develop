@@ -151,17 +151,16 @@ class Filesystem
      *
      * @param  string|array<string>  $path
      */
-    public function touch(string|array $path): bool
+    public function touch(string|array $path): void
     {
         if (is_string($path)) {
-            return touch($this->path($path));
+            touch($this->path($path));
+            return;
         }
 
         foreach ($path as $p) {
             touch($this->path($p));
         }
-
-        return true;
     }
 
     /**
