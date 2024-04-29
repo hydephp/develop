@@ -325,6 +325,20 @@ use \Hyde\Framework\Services\AssetService;
 'hydefront_cdn_url' => AssetService::HYDEFRONT_CDN_URL,
 ```
 
+### `theme_toggle_buttons`
+
+>info This feature was added in HydePHP v1.7.0
+
+This setting allows you to enable or disable the theme toggle buttons in the navigation menu.
+
+```php
+// filepath config/hyde.php
+'theme_toggle_buttons' => true,
+```
+
+If the `Feature::Darkmode` setting is disabled in the `features` array in the same file, this won't do anything, but if darkmode is enabled,
+setting this setting to `false` will make so that the buttons will not show up in the app layout nor the documentation layout;
+instead the appropriate color scheme will be automatically applied based on the browser system settings.
 
 ## Blade Views
 

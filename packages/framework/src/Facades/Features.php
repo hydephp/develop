@@ -89,6 +89,11 @@ class Features implements SerializableContract
         return static::enabled(Feature::Darkmode);
     }
 
+    public static function hasThemeToggleButtons(): bool
+    {
+        return static::hasDarkmode() && Config::getBool('hyde.theme_toggle_buttons', true);
+    }
+
     /**
      * Torchlight is by default enabled automatically when an API token
      * is set in the .env file but is disabled when running tests.

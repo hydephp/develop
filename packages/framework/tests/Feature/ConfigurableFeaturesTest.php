@@ -58,6 +58,43 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::sitemap());
     }
 
+    public function testHasThemeToggleButtonsReturnsTrueWhenDarkmodeEnabledAndConfigTrue()
+    {
+        // Enable dark mode and set hyde.theme_toggle_buttons config option to true
+        Features::mock('darkmode', true);
+        config(['hyde.theme_toggle_buttons' => true]);
+
+        $this->assertTrue(Features::hasThemeToggleButtons());
+    }
+
+    public function testHasThemeToggleButtonsReturnsFalseWhenDarkmodeDisabled()
+    {
+        // Disable dark mode
+        Features::mock('darkmode', false);
+        // It doesn't matter what the config value is here
+
+        $this->assertFalse(Features::hasThemeToggleButtons());
+    }
+
+    public function testHasThemeToggleButtonsReturnsFalseWhenConfigFalse()
+    {
+        // Enable dark mode
+        Features::mock('darkmode', true);
+        // Set hyde.theme_toggle_buttons config option to false
+        config(['hyde.theme_toggle_buttons' => false]);
+
+        $this->assertFalse(Features::hasThemeToggleButtons());
+    }
+
+    public function testHasThemeToggleButtonsReturnsTrueWhenDarkmodeEnabledAndConfigNotSet()
+    {
+        // Enable dark mode
+        Features::mock('darkmode', true);
+        // Config option not set, default value assumed to be true
+
+        $this->assertTrue(Features::hasThemeToggleButtons());
+    }
+
     public function testToArrayMethodReturnsMethodArray()
     {
         $array = (new Features)->toArray();
@@ -80,10 +117,11 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertArrayHasKey('markdown-pages', $array);
         $this->assertArrayHasKey('documentation-pages', $array);
         $this->assertArrayHasKey('darkmode', $array);
+        $this->assertArrayHasKey('theme-toggle-buttons', $array);
         $this->assertArrayHasKey('documentation-search', $array);
         $this->assertArrayHasKey('torchlight', $array);
 
-        $this->assertCount(8, $array);
+        $this->assertCount(9, $array);
     }
 
     public function testFeaturesCanBeMocked()

@@ -108,4 +108,34 @@ class DarkmodeFeatureTest extends TestCase
         $this->assertStringNotContainsString('title="Toggle theme"', $view);
         $this->assertStringNotContainsString('<script>if (localStorage.getItem(\'color-theme\') === \'dark\'', $view);
     }
+
+    public function testDarkModeThemeButtonIsHiddenWhenThemeToggleIsDisabled()
+    {
+        Config::set('hyde.theme_toggle_buttons', false);
+
+        $view = view('hyde::layouts/page')->with([
+            'title' => 'foo',
+            'content' => 'foo',
+            'routeKey' => 'foo',
+        ])->render();
+
+        $this->assertStringNotContainsString('title="Toggle theme"', $view);
+        $this->assertStringContainsString('<script>if (localStorage.getItem(\'color-theme\') === \'dark\'', $view);
+    }
+
+    public function testDarkModeThemeButtonIsHiddenFromDocumentationPagesWhenThemeToggleIsDisabled()
+    {
+        Config::set('hyde.theme_toggle_buttons', false);
+
+        view()->share('page', new DocumentationPage());
+
+        $view = view('hyde::layouts/docs')->with([
+            'title' => 'foo',
+            'content' => 'foo',
+            'routeKey' => 'foo',
+        ])->render();
+
+        $this->assertStringNotContainsString('title="Toggle theme"', $view);
+        $this->assertStringContainsString('<script>if (localStorage.getItem(\'color-theme\') === \'dark\'', $view);
+    }
 }
