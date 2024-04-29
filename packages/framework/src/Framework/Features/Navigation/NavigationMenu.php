@@ -74,7 +74,7 @@ class NavigationMenu extends BaseNavigationMenu
         return (Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown') || $this->hasGroupExplicitlySetInFrontMatter();
     }
 
-    protected function hasGroupExplicitlySetInFrontMatter(): bool
+    private function hasGroupExplicitlySetInFrontMatter(): bool
     {
         return $this->hasDropdowns ??= $this->items->contains(function (NavItem $item): bool {
             return $item->getGroup() !== null && $item->destination !== (string) DocumentationPage::home();
