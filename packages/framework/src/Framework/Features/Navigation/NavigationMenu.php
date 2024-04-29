@@ -75,7 +75,7 @@ class NavigationMenu extends BaseNavigationMenu
     protected function hasGroupExplicitlySetInFrontMatter(): bool
     {
         return $this->items->contains(function (NavItem $item): bool {
-            return $item->getGroup() !== null;
+            return $item->getGroup() !== null && $item->destination !== (string) DocumentationPage::home();
         });
     }
 }
