@@ -337,7 +337,7 @@ This setting allows you to enable or disable the theme toggle buttons in the nav
 ```
 
 If the `Feature::Darkmode` setting is disabled in the `features` array in the same file, this won't do anything, but if darkmode is enabled,
-setting this setting to `false` the buttons will not show up in the app layout nor the documentation layout;
+setting this setting to `false` will make so that the buttons will not show up in the app layout nor the documentation layout;
 instead the appropriate color scheme will be automatically applied based on the browser system settings.
 
 ## Blade Views
