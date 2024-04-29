@@ -84,10 +84,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return $this->getSubdirectoryName();
         }
 
-        if ($this->matter->has('navigation.group')) {
-            return $this->getMatter('navigation.group');
-        }
-
         return $this->searchForGroupInFrontMatter() ?? $this->defaultGroup();
     }
 
