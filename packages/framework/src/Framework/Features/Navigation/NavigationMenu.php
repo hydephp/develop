@@ -77,7 +77,7 @@ class NavigationMenu extends BaseNavigationMenu
     private function hasGroupExplicitlySetInFrontMatter(): bool
     {
         return $this->hasDropdowns ??= $this->items->contains(function (NavItem $item): bool {
-            return $item->getGroup() !== null && $item->destination !== (string) DocumentationPage::home();
+            return ($item->getGroup() !== null) && ($item->destination !== (string) DocumentationPage::home());
         });
     }
 }
