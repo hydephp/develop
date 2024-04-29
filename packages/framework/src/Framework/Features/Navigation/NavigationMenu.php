@@ -71,4 +71,11 @@ class NavigationMenu extends BaseNavigationMenu
     {
         return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
     }
+
+    protected function hasGroupExplicitlySetInFrontMatter(): bool
+    {
+        return $this->items->contains(function (NavItem $item): bool {
+            return $item->getGroup() !== null;
+        });
+    }
 }
