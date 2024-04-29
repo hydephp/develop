@@ -175,11 +175,7 @@ class Filesystem
      */
     public function unlinkIfExists(string $path): bool
     {
-        if (file_exists($this->path($path))) {
-            return unlink($this->path($path));
-        }
-
-        return false;
+        return file_exists($this->path($path)) && unlink($this->path($path));
     }
 
     /** @return \Illuminate\Support\Collection<int, string> */
