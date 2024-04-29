@@ -180,14 +180,14 @@ class FilesystemTest extends UnitTestCase
 
     public function testTouchHelperCreatesFileAtGivenPath()
     {
-        $this->assertNull($this->filesystem->touch('foo'));
+        $this->assertTrue($this->filesystem->touch('foo'));
         $this->assertFileExists(Hyde::path('foo'));
         $this->filesystem->unlink('foo');
     }
 
     public function testTouchHelperCreatesMultipleFilesAtGivenPaths()
     {
-        $this->assertNull($this->filesystem->touch(['foo', 'bar']));
+        $this->assertTrue($this->filesystem->touch(['foo', 'bar']));
         $this->assertFileExists(Hyde::path('foo'));
         $this->assertFileExists(Hyde::path('bar'));
         $this->filesystem->unlink('foo');
