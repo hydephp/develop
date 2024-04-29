@@ -70,7 +70,7 @@ class Filesystem
      * Input types are matched, meaning that if the input is a string so will the output be.
      *
      * @param  string|array<string>  $path
-     * @return string|array<string>
+     * @return ($path is string ? string : array<string>)
      */
     public function pathToAbsolute(string|array $path): string|array
     {
