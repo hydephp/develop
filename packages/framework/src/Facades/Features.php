@@ -87,6 +87,11 @@ class Features implements SerializableContract
         return static::has(Feature::Darkmode);
     }
 
+    public static function hasThemeToggleButtons(): bool
+    {
+        return static::hasDarkmode() && Config::getBool('hyde.theme_toggle_buttons', true);
+    }
+
     /**
      * Can a sitemap be generated?
      */
