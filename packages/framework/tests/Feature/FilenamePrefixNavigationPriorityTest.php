@@ -67,4 +67,32 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
             ],
         ];
     }
+
+    protected function fixturePrefixSyntaxes(): array
+    {
+        return [
+            [
+                '1-foo.md',
+                '2-bar.md',
+                '3-baz.md',
+            ], [
+                '01-foo.md',
+                '02-bar.md',
+                '03-baz.md',
+            ], [
+                '001-foo.md',
+                '002-bar.md',
+                '003-baz.md',
+            ],
+        ];
+    }
+
+    public function fixtureFileExtensions(): array
+    {
+        return [
+            '01-foo.md',
+            '02-bar.html',
+            '03-baz.blade.php',
+        ];
+    }
 }
