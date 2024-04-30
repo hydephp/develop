@@ -17,6 +17,16 @@ use Hyde\Testing\TestCase;
  */
 class FilenamePrefixNavigationPriorityTest extends TestCase
 {
+    public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromIdentifiers()
+    {
+        //
+    }
+
+    public function testSourceFilesDoNotHaveTheirNumericalPrefixTrimmedFromIdentifiersWhenFeatureIsDisabled()
+    {
+        //
+    }
+
     protected function fixtureFlatMain(): array
     {
         return [
