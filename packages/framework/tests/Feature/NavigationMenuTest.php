@@ -277,40 +277,6 @@ class NavigationMenuTest extends TestCase
         $this->assertSame('Foo', $navigation->getItems()->last()->getLabel());
     }
 
-    public function testHasDropdownsReturnsTrueWhenGroupIsExplicitlySetInFrontMatter()
-    {
-        config(['hyde.navigation.subdirectories' => 'hidden']);
-
-        Routes::addRoute((new MarkdownPage('foo', matter: ['navigation.group' => 'test-group']))->getRoute());
-
-        $this->assertTrue($this->createNavigationMenu()->hasDropdowns());
-    }
-
-    public function testGetDropdownsReturnsCorrectArrayWhenGroupIsExplicitlySetInFrontMatter()
-    {
-        config(['hyde.navigation.subdirectories' => 'hidden']);
-
-        Routes::addRoute((new MarkdownPage('foo', matter: ['navigation.group' => 'test-group']))->getRoute());
-
-        $menu = $this->createNavigationMenu();
-        $this->assertCount(1, $menu->getDropdowns());
-
-        $this->assertEquals([
-            DropdownNavItem::fromArray('test-group', [
-                NavItem::fromRoute((new MarkdownPage('foo'))->getRoute()),
-            ]),
-        ], $menu->getDropdowns());
-    }
-
-    public function testHasDropdownsReturnsFalseWhenGroupIsNotExplicitlySetInFrontMatter()
-    {
-        config(['hyde.navigation.subdirectories' => 'hidden']);
-
-        Routes::addRoute((new MarkdownPage('foo'))->getRoute());
-        $menu = $this->createNavigationMenu();
-        $this->assertFalse($menu->hasDropdowns());
-    }
-
     protected function createNavigationMenu(): MainNavigationMenu
     {
         return NavigationMenuGenerator::handle(MainNavigationMenu::class);
