@@ -277,11 +277,6 @@ class NavigationMenuTest extends TestCase
         $this->assertSame('Foo', $navigation->getItems()->last()->getLabel());
     }
 
-    protected function createNavigationMenu(): MainNavigationMenu
-    {
-        return NavigationMenuGenerator::handle(MainNavigationMenu::class);
-    }
-
     public function testHasDropdownsReturnsTrueWhenGroupIsExplicitlySetInFrontMatter()
     {
         config(['hyde.navigation.subdirectories' => 'hidden']);
@@ -314,5 +309,10 @@ class NavigationMenuTest extends TestCase
         Routes::addRoute((new MarkdownPage('foo'))->getRoute());
         $menu = NavigationMenu::create();
         $this->assertFalse($menu->hasDropdowns());
+    }
+
+    protected function createNavigationMenu(): MainNavigationMenu
+    {
+        return NavigationMenuGenerator::handle(MainNavigationMenu::class);
     }
 }
