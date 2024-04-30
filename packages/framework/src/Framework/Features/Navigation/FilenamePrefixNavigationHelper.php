@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Config;
 use Hyde\Testing\UnitTestCase;
 
 use function assert;
@@ -22,7 +23,7 @@ class FilenamePrefixNavigationHelper
      */
     public static function enabled(): bool
     {
-        return true;
+        return Config::getBool('hyde.filename_page_ordering', true);
     }
 
     /**
@@ -59,7 +60,9 @@ class FilenamePrefixNavigationHelperTest extends UnitTestCase
 
     public function testEnabledReturnsFalseWhenDisabled()
     {
-        $this->markTestSkipped('TODO: Support for disabling the feature.');
+        self::mockConfig(['hyde.filename_page_ordering' => false]);
+
+        $this->assertFalse(FilenamePrefixNavigationHelper::enabled());
     }
 
     public function testIdentifiersWithNumericalPrefixesAreDetected()
