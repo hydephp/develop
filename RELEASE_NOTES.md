@@ -15,7 +15,7 @@ This serves two purposes:
 - You can now specify which path to open when using the `--open` option in the serve command in https://github.com/hydephp/develop/pull/1694
 
 ### Changed
-- for changes in existing functionality.
+- When a navigation group is set in front matter, it will now be used regardless of the subdirectory configuration in https://github.com/hydephp/develop/pull/1703 (fixes https://github.com/hydephp/develop/issues/1515)
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -24,7 +24,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed explicitly set front matter navigation group behavior being dependent on subdirectory configuration, fixing https://github.com/hydephp/develop/issues/1515 in https://github.com/hydephp/develop/pull/1703
 
 ### Security
 - in case of vulnerabilities.
