@@ -7,6 +7,8 @@ namespace Hyde\Testing;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 
+use function is_dir;
+use function dirname;
 use function in_array;
 
 trait CreatesTemporaryFiles
@@ -15,10 +17,15 @@ trait CreatesTemporaryFiles
 
     /**
      * Create a temporary file in the project directory.
-     * The TestCase will automatically remove the file when the test is completed.
+     *
+     * The test case will automatically remove the file when the test is completed.
      */
     protected function file(string $path, ?string $contents = null): void
     {
+        if (! is_dir(dirname($path))) {
+            $this->directory(dirname($path));
+        }
+
         if ($contents) {
             Filesystem::put($path, $contents);
         } else {
@@ -30,7 +37,8 @@ trait CreatesTemporaryFiles
 
     /**
      * Create a temporary directory in the project directory.
-     * The TestCase will automatically remove the entire directory when the test is completed.
+     *
+     * The test case will automatically remove the entire directory when the test is completed.
      */
     protected function directory(string $path): void
     {
@@ -40,13 +48,16 @@ trait CreatesTemporaryFiles
     }
 
     /**
-     * Create a temporary Markdown+FrontMatter file in the project directory.
+     * Create a temporary Markdown file with front matter in the project directory.
      */
     protected function markdown(string $path, string $contents = '', array $matter = []): void
     {
         $this->file($path, (new ConvertsArrayToFrontMatter())->execute($matter).$contents);
     }
 
+    /**
+     * Clean up the filesystem after the test has completed.
+     */
     protected function cleanUpFilesystem(): void
     {
         if (sizeof($this->fileMemory) > 0) {
