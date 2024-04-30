@@ -17,5 +17,31 @@ use Hyde\Testing\TestCase;
  */
 class FilenamePrefixNavigationPriorityTest extends TestCase
 {
-    //
+    protected function fixtureFlatMain(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    protected function fixtureGroupedMain(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    protected function fixtureFlatSidebar(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    protected function fixtureGroupedSidebar(): array
+    {
+        return [
+            //
+        ];
+    }
 }
