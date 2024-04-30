@@ -25,6 +25,8 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 {
     public function testFilenamePrefixNavigationHelper()
     {
+        $this->markTestSkipped('Disabled in CI');
+
         // Manually load test as it does not conform to PSR-4 autoloading.
         require_once __DIR__ . '/../../src/Framework/Features/Navigation/FilenamePrefixNavigationHelper.php';
 
@@ -37,6 +39,56 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
             (new TestRunner)->run(new $case($method));
         }
     }
+
+    // Helper test
+    public function testEnabledReturnsTrueWhenEnabled()
+    {
+        $this->assertTrue(FilenamePrefixNavigationHelper::enabled());
+    }
+
+    public function testEnabledReturnsFalseWhenDisabled()
+    {
+        Config::set('hyde.filename_page_ordering', false);
+
+        $this->assertFalse(FilenamePrefixNavigationHelper::enabled());
+    }
+
+    public function testIdentifiersWithNumericalPrefixesAreDetected()
+    {
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01-home.md'));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('02-about.md'));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('03-contact.md'));
+    }
+
+    public function testIdentifiersWithoutNumericalPrefixesAreNotDetected()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('home.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('about.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('contact.md'));
+    }
+
+    public function testSplitNumberAndIdentifier()
+    {
+        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
+        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
+        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
+    }
+
+    public function testSplitNumberAndIdentifierWithMultipleDigits()
+    {
+        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
+        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
+        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
+    }
+
+    public function testSplitNumberAndIdentifierThrowsExceptionWhenIdentifierIsNotNumbered()
+    {
+        $this->expectException(\AssertionError::class);
+        // $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
+
+        FilenamePrefixNavigationHelper::splitNumberAndIdentifier('home.md');
+    }
+    // End helper test
 
     public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromRouteKeys()
     {
