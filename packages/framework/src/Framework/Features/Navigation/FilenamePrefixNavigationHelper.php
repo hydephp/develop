@@ -6,6 +6,10 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Testing\UnitTestCase;
 
+use function assert;
+use function explode;
+use function preg_match;
+
 /**
  * @internal Helper class for the new Filename Prefix Navigation feature.
  *
