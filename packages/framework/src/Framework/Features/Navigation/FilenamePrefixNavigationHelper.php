@@ -45,6 +45,9 @@ class FilenamePrefixNavigationHelper
         return $parts;
     }
 
+    /**
+     * Returns the test case for the FilenamePrefixNavigationHelper.
+     */
     public static function getTest(): UnitTestCase
     {
         return new class('FilenamePrefixNavigationHelperTest') extends UnitTestCase
