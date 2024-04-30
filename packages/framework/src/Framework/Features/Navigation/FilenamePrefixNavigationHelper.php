@@ -11,5 +11,8 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class FilenamePrefixNavigationHelper
 {
-    //
+    public static function isIdentifierNumbered(string $identifier): bool
+    {
+        return preg_match('/^\d+-/', $identifier) === 1;
+    }
 }
