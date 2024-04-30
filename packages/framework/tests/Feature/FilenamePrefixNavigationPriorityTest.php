@@ -36,12 +36,12 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         }
     }
 
-    public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromIdentifiers()
+    public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromRouteKeys()
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testSourceFilesDoNotHaveTheirNumericalPrefixTrimmedFromIdentifiersWhenFeatureIsDisabled()
+    public function testSourceFilesDoNotHaveTheirNumericalPrefixTrimmedFromRouteKeysWhenFeatureIsDisabled()
     {
         $this->markTestSkipped('TODO');
     }
