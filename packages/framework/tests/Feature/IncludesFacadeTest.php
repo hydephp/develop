@@ -8,13 +8,19 @@ use Hyde\Facades\Filesystem;
 use Hyde\Support\Includes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Support\Includes
  */
 class IncludesFacadeTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->directory('resources/includes');
+    }
+
     public function testPathReturnsTheIncludesDirectory()
     {
         $this->assertSame(
@@ -29,14 +35,6 @@ class IncludesFacadeTest extends TestCase
             Hyde::path('resources/includes/partial.html'),
             Includes::path('partial.html')
         );
-    }
-
-    public function testPathCreatesDirectoryIfItDoesNotExist()
-    {
-        $path = Includes::path();
-        File::deleteDirectory($path);
-        $this->assertFalse(File::exists($path));
-        $this->assertTrue(File::exists(Includes::path()));
     }
 
     public function testGetReturnsPartial()
