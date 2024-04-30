@@ -237,6 +237,36 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertFalse($factory->makeHidden());
     }
 
+    public function testMakeGroupUsesFrontMatterGroupIfSet()
+    {
+        $frontMatter = new FrontMatter(['navigation.group' => 'Test Group']);
+        $coreDataObject = new CoreDataObject($frontMatter, new Markdown(), MarkdownPage::class, 'test.md', '', '', '');
+        $factory = new NavigationConfigTestClass($coreDataObject);
+
+        $this->assertSame('Test Group', $factory->makeGroup());
+    }
+
+    public function testMakeGroupUsesFrontMatterGroupIfSetRegardlessOfSubdirectoryConfiguration()
+    {
+        self::mockConfig(['hyde.navigation.subdirectories' => 'hidden']);
+
+        $frontMatter = new FrontMatter(['navigation.group' => 'Test Group']);
+        $coreDataObject = new CoreDataObject($frontMatter, new Markdown(), MarkdownPage::class, 'test.md', '', '', '');
+        $factory = new NavigationConfigTestClass($coreDataObject);
+
+        $this->assertSame('Test Group', $factory->makeGroup());
+    }
+
+    public function testMakeGroupDefaultsToNullIfFrontMatterGroupNotSetAndSubdirectoriesNotUsed()
+    {
+        self::mockConfig(['hyde.navigation.subdirectories' => 'hidden']);
+
+        $coreDataObject = new CoreDataObject(new FrontMatter(), new Markdown(), MarkdownPage::class, 'test.md', '', '', '');
+        $factory = new NavigationConfigTestClass($coreDataObject);
+
+        $this->assertNull($factory->makeGroup());
+    }
+
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
     {
         return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
@@ -263,5 +293,10 @@ class NavigationConfigTestClass extends NavigationDataFactory
     public function makeHidden(): bool
     {
         return parent::makeHidden();
+    }
+
+    public function makeGroup(): ?string
+    {
+        return parent::makeGroup();
     }
 }
