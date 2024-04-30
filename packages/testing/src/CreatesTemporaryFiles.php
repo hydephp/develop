@@ -7,6 +7,8 @@ namespace Hyde\Testing;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 
+use function is_dir;
+use function dirname;
 use function in_array;
 
 trait CreatesTemporaryFiles
@@ -19,6 +21,10 @@ trait CreatesTemporaryFiles
      */
     protected function file(string $path, ?string $contents = null): void
     {
+        if (! is_dir(dirname($path))) {
+            $this->directory(dirname($path));
+        }
+
         if ($contents) {
             Filesystem::put($path, $contents);
         } else {
