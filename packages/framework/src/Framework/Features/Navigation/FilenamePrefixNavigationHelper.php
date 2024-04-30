@@ -32,11 +32,13 @@ class FilenamePrefixNavigationHelper
     /**
      * Splits a numbered identifier into its numerical prefix and the rest of the identifier.
      *
-     * @return array{numeric-string, string}
+     * @return array{integer, string}
      */
     public static function splitNumberAndIdentifier(string $identifier): array
     {
         $parts = explode('-', $identifier, 2);
+
+        $parts[0] = (int) $parts[0];
 
         return $parts;
     }
@@ -71,16 +73,16 @@ class FilenamePrefixNavigationHelper
 
             public function testSplitNumberAndIdentifier()
             {
-                $this->assertSame(['01', 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
-                $this->assertSame(['02', 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
-                $this->assertSame(['03', 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
+                $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
+                $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
+                $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
             }
 
             public function testSplitNumberAndIdentifierWithMultipleDigits()
             {
-                $this->assertSame(['123', 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
-                $this->assertSame(['456', 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
-                $this->assertSame(['789', 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
+                $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
+                $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
+                $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
             }
         };
     }
