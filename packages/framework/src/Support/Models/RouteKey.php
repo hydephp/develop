@@ -30,6 +30,16 @@ final class RouteKey implements Stringable
         return new self($key);
     }
 
+    /** @experimental */
+    protected static function splitNumberedIdentifiersIfNeeded(string $identifier): string
+    {
+        if (FilenamePrefixNavigationHelper::enabled() && FilenamePrefixNavigationHelper::isIdentifierNumbered($identifier)) {
+            $identifier = FilenamePrefixNavigationHelper::splitNumberAndIdentifier($identifier)[1];
+        }
+
+        return $identifier;
+    }
+
     public function __construct(string $key)
     {
         $this->key = $key;
@@ -48,9 +58,7 @@ final class RouteKey implements Stringable
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public static function fromPage(string $pageClass, string $identifier): self
     {
-        if (FilenamePrefixNavigationHelper::enabled() && FilenamePrefixNavigationHelper::isIdentifierNumbered($identifier)) {
-            $identifier = FilenamePrefixNavigationHelper::splitNumberAndIdentifier($identifier)[1];
-        }
+        $identifier = self::splitNumberedIdentifiersIfNeeded($identifier);
 
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
     }
