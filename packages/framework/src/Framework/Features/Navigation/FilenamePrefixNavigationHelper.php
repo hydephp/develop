@@ -13,11 +13,17 @@ use Hyde\Testing\UnitTestCase;
  */
 class FilenamePrefixNavigationHelper
 {
+    /**
+     * Determines if the feature is enabled.
+     */
     public static function enabled(): bool
     {
         return true;
     }
 
+    /**
+     * Determines if a given identifier has a numerical prefix.
+     */
     public static function isIdentifierNumbered(string $identifier): bool
     {
         return preg_match('/^\d+-/', $identifier) === 1;
