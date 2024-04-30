@@ -36,7 +36,9 @@ class FilenamePrefixNavigationHelper
      */
     public static function splitNumberAndIdentifier(string $identifier): array
     {
-        return explode('-', $identifier, 2);
+        $parts = explode('-', $identifier, 2);
+
+        return $parts;
     }
 
     public static function getTest(): UnitTestCase
