@@ -11,6 +11,8 @@ use BadMethodCallException;
 
 class NavigationMenu extends BaseNavigationMenu
 {
+    private bool $hasDropdowns;
+
     protected function generate(): void
     {
         parent::generate();
@@ -69,6 +71,13 @@ class NavigationMenu extends BaseNavigationMenu
 
     protected function dropdownsEnabled(): bool
     {
-        return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+        return (Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown') || $this->hasGroupExplicitlySetInFrontMatter();
+    }
+
+    private function hasGroupExplicitlySetInFrontMatter(): bool
+    {
+        return $this->hasDropdowns ??= $this->items->contains(function (NavItem $item): bool {
+            return ($item->getGroup() !== null) && ($item->destination !== (string) DocumentationPage::home());
+        });
     }
 }
