@@ -44,59 +44,53 @@ class FilenamePrefixNavigationHelper
 
         return $parts;
     }
+}
 
-    /**
-     * Returns the test case for the FilenamePrefixNavigationHelper.
-     */
-    public static function getTest(): UnitTestCase
+class FilenamePrefixNavigationHelperTest extends UnitTestCase
+{
+    public function testEnabledReturnsTrueWhenEnabled()
     {
-        return new class('FilenamePrefixNavigationHelperTest') extends UnitTestCase
-        {
-            public function testEnabledReturnsTrueWhenEnabled()
-            {
-                $this->assertTrue(FilenamePrefixNavigationHelper::enabled());
-            }
+        $this->assertTrue(FilenamePrefixNavigationHelper::enabled());
+    }
 
-            public function testEnabledReturnsFalseWhenDisabled()
-            {
-                $this->markTestSkipped('TODO: Support for disabling the feature.');
-            }
+    public function testEnabledReturnsFalseWhenDisabled()
+    {
+        $this->markTestSkipped('TODO: Support for disabling the feature.');
+    }
 
-            public function testIdentifiersWithNumericalPrefixesAreDetected()
-            {
-                $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01-home.md'));
-                $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('02-about.md'));
-                $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('03-contact.md'));
-            }
+    public function testIdentifiersWithNumericalPrefixesAreDetected()
+    {
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01-home.md'));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('02-about.md'));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('03-contact.md'));
+    }
 
-            public function testIdentifiersWithoutNumericalPrefixesAreNotDetected()
-            {
-                $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('home.md'));
-                $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('about.md'));
-                $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('contact.md'));
-            }
+    public function testIdentifiersWithoutNumericalPrefixesAreNotDetected()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('home.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('about.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('contact.md'));
+    }
 
-            public function testSplitNumberAndIdentifier()
-            {
-                $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
-                $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
-                $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
-            }
+    public function testSplitNumberAndIdentifier()
+    {
+        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
+        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
+        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
+    }
 
-            public function testSplitNumberAndIdentifierWithMultipleDigits()
-            {
-                $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
-                $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
-                $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
-            }
+    public function testSplitNumberAndIdentifierWithMultipleDigits()
+    {
+        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
+        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
+        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
+    }
 
-            public function testSplitNumberAndIdentifierThrowsExceptionWhenIdentifierIsNotNumbered()
-            {
-                $this->expectException(\AssertionError::class);
-                // $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
+    public function testSplitNumberAndIdentifierThrowsExceptionWhenIdentifierIsNotNumbered()
+    {
+        $this->expectException(\AssertionError::class);
+        // $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
 
-                FilenamePrefixNavigationHelper::splitNumberAndIdentifier('home.md');
-            }
-        };
+        FilenamePrefixNavigationHelper::splitNumberAndIdentifier('home.md');
     }
 }

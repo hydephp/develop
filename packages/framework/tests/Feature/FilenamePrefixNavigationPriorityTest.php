@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 use PHPUnit\Framework\TestRunner;
 use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
+use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelperTest;
 
 /**
  * High level test for the feature that allows navigation items to be sorted by filename prefix.
@@ -22,7 +23,10 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 {
     public function testFilenamePrefixNavigationHelper()
     {
-        $case = FilenamePrefixNavigationHelper::getTest();
+        // Manually load test as it does not conform to PSR-4 autoloading.
+        require_once __DIR__ . '/../../src/Framework/Features/Navigation/FilenamePrefixNavigationHelper.php';
+
+        $case = FilenamePrefixNavigationHelperTest::class;
 
         // Get methods defined in the test case but not in the parent class.
         $methods = array_diff(get_class_methods($case), get_class_methods(TestCase::class));
