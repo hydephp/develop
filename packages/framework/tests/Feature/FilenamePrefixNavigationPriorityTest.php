@@ -9,6 +9,9 @@ use Hyde\Testing\TestCase;
 /**
  * High level test for the feature that allows navigation items to be sorted by filename prefix.
  *
+ * The feature can be disabled in the config. It also works within sidebar groups,
+ * so that multiple groups can have the same prefix independent of other groups.
+ *
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  */
