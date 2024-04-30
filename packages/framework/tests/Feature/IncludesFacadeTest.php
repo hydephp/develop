@@ -15,6 +15,20 @@ use Illuminate\Support\Facades\File;
  */
 class IncludesFacadeTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        File::makeDirectory(Includes::path(), recursive: true);
+    }
+
+    public function tearDown(): void
+    {
+        File::deleteDirectory(Includes::path());
+
+        parent::tearDown();
+    }
+
     public function testPathReturnsTheIncludesDirectory()
     {
         $this->assertSame(
@@ -29,14 +43,6 @@ class IncludesFacadeTest extends TestCase
             Hyde::path('resources/includes/partial.html'),
             Includes::path('partial.html')
         );
-    }
-
-    public function testPathCreatesDirectoryIfItDoesNotExist()
-    {
-        $path = Includes::path();
-        File::deleteDirectory($path);
-        $this->assertFalse(File::exists($path));
-        $this->assertTrue(File::exists(Includes::path()));
     }
 
     public function testGetReturnsPartial()

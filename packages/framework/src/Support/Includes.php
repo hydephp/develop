@@ -7,7 +7,6 @@ namespace Hyde\Support;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
-use Hyde\Framework\Concerns\InteractsWithDirectories;
 
 use function basename;
 use function file_exists;
@@ -20,8 +19,6 @@ use function file_get_contents;
  */
 class Includes
 {
-    use InteractsWithDirectories;
-
     /**
      * @var string The directory where includes are stored.
      */
@@ -35,8 +32,6 @@ class Includes
      */
     public static function path(?string $filename = null): string
     {
-        static::needsDirectory(static::$includesDirectory);
-
         return $filename === null
             ? Hyde::path(static::$includesDirectory)
             : Hyde::path(static::$includesDirectory.'/'.$filename);

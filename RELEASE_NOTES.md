@@ -23,6 +23,8 @@ This serves two purposes:
 - The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
+- Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
+
 
 ### Deprecated
 - for soon-to-be removed features.
