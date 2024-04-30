@@ -8,7 +8,6 @@ use Hyde\Facades\Filesystem;
 use Hyde\Support\Includes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Support\Includes
@@ -19,14 +18,7 @@ class IncludesFacadeTest extends TestCase
     {
         parent::setUp();
 
-        File::makeDirectory(Includes::path(), recursive: true);
-    }
-
-    public function tearDown(): void
-    {
-        File::deleteDirectory(Includes::path());
-
-        parent::tearDown();
+        $this->directory('resources/includes');
     }
 
     public function testPathReturnsTheIncludesDirectory()
