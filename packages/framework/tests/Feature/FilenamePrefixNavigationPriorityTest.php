@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
+use Hyde\Pages\MarkdownPage;
 use PHPUnit\Framework\TestRunner;
 use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
 use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelperTest;
@@ -38,12 +40,62 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromRouteKeys()
     {
-        $this->markTestSkipped('TODO');
+        $this->file('_pages/01-home.md');
+
+        $identifier = '01-home';
+
+        // Assert it is discovered.
+        $discovered = MarkdownPage::get($identifier);
+        $this->assertNotNull($discovered, 'The page was not discovered.');
+
+        // Assert it is parsable
+        $parsed = MarkdownPage::parse($identifier);
+        $this->assertNotNull($parsed, 'The page was not parsable.');
+
+        // Sanity check
+        $this->assertEquals($discovered, $parsed);
+
+        $page = $discovered;
+
+        // Assert identifier is the same.
+        $this->assertSame($identifier, $page->getIdentifier());
+
+        // Assert the route key is trimmed.
+        $this->assertSame('home', $page->getRouteKey());
+
+        // Assert route key dependents are trimmed.
+        $this->assertSame('home.html', $page->getOutputPath());
     }
 
     public function testSourceFilesDoNotHaveTheirNumericalPrefixTrimmedFromRouteKeysWhenFeatureIsDisabled()
     {
-        $this->markTestSkipped('TODO');
+        Config::set('hyde.filename_page_ordering', false);
+
+        $this->file('_pages/01-home.md');
+
+        $identifier = '01-home';
+
+        // Assert it is discovered.
+        $discovered = MarkdownPage::get($identifier);
+        $this->assertNotNull($discovered, 'The page was not discovered.');
+
+        // Assert it is parsable
+        $parsed = MarkdownPage::parse($identifier);
+        $this->assertNotNull($parsed, 'The page was not parsable.');
+
+        // Sanity check
+        $this->assertEquals($discovered, $parsed);
+
+        $page = $discovered;
+
+        // Assert identifier is the same.
+        $this->assertSame($identifier, $page->getIdentifier());
+
+        // Assert the route key is trimmed.
+        $this->assertSame($identifier, $page->getRouteKey());
+
+        // Assert route key dependents are trimmed.
+        $this->assertSame("$identifier.html", $page->getOutputPath());
     }
 
     protected function fixtureFlatMain(): array
