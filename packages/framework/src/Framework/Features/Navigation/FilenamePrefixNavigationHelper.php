@@ -36,6 +36,8 @@ class FilenamePrefixNavigationHelper
      */
     public static function splitNumberAndIdentifier(string $identifier): array
     {
+        assert(self::isIdentifierNumbered($identifier));
+
         $parts = explode('-', $identifier, 2);
 
         $parts[0] = (int) $parts[0];
@@ -83,6 +85,14 @@ class FilenamePrefixNavigationHelper
                 $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
                 $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
                 $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
+            }
+
+            public function testSplitNumberAndIdentifierThrowsExceptionWhenIdentifierIsNotNumbered()
+            {
+                $this->expectException(\AssertionError::class);
+                // $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
+
+                FilenamePrefixNavigationHelper::splitNumberAndIdentifier('home.md');
             }
         };
     }
