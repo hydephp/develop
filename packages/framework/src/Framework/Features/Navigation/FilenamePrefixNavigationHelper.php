@@ -13,6 +13,11 @@ use Hyde\Testing\UnitTestCase;
  */
 class FilenamePrefixNavigationHelper
 {
+    public static function enabled(): bool
+    {
+        return true;
+    }
+
     public static function isIdentifierNumbered(string $identifier): bool
     {
         return preg_match('/^\d+-/', $identifier) === 1;
@@ -22,6 +27,16 @@ class FilenamePrefixNavigationHelper
     {
         return new class('FilenamePrefixNavigationHelperTest') extends UnitTestCase
         {
+            public function testEnabledReturnsTrueWhenEnabled()
+            {
+                $this->assertTrue(FilenamePrefixNavigationHelper::enabled());
+            }
+
+            public function testEnabledReturnsFalseWhenDisabled()
+            {
+                $this->markTestSkipped('TODO: Support for disabling the feature.');
+            }
+
             public function testIdentifiersWithNumericalPrefixesAreDetected()
             {
                 $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01-home.md'));
