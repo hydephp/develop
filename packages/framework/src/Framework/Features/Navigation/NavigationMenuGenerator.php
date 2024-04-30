@@ -96,8 +96,15 @@ class NavigationMenuGenerator
 
             return $this->routes->first(fn (Route $route): bool => filled($route->getPage()->navigationMenuGroup())) !== null;
         } else {
-            return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+            return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown' || $this->hasGroupExplicitlySetInFrontMatter();
         }
+    }
+
+    private function hasGroupExplicitlySetInFrontMatter(): bool
+    {
+        return $this->routes->contains(function (Route $item): bool {
+            return ($item->getPage()->navigationMenuGroup() !== null) && (! $item->getPage() instanceof DocumentationPage);
+        });
     }
 
     protected function canAddRoute(Route $route): bool
