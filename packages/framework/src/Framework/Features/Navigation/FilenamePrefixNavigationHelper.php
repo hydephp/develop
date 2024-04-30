@@ -29,6 +29,16 @@ class FilenamePrefixNavigationHelper
         return preg_match('/^\d+-/', $identifier) === 1;
     }
 
+    /**
+     * Splits a numbered identifier into its numerical prefix and the rest of the identifier.
+     *
+     * @return array{numeric-string, string}
+     */
+    public static function splitNumberAndIdentifier(string $identifier): array
+    {
+        return explode('-', $identifier, 2);
+    }
+
     public static function getTest(): UnitTestCase
     {
         return new class('FilenamePrefixNavigationHelperTest') extends UnitTestCase
@@ -55,6 +65,20 @@ class FilenamePrefixNavigationHelper
                 $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('home.md'));
                 $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('about.md'));
                 $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('contact.md'));
+            }
+
+            public function testSplitNumberAndIdentifier()
+            {
+                $this->assertSame(['01', 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
+                $this->assertSame(['02', 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
+                $this->assertSame(['03', 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
+            }
+
+            public function testSplitNumberAndIdentifierWithMultipleDigits()
+            {
+                $this->assertSame(['123', 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
+                $this->assertSame(['456', 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
+                $this->assertSame(['789', 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
             }
         };
     }
