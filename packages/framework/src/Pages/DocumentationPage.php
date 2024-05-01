@@ -70,7 +70,7 @@ class DocumentationPage extends BaseMarkdownPage
     public function getRouteKey(): string
     {
         return Config::getBool('docs.flattened_output_paths', true)
-            ? unslash(static::outputDirectory().'/'.basename($this->identifier))
+            ? unslash(static::outputDirectory().'/'.basename(parent::getRouteKey()))
             : parent::getRouteKey();
     }
 
