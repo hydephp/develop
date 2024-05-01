@@ -9,6 +9,7 @@ use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Framework\Features\Navigation\NavigationItem;
+use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
@@ -144,7 +145,10 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     protected function assertOrder(array $expected): void
     {
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
-        $actual = $menu->getItems()->map(function (NavigationItem $item) {
+        $actual = $menu->getItems()->map(function (NavigationItem|NavigationGroup $item) {
+            if ($item instanceof NavigationGroup) {
+                return $item->getItems()->map(fn ($item) => $item->getPage()->getRouteKey())->all();
+            }
             return $item->getPage()->getRouteKey();
         })->all();
 
