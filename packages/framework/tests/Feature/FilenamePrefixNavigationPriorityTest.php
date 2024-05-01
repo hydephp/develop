@@ -142,6 +142,24 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         ]]);
     }
 
+    public function test_fixtureFlatSidebar_ordering()
+    {
+        $this->setUpFixture($this->fixtureFlatSidebar());
+
+        $this->assertOrder(['readme', 'installation', 'getting-started']);
+    }
+
+    public function test_fixtureGroupedSidebar_ordering()
+    {
+        $this->setUpFixture($this->fixtureGroupedSidebar());
+
+        $this->assertOrder(['readme', 'installation', 'getting-started', 'introduction' => [
+            'features', 'extensions', 'configuration',
+        ], 'advanced' => [
+            'features', 'extensions', 'configuration',
+        ]]);
+    }
+
     protected function setUpFixture(array $files): self
     {
         foreach ($files as $key => $file) {
