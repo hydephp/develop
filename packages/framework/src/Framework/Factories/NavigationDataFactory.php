@@ -97,6 +97,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->searchForPriorityInFrontMatter()
             ?? $this->searchForPriorityInConfigs()
+            ?? $this->checkFilePrefixForOrder()
             ?? NavigationMenu::LAST;
     }
 
@@ -237,6 +238,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         return $config[$pageKey] ?? null;
+    }
+
+    private function checkFilePrefixForOrder(): ?int
+    {
+        return null;
     }
 
     private function canUseSubdirectoryForGroups(): bool

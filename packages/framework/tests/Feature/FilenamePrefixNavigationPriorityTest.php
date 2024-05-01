@@ -21,6 +21,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ * @covers \Hyde\Framework\Factories\NavigationDataFactory // Todo: Update the unit test for this class.
  * @covers \Hyde\Support\Models\RouteKey // Todo: Update the unit test for this class.
  *
  * Todo: Add test to ensure explicitly set priority overrides filename prefix.
