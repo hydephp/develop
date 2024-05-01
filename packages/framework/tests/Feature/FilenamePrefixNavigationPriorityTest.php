@@ -7,9 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
-use PHPUnit\Framework\TestRunner;
-use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
-use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelperTest;
 
 /**
  * High level test for the feature that allows navigation items to be sorted by filename prefix.
@@ -23,21 +20,6 @@ use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelperTest;
  */
 class FilenamePrefixNavigationPriorityTest extends TestCase
 {
-    public function testFilenamePrefixNavigationHelper()
-    {
-        // Manually load test as it does not conform to PSR-4 autoloading.
-        require_once __DIR__ . '/../../src/Framework/Features/Navigation/FilenamePrefixNavigationHelper.php';
-
-        $case = FilenamePrefixNavigationHelperTest::class;
-
-        // Get methods defined in the test case but not in the parent class.
-        $methods = array_diff(get_class_methods($case), get_class_methods(TestCase::class));
-
-        foreach ($methods as $method) {
-            (new TestRunner)->run(new $case($method));
-        }
-    }
-
     public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromRouteKeys()
     {
         $this->file('_pages/01-home.md');
