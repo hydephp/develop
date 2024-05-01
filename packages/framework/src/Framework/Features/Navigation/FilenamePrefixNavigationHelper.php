@@ -68,17 +68,17 @@ class FilenamePrefixNavigationHelper
         return str_contains($identifier, '/');
     }
 
-    protected static function getCoreIdentifierPart(string $identifier): string
-    {
-        assert(self::isIdentifierNested($identifier));
-
-        return Str::afterLast($identifier, '/');
-    }
-
     protected static function getNestedIdentifierPrefix(string $identifier): string
     {
         assert(self::isIdentifierNested($identifier));
 
         return Str::beforeLast($identifier, '/');
+    }
+
+    protected static function getCoreIdentifierPart(string $identifier): string
+    {
+        assert(self::isIdentifierNested($identifier));
+
+        return Str::afterLast($identifier, '/');
     }
 }
