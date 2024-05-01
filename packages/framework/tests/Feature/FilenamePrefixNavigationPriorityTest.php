@@ -149,7 +149,9 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
         $actual = $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key) {
             if ($item instanceof NavigationGroup) {
-                return [$item->getGroupKey() => $item->getItems()->map(fn ($item) => $item->getPage()->getRouteKey())->all()];
+                return [$item->getGroupKey() => $item->getItems()->map(function ($item) {
+                    return $item->getPage()->getRouteKey();
+                })->all()];
             }
 
             return [$key => $item->getPage()->getRouteKey()];
