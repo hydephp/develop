@@ -81,6 +81,15 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertSame("$identifier.html", $page->getOutputPath());
     }
 
+    protected function setUpFixture(array $files): array
+    {
+        foreach ($files as $file) {
+            $this->file("_pages/$file");
+        }
+
+        return MarkdownPage::all()->all();
+    }
+
     protected function fixtureFlatMain(): array
     {
         return [
