@@ -157,7 +157,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->setUpSidebarFixture($this->fixtureGroupedSidebar());
 
         $this->assertSidebarOrder(['readme', 'installation', 'getting-started', 'introduction' => [
-            'features', 'extensions', 'configuration',
+            'general', 'resources', 'requirements',
         ], 'advanced' => [
             'features', 'extensions', 'configuration',
         ]]);
@@ -254,9 +254,9 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
             '02-installation.md',
             '03-getting-started.md',
             '04-introduction' => [
-                '01-features.md',
-                '02-extensions.md',
-                '03-configuration.md',
+                '01-general.md',
+                '02-resources.md',
+                '03-requirements.md',
             ],
             '05-advanced' => [
                 '01-features.md',
