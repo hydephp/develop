@@ -89,6 +89,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     protected function setUpFixture(array $files): array
     {
+        // Todo: Replace kernel with mock class
         $this->withoutDefaultPages();
 
         foreach ($files as $file) {
