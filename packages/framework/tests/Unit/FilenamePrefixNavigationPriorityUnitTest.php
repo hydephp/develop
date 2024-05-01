@@ -84,4 +84,25 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/02-about.md'));
         $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/03-contact.md'));
     }
+
+    public function testIdentifiersForDeeplyNestedPagesWithNumericalPrefixesAreDetected()
+    {
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/01-home.md'));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/02-about.md'));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/03-contact.md'));
+    }
+
+    public function testIdentifiersForDeeplyNestedPagesWithoutNumericalPrefixesAreNotDetected()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/home.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/about.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/contact.md'));
+    }
+
+    public function testSplitNumberAndIdentifierForDeeplyNestedPages()
+    {
+        $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01-home.md'));
+        $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02-about.md'));
+        $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03-contact.md'));
+    }
 }
