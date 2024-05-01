@@ -7,6 +7,9 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
 
+/**
+ * @covers \Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper
+ */
 class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;

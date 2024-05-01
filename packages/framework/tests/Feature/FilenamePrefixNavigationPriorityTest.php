@@ -17,6 +17,7 @@ use Hyde\Pages\MarkdownPage;
  * @covers \Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ * @covers \Hyde\Support\Models\RouteKey // Todo: Update the unit test for this class.
  */
 class FilenamePrefixNavigationPriorityTest extends TestCase
 {
