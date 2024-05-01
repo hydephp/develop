@@ -103,6 +103,8 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     public function test_fixtureFlatMain_ordering()
     {
         $pages = $this->setUpFixture($this->fixtureFlatMain());
+
+        $this->assertOrder($pages, ['home', 'about', 'contact']);
     }
 
     protected function setUpFixture(array $files): array
