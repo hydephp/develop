@@ -8,6 +8,9 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Framework\Features\Navigation\NavigationItem;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
  * High level test for the feature that allows navigation items to be sorted by filename prefix.
@@ -111,6 +114,18 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         }
 
         return MarkdownPage::all()->all();
+    }
+
+    /**
+     * @param array<\Hyde\Pages\Concerns\HydePage> $pages
+     * @param array<string> $expected
+     */
+    protected function assertOrder(array $pages, array $expected): void
+    {
+        $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
+        $actual = $menu->getItems()->map(fn (NavigationItem $item) => $item->getPage()->getRouteKey())->all();
+
+        $this->assertSame($expected, $actual);
     }
 
     protected function fixtureFlatMain(): array
