@@ -48,4 +48,9 @@ class FilenamePrefixNavigationHelper
 
         return $parts;
     }
+
+    protected static function isIdentifierNested(string $identifier): bool
+    {
+        return str_contains($identifier, '/');
+    }
 }
