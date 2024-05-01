@@ -32,6 +32,8 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     {
         parent::setUp();
 
+        Config::set('hyde.navigation.subdirectories', 'dropdown');
+
         // Todo: Replace kernel with mock class
         $this->withoutDefaultPages();
     }
