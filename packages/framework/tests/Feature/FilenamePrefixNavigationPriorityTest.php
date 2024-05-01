@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
@@ -151,7 +150,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $actual = $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key) {
             if ($item instanceof NavigationGroup) {
                 return [$item->getGroupKey() => $item->getItems()->map(function ($item) {
-                    return Str::afterLast($item->getPage()->getRouteKey(), '/');
+                    return basename($item->getPage()->getRouteKey());
                 })->all()];
             }
 
