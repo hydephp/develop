@@ -104,7 +104,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     {
         $pages = $this->setUpFixture($this->fixtureFlatMain());
 
-        $this->assertOrder($pages, ['home', 'about', 'contact']);
+        $this->assertOrder(['home', 'about', 'contact']);
     }
 
     protected function setUpFixture(array $files): array
@@ -119,10 +119,9 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     }
 
     /**
-     * @param array<\Hyde\Pages\Concerns\HydePage> $pages
      * @param array<string> $expected
      */
-    protected function assertOrder(array $pages, array $expected): void
+    protected function assertOrder(array $expected): void
     {
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
         $actual = $menu->getItems()->map(fn (NavigationItem $item) => $item->getPage()->getRouteKey())->all();
