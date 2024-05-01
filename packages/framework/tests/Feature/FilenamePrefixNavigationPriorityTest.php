@@ -7,10 +7,13 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Str;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
@@ -144,33 +147,39 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function test_fixtureFlatSidebar_ordering()
     {
-        $this->setUpFixture($this->fixtureFlatSidebar());
+        $this->setUpSidebarFixture($this->fixtureFlatSidebar());
 
-        $this->assertOrder(['readme', 'installation', 'getting-started']);
+        $this->assertSidebarOrder(['readme', 'installation', 'getting-started']);
     }
 
     public function test_fixtureGroupedSidebar_ordering()
     {
-        $this->setUpFixture($this->fixtureGroupedSidebar());
+        $this->setUpSidebarFixture($this->fixtureGroupedSidebar());
 
-        $this->assertOrder(['readme', 'installation', 'getting-started', 'introduction' => [
+        $this->assertSidebarOrder(['readme', 'installation', 'getting-started', 'introduction' => [
             'features', 'extensions', 'configuration',
         ], 'advanced' => [
             'features', 'extensions', 'configuration',
         ]]);
     }
 
-    protected function setUpFixture(array $files): self
+    protected function setUpSidebarFixture(array $files): self
+    {
+        return $this->setUpFixture($files, sidebar: true);
+    }
+
+    protected function setUpFixture(array $files, bool $sidebar = false): self
     {
         foreach ($files as $key => $file) {
+            $class = $sidebar ? DocumentationPage::class : MarkdownPage::class;
             if (is_string($file)) {
-                $page = new MarkdownPage(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
+                $page = new $class(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
                 Hyde::pages()->addPage($page);
                 Hyde::routes()->addRoute($page->getRoute());
             } else {
                 foreach ($file as $child) {
                     $group = str($key)->after('-');
-                    $page = new MarkdownPage($group.'/'.basename($child, '.md'), markdown: '# '.str($child)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
+                    $page = new $class($group.'/'.basename($child, '.md'), markdown: '# '.str($child)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
                     Hyde::pages()->addPage($page);
                     Hyde::routes()->addRoute($page->getRoute());
                 }
@@ -180,19 +189,27 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         return $this;
     }
 
-    /** @param array<string> $expected */
-    protected function assertOrder(array $expected): void
+    protected function assertSidebarOrder(array $expected): void
     {
-        $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
+        $this->assertOrder($expected, sidebar: true);
+    }
 
-        $actual = $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key): array {
+    /** @param array<string> $expected */
+    protected function assertOrder(array $expected, bool $sidebar = false): void
+    {
+        $type = $sidebar ? DocumentationSidebar::class : MainNavigationMenu::class;
+        $menu = NavigationMenuGenerator::handle($type);
+
+        $formatRouteKey = fn (string $routeKey): string => $sidebar ? Str::after($routeKey, 'docs/') : $routeKey;
+
+        $actual = $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key) use ($formatRouteKey): array {
             if ($item instanceof NavigationGroup) {
-                return [$item->getGroupKey() => $item->getItems()->map(function (NavigationItem $item): string {
-                    return basename($item->getPage()->getRouteKey());
+                return [$item->getGroupKey() => $item->getItems()->map(function (NavigationItem $item) use ($formatRouteKey): string {
+                    return basename($formatRouteKey($item->getPage()->getRouteKey()));
                 })->all()];
             }
 
-            return [$key => $item->getPage()->getRouteKey()];
+            return [$key => $formatRouteKey($item->getPage()->getRouteKey())];
         })->all();
 
         $this->assertSame($expected, $actual);
