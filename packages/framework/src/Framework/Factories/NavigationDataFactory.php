@@ -251,7 +251,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return null;
         }
 
-        return null;
+        return FilenamePrefixNavigationHelper::splitNumberAndIdentifier($this->identifier)[0];
     }
 
     private function canUseSubdirectoryForGroups(): bool
