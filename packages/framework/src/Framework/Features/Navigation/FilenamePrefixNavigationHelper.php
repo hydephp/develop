@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Config;
+use Illuminate\Support\Str;
 
 use function assert;
 use function explode;
@@ -71,13 +72,13 @@ class FilenamePrefixNavigationHelper
     {
         assert(self::isIdentifierNested($identifier));
 
-        return explode('/', $identifier)[1];
+        return Str::afterLast($identifier, '/');
     }
 
     protected static function getNestedIdentifierPrefix(string $identifier): string
     {
         assert(self::isIdentifierNested($identifier));
 
-        return explode('/', $identifier)[0];
+        return Str::beforeLast($identifier, '/');
     }
 }
