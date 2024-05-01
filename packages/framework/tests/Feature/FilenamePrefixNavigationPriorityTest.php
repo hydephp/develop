@@ -147,6 +147,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     protected function assertOrder(array $expected): void
     {
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
+
         $actual = $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key): array {
             if ($item instanceof NavigationGroup) {
                 return [$item->getGroupKey() => $item->getItems()->map(function (NavigationItem $item): string {
