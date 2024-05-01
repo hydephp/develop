@@ -85,7 +85,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     protected function setUpFixture(array $files): array
     {
         foreach ($files as $file) {
-            Hyde::pages()->addPage(new MarkdownPage(basename($file, '.md')));
+            Hyde::pages()->addPage(new MarkdownPage(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n"));
         }
 
         return MarkdownPage::all()->all();
