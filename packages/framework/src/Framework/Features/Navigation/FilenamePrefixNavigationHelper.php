@@ -44,6 +44,11 @@ class FilenamePrefixNavigationHelper
      */
     public static function splitNumberAndIdentifier(string $identifier): array
     {
+        if (self::isIdentifierNested($identifier)) {
+            $parentPath = self::getNestedIdentifierPrefix($identifier);
+            $identifier = self::getCoreIdentifierPart($identifier);
+        }
+
         assert(self::isIdentifierNumbered($identifier));
 
         $parts = explode('-', $identifier, 2);
