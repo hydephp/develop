@@ -118,9 +118,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         return MarkdownPage::all()->all();
     }
 
-    /**
-     * @param array<string> $expected
-     */
+    /** @param array<string> $expected */
     protected function assertOrder(array $expected): void
     {
         $menu = NavigationMenuGenerator::handle(MainNavigationMenu::class);
