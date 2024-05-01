@@ -53,4 +53,11 @@ class FilenamePrefixNavigationHelper
     {
         return str_contains($identifier, '/');
     }
+
+    protected static function getCoreIdentifierPart(string $identifier): string
+    {
+        assert(self::isIdentifierNested($identifier));
+
+        return explode('/', $identifier)[1];
+    }
 }
