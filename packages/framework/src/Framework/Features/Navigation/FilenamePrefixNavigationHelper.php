@@ -60,4 +60,11 @@ class FilenamePrefixNavigationHelper
 
         return explode('/', $identifier)[1];
     }
+
+    protected static function getNestedIdentifierPrefix(string $identifier): string
+    {
+        assert(self::isIdentifierNested($identifier));
+
+        return explode('/', $identifier)[0];
+    }
 }
