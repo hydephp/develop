@@ -248,4 +248,17 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
             '03-baz.blade.php',
         ];
     }
+
+    protected function arrayReverseRecursive(array $array): array
+    {
+        $reversed = array_reverse($array);
+
+        foreach ($reversed as $key => $value) {
+            if (is_array($value)) {
+                $reversed[$key] = $this->arrayReverseRecursive($value);
+            }
+        }
+
+        return $reversed;
+    }
 }
