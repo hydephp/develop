@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
@@ -84,7 +85,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     protected function setUpFixture(array $files): array
     {
         foreach ($files as $file) {
-            $this->file("_pages/$file");
+            Hyde::pages()->addPage(new MarkdownPage(basename($file, '.md')));
         }
 
         return MarkdownPage::all()->all();
