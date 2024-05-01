@@ -132,6 +132,16 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         ]]);
     }
 
+    public function test_fixtureGroupedMain_reverse_ordering()
+    {
+        // Also a sanity check but for the inner group as well.
+        $this->setUpFixture($this->arrayReverseRecursive($this->fixtureGroupedMain()));
+
+        $this->assertOrder(['home', 'about', 'contact', 'api' => [
+            'readme', 'installation', 'getting-started',
+        ]]);
+    }
+
     protected function setUpFixture(array $files): self
     {
         foreach ($files as $key => $file) {
