@@ -22,6 +22,21 @@ use Hyde\Pages\MarkdownPage;
  */
 class FilenamePrefixNavigationPriorityTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Todo: Replace kernel with mock class
+        $this->withoutDefaultPages();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->restoreDefaultPages();
+
+        parent::tearDown();
+    }
+
     public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromRouteKeys()
     {
         $this->file('_pages/01-home.md');
@@ -89,9 +104,6 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     protected function setUpFixture(array $files): array
     {
-        // Todo: Replace kernel with mock class
-        $this->withoutDefaultPages();
-
         foreach ($files as $file) {
             $page = new MarkdownPage(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
             Hyde::pages()->addPage($page);
