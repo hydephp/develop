@@ -115,7 +115,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertOrder(['home', 'about', 'contact']);
     }
 
-    protected function setUpFixture(array $files): array
+    protected function setUpFixture(array $files): self
     {
         foreach ($files as $file) {
             $page = new MarkdownPage(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
@@ -123,7 +123,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
             Hyde::routes()->addRoute($page->getRoute());
         }
 
-        return MarkdownPage::all()->all();
+        return $this;
     }
 
     /** @param array<string> $expected */
