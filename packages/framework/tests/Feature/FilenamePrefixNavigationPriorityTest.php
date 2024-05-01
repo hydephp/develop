@@ -82,6 +82,11 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertSame("$identifier.html", $page->getOutputPath());
     }
 
+    public function test_fixtureFlatMain_ordering()
+    {
+        $pages = $this->setUpFixture($this->fixtureFlatMain());
+    }
+
     protected function setUpFixture(array $files): array
     {
         foreach ($files as $file) {
