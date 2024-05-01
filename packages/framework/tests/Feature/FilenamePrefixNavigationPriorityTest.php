@@ -151,6 +151,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
             if ($item instanceof NavigationGroup) {
                 return $item->getItems()->map(fn ($item) => $item->getPage()->getRouteKey())->all();
             }
+
             return $item->getPage()->getRouteKey();
         })->all();
 

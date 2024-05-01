@@ -57,7 +57,7 @@ class FilenamePrefixNavigationHelper
         $parts[0] = (int) $parts[0];
 
         if (isset($parentPath)) {
-            $parts[1] = $parentPath . '/' . $parts[1];
+            $parts[1] = $parentPath.'/'.$parts[1];
         }
 
         return $parts;
