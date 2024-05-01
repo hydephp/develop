@@ -30,6 +30,10 @@ class FilenamePrefixNavigationHelper
      */
     public static function isIdentifierNumbered(string $identifier): bool
     {
+        if (self::isIdentifierNested($identifier)) {
+            $identifier = self::getCoreIdentifierPart($identifier);
+        }
+
         return preg_match('/^\d+-/', $identifier) === 1;
     }
 
