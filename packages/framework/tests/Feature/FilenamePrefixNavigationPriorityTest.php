@@ -107,6 +107,14 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertOrder(['home', 'about', 'contact']);
     }
 
+    public function test_fixtureFlatMain_reverse_ordering()
+    {
+        // This is just a sanity check to make sure the helper is working, so we only need one of these.
+        $this->setUpFixture(array_reverse($this->fixtureFlatMain()));
+
+        $this->assertOrder(['home', 'about', 'contact']);
+    }
+
     protected function setUpFixture(array $files): array
     {
         foreach ($files as $file) {
