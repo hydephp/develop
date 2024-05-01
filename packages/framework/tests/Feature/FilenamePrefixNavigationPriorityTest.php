@@ -240,7 +240,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         ];
     }
 
-    public function fixtureFileExtensions(): array
+    protected function fixtureFileExtensions(): array
     {
         return [
             '01-foo.md',
