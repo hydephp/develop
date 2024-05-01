@@ -9,6 +9,8 @@ use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
 
 /**
  * @covers \Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper
+ *
+ * @see \Hyde\Framework\Testing\Feature\FilenamePrefixNavigationPriorityTest
  */
 class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
 {
