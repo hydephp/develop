@@ -123,6 +123,15 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertOrder(['home', 'about', 'contact']);
     }
 
+    public function test_fixtureGroupedMain_ordering()
+    {
+        $this->setUpFixture($this->fixtureGroupedMain());
+
+        $this->assertOrder(['home', 'about', 'contact', 'api' => [
+            'readme', 'installation', 'getting-started',
+        ]]);
+    }
+
     protected function setUpFixture(array $files): self
     {
         foreach ($files as $key => $file) {
