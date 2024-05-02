@@ -113,7 +113,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertSame("$identifier.html", $page->getOutputPath());
     }
 
-    public function test_fixtureFlatMain_ordering()
+    public function testFlatMainNavigationOrdering()
     {
         $this->setupFixture([
             '01-home.md',
@@ -124,7 +124,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertOrder(['home', 'about', 'contact']);
     }
 
-    public function test_fixtureFlatMain_reverse_ordering()
+    public function testReverseOrderOfFlatMainNavigation()
     {
         // This is just a sanity check to make sure the helper is working, so we only need one of these.
         $this->setupFixture(array_reverse([
@@ -136,7 +136,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertOrder(['home', 'about', 'contact']);
     }
 
-    public function test_fixtureGroupedMain_ordering()
+    public function testGroupedMainNavigationOrdering()
     {
         $this->setupFixture([
             '01-home.md',
@@ -154,7 +154,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         ]]);
     }
 
-    public function test_fixtureGroupedMain_reverse_ordering()
+    public function testReverseOrderOfGroupedMainNavigation()
     {
         // Also a sanity check but for the inner group as well.
         $this->setupFixture($this->arrayReverseRecursive([
@@ -173,7 +173,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         ]]);
     }
 
-    public function test_fixtureFlatSidebar_ordering()
+    public function testFlatSidebarNavigationOrdering()
     {
         $this->setUpSidebarFixture([
             '01-readme.md',
@@ -184,7 +184,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertSidebarOrder(['readme', 'installation', 'getting-started']);
     }
 
-    public function test_fixtureGroupedSidebar_ordering()
+    public function testGroupedSidebarNavigationOrdering()
     {
         $this->setUpSidebarFixture([
             '01-readme.md',
@@ -209,7 +209,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         ]);
     }
 
-    public function test_fixturePrefixSyntaxes_ordering()
+    public function testDifferentPrefixSyntaxesOrdering()
     {
         $fixtures = [
             [
@@ -240,7 +240,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         }
     }
 
-    public function test_fixtureFileExtensions_ordering()
+    public function testOrderingWithDifferentFileExtensions()
     {
         $this->setupFixture([
             '01-foo.md',
