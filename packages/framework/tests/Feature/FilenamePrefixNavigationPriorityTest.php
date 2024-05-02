@@ -165,6 +165,28 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         ]);
     }
 
+    public function test_fixturePrefixSyntaxes_ordering()
+    {
+        foreach ($this->fixturePrefixSyntaxes() as $fixture) {
+            $this->setupFixture($fixture);
+
+            $this->assertOrder(['foo', 'bar', 'baz']);
+        }
+
+        foreach ($this->fixturePrefixSyntaxes() as $fixture) {
+            $this->setupFixture(array_reverse($fixture));
+
+            $this->assertOrder(['foo', 'bar', 'baz']);
+        }
+    }
+
+    public function test_fixtureFileExtensions_ordering()
+    {
+        $this->setupFixture($this->fixtureFileExtensions());
+
+        $this->assertOrder(['foo', 'bar', 'baz']);
+    }
+
     protected function setUpSidebarFixture(array $files): self
     {
         return $this->setupFixture($files, sidebar: true);
