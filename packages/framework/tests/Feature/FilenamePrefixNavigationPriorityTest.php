@@ -38,6 +38,8 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     {
         parent::setUp();
 
+        $this->helper = new FilenamePrefixNavigationPriorityTestingHelper($this);
+
         Config::set('hyde.navigation.subdirectories', 'dropdown');
 
         // Todo: Replace kernel with mock class
@@ -170,21 +172,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     protected function setUpFixture(array $files, bool $sidebar = false): self
     {
-        foreach ($files as $key => $file) {
-            $class = $sidebar ? DocumentationPage::class : MarkdownPage::class;
-            if (is_string($file)) {
-                $page = new $class(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
-                Hyde::pages()->addPage($page);
-                Hyde::routes()->addRoute($page->getRoute());
-            } else {
-                foreach ($file as $child) {
-                    $group = str($key)->after('-');
-                    $page = new $class($group.'/'.basename($child, '.md'), markdown: '# '.str($child)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
-                    Hyde::pages()->addPage($page);
-                    Hyde::routes()->addRoute($page->getRoute());
-                }
-            }
-        }
+        $this->helper->setUpFixture($files, $sidebar);
 
         return $this;
     }
@@ -197,20 +185,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     /** @param array<string> $expected */
     protected function assertOrder(array $expected, bool $sidebar = false): void
     {
-        $type = $sidebar ? DocumentationSidebar::class : MainNavigationMenu::class;
-        $menu = NavigationMenuGenerator::handle($type);
-
-        $formatRouteKey = fn (string $routeKey): string => $sidebar ? Str::after($routeKey, 'docs/') : $routeKey;
-
-        $actual = $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key) use ($formatRouteKey): array {
-            if ($item instanceof NavigationGroup) {
-                return [$item->getGroupKey() => $item->getItems()->map(function (NavigationItem $item) use ($formatRouteKey): string {
-                    return basename($formatRouteKey($item->getPage()->getRouteKey()));
-                })->all()];
-            }
-
-            return [$key => $formatRouteKey($item->getPage()->getRouteKey())];
-        })->all();
+        $actual = $this->helper->createComparisonFormat($sidebar);
 
         $this->assertSame($expected, $actual);
     }
@@ -305,5 +280,52 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         }
 
         return $reversed;
+    }
+}
+
+class FilenamePrefixNavigationPriorityTestingHelper
+{
+    protected FilenamePrefixNavigationPriorityTest $test;
+
+    public function __construct(FilenamePrefixNavigationPriorityTest $test)
+    {
+        $this->test = $test;
+    }
+
+    public function setUpFixture(array $files, bool $sidebar = false): void
+    {
+        foreach ($files as $key => $file) {
+            $class = $sidebar ? DocumentationPage::class : MarkdownPage::class;
+            if (is_string($file)) {
+                $page = new $class(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
+                Hyde::pages()->addPage($page);
+                Hyde::routes()->addRoute($page->getRoute());
+            } else {
+                foreach ($file as $child) {
+                    $group = str($key)->after('-');
+                    $page = new $class($group.'/'.basename($child, '.md'), markdown: '# '.str($child)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
+                    Hyde::pages()->addPage($page);
+                    Hyde::routes()->addRoute($page->getRoute());
+                }
+            }
+        }
+    }
+
+    public function createComparisonFormat(bool $sidebar): array
+    {
+        $type = $sidebar ? DocumentationSidebar::class : MainNavigationMenu::class;
+        $menu = NavigationMenuGenerator::handle($type);
+
+        $formatRouteKey = fn (string $routeKey): string => $sidebar ? Str::after($routeKey, 'docs/') : $routeKey;
+
+        return $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key) use ($formatRouteKey): array {
+            if ($item instanceof NavigationGroup) {
+                return [$item->getGroupKey() => $item->getItems()->map(function (NavigationItem $item) use ($formatRouteKey): string {
+                    return basename($formatRouteKey($item->getPage()->getRouteKey()));
+                })->all()];
+            }
+
+            return [$key => $formatRouteKey($item->getPage()->getRouteKey())];
+        })->all();
     }
 }
