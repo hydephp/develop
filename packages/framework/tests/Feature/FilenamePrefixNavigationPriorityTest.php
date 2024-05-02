@@ -304,7 +304,7 @@ class FilenamePrefixNavigationPriorityTestingHelper
 
     protected function setupFixtureItem(string $class, string $file): void
     {
-        $page = new $class(basename($file, '.md'), [], $this->generateMarkdown($file));
+        $page = new $class(Str::before($file, '.'), [], $this->generateMarkdown($file));
         Hyde::pages()->addPage($page);
         Hyde::routes()->addRoute($page->getRoute());
     }
@@ -313,7 +313,7 @@ class FilenamePrefixNavigationPriorityTestingHelper
     {
         foreach ($files as $file) {
             $group = str($key)->after('-');
-            $page = new $class($group.'/'.basename($file, '.md'), [], $this->generateMarkdown($file));
+            $page = new $class($group.'/'.Str::before($file, '.'), [], $this->generateMarkdown($file));
             Hyde::pages()->addPage($page);
             Hyde::routes()->addRoute($page->getRoute());
         }
