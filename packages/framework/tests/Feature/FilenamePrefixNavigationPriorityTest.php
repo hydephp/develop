@@ -182,7 +182,6 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertOrder($expected, sidebar: true);
     }
 
-    /** @param array<string> $expected */
     protected function assertOrder(array $expected, bool $sidebar = false): void
     {
         $actual = $this->helper->createComparisonFormat($sidebar);
@@ -316,16 +315,25 @@ class FilenamePrefixNavigationPriorityTestingHelper
         $type = $sidebar ? DocumentationSidebar::class : MainNavigationMenu::class;
         $menu = NavigationMenuGenerator::handle($type);
 
-        $formatRouteKey = fn (string $routeKey): string => $sidebar ? Str::after($routeKey, 'docs/') : $routeKey;
+        return $this->mapItemsToStrings($menu, $sidebar)->all();
+    }
 
-        return $menu->getItems()->mapWithKeys(function (NavigationItem|NavigationGroup $item, int $key) use ($formatRouteKey): array {
-            if ($item instanceof NavigationGroup) {
-                return [$item->getGroupKey() => $item->getItems()->map(function (NavigationItem $item) use ($formatRouteKey): string {
-                    return basename($formatRouteKey($item->getPage()->getRouteKey()));
-                })->all()];
-            }
+    protected function mapItemsToStrings(MainNavigationMenu|DocumentationSidebar $menu, bool $sidebar)
+    {
+        return $menu->getItems()->mapWithKeys(fn ($item, $key) => $item instanceof NavigationItem
+            ? [$key => $this->formatRouteKey($item->getPage()->getRouteKey(), $sidebar)]
+            : [$item->getGroupKey() => $this->mapChildItems($item, $sidebar)]);
+    }
 
-            return [$key => $formatRouteKey($item->getPage()->getRouteKey())];
+    protected function mapChildItems(NavigationGroup $item, bool $sidebar)
+    {
+        return $item->getItems()->map(function (NavigationItem $item) use ($sidebar) {
+            return basename($this->formatRouteKey($item->getPage()->getRouteKey(), $sidebar));
         })->all();
+    }
+
+    protected function formatRouteKey(string $routeKey, bool $sidebar): string
+    {
+        return $sidebar ? Str::after($routeKey, 'docs/') : $routeKey;
     }
 }
