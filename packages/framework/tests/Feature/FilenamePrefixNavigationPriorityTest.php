@@ -115,7 +115,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function test_fixtureFlatMain_ordering()
     {
-        $this->setUpFixture($this->fixtureFlatMain());
+        $this->setupFixture($this->fixtureFlatMain());
 
         $this->assertOrder(['home', 'about', 'contact']);
     }
@@ -123,14 +123,14 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     public function test_fixtureFlatMain_reverse_ordering()
     {
         // This is just a sanity check to make sure the helper is working, so we only need one of these.
-        $this->setUpFixture(array_reverse($this->fixtureFlatMain()));
+        $this->setupFixture(array_reverse($this->fixtureFlatMain()));
 
         $this->assertOrder(['home', 'about', 'contact']);
     }
 
     public function test_fixtureGroupedMain_ordering()
     {
-        $this->setUpFixture($this->fixtureGroupedMain());
+        $this->setupFixture($this->fixtureGroupedMain());
 
         $this->assertOrder(['home', 'about', 'contact', 'api' => [
             'readme', 'installation', 'getting-started',
@@ -140,7 +140,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     public function test_fixtureGroupedMain_reverse_ordering()
     {
         // Also a sanity check but for the inner group as well.
-        $this->setUpFixture($this->arrayReverseRecursive($this->fixtureGroupedMain()));
+        $this->setupFixture($this->arrayReverseRecursive($this->fixtureGroupedMain()));
 
         $this->assertOrder(['home', 'about', 'contact', 'api' => [
             'readme', 'installation', 'getting-started',
@@ -167,12 +167,12 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     protected function setUpSidebarFixture(array $files): self
     {
-        return $this->setUpFixture($files, sidebar: true);
+        return $this->setupFixture($files, sidebar: true);
     }
 
-    protected function setUpFixture(array $files, bool $sidebar = false): self
+    protected function setupFixture(array $files, bool $sidebar = false): self
     {
-        $this->helper->setUpFixture($files, $sidebar);
+        $this->helper->setupFixture($files, $sidebar);
 
         return $this;
     }
@@ -291,23 +291,37 @@ class FilenamePrefixNavigationPriorityTestingHelper
         $this->test = $test;
     }
 
-    public function setUpFixture(array $files, bool $sidebar = false): void
+    public function setupFixture(array $files, bool $sidebar = false): void
     {
         foreach ($files as $key => $file) {
             $class = $sidebar ? DocumentationPage::class : MarkdownPage::class;
-            if (is_string($file)) {
-                $page = new $class(basename($file, '.md'), markdown: '# '.str($file)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
-                Hyde::pages()->addPage($page);
-                Hyde::routes()->addRoute($page->getRoute());
-            } else {
-                foreach ($file as $child) {
-                    $group = str($key)->after('-');
-                    $page = new $class($group.'/'.basename($child, '.md'), markdown: '# '.str($child)->after('-')->before('.')->ucfirst()."\n\nHello, world!\n");
-                    Hyde::pages()->addPage($page);
-                    Hyde::routes()->addRoute($page->getRoute());
-                }
-            }
+
+            is_string($file)
+                ? $this->setupFixtureItem($class, $file)
+                : $this->setupNestedFixtureItems($file, $key, $class);
         }
+    }
+
+    protected function setupFixtureItem(string $class, string $file): void
+    {
+        $page = new $class(basename($file, '.md'), [], $this->generateMarkdown($file));
+        Hyde::pages()->addPage($page);
+        Hyde::routes()->addRoute($page->getRoute());
+    }
+
+    protected function setupNestedFixtureItems(array $files, string $key, string $class): void
+    {
+        foreach ($files as $file) {
+            $group = str($key)->after('-');
+            $page = new $class($group.'/'.basename($file, '.md'), [], $this->generateMarkdown($file));
+            Hyde::pages()->addPage($page);
+            Hyde::routes()->addRoute($page->getRoute());
+        }
+    }
+
+    protected function generateMarkdown(string $file): string
+    {
+        return sprintf("# %s\n\nHello, world!\n", str($file)->after('-')->before('.')->ucfirst());
     }
 
     public function createComparisonFormat(bool $sidebar): array
