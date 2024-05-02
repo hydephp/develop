@@ -115,7 +115,11 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function test_fixtureFlatMain_ordering()
     {
-        $this->setupFixture($this->fixtureFlatMain());
+        $this->setupFixture([
+            '01-home.md',
+            '02-about.md',
+            '03-contact.md',
+        ]);
 
         $this->assertOrder(['home', 'about', 'contact']);
     }
@@ -123,14 +127,27 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     public function test_fixtureFlatMain_reverse_ordering()
     {
         // This is just a sanity check to make sure the helper is working, so we only need one of these.
-        $this->setupFixture(array_reverse($this->fixtureFlatMain()));
+        $this->setupFixture(array_reverse([
+            '01-home.md',
+            '02-about.md',
+            '03-contact.md',
+        ]));
 
         $this->assertOrder(['home', 'about', 'contact']);
     }
 
     public function test_fixtureGroupedMain_ordering()
     {
-        $this->setupFixture($this->fixtureGroupedMain());
+        $this->setupFixture([
+            '01-home.md',
+            '02-about.md',
+            '03-contact.md',
+            '04-api' => [
+                '01-readme.md',
+                '02-installation.md',
+                '03-getting-started.md',
+            ],
+        ]);
 
         $this->assertOrder(['home', 'about', 'contact', 'api' => [
             'readme', 'installation', 'getting-started',
@@ -140,7 +157,16 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
     public function test_fixtureGroupedMain_reverse_ordering()
     {
         // Also a sanity check but for the inner group as well.
-        $this->setupFixture($this->arrayReverseRecursive($this->fixtureGroupedMain()));
+        $this->setupFixture($this->arrayReverseRecursive([
+            '01-home.md',
+            '02-about.md',
+            '03-contact.md',
+            '04-api' => [
+                '01-readme.md',
+                '02-installation.md',
+                '03-getting-started.md',
+            ],
+        ]));
 
         $this->assertOrder(['home', 'about', 'contact', 'api' => [
             'readme', 'installation', 'getting-started',
@@ -149,14 +175,32 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function test_fixtureFlatSidebar_ordering()
     {
-        $this->setUpSidebarFixture($this->fixtureFlatSidebar());
+        $this->setUpSidebarFixture([
+            '01-readme.md',
+            '02-installation.md',
+            '03-getting-started.md',
+        ]);
 
         $this->assertSidebarOrder(['readme', 'installation', 'getting-started']);
     }
 
     public function test_fixtureGroupedSidebar_ordering()
     {
-        $this->setUpSidebarFixture($this->fixtureGroupedSidebar());
+        $this->setUpSidebarFixture([
+            '01-readme.md',
+            '02-installation.md',
+            '03-getting-started.md',
+            '04-introduction' => [
+                '01-general.md',
+                '02-resources.md',
+                '03-requirements.md',
+            ],
+            '05-advanced' => [
+                '01-features.md',
+                '02-extensions.md',
+                '03-configuration.md',
+            ],
+        ]);
 
         $this->assertSidebarOrder([
             'other' => ['readme', 'installation', 'getting-started'],
@@ -167,13 +211,29 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function test_fixturePrefixSyntaxes_ordering()
     {
-        foreach ($this->fixturePrefixSyntaxes() as $fixture) {
+        $fixtures = [
+            [
+                '1-foo.md',
+                '2-bar.md',
+                '3-baz.md',
+            ], [
+                '01-foo.md',
+                '02-bar.md',
+                '03-baz.md',
+            ], [
+                '001-foo.md',
+                '002-bar.md',
+                '003-baz.md',
+            ],
+        ];
+
+        foreach ($fixtures as $fixture) {
             $this->setupFixture($fixture);
 
             $this->assertOrder(['foo', 'bar', 'baz']);
         }
 
-        foreach ($this->fixturePrefixSyntaxes() as $fixture) {
+        foreach ($fixtures as $fixture) {
             $this->setupFixture(array_reverse($fixture));
 
             $this->assertOrder(['foo', 'bar', 'baz']);
@@ -182,7 +242,11 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function test_fixtureFileExtensions_ordering()
     {
-        $this->setupFixture($this->fixtureFileExtensions());
+        $this->setupFixture([
+            '01-foo.md',
+            '02-bar.html',
+            '03-baz.blade.php',
+        ]);
 
         $this->assertOrder(['foo', 'bar', 'baz']);
     }
@@ -209,85 +273,6 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $actual = $this->helper->createComparisonFormat($sidebar);
 
         $this->assertSame($expected, $actual);
-    }
-
-    protected function fixtureFlatMain(): array
-    {
-        return [
-            '01-home.md',
-            '02-about.md',
-            '03-contact.md',
-        ];
-    }
-
-    protected function fixtureGroupedMain(): array
-    {
-        return [
-            '01-home.md',
-            '02-about.md',
-            '03-contact.md',
-            '04-api' => [
-                '01-readme.md',
-                '02-installation.md',
-                '03-getting-started.md',
-            ],
-        ];
-    }
-
-    protected function fixtureFlatSidebar(): array
-    {
-        return [
-            '01-readme.md',
-            '02-installation.md',
-            '03-getting-started.md',
-        ];
-    }
-
-    protected function fixtureGroupedSidebar(): array
-    {
-        return [
-            '01-readme.md',
-            '02-installation.md',
-            '03-getting-started.md',
-            '04-introduction' => [
-                '01-general.md',
-                '02-resources.md',
-                '03-requirements.md',
-            ],
-            '05-advanced' => [
-                '01-features.md',
-                '02-extensions.md',
-                '03-configuration.md',
-            ],
-        ];
-    }
-
-    protected function fixturePrefixSyntaxes(): array
-    {
-        return [
-            [
-                '1-foo.md',
-                '2-bar.md',
-                '3-baz.md',
-            ], [
-                '01-foo.md',
-                '02-bar.md',
-                '03-baz.md',
-            ], [
-                '001-foo.md',
-                '002-bar.md',
-                '003-baz.md',
-            ],
-        ];
-    }
-
-    protected function fixtureFileExtensions(): array
-    {
-        return [
-            '01-foo.md',
-            '02-bar.html',
-            '03-baz.blade.php',
-        ];
     }
 
     protected function arrayReverseRecursive(array $array): array
