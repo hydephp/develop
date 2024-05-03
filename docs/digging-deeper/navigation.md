@@ -327,6 +327,30 @@ Here are some things to keep in mind, especially if you mix numerical prefix ord
    - For example: `_pages/01-home.md` and `_pages/01_home.md` are both valid.
 3. The leading zeroes are optional, so `_pages/1-home.md` is also valid.
 
+### Using numerical prefix ordering in subdirectories
+
+The numerical prefix ordering feature works great when using the automatic subdirectory-based grouping for navigation menu dropdowns and documentation sidebar categories.
+
+This integration has two main features to consider:
+1. You can use numerical prefixes in subdirectories to control the order of dropdowns.
+2. The ordering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
+
+Here is an example structure of how you may want to organize a documentation site:
+
+```shell
+_docs/
+  01-getting-started/
+    01-installation.md
+    02-requirements.md
+    03-configuration.md
+  02-usage/
+    01-quick-start.md
+    02-advanced-usage.md
+  03-features/
+    01-feature-1.md
+    02-feature-2.md
+```
+
 ### Customization
 
 You can disable this feature by setting the `numerical_page_ordering` setting to `false` in the `hyde.php` config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
