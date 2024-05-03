@@ -300,6 +300,37 @@ Here are some things to keep in mind when using dropdown menus, regardless of th
 - Dropdowns take priority over standard items. So if you have a dropdown with the key `about` and a page with the key `about`, the dropdown will be created, and the page won't be in the menu.
   - For example: With this file structure: `_pages/foo.md`, `_pages/foo/bar.md`, `_pages/foo/baz.md`, the link to `foo` will be lost.
 
+## Numerical Prefix Navigation Ordering
+
+HydePHP v2 introduces a new feature that allows navigation items to be ordered based on a numerical prefix in the filename.
+This is a great way to control the ordering of pages in both the primary navigation menu and the documentation sidebar, 
+as your file structure will match the order of the pages in the navigation menus.
+
+For example, the following will have the same order in the navigation menu as well as the file structure (assuming you sort files by name):
+
+```
+_pages/
+  01-home.md # Gets priority 1, putting it first
+  02-about.md # Gets priority 2, putting it second
+  03-contact.md # Gets priority 3, putting it third
+```
+
+Hyde will then parse the number from the filename and use it as the priority for the page in the navigation menus.
+
+>info Remember, that while Hyde in general retains the source file names when creating route keys and thus output file names, Hyde will in this case strip the numerical prefix from the route key so your URLs will not contain the numerical prefix.
+
+### Customization
+
+You can disable this feature by setting the `numerical_page_ordering` setting to `false` in the `hyde.php` config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
+
+```php
+// filepath config/hyde.php
+
+'numerical_page_ordering' => false,
+```
+
+While it's not recommended, as you lose out on the convenience of the automatic ordering, any front matter priority settings will override the numerical prefix ordering if you for some reason need to.
+
 ## Digging Deeper into the internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally. Here is a high level overview,
