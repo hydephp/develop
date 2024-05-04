@@ -269,7 +269,10 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testItExtractsPriorityFromNumericalFilenamePrefix()
     {
-        //
+        $coreDataObject = $this->makeCoreDataObject('01-test.md');
+        $factory = new NavigationConfigTestClass($coreDataObject);
+
+        $this->assertSame(1, $factory->makePriority());
     }
 
     public function testItDoesNotExtractPriorityFromNumericalFilenamePrefixWhenFeatureIsDisabled()
