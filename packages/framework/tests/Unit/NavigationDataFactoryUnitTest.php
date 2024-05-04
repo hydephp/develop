@@ -267,6 +267,21 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertNull($factory->makeGroup());
     }
 
+    public function testItExtractsPriorityFromNumericalFilenamePrefix()
+    {
+        //
+    }
+
+    public function testItDoesNotExtractPriorityFromNumericalFilenamePrefixWhenFeatureIsDisabled()
+    {
+        //
+    }
+
+    public function testItDoesNotExtractNonNumericalFilenamePrefixes()
+    {
+        //
+    }
+
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
     {
         return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
