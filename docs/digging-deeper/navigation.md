@@ -298,7 +298,70 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 Here are some things to keep in mind when using dropdown menus, regardless of the configuration:
 - Dropdowns take priority over standard items. So if you have a dropdown with the key `about` and a page with the key `about`, the dropdown will be created, and the page won't be in the menu.
-  - For example: With this file structure: `_pages/foo.md`, `_pages/foo/bar.md`, `_pages/foo/baz.md`, the link to `foo` will be lost.
+    - For example: With this file structure: `_pages/foo.md`, `_pages/foo/bar.md`, `_pages/foo/baz.md`, the link to `foo` will be lost.
+
+## Numerical Prefix Navigation Ordering
+
+HydePHP v2 introduces a new feature that allows navigation items to be ordered based on a numerical prefix in the filename.
+This is a great way to control the ordering of pages in both the primary navigation menu and the documentation sidebar,
+as your file structure will match the order of the pages in the navigation menus.
+
+For example, the following will have the same order in the navigation menu as in a file explorer:
+
+```shell
+_pages/
+  01-home.md # Gets priority 1, putting it first (will be saved to _site/index.html)
+  02-about.md # Gets priority 2, putting it second (will be saved to _site/about.html)
+  03-contact.md # Gets priority 3, putting it third (will be saved to _site/contact.html)
+```
+
+Hyde will then parse the number from the filename and use it as the priority for the page in the navigation menus.
+
+### Keep in mind
+
+Here are some things to keep in mind, especially if you mix numerical prefix ordering with other ordering methods:
+
+1. The numerical prefix will still be part of the page identifier, but it will be stripped from the route key.
+    - For example: `_pages/01-home.md` will have the route key `home` and the page identifier `01-home`.
+2. You can delimit the numerical prefix with either a dash or an underscore.
+    - For example: `_pages/01-home.md` and `_pages/01_home.md` are both valid.
+3. The leading zeroes are optional, so `_pages/1-home.md` is also valid.
+
+### Using numerical prefix ordering in subdirectories
+
+The numerical prefix ordering feature works great when using the automatic subdirectory-based grouping for navigation menu dropdowns and documentation sidebar categories.
+
+This integration has two main features to consider:
+1. You can use numerical prefixes in subdirectories to control the order of dropdowns.
+2. The ordering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
+
+Here is an example structure of how you may want to organize a documentation site:
+
+```shell
+_docs/
+  01-getting-started/
+    01-installation.md
+    02-requirements.md
+    03-configuration.md
+  02-usage/
+    01-quick-start.md
+    02-advanced-usage.md
+  03-features/
+    01-feature-1.md
+    02-feature-2.md
+```
+
+### Customization
+
+You can disable this feature by setting the `numerical_page_ordering` setting to `false` in the `hyde.php` config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
+
+```php
+// filepath config/hyde.php
+
+'numerical_page_ordering' => false,
+```
+
+While it's not recommended, as you lose out on the convenience of the automatic ordering, any front matter priority settings will override the numerical prefix ordering if you for some reason need to.
 
 ## Digging Deeper into the internals
 

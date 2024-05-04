@@ -10,6 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
+- You can now specify navigation priorities by adding a numeric prefix to the source file names in https://github.com/hydephp/develop/pull/1709
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
 - The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
 

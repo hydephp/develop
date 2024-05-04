@@ -12,6 +12,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
+use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
 
 use function basename;
 use function array_flip;
@@ -97,6 +98,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     {
         return $this->searchForPriorityInFrontMatter()
             ?? $this->searchForPriorityInConfigs()
+            ?? $this->checkFilePrefixForOrder()
             ?? NavigationMenu::LAST;
     }
 
@@ -237,6 +239,19 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         }
 
         return $config[$pageKey] ?? null;
+    }
+
+    private function checkFilePrefixForOrder(): ?int
+    {
+        if (! FilenamePrefixNavigationHelper::enabled()) {
+            return null;
+        }
+
+        if (! FilenamePrefixNavigationHelper::isIdentifierNumbered($this->identifier)) {
+            return null;
+        }
+
+        return FilenamePrefixNavigationHelper::splitNumberAndIdentifier($this->identifier)[0];
     }
 
     private function canUseSubdirectoryForGroups(): bool
