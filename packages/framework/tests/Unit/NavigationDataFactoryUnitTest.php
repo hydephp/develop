@@ -275,6 +275,38 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(1, $factory->makePriority());
     }
 
+    public function testItExtractsPriorityFromNumericalFilenamePrefixWithKebabCaseSyntax()
+    {
+        $this->assertSame(1, (new NavigationConfigTestClass($this->makeCoreDataObject('01-foo.md')))->makePriority());
+        $this->assertSame(2, (new NavigationConfigTestClass($this->makeCoreDataObject('02-bar.md')))->makePriority());
+        $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('03-baz.md')))->makePriority());
+    }
+
+    public function testItExtractsPriorityFromNumericalFilenamePrefixWithSnakeCaseSyntax()
+    {
+        $this->markTestSkipped('TODO: Support snake_case syntax for priority extraction');
+
+        $this->assertSame(1, (new NavigationConfigTestClass($this->makeCoreDataObject('01_foo.md')))->makePriority());
+        $this->assertSame(2, (new NavigationConfigTestClass($this->makeCoreDataObject('02_bar.md')))->makePriority());
+        $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('03_baz.md')))->makePriority());
+    }
+
+    public function testItExtractsPriorityFromNumericalFilenamePrefixRegardlessOfLeadingZeroes()
+    {
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('0123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('00123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('000123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('0000123-foo.md')))->makePriority());
+    }
+
+    public function testItExtractsPriorityFromNumericalFilenamePrefixForNestedIdentifiers()
+    {
+        $this->assertSame(1, (new NavigationConfigTestClass($this->makeCoreDataObject('foo/01-bar.md')))->makePriority());
+        $this->assertSame(2, (new NavigationConfigTestClass($this->makeCoreDataObject('foo/bar/02-baz.md')))->makePriority());
+        $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('foo/01-bar/03-baz.md')))->makePriority());
+    }
+
     public function testItDoesNotExtractPriorityFromNumericalFilenamePrefixWhenFeatureIsDisabled()
     {
         //
