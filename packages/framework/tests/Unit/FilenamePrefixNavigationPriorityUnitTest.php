@@ -23,7 +23,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
 
     public function testEnabledReturnsFalseWhenDisabled()
     {
-        self::mockConfig(['hyde.filename_page_ordering' => false]);
+        self::mockConfig(['hyde.numerical_page_ordering' => false]);
 
         $this->assertFalse(FilenamePrefixNavigationHelper::enabled());
     }

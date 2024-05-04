@@ -84,7 +84,7 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
     public function testSourceFilesDoNotHaveTheirNumericalPrefixTrimmedFromRouteKeysWhenFeatureIsDisabled()
     {
-        Config::set('hyde.filename_page_ordering', false);
+        Config::set('hyde.numerical_page_ordering', false);
 
         $this->file('_pages/01-home.md');
 

@@ -23,7 +23,7 @@ class FilenamePrefixNavigationHelper
      */
     public static function enabled(): bool
     {
-        return Config::getBool('hyde.filename_page_ordering', true);
+        return Config::getBool('hyde.numerical_page_ordering', true);
     }
 
     /**

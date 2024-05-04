@@ -30,7 +30,7 @@ class SitemapServiceTest extends TestCase
         copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
         copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
 
-        Config::set(['hyde.filename_page_ordering' => false]);
+        Config::set(['hyde.numerical_page_ordering' => false]);
     }
 
     public function testServiceInstantiatesXmlElement()
