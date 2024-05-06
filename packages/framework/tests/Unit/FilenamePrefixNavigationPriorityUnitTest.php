@@ -178,4 +178,37 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/about.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/contact.md'));
     }
+
+    public function testNumericallyPrefixedIdentifiersWithUnknownDividersAreNotDetected()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1.foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01.foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001.foo.md'));
+
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1/foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01/foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001/foo.md'));
+
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1—foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01—foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001—foo.md'));
+
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1 foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01 foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001 foo.md'));
+    }
+
+    public function testNumericallyPrefixedIdentifiersWithoutDividerAreNotDetected()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001foo.md'));
+    }
+
+    public function testNumericallyStringPrefixedIdentifiersWithoutDividerAreNotDetected()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one-foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one_foo.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one.foo.md'));
+    }
 }
