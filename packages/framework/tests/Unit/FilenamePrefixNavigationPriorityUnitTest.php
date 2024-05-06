@@ -43,7 +43,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('contact.md'));
     }
 
-    public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDividers()
+    public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDelimiters()
     {
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('01_home.md'));
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('02_about.md'));
@@ -57,7 +57,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('03-contact.md'));
     }
 
-    public function testSplitNumericPrefixForSnakeCaseDividers()
+    public function testSplitNumericPrefixForSnakeCaseDelimiters()
     {
         $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('01_home.md'));
         $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('02_about.md'));
@@ -71,7 +71,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('789-contact.md'));
     }
 
-    public function testSplitNumericPrefixWithMultipleDigitsAndSnakeCaseDividers()
+    public function testSplitNumericPrefixWithMultipleDigitsAndSnakeCaseDelimiters()
     {
         $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('123_home.md'));
         $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('456_about.md'));
@@ -95,7 +95,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo/03-contact.md'));
     }
 
-    public function testIdentifiersForNestedPagesWithNumericalPrefixesAreDetectedUsingSnakeCaseDividers()
+    public function testIdentifiersForNestedPagesWithNumericalPrefixesAreDetectedUsingSnakeCaseDelimiters()
     {
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo/01_home.md'));
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo/02_about.md'));
@@ -116,7 +116,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/03-contact.md'));
     }
 
-    public function testSplitNumericPrefixForNestedPagesWithSnakeCaseDividers()
+    public function testSplitNumericPrefixForNestedPagesWithSnakeCaseDelimiters()
     {
         $this->assertSame([1, 'foo/home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/01_home.md'));
         $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/02_about.md'));
@@ -130,7 +130,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo/bar/03-contact.md'));
     }
 
-    public function testIdentifiersForDeeplyNestedPagesWithNumericalPrefixesAreDetectedUsingSnakeCaseDividers()
+    public function testIdentifiersForDeeplyNestedPagesWithNumericalPrefixesAreDetectedUsingSnakeCaseDelimiters()
     {
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo/bar/01_home.md'));
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo/bar/02_about.md'));
@@ -173,7 +173,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
      *
      * @dataProvider pageTypeProvider
      */
-    public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDividersForPageType(string $type)
+    public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDelimitersForPageType(string $type)
     {
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('01_home.'.$type::$fileExtension));
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('02_about.'.$type::$fileExtension));
@@ -199,7 +199,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/03-contact.md'));
     }
 
-    public function testSplitNumericPrefixForDeeplyNestedPagesWithSnakeCaseDividers()
+    public function testSplitNumericPrefixForDeeplyNestedPagesWithSnakeCaseDelimiters()
     {
         $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/01_home.md'));
         $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/02_about.md'));
@@ -217,7 +217,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo-bar/contact.md'));
     }
 
-    public function testNonNumericalPartsAreNotDetectedForSnakeCaseDividers()
+    public function testNonNumericalPartsAreNotDetectedForSnakeCaseDelimiters()
     {
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo_bar.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo_bar.md'));
@@ -228,7 +228,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo_bar/contact.md'));
     }
 
-    public function testNumericallyPrefixedIdentifiersWithUnknownDividersAreNotDetected()
+    public function testNumericallyPrefixedIdentifiersWithUnknownDelimitersAreNotDetected()
     {
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('1.foo.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('01.foo.md'));
@@ -247,14 +247,14 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('001 foo.md'));
     }
 
-    public function testNumericallyPrefixedIdentifiersWithoutDividerAreNotDetected()
+    public function testNumericallyPrefixedIdentifiersWithoutDelimiterAreNotDetected()
     {
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('1foo.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('01foo.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('001foo.md'));
     }
 
-    public function testNumericallyStringPrefixedIdentifiersWithoutDividerAreNotDetected()
+    public function testNumericallyStringPrefixedIdentifiersWithoutDelimiterAreNotDetected()
     {
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('one-foo.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('one_foo.md'));
