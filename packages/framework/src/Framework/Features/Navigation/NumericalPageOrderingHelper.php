@@ -15,28 +15,21 @@ use function sprintf;
 use function preg_match;
 
 /**
- * @internal This class contains shared helper code for the framework to provide numerical page ordering. It is not intended to be used outside the framework code internals.
+ * @internal This class contains shared helper code for the framework to provide numerical page ordering.
+ *           It is not intended to be used outside the framework code internals.
  */
 class NumericalPageOrderingHelper
 {
-    /**
-     * The delimiters that are used to separate the numerical prefix from the rest of the identifier.
-     *
-     * @var array<string>
-     */
+    /** @var array<string> The delimiters that are used to separate the numerical prefix from the rest of the identifier. */
     protected const DELIMITERS = ['-', '_'];
 
-    /**
-     * Check if the feature is enabled.
-     */
+    /** Check if the feature is enabled. */
     public static function enabled(): bool
     {
         return Config::getBool('hyde.numerical_page_ordering', true);
     }
 
-    /**
-     * Determines if a given identifier has a numerical prefix.
-     */
+    /** Determines if a given identifier has a numerical prefix. */
     public static function hasNumericalPrefix(string $identifier): bool
     {
         if (static::isIdentifierNested($identifier)) {
