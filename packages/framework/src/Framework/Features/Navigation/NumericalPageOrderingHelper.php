@@ -19,7 +19,7 @@ use function preg_match;
  *
  * @experimental The code herein may be moved to more appropriate locations in the future.
  */
-class FilenamePrefixNavigationHelper
+class NumericalPageOrderingHelper
 {
     /**
      * Determines if the feature is enabled.

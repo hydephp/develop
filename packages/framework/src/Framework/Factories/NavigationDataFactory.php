@@ -12,7 +12,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
-use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
+use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 
 use function basename;
 use function array_flip;
@@ -243,15 +243,15 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function checkFilePrefixForOrder(): ?int
     {
-        if (! FilenamePrefixNavigationHelper::enabled()) {
+        if (! NumericalPageOrderingHelper::enabled()) {
             return null;
         }
 
-        if (! FilenamePrefixNavigationHelper::hasNumericalPrefix($this->identifier)) {
+        if (! NumericalPageOrderingHelper::hasNumericalPrefix($this->identifier)) {
             return null;
         }
 
-        return FilenamePrefixNavigationHelper::splitNumericPrefix($this->identifier)[0];
+        return NumericalPageOrderingHelper::splitNumericPrefix($this->identifier)[0];
     }
 
     private function canUseSubdirectoryForGroups(): bool

@@ -22,17 +22,17 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * The feature can be disabled in the config. It also works within sidebar groups,
  * so that multiple groups can have the same prefix independent of other groups.
  *
- * @covers \Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper
+ * @covers \Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  * @covers \Hyde\Framework\Factories\NavigationDataFactory // Todo: Update the unit test for this class.
  * @covers \Hyde\Support\Models\RouteKey // Todo: Update the unit test for this class.
  *
- * @see \Hyde\Framework\Testing\Unit\FilenamePrefixNavigationPriorityUnitTest
+ * @see \Hyde\Framework\Testing\Unit\NumericalPageOrderingHelperUnitTest
  *
  * Todo: Add test to ensure explicitly set priority overrides filename prefix.
  */
-class FilenamePrefixNavigationPriorityTest extends TestCase
+class NumericalPageOrderingHelperTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -291,9 +291,9 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
 class FilenamePrefixNavigationPriorityTestingHelper
 {
-    protected FilenamePrefixNavigationPriorityTest $test;
+    protected NumericalPageOrderingHelperTest $test;
 
-    public function __construct(FilenamePrefixNavigationPriorityTest $test)
+    public function __construct(NumericalPageOrderingHelperTest $test)
     {
         $this->test = $test;
     }
