@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
 
 /**
@@ -210,5 +211,13 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one-foo.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one_foo.md'));
         $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one.foo.md'));
+    }
+
+    public static function pageTypeProvider(): array
+    {
+        self::needsKernel();
+        self::mockConfig();
+
+        return array_map(fn (string $class): array => [$class], HydeCoreExtension::getPageClasses());
     }
 }
