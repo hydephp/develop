@@ -52,7 +52,8 @@ class FilenamePrefixNavigationHelper
 
         assert(self::isIdentifierNumbered($identifier));
 
-        $parts = explode('-', $identifier, 2);
+        $separator = '-';
+        $parts = explode($separator, $identifier, 2);
 
         $parts[0] = (int) $parts[0];
 
