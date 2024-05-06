@@ -284,8 +284,6 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testItExtractsPriorityFromNumericalFilenamePrefixWithSnakeCaseSyntax()
     {
-        $this->markTestSkipped('TODO: Support snake_case syntax for priority extraction');
-
         $this->assertSame(1, (new NavigationConfigTestClass($this->makeCoreDataObject('01_foo.md')))->makePriority());
         $this->assertSame(2, (new NavigationConfigTestClass($this->makeCoreDataObject('02_bar.md')))->makePriority());
         $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('03_baz.md')))->makePriority());

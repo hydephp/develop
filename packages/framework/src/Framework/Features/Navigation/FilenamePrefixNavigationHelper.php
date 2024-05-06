@@ -35,7 +35,7 @@ class FilenamePrefixNavigationHelper
             $identifier = self::getCoreIdentifierPart($identifier);
         }
 
-        return preg_match('/^\d+-/', $identifier) === 1;
+        return preg_match('/^\d+-/', $identifier) === 1 || preg_match('/^\d+_/', $identifier) === 1;
     }
 
     /**
