@@ -27,7 +27,7 @@ class NumericalPageOrderingHelper
     protected const DELIMITERS = ['-', '_'];
 
     /**
-     * Determines if the feature is enabled.
+     * Check if the feature is enabled.
      */
     public static function enabled(): bool
     {
