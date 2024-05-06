@@ -156,4 +156,26 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02_about.md'));
         $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03_contact.md'));
     }
+
+    public function testNonNumericalPartsAreNotDetected()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'));
+
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/home.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/about.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/contact.md'));
+    }
+
+    public function testNonNumericalPartsAreNotDetectedForSnakeCaseDividers()
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'));
+
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/home.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/about.md'));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/contact.md'));
+    }
 }
