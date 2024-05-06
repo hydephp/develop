@@ -29,6 +29,13 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
         $this->assertFalse(NumericalPageOrderingHelper::enabled());
     }
 
+    public function testFeatureIsEnabledByDefault()
+    {
+        self::mockConfig(['hyde' => []]);
+
+        $this->assertTrue(NumericalPageOrderingHelper::enabled());
+    }
+
     public function testIdentifiersWithNumericalPrefixesAreDetected()
     {
         $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01-home.md'));
