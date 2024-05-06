@@ -11,6 +11,7 @@ use function ltrim;
 use function assert;
 use function substr;
 use function explode;
+use function implode;
 use function preg_match;
 
 /**
@@ -37,7 +38,9 @@ class FilenamePrefixNavigationHelper
             $identifier = self::getCoreIdentifierPart($identifier);
         }
 
-        return preg_match('/^\d+[-_]/', $identifier) === 1;
+        $delimiters = implode(['-', '_']);
+
+        return preg_match('/^\d+['.$delimiters.']/', $identifier) === 1;
     }
 
     /**
