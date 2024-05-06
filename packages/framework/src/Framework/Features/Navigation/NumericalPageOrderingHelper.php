@@ -31,8 +31,8 @@ class NumericalPageOrderingHelper
      */
     public static function hasNumericalPrefix(string $identifier): bool
     {
-        if (self::isIdentifierNested($identifier)) {
-            $identifier = self::getCoreIdentifierPart($identifier);
+        if (static::isIdentifierNested($identifier)) {
+            $identifier = static::getCoreIdentifierPart($identifier);
         }
 
         $delimiters = implode(['-', '_']);
@@ -47,12 +47,12 @@ class NumericalPageOrderingHelper
      */
     public static function splitNumericPrefix(string $identifier): array
     {
-        if (self::isIdentifierNested($identifier)) {
-            $parentPath = self::getNestedIdentifierPrefix($identifier);
-            $identifier = self::getCoreIdentifierPart($identifier);
+        if (static::isIdentifierNested($identifier)) {
+            $parentPath = static::getNestedIdentifierPrefix($identifier);
+            $identifier = static::getCoreIdentifierPart($identifier);
         }
 
-        $separator = self::getFirstCharacterFromIdentifier($identifier);
+        $separator = static::getFirstCharacterFromIdentifier($identifier);
         $parts = explode($separator, $identifier, 2);
 
         $parts[0] = (int) $parts[0];
