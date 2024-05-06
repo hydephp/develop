@@ -2,213 +2,177 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
-
-use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
 
-/**
- * @covers \Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper
- *
- * @see \Hyde\Framework\Testing\Feature\FilenamePrefixNavigationPriorityTest
- */
-class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
-{
-    protected static bool $needsConfig = true;
+beforeEach(fn () => $this->mockConfig());
 
-    public function testEnabledReturnsTrueWhenEnabled()
-    {
-        $this->assertTrue(FilenamePrefixNavigationHelper::enabled());
-    }
+test('enabled returns true when enabled', function () {
+    expect(FilenamePrefixNavigationHelper::enabled())->toBeTrue();
+});
 
-    public function testEnabledReturnsFalseWhenDisabled()
-    {
-        self::mockConfig(['hyde.numerical_page_ordering' => false]);
+test('enabled returns false when disabled', function () {
+    $this->mockConfig(['hyde.numerical_page_ordering' => false]);
 
-        $this->assertFalse(FilenamePrefixNavigationHelper::enabled());
-    }
+    expect(FilenamePrefixNavigationHelper::enabled())->toBeFalse();
+});
 
-    public function testIdentifiersWithNumericalPrefixesAreDetected()
-    {
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01-home.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('02-about.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('03-contact.md'));
-    }
+test('identifiers with numerical prefixes are detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('01-home.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('02-about.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('03-contact.md'))->toBeTrue();
+});
 
-    public function testIdentifiersWithoutNumericalPrefixesAreNotDetected()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('home.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('about.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('contact.md'));
-    }
+test('identifiers without numerical prefixes are not detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('home.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('about.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('contact.md'))->toBeFalse();
+});
 
-    public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDividers()
-    {
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01_home.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('02_about.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('03_contact.md'));
-    }
+test('identifiers with numerical prefixes are detected when using snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('01_home.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('02_about.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('03_contact.md'))->toBeTrue();
+});
 
-    public function testSplitNumberAndIdentifier()
-    {
-        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
-        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
-        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
-    }
+test('split number and identifier', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'))->toBe([1, 'home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'))->toBe([2, 'about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'))->toBe([3, 'contact.md']);
+});
 
-    public function testSplitNumberAndIdentifierForSnakeCaseDividers()
-    {
-        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01_home.md'));
-        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02_about.md'));
-        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03_contact.md'));
-    }
+test('split number and identifier for snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01_home.md'))->toBe([1, 'home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02_about.md'))->toBe([2, 'about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03_contact.md'))->toBe([3, 'contact.md']);
+});
 
-    public function testSplitNumberAndIdentifierWithMultipleDigits()
-    {
-        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
-        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
-        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
-    }
+test('split number and identifier with multiple digits', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'))->toBe([123, 'home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'))->toBe([456, 'about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'))->toBe([789, 'contact.md']);
+});
 
-    public function testSplitNumberAndIdentifierWithMultipleDigitsAndSnakeCaseDividers()
-    {
-        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123_home.md'));
-        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456_about.md'));
-        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789_contact.md'));
-    }
+test('split number and identifier with multiple digits and snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123_home.md'))->toBe([123, 'home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456_about.md'))->toBe([456, 'about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789_contact.md'))->toBe([789, 'contact.md']);
+});
 
-    public function testSplitNumberAndIdentifierThrowsExceptionWhenIdentifierIsNotNumbered()
-    {
-        $this->markTestSkipped('Since this is an internal class at the moment, we do not need to test this. If we want this in the public API it should be a badmethodcall exception.');
+test('split number and identifier throws exception when identifier is not numbered', function () {
+    $this->markTestSkipped('Since this is an internal class at the moment, we do not need to test this. If we want this in the public API it should be a badmethodcall exception.');
 
-        $this->expectException(\AssertionError::class);
-        $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
+    $this->expectException(\AssertionError::class);
+    $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
 
-        FilenamePrefixNavigationHelper::splitNumberAndIdentifier('home.md');
-    }
+    FilenamePrefixNavigationHelper::splitNumberAndIdentifier('home.md');
+});
 
-    public function testIdentifiersForNestedPagesWithNumericalPrefixesAreDetected()
-    {
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/01-home.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/02-about.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/03-contact.md'));
-    }
+test('identifiers for nested pages with numerical prefixes are detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/01-home.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/02-about.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/03-contact.md'))->toBeTrue();
+});
 
-    public function testIdentifiersForNestedPagesWithNumericalPrefixesAreDetectedUsingSnakeCaseDividers()
-    {
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/01_home.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/02_about.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/03_contact.md'));
-    }
+test('identifiers for nested pages with numerical prefixes are detected using snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/01_home.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/02_about.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/03_contact.md'))->toBeTrue();
+});
 
-    public function testIdentifiersForNestedPagesWithoutNumericalPrefixesAreNotDetected()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/home.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/about.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/contact.md'));
-    }
+test('identifiers for nested pages without numerical prefixes are not detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/home.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/about.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/contact.md'))->toBeFalse();
+});
 
-    public function testSplitNumberAndIdentifierForNestedPages()
-    {
-        $this->assertSame([1, 'foo/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/01-home.md'));
-        $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/02-about.md'));
-        $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/03-contact.md'));
-    }
+test('split number and identifier for nested pages', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/01-home.md'))->toBe([1, 'foo/home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/02-about.md'))->toBe([2, 'foo/about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/03-contact.md'))->toBe([3, 'foo/contact.md']);
+});
 
-    public function testSplitNumberAndIdentifierForNestedPagesWithSnakeCaseDividers()
-    {
-        $this->assertSame([1, 'foo/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/01_home.md'));
-        $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/02_about.md'));
-        $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/03_contact.md'));
-    }
+test('split number and identifier for nested pages with snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/01_home.md'))->toBe([1, 'foo/home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/02_about.md'))->toBe([2, 'foo/about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/03_contact.md'))->toBe([3, 'foo/contact.md']);
+});
 
-    public function testIdentifiersForDeeplyNestedPagesWithNumericalPrefixesAreDetected()
-    {
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/01-home.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/02-about.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/03-contact.md'));
-    }
+test('identifiers for deeply nested pages with numerical prefixes are detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/01-home.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/02-about.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/03-contact.md'))->toBeTrue();
+});
 
-    public function testIdentifiersForDeeplyNestedPagesWithNumericalPrefixesAreDetectedUsingSnakeCaseDividers()
-    {
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/01_home.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/02_about.md'));
-        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/03_contact.md'));
-    }
+test('identifiers for deeply nested pages with numerical prefixes are detected using snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/01_home.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/02_about.md'))->toBeTrue();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/03_contact.md'))->toBeTrue();
+});
 
-    public function testIdentifiersForDeeplyNestedPagesWithoutNumericalPrefixesAreNotDetected()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/home.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/about.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/contact.md'));
-    }
+test('identifiers for deeply nested pages without numerical prefixes are not detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/home.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/about.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/contact.md'))->toBeFalse();
+});
 
-    public function testSplitNumberAndIdentifierForDeeplyNestedPages()
-    {
-        $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01-home.md'));
-        $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02-about.md'));
-        $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03-contact.md'));
-    }
+test('split number and identifier for deeply nested pages', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01-home.md'))->toBe([1, 'foo/bar/home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02-about.md'))->toBe([2, 'foo/bar/about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03-contact.md'))->toBe([3, 'foo/bar/contact.md']);
+});
 
-    public function testSplitNumberAndIdentifierForDeeplyNestedPagesWithSnakeCaseDividers()
-    {
-        $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01_home.md'));
-        $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02_about.md'));
-        $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03_contact.md'));
-    }
+test('split number and identifier for deeply nested pages with snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01_home.md'))->toBe([1, 'foo/bar/home.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02_about.md'))->toBe([2, 'foo/bar/about.md']);
+    expect(FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03_contact.md'))->toBe([3, 'foo/bar/contact.md']);
+});
 
-    public function testNonNumericalPartsAreNotDetected()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'));
+test('non numerical parts are not detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar.md'))->toBeFalse();
 
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/home.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/about.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/contact.md'));
-    }
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/home.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/about.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo-bar/contact.md'))->toBeFalse();
+});
 
-    public function testNonNumericalPartsAreNotDetectedForSnakeCaseDividers()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'));
+test('non numerical parts are not detected for snake case dividers', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar.md'))->toBeFalse();
 
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/home.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/about.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/contact.md'));
-    }
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/home.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/about.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo_bar/contact.md'))->toBeFalse();
+});
 
-    public function testNumericallyPrefixedIdentifiersWithUnknownDividersAreNotDetected()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1.foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01.foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001.foo.md'));
+test('numerically prefixed identifiers with unknown dividers are not detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('1.foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('01.foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('001.foo.md'))->toBeFalse();
 
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1/foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01/foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001/foo.md'));
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('1/foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('01/foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('001/foo.md'))->toBeFalse();
 
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1—foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01—foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001—foo.md'));
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('1—foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('01—foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('001—foo.md'))->toBeFalse();
 
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1 foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01 foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001 foo.md'));
-    }
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('1 foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('01 foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('001 foo.md'))->toBeFalse();
+});
 
-    public function testNumericallyPrefixedIdentifiersWithoutDividerAreNotDetected()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('1foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('01foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('001foo.md'));
-    }
+test('numerically prefixed identifiers without divider are not detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('1foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('01foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('001foo.md'))->toBeFalse();
+});
 
-    public function testNumericallyStringPrefixedIdentifiersWithoutDividerAreNotDetected()
-    {
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one-foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one_foo.md'));
-        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('one.foo.md'));
-    }
-}
+test('numerically string prefixed identifiers without divider are not detected', function () {
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('one-foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('one_foo.md'))->toBeFalse();
+    expect(FilenamePrefixNavigationHelper::isIdentifierNumbered('one.foo.md'))->toBeFalse();
+});
