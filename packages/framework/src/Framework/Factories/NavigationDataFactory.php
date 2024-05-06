@@ -247,7 +247,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return null;
         }
 
-        if (! FilenamePrefixNavigationHelper::isIdentifierNumbered($this->identifier)) {
+        if (! FilenamePrefixNavigationHelper::hasNumericalPrefix($this->identifier)) {
             return null;
         }
 

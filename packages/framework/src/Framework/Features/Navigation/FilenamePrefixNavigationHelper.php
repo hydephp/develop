@@ -31,7 +31,7 @@ class FilenamePrefixNavigationHelper
     /**
      * Determines if a given identifier has a numerical prefix.
      */
-    public static function isIdentifierNumbered(string $identifier): bool
+    public static function hasNumericalPrefix(string $identifier): bool
     {
         if (self::isIdentifierNested($identifier)) {
             $identifier = self::getCoreIdentifierPart($identifier);
@@ -52,7 +52,7 @@ class FilenamePrefixNavigationHelper
             $identifier = self::getCoreIdentifierPart($identifier);
         }
 
-        assert(self::isIdentifierNumbered($identifier));
+        assert(self::hasNumericalPrefix($identifier));
 
         $separator = substr(ltrim($identifier, '0123456789'), 0, 1);
         $parts = explode($separator, $identifier, 2);
