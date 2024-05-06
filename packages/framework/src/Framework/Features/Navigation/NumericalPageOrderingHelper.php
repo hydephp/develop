@@ -42,7 +42,7 @@ class NumericalPageOrderingHelper
             $identifier = static::getCoreIdentifierPart($identifier);
         }
 
-        return preg_match('/^\d+['.implode(static::DELIMITERS).']/', $identifier) === 1;
+        return preg_match(sprintf('/^\d+[%s]/', implode(static::DELIMITERS)), $identifier) === 1;
     }
 
     /**
