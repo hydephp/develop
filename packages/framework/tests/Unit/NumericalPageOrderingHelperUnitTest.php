@@ -22,18 +22,18 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
         $this->assertTrue(NumericalPageOrderingHelper::enabled());
     }
 
-    public function testEnabledReturnsFalseWhenDisabled()
-    {
-        self::mockConfig(['hyde.numerical_page_ordering' => false]);
-
-        $this->assertFalse(NumericalPageOrderingHelper::enabled());
-    }
-
     public function testFeatureIsEnabledByDefault()
     {
         self::mockConfig(['hyde' => []]);
 
         $this->assertTrue(NumericalPageOrderingHelper::enabled());
+    }
+
+    public function testEnabledReturnsFalseWhenDisabled()
+    {
+        self::mockConfig(['hyde.numerical_page_ordering' => false]);
+
+        $this->assertFalse(NumericalPageOrderingHelper::enabled());
     }
 
     public function testIdentifiersWithNumericalPrefixesAreDetected()
