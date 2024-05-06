@@ -52,7 +52,7 @@ class NumericalPageOrderingHelper
             $identifier = self::getCoreIdentifierPart($identifier);
         }
 
-        $separator = substr(ltrim($identifier, '0123456789'), 0, 1);
+        $separator = self::getFirstCharacterFromIdentifier($identifier);
         $parts = explode($separator, $identifier, 2);
 
         $parts[0] = (int) $parts[0];
@@ -77,5 +77,10 @@ class NumericalPageOrderingHelper
     protected static function getCoreIdentifierPart(string $identifier): string
     {
         return Str::afterLast($identifier, '/');
+    }
+
+    protected static function getFirstCharacterFromIdentifier(string $identifier): string
+    {
+        return substr(ltrim($identifier, '0123456789'), 0, 1);
     }
 }
