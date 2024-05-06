@@ -78,16 +78,6 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
         $this->assertSame([789, 'contact.md'], NumericalPageOrderingHelper::splitNumericPrefix('789_contact.md'));
     }
 
-    public function testSplitNumericPrefixThrowsExceptionWhenIdentifierIsNotNumbered()
-    {
-        $this->markTestSkipped('Since this is an internal class at the moment, we do not need to test this. If we want this in the public API it should be a badmethodcall exception.');
-
-        $this->expectException(\AssertionError::class);
-        $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
-
-        NumericalPageOrderingHelper::splitNumericPrefix('home.md');
-    }
-
     public function testIdentifiersForNestedPagesWithNumericalPrefixesAreDetected()
     {
         $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('foo/01-home.md'));

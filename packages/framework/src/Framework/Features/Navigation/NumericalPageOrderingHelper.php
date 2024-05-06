@@ -8,7 +8,6 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 
 use function ltrim;
-use function assert;
 use function substr;
 use function explode;
 use function implode;
@@ -53,8 +52,6 @@ class NumericalPageOrderingHelper
             $identifier = self::getCoreIdentifierPart($identifier);
         }
 
-        assert(self::hasNumericalPrefix($identifier));
-
         $separator = substr(ltrim($identifier, '0123456789'), 0, 1);
         $parts = explode($separator, $identifier, 2);
 
@@ -74,15 +71,11 @@ class NumericalPageOrderingHelper
 
     protected static function getNestedIdentifierPrefix(string $identifier): string
     {
-        assert(self::isIdentifierNested($identifier));
-
         return Str::beforeLast($identifier, '/');
     }
 
     protected static function getCoreIdentifierPart(string $identifier): string
     {
-        assert(self::isIdentifierNested($identifier));
-
         return Str::afterLast($identifier, '/');
     }
 }
