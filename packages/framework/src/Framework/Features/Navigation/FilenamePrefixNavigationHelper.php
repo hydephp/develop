@@ -7,7 +7,9 @@ namespace Hyde\Framework\Features\Navigation;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 
+use function ltrim;
 use function assert;
+use function substr;
 use function explode;
 use function preg_match;
 
@@ -52,7 +54,7 @@ class FilenamePrefixNavigationHelper
 
         assert(self::isIdentifierNumbered($identifier));
 
-        $separator = '-';
+        $separator = substr(ltrim($identifier, '0123456789'), 0, 1);
         $parts = explode($separator, $identifier, 2);
 
         $parts[0] = (int) $parts[0];
