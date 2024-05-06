@@ -19,6 +19,13 @@ use function preg_match;
 class NumericalPageOrderingHelper
 {
     /**
+     * The delimiters that are used to separate the numerical prefix from the rest of the identifier.
+     *
+     * @var array<string>
+     */
+    protected const DELIMITERS = ['-', '_'];
+
+    /**
      * Determines if the feature is enabled.
      */
     public static function enabled(): bool
@@ -35,9 +42,7 @@ class NumericalPageOrderingHelper
             $identifier = static::getCoreIdentifierPart($identifier);
         }
 
-        $delimiters = implode(['-', '_']);
-
-        return preg_match('/^\d+['.$delimiters.']/', $identifier) === 1;
+        return preg_match('/^\d+['.implode(static::DELIMITERS).']/', $identifier) === 1;
     }
 
     /**
