@@ -58,7 +58,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
 
     public function testSplitNumberAndIdentifierThrowsExceptionWhenIdentifierIsNotNumbered()
     {
-        $this->markTestSkipped('Since this is an internal class at the moment, we don not need to test this. If we want this in the public API it should be a badmethodcall exception.');
+        $this->markTestSkipped('Since this is an internal class at the moment, we do not need to test this. If we want this in the public API it should be a badmethodcall exception.');
 
         $this->expectException(\AssertionError::class);
         $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
