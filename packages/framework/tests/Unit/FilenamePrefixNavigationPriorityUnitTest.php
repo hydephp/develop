@@ -144,6 +144,54 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('foo/bar/contact.md'));
     }
 
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
+     *
+     * @dataProvider pageTypeProvider
+     */
+    public function testIdentifiersWithNumericalPrefixesAreDetectedForPageType(string $type)
+    {
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01-home.'.$type::$fileExtension));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('02-about.'.$type::$fileExtension));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('03-contact.'.$type::$fileExtension));
+    }
+
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
+     *
+     * @dataProvider pageTypeProvider
+     */
+    public function testIdentifiersWithoutNumericalPrefixesAreNotDetectedForPageType(string $type)
+    {
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('home.'.$type::$fileExtension));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('about.'.$type::$fileExtension));
+        $this->assertFalse(FilenamePrefixNavigationHelper::isIdentifierNumbered('contact.'.$type::$fileExtension));
+    }
+
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
+     *
+     * @dataProvider pageTypeProvider
+     */
+    public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDividersForPageType(string $type)
+    {
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('01_home.'.$type::$fileExtension));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('02_about.'.$type::$fileExtension));
+        $this->assertTrue(FilenamePrefixNavigationHelper::isIdentifierNumbered('03_contact.'.$type::$fileExtension));
+    }
+
+    /**
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
+     *
+     * @dataProvider pageTypeProvider
+     */
+    public function testSplitNumberAndIdentifierForDeeplyNestedPagesForPageType(string $type)
+    {
+        $this->assertSame([1, 'foo/bar/home.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01-home.'.$type::$fileExtension));
+        $this->assertSame([2, 'foo/bar/about.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02-about.'.$type::$fileExtension));
+        $this->assertSame([3, 'foo/bar/contact.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03-contact.'.$type::$fileExtension));
+    }
+
     public function testSplitNumberAndIdentifierForDeeplyNestedPages()
     {
         $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01-home.md'));
