@@ -16,8 +16,6 @@ use function preg_match;
 
 /**
  * @internal Helper class for the new Filename Prefix Navigation feature.
- *
- * @experimental The code herein may be moved to more appropriate locations in the future.
  */
 class NumericalPageOrderingHelper
 {
