@@ -15,7 +15,7 @@ use function implode;
 use function preg_match;
 
 /**
- * @internal Helper class for the new Filename Prefix Navigation feature.
+ * @internal This class contains shared helper code for the framework to provide numerical page ordering. It is not intended to be used outside the framework code internals.
  */
 class NumericalPageOrderingHelper
 {
