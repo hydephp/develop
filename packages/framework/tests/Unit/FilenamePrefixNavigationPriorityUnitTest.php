@@ -50,42 +50,42 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertTrue(FilenamePrefixNavigationHelper::hasNumericalPrefix('03_contact.md'));
     }
 
-    public function testSplitNumberAndIdentifier()
+    public function testSplitNumericPrefix()
     {
-        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01-home.md'));
-        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02-about.md'));
-        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03-contact.md'));
+        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('01-home.md'));
+        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('02-about.md'));
+        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('03-contact.md'));
     }
 
-    public function testSplitNumberAndIdentifierForSnakeCaseDividers()
+    public function testSplitNumericPrefixForSnakeCaseDividers()
     {
-        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('01_home.md'));
-        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('02_about.md'));
-        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('03_contact.md'));
+        $this->assertSame([1, 'home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('01_home.md'));
+        $this->assertSame([2, 'about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('02_about.md'));
+        $this->assertSame([3, 'contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('03_contact.md'));
     }
 
-    public function testSplitNumberAndIdentifierWithMultipleDigits()
+    public function testSplitNumericPrefixWithMultipleDigits()
     {
-        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123-home.md'));
-        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456-about.md'));
-        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789-contact.md'));
+        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('123-home.md'));
+        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('456-about.md'));
+        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('789-contact.md'));
     }
 
-    public function testSplitNumberAndIdentifierWithMultipleDigitsAndSnakeCaseDividers()
+    public function testSplitNumericPrefixWithMultipleDigitsAndSnakeCaseDividers()
     {
-        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('123_home.md'));
-        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('456_about.md'));
-        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('789_contact.md'));
+        $this->assertSame([123, 'home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('123_home.md'));
+        $this->assertSame([456, 'about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('456_about.md'));
+        $this->assertSame([789, 'contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('789_contact.md'));
     }
 
-    public function testSplitNumberAndIdentifierThrowsExceptionWhenIdentifierIsNotNumbered()
+    public function testSplitNumericPrefixThrowsExceptionWhenIdentifierIsNotNumbered()
     {
         $this->markTestSkipped('Since this is an internal class at the moment, we do not need to test this. If we want this in the public API it should be a badmethodcall exception.');
 
         $this->expectException(\AssertionError::class);
         $this->expectExceptionMessage('Identifier "home.md" is not numbered.');
 
-        FilenamePrefixNavigationHelper::splitNumberAndIdentifier('home.md');
+        FilenamePrefixNavigationHelper::splitNumericPrefix('home.md');
     }
 
     public function testIdentifiersForNestedPagesWithNumericalPrefixesAreDetected()
@@ -109,18 +109,18 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         $this->assertFalse(FilenamePrefixNavigationHelper::hasNumericalPrefix('foo/contact.md'));
     }
 
-    public function testSplitNumberAndIdentifierForNestedPages()
+    public function testSplitNumericPrefixForNestedPages()
     {
-        $this->assertSame([1, 'foo/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/01-home.md'));
-        $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/02-about.md'));
-        $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/03-contact.md'));
+        $this->assertSame([1, 'foo/home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/01-home.md'));
+        $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/02-about.md'));
+        $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/03-contact.md'));
     }
 
-    public function testSplitNumberAndIdentifierForNestedPagesWithSnakeCaseDividers()
+    public function testSplitNumericPrefixForNestedPagesWithSnakeCaseDividers()
     {
-        $this->assertSame([1, 'foo/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/01_home.md'));
-        $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/02_about.md'));
-        $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/03_contact.md'));
+        $this->assertSame([1, 'foo/home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/01_home.md'));
+        $this->assertSame([2, 'foo/about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/02_about.md'));
+        $this->assertSame([3, 'foo/contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/03_contact.md'));
     }
 
     public function testIdentifiersForDeeplyNestedPagesWithNumericalPrefixesAreDetected()
@@ -185,25 +185,25 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
      *
      * @dataProvider pageTypeProvider
      */
-    public function testSplitNumberAndIdentifierForDeeplyNestedPagesForPageType(string $type)
+    public function testSplitNumericPrefixForDeeplyNestedPagesForPageType(string $type)
     {
-        $this->assertSame([1, 'foo/bar/home.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01-home.'.$type::$fileExtension));
-        $this->assertSame([2, 'foo/bar/about.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02-about.'.$type::$fileExtension));
-        $this->assertSame([3, 'foo/bar/contact.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03-contact.'.$type::$fileExtension));
+        $this->assertSame([1, 'foo/bar/home.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/01-home.'.$type::$fileExtension));
+        $this->assertSame([2, 'foo/bar/about.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/02-about.'.$type::$fileExtension));
+        $this->assertSame([3, 'foo/bar/contact.'.$type::$fileExtension], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/03-contact.'.$type::$fileExtension));
     }
 
-    public function testSplitNumberAndIdentifierForDeeplyNestedPages()
+    public function testSplitNumericPrefixForDeeplyNestedPages()
     {
-        $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01-home.md'));
-        $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02-about.md'));
-        $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03-contact.md'));
+        $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/01-home.md'));
+        $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/02-about.md'));
+        $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/03-contact.md'));
     }
 
-    public function testSplitNumberAndIdentifierForDeeplyNestedPagesWithSnakeCaseDividers()
+    public function testSplitNumericPrefixForDeeplyNestedPagesWithSnakeCaseDividers()
     {
-        $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/01_home.md'));
-        $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/02_about.md'));
-        $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumberAndIdentifier('foo/bar/03_contact.md'));
+        $this->assertSame([1, 'foo/bar/home.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/01_home.md'));
+        $this->assertSame([2, 'foo/bar/about.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/02_about.md'));
+        $this->assertSame([3, 'foo/bar/contact.md'], FilenamePrefixNavigationHelper::splitNumericPrefix('foo/bar/03_contact.md'));
     }
 
     public function testNonNumericalPartsAreNotDetected()

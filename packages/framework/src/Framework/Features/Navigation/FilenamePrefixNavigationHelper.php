@@ -45,7 +45,7 @@ class FilenamePrefixNavigationHelper
      *
      * @return array{integer, string}
      */
-    public static function splitNumberAndIdentifier(string $identifier): array
+    public static function splitNumericPrefix(string $identifier): array
     {
         if (self::isIdentifierNested($identifier)) {
             $parentPath = self::getNestedIdentifierPrefix($identifier);

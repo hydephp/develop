@@ -57,7 +57,7 @@ final class RouteKey implements Stringable
     protected static function splitNumberedIdentifiersIfNeeded(string $identifier): string
     {
         if (FilenamePrefixNavigationHelper::enabled() && FilenamePrefixNavigationHelper::hasNumericalPrefix($identifier)) {
-            $identifier = FilenamePrefixNavigationHelper::splitNumberAndIdentifier($identifier)[1];
+            $identifier = FilenamePrefixNavigationHelper::splitNumericPrefix($identifier)[1];
         }
 
         return $identifier;
