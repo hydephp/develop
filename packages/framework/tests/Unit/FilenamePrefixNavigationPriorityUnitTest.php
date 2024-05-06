@@ -219,8 +219,8 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         self::mockConfig();
 
         return array_combine(
-            array_map(fn ($class) => str($class)->classBasename()->snake(' ')->plural()->toString(),
-            HydeCoreExtension::getPageClasses()), array_map(fn ($class) => [$class], HydeCoreExtension::getPageClasses())
+            array_map(fn ($class) => str($class)->classBasename()->snake(' ')->plural()->toString(), HydeCoreExtension::getPageClasses()),
+            array_map(fn ($class) => [$class], HydeCoreExtension::getPageClasses())
         );
     }
 }
