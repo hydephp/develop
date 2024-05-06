@@ -218,6 +218,7 @@ class FilenamePrefixNavigationPriorityUnitTest extends UnitTestCase
         self::needsKernel();
         self::mockConfig();
 
-        return array_map(fn (string $class): array => [$class], HydeCoreExtension::getPageClasses());
+        $arrayMap = array_map(fn (string $class): array => [$class], HydeCoreExtension::getPageClasses());
+        return array_combine(array_map(fn (string $class): string => str($class)->classBasename()->kebab()->replace('-', ' ')->toString(), HydeCoreExtension::getPageClasses()), $arrayMap);
     }
 }
