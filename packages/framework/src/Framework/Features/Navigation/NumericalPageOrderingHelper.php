@@ -11,6 +11,7 @@ use function ltrim;
 use function substr;
 use function explode;
 use function implode;
+use function sprintf;
 use function preg_match;
 
 /**
