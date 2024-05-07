@@ -18,6 +18,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class RouteKeyTest extends UnitTestCase
 {
+    protected static bool $needsConfig = true;
+
     public function testMake()
     {
         $this->assertEquals(RouteKey::make('foo'), new RouteKey('foo'));
