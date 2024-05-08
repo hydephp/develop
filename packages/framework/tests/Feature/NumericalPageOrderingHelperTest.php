@@ -29,8 +29,6 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * @covers \Hyde\Support\Models\RouteKey
  *
  * @see \Hyde\Framework\Testing\Unit\NumericalPageOrderingHelperUnitTest
- *
- * Todo: Add test to ensure explicitly set priority overrides filename prefix.
  */
 class NumericalPageOrderingHelperTest extends TestCase
 {

@@ -320,6 +320,14 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('abc-bar.md')))->makePriority());
     }
 
+    public function testFrontMatterValueOverridesFilenamePrefixPriority()
+    {
+        $coreDataObject = new CoreDataObject(new FrontMatter(['navigation.priority' => 10]), new Markdown(), markdownPage::class, '05-test', '', '', '');
+        $factory = new NavigationConfigTestClass($coreDataObject);
+
+        $this->assertSame(10, $factory->makePriority());
+    }
+
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
     {
         return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
