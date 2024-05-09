@@ -259,6 +259,7 @@ class NumericalPageOrderingHelperTest extends TestCase
 
         $this->assertSame('docs/advanced', $page->getRouteKey());
         $this->assertSame('docs/advanced.html', $page->getOutputPath());
+        $this->assertSame('getting-started', $page->navigationMenuGroup());
     }
 
 
@@ -274,6 +275,7 @@ class NumericalPageOrderingHelperTest extends TestCase
 
         $this->assertSame('docs/getting-started/advanced', $page->getRouteKey());
         $this->assertSame('docs/getting-started/advanced.html', $page->getOutputPath());
+        $this->assertSame('getting-started', $page->navigationMenuGroup());
     }
 
     protected function setUpSidebarFixture(array $files): self
