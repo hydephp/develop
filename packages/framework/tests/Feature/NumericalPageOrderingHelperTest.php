@@ -261,6 +261,21 @@ class NumericalPageOrderingHelperTest extends TestCase
         $this->assertSame('docs/advanced.html', $page->getOutputPath());
     }
 
+
+    public function testSidebarGroupPrioritiesCanBeSetWithNumericalPrefixWithoutFlattenedOutputPaths()
+    {
+        config(['docs.flattened_output_paths' => false]);
+
+        $this->directory('_docs/03-getting-started');
+        $this->file('_docs/03-getting-started/05-advanced.md');
+
+        $page = DocumentationPage::parse('03-getting-started/05-advanced');
+        $this->assertInstanceOf(DocumentationPage::class, $page);
+
+        $this->assertSame('docs/getting-started/advanced', $page->getRouteKey());
+        $this->assertSame('docs/getting-started/advanced.html', $page->getOutputPath());
+    }
+
     protected function setUpSidebarFixture(array $files): self
     {
         return $this->setupFixture($files, sidebar: true);
