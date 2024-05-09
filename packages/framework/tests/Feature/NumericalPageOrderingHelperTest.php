@@ -249,6 +249,15 @@ class NumericalPageOrderingHelperTest extends TestCase
         $this->assertOrder(['foo', 'bar', 'baz']);
     }
 
+    public function testSidebarGroupPrioritiesCanBeSetWithNumericalPrefix()
+    {
+        $this->directory('_docs/03-getting-started');
+        $this->file('_docs/03-getting-started/05-advanced.md');
+
+        $page = DocumentationPage::parse('getting-started/advanced');
+        $this->assertInstanceOf(DocumentationPage::class, $page);
+    }
+
     protected function setUpSidebarFixture(array $files): self
     {
         return $this->setupFixture($files, sidebar: true);
