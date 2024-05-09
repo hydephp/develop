@@ -254,7 +254,7 @@ class NumericalPageOrderingHelperTest extends TestCase
         $this->directory('_docs/03-getting-started');
         $this->file('_docs/03-getting-started/05-advanced.md');
 
-        $page = DocumentationPage::parse('getting-started/advanced');
+        $page = DocumentationPage::parse('03-getting-started/05-advanced');
         $this->assertInstanceOf(DocumentationPage::class, $page);
     }
 
