@@ -256,6 +256,9 @@ class NumericalPageOrderingHelperTest extends TestCase
 
         $page = DocumentationPage::parse('03-getting-started/05-advanced');
         $this->assertInstanceOf(DocumentationPage::class, $page);
+
+        $this->assertSame('docs/advanced', $page->getRouteKey());
+        $this->assertSame('docs/advanced.html', $page->getOutputPath());
     }
 
     protected function setUpSidebarFixture(array $files): self
