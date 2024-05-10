@@ -12,6 +12,7 @@ use function substr;
 use function explode;
 use function implode;
 use function sprintf;
+use function array_map;
 use function preg_match;
 
 /**
@@ -57,6 +58,12 @@ class NumericalPageOrderingHelper
         $parts[0] = (int) $parts[0];
 
         if (isset($parentPath)) {
+            $parentPaths = explode('/', $parentPath);
+            $parentPaths = array_map(function (string $part): string {
+                return static::hasNumericalPrefix($part) ? static::splitNumericPrefix($part)[1] : $part;
+            }, $parentPaths);
+            $parentPath = implode('/', $parentPaths);
+
             $parts[1] = "$parentPath/$parts[1]";
         }
 
