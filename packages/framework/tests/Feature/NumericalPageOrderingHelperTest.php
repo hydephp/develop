@@ -262,7 +262,6 @@ class NumericalPageOrderingHelperTest extends TestCase
         $this->assertSame('getting-started', $page->navigationMenuGroup());
     }
 
-
     public function testSidebarGroupPrioritiesCanBeSetWithNumericalPrefixWithoutFlattenedOutputPaths()
     {
         config(['docs.flattened_output_paths' => false]);
