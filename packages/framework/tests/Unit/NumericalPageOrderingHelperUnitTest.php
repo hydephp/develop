@@ -203,6 +203,13 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
         $this->assertSame([3, 'foo/bar/contact.md'], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/03_contact.md'));
     }
 
+    public function testNumericalPrefixesInSubdirectoriesAreTrimmed()
+    {
+        $this->assertSame([1, 'foo.md'], NumericalPageOrderingHelper::splitNumericPrefix('01-foo.md'));
+        $this->assertSame([2, 'nested/foo.md'], NumericalPageOrderingHelper::splitNumericPrefix('01-nested/02-foo.md'));
+        $this->assertSame([3, 'deeply/nested/foo.md'], NumericalPageOrderingHelper::splitNumericPrefix('01-deeply/02-nested/03-foo.md'));
+    }
+
     public function testNonNumericalPartsAreNotDetected()
     {
         $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('foo-bar.md'));
@@ -256,6 +263,17 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
         $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('one-foo.md'));
         $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('one_foo.md'));
         $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('one.foo.md'));
+    }
+
+    public function testHasNumericalPrefixOnlyReturnsTrueIfLastIdentifierPartIsNumerical()
+    {
+        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('foo.md'));
+        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('01-nested/foo.md'));
+        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('01-deeply/02-nested/foo.md'));
+
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01-foo.md'));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01-nested/02-foo.md'));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01-deeply/02-nested/03-foo.md'));
     }
 
     public static function pageTypeProvider(): array
