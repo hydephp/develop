@@ -127,7 +127,7 @@ class RouteKeyTest extends UnitTestCase
     {
         $this->assertSame('foo/bar', RouteKey::fromPage(InMemoryPage::class, 'foo/01-bar')->get());
         $this->assertSame('foo/bar/baz', RouteKey::fromPage(InMemoryPage::class, 'foo/bar/02-baz')->get());
-        $this->assertSame('foo/01-bar/baz', RouteKey::fromPage(InMemoryPage::class, 'foo/01-bar/03-baz')->get());
+        $this->assertSame('foo/bar/baz', RouteKey::fromPage(InMemoryPage::class, 'foo/01-bar/03-baz')->get());
     }
 
     public function testItDoesNotExtractCoreIdentifierPartFromNumericalFilenamePrefixWhenFeatureIsDisabled()
