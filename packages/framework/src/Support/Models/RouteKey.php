@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
-use Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper;
+use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 
 use function unslash;
 
@@ -56,8 +56,8 @@ final class RouteKey implements Stringable
     /** @experimental */
     protected static function splitNumberedIdentifiersIfNeeded(string $identifier): string
     {
-        if (FilenamePrefixNavigationHelper::enabled() && FilenamePrefixNavigationHelper::isIdentifierNumbered($identifier)) {
-            $identifier = FilenamePrefixNavigationHelper::splitNumberAndIdentifier($identifier)[1];
+        if (NumericalPageOrderingHelper::enabled() && NumericalPageOrderingHelper::hasNumericalPrefix($identifier)) {
+            return NumericalPageOrderingHelper::splitNumericPrefix($identifier)[1];
         }
 
         return $identifier;

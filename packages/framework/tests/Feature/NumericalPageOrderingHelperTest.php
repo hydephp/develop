@@ -22,17 +22,15 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * The feature can be disabled in the config. It also works within sidebar groups,
  * so that multiple groups can have the same prefix independent of other groups.
  *
- * @covers \Hyde\Framework\Features\Navigation\FilenamePrefixNavigationHelper
+ * @covers \Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Factories\NavigationDataFactory // Todo: Update the unit test for this class.
- * @covers \Hyde\Support\Models\RouteKey // Todo: Update the unit test for this class.
+ * @covers \Hyde\Framework\Factories\NavigationDataFactory
+ * @covers \Hyde\Support\Models\RouteKey
  *
- * @see \Hyde\Framework\Testing\Unit\FilenamePrefixNavigationPriorityUnitTest
- *
- * Todo: Add test to ensure explicitly set priority overrides filename prefix.
+ * @see \Hyde\Framework\Testing\Unit\NumericalPageOrderingHelperUnitTest
  */
-class FilenamePrefixNavigationPriorityTest extends TestCase
+class NumericalPageOrderingHelperTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -251,6 +249,34 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
         $this->assertOrder(['foo', 'bar', 'baz']);
     }
 
+    public function testSidebarGroupPrioritiesCanBeSetWithNumericalPrefix()
+    {
+        $this->directory('_docs/03-getting-started');
+        $this->file('_docs/03-getting-started/05-advanced.md');
+
+        $page = DocumentationPage::parse('03-getting-started/05-advanced');
+        $this->assertInstanceOf(DocumentationPage::class, $page);
+
+        $this->assertSame('docs/advanced', $page->getRouteKey());
+        $this->assertSame('docs/advanced.html', $page->getOutputPath());
+        $this->assertSame('getting-started', $page->navigationMenuGroup());
+    }
+
+    public function testSidebarGroupPrioritiesCanBeSetWithNumericalPrefixWithoutFlattenedOutputPaths()
+    {
+        config(['docs.flattened_output_paths' => false]);
+
+        $this->directory('_docs/03-getting-started');
+        $this->file('_docs/03-getting-started/05-advanced.md');
+
+        $page = DocumentationPage::parse('03-getting-started/05-advanced');
+        $this->assertInstanceOf(DocumentationPage::class, $page);
+
+        $this->assertSame('docs/getting-started/advanced', $page->getRouteKey());
+        $this->assertSame('docs/getting-started/advanced.html', $page->getOutputPath());
+        $this->assertSame('getting-started', $page->navigationMenuGroup());
+    }
+
     protected function setUpSidebarFixture(array $files): self
     {
         return $this->setupFixture($files, sidebar: true);
@@ -291,9 +317,9 @@ class FilenamePrefixNavigationPriorityTest extends TestCase
 
 class FilenamePrefixNavigationPriorityTestingHelper
 {
-    protected FilenamePrefixNavigationPriorityTest $test;
+    protected NumericalPageOrderingHelperTest $test;
 
-    public function __construct(FilenamePrefixNavigationPriorityTest $test)
+    public function __construct(NumericalPageOrderingHelperTest $test)
     {
         $this->test = $test;
     }

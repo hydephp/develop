@@ -267,6 +267,67 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertNull($factory->makeGroup());
     }
 
+    public function testItExtractsPriorityFromNumericalFilenamePrefix()
+    {
+        $coreDataObject = $this->makeCoreDataObject('01-test.md');
+        $factory = new NavigationConfigTestClass($coreDataObject);
+
+        $this->assertSame(1, $factory->makePriority());
+    }
+
+    public function testItExtractsPriorityFromNumericalFilenamePrefixWithKebabCaseSyntax()
+    {
+        $this->assertSame(1, (new NavigationConfigTestClass($this->makeCoreDataObject('01-foo.md')))->makePriority());
+        $this->assertSame(2, (new NavigationConfigTestClass($this->makeCoreDataObject('02-bar.md')))->makePriority());
+        $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('03-baz.md')))->makePriority());
+    }
+
+    public function testItExtractsPriorityFromNumericalFilenamePrefixWithSnakeCaseSyntax()
+    {
+        $this->assertSame(1, (new NavigationConfigTestClass($this->makeCoreDataObject('01_foo.md')))->makePriority());
+        $this->assertSame(2, (new NavigationConfigTestClass($this->makeCoreDataObject('02_bar.md')))->makePriority());
+        $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('03_baz.md')))->makePriority());
+    }
+
+    public function testItExtractsPriorityFromNumericalFilenamePrefixRegardlessOfLeadingZeroes()
+    {
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('0123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('00123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('000123-foo.md')))->makePriority());
+        $this->assertSame(123, (new NavigationConfigTestClass($this->makeCoreDataObject('0000123-foo.md')))->makePriority());
+    }
+
+    public function testItExtractsPriorityFromNumericalFilenamePrefixForNestedIdentifiers()
+    {
+        $this->assertSame(1, (new NavigationConfigTestClass($this->makeCoreDataObject('foo/01-bar.md')))->makePriority());
+        $this->assertSame(2, (new NavigationConfigTestClass($this->makeCoreDataObject('foo/bar/02-baz.md')))->makePriority());
+        $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('foo/01-bar/03-baz.md')))->makePriority());
+    }
+
+    public function testItDoesNotExtractPriorityFromNumericalFilenamePrefixWhenFeatureIsDisabled()
+    {
+        self::mockConfig(['hyde.numerical_page_ordering' => false]);
+
+        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('01-test.md')))->makePriority());
+        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('01-home.md')))->makePriority());
+        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('01-404.md')))->makePriority());
+    }
+
+    public function testItDoesNotExtractNonNumericalFilenamePrefixes()
+    {
+        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('foo-bar.md')))->makePriority());
+        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('abc-bar.md')))->makePriority());
+    }
+
+    public function testFrontMatterValueOverridesFilenamePrefixPriority()
+    {
+        $coreDataObject = new CoreDataObject(new FrontMatter(['navigation.priority' => 10]), new Markdown(), markdownPage::class, '05-test', '', '', '');
+        $factory = new NavigationConfigTestClass($coreDataObject);
+
+        $this->assertSame(10, $factory->makePriority());
+    }
+
     protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
     {
         return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
