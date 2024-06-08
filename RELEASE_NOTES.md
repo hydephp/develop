@@ -16,6 +16,8 @@ This serves two purposes:
 
 ### Changed
 - When a navigation group is set in front matter, it will now be used regardless of the subdirectory configuration in https://github.com/hydephp/develop/pull/1703 (fixes https://github.com/hydephp/develop/issues/1515)
+- Use late static bindings to support overriding data collections file finding in https://github.com/hydephp/develop/pull/1717 (fixes https://github.com/hydephp/develop/issues/1716)
+
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -25,6 +27,7 @@ This serves two purposes:
 
 ### Fixed
 - Fixed explicitly set front matter navigation group behavior being dependent on subdirectory configuration, fixing https://github.com/hydephp/develop/issues/1515 in https://github.com/hydephp/develop/pull/1703
+- Fixed DataCollections file finding method not being able to be overriden https://github.com/hydephp/develop/issues/1716 in https://github.com/hydephp/develop/pull/1717
 
 ### Security
 - in case of vulnerabilities.

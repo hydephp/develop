@@ -51,7 +51,7 @@ class DataCollections extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollections::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
+        return new static(static::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)];
         }));
     }
@@ -67,7 +67,7 @@ class DataCollections extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollections::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
+        return new static(static::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)->matter()];
         }));
     }
@@ -83,7 +83,7 @@ class DataCollections extends Collection
     {
         static::needsDirectory(static::$sourceDirectory);
 
-        return new static(DataCollections::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
+        return new static(static::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
             return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
         }));
     }
