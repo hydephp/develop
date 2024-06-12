@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
+use Illuminate\Support\Arr;
 use Hyde\Console\Concerns\Command;
 use Hyde\Support\Internal\RouteListItem;
 
-use function array_map;
 use function array_keys;
 use function json_encode;
 use function array_values;
@@ -38,13 +38,13 @@ class RouteListCommand extends Command
     /** @return array<integer, array<string, string>>  */
     protected function generate(): array
     {
-        return array_map(RouteListItem::format(...), array_values(Hyde::routes()->all()));
+        return Arr::map(array_values(Hyde::routes()->all()), RouteListItem::format(...));
     }
 
     /** @param array<integer, array<string, string>> $routes */
     protected function makeHeader(array $routes): array
     {
-        return array_map(Hyde::makeTitle(...), array_keys($routes[0]));
+        return Arr::map(array_keys($routes[0]), Hyde::makeTitle(...));
     }
 
     /** Write a message without ANSI formatting */
