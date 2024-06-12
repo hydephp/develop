@@ -28,7 +28,7 @@ This serves two purposes:
 
 ### Fixed
 - Fixed explicitly set front matter navigation group behavior being dependent on subdirectory configuration, fixing https://github.com/hydephp/develop/issues/1515 in https://github.com/hydephp/develop/pull/1703
-- Fixed DataCollections file finding method not being able to be overriden https://github.com/hydephp/develop/issues/1716 in https://github.com/hydephp/develop/pull/1717
+- Fixed DataCollections file finding method not being able to be overridden https://github.com/hydephp/develop/issues/1716 in https://github.com/hydephp/develop/pull/1717
 
 ### Security
 - in case of vulnerabilities.
