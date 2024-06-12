@@ -37,10 +37,11 @@ final class HydeStan
     public function __destruct()
     {
         $this->console->newline();
-        $this->console->info(sprintf('HydeStan has exited after scanning %s total (and %s aggregate) lines in %s files.',
+        $this->console->info(sprintf('HydeStan has exited after scanning %s total (and %s aggregate) lines in %s files. Total expressions analysed: %s',
             number_format($this->scannedLines),
             number_format($this->aggregateLines),
-            number_format(count($this->files))
+            number_format(count($this->files)),
+            number_format(AnalysisStatisticsContainer::getExpressionsAnalysed()),
         ));
 
         if (count(self::$warnings) > 0) {
@@ -124,6 +125,7 @@ final class HydeStan
             }
 
             $analyser->run($file, $contents);
+            AnalysisStatisticsContainer::countedLines(substr_count($contents, "\n"));
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
                 $lineAnalysers = [
@@ -131,6 +133,7 @@ final class HydeStan
                 ];
 
                 foreach ($lineAnalysers as $analyser) {
+                    AnalysisStatisticsContainer::countedLine();
                     $analyser->run($file, $lineNumber, $line);
                     $this->aggregateLines++;
                 }
@@ -196,6 +199,7 @@ class NoFixMeAnalyser extends FileAnalyser
         $contents = strtolower($contents);
 
         foreach ($searches as $search) {
+            AnalysisStatisticsContainer::analysedExpression();
             if (str_contains($contents, $search)) {
                 // Get line number of marker by counting new \n tags before it
                 $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
@@ -219,6 +223,7 @@ class UnImportedFunctionAnalyser extends FileAnalyser
 
         $functionImports = [];
         foreach ($lines as $line) {
+            AnalysisStatisticsContainer::analysedExpression();
             if (str_starts_with($line, 'use function ')) {
                 $functionImports[] = rtrim(substr($line, 13), ';');
             }
@@ -228,8 +233,10 @@ class UnImportedFunctionAnalyser extends FileAnalyser
         foreach ($lines as $line) {
             // Find all function calls
             preg_match_all('/([a-zA-Z0-9_]+)\(/', $line, $matches);
+            AnalysisStatisticsContainer::analysedExpressions(count($matches[1]));
 
             foreach ($matches[1] as $match) {
+                AnalysisStatisticsContainer::analysedExpression();
                 if (! str_contains($line, '->')) {
                     $calledFunctions[] = $match;
                 }
@@ -241,6 +248,7 @@ class UnImportedFunctionAnalyser extends FileAnalyser
         $calledFunctions = array_unique($calledFunctions);
 
         foreach ($calledFunctions as $calledFunction) {
+            AnalysisStatisticsContainer::analysedExpression();
             if (! in_array($calledFunction, $functionImports)) {
                 echo("Found unimported function '$calledFunction' in ".realpath(__DIR__.'/../../packages/framework/'.$file))."\n";
             }
@@ -252,10 +260,48 @@ class NoTestReferenceAnalyser extends LineAnalyser
 {
     public function run(string $file, int $lineNumber, string $line): void
     {
+        AnalysisStatisticsContainer::analysedExpressions(1.5);
+
         if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
             $this->fail(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)),
                 realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
         }
+    }
+}
+
+class AnalysisStatisticsContainer
+{
+    private static int $linesCounted = 0;
+    private static float $expressionsAnalysed = 0;
+
+    public static function countedLine(): void
+    {
+        self::$linesCounted++;
+    }
+
+    public static function countedLines(int $count): void
+    {
+        self::$linesCounted += $count;
+    }
+
+    public static function analysedExpression(): void
+    {
+        self::$expressionsAnalysed++;
+    }
+
+    public static function analysedExpressions(float $countOrEstimate): void
+    {
+        self::$expressionsAnalysed += $countOrEstimate;
+    }
+
+    public static function getLinesCounted(): int
+    {
+        return self::$linesCounted;
+    }
+
+    public static function getExpressionsAnalysed(): int
+    {
+        return (int) round(self::$expressionsAnalysed);
     }
 }
 
