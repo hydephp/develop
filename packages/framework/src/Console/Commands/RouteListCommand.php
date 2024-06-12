@@ -10,6 +10,7 @@ use Hyde\Support\Internal\RouteListItem;
 
 use function array_map;
 use function array_keys;
+use function json_encode;
 use function array_values;
 
 /**
@@ -18,7 +19,7 @@ use function array_values;
 class RouteListCommand extends Command
 {
     /** @var string */
-    protected $signature = 'route:list';
+    protected $signature = 'route:list {--format=txt : The output format (txt or json)}';
 
     /** @var string */
     protected $description = 'Display all the registered routes';
@@ -27,9 +28,11 @@ class RouteListCommand extends Command
     {
         $routes = $this->generate();
 
-        $this->table($this->makeHeader($routes), $routes);
-
-        return Command::SUCCESS;
+        return match ($this->option('format')) {
+            'txt' => $this->table($this->makeHeader($routes), $routes) ?? Command::SUCCESS,
+            'json' => $this->writeRaw(json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) ?? Command::SUCCESS,
+            default => $this->error("Invalid format provided. Only 'txt' and 'json' are supported.") ?? Command::FAILURE,
+        };
     }
 
     /** @return array<integer, array<string, string>>  */
@@ -42,5 +45,12 @@ class RouteListCommand extends Command
     protected function makeHeader(array $routes): array
     {
         return array_map(Hyde::makeTitle(...), array_keys($routes[0]));
+    }
+
+    /** Write a message without ANSI formatting */
+    protected function writeRaw(string $message): void
+    {
+        $this->output->setDecorated(false);
+        $this->output->writeln($message);
     }
 }
