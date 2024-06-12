@@ -33,9 +33,7 @@ class RouteListCommand extends Command
         } elseif ($this->option('format') === 'json') {
             $this->writeRaw(json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         } else {
-            $this->error("Invalid format provided. Only 'txt' and 'json' are supported.");
-
-            return Command::FAILURE;
+            return $this->fail("Invalid format provided. Only 'txt' and 'json' are supported.");
         }
 
         return Command::SUCCESS;
@@ -58,5 +56,12 @@ class RouteListCommand extends Command
     {
         $this->output->setDecorated(false);
         $this->output->writeln($message);
+    }
+
+    protected function fail(string $message): int
+    {
+        $this->error($message);
+
+        return Command::FAILURE;
     }
 }
