@@ -13,6 +13,7 @@ This serves two purposes:
 - Added support for using HTML comments to create Markdown code block filepath labels in https://github.com/hydephp/develop/pull/1693
 - Added a config option to disable the theme toggle buttons to automatically use browser settings in https://github.com/hydephp/develop/pull/1697
 - You can now specify which path to open when using the `--open` option in the serve command in https://github.com/hydephp/develop/pull/1694
+- Added a `--format=json` option to the `route:list` command in https://github.com/hydephp/develop/pull/1724
 
 ### Changed
 - When a navigation group is set in front matter, it will now be used regardless of the subdirectory configuration in https://github.com/hydephp/develop/pull/1703 (fixes https://github.com/hydephp/develop/issues/1515)
