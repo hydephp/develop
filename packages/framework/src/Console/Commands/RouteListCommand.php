@@ -27,7 +27,9 @@ class RouteListCommand extends Command
     {
         $routes = $this->generate();
 
-        $this->table($this->makeHeader($routes), $routes);
+        if ($this->option('format') === 'txt') {
+            $this->table($this->makeHeader($routes), $routes);
+        }
 
         return Command::SUCCESS;
     }
