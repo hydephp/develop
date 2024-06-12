@@ -31,6 +31,8 @@ class RouteListCommand extends Command
         if ($this->option('format') === 'txt') {
             $this->table($this->makeHeader($routes), $routes);
         } elseif ($this->option('format') === 'json') {
+            // Disable ANSI formatting
+            $this->output->setDecorated(false);
             $this->line(json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         } else {
             $this->error("Invalid format provided. Only 'txt' and 'json' are supported.");
