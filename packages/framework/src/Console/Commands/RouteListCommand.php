@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 use Hyde\Console\Concerns\Command;
 use Hyde\Support\Internal\RouteListItem;
 
-use function array_map;
 use function array_keys;
 use function json_encode;
 use function array_values;
