@@ -135,9 +135,9 @@ class Hyperlinks
     /**
      * Return a qualified URL to the supplied path if a base URL is set.
      *
-     * @param  string  $path  optional relative path suffix. Omit to return base url.
+     * @param  string  $path  An optional relative path suffix. Omit to return the base URL.
      *
-     * @throws BaseUrlNotSetException If no site URL is set and no default is provided
+     * @throws BaseUrlNotSetException If no site URL is set and no path is provided.
      */
     public function url(string $path = ''): string
     {
