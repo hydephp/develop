@@ -149,6 +149,13 @@ class Hyperlinks
             return rtrim(rtrim(Config::getString('hyde.url'), '/')."/$path", '/');
         }
 
+        // Since v1.7.0, we return the relative path even if the base URL is not set,
+        // as this is more likely to be the desired behavior the user's expecting.
+        if (! blank($path)) {
+            return $path;
+        }
+
+        // User is trying to get the base URL, but it's not set
         throw new BaseUrlNotSetException();
     }
 

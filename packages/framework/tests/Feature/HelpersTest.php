@@ -154,8 +154,15 @@ class HelpersTest extends TestCase
     public function testUrlFunctionWithoutBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => null]);
+        $this->assertSame('foo', url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithoutBaseUrlOrPath()
+    {
+        $this->app['config']->set(['hyde.url' => null]);
         $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
-        $this->assertNull(url('foo'));
+        $this->assertNull(url());
     }
 
     /** @covers ::url */
