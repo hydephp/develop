@@ -18,7 +18,7 @@ use function array_values;
 class RouteListCommand extends Command
 {
     /** @var string */
-    protected $signature = 'route:list';
+    protected $signature = 'route:list {--format=txt : The output format (txt)}';
 
     /** @var string */
     protected $description = 'Display all the registered routes';
