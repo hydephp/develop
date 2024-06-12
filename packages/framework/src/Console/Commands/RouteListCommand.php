@@ -29,6 +29,10 @@ class RouteListCommand extends Command
 
         if ($this->option('format') === 'txt') {
             $this->table($this->makeHeader($routes), $routes);
+        } else {
+            $this->error("Invalid format provided. Only 'txt' is supported.");
+
+            return Command::FAILURE;
         }
 
         return Command::SUCCESS;

@@ -114,6 +114,13 @@ class RouteListCommandTest extends TestCase
             ]])->assertExitCode(0);
     }
 
+    public function testConsoleRouteListWithInvalidFormatOption()
+    {
+        $this->artisan('route:list --format=foo')
+            ->expectsOutput("Invalid format provided. Only 'txt' is supported.")
+            ->assertExitCode(1);
+    }
+
     protected function headers(): array
     {
         return ['Page Type', 'Source File', 'Output File', 'Route Key'];
