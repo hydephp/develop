@@ -31,7 +31,7 @@ class RouteListCommand extends Command
         return match ($this->option('format')) {
             'txt' => $this->table($this->makeHeader($routes), $routes) ?? Command::SUCCESS,
             'json' => $this->writeRaw(json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) ?? Command::SUCCESS,
-            default => $this->fail("Invalid format provided. Only 'txt' and 'json' are supported."),
+            default => $this->error("Invalid format provided. Only 'txt' and 'json' are supported.") ?? Command::FAILURE,
         };
     }
 
@@ -52,12 +52,5 @@ class RouteListCommand extends Command
     {
         $this->output->setDecorated(false);
         $this->output->writeln($message);
-    }
-
-    protected function fail(string $message): int
-    {
-        $this->error($message);
-
-        return Command::FAILURE;
     }
 }
