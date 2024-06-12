@@ -131,7 +131,7 @@ class Hyperlinks
     {
         $value = Config::getNullableString('hyde.url');
 
-        return ! blank($value);
+        return ! blank($value) && $value !== 'http://localhost';
     }
 
     /**
