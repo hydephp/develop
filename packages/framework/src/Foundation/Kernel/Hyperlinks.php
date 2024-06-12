@@ -144,7 +144,7 @@ class Hyperlinks
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim((string) Config::getString('hyde.url'), '/')."/$path", '/');
+            return rtrim(rtrim(Config::getString('hyde.url'), '/')."/$path", '/');
         }
 
         throw new BaseUrlNotSetException();
