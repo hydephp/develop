@@ -129,7 +129,9 @@ class Hyperlinks
      */
     public function hasSiteUrl(): bool
     {
-        return ! blank(Config::getNullableString('hyde.url'));
+        $value = Config::getNullableString('hyde.url');
+
+        return ! blank($value);
     }
 
     /**
