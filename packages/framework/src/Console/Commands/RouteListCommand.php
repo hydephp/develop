@@ -10,6 +10,7 @@ use Hyde\Support\Internal\RouteListItem;
 
 use function array_map;
 use function array_keys;
+use function json_encode;
 use function array_values;
 
 /**
@@ -18,7 +19,7 @@ use function array_values;
 class RouteListCommand extends Command
 {
     /** @var string */
-    protected $signature = 'route:list {--format=txt : The output format (txt)}';
+    protected $signature = 'route:list {--format=txt : The output format (txt or json)}';
 
     /** @var string */
     protected $description = 'Display all the registered routes';
@@ -29,8 +30,10 @@ class RouteListCommand extends Command
 
         if ($this->option('format') === 'txt') {
             $this->table($this->makeHeader($routes), $routes);
+        } elseif ($this->option('format') === 'json') {
+            $this->line(json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         } else {
-            $this->error("Invalid format provided. Only 'txt' is supported.");
+            $this->error("Invalid format provided. Only 'txt' and 'json' are supported.");
 
             return Command::FAILURE;
         }
