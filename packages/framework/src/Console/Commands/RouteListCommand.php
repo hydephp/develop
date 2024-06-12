@@ -28,15 +28,11 @@ class RouteListCommand extends Command
     {
         $routes = $this->generate();
 
-        if ($this->option('format') === 'txt') {
-            $this->table($this->makeHeader($routes), $routes);
-        } elseif ($this->option('format') === 'json') {
-            $this->writeRaw(json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-        } else {
-            return $this->fail("Invalid format provided. Only 'txt' and 'json' are supported.");
-        }
-
-        return Command::SUCCESS;
+        return match ($this->option('format')) {
+            'txt' => $this->table($this->makeHeader($routes), $routes) ?? Command::SUCCESS,
+            'json' => $this->writeRaw(json_encode($routes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) ?? Command::SUCCESS,
+            default => $this->fail("Invalid format provided. Only 'txt' and 'json' are supported."),
+        };
     }
 
     /** @return array<integer, array<string, string>>  */
