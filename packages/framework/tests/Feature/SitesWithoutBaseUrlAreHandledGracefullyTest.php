@@ -23,7 +23,25 @@ use Hyde\Pages\MarkdownPost;
  */
 class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
 {
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNull(): void
+    {
+        config(['hyde.url' => null]);
+
+        $html = $this->getHtml(MarkdownPost::class);
+
+        $this->assertStringNotContainsString('http://localhost', $html);
+    }
+
     public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(): void
+    {
+        config(['hyde.url' => '']);
+
+        $html = $this->getHtml(MarkdownPost::class);
+
+        $this->assertStringNotContainsString('http://localhost', $html);
+    }
+
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsSetToLocalhost(): void
     {
         config(['hyde.url' => 'http://localhost']);
 
