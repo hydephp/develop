@@ -126,6 +126,8 @@ class Hyperlinks
 
     /**
      * Check if a site base URL has been set in config (or .env).
+     *
+     * The default value is `http://localhost`, which is not considered a valid site URL.
      */
     public function hasSiteUrl(): bool
     {
