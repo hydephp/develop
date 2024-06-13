@@ -84,4 +84,19 @@ class MarkdownFileParserTest extends UnitTestCase
         $this->assertSame('Mr. Hyde', $post->matter('author'));
         $this->assertSame('blog', $post->matter('category'));
     }
+
+    public function testCanParseMarkdownFileWithFrontMatterAndNoMarkdownBody()
+    {
+        file_put_contents(Hyde::path('_posts/test-post.md'), "---\nfoo: bar\n---");
+
+        $document = MarkdownFileParser::parse('_posts/test-post.md');
+
+        $this->assertInstanceOf(MarkdownDocument::class, $document);
+        $this->assertEquals('', $document->markdown);
+        $this->assertSame('', $document->markdown->body());
+
+        $this->assertEquals(FrontMatter::fromArray([
+            'foo' => 'bar',
+        ]), $document->matter);
+    }
 }
