@@ -27,7 +27,7 @@
         "illuminate/view": "^10.0",
         "symfony/yaml": "^6.0",
         "league/commonmark": "^2.2",
-        "spatie/yaml-front-matter": "^2.0.7",
+        "spatie/yaml-front-matter": "^2.0.9",
         "torchlight/torchlight-commonmark": "^0.5.5"
     },
     "suggest": {
