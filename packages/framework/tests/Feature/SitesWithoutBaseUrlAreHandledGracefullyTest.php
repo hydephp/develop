@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Pages\MarkdownPost;
 
 /**
  * High level test to ensure that sites without a base URL are handled gracefully.
@@ -21,5 +23,21 @@ use Hyde\Testing\TestCase;
  */
 class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
 {
-    //
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(): void
+    {
+        config(['hyde.url' => 'http://localhost']);
+
+        $html = $this->getHtml(MarkdownPost::class);
+
+        $this->assertStringNotContainsString('http://localhost', $html);
+    }
+
+    protected function getHtml(string $class): string
+    {
+        $page = new $class('foo');
+
+        Hyde::shareViewData($page);
+
+        return $page->compile();
+    }
 }
