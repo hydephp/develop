@@ -18,6 +18,8 @@ This serves two purposes:
 ### Changed
 - When a navigation group is set in front matter, it will now be used regardless of the subdirectory configuration in https://github.com/hydephp/develop/pull/1703 (fixes https://github.com/hydephp/develop/issues/1515)
 - Use late static bindings to support overriding data collections file finding in https://github.com/hydephp/develop/pull/1717 (fixes https://github.com/hydephp/develop/issues/1716)
+- Method `Hyde::hasSiteUrl()` now returns false if the site URL is for localhost in https://github.com/hydephp/develop/pull/1726
+- Method `Hyde::url()` will now return a relative URL instead of throwing an exception when supplied a path even if the site URL is not set in https://github.com/hydephp/develop/pull/1726
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -32,3 +34,17 @@ This serves two purposes:
 
 ### Security
 - in case of vulnerabilities.
+
+### Extra information
+
+This release contains changes to how HydePHP behaves when a site URL is not set by the user.
+
+These changes are made to reduce the chance of the default `localhost` value showing up in production environments.
+
+Most notably, HydePHP now considers that default site URL `localhost` to mean that a site URL is not set, as the user has not set it.
+This means that things like automatic canonical URLs will not be added, as Hyde won't know how to make them without a site URL. 
+The previous behaviour was that Hyde used `localhost` in canonical URLs, which is never useful in production environments.
+
+For this reason, we felt it worth it to make this change in a minor release, as it has a such large benefit for sites.
+
+You can read more about the details and design decisions of this change in the following pull request https://github.com/hydephp/develop/pull/1726.
