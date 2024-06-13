@@ -6,7 +6,11 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Pages\HtmlPage;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\DocumentationPage;
 
 /**
  * High level test to ensure that sites without a base URL are handled gracefully.
@@ -23,31 +27,51 @@ use Hyde\Pages\MarkdownPost;
  */
 class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
 {
-    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNull(): void
+    /**
+     * @dataProvider pageClassProvider
+     */
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNull(string $class): void
     {
         config(['hyde.url' => null]);
 
-        $html = $this->getHtml(MarkdownPost::class);
+        $html = $this->getHtml($class);
 
         $this->assertStringNotContainsString('http://localhost', $html);
     }
 
-    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(): void
+    /**
+     * @dataProvider pageClassProvider
+     */
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(string $class): void
     {
         config(['hyde.url' => '']);
 
-        $html = $this->getHtml(MarkdownPost::class);
+        $html = $this->getHtml($class);
 
         $this->assertStringNotContainsString('http://localhost', $html);
     }
 
-    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsSetToLocalhost(): void
+    /**
+     * @dataProvider pageClassProvider
+     */
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsSetToLocalhost(string $class): void
     {
         config(['hyde.url' => 'http://localhost']);
 
-        $html = $this->getHtml(MarkdownPost::class);
+        $html = $this->getHtml($class);
 
         $this->assertStringNotContainsString('http://localhost', $html);
+    }
+
+    public static function pageClassProvider(): array
+    {
+        return [
+            // [HtmlPage::class],
+            // [BladePage::class],
+            [MarkdownPage::class],
+            [MarkdownPost::class],
+            [DocumentationPage::class],
+        ];
     }
 
     protected function getHtml(string $class): string
