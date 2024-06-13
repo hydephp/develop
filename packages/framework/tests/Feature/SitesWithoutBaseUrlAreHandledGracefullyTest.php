@@ -63,6 +63,18 @@ class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
         $this->assertStringNotContainsString('http://localhost', $html);
     }
 
+    /**
+     * @dataProvider pageClassProvider
+     */
+    public function testSiteUrlLinksAreAddedToCompiledHtmlWhenBaseUrlIsSetToValidUrl(string $class): void
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $html = $this->getHtml($class);
+
+        $this->assertStringNotContainsString('http://localhost', $html);
+    }
+
     public static function pageClassProvider(): array
     {
         return [
