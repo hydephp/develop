@@ -6,8 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Hyde\Pages\HtmlPage;
-use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
@@ -27,63 +25,45 @@ use Hyde\Pages\DocumentationPage;
  */
 class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
 {
-    /**
-     * @dataProvider pageClassProvider
-     */
-    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNull(string $class): void
-    {
-        config(['hyde.url' => null]);
-
-        $html = $this->getHtml($class);
-
-        $this->assertStringNotContainsString('http://localhost', $html);
-    }
-
-    /**
-     * @dataProvider pageClassProvider
-     */
-    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(string $class): void
-    {
-        config(['hyde.url' => '']);
-
-        $html = $this->getHtml($class);
-
-        $this->assertStringNotContainsString('http://localhost', $html);
-    }
-
-    /**
-     * @dataProvider pageClassProvider
-     */
-    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsSetToLocalhost(string $class): void
-    {
-        config(['hyde.url' => 'http://localhost']);
-
-        $html = $this->getHtml($class);
-
-        $this->assertStringNotContainsString('http://localhost', $html);
-    }
-
-    /**
-     * @dataProvider pageClassProvider
-     */
-    public function testSiteUrlLinksAreAddedToCompiledHtmlWhenBaseUrlIsSetToValidUrl(string $class): void
-    {
-        config(['hyde.url' => 'https://example.com']);
-
-        $html = $this->getHtml($class);
-
-        $this->assertStringNotContainsString('http://localhost', $html);
-    }
-
     public static function pageClassProvider(): array
     {
         return [
-            // [HtmlPage::class],
-            // [BladePage::class],
             [MarkdownPage::class],
             [MarkdownPost::class],
             [DocumentationPage::class],
         ];
+    }
+
+    /** @dataProvider pageClassProvider */
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNull(string $class)
+    {
+        config(['hyde.url' => null]);
+
+        $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
+    }
+
+    /** @dataProvider pageClassProvider */
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(string $class)
+    {
+        config(['hyde.url' => '']);
+
+        $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
+    }
+
+    /** @dataProvider pageClassProvider */
+    public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsSetToLocalhost(string $class)
+    {
+        config(['hyde.url' => 'http://localhost']);
+
+        $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
+    }
+
+    /** @dataProvider pageClassProvider */
+    public function testSiteUrlLinksAreAddedToCompiledHtmlWhenBaseUrlIsSetToValidUrl(string $class)
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
     }
 
     protected function getHtml(string $class): string
