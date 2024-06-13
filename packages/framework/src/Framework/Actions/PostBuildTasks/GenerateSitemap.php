@@ -9,7 +9,6 @@ use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 
-use function blank;
 use function file_put_contents;
 
 class GenerateSitemap extends PostBuildTask
@@ -22,7 +21,7 @@ class GenerateSitemap extends PostBuildTask
 
     public function handle(): void
     {
-        if (blank(Hyde::url()) || str_starts_with(Hyde::url(), 'http://localhost')) {
+        if (! Hyde::hasSiteUrl()) {
             $this->skip('Cannot generate sitemap without a valid base URL');
         }
 
