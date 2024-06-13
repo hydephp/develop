@@ -18,6 +18,8 @@ This serves two purposes:
 ### Changed
 - When a navigation group is set in front matter, it will now be used regardless of the subdirectory configuration in https://github.com/hydephp/develop/pull/1703 (fixes https://github.com/hydephp/develop/issues/1515)
 - Use late static bindings to support overriding data collections file finding in https://github.com/hydephp/develop/pull/1717 (fixes https://github.com/hydephp/develop/issues/1716)
+- Method `Hyde::hasSiteUrl()` now returns false if the site URL is for localhost in https://github.com/hydephp/develop/pull/1726
+- Method `Hyde::url()` will now return a relative URL instead of throwing an exception when supplied a path even if the site URL is not set in https://github.com/hydephp/develop/pull/1726
 
 ### Deprecated
 - for soon-to-be removed features.
