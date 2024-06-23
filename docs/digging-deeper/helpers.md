@@ -14,20 +14,20 @@ Note that these helpers targets those who write custom code and Blade templates,
 
 ## File-based Collections
 
-Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
+Hyde provides `DataCollection`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
 it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get parsed into objects that you can easily work with.
 
 ```php
-use Hyde\Support\DataCollections;
+use Hyde\Support\DataCollection;
 
 // Gets all Markdown files in resources/collections/$name directory
-DataCollections::markdown(string $name);
+DataCollection::markdown(string $name);
 
 // Gets all YAML files in resources/collections/$name directory
-DataCollections::yaml(string $name);
+DataCollection::yaml(string $name);
 
 // Gets all JSON files in resources/collections/$name directory
-DataCollections::json(string $name, bool $asArray = false);
+DataCollection::json(string $name, bool $asArray = false);
 ```
 
 See the [File-based Collections](collections) documentation for the full details.

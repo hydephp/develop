@@ -6,11 +6,11 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
-use Hyde\Support\DataCollections;
+use Hyde\Support\DataCollection;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\DataCollections
+ * @covers \Hyde\Support\DataCollection
  *
  * @see \Hyde\Framework\Testing\Unit\DataCollectionUnitTest
  */
@@ -22,10 +22,10 @@ class DataCollectionTest extends TestCase
         $this->markdown('resources/collections/foo/foo.md', 'Hello World', ['title' => 'Foo']);
         $this->file('resources/collections/foo/bar.md');
 
-        $this->assertEquals(new DataCollections([
+        $this->assertEquals(new DataCollection([
             'foo/foo.md' => new MarkdownDocument(['title' => 'Foo'], 'Hello World'),
             'foo/bar.md' => new MarkdownDocument([], ''),
-        ]), DataCollections::markdown('foo'));
+        ]), DataCollection::markdown('foo'));
     }
 
     public function testYamlCollections()
@@ -35,11 +35,11 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/bar.yml', "---\ntitle: Bar\n---");
         $this->file('resources/collections/foo/baz.yml');
 
-        $this->assertEquals(new DataCollections([
+        $this->assertEquals(new DataCollection([
             'foo/foo.yaml' => new FrontMatter(['title' => 'Foo']),
             'foo/bar.yml' => new FrontMatter(['title' => 'Bar']),
             'foo/baz.yml' => new FrontMatter([]),
-        ]), DataCollections::yaml('foo'));
+        ]), DataCollection::yaml('foo'));
     }
 
     public function testYamlCollectionsWithoutTripleDashes()
@@ -47,9 +47,9 @@ class DataCollectionTest extends TestCase
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.yml', 'title: Foo');
 
-        $this->assertEquals(new DataCollections([
+        $this->assertEquals(new DataCollection([
             'foo/foo.yml' => new FrontMatter(['title' => 'Foo']),
-        ]), DataCollections::yaml('foo'));
+        ]), DataCollection::yaml('foo'));
     }
 
     public function testJsonCollections()
@@ -58,10 +58,10 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/foo.json', json_encode(['foo' => 'bar']));
         $this->file('resources/collections/foo/bar.json');
 
-        $this->assertEquals(new DataCollections([
+        $this->assertEquals(new DataCollection([
             'foo/foo.json' => (object) ['foo' => 'bar'],
             'foo/bar.json' => null,
-        ]), DataCollections::json('foo'));
+        ]), DataCollection::json('foo'));
     }
 
     public function testJsonCollectionsAsArrays()
@@ -70,24 +70,24 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/foo.json', json_encode(['foo' => 'bar']));
         $this->file('resources/collections/foo/bar.json');
 
-        $this->assertEquals(new DataCollections([
+        $this->assertEquals(new DataCollection([
             'foo/foo.json' => ['foo' => 'bar'],
             'foo/bar.json' => null,
-        ]), DataCollections::json('foo', true));
+        ]), DataCollection::json('foo', true));
     }
 
     public function testFindMarkdownFilesMethodReturnsEmptyArrayIfTheSpecifiedDirectoryDoesNotExist()
     {
-        $this->assertIsArray(DataCollections::markdown('foo')->keys()->toArray());
-        $this->assertEmpty(DataCollections::markdown('foo')->keys()->toArray());
+        $this->assertIsArray(DataCollection::markdown('foo')->keys()->toArray());
+        $this->assertEmpty(DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function testFindMarkdownFilesMethodReturnsEmptyArrayIfNoFilesAreFoundInSpecifiedDirectory()
     {
         $this->directory('resources/collections/foo');
 
-        $this->assertIsArray(DataCollections::markdown('foo')->keys()->toArray());
-        $this->assertEmpty(DataCollections::markdown('foo')->keys()->toArray());
+        $this->assertIsArray(DataCollection::markdown('foo')->keys()->toArray());
+        $this->assertEmpty(DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function testFindMarkdownFilesMethodReturnsAnArrayOfMarkdownFilesInTheSpecifiedDirectory()
@@ -99,7 +99,7 @@ class DataCollectionTest extends TestCase
         $this->assertSame([
             'foo/bar.md',
             'foo/foo.md',
-        ], DataCollections::markdown('foo')->keys()->toArray());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function testFindMarkdownFilesMethodDoesNotIncludeFilesInSubdirectories()
@@ -111,7 +111,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/foo.md',
-        ], DataCollections::markdown('foo')->keys()->toArray());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function testFindMarkdownFilesMethodDoesNotIncludeFilesWithExtensionsOtherThanMd()
@@ -122,7 +122,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/foo.md',
-        ], DataCollections::markdown('foo')->keys()->toArray());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function testFindMarkdownFilesMethodDoesNotRemoveFilesStartingWithAnUnderscore()
@@ -132,7 +132,7 @@ class DataCollectionTest extends TestCase
 
         $this->assertSame([
             'foo/_foo.md',
-        ], DataCollections::markdown('foo')->keys()->toArray());
+        ], DataCollection::markdown('foo')->keys()->toArray());
     }
 
     public function testStaticMarkdownHelperDiscoversAndParsesMarkdownFilesInTheSpecifiedDirectory()
@@ -144,7 +144,7 @@ class DataCollectionTest extends TestCase
         $this->assertEquals([
             'foo/foo.md' => new MarkdownDocument([], ''),
             'foo/bar.md' => new MarkdownDocument([], ''),
-        ], DataCollections::markdown('foo')->toArray());
+        ], DataCollection::markdown('foo')->toArray());
     }
 
     public function testStaticMarkdownHelperDoestNotIgnoreFilesStartingWithAnUnderscore()
@@ -153,19 +153,19 @@ class DataCollectionTest extends TestCase
         $this->file('resources/collections/foo/foo.md');
         $this->file('resources/collections/foo/_bar.md');
 
-        $this->assertCount(2, DataCollections::markdown('foo'));
+        $this->assertCount(2, DataCollection::markdown('foo'));
     }
 
     public function testSourceDirectoryCanBeChanged()
     {
-        DataCollections::$sourceDirectory = 'foo';
+        DataCollection::$sourceDirectory = 'foo';
         $this->directory('foo/bar');
         $this->file('foo/bar/foo.md');
 
         $this->assertSame([
             'bar/foo.md',
-        ], DataCollections::markdown('bar')->keys()->toArray());
+        ], DataCollection::markdown('bar')->keys()->toArray());
 
-        DataCollections::$sourceDirectory = 'resources/collections';
+        DataCollection::$sourceDirectory = 'resources/collections';
     }
 }

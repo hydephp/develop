@@ -32,7 +32,7 @@ use function unslash;
  * All collections are indexed by their filename, which is relative
  * to the configured data collection source directory.
  */
-class DataCollections extends Collection
+class DataCollection extends Collection
 {
     /**
      * The base directory for all data collections. Can be modified using a service provider.
@@ -44,7 +44,7 @@ class DataCollections extends Collection
      *
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
-     * @return DataCollections<string, \Hyde\Markdown\Models\MarkdownDocument>
+     * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
      */
     public static function markdown(string $name): static
     {
@@ -58,7 +58,7 @@ class DataCollections extends Collection
      *
      * Each YAML file will be parsed into a FrontMatter object.
      *
-     * @return DataCollections<string, \Hyde\Markdown\Models\FrontMatter>
+     * @return DataCollection<string, \Hyde\Markdown\Models\FrontMatter>
      */
     public static function yaml(string $name): static
     {
@@ -78,7 +78,7 @@ class DataCollections extends Collection
      *
      * Each JSON file will be parsed into a stdClass object, or an associative array, depending on the second parameter.
      *
-     * @return DataCollections<string, \stdClass|array>
+     * @return DataCollection<string, \stdClass|array>
      */
     public static function json(string $name, bool $asArray = false): static
     {

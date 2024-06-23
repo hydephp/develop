@@ -17,6 +17,7 @@ This serves two purposes:
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
+- **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
@@ -25,7 +26,7 @@ This serves two purposes:
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 - Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
-- Calling the `DataCollections` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
+- Calling the `DataCollection` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -220,8 +221,14 @@ For example, if you triggered the media transfer with a build service method cal
 
 ### DataCollection API changes
 
-The DataCollections feature has been reworked to improve the developer experience and make it more consistent with the rest of the API.
+The DataCollection feature has been reworked to improve the developer experience and make it more consistent with the rest of the API.
 
 Unfortunately, this means that existing setups may need to be adjusted to work with the new API.
 
-- Calling the `DataCollections` methods will no longer create the data collections directory automatically
+#### Upgrade guide
+
+- The `DataCollections` class has been renamed to `DataCollection`. If you have used the `DataCollections` class in your code, you will need to update your code to use the new class name.
+
+#### Minor impact
+
+- Calling the `DataCollection` methods will no longer create the data collections directory automatically
