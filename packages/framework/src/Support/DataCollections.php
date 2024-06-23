@@ -71,10 +71,7 @@ class DataCollections extends Collection
 
         return new static(static::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
             $content = Filesystem::get($file);
-
-            if (str_starts_with($content, '---')) {
-                $content = Str::between($content, '---', '---');
-            }
+            $content = Str::between($content, '---', '---');
 
             $parsed = Yaml::parse($content) ?: [];
             $matter = new FrontMatter($parsed);
