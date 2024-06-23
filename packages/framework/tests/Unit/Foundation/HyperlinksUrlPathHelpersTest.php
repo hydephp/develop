@@ -92,6 +92,46 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->class->url();
     }
 
+    public function testHelperFallsBackToRelativeLinksWhenNoSiteUrlIsSet()
+    {
+        config(['hyde.url' => '']);
+
+        $this->assertSame('index.html', $this->class->url('index.html'));
+        $this->assertSame('foo.html', $this->class->url('foo.html'));
+        $this->assertSame('foo/bar.html', $this->class->url('foo/bar.html'));
+        $this->assertSame('docs/index.html', $this->class->url('docs/index.html'));
+    }
+
+    public function testHelperFallsBackToPrettyRelativeLinksWhenNoSiteUrlIsSetAndPrettyUrlsAreEnabled()
+    {
+        config(['hyde.url' => '', 'hyde.pretty_urls' => true]);
+
+        $this->assertSame('/', $this->class->url('index.html'));
+        $this->assertSame('foo', $this->class->url('foo.html'));
+        $this->assertSame('docs/', $this->class->url('docs/index.html'));
+        $this->assertSame('foo/bar', $this->class->url('foo/bar.html'));
+    }
+
+    public function testHelperFallsBackToRelativeLinksWhenSiteUrlIsSetToLocalhost()
+    {
+        config(['hyde.url' => 'http://localhost']);
+
+        $this->assertSame('index.html', $this->class->url('index.html'));
+        $this->assertSame('foo.html', $this->class->url('foo.html'));
+        $this->assertSame('foo/bar.html', $this->class->url('foo/bar.html'));
+        $this->assertSame('docs/index.html', $this->class->url('docs/index.html'));
+    }
+
+    public function testHelperFallsBackToPrettyRelativeLinksWhenSiteUrlIsSetToLocalhostAndPrettyUrlsAreEnabled()
+    {
+        config(['hyde.url' => 'http://localhost', 'hyde.pretty_urls' => true]);
+
+        $this->assertSame('/', $this->class->url('index.html'));
+        $this->assertSame('foo', $this->class->url('foo.html'));
+        $this->assertSame('docs/', $this->class->url('docs/index.html'));
+        $this->assertSame('foo/bar', $this->class->url('foo/bar.html'));
+    }
+
     public function testHelperReturnsExpectedStringWhenSiteUrlIsSet()
     {
         config(['hyde.url' => 'https://example.com']);

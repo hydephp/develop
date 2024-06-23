@@ -126,27 +126,38 @@ class Hyperlinks
 
     /**
      * Check if a site base URL has been set in config (or .env).
+     *
+     * The default value is `http://localhost`, which is not considered a valid site URL.
      */
     public function hasSiteUrl(): bool
     {
-        return ! blank(Config::getNullableString('hyde.url'));
+        $value = Config::getNullableString('hyde.url');
+
+        return ! blank($value) && $value !== 'http://localhost';
     }
 
     /**
      * Return a qualified URL to the supplied path if a base URL is set.
      *
-     * @param  string  $path  optional relative path suffix. Omit to return base url.
+     * @param  string  $path  An optional relative path suffix. Omit to return the base URL.
      *
-     * @throws BaseUrlNotSetException If no site URL is set and no default is provided
+     * @throws BaseUrlNotSetException If no site URL is set and no path is provided.
      */
     public function url(string $path = ''): string
     {
         $path = $this->formatLink(trim($path, '/'));
 
         if ($this->hasSiteUrl()) {
-            return rtrim(rtrim((string) Config::getNullableString('hyde.url'), '/')."/$path", '/');
+            return rtrim(rtrim(Config::getString('hyde.url'), '/')."/$path", '/');
         }
 
+        // Since v1.7.0, we return the relative path even if the base URL is not set,
+        // as this is more likely to be the desired behavior the user's expecting.
+        if (! blank($path)) {
+            return $path;
+        }
+
+        // User is trying to get the base URL, but it's not set
         throw new BaseUrlNotSetException();
     }
 
