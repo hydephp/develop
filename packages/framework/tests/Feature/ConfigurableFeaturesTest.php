@@ -42,9 +42,9 @@ class ConfigurableFeaturesTest extends TestCase
         $this->expectMethodReturnsTrue('hasDarkmode');
     }
 
-    public function testHasSitemapReturnsTrueWhenFeatureIsEnabled()
+    public function testHasSitemapReturnsFalseWhenFeatureIsNotEnabled()
     {
-        $this->expectMethodReturnsTrue('hasSitemap');
+        $this->expectMethodReturnsFalse('hasSitemap');
     }
 
     public function testCanGenerateSitemapHelperReturnsTrueIfHydeHasBaseUrl()

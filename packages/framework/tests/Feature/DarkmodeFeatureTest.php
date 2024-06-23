@@ -22,6 +22,8 @@ class DarkmodeFeatureTest extends TestCase
 
         $this->mockRoute();
         $this->mockPage();
+
+        $this->app->instance('navigation.main', new MainNavigationMenu());
     }
 
     public function testHasDarkmodeIsFalseWhenNotSet()
