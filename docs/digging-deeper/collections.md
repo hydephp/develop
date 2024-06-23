@@ -8,18 +8,18 @@ navigation:
 
 ## Introduction to Hyde Data Collections
 
-Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you
-a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
-it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get
+Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you a similar developer experience to working with Eloquent Collections.
+However, instead of accessing a database, it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get
 parsed into objects that you can easily work with.
 
-As you have access to all standard Laravel Collection methods, you are encouraged to read the
-[Laravel Collections documentation](https://laravel.com/docs/10.x/collections) for more information.
+As you have access to all standard Laravel Collection methods, you are encouraged to read the [Laravel Collections documentation](https://laravel.com/docs/10.x/collections) for more information.
 
 This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
 
 
 ## High-Level Concept Overview
+
+In short, HydePHP finds files in the specified directory, turns each file into an object, and returns a Laravel Collection of these objects.
 
 To make collections easy to use and understand, Hyde makes a few assumptions about the structure of your collections.
 Follow these conventions and creating dynamic static sites will be a breeze.
@@ -29,7 +29,7 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 3. To get a collection, specify name of the subdirectory the files are stored in.
 4. Data will be parsed into differing objects depending on which facade method you use. See the table below.
 5. The class is aliased so that you can use it in Blade files without having to include the namespace.
-6. While not enforced, each subdirectory should probably only have the same filetype to prevent developer confusion
+6. While not enforced, each subdirectory should probably only have the same filetype to prevent developer confusion.
 7. Unlike source files for pages, files starting with underscores are not ignored.
 8. You can customize the source directory for collections through a service provider.
 9. If the base source directory does not exist, it will be created for you.
