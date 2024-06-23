@@ -223,7 +223,3 @@ For example, if you triggered the media transfer with a build service method cal
 The DataCollections feature has been reworked to improve the developer experience and make it more consistent with the rest of the API.
 
 Unfortunately, this means that existing setups may need to be adjusted to work with the new API.
-
-#### Issues that may arise
-
-If you get a Yaml `ParseException` stating that "Multiple documents are not supported in", you must remove the `---` separator YAML documents in your data files.
