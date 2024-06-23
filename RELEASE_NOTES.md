@@ -173,6 +173,7 @@ Due to the scope of the rewrite, the easiest and fastest way to upgrade your cod
 
 - For a full comparison of the changes, you may see the PR that introduced the new API: https://github.com/hydephp/develop/pull/1568/files
 - For information on how to use the new Navigation API, see the documentation: https://hydephp.com/docs/2.x/navigation-api
+- If you use DataCollections, you should read the upgrade path below as there are breaking changes to the DataCollection API.
 
 ### HTML ID changes
 
@@ -216,3 +217,9 @@ For example, if you triggered the media transfer with a build service method cal
 
 (new TransferMediaAssets())->run();
 ```
+
+### DataCollection API changes
+
+The DataCollections feature has been reworked to improve the developer experience and make it more consistent with the rest of the API.
+
+Unfortunately, this means that existing setups may need to be adjusted to work with the new API.
