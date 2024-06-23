@@ -7,7 +7,6 @@ namespace Hyde\Support;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Markdown\Models\FrontMatter;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Illuminate\Support\Collection;
@@ -74,12 +73,11 @@ class DataCollections extends Collection
             $content = Filesystem::get($file);
 
             if (str_starts_with($content, '---')) {
-                $document = YamlFrontMatter::markdownCompatibleParse($content);
-                $matter = new FrontMatter($document->matter());
-            } else {
-                $parsed = Yaml::parse($content) ?: [];
-                $matter = new FrontMatter($parsed);
+                $content = Str::between($content, '---', '---');
             }
+
+            $parsed = Yaml::parse($content) ?: [];
+            $matter = new FrontMatter($parsed);
 
             return [static::makeIdentifier($file) => $matter];
         }));
