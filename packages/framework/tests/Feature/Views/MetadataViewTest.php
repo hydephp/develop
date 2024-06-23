@@ -25,7 +25,7 @@ class MetadataViewTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.url' => 'http://localhost']);
+        config(['hyde.url' => 'https://example.com']);
         config(['hyde.enable_cache_busting' => false]);
     }
 
@@ -79,7 +79,7 @@ class MetadataViewTest extends TestCase
             '<meta charset="utf-8">',
             '<meta name="viewport" content="width=device-width, initial-scale=1">',
             '<meta id="meta-color-scheme" name="color-scheme" content="light">',
-            '<link rel="sitemap" href="http://localhost/sitemap.xml" type="application/xml" title="Sitemap">',
+            '<link rel="sitemap" href="https://example.com/sitemap.xml" type="application/xml" title="Sitemap">',
             '<meta name="generator" content="HydePHP v'.HydeKernel::VERSION.'">',
             '<meta property="og:site_name" content="HydePHP">',
         ];
@@ -93,7 +93,7 @@ class MetadataViewTest extends TestCase
         $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
             '<link rel="stylesheet" href="media/app.css">',
-            '<link rel="canonical" href="http://localhost/test.html">',
+            '<link rel="canonical" href="https://example.com/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
         ]));
@@ -109,7 +109,7 @@ class MetadataViewTest extends TestCase
         $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
             '<link rel="stylesheet" href="media/app.css">',
-            '<link rel="canonical" href="http://localhost/test.html">',
+            '<link rel="canonical" href="https://example.com/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
         ]));
@@ -125,7 +125,7 @@ class MetadataViewTest extends TestCase
         $assertions = $this->assertSee('docs/test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
             '<link rel="stylesheet" href="../media/app.css">',
-            '<link rel="canonical" href="http://localhost/docs/test.html">',
+            '<link rel="canonical" href="https://example.com/docs/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
         ]));
@@ -140,16 +140,16 @@ class MetadataViewTest extends TestCase
 
         $assertions = $this->assertSee('posts/test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
-            '<link rel="alternate" href="http://localhost/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
+            '<link rel="alternate" href="https://example.com/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
             '<link rel="stylesheet" href="../media/app.css">',
-            '<link rel="canonical" href="http://localhost/posts/test.html">',
+            '<link rel="canonical" href="https://example.com/posts/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
-            '<meta name="url" content="http://localhost/posts/test.html">',
+            '<meta name="url" content="https://example.com/posts/test.html">',
             '<meta property="og:title" content="HydePHP - Test">',
-            '<meta property="og:url" content="http://localhost/posts/test.html">',
+            '<meta property="og:url" content="https://example.com/posts/test.html">',
             '<meta property="og:type" content="article">',
             '<meta itemprop="identifier" content="test">',
-            '<meta itemprop="url" content="http://localhost/posts/test.html">',
+            '<meta itemprop="url" content="https://example.com/posts/test.html">',
         ]));
 
         $this->assertAllTagsWereCovered('posts/test', $assertions);
@@ -177,25 +177,92 @@ class MetadataViewTest extends TestCase
 
         $assertions = $this->assertSee('posts/test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - My title</title>',
-            '<link rel="alternate" href="http://localhost/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
+            '<link rel="alternate" href="https://example.com/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
             '<link rel="stylesheet" href="../media/app.css">',
-            '<link rel="canonical" href="http://localhost/posts/test.html">',
+            '<link rel="canonical" href="https://example.com/posts/test.html">',
             '<meta name="twitter:title" content="HydePHP - My title">',
             '<meta name="description" content="My description">',
             '<meta name="author" content="Mr. Hyde">',
             '<meta name="keywords" content="My category">',
-            '<meta name="url" content="http://localhost/posts/test.html">',
+            '<meta name="url" content="https://example.com/posts/test.html">',
             '<meta property="og:title" content="HydePHP - My title">',
-            '<meta property="og:url" content="http://localhost/posts/test.html">',
+            '<meta property="og:url" content="https://example.com/posts/test.html">',
             '<meta property="og:type" content="article">',
             '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">',
             '<meta property="og:image" content="../media/image.jpg">',
             '<meta itemprop="identifier" content="test">',
-            '<meta itemprop="url" content="http://localhost/posts/test.html">',
+            '<meta itemprop="url" content="https://example.com/posts/test.html">',
             '<meta itemprop="url" content="../media/image.jpg">',
             '<meta itemprop="contentUrl" content="../media/image.jpg">',
         ]));
 
         $this->assertAllTagsWereCovered('posts/test', $assertions);
+    }
+
+    public function testCanonicalUrlTagsAreNotAddedWhenCanonicalUrlIsNotSet()
+    {
+        config(['hyde.url' => 'http://localhost']);
+
+        $this->file('_posts/test.md', <<<'MARKDOWN'
+            ---
+            title: "My title"
+            description: "My description"
+            category: "My category"
+            date: "2022-01-01"
+            author: "Mr. Hyde"
+            image: image.jpg
+            ---
+
+            ## Hello World
+
+            Lorem Ipsum Dolor Amet.
+            MARKDOWN
+        );
+        $this->build('_posts/test.md');
+
+        $assertions = $this->assertSee('posts/test', [
+            '<meta charset="utf-8">',
+            '<meta name="viewport" content="width=device-width, initial-scale=1">',
+            '<meta id="meta-color-scheme" name="color-scheme" content="light">',
+            '<meta name="generator" content="HydePHP v'.HydeKernel::VERSION.'">',
+            '<meta property="og:site_name" content="HydePHP">',
+            '<title>HydePHP - My title</title>',
+            '<link rel="stylesheet" href="../media/app.css">',
+            '<meta name="twitter:title" content="HydePHP - My title">',
+            '<meta name="description" content="My description">',
+            '<meta name="author" content="Mr. Hyde">',
+            '<meta name="keywords" content="My category">',
+            '<meta property="og:title" content="HydePHP - My title">',
+            '<meta property="og:type" content="article">',
+            '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">',
+            '<meta property="og:image" content="../media/image.jpg">',
+            '<meta itemprop="identifier" content="test">',
+            '<meta itemprop="url" content="../media/image.jpg">',
+            '<meta itemprop="contentUrl" content="../media/image.jpg">',
+
+            // '<link rel="sitemap" href="http://localhost/sitemap.xml" type="application/xml" title="Sitemap">',
+            // '<link rel="alternate" href="http://localhost/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
+            // '<link rel="canonical" href="http://localhost/posts/test.html">',
+            // '<meta name="url" content="http://localhost/posts/test.html">',
+            // '<meta property="og:url" content="http://localhost/posts/test.html">',
+            // '<meta itemprop="url" content="http://localhost/posts/test.html">',
+        ]);
+
+        $this->assertAllTagsWereCovered('posts/test', $assertions);
+
+        $dontSee = [
+            '<link rel="sitemap"',
+            '<link rel="alternate"',
+            '<link rel="canonical"',
+            '<meta name="url"',
+            '<meta property="og:url"',
+            '<meta itemprop="url" content="http',
+        ];
+
+        $contents = file_get_contents(Hyde::path('_site/posts/test.html'));
+
+        foreach ($dontSee as $text) {
+            $this->assertStringNotContainsString($text, $contents);
+        }
     }
 }

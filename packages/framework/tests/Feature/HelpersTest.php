@@ -77,7 +77,14 @@ class HelpersTest extends TestCase
     public function testAssetFunctionWithQualifiedUrl()
     {
         $this->assertSame(Hyde::asset('foo', true), asset('foo', true));
-        $this->assertSame('http://localhost/media/foo', asset('foo', true));
+        $this->assertSame('media/foo', asset('foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithQualifiedUrlAndSetBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+        $this->assertSame('https://example.com/media/foo', asset('foo', true));
     }
 
     /** @covers ::asset */
@@ -91,6 +98,13 @@ class HelpersTest extends TestCase
     public function testAssetFunctionWithQualifiedUrlAndNoBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => null]);
+        $this->assertSame('media/foo', asset('foo', true));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithQualifiedUrlAndLocalhostBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => 'http://localhost']);
         $this->assertSame('media/foo', asset('foo', true));
     }
 
@@ -146,16 +160,38 @@ class HelpersTest extends TestCase
     /** @covers ::url */
     public function testUrlFunctionWithBaseUrl()
     {
+        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+        $this->assertSame('https://example.com/foo', url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithLocalhostBaseUrl()
+    {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
-        $this->assertSame('http://localhost/foo', url('foo'));
+        $this->assertSame('foo', url('foo'));
     }
 
     /** @covers ::url */
     public function testUrlFunctionWithoutBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => null]);
+        $this->assertSame('foo', url('foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithoutBaseUrlOrPath()
+    {
+        $this->app['config']->set(['hyde.url' => null]);
         $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
-        $this->assertNull(url('foo'));
+        $this->assertNull(url());
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithLocalhostBaseUrlButNoPath()
+    {
+        $this->app['config']->set(['hyde.url' => 'http://localhost']);
+        $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
+        $this->assertNull(url());
     }
 
     /** @covers ::url */
