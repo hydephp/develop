@@ -44,6 +44,16 @@ class DataCollectionTest extends TestCase
         ]), DataCollections::yaml('foo'));
     }
 
+    public function testYamlCollectionsWithoutTripleDashes()
+    {
+        $this->directory('resources/collections/foo');
+        $this->file('resources/collections/foo/foo.yml', 'title: Foo');
+
+        $this->assertEquals(new DataCollections([
+            'foo/foo.yml' => new FrontMatter(['title' => 'Foo']),
+        ]), DataCollections::yaml('foo'));
+    }
+
     public function testJsonCollections()
     {
         $this->directory('resources/collections/foo');
