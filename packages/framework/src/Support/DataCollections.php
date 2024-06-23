@@ -8,7 +8,6 @@ use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Actions\MarkdownFileParser;
-use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -35,8 +34,6 @@ use function unslash;
  */
 class DataCollections extends Collection
 {
-    use InteractsWithDirectories;
-
     /**
      * The base directory for all data collections. Can be modified using a service provider.
      */
@@ -51,8 +48,6 @@ class DataCollections extends Collection
      */
     public static function markdown(string $name): static
     {
-        static::needsDirectory(static::$sourceDirectory);
-
         return new static(static::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
             return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)];
         }));
@@ -67,8 +62,6 @@ class DataCollections extends Collection
      */
     public static function yaml(string $name): static
     {
-        static::needsDirectory(static::$sourceDirectory);
-
         return new static(static::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
             $content = Filesystem::get($file);
             $content = Str::between($content, '---', '---');
@@ -89,8 +82,6 @@ class DataCollections extends Collection
      */
     public static function json(string $name, bool $asArray = false): static
     {
-        static::needsDirectory(static::$sourceDirectory);
-
         return new static(static::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
             return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
         }));

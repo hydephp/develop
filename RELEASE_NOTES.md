@@ -25,7 +25,7 @@ This serves two purposes:
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 - Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
-
+- Calling the `DataCollections` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -223,3 +223,5 @@ For example, if you triggered the media transfer with a build service method cal
 The DataCollections feature has been reworked to improve the developer experience and make it more consistent with the rest of the API.
 
 Unfortunately, this means that existing setups may need to be adjusted to work with the new API.
+
+- Calling the `DataCollections` methods will no longer create the data collections directory automatically

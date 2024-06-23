@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Support\DataCollections;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Support\DataCollections
@@ -167,32 +165,6 @@ class DataCollectionTest extends TestCase
         $this->assertSame([
             'bar/foo.md',
         ], DataCollections::markdown('bar')->keys()->toArray());
-
-        DataCollections::$sourceDirectory = 'resources/collections';
-    }
-
-    public function testSourceDirectoryIsAutomaticallyAddedIfMissing()
-    {
-        $this->directory('resources/collections');
-        File::deleteDirectory(Hyde::path('resources/collections'));
-        $this->assertDirectoryDoesNotExist(Hyde::path('resources/collections'));
-
-        DataCollections::markdown('foo');
-
-        $this->assertDirectoryExists(Hyde::path('resources/collections'));
-    }
-
-    public function testCustomSourceDirectoryIsAutomaticallyAddedIfMissing()
-    {
-        $this->directory('foo');
-        File::deleteDirectory(Hyde::path('foo'));
-
-        $this->assertDirectoryDoesNotExist(Hyde::path('foo'));
-
-        DataCollections::$sourceDirectory = 'foo';
-        DataCollections::markdown('bar');
-
-        $this->assertDirectoryExists(Hyde::path('foo'));
 
         DataCollections::$sourceDirectory = 'resources/collections';
     }

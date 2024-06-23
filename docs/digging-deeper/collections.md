@@ -32,7 +32,6 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 6. While not enforced, each subdirectory should probably only have the same filetype to prevent developer confusion.
 7. Unlike source files for pages, files starting with underscores are not ignored.
 8. You can customize the source directory for collections through a service provider.
-9. If the base source directory does not exist, it will be created for you.
 
 
 ## Available Collection Types
