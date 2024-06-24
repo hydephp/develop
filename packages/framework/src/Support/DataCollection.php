@@ -63,7 +63,7 @@ class DataCollection extends Collection
     public static function yaml(string $name): static
     {
         return new static(static::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
-            $content = Filesystem::get($file);
+            $content = Filesystem::getContents($file);
             $content = Str::between($content, '---', '---');
 
             $parsed = Yaml::parse($content) ?: [];
@@ -83,7 +83,7 @@ class DataCollection extends Collection
     public static function json(string $name, bool $asArray = false): static
     {
         return new static(static::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
-            return [static::makeIdentifier($file) => json_decode(Filesystem::get($file), $asArray)];
+            return [static::makeIdentifier($file) => json_decode(Filesystem::getContents($file), $asArray)];
         }));
     }
 
