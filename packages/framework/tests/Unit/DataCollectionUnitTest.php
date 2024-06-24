@@ -108,7 +108,7 @@ class MockableDataCollection extends DataCollection
 
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
-        return collect(static::$mockFiles[$name]);
+        return collect(static::arrayGlob(static::$mockFiles, $name, $extensions));
     }
 
     public static function mockFiles(array $files): void
