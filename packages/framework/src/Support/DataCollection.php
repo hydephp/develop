@@ -48,9 +48,9 @@ class DataCollection extends Collection
      */
     public static function markdown(string $name): static
     {
-        return new static(static::findFiles($name, 'md')->mapWithKeys(function (string $file): array {
+        return static::discover($name, 'md', function (string $file): array {
             return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)];
-        }));
+        });
     }
 
     /**
@@ -62,7 +62,7 @@ class DataCollection extends Collection
      */
     public static function yaml(string $name): static
     {
-        return new static(static::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
+        return static::discover($name, ['yaml', 'yml'], function (string $file): array {
             $content = Filesystem::getContents($file);
             $content = Str::between($content, '---', '---');
 
@@ -70,7 +70,7 @@ class DataCollection extends Collection
             $matter = new FrontMatter($parsed);
 
             return [static::makeIdentifier($file) => $matter];
-        }));
+        });
     }
 
     /**
@@ -82,9 +82,9 @@ class DataCollection extends Collection
      */
     public static function json(string $name, bool $asArray = false): static
     {
-        return new static(static::findFiles($name, 'json')->mapWithKeys(function (string $file) use ($asArray): array {
+        return static::discover($name, 'json', function (string $file) use ($asArray): array {
             return [static::makeIdentifier($file) => json_decode(Filesystem::getContents($file), $asArray)];
-        }));
+        });
     }
 
     protected static function findFiles(string $name, array|string $extensions): Collection
@@ -97,5 +97,10 @@ class DataCollection extends Collection
     protected static function makeIdentifier(string $path): string
     {
         return unslash(Str::after($path, static::$sourceDirectory));
+    }
+
+    protected static function discover(string $name, array|string $extensions, callable $callback): static
+    {
+        return new static(static::findFiles($name, $extensions)->mapWithKeys($callback));
     }
 }
