@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Support;
 
+use stdClass;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -48,8 +50,8 @@ class DataCollection extends Collection
      */
     public static function markdown(string $name): static
     {
-        return static::discover($name, 'md', function (string $file): array {
-            return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)];
+        return static::discover($name, 'md', function (string $file): MarkdownDocument {
+            return MarkdownFileParser::parse($file);
         });
     }
 
@@ -62,14 +64,14 @@ class DataCollection extends Collection
      */
     public static function yaml(string $name): static
     {
-        return static::discover($name, ['yaml', 'yml'], function (string $file): array {
+        return static::discover($name, ['yaml', 'yml'], function (string $file): FrontMatter {
             $content = Filesystem::getContents($file);
             $content = Str::between($content, '---', '---');
 
             $parsed = Yaml::parse($content) ?: [];
             $matter = new FrontMatter($parsed);
 
-            return [static::makeIdentifier($file) => $matter];
+            return $matter;
         });
     }
 
@@ -82,14 +84,16 @@ class DataCollection extends Collection
      */
     public static function json(string $name, bool $asArray = false): static
     {
-        return static::discover($name, 'json', function (string $file) use ($asArray): array {
-            return [static::makeIdentifier($file) => json_decode(Filesystem::getContents($file), $asArray)];
+        return static::discover($name, 'json', function (string $file) use ($asArray): stdClass|array {
+            return json_decode(Filesystem::getContents($file), $asArray);
         });
     }
 
-    protected static function discover(string $name, array|string $extensions, callable $mapUsing): static
+    protected static function discover(string $name, array|string $extensions, callable $parseUsing): static
     {
-        return new static(static::findFiles($name, $extensions)->mapWithKeys($mapUsing));
+        return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($parseUsing): array {
+            return [static::makeIdentifier($file) => $parseUsing($file)];
+        }));
     }
 
     protected static function findFiles(string $name, array|string $extensions): Collection
