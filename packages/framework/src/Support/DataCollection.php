@@ -87,6 +87,11 @@ class DataCollection extends Collection
         });
     }
 
+    protected static function discover(string $name, array|string $extensions, callable $callback): static
+    {
+        return new static(static::findFiles($name, $extensions)->mapWithKeys($callback));
+    }
+
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
         return Filesystem::smartGlob(sprintf('%s/%s/*.{%s}',
@@ -97,10 +102,5 @@ class DataCollection extends Collection
     protected static function makeIdentifier(string $path): string
     {
         return unslash(Str::after($path, static::$sourceDirectory));
-    }
-
-    protected static function discover(string $name, array|string $extensions, callable $callback): static
-    {
-        return new static(static::findFiles($name, $extensions)->mapWithKeys($callback));
     }
 }
