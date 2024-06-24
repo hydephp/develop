@@ -111,6 +111,9 @@ class MockableDataCollection extends DataCollection
         return collect(static::arrayGlob(static::$mockFiles, $name, $extensions));
     }
 
+    /**
+     * @param  array<string, string>  $files  Filename as key, file contents as value.
+     */
     public static function mockFiles(array $files): void
     {
         static::$mockFiles = $files;
