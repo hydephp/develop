@@ -69,9 +69,8 @@ class DataCollection extends Collection
             $content = Str::between($content, '---', '---');
 
             $parsed = Yaml::parse($content) ?: [];
-            $matter = new FrontMatter($parsed);
 
-            return $matter;
+            return new FrontMatter($parsed);
         });
     }
 
