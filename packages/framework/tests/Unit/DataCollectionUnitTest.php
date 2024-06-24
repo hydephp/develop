@@ -250,7 +250,7 @@ class DataCollectionUnitTest extends UnitTestCase
         ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo');
     }
@@ -262,7 +262,7 @@ class DataCollectionUnitTest extends UnitTestCase
         ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo', true);
     }
@@ -274,7 +274,7 @@ class DataCollectionUnitTest extends UnitTestCase
         ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo');
     }
@@ -286,7 +286,7 @@ class DataCollectionUnitTest extends UnitTestCase
         ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo');
     }
@@ -299,7 +299,31 @@ class DataCollectionUnitTest extends UnitTestCase
         ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid JSON in file: 'foo/baz.json'");
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/baz.json' (Syntax error)");
+
+        MockableDataCollection::json('foo');
+    }
+
+    public function testJsonMethodThrowsExceptionForOtherReasonsThanSyntaxErrorWithUtfError()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/utf.json' => "\xB1\x31",
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/utf.json' (Malformed UTF-8 characters, possibly incorrectly encoded)");
+
+        MockableDataCollection::json('foo');
+    }
+
+    public function testJsonMethodThrowsExceptionForOtherReasonsThanSyntaxErrorWithControlCharacterError()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/control.json' => "\x19\x31",
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/control.json' (Control character error, possibly incorrectly encoded)");
 
         MockableDataCollection::json('foo');
     }

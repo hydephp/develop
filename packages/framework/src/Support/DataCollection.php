@@ -88,7 +88,7 @@ class DataCollection extends Collection
             $contents = Filesystem::getContents($file);
 
             if (! json_validate($contents)) {
-                throw new InvalidArgumentException(sprintf("Invalid JSON in file: '%s'", $file));
+                throw new InvalidArgumentException(sprintf("Invalid JSON in file: '%s' (%s)", $file, json_last_error_msg()));
             }
 
             return json_decode($contents, $asArray);
