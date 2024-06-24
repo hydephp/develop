@@ -116,6 +116,13 @@ class MockableDataCollection extends DataCollection
      */
     public static function mockFiles(array $files): void
     {
+        foreach ($files as $file => $contents) {
+            assert(is_string($file), 'File name must be a string.');
+            assert(is_string($contents), 'File contents must be a string.');
+            assert(str_contains($file, '/'), 'File must be in a directory.');
+            assert(str_contains($file, '.'), 'File must have an extension.');
+        }
+
         static::$mockFiles = $files;
     }
 
