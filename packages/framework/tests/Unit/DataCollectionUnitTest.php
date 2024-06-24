@@ -124,8 +124,8 @@ class DataCollectionUnitTest extends UnitTestCase
     public function testYamlMethodReturnsCollectionOfFrontMatterObjects()
     {
         MockableDataCollection::mockFiles([
-            'foo/bar.yml' => '---\nfoo: bar\n---',
-            'foo/baz.yml' => '---\nfoo: baz\n---',
+            'foo/bar.yml' => "---\nfoo: bar\n---",
+            'foo/baz.yml' => "---\nfoo: baz\n---",
         ]);
 
         $collection = MockableDataCollection::yaml('foo');
