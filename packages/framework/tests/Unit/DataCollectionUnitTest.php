@@ -128,14 +128,10 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.yml' => "---\nfoo: baz\n---",
         ]);
 
-        $collection = MockableDataCollection::yaml('foo');
-
-        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
-
-        $this->assertSame([
+        $this->assertFrontMatterCollectionStructure([
             'foo/bar.yml' => ['foo' => 'bar'],
             'foo/baz.yml' => ['foo' => 'baz'],
-        ], $collection->map(fn ($value) => $value->toArray())->all());
+        ], MockableDataCollection::yaml('foo'));
     }
 
     public function testYamlCollectionsDoNotRequireTripleDashes()
@@ -145,14 +141,10 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.yml' => 'foo: baz',
         ]);
 
-        $collection = MockableDataCollection::yaml('foo');
-
-        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
-
-        $this->assertSame([
+        $this->assertFrontMatterCollectionStructure([
             'foo/bar.yml' => ['foo' => 'bar'],
             'foo/baz.yml' => ['foo' => 'baz'],
-        ], $collection->map(fn ($value) => $value->toArray())->all());
+        ], MockableDataCollection::yaml('foo'));
     }
 
     public function testYamlCollectionsAcceptTripleDashes()
@@ -162,14 +154,10 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.yml' => "---\nfoo: baz",
         ]);
 
-        $collection = MockableDataCollection::yaml('foo');
-
-        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
-
-        $this->assertSame([
+        $this->assertFrontMatterCollectionStructure([
             'foo/bar.yml' => ['foo' => 'bar'],
             'foo/baz.yml' => ['foo' => 'baz'],
-        ], $collection->map(fn ($value) => $value->toArray())->all());
+        ], MockableDataCollection::yaml('foo'));
     }
 
     public function testYamlCollectionsSupportYamlAndYmlFileExtensions()
@@ -179,14 +167,10 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.yml' => "---\nfoo: baz\n---",
         ]);
 
-        $collection = MockableDataCollection::yaml('foo');
-
-        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
-
-        $this->assertSame([
+        $this->assertFrontMatterCollectionStructure([
             'foo/bar.yaml' => ['foo' => 'bar'],
             'foo/baz.yml' => ['foo' => 'baz'],
-        ], $collection->map(fn ($value) => $value->toArray())->all());
+        ], MockableDataCollection::yaml('foo'));
     }
 
     public function testYamlCollectionsHandleLeadingAndTrailingNewlines()
@@ -197,15 +181,11 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/qux.yml' => "foo: qux\n",
         ]);
 
-        $collection = MockableDataCollection::yaml('foo');
-
-        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
-
-        $this->assertSame([
+        $this->assertFrontMatterCollectionStructure([
             'foo/bar.yml' => ['foo' => 'bar'],
             'foo/baz.yml' => ['foo' => 'baz'],
             'foo/qux.yml' => ['foo' => 'qux'],
-        ], $collection->map(fn ($value) => $value->toArray())->all());
+        ], MockableDataCollection::yaml('foo'));
     }
 
     public function testYamlCollectionsHandleTrailingWhitespace()
@@ -215,14 +195,10 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.yml' => 'foo: baz  ',
         ]);
 
-        $collection = MockableDataCollection::yaml('foo');
-
-        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
-
-        $this->assertSame([
+        $this->assertFrontMatterCollectionStructure([
             'foo/bar.yml' => ['foo' => 'bar'],
             'foo/baz.yml' => ['foo' => 'baz'],
-        ], $collection->map(fn ($value) => $value->toArray())->all());
+        ], MockableDataCollection::yaml('foo'));
     }
 
     public function testYamlCollectionsHandleLeadingAndTrailingNewlinesAndTrailingWhitespace()
@@ -233,15 +209,18 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/qux.yml' => "foo: qux  \n",
         ]);
 
-        $collection = MockableDataCollection::yaml('foo');
-
-        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
-
-        $this->assertSame([
+        $this->assertFrontMatterCollectionStructure([
             'foo/bar.yml' => ['foo' => 'bar'],
             'foo/baz.yml' => ['foo' => 'baz'],
             'foo/qux.yml' => ['foo' => 'qux'],
-        ], $collection->map(fn ($value) => $value->toArray())->all());
+        ], MockableDataCollection::yaml('foo'));
+    }
+
+    protected function assertFrontMatterCollectionStructure(array $expected, DataCollection $collection): void
+    {
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame($expected, $collection->map(fn ($value) => $value->toArray())->all());
     }
 }
 
