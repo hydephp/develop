@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
+use Illuminate\Support\Str;
 use Hyde\Support\DataCollection;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Mockery;
+use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\MarkdownDocument;
 
 /**
  * @covers \Hyde\Support\DataCollection
@@ -108,7 +111,7 @@ class MockableDataCollection extends DataCollection
 
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
-        return collect(static::arrayGlob(static::$mockFiles, $name, $extensions));
+        return collect(static::$mockFiles)->keys();
     }
 
     /**
@@ -127,9 +130,9 @@ class MockableDataCollection extends DataCollection
         $filesystem->shouldReceive('get')
             ->andReturnUsing(function (string $file) use ($files) {
                 $file = unslash(str_replace(Hyde::path(), '', $file));
-                $files = static::arrayGlob($files, $file, 'md');
+                $files = collect($files)->mapWithKeys(fn ($contents, $file) => [Str::before(basename($file), '.') => $contents])->all();
 
-                return array_values($files)[0] ?? '';
+                return $files[$file] ?? '';
             });
 
         app()->instance(Filesystem::class, $filesystem);
@@ -140,12 +143,5 @@ class MockableDataCollection extends DataCollection
     public static function tearDown(): void
     {
         static::$mockFiles = [];
-    }
-
-    protected static function arrayGlob(array $files, string $name, array|string $extensions): array
-    {
-        return array_filter($files, function (string $file) use ($name, $extensions): bool {
-            return str_contains($file, $name) && str_contains($file, $extensions);
-        }, ARRAY_FILTER_USE_KEY);
     }
 }
