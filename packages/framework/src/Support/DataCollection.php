@@ -84,7 +84,9 @@ class DataCollection extends Collection
     public static function json(string $name, bool $asArray = false): static
     {
         return static::discover($name, 'json', function (string $file) use ($asArray): stdClass|array|null {
-            return json_decode(Filesystem::getContents($file), $asArray);
+            $contents = Filesystem::getContents($file);
+
+            return json_decode($contents, $asArray);
         });
     }
 
