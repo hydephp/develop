@@ -137,6 +137,57 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.yml' => ['foo' => 'baz'],
         ], $collection->map(fn ($value) => $value->toArray())->all());
     }
+
+    public function testYamlCollectionsDoNotRequireTripleDashes()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => 'foo: bar',
+            'foo/baz.yml' => 'foo: baz',
+        ]);
+
+        $collection = MockableDataCollection::yaml('foo');
+
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame([
+            'foo/bar.yml' => ['foo' => 'bar'],
+            'foo/baz.yml' => ['foo' => 'baz'],
+        ], $collection->map(fn ($value) => $value->toArray())->all());
+    }
+
+    public function testYamlCollectionsAcceptTripleDashes()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => "---\nfoo: bar\n---",
+            'foo/baz.yml' => "---\nfoo: baz",
+        ]);
+
+        $collection = MockableDataCollection::yaml('foo');
+
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame([
+            'foo/bar.yml' => ['foo' => 'bar'],
+            'foo/baz.yml' => ['foo' => 'baz'],
+        ], $collection->map(fn ($value) => $value->toArray())->all());
+    }
+
+    public function testYamlCollectionsSupportYamlAndYmlFileExtensions()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yaml' => "---\nfoo: bar\n---",
+            'foo/baz.yml' => "---\nfoo: baz\n---",
+        ]);
+
+        $collection = MockableDataCollection::yaml('foo');
+
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame([
+            'foo/bar.yaml' => ['foo' => 'bar'],
+            'foo/baz.yml' => ['foo' => 'baz'],
+        ], $collection->map(fn ($value) => $value->toArray())->all());
+    }
 }
 
 class MockableDataCollection extends DataCollection
