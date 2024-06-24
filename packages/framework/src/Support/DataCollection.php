@@ -27,7 +27,7 @@ use function unslash;
  * they allow you to quickly access the data collections.
  *
  * To use them retrieve a collection, call a facade method with the
- * name of the data collection subdirectory directory.
+ * name of the data collection subdirectory.
  *
  * All collections are indexed by their filename, which is relative
  * to the configured data collection source directory.
