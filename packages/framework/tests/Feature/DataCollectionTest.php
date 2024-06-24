@@ -56,11 +56,11 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.json', json_encode(['foo' => 'bar']));
-        $this->file('resources/collections/foo/bar.json');
+        $this->file('resources/collections/foo/bar.json', '{"bar": "baz"}');
 
         $this->assertEquals(new DataCollection([
             'foo/foo.json' => (object) ['foo' => 'bar'],
-            'foo/bar.json' => null,
+            'foo/bar.json' => (object) ['bar' => 'baz'],
         ]), DataCollection::json('foo'));
     }
 
@@ -68,11 +68,11 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
         $this->file('resources/collections/foo/foo.json', json_encode(['foo' => 'bar']));
-        $this->file('resources/collections/foo/bar.json');
+        $this->file('resources/collections/foo/bar.json', '{"bar": "baz"}');
 
         $this->assertEquals(new DataCollection([
             'foo/foo.json' => ['foo' => 'bar'],
-            'foo/bar.json' => null,
+            'foo/bar.json' => ['bar' => 'baz'],
         ]), DataCollection::json('foo', true));
     }
 

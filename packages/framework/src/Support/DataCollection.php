@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use stdClass;
 use Hyde\Facades\Filesystem;
+use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -83,8 +84,12 @@ class DataCollection extends Collection
      */
     public static function json(string $name, bool $asArray = false): static
     {
-        return static::discover($name, 'json', function (string $file) use ($asArray): stdClass|array|null {
+        return static::discover($name, 'json', function (string $file) use ($asArray): stdClass|array {
             $contents = Filesystem::getContents($file);
+
+            if (! json_validate($contents)) {
+                throw new InvalidArgumentException("Invalid JSON in file: '$file'");
+            }
 
             return json_decode($contents, $asArray);
         });

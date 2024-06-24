@@ -22,6 +22,7 @@ This serves two purposes:
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
 - Minor: Changed the default build task message to make it more concise in https://github.com/hydephp/develop/pull/1659
+- Minor: Data collection files are now validated for syntax errors during discovery in https://github.com/hydephp/develop/pull/1732
 - The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
@@ -232,3 +233,9 @@ Unfortunately, this means that existing setups may need to be adjusted to work w
 #### Minor impact
 
 - Calling the `DataCollection` methods will no longer create the data collections directory automatically
+
+#### Issues that may arise
+
+If you start getting `InvalidArgumentException` when using the `DataCollection` class, it may be due to malformed data collection files.
+Starting from this version, we validate the syntax of JSON and YAML files during discovery, to help you catch errors early.
+See https://github.com/hydephp/develop/issues/1736 for more information.

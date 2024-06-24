@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use Hyde\Support\DataCollection;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
@@ -240,6 +241,67 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.json' => ['foo' => 'bar'],
             'foo/baz.json' => ['foo' => 'baz'],
         ], MockableDataCollection::json('foo', true), true);
+    }
+
+    public function testJsonMethodThrowsExceptionForInvalidJson()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.json' => '{"foo": "bar"',
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+
+        MockableDataCollection::json('foo');
+    }
+
+    public function testJsonMethodThrowsExceptionForInvalidJsonWithArray()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.json' => '{"foo": "bar"',
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+
+        MockableDataCollection::json('foo', true);
+    }
+
+    public function testJsonMethodThrowsExceptionForEmptyJson()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.json' => '',
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+
+        MockableDataCollection::json('foo');
+    }
+
+    public function testJsonMethodThrowsExceptionForBlankJson()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.json' => ' ',
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/bar.json'");
+
+        MockableDataCollection::json('foo');
+    }
+
+    public function testJsonMethodThrowsExceptionWhenJustOneFileIsInvalid()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.json' => '{"foo": "bar"}',
+            'foo/baz.json' => '{"foo": "baz"',
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid JSON in file: 'foo/baz.json'");
+
+        MockableDataCollection::json('foo');
     }
 
     protected function assertFrontMatterCollectionStructure(array $expected, DataCollection $collection): void
