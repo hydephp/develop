@@ -120,6 +120,23 @@ class DataCollectionUnitTest extends UnitTestCase
             'baz' => 'baz',
         ], $collection->map(fn ($value) => (string) $value)->all());
     }
+
+    public function testYamlMethodReturnsCollectionOfFrontMatterObjects()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => '---\nfoo: bar\n---',
+            'foo/baz.yml' => '---\nfoo: baz\n---',
+        ]);
+
+        $collection = MockableDataCollection::yaml('foo');
+
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame([
+            'bar' => ['foo' => 'bar'],
+            'baz' => ['foo' => 'baz'],
+        ], $collection->map(fn ($value) => $value->toArray())->all());
+    }
 }
 
 class MockableDataCollection extends DataCollection
