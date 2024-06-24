@@ -239,3 +239,9 @@ Unfortunately, this means that existing setups may need to be adjusted to work w
 If you start getting `InvalidArgumentException` when using the `DataCollection` class, it may be due to malformed data collection files.
 Starting from this version, we validate the syntax of JSON and YAML files during discovery, to help you catch errors early.
 See https://github.com/hydephp/develop/issues/1736 for more information.
+
+For example, an empty or malformed JSON file will now throw an exception like this:
+ 
+```php
+InvalidArgumentException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
+```
