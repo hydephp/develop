@@ -188,6 +188,61 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.yml' => ['foo' => 'baz'],
         ], $collection->map(fn ($value) => $value->toArray())->all());
     }
+
+    public function testYamlCollectionsHandleLeadingAndTrailingNewlines()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => "\nfoo: bar\n",
+            'foo/baz.yml' => "\nfoo: baz",
+            'foo/qux.yml' => "foo: qux\n",
+        ]);
+
+        $collection = MockableDataCollection::yaml('foo');
+
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame([
+            'foo/bar.yml' => ['foo' => 'bar'],
+            'foo/baz.yml' => ['foo' => 'baz'],
+            'foo/qux.yml' => ['foo' => 'qux'],
+        ], $collection->map(fn ($value) => $value->toArray())->all());
+    }
+
+    public function testYamlCollectionsHandleTrailingWhitespace()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => 'foo: bar ',
+            'foo/baz.yml' => 'foo: baz  ',
+        ]);
+
+        $collection = MockableDataCollection::yaml('foo');
+
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame([
+            'foo/bar.yml' => ['foo' => 'bar'],
+            'foo/baz.yml' => ['foo' => 'baz'],
+        ], $collection->map(fn ($value) => $value->toArray())->all());
+    }
+
+    public function testYamlCollectionsHandleLeadingAndTrailingNewlinesAndTrailingWhitespace()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => "\nfoo: bar  \n",
+            'foo/baz.yml' => "\nfoo: baz\n ",
+            'foo/qux.yml' => "foo: qux  \n",
+        ]);
+
+        $collection = MockableDataCollection::yaml('foo');
+
+        $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
+
+        $this->assertSame([
+            'foo/bar.yml' => ['foo' => 'bar'],
+            'foo/baz.yml' => ['foo' => 'baz'],
+            'foo/qux.yml' => ['foo' => 'qux'],
+        ], $collection->map(fn ($value) => $value->toArray())->all());
+    }
 }
 
 class MockableDataCollection extends DataCollection
