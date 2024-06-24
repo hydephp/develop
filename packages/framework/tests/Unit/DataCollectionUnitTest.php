@@ -229,12 +229,12 @@ class DataCollectionUnitTest extends UnitTestCase
             $this->assertContainsOnly('array', $collection);
         } else {
             $this->assertContainsOnly('object', $collection);
+
+            $expected = collect($expected)->map(fn ($value) => (array) $value)->all();
+            $collection = $collection->map(fn ($value) => (array) $value);
         }
 
-        $this->assertSame(
-            collect($expected)->map(fn ($value) => (array) $value)->all(),
-            $collection->map(fn ($value) => (array) $value)->all()
-        );
+        $this->assertSame($expected, $collection->all());
     }
 }
 
