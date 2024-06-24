@@ -66,8 +66,8 @@ class DataCollection extends Collection
     {
         return static::discover($name, ['yaml', 'yml'], function (string $file): FrontMatter {
             $content = Filesystem::getContents($file);
-            $content = Str::between($content, '---', '---');
 
+            $content = Str::between($content, '---', '---');
             $parsed = Yaml::parse($content) ?: [];
 
             return new FrontMatter($parsed);
