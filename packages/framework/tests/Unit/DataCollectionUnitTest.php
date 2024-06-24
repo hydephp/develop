@@ -216,6 +216,32 @@ class DataCollectionUnitTest extends UnitTestCase
         ], MockableDataCollection::yaml('foo'));
     }
 
+    public function testJsonMethodReturnsCollectionOfJsonDecodedObjects()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.json' => '{"foo": "bar"}',
+            'foo/baz.json' => '{"foo": "baz"}',
+        ]);
+
+        $this->assertJsonCollectionStructure([
+            'foo/bar.json' => (object) ['foo' => 'bar'],
+            'foo/baz.json' => (object) ['foo' => 'baz'],
+        ], MockableDataCollection::json('foo'));
+    }
+
+    public function testJsonMethodReturnsCollectionOfJsonDecodedArrays()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.json' => '{"foo": "bar"}',
+            'foo/baz.json' => '{"foo": "baz"}',
+        ]);
+
+        $this->assertJsonCollectionStructure([
+            'foo/bar.json' => ['foo' => 'bar'],
+            'foo/baz.json' => ['foo' => 'baz'],
+        ], MockableDataCollection::json('foo', true), true);
+    }
+
     protected function assertFrontMatterCollectionStructure(array $expected, DataCollection $collection): void
     {
         $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
