@@ -123,6 +123,17 @@ class MockableDataCollection extends DataCollection
             assert(str_contains($file, '.'), 'File must have an extension.');
         }
 
+        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem->shouldReceive('get')
+            ->andReturnUsing(function (string $file) use ($files) {
+                $file = unslash(str_replace(Hyde::path(), '', $file));
+                $files = static::arrayGlob($files, $file, 'md');
+
+                return array_values($files)[0] ?? '';
+            });
+
+        app()->instance(Filesystem::class, $filesystem);
+
         static::$mockFiles = $files;
     }
 
