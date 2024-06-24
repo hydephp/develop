@@ -46,7 +46,7 @@ class DataCollection extends Collection
      *
      * Each Markdown file will be parsed into a MarkdownDocument with front matter.
      *
-     * @return DataCollection<string, \Hyde\Markdown\Models\MarkdownDocument>
+     * @return static<string, \Hyde\Markdown\Models\MarkdownDocument>
      */
     public static function markdown(string $name): static
     {
@@ -60,7 +60,7 @@ class DataCollection extends Collection
      *
      * Each YAML file will be parsed into a FrontMatter object.
      *
-     * @return DataCollection<string, \Hyde\Markdown\Models\FrontMatter>
+     * @return static<string, \Hyde\Markdown\Models\FrontMatter>
      */
     public static function yaml(string $name): static
     {
@@ -79,7 +79,7 @@ class DataCollection extends Collection
      *
      * Each JSON file will be parsed into a stdClass object, or an associative array, depending on the second parameter.
      *
-     * @return DataCollection<string, \stdClass|array>
+     * @return static<string, \stdClass|array>
      */
     public static function json(string $name, bool $asArray = false): static
     {
