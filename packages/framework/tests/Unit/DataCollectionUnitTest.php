@@ -120,4 +120,11 @@ class MockableDataCollection extends DataCollection
     {
         static::$mockFiles = [];
     }
+
+    protected static function arrayGlob(array $files, string $name, array|string $extensions): array
+    {
+        return array_filter($files, function (string $file) use ($name, $extensions): bool {
+            return str_contains($file, $name) && str_contains($file, $extensions);
+        }, ARRAY_FILTER_USE_KEY);
+    }
 }
