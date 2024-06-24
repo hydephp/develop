@@ -89,6 +89,11 @@ class DataCollection extends Collection
         });
     }
 
+    /**
+     * @param  array<string>|string  $extensions
+     * @param  callable(string): mixed  $parseUsing  (string $file): mixed
+     * @return static<string, mixed>
+     */
     protected static function discover(string $name, array|string $extensions, callable $parseUsing): static
     {
         return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($parseUsing): array {
