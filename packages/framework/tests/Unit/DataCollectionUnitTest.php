@@ -20,6 +20,13 @@ class DataCollectionUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
+    protected function tearDown(): void
+    {
+        MockableDataCollection::tearDown();
+
+        parent::tearDown();
+    }
+
     public function testClassHasStaticSourceDirectoryProperty()
     {
         $this->assertSame('resources/collections', DataCollection::$sourceDirectory);
@@ -92,5 +99,25 @@ class DataCollectionUnitTest extends UnitTestCase
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
+    }
+}
+
+class MockableDataCollection extends DataCollection
+{
+    protected static array $mockFiles = [];
+
+    protected static function findFiles(string $name, array|string $extensions): Collection
+    {
+        return collect(static::$mockFiles);
+    }
+
+    public static function mockFiles(array $files): void
+    {
+        static::$mockFiles = $files;
+    }
+
+    public static function tearDown(): void
+    {
+        static::$mockFiles = [];
     }
 }
