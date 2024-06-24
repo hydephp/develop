@@ -87,9 +87,9 @@ class DataCollection extends Collection
         });
     }
 
-    protected static function discover(string $name, array|string $extensions, callable $callback): static
+    protected static function discover(string $name, array|string $extensions, callable $mapUsing): static
     {
-        return new static(static::findFiles($name, $extensions)->mapWithKeys($callback));
+        return new static(static::findFiles($name, $extensions)->mapWithKeys($mapUsing));
     }
 
     protected static function findFiles(string $name, array|string $extensions): Collection
