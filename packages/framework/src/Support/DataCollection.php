@@ -101,6 +101,10 @@ class DataCollection extends Collection
         }));
     }
 
+    /**
+     * @param  array<string>|string  $extensions
+     * @return Collection<string>
+     */
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
         return Filesystem::smartGlob(sprintf('%s/%s/*.{%s}',
