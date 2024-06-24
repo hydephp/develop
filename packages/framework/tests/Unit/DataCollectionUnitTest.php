@@ -116,8 +116,8 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
 
         $this->assertSame([
-            'bar' => 'bar',
-            'baz' => 'baz',
+            'foo/bar.md' => 'bar',
+            'foo/baz.md' => 'baz',
         ], $collection->map(fn ($value) => (string) $value)->all());
     }
 
@@ -133,8 +133,8 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertContainsOnlyInstancesOf(FrontMatter::class, $collection);
 
         $this->assertSame([
-            'bar' => ['foo' => 'bar'],
-            'baz' => ['foo' => 'baz'],
+            'foo/bar.yml' => ['foo' => 'bar'],
+            'foo/baz.yml' => ['foo' => 'baz'],
         ], $collection->map(fn ($value) => $value->toArray())->all());
     }
 }
@@ -145,7 +145,7 @@ class MockableDataCollection extends DataCollection
 
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
-        return collect(static::$mockFiles)->keys();
+        return collect(static::$mockFiles)->keys()->map(fn ($file) => parent::makeIdentifier($file))->values();
     }
 
     /**
@@ -163,7 +163,7 @@ class MockableDataCollection extends DataCollection
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('get')
             ->andReturnUsing(function (string $file) use ($files) {
-                $file = unslash(str_replace(Hyde::path(), '', $file));
+                $file = Str::before(basename($file), '.');
                 $files = collect($files)->mapWithKeys(fn ($contents, $file) => [Str::before(basename($file), '.') => $contents])->all();
 
                 return $files[$file] ?? '';
