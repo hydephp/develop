@@ -103,6 +103,23 @@ class DataCollectionUnitTest extends UnitTestCase
     {
         $this->assertInstanceOf(DataCollection::class, DataCollection::markdown('foo'));
     }
+
+    public function testMarkdownMethodReturnsCollectionOfMarkdownDocuments()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => 'bar',
+            'foo/baz.md' => 'baz',
+        ]);
+
+        $collection = MockableDataCollection::markdown('foo');
+
+        $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
+
+        $this->assertSame([
+            'bar' => 'bar',
+            'baz' => 'baz',
+        ], $collection->map(fn ($value) => (string) $value)->all());
+    }
 }
 
 class MockableDataCollection extends DataCollection
