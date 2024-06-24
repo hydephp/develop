@@ -222,6 +222,20 @@ class DataCollectionUnitTest extends UnitTestCase
 
         $this->assertSame($expected, $collection->map(fn ($value) => $value->toArray())->all());
     }
+
+    protected function assertJsonCollectionStructure(array $expected, DataCollection $collection, bool $asArray = false): void
+    {
+        if ($asArray) {
+            $this->assertContainsOnly('array', $collection);
+        } else {
+            $this->assertContainsOnly('object', $collection);
+        }
+
+        $this->assertSame(
+            collect($expected)->map(fn ($value) => (array) $value)->all(),
+            $collection->map(fn ($value) => (array) $value)->all()
+        );
+    }
 }
 
 class MockableDataCollection extends DataCollection
