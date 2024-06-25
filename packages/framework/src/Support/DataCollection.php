@@ -134,7 +134,6 @@ class DataCollection extends Collection
 
         try {
             if (blank($content)) {
-                // We throw an exception here in order to match the behavior of the JSON validation.
                 throw new ParseException('File is empty');
             }
 
