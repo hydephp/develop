@@ -6,7 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
+use Hyde\Markdown\Exceptions\ParseException;
 use Hyde\Support\DataCollection;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
@@ -173,7 +173,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => '',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Markdown in file: 'foo/bar.md' (File is empty)");
 
         MockableDataCollection::markdown('foo');
@@ -185,7 +185,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "---\n---",
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Markdown in file: 'foo/bar.md' (File is empty)");
 
         MockableDataCollection::markdown('foo');
@@ -233,7 +233,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "---\nfoo: 'bar\n---\nbar",
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Markdown in file: 'foo/bar.md' (Malformed inline YAML string at line 1 (near \"foo: 'bar\"))");
 
         MockableDataCollection::markdown('foo');
@@ -340,7 +340,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.yml' => "---\nfoo: 'bar",
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Yaml in file: 'foo/bar.yml' (Malformed inline YAML string at line 2 (near \"foo: 'bar\"))");
 
         MockableDataCollection::yaml('foo');
@@ -352,7 +352,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.yml' => '',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Yaml in file: 'foo/bar.yml' (File is empty)");
 
         MockableDataCollection::yaml('foo');
@@ -364,7 +364,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.yml' => ' ',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Yaml in file: 'foo/bar.yml' (File is empty)");
 
         MockableDataCollection::yaml('foo');
@@ -376,7 +376,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/utf.yml' => "foo: \xB1\x31",
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Yaml in file: 'foo/utf.yml' (The YAML value does not appear to be valid UTF-8)");
 
         MockableDataCollection::yaml('foo');
@@ -388,7 +388,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/tabs.yml' => "foo:\n\tbar",
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Yaml in file: 'foo/tabs.yml' (A YAML file cannot contain tabs as indentation at line 2 (near \"	bar\"))");
 
         MockableDataCollection::yaml('foo');
@@ -426,7 +426,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.json' => '{"foo": "bar"',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Json in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo');
@@ -438,7 +438,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.json' => '{"foo": "bar"',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Json in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo', true);
@@ -450,7 +450,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.json' => '',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Json in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo');
@@ -462,7 +462,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.json' => ' ',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Json in file: 'foo/bar.json' (Syntax error)");
 
         MockableDataCollection::json('foo');
@@ -475,7 +475,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.json' => '{"foo": "baz"',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Json in file: 'foo/baz.json' (Syntax error)");
 
         MockableDataCollection::json('foo');
@@ -487,7 +487,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/utf.json' => "\xB1\x31",
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Json in file: 'foo/utf.json' (Malformed UTF-8 characters, possibly incorrectly encoded)");
 
         MockableDataCollection::json('foo');
@@ -499,7 +499,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/control.json' => "\x19\x31",
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ParseException::class);
         $this->expectExceptionMessage("Invalid Json in file: 'foo/control.json' (Control character error, possibly incorrectly encoded)");
 
         MockableDataCollection::json('foo');

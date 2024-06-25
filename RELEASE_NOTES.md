@@ -236,15 +236,15 @@ Unfortunately, this means that existing setups may need to be adjusted to work w
 
 #### Issues that may arise
 
-If you start getting `InvalidArgumentException` when using the `DataCollection` class, it may be due to malformed data collection files.
+If you start getting a `ParseException` when using the `DataCollection` class, it may be due to malformed data collection files.
 Starting from this version, we validate the syntax of JSON and YAML files during discovery, to help you catch errors early.
 See https://github.com/hydephp/develop/issues/1736 for more information.
 
 For example, an empty or malformed JSON file will now throw an exception like this:
  
 ```php
-InvalidArgumentException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
+\Hyde\Markdown\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
 ```
 
-In order to normalize the thrown exceptions, we now rethrow Yaml `ParseException` as `InvalidArgumentException` to match the JSON validation.
+In order to normalize the thrown exceptions, we now rethrow `Symfony/Yaml` `ParseException` as our custom `ParseException` to match the JSON validation.
 Additionally, an exception will be thrown if a JSON or YAML file is empty, as this is unlikely to be intentional.

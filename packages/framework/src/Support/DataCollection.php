@@ -7,7 +7,6 @@ namespace Hyde\Support;
 use stdClass;
 use Illuminate\Support\Arr;
 use Hyde\Facades\Filesystem;
-use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -88,7 +87,7 @@ class DataCollection extends Collection
      * @param  callable(string): mixed  $parseUsing
      * @return static<string, MarkdownDocument|FrontMatter|stdClass|array>
      *
-     * @throws \InvalidArgumentException if the file is empty or cannot be parsed.
+     * @throws \Hyde\Markdown\Exceptions\ParseException If the file is empty or invalid.
      */
     protected static function discover(string $name, array|string $extensions, callable $parseUsing, array $extraArgs = []): static
     {
@@ -98,7 +97,7 @@ class DataCollection extends Collection
             } catch (ParseException $exception) {
                 $type = $extensions === 'md' ? 'Markdown' : ucfirst(Arr::first(Arr::wrap($extensions)));
 
-                throw new InvalidArgumentException(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($exception->getMessage(), '.')), previous: $exception);
+                throw new \Hyde\Markdown\Exceptions\ParseException(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($exception->getMessage(), '.')), previous: $exception);
             }
 
             return [static::makeIdentifier($file) => $parsed];
