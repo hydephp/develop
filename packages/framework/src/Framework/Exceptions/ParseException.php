@@ -6,7 +6,7 @@ namespace Hyde\Framework\Exceptions;
 
 use RuntimeException;
 
-class ParseException extends RunTimeException
+class ParseException extends RuntimeException
 {
     //
 }
