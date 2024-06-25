@@ -56,9 +56,7 @@ class DataCollection extends Collection
      */
     public static function markdown(string $name): static
     {
-        return static::discover($name, 'md', function (string $file): MarkdownDocument {
-            return static::parseMarkdownFile($file);
-        });
+        return static::discover($name, 'md', fn (string $file): MarkdownDocument => static::parseMarkdownFile($file));
     }
 
     /**
@@ -70,9 +68,7 @@ class DataCollection extends Collection
      */
     public static function yaml(string $name): static
     {
-        return static::discover($name, ['yaml', 'yml'], function (string $file): FrontMatter {
-            return static::parseYamlFile($file);
-        });
+        return static::discover($name, ['yaml', 'yml'], fn (string $file): FrontMatter => static::parseYamlFile($file));
     }
 
     /**
@@ -84,9 +80,7 @@ class DataCollection extends Collection
      */
     public static function json(string $name, bool $asArray = false): static
     {
-        return static::discover($name, 'json', function (string $file) use ($asArray): stdClass|array {
-            return static::parseJsonFile($file, $asArray);
-        });
+        return static::discover($name, 'json', fn (string $file): stdClass|array => static::parseJsonFile($file, $asArray));
     }
 
     /**
