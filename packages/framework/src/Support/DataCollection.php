@@ -15,7 +15,6 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-use function trim;
 use function blank;
 use function rtrim;
 use function implode;
@@ -117,7 +116,7 @@ class DataCollection extends Collection
         try {
             $document = MarkdownFileParser::parse($file);
 
-            if (blank(trim($document->markdown()->body())) && $document->matter()->toArray() === []) {
+            if (blank($document->markdown()->body()) && $document->matter()->toArray() === []) {
                 throw new ParseException('File is empty');
             }
 
@@ -134,7 +133,7 @@ class DataCollection extends Collection
         $content = Str::between($content, '---', '---');
 
         try {
-            if (blank(trim($content))) {
+            if (blank($content)) {
                 // We throw an exception here in order to match the behavior of the JSON validation.
                 throw new ParseException('File is empty');
             }
