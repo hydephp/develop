@@ -113,6 +113,11 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame(500, (new BaseUrlNotSetException())->getCode());
     }
 
+    public function testParseExceptionCode()
+    {
+        $this->assertSame(0, (new ParseException())->getCode());
+    }
+
     public function testParseExceptionWithDefaultMessage()
     {
         $exception = new ParseException();
