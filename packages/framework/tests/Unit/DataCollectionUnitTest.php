@@ -156,6 +156,75 @@ class DataCollectionUnitTest extends UnitTestCase
         ], MockableDataCollection::markdown('foo'));
     }
 
+    public function testMarkdownMethodWithEmptyFrontMatter()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => "---\n---\nbar",
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => 'bar',
+        ], MockableDataCollection::markdown('foo'));
+    }
+
+    public function testMarkdownMethodWithEmptyFrontMatterAndContent()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => "---\n---",
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => '',
+        ], MockableDataCollection::markdown('foo'));
+    }
+
+    public function testMarkdownMethodWithEmptyContent()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => "---\nfoo: bar\n---",
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => [
+                'matter' => ['foo' => 'bar'],
+                'content' => '',
+            ],
+        ], MockableDataCollection::markdown('foo'));
+    }
+
+    public function testMarkdownMethodWithEmptyFile()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => '',
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => '',
+        ], MockableDataCollection::markdown('foo'));
+    }
+
+    public function testMarkdownMethodWithUnterminatedFrontMatter()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => "---\nfoo: bar\nbar",
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => "---\nfoo: bar\nbar",
+        ], MockableDataCollection::markdown('foo'));
+    }
+
+    public function testMarkdownMethodWithUninitializedFrontMatter()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => "foo: bar\n---\nbar",
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => "foo: bar\n---\nbar",
+        ], MockableDataCollection::markdown('foo'));
+    }
+
     public function testYamlMethodReturnsCollectionOfFrontMatterObjects()
     {
         MockableDataCollection::mockFiles([
