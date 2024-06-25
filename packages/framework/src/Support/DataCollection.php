@@ -120,7 +120,6 @@ class DataCollection extends Collection
     protected static function parseYamlFile(string $file): FrontMatter
     {
         $content = Filesystem::getContents($file);
-
         $content = Str::between($content, '---', '---');
 
         try {
