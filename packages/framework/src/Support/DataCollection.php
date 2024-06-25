@@ -90,7 +90,9 @@ class DataCollection extends Collection
     protected static function discover(string $name, array|string $extensions, callable $parseUsing, array $extraArgs = []): static
     {
         return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($parseUsing, $extraArgs): array {
-            return [static::makeIdentifier($file) => $parseUsing($file, ...$extraArgs)];
+            $parsed = $parseUsing($file, ...$extraArgs);
+
+            return [static::makeIdentifier($file) => $parsed];
         }));
     }
 
