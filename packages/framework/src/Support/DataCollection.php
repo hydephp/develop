@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support;
 
 use stdClass;
+use Illuminate\Support\Arr;
 use Hyde\Facades\Filesystem;
 use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
@@ -86,11 +87,25 @@ class DataCollection extends Collection
      * @param  array<string>|string  $extensions
      * @param  callable(string): mixed  $parseUsing
      * @return static<string, MarkdownDocument|FrontMatter|stdClass|array>
+     *
+     * @throws \InvalidArgumentException if the file is empty or cannot be parsed.
      */
     protected static function discover(string $name, array|string $extensions, callable $parseUsing, array $extraArgs = []): static
     {
-        return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($parseUsing, $extraArgs): array {
-            $parsed = $parseUsing($file, ...$extraArgs);
+        return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($extensions, $parseUsing, $extraArgs): array {
+            try {
+                $parsed = $parseUsing($file, ...$extraArgs);
+            } catch (ParseException $exception) {
+                $array = Arr::wrap($extensions);
+                $type = match (array_shift($array)) {
+                    'md' => 'Markdown',
+                    'yaml', 'yml' => 'YAML',
+                    'json' => 'JSON',
+                    default => 'Unknown',
+                };
+
+                throw new InvalidArgumentException(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($exception->getMessage(), '.')), previous: $exception);
+            }
 
             return [static::makeIdentifier($file) => $parsed];
         }));
@@ -112,46 +127,35 @@ class DataCollection extends Collection
         return unslash(Str::after($path, static::$sourceDirectory));
     }
 
-    /** @throws InvalidArgumentException If the Markdown is invalid and cannot be parsed. */
     protected static function parseMarkdownFile(string $file): MarkdownDocument
     {
-        try {
-            $document = MarkdownFileParser::parse($file);
+        $document = MarkdownFileParser::parse($file);
 
-            if (blank($document->markdown()->body()) && $document->matter()->toArray() === []) {
-                throw new ParseException('File is empty');
-            }
-
-            return $document;
-        } catch (ParseException $exception) {
-            throw new InvalidArgumentException(sprintf("Invalid Markdown in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
+        if (blank($document->markdown()->body()) && $document->matter()->toArray() === []) {
+            throw new ParseException('File is empty');
         }
+
+        return $document;
     }
 
-    /** @throws InvalidArgumentException If the YAML is invalid and cannot be parsed. */
     protected static function parseYamlFile(string $file): FrontMatter
     {
         $content = Filesystem::getContents($file);
         $content = Str::between($content, '---', '---');
 
-        try {
-            if (blank($content)) {
-                throw new ParseException('File is empty');
-            }
-
-            return new FrontMatter(Yaml::parse($content));
-        } catch (ParseException $exception) {
-            throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
+        if (blank($content)) {
+            throw new ParseException('File is empty');
         }
+
+        return new FrontMatter(Yaml::parse($content));
     }
 
-    /** @throws InvalidArgumentException If the JSON is invalid and cannot be parsed. */
     protected static function parseJsonFile(string $file, bool $asArray): stdClass|array
     {
         $contents = Filesystem::getContents($file);
 
         if (! json_validate($contents)) {
-            throw new InvalidArgumentException(sprintf("Invalid JSON in file: '%s' (%s)", $file, json_last_error_msg()));
+            throw new ParseException(json_last_error_msg());
         }
 
         return json_decode($contents, $asArray);
