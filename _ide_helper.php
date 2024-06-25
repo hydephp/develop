@@ -40,7 +40,7 @@ class Features extends \Hyde\Facades\Features {}
 class Config extends \Hyde\Facades\Config {}
 /** @mixin \Illuminate\Filesystem\Filesystem */
 class Filesystem extends \Hyde\Facades\Filesystem {}
-class DataCollections extends \Hyde\Support\DataCollections {}
+class DataCollection extends \Hyde\Support\DataCollection {}
 class Includes extends \Hyde\Support\Includes {}
 /** @mixin \Hyde\Foundation\Kernel\RouteCollection */
 class Routes extends \Hyde\Foundation\Facades\Routes {}

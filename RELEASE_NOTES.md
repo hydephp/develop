@@ -12,20 +12,23 @@ This serves two purposes:
 ### Added
 - You can now specify navigation priorities by adding a numeric prefix to the source file names in https://github.com/hydephp/develop/pull/1709
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
+- Added a new `\Hyde\Framework\Exceptions\ParseException` exception class to handle parsing exceptions in data collection files in https://github.com/hydephp/develop/pull/1732
 - The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
 
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
+- **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
 - Minor: Changed the default build task message to make it more concise in https://github.com/hydephp/develop/pull/1659
+- Minor: Data collection files are now validated for syntax errors during discovery in https://github.com/hydephp/develop/pull/1732
 - The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 - Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
-
+- Calling the `DataCollection` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -173,6 +176,7 @@ Due to the scope of the rewrite, the easiest and fastest way to upgrade your cod
 
 - For a full comparison of the changes, you may see the PR that introduced the new API: https://github.com/hydephp/develop/pull/1568/files
 - For information on how to use the new Navigation API, see the documentation: https://hydephp.com/docs/2.x/navigation-api
+- If you use DataCollections, you should read the upgrade path below as there are breaking changes to the DataCollection API.
 
 ### HTML ID changes
 
@@ -216,3 +220,33 @@ For example, if you triggered the media transfer with a build service method cal
 
 (new TransferMediaAssets())->run();
 ```
+
+### DataCollection API changes
+
+The DataCollection feature has been reworked to improve the developer experience and make it more consistent with the rest of the API.
+
+Unfortunately, this means that existing setups may need to be adjusted to work with the new API.
+
+#### Upgrade guide
+
+- The `DataCollections` class has been renamed to `DataCollection`. If you have used the `DataCollections` class in your code, you will need to update your code to use the new class name.
+
+#### Changes
+
+- Calling the `DataCollection` methods will no longer create the data collections directory automatically.
+- The `DataCollection` class now validates the syntax of all data collection files during discovery, and throws a `ParseException` if the syntax is invalid.
+
+#### Issues that may arise
+
+If you start getting a `ParseException` when using the `DataCollection` class, it may be due to malformed data collection files.
+Starting from this version, we validate the syntax of JSON and YAML in data files during discovery, including any front matter in Markdown data files. 
+We do this to help you catch errors early. See https://github.com/hydephp/develop/issues/1736 for more information.
+
+For example, an empty or malformed JSON file will now throw an exception like this:
+ 
+```php
+\Hyde\Framework\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
+```
+
+In order to normalize the thrown exceptions, we now rethrow the `ParseException` from `Symfony/Yaml` as our custom `ParseException` to match the JSON and Markdown validation.
+Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional. Markdown files can have an empty body if front matter is present.
