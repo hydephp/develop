@@ -11,6 +11,10 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
+use Hyde\Framework\Exceptions\ParseException;
+use RuntimeException;
+use Throwable;
+use Exception;
 
 /**
  * @covers \Hyde\Framework\Exceptions\FileConflictException
@@ -107,5 +111,65 @@ class CustomExceptionsTest extends UnitTestCase
     public function testBaseUrlNotSetExceptionCode()
     {
         $this->assertSame(500, (new BaseUrlNotSetException())->getCode());
+    }
+
+    public function testParseExceptionWithDefaultMessage()
+    {
+        $exception = new ParseException();
+        $this->assertSame("Invalid data in file: ''", $exception->getMessage());
+    }
+
+    public function testParseExceptionWithFileName()
+    {
+        $exception = new ParseException('example.md');
+        $this->assertSame("Invalid Markdown in file: 'example.md'", $exception->getMessage());
+    }
+
+    public function testParseExceptionWithFileNameAndCustomMessage()
+    {
+        $previous = new RuntimeException('Custom error message.');
+        $exception = new ParseException('example.yml', $previous);
+        $this->assertSame("Invalid Yaml in file: 'example.yml' (Custom error message)", $exception->getMessage());
+    }
+
+    public function testParseExceptionWithTxtExtension()
+    {
+        $exception = new ParseException('example.txt');
+        $this->assertSame("Invalid Text in file: 'example.txt'", $exception->getMessage());
+    }
+
+    public function testParseExceptionWithUnsupportedExtension()
+    {
+        $exception = new ParseException('example.foo'); // Todo should be data?
+        $this->assertSame("Invalid Foo in file: 'example.foo'", $exception->getMessage());
+    }
+
+    public function testParseExceptionWithEmptyFileNameAndCustomMessage()
+    {
+        $previous = new RuntimeException('Custom error message.');
+        $exception = new ParseException('', $previous);
+        $this->assertSame("Invalid data in file: '' (Custom error message)", $exception->getMessage());
+    }
+
+    public function testParseExceptionWithEmptyFileNameAndEmptyPreviousMessage()
+    {
+        $previous = new RuntimeException('');
+        $exception = new ParseException('', $previous);
+        $this->assertSame("Invalid data in file: ''", $exception->getMessage());
+    }
+
+    public function testParseExceptionWithNoPrevious()
+    {
+        $exception = new ParseException('example.md');
+        $this->assertSame("Invalid Markdown in file: 'example.md'", $exception->getMessage());
+        $this->assertNull($exception->getPrevious());
+    }
+
+    public function testParseExceptionWithPrevious()
+    {
+        $previous = new Exception('Parsing error.');
+        $exception = new ParseException('example.md', $previous);
+        $this->assertSame("Invalid Markdown in file: 'example.md' (Parsing error)", $exception->getMessage());
+        $this->assertSame($previous, $exception->getPrevious());
     }
 }
