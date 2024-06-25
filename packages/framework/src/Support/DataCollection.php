@@ -80,7 +80,7 @@ class DataCollection extends Collection
      */
     public static function json(string $name, bool $asArray = false): static
     {
-        return static::discover($name, 'json', fn (string $file): stdClass|array => static::parseJsonFile($file, $asArray));
+        return static::discover($name, 'json', static::parseJsonFile(...), [$asArray]);
     }
 
     /**
@@ -88,10 +88,10 @@ class DataCollection extends Collection
      * @param  callable(string): mixed  $parseUsing
      * @return static<string, mixed>
      */
-    protected static function discover(string $name, array|string $extensions, callable $parseUsing): static
+    protected static function discover(string $name, array|string $extensions, callable $parseUsing, array $args = []): static
     {
-        return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($parseUsing): array {
-            return [static::makeIdentifier($file) => $parseUsing($file)];
+        return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($parseUsing, $args): array {
+            return [static::makeIdentifier($file) => $parseUsing($file, ...$args)];
         }));
     }
 
