@@ -20,8 +20,10 @@ class ParseException extends RuntimeException
     public function __construct(string $file = '', ?Throwable $previous = null)
     {
         $extension = Arr::last(explode('.', $file));
-        $type = ucfirst(str_replace(['md', 'yml'], ['markdown', 'yaml'], $extension));
+        $type = ucfirst(str_replace(['md', 'txt', 'yml'], ['markdown', 'text', 'yaml'], $extension)) ?: 'data';
 
-        parent::__construct(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($previous->getMessage(), '.')), previous: $previous);
+        $context = ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
+
+        parent::__construct(rtrim(sprintf("Invalid %s in file: '%s' %s", $type, $file, $context)), previous: $previous);
     }
 }
