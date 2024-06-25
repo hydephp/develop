@@ -6,23 +6,23 @@ namespace Hyde\Support;
 
 use stdClass;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Hyde\Facades\Filesystem;
 use Symfony\Component\Yaml\Yaml;
+use Illuminate\Support\Collection;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 use function blank;
 use function rtrim;
 use function implode;
 use function explode;
 use function ucfirst;
-use function json_decode;
 use function sprintf;
 use function unslash;
+use function json_decode;
 use function str_replace;
 use function json_last_error_msg;
 
@@ -90,7 +90,7 @@ class DataCollection extends Collection
      * @param  callable(string): mixed  $parseUsing
      * @return static<string, MarkdownDocument|FrontMatter|stdClass|array>
      *
-     * @throws \Hyde\Markdown\Exceptions\ParseException If the file is empty or invalid.
+     * @throws \Hyde\Framework\Exceptions\ParseException If the file is empty or invalid.
      */
     protected static function discover(string $name, array|string $extensions, callable $parseUsing, array $extraArgs = []): static
     {
@@ -101,7 +101,7 @@ class DataCollection extends Collection
                 $extension = Arr::last(explode('.', $file));
                 $type = ucfirst(str_replace(['md', 'yml'], ['markdown', 'yaml'], $extension));
 
-                throw new \Hyde\Markdown\Exceptions\ParseException(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($exception->getMessage(), '.')), previous: $exception);
+                throw new \Hyde\Framework\Exceptions\ParseException(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($exception->getMessage(), '.')), previous: $exception);
             }
 
             return [static::makeIdentifier($file) => $parsed];

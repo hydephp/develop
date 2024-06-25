@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Mockery;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
-use Hyde\Markdown\Exceptions\ParseException;
-use Hyde\Support\DataCollection;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Filesystem\Filesystem;
+use Hyde\Support\DataCollection;
 use Illuminate\Support\Collection;
-use Mockery;
+use Illuminate\Filesystem\Filesystem;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
+use Hyde\Framework\Exceptions\ParseException;
 
 /**
  * @covers \Hyde\Support\DataCollection

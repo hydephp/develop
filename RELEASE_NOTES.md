@@ -243,7 +243,7 @@ See https://github.com/hydephp/develop/issues/1736 for more information.
 For example, an empty or malformed JSON file will now throw an exception like this:
  
 ```php
-\Hyde\Markdown\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
+\Hyde\Framework\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
 ```
 
 In order to normalize the thrown exceptions, we now rethrow `Symfony/Yaml` `ParseException` as our custom `ParseException` to match the JSON and Markdown validation.
