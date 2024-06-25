@@ -18,9 +18,12 @@ use Illuminate\Support\Str;
 use function blank;
 use function rtrim;
 use function implode;
+use function explode;
+use function ucfirst;
 use function json_decode;
 use function sprintf;
 use function unslash;
+use function str_replace;
 use function json_last_error_msg;
 
 /**
@@ -91,11 +94,12 @@ class DataCollection extends Collection
      */
     protected static function discover(string $name, array|string $extensions, callable $parseUsing, array $extraArgs = []): static
     {
-        return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($extensions, $parseUsing, $extraArgs): array {
+        return new static(static::findFiles($name, $extensions)->mapWithKeys(function (string $file) use ($parseUsing, $extraArgs): array {
             try {
                 $parsed = $parseUsing($file, ...$extraArgs);
             } catch (ParseException $exception) {
-                $type = $extensions === 'md' ? 'Markdown' : ucfirst(Arr::first(Arr::wrap($extensions)));
+                $extension = Arr::last(explode('.', $file));
+                $type = ucfirst(str_replace(['md', 'yml'], ['markdown', 'yaml'], $extension));
 
                 throw new \Hyde\Markdown\Exceptions\ParseException(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($exception->getMessage(), '.')), previous: $exception);
             }
