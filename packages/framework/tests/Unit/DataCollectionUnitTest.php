@@ -388,7 +388,21 @@ class DataCollectionUnitTest extends UnitTestCase
     {
         $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
 
-        $this->assertSame($expected, $collection->map(fn ($value) => (string) $value)->all());
+        if ($collection->contains(fn (MarkdownDocument $document) => filled($document->matter()->toArray()))) {
+            $expected = collect($expected)->map(fn ($value) => [
+                'matter' => $value['matter'],
+                'content' => $value['content'],
+            ])->all();
+
+            $collection = $collection->map(fn (MarkdownDocument $document) => [
+                'matter' => $document->matter()->toArray(),
+                'content' => $document->markdown()->body(),
+            ]);
+
+            $this->assertSame($expected, $collection->all());
+        } else {
+            $this->assertSame($expected, $collection->map(fn ($value) => (string) $value)->all());
+        }
     }
 
     protected function assertFrontMatterCollectionStructure(array $expected, DataCollection $collection): void
