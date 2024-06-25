@@ -45,6 +45,6 @@ class ParseException extends RuntimeException
 
     protected function getContext(?Throwable $previous): string
     {
-        return $previous && $previous->getMessage() ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
+        return ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
     }
 }
