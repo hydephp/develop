@@ -28,8 +28,13 @@ class ParseException extends RuntimeException
             default => 'data',
         };
 
-        $context = ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
+        $context = $this->getContext($previous);
 
         parent::__construct(rtrim(sprintf("Invalid %s in file: '%s' %s", $type, $file, $context)), previous: $previous);
+    }
+
+    protected function getContext(?Throwable $previous): string
+    {
+        return ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
     }
 }
