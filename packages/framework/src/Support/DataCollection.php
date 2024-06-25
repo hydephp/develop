@@ -116,6 +116,7 @@ class DataCollection extends Collection
         return MarkdownFileParser::parse($file);
     }
 
+    /** @throws InvalidArgumentException If the YAML is invalid and cannot be parsed. */
     protected static function parseYamlFile(string $file): FrontMatter
     {
         $content = Filesystem::getContents($file);
@@ -136,6 +137,7 @@ class DataCollection extends Collection
         return new FrontMatter($parsed);
     }
 
+    /** @throws InvalidArgumentException If the JSON is invalid and cannot be parsed. */
     protected static function parseJsonFile(string $file, bool $asArray): stdClass|array
     {
         $contents = Filesystem::getContents($file);
