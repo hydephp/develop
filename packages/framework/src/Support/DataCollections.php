@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Support;
 
 use Hyde\Facades\Filesystem;
+use Symfony\Component\Yaml\Yaml;
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Illuminate\Support\Collection;
@@ -68,7 +70,16 @@ class DataCollections extends Collection
         static::needsDirectory(static::$sourceDirectory);
 
         return new static(static::findFiles($name, ['yaml', 'yml'])->mapWithKeys(function (string $file): array {
-            return [static::makeIdentifier($file) => MarkdownFileParser::parse($file)->matter()];
+            $content = Filesystem::get($file);
+
+            if (str_starts_with($content, '---')) {
+                $content = Str::between($content, '---', '---');
+            }
+
+            $parsed = Yaml::parse($content) ?: [];
+            $matter = new FrontMatter($parsed);
+
+            return [static::makeIdentifier($file) => $matter];
         }));
     }
 

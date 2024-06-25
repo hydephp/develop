@@ -129,13 +129,9 @@ Here is an approximation of the data types contained by the variable created abo
 Assuming the Yaml document looks like this:
 
 ```yaml
----
 name: "John Doe"
 email: "john@example.org"
 ```
-
->warning Note that the Yaml file should start with `---` to be parsed correctly.
-
 
 ## Json Collections
 
