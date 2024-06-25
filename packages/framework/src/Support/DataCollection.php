@@ -129,9 +129,7 @@ class DataCollection extends Collection
                 throw new ParseException('File is empty');
             }
 
-            $parsed = Yaml::parse($content);
-
-            return new FrontMatter($parsed);
+            return new FrontMatter(Yaml::parse($content));
         } catch (ParseException $exception) {
             throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
         }
