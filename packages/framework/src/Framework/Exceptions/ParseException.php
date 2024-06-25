@@ -27,11 +27,6 @@ class ParseException extends RuntimeException
         parent::__construct(rtrim(sprintf("Invalid %s in file: '%s' %s", $type, $file, $context)), previous: $previous);
     }
 
-    protected function getContext(?Throwable $previous): string
-    {
-        return ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
-    }
-
     protected function getTypeLabel(string $file): string
     {
         return match (Arr::last(explode('.', $file))) {
@@ -40,5 +35,10 @@ class ParseException extends RuntimeException
             'json' => 'Json',
             default => 'data',
         };
+    }
+
+    protected function getContext(?Throwable $previous): string
+    {
+        return ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
     }
 }
