@@ -13,7 +13,6 @@ use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Exceptions\ParseException;
 use RuntimeException;
-use Throwable;
 use Exception;
 
 /**
