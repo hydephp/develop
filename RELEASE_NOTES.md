@@ -231,9 +231,10 @@ Unfortunately, this means that existing setups may need to be adjusted to work w
 
 - The `DataCollections` class has been renamed to `DataCollection`. If you have used the `DataCollections` class in your code, you will need to update your code to use the new class name.
 
-#### Minor impact
+#### Changes
 
 - Calling the `DataCollection` methods will no longer create the data collections directory automatically
+- The `DataCollection` class now validates the syntax of all data collection files during discovery, and throws a `ParseException` if the syntax is invalid
 
 #### Issues that may arise
 
