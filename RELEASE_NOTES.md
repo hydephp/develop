@@ -235,6 +235,7 @@ Unfortunately, this means that existing setups may need to be adjusted to work w
 
 - Calling the `DataCollection` methods will no longer create the data collections directory automatically
 - The `DataCollection` class now validates the syntax of all data collection files during discovery, and throws a `ParseException` if the syntax is invalid
+- The collections are now no longer keyed by the relative file path, instead only the basename identifier is used (see https://github.com/hydephp/develop/pull/1732#issuecomment-2186498121)
 
 #### Issues that may arise
 
