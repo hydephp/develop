@@ -86,7 +86,7 @@ class DataCollection extends Collection
     /**
      * @param  array<string>|string  $extensions
      * @param  callable(string): mixed  $parseUsing
-     * @return static<string, mixed>
+     * @return static<string, MarkdownDocument|FrontMatter|stdClass|array>
      */
     protected static function discover(string $name, array|string $extensions, callable $parseUsing, array $extraArgs = []): static
     {
