@@ -17,6 +17,9 @@ use function str_replace;
 /** @experimental This class may change significantly before its release. */
 class ParseException extends RuntimeException
 {
+    /** @var int */
+    protected $code = 422;
+
     public function __construct(string $file = '', ?Throwable $previous = null)
     {
         $extension = Arr::last(explode('.', $file));
