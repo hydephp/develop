@@ -23,6 +23,11 @@ class ParseException extends RuntimeException
         parent::__construct($this->formatMessage($file, $previous), previous: $previous);
     }
 
+    protected function formatMessage(string $file, ?Throwable $previous): string
+    {
+        return rtrim(sprintf("Invalid %s in file: '%s' %s", $this->getTypeLabel($file), $file, $this->getContext($previous)));
+    }
+
     protected function getTypeLabel(string $file): string
     {
         return match (Arr::last(explode('.', $file))) {
@@ -36,10 +41,5 @@ class ParseException extends RuntimeException
     protected function getContext(?Throwable $previous): string
     {
         return ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
-    }
-
-    protected function formatMessage(string $file, ?Throwable $previous): string
-    {
-        return rtrim(sprintf("Invalid %s in file: '%s' %s", $this->getTypeLabel($file), $file, $this->getContext($previous)));
     }
 }
