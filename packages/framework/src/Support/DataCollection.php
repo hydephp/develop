@@ -115,7 +115,13 @@ class DataCollection extends Collection
     protected static function parseMarkdownFile(string $file): MarkdownDocument
     {
         try {
-            return MarkdownFileParser::parse($file);
+            $document = MarkdownFileParser::parse($file);
+
+            if (blank(trim($document->markdown()->body())) && $document->matter()->toArray() === []) {
+                throw new ParseException('File is empty');
+            }
+
+            return $document;
         } catch (ParseException $exception) {
             throw new InvalidArgumentException(sprintf("Invalid Markdown in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
         }

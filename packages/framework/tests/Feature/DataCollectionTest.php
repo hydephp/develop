@@ -20,11 +20,11 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
         $this->markdown('resources/collections/foo/foo.md', 'Hello World', ['title' => 'Foo']);
-        $this->file('resources/collections/foo/bar.md');
+        $this->file('resources/collections/foo/bar.md', 'Foo');
 
         $this->assertEquals(new DataCollection([
             'foo/foo.md' => new MarkdownDocument(['title' => 'Foo'], 'Hello World'),
-            'foo/bar.md' => new MarkdownDocument([], ''),
+            'foo/bar.md' => new MarkdownDocument([], 'Foo'),
         ]), DataCollection::markdown('foo'));
     }
 
@@ -91,8 +91,8 @@ class DataCollectionTest extends TestCase
     public function testFindMarkdownFilesMethodReturnsAnArrayOfMarkdownFilesInTheSpecifiedDirectory()
     {
         $this->directory('resources/collections/foo');
-        $this->file('resources/collections/foo/foo.md');
-        $this->file('resources/collections/foo/bar.md');
+        $this->file('resources/collections/foo/foo.md', 'Foo');
+        $this->file('resources/collections/foo/bar.md', 'Bar');
 
         $this->assertSame([
             'foo/bar.md',
@@ -104,8 +104,8 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
         $this->directory('resources/collections/foo/bar');
-        $this->file('resources/collections/foo/foo.md');
-        $this->file('resources/collections/foo/bar/bar.md');
+        $this->file('resources/collections/foo/foo.md', 'Foo');
+        $this->file('resources/collections/foo/bar/bar.md', 'Bar');
 
         $this->assertSame([
             'foo/foo.md',
@@ -115,8 +115,8 @@ class DataCollectionTest extends TestCase
     public function testFindMarkdownFilesMethodDoesNotIncludeFilesWithExtensionsOtherThanMd()
     {
         $this->directory('resources/collections/foo');
-        $this->file('resources/collections/foo/foo.md');
-        $this->file('resources/collections/foo/bar.txt');
+        $this->file('resources/collections/foo/foo.md', 'Foo');
+        $this->file('resources/collections/foo/bar.txt', 'Bar');
 
         $this->assertSame([
             'foo/foo.md',
@@ -126,7 +126,7 @@ class DataCollectionTest extends TestCase
     public function testFindMarkdownFilesMethodDoesNotRemoveFilesStartingWithAnUnderscore()
     {
         $this->directory('resources/collections/foo');
-        $this->file('resources/collections/foo/_foo.md');
+        $this->file('resources/collections/foo/_foo.md', 'Foo');
 
         $this->assertSame([
             'foo/_foo.md',
@@ -136,20 +136,20 @@ class DataCollectionTest extends TestCase
     public function testStaticMarkdownHelperDiscoversAndParsesMarkdownFilesInTheSpecifiedDirectory()
     {
         $this->directory('resources/collections/foo');
-        $this->file('resources/collections/foo/foo.md');
-        $this->file('resources/collections/foo/bar.md');
+        $this->file('resources/collections/foo/foo.md', 'Foo');
+        $this->file('resources/collections/foo/bar.md', 'Bar');
 
         $this->assertEquals([
-            'foo/foo.md' => new MarkdownDocument([], ''),
-            'foo/bar.md' => new MarkdownDocument([], ''),
+            'foo/foo.md' => new MarkdownDocument([], 'Foo'),
+            'foo/bar.md' => new MarkdownDocument([], 'Bar'),
         ], DataCollection::markdown('foo')->toArray());
     }
 
     public function testStaticMarkdownHelperDoestNotIgnoreFilesStartingWithAnUnderscore()
     {
         $this->directory('resources/collections/foo');
-        $this->file('resources/collections/foo/foo.md');
-        $this->file('resources/collections/foo/_bar.md');
+        $this->file('resources/collections/foo/foo.md', 'Foo');
+        $this->file('resources/collections/foo/_bar.md', 'Bar');
 
         $this->assertCount(2, DataCollection::markdown('foo'));
     }
@@ -158,7 +158,7 @@ class DataCollectionTest extends TestCase
     {
         DataCollection::$sourceDirectory = 'foo';
         $this->directory('foo/bar');
-        $this->file('foo/bar/foo.md');
+        $this->file('foo/bar/foo.md', 'Foo');
 
         $this->assertSame([
             'bar/foo.md',

@@ -167,18 +167,19 @@ class DataCollectionUnitTest extends UnitTestCase
         ], MockableDataCollection::markdown('foo'));
     }
 
-    public function testMarkdownMethodWithEmptyFrontMatterAndContent()
+    public function testMarkdownMethodWithEmptyFrontMatterAndContentThrowsException()
     {
         MockableDataCollection::mockFiles([
             'foo/bar.md' => "---\n---",
         ]);
 
-        $this->assertMarkdownCollectionStructure([
-            'foo/bar.md' => '',
-        ], MockableDataCollection::markdown('foo'));
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid Markdown in file: 'foo/bar.md' (File is empty)");
+
+        MockableDataCollection::markdown('foo');
     }
 
-    public function testMarkdownMethodWithEmptyContent()
+    public function testMarkdownMethodWithEmptyContentIsAcceptableIfFrontMatterIsSet()
     {
         MockableDataCollection::mockFiles([
             'foo/bar.md' => "---\nfoo: bar\n---",
@@ -192,15 +193,16 @@ class DataCollectionUnitTest extends UnitTestCase
         ], MockableDataCollection::markdown('foo'));
     }
 
-    public function testMarkdownMethodWithEmptyFile()
+    public function testMarkdownMethodWithEmptyFileThrowsException()
     {
         MockableDataCollection::mockFiles([
             'foo/bar.md' => '',
         ]);
 
-        $this->assertMarkdownCollectionStructure([
-            'foo/bar.md' => '',
-        ], MockableDataCollection::markdown('foo'));
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid Markdown in file: 'foo/bar.md' (File is empty)");
+
+        MockableDataCollection::markdown('foo');
     }
 
     public function testMarkdownMethodWithUnterminatedFrontMatter()
