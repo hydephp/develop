@@ -57,7 +57,7 @@ class DataCollection extends Collection
     public static function markdown(string $name): static
     {
         return static::discover($name, 'md', function (string $file): MarkdownDocument {
-            return MarkdownFileParser::parse($file);
+            return static::parseMarkdownFile($file);
         });
     }
 
@@ -71,22 +71,7 @@ class DataCollection extends Collection
     public static function yaml(string $name): static
     {
         return static::discover($name, ['yaml', 'yml'], function (string $file): FrontMatter {
-            $content = Filesystem::getContents($file);
-
-            $content = Str::between($content, '---', '---');
-
-            try {
-                if (blank(trim($content))) {
-                    // We throw an exception here in order to match the behavior of the JSON validation.
-                    throw new ParseException('File is empty');
-                }
-
-                $parsed = Yaml::parse($content);
-            } catch (ParseException $exception) {
-                throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
-            }
-
-            return new FrontMatter($parsed);
+            return static::parseYamlFile($file);
         });
     }
 
@@ -100,13 +85,7 @@ class DataCollection extends Collection
     public static function json(string $name, bool $asArray = false): static
     {
         return static::discover($name, 'json', function (string $file) use ($asArray): stdClass|array {
-            $contents = Filesystem::getContents($file);
-
-            if (! json_validate($contents)) {
-                throw new InvalidArgumentException(sprintf("Invalid JSON in file: '%s' (%s)", $file, json_last_error_msg()));
-            }
-
-            return json_decode($contents, $asArray);
+            return static::parseJsonFile($file, $asArray);
         });
     }
 
@@ -136,5 +115,41 @@ class DataCollection extends Collection
     protected static function makeIdentifier(string $path): string
     {
         return unslash(Str::after($path, static::$sourceDirectory));
+    }
+
+    protected static function parseMarkdownFile(string $file): MarkdownDocument
+    {
+        return MarkdownFileParser::parse($file);
+    }
+
+    protected static function parseYamlFile(string $file): FrontMatter
+    {
+        $content = Filesystem::getContents($file);
+
+        $content = Str::between($content, '---', '---');
+
+        try {
+            if (blank(trim($content))) {
+                // We throw an exception here in order to match the behavior of the JSON validation.
+                throw new ParseException('File is empty');
+            }
+
+            $parsed = Yaml::parse($content);
+        } catch (ParseException $exception) {
+            throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
+        }
+
+        return new FrontMatter($parsed);
+    }
+
+    protected static function parseJsonFile(string $file, bool $asArray): stdClass|array
+    {
+        $contents = Filesystem::getContents($file);
+
+        if (! json_validate($contents)) {
+            throw new InvalidArgumentException(sprintf("Invalid JSON in file: '%s' (%s)", $file, json_last_error_msg()));
+        }
+
+        return json_decode($contents, $asArray);
     }
 }
