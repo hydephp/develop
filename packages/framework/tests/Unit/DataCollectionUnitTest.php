@@ -389,10 +389,10 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
 
         if ($collection->contains(fn (MarkdownDocument $document) => filled($document->matter()->toArray()))) {
-            $expected = collect($expected)->map(fn ($value) => [
+            $expected = collect($expected)->map(fn ($value) => is_array($value) ? [
                 'matter' => $value['matter'],
                 'content' => $value['content'],
-            ])->all();
+            ] : (string) $value)->all();
 
             $collection = $collection->map(fn (MarkdownDocument $document) => [
                 'matter' => $document->matter()->toArray(),
