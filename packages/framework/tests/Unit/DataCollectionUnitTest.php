@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
 use Mockery;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 /**
  * @covers \Hyde\Support\DataCollection
@@ -223,6 +224,17 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => "foo: bar\n---\nbar",
         ], MockableDataCollection::markdown('foo'));
+    }
+
+    public function testMarkdownMethodWithInvalidFrontMatter()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => "---\nfoo: 'bar\n---\nbar",
+        ]);
+
+        $this->expectException(ParseException::class);
+
+        MockableDataCollection::markdown('foo');
     }
 
     public function testYamlMethodReturnsCollectionOfFrontMatterObjects()
