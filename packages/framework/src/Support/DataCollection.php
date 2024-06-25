@@ -77,7 +77,7 @@ class DataCollection extends Collection
                     throw new ParseException('File is empty');
                 }
 
-                $parsed = Yaml::parse($content) ?: [];
+                $parsed = Yaml::parse($content);
             } catch (ParseException $exception) {
                 throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, $exception->getMessage()), previous: $exception);
             }
