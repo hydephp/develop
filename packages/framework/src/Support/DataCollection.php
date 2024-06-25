@@ -15,10 +15,14 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+use function trim;
+use function blank;
+use function rtrim;
 use function implode;
 use function json_decode;
 use function sprintf;
 use function unslash;
+use function json_last_error_msg;
 
 /**
  * Automatically generates Laravel Collections from static data files,
