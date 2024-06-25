@@ -111,9 +111,14 @@ class DataCollection extends Collection
         return unslash(Str::after($path, static::$sourceDirectory));
     }
 
+    /** @throws InvalidArgumentException If the Markdown is invalid and cannot be parsed. */
     protected static function parseMarkdownFile(string $file): MarkdownDocument
     {
-        return MarkdownFileParser::parse($file);
+        try {
+            return MarkdownFileParser::parse($file);
+        } catch (ParseException $exception) {
+            throw new InvalidArgumentException(sprintf("Invalid Markdown in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
+        }
     }
 
     /** @throws InvalidArgumentException If the YAML is invalid and cannot be parsed. */

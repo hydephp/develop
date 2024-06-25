@@ -14,7 +14,6 @@ use Illuminate\Support\Collection;
 use Mockery;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
-use Symfony\Component\Yaml\Exception\ParseException;
 
 /**
  * @covers \Hyde\Support\DataCollection
@@ -232,7 +231,8 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "---\nfoo: 'bar\n---\nbar",
         ]);
 
-        $this->expectException(ParseException::class);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid Markdown in file: 'foo/bar.md' (Malformed inline YAML string at line 1 (near \"foo: 'bar\"))");
 
         MockableDataCollection::markdown('foo');
     }
