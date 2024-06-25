@@ -20,8 +20,7 @@ class ParseException extends RuntimeException
 
     public function __construct(string $file = '', ?Throwable $previous = null)
     {
-        $extension = Arr::last(explode('.', $file));
-        $type = match ($extension) {
+        $type = match (Arr::last(explode('.', $file))) {
             'md' => 'Markdown',
             'yaml', 'yml' => 'Yaml',
             'json' => 'Json',
