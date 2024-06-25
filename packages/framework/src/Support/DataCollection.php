@@ -96,13 +96,7 @@ class DataCollection extends Collection
             try {
                 $parsed = $parseUsing($file, ...$extraArgs);
             } catch (ParseException $exception) {
-                $array = Arr::wrap($extensions);
-                $type = match (array_shift($array)) {
-                    'md' => 'Markdown',
-                    'yaml', 'yml' => 'YAML',
-                    'json' => 'JSON',
-                    default => 'Unknown',
-                };
+                $type = $extensions === 'md' ? 'Markdown' : ucfirst(Arr::first(Arr::wrap($extensions)));
 
                 throw new InvalidArgumentException(sprintf("Invalid %s in file: '%s' (%s)", $type, $file, rtrim($exception->getMessage(), '.')), previous: $exception);
             }
