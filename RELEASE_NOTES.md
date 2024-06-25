@@ -233,14 +233,14 @@ Unfortunately, this means that existing setups may need to be adjusted to work w
 
 #### Changes
 
-- Calling the `DataCollection` methods will no longer create the data collections directory automatically
-- The `DataCollection` class now validates the syntax of all data collection files during discovery, and throws a `ParseException` if the syntax is invalid
+- Calling the `DataCollection` methods will no longer create the data collections directory automatically.
+- The `DataCollection` class now validates the syntax of all data collection files during discovery, and throws a `ParseException` if the syntax is invalid.
 
 #### Issues that may arise
 
 If you start getting a `ParseException` when using the `DataCollection` class, it may be due to malformed data collection files.
-Starting from this version, we validate the syntax of JSON and YAML files during discovery, to help you catch errors early.
-See https://github.com/hydephp/develop/issues/1736 for more information.
+Starting from this version, we validate the syntax of JSON and YAML in data files during discovery, including any front matter in Markdown data files. 
+We do this to help you catch errors early. See https://github.com/hydephp/develop/issues/1736 for more information.
 
 For example, an empty or malformed JSON file will now throw an exception like this:
  
@@ -248,5 +248,5 @@ For example, an empty or malformed JSON file will now throw an exception like th
 \Hyde\Framework\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
 ```
 
-In order to normalize the thrown exceptions, we now rethrow `Symfony/Yaml` `ParseException` as our custom `ParseException` to match the JSON and Markdown validation.
-Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional.
+In order to normalize the thrown exceptions, we now rethrow the `ParseException` from `Symfony/Yaml` as our custom `ParseException` to match the JSON and Markdown validation.
+Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional. Markdown files can have an empty body if front matter is present.
