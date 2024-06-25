@@ -20,12 +20,7 @@ class ParseException extends RuntimeException
 
     public function __construct(string $file = '', ?Throwable $previous = null)
     {
-        $type = match (Arr::last(explode('.', $file))) {
-            'md' => 'Markdown',
-            'yaml', 'yml' => 'Yaml',
-            'json' => 'Json',
-            default => 'data',
-        };
+        $type = $this->getTypeLabel($file);
 
         $context = $this->getContext($previous);
 
@@ -35,5 +30,15 @@ class ParseException extends RuntimeException
     protected function getContext(?Throwable $previous): string
     {
         return ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
+    }
+
+    protected function getTypeLabel(string $file): string
+    {
+        return match (Arr::last(explode('.', $file))) {
+            'md' => 'Markdown',
+            'yaml', 'yml' => 'Yaml',
+            'json' => 'Json',
+            default => 'data',
+        };
     }
 }
