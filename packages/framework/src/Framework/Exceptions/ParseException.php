@@ -25,9 +25,7 @@ class ParseException extends RuntimeException
 
     protected function formatMessage(string $file, ?Throwable $previous): string
     {
-        $fileLabel = $file ? sprintf(": '%s'", $file) : '';
-
-        return rtrim(sprintf('Invalid %s in file%s %s', $this->getTypeLabel($file), $fileLabel, $this->getContext($previous)));
+        return rtrim(sprintf('Invalid %s in file%s %s', $this->getTypeLabel($file), $this->getFileLabel($file), $this->getContext($previous)));
     }
 
     protected function getTypeLabel(string $file): string
@@ -38,6 +36,11 @@ class ParseException extends RuntimeException
             'json' => 'Json',
             default => 'data',
         };
+    }
+
+    protected function getFileLabel(string $file): string
+    {
+        return $file ? sprintf(": '%s'", $file) : '';
     }
 
     protected function getContext(?Throwable $previous): string
