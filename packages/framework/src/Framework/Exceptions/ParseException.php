@@ -11,8 +11,6 @@ use Illuminate\Support\Arr;
 use function rtrim;
 use function sprintf;
 use function explode;
-use function ucfirst;
-use function str_replace;
 
 /** @experimental This class may change significantly before its release. */
 class ParseException extends RuntimeException
@@ -23,7 +21,12 @@ class ParseException extends RuntimeException
     public function __construct(string $file = '', ?Throwable $previous = null)
     {
         $extension = Arr::last(explode('.', $file));
-        $type = ucfirst(str_replace(['md', 'txt', 'yml'], ['markdown', 'text', 'yaml'], $extension)) ?: 'data';
+        $type = match ($extension) {
+            'md' => 'Markdown',
+            'yaml', 'yml' => 'Yaml',
+            'json' => 'Json',
+            default => 'data',
+        };
 
         $context = ($previous && $previous->getMessage()) ? sprintf('(%s)', rtrim($previous->getMessage(), '.')) : '';
 

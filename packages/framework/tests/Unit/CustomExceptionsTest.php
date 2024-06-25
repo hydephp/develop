@@ -139,13 +139,13 @@ class CustomExceptionsTest extends UnitTestCase
     public function testParseExceptionWithTxtExtension()
     {
         $exception = new ParseException('example.txt');
-        $this->assertSame("Invalid Text in file: 'example.txt'", $exception->getMessage());
+        $this->assertSame("Invalid data in file: 'example.txt'", $exception->getMessage());
     }
 
     public function testParseExceptionWithUnsupportedExtension()
     {
-        $exception = new ParseException('example.foo'); // Todo should be data?
-        $this->assertSame("Invalid Foo in file: 'example.foo'", $exception->getMessage());
+        $exception = new ParseException('example.foo');
+        $this->assertSame("Invalid data in file: 'example.foo'", $exception->getMessage());
     }
 
     public function testParseExceptionWithEmptyFileNameAndCustomMessage()
