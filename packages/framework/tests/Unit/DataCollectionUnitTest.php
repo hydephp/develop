@@ -17,7 +17,6 @@ use Hyde\Framework\Exceptions\ParseException;
 
 /**
  * @covers \Hyde\Support\DataCollection
- * @covers \Hyde\Framework\Exceptions\ParseException
  *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
