@@ -112,7 +112,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.md' => 'baz',
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => 'bar',
             'foo/baz.md' => 'baz',
         ], MockableDataCollection::markdown('foo'));
@@ -125,7 +125,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.md' => "---\nfoo: baz\n---\nbaz",
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => [
                 'matter' => ['foo' => 'bar'],
                 'content' => 'bar',
@@ -144,7 +144,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.md' => "---\nfoo: baz\n---\nbaz",
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => [
                 'matter' => [],
                 'content' => 'bar',
@@ -162,7 +162,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "---\n---\nbar",
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => 'bar',
         ], MockableDataCollection::markdown('foo'));
     }
@@ -173,7 +173,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "---\n---",
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => '',
         ], MockableDataCollection::markdown('foo'));
     }
@@ -184,7 +184,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "---\nfoo: bar\n---",
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => [
                 'matter' => ['foo' => 'bar'],
                 'content' => '',
@@ -198,7 +198,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => '',
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => '',
         ], MockableDataCollection::markdown('foo'));
     }
@@ -209,7 +209,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "---\nfoo: bar\nbar",
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => "---\nfoo: bar\nbar",
         ], MockableDataCollection::markdown('foo'));
     }
@@ -220,7 +220,7 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/bar.md' => "foo: bar\n---\nbar",
         ]);
 
-        $this->asserMarkdownCollectionStructure([
+        $this->assertMarkdownCollectionStructure([
             'foo/bar.md' => "foo: bar\n---\nbar",
         ], MockableDataCollection::markdown('foo'));
     }
@@ -491,7 +491,7 @@ class DataCollectionUnitTest extends UnitTestCase
         MockableDataCollection::json('foo');
     }
 
-    protected function asserMarkdownCollectionStructure(array $expected, DataCollection $collection): void
+    protected function assertMarkdownCollectionStructure(array $expected, DataCollection $collection): void
     {
         $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
 
