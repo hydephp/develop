@@ -72,6 +72,10 @@ class DataCollection extends Collection
             $content = Str::between($content, '---', '---');
 
             try {
+                if (blank(trim($content))) {
+                    throw new ParseException('File is empty');
+                }
+
                 $parsed = Yaml::parse($content) ?: [];
             } catch (ParseException $exception) {
                 throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, $exception->getMessage()), previous: $exception);

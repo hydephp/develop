@@ -247,3 +247,4 @@ InvalidArgumentException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
 ```
 
 In order to normalize the thrown exceptions, we now rethrow Yaml `ParseException` as `InvalidArgumentException` to match the JSON validation.
+Additionally, an exception will be thrown if a JSON or YAML file is empty, as this is unlikely to be intentional.

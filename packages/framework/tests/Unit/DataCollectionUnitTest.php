@@ -229,6 +229,30 @@ class DataCollectionUnitTest extends UnitTestCase
         MockableDataCollection::yaml('foo');
     }
 
+    public function testYamlCollectionsThrowExceptionForEmptyYaml()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => '',
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid YAML in file: 'foo/bar.yml' (File is empty)");
+
+        MockableDataCollection::yaml('foo');
+    }
+
+    public function testYamlCollectionsThrowExceptionForBlankYaml()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.yml' => ' ',
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid YAML in file: 'foo/bar.yml' (File is empty)");
+
+        MockableDataCollection::yaml('foo');
+    }
+
     public function testYamlCollectionsThrowExceptionForOtherReasonsThanSyntaxErrorWithUtfError()
     {
         MockableDataCollection::mockFiles([
