@@ -130,11 +130,11 @@ class DataCollection extends Collection
             }
 
             $parsed = Yaml::parse($content);
+
+            return new FrontMatter($parsed);
         } catch (ParseException $exception) {
             throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, rtrim($exception->getMessage(), '.')), previous: $exception);
         }
-
-        return new FrontMatter($parsed);
     }
 
     /** @throws InvalidArgumentException If the JSON is invalid and cannot be parsed. */
