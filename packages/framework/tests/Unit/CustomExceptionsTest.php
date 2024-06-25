@@ -121,7 +121,7 @@ class CustomExceptionsTest extends UnitTestCase
     {
         $exception = new ParseException();
 
-        $this->assertSame("Invalid data in file: ''", $exception->getMessage());
+        $this->assertSame('Invalid data in file', $exception->getMessage());
     }
 
     public function testParseExceptionWithFileName()
@@ -158,7 +158,7 @@ class CustomExceptionsTest extends UnitTestCase
         $previous = new RuntimeException('Custom error message.');
         $exception = new ParseException('', $previous);
 
-        $this->assertSame("Invalid data in file: '' (Custom error message)", $exception->getMessage());
+        $this->assertSame('Invalid data in file (Custom error message)', $exception->getMessage());
     }
 
     public function testParseExceptionWithEmptyFileNameAndEmptyPreviousMessage()
@@ -166,7 +166,7 @@ class CustomExceptionsTest extends UnitTestCase
         $previous = new RuntimeException('');
         $exception = new ParseException('', $previous);
 
-        $this->assertSame("Invalid data in file: ''", $exception->getMessage());
+        $this->assertSame('Invalid data in file', $exception->getMessage());
     }
 
     public function testParseExceptionWithNoPrevious()

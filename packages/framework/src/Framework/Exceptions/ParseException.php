@@ -25,7 +25,9 @@ class ParseException extends RuntimeException
 
     protected function formatMessage(string $file, ?Throwable $previous): string
     {
-        return rtrim(sprintf("Invalid %s in file: '%s' %s", $this->getTypeLabel($file), $file, $this->getContext($previous)));
+        $fileLabel = $file ? sprintf(": '%s'", $file) : '';
+
+        return rtrim(sprintf('Invalid %s in file%s %s', $this->getTypeLabel($file), $fileLabel, $this->getContext($previous)));
     }
 
     protected function getTypeLabel(string $file): string
