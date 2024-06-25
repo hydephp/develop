@@ -112,14 +112,10 @@ class DataCollectionUnitTest extends UnitTestCase
             'foo/baz.md' => 'baz',
         ]);
 
-        $collection = MockableDataCollection::markdown('foo');
-
-        $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
-
-        $this->assertSame([
+        $this->asserMarkdownCollectionStructure([
             'foo/bar.md' => 'bar',
             'foo/baz.md' => 'baz',
-        ], $collection->map(fn ($value) => (string) $value)->all());
+        ], MockableDataCollection::markdown('foo'));
     }
 
     public function testYamlMethodReturnsCollectionOfFrontMatterObjects()
@@ -386,6 +382,13 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->expectExceptionMessage("Invalid JSON in file: 'foo/control.json' (Control character error, possibly incorrectly encoded)");
 
         MockableDataCollection::json('foo');
+    }
+
+    protected function asserMarkdownCollectionStructure(array $expected, DataCollection $collection): void
+    {
+        $this->assertContainsOnlyInstancesOf(MarkdownDocument::class, $collection);
+
+        $this->assertSame($expected, $collection->map(fn ($value) => (string) $value)->all());
     }
 
     protected function assertFrontMatterCollectionStructure(array $expected, DataCollection $collection): void
