@@ -246,5 +246,5 @@ For example, an empty or malformed JSON file will now throw an exception like th
 \Hyde\Markdown\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
 ```
 
-In order to normalize the thrown exceptions, we now rethrow `Symfony/Yaml` `ParseException` as our custom `ParseException` to match the JSON validation.
-Additionally, an exception will be thrown if a JSON or YAML file is empty, as this is unlikely to be intentional.
+In order to normalize the thrown exceptions, we now rethrow `Symfony/Yaml` `ParseException` as our custom `ParseException` to match the JSON and Markdown validation.
+Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional.
