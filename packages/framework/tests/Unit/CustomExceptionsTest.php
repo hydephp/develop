@@ -18,6 +18,7 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
  * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
  * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
+ * @covers \Hyde\Framework\Exceptions\ParseException
  */
 class CustomExceptionsTest extends UnitTestCase
 {
