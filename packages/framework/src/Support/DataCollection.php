@@ -11,6 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Framework\Actions\MarkdownFileParser;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -69,7 +70,12 @@ class DataCollection extends Collection
             $content = Filesystem::getContents($file);
 
             $content = Str::between($content, '---', '---');
-            $parsed = Yaml::parse($content) ?: [];
+
+            try {
+                $parsed = Yaml::parse($content) ?: [];
+            } catch (ParseException $exception) {
+                throw new InvalidArgumentException(sprintf("Invalid YAML in file: '%s' (%s)", $file, $exception->getMessage()), previous: $exception);
+            }
 
             return new FrontMatter($parsed);
         });

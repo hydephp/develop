@@ -245,3 +245,5 @@ For example, an empty or malformed JSON file will now throw an exception like th
 ```php
 InvalidArgumentException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
 ```
+
+In order to normalize the thrown exceptions, we now rethrow Yaml `ParseException` as `InvalidArgumentException` to match the JSON validation.
