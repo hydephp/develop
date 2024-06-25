@@ -118,6 +118,44 @@ class DataCollectionUnitTest extends UnitTestCase
         ], MockableDataCollection::markdown('foo'));
     }
 
+    public function testMarkdownMethodReturnsCollectionOfMarkdownDocumentsWithFrontMatter()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => "---\nfoo: bar\n---\nbar",
+            'foo/baz.md' => "---\nfoo: baz\n---\nbaz",
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => [
+                'matter' => ['foo' => 'bar'],
+                'content' => 'bar',
+            ],
+            'foo/baz.md' => [
+                'matter' => ['foo' => 'baz'],
+                'content' => 'baz',
+            ],
+        ], MockableDataCollection::markdown('foo'));
+    }
+
+    public function testMarkdownMethodReturnsCollectionOfMarkdownDocumentsWithOnlyOneHavingFrontMatter()
+    {
+        MockableDataCollection::mockFiles([
+            'foo/bar.md' => 'bar',
+            'foo/baz.md' => "---\nfoo: baz\n---\nbaz",
+        ]);
+
+        $this->asserMarkdownCollectionStructure([
+            'foo/bar.md' => [
+                'matter' => [],
+                'content' => 'bar',
+            ],
+            'foo/baz.md' => [
+                'matter' => ['foo' => 'baz'],
+                'content' => 'baz',
+            ],
+        ], MockableDataCollection::markdown('foo'));
+    }
+
     public function testYamlMethodReturnsCollectionOfFrontMatterObjects()
     {
         MockableDataCollection::mockFiles([
