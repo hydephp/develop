@@ -63,10 +63,9 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.txt';
         $default = 'default';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
+        });
 
         $this->assertNull(Includes::get($filename));
         $this->assertSame($default, Includes::get($filename, $default));
@@ -77,11 +76,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.html';
         $expected = '<h1>foo bar</h1>';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($expected, $filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
+            $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
+        });
 
         $this->assertSame($expected, Includes::html($filename));
     }
@@ -91,10 +89,9 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.html';
         $default = '<h1>default</h1>';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
+        });
 
         $this->assertNull(Includes::html($filename));
         $this->assertSame($default, Includes::html($filename, $default));
@@ -105,11 +102,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.html';
         $content = '<h1>foo bar</h1>';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($content, $filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
+            $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        });
 
         $this->assertSame(Includes::html('foo.html'), Includes::html('foo'));
     }
@@ -120,11 +116,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $content = '# foo bar';
         $expected = "<h1>foo bar</h1>\n";
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($content, $filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
+            $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        });
 
         $this->assertSame($expected, Includes::markdown($filename));
     }
@@ -135,10 +130,9 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $default = '# default';
         $expected = "<h1>default</h1>\n";
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
+        });
 
         $this->assertNull(Includes::markdown($filename));
         $this->assertSame($expected, Includes::markdown($filename, $default));
@@ -150,11 +144,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $content = '# foo bar';
         $expected = "<h1>foo bar</h1>\n";
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($content, $filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
+            $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        });
 
         $this->assertSame($expected, Includes::markdown('foo.md'));
         $this->assertSame(Includes::markdown('foo.md'), Includes::markdown('foo'));
@@ -167,11 +160,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $content = '{{ "foo bar" }}';
         $expected = 'foo bar';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($content, $filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
+            $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        });
 
         Blade::shouldReceive('render')->with($content)->andReturn($expected);
 
@@ -184,11 +176,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $content = '{{ "foo bar" }}';
         $expected = 'foo bar';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($content, $filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
+            $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        });
 
         Blade::shouldReceive('render')->with($content)->andReturn($expected);
 
@@ -201,10 +192,9 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $default = '{{ "default" }}';
         $expected = 'default';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
+        });
 
         Blade::shouldReceive('render')->with($default)->andReturn($expected);
 
