@@ -6,6 +6,7 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
+use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\MarkdownConverter;
@@ -186,6 +187,7 @@ class MarkdownService
     protected function determineIfTorchlightAttributionShouldBeInjected(): bool
     {
         return ! $this->isDocumentationPage()
+            && ! (isset($this->pageClass) && $this->pageClass === MarkdownDocument::class)
             && Config::getBool('torchlight.attribution.enabled', true)
             && str_contains($this->html, 'Syntax highlighted by torchlight.dev');
     }
