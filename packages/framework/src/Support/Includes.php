@@ -94,7 +94,7 @@ class Includes
         return static::getInclude([static::class, 'renderMarkdown'], $filename, $default, '.md');
     }
 
-    protected static function getInclude(callable $method, string $filename, ?string $default, string $extension = ''): ?HtmlString
+    protected static function getInclude(callable $method, string $filename, ?string $default, string $extension = ''): HtmlString|null
     {
         $path = static::normalizePath($filename, $extension);
         $contents = static::getFileContents(static::path($path));
