@@ -87,10 +87,11 @@ class Includes
         $path = static::normalizePath($filename, '.md');
         $contents = static::getFileContents($path);
 
+        if ($contents === null && $default === null) {
+            return null;
+        }
+
         if ($contents === null) {
-            if ($default === null) {
-                return null;
-            }
             $contents = $default;
         }
 
