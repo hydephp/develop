@@ -91,7 +91,7 @@ class Includes
             if ($default === null) {
                 return null;
             } else {
-                return static::renderMarkdown($default);
+                $contents = $default;
             }
         }
 
