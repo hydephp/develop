@@ -87,16 +87,10 @@ class Includes
         $path = static::normalizePath($filename, '.md');
 
         if (! Filesystem::exists($path)) {
-            if ($default === null) {
-                return null;
-            } else {
-                $contents = null;
-            }
-        } else {
-            $contents = Filesystem::get($path);
+            return $default === null ? null : static::renderMarkdown($default);
         }
 
-        return static::renderMarkdown($contents ?? $default);
+        return static::renderMarkdown(Filesystem::get($path));
     }
 
     /**
