@@ -70,18 +70,6 @@ class Includes
     }
 
     /**
-     * Get the rendered Markdown of a partial file in the includes directory.
-     *
-     * @param  string  $filename  The name of the partial file, with or without the extension.
-     * @param  string|null  $default  The default value to return if the partial is not found.
-     * @return HtmlString|null The rendered contents of the partial file, or the default value if not found.
-     */
-    public static function markdown(string $filename, ?string $default = null): ?HtmlString
-    {
-        return static::getInclude([static::class, 'renderMarkdown'], '.md', $default, $filename);
-    }
-
-    /**
      * Get the rendered Blade of a partial file in the includes directory.
      *
      * @param  string  $filename  The name of the partial file, with or without the extension.
@@ -93,33 +81,16 @@ class Includes
         return static::getInclude([static::class, 'renderBlade'], '.blade.php', $default, $filename);
     }
 
-    protected static function normalizePath(string $filename, string $extension): string
+    /**
+     * Get the rendered Markdown of a partial file in the includes directory.
+     *
+     * @param  string  $filename  The name of the partial file, with or without the extension.
+     * @param  string|null  $default  The default value to return if the partial is not found.
+     * @return HtmlString|null The rendered contents of the partial file, or the default value if not found.
+     */
+    public static function markdown(string $filename, ?string $default = null): ?HtmlString
     {
-        return static::path(basename($filename, $extension).$extension);
-    }
-
-    protected static function renderHtml(string $html): HtmlString
-    {
-        return new HtmlString($html);
-    }
-
-    protected static function renderMarkdown(string $markdown): HtmlString
-    {
-        return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
-    }
-
-    protected static function renderBlade(string $blade): HtmlString
-    {
-        return new HtmlString(Blade::render($blade));
-    }
-
-    protected static function getFileContents(string $path): ?string
-    {
-        if (! Filesystem::exists($path)) {
-            return null;
-        }
-
-        return Filesystem::get($path);
+        return static::getInclude([static::class, 'renderMarkdown'], '.md', $default, $filename);
     }
 
     protected static function getInclude(callable $method, string $extension, ?string $default, string $filename): ?HtmlString
@@ -132,5 +103,34 @@ class Includes
         }
 
         return $method($contents ?? $default);
+    }
+
+    protected static function normalizePath(string $filename, string $extension): string
+    {
+        return static::path(basename($filename, $extension).$extension);
+    }
+
+    protected static function getFileContents(string $path): ?string
+    {
+        if (! Filesystem::exists($path)) {
+            return null;
+        }
+
+        return Filesystem::get($path);
+    }
+
+    protected static function renderHtml(string $html): HtmlString
+    {
+        return new HtmlString($html);
+    }
+
+    protected static function renderBlade(string $blade): HtmlString
+    {
+        return new HtmlString(Blade::render($blade));
+    }
+
+    protected static function renderMarkdown(string $markdown): HtmlString
+    {
+        return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
     }
 }
