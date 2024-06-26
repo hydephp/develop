@@ -23,6 +23,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function tearDown(): void
     {
         Mockery::close();
+        Blade::clearResolvedInstances();
 
         parent::tearDown();
     }
