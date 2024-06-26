@@ -87,7 +87,11 @@ class Includes
         $path = static::normalizePath($filename, '.md');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : new HtmlString(trim(Markdown::render($default, MarkdownDocument::class)));
+            if ($default === null) {
+                return null;
+            } else {
+                return new HtmlString(trim(Markdown::render($default, MarkdownDocument::class)));
+            }
         }
 
         return new HtmlString(trim(Markdown::render(Filesystem::get($path), MarkdownDocument::class)));
