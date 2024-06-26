@@ -227,15 +227,28 @@ class IncludesFacadeTest extends TestCase
         $this->file('resources/includes/foo.html', '<h1>foo bar</h1>');
 
         $view = <<<'BLADE'
+        // With extension
         {!! Includes::blade('foo.blade.php') !!}
         {!! Includes::markdown('foo.md') !!}
         {!! Includes::html('foo.html') !!}
+        
+        // Without extension
+        {!! Includes::blade('foo') !!}
+        {!! Includes::markdown('foo') !!}
+        {!! Includes::html('foo') !!}
         BLADE;
 
         $expected = <<<'HTML'
+        // With extension
         foo bar
         <h1>foo bar</h1>
 
+        <h1>foo bar</h1>
+
+        // Without extension
+        foo bar
+        <h1>foo bar</h1>
+        
         <h1>foo bar</h1>
         HTML;
 
