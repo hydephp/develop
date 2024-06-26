@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use Hyde\Support\Includes;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Facades\Blade;
-use Hyde\Facades\Filesystem;
+use Illuminate\Filesystem\Filesystem;
 
 /**
  * @covers \Hyde\Support\Includes
@@ -43,8 +43,9 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $expected = 'foo bar';
 
         $filesystem = Mockery::mock(Filesystem::class);
+
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('getContents')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
+        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
 
         app()->instance(Filesystem::class, $filesystem);
 
@@ -72,7 +73,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('getContents')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
+        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
 
         app()->instance(Filesystem::class, $filesystem);
 
@@ -100,7 +101,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('getContents')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
         app()->instance(Filesystem::class, $filesystem);
 
@@ -115,7 +116,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('getContents')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
         app()->instance(Filesystem::class, $filesystem);
 
@@ -149,7 +150,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('getContents')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
         app()->instance(Filesystem::class, $filesystem);
 
@@ -166,7 +167,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('getContents')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
         app()->instance(Filesystem::class, $filesystem);
 
@@ -183,7 +184,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $filesystem = Mockery::mock(Filesystem::class);
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('getContents')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
+        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
         app()->instance(Filesystem::class, $filesystem);
 
