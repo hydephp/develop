@@ -148,22 +148,33 @@ class IncludesFacadeTest extends TestCase
         $expected = <<<'HTML'
         <h1>Heading</h1>
         <p>This is a paragraph. It has some <strong>bold</strong> and <em>italic</em> text.</p>
-        <blockquote>
-        <p>info Info Blockquote</p>
-        </blockquote>
-        <pre><code class="language-php">// filepath: hello.php
-        echo 'Hello, World!';
+        <blockquote class="info"><p>Info Blockquote</p></blockquote>
+        <pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>hello.php</small>echo 'Hello, World!';
         </code></pre>
         <h2>Subheading</h2>
         <ul>
-        <li>[x] Checked task list</li>
-        <li>[ ] Unchecked task list</li>
+        <li><input checked="" disabled="" type="checkbox"> Checked task list</li>
+        <li><input disabled="" type="checkbox"> Unchecked task list</li>
         </ul>
         <h3>Table</h3>
-        <p>| Syntax | Description |
-        | ----------- | ----------- |
-        | Header | Title |
-        | Paragraph | Text |</p>
+        <table>
+        <thead>
+        <tr>
+        <th>Syntax</th>
+        <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Header</td>
+        <td>Title</td>
+        </tr>
+        <tr>
+        <td>Paragraph</td>
+        <td>Text</td>
+        </tr>
+        </tbody>
+        </table>
 
         HTML;
 

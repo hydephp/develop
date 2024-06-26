@@ -20,6 +20,7 @@ use Illuminate\Filesystem\Filesystem;
 class IncludesFacadeUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
 
     protected function setUp(): void
     {

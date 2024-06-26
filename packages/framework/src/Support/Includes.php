@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
@@ -84,10 +85,10 @@ class Includes
         $path = static::normalizePath($filename, '.md');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : Markdown::render($default);
+            return $default === null ? null : Markdown::render($default, HydePage::class);
         }
 
-        return Markdown::render(Filesystem::get($path));
+        return Markdown::render(Filesystem::get($path), HydePage::class);
     }
 
     /**
