@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Support;
 
 use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
 use function basename;
 use function file_exists;
-use function file_get_contents;
 
 /**
  * The Includes facade provides a simple way to access partials in the includes directory.
@@ -52,7 +52,7 @@ class Includes
             return $default;
         }
 
-        return file_get_contents($path);
+        return Filesystem::getContents($path);
     }
 
     /**
@@ -70,7 +70,7 @@ class Includes
             return $default === null ? null : $default;
         }
 
-        return file_get_contents($path);
+        return Filesystem::getContents($path);
     }
 
     /**
@@ -88,7 +88,7 @@ class Includes
             return $default === null ? null : Markdown::render($default);
         }
 
-        return Markdown::render(file_get_contents($path));
+        return Markdown::render(Filesystem::getContents($path));
     }
 
     /**
@@ -106,7 +106,7 @@ class Includes
             return $default === null ? null : Blade::render($default);
         }
 
-        return Blade::render(file_get_contents($path));
+        return Blade::render(Filesystem::getContents($path));
     }
 
     protected static function normalizePath(string $filename, string $extension): string
