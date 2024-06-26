@@ -88,7 +88,11 @@ class Includes
         $contents = static::getFileContents($path);
 
         if ($contents === null) {
-            return $default === null ? null : static::renderMarkdown($default);
+            if ($default === null) {
+                return null;
+            } else {
+                return static::renderMarkdown($default);
+            }
         }
 
         return static::renderMarkdown($contents);
