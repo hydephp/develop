@@ -48,14 +48,7 @@ class Includes
      */
     public static function get(string $filename, ?string $default = null): ?string
     {
-        $path = static::path(static::normalizePath($filename));
-        $contents = static::getFileContents($path);
-
-        if ($contents === null && $default === null) {
-            return null;
-        }
-
-        return $contents ?? $default;
+        return static::getInclude([static::class, 'getRaw'], $filename, $default);
     }
 
     /**
