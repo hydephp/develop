@@ -105,10 +105,10 @@ class Includes
         $path = static::normalizePath($filename, '.blade.php');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : new HtmlString(Blade::render($default));
+            return $default === null ? null : static::renderBlade($default);
         }
 
-        return new HtmlString(Blade::render(Filesystem::get($path)));
+        return static::renderBlade(Filesystem::get($path));
     }
 
     protected static function normalizePath(string $filename, string $extension): string
@@ -119,5 +119,10 @@ class Includes
     protected static function renderMarkdown(string $markdown): HtmlString
     {
         return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
+    }
+
+    protected static function renderBlade(string $blade): HtmlString
+    {
+        return new HtmlString(Blade::render($blade));
     }
 }
