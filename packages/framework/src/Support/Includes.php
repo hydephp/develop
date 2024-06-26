@@ -69,10 +69,10 @@ class Includes
         $path = static::normalizePath($filename, '.html');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : new HtmlString($default);
+            return $default === null ? null : static::renderHtml($default);
         }
 
-        return new HtmlString(Filesystem::get($path));
+        return static::renderHtml(Filesystem::get($path));
     }
 
     /**
@@ -114,6 +114,11 @@ class Includes
     protected static function normalizePath(string $filename, string $extension): string
     {
         return static::path(basename($filename, $extension).$extension);
+    }
+
+    protected static function renderHtml(string $html): HtmlString
+    {
+        return new HtmlString($html);
     }
 
     protected static function renderMarkdown(string $markdown): HtmlString
