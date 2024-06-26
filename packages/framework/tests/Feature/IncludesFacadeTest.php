@@ -8,6 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Support\Includes;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Blade;
 
 /**
  * @covers \Hyde\Support\Includes
@@ -215,5 +216,29 @@ class IncludesFacadeTest extends TestCase
 
         $this->file('resources/includes/advanced.blade.php', $blade);
         $this->assertSame($expected, Includes::blade('advanced.blade.php'));
+    }
+
+    public function testIncludesUsageFromBladeView()
+    {
+        // Emulates the actual usage of the Includes facade from a Blade view.
+
+        $this->file('resources/includes/foo.blade.php', '{{ "foo bar" }}');
+        $this->file('resources/includes/foo.md', '# foo bar');
+        $this->file('resources/includes/foo.html', '<h1>foo bar</h1>');
+
+        $view = <<<'BLADE'
+        {!! Includes::blade('foo.blade.php') !!}
+        {!! Includes::markdown('foo.md') !!}
+        {!! Includes::html('foo.html') !!}
+        BLADE;
+
+        $expected = <<<'HTML'
+        foo bar
+        <h1>foo bar</h1>
+
+        <h1>foo bar</h1>
+        HTML;
+
+        $this->assertSame($expected, Blade::render($view));
     }
 }
