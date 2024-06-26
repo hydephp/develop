@@ -223,33 +223,33 @@ class IncludesFacadeTest extends TestCase
         // Emulates the actual usage of the Includes facade from a Blade view.
 
         $this->file('resources/includes/foo.blade.php', '<h1>{{ "Rendered Blade" }}</h1>');
-        $this->file('resources/includes/foo.md', '# Compiled Markdown');
         $this->file('resources/includes/foo.html', '<h1>Literal HTML</h1>');
+        $this->file('resources/includes/foo.md', '# Compiled Markdown');
 
         $view = <<<'BLADE'
         // With extension
+        {!! Includes::html('foo.html') !!}
         {!! Includes::blade('foo.blade.php') !!}
         {!! Includes::markdown('foo.md') !!}
-        {!! Includes::html('foo.html') !!}
         
         // Without extension
+        {!! Includes::html('foo') !!}
         {!! Includes::blade('foo') !!}
         {!! Includes::markdown('foo') !!}
-        {!! Includes::html('foo') !!}
         BLADE;
 
         $expected = <<<'HTML'
         // With extension
+        <h1>Literal HTML</h1>
         <h1>Rendered Blade</h1>
         <h1>Compiled Markdown</h1>
 
-        <h1>Literal HTML</h1>
 
         // Without extension
+        <h1>Literal HTML</h1>
         <h1>Rendered Blade</h1>
         <h1>Compiled Markdown</h1>
 
-        <h1>Literal HTML</h1>
         HTML;
 
         $this->assertSame($expected, Blade::render($view));
