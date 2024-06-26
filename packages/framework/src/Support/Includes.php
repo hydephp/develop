@@ -90,9 +90,14 @@ class Includes
             $markdown = Filesystem::get($path);
         } else {
             if ($default === null) {
-                return null;
+                $markdown = null;
+            } else {
+                $markdown = $default;
             }
-            $markdown = $default;
+        }
+
+        if ($markdown === null) {
+            return null;
         }
 
         return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
