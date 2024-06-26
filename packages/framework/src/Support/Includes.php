@@ -66,14 +66,7 @@ class Includes
      */
     public static function html(string $filename, ?string $default = null): ?HtmlString
     {
-        $path = static::normalizePath($filename, '.html');
-        $contents = static::getFileContents($path);
-
-        if ($contents === null && $default === null) {
-            return null;
-        }
-
-        return static::renderHtml($contents ?? $default);
+        return static::getInclude($filename, '.html', $default, 'renderHtml');
     }
 
     /**
@@ -85,14 +78,7 @@ class Includes
      */
     public static function markdown(string $filename, ?string $default = null): ?HtmlString
     {
-        $path = static::normalizePath($filename, '.md');
-        $contents = static::getFileContents($path);
-
-        if ($contents === null && $default === null) {
-            return null;
-        }
-
-        return static::renderMarkdown($contents ?? $default);
+        return static::getInclude($filename, '.md', $default, 'renderMarkdown');
     }
 
     /**
@@ -104,14 +90,7 @@ class Includes
      */
     public static function blade(string $filename, ?string $default = null): ?HtmlString
     {
-        $path = static::normalizePath($filename, '.blade.php');
-        $contents = static::getFileContents($path);
-
-        if ($contents === null && $default === null) {
-            return null;
-        }
-
-        return static::renderBlade($contents ?? $default);
+        return static::getInclude($filename, '.blade.php', $default, 'renderBlade');
     }
 
     protected static function normalizePath(string $filename, string $extension): string
@@ -141,5 +120,17 @@ class Includes
         }
 
         return Filesystem::get($path);
+    }
+
+    protected static function getInclude(string $filename, string $extension, ?string $default, string $method): ?HtmlString
+    {
+        $path = static::normalizePath($filename, $extension);
+        $contents = static::getFileContents($path);
+
+        if ($contents === null && $default === null) {
+            return null;
+        }
+
+        return static::$method($contents ?? $default);
     }
 }
