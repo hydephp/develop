@@ -222,9 +222,9 @@ class IncludesFacadeTest extends TestCase
     {
         // Emulates the actual usage of the Includes facade from a Blade view.
 
-        $this->file('resources/includes/foo.blade.php', '<h1>{{ "foo bar" }}</h1>');
-        $this->file('resources/includes/foo.md', '# foo bar');
-        $this->file('resources/includes/foo.html', '<h1>foo bar</h1>');
+        $this->file('resources/includes/foo.blade.php', '<h1>{{ "Rendered Blade" }}</h1>');
+        $this->file('resources/includes/foo.md', '# Compiled Markdown');
+        $this->file('resources/includes/foo.html', '<h1>Literal HTML</h1>');
 
         $view = <<<'BLADE'
         // With extension
@@ -240,16 +240,16 @@ class IncludesFacadeTest extends TestCase
 
         $expected = <<<'HTML'
         // With extension
-        <h1>foo bar</h1>
-        <h1>foo bar</h1>
+        <h1>Rendered Blade</h1>
+        <h1>Compiled Markdown</h1>
 
-        <h1>foo bar</h1>
+        <h1>Literal HTML</h1>
 
         // Without extension
-        <h1>foo bar</h1>
-        <h1>foo bar</h1>
-        
-        <h1>foo bar</h1>
+        <h1>Rendered Blade</h1>
+        <h1>Compiled Markdown</h1>
+
+        <h1>Literal HTML</h1>
         HTML;
 
         $this->assertSame($expected, Blade::render($view));
