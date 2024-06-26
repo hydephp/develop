@@ -20,6 +20,13 @@ class IncludesFacadeUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Blade::swap(Mockery::mock());
+    }
+
     protected function tearDown(): void
     {
         Mockery::close();
