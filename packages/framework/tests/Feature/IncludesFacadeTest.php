@@ -187,8 +187,7 @@ class IncludesFacadeTest extends TestCase
         $this->file('resources/includes/without-torchlight.md', 'Syntax highlighted by torchlight.dev');
 
         $this->assertSame(
-            '<p>Syntax highlighted by torchlight.dev</p>
-',
+            "<p>Syntax highlighted by torchlight.dev</p>\n",
             Includes::markdown('without-torchlight.md')
         );
     }
