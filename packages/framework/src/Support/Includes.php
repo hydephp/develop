@@ -120,6 +120,11 @@ class Includes
         return Filesystem::get($path);
     }
 
+    protected static function getRaw(string $contents): string
+    {
+        return $contents;
+    }
+
     protected static function renderHtml(string $html): HtmlString
     {
         return new HtmlString($html);
