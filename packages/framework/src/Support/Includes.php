@@ -107,16 +107,16 @@ class Includes
 
     protected static function normalizePath(string $filename, string $extension = ''): string
     {
-        return static::path(basename($filename, $extension).$extension);
+        return basename($filename, $extension).$extension;
     }
 
     protected static function getFileContents(string $path): ?string
     {
-        if (! Filesystem::exists($path)) {
+        if (! Filesystem::exists(static::path($path))) {
             return null;
         }
 
-        return Filesystem::get($path);
+        return Filesystem::get(static::path($path));
     }
 
     protected static function renderHtml(string $html): HtmlString
