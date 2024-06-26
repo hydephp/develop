@@ -64,7 +64,7 @@ class Includes
      */
     public static function html(string $filename, ?string $default = null): ?string
     {
-        $path = static::path(basename($filename, '.html').'.html');
+        $path = static::normalizePath($filename, '.html');
 
         if (! file_exists($path)) {
             return $default === null ? null : $default;
@@ -82,7 +82,7 @@ class Includes
      */
     public static function markdown(string $filename, ?string $default = null): ?string
     {
-        $path = static::path(basename($filename, '.md').'.md');
+        $path = static::normalizePath($filename, '.md');
 
         if (! file_exists($path)) {
             return $default === null ? null : Markdown::render($default);
@@ -100,12 +100,17 @@ class Includes
      */
     public static function blade(string $filename, ?string $default = null): ?string
     {
-        $path = static::path(basename($filename, '.blade.php').'.blade.php');
+        $path = static::normalizePath($filename, '.blade.php');
 
         if (! file_exists($path)) {
             return $default === null ? null : Blade::render($default);
         }
 
         return Blade::render(file_get_contents($path));
+    }
+
+    protected static function normalizePath(string $filename, string $extension): string
+    {
+        return static::path(basename($filename, $extension).$extension);
     }
 }
