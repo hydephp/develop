@@ -91,7 +91,6 @@ class Includes
                 return null;
             } else {
                 $markdown = $default;
-                return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
             }
         } else {
             $markdown = Filesystem::get($path);
