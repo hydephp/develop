@@ -36,9 +36,9 @@ class Includes
     {
         if ($filename === null) {
             return Hyde::path(static::$includesDirectory);
-        } else {
-            return Hyde::path(static::$includesDirectory.'/'.static::normalizePath($filename));
         }
+
+        return Hyde::path(static::$includesDirectory.'/'.static::normalizePath($filename));
     }
 
     /**
