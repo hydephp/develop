@@ -116,6 +116,16 @@ class IncludesFacadeTest extends TestCase
         $this->assertSame('default', Includes::blade('foo.blade.php', '{{ "default" }}'));
     }
 
+    public function testTorchlightAttributionIsNotInjectedToMarkdownPartials()
+    {
+        $this->file('resources/includes/without-torchlight.md', 'Syntax highlighted by torchlight.dev');
+
+        $this->assertSame(
+            "<p>Syntax highlighted by torchlight.dev</p>\n",
+            Includes::markdown('without-torchlight.md')
+        );
+    }
+
     public function testAdvancedMarkdownDocumentIsCompiledToHtml()
     {
         $markdown = <<<'MARKDOWN'
@@ -180,15 +190,5 @@ class IncludesFacadeTest extends TestCase
 
         $this->file('resources/includes/advanced.md', $markdown);
         $this->assertSame($expected, Includes::markdown('advanced.md'));
-    }
-
-    public function testTorchlightAttributionIsNotInjectedToMarkdownPartials()
-    {
-        $this->file('resources/includes/without-torchlight.md', 'Syntax highlighted by torchlight.dev');
-
-        $this->assertSame(
-            "<p>Syntax highlighted by torchlight.dev</p>\n",
-            Includes::markdown('without-torchlight.md')
-        );
     }
 }
