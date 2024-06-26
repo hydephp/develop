@@ -131,8 +131,12 @@ class Includes
         return new HtmlString(Blade::render($blade));
     }
 
-    protected static function getFileContents(string $path): string
+    protected static function getFileContents(string $path): ?string
     {
+        if (! Filesystem::exists($path)) {
+            return null;
+        }
+
         return Filesystem::get($path);
     }
 }
