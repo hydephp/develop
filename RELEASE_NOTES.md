@@ -24,6 +24,7 @@ This serves two purposes:
 - Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
 - Minor: Changed the default build task message to make it more concise in https://github.com/hydephp/develop/pull/1659
 - Minor: Data collection files are now validated for syntax errors during discovery in https://github.com/hydephp/develop/pull/1732
+- Minor: Methods in the `Includes` facade now return `HtmlString` objects instead of `string` in https://github.com/hydephp/develop/pull/1738. For more information, see below.
 - The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
@@ -222,6 +223,25 @@ For example, if you triggered the media transfer with a build service method cal
 
 (new TransferMediaAssets())->run();
 ```
+
+### Includes facade changes
+
+The following methods in the `Includes` facade now return `HtmlString` objects instead of `string`:
+
+- `Includes::html()`
+- `Includes::blade()`
+- `Includes::markdown()`
+
+- This means that you no longer need to use `{!! !!}` to render the output of these methods in Blade templates, instead just use `{{ }}`.
+- If you have used the return value of these methods in custom code, you may need to adjust your code to work with the new return type.
+
+For more information, see the RFC that proposed this change: https://github.com/hydephp/develop/issues/1734
+The RFC was implemented in https://github.com/hydephp/develop/pull/1738
+
+#### Remember to escape output if necessary
+
+**Note:** Remember that this means that includes are **no longer escaped** by default, so make sure to escape the output if necessary, for example if the content is user-generated.
+- (Use `{{ e(Includes::html('foo')) }}` instead of `{{ Includes::html('foo') }}` to escape the output, matching the previous behavior.)
 
 ### DataCollection API changes
 

@@ -6,6 +6,7 @@ namespace Hyde\Support;
 
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
+use Illuminate\Support\HtmlString;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
@@ -61,17 +62,17 @@ class Includes
      *
      * @param  string  $filename  The name of the partial file, with or without the extension.
      * @param  string|null  $default  The default value to return if the partial is not found.
-     * @return string|null The raw contents of the partial file, or the default value if not found.
+     * @return HtmlString|null The contents of the partial file, or the default value if not found.
      */
-    public static function html(string $filename, ?string $default = null): ?string
+    public static function html(string $filename, ?string $default = null): ?HtmlString
     {
         $path = static::normalizePath($filename, '.html');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : $default;
+            return $default === null ? null : new HtmlString($default);
         }
 
-        return Filesystem::get($path);
+        return new HtmlString(Filesystem::get($path));
     }
 
     /**
@@ -79,17 +80,17 @@ class Includes
      *
      * @param  string  $filename  The name of the partial file, with or without the extension.
      * @param  string|null  $default  The default value to return if the partial is not found.
-     * @return string|null The rendered contents of the partial file, or the default value if not found.
+     * @return HtmlString|null The rendered contents of the partial file, or the default value if not found.
      */
-    public static function markdown(string $filename, ?string $default = null): ?string
+    public static function markdown(string $filename, ?string $default = null): ?HtmlString
     {
         $path = static::normalizePath($filename, '.md');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : trim(Markdown::render($default, MarkdownDocument::class));
+            return $default === null ? null : new HtmlString(trim(Markdown::render($default, MarkdownDocument::class)));
         }
 
-        return trim(Markdown::render(Filesystem::get($path), MarkdownDocument::class));
+        return new HtmlString(trim(Markdown::render(Filesystem::get($path), MarkdownDocument::class)));
     }
 
     /**
@@ -97,17 +98,17 @@ class Includes
      *
      * @param  string  $filename  The name of the partial file, with or without the extension.
      * @param  string|null  $default  The default value to return if the partial is not found.
-     * @return string|null The rendered contents of the partial file, or the default value if not found.
+     * @return HtmlString|null The rendered contents of the partial file, or the default value if not found.
      */
-    public static function blade(string $filename, ?string $default = null): ?string
+    public static function blade(string $filename, ?string $default = null): ?HtmlString
     {
         $path = static::normalizePath($filename, '.blade.php');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : Blade::render($default);
+            return $default === null ? null : new HtmlString(Blade::render($default));
         }
 
-        return Blade::render(Filesystem::get($path));
+        return new HtmlString(Blade::render(Filesystem::get($path)));
     }
 
     protected static function normalizePath(string $filename, string $extension): string

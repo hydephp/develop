@@ -9,6 +9,7 @@ use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Filesystem\Filesystem;
 
@@ -82,7 +83,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($expected);
         });
 
-        $this->assertSame($expected, Includes::html($filename));
+        $this->assertHtmlStringIsSame($expected, Includes::html($filename));
     }
 
     public function testHtmlReturnsDefaultValueWhenNotFound()
@@ -95,7 +96,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         });
 
         $this->assertNull(Includes::html($filename));
-        $this->assertSame($default, Includes::html($filename, $default));
+        $this->assertHtmlStringIsSame($default, Includes::html($filename, $default));
     }
 
     public function testHtmlWithAndWithoutExtension()
@@ -108,7 +109,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
 
-        $this->assertSame(Includes::html('foo.html'), Includes::html('foo'));
+        $this->assertHtmlStringIsSame(Includes::html('foo.html'), Includes::html('foo'));
     }
 
     public function testMarkdownReturnsRenderedPartial()
@@ -123,7 +124,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
 
-        $this->assertSame($expected, Includes::markdown($filename));
+        $this->assertHtmlStringIsSame($expected, Includes::markdown($filename));
     }
 
     public function testMarkdownReturnsRenderedDefaultValueWhenNotFound()
@@ -137,7 +138,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         });
 
         $this->assertNull(Includes::markdown($filename));
-        $this->assertSame($expected, Includes::markdown($filename, $default));
+        $this->assertHtmlStringIsSame($expected, Includes::markdown($filename, $default));
     }
 
     public function testMarkdownWithAndWithoutExtension()
@@ -152,9 +153,9 @@ class IncludesFacadeUnitTest extends UnitTestCase
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
 
-        $this->assertSame($expected, Includes::markdown('foo.md'));
-        $this->assertSame(Includes::markdown('foo.md'), Includes::markdown('foo'));
-        $this->assertSame(Includes::markdown('foo.md'), Includes::markdown('foo.md'));
+        $this->assertHtmlStringIsSame($expected, Includes::markdown('foo.md'));
+        $this->assertHtmlStringIsSame(Includes::markdown('foo.md'), Includes::markdown('foo'));
+        $this->assertHtmlStringIsSame(Includes::markdown('foo.md'), Includes::markdown('foo.md'));
     }
 
     public function testBladeReturnsRenderedPartial()
@@ -171,7 +172,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
             Blade::shouldReceive('render')->with($content)->andReturn($expected);
         });
 
-        $this->assertSame($expected, Includes::blade($filename));
+        $this->assertHtmlStringIsSame($expected, Includes::blade($filename));
     }
 
     public function testBladeWithAndWithoutExtension()
@@ -187,7 +188,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
             Blade::shouldReceive('render')->with($content)->andReturn($expected);
         });
 
-        $this->assertSame(Includes::blade('foo.blade.php'), Includes::blade('foo'));
+        $this->assertHtmlStringIsSame(Includes::blade('foo.blade.php'), Includes::blade('foo'));
     }
 
     public function testBladeReturnsDefaultValueWhenNotFound()
@@ -203,7 +204,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         });
 
         $this->assertNull(Includes::blade($filename));
-        $this->assertSame($expected, Includes::blade($filename, $default));
+        $this->assertHtmlStringIsSame($expected, Includes::blade($filename, $default));
     }
 
     protected function mockFilesystem(Closure $config): void
@@ -218,5 +219,11 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function includesPath(string $filename): string
     {
         return Hyde::path('resources/includes/'.$filename);
+    }
+
+    protected function assertHtmlStringIsSame(string|HtmlString $expected, mixed $actual): void
+    {
+        $this->assertInstanceOf(HtmlString::class, $actual);
+        $this->assertSame((string) $expected, $actual->toHtml());
     }
 }
