@@ -43,7 +43,7 @@ class Includes
      *
      * @param  string  $filename  The name of the partial file, including the extension.
      * @param  string|null  $default  The default value to return if the partial is not found.
-     * @return string|null The contents of the partial file, or the default value if not found.
+     * @return string|null The raw contents of the partial file, or the default value if not found.
      */
     public static function get(string $filename, ?string $default = null): ?string
     {
