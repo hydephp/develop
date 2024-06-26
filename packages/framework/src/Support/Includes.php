@@ -91,11 +91,7 @@ class Includes
             return null;
         }
 
-        if ($contents === null) {
-            $contents = $default;
-        }
-
-        return static::renderMarkdown($contents);
+        return static::renderMarkdown($contents ?? $default);
     }
 
     /**
