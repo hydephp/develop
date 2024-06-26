@@ -73,7 +73,15 @@ Includes::markdown('example') === Includes::markdown('example.md');
 
 All methods will return `null` if the file does not exist.
 However, you can supply a default value as the second argument to be used instead.
-Remember that Markdown and Blade defaults will still be rendered to HTML.
+Remember that Markdown and Blade defaults will also be rendered to HTML.
+
+Includes are particularly useful in Blade views, as you can echo them directly. You do not need to import the namespace, as it is already aliased.
+
+```blade
+<footer>
+    {{ Includes::markdown('footer.md') }}
+</footer>
+```
 
 ```php
 use Hyde\Support\Includes;
