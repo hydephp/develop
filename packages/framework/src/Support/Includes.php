@@ -112,13 +112,11 @@ class Includes
 
     protected static function getFileContents(string $path): ?string
     {
-        $path = static::path($path);
-
-        if (! Filesystem::exists($path)) {
+        if (! Filesystem::exists(static::path($path))) {
             return null;
         }
 
-        return Filesystem::get($path);
+        return Filesystem::get(static::path($path));
     }
 
     protected static function renderHtml(string $html): HtmlString
