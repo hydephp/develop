@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
+use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
 use Hyde\Testing\UnitTestCase;
@@ -49,12 +50,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.txt';
         $expected = 'foo bar';
 
-        $filesystem = Mockery::mock(Filesystem::class);
-
-        $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
-        $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystem(function ($filesystem) use ($expected, $filename) {
+            $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
+            $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($expected);
+        });
 
         $this->assertSame($expected, Includes::get($filename));
     }
@@ -211,5 +210,14 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $this->assertNull(Includes::blade($filename));
         $this->assertSame($expected, Includes::blade($filename, $default));
+    }
+
+    protected function mockFilesystem(Closure $config): void
+    {
+        $filesystem = Mockery::mock(Filesystem::class);
+
+        $config($filesystem);
+
+        app()->instance(Filesystem::class, $filesystem);
     }
 }
