@@ -93,10 +93,9 @@ class Includes
                 $markdown = $default;
                 return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
             }
-        } else {
-            $markdown = Filesystem::get($path);
         }
 
+        $markdown = Filesystem::get($path);
         return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
     }
 
