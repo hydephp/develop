@@ -181,4 +181,20 @@ class IncludesFacadeTest extends TestCase
         $this->file('resources/includes/advanced.md', $markdown);
         $this->assertSame($expected, Includes::markdown('advanced.md'));
     }
+
+    public function testTorchlightAttributionIsInjectedToMarkdownPartials()
+    {
+        $this->file('resources/includes/without-torchlight.md', 'Syntax highlighted by torchlight.dev');
+
+        $this->assertSame(
+            '<p>Syntax highlighted by torchlight.dev</p>
+<br><p>
+    <i>
+        Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>
+    </i>
+</p>
+',
+            Includes::markdown('without-torchlight.md')
+        );
+    }
 }
