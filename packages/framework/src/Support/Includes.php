@@ -36,7 +36,7 @@ class Includes
     {
         return $filename === null
             ? Hyde::path(static::$includesDirectory)
-            : Hyde::path(static::$includesDirectory.'/'.$filename);
+            : Hyde::path(static::$includesDirectory.'/'.static::normalizePath($filename));
     }
 
     /**
@@ -48,7 +48,7 @@ class Includes
      */
     public static function get(string $filename, ?string $default = null): ?string
     {
-        $path = static::path($filename);
+        $path = static::path(static::normalizePath($filename));
 
         if (! Filesystem::exists($path)) {
             return $default;

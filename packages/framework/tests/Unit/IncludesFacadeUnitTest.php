@@ -47,6 +47,11 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->assertSame(Hyde::path('resources/includes/partial.html'), Includes::path('partial.html'));
     }
 
+    public function testPathNormalizesNestedIdentifiers()
+    {
+        $this->assertSame(Hyde::path('resources/includes/partial.html'), Includes::path('foo/partial.html'));
+    }
+
     public function testGetReturnsPartial()
     {
         $filename = 'foo.txt';
@@ -71,6 +76,20 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $this->assertNull(Includes::get($filename));
         $this->assertSame($default, Includes::get($filename, $default));
+    }
+
+    public function testGetNormalizesNestedIdentifiers()
+    {
+        $filename = 'foo/bar.txt';
+        $normalized = 'bar.txt';
+        $expected = 'foo bar';
+
+        $this->mockFilesystem(function ($filesystem) use ($expected, $normalized) {
+            $filesystem->shouldReceive('exists')->with($this->includesPath($normalized))->andReturn(true);
+            $filesystem->shouldReceive('get')->with($this->includesPath($normalized))->andReturn($expected);
+        });
+
+        $this->assertSame($expected, Includes::get($filename));
     }
 
     public function testHtmlReturnsRenderedPartial()
