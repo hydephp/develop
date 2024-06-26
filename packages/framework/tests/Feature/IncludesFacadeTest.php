@@ -199,12 +199,9 @@ class IncludesFacadeTest extends TestCase
         @foreach(range(1, 3) as $i)
             <p>Paragraph {{ $i }}</p>
         @endforeach
-
         {{-- This is a comment --}}
-
         @php($foo = 'bar')
-
-        {{ 'foo' . $foo }}
+        {{ 'foo ' . $foo }}
         BLADE;
 
         $expected = <<<'HTML'
@@ -213,10 +210,7 @@ class IncludesFacadeTest extends TestCase
             <p>Paragraph 2</p>
             <p>Paragraph 3</p>
         
-        
-        
-        
-        foobar
+        foo bar
         HTML;
 
         $this->file('resources/includes/advanced.blade.php', $blade);
