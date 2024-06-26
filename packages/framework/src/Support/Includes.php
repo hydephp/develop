@@ -49,12 +49,13 @@ class Includes
     public static function get(string $filename, ?string $default = null): ?string
     {
         $path = static::path(static::normalizePath($filename));
+        $contents = static::getFileContents($path);
 
-        if (! Filesystem::exists($path)) {
-            return $default;
+        if ($contents === null && $default === null) {
+            return null;
         }
 
-        return static::getFileContents($path);
+        return $contents ?? $default;
     }
 
     /**
