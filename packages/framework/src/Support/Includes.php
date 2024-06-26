@@ -67,12 +67,13 @@ class Includes
     public static function html(string $filename, ?string $default = null): ?HtmlString
     {
         $path = static::normalizePath($filename, '.html');
+        $contents = static::getFileContents($path);
 
-        if (! Filesystem::exists($path)) {
-            return $default === null ? null : static::renderHtml($default);
+        if ($contents === null && $default === null) {
+            return null;
         }
 
-        return static::renderHtml(static::getFileContents($path));
+        return static::renderHtml($contents ?? $default);
     }
 
     /**
@@ -104,12 +105,13 @@ class Includes
     public static function blade(string $filename, ?string $default = null): ?HtmlString
     {
         $path = static::normalizePath($filename, '.blade.php');
+        $contents = static::getFileContents($path);
 
-        if (! Filesystem::exists($path)) {
-            return $default === null ? null : static::renderBlade($default);
+        if ($contents === null && $default === null) {
+            return null;
         }
 
-        return static::renderBlade(static::getFileContents($path));
+        return static::renderBlade($contents ?? $default);
     }
 
     protected static function normalizePath(string $filename, string $extension): string
