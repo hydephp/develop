@@ -167,8 +167,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        Blade::shouldReceive('render')->with($content)->andReturn($expected);
-
         $this->assertSame($expected, Includes::blade($filename));
     }
 
@@ -184,8 +182,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        Blade::shouldReceive('render')->with($content)->andReturn($expected);
-
         $this->assertSame(Includes::blade('foo.blade.php'), Includes::blade('foo'));
     }
 
@@ -199,8 +195,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
 
         app()->instance(Filesystem::class, $filesystem);
-
-        Blade::shouldReceive('render')->with($default)->andReturn($expected);
 
         $this->assertNull(Includes::blade($filename));
         $this->assertSame($expected, Includes::blade($filename, $default));
