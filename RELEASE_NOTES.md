@@ -29,7 +29,7 @@ This serves two purposes:
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
 - Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
 - Calling the `DataCollection` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
-- Markdown includes are now converted to HTML using the custom HydePHP Markdown service, meaning they now support full GFM spec and custom Hyde features like colored blockquotes and code block filepath labels.
+- Markdown includes are now converted to HTML using the custom HydePHP Markdown service, meaning they now support full GFM spec and custom Hyde features like colored blockquotes and code block filepath labels in https://github.com/hydephp/develop/pull/1738
 
 ### Deprecated
 - for soon-to-be removed features.
