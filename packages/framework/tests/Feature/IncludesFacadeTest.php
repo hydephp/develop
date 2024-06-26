@@ -77,7 +77,7 @@ class IncludesFacadeTest extends TestCase
 
     public function testMarkdownReturnsRenderedPartial()
     {
-        $expected = "<h1>foo bar</h1>\n";
+        $expected = '<h1>foo bar</h1>';
         file_put_contents(Hyde::path('resources/includes/foo.md'), '# foo bar');
         $this->assertSame($expected, Includes::markdown('foo.md'));
         Filesystem::unlink('resources/includes/foo.md');
@@ -86,7 +86,7 @@ class IncludesFacadeTest extends TestCase
     public function testMarkdownReturnsRenderedDefaultValueWhenNotFound()
     {
         $this->assertNull(Includes::markdown('foo.md'));
-        $this->assertSame("<h1>default</h1>\n", Includes::markdown('foo.md', '# default'));
+        $this->assertSame('<h1>default</h1>', Includes::markdown('foo.md', '# default'));
     }
 
     public function testMarkdownWithAndWithoutExtension()
@@ -122,7 +122,7 @@ class IncludesFacadeTest extends TestCase
         $this->file('resources/includes/without-torchlight.md', 'Syntax highlighted by torchlight.dev');
 
         $this->assertSame(
-            "<p>Syntax highlighted by torchlight.dev</p>\n",
+            '<p>Syntax highlighted by torchlight.dev</p>',
             Includes::markdown('without-torchlight.md')
         );
     }
@@ -186,7 +186,6 @@ class IncludesFacadeTest extends TestCase
         </tr>
         </tbody>
         </table>
-
         HTML;
 
         $this->file('resources/includes/advanced.md', $markdown);
@@ -244,12 +243,10 @@ class IncludesFacadeTest extends TestCase
         <h1>Rendered Blade</h1>
         <h1>Compiled Markdown</h1>
 
-
         // Without extension
         <h1>Literal HTML</h1>
         <h1>Rendered Blade</h1>
         <h1>Compiled Markdown</h1>
-
         HTML;
 
         $this->assertSame($expected, Blade::render($view));

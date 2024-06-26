@@ -10,6 +10,7 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
+use function trim;
 use function basename;
 
 /**
@@ -85,10 +86,10 @@ class Includes
         $path = static::normalizePath($filename, '.md');
 
         if (! Filesystem::exists($path)) {
-            return $default === null ? null : Markdown::render($default, MarkdownDocument::class);
+            return $default === null ? null : trim(Markdown::render($default, MarkdownDocument::class));
         }
 
-        return Markdown::render(Filesystem::get($path), MarkdownDocument::class);
+        return trim(Markdown::render(Filesystem::get($path), MarkdownDocument::class));
     }
 
     /**

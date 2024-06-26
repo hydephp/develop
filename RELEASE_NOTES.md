@@ -30,6 +30,7 @@ This serves two purposes:
 - Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
 - Calling the `DataCollection` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
 - Markdown includes are now converted to HTML using the custom HydePHP Markdown service, meaning they now support full GFM spec and custom Hyde features like colored blockquotes and code block filepath labels in https://github.com/hydephp/develop/pull/1738
+- Markdown returned from includes are now trimmed of trailing whitespace and newlines in https://github.com/hydephp/develop/pull/1738
 
 ### Deprecated
 - for soon-to-be removed features.

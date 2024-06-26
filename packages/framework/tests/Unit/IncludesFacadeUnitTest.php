@@ -114,7 +114,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
     public function testMarkdownReturnsRenderedPartial()
     {
         $filename = 'foo.md';
-        $expected = "<h1>foo bar</h1>\n";
+        $expected = '<h1>foo bar</h1>';
 
         $this->mockFilesystem(function ($filesystem) use ($filename) {
             $content = '# foo bar';
@@ -130,7 +130,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
     {
         $filename = 'foo.md';
         $default = '# default';
-        $expected = "<h1>default</h1>\n";
+        $expected = '<h1>default</h1>';
 
         $this->mockFilesystem(function ($filesystem) use ($filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(false);
@@ -142,7 +142,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     public function testMarkdownWithAndWithoutExtension()
     {
-        $expected = "<h1>foo bar</h1>\n";
+        $expected = '<h1>foo bar</h1>';
 
         $this->mockFilesystem(function ($filesystem) {
             $content = '# foo bar';
