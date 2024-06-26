@@ -99,10 +99,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     public function testHtmlWithAndWithoutExtension()
     {
-
         $this->mockFilesystem(function ($filesystem) {
             $filename = 'foo.html';
             $content = '<h1>foo bar</h1>';
+
             $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
         });
@@ -117,6 +117,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $this->mockFilesystem(function ($filesystem) use ($filename) {
             $content = '# foo bar';
+
             $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
         });
@@ -145,6 +146,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->mockFilesystem(function ($filesystem) {
             $content = '# foo bar';
             $filename = 'foo.md';
+
             $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
         });
@@ -161,6 +163,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $this->mockFilesystem(function ($filesystem) use ($expected, $filename) {
             $content = '{{ "foo bar" }}';
+
             $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
@@ -172,11 +175,11 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     public function testBladeWithAndWithoutExtension()
     {
-
         $this->mockFilesystem(function ($filesystem) {
             $expected = 'foo bar';
             $content = '{{ "foo bar" }}';
             $filename = 'foo.blade.php';
+
             $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
@@ -194,6 +197,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         $this->mockFilesystem(function ($filesystem) use ($default, $expected, $filename) {
             $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
+
             Blade::shouldReceive('render')->with($default)->andReturn($expected);
         });
 
