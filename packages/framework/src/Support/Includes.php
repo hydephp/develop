@@ -96,7 +96,7 @@ class Includes
     protected static function getInclude(callable $method, string $extension, ?string $default, string $filename): ?HtmlString
     {
         $path = static::normalizePath($filename, $extension);
-        $contents = static::getFileContents($path);
+        $contents = static::getFileContents(static::path($path));
 
         if ($contents === null && $default === null) {
             return null;
@@ -112,11 +112,11 @@ class Includes
 
     protected static function getFileContents(string $path): ?string
     {
-        if (! Filesystem::exists(static::path($path))) {
+        if (! Filesystem::exists($path)) {
             return null;
         }
 
-        return Filesystem::get(static::path($path));
+        return Filesystem::get($path);
     }
 
     protected static function renderHtml(string $html): HtmlString
