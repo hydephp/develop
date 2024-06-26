@@ -66,7 +66,7 @@ class Includes
      */
     public static function html(string $filename, ?string $default = null): ?HtmlString
     {
-        return static::getInclude($filename, '.html', $default, 'renderHtml');
+        return static::getInclude('renderHtml', '.html', $default, $filename);
     }
 
     /**
@@ -78,7 +78,7 @@ class Includes
      */
     public static function markdown(string $filename, ?string $default = null): ?HtmlString
     {
-        return static::getInclude($filename, '.md', $default, 'renderMarkdown');
+        return static::getInclude('renderMarkdown', '.md', $default, $filename);
     }
 
     /**
@@ -90,7 +90,7 @@ class Includes
      */
     public static function blade(string $filename, ?string $default = null): ?HtmlString
     {
-        return static::getInclude($filename, '.blade.php', $default, 'renderBlade');
+        return static::getInclude('renderBlade', '.blade.php', $default, $filename);
     }
 
     protected static function normalizePath(string $filename, string $extension): string
@@ -122,7 +122,7 @@ class Includes
         return Filesystem::get($path);
     }
 
-    protected static function getInclude(string $filename, string $extension, ?string $default, string $method): ?HtmlString
+    protected static function getInclude(string $method, string $extension, ?string $default, string $filename): ?HtmlString
     {
         $path = static::normalizePath($filename, $extension);
         $contents = static::getFileContents($path);
