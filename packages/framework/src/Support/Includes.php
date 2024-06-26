@@ -10,7 +10,6 @@ use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\Blade;
 
 use function basename;
-use function file_exists;
 
 /**
  * The Includes facade provides a simple way to access partials in the includes directory.
@@ -48,7 +47,7 @@ class Includes
     {
         $path = static::path($filename);
 
-        if (! file_exists($path)) {
+        if (! Filesystem::exists($path)) {
             return $default;
         }
 
@@ -66,7 +65,7 @@ class Includes
     {
         $path = static::normalizePath($filename, '.html');
 
-        if (! file_exists($path)) {
+        if (! Filesystem::exists($path)) {
             return $default === null ? null : $default;
         }
 
@@ -84,7 +83,7 @@ class Includes
     {
         $path = static::normalizePath($filename, '.md');
 
-        if (! file_exists($path)) {
+        if (! Filesystem::exists($path)) {
             return $default === null ? null : Markdown::render($default);
         }
 
@@ -102,7 +101,7 @@ class Includes
     {
         $path = static::normalizePath($filename, '.blade.php');
 
-        if (! file_exists($path)) {
+        if (! Filesystem::exists($path)) {
             return $default === null ? null : Blade::render($default);
         }
 
