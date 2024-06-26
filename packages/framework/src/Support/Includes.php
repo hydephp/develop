@@ -84,8 +84,7 @@ class Includes
      */
     public static function markdown(string $filename, ?string $default = null): ?HtmlString
     {
-        $path = static::normalizePath($filename, '.md');
-        $contents = static::getFileContents($path);
+        $contents = static::getFileContents(static::normalizePath($filename, '.md'));
 
         if ($contents === null && $default === null) {
             return null;
