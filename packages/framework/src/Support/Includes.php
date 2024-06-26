@@ -54,7 +54,7 @@ class Includes
             return $default;
         }
 
-        return Filesystem::get($path);
+        return static::getFileContents($path);
     }
 
     /**
@@ -72,7 +72,7 @@ class Includes
             return $default === null ? null : static::renderHtml($default);
         }
 
-        return static::renderHtml(Filesystem::get($path));
+        return static::renderHtml(static::getFileContents($path));
     }
 
     /**
@@ -90,7 +90,7 @@ class Includes
             return $default === null ? null : static::renderMarkdown($default);
         }
 
-        return static::renderMarkdown(Filesystem::get($path));
+        return static::renderMarkdown(static::getFileContents($path));
     }
 
     /**
@@ -108,7 +108,7 @@ class Includes
             return $default === null ? null : static::renderBlade($default);
         }
 
-        return static::renderBlade(Filesystem::get($path));
+        return static::renderBlade(static::getFileContents($path));
     }
 
     protected static function normalizePath(string $filename, string $extension): string
@@ -129,5 +129,10 @@ class Includes
     protected static function renderBlade(string $blade): HtmlString
     {
         return new HtmlString(Blade::render($blade));
+    }
+
+    protected static function getFileContents(string $path): string
+    {
+        return Filesystem::get($path);
     }
 }
