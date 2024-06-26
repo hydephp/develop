@@ -90,9 +90,8 @@ class Includes
         if ($contents === null) {
             if ($default === null) {
                 return null;
-            } else {
-                $contents = $default;
             }
+            $contents = $default;
         }
 
         return static::renderMarkdown($contents);
