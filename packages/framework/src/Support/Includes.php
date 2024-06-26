@@ -85,12 +85,13 @@ class Includes
     public static function markdown(string $filename, ?string $default = null): ?HtmlString
     {
         $path = static::normalizePath($filename, '.md');
+        $contents = static::getFileContents($path);
 
         if (! Filesystem::exists($path)) {
             return $default === null ? null : static::renderMarkdown($default);
         }
 
-        return static::renderMarkdown(static::getFileContents($path));
+        return static::renderMarkdown($contents);
     }
 
     /**
