@@ -89,8 +89,9 @@ class Includes
         if (! Filesystem::exists($path)) {
             if ($default === null) {
                 return null;
+            } else {
+                $contents = null;
             }
-            $contents = null;
         } else {
             $contents = Filesystem::get($path);
         }
