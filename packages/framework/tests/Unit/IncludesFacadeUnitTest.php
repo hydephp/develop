@@ -150,7 +150,9 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
+        $this->assertSame($expected, Includes::markdown('foo.md'));
         $this->assertSame(Includes::markdown('foo.md'), Includes::markdown('foo'));
+        $this->assertSame(Includes::markdown('foo.md'), Includes::markdown('foo.md'));
     }
 
     public function testBladeReturnsRenderedPartial()
