@@ -18,6 +18,8 @@ use Hyde\Facades\Filesystem;
  */
 class IncludesFacadeUnitTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     protected function tearDown(): void
     {
         Mockery::close();
