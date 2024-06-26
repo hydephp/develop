@@ -90,11 +90,13 @@ class Includes
             if ($default === null) {
                 return null;
             } else {
-                return new HtmlString(trim(Markdown::render($default, MarkdownDocument::class)));
+                $markdown = $default;
+                return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
             }
         }
 
-        return new HtmlString(trim(Markdown::render(Filesystem::get($path), MarkdownDocument::class)));
+        $markdown = Filesystem::get($path);
+        return new HtmlString(trim(Markdown::render($markdown, MarkdownDocument::class)));
     }
 
     /**
