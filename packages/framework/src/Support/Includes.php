@@ -34,9 +34,11 @@ class Includes
      */
     public static function path(?string $filename = null): string
     {
-        return $filename === null
-            ? Hyde::path(static::$includesDirectory)
-            : Hyde::path(static::$includesDirectory.'/'.static::normalizePath($filename));
+        if ($filename === null) {
+            return Hyde::path(static::$includesDirectory);
+        } else {
+            return Hyde::path(static::$includesDirectory.'/'.static::normalizePath($filename));
+        }
     }
 
     /**
