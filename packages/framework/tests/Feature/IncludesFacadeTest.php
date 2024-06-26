@@ -11,6 +11,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Support\Includes
+ *
+ * @see \Hyde\Framework\Testing\Unit\IncludesFacadeUnitTest
  */
 class IncludesFacadeTest extends TestCase
 {

@@ -8,6 +8,8 @@ use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Support\Includes
+ *
+ * @see \Hyde\Framework\Testing\Feature\IncludesFacadeTest
  */
 class IncludesFacadeUnitTest extends UnitTestCase
 {
