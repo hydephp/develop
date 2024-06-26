@@ -115,4 +115,59 @@ class IncludesFacadeTest extends TestCase
         $this->assertNull(Includes::blade('foo.blade.php'));
         $this->assertSame('default', Includes::blade('foo.blade.php', '{{ "default" }}'));
     }
+
+    public function testAdvancedMarkdownDocumentIsCompiledToHtml()
+    {
+        $markdown = <<<'MARKDOWN'
+        # Heading
+        
+        This is a paragraph. It has some **bold** and *italic* text.
+        
+        >info Info Blockquote
+        
+        ```php
+        // filepath: hello.php
+        echo 'Hello, World!';
+        ```
+        
+        ## Subheading
+        
+        
+        - [x] Checked task list
+        - [ ] Unchecked task list
+        
+        ### Table
+        
+        | Syntax | Description |
+        | ----------- | ----------- |
+        | Header | Title |
+        | Paragraph | Text |
+        
+        MARKDOWN;
+
+        $expected = <<<'HTML'
+        <h1>Heading</h1>
+        <p>This is a paragraph. It has some <strong>bold</strong> and <em>italic</em> text.</p>
+        <blockquote>
+        <p>info Info Blockquote</p>
+        </blockquote>
+        <pre><code class="language-php">// filepath: hello.php
+        echo 'Hello, World!';
+        </code></pre>
+        <h2>Subheading</h2>
+        <ul>
+        <li>[x] Checked task list</li>
+        <li>[ ] Unchecked task list</li>
+        </ul>
+        <h3>Table</h3>
+        <p>| Syntax | Description |
+        | ----------- | ----------- |
+        | Header | Title |
+        | Paragraph | Text |</p>
+
+        HTML;
+
+        $this->file('resources/includes/advanced.md', $markdown);
+        $this->assertSame($expected, Includes::markdown('advanced.md'));
+    }
 }
