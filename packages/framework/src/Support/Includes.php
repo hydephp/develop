@@ -105,7 +105,7 @@ class Includes
         return $method($contents ?? $default);
     }
 
-    protected static function normalizePath(string $filename, string $extension): string
+    protected static function normalizePath(string $filename, string $extension = ''): string
     {
         return static::path(basename($filename, $extension).$extension);
     }
