@@ -200,8 +200,6 @@ class IncludesFacadeTest extends TestCase
             <p>Paragraph {{ $i }}</p>
         @endforeach
 
-        @include('hyde::components.link')
-        
         {{-- This is a comment --}}
 
         @php($foo = 'bar')
