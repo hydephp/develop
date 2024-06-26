@@ -222,7 +222,7 @@ class IncludesFacadeTest extends TestCase
     {
         // Emulates the actual usage of the Includes facade from a Blade view.
 
-        $this->file('resources/includes/foo.blade.php', '{{ "foo bar" }}');
+        $this->file('resources/includes/foo.blade.php', '<h1>{{ "foo bar" }}</h1>');
         $this->file('resources/includes/foo.md', '# foo bar');
         $this->file('resources/includes/foo.html', '<h1>foo bar</h1>');
 
@@ -240,13 +240,13 @@ class IncludesFacadeTest extends TestCase
 
         $expected = <<<'HTML'
         // With extension
-        foo bar
+        <h1>foo bar</h1>
         <h1>foo bar</h1>
 
         <h1>foo bar</h1>
 
         // Without extension
-        foo bar
+        <h1>foo bar</h1>
         <h1>foo bar</h1>
         
         <h1>foo bar</h1>
