@@ -119,12 +119,15 @@ class IncludesFacadeTest extends TestCase
 
     public function testTorchlightAttributionIsNotInjectedToMarkdownPartials()
     {
-        $this->file('resources/includes/without-torchlight.md', 'Syntax highlighted by torchlight.dev');
+        $placeholder = 'Syntax highlighted by torchlight.dev';
+        $this->file('resources/includes/without-torchlight.md', $placeholder);
 
-        $this->assertSame(
-            '<p>Syntax highlighted by torchlight.dev</p>',
-            Includes::markdown('without-torchlight.md')
-        );
+        $rendered = Includes::markdown('without-torchlight.md');
+
+        $attribution = 'Syntax highlighting by <a href="https://torchlight.dev/" rel="noopener nofollow">Torchlight.dev</a>';
+
+        $this->assertStringNotContainsString($attribution, $rendered);
+        $this->assertSame("<p>$placeholder</p>", $rendered);
     }
 
     public function testAdvancedMarkdownDocumentIsCompiledToHtml()
