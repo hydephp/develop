@@ -191,4 +191,37 @@ class IncludesFacadeTest extends TestCase
         $this->file('resources/includes/advanced.md', $markdown);
         $this->assertSame($expected, Includes::markdown('advanced.md'));
     }
+
+    public function testAdvancedBladePartialIsCompiledToHtml()
+    {
+        $blade = <<<'BLADE'
+        <h1>Heading</h1>
+        @foreach(range(1, 3) as $i)
+            <p>Paragraph {{ $i }}</p>
+        @endforeach
+
+        @include('hyde::components.link')
+        
+        {{-- This is a comment --}}
+
+        @php($foo = 'bar')
+
+        {{ 'foo' . $foo }}
+        BLADE;
+
+        $expected = <<<'HTML'
+        <h1>Heading</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+            <p>Paragraph 3</p>
+        
+        
+        
+        
+        foobar
+        HTML;
+
+        $this->file('resources/includes/advanced.blade.php', $blade);
+        $this->assertSame($expected, Includes::blade('advanced.blade.php'));
+    }
 }
