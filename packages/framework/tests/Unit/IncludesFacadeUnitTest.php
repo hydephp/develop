@@ -120,8 +120,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         app()->instance(Filesystem::class, $filesystem);
 
-        Markdown::shouldReceive('render')->with($content)->andReturn($expected);
-
         $this->assertSame($expected, Includes::markdown($filename));
     }
 
@@ -135,8 +133,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filesystem->shouldReceive('exists')->with(Hyde::path('resources/includes/'.$filename))->andReturn(false);
 
         app()->instance(Filesystem::class, $filesystem);
-
-        Markdown::shouldReceive('render')->with($default)->andReturn($expected);
 
         $this->assertNull(Includes::markdown($filename));
         $this->assertSame($expected, Includes::markdown($filename, $default));
@@ -153,8 +149,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filesystem->shouldReceive('get')->with(Hyde::path('resources/includes/'.$filename))->andReturn($content);
 
         app()->instance(Filesystem::class, $filesystem);
-
-        Markdown::shouldReceive('render')->with($content)->andReturn($expected);
 
         $this->assertSame(Includes::markdown('foo.md'), Includes::markdown('foo'));
     }
