@@ -238,6 +238,11 @@ class IncludesFacadeTest extends TestCase
         {!! Includes::html('foo') !!}
         {!! Includes::blade('foo') !!}
         {!! Includes::markdown('foo') !!}
+        
+        // With escaped
+        {{ Includes::html('foo.html') }}
+        {{ Includes::blade('foo.blade.php') }}
+        {{ Includes::markdown('foo.md') }}
         BLADE;
 
         $expected = <<<'HTML'
@@ -250,6 +255,11 @@ class IncludesFacadeTest extends TestCase
         <h1>Literal HTML</h1>
         <h1>Rendered Blade</h1>
         <h1>Compiled Markdown</h1>
+
+        // With escaped
+        &lt;h1&gt;Literal HTML&lt;/h1&gt;
+        &lt;h1&gt;Rendered Blade&lt;/h1&gt;
+        &lt;h1&gt;Compiled Markdown&lt;/h1&gt;
         HTML;
 
         $this->assertSame($expected, Blade::render($view));
