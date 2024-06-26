@@ -88,10 +88,12 @@ class Includes
 
         if (Filesystem::exists($path)) {
             $markdown = Filesystem::get($path);
-        } elseif ($default === null) {
-            $markdown = null;
         } else {
-            $markdown = $default;
+            if ($default === null) {
+                $markdown = null;
+            } else {
+                $markdown = $default;
+            }
         }
 
         if ($markdown === null) {
