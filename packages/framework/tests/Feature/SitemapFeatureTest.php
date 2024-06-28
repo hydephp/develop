@@ -43,15 +43,13 @@ class SitemapFeatureTest extends TestCase
 
         $this->assertFileExists('_site/sitemap.xml');
 
-        $expected = '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected())."\n";
+        $expected = '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected(Hyde::version()))."\n";
         $actual = file_get_contents('_site/sitemap.xml');
         $this->assertSame($expected, $actual);
     }
 
-    protected function expected(): string
+    protected function expected(string $version): string
     {
-        $version = Hyde::version();
-
         return <<<XML
         <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP $version">
             <url>
