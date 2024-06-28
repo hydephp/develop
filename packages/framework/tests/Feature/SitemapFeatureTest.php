@@ -32,7 +32,7 @@ class SitemapFeatureTest extends TestCase
         $this->assertFileExists('_site/sitemap.xml');
         // TODO: Fix dynamic data in comparison
         $expected = '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected());
-        $this->assertFileEqualsString($expected, '_site/sitemap.xml');
+        $this->assertSame($expected, file_get_contents('_site/sitemap.xml'));
     }
 
     protected function expected(): string
