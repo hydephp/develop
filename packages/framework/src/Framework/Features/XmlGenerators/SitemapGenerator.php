@@ -91,6 +91,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * @return 'always'|'hourly'|'daily '|'weekly'|'monthly'|'yearly'|'never'
      */
     protected function generateChangeFrequency(string $pageClass, string $identifier): string
     {
