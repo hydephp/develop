@@ -822,7 +822,7 @@ class HydePageTest extends TestCase
 
     public function testGetCanonicalUrlReturnsUrlForTopLevelPage()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $page = new MarkdownPage('foo');
         $this->assertSame('https://example.com/foo.html', $page->getCanonicalUrl());
@@ -830,7 +830,7 @@ class HydePageTest extends TestCase
 
     public function testGetCanonicalUrlReturnsPrettyUrlForTopLevelPage()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         config(['hyde.pretty_urls' => true]);
 
         $page = new MarkdownPage('foo');
@@ -840,7 +840,7 @@ class HydePageTest extends TestCase
 
     public function testGetCanonicalUrlReturnsUrlForNestedPage()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $page = new MarkdownPage('foo/bar');
 
@@ -849,7 +849,7 @@ class HydePageTest extends TestCase
 
     public function testGetCanonicalUrlReturnsUrlForDeeplyNestedPage()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $page = new MarkdownPage('foo/bar/baz');
 
@@ -858,7 +858,7 @@ class HydePageTest extends TestCase
 
     public function testCanonicalUrlIsNotSetWhenIdentifierIsNull()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $page = new MarkdownPage();
 
@@ -869,7 +869,7 @@ class HydePageTest extends TestCase
 
     public function testCanonicalUrlIsNotSetWhenSiteUrlIsNull()
     {
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
 
         $page = new MarkdownPage('foo');
 
@@ -880,7 +880,7 @@ class HydePageTest extends TestCase
 
     public function testCustomCanonicalLinkCanBeSetInFrontMatter()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $page = MarkdownPage::make(matter: ['canonicalUrl' => 'foo/bar']);
 
