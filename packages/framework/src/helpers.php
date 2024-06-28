@@ -25,7 +25,7 @@ namespace {
         #[Deprecated(reason: 'Replaced by the \Hyde\unslash() function', replacement: '\Hyde\unslash()', since: '1.7.0')]
         function unslash(string $string): string
         {
-            return trim($string, '/\\');
+            return \Hyde\unslash($string);
         }
     }
 
