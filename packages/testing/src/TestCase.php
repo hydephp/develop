@@ -75,4 +75,12 @@ abstract class TestCase extends BaseTestCase
     {
         config(['hyde.url' => $url]);
     }
+
+    /**
+     * Remove the site URL for the duration of the test.
+     */
+    protected function withoutSiteUrl(): void
+    {
+        config(['hyde.url' => null]);
+    }
 }

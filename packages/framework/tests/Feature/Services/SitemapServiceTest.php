@@ -170,7 +170,7 @@ class SitemapServiceTest extends TestCase
 
     public function testLinksFallbackToRelativeLinksWhenASiteUrlIsNotSet()
     {
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
 
         $service = new SitemapGenerator();
         $service->generate();

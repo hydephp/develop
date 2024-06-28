@@ -151,7 +151,7 @@ class GlobalMetadataBagTest extends TestCase
 
     protected function withEmptyConfig(): void
     {
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
         config(['hyde.meta' => []]);
         config(['hyde.rss.enabled' => false]);
         config(['hyde.generate_sitemap' => false]);

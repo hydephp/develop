@@ -869,7 +869,7 @@ class HydePageTest extends TestCase
 
     public function testCanonicalUrlIsNotSetWhenSiteUrlIsNull()
     {
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
 
         $page = new MarkdownPage('foo');
 
