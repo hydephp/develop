@@ -28,6 +28,15 @@ class SitemapFeatureTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists('_site/sitemap.xml');
+        $this->assertFileEqualsString($this->expected(), '_site/sitemap.xml');
+    }
+
+    protected function expected(): string
+    {
+        return <<<XML
+        <?xml version="1.0" encoding="UTF-8"?>
+        TODO
+        XML;
     }
 
     protected function setUpBroadSiteStructure(): void
