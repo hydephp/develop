@@ -26,4 +26,14 @@ class BuildSitemapCommandTest extends TestCase
 
         Filesystem::unlink('_site/sitemap.xml');
     }
+
+    public function testSitemapIsNotGeneratedWhenConditionsAreNotMet()
+    {
+        config(['hyde.url' => '']);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
+
+        $this->artisan('build:sitemap')->assertExitCode(0);
+        $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
+    }
 }
