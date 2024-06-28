@@ -9,6 +9,8 @@ use Hyde\Testing\TestCase;
 /**
  * High level test of the sitemap generation feature.
  *
+ * It contains a setup that covers all code paths, proving 100% coverage in actual usage.
+ *
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSitemapCommandTest
  *
