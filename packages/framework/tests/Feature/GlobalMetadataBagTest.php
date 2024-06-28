@@ -45,8 +45,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->withEmptyConfig();
 
-        config(['hyde.url' => 'foo']);
-        config(['hyde.generate_sitemap' => true]);
+        config(['hyde.url' => 'foo', 'hyde.generate_sitemap' => true]);
 
         $this->assertSame('<link rel="sitemap" href="foo/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
@@ -55,8 +54,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->withEmptyConfig();
 
-        config(['hyde.url' => 'bar']);
-        config(['hyde.generate_sitemap' => true]);
+        config(['hyde.url' => 'bar', 'hyde.generate_sitemap' => true]);
 
         $this->assertSame('<link rel="sitemap" href="bar/sitemap.xml" type="application/xml" title="Sitemap">', GlobalMetadataBag::make()->render());
     }
@@ -65,8 +63,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->withEmptyConfig();
 
-        config(['hyde.url' => 'foo']);
-        config(['hyde.rss.enabled' => true]);
+        config(['hyde.url' => 'foo', 'hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
         $this->assertSame('<link rel="alternate" href="foo/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
@@ -76,8 +73,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->withEmptyConfig();
 
-        config(['hyde.url' => 'bar']);
-        config(['hyde.rss.enabled' => true]);
+        config(['hyde.url' => 'bar', 'hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
         $this->assertSame('<link rel="alternate" href="bar/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">', GlobalMetadataBag::make()->render());
@@ -87,9 +83,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->withEmptyConfig();
 
-        config(['hyde.url' => 'foo']);
-        config(['hyde.name' => 'Site']);
-        config(['hyde.rss.enabled' => true]);
+        config(['hyde.url' => 'foo', 'hyde.name' => 'Site', 'hyde.rss.enabled' => true]);
         $config = config('hyde');
         unset($config['rss']['description']);
         config(['hyde' => $config]);
@@ -102,9 +96,7 @@ class GlobalMetadataBagTest extends TestCase
     {
         $this->withEmptyConfig();
 
-        config(['hyde.url' => 'foo']);
-        config(['hyde.rss.filename' => 'posts.rss']);
-        config(['hyde.rss.enabled' => true]);
+        config(['hyde.url' => 'foo', 'hyde.rss.filename' => 'posts.rss', 'hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
         $this->assertStringContainsString(
@@ -151,9 +143,6 @@ class GlobalMetadataBagTest extends TestCase
 
     protected function withEmptyConfig(): void
     {
-        $this->withoutSiteUrl();
-        config(['hyde.meta' => []]);
-        config(['hyde.rss.enabled' => false]);
-        config(['hyde.generate_sitemap' => false]);
+        config(['hyde.url' => null, 'hyde.meta' => [], 'hyde.rss.enabled' => false, 'hyde.generate_sitemap' => false]);
     }
 }
