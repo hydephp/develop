@@ -108,12 +108,6 @@ class SitemapGenerator extends BaseXmlGenerator
         return 'daily';
     }
 
-    /** @return numeric-string */
-    protected function getFormattedProcessingTime(): string
-    {
-        return (string) $this->getExecutionTimeInMs();
-    }
-
     protected function resolveRouteLink(Route $route): string
     {
         $baseUrl = Config::getNullableString('hyde.url');
@@ -126,5 +120,11 @@ class SitemapGenerator extends BaseXmlGenerator
         } else {
             return Hyde::url($route->getOutputPath());
         }
+    }
+
+    /** @return numeric-string */
+    protected function getFormattedProcessingTime(): string
+    {
+        return (string) $this->getExecutionTimeInMs();
     }
 }
