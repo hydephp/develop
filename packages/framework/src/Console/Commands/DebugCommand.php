@@ -40,7 +40,6 @@ class DebugCommand extends Command
         $this->info('HydePHP Debug Screen');
         $this->newLine();
 
-        $this->comment('Git Version: '.(string) app('git.version'));
         $this->comment('Hyde Version: '.((InstalledVersions::isInstalled('hyde/hyde') ? InstalledVersions::getPrettyVersion('hyde/hyde') : null) ?: 'unreleased'));
         $this->comment('Framework Version: '.(InstalledVersions::getPrettyVersion('hyde/framework') ?: 'unreleased'));
         $this->newLine();
