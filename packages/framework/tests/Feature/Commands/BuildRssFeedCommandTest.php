@@ -16,7 +16,7 @@ class BuildRssFeedCommandTest extends TestCase
 {
     public function testRssFeedIsGeneratedWhenConditionsAreMet()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         config(['hyde.rss.enabled' => true]);
         $this->file('_posts/foo.md');
 
@@ -29,7 +29,7 @@ class BuildRssFeedCommandTest extends TestCase
 
     public function testRssFilenameCanBeChanged()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         config(['hyde.rss.enabled' => true]);
         config(['hyde.rss.filename' => 'blog.xml']);
         $this->file('_posts/foo.md');

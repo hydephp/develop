@@ -24,51 +24,79 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->class = new Hyperlinks(HydeKernel::getInstance());
     }
 
+    public function testHasSiteUrlReturnsFalseWhenSiteUrlIsNotSet()
+    {
+        $this->withoutSiteUrl();
+
+        $this->assertFalse($this->class->hasSiteUrl());
+    }
+
     public function testHasSiteUrlReturnsFalseWhenNoSiteUrlIsSet()
     {
-        config(['hyde.url' => null]);
+        $this->withSiteUrl(null);
+
+        $this->assertFalse($this->class->hasSiteUrl());
+    }
+
+    public function testHasSiteUrlReturnsFalseWhenSiteUrlIsEmpty()
+    {
+        $this->withSiteUrl('');
+
+        $this->assertFalse($this->class->hasSiteUrl());
+    }
+
+    public function testHasSiteUrlReturnsFalseWhenSiteUrlIsLocalhost()
+    {
+        $this->withSiteUrl('http://localhost');
 
         $this->assertFalse($this->class->hasSiteUrl());
     }
 
     public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSet()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
+
+        $this->assertTrue($this->class->hasSiteUrl());
+    }
+
+    public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSetEvenIfUrlIsInvalid()
+    {
+        $this->withSiteUrl('foo');
 
         $this->assertTrue($this->class->hasSiteUrl());
     }
 
     public function testQualifiedUrlReturnsSiteUrlWhenNoPathIsGiven()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com', $this->class->url());
     }
 
     public function testQualifiedUrlReturnsSiteUrlPlusGivenPath()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/path', $this->class->url('path'));
     }
 
     public function testQualifiedUrlReturnsSiteUrlPlusGivenPathWithExtension()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/path.html', $this->class->url('path.html'));
     }
 
     public function testQualifiedUrlReturnsSiteUrlPlusGivenPathWithExtensionAndQueryString()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/path.html?query=string', $this->class->url('path.html?query=string'));
     }
 
     public function testQualifiedUrlTrimsTrailingSlashes()
     {
-        config(['hyde.url' => 'https://example.com/']);
+        $this->withSiteUrl('https://example.com/');
 
         $this->assertSame('https://example.com', $this->class->url());
         $this->assertSame('https://example.com', $this->class->url('/'));
@@ -77,14 +105,14 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testQualifiedUrlAcceptsMultipleSchemes()
     {
-        config(['hyde.url' => 'http://example.com']);
+        $this->withSiteUrl('http://example.com');
 
         $this->assertSame('http://example.com', $this->class->url());
     }
 
     public function testQualifiedUrlThrowsExceptionWhenNoSiteUrlIsSet()
     {
-        config(['hyde.url' => null]);
+        $this->withSiteUrl(null);
 
         $this->expectException(BaseUrlNotSetException::class);
         $this->expectExceptionMessage('No site URL has been set in config (or .env).');
@@ -94,7 +122,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHelperFallsBackToRelativeLinksWhenNoSiteUrlIsSet()
     {
-        config(['hyde.url' => '']);
+        $this->withSiteUrl('');
 
         $this->assertSame('index.html', $this->class->url('index.html'));
         $this->assertSame('foo.html', $this->class->url('foo.html'));
@@ -114,7 +142,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHelperFallsBackToRelativeLinksWhenSiteUrlIsSetToLocalhost()
     {
-        config(['hyde.url' => 'http://localhost']);
+        $this->withSiteUrl('http://localhost');
 
         $this->assertSame('index.html', $this->class->url('index.html'));
         $this->assertSame('foo.html', $this->class->url('foo.html'));
@@ -134,7 +162,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHelperReturnsExpectedStringWhenSiteUrlIsSet()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/foo/bar.html', $this->class->url('foo/bar.html'));
     }

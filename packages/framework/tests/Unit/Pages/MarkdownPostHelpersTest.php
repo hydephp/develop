@@ -20,7 +20,7 @@ class MarkdownPostHelpersTest extends TestCase
 
     public function testGetCanonicalLinkReturnsCanonicalUriPathForPostSlug()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         $post = new MarkdownPost('foo-bar');
         $this->assertSame('https://example.com/posts/foo-bar.html', $post->getCanonicalUrl());
     }

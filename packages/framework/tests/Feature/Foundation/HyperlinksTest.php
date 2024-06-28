@@ -62,7 +62,7 @@ class HyperlinksTest extends TestCase
 
     public function testAssetHelperReturnsDefaultRelativePathWhenQualifiedAbsoluteUriIsRequestedButSiteHasNoBaseUrl()
     {
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
         $this->assertSame('media/test.jpg', $this->class->asset('test.jpg', true));
     }
 
