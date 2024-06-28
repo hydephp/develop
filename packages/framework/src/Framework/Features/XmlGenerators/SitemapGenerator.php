@@ -67,7 +67,7 @@ class SitemapGenerator extends BaseXmlGenerator
         // The default priority, unless we find a better match.
         $priority = 0.5;
 
-        if (in_array($pageClass, [BladePage::class, MarkdownPage::class])) {
+        if (in_array($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
             // These pages are usually high up in the site hierarchy, so they get a higher priority.
             $priority = 0.9;
 
@@ -75,11 +75,6 @@ class SitemapGenerator extends BaseXmlGenerator
                 // The homepage is the most important page, so it gets the highest priority.
                 $priority = 1;
             }
-        }
-
-        if ($pageClass === DocumentationPage::class) {
-            // If a site has documentation pages, they are usually important as well.
-            $priority = 0.9;
         }
 
         if ($pageClass === MarkdownPost::class) {
