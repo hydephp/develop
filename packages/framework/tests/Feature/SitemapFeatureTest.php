@@ -6,6 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 
+/**
+ * High level test of the sitemap generation feature.
+ */
 class SitemapFeatureTest extends TestCase
 {
     //
