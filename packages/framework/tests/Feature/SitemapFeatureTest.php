@@ -30,8 +30,7 @@ class SitemapFeatureTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists('_site/sitemap.xml');
-        $this->assertFileEqualsString(
-            '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected()), '_site/sitemap.xml');
+        $this->assertFileEqualsString('<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected()), '_site/sitemap.xml');
     }
 
     protected function expected(): string
