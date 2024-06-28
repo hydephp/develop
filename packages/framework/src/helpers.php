@@ -22,7 +22,7 @@ namespace {
          *
          * @deprecated This function will be replaced by {@see \Hyde\unslash()} in v2.0
          */
-        #[Deprecated(reason: 'Replaced by the \Hyde\unslash() function', replacement: '\Hyde\unslash()', since: '1.7.0')]
+        #[Deprecated(reason: 'Replaced by the \Hyde\unslash() function', replacement: '\Hyde\unslash(%parametersList%)', since: '1.7.0')]
         function unslash(string $string): string
         {
             return \Hyde\unslash($string);
