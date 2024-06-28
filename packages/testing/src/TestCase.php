@@ -19,6 +19,7 @@ abstract class TestCase extends BaseTestCase
     use ResetsApplication;
     use CreatesTemporaryFiles;
     use InteractsWithPages;
+    use FluentTestingHelpers;
 
     protected static bool $booted = false;
 
