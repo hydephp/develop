@@ -18,5 +18,8 @@ use Hyde\Testing\TestCase;
  */
 class SitemapFeatureTest extends TestCase
 {
-    //
+    public function testTheSitemapFeature()
+    {
+        //
+    }
 }
