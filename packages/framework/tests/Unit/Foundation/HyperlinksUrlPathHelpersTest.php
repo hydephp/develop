@@ -38,6 +38,13 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->assertFalse($this->class->hasSiteUrl());
     }
 
+    public function testHasSiteUrlReturnsFalseWhenSiteUrlIsLocalhost()
+    {
+        config(['hyde.url' => 'http://localhost']);
+
+        $this->assertFalse($this->class->hasSiteUrl());
+    }
+
     public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSet()
     {
         $this->withSiteUrl();
