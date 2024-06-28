@@ -44,7 +44,7 @@ class SitemapFeatureTest extends TestCase
 
     protected function expected(): string
     {
-        return <<<XML
+        return <<<'XML'
         <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP {{ dynamic }}" processing_time_ms="{{ dynamic }}">
             <url>
                 <loc>https://example.com/contact.html</loc>
