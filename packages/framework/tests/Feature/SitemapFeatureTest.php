@@ -26,6 +26,8 @@ class SitemapFeatureTest extends TestCase
         $this->artisan('build:sitemap')
             ->expectsOutputToContain('Created _site/sitemap.xml')
             ->assertExitCode(0);
+
+        $this->assertFileExists('_site/sitemap.xml');
     }
 
     protected function setUpBroadSiteStructure(): void
