@@ -77,6 +77,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function getPriority(string $pageClass, string $identifier): string
     {
+        // The default priority, unless we find a better match.
         $priority = 0.5;
 
         if (in_array($pageClass, [BladePage::class, MarkdownPage::class])) {
