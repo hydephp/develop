@@ -9,7 +9,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Process;
 use TypeError;
-use Hyde\RealtimeCompiler\ConsoleOutput;
 
 /**
  * @covers \Hyde\Console\Commands\ServeCommand
@@ -166,10 +165,6 @@ class ServeCommandTest extends TestCase
 
     public function testWithFancyOutput()
     {
-        if (! class_exists(ConsoleOutput::class)) {
-            $this->markTestSkipped('ConsoleOutput class not found.');
-        }
-
         Process::fake(['php -S localhost:8080 {$this->binaryPath()}' => 'foo']);
 
         $this->artisan('serve')
