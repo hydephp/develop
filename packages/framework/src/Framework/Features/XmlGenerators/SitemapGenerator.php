@@ -64,6 +64,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * @return numeric-string
      */
     protected function generatePriority(string $pageClass, string $identifier): string
     {
