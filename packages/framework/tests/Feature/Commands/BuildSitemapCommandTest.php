@@ -40,7 +40,7 @@ class BuildSitemapCommandTest extends TestCase
             ->expectsOutputToContain('Generating sitemap...')
             ->expectsOutputToContain('Skipped')
             ->expectsOutput(' > Cannot generate sitemap without a valid base URL')
-            ->assertExitCode(0);
+            ->assertExitCode(3);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
     }
