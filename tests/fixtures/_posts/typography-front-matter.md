@@ -21,7 +21,7 @@ image:
 
 <!-- Fixture from https://github.com/tailwindlabs/tailwindcss-typography/blob/master/demo/components/MarkdownSampleShort.mdx, licensed under the MIT license. -->
 
-<p className="lead">
+<p class="lead">
   Until now, trying to style an article, document, or blog post with Tailwind has been a very
   tedious task.
 </p>
@@ -30,7 +30,7 @@ The `@tailwindcss/typography` plugin is our attempt to give you what you _actual
 
 > Why is Tailwind removing the default styles on my `h1` elements? How do I disable this? What do you mean I lose all the other base styles too?
 
-<div className="not-prose">
+<div class="not-prose">
   <h2>Shouldn't be colored</h2>
 </div>
 

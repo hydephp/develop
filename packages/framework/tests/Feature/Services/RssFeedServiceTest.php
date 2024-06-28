@@ -41,7 +41,7 @@ class RssFeedServiceTest extends TestCase
     public function testXmlChannelElementHasRequiredElements()
     {
         config(['hyde.name' => 'Test Blog']);
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         config(['hyde.rss.description' => 'Test Blog RSS Feed']);
 
         $service = new RssFeedGenerator();
@@ -57,7 +57,7 @@ class RssFeedServiceTest extends TestCase
 
     public function testXmlChannelElementHasAdditionalElements()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $service = new RssFeedGenerator();
 
@@ -102,7 +102,7 @@ class RssFeedServiceTest extends TestCase
             MD
         );
 
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         file_put_contents(Hyde::path('_media/rss-test.jpg'), 'statData'); // 8 bytes to test stat gets file length
 
@@ -150,7 +150,7 @@ class RssFeedServiceTest extends TestCase
 
     public function testCanGenerateFeedHelperReturnsFalseIfHydeDoesNotHaveBaseUrl()
     {
-        config(['hyde.url' => '']);
+        $this->withoutSiteUrl();
         $this->file('_posts/foo.md');
 
         $this->assertFalse(Features::rss());

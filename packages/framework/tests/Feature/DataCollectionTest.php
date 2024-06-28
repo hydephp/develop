@@ -34,11 +34,23 @@ class DataCollectionTest extends TestCase
     {
         $this->directory('resources/collections/foo');
         $this->markdown('resources/collections/foo/foo.yaml', matter: ['title' => 'Foo']);
-        $this->file('resources/collections/foo/bar.yml');
+        $this->file('resources/collections/foo/bar.yml', "---\ntitle: Bar\n---");
+        $this->file('resources/collections/foo/baz.yml');
 
         $this->assertEquals(new DataCollections([
             'foo/foo.yaml' => new FrontMatter(['title' => 'Foo']),
-            'foo/bar.yml' => new FrontMatter([]),
+            'foo/bar.yml' => new FrontMatter(['title' => 'Bar']),
+            'foo/baz.yml' => new FrontMatter([]),
+        ]), DataCollections::yaml('foo'));
+    }
+
+    public function testYamlCollectionsWithoutTripleDashes()
+    {
+        $this->directory('resources/collections/foo');
+        $this->file('resources/collections/foo/foo.yml', 'title: Foo');
+
+        $this->assertEquals(new DataCollections([
+            'foo/foo.yml' => new FrontMatter(['title' => 'Foo']),
         ]), DataCollections::yaml('foo'));
     }
 
