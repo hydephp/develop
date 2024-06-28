@@ -17,7 +17,7 @@ class BuildSitemapCommandTest extends TestCase
     public function testSitemapIsGeneratedWhenConditionsAreMet()
     {
         config(['hyde.url' => 'https://example.com']);
-        config(['hyde.generate_sitemap' => true]);
+        // config(['hyde.generate_sitemap' => true]); This is only applied when calling the main build command. If the user calls this command directly, it will always generate the sitemap as long as the URL is set.
 
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
 
