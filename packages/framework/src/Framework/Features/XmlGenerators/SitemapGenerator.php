@@ -72,10 +72,10 @@ class SitemapGenerator extends BaseXmlGenerator
             if ($identifier === 'index') {
                 $priority = 1;
             }
+        }
 
-            if ($identifier === '404') {
-                $priority = 0.5;
-            }
+        if ($identifier === '404') {
+            $priority = 0.5;
         }
 
         if ($pageClass === DocumentationPage::class) {
