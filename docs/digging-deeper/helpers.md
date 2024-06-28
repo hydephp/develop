@@ -209,7 +209,7 @@ A benefit of using the global function is that it may have better IDE support.
 
 ### `asset`
 
-This is an alias of the `Hyde::asset()` facade method and allows you to get a relative link or URL to an asset in the media directory. 
+This is an alias of the `Hyde::asset()` facade method and allows you to get a relative link or URL to an asset in the media directory.
 
 ```php
 asset('image.png'); // Returns a relative web link to the given image

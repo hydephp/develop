@@ -16,6 +16,7 @@ use function implode;
 use function json_decode;
 use function sprintf;
 use function unslash;
+use function str_starts_with;
 
 /**
  * Automatically generates Laravel Collections from static data files,
