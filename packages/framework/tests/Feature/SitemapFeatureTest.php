@@ -145,8 +145,14 @@ class SitemapFeatureTest extends TestCase
         return implode('', array_map('trim', explode("\n", $xml)));
     }
 
+    protected function expandLines(string $xml): string
+    {
+        // Expand the XML to make it easier to read in the test output.
+        return str_replace('><', ">\n<", $xml);
+    }
+
     protected function assertSameXml(string $expected, string $actual): void
     {
-        $this->assertSame($expected, $actual);
+        $this->assertSame($this->expandLines($expected), $this->expandLines($actual));
     }
 }
