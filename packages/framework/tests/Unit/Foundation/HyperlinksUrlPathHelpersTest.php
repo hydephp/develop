@@ -31,6 +31,13 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->assertFalse($this->class->hasSiteUrl());
     }
 
+    public function testHasSiteUrlReturnsFalseWhenSiteUrlIsEmpty()
+    {
+        config(['hyde.url' => '']);
+
+        $this->assertFalse($this->class->hasSiteUrl());
+    }
+
     public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSet()
     {
         $this->withSiteUrl();
