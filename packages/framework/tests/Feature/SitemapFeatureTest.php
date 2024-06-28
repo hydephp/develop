@@ -21,6 +21,7 @@ class SitemapFeatureTest extends TestCase
     public function testTheSitemapFeature()
     {
         $this->setUpBroadSiteStructure();
+        $this->withSiteUrl();
     }
 
     protected function setUpBroadSiteStructure(): void
