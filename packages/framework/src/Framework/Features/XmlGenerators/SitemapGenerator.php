@@ -48,8 +48,8 @@ class SitemapGenerator extends BaseXmlGenerator
 
         $this->addChild($urlItem, 'loc', $this->resolveRouteLink($route));
         $this->addChild($urlItem, 'lastmod', $this->getLastModDate($route->getSourcePath()));
-        $this->addChild($urlItem, 'changefreq', $this->generateChangeFrequency($route->getPageClass(), $route->getPage()->getIdentifier()));
-        $this->addChild($urlItem, 'priority', $this->generatePriority($route->getPageClass(), $route->getPage()->getIdentifier()));
+        $this->addChild($urlItem, 'changefreq', $this->generateChangeFrequency(...$this->getRouteInformation($route)));
+        $this->addChild($urlItem, 'priority', $this->generatePriority(...$this->getRouteInformation($route)));
     }
 
     protected function getLastModDate(string $file): string
@@ -98,5 +98,10 @@ class SitemapGenerator extends BaseXmlGenerator
     protected function resolveRouteLink(Route $route): string
     {
         return Hyde::url($route->getOutputPath());
+    }
+
+    protected function getRouteInformation(Route $route): array
+    {
+        return [$route->getPageClass(), $route->getPage()->getIdentifier()];
     }
 }
