@@ -61,9 +61,11 @@ class SitemapGenerator extends BaseXmlGenerator
     protected function getLastModDate(string $file): string
     {
         $timestamp = @Filesystem::lastModified($file);
+
         if (! $timestamp) {
             $timestamp = time();
         }
+
         return date('c', $timestamp);
     }
 
