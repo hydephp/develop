@@ -57,6 +57,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return date('c', @Filesystem::lastModified($file) ?: Carbon::now()->timestamp);
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     protected function generatePriority(string $pageClass, string $identifier): string
     {
         $priority = 0.5;
@@ -80,6 +81,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return (string) $priority;
     }
 
+    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     protected function generateChangeFrequency(string $pageClass, string $identifier): string
     {
         $frequency = 'weekly';
@@ -100,6 +102,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return Hyde::url($route->getOutputPath());
     }
 
+    /** @return array{class-string<\Hyde\Pages\Concerns\HydePage>, string} */
     protected function getRouteInformation(Route $route): array
     {
         return [$route->getPageClass(), $route->getPage()->getIdentifier()];
