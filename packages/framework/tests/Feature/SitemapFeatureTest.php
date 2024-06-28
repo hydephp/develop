@@ -11,6 +11,10 @@ use Hyde\Testing\TestCase;
  *
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSitemapCommandTest
+ *
+ * @covers \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
+ * @covers \Hyde\Console\Commands\BuildSitemapCommand
  */
 class SitemapFeatureTest extends TestCase
 {
