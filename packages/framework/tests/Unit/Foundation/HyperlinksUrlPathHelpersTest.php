@@ -24,6 +24,13 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->class = new Hyperlinks(HydeKernel::getInstance());
     }
 
+    public function testHasSiteUrlReturnsFalseWhenSiteUrlIsNotSet()
+    {
+        $this->withoutSiteUrl();
+
+        $this->assertFalse($this->class->hasSiteUrl());
+    }
+
     public function testHasSiteUrlReturnsFalseWhenNoSiteUrlIsSet()
     {
         $this->withSiteUrl(null);
@@ -48,6 +55,13 @@ class HyperlinksUrlPathHelpersTest extends TestCase
     public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSet()
     {
         $this->withSiteUrl();
+
+        $this->assertTrue($this->class->hasSiteUrl());
+    }
+
+    public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSetEvenIfUrlIsInvalid()
+    {
+        $this->withSiteUrl('foo');
 
         $this->assertTrue($this->class->hasSiteUrl());
     }
