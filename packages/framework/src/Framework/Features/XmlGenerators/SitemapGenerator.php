@@ -60,7 +60,11 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function getLastModDate(string $file): string
     {
-        return date('c', @filemtime($file) ?: time());
+        if (@filemtime($file)) {
+            return date('c', @filemtime($file));
+        } else {
+            return date('c', time());
+        }
     }
 
     protected function getPriority(string $pageClass, string $identifier): string
