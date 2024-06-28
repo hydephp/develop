@@ -22,6 +22,7 @@ class SitemapFeatureTest extends TestCase
 {
     public function testTheSitemapFeature()
     {
+        $this->cleanUpWhenDone('_site/sitemap.xml');
         $this->setUpBroadSiteStructure();
         $this->withSiteUrl();
 
