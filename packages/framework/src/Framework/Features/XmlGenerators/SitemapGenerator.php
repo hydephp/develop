@@ -14,13 +14,13 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Facades\Filesystem;
 use Hyde\Support\Models\Route;
+use Illuminate\Support\Carbon;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 
 use function blank;
 use function in_array;
 use function date;
-use function time;
 use function str_starts_with;
 
 /**
@@ -63,7 +63,7 @@ class SitemapGenerator extends BaseXmlGenerator
         $timestamp = @Filesystem::lastModified($file);
 
         if (! $timestamp) {
-            $timestamp = time();
+            $timestamp = Carbon::now()->timestamp;
         }
 
         return date('c', $timestamp);
