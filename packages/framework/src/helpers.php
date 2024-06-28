@@ -44,7 +44,7 @@ namespace {
              */
             function route(string $key): ?Hyde\Support\Models\Route
             {
-                return hyde()->route($key);
+                return hyde()->routes()->getRoute($key);
             }
         }
 
