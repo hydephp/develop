@@ -112,10 +112,7 @@ class GlobalMetadataBagTest extends TestCase
         $duplicate = Meta::name('remove', 'me');
         $keep = Meta::name('keep', 'this');
 
-        config(['hyde.meta' => [
-            $duplicate,
-            $keep,
-        ]]);
+        config(['hyde.meta' => [$duplicate, $keep]]);
 
         $page = new MarkdownPage('foo');
         $page->metadata->add($duplicate);
@@ -143,6 +140,11 @@ class GlobalMetadataBagTest extends TestCase
 
     protected function withEmptyConfig(): void
     {
-        config(['hyde.url' => null, 'hyde.meta' => [], 'hyde.rss.enabled' => false, 'hyde.generate_sitemap' => false]);
+        config([
+            'hyde.url' => null,
+            'hyde.meta' => [],
+            'hyde.rss.enabled' => false,
+            'hyde.generate_sitemap' => false
+        ]);
     }
 }
