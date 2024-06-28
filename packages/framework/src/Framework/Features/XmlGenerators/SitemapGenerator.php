@@ -61,7 +61,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
         $this->addChild($urlItem, 'loc', $this->resolveRouteLink($route));
         $this->addChild($urlItem, 'lastmod', $this->getLastModDate($route->getSourcePath()));
-        $this->addChild($urlItem, 'changefreq', $this->getChangeFrequency());
+        $this->addChild($urlItem, 'changefreq', $this->getChangeFrequency($route->getPageClass(), $route->getPage()->getIdentifier()));
 
         if (Config::getBool('hyde.sitemap.dynamic_priority', true)) {
             $this->addChild($urlItem, 'priority', $this->getPriority(
@@ -100,7 +100,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return (string) $priority;
     }
 
-    protected function getChangeFrequency(): string
+    protected function getChangeFrequency(string $pageClass, string $slug): string
     {
         return 'daily';
     }
