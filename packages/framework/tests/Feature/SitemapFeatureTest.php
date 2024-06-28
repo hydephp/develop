@@ -33,7 +33,7 @@ class SitemapFeatureTest extends TestCase
         // TODO: Fix dynamic data in comparison
         $expected = '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected());
         $actual = file_get_contents('_site/sitemap.xml');
-        $this->assertSame($expected, $actual);
+        $this->assertSame($this->stripDynamicData($expected), $this->stripDynamicData($actual));
     }
 
     protected function expected(): string
@@ -131,5 +131,10 @@ class SitemapFeatureTest extends TestCase
     protected function stripFormatting(string $xml): string
     {
         return str_replace("\n", '', $xml);
+    }
+
+    protected function stripDynamicData(string $string): string
+    {
+        return $string;
     }
 }
