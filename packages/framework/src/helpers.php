@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace {
     use Hyde\Foundation\HydeKernel;
+    use JetBrains\PhpStorm\Deprecated;
 
     if (! function_exists('hyde')) {
         /**
@@ -18,10 +19,15 @@ namespace {
     if (! function_exists('unslash')) {
         /**
          * Remove trailing slashes from the start and end of a string.
+         *
+         * @deprecated This function will be replaced by {@see \Hyde\unslash()} in v2.0
+         *
+         * @codeCoverageIgnore This function is deprecated and will be removed in a future release.
          */
+        #[Deprecated(reason: 'Replaced by the \Hyde\unslash() function', replacement: '\Hyde\unslash(%parametersList%)', since: '1.7.0')]
         function unslash(string $string): string
         {
-            return trim($string, '/\\');
+            return \Hyde\unslash($string);
         }
     }
 

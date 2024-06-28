@@ -38,31 +38,31 @@ class HelpersTest extends TestCase
         $this->assertSame(Hyde::path(), hyde()->path());
     }
 
-    /** @covers ::unslash */
+    /** @covers ::\Hyde\unslash */
     public function testUnslashFunctionExists()
     {
-        $this->assertTrue(function_exists('unslash'));
+        $this->assertTrue(function_exists('Hyde\unslash'));
     }
 
-    /** @covers ::unslash */
+    /** @covers ::\Hyde\unslash */
     public function testUnslashFunctionTrimsTrailingSlashes()
     {
         $tests = ['foo',  '/foo',  'foo/',  '/foo/',  '\foo\\',  '\\/foo/\\'];
 
         foreach ($tests as $test) {
-            $this->assertSame('foo', unslash($test));
+            $this->assertSame('foo', \Hyde\unslash($test));
         }
 
         $tests = ['',  '/',  '\\',  '/\\'];
 
         foreach ($tests as $test) {
-            $this->assertSame('', unslash($test));
+            $this->assertSame('', \Hyde\unslash($test));
         }
 
         $tests = ['foo/bar',  'foo/bar/',  'foo/bar\\',  '\\/foo/bar/\\'];
 
         foreach ($tests as $test) {
-            $this->assertSame('foo/bar', unslash($test));
+            $this->assertSame('foo/bar', \Hyde\unslash($test));
         }
     }
 
@@ -224,7 +224,7 @@ class HelpersTest extends TestCase
     /** @covers ::\Hyde\unslash */
     public function testNamespacedUnslashFunction()
     {
-        $this->assertSame(unslash('foo'), \Hyde\unslash('foo'));
+        $this->assertSame(\Hyde\unslash('foo'), \Hyde\unslash('foo'));
     }
 
     /** @covers ::\Hyde\unixsum */

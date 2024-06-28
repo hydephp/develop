@@ -13,7 +13,7 @@ use function class_basename;
 use function array_unique;
 use function array_merge;
 use function base_path;
-use function unslash;
+use function Hyde\unslash;
 
 /**
  * This trait registers the file paths for important Hyde locations.
