@@ -28,7 +28,6 @@ class SitemapFeatureTest extends TestCase
     public function testTheSitemapFeature()
     {
         Carbon::setTestNow('2024-01-01 12:00:00');
-
         $filesystem = Mockery::mock(Filesystem::class)->makePartial();
         $filesystem->shouldReceive('lastModified')->andReturn(Carbon::now()->timestamp);
         File::swap($filesystem);
@@ -43,8 +42,10 @@ class SitemapFeatureTest extends TestCase
 
         $this->assertFileExists('_site/sitemap.xml');
 
-        $expected =  '<?xml version="1.0" encoding="UTF-8"?>'."\n{$this->stripFormatting($this->expected(Hyde::version()))}\n";
-        $this->assertSame($expected, file_get_contents('_site/sitemap.xml'));
+        $this->assertSame(
+            '<?xml version="1.0" encoding="UTF-8"?>'."\n{$this->stripFormatting($this->expected(Hyde::version()))}\n",
+            file_get_contents('_site/sitemap.xml')
+        );
     }
 
     protected function expected(string $version): string
