@@ -37,11 +37,6 @@ class SitemapGenerator extends BaseXmlGenerator
         return $this;
     }
 
-    public function getXml(): string
-    {
-        return parent::getXml();
-    }
-
     protected function constructBaseElement(): void
     {
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
