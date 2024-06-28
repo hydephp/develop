@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Filesystem\Filesystem;
 
 /**
  * High level test of the sitemap generation feature.
@@ -28,7 +29,7 @@ class SitemapFeatureTest extends TestCase
     {
         Carbon::setTestNow('2024-01-01 12:00:00');
 
-        $filesystem = Mockery::mock(\Illuminate\Filesystem\Filesystem::class)->makePartial();
+        $filesystem = Mockery::mock(Filesystem::class)->makePartial();
         $filesystem->shouldReceive('lastModified')->andReturn(Carbon::now()->timestamp);
         File::swap($filesystem);
 
