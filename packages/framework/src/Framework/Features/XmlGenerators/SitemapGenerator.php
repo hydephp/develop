@@ -8,7 +8,6 @@ namespace Hyde\Framework\Features\XmlGenerators;
 
 use Hyde\Hyde;
 use SimpleXMLElement;
-use Hyde\Facades\Config;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
@@ -50,12 +49,7 @@ class SitemapGenerator extends BaseXmlGenerator
         $this->addChild($urlItem, 'loc', $this->resolveRouteLink($route));
         $this->addChild($urlItem, 'lastmod', $this->getLastModDate($route->getSourcePath()));
         $this->addChild($urlItem, 'changefreq', $this->getChangeFrequency($route->getPageClass(), $route->getPage()->getIdentifier()));
-
-        if (Config::getBool('hyde.sitemap.dynamic_priority', true)) {
-            $this->addChild($urlItem, 'priority', $this->getPriority(
-                $route->getPageClass(), $route->getPage()->getIdentifier()
-            ));
-        }
+        $this->addChild($urlItem, 'priority', $this->getPriority($route->getPageClass(), $route->getPage()->getIdentifier()));
     }
 
     protected function getLastModDate(string $file): string
