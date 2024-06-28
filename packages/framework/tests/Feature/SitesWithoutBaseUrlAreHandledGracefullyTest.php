@@ -45,7 +45,7 @@ class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
     /** @dataProvider pageClassProvider */
     public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(string $class)
     {
-        config(['hyde.url' => '']);
+        $this->withoutSiteUrl();
 
         $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
     }

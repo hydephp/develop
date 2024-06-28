@@ -153,7 +153,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function testSitemapIsNotGeneratedWhenConditionsAreNotMet()
     {
-        config(['hyde.url' => '']);
+        $this->withoutSiteUrl();
         config(['hyde.generate_sitemap' => false]);
 
         $this->artisan('build')
@@ -174,7 +174,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function testRssFeedIsNotGeneratedWhenConditionsAreNotMet()
     {
-        config(['hyde.url' => '']);
+        $this->withoutSiteUrl();
         config(['hyde.rss.enabled' => false]);
 
         $this->artisan('build')

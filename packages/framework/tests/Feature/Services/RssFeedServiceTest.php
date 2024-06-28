@@ -150,7 +150,7 @@ class RssFeedServiceTest extends TestCase
 
     public function testCanGenerateFeedHelperReturnsFalseIfHydeDoesNotHaveBaseUrl()
     {
-        config(['hyde.url' => '']);
+        $this->withoutSiteUrl();
         $this->file('_posts/foo.md');
 
         $this->assertFalse(Features::rss());
