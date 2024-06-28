@@ -13,6 +13,7 @@ use Hyde\Console\Concerns\Command;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 
+use function rtrim;
 use function sprintf;
 use function in_array;
 use function str_replace;

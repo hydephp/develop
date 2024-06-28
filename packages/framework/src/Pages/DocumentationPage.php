@@ -12,7 +12,7 @@ use Hyde\Support\Models\Route;
 
 use function trim;
 use function sprintf;
-use function unslash;
+use function Hyde\unslash;
 use function basename;
 
 /**

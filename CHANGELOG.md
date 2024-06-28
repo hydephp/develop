@@ -46,9 +46,9 @@ You can see the changes to make in your Hyde project by looking at the following
 Your new config array should look like this:
 
 ```php
-    // Make sure to import the new Feature enum at the top of the file 
+    // Make sure to import the new Feature enum at the top of the file
     use Hyde\Enums\Feature;
-    
+
     // Then replace your enabled features with the new Feature enum cases
     'features' => [
         // Page Modules

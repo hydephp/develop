@@ -17,7 +17,7 @@ use function str_replace;
 use function array_map;
 use function is_array;
 use function str_starts_with;
-use function unslash;
+use function Hyde\unslash;
 use function unlink;
 use function touch;
 

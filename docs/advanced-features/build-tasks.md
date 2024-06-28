@@ -185,7 +185,7 @@ public function handle(): void
 {
     if ($this->someCondition() !== true) {
         $this->skip('Some condition was not met');
-        
+
         // The task will not be executed past this point
     }
 }

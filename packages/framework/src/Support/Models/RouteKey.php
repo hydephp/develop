@@ -7,7 +7,7 @@ namespace Hyde\Support\Models;
 use Stringable;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 
-use function unslash;
+use function Hyde\unslash;
 
 /**
  * Route keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.

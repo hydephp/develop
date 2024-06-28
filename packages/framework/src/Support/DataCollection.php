@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use function blank;
 use function implode;
 use function sprintf;
-use function unslash;
+use function Hyde\unslash;
 use function json_decode;
 use function json_last_error_msg;
 

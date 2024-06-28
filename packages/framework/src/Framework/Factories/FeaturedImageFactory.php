@@ -13,7 +13,7 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
 use function str_starts_with;
 use function is_string;
-use function unslash;
+use function Hyde\unslash;
 
 class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedImageSchema
 {

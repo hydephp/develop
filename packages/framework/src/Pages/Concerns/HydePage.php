@@ -25,7 +25,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
 
-use function unslash;
+use function Hyde\unslash;
 use function filled;
 use function ltrim;
 use function rtrim;
