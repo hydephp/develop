@@ -26,7 +26,7 @@ This serves two purposes:
 - Deprecated the global `unslash()` function, replaced with the existing namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1753
 
 ### Removed
-- for now removed features.
+- The Git version is no longer displayed in the debug screen and dashboard in https://github.com/hydephp/develop/pull/1756
 
 ### Fixed
 - Fixed explicitly set front matter navigation group behavior being dependent on subdirectory configuration, fixing https://github.com/hydephp/develop/issues/1515 in https://github.com/hydephp/develop/pull/1703
