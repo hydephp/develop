@@ -29,6 +29,7 @@ This serves two purposes:
 - Minor: `Includes::path()` and  `Includes::get()` methods now normalizes paths to be basenames to match the behaviour of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
 - Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
 - Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
+- Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
 - The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
 - Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
 - Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
