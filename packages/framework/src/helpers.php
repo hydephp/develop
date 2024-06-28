@@ -18,6 +18,8 @@ namespace {
     if (! function_exists('unslash')) {
         /**
          * Remove trailing slashes from the start and end of a string.
+         *
+         * @deprecated This function will be replaced by {@see \Hyde\unslash()} in v2.0
          */
         function unslash(string $string): string
         {
