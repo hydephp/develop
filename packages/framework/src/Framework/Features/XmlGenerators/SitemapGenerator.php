@@ -52,6 +52,11 @@ class SitemapGenerator extends BaseXmlGenerator
         $this->addChild($urlItem, 'priority', $this->generatePriority(...$this->getRouteInformation($route)));
     }
 
+    protected function resolveRouteLink(Route $route): string
+    {
+        return Hyde::url($route->getOutputPath());
+    }
+
     protected function getLastModDate(string $file): string
     {
         return date('c', @Filesystem::lastModified($file) ?: Carbon::now()->timestamp);
@@ -95,11 +100,6 @@ class SitemapGenerator extends BaseXmlGenerator
         }
 
         return $frequency;
-    }
-
-    protected function resolveRouteLink(Route $route): string
-    {
-        return Hyde::url($route->getOutputPath());
     }
 
     /** @return array{class-string<\Hyde\Pages\Concerns\HydePage>, string} */
