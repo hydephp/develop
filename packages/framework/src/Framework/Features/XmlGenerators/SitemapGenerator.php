@@ -48,8 +48,8 @@ class SitemapGenerator extends BaseXmlGenerator
 
         $this->addChild($urlItem, 'loc', $this->resolveRouteLink($route));
         $this->addChild($urlItem, 'lastmod', $this->getLastModDate($route->getSourcePath()));
-        $this->addChild($urlItem, 'changefreq', $this->getChangeFrequency($route->getPageClass(), $route->getPage()->getIdentifier()));
-        $this->addChild($urlItem, 'priority', $this->getPriority($route->getPageClass(), $route->getPage()->getIdentifier()));
+        $this->addChild($urlItem, 'changefreq', $this->generateChangeFrequency($route->getPageClass(), $route->getPage()->getIdentifier()));
+        $this->addChild($urlItem, 'priority', $this->generatePriority($route->getPageClass(), $route->getPage()->getIdentifier()));
     }
 
     protected function getLastModDate(string $file): string
@@ -58,7 +58,7 @@ class SitemapGenerator extends BaseXmlGenerator
     }
 
     /** Intelligently find a good priority for the given page based on assumptions about the site structure. */
-    protected function getPriority(string $pageClass, string $identifier): string
+    protected function generatePriority(string $pageClass, string $identifier): string
     {
         // The default priority, unless we find a better match.
         $priority = 0.5;
@@ -88,7 +88,7 @@ class SitemapGenerator extends BaseXmlGenerator
     }
 
     /** Intelligently find a good change frequency for the given page based on assumptions about the site structure. */
-    protected function getChangeFrequency(string $pageClass, string $identifier): string
+    protected function generateChangeFrequency(string $pageClass, string $identifier): string
     {
         $frequency = 'weekly';
 
