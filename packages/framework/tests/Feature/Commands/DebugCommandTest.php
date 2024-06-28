@@ -15,13 +15,6 @@ use Hyde\Console\Commands\DebugCommand;
  */
 class DebugCommandTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->app->bind('git.version', fn () => 'foo');
-    }
-
     public function testDebugCommandCanRun()
     {
         $this->artisan('debug')->assertExitCode(0);
@@ -31,7 +24,6 @@ class DebugCommandTest extends TestCase
     {
         $this->artisan('debug')
             ->expectsOutput('HydePHP Debug Screen')
-            ->expectsOutputToContain('Git Version:')
             ->expectsOutputToContain('Hyde Version:')
             ->expectsOutputToContain('Framework Version:')
             ->expectsOutputToContain('App Env:')
