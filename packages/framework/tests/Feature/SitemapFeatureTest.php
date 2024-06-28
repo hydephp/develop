@@ -147,7 +147,6 @@ class SitemapFeatureTest extends TestCase
 
     protected function expandLines(string $xml): string
     {
-        // Expand the XML to make it easier to read in the test output.
         return str_replace('><', ">\n<", $xml);
     }
 
