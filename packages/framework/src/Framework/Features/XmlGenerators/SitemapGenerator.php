@@ -84,7 +84,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
         if ($identifier === '404') {
             // 404 pages are rarely important to index, so they get a lower priority.
-            $priority = 0.5;
+            $priority = 0.25;
         }
 
         return (string) $priority;
