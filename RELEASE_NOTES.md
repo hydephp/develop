@@ -44,7 +44,7 @@ This release contains changes to how HydePHP behaves when a site URL is not set 
 These changes are made to reduce the chance of the default `localhost` value showing up in production environments.
 
 Most notably, HydePHP now considers that default site URL `localhost` to mean that a site URL is not set, as the user has not set it.
-This means that things like automatic canonical URLs will not be added, as Hyde won't know how to make them without a site URL. 
+This means that things like automatic canonical URLs will not be added, as Hyde won't know how to make them without a site URL.
 The previous behaviour was that Hyde used `localhost` in canonical URLs, which is never useful in production environments.
 
 For this reason, we felt it worth it to make this change in a minor release, as it has a such large benefit for sites.
