@@ -23,7 +23,7 @@ This serves two purposes:
 - Updated the `.env.example` file to contain more details on the site URL setting's usages in https://github.com/hydephp/develop/pull/1746
 
 ### Deprecated
-- Deprecated the global `unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1753
+- Deprecated the global `unslash()` function, replaced with the existing namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1753
 
 ### Removed
 - for now removed features.
