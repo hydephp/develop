@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Mockery;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 
 /**
  * High level test of the sitemap generation feature.
@@ -25,6 +28,10 @@ class SitemapFeatureTest extends TestCase
     {
         Carbon::setTestNow('2024-01-01 12:00:00');
 
+        $filesystem = Mockery::mock(\Illuminate\Filesystem\Filesystem::class)->makePartial();
+        $filesystem->shouldReceive('lastModified')->andReturn(Carbon::now()->timestamp);
+        File::swap($filesystem);
+
         $this->cleanUpWhenDone('_site/sitemap.xml');
         $this->setUpBroadSiteStructure();
         $this->withSiteUrl();
@@ -35,84 +42,86 @@ class SitemapFeatureTest extends TestCase
 
         $this->assertFileExists('_site/sitemap.xml');
 
-        $expected = '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected());
+        $expected = '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected())."\n";
         $actual = file_get_contents('_site/sitemap.xml');
-        $this->assertSame($this->stripDynamicData($expected), $this->stripDynamicData($actual));
+        $this->assertSame($expected, $actual);
     }
 
     protected function expected(): string
     {
-        return <<<'XML'
-        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP {{ dynamic }}">
+        $version = Hyde::version();
+
+        return <<<XML
+        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP $version">
             <url>
                 <loc>https://example.com/contact.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
             <url>
                 <loc>https://example.com/404.html</loc>
-                <lastmod>2024-06-28T08:12:42+00:00</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
             <url>
                 <loc>https://example.com/index.html</loc>
-                <lastmod>2024-06-28T08:12:42+00:00</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>1</priority>
             </url>
             <url>
                 <loc>https://example.com/about.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/posts/hello-world.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.75</priority>
             </url>
             <url>
                 <loc>https://example.com/posts/second-post.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.75</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/404.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/index.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/installation.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/usage.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/search.json</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/search.html</loc>
-                <lastmod>{{ dynamic }}</lastmod>
+                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
@@ -134,15 +143,6 @@ class SitemapFeatureTest extends TestCase
 
     protected function stripFormatting(string $xml): string
     {
-        return str_replace("\n", '', $xml);
-    }
-
-    protected function stripDynamicData(string $string): string
-    {
-        $string = preg_replace('/HydePHP \d+\.\d+\.\d+/', 'HydePHP {{ dynamic }}', $string);
-        $string = preg_replace('/processing_time_ms="\d+"/', 'processing_time_ms="{{ dynamic }}"', $string);
-        $string = preg_replace('/<lastmod>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}<\/lastmod>/', '<lastmod>{{ dynamic }}</lastmod>', $string);
-
-        return $string;
+        return implode('', array_map('trim', explode("\n", $xml)));
     }
 }
