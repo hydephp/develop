@@ -12,12 +12,12 @@ use Hyde\Facades\Config;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Facades\Filesystem;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 
 use function blank;
-use function filemtime;
 use function in_array;
 use function date;
 use function time;
@@ -60,7 +60,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function getLastModDate(string $file): string
     {
-        $timestamp = @filemtime($file);
+        $timestamp = @Filesystem::lastModified($file);
         if (! $timestamp) {
             $timestamp = time();
         }
