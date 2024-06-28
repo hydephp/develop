@@ -29,7 +29,7 @@ class MetadataTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
         config(['hyde.meta' => []]);
         config(['hyde.rss.enabled' => false]);
         config(['hyde.generate_sitemap' => false]);
@@ -205,7 +205,7 @@ class MetadataTest extends TestCase
 
     public function testDoesNotAddCanonicalLinkWhenBaseUrlIsNotSet()
     {
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
 
         $page = MarkdownPage::make('bar');
 

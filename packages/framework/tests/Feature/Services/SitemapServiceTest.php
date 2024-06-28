@@ -120,7 +120,7 @@ class SitemapServiceTest extends TestCase
     public function testUrlItemIsGeneratedCorrectly()
     {
         config(['hyde.pretty_urls' => false]);
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         Filesystem::touch('_pages/0-test.blade.php');
 
@@ -139,7 +139,7 @@ class SitemapServiceTest extends TestCase
     public function testUrlItemIsGeneratedWithPrettyUrlsIfEnabled()
     {
         config(['hyde.pretty_urls' => true]);
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         Filesystem::touch('_pages/0-test.blade.php');
 
@@ -190,7 +190,7 @@ class SitemapServiceTest extends TestCase
 
     public function testLinksFallbackToRelativeLinksWhenASiteUrlIsNotSet()
     {
-        config(['hyde.url' => null]);
+        $this->withoutSiteUrl();
 
         $service = new SitemapGenerator();
         $service->generate();
