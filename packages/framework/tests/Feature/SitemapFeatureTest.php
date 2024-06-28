@@ -42,7 +42,7 @@ class SitemapFeatureTest extends TestCase
 
         $this->assertFileExists('_site/sitemap.xml');
 
-        $this->assertSame(
+        $this->assertSameXml(
             '<?xml version="1.0" encoding="UTF-8"?>'."\n{$this->stripFormatting($this->expected(Hyde::version()))}\n",
             file_get_contents('_site/sitemap.xml')
         );
@@ -143,5 +143,10 @@ class SitemapFeatureTest extends TestCase
     protected function stripFormatting(string $xml): string
     {
         return implode('', array_map('trim', explode("\n", $xml)));
+    }
+
+    protected function assertSameXml(string $expected, string $actual): void
+    {
+        $this->assertSame($expected, $actual);
     }
 }
