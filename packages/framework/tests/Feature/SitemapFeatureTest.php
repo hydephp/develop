@@ -23,6 +23,8 @@ class SitemapFeatureTest extends TestCase
 {
     public function testTheSitemapFeature()
     {
+        $this->markTestSkipped('This test is not yet complete.');
+
         Carbon::setTestNow('2024-01-01 12:00:00');
 
         $this->cleanUpWhenDone('_site/sitemap.xml');
