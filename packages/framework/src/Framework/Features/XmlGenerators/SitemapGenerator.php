@@ -107,8 +107,8 @@ class SitemapGenerator extends BaseXmlGenerator
             // to using relative links instead of using localhost links.
 
             return $route->getLink();
-        } else {
-            return Hyde::url($route->getOutputPath());
         }
+
+        return Hyde::url($route->getOutputPath());
     }
 }
