@@ -67,13 +67,13 @@ class SitemapFeatureTest extends TestCase
             <url>
                 <loc>https://example.com/contact.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>daily</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>0.75</priority>
             </url>
             <url>
                 <loc>https://example.com/404.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>daily</changefreq>
+                <changefreq>monthly</changefreq>
                 <priority>0.25</priority>
             </url>
             <url>
@@ -91,19 +91,19 @@ class SitemapFeatureTest extends TestCase
             <url>
                 <loc>https://example.com/posts/hello-world.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>daily</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>0.75</priority>
             </url>
             <url>
                 <loc>https://example.com/posts/second-post.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>daily</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>0.75</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/404.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>daily</changefreq>
+                <changefreq>monthly</changefreq>
                 <priority>0.25</priority>
             </url>
             <url>
@@ -127,13 +127,13 @@ class SitemapFeatureTest extends TestCase
             <url>
                 <loc>https://example.com/docs/search.json</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>daily</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>0.5</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/search.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>daily</changefreq>
+                <changefreq>weekly</changefreq>
                 <priority>0.5</priority>
             </url>
         </urlset>

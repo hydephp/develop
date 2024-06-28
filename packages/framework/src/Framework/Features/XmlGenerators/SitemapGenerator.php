@@ -95,7 +95,19 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function getChangeFrequency(string $pageClass, string $identifier): string
     {
-        return 'daily';
+        if ($identifier === '404') {
+            return 'monthly';
+        }
+
+        if (in_array($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
+            return 'daily';
+        }
+
+        if (in_array($pageClass, [MarkdownPost::class, InMemoryPage::class, HtmlPage::class])) {
+            return 'weekly';
+        }
+
+        return 'weekly';
     }
 
     protected function resolveRouteLink(Route $route): string
