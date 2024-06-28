@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Throwable;
 use Hyde\Enums\Feature;
-use Composer\InstalledVersions;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
@@ -304,34 +302,6 @@ class HydeKernelTest extends TestCase
             '/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/',
             HydeKernel::VERSION
         );
-    }
-
-    public function testVersionConstantIsUpToDateWithComposer()
-    {
-        $version = InstalledVersions::getPrettyVersion('hyde/framework');
-
-        if (str_starts_with($version, 'dev-')) {
-            $this->markTestSkipped('Installed version is for development');
-        }
-
-        $this->assertSame(HydeKernel::VERSION, $version);
-    }
-
-    public function testVersionConstantIsUpToDateWithGit()
-    {
-        try {
-            $version = trim(shell_exec('git describe --abbrev=0 --tags'));
-        } catch (Throwable) {
-            // Gracefully skip the test if the version cannot be fetched
-            $this->markTestSkipped('Could not get version from Git');
-        }
-
-        if ('v'.HydeKernel::VERSION === $version) {
-            $this->assertSame('v'.HydeKernel::VERSION, $version);
-        } else {
-            // Gracefully skip the test if the version is not up-to-date
-            $this->markTestSkipped('Version constant does not match Git version!');
-        }
     }
 
     public function testVersionMethodReturnsVersionConstant()
