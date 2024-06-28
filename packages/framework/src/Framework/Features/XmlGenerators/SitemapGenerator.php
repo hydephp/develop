@@ -42,8 +42,6 @@ class SitemapGenerator extends BaseXmlGenerator
 
     public function getXml(): string
     {
-        $this->xmlElement->addAttribute('processing_time_ms', $this->getFormattedProcessingTime());
-
         return parent::getXml();
     }
 
@@ -120,11 +118,5 @@ class SitemapGenerator extends BaseXmlGenerator
         } else {
             return Hyde::url($route->getOutputPath());
         }
-    }
-
-    /** @return numeric-string */
-    protected function getFormattedProcessingTime(): string
-    {
-        return (string) $this->getExecutionTimeInMs();
     }
 }
