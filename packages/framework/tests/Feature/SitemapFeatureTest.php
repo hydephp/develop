@@ -30,14 +30,87 @@ class SitemapFeatureTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists('_site/sitemap.xml');
-        $this->assertFileEqualsString($this->expected(), '_site/sitemap.xml');
+        $this->assertFileEqualsString(
+            '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected()), '_site/sitemap.xml');
     }
 
     protected function expected(): string
     {
         return <<<XML
-        <?xml version="1.0" encoding="UTF-8"?>
-        TODO
+        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP 1.6.0" processing_time_ms="31.628131866455">
+            <url>
+                <loc>https://example.com/contact.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.5</priority>
+            </url>
+            <url>
+                <loc>https://example.com/404.html</loc>
+                <lastmod>2024-06-28T08:12:42+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.5</priority>
+            </url>
+            <url>
+                <loc>https://example.com/index.html</loc>
+                <lastmod>2024-06-28T08:12:42+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>1</priority>
+            </url>
+            <url>
+                <loc>https://example.com/about.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.9</priority>
+            </url>
+            <url>
+                <loc>https://example.com/posts/hello-world.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.75</priority>
+            </url>
+            <url>
+                <loc>https://example.com/posts/second-post.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.75</priority>
+            </url>
+            <url>
+                <loc>https://example.com/docs/404.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.9</priority>
+            </url>
+            <url>
+                <loc>https://example.com/docs/index.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.9</priority>
+            </url>
+            <url>
+                <loc>https://example.com/docs/installation.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.9</priority>
+            </url>
+            <url>
+                <loc>https://example.com/docs/usage.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.9</priority>
+            </url>
+            <url>
+                <loc>https://example.com/docs/search.json</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.5</priority>
+            </url>
+            <url>
+                <loc>https://example.com/docs/search.html</loc>
+                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.5</priority>
+            </url>
+        </urlset>
         XML;
     }
 
@@ -51,5 +124,10 @@ class SitemapFeatureTest extends TestCase
         $this->file('_docs/installation.md', "# Installation\n\nThis is the installation guide.");
         $this->file('_docs/usage.md', "# Usage\n\nThis is the usage guide.");
         $this->file('_docs/404.md', "# 404\n\nThis is the 404 page.");
+    }
+
+    protected function stripFormatting(string $xml): string
+    {
+        return str_replace("\n", '', $xml);
     }
 }
