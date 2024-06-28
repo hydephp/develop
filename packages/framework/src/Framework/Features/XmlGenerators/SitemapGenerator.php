@@ -75,16 +75,16 @@ class SitemapGenerator extends BaseXmlGenerator
         return date('c', @filemtime($file) ?: time());
     }
 
-    protected function getPriority(string $pageClass, string $slug): string
+    protected function getPriority(string $pageClass, string $identifier): string
     {
         $priority = 0.5;
 
         if (in_array($pageClass, [BladePage::class, MarkdownPage::class])) {
             $priority = 0.9;
-            if ($slug === 'index') {
+            if ($identifier === 'index') {
                 $priority = 1;
             }
-            if ($slug === '404') {
+            if ($identifier === '404') {
                 $priority = 0.5;
             }
         }
@@ -100,7 +100,7 @@ class SitemapGenerator extends BaseXmlGenerator
         return (string) $priority;
     }
 
-    protected function getChangeFrequency(string $pageClass, string $slug): string
+    protected function getChangeFrequency(string $pageClass, string $identifier): string
     {
         return 'daily';
     }
