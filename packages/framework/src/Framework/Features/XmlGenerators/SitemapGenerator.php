@@ -18,10 +18,8 @@ use Illuminate\Support\Carbon;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 
-use function blank;
 use function in_array;
 use function date;
-use function str_starts_with;
 
 /**
  * @see https://www.sitemaps.org/protocol.html
@@ -98,17 +96,6 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function resolveRouteLink(Route $route): string
     {
-        $baseUrl = Config::getNullableString('hyde.url');
-
-        if (blank($baseUrl) || str_starts_with($baseUrl, 'http://localhost')) {
-            // TODO: This does not seem to be reachable from the actual commands, and should be removed.
-
-            // While the sitemap spec requires a full URL, we rather fall back
-            // to using relative links instead of using localhost links.
-
-            return $route->getLink();
-        }
-
         return Hyde::url($route->getOutputPath());
     }
 }
