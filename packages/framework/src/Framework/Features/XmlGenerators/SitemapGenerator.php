@@ -9,10 +9,12 @@ namespace Hyde\Framework\Features\XmlGenerators;
 use Hyde\Hyde;
 use SimpleXMLElement;
 use Hyde\Facades\Config;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Facades\Filesystem;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Carbon;
 use Hyde\Pages\DocumentationPage;
@@ -77,8 +79,9 @@ class SitemapGenerator extends BaseXmlGenerator
             }
         }
 
-        if ($pageClass === MarkdownPost::class) {
-            // Posts are usually less important than pages as there may be many of them.
+        if (in_array($pageClass, [MarkdownPost::class, InMemoryPage::class, HtmlPage::class])) {
+            // Posts are usually less important than normal pages as there may be many of them.
+            // We group in InMemoryPages and HtmlPages here since we don't have much context for them.
             $priority = 0.75;
         }
 
