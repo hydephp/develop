@@ -31,7 +31,7 @@ class SitemapFeatureTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists('_site/sitemap.xml');
-        // TODO: Fix dynamic data in comparison
+
         $expected = '<?xml version="1.0" encoding="UTF-8"?>'."\n".$this->stripFormatting($this->expected());
         $actual = file_get_contents('_site/sitemap.xml');
         $this->assertSame($this->stripDynamicData($expected), $this->stripDynamicData($actual));
@@ -40,10 +40,10 @@ class SitemapFeatureTest extends TestCase
     protected function expected(): string
     {
         return <<<XML
-        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP 1.6.0" processing_time_ms="31.628131866455">
+        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP {{ dynamic }}" processing_time_ms="{{ dynamic }}">
             <url>
                 <loc>https://example.com/contact.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
@@ -61,55 +61,55 @@ class SitemapFeatureTest extends TestCase
             </url>
             <url>
                 <loc>https://example.com/about.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/posts/hello-world.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.75</priority>
             </url>
             <url>
                 <loc>https://example.com/posts/second-post.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.75</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/404.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/index.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/installation.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/usage.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/search.json</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/search.html</loc>
-                <lastmod>2024-06-28T09:48:58+00:00</lastmod>
+                <lastmod>{{ dynamic }}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
@@ -136,6 +136,10 @@ class SitemapFeatureTest extends TestCase
 
     protected function stripDynamicData(string $string): string
     {
+        $string = preg_replace('/HydePHP \d+\.\d+\.\d+/', 'HydePHP {{ dynamic }}', $string);
+        $string = preg_replace('/processing_time_ms="\d+"/', 'processing_time_ms="{{ dynamic }}"', $string);
+        $string = preg_replace('/<lastmod>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}<\/lastmod>/', '<lastmod>{{ dynamic }}</lastmod>', $string);
+
         return $string;
     }
 }
