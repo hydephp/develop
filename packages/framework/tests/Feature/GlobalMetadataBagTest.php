@@ -133,7 +133,7 @@ class GlobalMetadataBagTest extends TestCase
             'hyde.url' => null,
             'hyde.meta' => [],
             'hyde.rss.enabled' => false,
-            'hyde.generate_sitemap' => false
+            'hyde.generate_sitemap' => false,
         ]);
     }
 }
