@@ -93,17 +93,20 @@ class SitemapGenerator extends BaseXmlGenerator
         return (string) $priority;
     }
 
+    /** Intelligently find a good change frequency for the given page based on assumptions about the site structure. */
     protected function getChangeFrequency(string $pageClass, string $identifier): string
     {
-        if ($identifier === '404') {
-            return 'monthly';
-        }
+        $frequency = 'weekly';
 
         if (in_array($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
-            return 'daily';
+            $frequency = 'daily';
         }
 
-        return 'weekly';
+        if ($identifier === '404') {
+            $frequency = 'monthly';
+        }
+
+        return $frequency;
     }
 
     protected function resolveRouteLink(Route $route): string
