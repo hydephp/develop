@@ -21,7 +21,12 @@ class BuildSitemapCommandTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
 
-        $this->artisan('build:sitemap')->assertExitCode(0);
+        $this->artisan('build:sitemap')
+            ->expectsOutputToContain('Generating sitemap...')
+            ->doesntExpectOutputToContain('Skipped')
+            ->expectsOutputToContain(' > Created _site/sitemap.xml')
+            ->assertExitCode(0);
+
         $this->assertFileExists(Hyde::path('_site/sitemap.xml'));
 
         Filesystem::unlink('_site/sitemap.xml');
@@ -33,7 +38,12 @@ class BuildSitemapCommandTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
 
-        $this->artisan('build:sitemap')->assertExitCode(0);
+        $this->artisan('build:sitemap')
+            ->expectsOutputToContain('Generating sitemap...')
+            ->expectsOutputToContain('Skipped')
+            ->expectsOutput(' > Cannot generate sitemap without a valid base URL')
+            ->assertExitCode(0);
+
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
     }
 }
