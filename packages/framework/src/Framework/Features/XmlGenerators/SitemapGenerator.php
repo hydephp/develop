@@ -60,13 +60,7 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function getLastModDate(string $file): string
     {
-        $timestamp = @Filesystem::lastModified($file);
-
-        if (! $timestamp) {
-            $timestamp = Carbon::now()->timestamp;
-        }
-
-        return date('c', $timestamp);
+        return date('c', @Filesystem::lastModified($file) ?: Carbon::now()->timestamp);
     }
 
     protected function getPriority(string $pageClass, string $identifier): string
