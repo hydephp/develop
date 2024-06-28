@@ -15,7 +15,6 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Framework\Concerns\TracksExecutionTime;
 
 use function blank;
 use function filemtime;
@@ -29,8 +28,6 @@ use function str_starts_with;
  */
 class SitemapGenerator extends BaseXmlGenerator
 {
-    use TracksExecutionTime;
-
     public function generate(): static
     {
         Routes::all()->each(function (Route $route): void {
@@ -47,8 +44,6 @@ class SitemapGenerator extends BaseXmlGenerator
 
     protected function constructBaseElement(): void
     {
-        $this->startClock();
-
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
         $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
     }
