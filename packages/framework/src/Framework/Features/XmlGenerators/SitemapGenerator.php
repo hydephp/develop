@@ -103,10 +103,6 @@ class SitemapGenerator extends BaseXmlGenerator
             return 'daily';
         }
 
-        if (in_array($pageClass, [MarkdownPost::class, InMemoryPage::class, HtmlPage::class])) {
-            return 'weekly';
-        }
-
         return 'weekly';
     }
 
