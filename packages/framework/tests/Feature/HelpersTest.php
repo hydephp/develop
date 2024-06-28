@@ -142,13 +142,9 @@ class HelpersTest extends TestCase
     /** @covers ::route */
     public function testRouteFunctionWithInvalidRoute()
     {
-        $this->assertNull(route('foo'));
-    }
+        $this->expectException(\Hyde\Framework\Exceptions\RouteNotFoundException::class);
 
-    /** @covers ::route */
-    public function testRouteFunctionReturnsNullForNonExistentRoute()
-    {
-        $this->assertNull(route('nonexistent'));
+        route('invalid');
     }
 
     /** @covers ::url */
