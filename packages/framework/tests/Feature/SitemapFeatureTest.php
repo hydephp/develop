@@ -22,6 +22,10 @@ class SitemapFeatureTest extends TestCase
     {
         $this->setUpBroadSiteStructure();
         $this->withSiteUrl();
+
+        $this->artisan('build:sitemap')
+            ->expectsOutputToContain('Created _site/sitemap.xml')
+            ->assertExitCode(0);
     }
 
     protected function setUpBroadSiteStructure(): void
