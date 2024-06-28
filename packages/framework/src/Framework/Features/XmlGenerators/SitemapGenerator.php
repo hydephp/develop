@@ -82,9 +82,11 @@ class SitemapGenerator extends BaseXmlGenerator
 
         if (in_array($pageClass, [BladePage::class, MarkdownPage::class])) {
             $priority = 0.9;
+
             if ($identifier === 'index') {
                 $priority = 1;
             }
+
             if ($identifier === '404') {
                 $priority = 0.5;
             }
