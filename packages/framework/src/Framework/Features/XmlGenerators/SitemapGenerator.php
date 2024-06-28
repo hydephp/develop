@@ -57,37 +57,29 @@ class SitemapGenerator extends BaseXmlGenerator
         return date('c', @Filesystem::lastModified($file) ?: Carbon::now()->timestamp);
     }
 
-    /** Intelligently find a good priority for the given page based on assumptions about the site structure. */
     protected function generatePriority(string $pageClass, string $identifier): string
     {
-        // The default priority, unless we find a better match.
         $priority = 0.5;
 
         if (in_array($pageClass, [BladePage::class, MarkdownPage::class, DocumentationPage::class])) {
-            // These pages are usually high up in the site hierarchy, so they get a higher priority.
             $priority = 0.9;
 
             if ($identifier === 'index') {
-                // The homepage is the most important page, so it gets the highest priority.
                 $priority = 1;
             }
         }
 
         if (in_array($pageClass, [MarkdownPost::class, InMemoryPage::class, HtmlPage::class])) {
-            // Posts are usually less important than normal pages as there may be many of them.
-            // We group in InMemoryPages and HtmlPages here since we don't have much context for them.
             $priority = 0.75;
         }
 
         if ($identifier === '404') {
-            // 404 pages are rarely important to index, so they get a lower priority.
             $priority = 0.25;
         }
 
         return (string) $priority;
     }
 
-    /** Intelligently find a good change frequency for the given page based on assumptions about the site structure. */
     protected function generateChangeFrequency(string $pageClass, string $identifier): string
     {
         $frequency = 'weekly';
