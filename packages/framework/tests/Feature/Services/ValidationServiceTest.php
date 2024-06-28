@@ -132,7 +132,7 @@ class ValidationServiceTest extends TestCase
 
     public function testCheckSiteHasABaseUrlSetCanPass()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->testMethod('check_site_has_a_base_url_set', 0);
     }

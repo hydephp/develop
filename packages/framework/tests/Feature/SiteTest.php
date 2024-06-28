@@ -20,7 +20,7 @@ class SiteTest extends TestCase
         config(['hyde.url' => null]);
         $this->assertNull(Site::url());
 
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         $this->assertSame('https://example.com', Site::url());
     }
 

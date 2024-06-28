@@ -67,4 +67,12 @@ abstract class TestCase extends BaseTestCase
     {
         config(['app.throw_on_console_exception' => $throw]);
     }
+
+    /**
+     * Set the site URL for the duration of the test.
+     */
+    protected function withSiteUrl(string $url = 'https://example.com'): void
+    {
+        config(['hyde.url' => $url]);
+    }
 }

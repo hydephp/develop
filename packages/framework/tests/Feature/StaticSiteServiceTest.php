@@ -163,7 +163,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function testSitemapIsGeneratedWhenConditionsAreMet()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         config(['hyde.generate_sitemap' => true]);
 
         $this->artisan('build')
@@ -184,7 +184,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function testRssFeedIsGeneratedWhenConditionsAreMet()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
         config(['hyde.rss.enabled' => true]);
 
         Filesystem::touch('_posts/foo.md');

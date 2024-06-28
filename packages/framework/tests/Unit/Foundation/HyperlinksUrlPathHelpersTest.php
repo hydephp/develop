@@ -33,35 +33,35 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHasSiteUrlReturnsTrueWhenSiteUrlIsSet()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertTrue($this->class->hasSiteUrl());
     }
 
     public function testQualifiedUrlReturnsSiteUrlWhenNoPathIsGiven()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com', $this->class->url());
     }
 
     public function testQualifiedUrlReturnsSiteUrlPlusGivenPath()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/path', $this->class->url('path'));
     }
 
     public function testQualifiedUrlReturnsSiteUrlPlusGivenPathWithExtension()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/path.html', $this->class->url('path.html'));
     }
 
     public function testQualifiedUrlReturnsSiteUrlPlusGivenPathWithExtensionAndQueryString()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/path.html?query=string', $this->class->url('path.html?query=string'));
     }
@@ -134,7 +134,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHelperReturnsExpectedStringWhenSiteUrlIsSet()
     {
-        config(['hyde.url' => 'https://example.com']);
+        $this->withSiteUrl();
 
         $this->assertSame('https://example.com/foo/bar.html', $this->class->url('foo/bar.html'));
     }
