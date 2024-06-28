@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use function Hyde\unixsum_file;
 use function str_replace;
 use function in_array;
-use function unslash;
+use function Hyde\unslash;
 use function glob;
 
 /**

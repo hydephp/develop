@@ -21,7 +21,7 @@ use function dirname;
 use function file_exists;
 use function in_array;
 use function str_replace;
-use function unslash;
+use function Hyde\unslash;
 
 /**
  * Build a single static site file.

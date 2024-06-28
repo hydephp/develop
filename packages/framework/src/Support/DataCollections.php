@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 use function implode;
 use function json_decode;
 use function sprintf;
-use function unslash;
+use function Hyde\unslash;
 use function str_starts_with;
 
 /**

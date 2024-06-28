@@ -20,7 +20,7 @@ use function file_exists;
 use function basename;
 use function in_array;
 use function str_contains;
-use function unslash;
+use function Hyde\unslash;
 use function rtrim;
 
 /**
