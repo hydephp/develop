@@ -104,7 +104,7 @@ class SitemapFeatureTest extends TestCase
                 <loc>https://example.com/docs/404.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
-                <priority>0.9</priority>
+                <priority>0.5</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/index.html</loc>
