@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Carbon;
 
 /**
  * High level test of the sitemap generation feature.
@@ -22,6 +23,8 @@ class SitemapFeatureTest extends TestCase
 {
     public function testTheSitemapFeature()
     {
+        Carbon::setTestNow('2024-01-01 12:00:00');
+
         $this->cleanUpWhenDone('_site/sitemap.xml');
         $this->setUpBroadSiteStructure();
         $this->withSiteUrl();
