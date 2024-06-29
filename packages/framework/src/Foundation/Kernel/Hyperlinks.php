@@ -147,6 +147,10 @@ class Hyperlinks
     {
         $path = $this->formatLink(trim($path, '/'));
 
+        if (str_starts_with($path, 'http')) {
+            return $path;
+        }
+
         if ($this->hasSiteUrl()) {
             return rtrim(rtrim(Config::getString('hyde.url'), '/')."/$path", '/');
         }
@@ -158,6 +162,7 @@ class Hyperlinks
         }
 
         // User is trying to get the base URL, but it's not set
+        // This exception is deprecated and will be removed in v2.0.0, and we will return null instead.
         throw new BaseUrlNotSetException();
     }
 

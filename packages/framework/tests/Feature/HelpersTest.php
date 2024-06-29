@@ -197,7 +197,23 @@ class HelpersTest extends TestCase
     /** @covers ::url */
     public function testUrlFunctionWithAlreadyQualifiedUrl()
     {
-        $this->markTestSkipped('The url function does not check if the URL is already qualified.');
+        $this->assertSame('https://example.com/foo', url('https://example.com/foo'));
+        $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithAlreadyQualifiedUrlWhenSiteUrlIsSet()
+    {
+        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+
+        $this->assertSame('https://example.com/foo', url('https://example.com/foo'));
+        $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
+    }
+
+    /** @covers ::url */
+    public function testUrlFunctionWithAlreadyQualifiedUrlWhenSiteUrlIsSetToSomethingElse()
+    {
+        $this->app['config']->set(['hyde.url' => 'my-site.com']);
 
         $this->assertSame('https://example.com/foo', url('https://example.com/foo'));
         $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
