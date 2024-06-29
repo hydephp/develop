@@ -33,7 +33,7 @@ abstract class PageDataFactory implements Arrayable
      *
      * @return array<string, mixed>
      *
-     * @codeCoverageIgnore This method is abstract and should be implemented in the child class.
+     * @codeCoverageIgnore
      */
     abstract public function toArray(): array;
 }
