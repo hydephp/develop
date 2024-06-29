@@ -147,6 +147,10 @@ class Hyperlinks
     {
         $path = $this->formatLink(trim($path, '/'));
 
+        if (str_starts_with($path, 'http')) {
+            return $path;
+        }
+
         if ($this->hasSiteUrl()) {
             return rtrim(rtrim(Config::getString('hyde.url'), '/')."/$path", '/');
         }
