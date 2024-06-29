@@ -10,7 +10,6 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Hyperlinks
- * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  */
 class HyperlinksUrlPathHelpersTest extends TestCase
 {
