@@ -13,7 +13,6 @@ use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
- * @covers \Hyde\Framework\Factories\Concerns\PageDataFactory
  */
 class HydePageDataFactoryTest extends UnitTestCase
 {
