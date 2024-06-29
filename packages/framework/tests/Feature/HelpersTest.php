@@ -197,8 +197,6 @@ class HelpersTest extends TestCase
     /** @covers ::url */
     public function testUrlFunctionWithAlreadyQualifiedUrl()
     {
-        $this->markTestSkipped('The url function does not check if the URL is already qualified.');
-
         $this->assertSame('https://example.com/foo', url('https://example.com/foo'));
         $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
     }
