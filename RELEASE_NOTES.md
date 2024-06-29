@@ -24,6 +24,7 @@ This serves two purposes:
 
 ### Deprecated
 - Deprecated the global `unslash()` function, replaced with the existing namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1753
+- Deprecated the `BaseUrlNotSetException` class in https://github.com/hydephp/develop/pull/1759
 
 ### Removed
 - The Git version is no longer displayed in the debug screen and dashboard in https://github.com/hydephp/develop/pull/1756
