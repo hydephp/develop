@@ -17,7 +17,6 @@ class BuildSitemapCommandTest extends TestCase
     public function testSitemapIsGeneratedWhenConditionsAreMet()
     {
         $this->withSiteUrl();
-        config(['hyde.generate_sitemap' => true]);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
 
