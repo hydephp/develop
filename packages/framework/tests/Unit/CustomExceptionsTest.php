@@ -9,7 +9,6 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
-use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Exceptions\ParseException;
 use RuntimeException;
@@ -19,7 +18,6 @@ use Exception;
  * @covers \Hyde\Framework\Exceptions\FileConflictException
  * @covers \Hyde\Framework\Exceptions\FileNotFoundException
  * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
- * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
  * @covers \Hyde\Framework\Exceptions\ParseException
  */
@@ -82,11 +80,6 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame('The page type [foo] is not supported.', (new UnsupportedPageTypeException('foo'))->getMessage());
     }
 
-    public function testBaseUrlNotSetException()
-    {
-        $this->assertSame('No site URL has been set in config (or .env).', (new BaseUrlNotSetException())->getMessage());
-    }
-
     public function testFileConflictExceptionCode()
     {
         $this->assertSame(409, (new FileConflictException())->getCode());
@@ -105,11 +98,6 @@ class CustomExceptionsTest extends UnitTestCase
     public function testUnsupportedPageTypeExceptionCode()
     {
         $this->assertSame(400, (new UnsupportedPageTypeException())->getCode());
-    }
-
-    public function testBaseUrlNotSetExceptionCode()
-    {
-        $this->assertSame(500, (new BaseUrlNotSetException())->getCode());
     }
 
     public function testParseExceptionCode()

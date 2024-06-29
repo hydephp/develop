@@ -28,6 +28,7 @@ This serves two purposes:
 - Minor: Methods in the `Includes` facade now return `HtmlString` objects instead of `string` in https://github.com/hydephp/develop/pull/1738. For more information, see below.
 - Minor: `Includes::path()` and  `Includes::get()` methods now normalizes paths to be basenames to match the behaviour of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
 - Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
+- Minor: Updated the `Hyde::url()` helper to return `null` instead of throwing a `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760
 - Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
 - Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
 - The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
@@ -45,6 +46,7 @@ This serves two purposes:
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
 - Removed the deprecated global`unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
+- Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now returning `null` if no base URL is set in https://github.com/hydephp/develop/pull/1760
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 
 ### Fixed

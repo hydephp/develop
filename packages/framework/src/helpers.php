@@ -42,7 +42,7 @@ namespace {
             /**
              * Get a qualified URL to the supplied path if a base URL is set.
              */
-            function url(string $path = ''): string
+            function url(string $path = ''): ?string
             {
                 return hyde()->url($path);
             }

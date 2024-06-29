@@ -178,7 +178,6 @@ class HelpersTest extends TestCase
     public function testUrlFunctionWithoutBaseUrlOrPath()
     {
         $this->app['config']->set(['hyde.url' => null]);
-        $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
         $this->assertNull(url());
     }
 
@@ -186,7 +185,6 @@ class HelpersTest extends TestCase
     public function testUrlFunctionWithLocalhostBaseUrlButNoPath()
     {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
-        $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
         $this->assertNull(url());
     }
 
