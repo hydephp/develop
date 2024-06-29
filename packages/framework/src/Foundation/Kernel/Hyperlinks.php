@@ -142,6 +142,8 @@ class Hyperlinks
      * @param  string  $path  An optional relative path suffix. Omit to return the base URL.
      *
      * @throws BaseUrlNotSetException If no site URL is set and no path is provided.
+     *
+     * TODO: Check if the URL is already qualified and return it as is.
      */
     public function url(string $path = ''): string
     {
