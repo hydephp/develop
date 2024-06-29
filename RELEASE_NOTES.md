@@ -33,6 +33,7 @@ This serves two purposes:
 - Fixed DataCollections file finding method not being able to be overridden https://github.com/hydephp/develop/issues/1716 in https://github.com/hydephp/develop/pull/1717
 - Fixed PHP warning when trying to parse a Markdown file with just front matter without body https://github.com/hydephp/develop/issues/1705 in https://github.com/hydephp/develop/pull/1728
 - Yaml data files no longer need to start with triple dashes to be parsed by DataCollections in https://github.com/hydephp/develop/pull/1733
+- Updated the Hyde URL helper to not modify already qualified URLs in https://github.com/hydephp/develop/pull/1757
 
 ### Security
 - in case of vulnerabilities.
