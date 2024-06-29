@@ -110,6 +110,51 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->assertSame('http://example.com', $this->class->url());
     }
 
+    public function testQualifiedUrlHelperWithAlreadyQualifiedUrl()
+    {
+        $this->assertSame('https://example.com/foo', $this->class->url('https://example.com/foo'));
+        $this->assertSame('http://localhost/foo', $this->class->url('http://localhost/foo'));
+    }
+
+    public function testQualifiedUrlHelperWithAlreadyQualifiedUrlWhenSiteUrlIsSet()
+    {
+        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+
+        $this->assertSame('https://example.com/foo', $this->class->url('https://example.com/foo'));
+        $this->assertSame('http://localhost/foo', $this->class->url('http://localhost/foo'));
+    }
+
+    public function testQualifiedUrlHelperWithAlreadyQualifiedUrlWhenSiteUrlIsSetToSomethingElse()
+    {
+        $this->app['config']->set(['hyde.url' => 'my-site.com']);
+
+        $this->assertSame('https://example.com/foo', $this->class->url('https://example.com/foo'));
+        $this->assertSame('http://localhost/foo', $this->class->url('http://localhost/foo'));
+    }
+
+    public function testQualifiedUrlHelperWithAlreadyQualifiedUrlStillFormatsPath()
+    {
+        $this->assertSame('https://example.com/foo/bar.html', $this->class->url('https://example.com/foo/bar.html'));
+        $this->assertSame('http://localhost/foo/bar.html', $this->class->url('http://localhost/foo/bar.html'));
+        $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar/'));
+    }
+
+    public function testQualifiedUrlHelperWithAlreadyQualifiedUrlStillFormatsPathWhenSiteUrlIsSet()
+    {
+        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+        $this->assertSame('https://example.com/foo/bar.html', $this->class->url('https://example.com/foo/bar.html'));
+        $this->assertSame('http://localhost/foo/bar.html', $this->class->url('http://localhost/foo/bar.html'));
+        $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar/'));
+    }
+
+    public function testQualifiedUrlHelperWithAlreadyQualifiedUrlStillFormatsPathWithPrettyUrls()
+    {
+        $this->app['config']->set(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
+        $this->assertSame('https://example.com/foo/bar', $this->class->url('https://example.com/foo/bar.html'));
+        $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar.html'));
+        $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar/'));
+    }
+
     public function testQualifiedUrlThrowsExceptionWhenNoSiteUrlIsSet()
     {
         $this->withSiteUrl(null);
