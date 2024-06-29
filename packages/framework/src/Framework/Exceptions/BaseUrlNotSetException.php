@@ -6,6 +6,9 @@ namespace Hyde\Framework\Exceptions;
 
 use Exception;
 
+/**
+ * @deprecated This exception will be removed in v2.0.0.
+ */
 class BaseUrlNotSetException extends Exception
 {
     /** @var string */
