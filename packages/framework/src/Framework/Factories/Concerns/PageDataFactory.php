@@ -32,6 +32,8 @@ abstract class PageDataFactory implements Arrayable
      * Get the generated data as an associative array.
      *
      * @return array<string, mixed>
+     *
+     * @codeCoverageIgnore
      */
     abstract public function toArray(): array;
 }
