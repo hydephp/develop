@@ -32,27 +32,4 @@ class PageDataFactoryTest extends UnitTestCase
 
         $this->assertIsArray($mock->toArray());
     }
-
-    public function testWithConcreteClass()
-    {
-        $this->assertInstanceOf(
-            PageDataFactory::class,
-            new MockPageDataFactory()
-        );
-    }
-
-    public function testToArrayMethodReturnsArray()
-    {
-        $this->assertIsArray((new MockPageDataFactory())->toArray());
-    }
-}
-
-class MockPageDataFactory extends PageDataFactory
-{
-    public const SCHEMA = [];
-
-    public function toArray(): array
-    {
-        return [];
-    }
 }
