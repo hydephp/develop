@@ -38,9 +38,8 @@ class LoadYamlConfiguration
      */
     public function bootstrap(): void
     {
-        $this->config = Config::all();
-
         if ($this->hasYamlConfigFile()) {
+            $this->config = Config::all();
             $this->yaml = $this->getYaml();
 
             $this->mergeParsedConfiguration();
