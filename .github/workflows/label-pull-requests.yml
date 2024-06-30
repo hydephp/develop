@@ -25,7 +25,7 @@ jobs:
             const script = require('./.github/scripts/LabelInternal.js');
             console.log(script({github, context}));
 
-      # Remove "run-visual-tests" labels and similar if the pull request is closed
+      # Remove "run-visual-tests" labels and similar when the pull request is closed
       - name: Remove state control labels
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
         uses: actions/github-script@v7
