@@ -15,8 +15,6 @@ class LoadYamlConfigurationTest extends TestCase
 {
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         name: HydePHP
         url: "http://localhost"
@@ -44,9 +42,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testCanDefineMultipleConfigSettingsInHydeYmlFile()
     {
-        config(['hyde' => []]);
-        config(['docs' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: HydePHP
@@ -125,8 +120,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testCanAddConfigurationOptionsInNamespacedArray()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
           name: HydePHP
@@ -143,8 +136,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testCanAddArbitraryNamespacedData()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
           some: thing
@@ -158,8 +149,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testAdditionalNamespacesRequireTheHydeNamespaceToBePresent()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         foo:
           bar: baz
@@ -171,8 +160,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testAdditionalNamespacesRequiresHydeNamespaceToBeTheFirstEntry()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         foo:
           bar: baz
@@ -186,8 +173,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testHydeNamespaceCanBeEmpty()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
         foo:
@@ -201,8 +186,6 @@ class LoadYamlConfigurationTest extends TestCase
     public function testHydeNamespaceCanBeNull()
     {
         // This is essentially the same as the empty state test above, at least according to the YAML spec.
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde: null
         foo:
@@ -215,8 +198,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testHydeNamespaceCanBlank()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde: ''
         foo:
@@ -264,8 +245,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeader()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         name: Example
         YAML);
@@ -276,8 +255,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderWhenUsingHydeNamespace()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -289,8 +266,6 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInYamlConfig()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
