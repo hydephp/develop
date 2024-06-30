@@ -20,12 +20,12 @@ use function file_exists;
  * @see docs/digging-deeper/customization.md#yaml-configuration
  *
  * It also supports loading multiple configuration namespaces, where a configuration namespace is defined
- * as the first level in the service container configuration repository array, and usually corresponds
- * one-to-one with a file in the config directory. This feature, by design, requires a top-level
- * configuration entry to be present as 'hyde' in the YAML file. Existing config files
- * will be parsed as normal, but can be migrated by indenting all entries by one
- * level, and adding a top-level 'hyde' key. Then additional namespaces can
- * be added underneath as needed.
+ * as a firs level entry in the service container configuration repository array, and corresponds
+ * one-to-one with a file in the config directory, and a root-level key in the YAML file.
+ *
+ * This feature, by design, requires a top-level configuration entry to be present as 'hyde' in the YAML file.
+ * Existing config files will be parsed as normal, but can be migrated by indenting all entries by one level,
+ * and adding a top-level 'hyde' key. Then additional namespaces can be added underneath as needed.
  */
 class LoadYamlConfiguration
 {
