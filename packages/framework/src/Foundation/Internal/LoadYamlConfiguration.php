@@ -44,6 +44,8 @@ class LoadYamlConfiguration
             $this->config = Config::all();
             $this->yaml = $this->parseYamlFile();
 
+            $this->supportSettingSiteNameSetsSidebarHeaderOption();
+
             $this->mergeParsedConfiguration();
 
             Config::set($this->config);
@@ -99,5 +101,18 @@ class LoadYamlConfiguration
     protected function configurationContainsNamespaces(array $yaml): bool
     {
         return array_key_first($yaml) === 'hyde';
+    }
+
+    private function supportSettingSiteNameSetsSidebarHeaderOption(): void
+    {
+        if ($this->configurationContainsNamespaces($this->yaml)) {
+            if (isset($this->yaml['hyde']['name']) && ! isset($this->yaml['docs']['sidebar']['header'])) {
+                $this->yaml['docs']['sidebar']['header'] = $this->yaml['hyde']['name'].' Docs';
+            }
+        } else {
+            if (isset($this->yaml['name'])) {
+                $this->config['docs']['sidebar']['header'] = $this->yaml['name'].' Docs';
+            }
+        }
     }
 }
