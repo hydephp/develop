@@ -223,10 +223,12 @@ To quickly arrange the order of items in the sidebar, you can reorder the page i
 Link items without an entry here will fall back to the default priority of 999, putting them last.
 
 ```php
-'sidebar_order' => [
-    'readme',
-    'installation',
-    'getting-started',
+'sidebar' => [
+    'order' => [
+        'readme',
+        'installation',
+        'getting-started',
+    ],
 ]
 ```
 
@@ -256,10 +258,12 @@ In the `config/docs.php` file you can configure the behaviour, content, and the 
 You can also disable the feature completely.
 
 ```php
-'table_of_contents' => [
-    'enabled' => true,
-    'min_heading_level' => 2,
-    'max_heading_level' => 4,
+'sidebar' => [
+    'table_of_contents' => [
+        'enabled' => true,
+        'min_heading_level' => 2,
+        'max_heading_level' => 4,
+    ],
 ],
 ```
 
@@ -286,12 +290,12 @@ that runs during the build command, and a frontend JavaScript plugin that adds t
 
 >info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)?
 
-The search feature is enabled by default. You can disable it by removing the `documentationSearch` from the Hyde `Features` config array.
+The search feature is enabled by default. You can disable it by removing the `DocumentationSearch` option from the Hyde `Features` config array.
 
 ```php
 // filepath: config/hyde.php
 'features' => [
-    Features::documentationSearch(), // [tl! --]
+    Feature::DocumentationSearch, // [tl! --]
 ],
 ```
 

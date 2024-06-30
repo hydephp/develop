@@ -164,6 +164,8 @@ test('docs uri path is rerouted to docs/index', function () {
 });
 
 test('docs/search renders search page', function () {
+    Filesystem::put('_docs/index.md', '# Hello World!');
+
     mockRoute('docs/search');
 
     $kernel = new HttpKernel();
@@ -175,6 +177,7 @@ test('docs/search renders search page', function () {
 
     expect($response->body)->toContain('Search the documentation site');
 
+    Filesystem::unlink('_docs/index.md');
     Filesystem::unlink('_site/docs/search.html');
 });
 

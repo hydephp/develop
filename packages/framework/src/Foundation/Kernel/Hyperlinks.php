@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -140,10 +139,9 @@ class Hyperlinks
      * Return a qualified URL to the supplied path if a base URL is set.
      *
      * @param  string  $path  An optional relative path suffix. Omit to return the base URL.
-     *
-     * @throws BaseUrlNotSetException If no site URL is set and no path is provided.
+     * @return string|null The qualified URL, or null if the base URL is not set and no path is provided.
      */
-    public function url(string $path = ''): string
+    public function url(string $path = ''): ?string
     {
         $path = $this->formatLink(trim($path, '/'));
 
@@ -162,8 +160,7 @@ class Hyperlinks
         }
 
         // User is trying to get the base URL, but it's not set
-        // This exception is deprecated and will be removed in v2.0.0, and we will return null instead.
-        throw new BaseUrlNotSetException();
+        return null;
     }
 
     /**

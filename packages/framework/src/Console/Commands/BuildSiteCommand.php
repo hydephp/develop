@@ -50,8 +50,6 @@ class BuildSiteCommand extends Command
 
         $this->runPreBuildActions();
 
-        $this->service->transferMediaAssets();
-
         $this->service->compileStaticPages();
 
         $this->runPostBuildActions();

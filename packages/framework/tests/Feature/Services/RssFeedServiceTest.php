@@ -143,17 +143,16 @@ class RssFeedServiceTest extends TestCase
     public function testCanGenerateFeedHelperReturnsTrueIfHydeHasBaseUrl()
     {
         config(['hyde.url' => 'foo']);
-        $this->file('_posts/foo.md');
 
-        $this->assertTrue(Features::rss());
+        $this->file('_posts/foo.md');
+        $this->assertTrue(Features::hasRss());
     }
 
     public function testCanGenerateFeedHelperReturnsFalseIfHydeDoesNotHaveBaseUrl()
     {
         $this->withoutSiteUrl();
         $this->file('_posts/foo.md');
-
-        $this->assertFalse(Features::rss());
+        $this->assertFalse(Features::hasRss());
     }
 
     public function testCanGenerateFeedHelperReturnsFalseIfFeedsAreDisabledInConfig()
@@ -161,6 +160,6 @@ class RssFeedServiceTest extends TestCase
         config(['hyde.url' => 'foo']);
         config(['hyde.rss.enabled' => false]);
 
-        $this->assertFalse(Features::rss());
+        $this->assertFalse(Features::hasRss());
     }
 }

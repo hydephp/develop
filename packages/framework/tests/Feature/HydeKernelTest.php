@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Enums\Feature;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
@@ -75,8 +75,7 @@ class HydeKernelTest extends TestCase
 
     public function testHasFeatureHelperCallsMethodOnFeaturesClass()
     {
-        $this->assertSame(Features::enabled(Feature::BladePages), Hyde::hasFeature(Feature::BladePages));
-        $this->assertSame(Features::enabled(Feature::BladePages), Hyde::hasFeature('blade-pages'));
+        $this->assertSame(Features::has(Feature::BladePages), Hyde::hasFeature(Feature::BladePages));
     }
 
     public function testCurrentPageHelperReturnsCurrentPageName()
@@ -271,8 +270,7 @@ class HydeKernelTest extends TestCase
 
     public function testToArrayMethod()
     {
-        // AssertSame cannot be used as features is reinstantiated on each call
-        $this->assertEquals([
+        $this->assertSame([
             'basePath' => Hyde::getBasePath(),
             'sourceRoot' => Hyde::getSourceRoot(),
             'outputDirectory' => Hyde::getOutputDirectory(),
@@ -522,6 +520,13 @@ class HydeKernelTest extends TestCase
         $this->assertFalse(Hyde::isBooted());
         Hyde::kernel()->boot();
         $this->assertTrue(Hyde::isBooted());
+    }
+
+    public function testFeaturesClassIsBoundAsSingleton()
+    {
+        $kernel = new HydeKernel();
+
+        $this->assertSame($kernel->features(), $kernel->features());
     }
 }
 

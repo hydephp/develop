@@ -1,4 +1,4 @@
-## [Unreleased] - YYYY-MM-DD
+## [v2-dev] - YYYY-MM-DD
 
 ### About
 
@@ -10,47 +10,273 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- Added support for using HTML comments to create Markdown code block filepath labels in https://github.com/hydephp/develop/pull/1693
-- Added a config option to disable the theme toggle buttons to automatically use browser settings in https://github.com/hydephp/develop/pull/1697
-- You can now specify which path to open when using the `--open` option in the serve command in https://github.com/hydephp/develop/pull/1694
-- Added a `--format=json` option to the `route:list` command in https://github.com/hydephp/develop/pull/1724
+- You can now specify navigation priorities by adding a numeric prefix to the source file names in https://github.com/hydephp/develop/pull/1709
+- Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
+- Added a new `\Hyde\Framework\Exceptions\ParseException` exception class to handle parsing exceptions in data collection files in https://github.com/hydephp/develop/pull/1732
+- The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
 
 ### Changed
-- When a navigation group is set in front matter, it will now be used regardless of the subdirectory configuration in https://github.com/hydephp/develop/pull/1703 (fixes https://github.com/hydephp/develop/issues/1515)
-- Use late static bindings to support overriding data collections file finding in https://github.com/hydephp/develop/pull/1717 (fixes https://github.com/hydephp/develop/issues/1716)
-- Method `Hyde::hasSiteUrl()` now returns false if the site URL is for localhost in https://github.com/hydephp/develop/pull/1726
-- Method `Hyde::url()` will now return a relative URL instead of throwing an exception when supplied a path even if the site URL is not set in https://github.com/hydephp/develop/pull/1726
-- Updated the `.env.example` file to contain more details on the site URL setting's usages in https://github.com/hydephp/develop/pull/1746
-- Added a version prefix to the sitemap's generator attribute in https://github.com/hydephp/develop/pull/1767
+- **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
+- **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
+- **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
+- Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
+- Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
+- Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
+- Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
+- Minor: Changed the default build task message to make it more concise in https://github.com/hydephp/develop/pull/1659
+- Minor: Data collection files are now validated for syntax errors during discovery in https://github.com/hydephp/develop/pull/1732
+- Minor: Methods in the `Includes` facade now return `HtmlString` objects instead of `string` in https://github.com/hydephp/develop/pull/1738. For more information, see below.
+- Minor: `Includes::path()` and  `Includes::get()` methods now normalizes paths to be basenames to match the behaviour of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
+- Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
+- Minor: Updated the `Hyde::url()` helper to return `null` instead of throwing a `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760
+- Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
+- Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
+- The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
+- Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
+- Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
+- Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
+- Calling the `DataCollection` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
+- Markdown includes are now converted to HTML using the custom HydePHP Markdown service, meaning they now support full GFM spec and custom Hyde features like colored blockquotes and code block filepath labels in https://github.com/hydephp/develop/pull/1738
+- Markdown returned from includes are now trimmed of trailing whitespace and newlines in https://github.com/hydephp/develop/pull/1738
 
 ### Deprecated
-- Deprecated the global `unslash()` function, replaced with the existing namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1753
-- Deprecated the `BaseUrlNotSetException` class in https://github.com/hydephp/develop/pull/1759
+- for soon-to-be removed features.
 
 ### Removed
-- The Git version is no longer displayed in the debug screen and dashboard in https://github.com/hydephp/develop/pull/1756
+- Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
+- Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
+- Removed the deprecated global`unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
+- Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now returning `null` if no base URL is set in https://github.com/hydephp/develop/pull/1760
+- Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 
 ### Fixed
-- Fixed explicitly set front matter navigation group behavior being dependent on subdirectory configuration, fixing https://github.com/hydephp/develop/issues/1515 in https://github.com/hydephp/develop/pull/1703
-- Fixed DataCollections file finding method not being able to be overridden https://github.com/hydephp/develop/issues/1716 in https://github.com/hydephp/develop/pull/1717
-- Fixed PHP warning when trying to parse a Markdown file with just front matter without body https://github.com/hydephp/develop/issues/1705 in https://github.com/hydephp/develop/pull/1728
-- Fixed https://github.com/hydephp/develop/issues/1748 by normalizing generator version prefixes in https://github.com/hydephp/develop/pull/1767
-- Yaml data files no longer need to start with triple dashes to be parsed by DataCollections in https://github.com/hydephp/develop/pull/1733
-- Updated the Hyde URL helper to not modify already qualified URLs in https://github.com/hydephp/develop/pull/1757
+- for any bug fixes.
 
 ### Security
 - in case of vulnerabilities.
 
-### Extra information
+### Upgrade Guide
 
-This release contains changes to how HydePHP behaves when a site URL is not set by the user.
+Please see the "Breaking changes & upgrade guide" section below for more information.
 
-These changes are made to reduce the chance of the default `localhost` value showing up in production environments.
+## Breaking changes & upgrade guide
 
-Most notably, HydePHP now considers that default site URL `localhost` to mean that a site URL is not set, as the user has not set it.
-This means that things like automatic canonical URLs will not be added, as Hyde won't know how to make them without a site URL.
-The previous behaviour was that Hyde used `localhost` in canonical URLs, which is never useful in production environments.
+<!-- Editors note: The following will be part of the documentation and not the changelog, which is why the heading levels are reset. -->
 
-For this reason, we felt it worth it to make this change in a minor release, as it has a such large benefit for sites.
+Please read through this section to ensure your site upgrades smoothly.
 
-You can read more about the details and design decisions of this change in the following pull request https://github.com/hydephp/develop/pull/1726.
+## Before you start
+
+Before you start, please upgrade your application to at least HydePHP v1.6 as that version contains helpers to make the upgrade process easier.
+
+## High impact
+
+### Navigation system rewrite
+
+The navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations, see more down below.
+
+For most users, the only impact will be that configuration files need to be updated to use the new configuration format. Due to the internal changes,
+it's also possible that menu items will be in a slightly different order than before, depending on your setup. Please verify that your site's menus
+look as expected after upgrading, and adjust the configuration files if necessary, before deploying to production.
+
+### Navigation and sidebar configuration changes
+
+The navigation and sidebar configuration files have been updated to use the new Navigation API.
+This means that you will need to update your configuration files to use the new format.
+
+The easiest way to upgrade is to publish updated configuration files (`hyde.php` and `docs.php`) and copy over your customizations.
+
+The following configuration entries have been updated:
+
+-  Changed configuration option `docs.sidebar_order` to `docs.sidebar.order` in https://github.com/hydephp/develop/pull/1583
+-  Upgrade path: Move the `sidebar_order` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
+
+-  Changed configuration option `docs.table_of_contents` to `docs.sidebar.table_of_contents` in https://github.com/hydephp/develop/pull/1584
+-  Upgrade path: Move the `table_of_contents` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
+
+### Features configuration changes
+
+The `hyde.features` configuration format has changed to use Enums instead of static method calls. This change is breaking as it will require you to update your `config/hyde.php` file.
+
+#### Instead of
+
+```php
+// filepath: config/hyde.php
+
+'features' => [
+    // Page Modules
+    Features::htmlPages(),
+    Features::markdownPosts(),
+    Features::bladePages(),
+    Features::markdownPages(),
+    Features::documentationPages(),
+    
+    // Frontend Features
+    Features::darkmode(),
+    Features::documentationSearch(),
+    
+    // Integrations
+    Features::torchlight(),
+],
+```
+
+#### Use instead
+
+```php
+// filepath: config/hyde.php
+
+'features' => [
+    // Page Modules
+    Feature::HtmlPages,
+    Feature::MarkdownPosts,
+    Feature::BladePages,
+    Feature::MarkdownPages,
+    Feature::DocumentationPages,
+
+    // Frontend Features
+    Feature::Darkmode,
+    Feature::DocumentationSearch,
+
+    // Integrations
+    Feature::Torchlight,
+],
+```
+
+Of course, if you have disabled any of the features, do not include them in the new array.
+
+## General impact
+
+### Documentation search page changes
+
+The documentation search page and search index have been changed to be generated as `InMemoryPages` instead of a post-build task.
+
+The main impact noticeable to most users by this is the implicit changes, like the pages showing up in the dashboard and route list command.
+
+In case you have customized the `GenerateSearch` post-build task you may, depending on what you were trying to do,
+want to adapt your code to interact with the new `InMemoryPage`, which is generated in the `HydeCoreExtension` class.
+
+For more information, see https://github.com/hydephp/develop/pull/1498.
+
+## Medium impact
+
+### Features class method renames
+
+The following methods in the `Features` class have been renamed to follow a more consistent naming convention:
+
+- `Features::enabled()` has been renamed to `Features::has()`
+- `Features::sitemap()` has been renamed to `Features::hasSitemap()`
+- `Features::rss()` has been renamed to `Features::hasRss()`
+
+Note that this class was previously marked as internal in v1, but the change is logged here in case it was used in configuration files or custom code.
+
+## Low impact
+
+### Navigation internal changes
+
+The navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations.
+
+If you have previously in your custom code done any of the following, or similar, you will need to adapt your code to use the new Navigation API:
+- Created custom navigation menus or Blade components
+- Extended or called the navigation related classes directly
+- Customized the navigation system in any way beyond the standard configuration
+
+
+#### Upgrade guide
+
+Due to the scope of the rewrite, the easiest and fastest way to upgrade your code is to recreate it using the new Navigation API.
+
+- For a full comparison of the changes, you may see the PR that introduced the new API: https://github.com/hydephp/develop/pull/1568/files
+- For information on how to use the new Navigation API, see the documentation: https://hydephp.com/docs/2.x/navigation-api
+- If you use DataCollections, you should read the upgrade path below as there are breaking changes to the DataCollection API.
+
+### HTML ID changes
+
+Some HTML IDs have been renamed to follow a more consistent naming convention.
+
+If you have used any of the following selectors in custom code you wrote yourself, you will need to update to use the new changed IDs.
+
+#### https://github.com/hydephp/develop/pull/1622
+- Rename HTML ID `#searchMenu` to `#search-menu`
+- Rename HTML ID `#searchMenuButton` to `#search-menu-button`
+- Rename HTML ID `#searchMenuButtonMobile` to `#search-menu-button-mobile`
+
+
+### New documentation search implementation
+
+As the new documentation search implementation brings changes to their code API you may need to adapt your code
+according to the information below in case you wrote custom code that interacted with these parts of the codebase.
+
+- The `GenerateSearch` post-build task has been removed. If you have previously extended or customized this class,
+  you will need to adapt your code, as the search index files are now handled implicitly during the standard build process,
+  as the search pages are now added to the kernel page and route collection. (https://github.com/hydephp/develop/pull/1498)
+
+- If your site has a custom documentation search page, for example `_docs/search.md` or `_pages/docs/search.blade.php`,
+  that page will no longer be built when using the specific `build:search` command. It will, of course,
+  be built using the standard `build` command. https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
+
+- In the highly unlikely event your site customizes any of the search pages by replacing them in the kernel route collection,
+  you would now need to do that in the kernel page collection due to the search pages being generated earlier in the lifecycle.
+  https://github.com/hydephp/develop/commit/82dc71f4a0e7b6be7a9f8d822fbebe39d2289ced
+
+### Media asset transfer implementation changes
+
+The internals of how media asset files are copied during the build process have been changed. For most users, this change
+has no impact. However, if you have previously extended this method, or called it directly from your custom code,
+you will need to adapt your code to use the new `TransferMediaAssets` build task.
+
+For example, if you triggered the media transfer with a build service method call, use the new build task instead:
+
+```php
+(new BuildService)->transferMediaAssets();
+
+(new TransferMediaAssets())->run();
+```
+
+### Includes facade changes
+
+The following methods in the `Includes` facade now return `HtmlString` objects instead of `string`:
+
+- `Includes::html()`
+- `Includes::blade()`
+- `Includes::markdown()`
+
+- This means that you no longer need to use `{!! !!}` to render the output of these methods in Blade templates, instead just use `{{ }}`.
+- If you have used the return value of these methods in custom code, you may need to adjust your code to work with the new return type.
+
+For more information, see the RFC that proposed this change: https://github.com/hydephp/develop/issues/1734
+The RFC was implemented in https://github.com/hydephp/develop/pull/1738
+
+#### Remember to escape output if necessary
+
+**Note:** Remember that this means that includes are **no longer escaped** by default, so make sure to escape the output if necessary, for example if the content is user-generated.
+- (Use `{{ e(Includes::html('foo')) }}` instead of `{{ Includes::html('foo') }}` to escape the output, matching the previous behavior.)
+
+### DataCollection API changes
+
+The DataCollection feature has been reworked to improve the developer experience and make it more consistent with the rest of the API.
+
+Unfortunately, this means that existing setups may need to be adjusted to work with the new API.
+
+#### Upgrade guide
+
+- The `DataCollections` class has been renamed to `DataCollection`. If you have used the `DataCollections` class in your code, you will need to update your code to use the new class name.
+
+#### Changes
+
+- Calling the `DataCollection` methods will no longer create the data collections directory automatically.
+- The `DataCollection` class now validates the syntax of all data collection files during discovery, and throws a `ParseException` if the syntax is invalid.
+
+#### Issues that may arise
+
+If you start getting a `ParseException` when using the `DataCollection` class, it may be due to malformed data collection files.
+Starting from this version, we validate the syntax of JSON and YAML in data files during discovery, including any front matter in Markdown data files. 
+We do this to help you catch errors early. See https://github.com/hydephp/develop/issues/1736 for more information.
+
+For example, an empty or malformed JSON file will now throw an exception like this:
+ 
+```php
+\Hyde\Framework\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
+```
+
+In order to normalize the thrown exceptions, we now rethrow the `ParseException` from `Symfony/Yaml` as our custom `ParseException` to match the JSON and Markdown validation.
+Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional. Markdown files can have an empty body if front matter is present.

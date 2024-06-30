@@ -73,6 +73,7 @@ return [
         Hyde\Foundation\Providers\ConfigurationServiceProvider::class,
         Hyde\Framework\HydeServiceProvider::class,
         Hyde\Foundation\Providers\ViewServiceProvider::class,
+        Hyde\Foundation\Providers\NavigationServiceProvider::class,
         Hyde\Console\ConsoleServiceProvider::class,
     ],
 
@@ -102,7 +103,7 @@ return [
         'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
         'DocumentationPage' => \Hyde\Pages\DocumentationPage::class,
-        'DataCollections' => \Hyde\Support\DataCollections::class,
+        'DataCollection' => \Hyde\Support\DataCollection::class,
         'Includes' => \Hyde\Support\Includes::class,
         'Feature' => \Hyde\Enums\Feature::class,
     ],

@@ -23,8 +23,8 @@
 */
 
 use Hyde\Facades\Author;
-use Hyde\Enums\Feature;
 use Hyde\Facades\Meta;
+use Hyde\Enums\Feature;
 
 return [
 
@@ -248,7 +248,6 @@ return [
     |
     | Some of Hyde's features are optional. Feel free to disable the features
     | you don't need by removing or commenting them out from this array.
-    | This config concept is directly inspired by Laravel Jetstream.
     |
     */
 
@@ -350,7 +349,7 @@ return [
         // To get started quickly, you can uncomment the defaults here.
         // See the documentation link above for more information.
         'custom' => [
-            // NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
+            // NavigationItem::create('https://github.com/hydephp/hyde', 'GitHub', 200),
         ],
 
         // How should pages in subdirectories be displayed in the menu?
