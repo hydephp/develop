@@ -107,7 +107,7 @@ class LoadYamlConfiguration
     {
         if ($this->sidebarHeaderIsNotSetInPhpConfig()) {
             if ($this->getSiteNameFromYaml() !== null) {
-                $this->config['docs']['sidebar']['header'] = $this->getSiteNameFromYaml(). ' Docs';
+                $this->config['docs']['sidebar']['header'] = $this->getSiteNameFromYaml().' Docs';
             }
         }
     }
