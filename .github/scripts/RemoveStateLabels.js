@@ -5,8 +5,8 @@ module.exports = async ({github, context}) => {
         repo: context.repo.repo
     });
 
-    const visualTestsLabel = labels.find(label => label.name === 'run-visual-tests');
-    if (visualTestsLabel) {
+    const hasVisualTestsLabel = labels.find(label => label.name === 'run-visual-tests');
+    if (hasVisualTestsLabel) {
         await github.rest.issues.removeLabel({
             issue_number: context.issue.number,
             name: 'run-visual-tests',
