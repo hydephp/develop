@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Internal;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Env;
 use Symfony\Component\Yaml\Yaml;
 
 use function array_key_first;
@@ -107,10 +108,15 @@ class LoadYamlConfiguration
     {
         $sidebarHeaderIsNotSetInPhpConfig = ($this->config['docs']['sidebar']['header'] ?? null) === 'HydePHP Docs';
         $siteNameFromYaml = $this->configurationContainsNamespaces() ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
+        $siteNameFromEnvironment = Env::get('SITE_NAME');
 
         if ($sidebarHeaderIsNotSetInPhpConfig) {
             if ($siteNameFromYaml !== null) {
                 $this->config['docs']['sidebar']['header'] = $siteNameFromYaml.' Docs';
+            }
+
+            if ($siteNameFromEnvironment !== null) {
+                $this->config['docs']['sidebar']['header'] = $siteNameFromEnvironment.' Docs';
             }
         }
     }
