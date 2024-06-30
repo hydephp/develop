@@ -262,6 +262,55 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame($expected, Config::get('two'));
     }
 
+    public function testSettingSiteNameSetsSidebarHeader()
+    {
+        $this->markTestSkipped('TODO');
+
+        config(['hyde' => []]);
+        config(['docs' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        name: Example
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('Example', Config::get('docs.sidebar.header'));
+    }
+
+    public function testSettingSiteNameMergesSidebarHeader()
+    {
+        $this->markTestSkipped('TODO');
+
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        name: Example Docs
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('Example', Config::get('docs.sidebar.header'));
+    }
+
+    public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecified()
+    {
+        $this->markTestSkipped('TODO');
+
+        config(['hyde' => []]);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            name: Example
+        docs:
+            sidebar:
+                header: Custom
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('Custom', Config::get('docs.sidebar.header'));
+    }
+
+    // Todo test when not SITE_NAME is set in env
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);

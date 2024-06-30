@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Internal;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Env;
 use Symfony\Component\Yaml\Yaml;
 
 use function array_key_first;
@@ -29,15 +30,26 @@ use function file_exists;
  */
 class LoadYamlConfiguration
 {
+    protected array $config;
+    protected array $yaml;
+
     /**
      * Performs a core task that needs to be performed on
      * early stages of the framework.
      */
     public function bootstrap(): void
     {
+        $this->config = Config::all();
+
         if ($this->hasYamlConfigFile()) {
+            $this->yaml = $this->getYaml();
+
+            $this->mergeEnvironmentVariables();
+
             $this->mergeParsedConfiguration();
         }
+
+        Config::set($this->config);
     }
 
     protected function hasYamlConfigFile(): bool
@@ -59,9 +71,20 @@ class LoadYamlConfiguration
             : Hyde::path('hyde.yaml');
     }
 
+    protected function mergeEnvironmentVariables(): void
+    {
+        $repository = Env::getRepository();
+
+        if ($repository->get('SITE_NAME') === null) {
+            if (isset($this->yaml['name'])) {
+                $repository->set('SITE_NAME', $this->yaml['name']);
+            }
+        }
+    }
+
     protected function mergeParsedConfiguration(): void
     {
-        $yaml = $this->getYaml();
+        $yaml = $this->yaml;
 
         // If the Yaml file contains namespaces, we merge those using more granular logic
         // that only applies the namespace data to each configuration namespace.
@@ -80,10 +103,10 @@ class LoadYamlConfiguration
 
     protected function mergeConfiguration(string $namespace, array $yamlData): void
     {
-        Config::set($namespace, array_merge(
-            Config::getArray($namespace, []),
+        $this->config[$namespace] = array_merge(
+            $this->config[$namespace] ?? [],
             $yamlData
-        ));
+        );
     }
 
     protected function configurationContainsNamespaces(array $yaml): bool
