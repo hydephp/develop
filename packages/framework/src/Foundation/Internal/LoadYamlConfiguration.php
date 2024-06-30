@@ -105,11 +105,16 @@ class LoadYamlConfiguration
 
     private function supportSettingSiteNameSetsSidebarHeaderOption(): void
     {
-        if (isset($this->config['docs']['sidebar']['header']) && $this->config['docs']['sidebar']['header'] === 'HydePHP Docs') {
+        if ($this->sideBarHeaderIsNotSetInPhpConfig()) {
             if ($this->getSiteNameFromYaml() !== null) {
                 $this->config['docs']['sidebar']['header'] = $this->getSiteNameFromYaml(). ' Docs';
             }
         }
+    }
+
+    private function sideBarHeaderIsNotSetInPhpConfig(): bool
+    {
+        return isset($this->config['docs']['sidebar']['header']) && $this->config['docs']['sidebar']['header'] === 'HydePHP Docs';
     }
 
     private function getSiteNameFromYaml(): ?string
