@@ -7355,12 +7355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/psalm-coverage.git",
-                "reference": "cf902c54e79f83a463dfe3baa36193ce20016b21"
+                "reference": "1a60d0238ef2a09476fe16b3d3d2ad92686ef92b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/cf902c54e79f83a463dfe3baa36193ce20016b21",
-                "reference": "cf902c54e79f83a463dfe3baa36193ce20016b21",
+                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/1a60d0238ef2a09476fe16b3d3d2ad92686ef92b",
+                "reference": "1a60d0238ef2a09476fe16b3d3d2ad92686ef92b",
                 "shasum": ""
             },
             "require": {
@@ -7382,7 +7382,7 @@
                 "fidry/cpu-core-counter": "^0.4.1 || ^0.5.1",
                 "netresearch/jsonmapper": "^1.0 || ^2.0 || ^3.0 || ^4.0",
                 "nikic/php-parser": "^4.13",
-                "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
+                "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
                 "sebastian/diff": "^4.0 || ^5.0",
                 "spatie/array-to-xml": "^2.17.0",
                 "symfony/console": "^4.1.6 || ^5.0 || ^6.0",
@@ -7495,7 +7495,7 @@
                     "url": "https://www.buymeacoffee.com/caen"
                 }
             ],
-            "time": "2023-02-14T15:59:06+00:00"
+            "time": "2024-06-30T09:19:14+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
