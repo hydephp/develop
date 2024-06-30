@@ -77,7 +77,7 @@ class LoadYamlConfiguration
 
         // If the Yaml file contains namespaces, we merge those using more granular logic
         // that only applies the namespace data to each configuration namespace.
-        if ($this->configurationContainsNamespaces($yaml)) {
+        if ($this->configurationContainsNamespaces()) {
             /** @var array<string, array<string, scalar>> $yaml */
             foreach ($yaml as $namespace => $data) {
                 $this->mergeConfiguration($namespace, Arr::undot((array) $data));
@@ -98,15 +98,15 @@ class LoadYamlConfiguration
         );
     }
 
-    protected function configurationContainsNamespaces(array $yaml): bool
+    protected function configurationContainsNamespaces(): bool
     {
-        return array_key_first($yaml) === 'hyde';
+        return array_key_first($this->yaml) === 'hyde';
     }
 
     private function supportSettingSiteNameSetsSidebarHeaderOption(): void
     {
         $sidebarHeaderIsNotSetInPhpConfig = ($this->config['docs']['sidebar']['header'] ?? null) === 'HydePHP Docs';
-        $siteNameFromYaml = $this->configurationContainsNamespaces($this->yaml) ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
+        $siteNameFromYaml = $this->configurationContainsNamespaces() ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
 
         if ($sidebarHeaderIsNotSetInPhpConfig) {
             if ($siteNameFromYaml !== null) {
