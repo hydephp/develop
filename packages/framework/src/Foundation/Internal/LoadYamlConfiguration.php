@@ -108,8 +108,10 @@ class LoadYamlConfiguration
         $sidebarHeaderIsNotSetInPhpConfig = ($this->config['docs']['sidebar']['header'] ?? null) === 'HydePHP Docs';
         $siteNameFromYaml = $this->configurationContainsNamespaces() ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
 
-        if ($sidebarHeaderIsNotSetInPhpConfig && $siteNameFromYaml !== null) {
-            $this->config['docs']['sidebar']['header'] = $siteNameFromYaml.' Docs';
+        if ($sidebarHeaderIsNotSetInPhpConfig) {
+            if ($siteNameFromYaml !== null) {
+                $this->config['docs']['sidebar']['header'] = $siteNameFromYaml.' Docs';
+            }
         }
     }
 }
