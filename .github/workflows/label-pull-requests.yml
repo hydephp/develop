@@ -26,12 +26,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['Internal']
-            })
+            const script = require('./.github/scripts/LabelInternal.js');
+            console.log(script({github, context}))
 
       # Remove "run-visual-tests" label if the pull request is closed
       - name: Remove run-visual-tests Label
@@ -40,18 +36,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-
-            const visualTestsLabel = labels.find(label => label.name === 'run-visual-tests');
-            if (visualTestsLabel) {
-              await github.rest.issues.removeLabel({
-                issue_number: context.issue.number,
-                name: 'run-visual-tests',
-                owner: context.repo.owner,
-                repo: context.repo.repo
-              });
-            }
+            const script = require('./.github/scripts/RemoveRunVisualTests.js');
+            console.log(script({github, context}))
