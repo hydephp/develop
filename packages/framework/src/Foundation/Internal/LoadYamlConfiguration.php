@@ -105,7 +105,7 @@ class LoadYamlConfiguration
 
     private function supportSettingSiteNameSetsSidebarHeaderOption(): void
     {
-        $sidebarHeaderIsNotSetInPhpConfig = isset($this->config['docs']['sidebar']['header']) && ($this->config['docs']['sidebar']['header'] === 'HydePHP Docs');
+        $sidebarHeaderIsNotSetInPhpConfig = ($this->config['docs']['sidebar']['header'] ?? null) === 'HydePHP Docs';
         $siteNameFromYaml = $this->configurationContainsNamespaces($this->yaml) ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
 
         if ($sidebarHeaderIsNotSetInPhpConfig) {
