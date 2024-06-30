@@ -105,16 +105,22 @@ class LoadYamlConfiguration
 
     private function supportSettingSiteNameSetsSidebarHeaderOption(): void
     {
-        if (isset($this->config['docs']['sidebar']['header']) && $this->config['docs']['sidebar']['header'] === 'HydePHP Docs') {
-            if ($this->configurationContainsNamespaces($this->yaml)) {
-                if (isset($this->yaml['hyde']['name'])) {
-                    $this->config['docs']['sidebar']['header'] = $this->yaml['hyde']['name'].' Docs';
-                }
-            } else {
-                if (isset($this->yaml['name'])) {
-                    $this->config['docs']['sidebar']['header'] = $this->yaml['name'].' Docs';
-                }
-            }
+        if (!isset($this->config['docs']['sidebar']['header']) ||
+            $this->config['docs']['sidebar']['header'] !== 'HydePHP Docs') {
+            return;
         }
+
+        $siteName = $this->getSiteName();
+        if ($siteName) {
+            $this->config['docs']['sidebar']['header'] = $siteName . ' Docs';
+        }
+    }
+
+    private function getSiteName(): ?string
+    {
+        if ($this->configurationContainsNamespaces($this->yaml)) {
+            return $this->yaml['hyde']['name'] ?? null;
+        }
+        return $this->yaml['name'] ?? null;
     }
 }
