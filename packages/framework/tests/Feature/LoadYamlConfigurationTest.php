@@ -287,7 +287,7 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Example Docs', Config::get('docs.sidebar.header'));
     }
 
-    public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecified()
+    public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInYamlConfig()
     {
         config(['hyde' => []]);
 
@@ -297,6 +297,19 @@ class LoadYamlConfigurationTest extends TestCase
         docs:
             sidebar:
                 header: Custom
+        YAML);
+        $this->runBootstrapper();
+
+        $this->assertSame('Custom', Config::get('docs.sidebar.header'));
+    }
+
+    public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInStandardConfig()
+    {
+        config(['docs.sidebar.header' => 'Custom']);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            name: Example
         YAML);
         $this->runBootstrapper();
 
