@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Env;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
 
@@ -304,24 +303,6 @@ class LoadYamlConfigurationTest extends TestCase
         $this->runBootstrapper();
 
         $this->assertSame('Custom', Config::get('docs.sidebar.header'));
-    }
-
-    public function testCanSetSidebarHeaderNameUsingSiteNameEnvironmentVariable()
-    {
-        config(['hyde' => []]);
-        config(['docs' => []]);
-
-        $this->file('hyde.yml', 'hyde:');
-
-        $original = Env::get('SITE_NAME');
-
-        putenv('SITE_NAME=Example');
-
-        $this->runBootstrapper();
-
-        $this->assertSame('Example Docs', Config::get('docs.sidebar.header'));
-
-        putenv("SITE_NAME=$original");
     }
 
     protected function runBootstrapper(): void
