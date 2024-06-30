@@ -61,7 +61,7 @@ class CodeblockFilepathProcessorTest extends TestCase
     public function testPreprocessCanUseHtmlComments()
     {
         $markdown = <<<'MD'
-        
+
         ```html
         <!-- filepath: foo.html -->
         <p>Hello World</p>
