@@ -37,4 +37,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const script = require('./.github/scripts/RemoveRunVisualTests.js');
-            console.log(script({github, context}))
+            await script({github, context})
