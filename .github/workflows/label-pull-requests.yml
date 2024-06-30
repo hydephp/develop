@@ -3,7 +3,6 @@ name: 🏷 Label Pull Requests
 on:
   pull_request:
     types: [opened, edited, reopened, closed]
-  push: # Temporary to test the script
 
 jobs:
 
