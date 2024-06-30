@@ -91,8 +91,8 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testServiceGracefullyHandlesEmptyFile()
     {
-        $contents = '';
-        $this->setupTest($contents);
+        $this->file('hyde.yml', '');
+        $this->runBootstrapper();
 
         $this->assertSame('HydePHP', Config::get('hyde.name'));
     }
@@ -120,14 +120,15 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testCanAddConfigurationOptionsInNamespacedArray()
     {
-        $this->setupTest(<<<'YAML'
+        $this->file('hyde.yml', <<<'YAML'
         hyde:
           name: HydePHP
           foo: bar
           bar:
             baz: qux
-        YAML
-        );
+        YAML);
+
+        $this->runBootstrapper();
 
         $this->assertSame('HydePHP', Config::get('hyde.name'));
         $this->assertSame('bar', Config::get('hyde.foo'));
@@ -265,11 +266,12 @@ class LoadYamlConfigurationTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderWhenUsingHydeNamespace()
     {
-        $contents = <<<'YAML'
+        $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
-        YAML;
-        $this->setupTest($contents);
+        YAML);
+
+        $this->runBootstrapper();
 
         $this->assertSame('Example Docs', Config::get('docs.sidebar.header'));
     }
@@ -293,20 +295,14 @@ class LoadYamlConfigurationTest extends TestCase
     {
         config(['docs.sidebar.header' => 'Custom']);
 
-        $this->setupTest(<<<'YAML'
+        $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
-        YAML
-        );
-
-        $this->assertSame('Custom', Config::get('docs.sidebar.header'));
-    }
-
-    protected function setupTest(string $contents): void
-    {
-        $this->file('hyde.yml', $contents);
+        YAML);
 
         $this->runBootstrapper();
+
+        $this->assertSame('Custom', Config::get('docs.sidebar.header'));
     }
 
     protected function runBootstrapper(): void
