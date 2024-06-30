@@ -21,6 +21,7 @@ This serves two purposes:
 - Method `Hyde::hasSiteUrl()` now returns false if the site URL is for localhost in https://github.com/hydephp/develop/pull/1726
 - Method `Hyde::url()` will now return a relative URL instead of throwing an exception when supplied a path even if the site URL is not set in https://github.com/hydephp/develop/pull/1726
 - Updated the `.env.example` file to contain more details on the site URL setting's usages in https://github.com/hydephp/develop/pull/1746
+- Added a version prefix to the sitemap's generator attribute in https://github.com/hydephp/develop/pull/1767
 
 ### Deprecated
 - Deprecated the global `unslash()` function, replaced with the existing namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1753
@@ -33,6 +34,7 @@ This serves two purposes:
 - Fixed explicitly set front matter navigation group behavior being dependent on subdirectory configuration, fixing https://github.com/hydephp/develop/issues/1515 in https://github.com/hydephp/develop/pull/1703
 - Fixed DataCollections file finding method not being able to be overridden https://github.com/hydephp/develop/issues/1716 in https://github.com/hydephp/develop/pull/1717
 - Fixed PHP warning when trying to parse a Markdown file with just front matter without body https://github.com/hydephp/develop/issues/1705 in https://github.com/hydephp/develop/pull/1728
+- Fixed https://github.com/hydephp/develop/issues/1748 by normalizing generator version prefixes in https://github.com/hydephp/develop/pull/1767
 - Yaml data files no longer need to start with triple dashes to be parsed by DataCollections in https://github.com/hydephp/develop/pull/1733
 - Updated the Hyde URL helper to not modify already qualified URLs in https://github.com/hydephp/develop/pull/1757
 

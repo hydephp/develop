@@ -52,7 +52,7 @@ class SitemapGenerator extends BaseXmlGenerator
         $this->startClock();
 
         $this->xmlElement = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
-        $this->xmlElement->addAttribute('generator', 'HydePHP '.Hyde::version());
+        $this->xmlElement->addAttribute('generator', 'HydePHP v'.Hyde::version());
     }
 
     protected function addRoute(Route $route): void
