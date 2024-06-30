@@ -13,6 +13,8 @@ jobs:
       pull-requests: write
 
     steps:
+      - uses: actions/checkout@v4
+
       # If PR title starts with "Internal: " then add the "Internal" label
       - name: Label Internal Pull Requests
         if: "startsWith(github.event.pull_request.title, 'Internal: ')"
