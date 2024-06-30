@@ -60,5 +60,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 ### Attributions
 
 - The HydeCLI and core internals is built with [Laravel Zero](https://laravel-zero.com/) which is based on [Laravel](https://laravel.com/)
-
-> Please see the respective authors' repositories for their license files
+- > Please see the respective authors' repositories for their license files
