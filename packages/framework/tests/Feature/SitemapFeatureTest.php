@@ -63,7 +63,7 @@ class SitemapFeatureTest extends TestCase
     protected function expected(string $version): string
     {
         return <<<XML
-        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP $version">
+        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" generator="HydePHP v$version">
             <url>
                 <loc>https://example.com/contact.html</loc>
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
