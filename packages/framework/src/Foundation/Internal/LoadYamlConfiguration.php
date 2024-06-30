@@ -40,7 +40,7 @@ class LoadYamlConfiguration
     {
         if ($this->hasYamlConfigFile()) {
             $this->config = Config::all();
-            $this->yaml = $this->getYaml();
+            $this->yaml = $this->parseYamlFile();
 
             $this->mergeParsedConfiguration();
 
@@ -55,7 +55,7 @@ class LoadYamlConfiguration
     }
 
     /** @return array<string, scalar> */
-    protected function getYaml(): array
+    protected function parseYamlFile(): array
     {
         return Arr::undot((array) Yaml::parse(file_get_contents($this->getFile())));
     }
