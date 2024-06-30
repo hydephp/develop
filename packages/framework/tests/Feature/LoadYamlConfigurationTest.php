@@ -127,6 +127,7 @@ class LoadYamlConfigurationTest extends TestCase
           bar:
             baz: qux
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('HydePHP', Config::get('hyde.name'));
@@ -142,6 +143,7 @@ class LoadYamlConfigurationTest extends TestCase
         foo:
           bar: baz
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('baz', Config::get('foo.bar'));
@@ -153,6 +155,7 @@ class LoadYamlConfigurationTest extends TestCase
         foo:
           bar: baz
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertNull(Config::get('foo.bar'));
@@ -166,6 +169,7 @@ class LoadYamlConfigurationTest extends TestCase
         hyde:
           some: thing
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertNull(Config::get('foo.bar'));
@@ -178,6 +182,7 @@ class LoadYamlConfigurationTest extends TestCase
         foo:
           bar: baz
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('baz', Config::get('foo.bar'));
@@ -191,6 +196,7 @@ class LoadYamlConfigurationTest extends TestCase
         foo:
           bar: baz
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('baz', Config::get('foo.bar'));
@@ -203,6 +209,7 @@ class LoadYamlConfigurationTest extends TestCase
         foo:
           bar: baz
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('baz', Config::get('foo.bar'));
@@ -215,6 +222,7 @@ class LoadYamlConfigurationTest extends TestCase
         $this->file('hyde.yml', <<<'YAML'
         foo.bar.baz: qux
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame(['foo' => ['bar' => ['baz' => 'qux']]], Config::get('hyde'));
@@ -235,9 +243,11 @@ class LoadYamlConfigurationTest extends TestCase
         two:
             foo.bar.baz: qux
         YAML);
+
         $this->runBootstrapper();
 
         $expected = ['foo' => ['bar' => ['baz' => 'qux']]];
+
         $this->assertSame($expected, Config::get('hyde'));
         $this->assertSame($expected, Config::get('one'));
         $this->assertSame($expected, Config::get('two'));
@@ -248,6 +258,7 @@ class LoadYamlConfigurationTest extends TestCase
         $this->file('hyde.yml', <<<'YAML'
         name: Example
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('Example Docs', Config::get('docs.sidebar.header'));
@@ -259,6 +270,7 @@ class LoadYamlConfigurationTest extends TestCase
         hyde:
             name: Example
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('Example Docs', Config::get('docs.sidebar.header'));
@@ -273,6 +285,7 @@ class LoadYamlConfigurationTest extends TestCase
             sidebar:
                 header: Custom
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('Custom', Config::get('docs.sidebar.header'));
@@ -286,6 +299,7 @@ class LoadYamlConfigurationTest extends TestCase
         hyde:
             name: Example
         YAML);
+
         $this->runBootstrapper();
 
         $this->assertSame('Custom', Config::get('docs.sidebar.header'));
