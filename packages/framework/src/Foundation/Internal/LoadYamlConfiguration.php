@@ -106,8 +106,8 @@ class LoadYamlConfiguration
     private function supportSettingSiteNameSetsSidebarHeaderOption(): void
     {
         if ($this->configurationContainsNamespaces($this->yaml)) {
-            if (isset($this->yaml['hyde']['name']) && ! isset($this->yaml['docs']['sidebar']['header'])) {
-                $this->yaml['docs']['sidebar']['header'] = $this->yaml['hyde']['name'].' Docs';
+            if (isset($this->yaml['hyde']['name'])) {
+                $this->config['docs']['sidebar']['header'] = $this->yaml['hyde']['name'].' Docs';
             }
         } else {
             if (isset($this->yaml['name'])) {
