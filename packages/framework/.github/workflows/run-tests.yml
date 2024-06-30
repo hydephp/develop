@@ -1,9 +1,11 @@
 name: Framework Tests (Matrix)
+
 on:
   push:
     branches: ["master", "develop"]
   pull_request:
     branches: ["master", "develop"]
+  merge_group:
 
 jobs:
 
@@ -22,31 +24,35 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: fileinfo, zip
 
-      - name: Echo GitHub ref
-        run: echo ${{ github.ref }}
+      - name: Install Hyde
+        shell: bash
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/master" ]; then
+            git clone -b master https://github.com/hydephp/hyde.git
+          else
+            git clone -b develop https://github.com/hydephp/hyde.git
+          fi
 
-      - name: Install Hyde (master)
-        if: "github.ref == 'refs/heads/master'"
-        run: git clone -b master https://github.com/hydephp/hyde.git
+      - name: Copy over framework source code
+        shell: bash
+        run: |
+          mkdir -p ./hyde/packages/hyde/framework/src
 
-      - name: Install Hyde (develop)
-        if: "github.ref != 'refs/heads/master'"
-        run: git clone -b develop https://github.com/hydephp/hyde.git
+          # Since we can't use rsync on Windows, we need to copy the files to a temporary directory and then copy them back
+          if [ "${{ matrix.os }}" == "windows-latest" ]; then
+              mkdir ../temp
+              cp -r ./ ../temp
+              rm -rf ../temp/hyde
+              cp -r ../temp/. ./hyde/packages/hyde/framework/src
+          else
+              rsync -a --exclude=hyde ./. ./hyde/packages/hyde/framework/src
+          fi
 
-      - name: Require latest framework version
-        if: "github.ref == 'refs/heads/master'"
-        run: cd hyde && composer require hyde/framework:dev-master hyde/testing:dev-master
-
-      - name: Require latest development framework version
-        if: "github.ref == 'refs/heads/develop'"
-        run: cd hyde && composer require hyde/framework:dev-develop hyde/testing:dev-master
-
-      - name: Require pull request framework version
-        if: "github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop'"
-        run: cd hyde && composer require hyde/framework:dev-${{ github.head_ref }} hyde/testing:dev-master
-
-      - name: Copy over test files
-        run: cp -r ./tests/. ./hyde/tests
+      - name: Update composer.json to load framework from local source
+        run: |
+          cd hyde
+          composer config repositories.framework path ./packages/hyde/framework
+          composer require hyde/testing:dev-master hyde/framework:dev-develop
 
       - name: Download test runner configuration
         run: cd hyde && curl https://raw.githubusercontent.com/hydephp/develop/master/packages/hyde/phpunit.xml.dist -o phpunit.xml.dist
