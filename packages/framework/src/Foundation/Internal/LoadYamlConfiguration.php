@@ -44,9 +44,9 @@ class LoadYamlConfiguration
             $this->yaml = $this->getYaml();
 
             $this->mergeParsedConfiguration();
-        }
 
-        Config::set($this->config);
+            Config::set($this->config);
+        }
     }
 
     protected function hasYamlConfigFile(): bool
