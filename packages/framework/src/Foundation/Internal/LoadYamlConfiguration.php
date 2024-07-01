@@ -40,9 +40,6 @@ class LoadYamlConfiguration
             $this->config = $app->make('config')->all();
             $this->yaml = $yaml->getData();
 
-            $this->supportSettingSidebarHeaderFromSiteName();
-            $this->supportSettingRssFeedTitleFromSiteName();
-
             $this->mergeParsedConfiguration();
 
             $app->make('config')->set($this->config);
@@ -75,31 +72,5 @@ class LoadYamlConfiguration
     protected function configurationContainsNamespaces(): bool
     {
         return array_key_first($this->yaml) === 'hyde';
-    }
-
-    /** @deprecated Should not be needed when using dynamic environment variables. */
-    private function supportSettingSidebarHeaderFromSiteName(): void
-    {
-        $sidebarHeaderIsNotSetInPhpConfig = ($this->config['docs']['sidebar']['header'] ?? null) === 'HydePHP Docs';
-        $siteNameFromYaml = $this->configurationContainsNamespaces() ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
-
-        if ($sidebarHeaderIsNotSetInPhpConfig) {
-            if ($siteNameFromYaml !== null) {
-                $this->config['docs']['sidebar']['header'] = $siteNameFromYaml.' Docs';
-            }
-        }
-    }
-
-    /** @deprecated Should not be needed when using dynamic environment variables. */
-    private function supportSettingRssFeedTitleFromSiteName(): void
-    {
-        $rssFeedTitleIsNotSetInPhpConfig = ($this->config['hyde']['rss']['description'] ?? null) === 'HydePHP RSS Feed';
-        $siteNameFromYaml = $this->configurationContainsNamespaces() ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
-
-        if ($rssFeedTitleIsNotSetInPhpConfig) {
-            if ($siteNameFromYaml !== null) {
-                $this->config['hyde']['rss']['description'] = $siteNameFromYaml.' RSS Feed';
-            }
-        }
     }
 }
