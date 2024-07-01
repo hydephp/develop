@@ -46,9 +46,8 @@ class YamlConfigurationRepository
 
         if ($this->file !== false) {
             $this->data = $this->parseYamlFile();
+            $this->booted = true;
         }
-
-        $this->booted = true;
     }
 
     protected function parseYamlFile(): array
