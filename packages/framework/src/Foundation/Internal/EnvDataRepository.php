@@ -31,4 +31,9 @@ class EnvDataRepository
     {
         return $this->data[$key] ?? null;
     }
+
+    public function all(): array
+    {
+        return $this->data;
+    }
 }
