@@ -46,7 +46,6 @@ class LoadYamlConfiguration
 
             $this->supportSettingSidebarHeaderFromSiteName();
             $this->supportSettingRssFeedTitleFromSiteName();
-            $this->supportSettingSiteNameMetaTagFromSiteName();
 
             $this->mergeParsedConfiguration();
 

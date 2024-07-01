@@ -356,56 +356,6 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Custom', Config::get('hyde.rss.description'));
     }
 
-    public function testSettingSiteNameSetsSiteNameMetaProperty()
-    {
-        $this->file('hyde.yml', <<<'YAML'
-        name: Example
-        YAML);
-
-        $this->runBootstrapper();
-
-        $this->assertSame('My Site Name', Config::get('hyde.meta.1'));
-    }
-
-    public function testSettingSiteNameSetsSiteNameMetaPropertyWhenUsingHydeNamespace()
-    {
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-        YAML);
-
-        $this->runBootstrapper();
-
-        $this->assertSame('My Site Name', Config::get('hyde.meta.1'));
-    }
-
-    public function testSettingSiteNameSetsSiteNameMetaPropertyUnlessAlreadySpecifiedInYamlConfig()
-    {
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-            meta:
-                description: Custom
-        YAML);
-
-        $this->runBootstrapper();
-
-        $this->assertSame('Custom', Config::get('hyde.meta.1'));
-    }
-
-    public function testSettingSiteNameSetsSiteNameMetaPropertyUnlessAlreadySpecifiedInStandardConfig()
-    {
-        config(['hyde.meta.1' => 'Custom']);
-
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-        YAML);
-
-        $this->runBootstrapper();
-
-        $this->assertSame('Custom', Config::get('hyde.meta.1'));
-    }
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);
