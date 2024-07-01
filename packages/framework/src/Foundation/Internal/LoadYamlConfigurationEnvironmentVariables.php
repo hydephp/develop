@@ -18,5 +18,9 @@ class LoadYamlConfigurationEnvironmentVariables
     public function bootstrap(Application $app): void
     {
         $yaml = $app->make(YamlConfigurationRepository::class);
+
+        if ($yaml->hasYamlConfigFile()) {
+            // $yaml->injectEnvironmentVariables();
+        }
     }
 }
