@@ -26,7 +26,6 @@ class ConsoleKernel extends Kernel
         return [
             \LaravelZero\Framework\Bootstrap\CoreBindings::class,
             \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
-            \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables::class,
             \Hyde\Foundation\Internal\LoadConfiguration::class,
             \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
             \LaravelZero\Framework\Bootstrap\RegisterFacades::class,

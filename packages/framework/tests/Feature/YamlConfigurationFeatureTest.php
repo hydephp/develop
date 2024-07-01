@@ -8,13 +8,11 @@ use Hyde\Testing\TestCase;
 use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
-use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 
 /**
  * Test the Yaml configuration feature.
  *
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
- * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
  * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
  */
 class YamlConfigurationFeatureTest extends TestCase
@@ -329,7 +327,6 @@ class YamlConfigurationFeatureTest extends TestCase
     protected function runBootstrappers(): void
     {
         $this->app->bootstrapWith([
-            LoadYamlEnvironmentVariables::class,
             LoadYamlConfiguration::class,
             LoadConfiguration::class,
         ]);
