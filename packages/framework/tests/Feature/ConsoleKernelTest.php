@@ -11,7 +11,13 @@ use Hyde\Testing\TestCase;
 use ReflectionMethod;
 
 /**
+ * This test covers our custom console kernel, which is responsible for registering our custom bootstrappers.
+ *
  * @covers \Hyde\Foundation\ConsoleKernel
+ *
+ * Our custom bootstrapping system depends on code from Laravel Zero which is marked as internal.
+ * Sadly, there is no way around working with this private API. Since they may change the API
+ * at any time, we have tests here to detect if their code changes, so we can catch it early.
  */
 class ConsoleKernelTest extends TestCase
 {
@@ -29,14 +35,10 @@ class ConsoleKernelTest extends TestCase
     {
         $kernel = app(ConsoleKernel::class);
 
-        // Normally, protected code does not need to be unit tested, but since this array is so vital, we want to inspect it.
         $bootstrappers = (new ReflectionMethod($kernel, 'bootstrappers'))->invoke($kernel);
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
-
-        // Another assertion that is usually a no-no, testing vendor code, especially those which are marked as internal.
-        // We do this here however, so we get a heads-up if the vendor code changes as that could break our code.
 
         $this->assertSame([
             0 => 'LaravelZero\Framework\Bootstrap\CoreBindings',
