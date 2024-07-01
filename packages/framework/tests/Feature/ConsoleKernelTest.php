@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use LaravelZero\Framework\Kernel as LaravelZeroKernel;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Contracts\Console\Kernel;
 use Hyde\Foundation\ConsoleKernel;
@@ -31,24 +32,38 @@ class ConsoleKernelTest extends TestCase
         $this->assertInstanceOf(Kernel::class, app(ConsoleKernel::class));
     }
 
-    public function testBootstrappers()
+    public function testLaravelZeroBootstrappersHaveNotChanged()
     {
-        $kernel = app(ConsoleKernel::class);
+        $bootstrappers = (new ReflectionMethod(app(LaravelZeroKernel::class), 'bootstrappers'))->invoke(app(LaravelZeroKernel::class));
 
-        $bootstrappers = (new ReflectionMethod($kernel, 'bootstrappers'))->invoke($kernel);
+        $this->assertSame([
+            \LaravelZero\Framework\Bootstrap\CoreBindings::class,
+            \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
+            \LaravelZero\Framework\Bootstrap\LoadConfiguration::class,
+            \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
+            \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
+            \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
+            \Illuminate\Foundation\Bootstrap\BootProviders::class,
+        ], $bootstrappers);
+    }
+
+    public function testHydeBootstrapperInjections()
+    {
+        $bootstrappers = (new ReflectionMethod(app(ConsoleKernel::class), 'bootstrappers'))->invoke(app(ConsoleKernel::class));
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
+        $this->assertSame(range(0, count($bootstrappers) - 1), array_keys($bootstrappers));
 
         $this->assertSame([
-            0 => 'LaravelZero\Framework\Bootstrap\CoreBindings',
-            1 => 'LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables',
-            2 => 'Hyde\Foundation\Internal\LoadConfiguration',
-            3 => 'Illuminate\Foundation\Bootstrap\HandleExceptions',
-            4 => 'LaravelZero\Framework\Bootstrap\RegisterFacades',
-            5 => 'Hyde\Foundation\Internal\LoadYamlConfiguration',
-            6 => 'LaravelZero\Framework\Bootstrap\RegisterProviders',
-            7 => 'Illuminate\Foundation\Bootstrap\BootProviders',
+            \LaravelZero\Framework\Bootstrap\CoreBindings::class,
+            \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
+            \Hyde\Foundation\Internal\LoadConfiguration::class,
+            \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
+            \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
+            \Hyde\Foundation\Internal\LoadYamlConfiguration::class,
+            \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
+            \Illuminate\Foundation\Bootstrap\BootProviders::class,
         ], $bootstrappers);
     }
 }
