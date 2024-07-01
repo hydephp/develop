@@ -21,6 +21,7 @@ class ConsoleKernel extends Kernel
         // First, we need to register our Yaml configuration repository,
         // as this code executes before service providers are registered.
         $this->app->singleton(Internal\YamlConfigurationRepository::class);
+        $this->app->singleton(Internal\EnvDataRepository::class);
 
         return [
             \LaravelZero\Framework\Bootstrap\CoreBindings::class,
