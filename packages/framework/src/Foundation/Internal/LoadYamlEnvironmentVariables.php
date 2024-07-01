@@ -49,6 +49,8 @@ class LoadYamlEnvironmentVariables
     protected function injectSiteNameEnvironmentVariable(): void
     {
         $name = $this->getSiteNameFromYaml();
+
+        Env::getRepository()->set('SITE_NAME', $name);
     }
 
     protected function yamlHasSiteNameSet(): bool
