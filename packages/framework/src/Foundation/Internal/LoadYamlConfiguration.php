@@ -44,7 +44,7 @@ class LoadYamlConfiguration
             $this->config = Config::all();
             $this->yaml = $this->parseYamlFile();
 
-            $this->supportSettingSiteNameSetsSidebarHeaderOption();
+            $this->supportSettingSidebarHeaderFromSiteName();
 
             $this->mergeParsedConfiguration();
 
@@ -103,7 +103,7 @@ class LoadYamlConfiguration
         return array_key_first($this->yaml) === 'hyde';
     }
 
-    private function supportSettingSiteNameSetsSidebarHeaderOption(): void
+    private function supportSettingSidebarHeaderFromSiteName(): void
     {
         $sidebarHeaderIsNotSetInPhpConfig = ($this->config['docs']['sidebar']['header'] ?? null) === 'HydePHP Docs';
         $siteNameFromYaml = $this->configurationContainsNamespaces() ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
