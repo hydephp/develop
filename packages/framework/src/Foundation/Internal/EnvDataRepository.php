@@ -13,6 +13,15 @@ class EnvDataRepository
 {
     protected array $data = [];
 
+    public function __construct()
+    {
+        // Set the data we support by default.
+
+        $this->data = [
+            'SITE_NAME' => Env::get('SITE_NAME'),
+        ];
+    }
+
     public function set(string $key, mixed $value): void
     {
         $this->data[$key] = $value;
@@ -20,6 +29,6 @@ class EnvDataRepository
 
     public function get(string $key): mixed
     {
-        return $this->data[$key] ?? Env::get($key);
+        return $this->data[$key] ?? null;
     }
 }
