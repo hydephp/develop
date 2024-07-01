@@ -18,6 +18,7 @@ class YamlConfigurationRepository
 {
     protected bool $booted = false;
     protected array $data;
+    protected string $file;
 
     /** @return array<string, scalar|array> */
     public function getData(): array
