@@ -363,7 +363,7 @@ class LoadYamlConfigurationTest extends TestCase
     {
         $this->app->bootstrapWith([
             LoadYamlConfigurationEnvironmentVariables::class,
-            LoadYamlConfiguration::class
+            LoadYamlConfiguration::class,
         ]);
     }
 }
