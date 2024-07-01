@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Config;
 /**
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  * @covers \Hyde\Foundation\Internal\LoadYamlConfigurationEnvironmentVariables
+ * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
  */
 class LoadYamlConfigurationTest extends TestCase
 {
