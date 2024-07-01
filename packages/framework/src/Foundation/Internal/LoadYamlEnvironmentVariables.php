@@ -27,6 +27,11 @@ class LoadYamlEnvironmentVariables
         }
     }
 
+    protected function configurationContainsNamespaces(): bool
+    {
+        return array_key_first($this->yaml->getData()) === 'hyde';
+    }
+
     protected function injectEnvironmentVariables(): void
     {
         if ($this->canInjectSiteNameEnvironmentVariable()) {
