@@ -349,7 +349,8 @@ class YamlConfigurationFeatureTest extends TestCase
 
     protected function performAssertion(string $expected, string $key): void
     {
-        $this->runBootstrappers();
+        $this->refreshApplication();
+
         $this->assertSame($expected, $this->getConfig($key));
     }
 }
