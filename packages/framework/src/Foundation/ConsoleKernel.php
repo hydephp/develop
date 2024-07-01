@@ -5,12 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Foundation;
 
 use LaravelZero\Framework\Kernel;
-use Hyde\Foundation\Internal\LoadYamlConfiguration;
-
-use function array_combine;
-use function array_splice;
-use function array_values;
-use function tap;
 
 class ConsoleKernel extends Kernel
 {
@@ -24,19 +18,15 @@ class ConsoleKernel extends Kernel
         // We do this by swapping out the LoadConfiguration class with our own.
         // We also inject our Yaml configuration loading bootstrapper.
 
-        /** @var array<class-string> $bootstrappers */
-        $bootstrappers = $this->bootstrappers;
-
-        // First we key the array by the class name so we can easily manipulate it.
-        $bootstrappers = array_combine($bootstrappers, $bootstrappers);
-
-        // Remove the Laravel Zero LoadConfiguration bootstrapper
-        unset($bootstrappers[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class]);
-
-        // Inject our custom LoadConfiguration bootstrapper
-        $bootstrappers[\Hyde\Foundation\Internal\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
-
-        // Now we return the bootstrappers as a numerically indexed array, like it was before.
-        return array_values($bootstrappers);
+        return [
+            \LaravelZero\Framework\Bootstrap\CoreBindings::class,
+            \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
+            \Hyde\Foundation\Internal\LoadConfiguration::class,
+            \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
+            \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
+            \Hyde\Foundation\Internal\LoadYamlConfiguration::class,
+            \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
+            \Illuminate\Foundation\Bootstrap\BootProviders::class,
+        ];
     }
 }
