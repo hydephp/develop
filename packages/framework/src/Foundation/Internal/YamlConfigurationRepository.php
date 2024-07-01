@@ -44,6 +44,7 @@ class YamlConfigurationRepository
     protected function boot(): void
     {
         $this->data = $this->parseYamlFile();
+        $this->booted = true;
     }
 
     protected function parseYamlFile(): array
