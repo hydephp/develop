@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
+ * @covers \Hyde\Foundation\Internal\LoadYamlConfigurationEnvironmentVariables
  */
 class LoadYamlConfigurationTest extends TestCase
 {
