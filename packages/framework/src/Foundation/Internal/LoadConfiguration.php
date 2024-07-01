@@ -48,9 +48,10 @@ class LoadConfiguration extends BaseLoadConfiguration
         // This may be made much more elegantly if we created a DynamicConfigRepository that
         // would make the replacements when getting a value, but for now, this will do.
 
-        $array = $config->all();
-        $this->doRecursiveReplacement($array, $replacements);
-        $config->set($array);
+        foreach ($config->all() as $namespace => $data) {
+            $this->doRecursiveReplacement($data, $replacements);
+            $config->set($namespace, $data);
+        }
     }
 
     private function doRecursiveReplacement(array &$array, array $replacements): void
