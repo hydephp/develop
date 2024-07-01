@@ -52,18 +52,16 @@ class LoadYamlConfiguration
 
     protected function mergeParsedConfiguration(): void
     {
-        $yaml = $this->yaml;
-
         // If the Yaml file contains namespaces, we merge those using more granular logic
         // that only applies the namespace data to each configuration namespace.
         if ($this->configurationContainsNamespaces()) {
             /** @var array<string, array<string, scalar>> $yaml */
-            foreach ($yaml as $namespace => $data) {
+            foreach ($this->yaml as $namespace => $data) {
                 $this->mergeConfiguration($namespace, Arr::undot((array) $data));
             }
         } else {
             // Otherwise, we can merge using the default strategy, which is simply applying all the data to the hyde namespace.
-            $this->mergeConfiguration('hyde', $yaml);
+            $this->mergeConfiguration('hyde', $this->yaml);
         }
     }
 
