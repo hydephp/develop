@@ -41,7 +41,7 @@ class LoadYamlEnvironmentVariables
 
     protected function canInjectSiteNameEnvironmentVariable(): bool
     {
-        return $this->yamlHasSiteNameSet() && ! Env::get('SITE_NAME');
+        return $this->yamlHasSiteNameSet() && empty(Env::get('SITE_NAME'));
     }
 
     protected function injectSiteNameEnvironmentVariable(): void
