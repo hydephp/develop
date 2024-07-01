@@ -82,12 +82,10 @@ class LoadYamlConfiguration
             foreach ($yaml as $namespace => $data) {
                 $this->mergeConfiguration($namespace, Arr::undot((array) $data));
             }
-
-            return;
+        } else {
+            // Otherwise, we can merge using the default strategy, which is simply applying all the data to the hyde namespace.
+            $this->mergeConfiguration('hyde', $yaml);
         }
-
-        // Otherwise, we can merge using the default strategy, which is simply applying all the data to the hyde namespace.
-        $this->mergeConfiguration('hyde', $yaml);
     }
 
     protected function mergeConfiguration(string $namespace, array $yamlData): void
