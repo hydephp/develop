@@ -34,7 +34,8 @@ class ConsoleKernelTest extends TestCase
 
     public function testLaravelZeroBootstrappersHaveNotChanged()
     {
-        $bootstrappers = (new ReflectionMethod(app(LaravelZeroKernel::class), 'bootstrappers'))->invoke(app(LaravelZeroKernel::class));
+        $kernel = app(LaravelZeroKernel::class);
+        $bootstrappers = $this->getBootstrappersFromKernel($kernel);
 
         $this->assertSame([
             \LaravelZero\Framework\Bootstrap\CoreBindings::class,
@@ -49,7 +50,8 @@ class ConsoleKernelTest extends TestCase
 
     public function testHydeBootstrapperInjections()
     {
-        $bootstrappers = (new ReflectionMethod(app(ConsoleKernel::class), 'bootstrappers'))->invoke(app(ConsoleKernel::class));
+        $kernel = app(ConsoleKernel::class);
+        $bootstrappers = $this->getBootstrappersFromKernel($kernel);
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
@@ -65,5 +67,10 @@ class ConsoleKernelTest extends TestCase
             \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
             \Illuminate\Foundation\Bootstrap\BootProviders::class,
         ], $bootstrappers);
+    }
+
+    protected function getBootstrappersFromKernel(\Illuminate\Foundation\Console\Kernel $kernel): array
+    {
+        return (new ReflectionMethod($kernel, 'bootstrappers'))->invoke($kernel);
     }
 }
