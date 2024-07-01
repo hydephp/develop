@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
 use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
@@ -366,6 +367,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->app->bootstrapWith([
             LoadYamlEnvironmentVariables::class,
             LoadYamlConfiguration::class,
+            LoadConfiguration::class,
         ]);
     }
 }
