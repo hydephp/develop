@@ -6,13 +6,14 @@ namespace Hyde\Foundation\Internal;
 
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
-use LaravelZero\Framework\Application;
 
 use function array_key_first;
 use function array_merge;
 
 /**
  * @internal Bootstrap service that loads the YAML configuration file.
+ *
+ * @implements \LaravelZero\Framework\Contracts\BoostrapperContract [sic]
  *
  * @see docs/digging-deeper/customization.md#yaml-configuration
  *
@@ -24,12 +25,16 @@ use function array_merge;
  * Existing config files will be parsed as normal, but can be migrated by indenting all entries by one level,
  * and adding a top-level 'hyde' key. Then additional namespaces can be added underneath as needed.
  */
-class LoadYamlConfiguration implements BootstrapperContract
+class LoadYamlConfiguration
 {
     protected array $config;
     protected array $yaml;
 
-    public function bootstrap(\Illuminate\Contracts\Foundation\Application $app): void
+    /**
+     * Performs a core task that needs to be performed on
+     * early stages of the framework.
+     */
+    public function bootstrap(): void
     {
         $yaml = app(YamlConfigurationRepository::class);
 
