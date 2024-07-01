@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Internal;
 
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
+use Hyde\Foundation\Application;
 
 use function array_key_first;
 use function array_merge;
@@ -32,9 +33,9 @@ class LoadYamlConfiguration
      * Performs a core task that needs to be performed on
      * early stages of the framework.
      */
-    public function bootstrap(): void
+    public function bootstrap(Application $app): void
     {
-        $yaml = app(YamlConfigurationRepository::class);
+        $yaml = $app->make(YamlConfigurationRepository::class);
 
         if ($yaml->hasYamlConfigFile()) {
             $this->config = Config::all();
