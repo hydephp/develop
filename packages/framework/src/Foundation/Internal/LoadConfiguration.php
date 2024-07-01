@@ -49,7 +49,8 @@ class LoadConfiguration extends BaseLoadConfiguration
         // as the environment variables may depend on the configuration values.
 
         $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env->all()));
-        $replacements = array_combine($templates, array_values($env->all()));
+        $values = array_values($env->all());
+        $replacements = array_combine($templates, $values);
 
         // A recursive way to replace all the environment variables in the configuration files.
         // This may be made much more elegantly if we created a DynamicConfigRepository that
