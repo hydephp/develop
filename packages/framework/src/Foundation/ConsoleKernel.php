@@ -19,6 +19,7 @@ class ConsoleKernel extends Kernel
      */
     protected function bootstrappers(): array
     {
+        /** @var array<class-string> $bootstrappers */
         $bootstrappers = $this->bootstrappers;
 
         // Since we store our application config in `app/config.php`, we need to replace
