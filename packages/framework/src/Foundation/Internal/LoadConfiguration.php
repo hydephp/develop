@@ -30,13 +30,13 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::loadConfigurationFiles($app, $repository);
 
-        $this->reevaluateEnvironmentVariables($repository);
+        $this->reevaluateEnvironmentVariables($app->make(EnvDataRepository::class), $repository);
         $this->mergeConfigurationFiles($repository);
 
         $this->loadRuntimeConfiguration($app, $repository);
     }
 
-    private function reevaluateEnvironmentVariables(Repository $repository): void
+    private function reevaluateEnvironmentVariables(EnvDataRepository $env, Repository $config): void
     {
         // We need to reevaluate the environment variables after the configuration files have been loaded,
         // as the environment variables may depend on the configuration values.
