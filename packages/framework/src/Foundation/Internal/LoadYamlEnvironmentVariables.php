@@ -9,7 +9,7 @@ use Hyde\Foundation\Application;
 /**
  * @internal Inject environment variables parsed from the YAML configuration file.
  */
-class LoadYamlConfigurationEnvironmentVariables
+class LoadYamlEnvironmentVariables
 {
     /**
      * Performs a core task that needs to be performed on
