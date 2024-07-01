@@ -48,7 +48,7 @@ class LoadYamlEnvironmentVariables
 
     protected function injectSiteNameEnvironmentVariable(): void
     {
-        // Todo
+        $name = $this->getSiteNameFromYaml();
     }
 
     protected function yamlHasSiteNameSet(): bool
@@ -56,5 +56,12 @@ class LoadYamlEnvironmentVariables
         return $this->configurationContainsNamespaces()
             ? isset($this->yaml->getData()['hyde']['name'])
             : isset($this->yaml->getData()['name']);
+    }
+
+    protected function getSiteNameFromYaml(): string
+    {
+        return $this->configurationContainsNamespaces()
+            ? $this->yaml->getData()['hyde']['name']
+            : $this->yaml->getData()['name'];
     }
 }
