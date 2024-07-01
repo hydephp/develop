@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
-use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Application;
 
@@ -38,7 +37,7 @@ class LoadYamlConfiguration
         $yaml = $app->make(YamlConfigurationRepository::class);
 
         if ($yaml->hasYamlConfigFile()) {
-            $this->config = Config::all();
+            $this->config = $app->make('config')->all();
             $this->yaml = $yaml->getData();
 
             $this->supportSettingSidebarHeaderFromSiteName();
@@ -46,7 +45,7 @@ class LoadYamlConfiguration
 
             $this->mergeParsedConfiguration();
 
-            Config::set($this->config);
+            $app->make('config')->set($this->config);
         }
     }
 
