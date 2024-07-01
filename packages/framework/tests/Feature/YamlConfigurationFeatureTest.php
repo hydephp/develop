@@ -69,7 +69,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->file('hyde.yml', 'name: Foo');
         $this->runBootstrappers();
 
-        $this->assertSame('Foo', config('hyde.name'));
+        $this->assertSame('Foo', Config::get('hyde.name'));
     }
 
     public function testChangesInYamlFileOverrideChangesInHydeConfig()
