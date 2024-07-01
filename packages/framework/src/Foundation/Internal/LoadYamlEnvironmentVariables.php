@@ -36,12 +36,17 @@ class LoadYamlEnvironmentVariables
 
     protected function canInjectSiteNameEnvironmentVariable(): bool
     {
-        return (isset($this->yaml->getData()['hyde']['name']) || isset($this->yaml->getData()['name']))
+        return $this->yamlHasSiteNameSet()
             && ! Env::get('SITE_NAME');
     }
 
     protected function injectSiteNameEnvironmentVariable(): void
     {
         // Todo
+    }
+
+    protected function yamlHasSiteNameSet(): bool
+    {
+        return isset($this->yaml->getData()['hyde']['name']) || isset($this->yaml->getData()['name']);
     }
 }
