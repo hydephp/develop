@@ -78,6 +78,7 @@ class LoadYamlConfiguration
         return array_key_first($this->yaml) === 'hyde';
     }
 
+    /** @deprecated Should not be needed when using dynamic environment variables. */
     private function supportSettingSidebarHeaderFromSiteName(): void
     {
         $sidebarHeaderIsNotSetInPhpConfig = ($this->config['docs']['sidebar']['header'] ?? null) === 'HydePHP Docs';
@@ -90,6 +91,7 @@ class LoadYamlConfiguration
         }
     }
 
+    /** @deprecated Should not be needed when using dynamic environment variables. */
     private function supportSettingRssFeedTitleFromSiteName(): void
     {
         $rssFeedTitleIsNotSetInPhpConfig = ($this->config['hyde']['rss']['description'] ?? null) === 'HydePHP RSS Feed';
