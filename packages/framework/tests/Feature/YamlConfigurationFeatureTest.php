@@ -19,6 +19,14 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
  */
 class YamlConfigurationFeatureTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Ensure we are using the real config repository.
+        Config::swap(app()->make('config'));
+    }
+
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
         $this->file('hyde.yml', <<<'YAML'
