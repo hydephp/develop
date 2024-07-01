@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Config;
 /**
  * Test the Yaml configuration feature.
  *
+ * @covers \Hyde\Foundation\Internal\LoadConfiguration
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
  */
