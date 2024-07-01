@@ -305,6 +305,57 @@ class LoadYamlConfigurationTest extends TestCase
         $this->assertSame('Custom', Config::get('docs.sidebar.header'));
     }
 
+    public function testSettingSiteNameSetsRssFeedSiteName()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        name: Example
+        YAML);
+
+        $this->runBootstrapper();
+
+        $this->assertSame('Example RSS Feed', Config::get('hyde.rss.description'));
+    }
+
+    public function testSettingSiteNameSetsRssFeedSiteNameWhenUsingHydeNamespace()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            name: Example
+        YAML);
+
+        $this->runBootstrapper();
+
+        $this->assertSame('Example RSS Feed', Config::get('hyde.rss.description'));
+    }
+
+    public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInYamlConfig()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            name: Example
+            rss:
+                description: Custom
+        YAML);
+
+        $this->runBootstrapper();
+
+        $this->assertSame('Custom', Config::get('hyde.rss.description'));
+    }
+
+    public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInStandardConfig()
+    {
+        config(['hyde.rss.description' => 'Custom']);
+
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+            name: Example
+        YAML);
+
+        $this->runBootstrapper();
+
+        $this->assertSame('Custom', Config::get('hyde.rss.description'));
+    }
+
     protected function runBootstrapper(): void
     {
         $this->app->bootstrapWith([LoadYamlConfiguration::class]);

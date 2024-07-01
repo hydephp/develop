@@ -45,6 +45,7 @@ class LoadYamlConfiguration
             $this->yaml = $this->parseYamlFile();
 
             $this->supportSettingSidebarHeaderFromSiteName();
+            $this->supportSettingRssFeedTitleFromSiteName();
 
             $this->mergeParsedConfiguration();
 
@@ -109,6 +110,18 @@ class LoadYamlConfiguration
         if ($sidebarHeaderIsNotSetInPhpConfig) {
             if ($siteNameFromYaml !== null) {
                 $this->config['docs']['sidebar']['header'] = $siteNameFromYaml.' Docs';
+            }
+        }
+    }
+
+    private function supportSettingRssFeedTitleFromSiteName(): void
+    {
+        $rssFeedTitleIsNotSetInPhpConfig = ($this->config['hyde']['rss']['description'] ?? null) === 'HydePHP RSS Feed';
+        $siteNameFromYaml = $this->configurationContainsNamespaces() ? ($this->yaml['hyde']['name'] ?? null) : ($this->yaml['name'] ?? null);
+
+        if ($rssFeedTitleIsNotSetInPhpConfig) {
+            if ($siteNameFromYaml !== null) {
+                $this->config['hyde']['rss']['description'] = $siteNameFromYaml.' RSS Feed';
             }
         }
     }
