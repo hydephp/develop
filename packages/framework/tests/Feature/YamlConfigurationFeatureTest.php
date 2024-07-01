@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
+use Illuminate\Config\Repository;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
 use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
@@ -394,5 +396,15 @@ class YamlConfigurationFeatureTest extends TestCase
             LoadYamlEnvironmentVariables::class,
             LoadYamlConfiguration::class,
         ]);
+    }
+
+    protected function refreshConfigRepository(): void
+    {
+        // Since the environment variables are only evaluated once, we need to refresh the configuration files.
+
+        Config::swap(new Repository([
+            'hyde' => require Hyde::path('config/hyde.php'),
+            'docs' => require Hyde::path('config/docs.php'),
+        ]));
     }
 }
