@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Env;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
 use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
@@ -18,6 +19,32 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
  */
 class YamlConfigurationFeatureTest extends TestCase
 {
+    protected array $envBackup;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Backup environment variables that are set in the test
+        $this->envBackup = [
+            'SITE_NAME' => Env::get('SITE_NAME'),
+        ];
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        // Restore environment variables that were set in the test
+        foreach ($this->envBackup as $key => $value) {
+            if ($value) {
+                Env::getRepository()->set($key, $value);
+            } else {
+                Env::getRepository()->clear($key);
+            }
+        }
+    }
+
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
         $this->file('hyde.yml', <<<'YAML'
