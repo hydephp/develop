@@ -14,7 +14,7 @@ use function in_array;
 use function tap;
 
 /** @internal */
-class LoadConfiguration extends BaseLoadConfiguration
+class LoadConfiguration extends BaseLoadConfiguration implements BootstrapperContract
 {
     /** Get all the configuration files for the application. */
     protected function getConfigurationFiles(Application $app): array
