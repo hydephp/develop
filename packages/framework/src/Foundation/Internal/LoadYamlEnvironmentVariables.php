@@ -20,7 +20,12 @@ class LoadYamlEnvironmentVariables
         $yaml = $app->make(YamlConfigurationRepository::class);
 
         if ($yaml->hasYamlConfigFile()) {
-            // $yaml->injectEnvironmentVariables();
+            $this->injectEnvironmentVariables();
         }
+    }
+
+    protected function injectEnvironmentVariables(): void
+    {
+        //
     }
 }
