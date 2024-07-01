@@ -41,7 +41,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         // We need to reevaluate the environment variables after the configuration files have been loaded,
         // as the environment variables may depend on the configuration values.
 
-        //
+        $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env->all()));
     }
 
     private function mergeConfigurationFiles(Repository $repository): void
