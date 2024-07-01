@@ -4,10 +4,22 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
+use Illuminate\Support\Env;
+
 /**
  * @internal Contains dynamic environment data.
  */
 class EnvDataRepository
 {
     protected array $data = [];
+
+    public function set(string $key, mixed $value): void
+    {
+        $this->data[$key] = $value;
+    }
+
+    public function get(string $key): mixed
+    {
+        return $this->data[$key] ?: Env::get($key);
+    }
 }
