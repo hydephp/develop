@@ -20,6 +20,6 @@ class EnvDataRepository
 
     public function get(string $key): mixed
     {
-        return $this->data[$key] ?: Env::get($key);
+        return $this->data[$key] ?? Env::get($key);
     }
 }
