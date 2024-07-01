@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
+use Hyde\Foundation\Internal\LoadYamlConfigurationEnvironmentVariables;
 
 /**
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
@@ -360,6 +361,9 @@ class LoadYamlConfigurationTest extends TestCase
 
     protected function runBootstrapper(): void
     {
-        $this->app->bootstrapWith([LoadYamlConfiguration::class]);
+        $this->app->bootstrapWith([
+            LoadYamlConfigurationEnvironmentVariables::class,
+            LoadYamlConfiguration::class
+        ]);
     }
 }
