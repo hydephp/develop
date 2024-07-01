@@ -43,6 +43,27 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env->all()));
         $replacements = array_combine($templates, array_values($env->all()));
+
+        // A recursive way to replace all the environment variables in the configuration files.
+        // This may be made much more elegantly if we created a DynamicConfigRepository that
+        // would make the replacements when getting a value, but for now, this will do.
+
+        $array = $config->all();
+        $this->doRecursiveReplacement($array, $replacements);
+        $config->set($array);
+    }
+
+    private function doRecursiveReplacement(array &$array, array $replacements): void
+    {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $this->doRecursiveReplacement($value, $replacements);
+            }
+
+            if (is_string($value)) {
+                $array[$key] = str_ireplace(array_keys($replacements), array_values($replacements), $value);
+            }
+        }
     }
 
     private function mergeConfigurationFiles(Repository $repository): void
