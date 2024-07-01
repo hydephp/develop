@@ -34,9 +34,6 @@ class ConsoleKernelTest extends TestCase
 
     public function testLaravelZeroBootstrappersHaveNotChanged()
     {
-        $kernel = app(LaravelZeroKernel::class);
-        $bootstrappers = $this->getBootstrappersFromKernel($kernel);
-
         $this->assertSame([
             \LaravelZero\Framework\Bootstrap\CoreBindings::class,
             \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
@@ -45,13 +42,12 @@ class ConsoleKernelTest extends TestCase
             \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
             \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
             \Illuminate\Foundation\Bootstrap\BootProviders::class,
-        ], $bootstrappers);
+        ], $this->getBootstrappersFromKernel(app(LaravelZeroKernel::class)));
     }
 
     public function testHydeBootstrapperInjections()
     {
-        $kernel = app(ConsoleKernel::class);
-        $bootstrappers = $this->getBootstrappersFromKernel($kernel);
+        $bootstrappers = $this->getBootstrappersFromKernel(app(ConsoleKernel::class));
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
