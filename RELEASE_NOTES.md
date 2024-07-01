@@ -22,6 +22,7 @@ This serves two purposes:
 - Method `Hyde::url()` will now return a relative URL instead of throwing an exception when supplied a path even if the site URL is not set in https://github.com/hydephp/develop/pull/1726
 - Updated the `.env.example` file to contain more details on the site URL setting's usages in https://github.com/hydephp/develop/pull/1746
 - Added a version prefix to the sitemap's generator attribute in https://github.com/hydephp/develop/pull/1767
+- Setting a site name in the Yaml config file will now be used to set the documentation sidebar header in https://github.com/hydephp/develop/pull/1770
 
 ### Deprecated
 - Deprecated the global `unslash()` function, replaced with the existing namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1753
