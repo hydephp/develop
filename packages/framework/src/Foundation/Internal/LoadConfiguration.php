@@ -59,6 +59,7 @@ class LoadConfiguration extends BaseLoadConfiguration
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $this->doRecursiveReplacement($value, $replacements);
+                $array[$key] = $value;
             }
 
             if (is_string($value)) {
