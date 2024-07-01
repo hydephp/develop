@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
+use Illuminate\Support\Env;
 use Hyde\Foundation\Application;
 
 /**
