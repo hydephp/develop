@@ -51,7 +51,6 @@ class ConsoleKernelTest extends TestCase
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
-        $this->assertSame(range(0, count($bootstrappers) - 1), array_keys($bootstrappers));
 
         $this->assertSame([
             \LaravelZero\Framework\Bootstrap\CoreBindings::class,
