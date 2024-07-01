@@ -11,16 +11,13 @@ use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 use function getenv;
 use function is_array;
-use function array_map;
 use function is_string;
 use function array_keys;
 use function array_merge;
 use function in_array;
 use function tap;
-use function str_replace;
 use function array_values;
 use function str_ireplace;
-use function array_combine;
 
 /** @internal */
 class LoadConfiguration extends BaseLoadConfiguration
@@ -50,20 +47,10 @@ class LoadConfiguration extends BaseLoadConfiguration
         // We need to reevaluate the environment variables after the configuration files have been loaded,
         // as the environment variables may depend on the configuration values.
 
-        $env = [
-            'SITE_NAME' => Env::get('SITE_NAME') ?? '{{ config.hyde.name }}',
-        ];
-        $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env));
-        $values = array_values($env);
-
         // Todo: Can be made dynamic, but is just a proof of concept for now.
-        $values = str_replace([
-            '{{ config.hyde.name }}',
-        ], [
-            $config->get('hyde.name') ?? 'HydePHP',
-        ], $values);
-
-        $replacements = array_combine($templates, $values);
+        $replacements = [
+            '{{ env.SITE_NAME }}' => Env::get('SITE_NAME') ?? $config->get('hyde.name') ?? 'HydePHP',
+        ];
 
         // A recursive way to replace all the environment variables in the configuration files.
         // This may be made much more elegantly if we created a DynamicConfigRepository that
