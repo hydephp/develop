@@ -22,11 +22,6 @@ class ConsoleKernel extends Kernel
         // as this code executes before service providers are registered.
         $this->app->singleton(Internal\YamlConfigurationRepository::class);
 
-        $siteName = $this->findSiteName();
-        if ($siteName !== null) {
-            putenv('SITE_NAME='.$siteName);
-        }
-
         return [
             \LaravelZero\Framework\Bootstrap\CoreBindings::class,
             \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
@@ -37,29 +32,5 @@ class ConsoleKernel extends Kernel
             \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
             \Illuminate\Foundation\Bootstrap\BootProviders::class,
         ];
-    }
-
-    protected function findSiteName(): ?string
-    {
-        // Experimental proof of concept to run before everything is loaded
-        $hyde = require $this->app->configPath('hyde.php');
-        if (isset($hyde['name']) && is_string($hyde['name']) && $hyde['name'] !== 'HydePHP') {
-            return $hyde['name'];
-        }
-
-        $yaml = $this->app->make(Internal\YamlConfigurationRepository::class);
-
-        if($yaml->getFilePath()) {
-            $data = $yaml->getData();
-            if (isset($data['hyde']['name']) && is_string($data['hyde']['name']) && $data['hyde']['name'] !== 'HydePHP') {
-                return $data['hyde']['name'];
-            }
-
-            if (isset($data['name']) && is_string($data['name']) && $data['name'] !== 'HydePHP') {
-                return $data['name'];
-            }
-        }
-
-        return null;
     }
 }

@@ -116,13 +116,13 @@ return [
         'filename' => 'feed.xml',
 
         // The channel description.
-        'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
+        'description' => '{{ env.SITE_NAME }}'.' RSS Feed',
     ],
 
     /*
     |--------------------------------------------------------------------------
     | Source Root Directory
-    |---------------------------------------------------------------------------
+    |--------------------------------------------------------------------------
     |
     | HydePHP will by default look for the underscored source directories in the
     | root of your project. For example, you might want everything in a 'src'
@@ -221,7 +221,7 @@ return [
         // Meta::name('description', 'My Hyde Blog'),
         // Meta::name('keywords', 'Static Sites, Blogs, Documentation'),
         Meta::name('generator', 'HydePHP v'.Hyde\Hyde::version()),
-        Meta::property('site_name', env('SITE_NAME', 'HydePHP')),
+        Meta::property('site_name', '{{ env.SITE_NAME }}'),
     ],
 
     /*

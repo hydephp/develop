@@ -57,7 +57,7 @@ class YamlConfigurationRepository
         return Arr::undot((array) Yaml::parse(file_get_contents($this->file)));
     }
 
-    public function getFilePath(): string|false
+    protected function getFilePath(): string|false
     {
         return match (true) {
             file_exists(Hyde::path('hyde.yml')) => Hyde::path('hyde.yml'),

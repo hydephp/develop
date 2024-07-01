@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Env;
 use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
@@ -25,8 +24,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
         // Ensure we are using the real config repository.
         Config::swap(app()->make('config'));
-
-        Env::getRepository()->clear('SITE_NAME');
     }
 
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
