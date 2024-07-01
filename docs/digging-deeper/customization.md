@@ -116,7 +116,7 @@ Here are the default settings:
     'filename' => 'feed.xml',
 
     // The channel description.
-    'description' => '{{ env.SITE_NAME }}'.' RSS Feed',
+    'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
 ],
 ```
 

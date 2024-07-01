@@ -4,20 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
-use Illuminate\Support\Env;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 use function getenv;
-use function is_array;
-use function is_string;
-use function array_keys;
 use function array_merge;
 use function in_array;
 use function tap;
-use function array_values;
-use function str_ireplace;
 
 /** @internal */
 class LoadConfiguration extends BaseLoadConfiguration
@@ -42,37 +36,12 @@ class LoadConfiguration extends BaseLoadConfiguration
         $this->loadRuntimeConfiguration($app, $repository);
     }
 
-    private function reevaluateEnvironmentVariables(Repository $config): void
+    private function reevaluateEnvironmentVariables(Repository $repository): void
     {
         // We need to reevaluate the environment variables after the configuration files have been loaded,
         // as the environment variables may depend on the configuration values.
 
-        // Todo: Can be made dynamic, but is just a proof of concept for now.
-        $replacements = [
-            '{{ env.SITE_NAME }}' => $config->get('hyde.name') ?? 'HydePHP',
-        ];
-
-        // A recursive way to replace all the environment variables in the configuration files.
-        // This may be made much more elegantly if we created a DynamicConfigRepository that
-        // would make the replacements when getting a value, but for now, this will do.
-
-        $array = $config->all();
-        $this->doRecursiveReplacement($array, $replacements);
-        $config->set($array);
-    }
-
-    private function doRecursiveReplacement(array &$array, array $replacements): void
-    {
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                $this->doRecursiveReplacement($value, $replacements);
-                $array[$key] = $value;
-            }
-
-            if (is_string($value)) {
-                $array[$key] = str_ireplace(array_keys($replacements), array_values($replacements), $value);
-            }
-        }
+        //
     }
 
     private function mergeConfigurationFiles(Repository $repository): void
