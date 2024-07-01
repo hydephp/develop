@@ -28,6 +28,18 @@ class LoadYamlEnvironmentVariables
 
     protected function injectEnvironmentVariables(): void
     {
-        //
+        if ($this->canInjectSiteNameEnvironmentVariable()) {
+            $this->injectSiteNameEnvironmentVariable();
+        }
+    }
+
+    protected function canInjectSiteNameEnvironmentVariable(): bool
+    {
+        return false; // Todo
+    }
+
+    protected function injectSiteNameEnvironmentVariable(): void
+    {
+        // Todo
     }
 }
