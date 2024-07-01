@@ -17,7 +17,7 @@ use function file_get_contents;
 class YamlConfigurationRepository
 {
     protected bool $booted = false;
-    protected string|false $file;
+    protected false|string $file;
     protected array $data;
 
     /** @return array<string, scalar|array> */
