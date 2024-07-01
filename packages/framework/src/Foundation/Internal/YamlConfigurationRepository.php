@@ -43,7 +43,11 @@ class YamlConfigurationRepository
     protected function boot(): void
     {
         $this->file = $this->getFilePath();
-        $this->data = $this->parseYamlFile();
+
+        if ($this->file !== false) {
+            $this->data = $this->parseYamlFile();
+        }
+
         $this->booted = true;
     }
 
