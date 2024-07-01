@@ -16,6 +16,7 @@ use function array_keys;
 use function array_merge;
 use function in_array;
 use function tap;
+use function str_replace;
 use function array_values;
 use function str_ireplace;
 use function array_combine;
@@ -50,6 +51,14 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env->all()));
         $values = array_values($env->all());
+
+        // Todo: Can be made dynamic, but is just a proof of concept for now.
+        $values = str_replace([
+            '{{ config.hyde.name }}',
+        ], [
+            $config->get('hyde.name') ?? 'HydePHP',
+        ], $values);
+
         $replacements = array_combine($templates, $values);
 
         // A recursive way to replace all the environment variables in the configuration files.

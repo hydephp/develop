@@ -18,7 +18,7 @@ class EnvDataRepository
         // Set the data we support by default.
 
         $this->data = [
-            'SITE_NAME' => Env::get('SITE_NAME') ?: 'HydePHP',
+            'SITE_NAME' => Env::get('SITE_NAME') ?? '{{ config.hyde.name }}',
         ];
     }
 
