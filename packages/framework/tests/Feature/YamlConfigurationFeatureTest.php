@@ -109,11 +109,13 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testConfigurationOptionsAreMerged()
     {
-        $this->file('hyde.yml', 'baz: hat');
-        $this->performAssertion('bar', 'hyde.foo', ['hyde' => [
+        config(['hyde' => [
             'foo' => 'bar',
             'baz' => 'qux',
         ]]);
+
+        $this->file('hyde.yml', 'baz: hat');
+        $this->performAssertion('bar', 'hyde.foo');
     }
 
     public function testCanAddConfigurationOptionsInNamespacedArray()
@@ -249,6 +251,7 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Example
         YAML);
 
+
         $this->performAssertion('Example Docs', 'docs.sidebar.header');
     }
 
@@ -277,12 +280,14 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInStandardConfig()
     {
+        config(['docs.sidebar.header' => 'Custom']);
+
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
         YAML);
 
-        $this->performAssertion('Custom', 'docs.sidebar.header', ['docs.sidebar.header' => 'Custom']);
+        $this->performAssertion('Custom', 'docs.sidebar.header');
     }
 
     public function testSettingSiteNameSetsRssFeedSiteName()
@@ -318,12 +323,14 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInStandardConfig()
     {
+        config(['hyde.rss.description' => 'Custom']);
+
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
         YAML);
 
-        $this->performAssertion('Custom', 'hyde.rss.description', ['hyde.rss.description' => 'Custom']);
+        $this->performAssertion('Custom', 'hyde.rss.description');
     }
 
     protected function runBootstrappers(): void
@@ -340,14 +347,10 @@ class YamlConfigurationFeatureTest extends TestCase
         return Config::get($key);
     }
 
-    protected function performAssertion(string $expected, string $key, ?array $withConfig = null): void
+    protected function performAssertion(string $expected, string $key): void
     {
         $this->refreshApplication();
 
-        if ($withConfig !== null) {
-            config($withConfig);
-        }
-
-        $this->assertSame($expected, config($key));
+        $this->assertSame($expected, $this->getConfig($key));
     }
 }
