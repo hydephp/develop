@@ -9,9 +9,16 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 use function getenv;
+use function is_array;
+use function array_map;
+use function is_string;
+use function array_keys;
 use function array_merge;
 use function in_array;
 use function tap;
+use function array_values;
+use function str_ireplace;
+use function array_combine;
 
 /** @internal */
 class LoadConfiguration extends BaseLoadConfiguration
