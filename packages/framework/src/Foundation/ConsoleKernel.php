@@ -27,11 +27,16 @@ class ConsoleKernel extends Kernel
         /** @var array<class-string> $bootstrappers */
         $bootstrappers = $this->bootstrappers;
 
-        // Insert our bootstrapper between load configuration and register provider bootstrappers.
-        array_splice($bootstrappers, 5, 0, LoadYamlConfiguration::class);
+        // First we key the array by the class name so we can easily manipulate it.
+        $bootstrappers = array_combine($bootstrappers, $bootstrappers);
 
-        return array_values((array) tap(array_combine($bootstrappers, $bootstrappers), function (array &$array): void {
-            $array[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
-        }));
+        // Remove the Laravel Zero LoadConfiguration bootstrapper
+        unset($bootstrappers[\LaravelZero\Framework\Bootstrap\LoadConfiguration::class]);
+
+        // Inject our custom LoadConfiguration bootstrapper
+        $bootstrappers[\Hyde\Foundation\Internal\LoadConfiguration::class] = \Hyde\Foundation\Internal\LoadConfiguration::class;
+
+        // Now we return the bootstrappers as a numerically indexed array, like it was before.
+        return array_values($bootstrappers);
     }
 }
