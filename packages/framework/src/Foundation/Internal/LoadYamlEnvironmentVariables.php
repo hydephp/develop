@@ -52,6 +52,8 @@ class LoadYamlEnvironmentVariables
 
     protected function yamlHasSiteNameSet(): bool
     {
-        return isset($this->yaml->getData()['hyde']['name']) || isset($this->yaml->getData()['name']);
+        return $this->configurationContainsNamespaces()
+            ? isset($this->yaml->getData()['hyde']['name'])
+            : isset($this->yaml->getData()['name']);
     }
 }
