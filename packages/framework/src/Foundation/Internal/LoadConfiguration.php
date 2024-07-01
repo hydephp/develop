@@ -49,8 +49,9 @@ class LoadConfiguration extends BaseLoadConfiguration
         // We need to reevaluate the environment variables after the configuration files have been loaded,
         // as the environment variables may depend on the configuration values.
 
-        $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env->all()));
-        $values = array_values($env->all());
+        $env = $env->all();
+        $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env));
+        $values = array_values($env);
 
         // Todo: Can be made dynamic, but is just a proof of concept for now.
         $values = str_replace([
