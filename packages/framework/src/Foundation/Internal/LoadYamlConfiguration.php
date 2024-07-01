@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
-use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Support\Arr;
-use Symfony\Component\Yaml\Yaml;
 
 use function array_key_first;
 use function array_merge;
