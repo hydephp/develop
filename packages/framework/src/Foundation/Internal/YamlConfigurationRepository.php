@@ -30,7 +30,7 @@ class YamlConfigurationRepository
 
     public function hasYamlConfigFile(): bool
     {
-        return $this->getFilePath() !== false;
+        return $this->file !== false;
     }
 
     protected function bootIfNotBooted(): void
