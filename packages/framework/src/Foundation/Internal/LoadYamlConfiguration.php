@@ -10,9 +10,7 @@ use Illuminate\Support\Arr;
 use Symfony\Component\Yaml\Yaml;
 
 use function array_key_first;
-use function file_get_contents;
 use function array_merge;
-use function file_exists;
 
 /**
  * @internal Bootstrap service that loads the YAML configuration file.
@@ -40,9 +38,11 @@ class LoadYamlConfiguration
      */
     public function bootstrap(): void
     {
-        if ($this->hasYamlConfigFile()) {
+        $yaml = app(YamlConfigurationRepository::class);
+
+        if ($yaml->hasYamlConfigFile()) {
             $this->config = Config::all();
-            $this->yaml = $this->parseYamlFile();
+            $this->yaml = $yaml->getData();
 
             $this->supportSettingSidebarHeaderFromSiteName();
             $this->supportSettingRssFeedTitleFromSiteName();
@@ -51,25 +51,6 @@ class LoadYamlConfiguration
 
             Config::set($this->config);
         }
-    }
-
-    protected function hasYamlConfigFile(): bool
-    {
-        return file_exists(Hyde::path('hyde.yml'))
-            || file_exists(Hyde::path('hyde.yaml'));
-    }
-
-    /** @return array<string, scalar|array> */
-    protected function parseYamlFile(): array
-    {
-        return Arr::undot((array) Yaml::parse(file_get_contents($this->getFile())));
-    }
-
-    protected function getFile(): string
-    {
-        return file_exists(Hyde::path('hyde.yml'))
-            ? Hyde::path('hyde.yml')
-            : Hyde::path('hyde.yaml');
     }
 
     protected function mergeParsedConfiguration(): void
