@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
+use Illuminate\Support\Env;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
@@ -38,18 +39,20 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::loadConfigurationFiles($app, $repository);
 
-        $this->reevaluateEnvironmentVariables($app->make(EnvDataRepository::class), $repository);
+        $this->reevaluateEnvironmentVariables($repository);
         $this->mergeConfigurationFiles($repository);
 
         $this->loadRuntimeConfiguration($app, $repository);
     }
 
-    private function reevaluateEnvironmentVariables(EnvDataRepository $env, Repository $config): void
+    private function reevaluateEnvironmentVariables(Repository $config): void
     {
         // We need to reevaluate the environment variables after the configuration files have been loaded,
         // as the environment variables may depend on the configuration values.
 
-        $env = $env->all();
+        $env = [
+            'SITE_NAME' => Env::get('SITE_NAME') ?? '{{ config.hyde.name }}',
+        ];
         $templates = array_map(fn (string $key): string => '{{ env.'.$key.' }}', array_keys($env));
         $values = array_values($env);
 
