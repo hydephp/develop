@@ -54,14 +54,10 @@ class YamlConfigurationRepository
 
     protected function getFilePath(): string|false
     {
-        if (file_exists(Hyde::path('hyde.yml'))) {
-            return Hyde::path('hyde.yml');
-        }
-
-        if (file_exists(Hyde::path('hyde.yaml'))) {
-            return Hyde::path('hyde.yaml');
-        }
-
-        return false;
+        return match (true) {
+            file_exists(Hyde::path('hyde.yml')) => Hyde::path('hyde.yml'),
+            file_exists(Hyde::path('hyde.yaml')) => Hyde::path('hyde.yaml'),
+            default => false,
+        };
     }
 }
