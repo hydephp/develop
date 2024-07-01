@@ -30,8 +30,7 @@ class YamlConfigurationRepository
 
     public function hasYamlConfigFile(): bool
     {
-        return file_exists(Hyde::path('hyde.yml'))
-            || file_exists(Hyde::path('hyde.yaml'));
+        return $this->getFilePath() !== false;
     }
 
     protected function bootIfNotBooted(): void
@@ -43,19 +42,26 @@ class YamlConfigurationRepository
 
     protected function boot(): void
     {
+        $this->file = $this->getFilePath();
         $this->data = $this->parseYamlFile();
         $this->booted = true;
     }
 
     protected function parseYamlFile(): array
     {
-        return Arr::undot((array) Yaml::parse(file_get_contents($this->getFile())));
+        return Arr::undot((array) Yaml::parse(file_get_contents($this->file)));
     }
 
-    protected function getFile(): string
+    protected function getFilePath(): string|false
     {
-        return file_exists(Hyde::path('hyde.yml'))
-            ? Hyde::path('hyde.yml')
-            : Hyde::path('hyde.yaml');
+        if (file_exists(Hyde::path('hyde.yml'))) {
+            return Hyde::path('hyde.yml');
+        }
+
+        if (file_exists(Hyde::path('hyde.yaml'))) {
+            return Hyde::path('hyde.yaml');
+        }
+
+        return false;
     }
 }
