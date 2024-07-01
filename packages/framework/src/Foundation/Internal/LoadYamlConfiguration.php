@@ -13,8 +13,6 @@ use function array_merge;
 /**
  * @internal Bootstrap service that loads the YAML configuration file.
  *
- * @implements \LaravelZero\Framework\Contracts\BoostrapperContract [sic]
- *
  * @see docs/digging-deeper/customization.md#yaml-configuration
  *
  * It also supports loading multiple configuration namespaces, where a configuration namespace is defined
