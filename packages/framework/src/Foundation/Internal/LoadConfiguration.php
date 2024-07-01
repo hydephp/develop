@@ -49,7 +49,7 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         // Todo: Can be made dynamic, but is just a proof of concept for now.
         $replacements = [
-            '{{ env.SITE_NAME }}' => Env::get('SITE_NAME') ?? $config->get('hyde.name') ?? 'HydePHP',
+            '{{ env.SITE_NAME }}' => $config->get('hyde.name') ?? 'HydePHP',
         ];
 
         // A recursive way to replace all the environment variables in the configuration files.
