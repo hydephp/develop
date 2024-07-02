@@ -20,9 +20,7 @@ class YamlConfigurationFeatureTest extends TestCase
     protected function setUp(): void
     {
         $this->clearEnvVars();
-        $this->clearEnvVars();
 
-        $this->clearEnvVars();
         parent::setUp();
     }
 
