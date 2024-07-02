@@ -265,6 +265,7 @@ class YamlConfigurationFeatureTest extends TestCase
         YAML);
 
         $config = $this->getExecConfig();
+
         $this->assertSame('Example', $config->get('hyde.name'));
     }
 
