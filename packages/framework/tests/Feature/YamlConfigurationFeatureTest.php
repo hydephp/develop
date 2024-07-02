@@ -267,6 +267,9 @@ class YamlConfigurationFeatureTest extends TestCase
         $config = $this->getExecConfig();
 
         $this->assertSame('Example', $config->get('hyde.name'));
+        $this->assertSame('Example RSS Feed', $config->get('hyde.rss.description'));
+        $this->assertSame('Example Docs', $config->get('docs.sidebar.header'));
+        $this->assertSame(['property' => 'site_name', 'content' => 'Example'], $config->get('hyde.meta.1')->toArray());
     }
 
     public function testSettingSiteNameSetsEnvironmentVariableCanBeTestedReliably()
