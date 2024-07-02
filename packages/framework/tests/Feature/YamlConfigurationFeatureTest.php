@@ -395,10 +395,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
     protected function runBootstrappers(): void
     {
-        $this->app->bootstrapWith([
-            LoadYamlEnvironmentVariables::class,
-            LoadYamlConfiguration::class,
-        ]);
+        $this->refreshApplication();
     }
 
     protected function clearEnvVars(): void
