@@ -401,7 +401,6 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->app->bootstrapWith([
             LoadYamlEnvironmentVariables::class,
             LoadYamlConfiguration::class,
-            LoadConfiguration::class,
         ]);
     }
 
