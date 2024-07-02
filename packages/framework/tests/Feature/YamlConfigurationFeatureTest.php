@@ -273,7 +273,7 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Example
         YAML);
 
-        $this->assertSame('Example', $this->hydeExec('echo config(\'hyde.name\'); exit;'));
+        $this->assertSame('Example', $this->hydeExec('echo config(\'hyde.name\');'));
     }
 
     public function testSettingSiteNameSetsEnvironmentVariableCanBeTestedReliably()
@@ -282,7 +282,7 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Another
         YAML);
 
-        $this->assertSame('Another', $this->hydeExec('echo config(\'hyde.name\'); exit;'));
+        $this->assertSame('Another', $this->hydeExec('echo config(\'hyde.name\');'));
     }
 
     public function testSettingSiteNameSetsSidebarHeader()
@@ -418,7 +418,7 @@ class YamlConfigurationFeatureTest extends TestCase
         // separate process to ensure a clean slate. This means we lose
         // code coverage, but at least we can test the feature.
 
-        $output = shell_exec('php hyde tinker --execute="'.$code.'"');
+        $output = shell_exec('php hyde tinker --execute="'.$code.'" exit;');
 
         $output = str_replace('INFO  Goodbye.', '', $output);
 
