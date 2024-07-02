@@ -256,11 +256,11 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $expected = ['foo' => ['bar' => ['baz' => 'qux']]];
+        $expected = ['bar' => ['baz' => 'qux']];
 
-        $this->assertSame($expected, config('hyde'));
-        $this->assertSame($expected, config('one'));
-        $this->assertSame($expected, config('two'));
+        $this->assertSame($expected, config('hyde.foo'));
+        $this->assertSame($expected, config('one.foo'));
+        $this->assertSame($expected, config('two.foo'));
     }
 
     public function testSettingSiteNameSetsAffectsEnvironmentVariableUsages()
