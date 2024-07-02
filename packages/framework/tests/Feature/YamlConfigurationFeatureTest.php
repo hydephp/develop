@@ -293,7 +293,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeader()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         name: Example
         YAML);
@@ -305,7 +304,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderWhenUsingHydeNamespace()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -318,7 +316,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInYamlConfig()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -334,7 +331,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInStandardConfig()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         config(['docs.sidebar.header' => 'Custom']);
 
         $this->file('hyde.yml', <<<'YAML'
@@ -349,7 +345,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteName()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         name: Example
         YAML);
@@ -361,7 +356,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameWhenUsingHydeNamespace()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -374,7 +368,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInYamlConfig()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -389,7 +382,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInStandardConfig()
     {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         config(['hyde.rss.description' => 'Custom']);
 
         $this->file('hyde.yml', <<<'YAML'
