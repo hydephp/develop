@@ -414,6 +414,12 @@ class YamlConfigurationFeatureTest extends TestCase
 
     protected function hydeExec(string $code): string
     {
+        // Due to how environment data handling is hardcoded in so many places,
+        // we can't reliably test these features, as we can't reset the testing
+        // environment after each test. We thus need to run the code in a
+        // separate process to ensure a clean slate. This means we lose
+        // code coverage, but at least we can test the feature.
+
         $output = shell_exec('php hyde tinker --execute="'.$code.'"');
 
         $output = str_replace('INFO  Goodbye.', '', $output);
