@@ -8,6 +8,7 @@ use Illuminate\Support\Env;
 use Hyde\Foundation\Application;
 
 use function app;
+use function filled;
 
 /**
  * @internal Inject environment variables parsed from the YAML configuration file.
