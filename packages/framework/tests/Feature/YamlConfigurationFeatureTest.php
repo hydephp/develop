@@ -7,9 +7,6 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
 use Illuminate\Config\Repository;
-use Dotenv\Repository\RepositoryBuilder;
-use Dotenv\Repository\RepositoryInterface;
-use Dotenv\Repository\Adapter\PutenvAdapter;
 
 /**
  * Test the Yaml configuration feature.
@@ -26,21 +23,13 @@ class YamlConfigurationFeatureTest extends TestCase
         /** Make sure that {@see \Dotenv\Repository\Adapter\ImmutableWriter::write} returns false as that will then leave the environment variable alone between tests. */
         Env::getRepository()->set('SITE_NAME', '__INIT__');
         $this->clearEnvVars();
-        // Create a mutable dotenv repository.
-        $builder = RepositoryBuilder::createWithNoAdapters();
-        $builder = $builder->addAdapter(PutenvAdapter::class);
-        $repository = $builder->make();
 
-        // Set the repository for the Env class.
-        ExtendEnv::setRepository($repository);
         $this->clearEnvVars();
         parent::setUp();
-        app()->singleton(Env::class, fn () => ExtendEnv::class);
     }
 
     protected function tearDown(): void
     {
-        ExtendEnv::clear();
         $this->clearEnvVars();
 
         parent::tearDown();
@@ -311,8 +300,8 @@ class YamlConfigurationFeatureTest extends TestCase
             'env' => 'Environment Example',
             'Env::get' => 'Environment Example',
             'getenv' => 'Environment Example',
-            '$_ENV' => null,
-            '$_SERVER' => null,
+            '$_ENV' => 'Environment Example',
+            '$_SERVER' => 'Environment Example',
         ], $this->envVars());
 
         $this->assertSame('Environment Example', config('hyde.name'));
@@ -462,18 +451,5 @@ class YamlConfigurationFeatureTest extends TestCase
             '$_ENV' => $_ENV['SITE_NAME'] ?? null,
             '$_SERVER' => $_SERVER['SITE_NAME'] ?? null,
         ];
-    }
-}
-
-class ExtendEnv extends Env
-{
-    public static function setRepository(RepositoryInterface $repository): void
-    {
-        static::$repository = $repository;
-    }
-
-    public static function clear(): void
-    {
-        static::$repository = null;
     }
 }
