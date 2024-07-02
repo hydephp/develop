@@ -329,7 +329,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeader()
     {
-        $this->clearEnvVars();
         $this->file('hyde.yml', <<<'YAML'
         name: Root Example
         YAML);
