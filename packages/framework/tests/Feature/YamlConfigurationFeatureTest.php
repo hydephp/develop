@@ -28,26 +28,26 @@ class YamlConfigurationFeatureTest extends TestCase
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
         $this->file('hyde.yml', <<<'YAML'
-        name: HydePHP
+        name: Test
         url: "http://localhost"
         pretty_urls: false
         generate_sitemap: true
         rss:
           enabled: true
           filename: feed.xml
-          description: HydePHP RSS Feed
+          description: Test RSS Feed
         language: en
         output_directory: _site
         YAML);
         $this->runBootstrappers();
 
-        $this->assertSame('HydePHP', config('hyde.name'));
+        $this->assertSame('Test', config('hyde.name'));
         $this->assertSame('http://localhost', config('hyde.url'));
         $this->assertSame(false, config('hyde.pretty_urls'));
         $this->assertSame(true, config('hyde.generate_sitemap'));
         $this->assertSame(true, config('hyde.rss.enabled'));
         $this->assertSame('feed.xml', config('hyde.rss.filename'));
-        $this->assertSame('HydePHP RSS Feed', config('hyde.rss.description'));
+        $this->assertSame('Test RSS Feed', config('hyde.rss.description'));
         $this->assertSame('en', config('hyde.language'));
         $this->assertSame('_site', config('hyde.output_directory'));
     }
@@ -56,7 +56,7 @@ class YamlConfigurationFeatureTest extends TestCase
     {
         $this->file('hyde.yml', <<<'YAML'
         hyde:
-            name: HydePHP
+            name: Test
             url: "http://localhost"
         docs:
             sidebar:
@@ -65,7 +65,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('HydePHP', config('hyde.name'));
+        $this->assertSame('Test', config('hyde.name'));
         $this->assertSame('http://localhost', config('hyde.url'));
         $this->assertSame('My Docs', config('docs.sidebar.header'));
     }
