@@ -278,6 +278,17 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame('Example', getenv('SITE_NAME'));
     }
 
+    public function testSettingSiteNameSetsEnvironmentVariableCanBeTestedReliably()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        name: Another
+        YAML);
+
+        $this->runBootstrappers();
+
+        $this->assertSame('Another', getenv('SITE_NAME'));
+    }
+
     public function testSettingSiteNameSetsSidebarHeader()
     {
         $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
