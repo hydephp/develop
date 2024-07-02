@@ -272,14 +272,23 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame(['property' => 'site_name', 'content' => 'Example'], $config->get('hyde.meta.1')->toArray());
     }
 
-    public function testSettingSiteNameSetsEnvironmentVariableCanBeTestedReliably()
+    public function testSettingSiteNameSetsAffectsEnvironmentVariableUsagesWithAlternateSyntax()
     {
-        $this->file('hyde.yml', <<<'YAML'
-        name: Another
+        // This test tests two alternate syntaxes: one with a hyde namespace, and one with a .yaml extension.
+        // The reason we test two things in one test is simply because of how excruciatingly slow it is to
+        // run these tests in isolate. Each execConfig call takes about 0.5 seconds to execute.
+
+        $this->file('hyde.yaml', <<<'YAML'
+        hyde:
+            name: Example
         YAML);
 
         $config = $this->getExecConfig();
-        $this->assertSame('Another', $config->get('hyde.name'));
+
+        $this->assertSame('Example', $config->get('hyde.name'));
+        $this->assertSame('Example RSS Feed', $config->get('hyde.rss.description'));
+        $this->assertSame('Example Docs', $config->get('docs.sidebar.header'));
+        $this->assertSame(['property' => 'site_name', 'content' => 'Example'], $config->get('hyde.meta.1')->toArray());
     }
 
     public function testSettingSiteNameSetsSidebarHeader()
