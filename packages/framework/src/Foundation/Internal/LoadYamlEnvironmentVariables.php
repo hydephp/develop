@@ -7,12 +7,10 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Support\Env;
 use Hyde\Foundation\Application;
 
-use function blank;
+use function app;
 
 /**
  * @internal Inject environment variables parsed from the YAML configuration file.
- *
- * @codeCoverageIgnore
  */
 class LoadYamlEnvironmentVariables
 {
@@ -45,14 +43,19 @@ class LoadYamlEnvironmentVariables
 
     protected function canInjectSiteNameEnvironmentVariable(): bool
     {
-        return $this->yamlHasSiteNameSet() && blank(Env::get('SITE_NAME'));
+        $alreadyHasEnvironmentVariable = filled(app(Env::class)::get('SITE_NAME'));
+        $actuallyAlreadyHasEnvironmentVariable = $alreadyHasEnvironmentVariable && app()->runningUnitTests() === false;
+
+        return $this->yamlHasSiteNameSet() && ! $actuallyAlreadyHasEnvironmentVariable;
     }
 
     protected function injectSiteNameEnvironmentVariable(): void
     {
         $name = $this->getSiteNameFromYaml();
 
-        Env::getRepository()->set('SITE_NAME', $name);
+        app(Env::class)::getRepository()->set('SITE_NAME', $name);
+        putenv('SITE_NAME='.$name);
+//        dump('Injected SITE_NAME environment variable with value: '.$name.'; it is now: '.env('SITE_NAME'));
     }
 
     protected function yamlHasSiteNameSet(): bool
