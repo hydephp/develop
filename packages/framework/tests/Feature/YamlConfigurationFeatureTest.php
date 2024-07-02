@@ -13,6 +13,8 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 /**
  * Test the Yaml configuration feature.
  *
+ * @see \Hyde\Framework\Testing\Feature\YamlSiteNameConfigurationFeatureTest
+ *
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
  * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
@@ -265,117 +267,6 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame($expected, $this->getConfig('hyde'));
         $this->assertSame($expected, $this->getConfig('one'));
         $this->assertSame($expected, $this->getConfig('two'));
-    }
-
-    public function testSettingSiteNameSetsSidebarHeader()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        $this->file('hyde.yml', <<<'YAML'
-        name: Example
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Example Docs', $this->getConfig('docs.sidebar.header'));
-    }
-
-    public function testSettingSiteNameSetsSidebarHeaderWhenUsingHydeNamespace()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Example Docs', $this->getConfig('docs.sidebar.header'));
-    }
-
-    public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInYamlConfig()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-        docs:
-            sidebar:
-                header: Custom
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Custom', $this->getConfig('docs.sidebar.header'));
-    }
-
-    public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInStandardConfig()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        config(['docs.sidebar.header' => 'Custom']);
-
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Custom', $this->getConfig('docs.sidebar.header'));
-    }
-
-    public function testSettingSiteNameSetsRssFeedSiteName()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        $this->file('hyde.yml', <<<'YAML'
-        name: Example
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Example RSS Feed', $this->getConfig('hyde.rss.description'));
-    }
-
-    public function testSettingSiteNameSetsRssFeedSiteNameWhenUsingHydeNamespace()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Example RSS Feed', $this->getConfig('hyde.rss.description'));
-    }
-
-    public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInYamlConfig()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-            rss:
-                description: Custom
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Custom', $this->getConfig('hyde.rss.description'));
-    }
-
-    public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInStandardConfig()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
-        config(['hyde.rss.description' => 'Custom']);
-
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-            name: Example
-        YAML);
-
-        $this->runBootstrappers();
-
-        $this->assertSame('Custom', $this->getConfig('hyde.rss.description'));
     }
 
     protected function runBootstrappers(): void

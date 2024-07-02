@@ -11,8 +11,6 @@ use function blank;
 
 /**
  * @internal Inject environment variables parsed from the YAML configuration file.
- *
- * @codeCoverageIgnore
  */
 class LoadYamlEnvironmentVariables
 {
