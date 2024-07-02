@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Env;
+use Illuminate\Config\Repository;
+use Hyde\Foundation\Internal\LoadYamlConfiguration;
+use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 
 /**
  * Test the Yaml configuration feature.
@@ -16,36 +18,29 @@ use Illuminate\Support\Env;
  */
 class YamlConfigurationFeatureTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        $this->clearEnvVars();
-
-        parent::tearDown();
-    }
-
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
         $this->file('hyde.yml', <<<'YAML'
-        name: Test
+        name: HydePHP
         url: "http://localhost"
         pretty_urls: false
         generate_sitemap: true
         rss:
           enabled: true
           filename: feed.xml
-          description: Test RSS Feed
+          description: HydePHP RSS Feed
         language: en
         output_directory: _site
         YAML);
         $this->runBootstrappers();
 
-        $this->assertSame('Test', config('hyde.name'));
+        $this->assertSame('HydePHP', config('hyde.name'));
         $this->assertSame('http://localhost', config('hyde.url'));
         $this->assertSame(false, config('hyde.pretty_urls'));
         $this->assertSame(true, config('hyde.generate_sitemap'));
         $this->assertSame(true, config('hyde.rss.enabled'));
         $this->assertSame('feed.xml', config('hyde.rss.filename'));
-        $this->assertSame('Test RSS Feed', config('hyde.rss.description'));
+        $this->assertSame('HydePHP RSS Feed', config('hyde.rss.description'));
         $this->assertSame('en', config('hyde.language'));
         $this->assertSame('_site', config('hyde.output_directory'));
     }
@@ -54,7 +49,7 @@ class YamlConfigurationFeatureTest extends TestCase
     {
         $this->file('hyde.yml', <<<'YAML'
         hyde:
-            name: Test
+            name: HydePHP
             url: "http://localhost"
         docs:
             sidebar:
@@ -63,7 +58,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Test', config('hyde.name'));
+        $this->assertSame('HydePHP', config('hyde.name'));
         $this->assertSame('http://localhost', config('hyde.url'));
         $this->assertSame('My Docs', config('docs.sidebar.header'));
     }
@@ -117,11 +112,13 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testConfigurationOptionsAreMerged()
     {
-        $this->file('hyde.yml', 'baz: hat');
-        $this->runBootstrappers(['hyde' => [
+        config(['hyde' => [
             'foo' => 'bar',
             'baz' => 'qux',
         ]]);
+
+        $this->file('hyde.yml', 'baz: hat');
+        $this->runBootstrappers();
 
         $this->assertSame('bar', config('hyde.foo'));
     }
@@ -225,18 +222,22 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testDotNotationCanBeUsed()
     {
+        config(['hyde' => []]);
+
         $this->file('hyde.yml', <<<'YAML'
         foo.bar.baz: qux
         YAML);
 
         $this->runBootstrappers();
 
-        $this->assertSame(['bar' => ['baz' => 'qux']], config('hyde.foo'));
+        $this->assertSame(['foo' => ['bar' => ['baz' => 'qux']]], config('hyde'));
         $this->assertSame('qux', config('hyde.foo.bar.baz'));
     }
 
     public function testDotNotationCanBeUsedWithNamespaces()
     {
+        config(['hyde' => []]);
+
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             foo.bar.baz: qux
@@ -250,68 +251,74 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $expected = ['bar' => ['baz' => 'qux']];
+        $expected = ['foo' => ['bar' => ['baz' => 'qux']]];
 
-        $this->assertSame($expected, config('hyde.foo'));
-        $this->assertSame($expected, config('one.foo'));
-        $this->assertSame($expected, config('two.foo'));
+        $this->assertSame($expected, config('hyde'));
+        $this->assertSame($expected, config('one'));
+        $this->assertSame($expected, config('two'));
     }
 
-    public function testSettingSiteNameSetsEnvVars()
+    public function testSettingSiteNameSetsAffectsEnvironmentVariableUsages()
     {
-        $this->assertSame('HydePHP', config('hyde.name'));
-
-        // Assert that the environment variables are not set.
-        $this->assertSame([
-            'env' => null,
-            'Env::get' => null,
-            'getenv' => false,
-            '$_ENV' => null,
-            '$_SERVER' => null,
-        ], $this->envVars());
-
         $this->file('hyde.yml', <<<'YAML'
-        name: Environment Example
+        name: Example
         YAML);
 
-        $this->runBootstrappers();
+        $config = $this->getExecConfig();
 
-        // Assert that the environment variables are set.
-        $this->assertSame([
-            'env' => 'Environment Example',
-            'Env::get' => 'Environment Example',
-            'getenv' => 'Environment Example',
-            '$_ENV' => 'Environment Example',
-            '$_SERVER' => 'Environment Example',
-        ], $this->envVars());
+        $this->assertSame('Example', $config->get('hyde.name'));
+        $this->assertSame('Example RSS Feed', $config->get('hyde.rss.description'));
+        $this->assertSame('Example Docs', $config->get('docs.sidebar.header'));
+        $this->assertSame(['property' => 'site_name', 'content' => 'Example'], $config->get('hyde.meta.1')->toArray());
+    }
 
-        $this->assertSame('Environment Example', config('hyde.name'));
+    public function testSettingSiteNameSetsAffectsEnvironmentVariableUsagesWithAlternateSyntax()
+    {
+        // This test tests two alternate syntaxes: one with a hyde namespace, and one with a .yaml extension.
+        // The reason we test two things in one test is simply because of how excruciatingly slow it is to
+        // run these tests in isolate. Each execConfig call takes about 0.5 seconds to execute.
+
+        $this->file('hyde.yaml', <<<'YAML'
+        hyde:
+            name: Example
+        YAML);
+
+        $config = $this->getExecConfig();
+
+        $this->assertSame('Example', $config->get('hyde.name'));
+        $this->assertSame('Example RSS Feed', $config->get('hyde.rss.description'));
+        $this->assertSame('Example Docs', $config->get('docs.sidebar.header'));
+        $this->assertSame(['property' => 'site_name', 'content' => 'Example'], $config->get('hyde.meta.1')->toArray());
     }
 
     public function testSettingSiteNameSetsSidebarHeader()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
-        name: Root Example
+        name: Example
         YAML);
 
         $this->runBootstrappers();
-        $this->assertSame('Root Example Docs', config('docs.sidebar.header'));
+
+        $this->assertSame('Example Docs', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsSidebarHeaderWhenUsingHydeNamespace()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
-            name: Hyde Example
+            name: Example
         YAML);
 
         $this->runBootstrappers();
 
-        $this->assertSame('Hyde Example Docs', config('docs.sidebar.header'));
+        $this->assertSame('Example Docs', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInYamlConfig()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -327,18 +334,22 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInStandardConfig()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
+        config(['docs.sidebar.header' => 'Custom']);
+
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
         YAML);
 
-        $this->runBootstrappers(['docs.sidebar.header' => 'Custom']);
+        $this->runBootstrappers();
 
         $this->assertSame('Custom', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsRssFeedSiteName()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         name: Example
         YAML);
@@ -350,6 +361,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameWhenUsingHydeNamespace()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -362,6 +374,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInYamlConfig()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
@@ -376,40 +389,45 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInStandardConfig()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1773#issuecomment-2200933291');
+        config(['hyde.rss.description' => 'Custom']);
+
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
         YAML);
 
-        $this->runBootstrappers(['hyde.rss.description' => 'Custom']);
+        $this->runBootstrappers();
 
         $this->assertSame('Custom', config('hyde.rss.description'));
     }
 
-    protected function runBootstrappers(?array $withMergedConfig = null): void
+    protected function runBootstrappers(): void
     {
-        $this->refreshApplication();
-
-        if ($withMergedConfig !== null) {
-            $this->app['config']->set($withMergedConfig);
-        }
+        $this->app->bootstrapWith([
+            LoadYamlEnvironmentVariables::class,
+            LoadYamlConfiguration::class,
+        ]);
     }
 
-    protected function clearEnvVars(): void
+    protected function getExecConfig(): Repository
     {
-        // Todo: Can we access loader? https://github.com/vlucas/phpdotenv/pull/107/files
-        putenv('SITE_NAME');
-        unset($_ENV['SITE_NAME'], $_SERVER['SITE_NAME']);
-    }
+        // Due to how environment data handling is hardcoded in so many places,
+        // we can't reliably test these features, as we can't reset the testing
+        // environment after each test. We thus need to run the code in a
+        // separate process to ensure a clean slate. This means we lose
+        // code coverage, but at least we can test the feature.
 
-    protected function envVars(): array
-    {
-        return [
-            'env' => env('SITE_NAME'),
-            'Env::get' => Env::get('SITE_NAME'),
-            'getenv' => getenv('SITE_NAME'),
-            '$_ENV' => $_ENV['SITE_NAME'] ?? null,
-            '$_SERVER' => $_SERVER['SITE_NAME'] ?? null,
-        ];
+        $code = 'var_export(config()->all())';
+        $output = shell_exec('php hyde tinker --execute="'.$code.'" exit;');
+
+        // On the following, __set_state does not exist so we turn it into an array
+        $output = str_replace('Hyde\Framework\Features\Metadata\Elements\MetadataElement::__set_state', 'collect', $output);
+        $output = str_replace('Hyde\Framework\Features\Metadata\Elements\OpenGraphElement::__set_state', 'collect', $output);
+        $output = str_replace('Hyde\Framework\Features\Blogging\Models\PostAuthor::__set_state', 'collect', $output);
+
+        $config = eval('return '.$output.';');
+
+        return new Repository($config);
     }
 }
