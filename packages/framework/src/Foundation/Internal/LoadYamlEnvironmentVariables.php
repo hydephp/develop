@@ -55,7 +55,6 @@ class LoadYamlEnvironmentVariables
 
         app(Env::class)::getRepository()->set('SITE_NAME', $name);
         putenv('SITE_NAME='.$name);
-//        dump('Injected SITE_NAME environment variable with value: '.$name.'; it is now: '.env('SITE_NAME'));
     }
 
     protected function yamlHasSiteNameSet(): bool

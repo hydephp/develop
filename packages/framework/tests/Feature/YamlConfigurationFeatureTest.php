@@ -30,7 +30,6 @@ class YamlConfigurationFeatureTest extends TestCase
     protected function setUp(): void
     {
         $this->clearEnvVars();
-//        dump('init start');
         /** Make sure that {@see \Dotenv\Repository\Adapter\ImmutableWriter::write} returns false as that will then leave the environment variable alone between tests. */
         Env::getRepository()->set('SITE_NAME', '__INIT__');
         $this->clearEnvVars();
@@ -41,39 +40,16 @@ class YamlConfigurationFeatureTest extends TestCase
 
         // Set the repository for the Env class.
         ExtendEnv::setRepository($repository);
-//        dump(Env::all());
-
-        //        touch(__DIR__.'/.env');
-//        Dotenv::createMutable(__DIR__)->load();
-//
-//        /** Make sure that {@see \Dotenv\Repository\Adapter\ImmutableWriter::write} returns false as that will then leave the environment variable alone between tests. */
-//        dump(Env::all(), Env::get('SITE_NAME'));
-//
-//        ExtendEnv::clear();
-//        dump(Env::all(), Env::get('SITE_NAME'));
-        // Bind the env class as a singleton.
         $this->clearEnvVars();
         parent::setUp();
         app()->singleton(Env::class, fn () => ExtendEnv::class);
-//        dump('init end');
-
-//        $this->app['env'] = 'testing';
     }
 
     protected function tearDown(): void
     {
         ExtendEnv::clear();
         $this->clearEnvVars();
-//
-//        dump([
-//            Env::get('SITE_NAME'),
-//            getenv('SITE_NAME'),
-//            $_ENV['SITE_NAME'] ?? null,
-//            $_SERVER['SITE_NAME'] ?? null,
-//        ]);
-//
 
-//        unlink(__DIR__.'/.env');
         parent::tearDown();
     }
 
