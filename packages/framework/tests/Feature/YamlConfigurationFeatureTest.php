@@ -241,8 +241,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testDotNotationCanBeUsedWithNamespaces()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             foo.bar.baz: qux
