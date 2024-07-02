@@ -257,7 +257,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame($expected, config('two'));
     }
 
-    public function testSettingSiteNameSetsEnvironmentVariable()
+    public function testSettingSiteNameSetsAffectsEnvironmentVariableUsages()
     {
         $this->file('hyde.yml', <<<'YAML'
         name: Example
