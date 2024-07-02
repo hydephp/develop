@@ -264,7 +264,8 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Example
         YAML);
 
-        $this->assertSame('Example', $this->getExecConfig()->get('hyde.name'));
+        $config = $this->getExecConfig();
+        $this->assertSame('Example', $config->get('hyde.name'));
     }
 
     public function testSettingSiteNameSetsEnvironmentVariableCanBeTestedReliably()
@@ -273,7 +274,8 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Another
         YAML);
 
-        $this->assertSame('Another', $this->getExecConfig()->get('hyde.name'));
+        $config = $this->getExecConfig();
+        $this->assertSame('Another', $config->get('hyde.name'));
     }
 
     public function testSettingSiteNameSetsSidebarHeader()
