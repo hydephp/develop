@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
-use Illuminate\Config\Repository;
-use Hyde\Foundation\Internal\LoadYamlConfiguration;
-use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 
 /**
  * Test the Yaml configuration feature.
