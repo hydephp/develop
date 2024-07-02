@@ -17,13 +17,6 @@ use Illuminate\Config\Repository;
  */
 class YamlConfigurationFeatureTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        $this->clearEnvVars();
-
-        parent::setUp();
-    }
-
     protected function tearDown(): void
     {
         $this->clearEnvVars();
