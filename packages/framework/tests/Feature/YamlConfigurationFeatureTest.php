@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Illuminate\Config\Repository;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 
@@ -263,7 +264,7 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Example
         YAML);
 
-        $this->assertSame('Example', $this->hydeExec('echo config(\'hyde.name\');'));
+        $this->assertSame('Example', $this->getExecConfig()->get('hyde.name'));
     }
 
     public function testSettingSiteNameSetsEnvironmentVariableCanBeTestedReliably()
@@ -272,7 +273,7 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Another
         YAML);
 
-        $this->assertSame('Another', $this->hydeExec('echo config(\'hyde.name\');'));
+        $this->assertSame('Another', $this->getExecConfig()->get('hyde.name'));
     }
 
     public function testSettingSiteNameSetsSidebarHeader()
@@ -394,7 +395,7 @@ class YamlConfigurationFeatureTest extends TestCase
         ]);
     }
 
-    protected function hydeExec(string $code): string
+    protected function getExecConfig(): Repository
     {
         // Due to how environment data handling is hardcoded in so many places,
         // we can't reliably test these features, as we can't reset the testing
@@ -402,10 +403,16 @@ class YamlConfigurationFeatureTest extends TestCase
         // separate process to ensure a clean slate. This means we lose
         // code coverage, but at least we can test the feature.
 
+        $code = 'var_export(config()->all())';
         $output = shell_exec('php hyde tinker --execute="'.$code.'" exit;');
 
-        $output = str_replace('INFO  Goodbye.', '', $output);
+        // On the following, __set_state does not exist so we turn it into an array
+        $output = str_replace('Hyde\Framework\Features\Metadata\Elements\MetadataElement::__set_state', 'collect', $output);
+        $output = str_replace('Hyde\Framework\Features\Metadata\Elements\OpenGraphElement::__set_state', 'collect', $output);
+        $output = str_replace('Hyde\Framework\Features\Blogging\Models\PostAuthor::__set_state', 'collect', $output);
 
-        return trim($output);
+        $config = eval('return '.$output.';');
+
+        return new Repository($config);
     }
 }
