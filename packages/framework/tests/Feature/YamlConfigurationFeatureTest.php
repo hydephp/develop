@@ -13,9 +13,6 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 /**
  * Test the Yaml configuration feature.
  *
- * @runInSeparateProcess
- * @preserveGlobalState disabled
- *
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
  * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
@@ -276,9 +273,7 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Example
         YAML);
 
-        $this->runBootstrappers();
-
-        $config = $this->hydeExec('echo getenv(\'SITE_NAME\'); exit;');
+        $config = $this->hydeExec('echo config(\'hyde.name\'); exit;');
         $this->assertSame('Example', $config);
     }
 
@@ -288,9 +283,7 @@ class YamlConfigurationFeatureTest extends TestCase
         name: Another
         YAML);
 
-        $this->runBootstrappers();
-
-        $config = $this->hydeExec('echo getenv(\'SITE_NAME\'); exit;');
+        $config = $this->hydeExec('echo config(\'hyde.name\'); exit;');
         $this->assertSame('Another', $config);
     }
 
