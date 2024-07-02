@@ -227,15 +227,13 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testDotNotationCanBeUsed()
     {
-        config(['hyde' => []]);
-
         $this->file('hyde.yml', <<<'YAML'
         foo.bar.baz: qux
         YAML);
 
         $this->runBootstrappers();
 
-        $this->assertSame(['foo' => ['bar' => ['baz' => 'qux']]], config('hyde'));
+        $this->assertSame(['bar' => ['baz' => 'qux']], config('hyde.foo'));
         $this->assertSame('qux', config('hyde.foo.bar.baz'));
     }
 
