@@ -300,6 +300,7 @@ class YamlConfigurationFeatureTest extends TestCase
     {
         $this->assertSame('HydePHP', config('hyde.name'));
 
+        // Assert that the environment variables are not set.
         $this->assertSame([
             'env' => null,
             'Env::get' => null,
@@ -314,12 +315,11 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
+        // Assert that the environment variables are set.
         $this->assertSame([
             'env' => 'Environment Example',
             'Env::get' => 'Environment Example',
             'getenv' => 'Environment Example',
-            //            '$_ENV' => 'Environment Example',
-            //            '$_SERVER' => 'Environment Example',
             '$_ENV' => null,
             '$_SERVER' => null,
         ], $this->envVars());
