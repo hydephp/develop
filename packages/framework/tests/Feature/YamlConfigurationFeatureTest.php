@@ -18,6 +18,13 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
  */
 class YamlConfigurationFeatureTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        $this->clearEnvVars();
+
+        parent::tearDown();
+    }
+
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
         $this->file('hyde.yml', <<<'YAML'
