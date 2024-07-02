@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Mockery;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\Env;
 use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Support\Facades\Config;
@@ -14,8 +12,7 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 
 /**
  * Test the Yaml configuration feature.
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ *
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
  * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
@@ -24,9 +21,6 @@ class YamlConfigurationFeatureTest extends TestCase
 {
     protected function setUp(): void
     {
-        // Replace the Illuminate\Support\Env class with the test double.
-        Mockery::mock('alias:Illuminate\Support\Env', MockEnv::class);
-
         parent::setUp();
 
         // Ensure we are using the real config repository.
@@ -396,13 +390,5 @@ class YamlConfigurationFeatureTest extends TestCase
     protected function getConfig(string $key): mixed
     {
         return Config::get($key);
-    }
-}
-
-class MockEnv extends Env
-{
-    public static function get($key, $default = null)
-    {
-        return 'bar';
     }
 }
