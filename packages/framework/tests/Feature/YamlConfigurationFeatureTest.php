@@ -117,13 +117,11 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testConfigurationOptionsAreMerged()
     {
-        config(['hyde' => [
+        $this->file('hyde.yml', 'baz: hat');
+        $this->runBootstrappers(['hyde' => [
             'foo' => 'bar',
             'baz' => 'qux',
         ]]);
-
-        $this->file('hyde.yml', 'baz: hat');
-        $this->runBootstrappers();
 
         $this->assertSame('bar', config('hyde.foo'));
     }
@@ -330,14 +328,12 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInStandardConfig()
     {
-        config(['docs.sidebar.header' => 'Custom']);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
         YAML);
 
-        $this->runBootstrappers();
+        $this->runBootstrappers(['docs.sidebar.header' => 'Custom']);
 
         $this->assertSame('Custom', config('docs.sidebar.header'));
     }
@@ -381,21 +377,23 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInStandardConfig()
     {
-        config(['hyde.rss.description' => 'Custom']);
-
         $this->file('hyde.yml', <<<'YAML'
         hyde:
             name: Example
         YAML);
 
-        $this->runBootstrappers();
+        $this->runBootstrappers(['hyde.rss.description' => 'Custom']);
 
         $this->assertSame('Custom', config('hyde.rss.description'));
     }
 
-    protected function runBootstrappers(): void
+    protected function runBootstrappers(?array $withMergedConfig = null): void
     {
         $this->refreshApplication();
+
+        if ($withMergedConfig !== null) {
+            $this->app['config']->set($withMergedConfig);
+        }
     }
 
     protected function clearEnvVars(): void
