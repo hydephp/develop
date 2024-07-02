@@ -7,7 +7,7 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Support\Env;
 use Hyde\Foundation\Application;
 
-use function blank;
+use function filled;
 
 /**
  * @internal Inject environment variables parsed from the YAML configuration file.
@@ -43,7 +43,7 @@ class LoadYamlEnvironmentVariables
 
     protected function canInjectSiteNameEnvironmentVariable(): bool
     {
-        return $this->yamlHasSiteNameSet() && blank(Env::get('SITE_NAME'));
+        return $this->yamlHasSiteNameSet() && ! filled(Env::get('SITE_NAME'));
     }
 
     protected function injectSiteNameEnvironmentVariable(): void
