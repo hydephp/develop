@@ -409,25 +409,4 @@ class YamlConfigurationFeatureTest extends TestCase
             LoadYamlConfiguration::class,
         ]);
     }
-
-    protected function getExecConfig(): Repository
-    {
-        // Due to how environment data handling is hardcoded in so many places,
-        // we can't reliably test these features, as we can't reset the testing
-        // environment after each test. We thus need to run the code in a
-        // separate process to ensure a clean slate. This means we lose
-        // code coverage, but at least we can test the feature.
-
-        $code = 'var_export(config()->all())';
-        $output = shell_exec('php hyde tinker --execute="'.$code.'" exit;');
-
-        // On the following, __set_state does not exist so we turn it into an array
-        $output = str_replace('Hyde\Framework\Features\Metadata\Elements\MetadataElement::__set_state', 'collect', $output);
-        $output = str_replace('Hyde\Framework\Features\Metadata\Elements\OpenGraphElement::__set_state', 'collect', $output);
-        $output = str_replace('Hyde\Framework\Features\Blogging\Models\PostAuthor::__set_state', 'collect', $output);
-
-        $config = eval('return '.$output.';');
-
-        return new Repository($config);
-    }
 }
