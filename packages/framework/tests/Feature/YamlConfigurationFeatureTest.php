@@ -409,4 +409,15 @@ class YamlConfigurationFeatureTest extends TestCase
             LoadYamlConfiguration::class,
         ]);
     }
+
+    protected function envVars(): array
+    {
+        return [
+            'env' => env('SITE_NAME'),
+            'Env::get' => Env::get('SITE_NAME'),
+            'getenv' => getenv('SITE_NAME'),
+            '$_ENV' => $_ENV['SITE_NAME'] ?? null,
+            '$_SERVER' => $_SERVER['SITE_NAME'] ?? null,
+        ];
+    }
 }
