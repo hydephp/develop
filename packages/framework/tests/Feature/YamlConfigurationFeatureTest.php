@@ -410,6 +410,12 @@ class YamlConfigurationFeatureTest extends TestCase
         ]);
     }
 
+    protected function clearEnvVars(): void
+    {
+        putenv('SITE_NAME');
+        unset($_ENV['SITE_NAME'], $_SERVER['SITE_NAME']);
+    }
+
     protected function envVars(): array
     {
         return [
