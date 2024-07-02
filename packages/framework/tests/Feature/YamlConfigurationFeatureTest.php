@@ -4,19 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Dotenv\Dotenv;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
 use Illuminate\Config\Repository;
 use Dotenv\Repository\RepositoryBuilder;
 use Dotenv\Repository\RepositoryInterface;
 use Dotenv\Repository\Adapter\PutenvAdapter;
-
-use function env;
-use function dump;
-use function getenv;
-use function putenv;
-use function config;
 
 /**
  * Test the Yaml configuration feature.
