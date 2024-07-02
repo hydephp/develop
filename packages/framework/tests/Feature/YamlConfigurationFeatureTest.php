@@ -412,6 +412,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
     protected function clearEnvVars(): void
     {
+        // Todo: Can we access loader? https://github.com/vlucas/phpdotenv/pull/107/files
         putenv('SITE_NAME');
         unset($_ENV['SITE_NAME'], $_SERVER['SITE_NAME']);
     }
