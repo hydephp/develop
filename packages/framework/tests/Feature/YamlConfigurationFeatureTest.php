@@ -20,8 +20,6 @@ class YamlConfigurationFeatureTest extends TestCase
     protected function setUp(): void
     {
         $this->clearEnvVars();
-        /** Make sure that {@see \Dotenv\Repository\Adapter\ImmutableWriter::write} returns false as that will then leave the environment variable alone between tests. */
-        Env::getRepository()->set('SITE_NAME', '__INIT__');
         $this->clearEnvVars();
 
         $this->clearEnvVars();
