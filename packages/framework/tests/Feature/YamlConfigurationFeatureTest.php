@@ -259,6 +259,37 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame($expected, config('two.foo'));
     }
 
+    public function testSettingSiteNameSetsEnvVars()
+    {
+        $this->assertSame('HydePHP', config('hyde.name'));
+
+        // Assert that the environment variables are not set.
+        $this->assertSame([
+            'env' => null,
+            'Env::get' => null,
+            'getenv' => false,
+            '$_ENV' => null,
+            '$_SERVER' => null,
+        ], $this->envVars());
+
+        $this->file('hyde.yml', <<<'YAML'
+        name: Environment Example
+        YAML);
+
+        $this->runBootstrappers();
+
+        // Assert that the environment variables are set.
+        $this->assertSame([
+            'env' => 'Environment Example',
+            'Env::get' => 'Environment Example',
+            'getenv' => 'Environment Example',
+            '$_ENV' => 'Environment Example',
+            '$_SERVER' => 'Environment Example',
+        ], $this->envVars());
+
+        $this->assertSame('Environment Example', config('hyde.name'));
+    }
+
     public function testSettingSiteNameSetsSidebarHeader()
     {
         $this->file('hyde.yml', <<<'YAML'
