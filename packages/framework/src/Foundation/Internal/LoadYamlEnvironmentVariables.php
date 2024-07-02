@@ -54,7 +54,6 @@ class LoadYamlEnvironmentVariables
         $name = $this->getSiteNameFromYaml();
 
         app(Env::class)::getRepository()->set('SITE_NAME', $name);
-        putenv('SITE_NAME='.$name);
     }
 
     protected function yamlHasSiteNameSet(): bool
