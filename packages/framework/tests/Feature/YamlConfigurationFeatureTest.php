@@ -301,24 +301,24 @@ class YamlConfigurationFeatureTest extends TestCase
     public function testSettingSiteNameSetsSidebarHeader()
     {
         $this->file('hyde.yml', <<<'YAML'
-        name: Example
+        name: Root Example
         YAML);
 
         $this->runBootstrappers();
 
-        $this->assertSame('Example Docs', config('docs.sidebar.header'));
+        $this->assertSame('Root Example Docs', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsSidebarHeaderWhenUsingHydeNamespace()
     {
         $this->file('hyde.yml', <<<'YAML'
         hyde:
-            name: Example
+            name: Hyde Example
         YAML);
 
         $this->runBootstrappers();
 
-        $this->assertSame('Example Docs', config('docs.sidebar.header'));
+        $this->assertSame('Hyde Example Docs', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInYamlConfig()
