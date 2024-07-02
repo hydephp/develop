@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
-use Illuminate\Config\Repository;
 
 /**
  * Test the Yaml configuration feature.
