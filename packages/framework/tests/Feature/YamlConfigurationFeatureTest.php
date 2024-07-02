@@ -24,13 +24,6 @@ class YamlConfigurationFeatureTest extends TestCase
         parent::tearDown();
     }
 
-    public function testInit()
-    {
-        $this->file('hyde.yml', '');
-        $this->runBootstrappers();
-        $this->assertTrue(true);
-    }
-
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
         $this->file('hyde.yml', <<<'YAML'
