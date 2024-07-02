@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
-use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
-use Illuminate\Support\Facades\Config;
 use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 
 /**
@@ -19,14 +17,6 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
  */
 class YamlConfigurationFeatureTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Ensure we are using the real config repository.
-        Config::swap(app()->make('config'));
-    }
-
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
         $this->file('hyde.yml', <<<'YAML'
@@ -43,15 +33,15 @@ class YamlConfigurationFeatureTest extends TestCase
         YAML);
         $this->runBootstrappers();
 
-        $this->assertSame('HydePHP', $this->getConfig('hyde.name'));
-        $this->assertSame('http://localhost', $this->getConfig('hyde.url'));
-        $this->assertSame(false, $this->getConfig('hyde.pretty_urls'));
-        $this->assertSame(true, $this->getConfig('hyde.generate_sitemap'));
-        $this->assertSame(true, $this->getConfig('hyde.rss.enabled'));
-        $this->assertSame('feed.xml', $this->getConfig('hyde.rss.filename'));
-        $this->assertSame('HydePHP RSS Feed', $this->getConfig('hyde.rss.description'));
-        $this->assertSame('en', $this->getConfig('hyde.language'));
-        $this->assertSame('_site', $this->getConfig('hyde.output_directory'));
+        $this->assertSame('HydePHP', config('hyde.name'));
+        $this->assertSame('http://localhost', config('hyde.url'));
+        $this->assertSame(false, config('hyde.pretty_urls'));
+        $this->assertSame(true, config('hyde.generate_sitemap'));
+        $this->assertSame(true, config('hyde.rss.enabled'));
+        $this->assertSame('feed.xml', config('hyde.rss.filename'));
+        $this->assertSame('HydePHP RSS Feed', config('hyde.rss.description'));
+        $this->assertSame('en', config('hyde.language'));
+        $this->assertSame('_site', config('hyde.output_directory'));
     }
 
     public function testCanDefineMultipleConfigSettingsInHydeYmlFile()
@@ -67,9 +57,9 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('HydePHP', $this->getConfig('hyde.name'));
-        $this->assertSame('http://localhost', $this->getConfig('hyde.url'));
-        $this->assertSame('My Docs', $this->getConfig('docs.sidebar.header'));
+        $this->assertSame('HydePHP', config('hyde.name'));
+        $this->assertSame('http://localhost', config('hyde.url'));
+        $this->assertSame('My Docs', config('docs.sidebar.header'));
     }
 
     public function testBootstrapperAppliesYamlConfigurationWhenPresent()
@@ -77,7 +67,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->file('hyde.yml', 'name: Foo');
         $this->runBootstrappers();
 
-        $this->assertSame('Foo', $this->getConfig('hyde.name'));
+        $this->assertSame('Foo', config('hyde.name'));
     }
 
     public function testChangesInYamlFileOverrideChangesInHydeConfig()
@@ -85,7 +75,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->file('hyde.yml', 'name: Foo');
         $this->runBootstrappers();
 
-        $this->assertSame('Foo', $this->getConfig('hyde.name'));
+        $this->assertSame('Foo', config('hyde.name'));
     }
 
     public function testChangesInYamlFileOverrideChangesInHydeConfigWhenUsingYamlExtension()
@@ -93,14 +83,14 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->file('hyde.yaml', 'name: Foo');
         $this->runBootstrappers();
 
-        $this->assertSame('Foo', $this->getConfig('hyde.name'));
+        $this->assertSame('Foo', config('hyde.name'));
     }
 
     public function testServiceGracefullyHandlesMissingFile()
     {
         $this->runBootstrappers();
 
-        $this->assertSame('HydePHP', $this->getConfig('hyde.name'));
+        $this->assertSame('HydePHP', config('hyde.name'));
     }
 
     public function testServiceGracefullyHandlesEmptyFile()
@@ -108,7 +98,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->file('hyde.yml', '');
         $this->runBootstrappers();
 
-        $this->assertSame('HydePHP', $this->getConfig('hyde.name'));
+        $this->assertSame('HydePHP', config('hyde.name'));
     }
 
     public function testCanAddArbitraryConfigKeys()
@@ -116,7 +106,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->file('hyde.yml', 'foo: bar');
         $this->runBootstrappers();
 
-        $this->assertSame('bar', $this->getConfig('hyde.foo'));
+        $this->assertSame('bar', config('hyde.foo'));
     }
 
     public function testConfigurationOptionsAreMerged()
@@ -129,7 +119,7 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->file('hyde.yml', 'baz: hat');
         $this->runBootstrappers();
 
-        $this->assertSame('bar', $this->getConfig('hyde.foo'));
+        $this->assertSame('bar', config('hyde.foo'));
     }
 
     public function testCanAddConfigurationOptionsInNamespacedArray()
@@ -144,9 +134,9 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('HydePHP', $this->getConfig('hyde.name'));
-        $this->assertSame('bar', $this->getConfig('hyde.foo'));
-        $this->assertSame('qux', $this->getConfig('hyde.bar.baz'));
+        $this->assertSame('HydePHP', config('hyde.name'));
+        $this->assertSame('bar', config('hyde.foo'));
+        $this->assertSame('qux', config('hyde.bar.baz'));
     }
 
     public function testCanAddArbitraryNamespacedData()
@@ -160,7 +150,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('baz', $this->getConfig('foo.bar'));
+        $this->assertSame('baz', config('foo.bar'));
     }
 
     public function testAdditionalNamespacesRequireTheHydeNamespaceToBePresent()
@@ -172,7 +162,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertNull($this->getConfig('foo.bar'));
+        $this->assertNull(config('foo.bar'));
     }
 
     public function testAdditionalNamespacesRequiresHydeNamespaceToBeTheFirstEntry()
@@ -186,7 +176,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertNull($this->getConfig('foo.bar'));
+        $this->assertNull(config('foo.bar'));
     }
 
     public function testHydeNamespaceCanBeEmpty()
@@ -199,7 +189,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('baz', $this->getConfig('foo.bar'));
+        $this->assertSame('baz', config('foo.bar'));
     }
 
     public function testHydeNamespaceCanBeNull()
@@ -213,7 +203,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('baz', $this->getConfig('foo.bar'));
+        $this->assertSame('baz', config('foo.bar'));
     }
 
     public function testHydeNamespaceCanBlank()
@@ -226,7 +216,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('baz', $this->getConfig('foo.bar'));
+        $this->assertSame('baz', config('foo.bar'));
     }
 
     public function testDotNotationCanBeUsed()
@@ -239,8 +229,8 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame(['foo' => ['bar' => ['baz' => 'qux']]], $this->getConfig('hyde'));
-        $this->assertSame('qux', $this->getConfig('hyde.foo.bar.baz'));
+        $this->assertSame(['foo' => ['bar' => ['baz' => 'qux']]], config('hyde'));
+        $this->assertSame('qux', config('hyde.foo.bar.baz'));
     }
 
     public function testDotNotationCanBeUsedWithNamespaces()
@@ -262,9 +252,9 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $expected = ['foo' => ['bar' => ['baz' => 'qux']]];
 
-        $this->assertSame($expected, $this->getConfig('hyde'));
-        $this->assertSame($expected, $this->getConfig('one'));
-        $this->assertSame($expected, $this->getConfig('two'));
+        $this->assertSame($expected, config('hyde'));
+        $this->assertSame($expected, config('one'));
+        $this->assertSame($expected, config('two'));
     }
 
     public function testSettingSiteNameSetsEnvironmentVariable()
@@ -294,7 +284,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Example Docs', $this->getConfig('docs.sidebar.header'));
+        $this->assertSame('Example Docs', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsSidebarHeaderWhenUsingHydeNamespace()
@@ -307,7 +297,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Example Docs', $this->getConfig('docs.sidebar.header'));
+        $this->assertSame('Example Docs', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInYamlConfig()
@@ -323,7 +313,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Custom', $this->getConfig('docs.sidebar.header'));
+        $this->assertSame('Custom', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsSidebarHeaderUnlessAlreadySpecifiedInStandardConfig()
@@ -338,7 +328,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Custom', $this->getConfig('docs.sidebar.header'));
+        $this->assertSame('Custom', config('docs.sidebar.header'));
     }
 
     public function testSettingSiteNameSetsRssFeedSiteName()
@@ -350,7 +340,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Example RSS Feed', $this->getConfig('hyde.rss.description'));
+        $this->assertSame('Example RSS Feed', config('hyde.rss.description'));
     }
 
     public function testSettingSiteNameSetsRssFeedSiteNameWhenUsingHydeNamespace()
@@ -363,7 +353,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Example RSS Feed', $this->getConfig('hyde.rss.description'));
+        $this->assertSame('Example RSS Feed', config('hyde.rss.description'));
     }
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInYamlConfig()
@@ -378,7 +368,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Custom', $this->getConfig('hyde.rss.description'));
+        $this->assertSame('Custom', config('hyde.rss.description'));
     }
 
     public function testSettingSiteNameSetsRssFeedSiteNameUnlessAlreadySpecifiedInStandardConfig()
@@ -393,7 +383,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Custom', $this->getConfig('hyde.rss.description'));
+        $this->assertSame('Custom', config('hyde.rss.description'));
     }
 
     protected function runBootstrappers(): void
@@ -402,11 +392,6 @@ class YamlConfigurationFeatureTest extends TestCase
             LoadYamlEnvironmentVariables::class,
             LoadYamlConfiguration::class,
         ]);
-    }
-
-    protected function getConfig(string $key): mixed
-    {
-        return Config::get($key);
     }
 
     protected function hydeExec(string $code): string
