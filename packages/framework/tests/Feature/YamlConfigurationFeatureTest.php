@@ -13,6 +13,9 @@ use Hyde\Foundation\Internal\LoadYamlEnvironmentVariables;
 /**
  * Test the Yaml configuration feature.
  *
+ * @runInSeparateProcess
+ * @preserveGlobalState disabled
+ *
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
  * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
@@ -275,7 +278,8 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Example', getenv('SITE_NAME'));
+        $config = $this->hydeExec('echo getenv(\'SITE_NAME\'); exit;');
+        $this->assertSame('Example', $config);
     }
 
     public function testSettingSiteNameSetsEnvironmentVariableCanBeTestedReliably()
@@ -286,7 +290,8 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $this->assertSame('Another', getenv('SITE_NAME'));
+        $config = $this->hydeExec('echo getenv(\'SITE_NAME\'); exit;');
+        $this->assertSame('Another', $config);
     }
 
     public function testSettingSiteNameSetsSidebarHeader()
@@ -412,5 +417,14 @@ class YamlConfigurationFeatureTest extends TestCase
     protected function getConfig(string $key): mixed
     {
         return Config::get($key);
+    }
+
+    protected function hydeExec(string $code): string
+    {
+        $output = shell_exec('php hyde tinker --execute="'.$code.'"');
+
+        $output = str_replace('INFO  Goodbye.', '', $output);
+
+        return trim($output);
     }
 }
