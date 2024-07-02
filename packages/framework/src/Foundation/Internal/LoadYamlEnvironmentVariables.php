@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Support\Env;
 use Hyde\Foundation\Application;
 
-use function app;
 use function filled;
 
 /**
@@ -49,14 +48,14 @@ class LoadYamlEnvironmentVariables
 
     protected function alreadyHasEnvironmentVariable(): bool
     {
-        return filled(app(Env::class)::get('SITE_NAME'));
+        return filled(Env::get('SITE_NAME'));
     }
 
     protected function injectSiteNameEnvironmentVariable(): void
     {
         $name = $this->getSiteNameFromYaml();
 
-        app(Env::class)::getRepository()->set('SITE_NAME', $name);
+        Env::getRepository()->set('SITE_NAME', $name);
     }
 
     protected function yamlHasSiteNameSet(): bool
