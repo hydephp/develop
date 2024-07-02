@@ -55,8 +55,6 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testCanDefineHydeConfigSettingsInHydeYmlFile()
     {
-        dump('first test');
-
         $this->file('hyde.yml', <<<'YAML'
         name: Test
         url: "http://localhost"
