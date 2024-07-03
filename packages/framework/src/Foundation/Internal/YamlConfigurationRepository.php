@@ -36,7 +36,7 @@ class YamlConfigurationRepository
         }
     }
 
-    /** @return array<string, scalar|array> */
+    /** @return array<string, array<string, scalar|array>> */
     public function getData(): array
     {
         return $this->data;
