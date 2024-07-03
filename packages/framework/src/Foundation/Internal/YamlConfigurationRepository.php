@@ -21,7 +21,11 @@ class YamlConfigurationRepository
 
     public function __construct()
     {
-        $this->boot();
+        $this->file = $this->getFilePath();
+
+        if ($this->file !== false) {
+            $this->data = $this->parseYamlFile();
+        }
     }
 
     /** @return array<string, scalar|array> */
@@ -33,15 +37,6 @@ class YamlConfigurationRepository
     public function hasYamlConfigFile(): bool
     {
         return $this->file !== false;
-    }
-
-    protected function boot(): void
-    {
-        $this->file = $this->getFilePath();
-
-        if ($this->file !== false) {
-            $this->data = $this->parseYamlFile();
-        }
     }
 
     protected function parseYamlFile(): array
