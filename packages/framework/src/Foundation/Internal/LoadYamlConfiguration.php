@@ -41,7 +41,8 @@ class LoadYamlConfiguration
             tap($app->make('config'), function (Repository $config): void {
                 $this->config = $config->all();
                 $this->mergeParsedConfiguration();
-            })->set($this->config);
+                $config->set($this->config);
+            });
         }
     }
 
