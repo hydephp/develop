@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Carbon;
 
 /**
  * @covers \Hyde\Console\Commands\MakePostCommand
@@ -19,6 +20,8 @@ class MakePostCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_posts/test-post.md'));
         $this->cleanUpWhenDone('_posts/test-post.md');
 
+        Carbon::setTestNow(Carbon::create(2024));
+
         $this->artisan('make:post')
             ->expectsQuestion('What is the title of the post?', 'Test Post')
             ->expectsQuestion('Write a short post excerpt/description', 'A short description')
@@ -29,7 +32,7 @@ class MakePostCommandTest extends TestCase
             ->expectsOutput('Description: A short description')
             ->expectsOutput('Category: general')
             ->expectsOutput('Author: PHPUnit')
-            ->expectsOutputToContain('Date: '.date('Y-m-d')) // Don't check min/sec to avoid flaky tests
+            ->expectsOutput('Date: 2024-01-01 00:00')
             ->expectsOutput('Identifier: test-post')
             ->expectsConfirmation('Do you wish to continue?', 'yes')
             ->assertExitCode(0);
