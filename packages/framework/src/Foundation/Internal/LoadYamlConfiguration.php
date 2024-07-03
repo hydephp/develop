@@ -53,8 +53,8 @@ class LoadYamlConfiguration
         }
     }
 
-    protected function mergeConfiguration(string $namespace, array $yamlData): void
+    protected function mergeConfiguration(string $namespace, array $yaml): void
     {
-        $this->config[$namespace] = array_merge($this->config[$namespace] ?? [], $yamlData);
+        $this->config[$namespace] = array_merge($this->config[$namespace] ?? [], $yaml);
     }
 }
