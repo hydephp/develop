@@ -16,7 +16,6 @@ use function file_get_contents;
  */
 class YamlConfigurationRepository
 {
-    protected bool $booted = false;
     protected false|string $file;
     protected array $data;
 
@@ -42,7 +41,6 @@ class YamlConfigurationRepository
 
         if ($this->file !== false) {
             $this->data = $this->parseYamlFile();
-            $this->booted = true;
         }
     }
 
