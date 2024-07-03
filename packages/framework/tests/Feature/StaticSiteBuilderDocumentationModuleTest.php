@@ -31,17 +31,6 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         );
     }
 
-    protected function inspectHtml(array $expectedStrings, string $path = null)
-    {
-        StaticPageBuilder::handle($this->page);
-        $stream = file_get_contents(Hyde::path($path ?? '_site/docs/test-page.html'));
-        $this->cleanUpWhenDone($path ?? '_site/docs/test-page.html');
-
-        foreach ($expectedStrings as $expectedString) {
-            $this->assertStringContainsString($expectedString, $stream);
-        }
-    }
-
     public function testCanCreatePage()
     {
         StaticPageBuilder::handle($this->page);
@@ -69,5 +58,16 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
             '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" aria-hidden="true" title="Permalink">#</a></h2>',
             '<p>So she was considering in her own mind, as well as she could',
         ], '_site/test-page.html');
+    }
+
+    protected function inspectHtml(array $expectedStrings, string $path = null): void
+    {
+        StaticPageBuilder::handle($this->page);
+        $stream = file_get_contents(Hyde::path($path ?? '_site/docs/test-page.html'));
+        $this->cleanUpWhenDone($path ?? '_site/docs/test-page.html');
+
+        foreach ($expectedStrings as $expectedString) {
+            $this->assertStringContainsString($expectedString, $stream);
+        }
     }
 }

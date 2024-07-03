@@ -45,16 +45,6 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         parent::tearDown();
     }
 
-    protected function inspectHtml(array $expectedStrings)
-    {
-        StaticPageBuilder::handle($this->post);
-        $stream = file_get_contents(Hyde::path('_site/posts/test-post.html'));
-
-        foreach ($expectedStrings as $expectedString) {
-            $this->assertStringContainsString($expectedString, $stream);
-        }
-    }
-
     public function testCanCreatePost()
     {
         StaticPageBuilder::handle($this->post);
@@ -133,5 +123,15 @@ class StaticSiteBuilderPostModuleTest extends TestCase
             '<meta itemprop="url" content="../media/image.png">',
             '<meta itemprop="contentUrl" content="../media/image.png">',
         ]);
+    }
+
+    protected function inspectHtml(array $expectedStrings): void
+    {
+        StaticPageBuilder::handle($this->post);
+        $stream = file_get_contents(Hyde::path('_site/posts/test-post.html'));
+
+        foreach ($expectedStrings as $expectedString) {
+            $this->assertStringContainsString($expectedString, $stream);
+        }
     }
 }
