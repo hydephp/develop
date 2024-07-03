@@ -92,14 +92,6 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame('Foo', config('hyde.name'));
     }
 
-    public function testChangesInYamlFileAreMergedWithPhpConfigsGivingPriorityToYaml()
-    {
-        $this->file('hyde.yml', 'name: Foo');
-        $this->runBootstrappers(['hyde' => ['name' => 'Bar']]);
-
-        $this->assertSame('Foo', config('hyde.name'));
-    }
-
     public function testServiceGracefullyHandlesMissingFile()
     {
         $this->runBootstrappers();
