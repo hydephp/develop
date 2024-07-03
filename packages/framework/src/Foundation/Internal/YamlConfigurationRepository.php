@@ -14,8 +14,8 @@ use function file_get_contents;
 /**
  * @internal Contains shared logic for loading and parsing the YAML configuration file.
  *
- * @see LoadYamlEnvironmentVariables which uses this repository to inject environment variables from the YAML configuration file.
- * @see LoadYamlConfiguration which uses this repository to merge the YAML configuration data with the existing configuration.
+ * @see LoadYamlEnvironmentVariables Which uses this repository to inject environment variables from the YAML configuration file.
+ * @see LoadYamlConfiguration Which uses this repository to merge the YAML configuration data with the existing configuration.
  */
 class YamlConfigurationRepository
 {
