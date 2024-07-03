@@ -26,7 +26,6 @@ class LoadYamlConfiguration
 {
     protected YamlConfigurationRepository $repository;
     protected array $config;
-    protected array $yaml;
 
     /**
      * Performs a core task that needs to be performed on
@@ -38,7 +37,6 @@ class LoadYamlConfiguration
 
         if ($this->repository->hasYamlConfigFile()) {
             $this->config = $app->make('config')->all();
-            $this->yaml = $this->repository->getData();
 
             $this->mergeParsedConfiguration();
 
@@ -49,7 +47,7 @@ class LoadYamlConfiguration
     protected function mergeParsedConfiguration(): void
     {
         /** @var array<string, array<string, scalar|array>> $yaml */
-        foreach ($this->yaml as $namespace => $data) {
+        foreach ($this->repository->getData() as $namespace => $data) {
             $this->mergeConfiguration($namespace, Arr::undot((array) $data));
         }
     }
