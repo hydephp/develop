@@ -17,11 +17,23 @@ use Hyde\Testing\TestCase;
  */
 class HighLevelYamlConfigurationFeatureTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        $this->setUpConfigurationBeforeApplicationBoots();
+
+        parent::setUp();
+    }
+
     protected function tearDown(): void
     {
         $this->clearEnvVars();
 
         parent::tearDown();
+    }
+
+    protected function setUpConfigurationBeforeApplicationBoots(): void
+    {
+        //
     }
 
     protected function clearEnvVars(): void
