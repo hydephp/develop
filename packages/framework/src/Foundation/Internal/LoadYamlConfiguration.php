@@ -24,7 +24,7 @@ use function array_merge;
  */
 class LoadYamlConfiguration
 {
-    protected YamlConfigurationRepository $repository;
+    protected YamlConfigurationRepository $yaml;
     protected array $config;
 
     /**
@@ -33,9 +33,9 @@ class LoadYamlConfiguration
      */
     public function bootstrap(Application $app): void
     {
-        $this->repository = $app->make(YamlConfigurationRepository::class);
+        $this->yaml = $app->make(YamlConfigurationRepository::class);
 
-        if ($this->repository->hasYamlConfigFile()) {
+        if ($this->yaml->hasYamlConfigFile()) {
             $this->config = $app->make('config')->all();
 
             $this->mergeParsedConfiguration();
@@ -46,7 +46,7 @@ class LoadYamlConfiguration
 
     protected function mergeParsedConfiguration(): void
     {
-        foreach ($this->repository->getData() as $namespace => $data) {
+        foreach ($this->yaml->getData() as $namespace => $data) {
             $this->mergeConfiguration($namespace, Arr::undot($data));
         }
     }
