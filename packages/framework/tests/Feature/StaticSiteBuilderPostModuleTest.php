@@ -45,7 +45,7 @@ class StaticSiteBuilderPostModuleTest extends TestCase
         parent::tearDown();
     }
 
-    protected function inspectHtml(array $expectedStrings)
+    protected function inspectHtml(array $expectedStrings): void
     {
         StaticPageBuilder::handle($this->post);
         $stream = file_get_contents(Hyde::path('_site/posts/test-post.html'));
