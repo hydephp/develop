@@ -20,19 +20,19 @@ class MakePostCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_posts/test-post.md'));
         $this->cleanUpWhenDone('_posts/test-post.md');
 
-        Carbon::setTestNow(Carbon::create(2024));
+        Carbon::setTestNow(Carbon::create(2024, hour: 12));
 
         $this->artisan('make:post')
             ->expectsQuestion('What is the title of the post?', 'Test Post')
             ->expectsQuestion('Write a short post excerpt/description', 'A short description')
-            ->expectsQuestion('What is your (the author\'s) name?', 'PHPUnit')
+            ->expectsQuestion('What is your (the author\'s) name?', 'Mr Hyde')
             ->expectsQuestion('What is the primary category of the post?', 'general')
             ->expectsOutput('Creating a post with the following details:')
             ->expectsOutput('Title: Test Post')
             ->expectsOutput('Description: A short description')
             ->expectsOutput('Category: general')
-            ->expectsOutput('Author: PHPUnit')
-            ->expectsOutput('Date: 2024-01-01 00:00')
+            ->expectsOutput('Author: Mr Hyde')
+            ->expectsOutput('Date: 2024-01-01 12:00')
             ->expectsOutput('Identifier: test-post')
             ->expectsConfirmation('Do you wish to continue?', 'yes')
             ->assertExitCode(0);
@@ -44,8 +44,8 @@ class MakePostCommandTest extends TestCase
             title: 'Test Post'
             description: 'A short description'
             category: general
-            author: PHPUnit
-            date: '2024-01-01 00:00'
+            author: 'Mr Hyde'
+            date: '2024-01-01 12:00'
             ---
             
             ## Write something awesome.
@@ -61,7 +61,7 @@ class MakePostCommandTest extends TestCase
         $this->artisan('make:post')
             ->expectsQuestion('What is the title of the post?', 'Test Post')
             ->expectsQuestion('Write a short post excerpt/description', 'A short description')
-            ->expectsQuestion('What is your (the author\'s) name?', 'PHPUnit')
+            ->expectsQuestion('What is your (the author\'s) name?', 'Mr Hyde')
             ->expectsQuestion('What is the primary category of the post?', 'general')
             ->expectsOutput('Creating a post with the following details:')
             ->expectsConfirmation('Do you wish to continue?', 'yes')
@@ -81,7 +81,7 @@ class MakePostCommandTest extends TestCase
         $this->artisan('make:post --force')
             ->expectsQuestion('What is the title of the post?', 'Test Post')
             ->expectsQuestion('Write a short post excerpt/description', 'A short description')
-            ->expectsQuestion('What is your (the author\'s) name?', 'PHPUnit')
+            ->expectsQuestion('What is your (the author\'s) name?', 'Mr Hyde')
             ->expectsQuestion('What is the primary category of the post?', 'general')
             ->expectsOutput('Creating a post with the following details:')
             ->expectsConfirmation('Do you wish to continue?', 'yes')
@@ -105,7 +105,7 @@ class MakePostCommandTest extends TestCase
         $this->artisan('make:post "Test Post"')
             ->expectsOutputToContain('Selected title: Test Post')
             ->expectsQuestion('Write a short post excerpt/description', 'A short description')
-            ->expectsQuestion('What is your (the author\'s) name?', 'PHPUnit')
+            ->expectsQuestion('What is your (the author\'s) name?', 'Mr Hyde')
             ->expectsQuestion('What is the primary category of the post?', 'general')
             ->expectsConfirmation('Do you wish to continue?', 'yes')
             ->assertExitCode(0);
@@ -116,7 +116,7 @@ class MakePostCommandTest extends TestCase
         $this->artisan('make:post "Test Post"')
             ->expectsOutputToContain('Selected title: Test Post')
             ->expectsQuestion('Write a short post excerpt/description', 'A short description')
-            ->expectsQuestion('What is your (the author\'s) name?', 'PHPUnit')
+            ->expectsQuestion('What is your (the author\'s) name?', 'Mr Hyde')
             ->expectsQuestion('What is the primary category of the post?', 'general')
             ->expectsConfirmation('Do you wish to continue?')
             ->expectsOutput('Aborting.')
