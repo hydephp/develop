@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Internal;
 
 use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Illuminate\Support\Arr;
 use Symfony\Component\Yaml\Yaml;
 
-use function file_exists;
 use function file_get_contents;
 
 /**
@@ -47,8 +47,8 @@ class YamlConfigurationRepository
     protected function getFilePath(): string|false
     {
         return match (true) {
-            file_exists(Hyde::path('hyde.yml')) => Hyde::path('hyde.yml'),
-            file_exists(Hyde::path('hyde.yaml')) => Hyde::path('hyde.yaml'),
+            Filesystem::exists('hyde.yml') => Hyde::path('hyde.yml'),
+            Filesystem::exists('hyde.yaml') => Hyde::path('hyde.yaml'),
             default => false,
         };
     }
