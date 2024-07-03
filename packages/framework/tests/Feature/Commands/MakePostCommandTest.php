@@ -39,9 +39,19 @@ class MakePostCommandTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_posts/test-post.md'));
 
-        $this->assertStringContainsString(
-            "title: 'Test Post'",
-            file_get_contents(Hyde::path('_posts/test-post.md'))
+        $this->assertFileEqualsString(<<<'MARKDOWN'
+            ---
+            title: 'Test Post'
+            description: 'A short description'
+            category: general
+            author: PHPUnit
+            date: '2024-01-01 00:00'
+            ---
+            
+            ## Write something awesome.
+            
+            MARKDOWN,
+            Hyde::path('_posts/test-post.md')
         );
     }
 
