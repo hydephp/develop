@@ -26,7 +26,7 @@ class YamlConfigurationRepository
     {
         $this->file = $this->getFilePath();
 
-        if ($this->file !== false) {
+        if ($this->hasYamlConfigFile()) {
             $this->data = $this->parseYamlFile();
         }
     }
