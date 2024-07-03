@@ -38,7 +38,7 @@ class PostsAuthorIntegrationTest extends TestCase
             description: '',
             category: '',
             author: 'test_undefined_author'
-        ))->save(true);
+        ))->save();
 
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-undefined-author.md'));
@@ -71,7 +71,7 @@ class PostsAuthorIntegrationTest extends TestCase
             description: '',
             category: '',
             author: 'named_author'
-        ))->save(true);
+        ))->save();
 
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
@@ -109,7 +109,7 @@ class PostsAuthorIntegrationTest extends TestCase
             description: '',
             category: '',
             author: 'test_author_with_website'
-        ))->save(true);
+        ))->save();
 
         // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
