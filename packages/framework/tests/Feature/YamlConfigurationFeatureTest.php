@@ -10,6 +10,8 @@ use Illuminate\Support\Env;
 /**
  * Test the Yaml configuration feature.
  *
+ * @see \Hyde\Framework\Testing\Feature\HighLevelYamlConfigurationFeatureTest
+ *
  * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
  * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
  * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
