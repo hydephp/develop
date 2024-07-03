@@ -95,7 +95,7 @@ class PostsAuthorIntegrationTest extends TestCase
 
     protected function createPostFile(string $title, string $author): void
     {
-        (new CreatesNewMarkdownPostFile(title: $title, description: '', category: '', author: $author))->save();
+        (new CreatesNewMarkdownPostFile($title, '', '', $author))->save();
 
         $this->assertFileExists(Hyde::path("_posts/$title.md"));
 
