@@ -47,7 +47,7 @@ class LoadYamlConfiguration
     protected function mergeParsedConfiguration(): void
     {
         foreach ($this->repository->getData() as $namespace => $data) {
-            $this->mergeConfiguration($namespace, Arr::undot((array) $data));
+            $this->mergeConfiguration($namespace, Arr::undot($data));
         }
     }
 
