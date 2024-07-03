@@ -58,6 +58,7 @@ class MakePostCommandTest extends TestCase
     public function testThatFilesAreNotOverwrittenWhenForceFlagIsNotSet()
     {
         $this->file('_posts/test-post.md', 'This should not be overwritten');
+
         $this->artisan('make:post')
             ->expectsQuestion('What is the title of the post?', 'Test Post')
             ->expectsQuestion('Write a short post excerpt/description', 'A short description')
