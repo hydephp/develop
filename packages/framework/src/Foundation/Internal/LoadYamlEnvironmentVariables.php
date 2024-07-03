@@ -29,11 +29,6 @@ class LoadYamlEnvironmentVariables
         }
     }
 
-    protected function configurationContainsNamespaces(): bool
-    {
-        return array_key_first($this->yaml->getData()) === 'hyde';
-    }
-
     protected function injectEnvironmentVariables(): void
     {
         if ($this->canInjectSiteNameEnvironmentVariable()) {
@@ -60,15 +55,11 @@ class LoadYamlEnvironmentVariables
 
     protected function yamlHasSiteNameSet(): bool
     {
-        return $this->configurationContainsNamespaces()
-            ? isset($this->yaml->getData()['hyde']['name'])
-            : isset($this->yaml->getData()['name']);
+        return isset($this->yaml->getData()['hyde']['name']);
     }
 
     protected function getSiteNameFromYaml(): string
     {
-        return $this->configurationContainsNamespaces()
-            ? $this->yaml->getData()['hyde']['name']
-            : $this->yaml->getData()['name'];
+        return $this->yaml->getData()['hyde']['name'];
     }
 }

@@ -10,6 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 
 use function file_exists;
 use function file_get_contents;
+use function array_key_first;
 
 /**
  * @internal Contains shared logic for loading and parsing the YAML configuration file.
@@ -27,7 +28,11 @@ class YamlConfigurationRepository
         $this->file = $this->getFilePath();
 
         if ($this->hasYamlConfigFile()) {
-            $this->data = $this->parseYamlFile();
+            $data = $this->parseYamlFile();
+            if (! self::configurationContainsNamespaces($data)) {
+                $data = ['hyde' => $data];
+            }
+            $this->data = $data;
         }
     }
 
@@ -54,5 +59,10 @@ class YamlConfigurationRepository
             file_exists(Hyde::path('hyde.yaml')) => Hyde::path('hyde.yaml'),
             default => false,
         };
+    }
+
+    protected static function configurationContainsNamespaces(array $config): bool
+    {
+        return array_key_first($config) === 'hyde';
     }
 }

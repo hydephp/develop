@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Application;
 
-use function array_key_first;
 use function array_merge;
 
 /**
@@ -49,16 +48,9 @@ class LoadYamlConfiguration
 
     protected function mergeParsedConfiguration(): void
     {
-        // If the Yaml file contains namespaces, we merge those using more granular logic
-        // that only applies the namespace data to each configuration namespace.
-        if ($this->configurationContainsNamespaces()) {
-            /** @var array<string, array<string, scalar>> $yaml */
-            foreach ($this->yaml as $namespace => $data) {
-                $this->mergeConfiguration($namespace, Arr::undot((array) $data));
-            }
-        } else {
-            // Otherwise, we can merge using the default strategy, which is simply applying all the data to the hyde namespace.
-            $this->mergeConfiguration('hyde', $this->yaml);
+        /** @var array<string, array<string, scalar>> $yaml */
+        foreach ($this->yaml as $namespace => $data) {
+            $this->mergeConfiguration($namespace, Arr::undot((array) $data));
         }
     }
 
@@ -68,10 +60,5 @@ class LoadYamlConfiguration
             $this->config[$namespace] ?? [],
             $yamlData
         );
-    }
-
-    protected function configurationContainsNamespaces(): bool
-    {
-        return array_key_first($this->yaml) === 'hyde';
     }
 }
