@@ -12,7 +12,7 @@ use function file_exists;
 use function file_get_contents;
 
 /**
- * @internal Contains shared logic for loading the YAML configuration file.
+ * @internal Contains shared logic for loading and parsing the YAML configuration file.
  */
 class YamlConfigurationRepository
 {
