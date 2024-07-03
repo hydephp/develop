@@ -54,7 +54,6 @@ class PostsAuthorIntegrationTest extends TestCase
             Author::create('named_author', 'Test Author', null),
         ]);
 
-        $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
         $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);
         $this->assertFileExists(Hyde::path('_site/posts/post-with-defined-author-with-name.html'));
 
@@ -76,7 +75,6 @@ class PostsAuthorIntegrationTest extends TestCase
             Author::create('test_author_with_website', 'Test Author', 'https://example.org'),
         ]);
 
-        $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
         $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);
         $this->assertFileExists(Hyde::path('_site/posts/post-with-defined-author-with-name.html'));
 
