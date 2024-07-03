@@ -97,9 +97,9 @@ class PostsAuthorIntegrationTest extends TestCase
     {
         (new CreatesNewMarkdownPostFile(title: $title, description: '', category: '', author: $author))->save();
 
-        $this->assertFileExists(Hyde::path('_posts/'.$title.'.md'));
+        $this->assertFileExists(Hyde::path("_posts/$title.md"));
 
-        $this->cleanUpWhenDone('_posts/'.$title.'.md');
-        $this->cleanUpWhenDone('_site/posts/'.$title.'.html');
+        $this->cleanUpWhenDone("_posts/$title.md");
+        $this->cleanUpWhenDone("_site/posts/$title.html");
     }
 }
