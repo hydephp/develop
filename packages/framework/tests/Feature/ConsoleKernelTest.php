@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use LaravelZero\Framework\Kernel as LaravelZeroKernel;
 use Hyde\Foundation\Internal\LoadYamlConfiguration;
 use Illuminate\Contracts\Console\Kernel;
 use Hyde\Foundation\ConsoleKernel;
@@ -11,7 +12,13 @@ use Hyde\Testing\TestCase;
 use ReflectionMethod;
 
 /**
+ * This test covers our custom console kernel, which is responsible for registering our custom bootstrappers.
+ *
  * @covers \Hyde\Foundation\ConsoleKernel
+ *
+ * Our custom bootstrapping system depends on code from Laravel Zero which is marked as internal.
+ * Sadly, there is no way around working with this private API. Since they may change the API
+ * at any time, we have tests here to detect if their code changes, so we can catch it early.
  */
 class ConsoleKernelTest extends TestCase
 {
@@ -25,28 +32,40 @@ class ConsoleKernelTest extends TestCase
         $this->assertInstanceOf(Kernel::class, app(ConsoleKernel::class));
     }
 
-    public function testBootstrappers()
+    public function testLaravelZeroBootstrappersHaveNotChanged()
     {
-        $kernel = app(ConsoleKernel::class);
+        $this->assertSame([
+            \LaravelZero\Framework\Bootstrap\CoreBindings::class,
+            \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
+            \LaravelZero\Framework\Bootstrap\LoadConfiguration::class,
+            \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
+            \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
+            \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
+            \Illuminate\Foundation\Bootstrap\BootProviders::class,
+        ], $this->getBootstrappersFromKernel(app(LaravelZeroKernel::class)));
+    }
 
-        // Normally, protected code does not need to be unit tested, but since this array is so vital, we want to inspect it.
-        $bootstrappers = (new ReflectionMethod($kernel, 'bootstrappers'))->invoke($kernel);
+    public function testHydeBootstrapperInjections()
+    {
+        $bootstrappers = $this->getBootstrappersFromKernel(app(ConsoleKernel::class));
 
         $this->assertIsArray($bootstrappers);
         $this->assertContains(LoadYamlConfiguration::class, $bootstrappers);
 
-        // Another assertion that is usually a no-no, testing vendor code, especially those which are marked as internal.
-        // We do this here however, so we get a heads-up if the vendor code changes as that could break our code.
-
         $this->assertSame([
-            0 => 'LaravelZero\Framework\Bootstrap\CoreBindings',
-            1 => 'LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables',
-            2 => 'Hyde\Foundation\Internal\LoadConfiguration',
-            3 => 'Illuminate\Foundation\Bootstrap\HandleExceptions',
-            4 => 'LaravelZero\Framework\Bootstrap\RegisterFacades',
-            5 => 'Hyde\Foundation\Internal\LoadYamlConfiguration',
-            6 => 'LaravelZero\Framework\Bootstrap\RegisterProviders',
-            7 => 'Illuminate\Foundation\Bootstrap\BootProviders',
+            \LaravelZero\Framework\Bootstrap\CoreBindings::class,
+            \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
+            \Hyde\Foundation\Internal\LoadConfiguration::class,
+            \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
+            \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
+            \Hyde\Foundation\Internal\LoadYamlConfiguration::class,
+            \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
+            \Illuminate\Foundation\Bootstrap\BootProviders::class,
         ], $bootstrappers);
+    }
+
+    protected function getBootstrappersFromKernel(\Illuminate\Foundation\Console\Kernel $kernel): array
+    {
+        return (new ReflectionMethod($kernel, 'bootstrappers'))->invoke($kernel);
     }
 }
