@@ -12,8 +12,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Test that the Author feature works in
- * conjunction with the static Post generator.
+ * Test that the Author feature works in conjunction with the static Post generator.
  *
  * @see StaticSiteBuilderPostModuleTest
  */
@@ -27,11 +26,9 @@ class PostsAuthorIntegrationTest extends TestCase
     }
 
     /**
-     * Baseline test to create a post without a defined author,
-     * and assert that the username is displayed as is.
+     * Baseline test to create a post without a defined author, and assert that the username is displayed as is.
      *
-     * Check that the author was not defined.
-     * We do this by building the static site and inspecting the DOM.
+     * Check that the author was not defined. We do this by building the static site and inspecting the DOM.
      */
     public function testCreatePostWithUndefinedAuthor()
     {
