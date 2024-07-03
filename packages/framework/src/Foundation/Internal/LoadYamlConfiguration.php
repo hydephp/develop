@@ -38,9 +38,9 @@ class LoadYamlConfiguration
         if ($this->yaml->hasYamlConfigFile()) {
             $config = $app->make('config');
 
-            $this->config = $config->all();
-
-            $this->mergeParsedConfiguration();
+            tap($this->config = $config->all(), function () {
+                $this->mergeParsedConfiguration();
+            });
 
             $config->set($this->config);
         }
