@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Author;
-use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -42,9 +41,6 @@ class PostsAuthorIntegrationTest extends TestCase
             '>test_undefined_author</span>',
             file_get_contents(Hyde::path('_site/posts/post-with-undefined-author.html'))
         );
-
-        Filesystem::unlink('_posts/post-with-undefined-author.md');
-        Filesystem::unlink('_site/posts/post-with-undefined-author.html');
     }
 
     /**
@@ -67,9 +63,6 @@ class PostsAuthorIntegrationTest extends TestCase
             '<span itemprop="name" aria-label="The author\'s name" title=@named_author>Test Author</span>',
             file_get_contents(Hyde::path('_site/posts/post-with-defined-author-with-name.html'))
         );
-
-        Filesystem::unlink('_posts/post-with-defined-author-with-name.md');
-        Filesystem::unlink('_site/posts/post-with-defined-author-with-name.html');
     }
 
     /**
@@ -98,9 +91,6 @@ class PostsAuthorIntegrationTest extends TestCase
             '<a href="https://example.org" rel="author" itemprop="url" aria-label="The author\'s website">',
             file_get_contents(Hyde::path('_site/posts/post-with-defined-author-with-name.html'))
         );
-
-        Filesystem::unlink('_posts/post-with-defined-author-with-name.md');
-        Filesystem::unlink('_site/posts/post-with-defined-author-with-name.html');
     }
 
     protected function createPostFile(string $title, string $author): void
@@ -108,5 +98,8 @@ class PostsAuthorIntegrationTest extends TestCase
         (new CreatesNewMarkdownPostFile(title: $title, description: '', category: '', author: $author))->save();
 
         $this->assertFileExists(Hyde::path('_posts/'.$title.'.md'));
+
+        $this->cleanUpWhenDone('_posts/'.$title.'.md');
+        $this->cleanUpWhenDone('_site/posts/'.$title.'.html');
     }
 }
