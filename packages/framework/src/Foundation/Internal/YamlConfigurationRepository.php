@@ -20,26 +20,20 @@ class YamlConfigurationRepository
     protected false|string $file;
     protected array $data;
 
+    public function __construct()
+    {
+        $this->boot();
+    }
+
     /** @return array<string, scalar|array> */
     public function getData(): array
     {
-        $this->bootIfNotBooted();
-
         return $this->data;
     }
 
     public function hasYamlConfigFile(): bool
     {
-        $this->bootIfNotBooted();
-
         return $this->file !== false;
-    }
-
-    protected function bootIfNotBooted(): void
-    {
-        if (! $this->booted) {
-            $this->boot();
-        }
     }
 
     protected function boot(): void
