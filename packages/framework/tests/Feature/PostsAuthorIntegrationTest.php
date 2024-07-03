@@ -32,7 +32,6 @@ class PostsAuthorIntegrationTest extends TestCase
      */
     public function testCreatePostWithUndefinedAuthor()
     {
-        // Create a new post
         (new CreatesNewMarkdownPostFile(
             title: 'post-with-undefined-author',
             description: '',
@@ -40,13 +39,8 @@ class PostsAuthorIntegrationTest extends TestCase
             author: 'test_undefined_author'
         ))->save();
 
-        // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-undefined-author.md'));
-
-        // Build the static page
         $this->artisan('rebuild _posts/post-with-undefined-author.md')->assertExitCode(0);
-
-        // Check that the file was created
         $this->assertFileExists(Hyde::path('_site/posts/post-with-undefined-author.html'));
 
         // Check that the author is rendered as is in the DOM
@@ -55,7 +49,6 @@ class PostsAuthorIntegrationTest extends TestCase
             file_get_contents(Hyde::path('_site/posts/post-with-undefined-author.html'))
         );
 
-        // Remove the test files
         Filesystem::unlink('_posts/post-with-undefined-author.md');
         Filesystem::unlink('_site/posts/post-with-undefined-author.html');
     }
@@ -65,7 +58,6 @@ class PostsAuthorIntegrationTest extends TestCase
      */
     public function testCreatePostWithDefinedAuthorWithName()
     {
-        // Create a new post
         (new CreatesNewMarkdownPostFile(
             title: 'post-with-defined-author-with-name',
             description: '',
@@ -73,18 +65,14 @@ class PostsAuthorIntegrationTest extends TestCase
             author: 'named_author'
         ))->save();
 
-        // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
 
         Config::set('hyde.authors', [
             Author::create('named_author', 'Test Author', null),
         ]);
 
-        // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
-        // Build the static page
         $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);
-        // Check that the file was created
         $this->assertFileExists(Hyde::path('_site/posts/post-with-defined-author-with-name.html'));
 
         // Check that the author is contains the set name in the DOM
@@ -93,7 +81,6 @@ class PostsAuthorIntegrationTest extends TestCase
             file_get_contents(Hyde::path('_site/posts/post-with-defined-author-with-name.html'))
         );
 
-        // Remove the test files
         Filesystem::unlink('_posts/post-with-defined-author-with-name.md');
         Filesystem::unlink('_site/posts/post-with-defined-author-with-name.html');
     }
@@ -103,7 +90,6 @@ class PostsAuthorIntegrationTest extends TestCase
      */
     public function testCreatePostWithDefinedAuthorWithWebsite()
     {
-        // Create a new post
         (new CreatesNewMarkdownPostFile(
             title: 'post-with-defined-author-with-name',
             description: '',
@@ -111,18 +97,14 @@ class PostsAuthorIntegrationTest extends TestCase
             author: 'test_author_with_website'
         ))->save();
 
-        // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
 
         Config::set('hyde.authors', [
             Author::create('test_author_with_website', 'Test Author', 'https://example.org'),
         ]);
 
-        // Check that the post was created
         $this->assertFileExists(Hyde::path('_posts/post-with-defined-author-with-name.md'));
-        // Build the static page
         $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);
-        // Check that the file was created
         $this->assertFileExists(Hyde::path('_site/posts/post-with-defined-author-with-name.html'));
 
         // Check that the author is contains the set name in the DOM
@@ -137,7 +119,6 @@ class PostsAuthorIntegrationTest extends TestCase
             file_get_contents(Hyde::path('_site/posts/post-with-defined-author-with-name.html'))
         );
 
-        // Remove the test files
         Filesystem::unlink('_posts/post-with-defined-author-with-name.md');
         Filesystem::unlink('_site/posts/post-with-defined-author-with-name.html');
     }
