@@ -95,7 +95,7 @@ title: My New Post
 description: A short description used in previews and SEO
 category: blog
 author: Mr. Hyde
-date: 2024-01-01 12:00
+date: 2022-01-01 12:00
 ---
 ## Write something awesome.
 
