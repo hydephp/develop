@@ -29,10 +29,10 @@ class YamlConfigurationRepository
 
         if ($this->hasYamlConfigFile()) {
             $data = $this->parseYamlFile();
-            if (! self::configurationContainsNamespaces($data)) {
-                $data = ['hyde' => $data];
-            }
-            $this->data = $data;
+
+            $this->data = ! self::configurationContainsNamespaces($data)
+                ? ['hyde' => $data]
+                : $data;
         }
     }
 
