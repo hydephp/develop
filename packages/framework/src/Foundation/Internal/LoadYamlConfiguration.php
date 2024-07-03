@@ -6,7 +6,9 @@ namespace Hyde\Foundation\Internal;
 
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Application;
+use Illuminate\Config\Repository;
 
+use function tap;
 use function array_merge;
 
 /**
@@ -36,11 +38,11 @@ class LoadYamlConfiguration
         $this->yaml = $app->make(YamlConfigurationRepository::class);
 
         if ($this->yaml->hasYamlConfigFile()) {
-            $this->config = $app->make('config')->all();
-
-            $this->mergeParsedConfiguration();
-
-            $app->make('config')->set($this->config);
+            tap($app->make('config'), function (Repository $config): void {
+                $this->config = $config->all();
+                $this->mergeParsedConfiguration();
+                $config->set($this->config);
+            });
         }
     }
 
