@@ -16,10 +16,6 @@ class LoadYamlEnvironmentVariables
 {
     protected YamlConfigurationRepository $yaml;
 
-    /**
-     * Performs a core task that needs to be performed on
-     * early stages of the framework.
-     */
     public function bootstrap(Application $app): void
     {
         $this->yaml = $app->make(YamlConfigurationRepository::class);
