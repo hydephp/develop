@@ -18,9 +18,14 @@ class ConsoleKernel extends Kernel
         // We do this by swapping out the LoadConfiguration class with our own.
         // We also inject our Yaml configuration loading bootstrapper.
 
+        // First, we need to register our Yaml configuration repository,
+        // as this code executes before service providers are registered.
+        $this->app->singleton(Internal\YamlConfigurationRepository::class);
+
         return [
             \LaravelZero\Framework\Bootstrap\CoreBindings::class,
             \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
+            \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables::class,
             \Hyde\Foundation\Internal\LoadConfiguration::class,
             \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
             \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
