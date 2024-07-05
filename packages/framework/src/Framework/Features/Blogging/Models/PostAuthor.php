@@ -47,6 +47,13 @@ class PostAuthor implements Stringable, SerializableContract
     public readonly ?string $bio;
 
     /**
+     * The author's avatar image.
+     *
+     * If you in your Blade view use `Hyde::asset($author->avatar)`, then this value supports using both image names for files in `_media`, or full URIs starting with the protocol.
+     */
+    public readonly ?string $avatar;
+
+    /**
      * The author's social media links/handles.
      *
      * @var array<string, string
@@ -64,14 +71,16 @@ class PostAuthor implements Stringable, SerializableContract
      * @param  string|null  $name
      * @param  string|null  $website
      * @param  string|null  $bio
+     * @param  string|null  $avatar
      * @param  array<string, string>  $socials
      */
-    public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, array $socials = [])
+    public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, array $socials = [])
     {
         $this->username = $username;
         $this->name = $name ?? $username;
         $this->website = $website;
         $this->bio = $bio;
+        $this->avatar = $avatar;
         $this->socials = $socials;
     }
 

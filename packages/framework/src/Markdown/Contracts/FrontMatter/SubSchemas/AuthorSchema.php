@@ -16,6 +16,7 @@ interface AuthorSchema extends BlogPostSchema
         'username' => 'string',
         'website' => 'string',
         'bio' => 'string',
+        'avatar' => 'string',
         'socials' => 'array<string, string>',
     ];
 }

@@ -61,6 +61,7 @@ class SchemaContractsTest extends UnitTestCase
             'username' => 'string',
             'website' => 'string',
             'bio' => 'string',
+            'avatar' => 'string',
             'socials' => 'array<string, string>',
         ], AuthorSchema::AUTHOR_SCHEMA);
 
