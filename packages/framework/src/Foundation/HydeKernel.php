@@ -101,6 +101,7 @@ class HydeKernel implements SerializableContract
     public function toArray(): array
     {
         return [
+            'version' => self::VERSION,
             'basePath' => $this->basePath,
             'sourceRoot' => $this->sourceRoot,
             'outputDirectory' => $this->outputDirectory,
