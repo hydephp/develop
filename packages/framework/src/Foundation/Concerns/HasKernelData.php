@@ -44,7 +44,7 @@ trait HasKernelData
             return $config;
         }
 
-        return $this->authors ??= $config->mapWithKeys(function (PostAuthor $author): array {
+        return $this->authors = $config->mapWithKeys(function (PostAuthor $author): array {
             return [strtolower($author->username) => $author];
         });
     }
