@@ -8,8 +8,6 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
-use function strtolower;
-
 /**
  * Contains accessors and containers for data stored in the kernel.
  *
@@ -49,8 +47,8 @@ trait HasKernelData
 
     protected function parseConfigurationAuthors(Collection $authors): Collection
     {
-        return $authors->mapWithKeys(function (PostAuthor $author): array {
-            return [strtolower($author->username) => $author];
+        return $authors->mapWithKeys(function (PostAuthor $author, string $username): array {
+            return [$username ?: $author->username => $author];
         });
     }
 }
