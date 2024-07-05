@@ -545,6 +545,23 @@ class HydeKernelTest extends TestCase
             ],
         ], $kernel->getAuthors()->toArray());
     }
+
+    public function testGetAuthorsReturnsEmptyCollectionWhenNoAuthorsDefined()
+    {
+        $kernel = new HydeKernel();
+
+        Config::set('hyde', []);
+
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $kernel->getAuthors());
+        $this->assertEmpty($kernel->getAuthors());
+    }
+
+    public function testGetAuthorsReturnsSingletonCollection()
+    {
+        $kernel = new HydeKernel();
+
+        $this->assertSame($kernel->getAuthors(), $kernel->getAuthors());
+    }
 }
 
 class CallableClass
