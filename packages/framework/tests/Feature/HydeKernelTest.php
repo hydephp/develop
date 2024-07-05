@@ -283,6 +283,7 @@ class HydeKernelTest extends TestCase
             'files' => Hyde::files(),
             'pages' => Hyde::pages(),
             'routes' => Hyde::routes(),
+            'authors' => Hyde::authors(),
         ], Hyde::toArray());
     }
 

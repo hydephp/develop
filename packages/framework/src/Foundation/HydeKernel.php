@@ -110,6 +110,7 @@ class HydeKernel implements SerializableContract
             'files' => $this->files(),
             'pages' => $this->pages(),
             'routes' => $this->routes(),
+            'authors' => $this->authors(),
         ];
     }
 }
