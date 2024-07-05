@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
+use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Enums\Feature;
@@ -534,7 +535,7 @@ class HydeKernelTest extends TestCase
     {
         $kernel = new HydeKernel();
 
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $kernel->getAuthors());
+        $this->assertInstanceOf(Collection::class, $kernel->getAuthors());
         $this->assertContainsOnlyInstancesOf(PostAuthor::class, $kernel->getAuthors());
 
         $this->assertSame([
@@ -552,7 +553,7 @@ class HydeKernelTest extends TestCase
 
         Config::set('hyde', []);
 
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $kernel->getAuthors());
+        $this->assertInstanceOf(Collection::class, $kernel->getAuthors());
         $this->assertEmpty($kernel->getAuthors());
     }
 
