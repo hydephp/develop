@@ -42,6 +42,11 @@ class PostAuthor implements Stringable, SerializableContract
     public readonly ?string $website;
 
     /**
+     * The author's biography.
+     */
+    public readonly ?string $bio;
+
+    /**
      * Construct a new Post Author object.
      *
      * If your input is in the form of an array, you may rather want to use the `getOrCreate` method.
@@ -49,12 +54,14 @@ class PostAuthor implements Stringable, SerializableContract
      * @param  string  $username
      * @param  string|null  $name
      * @param  string|null  $website
+     * @param  string|null  $bio
      */
-    public function __construct(string $username, ?string $name = null, ?string $website = null)
+    public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null)
     {
         $this->username = $username;
         $this->name = $name ?? $username;
         $this->website = $website;
+        $this->bio = $bio;
     }
 
     /**
