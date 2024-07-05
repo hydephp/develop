@@ -13,5 +13,5 @@ namespace Hyde\Foundation\Concerns;
  */
 trait HasKernelData
 {
-    //
+    protected array $authors = [];
 }
