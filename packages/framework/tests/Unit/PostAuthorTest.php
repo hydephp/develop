@@ -86,6 +86,7 @@ class PostAuthorTest extends UnitTestCase
         Config::set('hyde.authors', [
             Author::create('foo'),
         ]);
+
         $authors = PostAuthor::all();
 
         $this->assertInstanceOf(Collection::class, $authors);
@@ -99,6 +100,7 @@ class PostAuthorTest extends UnitTestCase
             Author::create('foo'),
             Author::create('bar'),
         ]);
+
         $authors = PostAuthor::all();
 
         $this->assertInstanceOf(Collection::class, $authors);
