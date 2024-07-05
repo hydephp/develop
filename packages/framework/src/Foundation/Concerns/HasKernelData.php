@@ -41,7 +41,7 @@ trait HasKernelData
 
         if ($config->isEmpty()) {
             // Defer setting the authors property until the next try.
-            return new Collection();
+            return $config;
         }
 
         return $this->authors ??= $config->mapWithKeys(function (PostAuthor $author): array {
