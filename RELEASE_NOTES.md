@@ -50,7 +50,7 @@ This serves two purposes:
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 
 ### Fixed
-- for any bug fixes.
+- Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
 
 ### Security
 - in case of vulnerabilities.
