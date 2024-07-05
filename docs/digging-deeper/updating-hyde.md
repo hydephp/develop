@@ -33,83 +33,49 @@ it is still possible that some edge cases slip through. This means that a bug fi
 
 Obligatory related XKCD: [https://xkcd.com/1172](https://xkcd.com/1172)
 
+### Before you start
 
-## Methods
+Before you perform an update, please make sure you have a backup of your project.
+Using Git is highly recommended as it allows you to easily roll back changes if something goes wrong.
 
-### Which method?
+## Update to a major version
 
-Depending on how you installed Hyde, there are a few different ways to update it.
+When updating to a major version, you should read the release notes and the upgrade guide for that version. 
+If you are updating multiple major versions at once, it's recommended to update one major version at a time, 
+following the upgrade guide for each version. After following the upgrade guide, you can follow the post-update instructions below.
 
-We have a few methods documented here. The [Git method](#using-git) is recommended as it is the easiest and safest way to
-update your project. If you are not using Git, you can still update your project using any of the [manual methods](#manual-update).
+## Updating to a minor or patch version
 
-Regardless of the method you use, make sure you follow the [post-update instructions](#post-update-instructions) at the end.
-
-### Updating just the Framework
-
-If you just want to update the framework patch version, you can do so by running the following command:
+Updating a minor or patch version is easy using Composer. Just run the following command:
 
 ```bash
-composer update hyde/framework
+composer update hyde/* --with-dependencies
 ```
 
-While the same can still be done for minor versions, it's best to also update your project scaffolding and resources to
-ensure that everything is up to date, for which you should use the methods below.
+Note that if you have hardcoded a version constraint in your `composer.json` file, you may need to update it manually. 
+You can always refer to the `composer.json` file in the HydePHP repository if you need a reference.
 
-### Using Git
+## Alternate update methods
 
-First, make sure you have a remote set up for the base project repository.
+### Updating using Git (advanced)
 
-```bash
-git remote add upstream https://github.com/hydephp/hyde.git
-```
-
-Then pull the latest release from the upstream repository.
+If you are using Git, you can set the `hydephp/hyde` repository as a Git remote and merge in the changes that way:
 
 ```bash
-git pull upstream master
-```
+git remote add hyde https://github.com/hydephp/hyde.git
+git fetch hyde
+git merge hyde/master # OR: Replace 'master' with the version tag you want to update to
 
-After this, you should update your composer dependencies:
+# Take care of any merge conflicts that arise, then install the updated dependencies
 
-```bash
 composer update
 ```
 
-Next, follow the post-update instructions.
+### Hard update using release archive
 
-### Manual Update
+An alternate way to update your project is to essentially do a hard reset. This is only recommended if you haven't done many modifications to the HydePHP files.
 
-If you are not using Git, you can still update your project. This is a bit more involved, but it is still possible.
-
-1. First, you will need to download the latest release archive from the [releases page](https://github.com/hydephp/hyde/releases).
-2. Then extract the archive, and copy the contents into your project directory.
-
-Since this may overwrite modified files, it may be safer to use the [hard update](#hard-update) method.
-
-### Hard Update
-
-If you are having trouble updating your project, you can try a hard update. In short, this approach consists of creating
-a brand new project and copying over only your source and resource files. If you do not want to use Git, this may be
-the safest option as you won't be overriding any of your existing files.
-
-If you have changed any other files, for example in the App directory, you will need to update those files manually as well.
-The same goes if you have created any custom Blade components or have modified Hyde ones.
-
-**Here is an example CLI workflow, but you can do the same using a graphical file manager.**
-
-```bash
-mv my-project my-project-old
-composer create-project hyde/hyde my-project
-
-cp -r my-old-project/_pages my-project/content/_pages
-cp -r my-old-project/_posts my-project/content/_posts
-cp -r my-old-project/_media my-project/content/_media
-cp -r my-old-project/_docs my-project/content/_docs
-cp -r my-old-project/config my-project/config
-```
-
-Next, follow the post-update instructions. After verifying that everything is working, you can delete the old project directory.
+Essentially: Download the [latest release](https://github.com/hydephp/hyde/releases/latest) from GitHub, extract it to a new project directory, then copy over your source files and install the dependencies.
 
 
 ## Post-update instructions
@@ -134,6 +100,26 @@ If you have published any of the included Blade components you will need to re-p
 ```bash
 php hyde publish:views layouts
 php hyde publish:views components
+```
+
+You may also want to download any resources that have been updated. You download these from the Zip file of the latest release on GitHub.
+
+The latest release can always be found at https://github.com/hydephp/hyde/releases/latest, where you can download the source code as a `zip` file under the "Assets" section.
+
+Here are the paths you may be interested in copying over: (Using Git will help a ton here as it can show you diffs of changed files, and allow you to easily merge own changes)
+
+```
+├── app
+│   ├── Providers
+│   │   └── AppServiceProvider.php
+│   ├── bootstrap.php
+│   ├── config.php
+│   └── storage/
+├── composer.json
+├── package.json
+├── resources/
+├── tailwind.config.js
+└── webpack.mix.js
 ```
 
 Next, recompile your assets, if you are not using the built-in assets.
