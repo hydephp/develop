@@ -140,4 +140,51 @@ class PostAuthorTest extends UnitTestCase
 
         $this->assertEquals('John Doe', (string) $author);
     }
+
+    public function testToArrayMethodReturnsArrayRepresentationOfAuthor()
+    {
+        $author = new PostAuthor('username', 'John Doe', 'https://example.com');
+
+        $this->assertEquals([
+            'username' => 'username',
+            'name' => 'John Doe',
+            'website' => 'https://example.com',
+        ], $author->toArray());
+    }
+
+    public function testJsonSerializeMethodReturnsArrayRepresentationOfAuthor()
+    {
+        $author = new PostAuthor('username', 'John Doe', 'https://example.com');
+
+        $this->assertEquals([
+            'username' => 'username',
+            'name' => 'John Doe',
+            'website' => 'https://example.com',
+        ], $author->jsonSerialize());
+    }
+
+    public function testArraySerializeMethodReturnsArrayRepresentationOfAuthor()
+    {
+        $author = new PostAuthor('username', 'John Doe', 'https://example.com');
+
+        $this->assertEquals([
+            'username' => 'username',
+            'name' => 'John Doe',
+            'website' => 'https://example.com',
+        ], $author->arraySerialize());
+    }
+
+    public function testToJsonMethodReturnsJsonRepresentationOfAuthor()
+    {
+        $author = new PostAuthor('username', 'John Doe', 'https://example.com');
+
+        $this->assertEquals('{"username":"username","name":"John Doe","website":"https:\/\/example.com"}', $author->toJson());
+    }
+
+    public function testCanJsonEncodeAuthor()
+    {
+        $author = new PostAuthor('username', 'John Doe', 'https://example.com');
+
+        $this->assertEquals('{"username":"username","name":"John Doe","website":"https:\/\/example.com"}', json_encode($author));
+    }
 }
