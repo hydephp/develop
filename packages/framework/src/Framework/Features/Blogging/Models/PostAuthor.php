@@ -89,6 +89,15 @@ class PostAuthor implements Stringable, SerializableContract
         return $this->getName();
     }
 
+    public function toArray(): array
+    {
+        return [
+            'username' => $this->username,
+            'name' => $this->name,
+            'website' => $this->website,
+        ];
+    }
+
     public function getName(): string
     {
         return $this->name ?? $this->username;
