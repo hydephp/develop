@@ -25,6 +25,22 @@ class PostAuthorTest extends UnitTestCase
         self::resetKernel();
     }
 
+    public function testCanCreateAuthorModel()
+    {
+        $author = new PostAuthor('foo');
+
+        $this->assertInstanceOf(PostAuthor::class, $author);
+    }
+
+    public function testCanCreateAuthorModelWithDetails()
+    {
+        $author = new PostAuthor('foo', 'bar', 'https://example.com');
+
+        $this->assertSame('foo', $author->username);
+        $this->assertSame('bar', $author->name);
+        $this->assertSame('https://example.com', $author->website);
+    }
+
     public function testCreateMethodCreatesNewAuthorModel()
     {
         $author = Author::create('foo');
