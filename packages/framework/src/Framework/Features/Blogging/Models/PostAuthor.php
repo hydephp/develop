@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Blogging\Models;
 
+use Hyde\Hyde;
 use Stringable;
 use Hyde\Facades\Author;
-use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
@@ -80,9 +80,7 @@ class PostAuthor implements Stringable, SerializableContract
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     public static function all(): Collection
     {
-        return (new Collection(Config::getArray('hyde.authors', [])))->mapWithKeys(function (self $author): array {
-            return [strtolower($author->username) => $author];
-        });
+        return Hyde::getAuthors();
     }
 
     public function __toString(): string

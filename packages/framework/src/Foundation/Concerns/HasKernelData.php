@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+
+use function strtolower;
 
 /**
  * Contains accessors and containers for data stored in the kernel.
@@ -30,6 +33,8 @@ trait HasKernelData
      */
     public function getAuthors(): Collection
     {
-        return $this->authors ??= PostAuthor::all();
+        return $this->authors ??= (new Collection(Config::getArray('hyde.authors', [])))->mapWithKeys(function (PostAuthor $author): array {
+            return [strtolower($author->username) => $author];
+        });
     }
 }

@@ -18,6 +18,13 @@ class PostAuthorTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        self::resetKernel();
+    }
+
     public function testCreateMethodCreatesNewAuthorModel()
     {
         $author = Author::create('foo');
