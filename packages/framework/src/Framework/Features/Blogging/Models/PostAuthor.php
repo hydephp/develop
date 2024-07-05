@@ -53,7 +53,7 @@ class PostAuthor implements Stringable, SerializableContract
     public function __construct(string $username, ?string $name = null, ?string $website = null)
     {
         $this->username = $username;
-        $this->name = $name;
+        $this->name = $name ?? $username;
         $this->website = $website;
     }
 
@@ -99,7 +99,7 @@ class PostAuthor implements Stringable, SerializableContract
 
     public function getName(): string
     {
-        return $this->name ?? $this->username;
+        return $this->name;
     }
 
     /** @param array{username?: string, name?: string, website?: string} $data */

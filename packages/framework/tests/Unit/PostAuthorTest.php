@@ -41,6 +41,13 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('https://example.com', $author->website);
     }
 
+    public function testNameIsSetToUsernameIfNoNameIsProvided()
+    {
+        $author = new PostAuthor('foo');
+
+        $this->assertSame('foo', $author->name);
+    }
+
     public function testCreateMethodCreatesNewAuthorModel()
     {
         $author = Author::create('foo');
@@ -218,6 +225,6 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username', null, null);
 
-        $this->assertSame('{"username":"username"}', $author->toJson());
+        $this->assertSame('{"username":"username","name":"username"}', $author->toJson());
     }
 }
