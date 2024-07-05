@@ -13,7 +13,7 @@ use function strtolower;
 use function is_string;
 
 /**
- * Object representation of a post author for the site.
+ * Object representation of a blog post author for the site.
  */
 class PostAuthor implements Stringable
 {
