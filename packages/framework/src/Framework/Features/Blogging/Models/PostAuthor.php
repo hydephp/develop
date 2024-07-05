@@ -47,6 +47,15 @@ class PostAuthor implements Stringable, SerializableContract
     public readonly ?string $bio;
 
     /**
+     * The author's social media links/handles.
+     *
+     * @var array<string, string
+     *
+     * @example ['twitter' => 'mr_hyde'] ($service => $handle)
+     */
+    public array $socials = [];
+
+    /**
      * Construct a new Post Author object.
      *
      * If your input is in the form of an array, you may rather want to use the `getOrCreate` method.
@@ -55,13 +64,15 @@ class PostAuthor implements Stringable, SerializableContract
      * @param  string|null  $name
      * @param  string|null  $website
      * @param  string|null  $bio
+     * @param  array<string, string>  $socials
      */
-    public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null)
+    public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, array $socials = [])
     {
         $this->username = $username;
         $this->name = $name ?? $username;
         $this->website = $website;
         $this->bio = $bio;
+        $this->socials = $socials;
     }
 
     /**
