@@ -23,6 +23,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\HtmlString;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 /**
  * This test class runs high-level tests on the HydeKernel class,
@@ -527,6 +528,22 @@ class HydeKernelTest extends TestCase
         $kernel = new HydeKernel();
 
         $this->assertSame($kernel->features(), $kernel->features());
+    }
+
+    public function testGetAuthors()
+    {
+        $kernel = new HydeKernel();
+
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $kernel->getAuthors());
+        $this->assertContainsOnlyInstancesOf(PostAuthor::class, $kernel->getAuthors());
+
+        $this->assertSame([
+            'mr_hyde' => [
+                'username' => 'mr_hyde',
+                'name' => 'Mr. Hyde',
+                'website' => 'https://hydephp.com',
+            ],
+        ], $kernel->getAuthors()->toArray());
     }
 }
 
