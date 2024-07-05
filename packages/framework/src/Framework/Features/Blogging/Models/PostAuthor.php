@@ -8,6 +8,7 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
+use Hyde\Support\Contracts\SerializableContract;
 
 use function strtolower;
 use function is_string;
@@ -15,7 +16,7 @@ use function is_string;
 /**
  * Object representation of a blog post author for the site.
  */
-class PostAuthor implements Stringable
+class PostAuthor implements Stringable, SerializableContract
 {
     /**
      * The username of the author.
