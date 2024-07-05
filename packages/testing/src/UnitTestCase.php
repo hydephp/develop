@@ -40,6 +40,11 @@ abstract class UnitTestCase extends BaseTestCase
         self::$hasSetUpKernel = true;
     }
 
+    protected static function resetKernel(): void
+    {
+        HydeKernel::setInstance(new HydeKernel());
+    }
+
     protected static function mockConfig(array $items = []): void
     {
         app()->bind('config', fn (): Repository => new Repository($items));
