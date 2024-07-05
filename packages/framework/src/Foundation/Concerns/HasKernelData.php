@@ -44,7 +44,12 @@ trait HasKernelData
             return $config;
         }
 
-        return $this->authors = $config->mapWithKeys(function (PostAuthor $author): array {
+        return $this->authors = $this->parseConfigurationAuthors($config);
+    }
+
+    protected function parseConfigurationAuthors(Collection $authors): Collection
+    {
+        return $authors->mapWithKeys(function (PostAuthor $author): array {
             return [strtolower($author->username) => $author];
         });
     }
