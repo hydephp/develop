@@ -15,5 +15,5 @@ use Illuminate\Support\Collection;
  */
 trait HasKernelData
 {
-    protected Collection $authors = [];
+    protected Collection $authors;
 }
