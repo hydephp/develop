@@ -33,7 +33,18 @@ trait HasKernelData
      */
     public function getAuthors(): Collection
     {
-        return $this->authors ??= (new Collection(Config::getArray('hyde.authors', [])))->mapWithKeys(function (PostAuthor $author): array {
+        if (isset($this->authors)) {
+            return $this->authors;
+        }
+
+        $config = new Collection(Config::getArray('hyde.authors', []));
+
+        if ($config->isEmpty()) {
+            // Defer setting the authors property until the next try.
+            return new Collection();
+        }
+
+        return $this->authors ??= $config->mapWithKeys(function (PostAuthor $author): array {
             return [strtolower($author->username) => $author];
         });
     }
