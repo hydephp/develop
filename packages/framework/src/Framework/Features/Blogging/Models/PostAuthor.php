@@ -13,6 +13,7 @@ use Hyde\Support\Contracts\SerializableContract;
 
 use function strtolower;
 use function is_string;
+use function array_filter;
 
 /**
  * Object representation of a blog post author for the site.
@@ -91,11 +92,11 @@ class PostAuthor implements Stringable, SerializableContract
 
     public function toArray(): array
     {
-        return [
+        return array_filter([
             'username' => $this->username,
             'name' => $this->name,
             'website' => $this->website,
-        ];
+        ]);
     }
 
     public function getName(): string

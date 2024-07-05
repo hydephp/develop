@@ -188,4 +188,11 @@ class PostAuthorTest extends UnitTestCase
 
         $this->assertSame('{"username":"username","name":"John Doe","website":"https:\/\/example.com"}', json_encode($author));
     }
+
+    public function testEmptyFieldsAreRemovedFromSerializedModel()
+    {
+        $author = new PostAuthor('username', null, null);
+
+        $this->assertSame('{"username":"username"}', $author->toJson());
+    }
 }
