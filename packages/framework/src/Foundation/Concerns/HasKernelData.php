@@ -21,4 +21,14 @@ trait HasKernelData
      * @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor>
      */
     protected Collection $authors;
+
+    /**
+     * Get the collection of authors defined in the config.
+     *
+     * @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor>
+     */
+    public function getAuthors(): Collection
+    {
+        return $this->authors;
+    }
 }
