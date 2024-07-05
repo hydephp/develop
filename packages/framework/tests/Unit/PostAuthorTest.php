@@ -56,6 +56,7 @@ class PostAuthorTest extends UnitTestCase
             'name' => 'bar',
             'website' => 'https://example.com',
         ]);
+
         $this->assertEquals($author, Author::create('foo', 'bar', 'https://example.com'));
     }
 
