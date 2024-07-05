@@ -8,6 +8,7 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
+use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 
 use function strtolower;
@@ -18,6 +19,8 @@ use function is_string;
  */
 class PostAuthor implements Stringable, SerializableContract
 {
+    use Serializable;
+
     /**
      * The username of the author.
      * This is the key used to find authors in the config.
