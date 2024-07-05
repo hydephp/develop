@@ -15,5 +15,8 @@ use Illuminate\Support\Collection;
  */
 trait HasKernelData
 {
+    /**
+     * @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor>
+     */
     protected Collection $authors;
 }
