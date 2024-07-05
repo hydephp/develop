@@ -22,7 +22,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
 
 ### Security
 - in case of vulnerabilities.
