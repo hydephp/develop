@@ -31,7 +31,7 @@ trait HasKernelData
      *
      * @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor>
      */
-    public function getAuthors(): Collection
+    public function authors(): Collection
     {
         if (isset($this->authors)) {
             return $this->authors;

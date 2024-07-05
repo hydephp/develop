@@ -531,12 +531,12 @@ class HydeKernelTest extends TestCase
         $this->assertSame($kernel->features(), $kernel->features());
     }
 
-    public function testGetAuthors()
+    public function testAuthors()
     {
         $kernel = new HydeKernel();
 
-        $this->assertInstanceOf(Collection::class, $kernel->getAuthors());
-        $this->assertContainsOnlyInstancesOf(PostAuthor::class, $kernel->getAuthors());
+        $this->assertInstanceOf(Collection::class, $kernel->authors());
+        $this->assertContainsOnlyInstancesOf(PostAuthor::class, $kernel->authors());
 
         $this->assertSame([
             'mr_hyde' => [
@@ -544,24 +544,24 @@ class HydeKernelTest extends TestCase
                 'name' => 'Mr. Hyde',
                 'website' => 'https://hydephp.com',
             ],
-        ], $kernel->getAuthors()->toArray());
+        ], $kernel->authors()->toArray());
     }
 
-    public function testGetAuthorsReturnsSingletonCollection()
+    public function testAuthorsReturnsSingletonCollection()
     {
         $kernel = new HydeKernel();
 
-        $this->assertSame($kernel->getAuthors(), $kernel->getAuthors());
+        $this->assertSame($kernel->authors(), $kernel->authors());
     }
 
-    public function testGetAuthorsReturnsEmptyCollectionWhenNoAuthorsDefined()
+    public function testAuthorsReturnsEmptyCollectionWhenNoAuthorsDefined()
     {
         $kernel = new HydeKernel();
 
         Config::set('hyde', []);
 
-        $this->assertInstanceOf(Collection::class, $kernel->getAuthors());
-        $this->assertEmpty($kernel->getAuthors());
+        $this->assertInstanceOf(Collection::class, $kernel->authors());
+        $this->assertEmpty($kernel->authors());
     }
 }
 

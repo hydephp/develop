@@ -80,7 +80,7 @@ class PostAuthor implements Stringable, SerializableContract
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     public static function all(): Collection
     {
-        return Hyde::getAuthors();
+        return Hyde::authors();
     }
 
     public function __toString(): string
