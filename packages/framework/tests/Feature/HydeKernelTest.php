@@ -271,6 +271,7 @@ class HydeKernelTest extends TestCase
     public function testToArrayMethod()
     {
         $this->assertSame([
+            'version' => Hyde::version(),
             'basePath' => Hyde::getBasePath(),
             'sourceRoot' => Hyde::getSourceRoot(),
             'outputDirectory' => Hyde::getOutputDirectory(),
