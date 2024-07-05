@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Illuminate\Support\Collection;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 /**
  * Contains accessors and containers for data stored in the kernel.
@@ -29,6 +30,6 @@ trait HasKernelData
      */
     public function getAuthors(): Collection
     {
-        return $this->authors;
+        return $this->authors ??= PostAuthor::all();
     }
 }
