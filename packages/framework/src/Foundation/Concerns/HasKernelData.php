@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use Illuminate\Support\Collection;
+
 /**
  * Contains accessors and containers for data stored in the kernel.
  *
@@ -13,5 +15,5 @@ namespace Hyde\Foundation\Concerns;
  */
 trait HasKernelData
 {
-    protected array $authors = [];
+    protected Collection $authors = [];
 }
