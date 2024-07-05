@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Author;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
 use Illuminate\Support\Collection;
@@ -562,6 +563,19 @@ class HydeKernelTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $kernel->authors());
         $this->assertEmpty($kernel->authors());
+    }
+
+    public function testAuthorsPropertyIsNotWrittenUntilThereAreAuthorsDefined()
+    {
+        $kernel = new HydeKernel();
+
+        Config::set('hyde', []);
+
+        $this->assertEmpty($kernel->authors()->toArray());
+
+        Config::set('hyde.authors', [Author::create('foo')]);
+
+        $this->assertNotEmpty($kernel->authors()->toArray());
     }
 }
 
