@@ -17,6 +17,8 @@ trait Serializable
     /** @inheritDoc */
     public function toArray(): array
     {
+        // Calling the function from a different scope means we only get the public properties.
+
         return get_object_vars(...)->__invoke($this);
     }
 
