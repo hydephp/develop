@@ -43,12 +43,7 @@ class PostAuthorTest extends UnitTestCase
 
     public function testCanCreateAuthorModelWithFullDetails()
     {
-        $username = 'mr_hyde';
-        $name = 'Mr. Hyde';
-        $website = 'https://HydePHP.com';
-        $bio = 'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?';
-        $avatar = 'mr_hyde.png';
-        $socials = ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'];
+        [$username, $name, $website, $bio, $avatar, $socials] = $this->exampleData();
 
         $author = new PostAuthor(
             username: $username,
@@ -252,5 +247,17 @@ class PostAuthorTest extends UnitTestCase
         $author = new PostAuthor('username', null, null);
 
         $this->assertSame('{"username":"username","name":"username"}', $author->toJson());
+    }
+
+    protected function exampleData(): array
+    {
+        $username = 'mr_hyde';
+        $name = 'Mr. Hyde';
+        $website = 'https://HydePHP.com';
+        $bio = 'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?';
+        $avatar = 'mr_hyde.png';
+        $socials = ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'];
+
+        return [$username, $name, $website, $bio, $avatar, $socials];
     }
 }
