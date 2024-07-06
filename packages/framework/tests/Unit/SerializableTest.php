@@ -100,6 +100,8 @@ class AutomaticallySerializableTestClass implements SerializableContract
     public string $bar;
     public array $baz;
 
+    public string $uninitialized;
+
     protected string $hidden;
     private string $private;
 
