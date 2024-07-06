@@ -59,7 +59,7 @@ class PostAuthor implements Stringable, SerializableContract
      *
      * @example ['twitter' => 'mr_hyde'] ($service => $handle)
      */
-    public array $socials = [];
+    public readonly array $socials = [];
 
     /**
      * Construct a new Post Author object.
