@@ -12,6 +12,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 
 use function is_string;
+use function array_merge;
 use function array_filter;
 
 /**
@@ -94,7 +95,9 @@ class PostAuthor implements Stringable, SerializableContract
             return static::get($data);
         }
 
-        return Author::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
+        return new static(...array_merge([
+            'username' => static::findUsername($data),
+        ], $data));
     }
 
     /** Get an Author from the config, or create it with the username. */

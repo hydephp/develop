@@ -76,6 +76,65 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame($data['socials'], $author->socials);
     }
 
+    public function testCanCreateAuthorModelWithFullDetailsFromArrayUsingGetOrCreate()
+    {
+        $data = $this->exampleData();
+
+        $author = PostAuthor::getOrCreate($data);
+
+        $this->assertSame($data['username'], $author->username);
+        $this->assertSame($data['name'], $author->name);
+        $this->assertSame($data['website'], $author->website);
+        $this->assertSame($data['bio'], $author->bio);
+        $this->assertSame($data['avatar'], $author->avatar);
+        $this->assertSame($data['socials'], $author->socials);
+    }
+
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreate()
+    {
+        $data = $this->exampleData();
+
+        $author = PostAuthor::getOrCreate([
+            'username' => $data['username'],
+            'name' => $data['name'],
+            'website' => $data['website'],
+        ]);
+
+        $this->assertSame($data['username'], $author->username);
+        $this->assertSame($data['name'], $author->name);
+        $this->assertSame($data['website'], $author->website);
+        $this->assertNull($author->bio);
+        $this->assertNull($author->avatar);
+        $this->assertEmpty($author->socials);
+    }
+
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreateWithoutUsername()
+    {
+        $data = $this->exampleData();
+
+        $author = PostAuthor::getOrCreate([
+            'name' => $data['name'],
+            'website' => $data['website'],
+        ]);
+
+        $this->assertSame($data['name'], $author->username);
+        $this->assertSame($data['name'], $author->name);
+        $this->assertSame($data['website'], $author->website);
+    }
+
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreateWithoutAnyNames()
+    {
+        $data = $this->exampleData();
+
+        $author = PostAuthor::getOrCreate([
+            'website' => $data['website'],
+        ]);
+
+        $this->assertSame('Guest', $author->username);
+        $this->assertSame('Guest', $author->name);
+        $this->assertSame($data['website'], $author->website);
+    }
+
     public function testNameIsSetToUsernameIfNoNameIsProvided()
     {
         $author = new PostAuthor('foo');
