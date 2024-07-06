@@ -78,11 +78,11 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame($data['socials'], $author->socials);
     }
 
-    public function testCanCreateAuthorModelWithFullDetailsFromArrayUsingGetOrCreate()
+    public function testCanCreateAuthorModelWithFullDetailsFromArrayUsingGetHelper()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate($data);
+        $author = PostAuthor::get($data);
 
         $this->assertSame($data['username'], $author->username);
         $this->assertSame($data['name'], $author->name);
@@ -92,11 +92,11 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame($data['socials'], $author->socials);
     }
 
-    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreate()
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetHelper()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate([
+        $author = PostAuthor::get([
             'username' => $data['username'],
             'name' => $data['name'],
             'website' => $data['website'],
@@ -110,11 +110,11 @@ class PostAuthorTest extends UnitTestCase
         $this->assertEmpty($author->socials);
     }
 
-    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreateWithoutUsername()
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetHelperWithoutUsername()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate([
+        $author = PostAuthor::get([
             'name' => $data['name'],
             'website' => $data['website'],
         ]);
@@ -124,11 +124,11 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame($data['website'], $author->website);
     }
 
-    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreateWithoutAnyNames()
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetHelperWithoutAnyNames()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate([
+        $author = PostAuthor::get([
             'website' => $data['website'],
         ]);
 
@@ -160,24 +160,24 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('https://example.com', $author->website);
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromString()
+    public function testGetHelperMethodCreatesNewAuthorModelFromString()
     {
-        $author = PostAuthor::getOrCreate('foo');
+        $author = PostAuthor::get('foo');
         $this->assertEquals($author, new PostAuthor('foo'));
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
+    public function testGetHelperMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
     {
         Config::set('hyde.authors', [
             Author::create('foo', 'bar'),
         ]);
 
-        $this->assertEquals(PostAuthor::getOrCreate('foo'), Author::create('foo', 'bar'));
+        $this->assertEquals(PostAuthor::get('foo'), Author::create('foo', 'bar'));
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromArray()
+    public function testGetHelperMethodCreatesNewAuthorModelFromArray()
     {
-        $author = PostAuthor::getOrCreate([
+        $author = PostAuthor::get([
             'username' => 'foo',
             'name' => 'bar',
             'website' => 'https://example.com',
@@ -186,9 +186,9 @@ class PostAuthorTest extends UnitTestCase
         $this->assertEquals($author, Author::create('foo', 'bar', 'https://example.com'));
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromArrayOnlyNeedsUsername()
+    public function testGetHelperMethodCreatesNewAuthorModelFromArrayOnlyNeedsUsername()
     {
-        $this->assertEquals(PostAuthor::getOrCreate(['username' => 'foo']), Author::create('foo'));
+        $this->assertEquals(PostAuthor::get(['username' => 'foo']), Author::create('foo'));
     }
 
     public function testAllMethodReturnsEmptyCollectionIfNoAuthorsAreSetInConfig()
