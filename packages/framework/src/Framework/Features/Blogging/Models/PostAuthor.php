@@ -100,7 +100,7 @@ class PostAuthor implements Stringable, SerializableContract
         }
 
         return new static(...array_merge([
-            'username' => static::findUsername($data),
+            'username' => static::findUsernameFromData($data),
         ], $data));
     }
 
@@ -148,7 +148,7 @@ class PostAuthor implements Stringable, SerializableContract
     }
 
     /** @param array{username?: string, name?: string, website?: string} $data */
-    protected static function findUsername(array $data): string
+    protected static function findUsernameFromData(array $data): string
     {
         return $data['username'] ?? $data['name'] ?? 'Guest';
     }
