@@ -115,7 +115,7 @@ class PostAuthor implements Stringable, SerializableContract
 
     public function __toString(): string
     {
-        return $this->getName();
+        return $this->name;
     }
 
     public function toArray(): array
