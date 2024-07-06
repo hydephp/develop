@@ -15,7 +15,7 @@ use function collect;
 trait Serializable
 {
     /** @inheritDoc */
-    abstract public function toArray(): array;
+    public function toArray(): array;
 
     /** Recursively serialize Arrayables */
     public function arraySerialize(): array
