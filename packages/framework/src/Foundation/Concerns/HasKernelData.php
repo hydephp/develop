@@ -8,6 +8,8 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
+use function collect;
+
 /**
  * Contains accessors and containers for data stored in the kernel.
  *
@@ -35,7 +37,7 @@ trait HasKernelData
             return $this->authors;
         }
 
-        $config = new Collection(Config::getArray('hyde.authors', []));
+        $config = collect(Config::getArray('hyde.authors', []));
 
         if ($config->isEmpty()) {
             // Defer setting the authors property until the next try.
