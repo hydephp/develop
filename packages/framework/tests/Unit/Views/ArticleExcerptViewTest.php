@@ -48,7 +48,6 @@ class ArticleExcerptViewTest extends TestCase
         $view = $this->renderTestView(MarkdownPost::make(matter: [
             'author' => [
                 'name' => 'John Doe',
-                'url' => '#',
             ],
         ]));
 
