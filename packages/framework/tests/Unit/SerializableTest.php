@@ -103,6 +103,8 @@ class AutomaticallySerializableTestClass implements SerializableContract
     protected string $hidden;
     private string $private;
 
+    public static string $static;
+
     public function __construct()
     {
         $this->foo = 'foo';
@@ -110,5 +112,6 @@ class AutomaticallySerializableTestClass implements SerializableContract
         $this->baz = ['baz' => 'baz'];
         $this->hidden = 'hidden';
         $this->private = 'private';
+        static::$static = 'static';
     }
 }
