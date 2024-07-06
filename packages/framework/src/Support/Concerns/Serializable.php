@@ -17,7 +17,7 @@ trait Serializable
     /** @inheritDoc */
     public function toArray(): array
     {
-        return collect($this)->toArray();
+        //
     }
 
     /** Recursively serialize Arrayables */
