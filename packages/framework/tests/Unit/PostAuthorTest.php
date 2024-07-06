@@ -43,7 +43,14 @@ class PostAuthorTest extends UnitTestCase
 
     public function testCanCreateAuthorModelWithFullDetails()
     {
-        $author = new PostAuthor('mr_hyde', 'Mr. Hyde', 'https://HydePHP.com', 'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?', 'mr_hyde.png', ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com']);
+        $author = new PostAuthor(
+            'mr_hyde',
+            'Mr. Hyde',
+            'https://HydePHP.com',
+            'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?',
+            'mr_hyde.png',
+            ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com']
+        );
 
         $this->assertSame('mr_hyde', $author->username);
         $this->assertSame('Mr. Hyde', $author->name);
