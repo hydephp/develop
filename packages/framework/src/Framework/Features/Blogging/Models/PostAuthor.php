@@ -9,7 +9,6 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Deprecated;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Support\Contracts\SerializableContract;
@@ -124,15 +123,6 @@ class PostAuthor implements Stringable, SerializableContract
     public function toArray(): array
     {
         return array_filter($this->automaticallySerialize());
-    }
-
-    /**
-     * @deprecated This is not needed as the name property can be accessed directly.
-     */
-    #[Deprecated(reason: 'Use the name property instead.', replacement: '%class%->name')]
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**

@@ -249,20 +249,6 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('foo', $author->username);
     }
 
-    public function testGetNameHelperReturnsNameIfSet()
-    {
-        $author = new PostAuthor('username', 'John Doe');
-
-        $this->assertSame('John Doe', $author->getName());
-    }
-
-    public function testGetNameHelperReturnsUsernameIfNameIsNotSet()
-    {
-        $author = new PostAuthor('username');
-
-        $this->assertSame('username', $author->getName());
-    }
-
     public function testNameIsSetToUsernameIfNameIsNotSet()
     {
         $author = new PostAuthor('username');
