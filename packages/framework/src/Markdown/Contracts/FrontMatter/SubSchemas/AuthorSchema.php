@@ -15,7 +15,7 @@ interface AuthorSchema extends BlogPostSchema
         'name' => 'string',
         'username' => 'string',
         'website' => 'string',
-        'bio' => 'string',
+        'bio' => 'string', // Todo: Support 'biography' as well?
         'avatar' => 'string',
         'socials' => 'array<string, string>',
     ];
