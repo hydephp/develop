@@ -13,7 +13,7 @@ This serves two purposes:
 - Updated the `HydeKernel` array representation to include the Hyde version in https://github.com/hydephp/develop/pull/1786
 
 ### Changed
-- for changes in existing functionality.
+- Updated the `Serializable` trait to provide a default automatic `toArray` method in https://github.com/hydephp/develop/pull/1791
 
 ### Deprecated
 - for soon-to-be removed features.
