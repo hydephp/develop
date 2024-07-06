@@ -258,6 +258,13 @@ class PostAuthorTest extends UnitTestCase
         $avatar = 'mr_hyde.png';
         $socials = ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'];
 
-        return [$username, $name, $website, $bio, $avatar, $socials];
+        return [
+            $username,
+            $name,
+            $website,
+            $bio,
+            $avatar,
+            $socials
+        ];
     }
 }
