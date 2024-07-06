@@ -62,6 +62,20 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame($socials, $author->socials);
     }
 
+    public function testCanCreateAuthorModelWithFullDetailsFromArgumentUnpacking()
+    {
+        $data = $this->exampleData();
+
+        $author = new PostAuthor(...$data);
+
+        $this->assertSame($data['username'], $author->username);
+        $this->assertSame($data['name'], $author->name);
+        $this->assertSame($data['website'], $author->website);
+        $this->assertSame($data['bio'], $author->bio);
+        $this->assertSame($data['avatar'], $author->avatar);
+        $this->assertSame($data['socials'], $author->socials);
+    }
+
     public function testNameIsSetToUsernameIfNoNameIsProvided()
     {
         $author = new PostAuthor('foo');
