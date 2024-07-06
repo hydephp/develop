@@ -12,6 +12,7 @@ final class HydeStan
     const VERSION = '0.0.0-dev';
 
     private array $files;
+    private array $testFiles;
     private array $errors = [];
     private int $scannedLines = 0;
     private int $aggregateLines = 0;
@@ -40,7 +41,7 @@ final class HydeStan
         $this->console->info(sprintf('HydeStan has exited after scanning %s total (and %s aggregate) lines in %s files. Total expressions analysed: %s',
             number_format($this->scannedLines),
             number_format($this->aggregateLines),
-            number_format(count($this->files)),
+            number_format(count($this->files) + count($this->testFiles)),
             number_format(AnalysisStatisticsContainer::getExpressionsAnalysed()),
         ));
 
@@ -63,6 +64,8 @@ final class HydeStan
 
             $this->analyseFile($file, $this->getFileContents($file));
         }
+
+        $this->runTestStan();
 
         $endTime = microtime(true) - $time;
         $this->console->info(sprintf('HydeStan has finished in %s seconds (%sms) using %s KB RAM',
@@ -102,6 +105,21 @@ final class HydeStan
         $files = [];
 
         $directory = new RecursiveDirectoryIterator(BASE_PATH.'/src');
+        $iterator = new RecursiveIteratorIterator($directory);
+        $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+
+        foreach ($regex as $file) {
+            $files[] = substr($file[0], strlen(BASE_PATH) + 1);
+        }
+
+        return $files;
+    }
+
+    private function getTestFiles(): array
+    {
+        $files = [];
+
+        $directory = new RecursiveDirectoryIterator(BASE_PATH.'/tests');
         $iterator = new RecursiveIteratorIterator($directory);
         $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
 
@@ -159,6 +177,50 @@ final class HydeStan
         // https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-a-warning-message
         // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
         self::$warnings[] = sprintf("::$level file=%s,line=%s,endLine=%s,title=%s::%s", 'packages/framework/'.str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
+    }
+
+    protected function runTestStan(): void
+    {
+        $this->console->info('TestStan: Analyzing test files...');
+
+        $this->testFiles = $this->getTestFiles();
+
+        foreach ($this->testFiles as $file) {
+            $this->analyseTestFile($file, $this->getFileContents($file));
+        }
+
+        $this->console->info('TestStan: Finished analyzing test files!');
+    }
+
+    private function analyseTestFile(string $file, string $contents): void
+    {
+        $fileAnalysers = [
+            new NoFixMeAnalyser($file, $contents),
+        ];
+
+        foreach ($fileAnalysers as $analyser) {
+            if ($this->debug) {
+                $this->console->debugComment('Running  '.$analyser::class);
+            }
+
+            $analyser->run($file, $contents);
+            AnalysisStatisticsContainer::countedLines(substr_count($contents, "\n"));
+
+            foreach (explode("\n", $contents) as $lineNumber => $line) {
+                $lineAnalysers = [
+                    //
+                ];
+
+                foreach ($lineAnalysers as $analyser) {
+                    AnalysisStatisticsContainer::countedLine();
+                    $analyser->run($file, $lineNumber, $line);
+                    $this->aggregateLines++;
+                }
+            }
+        }
+
+        $this->scannedLines += substr_count($contents, "\n");
+        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
     }
 }
 
