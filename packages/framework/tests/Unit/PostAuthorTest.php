@@ -43,21 +43,28 @@ class PostAuthorTest extends UnitTestCase
 
     public function testCanCreateAuthorModelWithFullDetails()
     {
+        $username = 'mr_hyde';
+        $name = 'Mr. Hyde';
+        $website = 'https://HydePHP.com';
+        $bio = 'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?';
+        $avatar = 'mr_hyde.png';
+        $socials = ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'];
+
         $author = new PostAuthor(
-            'mr_hyde',
-            'Mr. Hyde',
-            'https://HydePHP.com',
-            'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?',
-            'mr_hyde.png',
-            ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com']
+            $username,
+            $name,
+            $website,
+            $bio,
+            $avatar,
+            $socials
         );
 
-        $this->assertSame('mr_hyde', $author->username);
-        $this->assertSame('Mr. Hyde', $author->name);
-        $this->assertSame('https://HydePHP.com', $author->website);
-        $this->assertSame('A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?', $author->bio);
-        $this->assertSame('mr_hyde.png', $author->avatar);
-        $this->assertSame(['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'], $author->socials);
+        $this->assertSame($username, $author->username);
+        $this->assertSame($name, $author->name);
+        $this->assertSame($website, $author->website);
+        $this->assertSame($bio, $author->bio);
+        $this->assertSame($avatar, $author->avatar);
+        $this->assertSame($socials, $author->socials);
     }
 
     public function testNameIsSetToUsernameIfNoNameIsProvided()
