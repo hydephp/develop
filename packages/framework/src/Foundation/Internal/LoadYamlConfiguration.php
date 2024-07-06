@@ -51,4 +51,9 @@ class LoadYamlConfiguration
     {
         $this->config[$namespace] = array_merge($this->config[$namespace] ?? [], $yaml);
     }
+
+    protected function parseAuthors(array $authors): array
+    {
+        return []; // TODO: Implement author parsing.
+    }
 }
