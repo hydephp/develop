@@ -411,7 +411,7 @@ class YamlConfigurationFeatureTest extends TestCase
         
           test:
             name: 'Test user'
-            bio: 'Bio of test user'
+            bio: 'Bio of test user' # TODO: support 'biography'
             website: 'https://test.com'
         YAML);
 
