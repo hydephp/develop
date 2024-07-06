@@ -43,7 +43,7 @@ class PostAuthorTest extends UnitTestCase
 
     public function testCanCreateAuthorModelWithFullDetails()
     {
-        [$username, $name, $website, $bio, $avatar, $socials] = $this->exampleData();
+        [$username, $name, $website, $bio, $avatar, $socials] = array_values($this->exampleData());
 
         $author = new PostAuthor(
             username: $username,
@@ -259,12 +259,12 @@ class PostAuthorTest extends UnitTestCase
         $socials = ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'];
 
         return [
-            $username,
-            $name,
-            $website,
-            $bio,
-            $avatar,
-            $socials
+            'username' => $username,
+            'name' => $name,
+            'website' => $website,
+            'bio' => $bio,
+            'avatar' => $avatar,
+            'socials' => $socials
         ];
     }
 }
