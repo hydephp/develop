@@ -48,7 +48,7 @@ class PostAuthor implements Stringable
     public function __construct(string $username, ?string $name = null, ?string $website = null)
     {
         $this->username = $username;
-        $this->name = $name;
+        $this->name = $name ?? $this->username;
         $this->website = $website;
     }
 
@@ -87,7 +87,7 @@ class PostAuthor implements Stringable
 
     public function getName(): string
     {
-        return $this->name ?? $this->username;
+        return $this->name;
     }
 
     /** @param array{username?: string, name?: string, website?: string} $data */
