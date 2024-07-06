@@ -69,7 +69,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         }
 
         if (isset($post->author)) {
-            $item->addChild('dc:creator', $post->author->getName(), 'http://purl.org/dc/elements/1.1/');
+            $item->addChild('dc:creator', $post->author->name, 'http://purl.org/dc/elements/1.1/');
         }
 
         if (isset($post->category)) {
