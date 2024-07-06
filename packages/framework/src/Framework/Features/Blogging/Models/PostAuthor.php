@@ -26,7 +26,7 @@ class PostAuthor implements Stringable
     /**
      * The display name of the author.
      */
-    public readonly ?string $name;
+    public readonly string $name;
 
     /**
      * The author's website URL.
