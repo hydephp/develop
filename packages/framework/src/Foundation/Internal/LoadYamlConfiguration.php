@@ -43,6 +43,10 @@ class LoadYamlConfiguration
     protected function mergeParsedConfiguration(): void
     {
         foreach ($this->yaml->getData() as $namespace => $data) {
+            if ($namespace === 'hyde' && isset($data['authors'])) {
+                $data['authors'] = $this->parseAuthors($data['authors']);
+            }
+
             $this->mergeConfiguration($namespace, Arr::undot($data ?: []));
         }
     }
