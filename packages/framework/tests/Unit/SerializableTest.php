@@ -82,3 +82,24 @@ class ArrayableTestClass implements Arrayable
         return ['foo' => 'bar'];
     }
 }
+
+class AutomaticallySerializableTestClass implements SerializableContract
+{
+    use Serializable;
+
+    public string $foo;
+    public string $bar;
+    public array $baz;
+
+    protected string $hidden;
+    private string $private;
+
+    public function __construct()
+    {
+        $this->foo = 'foo';
+        $this->bar = 'bar';
+        $this->baz = ['baz' => 'baz'];
+        $this->hidden = 'hidden';
+        $this->private = 'private';
+    }
+}
