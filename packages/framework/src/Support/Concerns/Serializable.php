@@ -17,7 +17,7 @@ trait Serializable
     /** @inheritDoc */
     public function toArray(): array
     {
-        return get_object_vars($this);
+        return get_object_vars(...)->__invoke($this);
     }
 
     /** Recursively serialize Arrayables */
