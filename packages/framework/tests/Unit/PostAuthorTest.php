@@ -251,20 +251,13 @@ class PostAuthorTest extends UnitTestCase
 
     protected function exampleData(): array
     {
-        $username = 'mr_hyde';
-        $name = 'Mr. Hyde';
-        $website = 'https://HydePHP.com';
-        $bio = 'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?';
-        $avatar = 'mr_hyde.png';
-        $socials = ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'];
-
-        return [
-            'username' => $username,
-            'name' => $name,
-            'website' => $website,
-            'bio' => $bio,
-            'avatar' => $avatar,
-            'socials' => $socials
+         return [
+            'username' => 'mr_hyde',
+            'name' => 'Mr. Hyde',
+            'website' => 'https://HydePHP.com',
+            'bio' => 'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?',
+            'avatar' => 'mr_hyde.png',
+            'socials' => ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com']
         ];
     }
 }
