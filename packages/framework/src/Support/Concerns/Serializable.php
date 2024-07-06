@@ -14,8 +14,13 @@ use function collect;
  */
 trait Serializable
 {
-    /** @inheritDoc */
-    abstract public function toArray(): array;
+    /** Default implementation to dynamically serialize all public properties. Can be overridden for increased control. */
+    public function toArray(): array
+    {
+        // Calling the function from a different scope means we only get the public properties.
+
+        return get_object_vars(...)->__invoke($this);
+    }
 
     /** Recursively serialize Arrayables */
     public function arraySerialize(): array
