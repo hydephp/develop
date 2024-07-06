@@ -249,6 +249,9 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('{"username":"username","name":"username"}', $author->toJson());
     }
 
+    /**
+     * @return array{username: string, name: string, website: string, bio: string, avatar: string, socials: array{twitter: string, github: string, custom: string}}
+     */
     protected function exampleData(): array
     {
         return [
