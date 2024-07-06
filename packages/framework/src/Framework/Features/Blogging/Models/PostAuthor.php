@@ -34,7 +34,7 @@ class PostAuthor implements Stringable, SerializableContract
     /**
      * The display name of the author.
      */
-    public readonly ?string $name;
+    public readonly string $name;
 
     /**
      * The author's website URL.
