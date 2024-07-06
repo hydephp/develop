@@ -98,7 +98,7 @@ class PostAuthor implements Stringable, SerializableContract
         return Author::create(static::findUsername($data), $data['name'] ?? null, $data['website'] ?? null);
     }
 
-    /** Get an Author from the config, or create it. */
+    /** Get an Author from the config, or create it with the username. */
     public static function get(string $username): static
     {
         return static::all()->firstWhere('username', strtolower($username)) ?? Author::create($username);
