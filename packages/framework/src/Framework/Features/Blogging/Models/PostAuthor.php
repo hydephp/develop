@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 
-use function strtolower;
 use function is_string;
 use function array_filter;
 
@@ -101,7 +100,7 @@ class PostAuthor implements Stringable, SerializableContract
     /** Get an Author from the config, or create it with the username. */
     public static function get(string $username): static
     {
-        return static::all()->firstWhere('username', strtolower($username)) ?? Author::create($username);
+        return static::all()->get($username) ?? Author::create($username);
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor> */
