@@ -91,7 +91,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected function makeAuthor(): ?PostAuthor
     {
         if ($this->getMatter('author')) {
-            return PostAuthor::get($this->getMatter('author'));
+            return PostAuthor::getOrCreate($this->getMatter('author'));
         }
 
         return null;
