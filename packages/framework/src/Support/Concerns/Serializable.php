@@ -14,7 +14,7 @@ use function collect;
  */
 trait Serializable
 {
-    /** @inheritDoc */
+    /** Default implementation to dynamically serialize all public properties. Can be overridden for increased control. */
     public function toArray(): array
     {
         // Calling the function from a different scope means we only get the public properties.
