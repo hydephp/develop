@@ -8,6 +8,7 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\Deprecated;
 
 use function strtolower;
 use function is_string;
@@ -85,6 +86,10 @@ class PostAuthor implements Stringable
         return $this->getName();
     }
 
+    /**
+     * @deprecated This is not needed as the name property can be accessed directly.
+     */
+    #[Deprecated(reason: 'Use the name property instead.', replacement: '%class%->name')]
     public function getName(): string
     {
         return $this->name;
