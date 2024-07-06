@@ -438,6 +438,11 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame([], $authors['test']->socials);
     }
 
+    public function testYamlConfigAuthorsAreMergedWithPhpConfig()
+    {
+        //
+    }
+
     protected function runBootstrappers(?array $withMergedConfig = null): void
     {
         $this->refreshApplication();
