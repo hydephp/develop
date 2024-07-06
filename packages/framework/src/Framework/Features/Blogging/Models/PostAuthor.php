@@ -8,6 +8,7 @@ use Stringable;
 use Hyde\Facades\Author;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\Deprecated;
 
 use function strtolower;
 use function is_string;
@@ -26,7 +27,7 @@ class PostAuthor implements Stringable
     /**
      * The display name of the author.
      */
-    public readonly ?string $name;
+    public readonly string $name;
 
     /**
      * The author's website URL.
@@ -48,7 +49,7 @@ class PostAuthor implements Stringable
     public function __construct(string $username, ?string $name = null, ?string $website = null)
     {
         $this->username = $username;
-        $this->name = $name;
+        $this->name = $name ?? $this->username;
         $this->website = $website;
     }
 
@@ -82,12 +83,16 @@ class PostAuthor implements Stringable
 
     public function __toString(): string
     {
-        return $this->getName();
+        return $this->name;
     }
 
+    /**
+     * @deprecated This is not needed as the name property can be accessed directly.
+     */
+    #[Deprecated(reason: 'Use the name property instead.', replacement: '%class%->name')]
     public function getName(): string
     {
-        return $this->name ?? $this->username;
+        return $this->name;
     }
 
     /** @param array{username?: string, name?: string, website?: string} $data */
