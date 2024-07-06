@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 use function array_merge;
 
@@ -62,6 +63,8 @@ class LoadYamlConfiguration
      */
     protected function parseAuthors(array $authors): array
     {
-        return []; // TODO: Implement author parsing.
+        return Arr::mapWithKeys($authors, function (array $author, string $username): array {
+            return [$username => PostAuthor::getOrCreate($author)];
+        });
     }
 }
