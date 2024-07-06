@@ -89,25 +89,23 @@ class PostAuthor implements Stringable, SerializableContract
     }
 
     /**
-     * Dynamically get or create an author based on a username string or front matter array.
+     * Create an author from the given data.
      *
      * @param  string|array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}  $data
      */
-    public static function getOrCreate(string|array $data): static
+    public static function create(string|array $data): static
     {
-        if (is_string($data)) {
-            return static::get($data);
-        }
-
         return new static(...array_merge([
             'username' => static::findUsernameFromData($data),
         ], $data));
     }
 
-    /** Get an Author from the config, or create it with the username. */
-    public static function get(string $username): static
+    /**
+     * Get an author by the given username, or null if not found.
+     */
+    public static function get(string $username): ?static
     {
-        return static::all()->get($username) ?? Author::create($username);
+        return static::all()->get($username);
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor> */
