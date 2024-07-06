@@ -19,6 +19,7 @@ This serves two purposes:
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
 - **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
+- **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames. For more information, see below.
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
@@ -29,6 +30,7 @@ This serves two purposes:
 - Minor: `Includes::path()` and  `Includes::get()` methods now normalizes paths to be basenames to match the behaviour of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
 - Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
 - Minor: Updated the `Hyde::url()` helper to return `null` instead of throwing a `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760
+- Overhauled the blog post author feature in https://github.com/hydephp/develop/pull/1782
 - Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
 - Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
 - The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
@@ -47,6 +49,7 @@ This serves two purposes:
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
 - Removed the deprecated global`unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
 - Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now returning `null` if no base URL is set in https://github.com/hydephp/develop/pull/1760
+- Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 
 ### Fixed
@@ -145,6 +148,23 @@ The `hyde.features` configuration format has changed to use Enums instead of sta
 Of course, if you have disabled any of the features, do not include them in the new array.
 
 ## General impact
+
+### Post Author changes
+
+This release makes major improvements into the usability and design of the blog post author feature.
+
+Here is the full list of changes:
+
+- Breaking: The `hyde.authors` config setting should now be keyed by the usernames
+- Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`)
+- Feature: We now support setting authors in the YAML configuration! Fixes `#1719`
+- Feature: Added a `$author->getPosts()` method to get all author's posts
+- Feature: Authors now can also have custom biographies and social media links
+- The PostAuthor class is now Arrayable and JsonSerializable
+- The collection of site authors are now stored in the HydeKernel
+- Authors can additionally be accessed through `Hyde::authors()`
+
+For more information, see https://github.com/hydephp/develop/pull/1782
 
 ### Documentation search page changes
 
