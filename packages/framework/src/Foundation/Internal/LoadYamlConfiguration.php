@@ -56,6 +56,10 @@ class LoadYamlConfiguration
         $this->config[$namespace] = array_merge($this->config[$namespace] ?? [], $yaml);
     }
 
+    /**
+     * @param  array<string, array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}>  $authors
+     * @return array<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor>
+     */
     protected function parseAuthors(array $authors): array
     {
         return []; // TODO: Implement author parsing.
