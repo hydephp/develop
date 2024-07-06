@@ -7,9 +7,11 @@ namespace Hyde\Framework\Features\Blogging\Models;
 use Hyde\Hyde;
 use Stringable;
 use Hyde\Facades\Author;
+use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Deprecated;
 use Hyde\Support\Concerns\Serializable;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Support\Contracts\SerializableContract;
 
 use function is_string;
@@ -131,6 +133,18 @@ class PostAuthor implements Stringable, SerializableContract
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * Get all posts by this author.
+     *
+     * @return \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pages\MarkdownPost>
+     */
+    public function getPosts(): PageCollection
+    {
+        return MarkdownPost::getLatestPosts()->filter(function (MarkdownPost $post) {
+            return $post->author?->username === $this->username;
+        });
     }
 
     /** @param array{username?: string, name?: string, website?: string} $data */

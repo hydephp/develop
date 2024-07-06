@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Hyde;
 use Hyde\Facades\Author;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
@@ -329,6 +331,33 @@ class PostAuthorTest extends UnitTestCase
         $author = new PostAuthor(...$data);
 
         $this->assertSame($data, $author->toArray());
+    }
+
+    public function testGetPostsWithNoPosts()
+    {
+        $author = new PostAuthor('username');
+
+        $this->assertSame([], $author->getPosts()->all());
+    }
+
+    public function testGetPostsReturnsAllPostsByAuthor()
+    {
+        Hyde::pages()->addPage(new MarkdownPost('foo', ['author' => 'username']));
+        Hyde::pages()->addPage(new MarkdownPost('bar', ['author' => 'username']));
+        Hyde::pages()->addPage(new MarkdownPost('baz', ['author' => 'other']));
+        Hyde::pages()->addPage(new MarkdownPost('qux'));
+
+        $author = new PostAuthor('username');
+
+        $this->assertCount(2, $author->getPosts());
+        $this->assertSame('username', $author->getPosts()->first()->author->username);
+        $this->assertSame('username', $author->getPosts()->last()->author->username);
+
+        $this->assertSame('foo', $author->getPosts()->first()->identifier);
+        $this->assertSame('bar', $author->getPosts()->last()->identifier);
+
+        $this->assertEquals($author, $author->getPosts()->first()->author);
+        $this->assertEquals($author, $author->getPosts()->last()->author);
     }
 
     /**
