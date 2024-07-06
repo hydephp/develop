@@ -279,6 +279,15 @@ class PostAuthorTest extends UnitTestCase
         ], $author->toArray());
     }
 
+    public function testToArrayMethodSerializesAllData()
+    {
+        $data = $this->exampleData();
+
+        $author = new PostAuthor(...$data);
+
+        $this->assertSame($data, $author->toArray());
+    }
+
     public function testJsonSerializeMethodReturnsArrayRepresentationOfAuthor()
     {
         $author = new PostAuthor('username', 'John Doe', 'https://example.com');
