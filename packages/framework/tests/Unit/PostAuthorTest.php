@@ -50,14 +50,7 @@ class PostAuthorTest extends UnitTestCase
         $avatar = 'mr_hyde.png';
         $socials = ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'];
 
-        $author = new PostAuthor(
-            $username,
-            $name,
-            $website,
-            $bio,
-            $avatar,
-            $socials
-        );
+        $author = new PostAuthor($username, $name, $website, $bio, $avatar, $socials);
 
         $this->assertSame($username, $author->username);
         $this->assertSame($name, $author->name);
