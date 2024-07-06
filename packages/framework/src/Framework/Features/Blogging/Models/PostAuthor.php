@@ -121,11 +121,7 @@ class PostAuthor implements Stringable, SerializableContract
 
     public function toArray(): array
     {
-        return array_filter([
-            'username' => $this->username,
-            'name' => $this->name,
-            'website' => $this->website,
-        ]);
+        return array_filter($this->automaticallySerialize());
     }
 
     /**
