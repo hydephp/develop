@@ -27,9 +27,10 @@ class MarkdownPageTest extends TestCase
         $this->file('_pages/test-page.md', "# Test Page \n Hello World!");
         $page = MarkdownPage::parse('test-page');
 
-        $this->assertEquals('Test Page', $page->title);
+        $this->assertSame('Test Page', $page->title);
+        $this->assertSame('test-page', $page->identifier);
+        $this->assertSame("# Test Page \n Hello World!", $page->markdown->body());
         $this->assertEquals("# Test Page \n Hello World!", $page->markdown);
-        $this->assertEquals('test-page', $page->identifier);
     }
 
     public function testCanRenderMarkdownPage()

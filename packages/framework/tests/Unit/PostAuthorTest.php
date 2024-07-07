@@ -29,9 +29,9 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = Author::create('foo', 'bar', 'https://example.com');
 
-        $this->assertEquals('foo', $author->username);
-        $this->assertEquals('bar', $author->name);
-        $this->assertEquals('https://example.com', $author->website);
+        $this->assertSame('foo', $author->username);
+        $this->assertSame('bar', $author->name);
+        $this->assertSame('https://example.com', $author->website);
     }
 
     public function testGetOrCreateMethodCreatesNewAuthorModelFromString()
@@ -107,8 +107,8 @@ class PostAuthorTest extends UnitTestCase
         $author = PostAuthor::get('foo');
 
         $this->assertInstanceOf(PostAuthor::class, $author);
-        $this->assertEquals('foo', $author->username);
-        $this->assertEquals('bar', $author->name);
+        $this->assertSame('foo', $author->username);
+        $this->assertSame('bar', $author->name);
     }
 
     public function testGetMethodReturnsNewAuthorIfUsernameNotFoundInConfig()
@@ -117,34 +117,34 @@ class PostAuthorTest extends UnitTestCase
         $author = PostAuthor::get('foo');
 
         $this->assertInstanceOf(PostAuthor::class, $author);
-        $this->assertEquals('foo', $author->username);
+        $this->assertSame('foo', $author->username);
     }
 
     public function testGetNameHelperReturnsNameIfSet()
     {
         $author = new PostAuthor('username', 'John Doe');
 
-        $this->assertEquals('John Doe', $author->getName());
+        $this->assertSame('John Doe', $author->getName());
     }
 
     public function testGetNameHelperReturnsUsernameIfNameIsNotSet()
     {
         $author = new PostAuthor('username');
 
-        $this->assertEquals('username', $author->getName());
+        $this->assertSame('username', $author->getName());
     }
 
     public function testNameIsSetToUsernameIfNameIsNotSet()
     {
         $author = new PostAuthor('username');
 
-        $this->assertEquals('username', $author->name);
+        $this->assertSame('username', $author->name);
     }
 
     public function testToStringHelperReturnsTheName()
     {
         $author = new PostAuthor('username', 'John Doe');
 
-        $this->assertEquals('John Doe', (string) $author);
+        $this->assertSame('John Doe', (string) $author);
     }
 }
