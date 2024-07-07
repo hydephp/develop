@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 /**
  * Test the Yaml configuration feature.
@@ -436,6 +437,19 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame(['twitter' => '@user1', 'github' => 'user1'], $authors['username1']->socials);
         $this->assertSame(['twitter' => '@user2', 'github' => 'user2'], $authors['username2']->socials);
         $this->assertSame(null, $authors['test']->socials);
+    }
+
+    public function testTypeErrorsInAuthorsYamlConfigAreRethrownMoreHelpfully()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        authors:
+          wrong:
+            name: false
+        YAML);
+
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Invalid value for "name" in "authors.wrong"');
+        $this->runBootstrappers();
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
