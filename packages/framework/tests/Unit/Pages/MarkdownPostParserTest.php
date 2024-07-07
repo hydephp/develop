@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Facades\Filesystem;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\MarkdownPost;
@@ -20,7 +19,7 @@ class MarkdownPostParserTest extends TestCase
     {
         parent::setUp();
 
-        Filesystem::putContents('_posts/test-post.md', <<<'MD'
+         $this->file('_posts/test-post.md', <<<'MD'
             ---
             title: My New Post
             category: blog
@@ -33,13 +32,6 @@ class MarkdownPostParserTest extends TestCase
 
             MD
         );
-    }
-
-    protected function tearDown(): void
-    {
-        Filesystem::unlink('_posts/test-post.md');
-
-        parent::tearDown();
     }
 
     public function testCanParseMarkdownFile()
