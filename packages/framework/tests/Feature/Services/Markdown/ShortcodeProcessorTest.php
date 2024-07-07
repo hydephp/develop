@@ -25,8 +25,7 @@ class ShortcodeProcessorTest extends UnitTestCase
     {
         $processor = new ShortcodeProcessor('>info foo');
 
-        $this->assertSame('<blockquote class="info"><p>foo</p></blockquote>',
-            $processor->run());
+        $this->assertSame('<blockquote class="info"><p>foo</p></blockquote>', $processor->run());
     }
 
     public function testStringWithoutShortcodeIsNotModified()
@@ -38,8 +37,10 @@ class ShortcodeProcessorTest extends UnitTestCase
 
     public function testProcessStaticShorthand()
     {
-        $this->assertSame('<blockquote class="info"><p>foo</p></blockquote>',
-            ShortcodeProcessor::preprocess('>info foo'));
+        $this->assertSame(
+            '<blockquote class="info"><p>foo</p></blockquote>',
+            ShortcodeProcessor::preprocess('>info foo')
+        );
     }
 
     public function testShortcodesCanBeAddedToProcessor()
