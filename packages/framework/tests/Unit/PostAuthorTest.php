@@ -130,15 +130,15 @@ class PostAuthorTest extends UnitTestCase
         ]);
 
         $this->assertSame('guest', $author->username);
-        $this->assertSame('guest', $author->name);
+        $this->assertSame('Guest', $author->name);
         $this->assertSame($data['website'], $author->website);
     }
 
-    public function testNameIsSetToUsernameIfNoNameIsProvided()
+    public function testNameIsGeneratedFromUsernameIfNoNameIsProvided()
     {
         $author = new PostAuthor('foo');
 
-        $this->assertSame('foo', $author->name);
+        $this->assertSame('Foo', $author->name);
     }
 
     public function testFacadeCreateMethodCreatesNewPendingAuthorArray()
@@ -210,7 +210,14 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = PostAuthor::create(['name' => 'foo']);
 
-        $this->assertEquals($author, new PostAuthor('foo'));
+        $this->assertEquals($author, new PostAuthor('foo', 'foo'));
+    }
+
+    public function testCreateMethodWithNoUsernameUsesNormalizedNameAsUsernameIfNameIsSupplied()
+    {
+        $author = PostAuthor::create(['name' => 'Foo']);
+
+        $this->assertEquals($author, new PostAuthor('foo', 'Foo'));
     }
 
     public function testCreateMethodWithNoUsernameUsesGuestAsUsernameIfNoNameIsSupplied()
@@ -218,6 +225,9 @@ class PostAuthorTest extends UnitTestCase
         $author = PostAuthor::create([]);
 
         $this->assertEquals($author, new PostAuthor('guest'));
+
+        $this->assertSame('guest', $author->username);
+        $this->assertSame('Guest', $author->name);
     }
 
     public function testCanDefineAuthorWithNoDataInConfig()
@@ -230,7 +240,7 @@ class PostAuthorTest extends UnitTestCase
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(1, $authors);
-        $this->assertEquals(new PostAuthor('foo', 'foo'), $authors->first());
+        $this->assertEquals(new PostAuthor('foo', 'Foo'), $authors->first());
     }
 
     public function testAllMethodReturnsEmptyCollectionIfNoAuthorsAreSetInConfig()
@@ -311,11 +321,11 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('foo_bar', $author->username);
     }
 
-    public function testNameIsSetToUsernameIfNameIsNotSet()
+    public function testNameIsCreatedFromUsernameIfNameIsNotSet()
     {
         $author = new PostAuthor('username');
 
-        $this->assertSame('username', $author->name);
+        $this->assertSame('Username', $author->name);
     }
 
     public function testToStringHelperReturnsTheName()
@@ -376,7 +386,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username', null, null);
 
-        $this->assertSame('{"username":"username","name":"username"}', $author->toJson());
+        $this->assertSame('{"username":"username","name":"Username"}', $author->toJson());
     }
 
     public function testToArrayMethodSerializesAllData()

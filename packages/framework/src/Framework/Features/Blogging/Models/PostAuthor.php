@@ -79,7 +79,7 @@ class PostAuthor implements Stringable, SerializableContract
     public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null)
     {
         $this->username = static::normalizeUsername($username);
-        $this->name = $name ?? $username;
+        $this->name = $name ?? static::generateName($username);
         $this->website = $website;
         $this->bio = $bio;
         $this->avatar = $avatar;
@@ -143,5 +143,10 @@ class PostAuthor implements Stringable, SerializableContract
     protected static function normalizeUsername(string $username): string
     {
         return Str::slug($username, '_');
+    }
+
+    protected static function generateName(string $username): string
+    {
+        return Str::title($username);
     }
 }
