@@ -580,13 +580,13 @@ class HydeKernelTest extends TestCase
         $this->assertNotEmpty($kernel->authors()->toArray());
     }
 
-    public function testAuthorsUseTheConfigArrayKey()
+    public function testAuthorsUseTheConfigArrayKeyAsTheUsername()
     {
         Config::set('hyde.authors', ['foo' => Author::create('bar')]);
 
         $this->assertSame([
             'foo' => [
-                'username' => 'bar',
+                'username' => 'foo',
                 'name' => 'bar',
             ],
         ], Hyde::authors()->toArray());
