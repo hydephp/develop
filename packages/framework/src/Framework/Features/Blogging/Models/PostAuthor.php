@@ -87,6 +87,18 @@ class PostAuthor implements Stringable, SerializableContract
     }
 
     /**
+     * Create a new Post Author instance from an array of data.
+     *
+     * @param  array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}  $data
+     */
+    public static function create(array $data): PostAuthor
+    {
+        return new static(...array_merge([
+            'username' => static::findUsernameFromData($data),
+        ], $data));
+    }
+
+    /**
      * Dynamically get or create an author based on a username string or front matter array.
      *
      * @param  string|array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}  $data
@@ -94,12 +106,10 @@ class PostAuthor implements Stringable, SerializableContract
     public static function getOrCreate(string|array $data): static
     {
         if (is_string($data)) {
-            return static::get($data) ?? static::getOrCreate(['username' => $data]);
+            return static::get($data) ?? static::create(['username' => $data]);
         }
 
-        return new static(...array_merge([
-            'username' => static::findUsernameFromData($data),
-        ], $data));
+        return self::create($data);
     }
 
     /**  Get a Post Author instance by username, or null if not found. */
