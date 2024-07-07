@@ -13,12 +13,14 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Exceptions\ParseException;
 use RuntimeException;
 use Exception;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 /**
  * @covers \Hyde\Framework\Exceptions\FileConflictException
  * @covers \Hyde\Framework\Exceptions\FileNotFoundException
  * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
  * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
+ * @covers \Hyde\Framework\Exceptions\InvalidConfigurationException
  * @covers \Hyde\Framework\Exceptions\ParseException
  */
 class CustomExceptionsTest extends UnitTestCase
@@ -172,5 +174,31 @@ class CustomExceptionsTest extends UnitTestCase
 
         $this->assertSame("Invalid Markdown in file: 'example.md' (Parsing error)", $exception->getMessage());
         $this->assertSame($previous, $exception->getPrevious());
+    }
+
+    public function testInvalidConfigurationExceptionWithDefaultMessage()
+    {
+        $exception = new InvalidConfigurationException();
+
+        $this->assertSame('Invalid configuration detected.', $exception->getMessage());
+    }
+
+    public function testInvalidConfigurationExceptionWithCustomMessage()
+    {
+        $exception = new InvalidConfigurationException('Custom error message.');
+
+        $this->assertSame('Custom error message.', $exception->getMessage());
+    }
+
+    public function testInvalidConfigurationExceptionWithNamespaceAndKey()
+    {
+        $exception = new InvalidConfigurationException('Invalid configuration.', 'hyde', 'name');
+
+        $this->assertSame('Invalid configuration.', $exception->getMessage());
+        $this->assertFileExists($exception->getFile());
+        $this->assertIsInt($exception->getLine());
+
+        $this->assertStringContainsString('config'.DIRECTORY_SEPARATOR.'hyde.php', $exception->getFile());
+        $this->assertGreaterThan(0, $exception->getLine());
     }
 }
