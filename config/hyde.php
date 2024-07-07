@@ -288,12 +288,12 @@ return [
             username: 'mr_hyde', // Required username
             name: 'Mr. Hyde', // Optional display name
             website: 'https://hydephp.com', // Optional website URL
-            bio: 'The mysterious author of HydePHP', // Optional biography
-            avatar: 'avatar.png', // Optional avatar image (media asset/URI)
-            socials: [ // Optional social media links
-                'twitter' => 'HydeFramework',
-                'github' => 'hydephp',
-            ],
+            // bio: 'The mysterious author of HydePHP', // Optional biography
+            // avatar: 'avatar.png', // Optional avatar image (media asset/URI)
+            // socials: [ // Optional social media links
+            //     'twitter' => 'HydeFramework',
+            //     'github' => 'hydephp',
+            // ],
         ),
     ],
 
