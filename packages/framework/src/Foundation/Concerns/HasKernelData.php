@@ -11,7 +11,7 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use function collect;
 
 /**
- * Contains accessors and containers for data stored in the kernel.
+ * Contains accessors and containers for general data stored in the kernel.
  *
  * @internal Single-use trait for the HydeKernel class.
  *
