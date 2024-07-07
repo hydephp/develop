@@ -303,13 +303,7 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                 // Check for false positives
                 $commonlyStringCastables = ['$article', '$document', 'getXmlElement()', '$url->loc', '$page->markdown', '$post->data(\'author\')'];
 
-                $strContainsAny = false;
-                foreach ($commonlyStringCastables as $commonlyStringCastable) {
-                    AnalysisStatisticsContainer::analysedExpression();
-                    if (str_contains($line, $commonlyStringCastable)) {
-                        $strContainsAny = true;
-                    }
-                }
+                $strContainsAny = check_str_contains_any($commonlyStringCastables, $line);
 
                 if ($strContainsAny) {
                     continue;
@@ -425,4 +419,16 @@ interface LineAnalyserContract
     public function __construct(string $file, int $lineNumber, string $line);
 
     public function run(string $file, int $lineNumber, string $line): void;
+}
+
+function check_str_contains_any(array $searches, string $line): bool
+{
+    $strContainsAny = false;
+    foreach ($searches as $search) {
+        AnalysisStatisticsContainer::analysedExpression();
+        if (str_contains($line, $search)) {
+            $strContainsAny = true;
+        }
+    }
+    return $strContainsAny;
 }
