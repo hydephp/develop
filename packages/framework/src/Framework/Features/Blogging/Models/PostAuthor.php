@@ -67,7 +67,7 @@ class PostAuthor implements Stringable, SerializableContract
     /**
      * Construct a new Post Author object.
      *
-     * If your input is in the form of an array, you may rather want to use the `getOrCreate` method.
+     * If your input is in the form of an array, you may rather want to use the `create` method.
      *
      * @param  string  $username
      * @param  string|null  $name
