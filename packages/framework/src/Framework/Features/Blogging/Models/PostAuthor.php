@@ -78,7 +78,7 @@ class PostAuthor implements Stringable, SerializableContract
      */
     public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null)
     {
-        $this->username = Str::slug($username, '_');
+        $this->username = static::normalizeUsername($username);
         $this->name = $name ?? $username;
         $this->website = $website;
         $this->bio = $bio;
@@ -137,6 +137,11 @@ class PostAuthor implements Stringable, SerializableContract
     /** @param array{username?: string, name?: string, website?: string} $data */
     protected static function findUsernameFromData(array $data): string
     {
-        return Str::slug($data['username'] ?? $data['name'] ?? 'guest', '_');
+        return static::normalizeUsername($data['username'] ?? $data['name'] ?? 'guest');
+    }
+
+    protected static function normalizeUsername(string $username): string
+    {
+        return Str::slug($username, '_');
     }
 }
