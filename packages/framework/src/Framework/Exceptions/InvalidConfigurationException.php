@@ -22,7 +22,11 @@ class InvalidConfigurationException extends InvalidArgumentException
         parent::__construct($message);
     }
 
-    /** @return array{string, int} */
+    /**
+     * @experimental Please report any issues with this method to the authors at https://github.com/hydephp/develop/issues
+     *
+     * @return array{string, int}
+     */
     protected function findConfigLine(string $namespace, string $key): array
     {
         $file = realpath("config/$namespace.php");
