@@ -297,6 +297,7 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser
                 $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
                 $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
 
+                // Todo: Does not work when using objects to string cast, false positive, maybe use warning instead of fail
                 $this->fail(sprintf('Found %s instead assertSame for scalar type in %s on line %s', trim($search, "()'"), $file, $lineNumber));
             }
         }
