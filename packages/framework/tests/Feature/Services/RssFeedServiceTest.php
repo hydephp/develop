@@ -28,7 +28,7 @@ class RssFeedServiceTest extends TestCase
     public function testXmlRootElementIsSetToRss20()
     {
         $service = new RssFeedGenerator();
-        $this->assertEquals('rss', $service->getXmlElement()->getName());
+        $this->assertSame('rss', $service->getXmlElement()->getName());
         $this->assertEquals('2.0', $service->getXmlElement()->attributes()->version);
     }
 
