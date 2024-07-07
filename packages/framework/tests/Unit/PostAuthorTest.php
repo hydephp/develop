@@ -328,6 +328,13 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('Username', $author->name);
     }
 
+    public function testNameIsCreatedFromComplexUsernameIfNameIsNotSet()
+    {
+        $author = new PostAuthor('foo_bar');
+
+        $this->assertSame('Foo Bar', $author->name);
+    }
+
     public function testToStringHelperReturnsTheName()
     {
         $author = new PostAuthor('username', 'John Doe');
