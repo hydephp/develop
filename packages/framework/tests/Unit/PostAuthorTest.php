@@ -222,7 +222,7 @@ class PostAuthorTest extends UnitTestCase
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(1, $authors);
-        $this->assertEquals(Author::create('foo'), $authors->first());
+        $this->assertEquals(new PostAuthor('foo'), $authors->first());
     }
 
     public function testMultipleAuthorsCanBeDefinedInConfig()
@@ -236,8 +236,8 @@ class PostAuthorTest extends UnitTestCase
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(2, $authors);
-        $this->assertEquals(Author::create('foo'), $authors->first());
-        $this->assertEquals(Author::create('bar'), $authors->last());
+        $this->assertEquals(new PostAuthor('foo'), $authors->first());
+        $this->assertEquals(new PostAuthor('bar'), $authors->last());
     }
 
     public function testGetMethodReturnsConfigDefinedAuthorByUsername()
