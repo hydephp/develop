@@ -19,6 +19,7 @@ use Exception;
  * @covers \Hyde\Framework\Exceptions\FileNotFoundException
  * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
  * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
+ * @covers \Hyde\Framework\Exceptions\InvalidConfigurationException
  * @covers \Hyde\Framework\Exceptions\ParseException
  */
 class CustomExceptionsTest extends UnitTestCase
