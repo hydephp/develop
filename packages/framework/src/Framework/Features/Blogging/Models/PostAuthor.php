@@ -57,7 +57,7 @@ class PostAuthor implements Stringable, SerializableContract
     /**
      * The author's social media links/handles.
      *
-     * @var ?array<string, string>
+     * @var ?array<string, string> String-to-string map of social media services to their respective handles.
      *
      * @example ['twitter' => 'mr_hyde'] ($service => $handle)
      */
