@@ -141,7 +141,7 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('foo', $author->name);
     }
 
-    public function testCreateMethodCreatesNewPendingAuthorArray()
+    public function testFacadeCreateMethodCreatesNewPendingAuthorArray()
     {
         $author = Author::create('foo');
 
@@ -154,7 +154,7 @@ class PostAuthorTest extends UnitTestCase
         ], $author);
     }
 
-    public function testCreateMethodAcceptsExtraParameters()
+    public function testFacadeCreateMethodAcceptsExtraParameters()
     {
         $author = Author::create('foo', 'https://example.com');
 
@@ -163,7 +163,7 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('https://example.com', $author['website']);
     }
 
-    public function testCreateMethodAcceptsAllParameters()
+    public function testFacadeCreateMethodAcceptsAllParameters()
     {
         $author = Author::create(...$this->exampleData());
 
