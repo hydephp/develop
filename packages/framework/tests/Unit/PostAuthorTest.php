@@ -290,6 +290,27 @@ class PostAuthorTest extends UnitTestCase
         $this->assertNull($author);
     }
 
+    public function testUsernameIsNormalized()
+    {
+        $author = new PostAuthor('Foo Bar');
+
+        $this->assertSame('foo_bar', $author->username);
+    }
+
+    public function testUsernameIsNormalizedWhenCreatedFromArray()
+    {
+        $author = PostAuthor::create(['username' => 'Foo Bar']);
+
+        $this->assertSame('foo_bar', $author->username);
+    }
+
+    public function testUsernameGeneratedFromNameIsNormalized()
+    {
+        $author = PostAuthor::create(['name' => 'Foo Bar']);
+
+        $this->assertSame('foo_bar', $author->username);
+    }
+
     public function testNameIsSetToUsernameIfNameIsNotSet()
     {
         $author = new PostAuthor('username');
