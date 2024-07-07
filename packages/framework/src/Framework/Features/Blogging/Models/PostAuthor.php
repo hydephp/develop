@@ -103,6 +103,8 @@ class PostAuthor implements Stringable, SerializableContract
      *
      * @deprecated Use either `get` or `create` directly depending on your use case.
      *
+     * @codeCoverageIgnore Until we can remove this method.
+     *
      * @param  string|array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}  $data
      */
     public static function getOrCreate(string|array $data): static
