@@ -25,7 +25,7 @@ class PostAuthor implements Stringable, SerializableContract
     /**
      * The username of the author.
      *
-     * This is the key used to find authors in the config.
+     * This is the key used to find authors in the config and is taken from that array key.
      */
     public readonly string $username;
 
