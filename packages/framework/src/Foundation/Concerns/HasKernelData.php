@@ -57,7 +57,7 @@ trait HasKernelData
 
             $author['username'] = $username;
 
-            return [$username => PostAuthor::getOrCreate($author)];
+            return [$username => PostAuthor::create($author)];
         });
     }
 }

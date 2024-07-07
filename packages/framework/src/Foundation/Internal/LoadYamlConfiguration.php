@@ -64,7 +64,7 @@ class LoadYamlConfiguration
     protected function parseAuthors(array $authors): array
     {
         return Arr::mapWithKeys($authors, function (array $author, string $username): array {
-            return [$username => PostAuthor::getOrCreate($author)];
+            return [$username => PostAuthor::create($author)];
         });
     }
 }
