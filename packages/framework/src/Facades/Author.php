@@ -28,7 +28,7 @@ class Author
      * @param  string|null  $avatar  The author's optional avatar image. Supports both image names and full URIs.
      * @param  array<string, string>|null  $socials  The author's optional social media links/handles.
      */
-    public static function create(#[Deprecated(reason: 'The username is set by the array key in the configuration file')]string $username = 'guest', ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null): PostAuthor
+    public static function create(#[Deprecated(reason: 'The username is set by the array key in the configuration file')]string $username = '', ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null): PostAuthor
     {
         return new PostAuthor($username, $name, $website, $bio, $avatar, $socials);
     }
