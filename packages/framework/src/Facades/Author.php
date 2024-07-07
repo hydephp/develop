@@ -25,9 +25,9 @@ class Author
      * @param  string|null  $name  The optional display name of the author, leave blank to use the username.
      * @param  string|null  $website  The author's optional website URL. Website, Twitter, etc.
      */
-    public static function create(#[Deprecated]string $username, ?string $name = null, ?string $website = null): PostAuthor
+    public static function create(#[Deprecated]string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, array $socials = []): PostAuthor
     {
-        return new PostAuthor($username, $name, $website);
+        return new PostAuthor($username, $name, $website, $bio, $avatar, $socials);
     }
 
     /**

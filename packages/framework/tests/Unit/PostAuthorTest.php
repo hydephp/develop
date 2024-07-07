@@ -151,13 +151,25 @@ class PostAuthorTest extends UnitTestCase
         $this->assertInstanceOf(PostAuthor::class, $author);
     }
 
-    public function testCreateMethodAcceptsAllParameters()
+    public function testCreateMethodAcceptsExtraParameters()
     {
         $author = Author::create('foo', 'bar', 'https://example.com');
 
         $this->assertSame('foo', $author->username);
         $this->assertSame('bar', $author->name);
         $this->assertSame('https://example.com', $author->website);
+    }
+
+    public function testCreateMethodAcceptsAllParameters()
+    {
+        $author = Author::create(...$this->exampleData());
+
+        $this->assertSame('mr_hyde', $author->username);
+        $this->assertSame('Mr. Hyde', $author->name);
+        $this->assertSame('https://HydePHP.com', $author->website);
+        $this->assertSame('A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?', $author->bio);
+        $this->assertSame('mr_hyde.png', $author->avatar);
+        $this->assertSame(['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'], $author->socials);
     }
 
     public function testGetOrCreateMethodCreatesNewAuthorModelFromString()
