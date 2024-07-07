@@ -12,6 +12,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Support\Contracts\SerializableContract;
 
+use function strtolower;
 use function array_merge;
 use function array_filter;
 
@@ -77,7 +78,7 @@ class PostAuthor implements Stringable, SerializableContract
      */
     public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null)
     {
-        $this->username = $username;
+        $this->username = strtolower($username);
         $this->name = $name ?? $username;
         $this->website = $website;
         $this->bio = $bio;
@@ -136,6 +137,6 @@ class PostAuthor implements Stringable, SerializableContract
     /** @param array{username?: string, name?: string, website?: string} $data */
     protected static function findUsernameFromData(array $data): string
     {
-        return $data['username'] ?? $data['name'] ?? 'guest';
+        return strtolower($data['username'] ?? $data['name'] ?? 'guest');
     }
 }
