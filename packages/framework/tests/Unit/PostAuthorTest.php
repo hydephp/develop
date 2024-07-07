@@ -203,6 +203,19 @@ class PostAuthorTest extends UnitTestCase
         $this->assertEquals(PostAuthor::getOrCreate(['username' => 'foo']), Author::create('foo'));
     }
 
+    public function testCanDefineAuthorWithNoDataInConfig()
+    {
+        Config::set('hyde.authors', [
+            'foo' => Author::create(),
+        ]);
+
+        $authors = PostAuthor::all();
+
+        $this->assertInstanceOf(Collection::class, $authors);
+        $this->assertCount(1, $authors);
+        $this->assertEquals(new PostAuthor('foo', 'guest'), $authors->first());
+    }
+
     public function testAllMethodReturnsEmptyCollectionIfNoAuthorsAreSetInConfig()
     {
         Config::set('hyde.authors', []);
