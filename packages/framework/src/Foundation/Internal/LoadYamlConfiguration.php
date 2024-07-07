@@ -64,6 +64,8 @@ class LoadYamlConfiguration
     protected function parseAuthors(array $authors): array
     {
         return Arr::mapWithKeys($authors, function (array $author, string $username): array {
+            // Todo: Catch type errors so we can rethrow them as InvalidConfigurationException with the correct context.
+
             return [$username => PostAuthor::create($author)];
         });
     }
