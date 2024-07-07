@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Author;
 use Hyde\Facades\Features;
+use InvalidArgumentException;
 use Hyde\Foundation\Facades\Pages;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
@@ -590,6 +591,16 @@ class HydeKernelTest extends TestCase
                 'name' => 'bar',
             ],
         ], Hyde::authors()->toArray());
+    }
+
+    public function testAuthorsThrowsExceptionWhenUsernameIsNotSet()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Author username cannot be empty. Did you forget to set the author\'s array key?');
+
+        Config::set('hyde.authors', ['' => Author::create('foo')]);
+
+        Hyde::authors();
     }
 }
 
