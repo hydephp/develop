@@ -113,7 +113,9 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     private function getOrCreateAuthor(): PostAuthor
     {
-        return PostAuthor::getOrCreate($this->getMatter('author'));
+        $data = $this->getMatter('author');
+
+        return PostAuthor::getOrCreate($data);
     }
 
     protected function getMatter(string $key): string|null|array
