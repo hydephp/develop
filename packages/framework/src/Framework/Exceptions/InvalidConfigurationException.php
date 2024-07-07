@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Exceptions;
 
+use Hyde\Facades\Filesystem;
 use InvalidArgumentException;
+
+use function assert;
+use function explode;
+use function realpath;
 
 class InvalidConfigurationException extends InvalidArgumentException
 {
@@ -20,11 +25,11 @@ class InvalidConfigurationException extends InvalidArgumentException
         parent::__construct($message);
     }
 
-    /** @return array{string|null, int|null} */
+    /** @return array{string, int} */
     protected function findConfigLine(string $namespace, string $key): array
     {
-        $file = "config/$namespace.php";
-        $contents = file_get_contents(base_path($file));
+        $file = realpath("config/$namespace.php");
+        $contents = Filesystem::getContents($file);
         $lines = explode("\n", $contents);
 
         foreach ($lines as $line => $content) {
@@ -32,6 +37,9 @@ class InvalidConfigurationException extends InvalidArgumentException
                 break;
             }
         }
+
+        assert($file !== false);
+        assert(isset($line));
 
         return [$file, $line + 1];
     }
