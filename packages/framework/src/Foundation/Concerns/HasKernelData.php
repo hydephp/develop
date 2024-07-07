@@ -50,7 +50,7 @@ trait HasKernelData
     protected function parseConfigurationAuthors(Collection $authors): Collection
     {
         return $authors->mapWithKeys(function (PostAuthor $author, string $username): array {
-            return [$username ?: $author->username => $author];
+            return [$username => tap($author, fn (PostAuthor $author) => $author->username = $username)];
         });
     }
 }
