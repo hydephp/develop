@@ -64,7 +64,7 @@ class PostAuthor implements Stringable, SerializableContract
     public readonly ?array $socials;
 
     /**
-     * Construct a new Post Author object.
+     * Construct a new Post Author instance with the given data.
      *
      * If your input is in the form of an array, you may rather want to use the `create` method.
      *
