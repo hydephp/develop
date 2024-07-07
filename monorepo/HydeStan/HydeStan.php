@@ -301,7 +301,7 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                 $line = explode("\n", $contents)[$lineNumber - 1];
 
                 // Check for false positives
-                $commonlyStringCastables = ['$article', '$document', 'getXmlElement()', '$url->loc', '$page->markdown'];
+                $commonlyStringCastables = ['$article', '$document', 'getXmlElement()', '$url->loc', '$page->markdown', '$post->data(\'author\')'];
 
                 $strContainsAny = false;
                 foreach ($commonlyStringCastables as $commonlyStringCastable) {
