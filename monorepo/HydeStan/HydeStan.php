@@ -303,9 +303,7 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                 // Check for false positives
                 $commonlyStringCastables = ['$article', '$document', 'getXmlElement()', '$url->loc', '$page->markdown', '$post->data(\'author\')'];
 
-                $strContainsAny = check_str_contains_any($commonlyStringCastables, $line);
-
-                if ($strContainsAny) {
+                if (check_str_contains_any($commonlyStringCastables, $line)) {
                     continue;
                 }
 
