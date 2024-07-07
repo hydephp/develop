@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Exceptions;
 
-class InvalidConfigurationException
+use InvalidArgumentException;
+
+class InvalidConfigurationException extends InvalidArgumentException
 {
     //
 }
