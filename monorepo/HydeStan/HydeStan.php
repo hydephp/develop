@@ -297,6 +297,23 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser
                 $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
                 $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
 
+                // Get the line contents
+                $line = explode("\n", $contents)[$lineNumber - 1];
+
+                // Check for false positives
+                $commonlyStringCastables = ['$article', '$document', 'getXmlElement()', '$url->loc', '$page->markdown'];
+
+                $strContainsAny = false;
+                foreach ($commonlyStringCastables as $commonlyStringCastable) {
+                    AnalysisStatisticsContainer::analysedExpression();
+                    if (str_contains($line, $commonlyStringCastable)) {
+                        $strContainsAny = true;
+                    }
+                }
+                if ($strContainsAny) {
+                    continue;
+                }
+
                 // Todo: Does not work when using objects to string cast, false positive, maybe use warning instead of fail
                 $this->fail(sprintf('Found %s instead assertSame for scalar type in %s on line %s', trim($search, "()'"), $file, $lineNumber));
             }
