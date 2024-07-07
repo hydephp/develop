@@ -55,7 +55,7 @@ trait HasKernelData
                 throw new InvalidConfigurationException('Author username cannot be empty. Did you forget to set the author\'s array key?', 'hyde', 'authors');
             }
 
-            return [$username => tap($author, fn (PostAuthor $author) => $author->username = $username)];
+            return [$username => tap($author, fn (PostAuthor $author): string => $author->username = $username)];
         });
     }
 }
