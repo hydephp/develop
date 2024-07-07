@@ -13,10 +13,8 @@ class InvalidConfigurationException extends InvalidArgumentException
         if ($namespace && $key) {
             [$file, $line] = $this->findConfigLine($namespace, $key);
 
-            if ($file && $line) {
-                $this->file = $file;
-                $this->line = $line;
-            }
+            $this->file = $file;
+            $this->line = $line;
         }
 
         parent::__construct($message);
@@ -27,15 +25,14 @@ class InvalidConfigurationException extends InvalidArgumentException
     {
         $file = "config/$namespace.php";
         $contents = file_get_contents(base_path($file));
-
         $lines = explode("\n", $contents);
 
         foreach ($lines as $line => $content) {
             if (str_contains($content, "'$key' =>")) {
-                return [$file, $line + 1];
+                break;
             }
         }
 
-        return [null, null];
+        return [$file, $line + 1];
     }
 }
