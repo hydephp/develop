@@ -21,7 +21,7 @@ class ProjectFileTest extends TestCase
         $this->assertSame('foo', $file->path);
     }
 
-    public function can_make()
+    public function testCanMake()
     {
         $this->assertEquals(new ProjectFileTestClass('foo'), ProjectFileTestClass::make('foo'));
     }
