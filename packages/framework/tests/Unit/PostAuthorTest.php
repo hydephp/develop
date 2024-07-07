@@ -253,7 +253,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username');
 
-        $this->assertEquals('username', $author->name);
+        $this->assertSame('username', $author->name);
     }
 
     public function testToStringHelperReturnsTheName()

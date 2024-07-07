@@ -18,7 +18,7 @@ class HtmlPageTest extends TestCase
 
         $page = new HtmlPage('foo');
 
-        $this->assertEquals('bar', $page->compile());
+        $this->assertSame('bar', $page->compile());
     }
 
     public function testCompileMethodUsesContents()

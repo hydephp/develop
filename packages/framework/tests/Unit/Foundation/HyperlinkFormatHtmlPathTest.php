@@ -19,85 +19,85 @@ class HyperlinkFormatHtmlPathTest extends UnitTestCase
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
 
-        $this->assertEquals('foo/bar.html', Hyde::formatLink('foo/bar.html'));
+        $this->assertSame('foo/bar.html', Hyde::formatLink('foo/bar.html'));
     }
 
     public function testHelperReturnsPrettyUrlIfPrettyUrlsIsTrue()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
 
-        $this->assertEquals('foo/bar', Hyde::formatLink('foo/bar.html'));
+        $this->assertSame('foo/bar', Hyde::formatLink('foo/bar.html'));
     }
 
     public function testHelperRespectsAbsoluteUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
-        $this->assertEquals('/foo/bar.html', Hyde::formatLink('/foo/bar.html'));
+        $this->assertSame('/foo/bar.html', Hyde::formatLink('/foo/bar.html'));
     }
 
     public function testHelperRespectsPrettyAbsoluteUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $this->assertEquals('/foo/bar', Hyde::formatLink('/foo/bar.html'));
+        $this->assertSame('/foo/bar', Hyde::formatLink('/foo/bar.html'));
     }
 
     public function testHelperRespectsRelativeUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
-        $this->assertEquals('../foo/bar.html', Hyde::formatLink('../foo/bar.html'));
+        $this->assertSame('../foo/bar.html', Hyde::formatLink('../foo/bar.html'));
     }
 
     public function testHelperRespectsPrettyRelativeUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $this->assertEquals('../foo/bar', Hyde::formatLink('../foo/bar.html'));
+        $this->assertSame('../foo/bar', Hyde::formatLink('../foo/bar.html'));
     }
 
     public function testNonHtmlLinksAreNotModified()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $this->assertEquals('/foo/bar.jpg', Hyde::formatLink('/foo/bar.jpg'));
+        $this->assertSame('/foo/bar.jpg', Hyde::formatLink('/foo/bar.jpg'));
     }
 
     public function testHelperRespectsAbsoluteUrlsWithPrettyUrlsEnabled()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $this->assertEquals('/foo/bar.jpg', Hyde::formatLink('/foo/bar.jpg'));
+        $this->assertSame('/foo/bar.jpg', Hyde::formatLink('/foo/bar.jpg'));
     }
 
     public function testHelperRewritesIndexWhenUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $this->assertEquals('/', Hyde::formatLink('index.html'));
+        $this->assertSame('/', Hyde::formatLink('index.html'));
     }
 
     public function testHelperDoesNotRewriteIndexWhenNotUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
-        $this->assertEquals('index.html', Hyde::formatLink('index.html'));
+        $this->assertSame('index.html', Hyde::formatLink('index.html'));
     }
 
     public function testHelperRewritesDocumentationPageIndexWhenUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $this->assertEquals('docs/', Hyde::formatLink('docs/index.html'));
+        $this->assertSame('docs/', Hyde::formatLink('docs/index.html'));
     }
 
     public function testHelperDoesNotRewriteDocumentationPageIndexWhenNotUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
-        $this->assertEquals('docs/index.html', Hyde::formatLink('docs/index.html'));
+        $this->assertSame('docs/index.html', Hyde::formatLink('docs/index.html'));
     }
 
     public function testHelpersRewritesArbitraryNestedIndexPagesWhenUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => true]);
-        $this->assertEquals('foo/bar/', Hyde::formatLink('foo/bar/index.html'));
+        $this->assertSame('foo/bar/', Hyde::formatLink('foo/bar/index.html'));
     }
 
     public function testHelpersDoesNotRewriteArbitraryNestedIndexPagesWhenNotUsingPrettyUrls()
     {
         self::mockConfig(['hyde.pretty_urls' => false]);
-        $this->assertEquals('foo/bar/index.html', Hyde::formatLink('foo/bar/index.html'));
+        $this->assertSame('foo/bar/index.html', Hyde::formatLink('foo/bar/index.html'));
     }
 }
