@@ -147,6 +147,6 @@ class PostAuthor implements Stringable, SerializableContract
 
     protected static function generateName(string $username): string
     {
-        return Str::title(Str::slug($username, ' '));
+        return Str::title($username);
     }
 }
