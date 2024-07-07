@@ -6,7 +6,6 @@ namespace Hyde\Framework\Features\Blogging\Models;
 
 use Hyde\Hyde;
 use Stringable;
-use Hyde\Facades\Author;
 use Hyde\Pages\MarkdownPost;
 use Illuminate\Support\Collection;
 use Hyde\Support\Concerns\Serializable;
