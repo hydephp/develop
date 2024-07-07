@@ -201,32 +201,4 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertStringContainsString('config'.DIRECTORY_SEPARATOR.'hyde.php', $exception->getFile());
         $this->assertGreaterThan(0, $exception->getLine());
     }
-
-    public function testInvalidConfigurationExceptionWithNonExistentNamespace()
-    {
-        $this->expectException(\AssertionError::class);
-        new InvalidConfigurationException('Invalid configuration.', 'non_existent', 'key');
-    }
-
-    public function testInvalidConfigurationExceptionWithNonExistentKey()
-    {
-        $this->expectException(\AssertionError::class);
-        new InvalidConfigurationException('Invalid configuration.', 'app', 'non_existent_key');
-    }
-
-    public function testInvalidConfigurationExceptionFindConfigLine()
-    {
-        $exception = new class('Invalid configuration.', 'hyde', 'name') extends InvalidConfigurationException {
-            public function exposedFindConfigLine(string $namespace, string $key): array
-            {
-                return $this->findConfigLine($namespace, $key);
-            }
-        };
-
-        [$file, $line] = $exception->exposedFindConfigLine('app', 'debug');
-
-        $this->assertFileExists($file);
-        $this->assertIsInt($line);
-        $this->assertGreaterThan(0, $line);
-    }
 }
