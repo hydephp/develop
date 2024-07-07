@@ -88,6 +88,8 @@ class PostAuthor implements Stringable, SerializableContract
     /**
      * Create a new Post Author instance from an array of data.
      *
+     * If you do not supply a username, the name will be used as the username, or 'Guest' if no name is provided.
+     *
      * @param  array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}  $data
      */
     public static function create(array $data): PostAuthor
