@@ -285,12 +285,16 @@ return [
 
     'authors' => [
         'mr_hyde' => Author::create(
+            // The following settings are used in the default blog post template.
             username: 'mr_hyde', // Required username
             name: 'Mr. Hyde', // Optional display name
             website: 'https://hydephp.com', // Optional website URL
-            // bio: 'The mysterious author of HydePHP', // Optional biography
-            // avatar: 'avatar.png', // Optional avatar image (media asset/URI)
-            // socials: [ // Optional social media links
+
+            // The following settings are not used in the bundled templates,
+            // but you can use them in your own custom views, for example.
+            // bio: 'The mysterious author of HydePHP',
+            // avatar: 'avatar.png',
+            // socials: [
             //     'twitter' => 'HydeFramework',
             //     'github' => 'hydephp',
             // ],
