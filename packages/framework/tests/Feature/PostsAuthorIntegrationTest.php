@@ -51,7 +51,7 @@ class PostsAuthorIntegrationTest extends TestCase
         $this->createPostFile('post-with-defined-author-with-name', 'named_author');
 
         Config::set('hyde.authors', [
-            'named_author' => Author::create('named_author', 'Test Author', null),
+            'named_author' => Author::create('Test Author', null),
         ]);
 
         $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);
@@ -72,7 +72,7 @@ class PostsAuthorIntegrationTest extends TestCase
         $this->createPostFile('post-with-defined-author-with-name', 'test_author_with_website');
 
         Config::set('hyde.authors', [
-            'test_author_with_website' => Author::create('test_author_with_website', 'Test Author', 'https://example.org'),
+            'test_author_with_website' => Author::create('Test Author', 'https://example.org'),
         ]);
 
         $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);

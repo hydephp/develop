@@ -286,7 +286,6 @@ return [
     'authors' => [
         'mr_hyde' => Author::create(
             // The following settings are used in the default blog post template.
-            username: 'mr_hyde', // Required username
             name: 'Mr. Hyde', // Optional display name
             website: 'https://hydephp.com', // Optional website URL
 
