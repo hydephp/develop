@@ -285,9 +285,9 @@ return [
 
     'authors' => [
         'mr_hyde' => Author::create(
-            'mr_hyde', // Required username
-            'Mr. Hyde', // Optional display name
-            'https://hydephp.com' // Optional website URL
+            username: 'mr_hyde', // Required username
+            name: 'Mr. Hyde', // Optional display name
+            website: 'https://hydephp.com' // Optional website URL
         ),
     ],
 
