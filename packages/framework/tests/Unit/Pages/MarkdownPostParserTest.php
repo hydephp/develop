@@ -10,6 +10,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\StaticSiteBuilderPostModuleTest for the compiler test.
@@ -55,8 +56,9 @@ This is a post stub used in the automated tests
     public function testParsedMarkdownPostContainsValidFrontMatter()
     {
         $post = MarkdownPost::parse('test-post');
-        $this->assertEquals('My New Post', $post->data('title'));
+        $this->assertSame('My New Post', $post->data('title'));
+        $this->assertSame('blog', $post->data('category'));
         $this->assertEquals('Mr. Hyde', $post->data('author'));
-        $this->assertEquals('blog', $post->data('category'));
+        $this->assertInstanceOf(PostAuthor::class, $post->data('author'));
     }
 }
