@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Facades\Filesystem;
-use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\StaticSiteBuilderPostModuleTest for the compiler test.
@@ -20,28 +19,25 @@ class MarkdownPostParserTest extends TestCase
     {
         parent::setUp();
 
-        file_put_contents(Hyde::path('_posts/test-post.md'), '---
-title: My New Post
-category: blog
-author: Mr. Hyde
----
+        $this->file('_posts/test-post.md', <<<'MD'
+            ---
+            title: My New Post
+            category: blog
+            author: Mr. Hyde
+            ---
 
-# My New Post
+            # My New Post
 
-This is a post stub used in the automated tests
-');
-    }
+            This is a post stub used in the automated tests
 
-    protected function tearDown(): void
-    {
-        Filesystem::unlink('_posts/test-post.md');
-
-        parent::tearDown();
+            MD
+        );
     }
 
     public function testCanParseMarkdownFile()
     {
         $post = MarkdownPost::parse('test-post');
+
         $this->assertInstanceOf(MarkdownPost::class, $post);
         $this->assertCount(3, $post->matter->toArray());
         $this->assertInstanceOf(FrontMatter::class, $post->matter);
@@ -55,8 +51,10 @@ This is a post stub used in the automated tests
     public function testParsedMarkdownPostContainsValidFrontMatter()
     {
         $post = MarkdownPost::parse('test-post');
-        $this->assertEquals('My New Post', $post->data('title'));
+
+        $this->assertSame('My New Post', $post->data('title'));
+        $this->assertSame('blog', $post->data('category'));
         $this->assertEquals('Mr. Hyde', $post->data('author'));
-        $this->assertEquals('blog', $post->data('category'));
+        $this->assertInstanceOf(PostAuthor::class, $post->data('author'));
     }
 }

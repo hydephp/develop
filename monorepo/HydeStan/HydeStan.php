@@ -12,6 +12,7 @@ final class HydeStan
     const VERSION = '0.0.0-dev';
 
     private array $files;
+    private array $testFiles;
     private array $errors = [];
     private int $scannedLines = 0;
     private int $aggregateLines = 0;
@@ -37,10 +38,13 @@ final class HydeStan
     public function __destruct()
     {
         $this->console->newline();
-        $this->console->info(sprintf('HydeStan has exited after scanning %s total (and %s aggregate) lines in %s files. Total expressions analysed: %s',
+        $this->console->info(sprintf('HydeStan has exited after scanning %s total (and %s aggregate) lines in %s files.',
             number_format($this->scannedLines),
             number_format($this->aggregateLines),
-            number_format(count($this->files)),
+            number_format(count($this->files) + count($this->testFiles)),
+        ));
+
+        $this->console->info(sprintf('Total expressions analysed: %s',
             number_format(AnalysisStatisticsContainer::getExpressionsAnalysed()),
         ));
 
@@ -63,6 +67,8 @@ final class HydeStan
 
             $this->analyseFile($file, $this->getFileContents($file));
         }
+
+        $this->runTestStan();
 
         $endTime = microtime(true) - $time;
         $this->console->info(sprintf('HydeStan has finished in %s seconds (%sms) using %s KB RAM',
@@ -102,6 +108,21 @@ final class HydeStan
         $files = [];
 
         $directory = new RecursiveDirectoryIterator(BASE_PATH.'/src');
+        $iterator = new RecursiveIteratorIterator($directory);
+        $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+
+        foreach ($regex as $file) {
+            $files[] = substr($file[0], strlen(BASE_PATH) + 1);
+        }
+
+        return $files;
+    }
+
+    private function getTestFiles(): array
+    {
+        $files = [];
+
+        $directory = new RecursiveDirectoryIterator(BASE_PATH.'/tests');
         $iterator = new RecursiveIteratorIterator($directory);
         $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
 
@@ -160,6 +181,51 @@ final class HydeStan
         // $template = '::warning file={name},line={line},endLine={endLine},title={title}::{message}';
         self::$warnings[] = sprintf("::$level file=%s,line=%s,endLine=%s,title=%s::%s", 'packages/framework/'.str_replace('\\', '/', $file), $lineNumber, $lineNumber, $title, $message);
     }
+
+    protected function runTestStan(): void
+    {
+        $this->console->info('TestStan: Analyzing test files...');
+
+        $this->testFiles = $this->getTestFiles();
+
+        foreach ($this->testFiles as $file) {
+            $this->analyseTestFile($file, $this->getFileContents($file));
+        }
+
+        $this->console->info('TestStan: Finished analyzing test files!');
+    }
+
+    private function analyseTestFile(string $file, string $contents): void
+    {
+        $fileAnalysers = [
+            new NoFixMeAnalyser($file, $contents),
+            new NoUsingAssertEqualsForScalarTypesTestAnalyser($file, $contents),
+        ];
+
+        foreach ($fileAnalysers as $analyser) {
+            if ($this->debug) {
+                $this->console->debugComment('Running  '.$analyser::class);
+            }
+
+            $analyser->run($file, $contents);
+            AnalysisStatisticsContainer::countedLines(substr_count($contents, "\n"));
+
+            foreach (explode("\n", $contents) as $lineNumber => $line) {
+                $lineAnalysers = [
+                    //
+                ];
+
+                foreach ($lineAnalysers as $analyser) {
+                    AnalysisStatisticsContainer::countedLine();
+                    $analyser->run($file, $lineNumber, $line);
+                    $this->aggregateLines++;
+                }
+            }
+        }
+
+        $this->scannedLines += substr_count($contents, "\n");
+        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
+    }
 }
 
 abstract class Analyser
@@ -210,6 +276,39 @@ class NoFixMeAnalyser extends FileAnalyser
                 HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
                 // Todo we might want to check for more errors after the first marker
+            }
+        }
+    }
+}
+
+class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo: Extend line analyser instead? Would allow for checking for more errors after the first error
+{
+    public function run(string $file, string $contents): void
+    {
+        $searches = [
+            "assertEquals('",
+        ];
+
+        foreach ($searches as $search) {
+            AnalysisStatisticsContainer::analysedExpression();
+
+            if (str_contains($contents, $search)) {
+                // Get line number of marker by counting new \n tags before it
+                $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
+                $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
+
+                // Get the line contents
+                $line = explode("\n", $contents)[$lineNumber - 1];
+
+                // Check for false positives
+                $commonlyStringCastables = ['$article', '$document', 'getXmlElement()', '$url->loc', '$page->markdown', '$post->data(\'author\')'];
+
+                if (check_str_contains_any($commonlyStringCastables, $line)) {
+                    continue;
+                }
+
+                // Todo: Does not work when using objects to string cast, false positive, maybe use warning instead of fail
+                $this->fail(sprintf('Found %s instead assertSame for scalar type in %s on line %s', trim($search, "()'"), $file, $lineNumber));
             }
         }
     }
@@ -318,4 +417,17 @@ interface LineAnalyserContract
     public function __construct(string $file, int $lineNumber, string $line);
 
     public function run(string $file, int $lineNumber, string $line): void;
+}
+
+function check_str_contains_any(array $searches, string $line): bool
+{
+    $strContainsAny = false;
+    foreach ($searches as $search) {
+        AnalysisStatisticsContainer::analysedExpression();
+        if (str_contains($line, $search)) {
+            $strContainsAny = true;
+        }
+    }
+
+    return $strContainsAny;
 }
