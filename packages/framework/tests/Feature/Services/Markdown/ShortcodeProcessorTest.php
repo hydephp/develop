@@ -25,7 +25,7 @@ class ShortcodeProcessorTest extends UnitTestCase
     {
         $processor = new ShortcodeProcessor('>info foo');
 
-        $this->assertEquals('<blockquote class="info"><p>foo</p></blockquote>',
+        $this->assertSame('<blockquote class="info"><p>foo</p></blockquote>',
             $processor->run());
     }
 
@@ -33,12 +33,12 @@ class ShortcodeProcessorTest extends UnitTestCase
     {
         $processor = new ShortcodeProcessor('foo');
 
-        $this->assertEquals('foo', $processor->run());
+        $this->assertSame('foo', $processor->run());
     }
 
     public function testProcessStaticShorthand()
     {
-        $this->assertEquals('<blockquote class="info"><p>foo</p></blockquote>',
+        $this->assertSame('<blockquote class="info"><p>foo</p></blockquote>',
             ShortcodeProcessor::preprocess('>info foo'));
     }
 
@@ -60,7 +60,7 @@ class ShortcodeProcessorTest extends UnitTestCase
         });
 
         $this->assertArrayHasKey('foo', $processor->getShortcodes());
-        $this->assertEquals('bar', $processor->run());
+        $this->assertSame('bar', $processor->run());
     }
 
     public function testShortcodesCanBeAddedToProcessorUsingArray()
@@ -81,6 +81,6 @@ class ShortcodeProcessorTest extends UnitTestCase
         }]);
 
         $this->assertArrayHasKey('foo', $processor->getShortcodes());
-        $this->assertEquals('bar', $processor->run());
+        $this->assertSame('bar', $processor->run());
     }
 }
