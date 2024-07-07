@@ -22,6 +22,7 @@ class InvalidConfigurationException extends InvalidArgumentException
         parent::__construct($message);
     }
 
+    /** @return array{string|null, int|null} */
     protected function findConfigLine(string $namespace, string $key): array
     {
         $file = "config/$namespace.php";
