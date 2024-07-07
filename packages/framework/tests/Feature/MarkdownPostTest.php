@@ -24,7 +24,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(PostAuthor::class, $post->author);
-        $this->assertSame('john doe', $post->author->username);
+        $this->assertSame('john_doe', $post->author->username);
         $this->assertSame('John Doe', $post->author->name);
         $this->assertNull($post->author->website);
     }

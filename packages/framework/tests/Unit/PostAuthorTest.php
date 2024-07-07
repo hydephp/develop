@@ -116,7 +116,7 @@ class PostAuthorTest extends UnitTestCase
             'website' => $data['website'],
         ]);
 
-        $this->assertSame(strtolower($data['name']), $author->username);
+        $this->assertSame('mr_hyde', $author->username);
         $this->assertSame($data['name'], $author->name);
         $this->assertSame($data['website'], $author->website);
     }
