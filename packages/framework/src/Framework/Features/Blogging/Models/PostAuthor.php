@@ -12,7 +12,6 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Support\Contracts\SerializableContract;
 
-use function is_string;
 use function array_merge;
 use function array_filter;
 
@@ -96,24 +95,6 @@ class PostAuthor implements Stringable, SerializableContract
         return new static(...array_merge([
             'username' => static::findUsernameFromData($data),
         ], $data));
-    }
-
-    /**
-     * Dynamically get or create an author based on a username string or front matter array.
-     *
-     * @deprecated Use either `get` or `create` directly depending on your use case.
-     *
-     * @codeCoverageIgnore Until we can remove this method.
-     *
-     * @param  string|array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}  $data
-     */
-    public static function getOrCreate(string|array $data): static
-    {
-        if (is_string($data)) {
-            return static::get($data) ?? static::create(['username' => $data]);
-        }
-
-        return static::create($data);
     }
 
     /**  Get a Post Author instance by username, or null if not found. */
