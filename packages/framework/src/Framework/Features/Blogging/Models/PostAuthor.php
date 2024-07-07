@@ -101,6 +101,8 @@ class PostAuthor implements Stringable, SerializableContract
     /**
      * Dynamically get or create an author based on a username string or front matter array.
      *
+     * @deprecated Use either `get` or `create` directly depending on your use case.
+     *
      * @param  string|array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}  $data
      */
     public static function getOrCreate(string|array $data): static
