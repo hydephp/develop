@@ -30,10 +30,10 @@ class InvalidConfigurationException extends InvalidArgumentException
 
         foreach ($lines as $line => $content) {
             if (str_contains($content, "'$key' =>")) {
-                break;
+                return [$file, $line + 1];
             }
         }
 
-        return [$file, $line + 1];
+        return [null, null];
     }
 }
