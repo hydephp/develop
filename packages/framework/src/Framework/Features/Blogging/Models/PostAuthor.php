@@ -59,11 +59,11 @@ class PostAuthor implements Stringable, SerializableContract
     /**
      * The author's social media links/handles.
      *
-     * @var array<string, string>
+     * @var ?array<string, string>
      *
      * @example ['twitter' => 'mr_hyde'] ($service => $handle)
      */
-    public readonly array $socials;
+    public readonly ?array $socials;
 
     /**
      * Construct a new Post Author object.
@@ -77,7 +77,7 @@ class PostAuthor implements Stringable, SerializableContract
      * @param  string|null  $avatar
      * @param  array<string, string>  $socials
      */
-    public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, array $socials = [])
+    public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null)
     {
         $this->username = $username;
         $this->name = $name ?? $username;

@@ -435,7 +435,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->assertSame(['twitter' => '@user1', 'github' => 'user1'], $authors['username1']->socials);
         $this->assertSame(['twitter' => '@user2', 'github' => 'user2'], $authors['username2']->socials);
-        $this->assertSame([], $authors['test']->socials);
+        $this->assertSame(null, $authors['test']->socials);
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
