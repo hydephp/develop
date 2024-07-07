@@ -169,7 +169,7 @@ class PostAuthorTest extends UnitTestCase
     public function testGetOrCreateMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', 'bar'),
+            'foo' => Author::create('foo', 'bar'),
         ]);
 
         $this->assertEquals(PostAuthor::getOrCreate('foo'), Author::create('foo', 'bar'));
@@ -203,7 +203,7 @@ class PostAuthorTest extends UnitTestCase
     public function testAllMethodReturnsCollectionWithAllAuthorsDefinedInConfig()
     {
         Config::set('hyde.authors', [
-            Author::create('foo'),
+            'foo' => Author::create('foo'),
         ]);
 
         $authors = PostAuthor::all();
@@ -216,8 +216,8 @@ class PostAuthorTest extends UnitTestCase
     public function testMultipleAuthorsCanBeDefinedInConfig()
     {
         Config::set('hyde.authors', [
-            Author::create('foo'),
-            Author::create('bar'),
+            'foo' => Author::create('foo'),
+            'bar' => Author::create('bar'),
         ]);
 
         $authors = PostAuthor::all();
@@ -231,7 +231,7 @@ class PostAuthorTest extends UnitTestCase
     public function testGetMethodReturnsConfigDefinedAuthorByUsername()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', 'bar'),
+            'foo' => Author::create('foo', 'bar'),
         ]);
         $author = PostAuthor::get('foo');
 

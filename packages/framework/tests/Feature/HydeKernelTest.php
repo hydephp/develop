@@ -575,7 +575,7 @@ class HydeKernelTest extends TestCase
 
         $this->assertEmpty($kernel->authors()->toArray());
 
-        Config::set('hyde.authors', [Author::create('foo')]);
+        Config::set('hyde.authors', ['foo' => Author::create('foo')]);
 
         $this->assertNotEmpty($kernel->authors()->toArray());
     }
