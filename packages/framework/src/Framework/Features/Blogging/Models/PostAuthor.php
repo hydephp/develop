@@ -94,7 +94,7 @@ class PostAuthor implements Stringable, SerializableContract
     public static function getOrCreate(string|array $data): static
     {
         if (is_string($data)) {
-            return static::get($data);
+            return static::get($data) ?? new static($data);
         }
 
         return new static(...array_merge([
@@ -102,10 +102,10 @@ class PostAuthor implements Stringable, SerializableContract
         ], $data));
     }
 
-    /** Get an Author from the config, or create it with the username. */
-    public static function get(string $username): static
+    /**  Get a Post Author instance by username, or null if not found. */
+    public static function get(string $username): ?static
     {
-        return static::all()->get($username) ?? new static($username);
+        return static::all()->get($username);
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor> */

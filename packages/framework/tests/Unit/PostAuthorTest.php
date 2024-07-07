@@ -268,13 +268,12 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('bar', $author->name);
     }
 
-    public function testGetMethodReturnsNewAuthorIfUsernameNotFoundInConfig()
+    public function testGetMethodReturnsNullIfUsernameNotFoundInConfig()
     {
         Config::set('hyde.authors', []);
         $author = PostAuthor::get('foo');
 
-        $this->assertInstanceOf(PostAuthor::class, $author);
-        $this->assertSame('foo', $author->username);
+        $this->assertNull($author);
     }
 
     public function testNameIsSetToUsernameIfNameIsNotSet()

@@ -33,10 +33,9 @@ class Author
     }
 
     /**
-     * Get a Post Author instance from the config. If no author matching the username is found,
-     * a new Post Author instance will be created with just username supplied to the method.
+     * Get a Post Author instance by username, or null if not found.
      */
-    public static function get(string $username): PostAuthor
+    public static function get(string $username): ?PostAuthor
     {
         return PostAuthor::get($username);
     }
