@@ -199,6 +199,7 @@ final class HydeStan
     {
         $fileAnalysers = [
             new NoFixMeAnalyser($file, $contents),
+            new NoUsingAssertEqualsForScalarTypesTestAnalyser($file, $contents),
         ];
 
         foreach ($fileAnalysers as $analyser) {
@@ -275,6 +276,28 @@ class NoFixMeAnalyser extends FileAnalyser
                 HydeStan::addActionsMessage('warning', $file, $lineNumber, 'HydeStan: NoFixMeError', 'This line has been marked as needing fixing. Please fix it before merging.');
 
                 // Todo we might want to check for more errors after the first marker
+            }
+        }
+    }
+}
+
+class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        $searches = [
+            "assertEquals('",
+        ];
+
+        foreach ($searches as $search) {
+            AnalysisStatisticsContainer::analysedExpression();
+
+            if (str_contains($contents, $search)) {
+                // Get line number of marker by counting new \n tags before it
+                $stringBeforeMarker = substr($contents, 0, strpos($contents, $search));
+                $lineNumber = substr_count($stringBeforeMarker, "\n") + 1;
+
+                $this->fail(sprintf('Found %s instead assertSame for scalar type in %s on line %s', trim($search, "()'"), $file, $lineNumber));
             }
         }
     }
