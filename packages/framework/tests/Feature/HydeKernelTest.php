@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Facades\Author;
 use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Pages;
+use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Enums\Feature;
@@ -23,6 +25,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\HtmlString;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 /**
  * This test class runs high-level tests on the HydeKernel class,
@@ -281,6 +284,7 @@ class HydeKernelTest extends TestCase
             'files' => Hyde::files(),
             'pages' => Hyde::pages(),
             'routes' => Hyde::routes(),
+            'authors' => Hyde::authors(),
         ], Hyde::toArray());
     }
 
@@ -528,6 +532,64 @@ class HydeKernelTest extends TestCase
         $kernel = new HydeKernel();
 
         $this->assertSame($kernel->features(), $kernel->features());
+    }
+
+    public function testAuthors()
+    {
+        $kernel = new HydeKernel();
+
+        $this->assertInstanceOf(Collection::class, $kernel->authors());
+        $this->assertContainsOnlyInstancesOf(PostAuthor::class, $kernel->authors());
+
+        $this->assertSame([
+            'mr_hyde' => [
+                'username' => 'mr_hyde',
+                'name' => 'Mr. Hyde',
+                'website' => 'https://hydephp.com',
+            ],
+        ], $kernel->authors()->toArray());
+    }
+
+    public function testAuthorsReturnsSingletonCollection()
+    {
+        $kernel = new HydeKernel();
+
+        $this->assertSame($kernel->authors(), $kernel->authors());
+    }
+
+    public function testAuthorsReturnsEmptyCollectionWhenNoAuthorsDefined()
+    {
+        $kernel = new HydeKernel();
+
+        Config::set('hyde', []);
+
+        $this->assertInstanceOf(Collection::class, $kernel->authors());
+        $this->assertEmpty($kernel->authors());
+    }
+
+    public function testAuthorsPropertyIsNotWrittenUntilThereAreAuthorsDefined()
+    {
+        $kernel = new HydeKernel();
+
+        Config::set('hyde', []);
+
+        $this->assertEmpty($kernel->authors()->toArray());
+
+        Config::set('hyde.authors', [Author::create('foo')]);
+
+        $this->assertNotEmpty($kernel->authors()->toArray());
+    }
+
+    public function testAuthorsUseTheConfigArrayKey()
+    {
+        Config::set('hyde.authors', ['foo' => Author::create('bar')]);
+
+        $this->assertSame([
+            'foo' => [
+                'username' => 'bar',
+                'name' => 'bar',
+            ],
+        ], Hyde::authors()->toArray());
     }
 }
 

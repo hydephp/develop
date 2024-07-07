@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 use function array_merge;
 
@@ -43,6 +44,10 @@ class LoadYamlConfiguration
     protected function mergeParsedConfiguration(): void
     {
         foreach ($this->yaml->getData() as $namespace => $data) {
+            if ($namespace === 'hyde' && isset($data['authors'])) {
+                $data['authors'] = $this->parseAuthors($data['authors']);
+            }
+
             $this->mergeConfiguration($namespace, Arr::undot($data ?: []));
         }
     }
@@ -50,5 +55,16 @@ class LoadYamlConfiguration
     protected function mergeConfiguration(string $namespace, array $yaml): void
     {
         $this->config[$namespace] = array_merge($this->config[$namespace] ?? [], $yaml);
+    }
+
+    /**
+     * @param  array<string, array{username?: string, name?: string, website?: string, bio?: string, avatar?: string, socials?: array<string, string>}>  $authors
+     * @return array<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor>
+     */
+    protected function parseAuthors(array $authors): array
+    {
+        return Arr::mapWithKeys($authors, function (array $author, string $username): array {
+            return [$username => PostAuthor::getOrCreate($author)];
+        });
     }
 }

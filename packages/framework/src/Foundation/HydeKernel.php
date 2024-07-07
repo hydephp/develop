@@ -45,6 +45,7 @@ class HydeKernel implements SerializableContract
     use Concerns\ManagesExtensions;
     use Concerns\ManagesViewData;
     use Concerns\BootsHydeKernel;
+    use Concerns\HasKernelData;
 
     use Serializable;
     use Macroable;
@@ -110,6 +111,7 @@ class HydeKernel implements SerializableContract
             'files' => $this->files(),
             'pages' => $this->pages(),
             'routes' => $this->routes(),
+            'authors' => $this->authors(),
         ];
     }
 }

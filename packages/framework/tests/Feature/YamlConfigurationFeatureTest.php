@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 /**
  * Test the Yaml configuration feature.
@@ -387,6 +388,54 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->runBootstrappers(['hyde.rss.description' => 'Custom']);
 
         $this->assertSame('Custom', config('hyde.rss.description'));
+    }
+
+    public function testCanSetAuthorsInTheYamlConfig()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        authors:
+          username1:
+            name: 'User 1'
+            bio: 'Bio of user 1'
+            website: 'https://user1.com'
+            socials:
+              twitter: '@user1'
+              github: 'user1'
+        
+          username2:
+            name: 'User 2'
+            bio: 'Bio of user 2'
+            socials:
+              twitter: '@user2'
+              github: 'user2'
+        
+          test:
+            name: 'Test user'
+            bio: 'Bio of test user' # TODO: support 'biography'
+            website: 'https://test.com'
+        YAML);
+
+        $this->runBootstrappers();
+
+        $authors = config('hyde.authors');
+
+        $this->assertCount(3, $authors);
+        $this->assertContainsOnlyInstancesOf(PostAuthor::class, $authors);
+        $this->assertSame('User 1', $authors['username1']->name);
+        $this->assertSame('User 2', $authors['username2']->name);
+        $this->assertSame('Test user', $authors['test']->name);
+
+        $this->assertSame('Bio of user 1', $authors['username1']->bio);
+        $this->assertSame('Bio of user 2', $authors['username2']->bio);
+        $this->assertSame('Bio of test user', $authors['test']->bio);
+
+        $this->assertSame('https://user1.com', $authors['username1']->website);
+        $this->assertNull($authors['username2']->website);
+        $this->assertSame('https://test.com', $authors['test']->website);
+
+        $this->assertSame(['twitter' => '@user1', 'github' => 'user1'], $authors['username1']->socials);
+        $this->assertSame(['twitter' => '@user2', 'github' => 'user2'], $authors['username2']->socials);
+        $this->assertSame([], $authors['test']->socials);
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void

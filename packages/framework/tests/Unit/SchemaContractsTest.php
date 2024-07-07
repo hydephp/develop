@@ -60,6 +60,9 @@ class SchemaContractsTest extends UnitTestCase
             'name' => 'string',
             'username' => 'string',
             'website' => 'string',
+            'bio' => 'string',
+            'avatar' => 'string',
+            'socials' => 'array<string, string>',
         ], AuthorSchema::AUTHOR_SCHEMA);
 
         $this->assertSame([
