@@ -192,11 +192,14 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testInvalidConfigurationExceptionWithNamespaceAndKey()
     {
-        $exception = new InvalidConfigurationException('Invalid configuration.', 'app', 'debug');
+        $exception = new InvalidConfigurationException('Invalid configuration.', 'hyde', 'name');
 
         $this->assertSame('Invalid configuration.', $exception->getMessage());
-        $this->assertFileExists($exception->file);
-        $this->assertIsInt($exception->line);
+        $this->assertFileExists($exception->getFile());
+        $this->assertIsInt($exception->getLine());
+
+        $this->assertStringContainsString('config'.DIRECTORY_SEPARATOR.'hyde.php', $exception->getFile());
+        $this->assertGreaterThan(0, $exception->getLine());
     }
 
     public function testInvalidConfigurationExceptionWithNonExistentNamespace()
@@ -213,7 +216,7 @@ class CustomExceptionsTest extends UnitTestCase
 
     public function testInvalidConfigurationExceptionFindConfigLine()
     {
-        $exception = new class('Invalid configuration.', 'app', 'debug') extends InvalidConfigurationException {
+        $exception = new class('Invalid configuration.', 'hyde', 'name') extends InvalidConfigurationException {
             public function exposedFindConfigLine(string $namespace, string $key): array
             {
                 return $this->findConfigLine($namespace, $key);
