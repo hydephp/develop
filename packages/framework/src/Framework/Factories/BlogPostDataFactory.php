@@ -91,7 +91,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected function makeAuthor(): ?PostAuthor
     {
         if ($this->getMatter('author')) {
-            return PostAuthor::getOrCreate($this->getMatter('author'));
+            return $this->getOrCreateAuthor();
         }
 
         return null;
@@ -109,6 +109,11 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     private function makeDescriptionFromMarkdownBody(): string
     {
         return Str::limit((new ConvertsMarkdownToPlainText($this->markdown->body()))->execute(), 125);
+    }
+
+    private function getOrCreateAuthor(): PostAuthor
+    {
+        return PostAuthor::getOrCreate($this->getMatter('author'));
     }
 
     protected function getMatter(string $key): string|null|array
