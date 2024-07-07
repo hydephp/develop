@@ -310,6 +310,7 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                         $strContainsAny = true;
                     }
                 }
+
                 if ($strContainsAny) {
                     continue;
                 }
