@@ -24,6 +24,9 @@ class Author
      * @param  string  $username  The username of the author. This is the key used to find authors in the config.
      * @param  string|null  $name  The optional display name of the author, leave blank to use the username.
      * @param  string|null  $website  The author's optional website URL. Website, Twitter, etc.
+     * @param  string|null  $bio  The author's optional biography text. Markdown supported.
+     * @param  string|null  $avatar  The author's optional avatar image. Supports both image names and full URIs.
+     * @param  array<string, string>|null  $socials  The author's optional social media links/handles.
      */
     public static function create(#[Deprecated(reason: 'The username is set by the array key in the configuration file')]string $username = '', ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null): PostAuthor
     {
