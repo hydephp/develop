@@ -281,7 +281,7 @@ class NoFixMeAnalyser extends FileAnalyser
     }
 }
 
-class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser
+class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo: Extend line analyser instead? Would allow for checking for more errors after the first error
 {
     public function run(string $file, string $contents): void
     {
