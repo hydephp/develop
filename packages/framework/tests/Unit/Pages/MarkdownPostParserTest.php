@@ -19,7 +19,7 @@ class MarkdownPostParserTest extends TestCase
     {
         parent::setUp();
 
-         $this->file('_posts/test-post.md', <<<'MD'
+        $this->file('_posts/test-post.md', <<<'MD'
             ---
             title: My New Post
             category: blog

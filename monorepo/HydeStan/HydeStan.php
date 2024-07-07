@@ -428,5 +428,6 @@ function check_str_contains_any(array $searches, string $line): bool
             $strContainsAny = true;
         }
     }
+
     return $strContainsAny;
 }
