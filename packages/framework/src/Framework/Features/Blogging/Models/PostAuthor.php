@@ -113,7 +113,7 @@ class PostAuthor implements Stringable, SerializableContract
             return static::get($data) ?? static::create(['username' => $data]);
         }
 
-        return self::create($data);
+        return static::create($data);
     }
 
     /**  Get a Post Author instance by username, or null if not found. */
