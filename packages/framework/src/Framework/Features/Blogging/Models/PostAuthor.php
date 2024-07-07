@@ -93,8 +93,8 @@ class PostAuthor implements Stringable, SerializableContract
      */
     public static function getOrCreate(string|array $data): static
     {
-        if (is_string($data) && ($author = static::get($data))) {
-            return $author;
+        if (is_string($data)) {
+            return static::get($data) ?? new static($data);
         }
 
         return new static(...array_merge([
