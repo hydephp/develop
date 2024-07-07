@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
-use Throwable;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
-use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use function array_merge;
 
 /**
@@ -67,53 +64,9 @@ class LoadYamlConfiguration
     protected function parseAuthors(array $authors): array
     {
         return Arr::mapWithKeys($authors, function (array $author, string $username): array {
-            try {
-                return [$username => PostAuthor::create($author)];
-            } catch (Throwable $exception) {
-                $message = $exception->getMessage();
+            // Todo: Catch type errors so we can rethrow them as InvalidConfigurationException with the correct context.
 
-                $message = $this->trimExceptionMessage($message);
-
-                throw new InvalidConfigurationException(
-                    $message,
-                    'hyde',
-                    "authors.$username",
-                    $this->yaml->getFilePath(),
-                    $this->findConfigLine(file($this->yaml->getFilePath()), $username),
-                    // $exception
-                );
-            }
+            return [$username => PostAuthor::create($author)];
         });
-    }
-
-    private function findConfigLine(array $file, string $username): int
-    {
-        foreach ($file as $line => $content) {
-            if (str_contains($content, "$username:")) {
-                return $line + 1;
-            }
-        }
-    }
-
-    private function trimExceptionMessage(string $message): string
-    {
-        // Trim unnecessary information from the exception message.
-        $leftStrips = [
-            '__construct(): ',
-        ];
-        $rightStrips = [
-            ' called in ',
-        ];
-        // Trim the left side of the message.
-        foreach ($leftStrips as $strip) {
-            $message = Str::after($message, $strip);
-        }
-
-        // Trim the right side of the message.
-        foreach ($rightStrips as $strip) {
-            $message = Str::before($message, $strip);
-        }
-
-        return trim($message, ' .,');
     }
 }
