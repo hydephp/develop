@@ -16,10 +16,7 @@ class InvalidConfigurationException extends InvalidArgumentException
     public function __construct(string $message = 'Invalid configuration detected.', ?string $namespace = null, ?string $key = null)
     {
         if ($namespace && $key) {
-            [$file, $line] = $this->findConfigLine($namespace, $key);
-
-            $this->file = $file;
-            $this->line = $line;
+            [$this->file, $this->line] = $this->findConfigLine($namespace, $key);
         }
 
         parent::__construct($message);
