@@ -26,6 +26,7 @@ class InvalidConfigurationException extends InvalidArgumentException
     {
         $file = "config/$namespace.php";
         $contents = file_get_contents(base_path($file));
+
         $lines = explode("\n", $contents);
 
         foreach ($lines as $line => $content) {
