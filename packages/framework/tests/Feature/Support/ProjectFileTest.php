@@ -28,12 +28,12 @@ class ProjectFileTest extends TestCase
 
     public function testCanConstructWithNestedPaths()
     {
-        $this->assertEquals('path/to/file.txt', ProjectFileTestClass::make('path/to/file.txt')->path);
+        $this->assertSame('path/to/file.txt', ProjectFileTestClass::make('path/to/file.txt')->path);
     }
 
     public function testAbsolutePathIsNormalizedToRelative()
     {
-        $this->assertEquals('foo', ProjectFileTestClass::make(Hyde::path('foo'))->path);
+        $this->assertSame('foo', ProjectFileTestClass::make(Hyde::path('foo'))->path);
     }
 
     public function testGetNameReturnsNameOfFile()
