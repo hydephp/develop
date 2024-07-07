@@ -245,7 +245,7 @@ class PostAuthorTest extends UnitTestCase
     public function testAllMethodReturnsCollectionWithAllAuthorsDefinedInConfig()
     {
         Config::set('hyde.authors', [
-            'foo' => Author::create('foo'),
+            'foo' => Author::create(),
         ]);
 
         $authors = PostAuthor::all();
@@ -258,8 +258,8 @@ class PostAuthorTest extends UnitTestCase
     public function testMultipleAuthorsCanBeDefinedInConfig()
     {
         Config::set('hyde.authors', [
-            'foo' => Author::create('foo'),
-            'bar' => Author::create('bar'),
+            'foo' => Author::create(),
+            'bar' => Author::create(),
         ]);
 
         $authors = PostAuthor::all();
