@@ -14,6 +14,8 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Models\DateString;
 
+use function is_string;
+
 /**
  * Streamlines the data construction specific to a blog post.
  *
@@ -115,7 +117,11 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     {
         $data = $this->getMatter('author');
 
-        return PostAuthor::getOrCreate($data);
+        if (is_string($data)) {
+            return PostAuthor::get($data) ?? PostAuthor::create(['username' => $data]);
+        }
+
+        return PostAuthor::create($data);
     }
 
     protected function getMatter(string $key): string|null|array
