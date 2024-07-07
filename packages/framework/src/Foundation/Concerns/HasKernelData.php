@@ -52,7 +52,7 @@ trait HasKernelData
     {
         return $authors->mapWithKeys(function (PostAuthor $author, string $username): array {
             if (! $username) {
-                throw new InvalidConfigurationException('Author username cannot be empty. Did you forget to set the author\'s array key?');
+                throw new InvalidConfigurationException('Author username cannot be empty. Did you forget to set the author\'s array key?', 'hyde', 'authors');
             }
 
             return [$username => tap($author, fn (PostAuthor $author) => $author->username = $username)];
