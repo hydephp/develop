@@ -136,6 +136,6 @@ class PostAuthor implements Stringable, SerializableContract
     /** @param array{username?: string, name?: string, website?: string} $data */
     protected static function findUsernameFromData(array $data): string
     {
-        return $data['username'] ?? $data['name'] ?? 'Guest';
+        return $data['username'] ?? $data['name'] ?? 'guest';
     }
 }
