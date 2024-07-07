@@ -588,7 +588,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame([
             'foo' => [
                 'username' => 'foo',
-                'name' => 'bar',
+                'name' => 'Bar',
             ],
         ], Hyde::authors()->toArray());
     }

@@ -141,7 +141,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('foo');
 
-        $this->assertSame('foo', $author->name);
+        $this->assertSame('Foo', $author->name);
     }
 
     public function testCreateMethodCreatesNewAuthorModel()
@@ -213,7 +213,7 @@ class PostAuthorTest extends UnitTestCase
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(1, $authors);
-        $this->assertEquals(new PostAuthor('foo', 'guest'), $authors->first());
+        $this->assertEquals(new PostAuthor('foo', 'Guest'), $authors->first());
     }
 
     public function testAllMethodReturnsEmptyCollectionIfNoAuthorsAreSetInConfig()
@@ -278,7 +278,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username');
 
-        $this->assertSame('username', $author->name);
+        $this->assertSame('Username', $author->name);
     }
 
     public function testToStringHelperReturnsTheName()
@@ -339,7 +339,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username', null, null);
 
-        $this->assertSame('{"username":"username","name":"username"}', $author->toJson());
+        $this->assertSame('{"username":"username","name":"Username"}', $author->toJson());
     }
 
     public function testToArrayMethodSerializesAllData()
