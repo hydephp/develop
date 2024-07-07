@@ -213,7 +213,7 @@ class PostAuthorTest extends UnitTestCase
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(1, $authors);
-        $this->assertEquals(new PostAuthor('foo', 'guest'), $authors->first());
+        $this->assertEquals(new PostAuthor('foo', ''), $authors->first());
     }
 
     public function testAllMethodReturnsEmptyCollectionIfNoAuthorsAreSetInConfig()
