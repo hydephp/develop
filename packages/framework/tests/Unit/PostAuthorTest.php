@@ -217,7 +217,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = PostAuthor::create([]);
 
-        $this->assertEquals($author, new PostAuthor('Guest'));
+        $this->assertEquals($author, new PostAuthor('Guest')); // Todo: Should we expect (and normalize to?) lowercase 'guest'?
     }
 
     public function testCanDefineAuthorWithNoDataInConfig()
