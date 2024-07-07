@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Facades\Config;
-use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function collect;
 
@@ -52,7 +52,7 @@ trait HasKernelData
     {
         return $authors->mapWithKeys(function (PostAuthor $author, string $username): array {
             if (! $username) {
-                throw new InvalidArgumentException('Author username cannot be empty. Did you forget to set the author\'s array key?');
+                throw new InvalidConfigurationException('Author username cannot be empty. Did you forget to set the author\'s array key?');
             }
 
             return [$username => tap($author, fn (PostAuthor $author) => $author->username = $username)];
