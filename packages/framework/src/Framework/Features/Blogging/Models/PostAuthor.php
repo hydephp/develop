@@ -106,7 +106,7 @@ class PostAuthor implements Stringable, SerializableContract
     /** Get an Author from the config, or create it with the username. */
     public static function get(string $username): static
     {
-        return static::all()->get($username) ?? Author::create($username);
+        return static::all()->get($username) ?? new static($username);
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Blogging\Models\PostAuthor> */
