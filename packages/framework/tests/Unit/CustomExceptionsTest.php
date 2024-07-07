@@ -13,6 +13,7 @@ use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Framework\Exceptions\ParseException;
 use RuntimeException;
 use Exception;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 /**
  * @covers \Hyde\Framework\Exceptions\FileConflictException
@@ -173,5 +174,56 @@ class CustomExceptionsTest extends UnitTestCase
 
         $this->assertSame("Invalid Markdown in file: 'example.md' (Parsing error)", $exception->getMessage());
         $this->assertSame($previous, $exception->getPrevious());
+    }
+
+    public function testInvalidConfigurationExceptionWithDefaultMessage()
+    {
+        $exception = new InvalidConfigurationException();
+
+        $this->assertSame('Invalid configuration detected.', $exception->getMessage());
+    }
+
+    public function testInvalidConfigurationExceptionWithCustomMessage()
+    {
+        $exception = new InvalidConfigurationException('Custom error message.');
+
+        $this->assertSame('Custom error message.', $exception->getMessage());
+    }
+
+    public function testInvalidConfigurationExceptionWithNamespaceAndKey()
+    {
+        $exception = new InvalidConfigurationException('Invalid configuration.', 'app', 'debug');
+
+        $this->assertSame('Invalid configuration.', $exception->getMessage());
+        $this->assertFileExists($exception->file);
+        $this->assertIsInt($exception->line);
+    }
+
+    public function testInvalidConfigurationExceptionWithNonExistentNamespace()
+    {
+        $this->expectException(\AssertionError::class);
+        new InvalidConfigurationException('Invalid configuration.', 'non_existent', 'key');
+    }
+
+    public function testInvalidConfigurationExceptionWithNonExistentKey()
+    {
+        $this->expectException(\AssertionError::class);
+        new InvalidConfigurationException('Invalid configuration.', 'app', 'non_existent_key');
+    }
+
+    public function testInvalidConfigurationExceptionFindConfigLine()
+    {
+        $exception = new class('Invalid configuration.', 'app', 'debug') extends InvalidConfigurationException {
+            public function exposedFindConfigLine(string $namespace, string $key): array
+            {
+                return $this->findConfigLine($namespace, $key);
+            }
+        };
+
+        [$file, $line] = $exception->exposedFindConfigLine('app', 'debug');
+
+        $this->assertFileExists($file);
+        $this->assertIsInt($line);
+        $this->assertGreaterThan(0, $line);
     }
 }
