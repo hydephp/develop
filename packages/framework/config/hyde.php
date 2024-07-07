@@ -277,9 +277,9 @@ return [
     | However, it's tedious to have to add those to each and every
     | post you make, and keeping them updated is even harder.
     |
-    | Here you can add predefined authors. When writing posts,
-    | just specify the username in the front matter, and the
-    | rest of the data will be pulled from a matching entry.
+    | To solve this problem, you can add predefined authors with this setting.
+    | When writing posts just specify the author's username (the array key).
+    | Hyde will pull the matching data from here and fill in the blanks.
     |
     */
 
