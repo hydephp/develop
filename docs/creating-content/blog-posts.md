@@ -131,7 +131,7 @@ date: "2022-01-01 12:00"
 
 ### Author
 
-Specify a page author, either by a username for an author defined in the `authors` config, or by an arbitrary name,
+Specify a page author, either by a username for an author defined in the [`authors` config](customization#authors), or by an arbitrary name,
 or by an array of author data.
 
 #### Arbitrary name displayed "as is"
