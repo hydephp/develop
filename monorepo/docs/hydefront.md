@@ -6,6 +6,7 @@
 
 - Make sure you have a Git submodule set up in `packages/hydefront` that points to the HydeFront repository.
 - Make sure you have authorization to publish the package to NPM and push to the HydeFront repository.
+- **Make sure that you have linked the local HydeFront package to the monorepo with `npm link`.**
 
 ### Build and setup
 
@@ -26,10 +27,20 @@ php packages/hydefront/.github/scripts/version.php patch|minor|major
 This will create commits in both the monorepo and submodule. Now follow the following steps:
 
 1. Verify that both commits are correct.
-2. Push the submodule commit to the HydeFront repository.
-3. Create the release on GitHub. Make sure to use the same version number as the one you just bumped.
-4. Refetch the submodule origin to get the new tag created by the release. 
-5. Publish the package to NPM. (In the future, this could be automated with a GitHub action from the release.)
+2. Build the new `app.css` through the monorepo
+    - [ ] `npm run prod`
+3. Copy the compiled file to the HydeFront repository so it can be served from the CDN.
+    - [ ] `cp _media/app.css packages/hydefront/dist/app.css`
+4. Amend the HydeFront commit with the new `app.css` file.
+    - [ ] `cd packages/hydefront && git add dist/app.css && git commit --amend --no-edit`
+5. Push the submodule commit to the HydeFront repository.
+    - [ ] `cd packages/hydefront && git push origin master`
+6. Create the release on GitHub. Make sure to use the same version number as the one you just bumped.
+    - [ ] Open https://github.com/hydephp/hydefront/releases/new
+7. Refetch the submodule origin to get the new tag created by the release.
+    - [ ] `cd packages/hydefront && git fetch origin`
+8. Publish the package to NPM. (In the future, this could be automated with a GitHub action from the release.)
+   - [ ] `npm publish`
 
 ### Updating the monorepo
 
