@@ -316,15 +316,15 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
 
                 if (str_contains($search, 'null')) {
                     $call = rtrim($search, ',').')';
-                    $message = 'Found '.$call.' in %s. Please use assertNull() instead.';
+                    $message = 'Found '.$call.' instead of assertNull in %s.';
                     $this->fail(sprintf($message, fileLink($file, $lineNumber)));
                 } elseif (str_contains($search, 'true')) {
                     $call = rtrim($search, ',').')';
-                    $message = 'Found '.$call.' in %s. Please use assertTrue() instead.';
+                    $message = 'Found '.$call.' instead of assertTrue in %s.';
                     $this->fail(sprintf($message, fileLink($file, $lineNumber)));
                 } elseif (str_contains($search, 'false')) {
                     $call = rtrim($search, ',').')';
-                    $message = 'Found '.$call.' in %s. Please use assertFalse() instead.';
+                    $message = 'Found '.$call.' instead of assertFalse in %s.';
                     $this->fail(sprintf($message, fileLink($file, $lineNumber)));
                 } else {
                     $message = 'Found %s instead assertSame for scalar type in %s';
