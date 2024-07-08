@@ -442,6 +442,15 @@ This serves two purposes:
 
         $this->exitIfFailed();
 
+        // Push branch to origin
+        $state = $this->runUnlessDryRun('git push origin '.$name, true);
+
+        if ($this->dryRun !== true && $state === false) {
+            $this->fail("Failed to push new branch $name to origin, aborting.");
+        }
+
+        $this->exitIfFailed();
+
         $this->line('Checked out new branch.');
     }
 
