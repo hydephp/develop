@@ -31,7 +31,7 @@ exit(main(function (): int {
 
     $this->info('Updating version in dist files...');
     $this->line('---');
-    passthru('php packages/hydefront/.github/scripts/post-build.php --fix', $fixExitCode);
+    passthru('php packages/hydefront/.github/scripts/post-build.php --fix -ignore-version-mismatch', $fixExitCode);
     if ($fixExitCode !== 0) {
         $this->error('Failed to update version in dist files');
         return $fixExitCode;

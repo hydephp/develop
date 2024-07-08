@@ -80,27 +80,31 @@ exit(main(function (): int {
         if (isset($filesChanged)) {
             $this->info('Build files fixed');
 
-            // Run the script again to verify the changes, but without the --fix option
-            $this->info('Verifying build files again...');
-            $this->line('---');
-            passthru('php packages/hydefront/.github/scripts/post-build.php', $verifyExitCode);
-            return $verifyExitCode;
+            if ($this->hasOption('ignore-version-mismatch')) {
+                // Run the script again to verify the changes, but without the --fix option
+                $this->info('Verifying build files again...');
+                $this->line('---');
+                passthru('php packages/hydefront/.github/scripts/post-build.php', $verifyExitCode);
+                return $verifyExitCode;
+            }
         } else {
             $this->warning('Nothing to fix!');
             return 0;
         }
     }
 
-    if ($version !== $hydeCssVersion) {
-        $this->error('Version mismatch in package.json and dist/hyde.css:');
-        $this->warning("Expected hyde.css to have version '$version', but found '$hydeCssVersion'");
-        $exitCode = 1;
-    }
+    if (! $this->hasOption('ignore-version-mismatch')) {
+        if ($version !== $hydeCssVersion) {
+            $this->error('Version mismatch in package.json and dist/hyde.css:');
+            $this->warning("Expected hyde.css to have version '$version', but found '$hydeCssVersion'");
+            $exitCode = 1;
+        }
 
-    if ($version !== $appCssVersion) {
-        $this->error('Version mismatch in package.json and dist/app.css:');
-        $this->warning("Expected app.css to have version '$version', but found '$appCssVersion'");
-        $exitCode = 1;
+        if ($version !== $appCssVersion) {
+            $this->error('Version mismatch in package.json and dist/app.css:');
+            $this->warning("Expected app.css to have version '$version', but found '$appCssVersion'");
+            $exitCode = 1;
+        }
     }
 
     if ($exitCode > 0) {
