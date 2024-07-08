@@ -66,7 +66,6 @@ But you could just as well chain the methods on the accessed kernel singleton in
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::version(): string
 ```
 
@@ -75,7 +74,6 @@ Hyde::version(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $hyde = new HydeKernel(string $basePath): void
 ```
 
@@ -84,7 +82,6 @@ $hyde = new HydeKernel(string $basePath): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::features(): Hyde\Facades\Features
 ```
 
@@ -93,7 +90,6 @@ Hyde::features(): Hyde\Facades\Features
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::hasFeature(string $feature): bool
 ```
 
@@ -102,7 +98,6 @@ Hyde::hasFeature(string $feature): bool
 Get the instance as an array.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::toArray(): array<TKey, TValue>
 ```
 
@@ -120,7 +115,6 @@ Hyde::toArray(): array<TKey, TValue>
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::files(): \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile>
 ```
 
@@ -129,7 +123,6 @@ Hyde::files(): \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\File
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::pages(): \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concerns\HydePage>
 ```
 
@@ -138,7 +131,6 @@ Hyde::pages(): \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concer
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::routes(): \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
 ```
 
@@ -156,7 +148,6 @@ Hyde::routes(): \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Mo
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::makeTitle(string $value): string
 ```
 
@@ -165,7 +156,6 @@ Hyde::makeTitle(string $value): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::normalizeNewlines(string $string): string
 ```
 
@@ -174,7 +164,6 @@ Hyde::normalizeNewlines(string $string): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::stripNewlines(string $string): string
 ```
 
@@ -183,7 +172,6 @@ Hyde::stripNewlines(string $string): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::trimSlashes(string $string): string
 ```
 
@@ -192,7 +180,6 @@ Hyde::trimSlashes(string $string): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::markdown(string $text, bool $normalizeIndentation): Illuminate\Support\HtmlString
 ```
 
@@ -210,7 +197,6 @@ Hyde::markdown(string $text, bool $normalizeIndentation): Illuminate\Support\Htm
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::formatLink(string $destination): string
 ```
 
@@ -219,7 +205,6 @@ Hyde::formatLink(string $destination): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::relativeLink(string $destination): string
 ```
 
@@ -228,7 +213,6 @@ Hyde::relativeLink(string $destination): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::mediaLink(string $destination, bool $validate): string
 ```
 
@@ -237,7 +221,6 @@ Hyde::mediaLink(string $destination, bool $validate): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::asset(string $name, bool $preferQualifiedUrl): string
 ```
 
@@ -246,7 +229,6 @@ Hyde::asset(string $name, bool $preferQualifiedUrl): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::url(string $path): string
 ```
 
@@ -255,7 +237,6 @@ Hyde::url(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::hasSiteUrl(): bool
 ```
 
@@ -273,7 +254,6 @@ Hyde::hasSiteUrl(): bool
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::filesystem(): Hyde\Foundation\Kernel\Filesystem
 ```
 
@@ -282,7 +262,6 @@ Hyde::filesystem(): Hyde\Foundation\Kernel\Filesystem
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::path(string $path): string
 ```
 
@@ -291,7 +270,6 @@ Hyde::path(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::vendorPath(string $path, string $package): string
 ```
 
@@ -300,7 +278,6 @@ Hyde::vendorPath(string $path, string $package): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::mediaPath(string $path): string
 ```
 
@@ -309,7 +286,6 @@ Hyde::mediaPath(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::sitePath(string $path): string
 ```
 
@@ -318,7 +294,6 @@ Hyde::sitePath(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::siteMediaPath(string $path): string
 ```
 
@@ -327,7 +302,6 @@ Hyde::siteMediaPath(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::pathToAbsolute(array|string $path): array|string
 ```
 
@@ -336,7 +310,6 @@ Hyde::pathToAbsolute(array|string $path): array|string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::pathToRelative(string $path): string
 ```
 
@@ -354,7 +327,6 @@ Hyde::pathToRelative(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getInstance(): Hyde\Foundation\HydeKernel
 ```
 
@@ -363,7 +335,6 @@ Hyde::getInstance(): Hyde\Foundation\HydeKernel
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setInstance(Hyde\Foundation\HydeKernel $instance): void
 ```
 
@@ -372,7 +343,6 @@ Hyde::setInstance(Hyde\Foundation\HydeKernel $instance): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getBasePath(): string
 ```
 
@@ -381,7 +351,6 @@ Hyde::getBasePath(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setBasePath(string $basePath): void
 ```
 
@@ -390,7 +359,6 @@ Hyde::setBasePath(string $basePath): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getSourceRoot(): string
 ```
 
@@ -399,7 +367,6 @@ Hyde::getSourceRoot(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setSourceRoot(string $sourceRoot): void
 ```
 
@@ -408,7 +375,6 @@ Hyde::setSourceRoot(string $sourceRoot): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getOutputDirectory(): string
 ```
 
@@ -417,7 +383,6 @@ Hyde::getOutputDirectory(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setOutputDirectory(string $outputDirectory): void
 ```
 
@@ -426,7 +391,6 @@ Hyde::setOutputDirectory(string $outputDirectory): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getMediaDirectory(): string
 ```
 
@@ -435,7 +399,6 @@ Hyde::getMediaDirectory(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setMediaDirectory(string $mediaDirectory): void
 ```
 
@@ -444,7 +407,6 @@ Hyde::setMediaDirectory(string $mediaDirectory): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getMediaOutputDirectory(): string
 ```
 
@@ -464,7 +426,6 @@ Register a HydePHP extension within the HydeKernel.
 Typically, you would call this method in the register method of a service provider. If your package uses the standard Laravel (Composer) package discovery feature, the extension will automatically be enabled when the package is installed.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::registerExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&gt; $extension): void
 ```
 
@@ -473,7 +434,6 @@ Hyde::registerExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&
 Get the singleton instance of the specified extension.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getExtension(class-string&lt;T&gt; $extension): T
 ```
 
@@ -482,7 +442,6 @@ Hyde::getExtension(class-string&lt;T&gt; $extension): T
 Determine if the specified extension is registered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::hasExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&gt; $extension): bool
 ```
 
@@ -491,7 +450,6 @@ Hyde::hasExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&gt; $
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getExtensions(): array<\Hyde\Foundation\Concerns\HydeExtension>
 ```
 
@@ -500,7 +458,6 @@ Hyde::getExtensions(): array<\Hyde\Foundation\Concerns\HydeExtension>
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getRegisteredExtensions(): array<class-string<\Hyde\Foundation\Concerns\HydeExtension>>
 ```
 
@@ -509,7 +466,6 @@ Hyde::getRegisteredExtensions(): array<class-string<\Hyde\Foundation\Concerns\Hy
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getRegisteredPageClasses(): array<class-string<\Hyde\Pages\Concerns\HydePage>>
 ```
 
@@ -527,7 +483,6 @@ Hyde::getRegisteredPageClasses(): array<class-string<\Hyde\Pages\Concerns\HydePa
 Share data for the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::shareViewData(Hyde\Pages\Concerns\HydePage $page): void
 ```
 
@@ -536,7 +491,6 @@ Hyde::shareViewData(Hyde\Pages\Concerns\HydePage $page): void
 Get the route key for the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::currentRouteKey(): string
 ```
 
@@ -545,7 +499,6 @@ Hyde::currentRouteKey(): string
 Get the route for the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::currentRoute(): Hyde\Support\Models\Route
 ```
 
@@ -554,7 +507,6 @@ Hyde::currentRoute(): Hyde\Support\Models\Route
 Get the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::currentPage(): Hyde\Pages\Concerns\HydePage
 ```
 
@@ -572,7 +524,6 @@ Hyde::currentPage(): Hyde\Pages\Concerns\HydePage
 Determine if the Kernel has booted.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::isBooted(): bool
 ```
 
@@ -581,7 +532,6 @@ Hyde::isBooted(): bool
 Boot the Hyde Kernel and run the Auto-Discovery Process.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::boot(): void
 ```
 
@@ -592,7 +542,6 @@ Register a new boot listener.
 Your callback will be called before the kernel is booted. You can use this to register your own routes, pages, etc. The kernel instance will be passed to your callback.
 
 ```php
-// torchlight! {"lineNumbers": false}
 /** @param callable(\Hyde\Foundation\HydeKernel): void $callback */
 Hyde::booting(callable(\Hyde\Foundation\HydeKernel): void): void
 ```
@@ -604,7 +553,6 @@ Register a new &quot;booted&quot; listener.
 Your callback will be called after the kernel is booted. You can use this to run any logic after discovery has completed. The kernel instance will be passed to your callback.
 
 ```php
-// torchlight! {"lineNumbers": false}
 /** @param callable(\Hyde\Foundation\HydeKernel): void $callback */
 Hyde::booted(callable(\Hyde\Foundation\HydeKernel): void): void
 ```

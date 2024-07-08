@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::files(): \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile>
 ```
 
@@ -17,7 +16,6 @@ Hyde::files(): \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\File
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::pages(): \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concerns\HydePage>
 ```
 
@@ -26,7 +24,6 @@ Hyde::pages(): \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concer
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::routes(): \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
 ```
 

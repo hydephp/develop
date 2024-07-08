@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::formatLink(string $destination): string
 ```
 
@@ -17,7 +16,6 @@ Hyde::formatLink(string $destination): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::relativeLink(string $destination): string
 ```
 
@@ -26,7 +24,6 @@ Hyde::relativeLink(string $destination): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::mediaLink(string $destination, bool $validate): string
 ```
 
@@ -35,7 +32,6 @@ Hyde::mediaLink(string $destination, bool $validate): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::asset(string $name, bool $preferQualifiedUrl): string
 ```
 
@@ -44,7 +40,6 @@ Hyde::asset(string $name, bool $preferQualifiedUrl): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::url(string $path): string
 ```
 
@@ -53,7 +48,6 @@ Hyde::url(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::route(string $key): Hyde\Support\Models\Route
 ```
 
@@ -62,7 +56,6 @@ Hyde::route(string $key): Hyde\Support\Models\Route
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::hasSiteUrl(): bool
 ```
 

@@ -11,7 +11,6 @@ navigation:
 The recommended method of installing Hyde is using Composer, which installs the required dependencies on a per-project basis.
 
 ```bash
-// torchlight! {"lineNumbers": false}
 composer create-project hyde/hyde
 ```
 

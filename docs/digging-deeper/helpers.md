@@ -433,7 +433,6 @@ just apply these changes to that new view, but for this example I'm going to upd
 
 ```blade
 // filepath _pages/posts.blade.php
-// torchlight! {"lineNumbers": false}
 <h1>Latest Posts</h1>{{-- [tl! remove] --}}
 <h1>{{ $page->matter('title') ?? $title }}</h1> {{-- [tl! add] --}}
 ```
@@ -442,7 +441,6 @@ to that new view, but for this example I'm going to update the `posts` view.
 
 ```blade
 // filepath _pages/posts.blade.php
-// torchlight! {"lineNumbers": false}
 @php
     $paginator = new \Hyde\Support\Paginator( // [tl! remove]
     $paginator = $page->matter('paginator') ?? new \Hyde\Support\Paginator( // [tl! add]
