@@ -56,7 +56,7 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetBoolWithDefaultValue()
     {
-        $this->assertSame(true, Config::getBool('foo', true));
+        $this->assertTrue(Config::getBool('foo', true));
     }
 
     public function testGetIntWithDefaultValue()

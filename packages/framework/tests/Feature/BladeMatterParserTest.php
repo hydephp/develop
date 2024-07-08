@@ -103,8 +103,8 @@ class BladeMatterParserTest extends TestCase
     {
         $this->assertSame('string', ParserTestClass::getValueWithType('string'));
         $this->assertSame('string', ParserTestClass::getValueWithType('string'));
-        $this->assertSame(true, ParserTestClass::getValueWithType('true'));
-        $this->assertSame(false, ParserTestClass::getValueWithType('false'));
+        $this->assertTrue(ParserTestClass::getValueWithType('true'));
+        $this->assertFalse(ParserTestClass::getValueWithType('false'));
         $this->assertSame(1, ParserTestClass::getValueWithType('1'));
         $this->assertSame(0, ParserTestClass::getValueWithType('0'));
         $this->assertSame(1.0, ParserTestClass::getValueWithType('1.0'));

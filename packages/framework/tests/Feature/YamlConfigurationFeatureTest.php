@@ -43,9 +43,9 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->assertSame('Test', config('hyde.name'));
         $this->assertSame('http://localhost', config('hyde.url'));
-        $this->assertSame(false, config('hyde.pretty_urls'));
-        $this->assertSame(true, config('hyde.generate_sitemap'));
-        $this->assertSame(true, config('hyde.rss.enabled'));
+        $this->assertFalse(config('hyde.pretty_urls'));
+        $this->assertTrue(config('hyde.generate_sitemap'));
+        $this->assertTrue(config('hyde.rss.enabled'));
         $this->assertSame('feed.xml', config('hyde.rss.filename'));
         $this->assertSame('Test RSS Feed', config('hyde.rss.description'));
         $this->assertSame('en', config('hyde.language'));

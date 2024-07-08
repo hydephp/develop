@@ -35,7 +35,7 @@ class NavigationDataTest extends UnitTestCase
 
         $this->assertSame('label', $navigationData->label);
         $this->assertSame('group', $navigationData->group);
-        $this->assertSame(true, $navigationData->hidden);
+        $this->assertTrue($navigationData->hidden);
         $this->assertSame(1, $navigationData->priority);
     }
 
