@@ -50,7 +50,9 @@ trait HasKernelData
 
     protected function parseConfigurationAuthors(Collection $authors): Collection
     {
-        return $authors->mapWithKeys(function (array $author, string $username): array {
+        return $authors->unique(function (array $author, string $username): string {
+            return PostAuthor::normalizeUsername($username);
+        })->mapWithKeys(function (array $author, string $username): array {
             if (! $username) {
                 throw new InvalidConfigurationException('Author username cannot be empty. Did you forget to set the author\'s array key?', 'hyde', 'authors');
             }

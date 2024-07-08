@@ -340,11 +340,8 @@ class PostAuthorTest extends UnitTestCase
         $this->assertCount(1, PostAuthor::all());
     }
 
-    public function testOnlyLastAuthorWithNormalizedUsernameIsKept()
+    public function testOnlyFirstAuthorWithNormalizedUsernameIsKept()
     {
-        // Technically, a first come, first-served principle would make most sense,
-        // but this is the lightest code implementation and can be used for now.
-
         Config::set('hyde.authors', [
             'foo_bar' => Author::create('Author 1'),
             'foo-bar' => Author::create('Author 2'),
@@ -354,7 +351,7 @@ class PostAuthorTest extends UnitTestCase
         $authors = PostAuthor::all();
 
         $this->assertCount(1, $authors);
-        $this->assertEquals(new PostAuthor('foo_bar', 'Author 3'), $authors->first());
+        $this->assertEquals(new PostAuthor('foo_bar', 'Author 1'), $authors->first());
     }
 
     public function testUsernameIsNormalized()
