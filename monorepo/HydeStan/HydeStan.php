@@ -287,6 +287,13 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
     {
         $searches = [
             "assertEquals('",
+            'assertEquals("',
+            'assertEquals(null,',
+            'assertSame(null,',
+            'assertEquals(true,',
+            'assertSame(true,',
+            'assertEquals(false,',
+            'assertSame(false,',
         ];
 
         foreach ($searches as $search) {
@@ -307,8 +314,22 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                     continue;
                 }
 
-                // Todo: Does not work when using objects to string cast, false positive, maybe use warning instead of fail
-                $this->fail(sprintf('Found %s instead assertSame for scalar type in %s on line %s', trim($search, "()'"), $file, $lineNumber));
+                if (str_contains($search, 'null')) {
+                    $call = rtrim($search, ',').')';
+                    $message = 'Found '.$call.' instead of assertNull in %s.';
+                    $this->fail(sprintf($message, fileLink($file, $lineNumber)));
+                } elseif (str_contains($search, 'true')) {
+                    $call = rtrim($search, ',').')';
+                    $message = 'Found '.$call.' instead of assertTrue in %s.';
+                    $this->fail(sprintf($message, fileLink($file, $lineNumber)));
+                } elseif (str_contains($search, 'false')) {
+                    $call = rtrim($search, ',').')';
+                    $message = 'Found '.$call.' instead of assertFalse in %s.';
+                    $this->fail(sprintf($message, fileLink($file, $lineNumber)));
+                } else {
+                    $message = 'Found %s instead assertSame for scalar type in %s';
+                    $this->fail(sprintf($message, trim($search, "()'"), fileLink($file, $lineNumber)));
+                }
             }
         }
     }
@@ -430,4 +451,13 @@ function check_str_contains_any(array $searches, string $line): bool
     }
 
     return $strContainsAny;
+}
+
+function fileLink(string $file, ?int $line = null): string
+{
+    $path = (realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file).($line ? ':'.$line : '');
+    $trim = strlen(getcwd()) + 2;
+    $path = substr($path, $trim);
+
+    return str_replace('\\', '/', $path);
 }

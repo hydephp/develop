@@ -103,15 +103,17 @@ class BladeMatterParserTest extends TestCase
     {
         $this->assertSame('string', ParserTestClass::getValueWithType('string'));
         $this->assertSame('string', ParserTestClass::getValueWithType('string'));
-        $this->assertSame(true, ParserTestClass::getValueWithType('true'));
-        $this->assertSame(false, ParserTestClass::getValueWithType('false'));
+
         $this->assertSame(1, ParserTestClass::getValueWithType('1'));
         $this->assertSame(0, ParserTestClass::getValueWithType('0'));
         $this->assertSame(1.0, ParserTestClass::getValueWithType('1.0'));
         $this->assertSame(0.0, ParserTestClass::getValueWithType('0.0'));
-        $this->assertSame(null, ParserTestClass::getValueWithType('null'));
         $this->assertSame(['foo' => 'bar'], ParserTestClass::getValueWithType('["foo" => "bar"]'));
         $this->assertSame(['foo' => 'bar'], ParserTestClass::getValueWithType("['foo' => 'bar']"));
+
+        $this->assertTrue(ParserTestClass::getValueWithType('true'));
+        $this->assertFalse(ParserTestClass::getValueWithType('false'));
+        $this->assertNull(ParserTestClass::getValueWithType('null'));
     }
 
     public function testParseArrayString()

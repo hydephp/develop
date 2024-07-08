@@ -45,13 +45,13 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->assertSame('Test', config('hyde.name'));
         $this->assertSame('http://localhost', config('hyde.url'));
-        $this->assertSame(false, config('hyde.pretty_urls'));
-        $this->assertSame(true, config('hyde.generate_sitemap'));
-        $this->assertSame(true, config('hyde.rss.enabled'));
         $this->assertSame('feed.xml', config('hyde.rss.filename'));
         $this->assertSame('Test RSS Feed', config('hyde.rss.description'));
         $this->assertSame('en', config('hyde.language'));
         $this->assertSame('_site', config('hyde.output_directory'));
+        $this->assertTrue(config('hyde.generate_sitemap'));
+        $this->assertTrue(config('hyde.rss.enabled'));
+        $this->assertFalse(config('hyde.pretty_urls'));
     }
 
     public function testCanDefineMultipleConfigSettingsInHydeYmlFile()
@@ -436,7 +436,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->assertSame(['twitter' => '@user1', 'github' => 'user1'], $authors['username1']->socials);
         $this->assertSame(['twitter' => '@user2', 'github' => 'user2'], $authors['username2']->socials);
-        $this->assertSame(null, $authors['test']->socials);
+        $this->assertNull($authors['test']->socials);
     }
 
     public function testTypeErrorsInAuthorsYamlConfigAreRethrownMoreHelpfully()
