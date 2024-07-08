@@ -36,7 +36,7 @@ HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default
 
 ## Supported Versions & Warranty
 
-HydeFront is not intended to be used for standalone projects and comes with no warranties.
+HydeFront is not intended to be used for standalone projects and comes with no warranties for such usages.
 
 Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
 
