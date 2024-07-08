@@ -201,4 +201,13 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertStringContainsString('config'.DIRECTORY_SEPARATOR.'hyde.php', $exception->getFile());
         $this->assertGreaterThan(0, $exception->getLine());
     }
+
+    public function testInvalidConfigurationExceptionWithPreviousThrowable()
+    {
+        $previous = new Exception('Previous exception.');
+        $exception = new InvalidConfigurationException('Invalid configuration.', 'hyde', 'name', $previous);
+
+        $this->assertSame('Invalid configuration.', $exception->getMessage());
+        $this->assertSame($previous, $exception->getPrevious());
+    }
 }
