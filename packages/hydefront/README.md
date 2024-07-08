@@ -24,7 +24,7 @@ A compiled and minified file containing the TailwindCSS styles for a base Hyde i
 
 ## Usage
 
-HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default.
+HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default, you do not need to install it separately.
 
 
 ## Links:
