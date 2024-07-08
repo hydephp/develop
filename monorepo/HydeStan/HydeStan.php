@@ -309,7 +309,6 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                 }
 
                 $message = 'Found %s instead assertSame for scalar type in %s on line %s';
-                // Todo: Does not work when using objects to string cast, false positive, maybe use warning instead of fail
                 $this->fail(sprintf($message, trim($search, "()'"), $file, $lineNumber));
             }
         }
