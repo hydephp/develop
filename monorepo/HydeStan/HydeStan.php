@@ -287,6 +287,7 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
     {
         $searches = [
             "assertEquals('",
+            "assertEquals(\"",
         ];
 
         foreach ($searches as $search) {
