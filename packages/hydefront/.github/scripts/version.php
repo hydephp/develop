@@ -11,6 +11,8 @@ exit(main(function (): int {
         return 1;
     }
 
+    $baseDir = getcwd().'/packages/hydefront';
+
     global $argv;
     $versionType = $argv[1] ?? null;
     if ($versionType === null) {
@@ -25,17 +27,31 @@ exit(main(function (): int {
         return 1;
     }
 
+    // Ensure the packages/hydefront Git submodule is up-to-date with the origin
+    $this->info('Checking if the HydeFront submodule is up-to-date...');
+    $status = performRemoteVersionCheck($baseDir);
+    if ($status !== 'up-to-date') {
+        return 1;
+    }
+
+    FileBackupHelper::backup(
+        $baseDir.'/package.json',
+        $baseDir.'/package-lock.json',
+    );
+
     $this->info("Creating a new HydeFront $versionType version...");
     $version = trim(shell_exec('cd packages/hydefront && npm version ' . $versionType . ' --no-git-tag-version'));
     $this->line("Updated package.json version to $version");
 
     $this->info('Updating version in dist files...');
     $this->line('---');
-    passthru('php packages/hydefront/.github/scripts/post-build.php --fix', $fixExitCode);
+    passthru('php packages/hydefront/.github/scripts/post-build.php --fix --skip-root-version-check', $fixExitCode);
     if ($fixExitCode !== 0) {
         $this->error('Failed to update version in dist files');
+        FileBackupHelper::restore();
         return $fixExitCode;
     }
+    FileBackupHelper::clear();
     $this->line('---');
 
     $this->info('Committing changes in monorepo...');
@@ -53,3 +69,57 @@ exit(main(function (): int {
 
     return 0;
 }));
+
+class FileBackupHelper
+{
+    protected static array $backups = [];
+
+    public static function backup(string ...$paths): void
+    {
+        foreach ($paths as $path) {
+            $backupPath = $path.'.bak';
+            copy($path, $backupPath);
+            self::$backups[$path] = $backupPath;
+        }
+    }
+
+    public static function restore(): void
+    {
+        foreach (self::$backups as $path => $backupPath) {
+            copy($backupPath, $path);
+            unlink($backupPath);
+        }
+    }
+
+    public static function clear(): void
+    {
+        foreach (self::$backups as $backupPath) {
+            unlink($backupPath);
+        }
+    }
+}
+
+function performRemoteVersionCheck(string $submodulePath): string
+{
+    // Navigate to the submodule directory and fetch the latest changes from origin
+    shell_exec("cd $submodulePath && git fetch");
+
+    // Get the status of the local branch compared to the origin
+    $localStatus = trim(shell_exec("cd $submodulePath && git rev-parse @"));
+    $remoteStatus = trim(shell_exec("cd $submodulePath && git rev-parse @{u}"));
+    $baseStatus = trim(shell_exec("cd $submodulePath && git merge-base @ @{u}"));
+
+    // Check if local repository is up-to-date
+    if ($localStatus === $remoteStatus) {
+        echo "The local repository is up-to-date with the origin.\n";
+        return 'up-to-date';
+    } elseif ($localStatus === $baseStatus) {
+        echo "The local repository is behind the origin. You need to pull the changes before proceeding.\n";
+    } elseif ($remoteStatus === $baseStatus) {
+        echo "The local repository is ahead of the origin. You need to push the changes before proceeding.\n";
+    } else {
+        echo "The local repository has diverged from the origin. You need to resolve the conflicts before proceeding.\n";
+    }
+
+    return 'diverged';
+}
