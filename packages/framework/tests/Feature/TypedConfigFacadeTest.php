@@ -30,6 +30,9 @@ class TypedConfigFacadeTest extends TestCase
     {
         config(['foo' => true]);
         $this->assertIsBool(Config::getBool('foo'));
+
+        config(['foo' => false]);
+        $this->assertIsBool(Config::getBool('foo'));
     }
 
     public function testGetInt()
@@ -56,7 +59,8 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetBoolWithDefaultValue()
     {
-        $this->assertSame(true, Config::getBool('foo', true));
+        $this->assertTrue(Config::getBool('foo', true));
+        $this->assertFalse(Config::getBool('foo', false));
     }
 
     public function testGetIntWithDefaultValue()
@@ -82,6 +86,7 @@ class TypedConfigFacadeTest extends TestCase
     public function testGetBoolWithStrictMode()
     {
         $this->runUnitTest(true, true, Config::getBool(...));
+        $this->runUnitTest(false, false, Config::getBool(...));
     }
 
     public function testGetIntWithStrictMode()
@@ -137,6 +142,7 @@ class TypedConfigFacadeTest extends TestCase
     public function testGetBoolWithBool()
     {
         $this->runUnitTest(true, true, Config::getBool(...));
+        $this->runUnitTest(false, false, Config::getBool(...));
     }
 
     public function testGetIntWithInt()
