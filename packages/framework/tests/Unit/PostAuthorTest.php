@@ -342,9 +342,6 @@ class PostAuthorTest extends UnitTestCase
 
     public function testOnlyLastAuthorWithNormalizedUsernameIsKept()
     {
-        // Technically, a first come, first-served principle would make most sense,
-        // but this is the lightest code implementation and can be used for now.
-
         Config::set('hyde.authors', [
             'foo_bar' => Author::create('Author 1'),
             'foo-bar' => Author::create('Author 2'),
