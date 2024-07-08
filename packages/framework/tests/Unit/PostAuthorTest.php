@@ -285,6 +285,7 @@ class PostAuthorTest extends UnitTestCase
         Config::set('hyde.authors', [
             'foo' => Author::create('bar'),
         ]);
+
         $author = PostAuthor::get('foo');
 
         $this->assertInstanceOf(PostAuthor::class, $author);
@@ -295,6 +296,7 @@ class PostAuthorTest extends UnitTestCase
     public function testGetMethodReturnsNullIfUsernameNotFoundInConfig()
     {
         Config::set('hyde.authors', []);
+
         $author = PostAuthor::get('foo');
 
         $this->assertNull($author);
