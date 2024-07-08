@@ -16,6 +16,8 @@ This serves two purposes:
 - Updated the `Serializable` trait to provide a default automatic `toArray` method in https://github.com/hydephp/develop/pull/1791
 - Updated the `PostAuthor` class's `name` property to fall back to the `username` property if the `name` property is not set in https://github.com/hydephp/develop/pull/1794
 - Removed the nullable type hint from the `PostAuthor` class's `name` property as it is now always set in https://github.com/hydephp/develop/pull/1794
+- Improved the accessibility of the heading permalinks feature in https://github.com/hydephp/develop/pull/1803
+- Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
 
 ### Deprecated
 - The `PostAuthor::getName()` method is now deprecated and will be removed in v2. (use `$author->name` instead) in https://github.com/hydephp/develop/pull/1794
@@ -25,6 +27,7 @@ This serves two purposes:
 
 ### Fixed
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
+- Fixed heading permalinks button text showing in Google Search previews https://github.com/hydephp/develop/issues/1801 in https://github.com/hydephp/develop/pull/1803
 
 ### Security
 - in case of vulnerabilities.

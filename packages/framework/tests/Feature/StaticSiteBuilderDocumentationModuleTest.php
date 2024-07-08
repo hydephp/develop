@@ -44,7 +44,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
     {
         $this->inspectHtml([
             'Adventures in Wonderland',
-            '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" aria-hidden="true" title="Permalink">#</a></h2>',
+            '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" title="Permalink"></a></h2>',
             '<p>So she was considering in her own mind, as well as she could',
         ]);
     }
@@ -55,7 +55,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
 
         $this->inspectHtml([
             'Adventures in Wonderland',
-            '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" aria-hidden="true" title="Permalink">#</a></h2>',
+            '<h2>CHAPTER I. DOWN THE RABBIT-HOLE.<a id="chapter-i-down-the-rabbit-hole" href="#chapter-i-down-the-rabbit-hole" class="heading-permalink" title="Permalink"></a></h2>',
             '<p>So she was considering in her own mind, as well as she could',
         ], '_site/test-page.html');
     }
