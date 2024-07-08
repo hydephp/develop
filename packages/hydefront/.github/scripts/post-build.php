@@ -8,6 +8,11 @@ exit(main(function (): int {
     try {
         $baseDir = __DIR__.'/../../';
 
+        FileBackupHelper::backup(
+            $baseDir.'package.json',
+            $baseDir.'package-lock.json',
+        );
+
         // If running in monorepo
         if (file_exists($baseDir.'../../composer.json') && str_contains(file_get_contents($baseDir.'../../composer.json'), 'hyde/monorepo')) {
             // Check that HydeFront entry in root package lock is up-to-date with the package.json
@@ -108,6 +113,13 @@ exit(main(function (): int {
 
         doReturn($exitCode);
     } catch (ReturnException $exception) {
+        if ($exception->exitCode > 0) {
+            $this->error('An error occurred. Rolling back changes...');
+            FileBackupHelper::restore();
+        } else {
+            FileBackupHelper::clear();
+        }
+
         return $exception->exitCode;
     }
 }));
@@ -142,5 +154,34 @@ class ReturnException extends Exception
     {
         parent::__construct();
         $this->exitCode = $exitCode;
+    }
+}
+
+class FileBackupHelper
+{
+    protected static array $backups = [];
+
+    public static function backup(string ...$paths): void
+    {
+        foreach ($paths as $path) {
+            $backupPath = $path.'.bak';
+            copy($path, $backupPath);
+            self::$backups[$path] = $backupPath;
+        }
+    }
+
+    public static function restore(): void
+    {
+        foreach (self::$backups as $path => $backupPath) {
+            copy($backupPath, $path);
+            unlink($backupPath);
+        }
+    }
+
+    public static function clear(): void
+    {
+        foreach (self::$backups as $backupPath) {
+            unlink($backupPath);
+        }
     }
 }
