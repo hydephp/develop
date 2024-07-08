@@ -23,4 +23,4 @@ jobs:
         run: php packages/hydefront/.github/scripts/post-build.php
 
       - name: Run DocGen linter
-        run: php monorepo/scripts/docs/DocGen.php --lint
+        run: composer install && php monorepo/scripts/docs/DocGen.php --lint
