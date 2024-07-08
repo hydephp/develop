@@ -35,8 +35,18 @@ class NavigationDataTest extends UnitTestCase
 
         $this->assertSame('label', $navigationData->label);
         $this->assertSame('group', $navigationData->group);
-        $this->assertSame(true, $navigationData->hidden);
         $this->assertSame(1, $navigationData->priority);
+        $this->assertTrue($navigationData->hidden);
+    }
+
+    public function testConstructWithDifferentData()
+    {
+        $navigationData = new NavigationData('label', 2, false);
+
+        $this->assertSame('label', $navigationData->label);
+        $this->assertSame(2, $navigationData->priority);
+        $this->assertFalse($navigationData->hidden);
+        $this->assertNull($navigationData->group);
     }
 
     public function testMake()
