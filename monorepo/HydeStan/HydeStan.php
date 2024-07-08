@@ -316,19 +316,19 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
 
                 if (str_contains($search, 'null')) {
                     $call = rtrim($search, ',').')';
-                    $message = 'Found '.$call.' in %s on line %s. Please use assertNull() instead.';
-                    $this->fail(sprintf($message, $file, $lineNumber));
+                    $message = 'Found '.$call.' in %s. Please use assertNull() instead.';
+                    $this->fail(sprintf($message, fileLink($file, $lineNumber)));
                 } elseif (str_contains($search, 'true')) {
                     $call = rtrim($search, ',').')';
-                    $message = 'Found '.$call.' in %s on line %s. Please use assertTrue() instead.';
-                    $this->fail(sprintf($message, $file, $lineNumber));
+                    $message = 'Found '.$call.' in %s. Please use assertTrue() instead.';
+                    $this->fail(sprintf($message, fileLink($file, $lineNumber)));
                 } elseif (str_contains($search, 'false')) {
                     $call = rtrim($search, ',').')';
-                    $message = 'Found '.$call.' in %s on line %s. Please use assertFalse() instead.';
-                    $this->fail(sprintf($message, $file, $lineNumber));
+                    $message = 'Found '.$call.' in %s. Please use assertFalse() instead.';
+                    $this->fail(sprintf($message, fileLink($file, $lineNumber)));
                 } else {
-                    $message = 'Found %s instead assertSame for scalar type in %s on line %s';
-                    $this->fail(sprintf($message, trim($search, "()'"), $file, $lineNumber));
+                    $message = 'Found %s instead assertSame for scalar type in %s';
+                    $this->fail(sprintf($message, trim($search, "()'"), fileLink($file, $lineNumber)));
                 }
             }
         }
@@ -451,4 +451,9 @@ function check_str_contains_any(array $searches, string $line): bool
     }
 
     return $strContainsAny;
+}
+
+function fileLink(string $file, ?int $line = null): string
+{
+    return (realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file) . ($line ? ':'.$line : '');
 }
