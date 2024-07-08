@@ -8,7 +8,6 @@
 Create a new page instance. Static alias for the constructor.
 
 ```php
-// torchlight! {"lineNumbers": false}
 BaseMarkdownPage::make(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter, Hyde\Markdown\Models\Markdown|string $markdown): static
 ```
 
@@ -17,7 +16,6 @@ BaseMarkdownPage::make(string $identifier, Hyde\Markdown\Models\FrontMatter|arra
 Construct a new page instance.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page = new BaseMarkdownPage(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter, Hyde\Markdown\Models\Markdown|string $markdown): void
 ```
 
@@ -26,7 +24,6 @@ $page = new BaseMarkdownPage(string $identifier, Hyde\Markdown\Models\FrontMatte
 Return the document&#039;s Markdown object.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->markdown(): Hyde\Markdown\Models\Markdown
 ```
 
@@ -35,7 +32,6 @@ $page->markdown(): Hyde\Markdown\Models\Markdown
 Compile the page into static HTML.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->compile(): string // The compiled HTML for the page.
 ```
 
@@ -44,7 +40,6 @@ $page->compile(): string // The compiled HTML for the page.
 Save the Markdown page object to disk by compiling the front matter array to YAML and writing the body to the file.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->save(): $this
 ```
 

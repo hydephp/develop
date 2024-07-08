@@ -134,7 +134,6 @@ and the rest of the data will be pulled from a matching entry found in the confi
 
 ```php
 // filepath: config/hyde.php
-// torchlight! {"lineNumbers": false}
 'authors' => [
     Author::create(
         username: 'mr_hyde', // Required username

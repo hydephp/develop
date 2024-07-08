@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getInstance(): Hyde\Foundation\HydeKernel
 ```
 
@@ -17,7 +16,6 @@ Hyde::getInstance(): Hyde\Foundation\HydeKernel
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setInstance(Hyde\Foundation\HydeKernel $instance): void
 ```
 
@@ -26,7 +24,6 @@ Hyde::setInstance(Hyde\Foundation\HydeKernel $instance): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getBasePath(): string
 ```
 
@@ -35,7 +32,6 @@ Hyde::getBasePath(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setBasePath(string $basePath): void
 ```
 
@@ -44,7 +40,6 @@ Hyde::setBasePath(string $basePath): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getSourceRoot(): string
 ```
 
@@ -53,7 +48,6 @@ Hyde::getSourceRoot(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setSourceRoot(string $sourceRoot): void
 ```
 
@@ -62,7 +56,6 @@ Hyde::setSourceRoot(string $sourceRoot): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getOutputDirectory(): string
 ```
 
@@ -71,7 +64,6 @@ Hyde::getOutputDirectory(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setOutputDirectory(string $outputDirectory): void
 ```
 
@@ -80,7 +72,6 @@ Hyde::setOutputDirectory(string $outputDirectory): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getMediaDirectory(): string
 ```
 
@@ -89,7 +80,6 @@ Hyde::getMediaDirectory(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::setMediaDirectory(string $mediaDirectory): void
 ```
 
@@ -98,7 +88,6 @@ Hyde::setMediaDirectory(string $mediaDirectory): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getMediaOutputDirectory(): string
 ```
 

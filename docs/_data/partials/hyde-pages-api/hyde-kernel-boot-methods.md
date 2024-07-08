@@ -8,7 +8,6 @@
 Determine if the Kernel has booted.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::isBooted(): bool
 ```
 
@@ -17,7 +16,6 @@ Hyde::isBooted(): bool
 Boot the Hyde Kernel and run the Auto-Discovery Process.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::boot(): void
 ```
 
@@ -28,7 +26,6 @@ Register a new boot listener.
 Your callback will be called before the kernel is booted. You can use this to register your own routes, pages, etc. The kernel instance will be passed to your callback.
 
 ```php
-// torchlight! {"lineNumbers": false}
 /** @param callable(\Hyde\Foundation\HydeKernel): void $callback */
 Hyde::booting(callable(\Hyde\Foundation\HydeKernel): void): void
 ```
@@ -40,7 +37,6 @@ Register a new &quot;booted&quot; listener.
 Your callback will be called after the kernel is booted. You can use this to run any logic after discovery has completed. The kernel instance will be passed to your callback.
 
 ```php
-// torchlight! {"lineNumbers": false}
 /** @param callable(\Hyde\Foundation\HydeKernel): void $callback */
 Hyde::booted(callable(\Hyde\Foundation\HydeKernel): void): void
 ```

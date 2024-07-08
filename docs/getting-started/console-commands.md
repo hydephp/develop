@@ -22,7 +22,6 @@ The HydeCLI exists at the root of your application as the `hyde` script and prov
 assist you while you build your site. To view a list of all available Hyde commands, you may use the list command:
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde list
 ```
 
@@ -32,14 +31,12 @@ Every command also includes a "help" screen which displays and describes the com
 To view a help screen, precede the name of the command with `help`:
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde help <command>
 ```
 
 You can also always add `--help` to a command to show detailed usage information.
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde <command> --help
 ```
 
@@ -72,7 +69,6 @@ Here is a quick reference of all the available commands. You can also run `php h
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
 ```
 
@@ -94,7 +90,6 @@ Build the static site
 <a name="rebuild" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde rebuild <path>
 ```
 
@@ -112,7 +107,6 @@ Run the static site builder for a single file
 <a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde serve [--host [HOST]] [--port [PORT]]
 ```
 
@@ -131,7 +125,6 @@ Start the realtime compiler server.
 <a name="validate" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde validate
 ```
 
@@ -143,7 +136,6 @@ Run a series of tests to validate your setup and help you optimize your site.
 <a name="build-rss" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde build:rss
 ```
 
@@ -155,7 +147,6 @@ Generate the RSS feed
 <a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde build:search
 ```
 
@@ -167,7 +158,6 @@ Generate the `docs/search.json` file
 <a name="build-sitemap" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde build:sitemap
 ```
 
@@ -179,7 +169,6 @@ Generate the `sitemap.xml` file
 <a name="make-page" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
 ```
 
@@ -201,7 +190,6 @@ Scaffold a new Markdown, Blade, or documentation page file
 <a name="make-post" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde make:post [--force] [--] [<title>]
 ```
 
@@ -220,7 +208,6 @@ Scaffold a new Markdown blog post file
 <a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde publish:configs
 ```
 
@@ -232,7 +219,6 @@ Publish the default configuration files
 <a name="publish-homepage" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde publish:homepage [--force] [--] [<homepage>]
 ```
 
@@ -251,7 +237,6 @@ Publish one of the default homepages as `index.blade.php`.
 <a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde publish:views [<category>]
 ```
 
@@ -269,7 +254,6 @@ Publish the hyde components for customization. Note that existing files will be 
 <a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde route:list
 ```
 
@@ -281,7 +265,6 @@ Display all registered routes.
 <a name="vendor-publish" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-// torchlight! {"lineNumbers": false}
 php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
 ```
 

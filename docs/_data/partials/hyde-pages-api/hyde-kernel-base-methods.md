@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::version(): string
 ```
 
@@ -17,7 +16,6 @@ Hyde::version(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $hyde = new HydeKernel(string $basePath): void
 ```
 
@@ -26,7 +24,6 @@ $hyde = new HydeKernel(string $basePath): void
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::features(): Hyde\Facades\Features
 ```
 
@@ -35,7 +32,6 @@ Hyde::features(): Hyde\Facades\Features
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::hasFeature(Hyde\Enums\Feature $feature): bool
 ```
 
@@ -44,7 +40,6 @@ Hyde::hasFeature(Hyde\Enums\Feature $feature): bool
 Get the instance as an array.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::toArray(): array<TKey, TValue>
 ```
 

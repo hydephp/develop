@@ -230,7 +230,6 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
     {{ $description }}
 
     ```php
-    // torchlight! {"lineNumbers": false}
     {{ $signature }}({{ $argList }}): {{ $returnType }}
     ```
 
