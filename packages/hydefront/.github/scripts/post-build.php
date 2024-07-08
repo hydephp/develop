@@ -16,14 +16,17 @@ exit(main(function (): int {
         $hydeFrontPackageLock = $rootPackageLock['dependencies']['hydefront'];
         $hydeFrontPackage = json_decode(file_get_contents($baseDir.'../../packages/hydefront/package.json'), true);
         $hydeFrontVersion = $hydeFrontPackage['version'];
-        if ($hydeFrontPackageLock['version'] !== $hydeFrontVersion) {
-            $this->error('Version mismatch in root package-lock.json and packages/hydefront/package.json:');
-            $this->warning("Expected hydefront to have version '$hydeFrontPackageLock[version]', but found '$hydeFrontVersion'");
-            $this->warning("Please run 'npm update hydefront'");
-            return 1;
-        } else {
-            $this->info('Root package lock verified. All looks good!');
-            $this->line();
+
+        if (! $this->hasOption('skip-root-version-check')) {
+            if ($hydeFrontPackageLock['version'] !== $hydeFrontVersion) {
+                $this->error('Version mismatch in root package-lock.json and packages/hydefront/package.json:');
+                $this->warning("Expected hydefront to have version '$hydeFrontPackageLock[version]', but found '$hydeFrontVersion'");
+                $this->warning("Please run 'npm update hydefront'");
+                return 1;
+            } else {
+                $this->info('Root package lock verified. All looks good!');
+                $this->line();
+            }
         }
     }
 
