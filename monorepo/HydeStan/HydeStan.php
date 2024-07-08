@@ -458,5 +458,6 @@ function fileLink(string $file, ?int $line = null): string
     $path = (realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file).($line ? ':'.$line : '');
     $trim = strlen(getcwd()) + 2;
     $path = substr($path, $trim);
+
     return str_replace('\\', '/', $path);
 }
