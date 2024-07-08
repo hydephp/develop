@@ -326,6 +326,36 @@ class PostAuthorTest extends UnitTestCase
         );
     }
 
+    public function testAuthorUsernamesAreNormalizedInTheConfig()
+    {
+        Config::set('hyde.authors', [
+            'foo_bar' => Author::create(),
+            'foo-bar' => Author::create(),
+            'foo bar' => Author::create(),
+            'Foo Bar' => Author::create(),
+            'FOO BAR' => Author::create(),
+        ]);
+
+        $this->assertCount(1, PostAuthor::all());
+    }
+
+    public function testOnlyLastAuthorWithNormalizedUsernameIsKept()
+    {
+        // Technically, a first come, first-served principle would make most sense,
+        // but this is the lightest code implementation and can be used for now.
+
+        Config::set('hyde.authors', [
+            'foo_bar' => Author::create('Author 1'),
+            'foo-bar' => Author::create('Author 2'),
+            'foo bar' => Author::create('Author 3'),
+        ]);
+
+        $authors = PostAuthor::all();
+
+        $this->assertCount(1, $authors);
+        $this->assertEquals(new PostAuthor('foo_bar', 'Author 3'), $authors->first());
+    }
+
     public function testUsernameIsNormalized()
     {
         $author = new PostAuthor('Foo Bar');

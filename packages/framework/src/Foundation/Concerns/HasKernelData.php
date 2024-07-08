@@ -55,6 +55,8 @@ trait HasKernelData
                 throw new InvalidConfigurationException('Author username cannot be empty. Did you forget to set the author\'s array key?', 'hyde', 'authors');
             }
 
+            $username = PostAuthor::normalizeUsername($username);
+
             $author['username'] = $username;
 
             return [$username => PostAuthor::create($author)];
