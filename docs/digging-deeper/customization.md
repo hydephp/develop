@@ -120,7 +120,7 @@ Here are the default settings:
 ],
 ```
 
->warning Note that this feature requires that a site `url` is set!
+>warning Note that this feature requires that a `site_url` is set!
 
 ### Authors
 
