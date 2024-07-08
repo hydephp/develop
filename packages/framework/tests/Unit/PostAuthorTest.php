@@ -296,6 +296,15 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('bar', $author->name);
     }
 
+    public function testGetMethodReturnsNullIfUsernameNotFoundInConfig()
+    {
+        Config::set('hyde.authors', []);
+
+        $author = PostAuthor::get('foo');
+
+        $this->assertNull($author);
+    }
+
     public function testGetMethodNormalizesUsernamesForRetrieval()
     {
         Config::set('hyde.authors', [
@@ -315,15 +324,6 @@ class PostAuthorTest extends UnitTestCase
             PostAuthor::get('Foo Bar'),
             PostAuthor::get('FOO BAR'),
         );
-    }
-
-    public function testGetMethodReturnsNullIfUsernameNotFoundInConfig()
-    {
-        Config::set('hyde.authors', []);
-
-        $author = PostAuthor::get('foo');
-
-        $this->assertNull($author);
     }
 
     public function testUsernameIsNormalized()
