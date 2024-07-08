@@ -7,6 +7,7 @@ namespace Hyde\Testing;
 use Hyde\Hyde;
 
 use function config;
+use function array_shift;
 use function file_get_contents;
 use function Hyde\normalize_newlines;
 
@@ -45,5 +46,16 @@ trait FluentTestingHelpers
     protected function withoutSiteUrl(): void
     {
         config(['hyde.url' => null]);
+    }
+
+    /** Assert that all the given variables are the same. */
+    protected function assertAllSame(...$vars): void
+    {
+        $first = array_shift($vars);
+
+        foreach ($vars as $var) {
+            $this->assertEquals($first, $var);
+            $this->assertSame($first, $var);
+        }
     }
 }
