@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Exceptions;
 
+use Throwable;
 use Hyde\Facades\Filesystem;
 use InvalidArgumentException;
 
@@ -13,13 +14,13 @@ use function realpath;
 
 class InvalidConfigurationException extends InvalidArgumentException
 {
-    public function __construct(string $message = 'Invalid configuration detected.', ?string $namespace = null, ?string $key = null)
+    public function __construct(string $message = 'Invalid configuration detected.', ?string $namespace = null, ?string $key = null, ?Throwable $previous = null)
     {
         if ($namespace && $key) {
             [$this->file, $this->line] = $this->findConfigLine($namespace, $key);
         }
 
-        parent::__construct($message);
+        parent::__construct($message, previous: $previous);
     }
 
     /**
