@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\PostAuthor
+ * @covers \Hyde\Foundation\Concerns\HasKernelData
  */
 class PostAuthorTest extends UnitTestCase
 {
