@@ -46,4 +46,4 @@ This will create commits in both the monorepo and submodule. Now follow the foll
     - **Note:** On major/minor version bumps, **remember to update** the `package.json` in the `packages/hyde` directory to use the new version!
     - **Note:** On major version bumps, **remember to update the HydeFront version in the Asset Service!**
 10. Amend the monorepo commit with the updated files (package-lock.json, _media/app.css, packages\hydefront, packages\hyde\package.json)
-    - [ ] `git add packages/hydefront && git add packages/hyde/package.json && git add package-lock.json && git add _media/app.css && git commit --amend --no-edit`
+    - [ ] `git add packages/hydefront && git add packages/hyde/package.json && git add package-lock.json && git add _media/app.css && git add packages/framework/src/Framework/Services/AssetService.php && git commit --amend --no-edit`
