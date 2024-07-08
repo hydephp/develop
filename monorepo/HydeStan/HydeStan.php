@@ -455,7 +455,5 @@ function check_str_contains_any(array $searches, string $line): bool
 
 function fileLink(string $file, ?int $line = null): string
 {
-    $link = 'file://';
-    $path = (realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file).($line ? ':'.$line : '');
-    return $link.str_replace('\\', '/', $path);
+    return (realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file) . ($line ? ':'.$line : '');
 }
