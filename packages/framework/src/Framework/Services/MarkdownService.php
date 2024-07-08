@@ -206,7 +206,7 @@ class MarkdownService
             'heading_permalink' => [
                 'id_prefix' => '',
                 'fragment_prefix' => '',
-                'symbol' => '#',
+                'symbol' => '',
                 'insert' => 'after',
                 'min_heading_level' => 2,
                 'aria_hidden' => false,
