@@ -309,6 +309,7 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                 }
 
                 $message = 'Found %s instead assertSame for scalar type in %s on line %s';
+
                 $this->fail(sprintf($message, trim($search, "()'"), $file, $lineNumber));
             }
         }
