@@ -209,6 +209,7 @@ class MarkdownService
                 'symbol' => '#',
                 'insert' => 'after',
                 'min_heading_level' => 2,
+                'aria_hidden' => false,
             ],
         ], $this->config);
     }

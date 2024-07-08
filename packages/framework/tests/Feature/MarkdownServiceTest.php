@@ -33,7 +33,7 @@ class MarkdownServiceTest extends TestCase
 
         $this->assertIsString($html);
         $this->assertSame(
-            '<h2>Hello World!<a id="hello-world" href="#hello-world" class="heading-permalink" aria-hidden="true" '.
+            '<h2>Hello World!<a id="hello-world" href="#hello-world" class="heading-permalink" '.
             'title="Permalink">#</a></h2>'."\n",
             $html
         );
