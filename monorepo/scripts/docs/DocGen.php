@@ -9,6 +9,24 @@ declare(strict_types=1);
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Str;
 
+// Check if --lint flag is present
+if (in_array('--lint', $argv, true)) {
+    echo "\033[32mLinting...\033[0m";
+
+    // Rerun the script without the --lint flag
+    $output = shell_exec('php '.__FILE__);
+
+    $dirty = str_contains($output, 'Convents saved');
+
+    if ($dirty) {
+        echo " \033[31mDocumentation is not up to date!\033[0m\n";
+        exit(1);
+    }
+
+    echo " \033[32mDocumentation is up to date!\033[0m\n";
+    exit(0);
+}
+
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 echo "\033[32mHydePHP method DocGen\033[0m\n\n";
