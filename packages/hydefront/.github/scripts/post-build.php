@@ -81,11 +81,10 @@ exit(main(function (): int {
             $this->info('Build files fixed');
 
             $this->info('Tip: You may want to verify the changes again.');
-            return 0;
         } else {
             $this->warning('Nothing to fix!');
-            return 0;
         }
+        return 0;
     }
 
     if ($version !== $hydeCssVersion) {
