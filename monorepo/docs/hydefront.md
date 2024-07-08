@@ -16,7 +16,7 @@ git pull origin master
 npm run prod
 ```
 
-### Versioning
+### Build, version, and publish
 
 Head back to the monorepo root and run the following command to bump the version of the HydeFront package:
 
@@ -41,14 +41,8 @@ This will create commits in both the monorepo and submodule. Now follow the foll
     - [ ] `cd packages/hydefront && git fetch origin`
 8. Publish the package to NPM. (In the future, this could be automated with a GitHub action from the release.)
    - [ ] `npm publish`
-
-### Updating the monorepo
-
-After the HydeFront package has been published, you can update the monorepo to use the new version. Run the following command:
-
-```bash
-npm update hydefront
-```
-
-Now, you may want to amend the monorepo commit with the updated lock file, then it can be pushed to the monorepo repository.
-
+9. Update the monorepo to use the new version.
+    - [ ] `npm update hydefront`
+    - **Note:** On major/minor version bumps, **remember to update** the `package.json` in the `packages/hyde` directory to use the new version!
+10. Amend the monorepo commit with the updated files (package-lock.json, _media/app.css, packages\hydefront, packages\hyde\package.json)
+    - [ ] `git add packages/hydefront && git add packages/hyde/package.json && git add package-lock.json && git add _media/app.css && git commit --amend --no-edit`
