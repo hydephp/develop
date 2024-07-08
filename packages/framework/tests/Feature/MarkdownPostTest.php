@@ -45,6 +45,23 @@ class MarkdownPostTest extends TestCase
         $this->assertSame('https://example.com', $post->author->website);
     }
 
+    public function testAuthorRetrievalUsesNormalizedUsernameToFindTheRightAuthorRegardlessOfFormatting()
+    {
+        $postA = new MarkdownPost(matter: FrontMatter::fromArray([
+            'author' => 'mr hyde',
+        ]));
+
+        $postB = new MarkdownPost(matter: FrontMatter::fromArray([
+            'author' => 'Mr Hyde',
+        ]));
+
+        $postC = new MarkdownPost(matter: FrontMatter::fromArray([
+            'author' => 'mr_hyde',
+        ]));
+
+        $this->assertAllSame($postA->author, $postB->author, $postC->author);
+    }
+
     public function testConstructorCanCreateANewImageInstanceFromAString()
     {
         $post = new MarkdownPost(matter: FrontMatter::fromArray([

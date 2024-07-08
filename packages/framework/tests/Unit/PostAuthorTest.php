@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Hyde;
 use Hyde\Facades\Author;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Testing\FluentTestingHelpers;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Config;
  */
 class PostAuthorTest extends UnitTestCase
 {
+    use FluentTestingHelpers;
+
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
@@ -291,6 +294,27 @@ class PostAuthorTest extends UnitTestCase
         $this->assertInstanceOf(PostAuthor::class, $author);
         $this->assertSame('foo', $author->username);
         $this->assertSame('bar', $author->name);
+    }
+
+    public function testGetMethodNormalizesUsernamesForRetrieval()
+    {
+        Config::set('hyde.authors', [
+            'foo_bar' => Author::create(),
+        ]);
+
+        $author = PostAuthor::get('Foo bar');
+
+        $this->assertInstanceOf(PostAuthor::class, $author);
+        $this->assertSame('foo_bar', $author->username);
+        $this->assertSame('Foo Bar', $author->name);
+
+        $this->assertAllSame(
+            PostAuthor::get('foo_bar'),
+            PostAuthor::get('foo-bar'),
+            PostAuthor::get('foo bar'),
+            PostAuthor::get('Foo Bar'),
+            PostAuthor::get('FOO BAR'),
+        );
     }
 
     public function testGetMethodReturnsNullIfUsernameNotFoundInConfig()
