@@ -59,6 +59,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pestphp/pest-plugin-type-coverage" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tomasvotruba/type-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/.phpunit.result.cache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
