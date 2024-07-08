@@ -129,7 +129,7 @@ automatically add a link to your website or social media profiles.
 However, it's tedious to have to add those to each and every
 post you make, and keeping them updated is even harder.
 
-You can predefine authors in the Hyde config.
+Instead, you can predefine authors in the Hyde config.
 When writing posts, just specify the username in the front matter,
 and the rest of the data will be pulled from a matching entry.
 
