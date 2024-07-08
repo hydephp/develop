@@ -140,7 +140,8 @@ class PostAuthor implements Stringable, SerializableContract
         return static::normalizeUsername($data['username'] ?? $data['name'] ?? 'guest');
     }
 
-    protected static function normalizeUsername(string $username): string
+    /** @internal */
+    public static function normalizeUsername(string $username): string
     {
         return Str::slug($username, '_');
     }
