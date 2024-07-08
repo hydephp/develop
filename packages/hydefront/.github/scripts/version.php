@@ -11,6 +11,8 @@ exit(main(function (): int {
         return 1;
     }
 
+    $baseDir = getcwd().'/packages/hydefront';
+
     global $argv;
     $versionType = $argv[1] ?? null;
     if ($versionType === null) {
@@ -25,6 +27,11 @@ exit(main(function (): int {
         return 1;
     }
 
+    FileBackupHelper::backup(
+        $baseDir.'/package.json',
+        $baseDir.'/package-lock.json',
+    );
+
     $this->info("Creating a new HydeFront $versionType version...");
     $version = trim(shell_exec('cd packages/hydefront && npm version ' . $versionType . ' --no-git-tag-version'));
     $this->line("Updated package.json version to $version");
@@ -34,8 +41,10 @@ exit(main(function (): int {
     passthru('php packages/hydefront/.github/scripts/post-build.php --fix', $fixExitCode);
     if ($fixExitCode !== 0) {
         $this->error('Failed to update version in dist files');
+        FileBackupHelper::restore();
         return $fixExitCode;
     }
+    FileBackupHelper::clear();
     $this->line('---');
 
     $this->info('Committing changes in monorepo...');
@@ -53,3 +62,32 @@ exit(main(function (): int {
 
     return 0;
 }));
+
+class FileBackupHelper
+{
+    protected static array $backups = [];
+
+    public static function backup(string ...$paths): void
+    {
+        foreach ($paths as $path) {
+            $backupPath = $path.'.bak';
+            copy($path, $backupPath);
+            self::$backups[$path] = $backupPath;
+        }
+    }
+
+    public static function restore(): void
+    {
+        foreach (self::$backups as $path => $backupPath) {
+            copy($backupPath, $path);
+            unlink($backupPath);
+        }
+    }
+
+    public static function clear(): void
+    {
+        foreach (self::$backups as $backupPath) {
+            unlink($backupPath);
+        }
+    }
+}
