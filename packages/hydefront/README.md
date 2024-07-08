@@ -1,10 +1,10 @@
 # HydePHP Frontend Assets
 
 [![jsDelivr hits (NPM)](https://data.jsdelivr.com/v1/package/npm/hydefront/badge?style=rounded)](https://www.jsdelivr.com/package/npm/hydefront)
-![NPM Downloads](https://img.shields.io/npm/dm/hydefront)
+[![NPM Downloads](https://img.shields.io/npm/dm/hydefront)](https://www.npmjs.com/package/hydefront)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/hydephp/hydefront)](https://github.com/hydephp/hydefront)
+[![NPM Version](https://img.shields.io/npm/v/hydefront)](https://www.npmjs.com/package/hydefront)
 [![Build & Push CI](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml/badge.svg)](https://github.com/hydephp/hydefront/actions/workflows/node.js.yml)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/hydephp/hydefront)
-![NPM Version](https://img.shields.io/npm/v/hydefront)
 
 
 ## About this repository
@@ -24,7 +24,7 @@ A compiled and minified file containing the TailwindCSS styles for a base Hyde i
 
 ## Usage
 
-HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default.
+HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default, you do not need to install it separately.
 
 
 ## Links:
@@ -36,7 +36,7 @@ HydeFront is included with [HydePHP](https://github.com/hydephp/hyde) by default
 
 ## Supported Versions & Warranty
 
-HydeFront is not intended to be used for standalone projects and comes with no warranties.
+HydeFront is not intended to be used for standalone projects and comes with no warranties for such usages.
 
 Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
 

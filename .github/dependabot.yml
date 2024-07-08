@@ -16,6 +16,9 @@ updates:
       interval: "daily"
 
   - package-ecosystem: "npm"
-    directory: "/"
+    directories:
+      - "/"
+      - "packages/hyde"
+      - "packages/hydefront"
     schedule:
       interval: "daily"
