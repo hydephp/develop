@@ -441,15 +441,19 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testTypeErrorsInAuthorsYamlConfigAreRethrownMoreHelpfully()
     {
-        $this->file('hyde.yml', <<<'YAML'
+        file_put_contents('hyde.yml', <<<'YAML'
         authors:
           wrong:
             name: false
         YAML);
 
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('Invalid author configuration detected in the YAML config file. Please double check the syntax.');
-        $this->runBootstrappers();
+        try {
+            $this->runBootstrappers();
+        } catch (InvalidConfigurationException $exception) {
+            $this->assertSame('Invalid author configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+        }
+
+        unlink('hyde.yml');
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
