@@ -181,7 +181,7 @@ class PostAuthorTest extends UnitTestCase
         $this->assertNull($author);
     }
 
-    public function testGetMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
+    public function testCreateMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
     {
         Config::set('hyde.authors', [
             'foo' => Author::create('bar'),
@@ -190,7 +190,7 @@ class PostAuthorTest extends UnitTestCase
         $this->assertEquals(PostAuthor::get('foo'), new PostAuthor('foo', 'bar'));
     }
 
-    public function testGetMethodCreatesNewAuthorModelFromArray()
+    public function testCreateMethodCreatesNewAuthorModelFromArray()
     {
         $author = PostAuthor::create([
             'username' => 'foo',
