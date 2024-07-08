@@ -4,6 +4,7 @@
 
 ```bash
 cd packages/hydefront
+git pull origin master
 npm run prod
 
 cd ../../
