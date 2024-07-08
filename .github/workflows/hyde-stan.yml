@@ -21,3 +21,6 @@ jobs:
 
       - name: Run HydeFront linter
         run: php packages/hydefront/.github/scripts/post-build.php
+
+      - name: Run DocGen linter
+        run: php monorepo/scripts/docs/DocGen.php --lint
