@@ -290,6 +290,10 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
             'assertEquals("',
             'assertEquals(null,',
             'assertSame(null,',
+            'assertEquals(true,',
+            'assertSame(true,',
+            'assertEquals(false,',
+            'assertSame(false,',
         ];
 
         foreach ($searches as $search) {
@@ -313,6 +317,14 @@ class NoUsingAssertEqualsForScalarTypesTestAnalyser extends FileAnalyser // Todo
                 if (str_contains($search, 'null')) {
                     $call = rtrim($search, ',').')';
                     $message = 'Found '.$call.' in %s on line %s. Please use assertNull() instead.';
+                    $this->fail(sprintf($message, $file, $lineNumber));
+                } elseif (str_contains($search, 'true')) {
+                    $call = rtrim($search, ',').')';
+                    $message = 'Found '.$call.' in %s on line %s. Please use assertTrue() instead.';
+                    $this->fail(sprintf($message, $file, $lineNumber));
+                } elseif (str_contains($search, 'false')) {
+                    $call = rtrim($search, ',').')';
+                    $message = 'Found '.$call.' in %s on line %s. Please use assertFalse() instead.';
                     $this->fail(sprintf($message, $file, $lineNumber));
                 } else {
                     $message = 'Found %s instead assertSame for scalar type in %s on line %s';
