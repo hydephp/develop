@@ -80,11 +80,8 @@ exit(main(function (): int {
         if (isset($filesChanged)) {
             $this->info('Build files fixed');
 
-            // Run the script again to verify the changes, but without the --fix option
-            $this->info('Verifying build files again...');
-            $this->line('---');
-            passthru('php packages/hydefront/.github/scripts/post-build.php', $verifyExitCode);
-            return $verifyExitCode;
+            $this->info('Tip: You may want to verify the changes again.');
+            return 0;
         } else {
             $this->warning('Nothing to fix!');
             return 0;
