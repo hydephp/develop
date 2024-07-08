@@ -22,5 +22,8 @@ jobs:
       - name: Run HydeFront linter
         run: php packages/hydefront/.github/scripts/post-build.php
 
+      - name: Install dependencies
+        run: composer install --no-progress --no-interaction --no-scripts --prefer-dist
+
       - name: Run DocGen linter
-        run: composer install --no-progress --no-suggest --no-interaction --no-scripts --prefer-dist && php monorepo/scripts/docs/DocGen.php --lint
+        run: php monorepo/scripts/docs/DocGen.php --lint
