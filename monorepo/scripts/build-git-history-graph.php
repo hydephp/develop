@@ -109,14 +109,6 @@ function ansiToHtml(string $ansi): string
         35 => '#881798',
         36 => '#3A96DD',
         37 => '#CCCCCC',
-        90 => '#808080',
-        91 => '#ff0000',
-        92 => '#00ff00',
-        93 => '#ffff00',
-        94 => '#0000ff',
-        95 => '#ff00ff',
-        96 => '#00ffff',
-        97 => '#ffffff',
     ];
 
     $ansi = preg_replace('/\x1b\[(\d+)(;\d+)*m/', '</span><span style="color: $1">', $ansi);
