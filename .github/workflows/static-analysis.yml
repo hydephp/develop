@@ -40,22 +40,3 @@ jobs:
 
       - name: Run Pest Type Coverage
         run: ./vendor/bin/pest --type-coverage
-
-
-  build-git-history-graph:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          # We need to fetch all history to generate the graph
-          fetch-depth: 0
-
-      - name: Generate Git history graph
-        run: php monorepo/scripts/build-git-history-graph.php
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: 'git-history-graph'
-          path: 'monorepo/scripts/graphs'
