@@ -21,7 +21,6 @@ unset($text); // Free up memory
 
 echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
-file_put_contents('H:\monorepo\graph.ansi', $html);
 echo 'Converting ANSI color codes to HTML...'.PHP_EOL;
 $html = processHtml($html);
 echo 'Generating header...';
