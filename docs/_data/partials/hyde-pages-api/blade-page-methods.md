@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 /** @param string $identifier The identifier, which also serves as the view key. */
 $page = new BladePage(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter): void
 ```
@@ -18,7 +17,6 @@ $page = new BladePage(string $identifier, Hyde\Markdown\Models\FrontMatter|array
 Get the Blade template/view key for the page.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getBladeView(): string
 ```
 
@@ -27,7 +25,6 @@ $page->getBladeView(): string
 Compile the page into static HTML.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->compile(): string // The compiled HTML for the page.
 ```
 

@@ -10,7 +10,6 @@ Register a HydePHP extension within the HydeKernel.
 Typically, you would call this method in the register method of a service provider. If your package uses the standard Laravel (Composer) package discovery feature, the extension will automatically be enabled when the package is installed.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::registerExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&gt; $extension): void
 ```
 
@@ -19,7 +18,6 @@ Hyde::registerExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&
 Get the singleton instance of the specified extension.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getExtension(class-string&lt;T&gt; $extension): T
 ```
 
@@ -28,7 +26,6 @@ Hyde::getExtension(class-string&lt;T&gt; $extension): T
 Determine if the specified extension is registered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::hasExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&gt; $extension): bool
 ```
 
@@ -37,7 +34,6 @@ Hyde::hasExtension(class-string&lt;\Hyde\Foundation\Concerns\HydeExtension&gt; $
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getExtensions(): array<\Hyde\Foundation\Concerns\HydeExtension>
 ```
 
@@ -46,7 +42,6 @@ Hyde::getExtensions(): array<\Hyde\Foundation\Concerns\HydeExtension>
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getRegisteredExtensions(): array<class-string<\Hyde\Foundation\Concerns\HydeExtension>>
 ```
 
@@ -55,7 +50,6 @@ Hyde::getRegisteredExtensions(): array<class-string<\Hyde\Foundation\Concerns\Hy
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::getRegisteredPageClasses(): array<class-string<\Hyde\Pages\Concerns\HydePage>>
 ```
 

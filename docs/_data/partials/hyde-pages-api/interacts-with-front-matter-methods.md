@@ -8,7 +8,6 @@
 Get a value from the computed page data, or fallback to the page&#039;s front matter, then to the default value.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->data(string $key, mixed $default): \Hyde\Markdown\Models\FrontMatter|mixed
 ```
 
@@ -17,7 +16,6 @@ $page->data(string $key, mixed $default): \Hyde\Markdown\Models\FrontMatter|mixe
 Get the front matter object, or a value from within.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->matter(string $key, mixed $default): \Hyde\Markdown\Models\FrontMatter|mixed
 ```
 
@@ -26,7 +24,6 @@ $page->matter(string $key, mixed $default): \Hyde\Markdown\Models\FrontMatter|mi
 See if a value exists in the computed page data or the front matter.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->has(string $key): bool
 ```
 

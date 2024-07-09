@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 MarkdownPost::getLatestPosts(): \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pages\MarkdownPost>
 ```
 
@@ -17,7 +16,6 @@ MarkdownPost::getLatestPosts(): \Hyde\Foundation\Kernel\PageCollection<\Hyde\Pag
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->toArray(): array
 ```
 

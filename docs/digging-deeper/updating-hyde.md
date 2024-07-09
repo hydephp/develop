@@ -40,8 +40,8 @@ Using Git is highly recommended as it allows you to easily roll back changes if 
 
 ## Update to a major version
 
-When updating to a major version, you should read the release notes and the upgrade guide for that version. 
-If you are updating multiple major versions at once, it's recommended to update one major version at a time, 
+When updating to a major version, you should read the release notes and the upgrade guide for that version.
+If you are updating multiple major versions at once, it's recommended to update one major version at a time,
 following the upgrade guide for each version. After following the upgrade guide, you can follow the post-update instructions below.
 
 ## Updating to a minor or patch version
@@ -52,7 +52,7 @@ Updating a minor or patch version is easy using Composer. Just run the following
 composer update hyde/* --with-dependencies
 ```
 
-Note that if you have hardcoded a version constraint in your `composer.json` file, you may need to update it manually. 
+Note that if you have hardcoded a version constraint in your `composer.json` file, you may need to update it manually.
 You can always refer to the `composer.json` file in the HydePHP repository if you need a reference.
 
 ## Alternate update methods
