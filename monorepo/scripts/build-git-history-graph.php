@@ -32,7 +32,7 @@ function createGraphsDirectoryIfNotExists(): void
 function buildPlainTextGraph(): void
 {
     echo 'Building the plaintext Git history graph... (This may take a while)'.PHP_EOL;
-    $text = shell_exec('git log --graph --oneline --all');
+    $text = cached_shell_exec('git log --graph --oneline --all');
     echo 'Saving the plaintext Git history graph...'.PHP_EOL;
     file_put_contents(GRAPHS_DIR.'/history-graph.txt', $text);
 }
@@ -40,7 +40,7 @@ function buildPlainTextGraph(): void
 function buildHtmlGraph(): void
 {
     echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
-    $html = shell_exec('git log --graph --oneline --all --color=always');
+    $html = cached_shell_exec('git log --graph --oneline --all --color=always');
     echo 'Converting ANSI color codes to HTML...'.PHP_EOL;
     $html = processHtml($html);
     echo 'Generating header...';
@@ -240,4 +240,14 @@ function shouldIgnoreLine(string $line, array $ignore): bool
     }
 
     return false;
+}
+
+function cached_shell_exec(string $command): string
+{
+    $cacheFile = __DIR__.'/cache/'.sha1($command).'.txt';
+    $cache = file_exists($cacheFile) ? file_get_contents($cacheFile) : '';
+    $output = $cache ?: shell_exec($command);
+    file_put_contents($cacheFile, $output);
+
+    return $output;
 }
