@@ -132,6 +132,81 @@ class PostsAuthorIntegrationTest extends TestCase
         ], $page->author->toArray());
     }
 
+    public function testConfiguredPostAuthorFieldsCanBeCustomizedInFrontMatter()
+    {
+        Config::set('hyde.authors', [
+            'mr_hyde' => Author::create(
+                name: 'Mr. Hyde',
+                website: 'https://hydephp.com',
+                bio: 'The mysterious author of HydePHP',
+                avatar: 'avatar.png',
+                socials: [
+                    'twitter' => '@HydeFramework',
+                    'github' => 'hydephp',
+                ],
+            ),
+        ]);
+
+        $this->file('_posts/literal.md', <<<'MD'
+            ---
+            author: mr_hyde
+            ---
+            
+            # Using the configured author
+            MD
+        );
+
+        $this->file('_posts/changed.md', <<<'MD'
+            ---
+            author:
+                username: mr_hyde
+                name: Dr. Jekyll
+            ---
+            
+            # Modifying the configured author
+            MD
+        );
+
+        $this->artisan('rebuild _posts/literal.md')->assertExitCode(0);
+        $this->artisan('rebuild _posts/changed.md')->assertExitCode(0);
+        $this->assertFileExists(Hyde::path('_site/posts/literal.html'));
+        $this->assertFileExists(Hyde::path('_site/posts/changed.html'));
+        $this->cleanUpWhenDone('_site/posts/literal.html');
+        $this->cleanUpWhenDone('_site/posts/changed.html');
+
+        $page = MarkdownPost::get('literal');
+        $this->assertNotNull($page);
+        $this->assertNotNull($page->author);
+
+        $this->assertSame([
+            'username' => 'mr_hyde',
+            'name' => 'Mr. Hyde',
+            'website' => 'https://hydephp.com',
+            'bio' => 'The mysterious author of HydePHP',
+            'avatar' => 'avatar.png',
+            'socials' => [
+                'twitter' => '@HydeFramework',
+                'github' => 'hydephp',
+            ],
+        ], $page->author->toArray());
+
+        $page = MarkdownPost::get('changed');
+        $this->assertNotNull($page);
+        $this->assertNotNull($page->author);
+
+        $this->assertSame([
+            'username' => 'mr_hyde',
+            'name' => 'Dr. Jekyll',
+            'website' => 'https://hydephp.com',
+            'bio' => 'The mysterious author of HydePHP',
+            'avatar' => 'avatar.png',
+            'socials' => [
+                'twitter' => '@HydeFramework',
+                'github' => 'hydephp',
+            ],
+        ], $page->author->toArray());
+    }
+
     protected function createPostFile(string $title, string $author): void
     {
         (new CreatesNewMarkdownPostFile($title, '', '', $author))->save();
