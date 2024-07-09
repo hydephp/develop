@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydePHP Upcoming Documentation - Console Commands</title>
+
+
+
+<link rel="canonical" href="https://hydephp.github.io/develop/master/dev-docs/dev-docs/console-commands.html">
+<meta name="twitter:title" content="HydePHP Upcoming Documentation - Console Commands">
+<meta property="og:title" content="HydePHP Upcoming Documentation - Console Commands">
+
+
+<link rel="sitemap" href="https://hydephp.github.io/develop/master/dev-docs/sitemap.xml" type="application/xml" title="Sitemap">
+<meta name="generator" content="HydePHP 1.7.2">
+<meta name="robots" content="noindex">
+<meta property="og:site_name" content="HydePHP Upcoming Documentation">
+
+
+
+
+<style>[x-cloak] {display: none!important}</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/app.css">
+
+
+
+
+
+    
+    <meta id="meta-color-scheme" name="color-scheme" content="light">
+    <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>
+
+
+
+
+
+
+</head>
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+
+    <a href="#content" id="skip-to-content" class="sr-only focus:not-sr-only bg-black border-4 border-yellow-400 focus:absolute focus:mt-2 focus:mx-auto focus:p-2 focus:w-64 h-auto left-0 overflow-auto right-0 rounded-md text-center text-lg text-white top-auto z-50 ">Skip to content</a>    <nav id="mobile-navigation" class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
+    <strong class="px-2 mr-auto">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <ul class="flex items-center">
+        <li class="h-8 flex mr-1">
+            <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+        </li>
+        <li class="h-8 flex">
+            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+</button>        </li>
+    </ul>
+</nav>    <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
+    <header id="sidebar-header" class="h-16">
+        <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
+    <strong class="px-2">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+</div>    </header>
+    <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        <ul id="sidebar-items" role="list">
+                            <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: true }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Getting Started</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/quickstart.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Quickstart Guide
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4 active -ml-8 pl-8 bg-black/5 dark:bg-black/10" role="listitem">
+            <a href="../dev-docs/console-commands.html" aria-current="true" class="-ml-8 pl-4 py-1 px-2 block text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Console Commands
+        </a>
+
+                    <span class="sr-only">Table of contents</span>
+            <ul class="table-of-contents">
+<li>
+<a href="#introduction">Introduction</a>
+<ul>
+<li>
+<a href="#got-stuck-the-cli-can-help">Got stuck? The CLI can help.</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#available-commands">Available Commands</a>
+</li>
+<li>
+<a href="#build-the-static-site">Build the Static Site</a>
+<ul>
+<li>
+<a href="#options">Options</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#run-the-static-site-builder-for-a-single-file">Run the static site builder for a single file</a>
+<ul>
+<li>
+<a href="#arguments">Arguments</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#start-the-realtime-compiler-server">Start the Realtime Compiler Server</a>
+<ul>
+<li>
+<a href="#options-1">Options</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#test-and-validate-your-project-to-optimize-your-site">Test and validate your project to optimize your site</a>
+</li>
+<li>
+<a href="#generate-the-rss-feed">Generate the RSS Feed</a>
+</li>
+<li>
+<a href="#generate-the-docssearchjson-file">Generate the docs/search.json file</a>
+</li>
+<li>
+<a href="#generate-the-sitemapxml-file">Generate the sitemap.xml file</a>
+</li>
+<li>
+<a href="#scaffold-a-new-markdown-blade-or-documentation-page-file">Scaffold a new Markdown, Blade, or documentation page file</a>
+<ul>
+<li>
+<a href="#arguments--options">Arguments &amp; Options</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#scaffold-a-new-markdown-blog-post-file">Scaffold a new Markdown blog post file</a>
+<ul>
+<li>
+<a href="#arguments--options-1">Arguments &amp; Options</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#publish-the-default-configuration-files">Publish the Default Configuration Files</a>
+</li>
+<li>
+<a href="#publish-one-of-the-default-homepages-as-indexbladephp">Publish one of the default homepages as index.blade.php.</a>
+<ul>
+<li>
+<a href="#arguments--options-2">Arguments &amp; Options</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#publish-the-hyde-components-for-customization">Publish the hyde components for customization</a>
+<ul>
+<li>
+<a href="#arguments-1">Arguments</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#display-all-registered-routes">Display all Registered Routes.</a>
+</li>
+<li>
+<a href="#publish-any-publishable-assets-from-vendor-packages">Publish any publishable assets from vendor packages</a>
+<ul>
+<li>
+<a href="#options-2">Options</a>
+</li>
+</ul>
+</li>
+</ul>
+
+            </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/core-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Core Concepts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/front-matter.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Front Matter
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Creating Content</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/blog-posts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Creating Blog Posts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/static-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Markdown &amp; Blade Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/documentation-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Documentation Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/managing-assets.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Managing and Compiling Assets
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/compile-and-deploy.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Compile &amp; Deploy
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Digging Deeper</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/customization.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Customizing your Site
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/navigation.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Navigation Menus
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-markdown.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Markdown
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-customization.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Customization
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/collections.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            File-based Collections
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/helpers.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Helpers and Utilities
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/troubleshooting.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Troubleshooting
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/updating-hyde.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Updating Hyde Projects
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Advanced Features</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-features.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/build-tasks.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Custom Build Tasks
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/hyde-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePage API
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/in-memory-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            InMemoryPages
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Architecture Concepts</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/architecture-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/autodiscovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Autodiscovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/automatic-routing.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Automatic Routing
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/dynamic-data-discovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Dynamic Data Discovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/page-models.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Page models
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/the-hydekernel.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The HydeKernel
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions-api.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Extensions API
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Extensions</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Extensions &amp; Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/realtime-compiler.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Realtime Compiler
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/third-party-integrations.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Third-Party Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/ui-kit.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePHP UI Kit - Documentation
+        </a>
+    </li>                                    </ul>
+            </li>
+            </ul>
+    </nav>
+    </aside>
+    <main id="content" class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <article id="document" itemscope itemtype="https://schema.org/Article" class="mx-auto lg:ml-8 max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)] prose dark:prose-invert">
+    
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
+        <h1>Console Commands</h1>
+    </header>
+    <section id="document-main-content" itemprop="articleBody">
+        <p>The primary way of interacting with Hyde is through the command line using the HydeCLI.</p>
+<p>If you have ever used the Artisan Console in Laravel you will feel right at home,
+the HydeCLI is based on Artisan after all!</p>
+<h2>Introduction<a id="introduction" href="#introduction" class="heading-permalink" title="Permalink"></a></h2>
+<p>To use the HydeCLI, run <code>php hyde</code> from your project directory followed by a command.</p>
+<p>All HydeCLI commands start with <code>php hyde</code>. Anything in <code>[brackets]</code> is optional.
+If an argument or option value has a space in it, it needs to be wrapped in quotes.</p>
+<p>The HydeCLI exists at the root of your application as the <code>hyde</code> script and provides a number of helpful commands that can
+assist you while you build your site. To view a list of all available Hyde commands, you may use the list command:</p>
+<pre><code class="language-bash">php hyde list
+</code></pre>
+<h3>Got stuck? The CLI can help.<a id="got-stuck-the-cli-can-help" href="#got-stuck-the-cli-can-help" class="heading-permalink" title="Permalink"></a></h3>
+<p>Every command also includes a &quot;help&quot; screen which displays and describes the command's available arguments and options.
+To view a help screen, precede the name of the command with <code>help</code>:</p>
+<pre><code class="language-bash">php hyde help &lt;command&gt;
+</code></pre>
+<p>You can also always add <code>--help</code> to a command to show detailed usage information.</p>
+<pre><code class="language-bash">php hyde &lt;command&gt; --help
+</code></pre>
+<h2>Available Commands<a id="available-commands" href="#available-commands" class="heading-permalink" title="Permalink"></a></h2>
+<p>Here is a quick reference of all the available commands. You can also run <code>php hyde list</code> to see this list.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#build"><code>build</code></a></td>
+<td>Build the static site</td>
+</tr>
+<tr>
+<td><a href="#serve"><code>serve</code></a></td>
+<td>Start the realtime compiler server</td>
+</tr>
+<tr>
+<td><a href="#rebuild"><code>rebuild</code></a></td>
+<td>Run the static site builder for a single file</td>
+</tr>
+<tr>
+<td><a href="#build-rss"><code>build:rss</code></a></td>
+<td>Generate the RSS feed</td>
+</tr>
+<tr>
+<td><a href="#build-search"><code>build:search</code></a></td>
+<td>Generate the <code>docs/search.json</code> file</td>
+</tr>
+<tr>
+<td><a href="#build-sitemap"><code>build:sitemap</code></a></td>
+<td>Generate the <code>sitemap.xml</code> file</td>
+</tr>
+<tr>
+<td><a href="#make-page"><code>make:page</code></a></td>
+<td>Scaffold a new Markdown, Blade, or documentation page file</td>
+</tr>
+<tr>
+<td><a href="#make-post"><code>make:post</code></a></td>
+<td>Scaffold a new Markdown blog post file</td>
+</tr>
+<tr>
+<td><a href="#publish-configs"><code>publish:configs</code></a></td>
+<td>Publish the default configuration files</td>
+</tr>
+<tr>
+<td><a href="#publish-homepage"><code>publish:homepage</code></a></td>
+<td>Publish one of the default homepages as <code>index.blade.php</code></td>
+</tr>
+<tr>
+<td><a href="#publish-views"><code>publish:views</code></a></td>
+<td>Publish the hyde components for customization. Note that existing files will be overwritten</td>
+</tr>
+<tr>
+<td><a href="#vendor-publish"><code>vendor:publish</code></a></td>
+<td>Publish any publishable assets from vendor packages</td>
+</tr>
+<tr>
+<td><a href="#route-list"><code>route:list</code></a></td>
+<td>Display all registered routes</td>
+</tr>
+<tr>
+<td><a href="#validate"><code>validate</code></a></td>
+<td>Run a series of tests to validate your setup and help you optimize your site</td>
+</tr>
+<tr>
+<td><a href="#available-commands"><code>list</code></a></td>
+<td>List all available commands</td>
+</tr>
+</tbody>
+</table>
+<h2>Build the Static Site<a id="build-the-static-site" href="#build-the-static-site" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde build [--run-dev] [--run-prod] [--run-prettier] [--pretty-urls] [--no-api]
+</code></pre>
+<p>Build the static site</p>
+<h4>Options<a id="options" href="#options" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--run-dev</code></td>
+<td>Run the NPM dev script after build</td>
+</tr>
+<tr>
+<td><code>--run-prod</code></td>
+<td>Run the NPM prod script after build</td>
+</tr>
+<tr>
+<td><code>--run-prettier</code></td>
+<td>Format the output using NPM Prettier</td>
+</tr>
+<tr>
+<td><code>--pretty-urls</code></td>
+<td>Should links in output use pretty URLs?</td>
+</tr>
+<tr>
+<td><code>--no-api</code></td>
+<td>Disable API calls, for example, Torchlight</td>
+</tr>
+</tbody>
+</table>
+<h2>Run the static site builder for a single file<a id="run-the-static-site-builder-for-a-single-file" href="#run-the-static-site-builder-for-a-single-file" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="rebuild" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde rebuild &lt;path&gt;
+</code></pre>
+<p>Run the static site builder for a single file</p>
+<h4>Arguments<a id="arguments" href="#arguments" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>The relative file path (example: _posts/hello-world.md) \n - Is required: yes</td>
+</tr>
+</tbody>
+</table>
+<h2>Start the Realtime Compiler Server<a id="start-the-realtime-compiler-server" href="#start-the-realtime-compiler-server" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde serve [--host [HOST]] [--port [PORT]]
+</code></pre>
+<p>Start the realtime compiler server.</p>
+<h4>Options<a id="options-1" href="#options-1" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--host=</code></td>
+<td>[default: &quot;localhost&quot;]</td>
+</tr>
+<tr>
+<td><code>--port=</code></td>
+<td>[default: 8080]</td>
+</tr>
+</tbody>
+</table>
+<h2>Test and validate your project to optimize your site<a id="test-and-validate-your-project-to-optimize-your-site" href="#test-and-validate-your-project-to-optimize-your-site" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="validate" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde validate
+</code></pre>
+<p>Run a series of tests to validate your setup and help you optimize your site.</p>
+<h2>Generate the RSS Feed<a id="generate-the-rss-feed" href="#generate-the-rss-feed" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="build-rss" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde build:rss
+</code></pre>
+<p>Generate the RSS feed</p>
+<h2>Generate the <code>docs/search.json</code> file<a id="generate-the-docssearchjson-file" href="#generate-the-docssearchjson-file" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde build:search
+</code></pre>
+<p>Generate the <code>docs/search.json</code> file</p>
+<h2>Generate the <code>sitemap.xml</code> file<a id="generate-the-sitemapxml-file" href="#generate-the-sitemapxml-file" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="build-sitemap" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde build:sitemap
+</code></pre>
+<p>Generate the <code>sitemap.xml</code> file</p>
+<h2>Scaffold a new Markdown, Blade, or documentation page file<a id="scaffold-a-new-markdown-blade-or-documentation-page-file" href="#scaffold-a-new-markdown-blade-or-documentation-page-file" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="make-page" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [&lt;title&gt;]
+</code></pre>
+<p>Scaffold a new Markdown, Blade, or documentation page file</p>
+<h4>Arguments &amp; Options<a id="arguments--options" href="#arguments--options" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>The name of the page file to create. Will be used to generate the filename</td>
+</tr>
+<tr>
+<td><code>--type=markdown</code></td>
+<td>The type of page to create (markdown, blade, or docs)</td>
+</tr>
+<tr>
+<td><code>--blade</code></td>
+<td>Create a Blade page</td>
+</tr>
+<tr>
+<td><code>--docs</code></td>
+<td>Create a Documentation page</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td>Overwrite any existing files</td>
+</tr>
+</tbody>
+</table>
+<h2>Scaffold a new Markdown blog post file<a id="scaffold-a-new-markdown-blog-post-file" href="#scaffold-a-new-markdown-blog-post-file" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="make-post" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde make:post [--force] [--] [&lt;title&gt;]
+</code></pre>
+<p>Scaffold a new Markdown blog post file</p>
+<h4>Arguments &amp; Options<a id="arguments--options-1" href="#arguments--options-1" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>The title for the Post. Will also be used to generate the filename</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td>Should the generated file overwrite existing posts with the same filename?</td>
+</tr>
+</tbody>
+</table>
+<h2>Publish the Default Configuration Files<a id="publish-the-default-configuration-files" href="#publish-the-default-configuration-files" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde publish:configs
+</code></pre>
+<p>Publish the default configuration files</p>
+<h2>Publish one of the default homepages as <code>index.blade.php</code>.<a id="publish-one-of-the-default-homepages-as-indexbladephp" href="#publish-one-of-the-default-homepages-as-indexbladephp" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="publish-homepage" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde publish:homepage [--force] [--] [&lt;homepage&gt;]
+</code></pre>
+<p>Publish one of the default homepages as <code>index.blade.php</code>.</p>
+<h4>Arguments &amp; Options<a id="arguments--options-2" href="#arguments--options-2" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>homepage</code></td>
+<td>The name of the page to publish</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td>Overwrite any existing files</td>
+</tr>
+</tbody>
+</table>
+<h2>Publish the hyde components for customization<a id="publish-the-hyde-components-for-customization" href="#publish-the-hyde-components-for-customization" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde publish:views [&lt;category&gt;]
+</code></pre>
+<p>Publish the hyde components for customization. Note that existing files will be overwritten.</p>
+<h4>Arguments<a id="arguments-1" href="#arguments-1" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>category</code></td>
+<td>The category to publish</td>
+</tr>
+</tbody>
+</table>
+<h2>Display all Registered Routes.<a id="display-all-registered-routes" href="#display-all-registered-routes" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde route:list
+</code></pre>
+<p>Display all registered routes.</p>
+<h2>Publish any publishable assets from vendor packages<a id="publish-any-publishable-assets-from-vendor-packages" href="#publish-any-publishable-assets-from-vendor-packages" class="heading-permalink" title="Permalink"></a></h2>
+<p><a name="vendor-publish" style="display: inline-block; position: absolute; margin-top: -5rem;"></a></p>
+<pre><code class="language-bash">php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
+</code></pre>
+<p>Publish any publishable assets from vendor packages</p>
+<h4>Options<a id="options-2" href="#options-2" class="heading-permalink" title="Permalink"></a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--existing</code></td>
+<td>Publish and overwrite only the files that have already been published</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td>Overwrite any existing files</td>
+</tr>
+<tr>
+<td><code>--all</code></td>
+<td>Publish assets for all service providers without prompt</td>
+</tr>
+<tr>
+<td><code>--provider=</code></td>
+<td>The service provider that has assets you want to publish</td>
+</tr>
+<tr>
+<td><code>--tag=</code></td>
+<td>One or many tags that have assets you want to publish \n- Is multiple: yes</td>
+</tr>
+</tbody>
+</table>
+    </section>
+    <footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
+        
+    </footer>
+</article>    </main>
+
+    <div id="support">
+        <div id="sidebar-backdrop" x-cloak="" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+                    <button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
+        aria-label="Toggle search window">
+    <span x-show="! searchWindowOpen">
+        Search <svg class="float-left mr-1 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24"
+                    viewBox="0 0 24 24" width="24" role="presentation">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </span>
+    <span x-show="searchWindowOpen">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+    </span>
+</button>
+<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
+        aria-label="Toggle search menu">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" role="presentation">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+</button>
+
+<div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
+     class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
+    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+           class="prose dark:prose-invert bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
+        <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
+            <strong>Search the documentation site</strong>
+            <button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100"
+                    aria-label="Close search window">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <div>
+            <div id="hyde-search">
+    <noscript>
+        The search feature requires JavaScript to be enabled in your browser.
+    </noscript>
+    <input class="w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3" type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off" autofocus>
+</div>        </div>
+        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+            <small>
+                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
+                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+            </small>
+        </footer>
+    </aside>
+
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
+</div>            <script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+<script>
+    window.addEventListener('load', function () {
+        const searchIndexLocation = '../dev-docs/search.json';
+        const Search = new HydeSearch(searchIndexLocation);
+
+        Search.init();
+    });
+</script>            </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" integrity="sha256-gOkV4d9/FmMNEkjOzVlyM2eNAWSUXisT+1RbMTTIgXI=" crossorigin="anonymous"></script>
+
+<script>
+    function toggleTheme() {
+        if (localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem('color-theme', 'light');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'light');
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem('color-theme', 'dark');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydePHP - Chapter XI - Who Stole the Tarts?</title>
+
+
+
+<meta name="twitter:title" content="HydePHP - Chapter XI - Who Stole the Tarts?">
+<meta property="og:title" content="HydePHP - Chapter XI - Who Stole the Tarts?">
+
+
+<meta name="generator" content="HydePHP 1.7.2">
+<meta property="og:site_name" content="HydePHP">
+
+
+
+
+<style>[x-cloak] {display: none!important}</style>
+
+
+    <link rel="stylesheet" href="../media/app.css?v=54f53fdc399f75f20330c69f208b6858">
+
+
+
+
+
+    
+    <meta id="meta-color-scheme" name="color-scheme" content="light">
+    <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>
+
+
+
+
+
+
+</head>
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+
+    <a href="#content" id="skip-to-content" class="sr-only focus:not-sr-only bg-black border-4 border-yellow-400 focus:absolute focus:mt-2 focus:mx-auto focus:p-2 focus:w-64 h-auto left-0 overflow-auto right-0 rounded-md text-center text-lg text-white top-auto z-50 ">Skip to content</a>    <nav id="mobile-navigation" class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
+    <strong class="px-2 mr-auto">
+                    <a href="../docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <ul class="flex items-center">
+        <li class="h-8 flex mr-1">
+            <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+        </li>
+        <li class="h-8 flex">
+            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+</button>        </li>
+    </ul>
+</nav>    <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
+    <header id="sidebar-header" class="h-16">
+        <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
+    <strong class="px-2">
+                    <a href="../docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+</div>    </header>
+    <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        <ul id="sidebar-items" role="list">
+                            <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Introduction</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/cover.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Cover Page
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: true }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Chapters</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/down-the-rabbithole.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Down the Rabbit-Hole
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-pool-of-tears.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Pool of Tears
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/a-caucusrace-and-a-long-tale.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            A Caucus-Race and a Long Tale
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-rabbit-sends-in-a-little-bill.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Rabbit Sends in a Little Bill
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/advice-from-a-caterpillar.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advice from a Caterpillar
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/pig-and-pepper.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Pig and Pepper
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/a-mad-teaparty.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            A Mad Tea-Party
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-queens-croquetground.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Queen&#039;s Croquet-Ground
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-mock-turtles-story.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Mock Turtle&#039;s Story
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-lobster-quadrille.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Lobster Quadrille
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4 active -ml-8 pl-8 bg-black/5 dark:bg-black/10" role="listitem">
+            <a href="../docs/who-stole-the-tarts.html" aria-current="true" class="-ml-8 pl-4 py-1 px-2 block text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Who Stole the Tarts?
+        </a>
+
+                    <span class="sr-only">Table of contents</span>
+            
+            </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/alices-evidence.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Alice&#039;s Evidence
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Other</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/extra-information.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Extra information
+        </a>
+    </li>                                    </ul>
+            </li>
+            </ul>
+    </nav>
+            <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
+            <p>
+            <a href="../index.html">Back to home page</a>
+    </p>        </footer>
+    </aside>
+    <main id="content" class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <article id="document" itemscope itemtype="https://schema.org/Article" class="mx-auto lg:ml-8 max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)] prose dark:prose-invert">
+    
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
+        <h1>Chapter XI - Who Stole the Tarts?</h1>
+    </header>
+    <section id="document-main-content" itemprop="articleBody">
+        <p>The King and Queen of Hearts were seated on their throne when
+they arrived, with a great crowd assembled about them--all sorts
+of little birds and beasts, as well as the whole pack of cards:
+the Knave was standing before them, in chains, with a soldier on
+each side to guard him; and near the King was the White Rabbit,
+with a trumpet in one hand, and a scroll of parchment in the
+other.  In the very middle of the court was a table, with a large
+dish of tarts upon it:  they looked so good, that it made Alice
+quite hungry to look at them--&quot;I wish they'd get the trial done,'
+she thought, &quot;and hand round the refreshments!'  But there seemed
+to be no chance of this, so she began looking at everything about
+her, to pass away the time.</p>
+<p>Alice had never been in a court of justice before, but she had
+read about them in books, and she was quite pleased to find that
+she knew the name of nearly everything there.  &quot;That's the
+judge,' she said to herself, &quot;because of his great wig.'</p>
+<p>The judge, by the way, was the King; and as he wore his crown
+over the wig, (look at the frontispiece if you want to see how he
+did it,) he did not look at all comfortable, and it was certainly
+not becoming.</p>
+<p>&quot;And that's the jury-box,' thought Alice, &quot;and those twelve
+creatures,' (she was obliged to say &quot;creatures,' you see, because
+some of them were animals, and some were birds,) &quot;I suppose they
+are the jurors.'  She said this last word two or three times over
+to herself, being rather proud of it:  for she thought, and
+rightly too, that very few little girls of her age knew the
+meaning of it at all.  However, &quot;jury-men' would have done just
+as well.</p>
+<p>The twelve jurors were all writing very busily on slates.
+&quot;What are they doing?'  Alice whispered to the Gryphon.  &quot;They
+can't have anything to put down yet, before the trial's begun.'</p>
+<p>&quot;They're putting down their names,' the Gryphon whispered in
+reply, &quot;for fear they should forget them before the end of the
+trial.'</p>
+<p>&quot;Stupid things!' Alice began in a loud, indignant voice, but
+she stopped hastily, for the White Rabbit cried out, &quot;Silence in
+the court!' and the King put on his spectacles and looked
+anxiously round, to make out who was talking.</p>
+<p>Alice could see, as well as if she were looking over their
+shoulders, that all the jurors were writing down &quot;stupid things!'
+on their slates, and she could even make out that one of them
+didn't know how to spell &quot;stupid,' and that he had to ask his
+neighbour to tell him.  &quot;A nice muddle their slates'll be in
+before the trial's over!' thought Alice.</p>
+<p>One of the jurors had a pencil that squeaked.  This of course,
+Alice could not stand, and she went round the court and got
+behind him, and very soon found an opportunity of taking it
+away.  She did it so quickly that the poor little juror (it was
+Bill, the Lizard) could not make out at all what had become of
+it; so, after hunting all about for it, he was obliged to write
+with one finger for the rest of the day; and this was of very
+little use, as it left no mark on the slate.</p>
+<p>&quot;Herald, read the accusation!' said the King.</p>
+<p>On this the White Rabbit blew three blasts on the trumpet, and
+then unrolled the parchment scroll, and read as follows:--</p>
+<pre><code>&quot;The Queen of Hearts, she made some tarts,
+      All on a summer day:
+  The Knave of Hearts, he stole those tarts,
+      And took them quite away!'
+</code></pre>
+<p>&quot;Consider your verdict,' the King said to the jury.</p>
+<p>&quot;Not yet, not yet!' the Rabbit hastily interrupted.  &quot;There's
+a great deal to come before that!'</p>
+<p>&quot;Call the first witness,' said the King; and the White Rabbit
+blew three blasts on the trumpet, and called out, &quot;First
+witness!'</p>
+<p>The first witness was the Hatter.  He came in with a teacup in
+one hand and a piece of bread-and-butter in the other.  &quot;I beg
+pardon, your Majesty,' he began, &quot;for bringing these in:  but I
+hadn't quite finished my tea when I was sent for.'</p>
+<p>&quot;You ought to have finished,' said the King.  &quot;When did you
+begin?'</p>
+<p>The Hatter looked at the March Hare, who had followed him into
+the court, arm-in-arm with the Dormouse.  &quot;Fourteenth of March, I
+think it was,' he said.</p>
+<p>&quot;Fifteenth,' said the March Hare.</p>
+<p>&quot;Sixteenth,' added the Dormouse.</p>
+<p>&quot;Write that down,' the King said to the jury, and the jury
+eagerly wrote down all three dates on their slates, and then
+added them up, and reduced the answer to shillings and pence.</p>
+<p>&quot;Take off your hat,' the King said to the Hatter.</p>
+<p>&quot;It isn't mine,' said the Hatter.</p>
+<p>&quot;Stolen!' the King exclaimed, turning to the jury, who
+instantly made a memorandum of the fact.</p>
+<p>&quot;I keep them to sell,' the Hatter added as an explanation;
+&quot;I've none of my own.  I'm a hatter.'</p>
+<p>Here the Queen put on her spectacles, and began staring at the
+Hatter, who turned pale and fidgeted.</p>
+<p>&quot;Give your evidence,' said the King; &quot;and don't be nervous, or
+I'll have you executed on the spot.'</p>
+<p>This did not seem to encourage the witness at all:  he kept
+shifting from one foot to the other, looking uneasily at the
+Queen, and in his confusion he bit a large piece out of his
+teacup instead of the bread-and-butter.</p>
+<p>Just at this moment Alice felt a very curious sensation, which
+puzzled her a good deal until she made out what it was:  she was
+beginning to grow larger again, and she thought at first she
+would get up and leave the court; but on second thoughts she
+decided to remain where she was as long as there was room for
+her.</p>
+<p>&quot;I wish you wouldn't squeeze so.' said the Dormouse, who was
+sitting next to her.  &quot;I can hardly breathe.'</p>
+<p>&quot;I can't help it,' said Alice very meekly:  &quot;I'm growing.'</p>
+<p>&quot;You've no right to grow here,' said the Dormouse.</p>
+<p>&quot;Don't talk nonsense,' said Alice more boldly:  &quot;you know
+you're growing too.'</p>
+<p>&quot;Yes, but I grow at a reasonable pace,' said the Dormouse:
+&quot;not in that ridiculous fashion.'  And he got up very sulkily
+and crossed over to the other side of the court.</p>
+<p>All this time the Queen had never left off staring at the
+Hatter, and, just as the Dormouse crossed the court, she said to
+one of the officers of the court, &quot;Bring me the list of the
+singers in the last concert!' on which the wretched Hatter
+trembled so, that he shook both his shoes off.</p>
+<p>&quot;Give your evidence,' the King repeated angrily, &quot;or I'll have
+you executed, whether you're nervous or not.'</p>
+<p>&quot;I'm a poor man, your Majesty,' the Hatter began, in a
+trembling voice, &quot;--and I hadn't begun my tea--not above a week
+or so--and what with the bread-and-butter getting so thin--and
+the twinkling of the tea--'</p>
+<p>&quot;The twinkling of the what?' said the King.</p>
+<p>&quot;It began with the tea,' the Hatter replied.</p>
+<p>&quot;Of course twinkling begins with a T!' said the King sharply.
+&quot;Do you take me for a dunce?  Go on!'</p>
+<p>&quot;I'm a poor man,' the Hatter went on, &quot;and most things
+twinkled after that--only the March Hare said--'</p>
+<p>&quot;I didn't!' the March Hare interrupted in a great hurry.</p>
+<p>&quot;You did!' said the Hatter.</p>
+<p>&quot;I deny it!' said the March Hare.</p>
+<p>&quot;He denies it,' said the King:  &quot;leave out that part.'</p>
+<p>&quot;Well, at any rate, the Dormouse said--' the Hatter went on,
+looking anxiously round to see if he would deny it too:  but the
+Dormouse denied nothing, being fast asleep.</p>
+<p>&quot;After that,' continued the Hatter, &quot;I cut some more bread-
+and-butter--'</p>
+<p>&quot;But what did the Dormouse say?' one of the jury asked.</p>
+<p>&quot;That I can't remember,' said the Hatter.</p>
+<p>&quot;You MUST remember,' remarked the King, &quot;or I'll have you
+executed.'</p>
+<p>The miserable Hatter dropped his teacup and bread-and-butter,
+and went down on one knee.  &quot;I'm a poor man, your Majesty,' he
+began.</p>
+<p>&quot;You're a very poor speaker,' said the King.</p>
+<p>Here one of the guinea-pigs cheered, and was immediately
+suppressed by the officers of the court.  (As that is rather a
+hard word, I will just explain to you how it was done.  They had
+a large canvas bag, which tied up at the mouth with strings:
+into this they slipped the guinea-pig, head first, and then sat
+upon it.)</p>
+<p>&quot;I'm glad I've seen that done,' thought Alice.  &quot;I've so often
+read in the newspapers, at the end of trials, &quot;There was some
+attempts at applause, which was immediately suppressed by the
+officers of the court,&quot; and I never understood what it meant
+till now.'</p>
+<p>&quot;If that's all you know about it, you may stand down,'
+continued the King.</p>
+<p>&quot;I can't go no lower,' said the Hatter:  &quot;I'm on the floor, as
+it is.'</p>
+<p>&quot;Then you may SIT down,' the King replied.</p>
+<p>Here the other guinea-pig cheered, and was suppressed.</p>
+<p>&quot;Come, that finished the guinea-pigs!' thought Alice.  &quot;Now we
+shall get on better.'</p>
+<p>&quot;I'd rather finish my tea,' said the Hatter, with an anxious
+look at the Queen, who was reading the list of singers.</p>
+<p>&quot;You may go,' said the King, and the Hatter hurriedly left the
+court, without even waiting to put his shoes on.</p>
+<p>&quot;--and just take his head off outside,' the Queen added to one
+of the officers:  but the Hatter was out of sight before the
+officer could get to the door.</p>
+<p>&quot;Call the next witness!' said the King.</p>
+<p>The next witness was the Duchess's cook.  She carried the
+pepper-box in her hand, and Alice guessed who it was, even before
+she got into the court, by the way the people near the door began
+sneezing all at once.</p>
+<p>&quot;Give your evidence,' said the King.</p>
+<p>&quot;Shan't,' said the cook.</p>
+<p>The King looked anxiously at the White Rabbit, who said in a
+low voice, &quot;Your Majesty must cross-examine THIS witness.'</p>
+<p>&quot;Well, if I must, I must,' the King said, with a melancholy
+air, and, after folding his arms and frowning at the cook till
+his eyes were nearly out of sight, he said in a deep voice, &quot;What
+are tarts made of?'</p>
+<p>&quot;Pepper, mostly,' said the cook.</p>
+<p>&quot;Treacle,' said a sleepy voice behind her.</p>
+<p>&quot;Collar that Dormouse,' the Queen shrieked out.  &quot;Behead that
+Dormouse!  Turn that Dormouse out of court!  Suppress him!  Pinch
+him!  Off with his whiskers!'</p>
+<p>For some minutes the whole court was in confusion, getting the
+Dormouse turned out, and, by the time they had settled down
+again, the cook had disappeared.</p>
+<p>&quot;Never mind!' said the King, with an air of great relief.
+&quot;Call the next witness.'  And he added in an undertone to the
+Queen, &quot;Really, my dear, YOU must cross-examine the next witness.
+It quite makes my forehead ache!'</p>
+<p>Alice watched the White Rabbit as he fumbled over the list,
+feeling very curious to see what the next witness would be like,
+&quot;--for they haven't got much evidence YET,' she said to herself.
+Imagine her surprise, when the White Rabbit read out, at the top
+of his shrill little voice, the name &quot;Alice!'</p>
+    </section>
+    <footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
+        
+    </footer>
+</article>    </main>
+
+    <div id="support">
+        <div id="sidebar-backdrop" x-cloak="" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+                    <button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
+        aria-label="Toggle search window">
+    <span x-show="! searchWindowOpen">
+        Search <svg class="float-left mr-1 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24"
+                    viewBox="0 0 24 24" width="24" role="presentation">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </span>
+    <span x-show="searchWindowOpen">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+    </span>
+</button>
+<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
+        aria-label="Toggle search menu">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" role="presentation">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+</button>
+
+<div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
+     class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
+    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+           class="prose dark:prose-invert bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
+        <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
+            <strong>Search the documentation site</strong>
+            <button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100"
+                    aria-label="Close search window">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <div>
+            <div id="hyde-search">
+    <noscript>
+        The search feature requires JavaScript to be enabled in your browser.
+    </noscript>
+    <input class="w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3" type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off" autofocus>
+</div>        </div>
+        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+            <small>
+                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
+                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+            </small>
+        </footer>
+    </aside>
+
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
+</div>            <script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+<script>
+    window.addEventListener('load', function () {
+        const searchIndexLocation = '../docs/search.json';
+        const Search = new HydeSearch(searchIndexLocation);
+
+        Search.init();
+    });
+</script>            </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" integrity="sha256-gOkV4d9/FmMNEkjOzVlyM2eNAWSUXisT+1RbMTTIgXI=" crossorigin="anonymous"></script>
+
+<script>
+    function toggleTheme() {
+        if (localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem('color-theme', 'light');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'light');
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem('color-theme', 'dark');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

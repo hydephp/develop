@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydePHP Upcoming Documentation - Customizing your Site</title>
+
+
+
+<link rel="canonical" href="https://hydephp.github.io/develop/master/dev-docs/dev-docs/customization.html">
+<meta name="twitter:title" content="HydePHP Upcoming Documentation - Customizing your Site">
+<meta property="og:title" content="HydePHP Upcoming Documentation - Customizing your Site">
+
+
+<link rel="sitemap" href="https://hydephp.github.io/develop/master/dev-docs/sitemap.xml" type="application/xml" title="Sitemap">
+<meta name="generator" content="HydePHP 1.7.2">
+<meta name="robots" content="noindex">
+<meta property="og:site_name" content="HydePHP Upcoming Documentation">
+
+
+
+
+<style>[x-cloak] {display: none!important}</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/app.css">
+
+
+
+
+
+    
+    <meta id="meta-color-scheme" name="color-scheme" content="light">
+    <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>
+
+
+
+
+
+
+</head>
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+
+    <a href="#content" id="skip-to-content" class="sr-only focus:not-sr-only bg-black border-4 border-yellow-400 focus:absolute focus:mt-2 focus:mx-auto focus:p-2 focus:w-64 h-auto left-0 overflow-auto right-0 rounded-md text-center text-lg text-white top-auto z-50 ">Skip to content</a>    <nav id="mobile-navigation" class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
+    <strong class="px-2 mr-auto">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <ul class="flex items-center">
+        <li class="h-8 flex mr-1">
+            <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+        </li>
+        <li class="h-8 flex">
+            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+</button>        </li>
+    </ul>
+</nav>    <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
+    <header id="sidebar-header" class="h-16">
+        <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
+    <strong class="px-2">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+</div>    </header>
+    <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        <ul id="sidebar-items" role="list">
+                            <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Getting Started</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/quickstart.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Quickstart Guide
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/console-commands.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Console Commands
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/core-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Core Concepts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/front-matter.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Front Matter
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Creating Content</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/blog-posts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Creating Blog Posts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/static-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Markdown &amp; Blade Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/documentation-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Documentation Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/managing-assets.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Managing and Compiling Assets
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/compile-and-deploy.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Compile &amp; Deploy
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: true }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Digging Deeper</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4 active -ml-8 pl-8 bg-black/5 dark:bg-black/10" role="listitem">
+            <a href="../dev-docs/customization.html" aria-current="true" class="-ml-8 pl-4 py-1 px-2 block text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Customizing your Site
+        </a>
+
+                    <span class="sr-only">Table of contents</span>
+            <ul class="table-of-contents">
+<li>
+<a href="#introduction">Introduction</a>
+</li>
+<li>
+<a href="#accessing-configuration-values">Accessing Configuration Values</a>
+<ul>
+<li>
+<a href="#configuration-api-recap">Configuration API Recap</a>
+</li>
+<li>
+<a href="#dot-notation">Dot Notation</a>
+</li>
+<li>
+<a href="#front-matter-or-configuration-files">Front Matter or Configuration Files?</a>
+</li>
+<li>
+<a href="#a-note-on-file-paths">A note on file paths</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#configuration-files-overview">Configuration Files Overview</a>
+<ul>
+<li>
+<a href="#hydephp-configuration-files">HydePHP Configuration Files</a>
+</li>
+<li>
+<a href="#publishable-laravel--package-configuration-files">Publishable Laravel &amp; Package Configuration Files</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#configuration-options">Configuration Options</a>
+<ul>
+<li>
+<a href="#rss-feed-generation">RSS feed generation</a>
+</li>
+<li>
+<a href="#authors">Authors</a>
+<ul>
+<li>
+<a href="#example">Example</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#footer">Footer</a>
+<ul>
+<li>
+<a href="#customizing-the-markdown-text">Customizing the Markdown text</a>
+</li>
+<li>
+<a href="#customizing-the-blade-component">Customizing the Blade component</a>
+</li>
+<li>
+<a href="#disabling-the-footer-entirely">Disabling the footer entirely</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#head-and-script-html-hooks">Head and script HTML hooks</a>
+</li>
+<li>
+<a href="#navigation-menu--sidebar">Navigation Menu &amp; Sidebar</a>
+<ul>
+<li>
+<a href="#customizing-the-navigation-menu">Customizing the navigation menu</a>
+</li>
+<li>
+<a href="#customizing-the-documentation-sidebar">Customizing the documentation sidebar</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#additional-advanced-options">Additional Advanced Options</a>
+<ul>
+<li>
+<a href="#mediaextensions">media_extensions</a>
+</li>
+<li>
+<a href="#safeoutputdirectories">safe_output_directories</a>
+</li>
+<li>
+<a href="#generatebuildmanifest">generate_build_manifest</a>
+</li>
+<li>
+<a href="#buildmanifestpath">build_manifest_path</a>
+</li>
+<li>
+<a href="#hydefrontversion-and-hydefrontcdnurl">hydefront_version and hydefront_cdn_url</a>
+</li>
+<li>
+<a href="#themetogglebuttons">theme_toggle_buttons</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#blade-views">Blade Views</a>
+</li>
+<li>
+<a href="#frontend-styles">Frontend Styles</a>
+</li>
+<li>
+<a href="#markdown-configuration">Markdown Configuration</a>
+<ul>
+<li>
+<a href="#commonmark-extensions">CommonMark Extensions</a>
+</li>
+<li>
+<a href="#commonmark-configuration">CommonMark Configuration</a>
+</li>
+<li>
+<a href="#allow-raw-html">Allow Raw HTML</a>
+</li>
+<li>
+<a href="#allow-blade-code">Allow Blade Code</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#yaml-configuration">YAML Configuration</a>
+<ul>
+<li>
+<a href="#namespaced-yaml-configuration">Namespaced YAML Configuration</a>
+</li>
+</ul>
+</li>
+</ul>
+
+            </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/navigation.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Navigation Menus
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-markdown.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Markdown
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-customization.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Customization
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/collections.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            File-based Collections
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/helpers.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Helpers and Utilities
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/troubleshooting.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Troubleshooting
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/updating-hyde.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Updating Hyde Projects
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Advanced Features</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-features.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/build-tasks.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Custom Build Tasks
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/hyde-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePage API
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/in-memory-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            InMemoryPages
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Architecture Concepts</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/architecture-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/autodiscovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Autodiscovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/automatic-routing.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Automatic Routing
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/dynamic-data-discovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Dynamic Data Discovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/page-models.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Page models
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/the-hydekernel.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The HydeKernel
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions-api.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Extensions API
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Extensions</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Extensions &amp; Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/realtime-compiler.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Realtime Compiler
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/third-party-integrations.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Third-Party Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/ui-kit.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePHP UI Kit - Documentation
+        </a>
+    </li>                                    </ul>
+            </li>
+            </ul>
+    </nav>
+    </aside>
+    <main id="content" class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <article id="document" itemscope itemtype="https://schema.org/Article" class="mx-auto lg:ml-8 max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)] prose dark:prose-invert">
+    
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
+        <h1>Customizing your Site</h1>
+    </header>
+    <section id="document-main-content" itemprop="articleBody">
+        <h2>Introduction<a id="introduction" href="#introduction" class="heading-permalink" title="Permalink"></a></h2>
+<p>Hyde favours <a href="https://en.wikipedia.org/wiki/Convention_over_configuration">&quot;Convention over Configuration&quot;</a>
+and comes preconfigured with sensible defaults. However, Hyde also strives to be modular and endlessly customizable
+if you need it. This page guides you through the many options available!</p>
+<p>All the configuration files are stored in the config directory, and allow you to customize almost all aspects of your site.
+Each option is documented, so feel free to look through the files and get familiar with the options available to you.</p>
+<h2>Accessing Configuration Values<a id="accessing-configuration-values" href="#accessing-configuration-values" class="heading-permalink" title="Permalink"></a></h2>
+<h3>Configuration API Recap<a id="configuration-api-recap" href="#configuration-api-recap" class="heading-permalink" title="Permalink"></a></h3>
+<p>HydePHP uses the same configuration system as Laravel. Here's a quick recap from the <a href="https://laravel.com/docs/10.x/configuration">Laravel Documentation</a>:</p>
+<p>You may easily access your configuration values using the global <code>config</code> function from anywhere in your project code.
+The configuration values may be accessed using &quot;dot notation&quot; syntax, which includes the name of the file and option you wish to access.</p>
+<pre><code class="language-php">$value = config('hyde.name');
+</code></pre>
+<p>A default value may also be specified and will be returned if the configuration option does not exist:</p>
+<pre><code class="language-php">$value = config('hyde.name', 'HydePHP');
+</code></pre>
+<p>HydePHP also provides a strongly typed <code>Config</code> facade which extends the Laravel <code>Config</code> facade, but allows strict types:</p>
+<pre><code class="language-php">use Hyde\Facades\Config;
+
+// Will always return a string, or it throws a TypeError
+$name = Config::getString('hyde.name', 'HydePHP'): string;
+</code></pre>
+<h3>Dot Notation<a id="dot-notation" href="#dot-notation" class="heading-permalink" title="Permalink"></a></h3>
+<p>As seen in the example above, when referencing configuration options, we often use &quot;dot notation&quot; to specify the configuration file.
+For example, <code>config('hyde.name')</code> means that we are looking for the <code>name</code> option in the <code>config/hyde.php</code> file.</p>
+<h3>Front Matter or Configuration Files?<a id="front-matter-or-configuration-files" href="#front-matter-or-configuration-files" class="heading-permalink" title="Permalink"></a></h3>
+<p>In some cases, the same options can be set in the front matter of a page or in a configuration file. Both ways are always documented, and it's up to you to choose which one you prefer. Note that in most cases, if a setting is set in both the front matter and the configuration file, the front matter setting will take precedence.</p>
+<h3>A note on file paths<a id="a-note-on-file-paths" href="#a-note-on-file-paths" class="heading-permalink" title="Permalink"></a></h3>
+<p>When Hyde references files, especially when passing filenames between components, the file path is almost always
+relative to the root of the project. Specifying absolute paths yourself could lead to unforeseen problems.</p>
+<h2>Configuration Files Overview<a id="configuration-files-overview" href="#configuration-files-overview" class="heading-permalink" title="Permalink"></a></h2>
+<p>There are a few configuration files available in the <code>config</code> directory. All options are documented, so feel free to look through the files and get familiar with the options available to you.</p>
+<p>Below are two tables over the different configuration files. Click on a file name to see the default file on GitHub.</p>
+<h3>HydePHP Configuration Files<a id="hydephp-configuration-files" href="#hydephp-configuration-files" class="heading-permalink" title="Permalink"></a></h3>
+<p>These are the main configuration files for HydePHP and lets you customize the look and feel of your site, as well as the behaviour of HydePHP itself.
+The main configuration file, <code>hyde.php</code>, is used for things ranging from site name and base URL to navigation menus and what features to enable.</p>
+<table>
+<thead>
+<tr>
+<th>Config File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/config/hyde.php" rel="nofollow noopener">hyde.php</a></td>
+<td>Main HydePHP configuration file for customizing the overall project.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/config/docs.php" rel="nofollow noopener">docs.php</a></td>
+<td>Options for the HydePHP documentation site generator module.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/config/markdown.php" rel="nofollow noopener">markdown.php</a></td>
+<td>Configure Markdown related services, as well as change the CommonMark extensions.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/app/config.php" rel="nofollow noopener">app/config.php</a></td>
+<td>Configures the underlying Laravel application. (Commonly found as config/app.php in Laravel apps)</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="info"><p>Tip: The values in <code>hyde.php</code> can also be set in YAML by creating a <code>hyde.yml</code> file in the root of your project. See <a href="#yaml-configuration">#yaml-configuration</a> for more information.</p></blockquote>
+<h3>Publishable Laravel &amp; Package Configuration Files<a id="publishable-laravel--package-configuration-files" href="#publishable-laravel--package-configuration-files" class="heading-permalink" title="Permalink"></a></h3>
+<p>Since HydePHP is based on Laravel we also have a few configuration files related to them. As you most often don't need
+to edit any of these, unless you want to make changes to the underlying application, they are not present in the
+base HydePHP installation. However, you can publish them to your project by running <code>php hyde publish:configs</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Config File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/config/view.php" rel="nofollow noopener">view.php</a></td>
+<td>Configures the paths for the Blade View compiler.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/config/cache.php" rel="nofollow noopener">cache.php</a></td>
+<td>Configures the cache driver and cache path locations.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/config/commands.php" rel="nofollow noopener">commands.php</a></td>
+<td>Configures the Laravel Zero commands for the HydeCLI.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hydephp/hyde/blob/master/config/torchlight.php" rel="nofollow noopener">torchlight.php</a></td>
+<td>Configures settings for the Torchlight syntax highlighting integration.</td>
+</tr>
+</tbody>
+</table>
+<p>If any of these files are missing, you can run <code>php hyde publish:configs</code> to copy the default files to your project.</p>
+<h2>Configuration Options<a id="configuration-options" href="#configuration-options" class="heading-permalink" title="Permalink"></a></h2>
+<p>While all options are already documented within the files, here are some further explanations of some of the options.</p>
+<h3>RSS feed generation<a id="rss-feed-generation" href="#rss-feed-generation" class="heading-permalink" title="Permalink"></a></h3>
+<p>When enabled, an RSS feed containing all your Markdown blog posts will be generated when you compile your static site.
+Here are the default settings:</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'rss' =&gt; [
+    // Should the RSS feed be generated?
+    'enabled' =&gt; true,
+
+    // What filename should the RSS file use?
+    'filename' =&gt; 'feed.xml',
+
+    // The channel description.
+    'description' =&gt; env('SITE_NAME', 'HydePHP').' RSS Feed',
+],
+</code></pre>
+<blockquote class="warning"><p>Note that this feature requires that a <code>site_url</code> is set!</p></blockquote>
+<h3>Authors<a id="authors" href="#authors" class="heading-permalink" title="Permalink"></a></h3>
+<p>Hyde has support for adding authors in front matter, for example to automatically add a link to your website or social media profiles.
+However, it's tedious to have to add those to each and every post you make, and keeping them updated is even harder.</p>
+<p>Instead, you can predefine authors in the Hyde config. When writing posts, just specify the username in the front matter,
+and the rest of the data will be pulled from a matching entry found in the configuration file.</p>
+<h4>Example<a id="example" href="#example" class="heading-permalink" title="Permalink"></a></h4>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'authors' =&gt; [
+    Author::create(
+        username: 'mr_hyde', // Required username
+        name: 'Mr. Hyde', // Optional display name
+        website: 'https://hydephp.com' // Optional website URL
+    ),
+],
+</code></pre>
+<p>This is equivalent to the following front matter in a blog post:</p>
+<pre><code class="language-yaml">author:
+    username: mr_hyde
+    name: Mr. Hyde
+    website: https://hydephp.com
+</code></pre>
+<p>But you only have to specify the username:</p>
+<pre><code class="language-yaml">author: mr_hyde
+</code></pre>
+<h3>Footer<a id="footer" href="#footer" class="heading-permalink" title="Permalink"></a></h3>
+<p>Most websites have a footer with copyright details and contact information. You probably want to change the Markdown to include your information, though you are of course welcome to keep the default attribution link!</p>
+<p>The footer component is made up of a few levels of components, depending on how much you want to customize.</p>
+<h4>Customizing the Markdown text<a id="customizing-the-markdown-text" href="#customizing-the-markdown-text" class="heading-permalink" title="Permalink"></a></h4>
+<p>There are two ways to customize the footer text. First, you can set it in the configuration file:</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'footer' =&gt; 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
+</code></pre>
+<p>If you don't want to write Markdown in the configuration file, you can create a Markdown file in your includes directory. When this file is found, it will be used instead of the configuration setting.</p>
+<pre><code class="language-markdown"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>resources/includes/footer.md</small>Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩
+</code></pre>
+<p>In both cases the parsed Markdown will be rendered in the footer Blade component.</p>
+<h4>Customizing the Blade component<a id="customizing-the-blade-component" href="#customizing-the-blade-component" class="heading-permalink" title="Permalink"></a></h4>
+<p>The actual footer component is rendered using the <a href="https://github.com/hydephp/framework/blob/master/resources/views/layouts/footer.blade.php"><code>layouts/footer.blade.php</code></a> Blade template.</p>
+<p>In this template we automatically render the configured footer Markdown text. If you want to change this behaviour, for example, HydePHP.com uses a more sophisticated footer, simply <a href="#blade-views">publish the footer component</a>.</p>
+<h4>Disabling the footer entirely<a id="disabling-the-footer-entirely" href="#disabling-the-footer-entirely" class="heading-permalink" title="Permalink"></a></h4>
+<p>If you don't want to have a footer on your site, you can set the <code>'footer'</code> configuration option to <code>false</code>.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'footer' =&gt; 'false',
+</code></pre>
+<h3>Head and script HTML hooks<a id="head-and-script-html-hooks" href="#head-and-script-html-hooks" class="heading-permalink" title="Permalink"></a></h3>
+<blockquote class="info"><p>Note: The configuration options <code>head</code> and <code>scripts</code> were added in HydePHP v1.5. If you are running an older version, you need to use the Blade options, or upgrade your project.</p></blockquote>
+<p>While the most robust way to add custom HTML to the head or body of your site is to publish the Blade layouts, or pushing to the <code>meta</code> or <code>scripts</code> stacks,
+you can also add custom HTML directly in the configuration file. This works especially well to quickly add things like analytics widgets or similar in the <code>hyde.yml</code> file, though the possibilities are endless.</p>
+<p>To add custom HTML to your layouts, you can use the <code>head</code> and <code>scripts</code> configuration options in the <code>config/hyde.php</code> file (or the <code>hyde.yml</code> file).
+The HTML will be added to the <code>&lt;head&gt;</code> section, or just before the closing <code>&lt;/body&gt;</code> tag, respectively.
+Note that the HTML is added to all pages. If you need to add HTML to a specific page, you will need to override the layout for that page.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'head' =&gt; '&lt;!-- Custom HTML in the head --&gt;',
+'scripts' =&gt; '&lt;!-- Custom HTML in the body --&gt;',
+</code></pre>
+<pre><code class="language-yaml"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>hyde.yml</small>hyde:
+  head: &quot;&lt;!-- Custom HTML in the head --&gt;&quot;
+  scripts: &quot;&lt;!-- Custom HTML in the body --&gt;&quot;
+</code></pre>
+<p>You can of course also add multiple lines of HTML:</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'head' =&gt; &lt;&lt;&lt;HTML
+    &lt;!-- Custom HTML in the head --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://example.com/styles.css&quot;&gt;
+HTML,
+</code></pre>
+<pre><code class="language-yaml"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>hyde.yml</small>hyde:
+  head: |
+    &lt;!-- Custom HTML in the head --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://example.com/styles.css&quot;&gt;
+</code></pre>
+<h3>Navigation Menu &amp; Sidebar<a id="navigation-menu--sidebar" href="#navigation-menu--sidebar" class="heading-permalink" title="Permalink"></a></h3>
+<p>A great time-saving feature of HydePHP is the automatic navigation menu and documentation sidebar generation.
+Hyde is designed to automatically configure these menus for you based on the content you have in your project.</p>
+<p>Still, you will likely want to customize some parts of these menus, and thankfully, Hyde makes it easy to do so.</p>
+<h4>Customizing the navigation menu<a id="customizing-the-navigation-menu" href="#customizing-the-navigation-menu" class="heading-permalink" title="Permalink"></a></h4>
+<ul>
+<li>To customize the navigation menu, use the setting <code>navigation.order</code> in the <code>hyde.php</code> config.</li>
+<li>When customizing the navigation menu, you should use the <a href="core-concepts#route-keys">route key</a> of the page.</li>
+</ul>
+<p>Learn more in the <a href="navigation">Navigation Menu</a> documentation.</p>
+<h4>Customizing the documentation sidebar<a id="customizing-the-documentation-sidebar" href="#customizing-the-documentation-sidebar" class="heading-permalink" title="Permalink"></a></h4>
+<ul>
+<li>To customize the sidebar, use the setting <code>sidebar_order</code> in the <code>docs.php</code> config.</li>
+<li>When customizing the sidebar, can use the route key, or just the <a href="core-concepts#page-identifiers">page identifier</a> of the page.</li>
+</ul>
+<p>Learn more in the <a href="documentation-pages">Documentation Pages</a> documentation.</p>
+<h2>Additional Advanced Options<a id="additional-advanced-options" href="#additional-advanced-options" class="heading-permalink" title="Permalink"></a></h2>
+<p>The following configuration options in the <code>config/hyde.php</code> file are intended for advanced users and
+should only be modified if you fully understand their impact. The code examples show the default values.</p>
+<h3><code>media_extensions</code><a id="mediaextensions" href="#mediaextensions" class="heading-permalink" title="Permalink"></a></h3>
+<p>This option allows you to specify file extensions considered as media files, which will be copied to the output directory.
+To add more extensions, either append them to the existing array or override the entire array.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>use \Hyde\Support\Filesystem\MediaFile;
+
+'media_extensions' =&gt; array_merge([], MediaFile::EXTENSIONS),
+</code></pre>
+<h3><code>safe_output_directories</code><a id="safeoutputdirectories" href="#safeoutputdirectories" class="heading-permalink" title="Permalink"></a></h3>
+<p>This setting defines a list of directories deemed safe to empty during the site build process as a safeguard to prevent accidental data loss.
+If the site output directory is not in this list, the build command will prompt for confirmation before emptying it. It is preconfigured
+with common directories including the default one, but you are free to change this to include any custom directories you may need.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'safe_output_directories' =&gt; ['_site', 'docs', 'build'],
+</code></pre>
+<h3><code>generate_build_manifest</code><a id="generatebuildmanifest" href="#generatebuildmanifest" class="heading-permalink" title="Permalink"></a></h3>
+<p>Determines whether a JSON build manifest with metadata about the build should be generated. Set to <code>true</code> to enable.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'generate_build_manifest' =&gt; true,
+</code></pre>
+<h3><code>build_manifest_path</code><a id="buildmanifestpath" href="#buildmanifestpath" class="heading-permalink" title="Permalink"></a></h3>
+<p>Specifies the path where the build manifest should be saved, relative to the project root.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'build_manifest_path' =&gt; 'app/storage/framework/cache/build-manifest.json',
+</code></pre>
+<h3><code>hydefront_version</code> and <code>hydefront_cdn_url</code><a id="hydefrontversion-and-hydefrontcdnurl" href="#hydefrontversion-and-hydefrontcdnurl" class="heading-permalink" title="Permalink"></a></h3>
+<p>These options allow you to specify the HydeFront version and CDN URL when loading <code>app.css</code> from the CDN.</p>
+<p>Only change these if you know what you're doing as some versions may be incompatible with your Hyde version.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>use \Hyde\Framework\Services\AssetService;
+
+'hydefront_version' =&gt; AssetService::HYDEFRONT_VERSION,
+'hydefront_cdn_url' =&gt; AssetService::HYDEFRONT_CDN_URL,
+</code></pre>
+<h3><code>theme_toggle_buttons</code><a id="themetogglebuttons" href="#themetogglebuttons" class="heading-permalink" title="Permalink"></a></h3>
+<blockquote class="info"><p>This feature was added in HydePHP v1.7.0</p></blockquote>
+<p>This setting allows you to enable or disable the theme toggle buttons in the navigation menu.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'theme_toggle_buttons' =&gt; true,
+</code></pre>
+<p>If the <code>Feature::Darkmode</code> setting is disabled in the <code>features</code> array in the same file, this won't do anything, but if darkmode is enabled,
+setting this setting to <code>false</code> will make so that the buttons will not show up in the app layout nor the documentation layout;
+instead the appropriate color scheme will be automatically applied based on the browser system settings.</p>
+<h2>Blade Views<a id="blade-views" href="#blade-views" class="heading-permalink" title="Permalink"></a></h2>
+<p>Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.
+Before editing the views you should familiarize yourself with the <a href="https://laravel.com/docs/10.x/blade">Laravel Blade Documentation</a>.</p>
+<p>To edit a default Hyde component you need to publish them first using the <code>hyde publish:views</code> command.</p>
+<pre><code class="language-bash">php hyde publish:views
+</code></pre>
+<p>The files will then be available in the <code>resources/views/vendor/hyde</code> directory.</p>
+<h2>Frontend Styles<a id="frontend-styles" href="#frontend-styles" class="heading-permalink" title="Permalink"></a></h2>
+<p>Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template
+for you to get up and running quickly. If you want to customize these, you are free to do so.
+Please see the <a href="managing-assets">Managing Assets</a> page to learn more.</p>
+<h2>Markdown Configuration<a id="markdown-configuration" href="#markdown-configuration" class="heading-permalink" title="Permalink"></a></h2>
+<p>Hyde uses <a href="https://commonmark.thephpleague.com/">League CommonMark</a> for converting Markdown into HTML, and
+uses the GitHub Flavored Markdown extension. The Markdown related settings are found in the <code>config/markdown.php</code> file.
+Below follows an overview of the Markdown configuration options available in Hyde.</p>
+<h3>CommonMark Extensions<a id="commonmark-extensions" href="#commonmark-extensions" class="heading-permalink" title="Permalink"></a></h3>
+<p>You can add any extra <a href="https://commonmark.thephpleague.com/2.3/extensions/overview/">CommonMark Extensions</a>,
+or change the default ones, using the <code>extensions</code> array in the config file. They will then automatically be loaded into
+the CommonMark converter environment when being set up by Hyde.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/markdown.php</small>'extensions' =&gt; [
+    \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
+    \League\CommonMark\Extension\Attributes\AttributesExtension::class,
+],
+</code></pre>
+<p>Remember that you may need to install any third party extensions through Composer before you can use them.</p>
+<h3>CommonMark Configuration<a id="commonmark-configuration" href="#commonmark-configuration" class="heading-permalink" title="Permalink"></a></h3>
+<p>In the same file you can also change the configuration values to be passed to the CommonMark converter environment.
+Hyde handles many of the options automatically, but you may want to override some of them and/or add your own.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/markdown.php</small>'config' =&gt; [
+    'disallowed_raw_html' =&gt; [
+        'disallowed_tags' =&gt; [],
+    ],
+],
+</code></pre>
+<p>See the <a href="https://commonmark.thephpleague.com/2.3/configuration/">CommonMark Configuration Docs</a> for the available options.
+Any custom options will be merged with the defaults.</p>
+<h3>Allow Raw HTML<a id="allow-raw-html" href="#allow-raw-html" class="heading-permalink" title="Permalink"></a></h3>
+<p>Since Hyde uses <a href="https://commonmark.thephpleague.com/2.3/extensions/github-flavored-markdown/">GitHub Flavored Markdown</a>,
+some HTML tags are stripped out by default. If you want to allow all arbitrary HTML tags, and understand the risks involved,
+you can use the <code>allow_html</code> setting to enable all HTML tags.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/markdown.php</small>'allow_html' =&gt; true,
+</code></pre>
+<h3>Allow Blade Code<a id="allow-blade-code" href="#allow-blade-code" class="heading-permalink" title="Permalink"></a></h3>
+<p>HydePHP also allows you to use Blade code in your Markdown files. This is disabled by default, since it allows
+arbitrary PHP code specified in Markdown to be executed. It's easy to enable however, using the <code>enable_blade</code> setting.</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/markdown.php</small>'enable_blade' =&gt; true,
+</code></pre>
+<p>See the <a href="advanced-markdown#blade-support">Blade in Markdown</a> documentation for more information on how to use this feature.</p>
+<h2>YAML Configuration<a id="yaml-configuration" href="#yaml-configuration" class="heading-permalink" title="Permalink"></a></h2>
+<p>The settings in the <code>config/hyde.php</code> file can also be set by using a <code>hyde.yml</code> file in the root of your project directory.</p>
+<p>Note that YAML settings cannot call any PHP functions, so you can't access helpers like <code>env()</code> for environment variables,
+nor declare authors or navigation links, as you cannot use facades and objects. But that doesn't stop you from using both
+files if you want to. Just keep in mind that any duplicate settings in the YAML file override any made in the PHP file.</p>
+<p>Here is an example showing some of the <code>config/hyde.php</code> file settings, and how they would be set in the YAML file.</p>
+<pre><code class="language-yaml"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>hyde.yml</small>name: HydePHP
+url: &quot;http://localhost&quot;
+pretty_urls: false
+generate_sitemap: true
+rss:
+  enabled: true
+  filename: feed.xml
+  description: HydePHP RSS Feed
+language: en
+output_directory: _site
+</code></pre>
+<h3>Namespaced YAML Configuration<a id="namespaced-yaml-configuration" href="#namespaced-yaml-configuration" class="heading-permalink" title="Permalink"></a></h3>
+<p>If you are running <code>v1.2</code> or higher, you can also use namespaced configuration options in the YAML file.</p>
+<p>This allows you to set the settings of <strong>any</strong> configuration file normally found in the <code>config</code> directory.</p>
+<p>This feature is automatically enabled when you have a <code>hyde:</code> entry <strong>first</strong> in your <code>hyde.yml</code> file</p>
+<pre><code class="language-yaml"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>hyde.yml</small>hyde:
+  name: HydePHP
+
+docs:
+  sidebar:
+    header: &quot;My Docs&quot;
+</code></pre>
+<p>This would set the <code>name</code> setting in the <code>config/hyde.php</code> file, and the <code>sidebar.header</code> setting in the <code>config/docs.php</code> file.</p>
+<p>Each top level key in the YAML file is treated as a namespace, and the settings are set in the corresponding configuration file.
+You can of course use arrays like normal even in namespaced configuration.</p>
+    </section>
+    <footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
+        
+    </footer>
+</article>    </main>
+
+    <div id="support">
+        <div id="sidebar-backdrop" x-cloak="" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+                    <button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
+        aria-label="Toggle search window">
+    <span x-show="! searchWindowOpen">
+        Search <svg class="float-left mr-1 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24"
+                    viewBox="0 0 24 24" width="24" role="presentation">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </span>
+    <span x-show="searchWindowOpen">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+    </span>
+</button>
+<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
+        aria-label="Toggle search menu">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" role="presentation">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+</button>
+
+<div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
+     class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
+    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+           class="prose dark:prose-invert bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
+        <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
+            <strong>Search the documentation site</strong>
+            <button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100"
+                    aria-label="Close search window">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <div>
+            <div id="hyde-search">
+    <noscript>
+        The search feature requires JavaScript to be enabled in your browser.
+    </noscript>
+    <input class="w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3" type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off" autofocus>
+</div>        </div>
+        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+            <small>
+                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
+                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+            </small>
+        </footer>
+    </aside>
+
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
+</div>            <script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+<script>
+    window.addEventListener('load', function () {
+        const searchIndexLocation = '../dev-docs/search.json';
+        const Search = new HydeSearch(searchIndexLocation);
+
+        Search.init();
+    });
+</script>            </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" integrity="sha256-gOkV4d9/FmMNEkjOzVlyM2eNAWSUXisT+1RbMTTIgXI=" crossorigin="anonymous"></script>
+
+<script>
+    function toggleTheme() {
+        if (localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem('color-theme', 'light');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'light');
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem('color-theme', 'dark');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

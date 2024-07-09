@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydePHP - Chapter III - A Caucus-Race and a Long Tale</title>
+
+
+
+<meta name="twitter:title" content="HydePHP - Chapter III - A Caucus-Race and a Long Tale">
+<meta property="og:title" content="HydePHP - Chapter III - A Caucus-Race and a Long Tale">
+
+
+<meta name="generator" content="HydePHP 1.7.2">
+<meta property="og:site_name" content="HydePHP">
+
+
+
+
+<style>[x-cloak] {display: none!important}</style>
+
+
+    <link rel="stylesheet" href="../media/app.css?v=54f53fdc399f75f20330c69f208b6858">
+
+
+
+
+
+    
+    <meta id="meta-color-scheme" name="color-scheme" content="light">
+    <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>
+
+
+
+
+
+
+</head>
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+
+    <a href="#content" id="skip-to-content" class="sr-only focus:not-sr-only bg-black border-4 border-yellow-400 focus:absolute focus:mt-2 focus:mx-auto focus:p-2 focus:w-64 h-auto left-0 overflow-auto right-0 rounded-md text-center text-lg text-white top-auto z-50 ">Skip to content</a>    <nav id="mobile-navigation" class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
+    <strong class="px-2 mr-auto">
+                    <a href="../docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <ul class="flex items-center">
+        <li class="h-8 flex mr-1">
+            <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+        </li>
+        <li class="h-8 flex">
+            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+</button>        </li>
+    </ul>
+</nav>    <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
+    <header id="sidebar-header" class="h-16">
+        <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
+    <strong class="px-2">
+                    <a href="../docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+</div>    </header>
+    <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        <ul id="sidebar-items" role="list">
+                            <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Introduction</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/cover.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Cover Page
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: true }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Chapters</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/down-the-rabbithole.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Down the Rabbit-Hole
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-pool-of-tears.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Pool of Tears
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4 active -ml-8 pl-8 bg-black/5 dark:bg-black/10" role="listitem">
+            <a href="../docs/a-caucusrace-and-a-long-tale.html" aria-current="true" class="-ml-8 pl-4 py-1 px-2 block text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300 ease-in-out hover:bg-black/10">
+            A Caucus-Race and a Long Tale
+        </a>
+
+                    <span class="sr-only">Table of contents</span>
+            
+            </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-rabbit-sends-in-a-little-bill.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Rabbit Sends in a Little Bill
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/advice-from-a-caterpillar.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advice from a Caterpillar
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/pig-and-pepper.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Pig and Pepper
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/a-mad-teaparty.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            A Mad Tea-Party
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-queens-croquetground.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Queen&#039;s Croquet-Ground
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-mock-turtles-story.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Mock Turtle&#039;s Story
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-lobster-quadrille.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Lobster Quadrille
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/who-stole-the-tarts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Who Stole the Tarts?
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/alices-evidence.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Alice&#039;s Evidence
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Other</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/extra-information.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Extra information
+        </a>
+    </li>                                    </ul>
+            </li>
+            </ul>
+    </nav>
+            <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
+            <p>
+            <a href="../index.html">Back to home page</a>
+    </p>        </footer>
+    </aside>
+    <main id="content" class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <article id="document" itemscope itemtype="https://schema.org/Article" class="mx-auto lg:ml-8 max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)] prose dark:prose-invert">
+    
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
+        <h1>Chapter III - A Caucus-Race and a Long Tale</h1>
+    </header>
+    <section id="document-main-content" itemprop="articleBody">
+        <p>They were indeed a queer-looking party that assembled on the
+bank--the birds with draggled feathers, the animals with their
+fur clinging close to them, and all dripping wet, cross, and
+uncomfortable.</p>
+<p>The first question of course was, how to get dry again:  they
+had a consultation about this, and after a few minutes it seemed
+quite natural to Alice to find herself talking familiarly with
+them, as if she had known them all her life.  Indeed, she had
+quite a long argument with the Lory, who at last turned sulky,
+and would only say, &quot;I am older than you, and must know better';
+and this Alice would not allow without knowing how old it was,
+and, as the Lory positively refused to tell its age, there was no
+more to be said.</p>
+<p>At last the Mouse, who seemed to be a person of authority among
+them, called out, &quot;Sit down, all of you, and listen to me!  I'LL
+soon make you dry enough!'  They all sat down at once, in a large
+ring, with the Mouse in the middle.  Alice kept her eyes
+anxiously fixed on it, for she felt sure she would catch a bad
+cold if she did not get dry very soon.</p>
+<p>&quot;Ahem!' said the Mouse with an important air, &quot;are you all ready?
+This is the driest thing I know.  Silence all round, if you please!
+&quot;William the Conqueror, whose cause was favoured by the pope, was
+soon submitted to by the English, who wanted leaders, and had been
+of late much accustomed to usurpation and conquest.  Edwin and
+Morcar, the earls of Mercia and Northumbria--&quot;'</p>
+<p>&quot;Ugh!' said the Lory, with a shiver.</p>
+<p>&quot;I beg your pardon!' said the Mouse, frowning, but very
+politely:  &quot;Did you speak?'</p>
+<p>&quot;Not I!' said the Lory hastily.</p>
+<p>&quot;I thought you did,' said the Mouse.  &quot;--I proceed.  &quot;Edwin and
+Morcar, the earls of Mercia and Northumbria, declared for him:
+and even Stigand, the patriotic archbishop of Canterbury, found
+it advisable--&quot;'</p>
+<p>&quot;Found WHAT?' said the Duck.</p>
+<p>&quot;Found IT,' the Mouse replied rather crossly:  &quot;of course you
+know what &quot;it&quot; means.'</p>
+<p>&quot;I know what &quot;it&quot; means well enough, when I find a thing,' said
+the Duck:  &quot;it's generally a frog or a worm.  The question is,
+what did the archbishop find?'</p>
+<p>The Mouse did not notice this question, but hurriedly went on,
+&quot;&quot;--found it advisable to go with Edgar Atheling to meet William
+and offer him the crown.  William's conduct at first was
+moderate.  But the insolence of his Normans--&quot;  How are you
+getting on now, my dear?' it continued, turning to Alice as it
+spoke.</p>
+<p>&quot;As wet as ever,' said Alice in a melancholy tone:  &quot;it doesn't
+seem to dry me at all.'</p>
+<p>&quot;In that case,' said the Dodo solemnly, rising to its feet, &quot;I
+move that the meeting adjourn, for the immediate adoption of more
+energetic remedies--'</p>
+<p>&quot;Speak English!' said the Eaglet.  &quot;I don't know the meaning of
+half those long words, and, what's more, I don't believe you do
+either!'  And the Eaglet bent down its head to hide a smile:
+some of the other birds tittered audibly.</p>
+<p>&quot;What I was going to say,' said the Dodo in an offended tone,
+&quot;was, that the best thing to get us dry would be a Caucus-race.'</p>
+<p>&quot;What IS a Caucus-race?' said Alice; not that she wanted much
+to know, but the Dodo had paused as if it thought that SOMEBODY
+ought to speak, and no one else seemed inclined to say anything.</p>
+<p>&quot;Why,' said the Dodo, &quot;the best way to explain it is to do it.'
+(And, as you might like to try the thing yourself, some winter
+day, I will tell you how the Dodo managed it.)</p>
+<p>First it marked out a race-course, in a sort of circle, (&quot;the
+exact shape doesn't matter,' it said,) and then all the party
+were placed along the course, here and there.  There was no &quot;One,
+two, three, and away,' but they began running when they liked,
+and left off when they liked, so that it was not easy to know
+when the race was over.  However, when they had been running half
+an hour or so, and were quite dry again, the Dodo suddenly called
+out &quot;The race is over!' and they all crowded round it, panting,
+and asking, &quot;But who has won?'</p>
+<p>This question the Dodo could not answer without a great deal of
+thought, and it sat for a long time with one finger pressed upon
+its forehead (the position in which you usually see Shakespeare,
+in the pictures of him), while the rest waited in silence.  At
+last the Dodo said, &quot;EVERYBODY has won, and all must have
+prizes.'</p>
+<p>&quot;But who is to give the prizes?' quite a chorus of voices
+asked.</p>
+<p>&quot;Why, SHE, of course,' said the Dodo, pointing to Alice with
+one finger; and the whole party at once crowded round her,
+calling out in a confused way, &quot;Prizes! Prizes!'</p>
+<p>Alice had no idea what to do, and in despair she put her hand
+in her pocket, and pulled out a box of comfits, (luckily the salt
+water had not got into it), and handed them round as prizes.
+There was exactly one a-piece all round.</p>
+<p>&quot;But she must have a prize herself, you know,' said the Mouse.</p>
+<p>&quot;Of course,' the Dodo replied very gravely.  &quot;What else have
+you got in your pocket?' he went on, turning to Alice.</p>
+<p>&quot;Only a thimble,' said Alice sadly.</p>
+<p>&quot;Hand it over here,' said the Dodo.</p>
+<p>Then they all crowded round her once more, while the Dodo
+solemnly presented the thimble, saying &quot;We beg your acceptance of
+this elegant thimble'; and, when it had finished this short
+speech, they all cheered.</p>
+<p>Alice thought the whole thing very absurd, but they all looked
+so grave that she did not dare to laugh; and, as she could not
+think of anything to say, she simply bowed, and took the thimble,
+looking as solemn as she could.</p>
+<p>The next thing was to eat the comfits:  this caused some noise
+and confusion, as the large birds complained that they could not
+taste theirs, and the small ones choked and had to be patted on
+the back.  However, it was over at last, and they sat down again
+in a ring, and begged the Mouse to tell them something more.</p>
+<p>&quot;You promised to tell me your history, you know,' said Alice,
+&quot;and why it is you hate--C and D,' she added in a whisper, half
+afraid that it would be offended again.</p>
+<p>&quot;Mine is a long and a sad tale!' said the Mouse, turning to
+Alice, and sighing.</p>
+<p>&quot;It IS a long tail, certainly,' said Alice, looking down with
+wonder at the Mouse's tail; &quot;but why do you call it sad?'  And
+she kept on puzzling about it while the Mouse was speaking, so
+that her idea of the tale was something like this:--</p>
+<pre><code>                &quot;Fury said to a
+               mouse, That he
+             met in the
+           house,
+        &quot;Let us
+          both go to
+            law:  I will
+              prosecute
+                YOU.  --Come,
+                   I'll take no
+                    denial; We
+                 must have a
+             trial:  For
+          really this
+       morning I've
+      nothing
+     to do.&quot;
+       Said the
+         mouse to the
+           cur, &quot;Such
+             a trial,
+               dear Sir,
+                     With
+                 no jury
+              or judge,
+            would be
+          wasting
+         our
+          breath.&quot;
+           &quot;I'll be
+             judge, I'll
+               be jury,&quot;
+                     Said
+                cunning
+                  old Fury:
+                 &quot;I'll
+                  try the
+                     whole
+                      cause,
+                         and
+                    condemn
+                   you
+                  to
+                   death.&quot;'
+</code></pre>
+<p>&quot;You are not attending!' said the Mouse to Alice severely.
+&quot;What are you thinking of?'</p>
+<p>&quot;I beg your pardon,' said Alice very humbly:  &quot;you had got to
+the fifth bend, I think?'</p>
+<p>&quot;I had NOT!' cried the Mouse, sharply and very angrily.</p>
+<p>&quot;A knot!' said Alice, always ready to make herself useful, and
+looking anxiously about her.  &quot;Oh, do let me help to undo it!'</p>
+<p>&quot;I shall do nothing of the sort,' said the Mouse, getting up
+and walking away.  &quot;You insult me by talking such nonsense!'</p>
+<p>&quot;I didn't mean it!' pleaded poor Alice.  &quot;But you're so easily
+offended, you know!'</p>
+<p>The Mouse only growled in reply.</p>
+<p>&quot;Please come back and finish your story!' Alice called after
+it; and the others all joined in chorus, &quot;Yes, please do!' but
+the Mouse only shook its head impatiently, and walked a little
+quicker.</p>
+<p>&quot;What a pity it wouldn't stay!' sighed the Lory, as soon as it
+was quite out of sight; and an old Crab took the opportunity of
+saying to her daughter &quot;Ah, my dear!  Let this be a lesson to you
+never to lose YOUR temper!'  &quot;Hold your tongue, Ma!' said the
+young Crab, a little snappishly.  &quot;You're enough to try the
+patience of an oyster!'</p>
+<p>&quot;I wish I had our Dinah here, I know I do!' said Alice aloud,
+addressing nobody in particular.  &quot;She'd soon fetch it back!'</p>
+<p>&quot;And who is Dinah, if I might venture to ask the question?'
+said the Lory.</p>
+<p>Alice replied eagerly, for she was always ready to talk about
+her pet:  &quot;Dinah's our cat.  And she's such a capital one for
+catching mice you can't think!  And oh, I wish you could see her
+after the birds!  Why, she'll eat a little bird as soon as look
+at it!'</p>
+<p>This speech caused a remarkable sensation among the party.
+Some of the birds hurried off at once:  one old Magpie began
+wrapping itself up very carefully, remarking, &quot;I really must be
+getting home; the night-air doesn't suit my throat!' and a Canary
+called out in a trembling voice to its children, &quot;Come away, my
+dears!  It's high time you were all in bed!'  On various pretexts
+they all moved off, and Alice was soon left alone.</p>
+<p>&quot;I wish I hadn't mentioned Dinah!' she said to herself in a
+melancholy tone.  &quot;Nobody seems to like her, down here, and I'm
+sure she's the best cat in the world!  Oh, my dear Dinah!  I
+wonder if I shall ever see you any more!'  And here poor Alice
+began to cry again, for she felt very lonely and low-spirited.
+In a little while, however, she again heard a little pattering of
+footsteps in the distance, and she looked up eagerly, half hoping
+that the Mouse had changed his mind, and was coming back to
+finish his story.</p>
+    </section>
+    <footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
+        
+    </footer>
+</article>    </main>
+
+    <div id="support">
+        <div id="sidebar-backdrop" x-cloak="" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+                    <button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
+        aria-label="Toggle search window">
+    <span x-show="! searchWindowOpen">
+        Search <svg class="float-left mr-1 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24"
+                    viewBox="0 0 24 24" width="24" role="presentation">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </span>
+    <span x-show="searchWindowOpen">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+    </span>
+</button>
+<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
+        aria-label="Toggle search menu">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" role="presentation">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+</button>
+
+<div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
+     class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
+    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+           class="prose dark:prose-invert bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
+        <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
+            <strong>Search the documentation site</strong>
+            <button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100"
+                    aria-label="Close search window">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <div>
+            <div id="hyde-search">
+    <noscript>
+        The search feature requires JavaScript to be enabled in your browser.
+    </noscript>
+    <input class="w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3" type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off" autofocus>
+</div>        </div>
+        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+            <small>
+                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
+                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+            </small>
+        </footer>
+    </aside>
+
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
+</div>            <script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+<script>
+    window.addEventListener('load', function () {
+        const searchIndexLocation = '../docs/search.json';
+        const Search = new HydeSearch(searchIndexLocation);
+
+        Search.init();
+    });
+</script>            </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" integrity="sha256-gOkV4d9/FmMNEkjOzVlyM2eNAWSUXisT+1RbMTTIgXI=" crossorigin="anonymous"></script>
+
+<script>
+    function toggleTheme() {
+        if (localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem('color-theme', 'light');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'light');
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem('color-theme', 'dark');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

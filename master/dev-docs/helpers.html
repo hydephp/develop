@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydePHP Upcoming Documentation - Helpers and Utilities</title>
+
+
+
+<link rel="canonical" href="https://hydephp.github.io/develop/master/dev-docs/dev-docs/helpers.html">
+<meta name="twitter:title" content="HydePHP Upcoming Documentation - Helpers and Utilities">
+<meta property="og:title" content="HydePHP Upcoming Documentation - Helpers and Utilities">
+
+
+<link rel="sitemap" href="https://hydephp.github.io/develop/master/dev-docs/sitemap.xml" type="application/xml" title="Sitemap">
+<meta name="generator" content="HydePHP 1.7.2">
+<meta name="robots" content="noindex">
+<meta property="og:site_name" content="HydePHP Upcoming Documentation">
+
+
+
+
+<style>[x-cloak] {display: none!important}</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/app.css">
+
+
+
+
+
+    
+    <meta id="meta-color-scheme" name="color-scheme" content="light">
+    <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>
+
+
+
+
+
+
+</head>
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+
+    <a href="#content" id="skip-to-content" class="sr-only focus:not-sr-only bg-black border-4 border-yellow-400 focus:absolute focus:mt-2 focus:mx-auto focus:p-2 focus:w-64 h-auto left-0 overflow-auto right-0 rounded-md text-center text-lg text-white top-auto z-50 ">Skip to content</a>    <nav id="mobile-navigation" class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
+    <strong class="px-2 mr-auto">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <ul class="flex items-center">
+        <li class="h-8 flex mr-1">
+            <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+        </li>
+        <li class="h-8 flex">
+            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+</button>        </li>
+    </ul>
+</nav>    <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
+    <header id="sidebar-header" class="h-16">
+        <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
+    <strong class="px-2">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+</div>    </header>
+    <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        <ul id="sidebar-items" role="list">
+                            <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Getting Started</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/quickstart.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Quickstart Guide
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/console-commands.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Console Commands
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/core-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Core Concepts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/front-matter.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Front Matter
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Creating Content</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/blog-posts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Creating Blog Posts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/static-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Markdown &amp; Blade Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/documentation-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Documentation Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/managing-assets.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Managing and Compiling Assets
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/compile-and-deploy.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Compile &amp; Deploy
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: true }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Digging Deeper</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/customization.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Customizing your Site
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/navigation.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Navigation Menus
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-markdown.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Markdown
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-customization.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Customization
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/collections.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            File-based Collections
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4 active -ml-8 pl-8 bg-black/5 dark:bg-black/10" role="listitem">
+            <a href="../dev-docs/helpers.html" aria-current="true" class="-ml-8 pl-4 py-1 px-2 block text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Helpers and Utilities
+        </a>
+
+                    <span class="sr-only">Table of contents</span>
+            <ul class="table-of-contents">
+<li>
+<a href="#introduction">Introduction</a>
+</li>
+<li>
+<a href="#file-based-collections">File-based Collections</a>
+</li>
+<li>
+<a href="#file-includes">File Includes</a>
+<ul>
+<li>
+<a href="#using-includes">Using Includes</a>
+</li>
+<li>
+<a href="#stock-includes">Stock Includes</a>
+<ul>
+<li>
+<a href="#footer">Footer</a>
+</li>
+<li>
+<a href="#head">Head</a>
+</li>
+<li>
+<a href="#scripts">Scripts</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#reading-time-helper">Reading-Time Helper</a>
+<ul>
+<li>
+<a href="#create-a-new-readingtime-instance">Create a new ReadingTime instance</a>
+</li>
+<li>
+<a href="#get-the-reading-time-string">Get the reading time string</a>
+</li>
+<li>
+<a href="#get-the-reading-time-data">Get the reading time data</a>
+</li>
+<li>
+<a href="#custom-formatting">Custom formatting</a>
+<ul>
+<li>
+<a href="#specify-sprintf-format">Specify sprintf format</a>
+</li>
+<li>
+<a href="#format-using-a-custom-callback">Format using a custom callback</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#helper-functions">Helper Functions</a>
+<ul>
+<li>
+<a href="#hyde">hyde</a>
+</li>
+<li>
+<a href="#asset">asset</a>
+</li>
+<li>
+<a href="#route">route</a>
+</li>
+<li>
+<a href="#url">url</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#pagination-utility">Pagination Utility</a>
+<ul>
+<li>
+<a href="#base-usage">Base usage</a>
+</li>
+<li>
+<a href="#constructor-options-breakdown">Constructor options breakdown</a>
+<ul>
+<li>
+<a href="#currentpagenumber">currentPageNumber</a>
+</li>
+<li>
+<a href="#paginationroutebasename">paginationRouteBasename</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#practical-example">Practical example</a>
+<ul>
+<li>
+<a href="#creating-our-posts-page">Creating our posts page</a>
+</li>
+<li>
+<a href="#setting-up-the-new-blade-components">Setting up the new Blade components</a>
+</li>
+<li>
+<a href="#creating-the-pagination-pages">Creating the pagination pages</a>
+</li>
+<li>
+<a href="#updating-the-listing-page-view">Updating the listing page view</a>
+</li>
+<li>
+<a href="#conclusion">Conclusion</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/troubleshooting.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Troubleshooting
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/updating-hyde.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Updating Hyde Projects
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Advanced Features</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-features.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/build-tasks.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Custom Build Tasks
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/hyde-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePage API
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/in-memory-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            InMemoryPages
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Architecture Concepts</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/architecture-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/autodiscovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Autodiscovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/automatic-routing.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Automatic Routing
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/dynamic-data-discovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Dynamic Data Discovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/page-models.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Page models
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/the-hydekernel.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The HydeKernel
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions-api.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Extensions API
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Extensions</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Extensions &amp; Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/realtime-compiler.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Realtime Compiler
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/third-party-integrations.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Third-Party Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/ui-kit.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePHP UI Kit - Documentation
+        </a>
+    </li>                                    </ul>
+            </li>
+            </ul>
+    </nav>
+    </aside>
+    <main id="content" class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <article id="document" itemscope itemtype="https://schema.org/Article" class="mx-auto lg:ml-8 max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)] prose dark:prose-invert">
+    
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
+        <h1>Helpers and Utilities</h1>
+    </header>
+    <section id="document-main-content" itemprop="articleBody">
+        <h2>Introduction<a id="introduction" href="#introduction" class="heading-permalink" title="Permalink"></a></h2>
+<p>HydePHP comes with a few helper classes and utilities to make your life easier. This page will cover some of the most important ones.
+Note that these helpers targets those who write custom code and Blade templates, and that you are expected to have a basic understanding of programming and PHP.</p>
+<h2>File-based Collections<a id="file-based-collections" href="#file-based-collections" class="heading-permalink" title="Permalink"></a></h2>
+<p>Hyde provides <code>DataCollections</code>, a subset of <a href="https://laravel.com/docs/10.x/collections">Laravel Collections</a> giving you a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
+it's all entirely file-based using static data files such as Markdown, Yaml, and JSON files which get parsed into objects that you can easily work with.</p>
+<pre><code class="language-php">use Hyde\Support\DataCollections;
+
+// Gets all Markdown files in resources/collections/$name directory
+DataCollections::markdown(string $name);
+
+// Gets all YAML files in resources/collections/$name directory
+DataCollections::yaml(string $name);
+
+// Gets all JSON files in resources/collections/$name directory
+DataCollections::json(string $name, bool $asArray = false);
+</code></pre>
+<p>See the <a href="collections">File-based Collections</a> documentation for the full details.</p>
+<h2>File Includes<a id="file-includes" href="#file-includes" class="heading-permalink" title="Permalink"></a></h2>
+<p>The Includes facade provides a simple way to access partials in the includes directory.</p>
+<p>If the file does not exist, the method will return <code>null</code>.
+You can also supply a default value as the second argument.
+Both Markdown and Blade includes will be rendered to HTML.</p>
+<h3>Using Includes<a id="using-includes" href="#using-includes" class="heading-permalink" title="Permalink"></a></h3>
+<p>Includes are stored in the <code>resources/includes</code> directory. You can access them using the <code>Includes</code> facade.</p>
+<pre><code class="language-php">use Hyde\Support\Includes;
+
+// Get the raw contents of any arbitrary file in the includes directory
+Includes::get('example.md');
+
+// Get the raw contents of an HTML file in the includes directory
+Includes::html('example.html');
+
+// Get the rendered Blade of a partial file in the includes directory
+Includes::blade('example.blade.php');
+
+// Get the rendered Markdown of a partial file in the includes directory
+Includes::markdown('example.md');
+</code></pre>
+<p>When using the <code>html</code>, <code>markdown</code>, and <code>blade</code> methods, the file extension is optional.</p>
+<pre><code class="language-php">use Hyde\Support\Includes;
+
+Includes::html('example') === Includes::html('example.html');
+Includes::blade('example')  === Includes::blade('example.blade.php');
+Includes::markdown('example') === Includes::markdown('example.md');
+</code></pre>
+<p>All methods will return <code>null</code> if the file does not exist.
+However, you can supply a default value as the second argument to be used instead.
+Remember that Markdown and Blade defaults will still be rendered to HTML.</p>
+<pre><code class="language-php">use Hyde\Support\Includes;
+
+// If the file does not exist, the default value will be returned
+Includes::markdown('example.md', 'Default content');
+</code></pre>
+<h3>Stock Includes<a id="stock-includes" href="#stock-includes" class="heading-permalink" title="Permalink"></a></h3>
+<p>HydePHP also supports some drop-in includes that you can use as an alternative to some config options. These currently are as follows:</p>
+<h4>Footer<a id="footer" href="#footer" class="heading-permalink" title="Permalink"></a></h4>
+<p>If a <code>footer.md</code> file exists in the includes directory, Hyde will use that as the footer text, instead of the one set in the <code>hyde.footer</code> config option.</p>
+<h4>Head<a id="head" href="#head" class="heading-permalink" title="Permalink"></a></h4>
+<p>If a <code>head.html</code> file exists in the includes directory, Hyde include that within the <code>&lt;head&gt;</code> tag of the generated HTML, in addition to the one set in the <code>hyde.head</code> config option.</p>
+<h4>Scripts<a id="scripts" href="#scripts" class="heading-permalink" title="Permalink"></a></h4>
+<p>If a <code>scripts.html</code> file exists in the includes directory, Hyde include that at the end of the <code>&lt;body&gt;</code> tag of the generated HTML, in addition to the one set in the <code>hyde.scripts</code> config option.</p>
+<h2>Reading-Time Helper<a id="reading-time-helper" href="#reading-time-helper" class="heading-permalink" title="Permalink"></a></h2>
+<p>The <code>ReadingTime</code> helper provides a simple way to calculate the reading time of a given string, for example a blog post.</p>
+<h3>Create a new <code>ReadingTime</code> instance<a id="create-a-new-readingtime-instance" href="#create-a-new-readingtime-instance" class="heading-permalink" title="Permalink"></a></h3>
+<p>There are a few ways to create a new <code>ReadingTime</code> instance. Either create a new instance directly, or use the static <code>fromString</code> or <code>fromFile</code>  helpers.</p>
+<p>In all cases, you will end up with a <code>ReadingTime</code> object that you can use to get the reading time.</p>
+<pre><code class="language-php">// Via constructor
+$time = new ReadingTime('Input text string');
+
+// Via static method
+$time = ReadingTime::fromString('Input text string');
+
+// Via static method (from file)
+$time = ReadingTime::fromFile('path/to/file.txt');
+</code></pre>
+<h3>Get the reading time string<a id="get-the-reading-time-string" href="#get-the-reading-time-string" class="heading-permalink" title="Permalink"></a></h3>
+<p>To make things really easy, the <code>ReadingTime</code> instance can be automatically cast to a human-readable string with the default formatting.</p>
+<pre><code class="language-php">(string) ReadingTime::fromString('Input text string'); // 1min, 0sec
+</code></pre>
+<pre><code class="language-blade">{{ ReadingTime::fromString('Input text string') }} // 1min, 0sec
+</code></pre>
+<p>You can also call the <code>getFormatted</code> method directly.</p>
+<pre><code class="language-php">ReadingTime::fromString('Input text string')-&gt;getFormatted(); // 1min, 0sec
+</code></pre>
+<h3>Get the reading time data<a id="get-the-reading-time-data" href="#get-the-reading-time-data" class="heading-permalink" title="Permalink"></a></h3>
+<p>We also provide a few methods to get the reading time data directly.</p>
+<pre><code class="language-php">// Get the reading time in seconds
+$time-&gt;getSeconds();
+
+// Get the reading time in minutes (rounded down)
+$time-&gt;getMinutes();
+
+// Get the remaining seconds after the rounded down minutes
+// (Perfect for showing after the `getMinutes()` value)
+$time-&gt;getSecondsOver();
+
+// Get the word count of the input string
+$time-&gt;getWordCount();
+</code></pre>
+<h3>Custom formatting<a id="custom-formatting" href="#custom-formatting" class="heading-permalink" title="Permalink"></a></h3>
+<p>Additionally, there are several ways to customize the output format.</p>
+<h4>Specify sprintf format<a id="specify-sprintf-format" href="#specify-sprintf-format" class="heading-permalink" title="Permalink"></a></h4>
+<p>The <code>getFormatted</code> method accepts a <code>sprintf</code> format string as the first argument.</p>
+<pre><code class="language-php">// The default format
+$time-&gt;getFormatted('%dmin, %dsec');
+
+// Custom format
+$time-&gt;getFormatted('%d minutes and %d seconds');
+</code></pre>
+<p>The first <code>%d</code> will be replaced with the minutes, and the second <code>%d</code> will be replaced with the seconds.</p>
+<h4>Format using a custom callback<a id="format-using-a-custom-callback" href="#format-using-a-custom-callback" class="heading-permalink" title="Permalink"></a></h4>
+<p>You can also use a custom callback to format the reading time string. This is perfect if you want to create custom formatting logic.</p>
+<p>The closure will receive the minutes and seconds as integers and should return a string.</p>
+<pre><code class="language-php">$time-&gt;formatUsingClosure(function (int $minutes, int $seconds): string {
+    return &quot;$minutes minutes, $seconds seconds&quot;;
+}); // 1 minutes, 30 seconds
+</code></pre>
+<h2>Helper Functions<a id="helper-functions" href="#helper-functions" class="heading-permalink" title="Permalink"></a></h2>
+<p>HydePHP comes with a few helper functions to make your life easier.</p>
+<p>The most common ones are documented here, however you can also see the full list in the source code <a href="https://github.com/hydephp/framework/blob/master/src/helpers.php"><code>helpers.php</code></a> file.</p>
+<h3><code>hyde</code><a id="hyde" href="#hyde" class="heading-permalink" title="Permalink"></a></h3>
+<p>The <code>hyde</code> function is a global helper function that returns the HydeKernel instance.
+From this, you can access the same methods as you would from the <code>Hyde</code> facade.</p>
+<pre><code class="language-php">hyde(); // Returns the HydeKernel instance
+
+hyde()-&gt;routes()) === Hyde::routes(); // true
+</code></pre>
+<p>It's up to you if you want to use the facade or the global function, or a mix of both.
+A benefit of using the global function is that it may have better IDE support.</p>
+<h3><code>asset</code><a id="asset" href="#asset" class="heading-permalink" title="Permalink"></a></h3>
+<p>This is an alias of the <code>Hyde::asset()</code> facade method and allows you to get a relative link or URL to an asset in the media directory.</p>
+<pre><code class="language-php">asset('image.png'); // Returns a relative web link to the given image
+</code></pre>
+<p>Gets a relative web link to the given image stored in the <code>_site/media</code> folder.
+If the image is remote (starts with http) it will be returned as is.</p>
+<p>If <code>true</code> is passed as the second argument, and a base URL is set,
+the image will be returned with a qualified absolute URL.</p>
+<p><strong>Example usage:</strong></p>
+<pre><code class="language-blade">&lt;img src=&quot;{{ asset('image.png') }}&quot; alt=&quot;My image&quot;&gt;
+</code></pre>
+<h3><code>route</code><a id="route" href="#route" class="heading-permalink" title="Permalink"></a></h3>
+<blockquote class="info"><p>Routing primer: All pages in your Hyde project are automatically tied to an internal route. You can run <code>php hyde route:list</code> to see a list of all routes and their route keys.</p></blockquote>
+<p>This is an alias of the <code>Hyde::route()</code> facade method and allows you to get a route instance by its route key.</p>
+<pre><code class="language-php">route('index'); // Returns the route instance with the given key
+</code></pre>
+<p>If a route does not exist, <code>null</code> will be returned. Route instances can be cast to strings to resolve a link to the page.</p>
+<p><strong>Example usage:</strong></p>
+<pre><code class="language-blade">&lt;a href=&quot;{{ route('index') }}&quot;&gt;Home&lt;/a&gt;
+&lt;a href=&quot;{{ route('index')-&gt;getLink() }}&quot;&gt;Home&lt;/a&gt;
+</code></pre>
+<h3><code>url</code><a id="url" href="#url" class="heading-permalink" title="Permalink"></a></h3>
+<p>This is an alias of the <code>Hyde::url()</code> facade method and formats a relative link to an absolute URL using the configured base URL.</p>
+<pre><code class="language-php">url('page.html'); // Returns an absolute URL to the given page
+</code></pre>
+<p>If a base URL is not set, an exception will be thrown.</p>
+<p><strong>Example usage:</strong></p>
+<pre><code class="language-blade">&lt;a href=&quot;{{ url('page.html') }}&quot;&gt;Link&lt;/a&gt;
+</code></pre>
+<h2>Pagination Utility<a id="pagination-utility" href="#pagination-utility" class="heading-permalink" title="Permalink"></a></h2>
+<p>The <code>Pagination</code> class provides utilities to help you create custom pagination components.</p>
+<p>Hyde comes with a simple pagination view that you can use, but you can also use the utility to create your own custom pagination components.
+You can of course also publish and modify the default pagination view to fit your needs.</p>
+<p>The paginator is designed to paginate Hyde pages and their routes, but can also be used with other data sources.</p>
+<h3>Base usage<a id="base-usage" href="#base-usage" class="heading-permalink" title="Permalink"></a></h3>
+<p>To use the pagination component which is generic by design, you need to create the <code>Pagination</code> instance yourself, with the data you want to paginate.</p>
+<p>To get started, simply create a paginator instance with a collection or array of items (like pages), and render the component.
+You also need to pass the current page being rendered (if you're on pagination page 3, pass that to the constructor).</p>
+<pre><code class="language-php">use Hyde\Support\Paginator;
+use Illuminate\Contracts\Support\Arrayable;
+
+$paginator = new Paginator(
+    Arrayable|array $items = [],
+    int $pageSize = 25,
+    int $currentPageNumber = null,
+    string $paginationRouteBasename = null
+);
+</code></pre>
+<pre><code class="language-blade">@include('hyde::components.pagination-navigation')
+</code></pre>
+<h3>Constructor options breakdown<a id="constructor-options-breakdown" href="#constructor-options-breakdown" class="heading-permalink" title="Permalink"></a></h3>
+<p>The first two are self-explanatory:</p>
+<ul>
+<li>
+<code>items</code> - The items to paginate. This can be a collection or an array.</li>
+<li>
+<code>pageSize</code> - How many items to show on each page.</li>
+</ul>
+<p>The next may need some explanation:</p>
+<h4><code>currentPageNumber</code><a id="currentpagenumber" href="#currentpagenumber" class="heading-permalink" title="Permalink"></a></h4>
+<p>This current page index. You will typically get this from the URL.</p>
+<h4><code>paginationRouteBasename</code><a id="paginationroutebasename" href="#paginationroutebasename" class="heading-permalink" title="Permalink"></a></h4>
+<p>This adds an optional prefix for the navigation links. For example, if you're paginating blog posts,
+you might want the links to be <code>/posts/page-1.html</code> instead of <code>/page-1.html</code>. You would then set this to <code>posts</code>.</p>
+<h3>Practical example<a id="practical-example" href="#practical-example" class="heading-permalink" title="Permalink"></a></h3>
+<p>HydePHP comes with a started homepage called 'posts'. This includes a component with the following code:</p>
+<pre><code class="language-blade">&lt;div id=&quot;post-feed&quot; class=&quot;max-w-3xl mx-auto&quot;&gt;
+    @include('hyde::components.blog-post-feed')
+&lt;/div&gt;
+</code></pre>
+<h4>Creating our posts page<a id="creating-our-posts-page" href="#creating-our-posts-page" class="heading-permalink" title="Permalink"></a></h4>
+<p>Now, let's paginate this feed! For this example, we will assume that you ran <code>php hyde publish:homepage posts</code>
+and renamed the resulting <code>index.blade.php</code> file to <code>posts.blade.php</code>. We will also assume that you have a few blog posts set up.</p>
+<p>The blog post feed component is a simple component that looks like this:</p>
+<pre><code class="language-blade"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>_pages/posts.blade.php</small>@foreach(MarkdownPost::getLatestPosts() as $post)
+    @include('hyde::components.article-excerpt')
+@endforeach
+</code></pre>
+<h4>Setting up the new Blade components<a id="setting-up-the-new-blade-components" href="#setting-up-the-new-blade-components" class="heading-permalink" title="Permalink"></a></h4>
+<p>So we are simply going to inline component, but with the paginator we also declare. So, replace the post feed include with the following:</p>
+<pre><code class="language-blade"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>_pages/posts.blade.php</small>@php
+    $paginator = new \Hyde\Support\Paginator(
+        // The items to paginate
+        items: MarkdownPost::getLatestPosts(),
+        // How many items to show on each page
+        pageSize: 5,
+        // The current page index
+        currentPageNumber: 1,
+        // Links will be 'posts/page-1.html' instead of 'page-1.html'
+        paginationRouteBasename: 'posts'
+    );
+@endphp
+
+@foreach($paginator-&gt;getItemsForPage() as $post)
+    @include('hyde::components.article-excerpt')
+@endforeach
+
+@include('hyde::components.pagination-navigation')
+</code></pre>
+<p>This will set up the paginator loop through only the items for the current page, and render the article excerpts. The last line will render the pagination links.</p>
+<h4>Creating the pagination pages<a id="creating-the-pagination-pages" href="#creating-the-pagination-pages" class="heading-permalink" title="Permalink"></a></h4>
+<p>However, we still need to create the pagination pages, because the paginator will not automatically create them for you.</p>
+<p>In order to do this dynamically, we add the following to the <code>boot</code> of our <code>AppServiceProvider</code> (or any other provider or extension):</p>
+<pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>app/Providers/AppServiceProvider.php</small>&lt;?php
+
+namespace App\Providers;
+
+use Hyde\Hyde;
+use Hyde\Support\Paginator;
+use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Foundation\HydeKernel;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        // This registers a callback that runs after the kernel has booted
+        Hyde::kernel()-&gt;booted(function (HydeKernel $hyde) {
+            // First we create a paginator instance using the same settings as in our view
+            $paginator = new Paginator(MarkdownPost::getLatestPosts(), 5, 1, 'posts');
+
+            // Then we loop through the total number of pages and create a new page for each one
+            foreach (range(1, $paginator-&gt;totalPages()) as $page) {
+                // Now we set the paginator to the current page number
+                $paginator-&gt;setCurrentPage($page);
+
+                // Now we create the paginated listing page. We set the identifier to match the route basename we set earlier.
+                $listingPage = new InMemoryPage(identifier: &quot;posts/page-$page&quot;, matter: [
+                    // And the paginator instance. We clone it so that we don't modify the original instance.
+                    'paginator' =&gt; clone $paginator,
+
+                    // Optionally, specify a custom page title.
+                    'title' =&gt; &quot;Blog Posts - Page {$page}&quot;,
+                    // Here we add the paginated collection
+                    'posts' =&gt; $paginator-&gt;getItemsForPage(),
+                ],
+                    // You can also use a different view if you want to, for example a simpler page just for paginated posts.
+                    // This uses the same view system as Laravel, so you can use any vendor view, or a view from the `resources/views` directory.
+                    // Hyde also loads views from `_pages/`, so setting `posts` here will load our posts page we created earlier.
+                    view: 'posts'
+                );
+
+                // This is optional, as the page does not necessarily need to be added to the page collection
+                $hyde-&gt;pages()-&gt;addPage($listingPage);
+
+                // This however is required, so that Hyde knows about the route as we run this after the kernel has booted
+                $hyde-&gt;routes()-&gt;addRoute($listingPage-&gt;getRoute());
+            }
+        });
+    }
+}
+</code></pre>
+<h4>Updating the listing page view<a id="updating-the-listing-page-view" href="#updating-the-listing-page-view" class="heading-permalink" title="Permalink"></a></h4>
+<p>Now, let's update our <code>posts</code> page to accept the paginator data. If you want to use a different view for the paginated posts,
+just apply these changes to that new view, but for this example I'm going to update the <code>posts</code> view.</p>
+<pre><code class="language-blade"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>_pages/posts.blade.php</small>&lt;h1&gt;Latest Posts&lt;/h1&gt;{{-- [tl! remove] --}}
+&lt;h1&gt;{{ $page-&gt;matter('title') ?? $title }}&lt;/h1&gt; {{-- [tl! add] --}}
+</code></pre>
+<p>to that new view, but for this example I'm going to update the <code>posts</code> view.</p>
+<pre><code class="language-blade"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>_pages/posts.blade.php</small>@php
+    $paginator = new \Hyde\Support\Paginator( // [tl! remove]
+    $paginator = $page-&gt;matter('paginator') ?? new \Hyde\Support\Paginator( // [tl! add]
+        items: MarkdownPost::getLatestPosts(),
+        pageSize: 5,
+        currentPageNumber: 1,
+        paginationRouteBasename: 'posts'
+    );
+@endphp
+</code></pre>
+<h4>Conclusion<a id="conclusion" href="#conclusion" class="heading-permalink" title="Permalink"></a></h4>
+<p>And that's it! You now have a paginated blog post feed. You can now visit <code>/posts/page-1.html</code> and see the first page of your blog posts.
+You can then click the pagination links to navigate to the next pages.</p>
+    </section>
+    <footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
+        
+    </footer>
+</article>    </main>
+
+    <div id="support">
+        <div id="sidebar-backdrop" x-cloak="" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+                    <button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
+        aria-label="Toggle search window">
+    <span x-show="! searchWindowOpen">
+        Search <svg class="float-left mr-1 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24"
+                    viewBox="0 0 24 24" width="24" role="presentation">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </span>
+    <span x-show="searchWindowOpen">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+    </span>
+</button>
+<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
+        aria-label="Toggle search menu">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" role="presentation">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+</button>
+
+<div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
+     class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
+    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+           class="prose dark:prose-invert bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
+        <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
+            <strong>Search the documentation site</strong>
+            <button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100"
+                    aria-label="Close search window">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <div>
+            <div id="hyde-search">
+    <noscript>
+        The search feature requires JavaScript to be enabled in your browser.
+    </noscript>
+    <input class="w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3" type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off" autofocus>
+</div>        </div>
+        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+            <small>
+                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
+                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+            </small>
+        </footer>
+    </aside>
+
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
+</div>            <script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+<script>
+    window.addEventListener('load', function () {
+        const searchIndexLocation = '../dev-docs/search.json';
+        const Search = new HydeSearch(searchIndexLocation);
+
+        Search.init();
+    });
+</script>            </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" integrity="sha256-gOkV4d9/FmMNEkjOzVlyM2eNAWSUXisT+1RbMTTIgXI=" crossorigin="anonymous"></script>
+
+<script>
+    function toggleTheme() {
+        if (localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem('color-theme', 'light');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'light');
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem('color-theme', 'dark');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydePHP - Chapter V - Advice from a Caterpillar</title>
+
+
+
+<meta name="twitter:title" content="HydePHP - Chapter V - Advice from a Caterpillar">
+<meta property="og:title" content="HydePHP - Chapter V - Advice from a Caterpillar">
+
+
+<meta name="generator" content="HydePHP 1.7.2">
+<meta property="og:site_name" content="HydePHP">
+
+
+
+
+<style>[x-cloak] {display: none!important}</style>
+
+
+    <link rel="stylesheet" href="../media/app.css?v=54f53fdc399f75f20330c69f208b6858">
+
+
+
+
+
+    
+    <meta id="meta-color-scheme" name="color-scheme" content="light">
+    <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>
+
+
+
+
+
+
+</head>
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+
+    <a href="#content" id="skip-to-content" class="sr-only focus:not-sr-only bg-black border-4 border-yellow-400 focus:absolute focus:mt-2 focus:mx-auto focus:p-2 focus:w-64 h-auto left-0 overflow-auto right-0 rounded-md text-center text-lg text-white top-auto z-50 ">Skip to content</a>    <nav id="mobile-navigation" class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
+    <strong class="px-2 mr-auto">
+                    <a href="../docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <ul class="flex items-center">
+        <li class="h-8 flex mr-1">
+            <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+        </li>
+        <li class="h-8 flex">
+            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+</button>        </li>
+    </ul>
+</nav>    <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
+    <header id="sidebar-header" class="h-16">
+        <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
+    <strong class="px-2">
+                    <a href="../docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+</div>    </header>
+    <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        <ul id="sidebar-items" role="list">
+                            <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Introduction</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/cover.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Cover Page
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: true }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Chapters</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/down-the-rabbithole.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Down the Rabbit-Hole
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-pool-of-tears.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Pool of Tears
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/a-caucusrace-and-a-long-tale.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            A Caucus-Race and a Long Tale
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-rabbit-sends-in-a-little-bill.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Rabbit Sends in a Little Bill
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4 active -ml-8 pl-8 bg-black/5 dark:bg-black/10" role="listitem">
+            <a href="../docs/advice-from-a-caterpillar.html" aria-current="true" class="-ml-8 pl-4 py-1 px-2 block text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advice from a Caterpillar
+        </a>
+
+                    <span class="sr-only">Table of contents</span>
+            
+            </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/pig-and-pepper.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Pig and Pepper
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/a-mad-teaparty.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            A Mad Tea-Party
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-queens-croquetground.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Queen&#039;s Croquet-Ground
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-mock-turtles-story.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Mock Turtle&#039;s Story
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/the-lobster-quadrille.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Lobster Quadrille
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/who-stole-the-tarts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Who Stole the Tarts?
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/alices-evidence.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Alice&#039;s Evidence
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Other</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../docs/extra-information.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Extra information
+        </a>
+    </li>                                    </ul>
+            </li>
+            </ul>
+    </nav>
+            <footer id="sidebar-footer" class="h-16 p-4 w-full bottom-0 left-0 text-center leading-8">
+            <p>
+            <a href="../index.html">Back to home page</a>
+    </p>        </footer>
+    </aside>
+    <main id="content" class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <article id="document" itemscope itemtype="https://schema.org/Article" class="mx-auto lg:ml-8 max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)] prose dark:prose-invert">
+    
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
+        <h1>Chapter V - Advice from a Caterpillar</h1>
+    </header>
+    <section id="document-main-content" itemprop="articleBody">
+        <p>The Caterpillar and Alice looked at each other for some time in
+silence:  at last the Caterpillar took the hookah out of its
+mouth, and addressed her in a languid, sleepy voice.</p>
+<p>&quot;Who are YOU?' said the Caterpillar.</p>
+<p>This was not an encouraging opening for a conversation.  Alice
+replied, rather shyly, &quot;I--I hardly know, sir, just at present--
+at least I know who I WAS when I got up this morning, but I think
+I must have been changed several times since then.'</p>
+<p>&quot;What do you mean by that?' said the Caterpillar sternly.
+&quot;Explain yourself!'</p>
+<p>&quot;I can't explain MYSELF, I'm afraid, sir' said Alice, &quot;because
+I'm not myself, you see.'</p>
+<p>&quot;I don't see,' said the Caterpillar.</p>
+<p>&quot;I'm afraid I can't put it more clearly,' Alice replied very
+politely, &quot;for I can't understand it myself to begin with; and
+being so many different sizes in a day is very confusing.'</p>
+<p>&quot;It isn't,' said the Caterpillar.</p>
+<p>&quot;Well, perhaps you haven't found it so yet,' said Alice; &quot;but
+when you have to turn into a chrysalis--you will some day, you
+know--and then after that into a butterfly, I should think you'll
+feel it a little queer, won't you?'</p>
+<p>&quot;Not a bit,' said the Caterpillar.</p>
+<p>&quot;Well, perhaps your feelings may be different,' said Alice;
+&quot;all I know is, it would feel very queer to ME.'</p>
+<p>&quot;You!' said the Caterpillar contemptuously.  &quot;Who are YOU?'</p>
+<p>Which brought them back again to the beginning of the
+conversation.  Alice felt a little irritated at the Caterpillar's
+making such VERY short remarks, and she drew herself up and said,
+very gravely, &quot;I think, you ought to tell me who YOU are, first.'</p>
+<p>&quot;Why?' said the Caterpillar.</p>
+<p>Here was another puzzling question; and as Alice could not
+think of any good reason, and as the Caterpillar seemed to be in
+a VERY unpleasant state of mind, she turned away.</p>
+<p>&quot;Come back!' the Caterpillar called after her.  &quot;I've something
+important to say!'</p>
+<p>This sounded promising, certainly:  Alice turned and came back
+again.</p>
+<p>&quot;Keep your temper,' said the Caterpillar.</p>
+<p>&quot;Is that all?' said Alice, swallowing down her anger as well as
+she could.</p>
+<p>&quot;No,' said the Caterpillar.</p>
+<p>Alice thought she might as well wait, as she had nothing else
+to do, and perhaps after all it might tell her something worth
+hearing.  For some minutes it puffed away without speaking, but
+at last it unfolded its arms, took the hookah out of its mouth
+again, and said, &quot;So you think you're changed, do you?'</p>
+<p>&quot;I'm afraid I am, sir,' said Alice; &quot;I can't remember things as
+I used--and I don't keep the same size for ten minutes together!'</p>
+<p>&quot;Can't remember WHAT things?' said the Caterpillar.</p>
+<p>&quot;Well, I've tried to say &quot;HOW DOTH THE LITTLE BUSY BEE,&quot; but it
+all came different!' Alice replied in a very melancholy voice.</p>
+<p>&quot;Repeat, &quot;YOU ARE OLD, FATHER WILLIAM,&quot;' said the Caterpillar.</p>
+<p>Alice folded her hands, and began:--</p>
+<pre><code>&quot;You are old, Father William,' the young man said,
+  &quot;And your hair has become very white;
+And yet you incessantly stand on your head--
+  Do you think, at your age, it is right?'
+
+&quot;In my youth,' Father William replied to his son,
+  &quot;I feared it might injure the brain;
+But, now that I'm perfectly sure I have none,
+  Why, I do it again and again.'
+
+&quot;You are old,' said the youth, &quot;as I mentioned before,
+  And have grown most uncommonly fat;
+Yet you turned a back-somersault in at the door--
+  Pray, what is the reason of that?'
+
+&quot;In my youth,' said the sage, as he shook his grey locks,
+  &quot;I kept all my limbs very supple
+By the use of this ointment--one shilling the box--
+  Allow me to sell you a couple?'
+
+&quot;You are old,' said the youth, &quot;and your jaws are too weak
+  For anything tougher than suet;
+Yet you finished the goose, with the bones and the beak--
+  Pray how did you manage to do it?'
+
+&quot;In my youth,' said his father, &quot;I took to the law,
+  And argued each case with my wife;
+And the muscular strength, which it gave to my jaw,
+  Has lasted the rest of my life.'
+
+&quot;You are old,' said the youth, &quot;one would hardly suppose
+  That your eye was as steady as ever;
+Yet you balanced an eel on the end of your nose--
+  What made you so awfully clever?'
+
+&quot;I have answered three questions, and that is enough,'
+  Said his father; &quot;don't give yourself airs!
+Do you think I can listen all day to such stuff?
+  Be off, or I'll kick you down stairs!'
+</code></pre>
+<p>&quot;That is not said right,' said the Caterpillar.</p>
+<p>&quot;Not QUITE right, I'm afraid,' said Alice, timidly; &quot;some of the
+words have got altered.'</p>
+<p>&quot;It is wrong from beginning to end,' said the Caterpillar
+decidedly, and there was silence for some minutes.</p>
+<p>The Caterpillar was the first to speak.</p>
+<p>&quot;What size do you want to be?' it asked.</p>
+<p>&quot;Oh, I'm not particular as to size,' Alice hastily replied;
+&quot;only one doesn't like changing so often, you know.'</p>
+<p>&quot;I DON'T know,' said the Caterpillar.</p>
+<p>Alice said nothing:  she had never been so much contradicted in
+her life before, and she felt that she was losing her temper.</p>
+<p>&quot;Are you content now?' said the Caterpillar.</p>
+<p>&quot;Well, I should like to be a LITTLE larger, sir, if you
+wouldn't mind,' said Alice:  &quot;three inches is such a wretched
+height to be.'</p>
+<p>&quot;It is a very good height indeed!' said the Caterpillar
+angrily, rearing itself upright as it spoke (it was exactly three
+inches high).</p>
+<p>&quot;But I'm not used to it!' pleaded poor Alice in a piteous tone.
+And she thought of herself, &quot;I wish the creatures wouldn't be so
+easily offended!'</p>
+<p>&quot;You'll get used to it in time,' said the Caterpillar; and it
+put the hookah into its mouth and began smoking again.</p>
+<p>This time Alice waited patiently until it chose to speak again.
+In a minute or two the Caterpillar took the hookah out of its
+mouth and yawned once or twice, and shook itself.  Then it got
+down off the mushroom, and crawled away in the grass, merely
+remarking as it went, &quot;One side will make you grow taller, and
+the other side will make you grow shorter.'</p>
+<p>&quot;One side of WHAT?  The other side of WHAT?' thought Alice to
+herself.</p>
+<p>&quot;Of the mushroom,' said the Caterpillar, just as if she had
+asked it aloud; and in another moment it was out of sight.</p>
+<p>Alice remained looking thoughtfully at the mushroom for a
+minute, trying to make out which were the two sides of it; and as
+it was perfectly round, she found this a very difficult question.
+However, at last she stretched her arms round it as far as they
+would go, and broke off a bit of the edge with each hand.</p>
+<p>&quot;And now which is which?' she said to herself, and nibbled a
+little of the right-hand bit to try the effect:  the next moment
+she felt a violent blow underneath her chin:  it had struck her
+foot!</p>
+<p>She was a good deal frightened by this very sudden change, but
+she felt that there was no time to be lost, as she was shrinking
+rapidly; so she set to work at once to eat some of the other bit.
+Her chin was pressed so closely against her foot, that there was
+hardly room to open her mouth; but she did it at last, and
+managed to swallow a morsel of the lefthand bit.</p>
+<pre><code> *       *       *       *       *       *       *
+
+     *       *       *       *       *       *
+
+ *       *       *       *       *       *       *
+</code></pre>
+<p>&quot;Come, my head's free at last!' said Alice in a tone of
+delight, which changed into alarm in another moment, when she
+found that her shoulders were nowhere to be found:  all she could
+see, when she looked down, was an immense length of neck, which
+seemed to rise like a stalk out of a sea of green leaves that lay
+far below her.</p>
+<p>&quot;What CAN all that green stuff be?' said Alice.  &quot;And where
+HAVE my shoulders got to?  And oh, my poor hands, how is it I
+can't see you?'  She was moving them about as she spoke, but no
+result seemed to follow, except a little shaking among the
+distant green leaves.</p>
+<p>As there seemed to be no chance of getting her hands up to her
+head, she tried to get her head down to them, and was delighted
+to find that her neck would bend about easily in any direction,
+like a serpent.  She had just succeeded in curving it down into a
+graceful zigzag, and was going to dive in among the leaves, which
+she found to be nothing but the tops of the trees under which she
+had been wandering, when a sharp hiss made her draw back in a
+hurry:  a large pigeon had flown into her face, and was beating
+her violently with its wings.</p>
+<p>&quot;Serpent!' screamed the Pigeon.</p>
+<p>&quot;I'm NOT a serpent!' said Alice indignantly.  &quot;Let me alone!'</p>
+<p>&quot;Serpent, I say again!' repeated the Pigeon, but in a more
+subdued tone, and added with a kind of sob, &quot;I've tried every
+way, and nothing seems to suit them!'</p>
+<p>&quot;I haven't the least idea what you're talking about,' said
+Alice.</p>
+<p>&quot;I've tried the roots of trees, and I've tried banks, and I've
+tried hedges,' the Pigeon went on, without attending to her; &quot;but
+those serpents!  There's no pleasing them!'</p>
+<p>Alice was more and more puzzled, but she thought there was no
+use in saying anything more till the Pigeon had finished.</p>
+<p>&quot;As if it wasn't trouble enough hatching the eggs,' said the
+Pigeon; &quot;but I must be on the look-out for serpents night and
+day!  Why, I haven't had a wink of sleep these three weeks!'</p>
+<p>&quot;I'm very sorry you've been annoyed,' said Alice, who was
+beginning to see its meaning.</p>
+<p>&quot;And just as I'd taken the highest tree in the wood,' continued
+the Pigeon, raising its voice to a shriek, &quot;and just as I was
+thinking I should be free of them at last, they must needs come
+wriggling down from the sky!  Ugh, Serpent!'</p>
+<p>&quot;But I'm NOT a serpent, I tell you!' said Alice.  &quot;I'm a--I'm
+a--'</p>
+<p>&quot;Well!  WHAT are you?' said the Pigeon.  &quot;I can see you're
+trying to invent something!'</p>
+<p>&quot;I--I'm a little girl,' said Alice, rather doubtfully, as she
+remembered the number of changes she had gone through that day.</p>
+<p>&quot;A likely story indeed!' said the Pigeon in a tone of the
+deepest contempt.  &quot;I've seen a good many little girls in my
+time, but never ONE with such a neck as that!  No, no!  You're a
+serpent; and there's no use denying it.  I suppose you'll be
+telling me next that you never tasted an egg!'</p>
+<p>&quot;I HAVE tasted eggs, certainly,' said Alice, who was a very
+truthful child; &quot;but little girls eat eggs quite as much as
+serpents do, you know.'</p>
+<p>&quot;I don't believe it,' said the Pigeon; &quot;but if they do, why
+then they're a kind of serpent, that's all I can say.'</p>
+<p>This was such a new idea to Alice, that she was quite silent
+for a minute or two, which gave the Pigeon the opportunity of
+adding, &quot;You're looking for eggs, I know THAT well enough; and
+what does it matter to me whether you're a little girl or a
+serpent?'</p>
+<p>&quot;It matters a good deal to ME,' said Alice hastily; &quot;but I'm
+not looking for eggs, as it happens; and if I was, I shouldn't
+want YOURS:  I don't like them raw.'</p>
+<p>&quot;Well, be off, then!' said the Pigeon in a sulky tone, as it
+settled down again into its nest.  Alice crouched down among the
+trees as well as she could, for her neck kept getting entangled
+among the branches, and every now and then she had to stop and
+untwist it.  After a while she remembered that she still held the
+pieces of mushroom in her hands, and she set to work very
+carefully, nibbling first at one and then at the other, and
+growing sometimes taller and sometimes shorter, until she had
+succeeded in bringing herself down to her usual height.</p>
+<p>It was so long since she had been anything near the right size,
+that it felt quite strange at first; but she got used to it in a
+few minutes, and began talking to herself, as usual.  &quot;Come,
+there's half my plan done now!  How puzzling all these changes
+are!  I'm never sure what I'm going to be, from one minute to
+another!  However, I've got back to my right size:  the next
+thing is, to get into that beautiful garden--how IS that to be
+done, I wonder?'  As she said this, she came suddenly upon an
+open place, with a little house in it about four feet high.
+&quot;Whoever lives there,' thought Alice, &quot;it'll never do to come
+upon them THIS size:  why, I should frighten them out of their
+wits!'  So she began nibbling at the righthand bit again, and did
+not venture to go near the house till she had brought herself
+down to nine inches high.</p>
+    </section>
+    <footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
+        
+    </footer>
+</article>    </main>
+
+    <div id="support">
+        <div id="sidebar-backdrop" x-cloak="" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+                    <button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
+        aria-label="Toggle search window">
+    <span x-show="! searchWindowOpen">
+        Search <svg class="float-left mr-1 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24"
+                    viewBox="0 0 24 24" width="24" role="presentation">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </span>
+    <span x-show="searchWindowOpen">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+    </span>
+</button>
+<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
+        aria-label="Toggle search menu">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" role="presentation">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+</button>
+
+<div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
+     class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
+    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+           class="prose dark:prose-invert bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
+        <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
+            <strong>Search the documentation site</strong>
+            <button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100"
+                    aria-label="Close search window">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <div>
+            <div id="hyde-search">
+    <noscript>
+        The search feature requires JavaScript to be enabled in your browser.
+    </noscript>
+    <input class="w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3" type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off" autofocus>
+</div>        </div>
+        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+            <small>
+                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
+                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+            </small>
+        </footer>
+    </aside>
+
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
+</div>            <script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+<script>
+    window.addEventListener('load', function () {
+        const searchIndexLocation = '../docs/search.json';
+        const Search = new HydeSearch(searchIndexLocation);
+
+        Search.init();
+    });
+</script>            </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" integrity="sha256-gOkV4d9/FmMNEkjOzVlyM2eNAWSUXisT+1RbMTTIgXI=" crossorigin="anonymous"></script>
+
+<script>
+    function toggleTheme() {
+        if (localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem('color-theme', 'light');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'light');
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem('color-theme', 'dark');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

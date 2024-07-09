@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydePHP Upcoming Documentation - HydePage API Reference</title>
+
+
+
+<link rel="canonical" href="https://hydephp.github.io/develop/master/dev-docs/dev-docs/hyde-pages.html">
+<meta name="twitter:title" content="HydePHP Upcoming Documentation - HydePage API Reference">
+<meta property="og:title" content="HydePHP Upcoming Documentation - HydePage API Reference">
+
+
+<link rel="sitemap" href="https://hydephp.github.io/develop/master/dev-docs/sitemap.xml" type="application/xml" title="Sitemap">
+<meta name="generator" content="HydePHP 1.7.2">
+<meta name="robots" content="noindex">
+<meta property="og:site_name" content="HydePHP Upcoming Documentation">
+
+
+
+
+<style>[x-cloak] {display: none!important}</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/app.css">
+
+
+
+
+
+    
+    <meta id="meta-color-scheme" name="color-scheme" content="light">
+    <script>if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); document.getElementById('meta-color-scheme').setAttribute('content', 'dark');} else { document.documentElement.classList.remove('dark') } </script>
+
+
+
+
+
+
+</head>
+<body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+
+    <a href="#content" id="skip-to-content" class="sr-only focus:not-sr-only bg-black border-4 border-yellow-400 focus:absolute focus:mt-2 focus:mx-auto focus:p-2 focus:w-64 h-auto left-0 overflow-auto right-0 rounded-md text-center text-lg text-white top-auto z-50 ">Skip to content</a>    <nav id="mobile-navigation" class="bg-white dark:bg-gray-800 md:hidden flex justify-between w-full h-16 z-40 fixed left-0 top-0 p-4 leading-8 shadow-lg">
+    <strong class="px-2 mr-auto">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <ul class="flex items-center">
+        <li class="h-8 flex mr-1">
+            <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+        </li>
+        <li class="h-8 flex">
+            <button id="sidebar-toggle" title="Toggle sidebar" aria-label="Toggle sidebar navigation menu" @click="sidebarOpen = ! sidebarOpen" :class="{'active' : sidebarOpen}">
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+    <span class="icon-bar dark:bg-white h-0" role="presentation"></span>
+</button>        </li>
+    </ul>
+</nav>    <aside id="sidebar" x-cloak :class="sidebarOpen ? 'visible left-0' : 'invisible -left-64 md:visible md:left-0'" class="bg-gray-100 dark:bg-gray-800 dark:text-gray-200 h-screen w-64 fixed z-30 md:flex flex-col shadow-lg md:shadow-none transition-all duration-300">
+    <header id="sidebar-header" class="h-16">
+        <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
+    <strong class="px-2">
+                    <a href="../dev-docs/index.html">
+                HydePHP Docs
+            </a>
+            </strong>
+    <button @click="toggleTheme" class="theme-toggle-button flex items-center px-2 py-1 hover:text-gray-700 dark:text-gray-200 opacity-75 hover:opacity-100" title="Toggle theme">
+        <span class="sr-only">Toggle dark theme</span>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 hidden dark:block" fill="#FFFFFF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        <svg width="1.25rem" height="1.25rem" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+</div>    </header>
+    <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
+        <ul id="sidebar-items" role="list">
+                            <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Getting Started</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/quickstart.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Quickstart Guide
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/console-commands.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Console Commands
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/core-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Core Concepts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/front-matter.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Front Matter
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Creating Content</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/blog-posts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Creating Blog Posts
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/static-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Markdown &amp; Blade Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/documentation-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Documentation Pages
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/managing-assets.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Managing and Compiling Assets
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/compile-and-deploy.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Compile &amp; Deploy
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Digging Deeper</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/customization.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Customizing your Site
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/navigation.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Navigation Menus
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-markdown.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Markdown
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-customization.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Advanced Customization
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/collections.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            File-based Collections
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/helpers.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Helpers and Utilities
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/troubleshooting.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Troubleshooting
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/updating-hyde.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Updating Hyde Projects
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: true }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Advanced Features</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/advanced-features.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/build-tasks.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Custom Build Tasks
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4 active -ml-8 pl-8 bg-black/5 dark:bg-black/10" role="listitem">
+            <a href="../dev-docs/hyde-pages.html" aria-current="true" class="-ml-8 pl-4 py-1 px-2 block text-indigo-600 dark:text-indigo-400 dark:font-medium border-l-[0.325rem] border-indigo-500 transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePage API
+        </a>
+
+                    <span class="sr-only">Table of contents</span>
+            <ul class="table-of-contents">
+<li>
+<a href="#abstract">Abstract</a>
+<ul>
+<li>
+<a href="#about-the-reference">About the reference</a>
+<ul>
+<li>
+<a href="#inheritance">Inheritance</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#table-of-contents">Table of Contents</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#hydepage">HydePage</a>
+<ul>
+<li>
+<a href="#quick-reference">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure">Base Structure</a>
+</li>
+<li>
+<a href="#methods">Methods</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#basemarkdownpage">BaseMarkdownPage</a>
+<ul>
+<li>
+<a href="#quick-reference-1">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure-1">Base Structure</a>
+</li>
+<li>
+<a href="#methods-1">Methods</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#inmemorypage">InMemoryPage</a>
+<ul>
+<li>
+<a href="#quick-reference-2">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure-2">Base Structure</a>
+</li>
+<li>
+<a href="#methods-2">Methods</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#bladepage">BladePage</a>
+<ul>
+<li>
+<a href="#quick-reference-3">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure-3">Base Structure</a>
+</li>
+<li>
+<a href="#methods-3">Methods</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#markdownpage">MarkdownPage</a>
+<ul>
+<li>
+<a href="#quick-reference-4">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure-4">Base Structure</a>
+</li>
+<li>
+<a href="#methods-4">Methods</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#markdownpost">MarkdownPost</a>
+<ul>
+<li>
+<a href="#quick-reference-5">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure-5">Base Structure</a>
+</li>
+<li>
+<a href="#methods-5">Methods</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#documentationpage">DocumentationPage</a>
+<ul>
+<li>
+<a href="#quick-reference-6">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure-6">Base Structure</a>
+</li>
+<li>
+<a href="#methods-6">Methods</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#htmlpage">HtmlPage</a>
+<ul>
+<li>
+<a href="#quick-reference-7">Quick Reference</a>
+</li>
+<li>
+<a href="#base-structure-7">Base Structure</a>
+</li>
+<li>
+<a href="#methods-7">Methods</a>
+</li>
+</ul>
+</li>
+</ul>
+
+            </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/in-memory-pages.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            InMemoryPages
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Architecture Concepts</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/architecture-concepts.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Introduction
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/autodiscovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Autodiscovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/automatic-routing.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Automatic Routing
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/dynamic-data-discovery.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Dynamic Data Discovery
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/page-models.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Page models
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/the-hydekernel.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The HydeKernel
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions-api.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            The Extensions API
+        </a>
+    </li>                                    </ul>
+            </li>
+                    <li class="sidebar-group" role="listitem"  x-data="{ groupOpen: false }" >
+                <header class="sidebar-group-header p-2 px-4 -ml-2 flex justify-between items-center  group hover:bg-black/10 "  @click="groupOpen = ! groupOpen" >
+                    <h4 class="sidebar-group-heading text-base font-semibold  cursor-pointer dark:group-hover:text-white ">Extensions</h4>
+                                            <button class="sidebar-group-toggle opacity-50 group-hover:opacity-100">
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-open" x-show="groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12L12 8L4 8L8 12Z" fill="currentColor" />
+    </svg>
+    <svg class="sidebar-group-toggle-icon sidebar-group-toggle-icon-closed" x-show="! groupOpen" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8L8 12L8 4L12 8Z" fill="currentColor" />
+    </svg>
+</button>                                    </header>
+                <ul class="sidebar-group-items ml-4 px-2 mb-2" role="list"  x-show="groupOpen" >
+                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/extensions.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Extensions &amp; Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/realtime-compiler.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Realtime Compiler
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/third-party-integrations.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            Third-Party Integrations
+        </a>
+    </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
+            <a href="../dev-docs/ui-kit.html" class="-ml-8 pl-4 py-1 px-2 block border-l-[0.325rem] border-transparent transition-colors duration-300 ease-in-out hover:bg-black/10">
+            HydePHP UI Kit - Documentation
+        </a>
+    </li>                                    </ul>
+            </li>
+            </ul>
+    </nav>
+    </aside>
+    <main id="content" class="dark:bg-gray-900 min-h-screen bg-gray-50 md:bg-white absolute top-16 md:top-0 w-screen md:left-64 md:w-[calc(100vw_-_16rem)]">
+        <article id="document" itemscope itemtype="https://schema.org/Article" class="mx-auto lg:ml-8 max-w-3xl p-12 md:px-16 max-w-[1000px] min-h-[calc(100vh_-_4rem)] prose dark:prose-invert">
+    
+    <header id="document-header" class="flex items-center flex-wrap justify-between prose-h1:mb-3">
+        <h1>HydePage API Reference</h1>
+    </header>
+    <section id="document-main-content" itemprop="articleBody">
+        <blockquote class="warning"><p>This article covers advanced information, and you are expected to already be familiar with <a href="page-models">Page Models</a> and OOP</p></blockquote>
+<h2>Abstract<a id="abstract" href="#abstract" class="heading-permalink" title="Permalink"></a></h2>
+<p>This page contains the full API references for the built-in HydePage classes. Most users will not need to know about
+the inner workings of classes, but if you're interested in extending HydePHP, or just curious, this page is for you.
+It is especially useful if you're looking to implement your own page classes, or if you are creating advanced Blade templates.</p>
+<h3>About the reference<a id="about-the-reference" href="#about-the-reference" class="heading-permalink" title="Permalink"></a></h3>
+<p>This document is heavily based around the actual source code, as I believe the best way to understand the code is to read it.
+However, large parts of the code are simplified for brevity and illustration. The code is not meant to be copy-pasted, but
+rather used as a reference so that you know what to look for in the actual source code, if you want to dig deeper.</p>
+<h4>Inheritance<a id="inheritance" href="#inheritance" class="heading-permalink" title="Permalink"></a></h4>
+<p>Since all HydePages extend the base <code>HydePage</code> class, those shared methods are only listed once,
+under the <code>HydePage</code> class documentation which is conveniently located just below this section.</p>
+<h3>Table of Contents<a id="table-of-contents" href="#table-of-contents" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#hydepage">HydePage</a></td>
+<td>The base class for all Hyde pages.</td>
+</tr>
+<tr>
+<td><a href="#basemarkdownpage">BaseMarkdownPage</a></td>
+<td>The base class for all Markdown pages.</td>
+</tr>
+<tr>
+<td><a href="#inmemorypage">InMemoryPage</a></td>
+<td>Extendable class for in-memory pages.</td>
+</tr>
+<tr>
+<td><a href="#markdownpage">BladePage</a></td>
+<td>Class for Blade pages.</td>
+</tr>
+<tr>
+<td><a href="#markdownpage">MarkdownPage</a></td>
+<td>Class for Markdown pages.</td>
+</tr>
+<tr>
+<td><a href="#markdownpost">MarkdownPost</a></td>
+<td>Class for Markdown posts.</td>
+</tr>
+<tr>
+<td><a href="#documentationpage">DocumentationPage</a></td>
+<td>Class for documentation pages.</td>
+</tr>
+<tr>
+<td><a href="#htmlpage">HtmlPage</a></td>
+<td>Class for HTML pages.</td>
+</tr>
+</tbody>
+</table>
+<h2>HydePage<a id="hydepage" href="#hydepage" class="heading-permalink" title="Permalink"></a></h2>
+<p>The base class for all Hyde pages. All other page classes extend this class.</p>
+<p>Unlike other frameworks, you generally don't instantiate pages yourself in Hyde. Instead, the page models act as
+blueprints defining information for Hyde to know how to parse a file, and what data around it should be generated.</p>
+<p>To get a parsed file instance, you'd typically just create a source file, and you can then access the parsed file
+from the HydeKernel's page index.</p>
+<p>In Blade views, you can always access the current page instance being rendered using the <code>$page</code> variable.</p>
+<h3>Quick Reference<a id="quick-reference" href="#quick-reference" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HydePage</code></td>
+<td><code>Hyde\Pages\Concerns</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/Concerns/HydePage.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-Concerns-HydePage.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure" href="#base-structure" class="heading-permalink" title="Permalink"></a></h3>
+<pre><code class="language-php">/**
+ * The base class for all Hyde pages. Here simplified for the sake of brevity.
+ */
+abstract class HydePage
+{
+    /**
+     * The directory in which source files are stored. Relative to the project root.
+     */
+    public static string $sourceDirectory;
+
+    /**
+     * The output subdirectory to store compiled HTML. Relative to the _site output directory.
+     */
+    public static string $outputDirectory;
+
+    /**
+     * The file extension of the source files.
+     */
+    public static string $fileExtension;
+
+    /**
+     * The default template to use for rendering the page.
+     */
+    public static string $template;
+
+    /**
+     * The page instance identifier.
+     */
+    public readonly string $identifier;
+
+    /**
+     * The page instance route key.
+     */
+    public readonly string $routeKey;
+
+    /**
+     * The parsed front matter.
+     */
+    public FrontMatter $matter;
+
+    /**
+     * The generated page metadata.
+     */
+    public PageMetadataBag $metadata;
+
+    /**
+     * The generated page navigation data.
+     */
+    public NavigationData $navigation;
+}
+</code></pre>
+<h3>Methods<a id="methods" href="#methods" class="heading-permalink" title="Permalink"></a></h3>
+<blockquote class="warning"><p class="p-2" style="padding-right: 1rem"><strong>Heads up!</strong> The following methods are defined in the <code>HydePage</code> class, and are thus available to all page classes. Since the HydePage class is abstract, you cannot instantiate it directly, and many of the static methods are also only callable from the child classes.</p></blockquote>
+<section id="hyde-page-methods">
+<!-- Start generated docs for Hyde\Pages\Concerns\HydePage -->
+<!-- Generated by HydePHP DocGen script at 2024-07-08 20:48:42 in 5.42ms -->
+<h4><code>make()</code><a id="make" href="#make" class="heading-permalink" title="Permalink"></a></h4>
+<p>Create a new page instance. Static alias for the constructor.</p>
+<pre><code class="language-php">HydePage::make(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter): static
+</code></pre>
+<h4><code>isDiscoverable()</code><a id="isdiscoverable" href="#isdiscoverable" class="heading-permalink" title="Permalink"></a></h4>
+<p>Returns whether the page type is discoverable through auto-discovery.</p>
+<pre><code class="language-php">HydePage::isDiscoverable(): bool
+</code></pre>
+<h4><code>get()</code><a id="get" href="#get" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get a page instance from the Kernel's page index by its identifier.</p>
+<pre><code class="language-php">HydePage::get(string $identifier): static
+</code></pre>
+<ul>
+<li>
+<strong>Throws:</strong> \Hyde\Framework\Exceptions\FileNotFoundException If the page does not exist.</li>
+</ul>
+<h4><code>parse()</code><a id="parse" href="#parse" class="heading-permalink" title="Permalink"></a></h4>
+<p>Parse a source file into a new page model instance.</p>
+<pre><code class="language-php">/** @param string $identifier The identifier of the page to parse. */
+HydePage::parse(string $identifier): static // New page model instance for the parsed source file.
+</code></pre>
+<ul>
+<li>
+<strong>Throws:</strong> \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist.</li>
+</ul>
+<h4><code>files()</code><a id="files" href="#files" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get an array of all the source file identifiers for the model.</p>
+<p>Note that the values do not include the source directory or file extension.</p>
+<pre><code class="language-php">HydePage::files(): array&lt;string&gt;
+</code></pre>
+<h4><code>all()</code><a id="all" href="#all" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get a collection of all pages, parsed into page models.</p>
+<pre><code class="language-php">HydePage::all(): \Hyde\Foundation\Kernel\PageCollection&lt;static&gt;
+</code></pre>
+<h4><code>sourceDirectory()</code><a id="sourcedirectory" href="#sourcedirectory" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the directory where source files are stored for the page type.</p>
+<pre><code class="language-php">HydePage::sourceDirectory(): string
+</code></pre>
+<h4><code>outputDirectory()</code><a id="outputdirectory" href="#outputdirectory" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the output subdirectory to store compiled HTML files for the page type.</p>
+<pre><code class="language-php">HydePage::outputDirectory(): string
+</code></pre>
+<h4><code>fileExtension()</code><a id="fileextension" href="#fileextension" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the file extension of the source files for the page type.</p>
+<pre><code class="language-php">HydePage::fileExtension(): string
+</code></pre>
+<h4><code>setSourceDirectory()</code><a id="setsourcedirectory" href="#setsourcedirectory" class="heading-permalink" title="Permalink"></a></h4>
+<p>Set the output directory for the page type.</p>
+<pre><code class="language-php">HydePage::setSourceDirectory(string $sourceDirectory): void
+</code></pre>
+<h4><code>setOutputDirectory()</code><a id="setoutputdirectory" href="#setoutputdirectory" class="heading-permalink" title="Permalink"></a></h4>
+<p>Set the source directory for the page type.</p>
+<pre><code class="language-php">HydePage::setOutputDirectory(string $outputDirectory): void
+</code></pre>
+<h4><code>setFileExtension()</code><a id="setfileextension" href="#setfileextension" class="heading-permalink" title="Permalink"></a></h4>
+<p>Set the file extension for the page type.</p>
+<pre><code class="language-php">HydePage::setFileExtension(string $fileExtension): void
+</code></pre>
+<h4><code>sourcePath()</code><a id="sourcepath" href="#sourcepath" class="heading-permalink" title="Permalink"></a></h4>
+<p>Qualify a page identifier into file path to the source file, relative to the project root.</p>
+<pre><code class="language-php">HydePage::sourcePath(string $identifier): string
+</code></pre>
+<h4><code>outputPath()</code><a id="outputpath" href="#outputpath" class="heading-permalink" title="Permalink"></a></h4>
+<p>Qualify a page identifier into a target output file path, relative to the _site output directory.</p>
+<pre><code class="language-php">HydePage::outputPath(string $identifier): string
+</code></pre>
+<h4><code>path()</code><a id="path" href="#path" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get an absolute file path to the page's source directory, or a file within it.</p>
+<pre><code class="language-php">HydePage::path(string $path): string
+</code></pre>
+<h4><code>pathToIdentifier()</code><a id="pathtoidentifier" href="#pathtoidentifier" class="heading-permalink" title="Permalink"></a></h4>
+<p>Format a filename to an identifier for a given model. Unlike the basename function, any nested paths within the source directory are retained in order to satisfy the page identifier definition.</p>
+<pre><code class="language-php">/** @param string $path Example: index.blade.php */
+HydePage::pathToIdentifier(string $path): string // Example: index
+</code></pre>
+<h4><code>baseRouteKey()</code><a id="baseroutekey" href="#baseroutekey" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the route key base for the page model.</p>
+<p>This is the same value as the output directory.</p>
+<pre><code class="language-php">HydePage::baseRouteKey(): string
+</code></pre>
+<h4><code>__construct()</code><a id="construct" href="#construct" class="heading-permalink" title="Permalink"></a></h4>
+<p>Construct a new page instance.</p>
+<pre><code class="language-php">$page = new HydePage(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter): void
+</code></pre>
+<h4><code>compile()</code><a id="compile" href="#compile" class="heading-permalink" title="Permalink"></a></h4>
+<p>Compile the page into static HTML.</p>
+<pre><code class="language-php">$page-&gt;compile(): string // The compiled HTML for the page.
+</code></pre>
+<h4><code>toArray()</code><a id="toarray" href="#toarray" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the instance as an array.</p>
+<pre><code class="language-php">$page-&gt;toArray(): array
+</code></pre>
+<h4><code>getSourcePath()</code><a id="getsourcepath" href="#getsourcepath" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the path to the instance source file, relative to the project root.</p>
+<pre><code class="language-php">$page-&gt;getSourcePath(): string
+</code></pre>
+<h4><code>getOutputPath()</code><a id="getoutputpath" href="#getoutputpath" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the path where the compiled page will be saved.</p>
+<pre><code class="language-php">$page-&gt;getOutputPath(): string // Path relative to the site output directory.
+</code></pre>
+<h4><code>getRouteKey()</code><a id="getroutekey" href="#getroutekey" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the route key for the page.</p>
+<p>The route key is the page URL path, relative to the site root, but without any file extensions. For example, if the page will be saved to <code>_site/docs/index.html</code>, the key is <code>docs/index</code>.</p>
+<p>Route keys are used to identify page routes, similar to how named routes work in Laravel, only that here the name is not just arbitrary, but also defines the output location, as the route key is used to determine the output path which is <code>$routeKey.html</code>.</p>
+<pre><code class="language-php">$page-&gt;getRouteKey(): string
+</code></pre>
+<h4><code>getRoute()</code><a id="getroute" href="#getroute" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the route object for the page.</p>
+<pre><code class="language-php">$page-&gt;getRoute(): Hyde\Support\Models\Route
+</code></pre>
+<h4><code>getLink()</code><a id="getlink" href="#getlink" class="heading-permalink" title="Permalink"></a></h4>
+<p>Format the page instance to a URL path, with support for pretty URLs if enabled.</p>
+<p>Note that the link is always relative to site root, and does not contain <code>../</code> segments.</p>
+<pre><code class="language-php">$page-&gt;getLink(): string
+</code></pre>
+<h4><code>getIdentifier()</code><a id="getidentifier" href="#getidentifier" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the page model's identifier property.</p>
+<p>The identifier is the part between the source directory and the file extension. It may also be known as a 'slug', or previously 'basename', but it retains the nested path structure if the page is stored in a subdirectory.</p>
+<p>For example, the identifier of a source file stored as '_pages/about/contact.md' would be 'about/contact', and 'pages/about.md' would simply be 'about'.</p>
+<pre><code class="language-php">$page-&gt;getIdentifier(): string
+</code></pre>
+<h4><code>getBladeView()</code><a id="getbladeview" href="#getbladeview" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the Blade template/view key for the page.</p>
+<pre><code class="language-php">$page-&gt;getBladeView(): string
+</code></pre>
+<h4><code>title()</code><a id="title" href="#title" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the page title to display in HTML tags like <code>&lt;title&gt;</code> and <code>&lt;meta&gt;</code> tags.</p>
+<pre><code class="language-php">$page-&gt;title(): string
+</code></pre>
+<h4><code>metadata()</code><a id="metadata" href="#metadata" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the generated metadata for the page.</p>
+<pre><code class="language-php">$page-&gt;metadata(): Hyde\Framework\Features\Metadata\PageMetadataBag
+</code></pre>
+<h4><code>showInNavigation()</code><a id="showinnavigation" href="#showinnavigation" class="heading-permalink" title="Permalink"></a></h4>
+<p>Can the page be shown in the navigation menu?</p>
+<pre><code class="language-php">$page-&gt;showInNavigation(): bool
+</code></pre>
+<h4><code>navigationMenuPriority()</code><a id="navigationmenupriority" href="#navigationmenupriority" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the priority of the page in the navigation menu.</p>
+<pre><code class="language-php">$page-&gt;navigationMenuPriority(): int
+</code></pre>
+<h4><code>navigationMenuLabel()</code><a id="navigationmenulabel" href="#navigationmenulabel" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the label of the page in the navigation menu.</p>
+<pre><code class="language-php">$page-&gt;navigationMenuLabel(): string
+</code></pre>
+<h4><code>navigationMenuGroup()</code><a id="navigationmenugroup" href="#navigationmenugroup" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the group of the page in the navigation menu, if any.</p>
+<pre><code class="language-php">$page-&gt;navigationMenuGroup(): string
+</code></pre>
+<h4><code>getCanonicalUrl()</code><a id="getcanonicalurl" href="#getcanonicalurl" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">$page-&gt;getCanonicalUrl(): string
+</code></pre>
+<!-- End generated docs for Hyde\Pages\Concerns\HydePage -->
+</section>
+
+<section id="interacts-with-front-matter-methods">
+<!-- Start generated docs for Hyde\Framework\Concerns\InteractsWithFrontMatter -->
+<!-- Generated by HydePHP DocGen script at 2023-03-10 18:25:46 in 0.06ms -->
+<h4><code>data()</code><a id="data" href="#data" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get a value from the computed page data, or fallback to the page's front matter, then to the default value.</p>
+<pre><code class="language-php">$page-&gt;data(string $key, mixed $default): \Hyde\Markdown\Models\FrontMatter|mixed
+</code></pre>
+<h4><code>matter()</code><a id="matter" href="#matter" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the front matter object, or a value from within.</p>
+<pre><code class="language-php">$page-&gt;matter(string $key, mixed $default): \Hyde\Markdown\Models\FrontMatter|mixed
+</code></pre>
+<h4><code>has()</code><a id="has" href="#has" class="heading-permalink" title="Permalink"></a></h4>
+<p>See if a value exists in the computed page data or the front matter.</p>
+<pre><code class="language-php">$page-&gt;has(string $key): bool
+</code></pre>
+<!-- End generated docs for Hyde\Framework\Concerns\InteractsWithFrontMatter -->
+</section>
+
+<h2>BaseMarkdownPage<a id="basemarkdownpage" href="#basemarkdownpage" class="heading-permalink" title="Permalink"></a></h2>
+<p>The base class for all Markdown-based page models, with additional helpers tailored for Markdown pages.</p>
+<h3>Quick Reference<a id="quick-reference-1" href="#quick-reference-1" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BaseMarkdownPage</code></td>
+<td><code>Hyde\Pages\Concerns</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/Concerns/BaseMarkdownPage.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-Concerns-BaseMarkdownPage.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure-1" href="#base-structure-1" class="heading-permalink" title="Permalink"></a></h3>
+<pre><code class="language-php">/**
+ * The base class for all Markdown-based page models. Here simplified for the sake of brevity.
+ */
+abstract class BaseMarkdownPage extends HydePage
+{
+    public Markdown $markdown;
+
+    public static string $fileExtension = '.md';
+}
+</code></pre>
+<h3>Methods<a id="methods-1" href="#methods-1" class="heading-permalink" title="Permalink"></a></h3>
+<section id="base-markdown-page-methods">
+<!-- Start generated docs for Hyde\Pages\Concerns\BaseMarkdownPage -->
+<!-- Generated by HydePHP DocGen script at 2023-03-10 18:22:36 in 0.67ms -->
+<h4><code>make()</code><a id="make" href="#make" class="heading-permalink" title="Permalink"></a></h4>
+<p>Create a new page instance. Static alias for the constructor.</p>
+<pre><code class="language-php">BaseMarkdownPage::make(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter, Hyde\Markdown\Models\Markdown|string $markdown): static
+</code></pre>
+<h4><code>__construct()</code><a id="construct" href="#construct" class="heading-permalink" title="Permalink"></a></h4>
+<p>Construct a new page instance.</p>
+<pre><code class="language-php">$page = new BaseMarkdownPage(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter, Hyde\Markdown\Models\Markdown|string $markdown): void
+</code></pre>
+<h4><code>markdown()</code><a id="markdown" href="#markdown" class="heading-permalink" title="Permalink"></a></h4>
+<p>Return the document's Markdown object.</p>
+<pre><code class="language-php">$page-&gt;markdown(): Hyde\Markdown\Models\Markdown
+</code></pre>
+<h4><code>compile()</code><a id="compile" href="#compile" class="heading-permalink" title="Permalink"></a></h4>
+<p>Compile the page into static HTML.</p>
+<pre><code class="language-php">$page-&gt;compile(): string // The compiled HTML for the page.
+</code></pre>
+<h4><code>save()</code><a id="save" href="#save" class="heading-permalink" title="Permalink"></a></h4>
+<p>Save the Markdown page object to disk by compiling the front matter array to YAML and writing the body to the file.</p>
+<pre><code class="language-php">$page-&gt;save(): $this
+</code></pre>
+<!-- End generated docs for Hyde\Pages\Concerns\BaseMarkdownPage -->
+</section>
+
+<h2>InMemoryPage<a id="inmemorypage" href="#inmemorypage" class="heading-permalink" title="Permalink"></a></h2>
+<p>Before we take a look at the common page classes, you'll usually use, let's first take a look at one that's quite interesting.</p>
+<p>This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
+autodiscovery, you may benefit from creating a custom page class instead, as that will give you full control.</p>
+<p>You can learn more about the InMemoryPage class in the <a href="in-memory-pages">InMemoryPage documentation</a>.</p>
+<h3>Quick Reference<a id="quick-reference-2" href="#quick-reference-2" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InMemoryPage</code></td>
+<td><code>Hyde\Pages</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/InMemoryPage.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-InMemoryPage.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure-2" href="#base-structure-2" class="heading-permalink" title="Permalink"></a></h3>
+<p>As the class is not discoverable, the static path properties are not initialized. Instead, you solely rely on the contents/view properties.</p>
+<p>You can also define macros which allow you to both add methods to the instance, but also to overload some built-in ones like the <code>compile</code> method.</p>
+<pre><code class="language-php">/**
+ * The InMemoryPage class, here simplified for the sake of brevity.
+ */
+class InMemoryPage extends HydePage
+{
+    public static string $sourceDirectory;
+    public static string $outputDirectory;
+    public static string $fileExtension;
+
+    protected string $contents;
+    protected string $view;
+
+    /** @var array&lt;string, callable&gt; */
+    protected array $macros = [];
+}
+</code></pre>
+<h3>Methods<a id="methods-2" href="#methods-2" class="heading-permalink" title="Permalink"></a></h3>
+<section id="in-memory-page-methods">
+<!-- Start generated docs for Hyde\Pages\InMemoryPage -->
+<!-- Generated by HydePHP DocGen script at 2023-03-10 20:57:31 in 0.46ms -->
+<h4><code>make()</code><a id="make" href="#make" class="heading-permalink" title="Permalink"></a></h4>
+<p>Static alias for the constructor.</p>
+<pre><code class="language-php">InMemoryPage::make(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter, string $contents, string $view): static
+</code></pre>
+<h4><code>__construct()</code><a id="construct" href="#construct" class="heading-permalink" title="Permalink"></a></h4>
+<p>Create a new in-memory/virtual page instance.</p>
+<p>The in-memory page class offers two content options. You can either pass a string to the $contents parameter, Hyde will then save that literally as the page's contents. Alternatively, you can pass a view name to the $view parameter, and Hyde will use that view to render the page contents with the supplied front matter during the static site build process.</p>
+<p>Note that $contents take precedence over $view, so if you pass both, only $contents will be used. You can also register a macro with the name 'compile' to overload the default compile method.</p>
+<p>If the identifier for an in-memory page is &quot;foo/bar&quot; the page will be saved to &quot;_site/foo/bar.html&quot;. You can then also use the route helper to get a link to it by using the route key &quot;foo/bar&quot;. Take note that the identifier must be unique to prevent overwriting other pages. all this data will be passed to the view rendering engine.</p>
+<ul>
+<li>
+<strong>Parameter $view:</strong> The view key or Blade file for the view to use to render the page contents.</li>
+<li>
+<strong>Parameter $matter:</strong> The front matter of the page. When using the Blade view rendering option,</li>
+</ul>
+<pre><code class="language-php">$page = new InMemoryPage(string $identifier, \Hyde\Markdown\Models\FrontMatter|array $matter, string $contents, string $view): void
+</code></pre>
+<h4><code>getContents()</code><a id="getcontents" href="#getcontents" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the contents of the page. This will be saved as-is to the output file when this strategy is used.</p>
+<pre><code class="language-php">$page-&gt;getContents(): string
+</code></pre>
+<h4><code>getBladeView()</code><a id="getbladeview" href="#getbladeview" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the view key or Blade file for the view to use to render the page contents when this strategy is used.</p>
+<pre><code class="language-php">$page-&gt;getBladeView(): string
+</code></pre>
+<h4><code>compile()</code><a id="compile" href="#compile" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the contents that will be saved to disk for this page.</p>
+<p>In order to make your virtual page easy to use we provide a few options for how the page can be compiled. If you want even more control, you can register a macro with the name 'compile' to overload the method, or simply extend the class and override the method yourself, either in a standard or anonymous class.</p>
+<pre><code class="language-php">$page-&gt;compile(): string
+</code></pre>
+<h4><code>macro()</code><a id="macro" href="#macro" class="heading-permalink" title="Permalink"></a></h4>
+<p>Register a macro for the instance.</p>
+<p>Unlike most macros you might be used to, these are not static, meaning they belong to the instance. If you have the need for a macro to be used for multiple pages, you should create a custom page class instead.</p>
+<pre><code class="language-php">$page-&gt;macro(string $name, callable $macro): void
+</code></pre>
+<h4><code>hasMacro()</code><a id="hasmacro" href="#hasmacro" class="heading-permalink" title="Permalink"></a></h4>
+<p>Determine if a macro with the given name is registered for the instance.</p>
+<pre><code class="language-php">$page-&gt;hasMacro(string $method): bool
+</code></pre>
+<h4><code>__call()</code><a id="call" href="#call" class="heading-permalink" title="Permalink"></a></h4>
+<p>Dynamically handle macro calls to the class.</p>
+<pre><code class="language-php">$page-&gt;__call(string $method, array $parameters): mixed
+</code></pre>
+<!-- End generated docs for Hyde\Pages\InMemoryPage -->
+</section>
+
+<h2>BladePage<a id="bladepage" href="#bladepage" class="heading-permalink" title="Permalink"></a></h2>
+<p>Page class for Blade pages.</p>
+<p>Blade pages are stored in the _<code>pages</code> directory and using the <code>.blade.php</code> extension.
+They will be compiled using the Laravel Blade engine the <code>_site/</code> directory.</p>
+<h3>Quick Reference<a id="quick-reference-3" href="#quick-reference-3" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BladePage</code></td>
+<td><code>Hyde\Pages</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/BladePage.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-BladePage.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure-3" href="#base-structure-3" class="heading-permalink" title="Permalink"></a></h3>
+<pre><code class="language-php">class BladePage extends HydePage
+{
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '.blade.php';
+}
+</code></pre>
+<h3>Methods<a id="methods-3" href="#methods-3" class="heading-permalink" title="Permalink"></a></h3>
+<section id="blade-page-methods">
+<!-- Start generated docs for Hyde\Pages\BladePage -->
+<!-- Generated by HydePHP DocGen script at 2023-03-10 20:46:42 in 0.31ms -->
+<h4><code>__construct()</code><a id="construct" href="#construct" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">/** @param string $identifier The identifier, which also serves as the view key. */
+$page = new BladePage(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter): void
+</code></pre>
+<h4><code>getBladeView()</code><a id="getbladeview" href="#getbladeview" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the Blade template/view key for the page.</p>
+<pre><code class="language-php">$page-&gt;getBladeView(): string
+</code></pre>
+<h4><code>compile()</code><a id="compile" href="#compile" class="heading-permalink" title="Permalink"></a></h4>
+<p>Compile the page into static HTML.</p>
+<pre><code class="language-php">$page-&gt;compile(): string // The compiled HTML for the page.
+</code></pre>
+<!-- End generated docs for Hyde\Pages\BladePage -->
+</section>
+
+<h2>MarkdownPage<a id="markdownpage" href="#markdownpage" class="heading-permalink" title="Permalink"></a></h2>
+<p>Page class for Markdown pages.</p>
+<p>Markdown pages are stored in the _<code>pages</code> directory and using the <code>.md</code> extension.
+The Markdown will be compiled to HTML using a minimalistic layout to the <code>_site/</code> directory.</p>
+<h3>Quick Reference<a id="quick-reference-4" href="#quick-reference-4" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MarkdownPage</code></td>
+<td><code>Hyde\Pages</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/MarkdownPage.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-MarkdownPage.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure-4" href="#base-structure-4" class="heading-permalink" title="Permalink"></a></h3>
+<pre><code class="language-php">class MarkdownPage extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = '';
+    public static string $template = 'hyde::layouts/page';
+}
+</code></pre>
+<h3>Methods<a id="methods-4" href="#methods-4" class="heading-permalink" title="Permalink"></a></h3>
+<p>This class does not define any additional methods.</p>
+<h2>MarkdownPost<a id="markdownpost" href="#markdownpost" class="heading-permalink" title="Permalink"></a></h2>
+<p>Page class for Markdown blog posts.</p>
+<p>Markdown posts are stored in the <code>_posts</code> directory and using the <code>.md</code> extension.
+The Markdown will be compiled to HTML using the blog post layout to the <code>_site/posts/</code> directory.</p>
+<h3>Quick Reference<a id="quick-reference-5" href="#quick-reference-5" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MarkdownPost</code></td>
+<td><code>Hyde\Pages</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/MarkdownPost.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-MarkdownPost.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure-5" href="#base-structure-5" class="heading-permalink" title="Permalink"></a></h3>
+<pre><code class="language-php">class MarkdownPost extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_posts';
+    public static string $outputDirectory = 'posts';
+    public static string $template = 'hyde::layouts/post';
+
+    public ?string $description;
+    public ?string $category;
+    public ?DateString $date;
+    public ?PostAuthor $author;
+    public ?FeaturedImage $image;
+}
+</code></pre>
+<h3>Methods<a id="methods-5" href="#methods-5" class="heading-permalink" title="Permalink"></a></h3>
+<section id="markdown-post-methods">
+<!-- Start generated docs for Hyde\Pages\MarkdownPost -->
+<!-- Generated by HydePHP DocGen script at 2023-03-10 20:54:24 in 0.50ms -->
+<h4><code>getLatestPosts()</code><a id="getlatestposts" href="#getlatestposts" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">MarkdownPost::getLatestPosts(): \Hyde\Foundation\Kernel\PageCollection&lt;\Hyde\Pages\MarkdownPost&gt;
+</code></pre>
+<h4><code>toArray()</code><a id="toarray" href="#toarray" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">$page-&gt;toArray(): array
+</code></pre>
+<!-- End generated docs for Hyde\Pages\MarkdownPost -->
+</section>
+
+<h2>DocumentationPage<a id="documentationpage" href="#documentationpage" class="heading-permalink" title="Permalink"></a></h2>
+<p>Page class for documentation pages.</p>
+<p>Documentation pages are stored in the <code>_docs</code> directory and using the <code>.md</code> extension.
+The Markdown will be compiled to HTML using the documentation page layout to the <code>_site/docs/</code> directory.</p>
+<h3>Quick Reference<a id="quick-reference-6" href="#quick-reference-6" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DocumentationPage</code></td>
+<td><code>Hyde\Pages</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/DocumentationPage.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-DocumentationPage.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure-6" href="#base-structure-6" class="heading-permalink" title="Permalink"></a></h3>
+<pre><code class="language-php">class DocumentationPage extends BaseMarkdownPage
+{
+    public static string $sourceDirectory = '_docs';
+    public static string $outputDirectory = 'docs';
+    public static string $template = 'hyde::layouts/docs';
+}
+</code></pre>
+<h3>Methods<a id="methods-6" href="#methods-6" class="heading-permalink" title="Permalink"></a></h3>
+<section id="documentation-page-methods">
+<!-- Start generated docs for Hyde\Pages\DocumentationPage -->
+<!-- Generated by HydePHP DocGen script at 2023-03-10 20:56:21 in 0.38ms -->
+<h4><code>home()</code><a id="home" href="#home" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">DocumentationPage::home(): Hyde\Support\Models\Route
+</code></pre>
+<h4><code>homeRouteName()</code><a id="homeroutename" href="#homeroutename" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">DocumentationPage::homeRouteName(): string
+</code></pre>
+<h4><code>hasTableOfContents()</code><a id="hastableofcontents" href="#hastableofcontents" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">DocumentationPage::hasTableOfContents(): bool
+</code></pre>
+<h4><code>getOnlineSourcePath()</code><a id="getonlinesourcepath" href="#getonlinesourcepath" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">$page-&gt;getOnlineSourcePath(): string|false
+</code></pre>
+<h4><code>getTableOfContents()</code><a id="gettableofcontents" href="#gettableofcontents" class="heading-permalink" title="Permalink"></a></h4>
+<p>Generate Table of Contents as HTML from a Markdown document body.</p>
+<pre><code class="language-php">$page-&gt;getTableOfContents(): string
+</code></pre>
+<h4><code>getRouteKey()</code><a id="getroutekey" href="#getroutekey" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the route key for the page.</p>
+<p>If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.</p>
+<pre><code class="language-php">$page-&gt;getRouteKey(): string
+</code></pre>
+<h4><code>getOutputPath()</code><a id="getoutputpath" href="#getoutputpath" class="heading-permalink" title="Permalink"></a></h4>
+<p>Get the path where the compiled page will be saved.</p>
+<p>If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.</p>
+<pre><code class="language-php">$page-&gt;getOutputPath(): string
+</code></pre>
+<!-- End generated docs for Hyde\Pages\DocumentationPage -->
+</section>
+
+<h2>HtmlPage<a id="htmlpage" href="#htmlpage" class="heading-permalink" title="Permalink"></a></h2>
+<p>Page class for HTML pages.</p>
+<p>HTML pages are stored in the <code>_pages</code> directory and using the <code>.html</code> extension.
+These pages will be copied exactly as they are to the <code>_site/</code> directory.</p>
+<h3>Quick Reference<a id="quick-reference-7" href="#quick-reference-7" class="heading-permalink" title="Permalink"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Class Name</th>
+<th>Namespace</th>
+<th>Source Code</th>
+<th>API Docs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HtmlPage</code></td>
+<td><code>Hyde\Pages</code></td>
+<td><a href="https://github.com/hydephp/framework/blob/master/src/Pages/HtmlPage.php">Open in GitHub</a></td>
+<td><a href="https://hydephp.github.io/develop/master/api-docs/classes/Hyde-Pages-HtmlPage.html">Live API Docs</a></td>
+</tr>
+</tbody>
+</table>
+<h3>Base Structure<a id="base-structure-7" href="#base-structure-7" class="heading-permalink" title="Permalink"></a></h3>
+<pre><code class="language-php">class HtmlPage extends HydePage
+{
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = '';
+    public static string $fileExtension = '.html';
+}
+</code></pre>
+<h3>Methods<a id="methods-7" href="#methods-7" class="heading-permalink" title="Permalink"></a></h3>
+<section id="html-page-methods">
+<!-- Start generated docs for Hyde\Pages\HtmlPage -->
+<!-- Generated by HydePHP DocGen script at 2023-03-10 20:56:21 in 1.08ms -->
+<h4><code>contents()</code><a id="contents" href="#contents" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">$page-&gt;contents(): string
+</code></pre>
+<h4><code>compile()</code><a id="compile" href="#compile" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">$page-&gt;compile(): string
+</code></pre>
+<h4><code>getBladeView()</code><a id="getbladeview" href="#getbladeview" class="heading-permalink" title="Permalink"></a></h4>
+<p>No description provided.</p>
+<pre><code class="language-php">$page-&gt;getBladeView(): string
+</code></pre>
+<!-- End generated docs for Hyde\Pages\HtmlPage -->
+</section>
+    </section>
+    <footer id="document-footer" class="flex items-center flex-wrap mt-8 prose-p:my-3 justify-between text-[90%]">
+        
+    </footer>
+</article>    </main>
+
+    <div id="support">
+        <div id="sidebar-backdrop" x-cloak="" x-show="sidebarOpen" x-transition @click="sidebarOpen = false" title="Click to close sidebar" class="w-screen h-screen fixed top-0 left-0 cursor-pointer z-10 bg-black/50"></div>
+                    <button id="searchMenuButton" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="absolute right-4 top-4 mr-4 z-10 opacity-75 hover:opacity-100 hidden md:block"
+        aria-label="Toggle search window">
+    <span x-show="! searchWindowOpen">
+        Search <svg class="float-left mr-1 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24"
+                    viewBox="0 0 24 24" width="24" role="presentation">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </span>
+    <span x-show="searchWindowOpen">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+    </span>
+</button>
+<button id="searchMenuButtonMobile" x-on:click="searchWindowOpen = ! searchWindowOpen"
+        :title="searchWindowOpen ? 'Close search window' : 'Open search window'; $nextTick(() => { setTimeout(() => { document.getElementById('search-input').focus(); }); });"
+        class="block md:hidden fixed bottom-4 right-4 z-10 rounded-full p-2 opacity-75 hover:opacity-100 fill-black bg-gray-200 dark:fill-gray-200 dark:bg-gray-700"
+        aria-label="Toggle search menu">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" role="presentation">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+</button>
+
+<div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog"
+     class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
+    <aside x-on:click.away="searchWindowOpen = false" id="searchMenu"
+           class="prose dark:prose-invert bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto ">
+        <header class="flex justify-between pb-3 mb-3 border-b dark:border-gray-700 md:hidden">
+            <strong>Search the documentation site</strong>
+            <button @click="searchWindowOpen = false" title="Close search window" class="opacity-75 hover:opacity-100"
+                    aria-label="Close search window">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </header>
+        <div>
+            <div id="hyde-search">
+    <noscript>
+        The search feature requires JavaScript to be enabled in your browser.
+    </noscript>
+    <input class="w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3" type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off" autofocus>
+</div>        </div>
+        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+            <small>
+                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
+                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+            </small>
+        </footer>
+    </aside>
+
+    <div id="search-window-backdrop" class="w-screen h-screen cursor-pointer z-40 bg-black/50 absolute top-0" title="Click to close search window"></div>
+</div>            <script src="https://cdn.jsdelivr.net/npm/hydesearch@0.2.1/dist/HydeSearch.min.js" defer></script>
+<script>
+    window.addEventListener('load', function () {
+        const searchIndexLocation = '../dev-docs/search.json';
+        const Search = new HydeSearch(searchIndexLocation);
+
+        Search.init();
+    });
+</script>            </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" integrity="sha256-gOkV4d9/FmMNEkjOzVlyM2eNAWSUXisT+1RbMTTIgXI=" crossorigin="anonymous"></script>
+
+<script>
+    function toggleTheme() {
+        if (localStorage.getItem('color-theme') === 'dark' || !('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem('color-theme', 'light');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'light');
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem('color-theme', 'dark');
+            document.getElementById('meta-color-scheme').setAttribute('content', 'dark');
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

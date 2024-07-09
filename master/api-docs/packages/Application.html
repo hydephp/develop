@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+            <title>API Documentation</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/template.js"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
+    </head>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">API Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/hyde.html" class="">Hyde</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/hyde-console.html" class="">Console</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/hyde-enums.html" class="">Enums</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/hyde-facades.html" class="">Facades</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/hyde-foundation.html" class="">Foundation</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/hyde-framework.html" class="">Framework</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/hyde-markdown.html" class="">Markdown</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/hyde-pages.html" class="">Pages</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/hyde-support.html" class="">Support</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+                <section class="phpdocumentor-sidebar__category -packages">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="-active">Application</a>
+</h4>
+
+                        </section>
+            
+    <section class="phpdocumentor-sidebar__category -reports">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category -indices">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
+
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
+    </ul>
+
+    <article class="phpdocumentor-element -package">
+        <h2 class="phpdocumentor-content__title">Application</h2>
+
+        
+<h3 id="toc">
+    Table of Contents
+    <a href="packages/Application.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h3>
+
+
+
+    <h4 id="toc-interfaces">
+        Interfaces
+        <a href="packages/Application.html#toc-interfaces" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <dl class="phpdocumentor-table-of-contents">
+                    <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Framework-Features-Metadata-MetadataElementContract.html"><abbr title="\Hyde\Framework\Features\Metadata\MetadataElementContract">MetadataElementContract</abbr></a></dt><dd>The methods the object representations for Metadata element classes must implement.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-FrontMatter-BlogPostSchema.html"><abbr title="\Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema">BlogPostSchema</abbr></a></dt><dd>Front matter schema interfaces are used by various Hyde components to
+specify what data they provide or contain. They also serve as a
+convenient way to see the supported front matter properties.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-FrontMatter-FrontMatterSchema.html"><abbr title="\Hyde\Markdown\Contracts\FrontMatter\FrontMatterSchema">FrontMatterSchema</abbr></a></dt><dd>Front matter schema interfaces are used by various Hyde components to
+specify what data they provide or contain. They also serve as a
+convenient way to see the supported front matter properties.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-FrontMatter-PageSchema.html"><abbr title="\Hyde\Markdown\Contracts\FrontMatter\PageSchema">PageSchema</abbr></a></dt><dd>Front matter schema interfaces are used by various Hyde components to
+specify what data they provide or contain. They also serve as a
+convenient way to see the supported front matter properties.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-FrontMatter-SubSchemas-AuthorSchema.html"><abbr title="\Hyde\Markdown\Contracts\FrontMatter\SubSchemas\AuthorSchema">AuthorSchema</abbr></a></dt><dd>Front matter schema interfaces are used by various Hyde components to
+specify what data they provide or contain. They also serve as a
+convenient way to see the supported front matter properties.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-FrontMatter-SubSchemas-FeaturedImageSchema.html"><abbr title="\Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema">FeaturedImageSchema</abbr></a></dt><dd>Front matter schema interfaces are used by various Hyde components to
+specify what data they provide or contain. They also serve as a
+convenient way to see the supported front matter properties.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-FrontMatter-SubSchemas-NavigationSchema.html"><abbr title="\Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema">NavigationSchema</abbr></a></dt><dd>Front matter schema interfaces are used by various Hyde components to
+specify what data they provide or contain. They also serve as a
+convenient way to see the supported front matter properties.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-MarkdownDocumentContract.html"><abbr title="\Hyde\Markdown\Contracts\MarkdownDocumentContract">MarkdownDocumentContract</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-MarkdownPostProcessorContract.html"><abbr title="\Hyde\Markdown\Contracts\MarkdownPostProcessorContract">MarkdownPostProcessorContract</abbr></a></dt><dd>Process Markdown after it is converted to HTML.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-MarkdownPreProcessorContract.html"><abbr title="\Hyde\Markdown\Contracts\MarkdownPreProcessorContract">MarkdownPreProcessorContract</abbr></a></dt><dd>Process Markdown before it is converted to HTML.</dd>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Markdown-Contracts-MarkdownShortcodeContract.html"><abbr title="\Hyde\Markdown\Contracts\MarkdownShortcodeContract">MarkdownShortcodeContract</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Hyde-Support-Contracts-SerializableContract.html"><abbr title="\Hyde\Support\Contracts\SerializableContract">SerializableContract</abbr></a></dt><dd>Specifies that a class can be serialized to an array and/or JSON.</dd>    </dl>
+
+    <h4 id="toc-classes">
+        Classes
+        <a href="packages/Application.html#toc-classes" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <dl class="phpdocumentor-table-of-contents">
+                    <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-BuildRssFeedCommand.html"><abbr title="\Hyde\Console\Commands\BuildRssFeedCommand">BuildRssFeedCommand</abbr></a></dt><dd>Run the build process for the RSS feed.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-BuildSearchCommand.html"><abbr title="\Hyde\Console\Commands\BuildSearchCommand">BuildSearchCommand</abbr></a></dt><dd>Run the build process for the documentation search index.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-BuildSiteCommand.html"><abbr title="\Hyde\Console\Commands\BuildSiteCommand">BuildSiteCommand</abbr></a></dt><dd>Run the static site build process.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-BuildSitemapCommand.html"><abbr title="\Hyde\Console\Commands\BuildSitemapCommand">BuildSitemapCommand</abbr></a></dt><dd>Run the build process for the sitemap.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-ChangeSourceDirectoryCommand.html"><abbr title="\Hyde\Console\Commands\ChangeSourceDirectoryCommand">ChangeSourceDirectoryCommand</abbr></a></dt><dd>Change the source directory for your project.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-DebugCommand.html"><abbr title="\Hyde\Console\Commands\DebugCommand">DebugCommand</abbr></a></dt><dd>Print debug information.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-MakePageCommand.html"><abbr title="\Hyde\Console\Commands\MakePageCommand">MakePageCommand</abbr></a></dt><dd>Scaffold a new Markdown or Blade page file.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-MakePostCommand.html"><abbr title="\Hyde\Console\Commands\MakePostCommand">MakePostCommand</abbr></a></dt><dd>Scaffold a new Markdown blog post file.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-PackageDiscoverCommand.html"><abbr title="\Hyde\Console\Commands\PackageDiscoverCommand">PackageDiscoverCommand</abbr></a></dt><dd>Extended package discovery command to use the custom manifest path.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-PublishConfigsCommand.html"><abbr title="\Hyde\Console\Commands\PublishConfigsCommand">PublishConfigsCommand</abbr></a></dt><dd>Publish the Hyde config files.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-PublishHomepageCommand.html"><abbr title="\Hyde\Console\Commands\PublishHomepageCommand">PublishHomepageCommand</abbr></a></dt><dd>Publish one of the default homepages to index.blade.php.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-PublishViewsCommand.html"><abbr title="\Hyde\Console\Commands\PublishViewsCommand">PublishViewsCommand</abbr></a></dt><dd>Publish the Hyde Blade views.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-RebuildPageCommand.html"><abbr title="\Hyde\Console\Commands\RebuildPageCommand">RebuildPageCommand</abbr></a></dt><dd>Build a single static site file.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-RouteListCommand.html"><abbr title="\Hyde\Console\Commands\RouteListCommand">RouteListCommand</abbr></a></dt><dd>Display the list of site routes.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-ServeCommand.html"><abbr title="\Hyde\Console\Commands\ServeCommand">ServeCommand</abbr></a></dt><dd>Start the realtime compiler server.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-ValidateCommand.html"><abbr title="\Hyde\Console\Commands\ValidateCommand">ValidateCommand</abbr></a></dt><dd>Run a series of tests to validate your setup and help you optimize your site.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Commands-VendorPublishCommand.html"><abbr title="\Hyde\Console\Commands\VendorPublishCommand">VendorPublishCommand</abbr></a></dt><dd>Publish any publishable assets from vendor packages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-Concerns-Command.html"><abbr title="\Hyde\Console\Concerns\Command">Command</abbr></a></dt><dd>A base class for HydeCLI command that adds some extra functionality and output
+helpers to reduce repeated code and to provide a consistent user interface.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Console-ConsoleServiceProvider.html"><abbr title="\Hyde\Console\ConsoleServiceProvider">ConsoleServiceProvider</abbr></a></dt><dd>Register the HydeCLI console commands.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Facades-Asset.html"><abbr title="\Hyde\Facades\Asset">Asset</abbr></a></dt><dd>Handles the retrieval of core asset files, either from the HydeFront CDN or from the local media folder.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Facades-Author.html"><abbr title="\Hyde\Facades\Author">Author</abbr></a></dt><dd>Allows you to easily add pre-defined authors for your blog posts.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Facades-Config.html"><abbr title="\Hyde\Facades\Config">Config</abbr></a></dt><dd>An extension of the Laravel Config facade with extra
+accessors that ensure the types of the returned values.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Facades-Filesystem.html"><abbr title="\Hyde\Facades\Filesystem">Filesystem</abbr></a></dt><dd>Proxies the Laravel File facade with extra features and helpers tailored for HydePHP.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Facades-Meta.html"><abbr title="\Hyde\Facades\Meta">Meta</abbr></a></dt><dd>Helpers to fluently declare HTML meta elements using their object representations.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Facades-Site.html"><abbr title="\Hyde\Facades\Site">Site</abbr></a></dt><dd>Facade to quickly get data for the HydePHP site and its configuration.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Application.html"><abbr title="\Hyde\Foundation\Application">Application</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Concerns-BaseFoundationCollection.html"><abbr title="\Hyde\Foundation\Concerns\BaseFoundationCollection">BaseFoundationCollection</abbr></a></dt><dd>Base class for the kernel auto-discovery collections.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Concerns-HydeExtension.html"><abbr title="\Hyde\Foundation\Concerns\HydeExtension">HydeExtension</abbr></a></dt><dd>When creating a HydePHP extension, you should create a class that extends this one.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-ConsoleKernel.html"><abbr title="\Hyde\Foundation\ConsoleKernel">ConsoleKernel</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Facades-Files.html"><abbr title="\Hyde\Foundation\Facades\Files">Files</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Facades-Pages.html"><abbr title="\Hyde\Foundation\Facades\Pages">Pages</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Facades-Routes.html"><abbr title="\Hyde\Foundation\Facades\Routes">Routes</abbr></a></dt><dd>Provides an easy way to access the Hyde pseudo-router.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-HydeCoreExtension.html"><abbr title="\Hyde\Foundation\HydeCoreExtension">HydeCoreExtension</abbr></a></dt><dd>When creating a HydePHP extension, you should create a class that extends this one.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-HydeKernel.html"><abbr title="\Hyde\Foundation\HydeKernel">HydeKernel</abbr></a></dt><dd>Encapsulates a HydePHP project, providing helpful methods for interacting with it.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Kernel-FileCollection.html"><abbr title="\Hyde\Foundation\Kernel\FileCollection">FileCollection</abbr></a></dt><dd>The FileCollection contains all the discovered source files.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Kernel-Filesystem.html"><abbr title="\Hyde\Foundation\Kernel\Filesystem">Filesystem</abbr></a></dt><dd>File helper methods, bound to the HydeKernel instance, and is an integral part of the framework.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Kernel-Hyperlinks.html"><abbr title="\Hyde\Foundation\Kernel\Hyperlinks">Hyperlinks</abbr></a></dt><dd>Contains helpers and logic for resolving web paths for compiled files.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Kernel-PageCollection.html"><abbr title="\Hyde\Foundation\Kernel\PageCollection">PageCollection</abbr></a></dt><dd>The PageCollection contains all the instantiated pages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Kernel-RouteCollection.html"><abbr title="\Hyde\Foundation\Kernel\RouteCollection">RouteCollection</abbr></a></dt><dd>The RouteCollection contains all the page routes, making it the pseudo-router for Hyde,
+as it maps each page to the eventual URL that will be used to access it once built.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Providers-ConfigurationServiceProvider.html"><abbr title="\Hyde\Foundation\Providers\ConfigurationServiceProvider">ConfigurationServiceProvider</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Foundation-Providers-ViewServiceProvider.html"><abbr title="\Hyde\Foundation\Providers\ViewServiceProvider">ViewServiceProvider</abbr></a></dt><dd>Register the Hyde view components.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-AnonymousViewCompiler.html"><abbr title="\Hyde\Framework\Actions\AnonymousViewCompiler">AnonymousViewCompiler</abbr></a></dt><dd>Compile any Blade file using the Blade facade as it allows us to render
+it without having to register the directory with the view finder.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-BladeMatterParser.html"><abbr title="\Hyde\Framework\Actions\BladeMatterParser">BladeMatterParser</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-ConvertsArrayToFrontMatter.html"><abbr title="\Hyde\Framework\Actions\ConvertsArrayToFrontMatter">ConvertsArrayToFrontMatter</abbr></a></dt><dd>Convert an array into YAML Front Matter.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-ConvertsMarkdownToPlainText.html"><abbr title="\Hyde\Framework\Actions\ConvertsMarkdownToPlainText">ConvertsMarkdownToPlainText</abbr></a></dt><dd>Converts Markdown to plain text.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-CreatesNewMarkdownPostFile.html"><abbr title="\Hyde\Framework\Actions\CreatesNewMarkdownPostFile">CreatesNewMarkdownPostFile</abbr></a></dt><dd>Offloads logic for the make:post command.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-CreatesNewPageSourceFile.html"><abbr title="\Hyde\Framework\Actions\CreatesNewPageSourceFile">CreatesNewPageSourceFile</abbr></a></dt><dd>Scaffold a new Markdown, Blade, or documentation page.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-GeneratesTableOfContents.html"><abbr title="\Hyde\Framework\Actions\GeneratesTableOfContents">GeneratesTableOfContents</abbr></a></dt><dd>Generates a table of contents for the Markdown document, most commonly used for the sidebar.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-MarkdownFileParser.html"><abbr title="\Hyde\Framework\Actions\MarkdownFileParser">MarkdownFileParser</abbr></a></dt><dd>Prepares a Markdown file for further usage by extracting the Front Matter
+and Markdown body, and creating MarkdownDocument object from them.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-PostBuildTasks-GenerateBuildManifest.html"><abbr title="\Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest">GenerateBuildManifest</abbr></a></dt><dd>The build manifest contains a list of all pages and their source and output paths.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-PostBuildTasks-GenerateRssFeed.html"><abbr title="\Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed">GenerateRssFeed</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-PostBuildTasks-GenerateSearch.html"><abbr title="\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch">GenerateSearch</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-PostBuildTasks-GenerateSitemap.html"><abbr title="\Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap">GenerateSitemap</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-PreBuildTasks-CleanSiteDirectory.html"><abbr title="\Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory">CleanSiteDirectory</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-SourceFileParser.html"><abbr title="\Hyde\Framework\Actions\SourceFileParser">SourceFileParser</abbr></a></dt><dd>Parses a source file and returns a new page model instance for it.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Actions-StaticPageBuilder.html"><abbr title="\Hyde\Framework\Actions\StaticPageBuilder">StaticPageBuilder</abbr></a></dt><dd>Converts a Hyde page object into a static HTML page.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Exceptions-BaseUrlNotSetException.html"><abbr title="\Hyde\Framework\Exceptions\BaseUrlNotSetException">BaseUrlNotSetException</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Exceptions-BuildWarning.html"><abbr title="\Hyde\Framework\Exceptions\BuildWarning">BuildWarning</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Exceptions-FileConflictException.html"><abbr title="\Hyde\Framework\Exceptions\FileConflictException">FileConflictException</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Exceptions-FileNotFoundException.html"><abbr title="\Hyde\Framework\Exceptions\FileNotFoundException">FileNotFoundException</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Exceptions-RouteNotFoundException.html"><abbr title="\Hyde\Framework\Exceptions\RouteNotFoundException">RouteNotFoundException</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Exceptions-UnsupportedPageTypeException.html"><abbr title="\Hyde\Framework\Exceptions\UnsupportedPageTypeException">UnsupportedPageTypeException</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Factories-BlogPostDataFactory.html"><abbr title="\Hyde\Framework\Factories\BlogPostDataFactory">BlogPostDataFactory</abbr></a></dt><dd>Streamlines the data construction specific to a blog post.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Factories-Concerns-CoreDataObject.html"><abbr title="\Hyde\Framework\Factories\Concerns\CoreDataObject">CoreDataObject</abbr></a></dt><dd>Data class to contain the core data for a page being constructed.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Factories-Concerns-PageDataFactory.html"><abbr title="\Hyde\Framework\Factories\Concerns\PageDataFactory">PageDataFactory</abbr></a></dt><dd>Streamlines the data dynamic construction specific to a HydePHP page.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Factories-FeaturedImageFactory.html"><abbr title="\Hyde\Framework\Factories\FeaturedImageFactory">FeaturedImageFactory</abbr></a></dt><dd>Streamlines the data dynamic construction specific to a HydePHP page.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Factories-HydePageDataFactory.html"><abbr title="\Hyde\Framework\Factories\HydePageDataFactory">HydePageDataFactory</abbr></a></dt><dd>Streamlines the data dynamic construction specific to a HydePHP page.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Factories-NavigationDataFactory.html"><abbr title="\Hyde\Framework\Factories\NavigationDataFactory">NavigationDataFactory</abbr></a></dt><dd>Discover data used for navigation menus and the documentation sidebar.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Blogging-Models-FeaturedImage.html"><abbr title="\Hyde\Framework\Features\Blogging\Models\FeaturedImage">FeaturedImage</abbr></a></dt><dd>Object representation of a blog post&#039;s featured image.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Blogging-Models-PostAuthor.html"><abbr title="\Hyde\Framework\Features\Blogging\Models\PostAuthor">PostAuthor</abbr></a></dt><dd>Object representation of a post author for the site.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-BuildTasks-BuildTask.html"><abbr title="\Hyde\Framework\Features\BuildTasks\BuildTask">BuildTask</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-BuildTasks-BuildTaskSkippedException.html"><abbr title="\Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException">BuildTaskSkippedException</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-BuildTasks-PostBuildTask.html"><abbr title="\Hyde\Framework\Features\BuildTasks\PostBuildTask">PostBuildTask</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-BuildTasks-PreBuildTask.html"><abbr title="\Hyde\Framework\Features\BuildTasks\PreBuildTask">PreBuildTask</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Documentation-SemanticDocumentationArticle.html"><abbr title="\Hyde\Framework\Features\Documentation\SemanticDocumentationArticle">SemanticDocumentationArticle</abbr></a></dt><dd>Class to make Hyde documentation pages smarter by dynamically enriching them with semantic HTML.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Metadata-Elements-LinkElement.html"><abbr title="\Hyde\Framework\Features\Metadata\Elements\LinkElement">LinkElement</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Metadata-Elements-MetadataElement.html"><abbr title="\Hyde\Framework\Features\Metadata\Elements\MetadataElement">MetadataElement</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Metadata-Elements-OpenGraphElement.html"><abbr title="\Hyde\Framework\Features\Metadata\Elements\OpenGraphElement">OpenGraphElement</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Metadata-GlobalMetadataBag.html"><abbr title="\Hyde\Framework\Features\Metadata\GlobalMetadataBag">GlobalMetadataBag</abbr></a></dt><dd>Holds the metadata tags for a page or the site model.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Metadata-MetadataBag.html"><abbr title="\Hyde\Framework\Features\Metadata\MetadataBag">MetadataBag</abbr></a></dt><dd>Holds the metadata tags for a page or the site model.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Metadata-PageMetadataBag.html"><abbr title="\Hyde\Framework\Features\Metadata\PageMetadataBag">PageMetadataBag</abbr></a></dt><dd>Holds the metadata tags for a page or the site model.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Navigation-BaseNavigationMenu.html"><abbr title="\Hyde\Framework\Features\Navigation\BaseNavigationMenu">BaseNavigationMenu</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Navigation-DocumentationSidebar.html"><abbr title="\Hyde\Framework\Features\Navigation\DocumentationSidebar">DocumentationSidebar</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Navigation-DropdownNavItem.html"><abbr title="\Hyde\Framework\Features\Navigation\DropdownNavItem">DropdownNavItem</abbr></a></dt><dd>A navigation item that contains other navigation items.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Navigation-NavigationData.html"><abbr title="\Hyde\Framework\Features\Navigation\NavigationData">NavigationData</abbr></a></dt><dd>Object implementation for the NavigationSchema. It extends the ArrayObject class so
+that its data can be accessed using dot notation in the page&#039;s front matter data.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Navigation-NavigationMenu.html"><abbr title="\Hyde\Framework\Features\Navigation\NavigationMenu">NavigationMenu</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-Navigation-NavItem.html"><abbr title="\Hyde\Framework\Features\Navigation\NavItem">NavItem</abbr></a></dt><dd>Abstraction for a navigation menu item. Used by the NavigationMenu and DocumentationSidebar classes.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-XmlGenerators-BaseXmlGenerator.html"><abbr title="\Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator">BaseXmlGenerator</abbr></a></dt><dd>Defines the public API for XML generators and provides a shared codebase for common helpers.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-XmlGenerators-RssFeedGenerator.html"><abbr title="\Hyde\Framework\Features\XmlGenerators\RssFeedGenerator">RssFeedGenerator</abbr></a></dt><dd>Defines the public API for XML generators and provides a shared codebase for common helpers.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Features-XmlGenerators-SitemapGenerator.html"><abbr title="\Hyde\Framework\Features\XmlGenerators\SitemapGenerator">SitemapGenerator</abbr></a></dt><dd>Defines the public API for XML generators and provides a shared codebase for common helpers.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-HydeServiceProvider.html"><abbr title="\Hyde\Framework\HydeServiceProvider">HydeServiceProvider</abbr></a></dt><dd>Register and bootstrap core Hyde application services.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Services-AssetService.html"><abbr title="\Hyde\Framework\Services\AssetService">AssetService</abbr></a></dt><dd>Handles the retrieval of core asset files. Commonly used through the Asset facade.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Services-BuildService.html"><abbr title="\Hyde\Framework\Services\BuildService">BuildService</abbr></a></dt><dd>Moves logic from the build command to a service.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Services-BuildTaskService.html"><abbr title="\Hyde\Framework\Services\BuildTaskService">BuildTaskService</abbr></a></dt><dd>This service manages the build tasks that are called before and after the site is compiled using the build command.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Services-MarkdownService.html"><abbr title="\Hyde\Framework\Services\MarkdownService">MarkdownService</abbr></a></dt><dd>Dynamically creates a Markdown converter tailored for the target model and setup,
+then converts the Markdown to HTML using both pre- and post-processors.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Services-ValidationService.html"><abbr title="\Hyde\Framework\Services\ValidationService">ValidationService</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Views-Components-BreadcrumbsComponent.html"><abbr title="\Hyde\Framework\Views\Components\BreadcrumbsComponent">BreadcrumbsComponent</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Framework-Views-Components-LinkComponent.html"><abbr title="\Hyde\Framework\Views\Components\LinkComponent">LinkComponent</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Hyde.html"><abbr title="\Hyde\Hyde">Hyde</abbr></a></dt><dd>General facade for Hyde services.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Markdown-MarkdownConverter.html"><abbr title="\Hyde\Markdown\MarkdownConverter">MarkdownConverter</abbr></a></dt><dd>The base Markdown converter class.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Markdown-Models-FrontMatter.html"><abbr title="\Hyde\Markdown\Models\FrontMatter">FrontMatter</abbr></a></dt><dd>Object representing the YAML front matter of a Markdown file.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Markdown-Models-Markdown.html"><abbr title="\Hyde\Markdown\Models\Markdown">Markdown</abbr></a></dt><dd>A simple object representation of a Markdown file, with helpful methods to interact with it.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Markdown-Models-MarkdownDocument.html"><abbr title="\Hyde\Markdown\Models\MarkdownDocument">MarkdownDocument</abbr></a></dt><dd>A MarkdownDocument is a simpler alternative to a MarkdownPage.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Markdown-Processing-BladeDownProcessor.html"><abbr title="\Hyde\Markdown\Processing\BladeDownProcessor">BladeDownProcessor</abbr></a></dt><dd>Markdown Processor to render Laravel Blade within Markdown files.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Markdown-Processing-CodeblockFilepathProcessor.html"><abbr title="\Hyde\Markdown\Processing\CodeblockFilepathProcessor">CodeblockFilepathProcessor</abbr></a></dt><dd>Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Markdown-Processing-ShortcodeProcessor.html"><abbr title="\Hyde\Markdown\Processing\ShortcodeProcessor">ShortcodeProcessor</abbr></a></dt><dd>Handle all shortcode processing for a Markdown conversion.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-BladePage.html"><abbr title="\Hyde\Pages\BladePage">BladePage</abbr></a></dt><dd>Page class for Blade pages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-Concerns-BaseMarkdownPage.html"><abbr title="\Hyde\Pages\Concerns\BaseMarkdownPage">BaseMarkdownPage</abbr></a></dt><dd>The base class for all Markdown-based page models.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-Concerns-HydePage.html"><abbr title="\Hyde\Pages\Concerns\HydePage">HydePage</abbr></a></dt><dd>The base class for all Hyde pages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-DocumentationPage.html"><abbr title="\Hyde\Pages\DocumentationPage">DocumentationPage</abbr></a></dt><dd>Page class for documentation pages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-HtmlPage.html"><abbr title="\Hyde\Pages\HtmlPage">HtmlPage</abbr></a></dt><dd>Page class for HTML pages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-InMemoryPage.html"><abbr title="\Hyde\Pages\InMemoryPage">InMemoryPage</abbr></a></dt><dd>Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-MarkdownPage.html"><abbr title="\Hyde\Pages\MarkdownPage">MarkdownPage</abbr></a></dt><dd>Page class for Markdown pages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Pages-MarkdownPost.html"><abbr title="\Hyde\Pages\MarkdownPost">MarkdownPost</abbr></a></dt><dd>Page class for Markdown posts.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-BuildWarnings.html"><abbr title="\Hyde\Support\BuildWarnings">BuildWarnings</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-DataCollections.html"><abbr title="\Hyde\Support\DataCollections">DataCollections</abbr></a></dt><dd>Automatically generates Laravel Collections from static data files,
+such as Markdown components and YAML files using Hyde Autodiscovery.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Facades-Render.html"><abbr title="\Hyde\Support\Facades\Render">Render</abbr></a></dt><dd>Manages data for the current page being rendered/compiled.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Filesystem-MediaFile.html"><abbr title="\Hyde\Support\Filesystem\MediaFile">MediaFile</abbr></a></dt><dd>File abstraction for a project media file.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Filesystem-ProjectFile.html"><abbr title="\Hyde\Support\Filesystem\ProjectFile">ProjectFile</abbr></a></dt><dd>Filesystem abstraction for a file stored in the project.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Filesystem-SourceFile.html"><abbr title="\Hyde\Support\Filesystem\SourceFile">SourceFile</abbr></a></dt><dd>File abstraction for a project source file.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Includes.html"><abbr title="\Hyde\Support\Includes">Includes</abbr></a></dt><dd>The Includes facade provides a simple way to access partials in the includes directory.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Models-DateString.html"><abbr title="\Hyde\Support\Models\DateString">DateString</abbr></a></dt><dd>Parse a date string and create normalized formats.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Models-Redirect.html"><abbr title="\Hyde\Support\Models\Redirect">Redirect</abbr></a></dt><dd>A basic redirect page. Is not discoverable by Hyde, instead you manually need to create the pages.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Models-RenderData.html"><abbr title="\Hyde\Support\Models\RenderData">RenderData</abbr></a></dt><dd>Contains data for the current page being rendered/compiled.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Models-Route.html"><abbr title="\Hyde\Support\Models\Route">Route</abbr></a></dt><dd>The Route class bridges the gaps between Hyde pages and their respective compiled static webpages
+by providing helper methods and information allowing you to easily access and interact with the
+various paths associated with a page, both source and compiled file paths as well as the URL.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Models-RouteKey.html"><abbr title="\Hyde\Support\Models\RouteKey">RouteKey</abbr></a></dt><dd>Route keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.</dd>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Models-ValidationResult.html"><abbr title="\Hyde\Support\Models\ValidationResult">ValidationResult</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-Paginator.html"><abbr title="\Hyde\Support\Paginator">Paginator</abbr></a></dt>            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/Hyde-Support-ReadingTime.html"><abbr title="\Hyde\Support\ReadingTime">ReadingTime</abbr></a></dt><dd>Calculate the estimated reading time for a text.</dd>    </dl>
+
+    <h4 id="toc-traits">
+        Traits
+        <a href="packages/Application.html#toc-traits" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Console-Concerns-AsksToRebuildSite.html"><abbr title="\Hyde\Console\Concerns\AsksToRebuildSite">AsksToRebuildSite</abbr></a></dt>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Framework-Concerns-InteractsWithDirectories.html"><abbr title="\Hyde\Framework\Concerns\InteractsWithDirectories">InteractsWithDirectories</abbr></a></dt>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Framework-Concerns-InteractsWithFrontMatter.html"><abbr title="\Hyde\Framework\Concerns\InteractsWithFrontMatter">InteractsWithFrontMatter</abbr></a></dt><dd>Adds methods to a class to allow it to fluently interact with its front matter.</dd>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Framework-Concerns-Internal-ForwardsIlluminateFilesystem.html"><abbr title="\Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem">ForwardsIlluminateFilesystem</abbr></a></dt><dd>Forwards calls to the Laravel File facade to the HydePHP Filesystem Facade,
+while turning all paths arguments into absolute project paths.</dd>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Framework-Concerns-RegistersFileLocations.html"><abbr title="\Hyde\Framework\Concerns\RegistersFileLocations">RegistersFileLocations</abbr></a></dt><dd>This trait registers the file paths for important Hyde locations.</dd>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Framework-Concerns-TracksExecutionTime.html"><abbr title="\Hyde\Framework\Concerns\TracksExecutionTime">TracksExecutionTime</abbr></a></dt>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Framework-Concerns-ValidatesExistence.html"><abbr title="\Hyde\Framework\Concerns\ValidatesExistence">ValidatesExistence</abbr></a></dt><dd>Validate the existence of a Page class&#039;s source file.</dd>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Framework-Factories-Concerns-HasFactory.html"><abbr title="\Hyde\Framework\Factories\Concerns\HasFactory">HasFactory</abbr></a></dt>        <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/Hyde-Support-Concerns-Serializable.html"><abbr title="\Hyde\Support\Concerns\Serializable">Serializable</abbr></a></dt><dd>Automatically serializes an Arrayable implementation when JSON is requested.</dd>    </dl>
+
+    <h4 id="toc-enums">
+        Enums
+        <a href="packages/Application.html#toc-enums" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -enum"><a href="classes/Hyde-Enums-Feature.html"><abbr title="\Hyde\Enums\Feature">Feature</abbr></a></dt><dd>A configurable feature that belongs to the Features class.</dd></dl>
+
+
+
+
+
+<h4 id="toc-functions">
+    Functions
+    <a href="packages/Application.html#toc-functions" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_hyde">hyde()</a>
+    <span>
+                                &nbsp;: <a href="classes/Hyde-Foundation-HydeKernel.html"><abbr title="\Hyde\Foundation\HydeKernel">HydeKernel</abbr></a>    </span>
+</dt>
+<dd>Get the available HydeKernel instance.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="-deprecated" href="namespaces/default.html#function_unslash">unslash()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Remove trailing slashes from the start and end of a string.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_asset">asset()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Get a relative link or URL to an asset in the media directory.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_route">route()</a>
+    <span>
+                                &nbsp;: <a href="classes/Hyde-Support-Models-Route.html"><abbr title="\Hyde\Support\Models\Route">Route</abbr></a>|null    </span>
+</dt>
+<dd>Get a page route by its key.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_url">url()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Get a qualified URL to the supplied path if a base URL is set.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_hyde">hyde()</a>
+    <span>
+                                &nbsp;: <a href="classes/Hyde-Foundation-HydeKernel.html"><abbr title="\Hyde\Foundation\HydeKernel">HydeKernel</abbr></a>    </span>
+</dt>
+<dd>Get the available HydeKernel instance.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_unslash">unslash()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Remove trailing slashes from the start and end of a string.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_unixsum">unixsum()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>A EOL agnostic wrapper for calculating MD5 checksums.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_unixsum_file">unixsum_file()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Shorthand for {@see unixsum()} but loads a file.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_make_title">make_title()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_normalize_newlines">normalize_newlines()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_strip_newlines">strip_newlines()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_trim_slashes">trim_slashes()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_evaluate_arrayable">evaluate_arrayable()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_yaml_encode">yaml_encode()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_yaml_decode">yaml_decode()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_path_join">path_join()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/hyde.html#function_normalize_slashes">normalize_slashes()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+    </dl>
+
+        
+
+            <section class="phpdocumentor-functions">
+        <h3 class="phpdocumentor-elements__header" id="functions">
+            Functions
+            <a href="packages/Application.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_hyde">
+        hyde()
+        <a href="namespaces/default.html#function_hyde" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">13</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the available HydeKernel instance.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">hyde</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Hyde-Foundation-HydeKernel.html"><abbr title="\Hyde\Foundation\HydeKernel">HydeKernel</abbr></a></span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Hyde-Foundation-HydeKernel.html"><abbr title="\Hyde\Foundation\HydeKernel">HydeKernel</abbr></a></span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - -deprecated">
+    <h4 class="phpdocumentor-element__name" id="function_unslash">
+        unslash()
+        <a href="namespaces/default.html#function_unslash" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">27</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Remove trailing slashes from the start and end of a string.</p>
+
+                <div class="phpdocumentor-admonition">
+        <svg class="phpdocumentor-admonition__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <article>
+                <p>This function will be replaced by <a href="namespaces/hyde.html#function_unslash"><abbr title="\Hyde\unslash()">unslash()</abbr></a> in v2.0</p>
+
+            </article>
+        </div>
+    
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">unslash</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="namespaces/default.html#function_unslash#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>This function is deprecated and will be removed in a future release.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_asset">
+        asset()
+        <a href="namespaces/default.html#function_asset" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get a relative link or URL to an asset in the media directory.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">asset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$preferQualifiedUrl</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$preferQualifiedUrl</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_route">
+        route()
+        <a href="namespaces/default.html#function_route" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">51</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get a page route by its key.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">route</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Hyde-Support-Models-Route.html"><abbr title="\Hyde\Support\Models\Route">Route</abbr></a>|null</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Hyde-Support-Models-Route.html"><abbr title="\Hyde\Support\Models\Route">Route</abbr></a>|null</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_url">
+        url()
+        <a href="namespaces/default.html#function_url" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">61</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get a qualified URL to the supplied path if a base URL is set.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">url</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$path</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_hyde">
+        hyde()
+        <a href="namespaces/hyde.html#function_hyde" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">86</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the available HydeKernel instance.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">hyde</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Hyde-Foundation-HydeKernel.html"><abbr title="\Hyde\Foundation\HydeKernel">HydeKernel</abbr></a></span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Hyde-Foundation-HydeKernel.html"><abbr title="\Hyde\Foundation\HydeKernel">HydeKernel</abbr></a></span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_unslash">
+        unslash()
+        <a href="namespaces/hyde.html#function_unslash" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">96</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Remove trailing slashes from the start and end of a string.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">unslash</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_unixsum">
+        unixsum()
+        <a href="namespaces/hyde.html#function_unixsum" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">108</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">A EOL agnostic wrapper for calculating MD5 checksums.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">unixsum</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"><p>This function is not cryptographically secure.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_unixsum_file">
+        unixsum_file()
+        <a href="namespaces/hyde.html#function_unixsum_file" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">118</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Shorthand for {@see unixsum()} but loads a file.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">unixsum_file</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$file</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_make_title">
+        make_title()
+        <a href="namespaces/hyde.html#function_make_title" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">125</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">make_title</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_normalize_newlines">
+        normalize_newlines()
+        <a href="namespaces/hyde.html#function_normalize_newlines" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">132</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">normalize_newlines</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_strip_newlines">
+        strip_newlines()
+        <a href="namespaces/hyde.html#function_strip_newlines" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">139</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">strip_newlines</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_trim_slashes">
+        trim_slashes()
+        <a href="namespaces/hyde.html#function_trim_slashes" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">146</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">trim_slashes</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_evaluate_arrayable">
+        evaluate_arrayable()
+        <a href="namespaces/hyde.html#function_evaluate_arrayable" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">153</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">evaluate_arrayable</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|<abbr title="\Illuminate\Contracts\Support\Arrayable">Arrayable</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$array</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$array</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|<abbr title="\Illuminate\Contracts\Support\Arrayable">Arrayable</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_yaml_encode">
+        yaml_encode()
+        <a href="namespaces/hyde.html#function_yaml_encode" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">160</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">yaml_encode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$input</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inline</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">2</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$indent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">4</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$input</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$inline</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">2</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$indent</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">4</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$flags</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_yaml_decode">
+        yaml_decode()
+        <a href="namespaces/hyde.html#function_yaml_decode" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">167</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">yaml_decode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$input</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$input</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$flags</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_path_join">
+        path_join()
+        <a href="namespaces/hyde.html#function_path_join" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">174</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">path_join</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$directory</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$paths</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$directory</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$paths</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_normalize_slashes">
+        normalize_slashes()
+        <a href="namespaces/hyde.html#function_normalize_slashes" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/helpers.php"><a href="files/packages-framework-src-helpers.html"><abbr title="packages/framework/src/helpers.php">helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">181</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">normalize_slashes</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+            </section>
+
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
+    </article>
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                            
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                                                                    <li><a href="packages/Application.html#toc-interfaces">Interfaces</a></li>
+                                                                <li><a href="packages/Application.html#toc-classes">Classes</a></li>
+                                                                <li><a href="packages/Application.html#toc-traits">Traits</a></li>
+                                                                <li><a href="packages/Application.html#toc-enums">Enums</a></li>
+                                                                                    <li><a href="packages/Application.html#toc-functions">Functions</a></li>
+                                    </ul>
+            </li>
+
+            
+                            <li class="phpdocumentor-on-this-page-section__title">Functions</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="namespaces/default.html#function_asset">asset()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_evaluate_arrayable">evaluate_arrayable()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_hyde">hyde()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_hyde">hyde()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_make_title">make_title()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_normalize_newlines">normalize_newlines()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_normalize_slashes">normalize_slashes()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_path_join">path_join()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_route">route()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_strip_newlines">strip_newlines()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_trim_slashes">trim_slashes()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_unixsum">unixsum()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_unixsum_file">unixsum_file()</a></li>
+                                                    <li class="-deprecated"><a href="namespaces/default.html#function_unslash">unslash()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_unslash">unslash()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_url">url()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_yaml_decode">yaml_decode()</a></li>
+                                                    <li class=""><a href="namespaces/hyde.html#function_yaml_encode">yaml_encode()</a></li>
+                                            </ul>
+                </li>
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+        </div>
+        <a href="packages/Application.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
