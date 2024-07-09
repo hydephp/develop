@@ -234,4 +234,9 @@ return [
 
     'warn_about_outdated_config' => true,
 
+    'navigation' => [
+        // How should pages in subdirectories be displayed in the menu?
+        // You can choose between 'dropdown', 'flat', and 'hidden'.
+        'subdirectories' => 'dropdown',
+    ],
 ];
