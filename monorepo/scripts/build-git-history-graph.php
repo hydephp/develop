@@ -8,7 +8,6 @@ declare(strict_types=1);
  * @link https://hydephp.github.io/develop/master/git/history-graph.html
  * @link https://hydephp.github.io/develop/master/git/history-graph.txt
  */
-
 echo 'Building the Git history graph...'.PHP_EOL;
 
 if (! file_exists(__DIR__.'/graphs')) {
@@ -207,7 +206,7 @@ function postProcessChunk(string $chunk): string
             $line = substr($line, 7);
         }
         if (str_starts_with($line, ' </span>')) {
-            $line = substr($line, 8) . ' ';
+            $line = substr($line, 8).' ';
         }
 
         // If str starts with * </span> just use *
