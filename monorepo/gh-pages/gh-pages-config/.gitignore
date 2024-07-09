@@ -13,7 +13,7 @@
 
 # PATHS EXCLUDED FROM CONFIGURATION TEMPLATE
 /_site
-/_media
+/_media/app.css
 /.github
 /packages
 /tests
