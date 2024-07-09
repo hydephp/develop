@@ -239,7 +239,7 @@ return [
         // You can choose between 'dropdown', 'flat', and 'hidden'.
         'subdirectories' => 'dropdown',
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Load app.css from CDN
