@@ -32,7 +32,42 @@ echo 'Git history graphs built successfully!' . PHP_EOL;
 
 function processHtml(string $html): string
 {
-    return ansiToHtml($html);
+    // We need to run the ANSI to HTML conversion in chunks to prevent memory issues
+
+    $html = explode("\n", $html);
+
+    $chunks = [];
+
+    $chunk = '';
+
+    foreach ($html as $line) {
+        $chunk .= $line . "\n";
+
+        if (strlen($chunk) > 100000) {
+            $chunks[] = $chunk;
+            $chunk = '';
+        }
+    }
+
+    if ($chunk !== '') {
+        $chunks[] = $chunk;
+    }
+
+    $html = '';
+
+    $message = 'Processing '.count($chunks).' chunks...';
+    echo $message;
+
+    foreach ($chunks as $index => $chunk) {
+        // Progress indicator
+        echo "\033[0K\rProcessing chunk ".($index + 1).' of '.count($chunks).'...';
+
+        $html .= ansiToHtml($chunk);
+    }
+
+    echo PHP_EOL;
+
+    return $html;
 }
 
 function ansiToHtml(string $ansi): string
