@@ -75,7 +75,6 @@ function ansiToHtml(string $ansi): string
 {
     $ansi = htmlspecialchars($ansi, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $ansi = preg_replace('/\e\[(\d+)(;\d+)*m/', '</span><span style="color: $1">', $ansi);
-    $ansi = preg_replace('/\n/', '<br>', $ansi);
     $ansi = '<span>' . $ansi . '</span>';
 
     return $ansi;
