@@ -124,21 +124,29 @@ Here are the default settings:
 
 ### Authors
 
-Hyde has support for adding authors in front matter, for example to automatically add a link to your website or social media profiles.
-However, it's tedious to have to add those to each and every post you make, and keeping them updated is even harder.
+Hyde supports adding authors to blog posts, allowing you to automatically include information like display names and website links.
+We even support fields for avatars, biographies, and social media profiles, which you can use in your custom Blade templates. 
 
+While you can set all this data directly in the front matter, that quickly becomes tedious and hard to maintain.
 Instead, you can predefine authors in the Hyde config. When writing posts, just specify the username in the front matter,
 and the rest of the data will be pulled from a matching entry found in the configuration file.
 
-#### Example
+#### Configuration
+
+Authors are defined in the `config/hyde.php` file under the `authors` key. Each author is keyed by their username and configured using the `Author::create()` method:
 
 ```php
 // filepath: config/hyde.php
 'authors' => [
-    Author::create(
-        username: 'mr_hyde', // Required username
-        name: 'Mr. Hyde', // Optional display name
-        website: 'https://hydephp.com' // Optional website URL
+    'mr_hyde' => Author::create(
+        name: 'Mr. Hyde',
+        website: 'https://hydephp.com',
+        bio: 'The mysterious author of HydePHP',
+        avatar: 'avatar.png',
+        socials: [
+            'twitter' => '@HydeFramework',
+            'github' => 'hydephp',
+        ],
     ),
 ],
 ```
@@ -150,13 +158,20 @@ author:
     username: mr_hyde
     name: Mr. Hyde
     website: https://hydephp.com
+    bio: The mysterious author of HydePHP
+    avatar: avatar.png
+    socials:
+        twitter: "@HydeFramework"
+        github: hydephp
 ```
 
-But you only have to specify the username:
+But you only have to specify the username to get all the other data.
 
 ```yaml
 author: mr_hyde
 ```
+
+If you want to override some of the data for a specific post, you can do so in the front matter. Additionally, the front matter method is great for guest authors or one-off posts.
 
 ### Footer
 
