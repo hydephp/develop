@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the variable for the branch name
-BRANCH_NAME=""
+BRANCH_NAME="gh-pages-config"
 
 git checkout version-control-gh-pages-configuration
 
