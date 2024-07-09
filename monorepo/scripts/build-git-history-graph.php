@@ -40,6 +40,8 @@ unset($html); // Free up memory
 
 echo 'Git history graphs built successfully!'.PHP_EOL;
 
+echo $header;
+
 function processHtml(string $html): string
 {
     // We need to run the ANSI to HTML conversion in chunks to prevent memory issues
