@@ -1,1 +1,1 @@
-# Configuration template used to generate the preview site
+# Configuration template used to generate the upcoming documentation
