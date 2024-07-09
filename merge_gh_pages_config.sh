@@ -1,8 +1,11 @@
 #!/bin/bash
 
+# Define the variable for the branch name
+BRANCH_NAME="gh-pages-config"
+
 git checkout version-control-gh-pages-configuration
 
-commits=$(git log --reverse --format="%H" origin/gh-pages-config)
+commits=$(git log --reverse --format="%H" origin/$BRANCH_NAME)
 
 for commit in $commits
 do
@@ -19,11 +22,11 @@ do
     for file in $files
     do
         GIT_INDEX_FILE=".git/tmp-index" git show $commit:$file > temp_file
-        mkdir -p "monorepo/gh-pages/gh-pages-config/$(dirname "$file")"
-        mv temp_file "monorepo/gh-pages/gh-pages-config/$file"
+        mkdir -p "monorepo/gh-pages/$BRANCH_NAME/$(dirname "$file")"
+        mv temp_file "monorepo/gh-pages/$BRANCH_NAME/$file"
     done
 
-    git add monorepo/gh-pages/gh-pages-config
+    git add monorepo/gh-pages/$BRANCH_NAME
 
     git commit -m "$commit_date: $commit_subject" --allow-empty -m "From: $commit_author
 Date: $full_commit_date
