@@ -51,9 +51,6 @@ jobs:
           # We need to fetch all history to generate the graph
           fetch-depth: 0
 
-      - name: Remove gh-pages branch
-        run: git fetch --prune origin +refs/heads/*:refs/remotes/origin/* && git branch -D gh-pages || true
-
       - name: Generate Git history graph
         run: php monorepo/scripts/build-git-history-graph.php
 
