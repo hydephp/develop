@@ -139,8 +139,11 @@ Authors are defined in the `config/hyde.php` file under the `authors` key. Each 
 // filepath: config/hyde.php
 'authors' => [
     'mr_hyde' => Author::create(
+        // The following fields, along with the username, are used by the default blog post templates.
         name: 'Mr. Hyde',
         website: 'https://hydephp.com',
+        
+        // These fields are not currently used in the default templates, but you can use them in your custom views.
         bio: 'The mysterious author of HydePHP',
         avatar: 'avatar.png',
         socials: [
