@@ -443,6 +443,7 @@ jobs:
       - build-upcoming-documentation
       - build-preview-site
       - build-test-fixture-docs
+      - build-git-history-graph
 
     steps:
       - uses: actions/checkout@v4
@@ -456,6 +457,7 @@ jobs:
           rm -rf master/api-docs && mkdir master/api-docs
           rm -rf master/preview && mkdir master/preview
           rm -rf master/test-fixtures && mkdir master/test-fixtures
+          rm -rf master/git && mkdir master/git
 
       - name: Download coverage report artifact
         uses: actions/download-artifact@v4
@@ -486,6 +488,11 @@ jobs:
         with:
           name: test-fixture-docs
           path: master/test-fixtures/docs
+
+      - name: Download Git history graph artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: git-history-graph
 
       - name: Create README.md
         run: echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md
