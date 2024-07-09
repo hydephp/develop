@@ -261,6 +261,7 @@ function cached_shell_exec(string $command): string
     $cacheFile = __DIR__.'/cache/'.sha1($command).'.txt';
     $cache = file_exists($cacheFile) ? file_get_contents($cacheFile) : '';
     $output = $cache ?: shell_exec($command);
+
     file_put_contents($cacheFile, $output);
 
     return $output;
