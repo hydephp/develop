@@ -176,6 +176,23 @@ author: mr_hyde
 
 If you want to override the data for a specific post, you can do so in the [front matter](blog-posts#author) which is great for guest authors or one-off posts.
 
+
+#### Available Fields
+
+- `name`: The author's display name (optional, generated from username if not provided)
+- `website`: The author's website URL (optional)
+- `bio`: A short biography (optional, not used in default templates)
+- `avatar`: Path to the author's avatar image (optional, not used in default templates)
+- `socials`: An array of social media links (optional, not used in default templates)
+
+#### Notes
+
+- Usernames are automatically normalized (converted to lowercase with spaces replaced by underscores)
+- The `PostAuthor` class includes a `getPosts()` method to retrieve all posts by an author
+- Authors can be accessed through `Hyde::authors()`
+
+For more advanced usage and customization, refer to the source code which is well documented.
+
 ### Footer
 
 Most websites have a footer with copyright details and contact information. You probably want to change the Markdown to include your information, though you are of course welcome to keep the default attribution link!
