@@ -19,7 +19,7 @@ return [
     // Should an attribution badge be automatically injected,
     // and if so, what (Markdown) text should be used?
     'attribution' => [
-        'enabled'  => true,
+        'enabled' => true,
         'markdown' => '
 <p>
     <i>
