@@ -204,7 +204,7 @@ return [
 
     'navigation_menu_blacklist' => [
         '404',
-        'build-information'
+        'build-information',
     ],
 
     /*
