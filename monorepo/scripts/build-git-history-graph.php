@@ -5,6 +5,8 @@ declare(strict_types=1);
 /**
  * @internal This script is used to build the Git history graphs.
  *
+ * @todo The HTML page has serious memory issues and may need pagination.
+ *
  * @link https://hydephp.github.io/develop/master/git/history-graph.html
  * @link https://hydephp.github.io/develop/master/git/history-graph.txt
  */
