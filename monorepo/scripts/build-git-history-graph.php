@@ -14,13 +14,14 @@ if (! file_exists(__DIR__.'/graphs')) {
     mkdir(__DIR__.'/graphs');
 }
 echo 'Building the plaintext Git history graph... (This may take a while)'.PHP_EOL;
-$text = shell_exec('git log --graph --oneline --all');
+$prune = " $(git for-each-ref --format='%(refname:short)' refs/heads/ | grep -v gh-pages)";
+$text = shell_exec('git log --graph --oneline --all' . $prune);
 echo 'Saving the plaintext Git history graph...'.PHP_EOL;
 file_put_contents(__DIR__.'/graphs/history-graph.txt', $text);
 unset($text); // Free up memory
 
 echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
-$html = shell_exec('git log --graph --oneline --all --color=always');
+$html = shell_exec('git log --graph --oneline --all --color=always' . $prune);
 file_put_contents('H:\monorepo\graph.ansi', $html);
 echo 'Converting ANSI color codes to HTML...'.PHP_EOL;
 $html = processHtml($html);
