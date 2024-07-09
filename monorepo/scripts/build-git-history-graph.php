@@ -25,6 +25,7 @@ echo 'Building the HTML Git history graph... (This may take a while)' . PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
 echo 'Converting ANSI color codes to HTML...' . PHP_EOL;
 $html = processHtml($html);
+$html = wrapHtml($html);
 echo  'Saving the HTML Git history graph...' . PHP_EOL;
 file_put_contents(__DIR__ . '/graphs/history-graph.html', $html);
 
@@ -78,4 +79,29 @@ function ansiToHtml(string $ansi): string
     $ansi = '<span>' . $ansi . '</span>';
 
     return $ansi;
+}
+
+function wrapHtml(string $html): string
+{
+    return <<<HTML
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Git History Graph</title>
+        <style>
+            body {
+                font-family: monospace;
+                white-space: pre;
+                background-color: #000;
+                color: #fff;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+    $html
+    </body>
+    HTML;
 }
