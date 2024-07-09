@@ -523,7 +523,6 @@ jobs:
         run: |
           cd master
           for dir in media test-fixtures git; do
-            mkdir $dir
             cp .build.php $dir/.build.php
             cd $dir
             php .build.php
