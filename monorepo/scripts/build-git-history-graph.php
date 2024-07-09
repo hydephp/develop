@@ -120,7 +120,7 @@ function ansiToHtml(string $ansi): string
     ];
 
     $ansi = preg_replace('/\x1b\[(\d+)(;\d+)*m/', '</span><span style="color: $1">', $ansi);
-    $ansi = preg_replace_callback('/<span style="color: (\d+)">/', function ($matches) use ($colors) {
+    $ansi = preg_replace_callback('/<span style="color: (\d+)">/', function (array $matches) use ($colors): string {
         return '<span style="color: '.$colors[$matches[1]].'">';
     }, $ansi);
     $ansi = str_replace("\033[m", '</span>', $ansi);
