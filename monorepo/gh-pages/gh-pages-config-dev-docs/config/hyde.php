@@ -183,9 +183,9 @@ return [
 
     'navigation_menu_links' => [
         [
-            'title' => 'GitHub 🡕',
+            'title'       => 'GitHub 🡕',
             'destination' => 'https://github.com/caendesilva/hyde-monorepo',
-            'priority' => 1200,
+            'priority'    => 1200,
         ],
         // [
         //     'title' => 'Featured Blog Post',
@@ -204,7 +204,7 @@ return [
 
     'navigation_menu_blacklist' => [
         '404',
-        'build-information'
+        'build-information',
     ],
 
     /*
