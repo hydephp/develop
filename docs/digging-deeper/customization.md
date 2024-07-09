@@ -171,7 +171,7 @@ But you only have to specify the username to get all the other data.
 author: mr_hyde
 ```
 
-If you want to override the data for a specific post, you can do so in the front matter. Additionally, the front matter method is great for guest authors or one-off posts.
+If you want to override the data for a specific post, you can do so in the [front matter](blog-posts#author) which is great for guest authors or one-off posts.
 
 ### Footer
 
