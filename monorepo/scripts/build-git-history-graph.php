@@ -36,6 +36,7 @@ $html = wrapHtml($html, $header);
 echo ' Done.'.PHP_EOL;
 echo 'Saving the HTML Git history graph...'.PHP_EOL;
 file_put_contents(__DIR__.'/graphs/history-graph.html', $html);
+unset($html); // Free up memory
 
 echo 'Git history graphs built successfully!'.PHP_EOL;
 
