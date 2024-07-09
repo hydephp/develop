@@ -1,1 +1,0 @@
-# Configuration template used to generate the upcoming documentation
