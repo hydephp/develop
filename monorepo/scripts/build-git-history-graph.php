@@ -8,6 +8,7 @@ declare(strict_types=1);
  * @link https://hydephp.github.io/develop/master/git/history-graph.html
  * @link https://hydephp.github.io/develop/master/git/history-graph.txt
  */
+
 echo 'Building the Git history graph...'.PHP_EOL;
 
 if (! file_exists(__DIR__.'/graphs')) {
