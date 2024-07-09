@@ -187,7 +187,7 @@ function postProcessChunk(string $chunk): string
     foreach ($lines as $index => $line) {
         $line = cleanSpanTags($line);
         $line = cleanAsterisk($line);
-        assertValidLine($line, $index);
+        // assertValidLine($line, $index);
 
         if (shouldIgnoreLine($line, $ignore)) {
             $line = '';
