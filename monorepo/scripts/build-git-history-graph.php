@@ -100,15 +100,15 @@ function chunkHtml(string $html): array
 function ansiToHtml(string $ansi): string
 {
     $colors = [
-        1 => '#800000',
-        30 => '#000000',
-        31 => '#800000',
-        32 => '#008000',
-        33 => '#808000',
-        34 => '#000080',
-        35 => '#800080',
-        36 => '#008080',
-        37 => '#c0c0c0',
+        1 => '#C50F1F',
+        30 => '#0C0C0C',
+        31 => '#C50F1F',
+        32 => '#13A10E',
+        33 => '#C19C00',
+        34 => '#0037DA',
+        35 => '#881798',
+        36 => '#3A96DD',
+        37 => '#CCCCCC',
         90 => '#808080',
         91 => '#ff0000',
         92 => '#00ff00',
@@ -138,7 +138,7 @@ function wrapHtml(string $html, string $header): string
         <title>Git History Graph</title>
         <style>
             body {
-                background-color: #000;
+                background-color: #121212;
                 color: #fff;
             }
             header, main {
