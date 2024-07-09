@@ -40,7 +40,7 @@ function processHtml(string $html): string
 
     $chunk = '';
 
-    $chunkSize = 100000;
+    $chunkSize = 10000;
 
     foreach ($html as $line) {
         $chunk .= $line."\n";
