@@ -127,7 +127,7 @@ Here are the default settings:
 Hyde supports adding authors to blog posts, allowing you to automatically include information like display names and website links.
 We even support fields for avatars, biographies, and social media profiles, which you can use in your custom Blade templates. 
 
-While you can set all this data directly in the front matter, that quickly becomes tedious and hard to maintain.
+While you can set all this data directly in the [front matter](blog-posts#author), that quickly becomes tedious and hard to maintain.
 Instead, you can predefine authors in the Hyde config. When writing posts, just specify the username in the front matter,
 and the rest of the data will be pulled from a matching entry found in the configuration file.
 
