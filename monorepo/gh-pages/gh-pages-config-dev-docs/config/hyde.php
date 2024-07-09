@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 |      __ __        __    ___  __ _____
@@ -95,7 +96,7 @@ return [
         // Meta::name('twitter:creator', '@hyde_php'),
         // Meta::name('description', 'My Hyde Blog'),
         // Meta::name('keywords', 'Static Sites, Blogs, Documentation'),
-        Meta::name('generator', 'HydePHP '.Hyde\Hyde::version()),
+        Meta::name('generator', 'HydePHP ' . Hyde\Hyde::version()),
         Meta::property('site_name', $siteName),
         Meta::name('robots', 'noindex'),
     ],
@@ -183,9 +184,9 @@ return [
 
     'navigation_menu_links' => [
         [
-            'title'       => 'GitHub 🡕',
+            'title' => 'GitHub 🡕',
             'destination' => 'https://github.com/caendesilva/hyde-monorepo',
-            'priority'    => 1200,
+            'priority' => 1200,
         ],
         // [
         //     'title' => 'Featured Blog Post',
@@ -265,4 +266,9 @@ return [
      */
 
     'use_play_cdn' => false,
+
+    // site settings
+    'url' => env('SITE_URL', 'https://hydephp.github.io/develop/master/dev-docs/'),
+    'generate_rss_feed' => true,
+    'rss_filename' => 'feed.xml',
 ];
