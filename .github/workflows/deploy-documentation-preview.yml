@@ -36,11 +36,6 @@ jobs:
       - name: Copy configuration from configuration directory
         run: cp -r monorepo/gh-pages/gh-pages-config-dev-docs/* .
 
-      - name: Debug
-        run: |
-          ls -la
-          cat README.md
-
       - name: Update configuration files
         run: |
           echo "output_directories:" >> hyde.yml
