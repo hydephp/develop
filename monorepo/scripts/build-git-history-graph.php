@@ -73,9 +73,47 @@ function processHtml(string $html): string
 
 function ansiToHtml(string $ansi): string
 {
-    $ansi = htmlspecialchars($ansi, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    $ansi = preg_replace('/\e\[(\d+)(;\d+)*m/', '</span><span style="color: $1">', $ansi);
-    $ansi = '<span>' . $ansi . '</span>';
+    // extract ansi colors to colored spans
+
+    $ansi = preg_replace('/\x1b\[(\d+)(;\d+)*m/', '</span><span style="color: $1">', $ansi);
+
+    // replace with real colors (now it's span style="color: 32" etc)
+
+    $colors = [
+        1 => '#800000',
+        30 => '#000000',
+        31 => '#800000',
+        32 => '#008000',
+        33 => '#808000',
+        34 => '#000080',
+        35 => '#800080',
+        36 => '#008080',
+        37 => '#c0c0c0',
+        90 => '#808080',
+        91 => '#ff0000',
+        92 => '#00ff00',
+        93 => '#ffff00',
+        94 => '#0000ff',
+        95 => '#ff00ff',
+        96 => '#00ffff',
+        97 => '#ffffff',
+    ];
+
+    $ansi = preg_replace_callback('/<span style="color: (\d+)">/', function ($matches) use ($colors) {
+        return '<span style="color: '.$colors[$matches[1]].'">';
+    }, $ansi);
+
+    $ansi = str_replace("\033[m", '</span>', $ansi);
+
+    // Clear star formatting
+//    $ansi = str_replace('| * </span>', '| <span style="color: #ffffff">*</span> </span>', $ansi);
+//    $ansi = str_replace('*', '<span style="color: #ffffff">*</span>', $ansi);
+
+    // Add the opening span tag to the beginning of the string
+    $ansi = '<span style="color: #fff">'.$ansi;
+
+    // Add the closing span tag to the end of the string
+    $ansi .= '</span>';
 
     return $ansi;
 }
