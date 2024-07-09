@@ -304,14 +304,8 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Download configuration
-        run: wget https://api.github.com/repos/hydephp/develop/zipball/gh-pages-config-dev-docs -O config.zip
-
-      - name: Unzip configuration
-        run: unzip config.zip -d temp
-
-      - name: Copy configuration to root
-        run: cp -r temp/hydephp-develop-*/* .
+      - name: Copy configuration from configuration directory
+        run: cp -r monorepo/gh-pages/gh-pages-config-dev-docs/* .
 
       - name: Move documentation files
         run: rm -rf _docs && mv -f docs _docs
