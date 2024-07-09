@@ -239,4 +239,17 @@ return [
         // You can choose between 'dropdown', 'flat', and 'hidden'.
         'subdirectories' => 'dropdown',
     ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Load app.css from CDN
+    |--------------------------------------------------------------------------
+    |
+    | Hyde ships with an app.css file containing compiled TailwindCSS styles
+    | in the _media/ directory. If you want to load this file from the
+    | HydeFront JsDelivr CDN, you can set this setting to true.
+    |
+    */
+
+    'load_app_styles_from_cdn' => false,
 ];
