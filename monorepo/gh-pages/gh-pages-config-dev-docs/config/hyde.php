@@ -252,7 +252,7 @@ return [
     */
 
     'load_app_styles_from_cdn' => true,
-    'hydefront_url'            => 'https://cdn.jsdelivr.net/gh/hydephp/develop@master/_media/app.css',
+//    'hydefront_url'            => 'https://cdn.jsdelivr.net/gh/hydephp/develop@master/_media/app.css',
 
     /*
      |--------------------------------------------------------------------------
