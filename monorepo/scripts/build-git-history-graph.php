@@ -23,11 +23,16 @@ file_put_contents(__DIR__ . '/graphs/history-graph.txt', $text);
 echo 'Building the HTML Git history graph... (This may take a while)' . PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
 echo 'Converting ANSI color codes to HTML...' . PHP_EOL;
-$html = ansiToHtml($html);
+$html = processHtml($html);
 echo  'Saving the HTML Git history graph...' . PHP_EOL;
 file_put_contents(__DIR__ . '/graphs/history-graph.html', $html);
 
 echo 'Git history graphs built successfully!' . PHP_EOL;
+
+function processHtml(string $html): string
+{
+    return ansiToHtml($html);
+}
 
 function ansiToHtml(string $ansi): string
 {
