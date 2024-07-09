@@ -8,28 +8,27 @@ declare(strict_types=1);
  * @link https://hydephp.github.io/develop/master/git/history-graph.html
  * @link https://hydephp.github.io/develop/master/git/history-graph.txt
  */
+echo 'Building the Git history graph...'.PHP_EOL;
 
-echo 'Building the Git history graph...' . PHP_EOL;
-
-if (!file_exists(__DIR__ . '/graphs')) {
-    mkdir(__DIR__ . '/graphs');
+if (! file_exists(__DIR__.'/graphs')) {
+    mkdir(__DIR__.'/graphs');
 }
 
-echo 'Building the plaintext Git history graph... (This may take a while)' . PHP_EOL;
+echo 'Building the plaintext Git history graph... (This may take a while)'.PHP_EOL;
 $text = shell_exec('git log --graph --oneline --all');
-echo 'Saving the plaintext Git history graph...' . PHP_EOL;
-file_put_contents(__DIR__ . '/graphs/history-graph.txt', $text);
+echo 'Saving the plaintext Git history graph...'.PHP_EOL;
+file_put_contents(__DIR__.'/graphs/history-graph.txt', $text);
 unset($text); // Free up memory
 
-echo 'Building the HTML Git history graph... (This may take a while)' . PHP_EOL;
+echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
-echo 'Converting ANSI color codes to HTML...' . PHP_EOL;
+echo 'Converting ANSI color codes to HTML...'.PHP_EOL;
 $html = processHtml($html);
 $html = wrapHtml($html);
-echo  'Saving the HTML Git history graph...' . PHP_EOL;
-file_put_contents(__DIR__ . '/graphs/history-graph.html', $html);
+echo  'Saving the HTML Git history graph...'.PHP_EOL;
+file_put_contents(__DIR__.'/graphs/history-graph.html', $html);
 
-echo 'Git history graphs built successfully!' . PHP_EOL;
+echo 'Git history graphs built successfully!'.PHP_EOL;
 
 function processHtml(string $html): string
 {
@@ -42,7 +41,7 @@ function processHtml(string $html): string
     $chunk = '';
 
     foreach ($html as $line) {
-        $chunk .= $line . "\n";
+        $chunk .= $line."\n";
 
         if (strlen($chunk) > 100000) {
             $chunks[] = $chunk;
@@ -73,11 +72,7 @@ function processHtml(string $html): string
 
 function ansiToHtml(string $ansi): string
 {
-    // extract ansi colors to colored spans
-
     $ansi = preg_replace('/\x1b\[(\d+)(;\d+)*m/', '</span><span style="color: $1">', $ansi);
-
-    // replace with real colors (now it's span style="color: 32" etc)
 
     $colors = [
         1 => '#800000',
@@ -104,15 +99,7 @@ function ansiToHtml(string $ansi): string
     }, $ansi);
 
     $ansi = str_replace("\033[m", '</span>', $ansi);
-
-    // Clear star formatting
-//    $ansi = str_replace('| * </span>', '| <span style="color: #ffffff">*</span> </span>', $ansi);
-//    $ansi = str_replace('*', '<span style="color: #ffffff">*</span>', $ansi);
-
-    // Add the opening span tag to the beginning of the string
     $ansi = '<span style="color: #fff">'.$ansi;
-
-    // Add the closing span tag to the end of the string
     $ansi .= '</span>';
 
     return $ansi;
