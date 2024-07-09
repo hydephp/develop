@@ -72,6 +72,9 @@ function processHtml(string $html): string
         echo "\033[0K\rProcessing chunk ".($index + 1).' of '.count($chunks).'...';
 
         $chunkHtml = ansiToHtml($chunk);
+
+        $chunkHtml = postProcessChunk($chunkHtml);
+
         file_put_contents('chunks.temp', $chunkHtml, FILE_APPEND);
 
         // Free up memory
@@ -116,10 +119,8 @@ function ansiToHtml(string $ansi): string
     }, $ansi);
 
     $ansi = str_replace("\033[m", '</span>', $ansi);
-    $ansi = '<span style="color: #fff">'.$ansi;
-    $ansi .= '</span>';
 
-    return $ansi;
+    return trim($ansi);
 }
 
 function wrapHtml(string $html, string $header): string
@@ -182,4 +183,85 @@ function countCommitLines(string $text): int
     unset($lines); // Free up memory
 
     return $count;
+}
+
+function postProcessChunk(string $chunk): string
+{
+    $lines = explode("\n", $chunk);
+
+    foreach ($lines as $index => $line) {
+        // Remove stray closing span tags
+        // Replace </span> </span> with </span>
+        $line = str_replace('</span></span>', '</span>', $line);
+        $line = str_replace('</span> </span>', '</span> ', $line);
+        $line = str_replace('</span>  </span>', '</span>  ', $line);
+        $line = str_replace('</span>   </span>', '</span>   ', $line);
+
+        // replace </span> * </span> with </span> *
+        $line = str_replace('</span> * </span>', '</span> * ', $line);
+        $line = str_replace('</span> *   </span>', '</span> * ', $line);
+
+        // If str starts with </span> then remove it
+        if (str_starts_with($line, '</span>')) {
+            $line = substr($line, 7);
+        }
+        if (str_starts_with($line, ' </span>')) {
+            $line = substr($line, 8) . ' ';
+        }
+
+        // If str starts with * </span> just use *
+        if (str_starts_with($line, '* </span>')) {
+            $line = '* '.substr($line, 9);
+        }
+        if (str_starts_with($line, '*  </span>')) {
+            $line = '* '.substr($line, 10);
+        }
+        if (str_starts_with($line, '*   </span>')) {
+            $line = '* '.substr($line, 11);
+        }
+
+        // assert trimmed line does not start with closing span tag
+        $strStartsWith = str_starts_with(trim($line), '</span>');
+        if ($strStartsWith) {
+            echo PHP_EOL.$line.PHP_EOL;
+
+            // write chunk to disk
+            $nextThreeLines = array_slice($lines, $index, 4);
+            unset($nextThreeLines[0]);
+            file_put_contents('chunk.html', $chunk);
+            file_put_contents('failed-chunk.html', sprintf("<pre>%s\n<u>%s</u>\n^^^\n%s</pre>", implode("\n", $lines), $line, implode("\n", $nextThreeLines)));
+        }
+        assert(! $strStartsWith, "Line $index starts with closing span tag");
+
+        // assert line has equal number of opening and closing span tags
+        $open = substr_count($line, '<span');
+        $close = substr_count($line, '</span>');
+        if ($open !== $close) {
+            echo PHP_EOL.$line.PHP_EOL;
+        }
+        assert($open === $close, "Line $index has $open opening and $close closing span tags");
+
+        // if line contains any of these, ignore:
+        $ignore = [
+            'Upload documentation preview for PR',
+            'Upload live reports from test suite run',
+            'Upload site preview from test suite run with ref',
+            'Upload coverage report from test suite run with ref',
+            'Upload API documentation from test suite run with ref',
+        ];
+
+        foreach ($ignore as $str) {
+            if (str_contains($line, $str)) {
+                $line = '';
+                break;
+            }
+        }
+
+        $lines[$index] = trim($line);
+    }
+
+    unset($chunk);
+    $lines = array_filter($lines);
+
+    return implode("\n", $lines);
 }
