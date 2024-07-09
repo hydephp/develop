@@ -493,6 +493,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: git-history-graph
+          path: master/git
 
       - name: Create README.md
         run: echo '# CI/CD generated reports for [${{ github.sha }}](https://github.com/hydephp/develop/commit/${{ github.sha }})' > master/README.md
