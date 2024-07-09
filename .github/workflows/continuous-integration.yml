@@ -519,6 +519,17 @@ jobs:
       - name: Compile static master directory listing
         run: cp .build.php master/.build.php && cd master && php .build.php
 
+      - name: Compile subdirectory listings
+        run: |
+          cd master
+          for dir in media test-fixtures git; do
+            mkdir $dir
+            cp .build.php $dir/.build.php
+            cd $dir
+            php .build.php
+            cd ..
+          done
+
       # End directory listing
 
       - name: Commit changes
