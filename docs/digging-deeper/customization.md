@@ -133,7 +133,7 @@ and the rest of the data will be pulled from a matching entry found in the confi
 
 #### Configuration
 
-Authors are defined in the `config/hyde.php` file under the `authors` key. Each author is keyed by their username and configured using the `Author::create()` method:
+Authors are defined in the `config/hyde.php` file under the `authors` key. Each author is keyed by their username and is configured using the `Author::create()` method:
 
 ```php
 // filepath: config/hyde.php
