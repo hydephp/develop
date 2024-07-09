@@ -214,7 +214,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command = $this->getMock();
 
         $this->assertSame('true', $command->checkArgvForOption('pretty-urls'));
-        $this->assertSame(null, $command->checkArgvForOption('dashboard'));
+        $this->assertNull($command->checkArgvForOption('dashboard'));
 
         $_SERVER = $serverBackup;
     }

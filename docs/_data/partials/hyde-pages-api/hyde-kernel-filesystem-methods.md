@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::filesystem(): Hyde\Foundation\Kernel\Filesystem
 ```
 
@@ -17,7 +16,6 @@ Hyde::filesystem(): Hyde\Foundation\Kernel\Filesystem
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::path(string $path): string
 ```
 
@@ -26,7 +24,6 @@ Hyde::path(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::vendorPath(string $path, string $package): string
 ```
 
@@ -35,7 +32,6 @@ Hyde::vendorPath(string $path, string $package): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::mediaPath(string $path): string
 ```
 
@@ -44,7 +40,6 @@ Hyde::mediaPath(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::sitePath(string $path): string
 ```
 
@@ -53,7 +48,6 @@ Hyde::sitePath(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::siteMediaPath(string $path): string
 ```
 
@@ -62,7 +56,6 @@ Hyde::siteMediaPath(string $path): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::pathToAbsolute(array|string $path): array|string
 ```
 
@@ -71,7 +64,6 @@ Hyde::pathToAbsolute(array|string $path): array|string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::pathToRelative(string $path): string
 ```
 

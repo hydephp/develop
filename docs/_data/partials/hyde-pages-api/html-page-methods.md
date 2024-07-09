@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->contents(): string
 ```
 
@@ -17,7 +16,6 @@ $page->contents(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->compile(): string
 ```
 
@@ -26,7 +24,6 @@ $page->compile(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getBladeView(): string
 ```
 
