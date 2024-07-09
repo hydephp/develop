@@ -133,7 +133,9 @@ function wrapHtml(string $html): string
         </style>
     </head>
     <body>
+    <main>
     $html
+    </main>
     </body>
     HTML;
 }
