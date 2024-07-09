@@ -13,8 +13,6 @@ echo 'Building the Git history graph...'.PHP_EOL;
 if (! file_exists(__DIR__.'/graphs')) {
     mkdir(__DIR__.'/graphs');
 }
-$html = file_get_contents('H:\monorepo\graph.ansi');
-
 echo 'Building the plaintext Git history graph... (This may take a while)'.PHP_EOL;
 $text = shell_exec('git log --graph --oneline --all');
 echo 'Saving the plaintext Git history graph...'.PHP_EOL;
