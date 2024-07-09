@@ -13,16 +13,18 @@ echo 'Building the Git history graph...'.PHP_EOL;
 if (! file_exists(__DIR__.'/graphs')) {
     mkdir(__DIR__.'/graphs');
 }
+$html = file_get_contents('H:\monorepo\graph.ansi');
 
-echo 'Building the plaintext Git history graph... (This may take a while)'.PHP_EOL;
+echo 'Building the plaintext Git history graph... (This may take a while)' . PHP_EOL;
 $text = shell_exec('git log --graph --oneline --all');
-echo 'Saving the plaintext Git history graph...'.PHP_EOL;
-file_put_contents(__DIR__.'/graphs/history-graph.txt', $text);
+echo 'Saving the plaintext Git history graph...' . PHP_EOL;
+file_put_contents(__DIR__ . '/graphs/history-graph.txt', $text);
 unset($text); // Free up memory
 
-echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
+echo 'Building the HTML Git history graph... (This may take a while)' . PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
-echo 'Converting ANSI color codes to HTML...'.PHP_EOL;
+file_put_contents('H:\monorepo\graph.ansi', $html);
+echo 'Converting ANSI color codes to HTML...' . PHP_EOL;
 $html = processHtml($html);
 echo 'Generating header...';
 $graph = file_get_contents(__DIR__.'/graphs/history-graph.txt');
