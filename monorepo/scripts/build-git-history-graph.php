@@ -19,7 +19,7 @@ echo 'Building the plaintext Git history graph... (This may take a while)'.PHP_E
 $text = shell_exec('git log --graph --oneline --all');
 echo 'Saving the plaintext Git history graph...'.PHP_EOL;
 file_put_contents(__DIR__.'/graphs/history-graph.txt', $text);
-unset($text); // Free up memory
+unset($text);
 
 echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
@@ -28,14 +28,14 @@ $html = processHtml($html);
 echo 'Generating header...';
 $graph = file_get_contents(__DIR__.'/graphs/history-graph.txt');
 $header = generateHeader($graph);
-unset($graph); // Free up memory
+unset($graph);
 echo ' Done.'.PHP_EOL;
 echo 'Wrapping the HTML...';
 $html = wrapHtml($html, $header);
 echo ' Done.'.PHP_EOL;
 echo 'Saving the HTML Git history graph...'.PHP_EOL;
 file_put_contents(__DIR__.'/graphs/history-graph.html', $html);
-unset($html); // Free up memory
+unset($html);
 
 echo 'Git history graphs built successfully!'.PHP_EOL;
 
@@ -79,7 +79,7 @@ function processHtml(string $html): string
 
         file_put_contents('chunks.temp', $chunkHtml, FILE_APPEND);
 
-        // Free up memory
+
         unset($chunk);
         unset($chunkHtml);
     }
@@ -156,7 +156,7 @@ function wrapHtml(string $html, string $header): string
 function generateHeader(string $text): string
 {
     $commitCount = countCommitLines($text);
-    unset($text); // Free up memory
+    unset($text);
 
     $head = trim(shell_exec('git rev-parse --short HEAD'));
     $date = date('Y-m-d H:i:s');
@@ -182,7 +182,7 @@ function countCommitLines(string $text): int
             $count++;
         }
     }
-    unset($lines); // Free up memory
+    unset($lines);
 
     return $count;
 }
