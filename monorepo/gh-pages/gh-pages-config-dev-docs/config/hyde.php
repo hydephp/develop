@@ -17,9 +17,9 @@
 |
 */
 
+use Hyde\Enums\Feature;
 use Hyde\Facades\Author;
 use Hyde\Facades\Meta;
-use Hyde\Enums\Feature;
 
 return [
 
