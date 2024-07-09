@@ -64,6 +64,8 @@ function processHtml(string $html): string
         echo "\033[0K\rProcessing chunk ".($index + 1).' of '.count($chunks).'...';
         $chunkHtml = ansiToHtml($chunk);
         $chunkHtml = postProcessChunk($chunkHtml);
+
+        // Since this process takes so much memory, we store the chunks on disk instead of memory.
         file_put_contents(TEMP_FILE, $chunkHtml, FILE_APPEND);
     }
 
@@ -164,6 +166,7 @@ function countCommitLines(string $text): int
 {
     $count = 0;
     $lines = explode("\n", $text);
+
     foreach ($lines as $line) {
         if (str_starts_with(ltrim($line, ' /\\|'), '*')) {
             $count++;
@@ -176,6 +179,7 @@ function countCommitLines(string $text): int
 function postProcessChunk(string $chunk): string
 {
     $lines = explode("\n", $chunk);
+
     $ignore = [
         'Upload documentation preview for PR',
         'Upload live reports from test suite run',
@@ -201,10 +205,16 @@ function postProcessChunk(string $chunk): string
 
 function cleanSpanTags(string $line): string
 {
-    $line = str_replace(['</span></span>', '</span> </span>', '</span>  </span>', '</span>   </span>'], ['</span>', '</span> ', '</span>  ', '</span>   '], $line);
+    $line = str_replace(
+        ['</span></span>', '</span> </span>', '</span>  </span>', '</span>   </span>'],
+        ['</span>', '</span> ', '</span>  ', '</span>   '],
+        $line
+    );
+
     if (str_starts_with($line, '</span>')) {
         $line = substr($line, 7);
     }
+
     if (str_starts_with($line, ' </span>')) {
         $line = substr($line, 8).' ';
     }
