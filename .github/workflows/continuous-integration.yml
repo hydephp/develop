@@ -427,6 +427,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'git-history-graph'
+          path: 'monorepo/scripts/graphs'
 
 
   upload-generated-reports:
