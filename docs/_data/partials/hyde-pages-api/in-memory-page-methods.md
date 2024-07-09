@@ -8,7 +8,6 @@
 Static alias for the constructor.
 
 ```php
-// torchlight! {"lineNumbers": false}
 InMemoryPage::make(string $identifier, Hyde\Markdown\Models\FrontMatter|array $matter, string $contents, string $view): static
 ```
 
@@ -26,7 +25,6 @@ If the identifier for an in-memory page is &quot;foo/bar&quot; the page will be 
 
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page = new InMemoryPage(string $identifier, \Hyde\Markdown\Models\FrontMatter|array $matter, string $contents, string $view): void
 ```
 
@@ -35,7 +33,6 @@ $page = new InMemoryPage(string $identifier, \Hyde\Markdown\Models\FrontMatter|a
 Get the contents of the page. This will be saved as-is to the output file when this strategy is used.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getContents(): string
 ```
 
@@ -44,7 +41,6 @@ $page->getContents(): string
 Get the view key or Blade file for the view to use to render the page contents when this strategy is used.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getBladeView(): string
 ```
 
@@ -55,7 +51,6 @@ Get the contents that will be saved to disk for this page.
 In order to make your virtual page easy to use we provide a few options for how the page can be compiled. If you want even more control, you can register a macro with the name &#039;compile&#039; to overload the method, or simply extend the class and override the method yourself, either in a standard or anonymous class.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->compile(): string
 ```
 
@@ -66,7 +61,6 @@ Register a macro for the instance.
 Unlike most macros you might be used to, these are not static, meaning they belong to the instance. If you have the need for a macro to be used for multiple pages, you should create a custom page class instead.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->macro(string $name, callable $macro): void
 ```
 
@@ -75,7 +69,6 @@ $page->macro(string $name, callable $macro): void
 Determine if a macro with the given name is registered for the instance.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->hasMacro(string $method): bool
 ```
 
@@ -84,7 +77,6 @@ $page->hasMacro(string $method): bool
 Dynamically handle macro calls to the class.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->__call(string $method, array $parameters): mixed
 ```
 

@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 DocumentationPage::home(): Hyde\Support\Models\Route
 ```
 
@@ -17,7 +16,6 @@ DocumentationPage::home(): Hyde\Support\Models\Route
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 DocumentationPage::homeRouteName(): string
 ```
 
@@ -26,7 +24,6 @@ DocumentationPage::homeRouteName(): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 DocumentationPage::hasTableOfContents(): bool
 ```
 
@@ -35,7 +32,6 @@ DocumentationPage::hasTableOfContents(): bool
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getOnlineSourcePath(): string|false
 ```
 
@@ -44,7 +40,6 @@ $page->getOnlineSourcePath(): string|false
 Generate Table of Contents as HTML from a Markdown document body.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getTableOfContents(): string
 ```
 
@@ -55,7 +50,6 @@ Get the route key for the page.
 If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getRouteKey(): string
 ```
 
@@ -66,7 +60,6 @@ Get the path where the compiled page will be saved.
 If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
 
 ```php
-// torchlight! {"lineNumbers": false}
 $page->getOutputPath(): string
 ```
 

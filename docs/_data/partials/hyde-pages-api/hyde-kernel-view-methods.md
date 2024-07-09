@@ -8,7 +8,6 @@
 Share data for the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::shareViewData(Hyde\Pages\Concerns\HydePage $page): void
 ```
 
@@ -17,7 +16,6 @@ Hyde::shareViewData(Hyde\Pages\Concerns\HydePage $page): void
 Get the route key for the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::currentRouteKey(): string
 ```
 
@@ -26,7 +24,6 @@ Hyde::currentRouteKey(): string
 Get the route for the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::currentRoute(): Hyde\Support\Models\Route
 ```
 
@@ -35,7 +32,6 @@ Hyde::currentRoute(): Hyde\Support\Models\Route
 Get the page being rendered.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::currentPage(): Hyde\Pages\Concerns\HydePage
 ```
 

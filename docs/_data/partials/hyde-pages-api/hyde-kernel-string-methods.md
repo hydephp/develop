@@ -8,7 +8,6 @@
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::makeTitle(string $value): string
 ```
 
@@ -17,7 +16,6 @@ Hyde::makeTitle(string $value): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::normalizeNewlines(string $string): string
 ```
 
@@ -26,7 +24,6 @@ Hyde::normalizeNewlines(string $string): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::stripNewlines(string $string): string
 ```
 
@@ -35,7 +32,6 @@ Hyde::stripNewlines(string $string): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::trimSlashes(string $string): string
 ```
 
@@ -44,7 +40,6 @@ Hyde::trimSlashes(string $string): string
 No description provided.
 
 ```php
-// torchlight! {"lineNumbers": false}
 Hyde::markdown(string $text, bool $normalizeIndentation): Illuminate\Support\HtmlString
 ```
 
