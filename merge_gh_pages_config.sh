@@ -8,31 +8,23 @@ commits=$(git log --reverse --format="%H" origin/gh-pages-config)
 
 for commit in $commits
 do
-    # Cherry-pick the commit without committing
-    git cherry-pick -n $commit
+    # Get the commit message
+    commit_msg=$(git log -1 --pretty=%B $commit)
 
-    # Get the list of files changed in this commit
-    changed_files=$(git diff-tree --no-commit-id --name-only -r $commit)
+    # Create a temporary index for this operation
+    GIT_INDEX_FILE=".git/tmp-index" git read-tree $commit
 
-    # Create the target directory if it doesn't exist
-    mkdir -p monorepo/gh-pages/gh-pages-config
+    # Check out the files into the subdirectory
+    GIT_INDEX_FILE=".git/tmp-index" git checkout-index -a --prefix=monorepo/gh-pages/gh-pages-config/
 
-    # Move only the changed files to the subdirectory
-    for file in $changed_files
-    do
-        if [ -f "$file" ]; then
-            # Create the directory structure in the target location
-            mkdir -p "monorepo/gh-pages/gh-pages-config/$(dirname "$file")"
-            # Move the file
-            git mv "$file" "monorepo/gh-pages/gh-pages-config/$file"
-        fi
-    done
-
-    # Stage the moved files
-    git add .
+    # Add the changes
+    git add monorepo/gh-pages/gh-pages-config
 
     # Create a new commit with original title and custom description
-    git commit -m "$(git log -1 --pretty=%B $commit)" -m "Original commit: https://github.com/hydephp/develop/commit/$commit
+    git commit -m "$commit_msg" -m "Original commit: https://github.com/hydephp/develop/commit/$commit
 From: $(git log -1 --pretty=%an $commit)
 Date: $(git log -1 --pretty=%ad $commit)"
+
+    # Clean up
+    rm .git/tmp-index
 done
