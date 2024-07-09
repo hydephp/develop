@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Author;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -89,6 +90,46 @@ class PostsAuthorIntegrationTest extends TestCase
             '<a href="https://example.org" rel="author" itemprop="url" aria-label="The author\'s website">',
             file_get_contents(Hyde::path('_site/posts/post-with-defined-author-with-name.html'))
         );
+    }
+
+    public function testAllPostAuthorFieldsCanBeSetInFrontMatter()
+    {
+        $this->file('_posts/post-with-all-author-fields.md', <<<'MD'
+            ---
+            author:
+                username: mr_hyde
+                name: Mr. Hyde
+                website: https://hydephp.com
+                bio: The mysterious author of HydePHP
+                avatar: avatar.png
+                socials:
+                    twitter: "@HydeFramework"
+                    github: hydephp
+            ---
+            
+            # Post with all author fields
+            MD
+        );
+
+        $this->artisan('rebuild _posts/post-with-all-author-fields.md')->assertExitCode(0);
+        $this->cleanUpWhenDone('_site/posts/post-with-all-author-fields.html');
+        $this->assertFileExists(Hyde::path('_site/posts/post-with-all-author-fields.html'));
+
+        $page = MarkdownPost::get('post-with-all-author-fields');
+        $this->assertNotNull($page);
+        $this->assertNotNull($page->author);
+
+        $this->assertSame([
+            'username' => 'mr_hyde',
+            'name' => 'Mr. Hyde',
+            'website' => 'https://hydephp.com',
+            'bio' => 'The mysterious author of HydePHP',
+            'avatar' => 'avatar.png',
+            'socials' => [
+                'twitter' => '@HydeFramework',
+                'github' => 'hydephp',
+            ],
+        ], $page->author->toArray());
     }
 
     protected function createPostFile(string $title, string $author): void
