@@ -1,0 +1,15 @@
+/vendor
+/node_modules
+/builds
+/.run
+/.idea
+/.vscode
+/.vagrant
+/.cache
+.phpunit.result.cache
+
+.env
+
+# /_site
+
+/packages
