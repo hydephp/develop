@@ -164,7 +164,7 @@ return [
     |
     */
 
-    'footer' => require_once(Hyde\Framework\Hyde::path('_includes/footer.php')),
+    'footer' => require_once('_includes/footer.php'),
 
     /*
     |--------------------------------------------------------------------------
