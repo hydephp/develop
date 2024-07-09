@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @internal This script is used to build the Git history graphs.
  *
