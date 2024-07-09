@@ -10,59 +10,58 @@ declare(strict_types=1);
  * @link https://hydephp.github.io/develop/master/git/history-graph.html
  * @link https://hydephp.github.io/develop/master/git/history-graph.txt
  */
-
 const CHUNK_SIZE = 100000;
-const GRAPHS_DIR = __DIR__ . '/graphs';
+const GRAPHS_DIR = __DIR__.'/graphs';
 const TEMP_FILE = 'chunks.temp';
 
-echo 'Building the Git history graph...' . PHP_EOL;
+echo 'Building the Git history graph...'.PHP_EOL;
 
 createGraphsDirectoryIfNotExists();
 buildPlainTextGraph();
 buildHtmlGraph();
 
-echo 'Git history graphs built successfully!' . PHP_EOL;
+echo 'Git history graphs built successfully!'.PHP_EOL;
 
 function createGraphsDirectoryIfNotExists(): void
 {
-    if (!file_exists(GRAPHS_DIR)) {
+    if (! file_exists(GRAPHS_DIR)) {
         mkdir(GRAPHS_DIR);
     }
 }
 
 function buildPlainTextGraph(): void
 {
-    echo 'Building the plaintext Git history graph... (This may take a while)' . PHP_EOL;
+    echo 'Building the plaintext Git history graph... (This may take a while)'.PHP_EOL;
     $text = shell_exec('git log --graph --oneline --all');
-    echo 'Saving the plaintext Git history graph...' . PHP_EOL;
-    file_put_contents(GRAPHS_DIR . '/history-graph.txt', $text);
+    echo 'Saving the plaintext Git history graph...'.PHP_EOL;
+    file_put_contents(GRAPHS_DIR.'/history-graph.txt', $text);
 }
 
 function buildHtmlGraph(): void
 {
-    echo 'Building the HTML Git history graph... (This may take a while)' . PHP_EOL;
+    echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
     $html = shell_exec('git log --graph --oneline --all --color=always');
-    echo 'Converting ANSI color codes to HTML...' . PHP_EOL;
+    echo 'Converting ANSI color codes to HTML...'.PHP_EOL;
     $html = processHtml($html);
     echo 'Generating header...';
-    $graph = file_get_contents(GRAPHS_DIR . '/history-graph.txt');
+    $graph = file_get_contents(GRAPHS_DIR.'/history-graph.txt');
     $header = generateHeader($graph);
-    echo ' Done.' . PHP_EOL;
+    echo ' Done.'.PHP_EOL;
     echo 'Wrapping the HTML...';
     $html = wrapHtml($html, $header);
-    echo ' Done.' . PHP_EOL;
-    echo 'Saving the HTML Git history graph...' . PHP_EOL;
-    file_put_contents(GRAPHS_DIR . '/history-graph.html', $html);
+    echo ' Done.'.PHP_EOL;
+    echo 'Saving the HTML Git history graph...'.PHP_EOL;
+    file_put_contents(GRAPHS_DIR.'/history-graph.html', $html);
 }
 
 function processHtml(string $html): string
 {
     $chunks = chunkHtml($html);
-    $message = 'Processing ' . count($chunks) . ' chunks...';
+    $message = 'Processing '.count($chunks).' chunks...';
     echo $message;
 
     foreach ($chunks as $index => $chunk) {
-        echo "\033[0K\rProcessing chunk " . ($index + 1) . ' of ' . count($chunks) . '...';
+        echo "\033[0K\rProcessing chunk ".($index + 1).' of '.count($chunks).'...';
         $chunkHtml = ansiToHtml($chunk);
         $chunkHtml = postProcessChunk($chunkHtml);
         file_put_contents(TEMP_FILE, $chunkHtml, FILE_APPEND);
@@ -82,7 +81,7 @@ function chunkHtml(string $html): array
     $chunk = '';
 
     foreach ($lines as $line) {
-        $chunk .= $line . "\n";
+        $chunk .= $line."\n";
         if (strlen($chunk) > CHUNK_SIZE) {
             $chunks[] = $chunk;
             $chunk = '';
@@ -108,7 +107,7 @@ function ansiToHtml(string $ansi): string
 
     $ansi = preg_replace('/\x1b\[(\d+)(;\d+)*m/', '</span><span style="color: $1">', $ansi);
     $ansi = preg_replace_callback('/<span style="color: (\d+)">/', function ($matches) use ($colors) {
-        return '<span style="color: ' . $colors[$matches[1]] . '">';
+        return '<span style="color: '.$colors[$matches[1]].'">';
     }, $ansi);
     $ansi = str_replace("\033[m", '</span>', $ansi);
 
@@ -170,6 +169,7 @@ function countCommitLines(string $text): int
             $count++;
         }
     }
+
     return $count;
 }
 
@@ -206,23 +206,25 @@ function cleanSpanTags(string $line): string
         $line = substr($line, 7);
     }
     if (str_starts_with($line, ' </span>')) {
-        $line = substr($line, 8) . ' ';
+        $line = substr($line, 8).' ';
     }
+
     return $line;
 }
 
 function cleanAsterisk(string $line): string
 {
     if (preg_match('/^\*\s*<\/span>/', $line)) {
-        $line = '* ' . preg_replace('/^\*\s*<\/span>/', '', $line);
+        $line = '* '.preg_replace('/^\*\s*<\/span>/', '', $line);
     }
+
     return $line;
 }
 
 function assertValidLine(string $line, int $index): void
 {
     $trimmedLine = trim($line);
-    assert(!str_starts_with($trimmedLine, '</span>'), "Line $index starts with closing span tag");
+    assert(! str_starts_with($trimmedLine, '</span>'), "Line $index starts with closing span tag");
 
     $openTags = substr_count($line, '<span');
     $closeTags = substr_count($line, '</span>');
@@ -236,5 +238,6 @@ function shouldIgnoreLine(string $line, array $ignore): bool
             return true;
         }
     }
+
     return false;
 }
