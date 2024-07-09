@@ -55,8 +55,6 @@ function processHtml(string $html): string
         $chunks[] = $chunk;
     }
 
-    $html = '';
-
     $message = 'Processing '.count($chunks).' chunks...';
     echo $message;
 
@@ -64,8 +62,16 @@ function processHtml(string $html): string
         // Progress indicator
         echo "\033[0K\rProcessing chunk ".($index + 1).' of '.count($chunks).'...';
 
-        $html .= ansiToHtml($chunk);
+        $chunkHtml = ansiToHtml($chunk);
+        file_put_contents('chunks.temp', $chunkHtml, FILE_APPEND);
+
+        // Free up memory
+        unset($chunk);
+        unset($chunkHtml);
     }
+
+    $html = file_get_contents('chunks.temp');
+    unlink('chunks.temp');
 
     echo PHP_EOL;
 
