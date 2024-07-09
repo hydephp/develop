@@ -223,7 +223,7 @@ return [
     |
     */
 
-    'site_output_path' => Hyde\Framework\Hyde::path('_site'),
+    'output_directory' => '_site',
 
     /*
     |--------------------------------------------------------------------------
