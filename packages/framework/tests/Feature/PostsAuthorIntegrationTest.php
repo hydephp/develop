@@ -132,7 +132,7 @@ class PostsAuthorIntegrationTest extends TestCase
         ], $page->author->toArray());
     }
 
-    public function testConfiguredPostAuthorFieldsCanBeCustomizedInFrontMatter()
+    public function testConfiguredPostAuthorFieldsCanBeOverriddenInFrontMatter()
     {
         Config::set('hyde.authors', [
             'mr_hyde' => Author::create(
@@ -197,13 +197,7 @@ class PostsAuthorIntegrationTest extends TestCase
         $this->assertSame([
             'username' => 'mr_hyde',
             'name' => 'Dr. Jekyll',
-            'website' => 'https://hydephp.com',
-            'bio' => 'The mysterious author of HydePHP',
-            'avatar' => 'avatar.png',
-            'socials' => [
-                'twitter' => '@HydeFramework',
-                'github' => 'hydephp',
-            ],
+            // The original fields are not overwritten
         ], $page->author->toArray());
     }
 
