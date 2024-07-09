@@ -18,11 +18,11 @@ commits=$(git rev-list --reverse $start_commit..HEAD)
 
 # Iterate through commits
 for commit in $commits; do
-    # Check if the commit is a merge commit
-    if [ $(git rev-parse $commit^2 2>/dev/null) ]; then
-        echo "Skipping merge commit: $commit"
+    # Check if the commit message contains "Original commit:"
+    if git log -1 --format=%B $commit | grep -q "Original commit: https://github.com/hydephp/develop/commit/"; then
+        echo "Skipping commit: $commit"
     else
-        # Cherry-pick non-merge commits
+        # Cherry-pick commits that don't contain the "Original commit:" text
         git cherry-pick $commit
     fi
 done
@@ -31,4 +31,4 @@ done
 git branch -m $current_branch "${current_branch}_old"
 git branch -m $temp_branch $current_branch
 
-echo "Merge commits have been removed. The original branch has been renamed to ${current_branch}_old"
+echo "Commits with 'Original commit:' have been removed. The original branch has been renamed to ${current_branch}_old"
