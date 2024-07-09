@@ -185,11 +185,11 @@ return [
     */
 
     'navigation_menu_links' => [
-        // [
-        //     'title' => 'GitHub',
-        //     'destination' => 'https://github.com/hydephp/hyde',
-        //     'priority' => 1200,
-        // ],
+        [
+            'title' => 'GitHub 🡕',
+            'destination' => 'https://github.com/caendesilva/hyde-monorepo',
+            'priority' => 1200,
+        ],
         // [
         //     'title' => 'Featured Blog Post',
         //     'slug' => 'posts/hello-world',
