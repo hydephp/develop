@@ -1,1 +1,1 @@
-# Configuration template used to generate the upcoming documentation
+# DEPRECATED BRANCH
