@@ -19,6 +19,7 @@ echo 'Building the plaintext Git history graph... (This may take a while)' . PHP
 $text = shell_exec('git log --graph --oneline --all');
 echo 'Saving the plaintext Git history graph...' . PHP_EOL;
 file_put_contents(__DIR__ . '/graphs/history-graph.txt', $text);
+unset($text); // Free up memory
 
 echo 'Building the HTML Git history graph... (This may take a while)' . PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
