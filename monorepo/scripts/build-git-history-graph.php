@@ -40,10 +40,12 @@ function processHtml(string $html): string
 
     $chunk = '';
 
+    $chunkSize = 100000;
+
     foreach ($html as $line) {
         $chunk .= $line."\n";
 
-        if (strlen($chunk) > 100000) {
+        if (strlen($chunk) > $chunkSize) {
             $chunks[] = $chunk;
             $chunk = '';
         }
