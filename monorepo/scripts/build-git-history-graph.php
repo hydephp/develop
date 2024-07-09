@@ -24,8 +24,14 @@ echo 'Building the HTML Git history graph... (This may take a while)'.PHP_EOL;
 $html = shell_exec('git log --graph --oneline --all --color=always');
 echo 'Converting ANSI color codes to HTML...'.PHP_EOL;
 $html = processHtml($html);
-$html = wrapHtml($html);
-echo  'Saving the HTML Git history graph...'.PHP_EOL;
+echo 'Generating header...';
+$graph = file_get_contents(__DIR__.'/graphs/history-graph.txt');
+$header = generateHeader($graph);
+echo ' Done.'.PHP_EOL;
+echo 'Wrapping the HTML...';
+$html = wrapHtml($html, $header);
+echo ' Done.'.PHP_EOL;
+echo 'Saving the HTML Git history graph...'.PHP_EOL;
 file_put_contents(__DIR__.'/graphs/history-graph.html', $html);
 
 echo 'Git history graphs built successfully!'.PHP_EOL;
@@ -113,7 +119,7 @@ function ansiToHtml(string $ansi): string
     return $ansi;
 }
 
-function wrapHtml(string $html): string
+function wrapHtml(string $html, string $header): string
 {
     return <<<HTML
     <!DOCTYPE html>
@@ -123,19 +129,52 @@ function wrapHtml(string $html): string
         <title>Git History Graph</title>
         <style>
             body {
-                font-family: monospace;
-                white-space: pre;
                 background-color: #000;
                 color: #fff;
-                margin: 0;
-                padding: 0;
+            }
+            header, main {
+                font-family: monospace;
+                white-space: pre;
             }
         </style>
     </head>
     <body>
+    <header>$header</header>
     <main>
     $html
     </main>
     </body>
     HTML;
+}
+
+function generateHeader(string $text): string
+{
+    $commitCount = countCommitLines($text);
+    unset($text); // Free up memory
+
+    $head = trim(shell_exec('git rev-parse --short HEAD'));
+    $date = date('Y-m-d H:i:s');
+    return <<<HTML
+    Git History Graph
+    ================
+    repository: https://github.com/hydephp/develop.git
+    branch: master
+    head: $head
+    date: $date
+    commits: $commitCount
+    ----------------
+    HTML;
+}
+
+function countCommitLines(string $text): int
+{
+    $count = 0;
+    $lines = explode("\n", $text);
+    foreach ($lines as $line) {
+        if (str_starts_with(ltrim($line, ' /\\|'), '*')) {
+            $count++;
+        }
+    }
+    unset($lines); // Free up memory
+    return $count;
 }
