@@ -25,7 +25,7 @@ do
 
     git add monorepo/gh-pages/gh-pages-config
 
-    git commit -m "$commit_date: $commit_subject" -m "Subject: $commit_subject
+    git commit -m "$commit_date: $commit_subject" --allow-empty -m "Subject: $commit_subject
 From: $commit_author
 Date: $full_commit_date
 
