@@ -21,6 +21,8 @@ This serves two purposes:
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
 - **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
 - **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames. For more information, see below.
+- **Breaking:** The `Author::create()` method now returns an array instead of a `PostAuthor` instance. For more information, see below.
+- **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance. For more information, see below.
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
@@ -152,20 +154,50 @@ Of course, if you have disabled any of the features, do not include them in the 
 
 ### Post Author changes
 
-This release makes major improvements into the usability and design of the blog post author feature.
+This release makes major improvements to the usability and design of the blog post author feature.
 
 Here is the full list of changes:
 
-- Breaking: The `hyde.authors` config setting should now be keyed by the usernames
-- Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`)
-- Feature: We now support setting authors in the YAML configuration! Fixes `#1719`
-- Feature: Added a `$author->getPosts()` method to get all author's posts
-- Feature: Authors now can also have custom biographies and social media links
-- The PostAuthor class is now Arrayable and JsonSerializable
-- The collection of site authors are now stored in the HydeKernel
-- Authors can additionally be accessed through `Hyde::authors()`
+- Breaking: The `hyde.authors` config setting must now be keyed by the usernames, instead of providing the username in the author facade constructor.
+- Breaking: The `Author::create()` method now returns an array instead of a `PostAuthor` instance. This only affects custom code that uses the `Author` facade.
+- Breaking: The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance. This only affects custom code that uses the `Author` facade.
+- Removed: The deprecated `PostAuthor::getName()` method has been removed (use `$author->name` instead).
+- Changed: Author usernames are now automatically normalized (converted to lowercase and spaces replaced with underscores in order to ensure URL routability).
+- Changed: If an author display name is not provided, it is now intelligently generated from the username.
+- Feature: Authors can now be set in the YAML configuration.
+- Feature: Added a `$author->getPosts()` method to get all of an author's posts.
+- Feature: Authors now support custom biographies, avatars, and social media links. Note that these are not currently used in any of the default templates, but you can use them in your custom views.
+- The collection of site authors is now stored in the HydeKernel, meaning authors can be accessed through `Hyde::authors()`.
+- The `PostAuthor` class is now Arrayable and JsonSerializable.
 
-For more information, see https://github.com/hydephp/develop/pull/1782
+#### Upgrade guide:
+
+1. Update your `config/hyde.php` file to use the new author configuration format:
+   ```php
+   'authors' => [
+       'username' => Author::create(
+           name: 'Display Name',
+           website: 'https://example.com',
+           bio: 'Author bio',
+           avatar: 'avatar.png',
+           socials: ['twitter' => '@username']
+       ),
+   ],
+   ```
+
+2. Review and update any code that uses the `Author` facade:
+  - The `create()` method now returns an array instead of a `PostAuthor` instance.
+  - The `get()` method may return `null`, so handle this case in your code.
+
+3. Check your blog post front matter and ensure that `author` fields match the new username keys in your configuration.
+
+4. If you have custom templates that use author data, update them to:
+  - Optional: Feel free to use the new available fields: `bio`, `avatar`, and `socials`.
+  - Account for usernames now being lowercase with underscores which may lead to changed HTML or URL paths.
+
+5. If you were relying on `Author::get()` to create new authors on the fly, update your code to handle `null` returns or create authors explicitly.
+
+For more information, see https://github.com/hydephp/develop/pull/1782 and https://github.com/hydephp/develop/pull/1798
 
 ### Documentation search page changes
 

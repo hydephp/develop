@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
+use Throwable;
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function array_merge;
 
@@ -64,7 +66,14 @@ class LoadYamlConfiguration
     protected function parseAuthors(array $authors): array
     {
         return Arr::mapWithKeys($authors, function (array $author, string $username): array {
-            return [$username => PostAuthor::getOrCreate($author)];
+            try {
+                return [$username => PostAuthor::create($author)];
+            } catch (Throwable $exception) {
+                throw new InvalidConfigurationException(
+                    'Invalid author configuration detected in the YAML config file. Please double check the syntax.',
+                    previous: $exception
+                );
+            }
         });
     }
 }

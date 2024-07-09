@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Hyde;
 use Hyde\Facades\Author;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Testing\FluentTestingHelpers;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
@@ -14,9 +15,12 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * @covers \Hyde\Framework\Features\Blogging\Models\PostAuthor
+ * @covers \Hyde\Foundation\Concerns\HasKernelData
  */
 class PostAuthorTest extends UnitTestCase
 {
+    use FluentTestingHelpers;
+
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
@@ -45,7 +49,7 @@ class PostAuthorTest extends UnitTestCase
 
     public function testCanCreateAuthorModelWithFullDetails()
     {
-        [$username, $name, $website, $bio, $avatar, $socials] = array_values($this->exampleData());
+        [$username, $name, $website, $bio, $avatar, $socials] = array_values($this->exampleDataWithUsername());
 
         $author = new PostAuthor(
             username: $username,
@@ -66,7 +70,7 @@ class PostAuthorTest extends UnitTestCase
 
     public function testCanCreateAuthorModelWithFullDetailsFromArgumentUnpacking()
     {
-        $data = $this->exampleData();
+        $data = $this->exampleDataWithUsername();
 
         $author = new PostAuthor(...$data);
 
@@ -78,13 +82,12 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame($data['socials'], $author->socials);
     }
 
-    public function testCanCreateAuthorModelWithFullDetailsFromArrayUsingGetOrCreate()
+    public function testCanCreateAuthorModelWithFullDetailsFromArrayUsingCreate()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate($data);
+        $author = PostAuthor::create($data);
 
-        $this->assertSame($data['username'], $author->username);
         $this->assertSame($data['name'], $author->name);
         $this->assertSame($data['website'], $author->website);
         $this->assertSame($data['bio'], $author->bio);
@@ -92,17 +95,15 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame($data['socials'], $author->socials);
     }
 
-    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreate()
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingCreate()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate([
-            'username' => $data['username'],
+        $author = PostAuthor::create([
             'name' => $data['name'],
             'website' => $data['website'],
         ]);
 
-        $this->assertSame($data['username'], $author->username);
         $this->assertSame($data['name'], $author->name);
         $this->assertSame($data['website'], $author->website);
         $this->assertNull($author->bio);
@@ -110,85 +111,140 @@ class PostAuthorTest extends UnitTestCase
         $this->assertEmpty($author->socials);
     }
 
-    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreateWithoutUsername()
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingCreateWithoutUsername()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate([
+        $author = PostAuthor::create([
             'name' => $data['name'],
             'website' => $data['website'],
         ]);
 
-        $this->assertSame($data['name'], $author->username);
+        $this->assertSame('mr_hyde', $author->username);
         $this->assertSame($data['name'], $author->name);
         $this->assertSame($data['website'], $author->website);
     }
 
-    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingGetOrCreateWithoutAnyNames()
+    public function testCanCreateAuthorModelWithSomeDetailsFromArrayUsingCreateWithoutAnyNames()
     {
         $data = $this->exampleData();
 
-        $author = PostAuthor::getOrCreate([
+        $author = PostAuthor::create([
             'website' => $data['website'],
         ]);
 
-        $this->assertSame('Guest', $author->username);
+        $this->assertSame('guest', $author->username);
         $this->assertSame('Guest', $author->name);
         $this->assertSame($data['website'], $author->website);
     }
 
-    public function testNameIsSetToUsernameIfNoNameIsProvided()
+    public function testNameIsGeneratedFromUsernameIfNoNameIsProvided()
     {
         $author = new PostAuthor('foo');
 
-        $this->assertSame('foo', $author->name);
+        $this->assertSame('Foo', $author->name);
     }
 
-    public function testCreateMethodCreatesNewAuthorModel()
+    public function testFacadeCreateMethodCreatesNewPendingAuthorArray()
     {
         $author = Author::create('foo');
 
-        $this->assertInstanceOf(PostAuthor::class, $author);
+        $this->assertSame([
+            'name' => 'foo',
+            'website' => null,
+            'bio' => null,
+            'avatar' => null,
+            'socials' => null,
+        ], $author);
     }
 
-    public function testCreateMethodAcceptsAllParameters()
+    public function testFacadeCreateMethodAcceptsExtraParameters()
     {
-        $author = Author::create('foo', 'bar', 'https://example.com');
+        $author = Author::create('foo', 'https://example.com');
 
-        $this->assertSame('foo', $author->username);
-        $this->assertSame('bar', $author->name);
-        $this->assertSame('https://example.com', $author->website);
+        $this->assertFalse(isset($author['username']));
+        $this->assertSame('foo', $author['name']);
+        $this->assertSame('https://example.com', $author['website']);
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromString()
+    public function testFacadeCreateMethodAcceptsAllParameters()
     {
-        $author = PostAuthor::getOrCreate('foo');
-        $this->assertEquals($author, new PostAuthor('foo'));
+        $author = Author::create(...$this->exampleData());
+
+        $this->assertFalse(isset($author['username']));
+        $this->assertSame('Mr. Hyde', $author['name']);
+        $this->assertSame('https://HydePHP.com', $author['website']);
+        $this->assertSame('A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?', $author['bio']);
+        $this->assertSame('mr_hyde.png', $author['avatar']);
+        $this->assertSame(['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'], $author['socials']);
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
+    public function testGetMethodReturnsNullWhenAuthorIsNotFound()
+    {
+        $author = PostAuthor::get('foo');
+        $this->assertNull($author);
+    }
+
+    public function testCreateMethodCreatesNewAuthorModelFromStringCanFindExistingAuthor()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', 'bar'),
+            'foo' => Author::create('bar'),
         ]);
 
-        $this->assertEquals(PostAuthor::getOrCreate('foo'), Author::create('foo', 'bar'));
+        $this->assertEquals(PostAuthor::get('foo'), new PostAuthor('foo', 'bar'));
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromArray()
+    public function testCreateMethodCreatesNewAuthorModelFromArray()
     {
-        $author = PostAuthor::getOrCreate([
+        $author = PostAuthor::create([
             'username' => 'foo',
             'name' => 'bar',
             'website' => 'https://example.com',
         ]);
 
-        $this->assertEquals($author, Author::create('foo', 'bar', 'https://example.com'));
+        $this->assertEquals($author, new PostAuthor('foo', 'bar', 'https://example.com'));
     }
 
-    public function testGetOrCreateMethodCreatesNewAuthorModelFromArrayOnlyNeedsUsername()
+    public function testCreateMethodCreatesNewAuthorModelFromArrayOnlyNeedsUsername()
     {
-        $this->assertEquals(PostAuthor::getOrCreate(['username' => 'foo']), Author::create('foo'));
+        $this->assertEquals(PostAuthor::create(['username' => 'foo']), new PostAuthor('foo'));
+    }
+
+    public function testCreateMethodWithNoUsernameUsesNameAsUsernameIfNameIsSupplied()
+    {
+        $author = PostAuthor::create(['name' => 'foo']);
+
+        $this->assertEquals($author, new PostAuthor('foo', 'foo'));
+    }
+
+    public function testCreateMethodWithNoUsernameUsesNormalizedNameAsUsernameIfNameIsSupplied()
+    {
+        $author = PostAuthor::create(['name' => 'Foo']);
+
+        $this->assertEquals($author, new PostAuthor('foo', 'Foo'));
+    }
+
+    public function testCreateMethodWithNoUsernameUsesGuestAsUsernameIfNoNameIsSupplied()
+    {
+        $author = PostAuthor::create([]);
+
+        $this->assertEquals($author, new PostAuthor('guest'));
+
+        $this->assertSame('guest', $author->username);
+        $this->assertSame('Guest', $author->name);
+    }
+
+    public function testCanDefineAuthorWithNoDataInConfig()
+    {
+        Config::set('hyde.authors', [
+            'foo' => Author::create(),
+        ]);
+
+        $authors = PostAuthor::all();
+
+        $this->assertInstanceOf(Collection::class, $authors);
+        $this->assertCount(1, $authors);
+        $this->assertEquals(new PostAuthor('foo', 'Foo'), $authors->first());
     }
 
     public function testAllMethodReturnsEmptyCollectionIfNoAuthorsAreSetInConfig()
@@ -203,36 +259,37 @@ class PostAuthorTest extends UnitTestCase
     public function testAllMethodReturnsCollectionWithAllAuthorsDefinedInConfig()
     {
         Config::set('hyde.authors', [
-            Author::create('foo'),
+            'foo' => Author::create(),
         ]);
 
         $authors = PostAuthor::all();
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(1, $authors);
-        $this->assertEquals(Author::create('foo'), $authors->first());
+        $this->assertEquals(new PostAuthor('foo'), $authors->first());
     }
 
     public function testMultipleAuthorsCanBeDefinedInConfig()
     {
         Config::set('hyde.authors', [
-            Author::create('foo'),
-            Author::create('bar'),
+            'foo' => Author::create(),
+            'bar' => Author::create(),
         ]);
 
         $authors = PostAuthor::all();
 
         $this->assertInstanceOf(Collection::class, $authors);
         $this->assertCount(2, $authors);
-        $this->assertEquals(Author::create('foo'), $authors->first());
-        $this->assertEquals(Author::create('bar'), $authors->last());
+        $this->assertEquals(new PostAuthor('foo'), $authors->first());
+        $this->assertEquals(new PostAuthor('bar'), $authors->last());
     }
 
     public function testGetMethodReturnsConfigDefinedAuthorByUsername()
     {
         Config::set('hyde.authors', [
-            Author::create('foo', 'bar'),
+            'foo' => Author::create('bar'),
         ]);
+
         $author = PostAuthor::get('foo');
 
         $this->assertInstanceOf(PostAuthor::class, $author);
@@ -240,20 +297,96 @@ class PostAuthorTest extends UnitTestCase
         $this->assertSame('bar', $author->name);
     }
 
-    public function testGetMethodReturnsNewAuthorIfUsernameNotFoundInConfig()
+    public function testGetMethodReturnsNullIfUsernameNotFoundInConfig()
     {
         Config::set('hyde.authors', []);
+
         $author = PostAuthor::get('foo');
 
-        $this->assertInstanceOf(PostAuthor::class, $author);
-        $this->assertSame('foo', $author->username);
+        $this->assertNull($author);
     }
 
-    public function testNameIsSetToUsernameIfNameIsNotSet()
+    public function testGetMethodNormalizesUsernamesForRetrieval()
+    {
+        Config::set('hyde.authors', [
+            'foo_bar' => Author::create(),
+        ]);
+
+        $author = PostAuthor::get('Foo bar');
+
+        $this->assertInstanceOf(PostAuthor::class, $author);
+        $this->assertSame('foo_bar', $author->username);
+        $this->assertSame('Foo Bar', $author->name);
+
+        $this->assertAllSame(
+            PostAuthor::get('foo_bar'),
+            PostAuthor::get('foo-bar'),
+            PostAuthor::get('foo bar'),
+            PostAuthor::get('Foo Bar'),
+            PostAuthor::get('FOO BAR'),
+        );
+    }
+
+    public function testAuthorUsernamesAreNormalizedInTheConfig()
+    {
+        Config::set('hyde.authors', [
+            'foo_bar' => Author::create(),
+            'foo-bar' => Author::create(),
+            'foo bar' => Author::create(),
+            'Foo Bar' => Author::create(),
+            'FOO BAR' => Author::create(),
+        ]);
+
+        $this->assertCount(1, PostAuthor::all());
+    }
+
+    public function testOnlyLastAuthorWithNormalizedUsernameIsKept()
+    {
+        Config::set('hyde.authors', [
+            'foo_bar' => Author::create('Author 1'),
+            'foo-bar' => Author::create('Author 2'),
+            'foo bar' => Author::create('Author 3'),
+        ]);
+
+        $authors = PostAuthor::all();
+
+        $this->assertCount(1, $authors);
+        $this->assertEquals(new PostAuthor('foo_bar', 'Author 3'), $authors->first());
+    }
+
+    public function testUsernameIsNormalized()
+    {
+        $author = new PostAuthor('Foo Bar');
+
+        $this->assertSame('foo_bar', $author->username);
+    }
+
+    public function testUsernameIsNormalizedWhenCreatedFromArray()
+    {
+        $author = PostAuthor::create(['username' => 'Foo Bar']);
+
+        $this->assertSame('foo_bar', $author->username);
+    }
+
+    public function testUsernameGeneratedFromNameIsNormalized()
+    {
+        $author = PostAuthor::create(['name' => 'Foo Bar']);
+
+        $this->assertSame('foo_bar', $author->username);
+    }
+
+    public function testNameIsCreatedFromUsernameIfNameIsNotSet()
     {
         $author = new PostAuthor('username');
 
-        $this->assertSame('username', $author->name);
+        $this->assertSame('Username', $author->name);
+    }
+
+    public function testNameIsCreatedFromComplexUsernameIfNameIsNotSet()
+    {
+        $author = new PostAuthor('foo_bar');
+
+        $this->assertSame('Foo Bar', $author->name);
     }
 
     public function testToStringHelperReturnsTheName()
@@ -314,12 +447,12 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username', null, null);
 
-        $this->assertSame('{"username":"username","name":"username"}', $author->toJson());
+        $this->assertSame('{"username":"username","name":"Username"}', $author->toJson());
     }
 
     public function testToArrayMethodSerializesAllData()
     {
-        $data = $this->exampleData();
+        $data = $this->exampleDataWithUsername();
 
         $author = new PostAuthor(...$data);
 
@@ -354,17 +487,24 @@ class PostAuthorTest extends UnitTestCase
     }
 
     /**
-     * @return array{username: string, name: string, website: string, bio: string, avatar: string, socials: array{twitter: string, github: string, custom: string}}
+     * @return array{name: string, website: string, bio: string, avatar: string, socials: array{twitter: string, github: string, custom: string}}
      */
     protected function exampleData(): array
     {
         return [
-            'username' => 'mr_hyde',
             'name' => 'Mr. Hyde',
             'website' => 'https://HydePHP.com',
             'bio' => 'A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?',
             'avatar' => 'mr_hyde.png',
             'socials' => ['twitter' => 'HydeFramework', 'github' => 'hydephp', 'custom' => 'https://example.com'],
         ];
+    }
+
+    /**
+     * @return array{username: string, name: string, website: string, bio: string, avatar: string, socials: array{twitter: string, github: string, custom: string}}
+     */
+    protected function exampleDataWithUsername(): array
+    {
+        return array_merge(['username' => 'mr_hyde'], $this->exampleData());
     }
 }

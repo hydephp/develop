@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Concerns;
 use Hyde\Facades\Config;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function collect;
 
@@ -49,8 +50,16 @@ trait HasKernelData
 
     protected function parseConfigurationAuthors(Collection $authors): Collection
     {
-        return $authors->mapWithKeys(function (PostAuthor $author, string $username): array {
-            return [$username ?: $author->username => $author];
+        return $authors->mapWithKeys(function (array $author, string $username): array {
+            if (! $username) {
+                throw new InvalidConfigurationException('Author username cannot be empty. Did you forget to set the author\'s array key?', 'hyde', 'authors');
+            }
+
+            $username = PostAuthor::normalizeUsername($username);
+
+            $author['username'] = $username;
+
+            return [$username => PostAuthor::create($author)];
         });
     }
 }

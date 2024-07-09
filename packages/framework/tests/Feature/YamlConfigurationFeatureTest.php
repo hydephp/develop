@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 /**
  * Test the Yaml configuration feature.
@@ -435,7 +436,24 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->assertSame(['twitter' => '@user1', 'github' => 'user1'], $authors['username1']->socials);
         $this->assertSame(['twitter' => '@user2', 'github' => 'user2'], $authors['username2']->socials);
-        $this->assertSame([], $authors['test']->socials);
+        $this->assertNull($authors['test']->socials);
+    }
+
+    public function testTypeErrorsInAuthorsYamlConfigAreRethrownMoreHelpfully()
+    {
+        file_put_contents('hyde.yml', <<<'YAML'
+        authors:
+          wrong:
+            name: false
+        YAML);
+
+        try {
+            $this->runBootstrappers();
+        } catch (InvalidConfigurationException $exception) {
+            $this->assertSame('Invalid author configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+        }
+
+        unlink('hyde.yml');
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
