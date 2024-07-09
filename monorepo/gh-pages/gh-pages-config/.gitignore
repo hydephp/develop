@@ -36,3 +36,10 @@ phpunit.xml.dist
 SECURITY.md
 tailwind.config.js
 webpack.mix.js
+config/app.php
+config/cache.php
+config/commands.php
+config/docs.php
+config/markdown.php
+config/torchlight.php
+config/view.php
