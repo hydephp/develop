@@ -14,8 +14,18 @@ do
     # Create a temporary index for this operation
     GIT_INDEX_FILE=".git/tmp-index" git read-tree $commit
 
-    # Check out the files into the subdirectory
-    GIT_INDEX_FILE=".git/tmp-index" git checkout-index -a --prefix=monorepo/gh-pages/gh-pages-config/
+    # Get the list of files in this commit
+    files=$(GIT_INDEX_FILE=".git/tmp-index" git ls-tree -r --name-only $commit)
+
+    for file in $files
+    do
+        # Extract the file to a temporary location
+        GIT_INDEX_FILE=".git/tmp-index" git show $commit:$file > temp_file
+
+        # Move the file to the subdirectory, creating directories if needed
+        mkdir -p "monorepo/gh-pages/gh-pages-config/$(dirname "$file")"
+        mv temp_file "monorepo/gh-pages/gh-pages-config/$file"
+    done
 
     # Add the changes
     git add monorepo/gh-pages/gh-pages-config
