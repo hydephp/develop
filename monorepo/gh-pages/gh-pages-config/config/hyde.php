@@ -95,7 +95,7 @@ return [
         // Meta::name('twitter:creator', '@hyde_php'),
         // Meta::name('description', 'My Hyde Blog'),
         // Meta::name('keywords', 'Static Sites, Blogs, Documentation'),
-        Meta::name('generator', 'HydePHP '.Hyde\Framework\Hyde::version()),
+        Meta::name('generator', 'HydePHP '.Hyde\Hyde::version()),
         Meta::property('site_name', $siteName),
         Meta::name('robots', 'noindex'),
     ],
