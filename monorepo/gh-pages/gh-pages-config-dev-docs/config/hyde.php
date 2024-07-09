@@ -166,9 +166,10 @@ return [
 
     'footer' => [
         'enabled' => true,
-        'markdown' => file_exists(__DIR__.'../origin-ref')
-            ? 'HydePHP Monorepo '.Hyde\Framework\Hyde::version().'-'.'<a href="https://github.com/caendesilva/hyde-monorepo/commit/'.file_get_contents(__DIR__.'../origin-ref').'">'.file_get_contents(__DIR__.'../origin-ref').'</a>'
-            : 'HydePHP Monorepo '.Hyde\Framework\Hyde::version(),
+        'markdown' => 'HydePHP Monorepo '.Hyde\Framework\Hyde::version().
+            (file_exists(__DIR__.'../origin-ref')
+            ? '-'.'<a href="https://github.com/caendesilva/hyde-monorepo/commit/'.file_get_contents(__DIR__.'../origin-ref').'">'.file_get_contents(__DIR__.'../origin-ref').'</a>'
+            : '') . ' (compiled '.date('Y-m-d H:i:s').')',
     ],
 
     /*
