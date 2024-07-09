@@ -184,9 +184,9 @@ return [
 
     'navigation_menu_links' => [
         [
-            'title'       => 'GitHub 🡕',
+            'title' => 'GitHub 🡕',
             'destination' => 'https://github.com/caendesilva/hyde-monorepo',
-            'priority'    => 1200,
+            'priority' => 1200,
         ],
         // [
         //     'title' => 'Featured Blog Post',
@@ -269,15 +269,15 @@ return [
     'use_play_cdn' => false,
 
     // site settings
-    'url'               => env('SITE_URL', 'https://hydephp.github.io/develop/master/dev-docs/'),
+    'url' => env('SITE_URL', 'https://hydephp.github.io/develop/master/dev-docs/'),
     'generate_rss_feed' => true,
-    'rss_filename'      => 'feed.xml',
+    'rss_filename' => 'feed.xml',
 
     'output_directories' => [
-        \Hyde\Pages\HtmlPage::class          => '',
-        \Hyde\Pages\BladePage::class         => '',
-        \Hyde\Pages\MarkdownPage::class      => '',
-        \Hyde\Pages\MarkdownPost::class      => 'posts',
+        \Hyde\Pages\HtmlPage::class => '',
+        \Hyde\Pages\BladePage::class => '',
+        \Hyde\Pages\MarkdownPage::class => '',
+        \Hyde\Pages\MarkdownPost::class => 'posts',
         \Hyde\Pages\DocumentationPage::class => 'dev-docs',
     ],
 ];
