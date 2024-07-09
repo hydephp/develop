@@ -33,7 +33,7 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Copy configuration from configuration directory
+      - name: Copy configuration from the configuration directory
         run: cp -r monorepo/gh-pages/gh-pages-config-dev-docs/* .
 
       - name: Update configuration files
