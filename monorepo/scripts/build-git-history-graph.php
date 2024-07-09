@@ -29,6 +29,7 @@ $html = processHtml($html);
 echo 'Generating header...';
 $graph = file_get_contents(__DIR__.'/graphs/history-graph.txt');
 $header = generateHeader($graph);
+unset($graph); // Free up memory
 echo ' Done.'.PHP_EOL;
 echo 'Wrapping the HTML...';
 $html = wrapHtml($html, $header);
