@@ -191,7 +191,7 @@ If you want to override the data for a specific post, you can do so in the [fron
 - The `PostAuthor` class includes a `getPosts()` method to retrieve all posts by an author
 - Authors can be accessed through `Hyde::authors()`
 
-For more advanced usage and customization, refer to the source code which is well documented.
+For more advanced usage and customization, refer to the [source code](https://github.com/hydephp/framework/blob/master/src/Framework/Features/Blogging/Models/PostAuthor.php) which is well documented.
 
 ### Footer
 
