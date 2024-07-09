@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'name' => $siteName = env('SITE_NAME', 'HydePHP Preview'),
+    'name' => $siteName = env('SITE_NAME', 'HydePHP Canary Preview'),
 
     /*
     |--------------------------------------------------------------------------
@@ -167,8 +167,8 @@ return [
     'footer' => [
         'enabled' => true,
         'markdown' => 'HydePHP Monorepo '.Hyde\Framework\Hyde::version().
-            (file_exists(__DIR__.'../origin-ref')
-            ? '-'.'<a href="https://github.com/caendesilva/hyde-monorepo/commit/'.file_get_contents(__DIR__.'../origin-ref').'">'.file_get_contents(__DIR__.'../origin-ref').'</a>'
+            (file_exists(__DIR__.'../../origin-ref')
+            ? '-'.'<a href="https://github.com/caendesilva/hyde-monorepo/commit/'.file_get_contents(__DIR__.'../../origin-ref').'">'.substr(file_get_contents(__DIR__.'../../origin-ref'), 0, 7).'</a>'
             : '') . ' (compiled '.date('Y-m-d H:i:s').')',
     ],
 
