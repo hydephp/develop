@@ -10,10 +10,13 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 temp_branch="${current_branch}_temp"
 git checkout -b $temp_branch
 
-# Get all commit hashes
-commits=$(git log --format=%H)
+# Get the starting commit
+start_commit="91ac6c5366d02d9f906d5e25463c7f3edae6f165"
 
-# Iterate through commits in reverse order
+# Get all commit hashes from the starting commit to HEAD
+commits=$(git rev-list --reverse $start_commit..HEAD)
+
+# Iterate through commits
 for commit in $commits; do
     # Check if the commit is a merge commit
     if [ $(git rev-parse $commit^2 2>/dev/null) ]; then
