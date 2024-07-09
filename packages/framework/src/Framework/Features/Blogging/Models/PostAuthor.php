@@ -18,6 +18,8 @@ use function array_filter;
 
 /**
  * Object representation of a blog post author for the site.
+ *
+ * @see \Hyde\Facades\Author For the facade to conveniently interact with and create authors.
  */
 class PostAuthor implements Stringable, SerializableContract
 {
