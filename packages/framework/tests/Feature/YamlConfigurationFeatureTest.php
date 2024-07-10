@@ -557,6 +557,32 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame(500, $navigationItems[1]->getPriority());
     }
 
+    public function testNavigationItemsInTheYamlConfigCanBeResolvedToRoutes()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: 'about'
+        YAML);
+
+        $this->runBootstrappers();
+
+        Hyde::routes()->addRoute((new MarkdownPage('about', ['title' => 'About Us', 'navigation' => ['priority' => 250]]))->getRoute());
+
+        $navigationItems = NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
+
+        // The route is already automatically added to the navigation menu, so we'll have two of it.
+        $this->assertCount(3, $navigationItems);
+        $this->assertContainsOnlyInstancesOf(NavigationItem::class, $navigationItems);
+
+        $this->assertEquals($navigationItems[1], $navigationItems[2]);
+
+        $this->assertSame('about.html', $navigationItems[1]->getLink());
+        $this->assertSame('About Us', $navigationItems[1]->getLabel());
+        $this->assertSame(250, $navigationItems[1]->getPriority());
+    }
+
     public function testTypeErrorsInNavigationYamlConfigAreRethrownMoreHelpfully()
     {
         file_put_contents('hyde.yml', <<<'YAML'
@@ -591,32 +617,6 @@ class YamlConfigurationFeatureTest extends TestCase
         }
 
         unlink('hyde.yml');
-    }
-
-    public function testNavigationItemsInTheYamlConfigCanBeResolvedToRoutes()
-    {
-        $this->file('hyde.yml', <<<'YAML'
-        hyde:
-          navigation:
-            custom:
-              - destination: 'about'
-        YAML);
-
-        $this->runBootstrappers();
-
-        Hyde::routes()->addRoute((new MarkdownPage('about', ['title' => 'About Us', 'navigation' => ['priority' => 250]]))->getRoute());
-
-        $navigationItems = NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
-
-        // The route is already automatically added to the navigation menu, so we'll have two of it.
-        $this->assertCount(3, $navigationItems);
-        $this->assertContainsOnlyInstancesOf(NavigationItem::class, $navigationItems);
-
-        $this->assertEquals($navigationItems[1], $navigationItems[2]);
-
-        $this->assertSame('about.html', $navigationItems[1]->getLink());
-        $this->assertSame('About Us', $navigationItems[1]->getLabel());
-        $this->assertSame(250, $navigationItems[1]->getPriority());
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
