@@ -23,6 +23,7 @@ class NavigationItem implements Stringable
     protected string $label;
     protected int $priority;
 
+    /** @var array<string, scalar> */
     protected array $attributes = [];
 
     /**
