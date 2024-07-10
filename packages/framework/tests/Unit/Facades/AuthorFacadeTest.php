@@ -4,15 +4,31 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Facades;
 
+use Hyde\Hyde;
 use Hyde\Facades\Author;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Facades\Author
  */
-class AuthorTest extends TestCase
+class AuthorFacadeTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        static $config = null;
+
+        if ($config === null) {
+            $config = require Hyde::path('config/hyde.php');
+        }
+
+        self::mockConfig(['hyde' => $config]);
+    }
+
     public function testCreate()
     {
         $author = Author::create('John Doe', 'https://johndoe.com');
