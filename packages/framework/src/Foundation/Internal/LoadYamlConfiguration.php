@@ -93,7 +93,7 @@ class LoadYamlConfiguration
     {
         return Arr::map($items, function (array $item): array {
             try {
-                return Navigation::item($item['destination'], $item['label'] ?? null, $item['priority'] ?? null);
+                return Navigation::item(...$item);
             } catch (Throwable $exception) {
                 throw new InvalidConfigurationException(
                     'Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.',
