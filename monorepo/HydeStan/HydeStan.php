@@ -344,7 +344,7 @@ class UnImportedFunctionAnalyser extends FileAnalyser
         foreach ($calledFunctions as $calledFunction) {
             AnalysisStatisticsContainer::analysedExpression();
             if (! in_array($calledFunction, $functionImports)) {
-                echo("Found unimported function '$calledFunction' in ".realpath(__DIR__.'/../../packages/framework/'.$file))."\n";
+                echo sprintf("Found unimported function '$calledFunction' in %s\n", realpath(__DIR__.'/../../packages/framework/'.$file));
             }
         }
     }
