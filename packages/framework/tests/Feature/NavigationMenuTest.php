@@ -223,6 +223,18 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->getItems());
     }
 
+    public function testInvalidCustomNavigationConfigurationThrowsException()
+    {
+        $this->expectException(\Error::class);
+        // $this->expectExceptionMessage('Invalid configuration for custom navigation item');
+
+        config(['hyde.navigation.custom' => [
+            ['invalid_key' => 'value'],
+        ]]);
+
+        $this->createNavigationMenu();
+    }
+
     public function testDocumentationPagesThatAreNotIndexAreNotAddedToTheMenu()
     {
         $this->file('_docs/foo.md');
