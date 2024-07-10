@@ -19,5 +19,5 @@ php ./monorepo/HydeStan/run.php
 
 ### GitHub Integration
 
-A subset of HydeStan is also run on the Git patches sent to our custom CI Server at https://ci.hydephp.com to provide immediate feedback on commits.
+A subset of HydeStan is also run on the Git patches sent to our custom [CI Server](https://ci.hydephp.com) to provide near-instant immediate feedback on commits.
 Example: https://ci.hydephp.com/api/hydestan/status/e963e2b1c8637ed5d1114e98b32ee698a821c74f
