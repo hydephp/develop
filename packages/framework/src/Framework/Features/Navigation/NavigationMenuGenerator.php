@@ -83,10 +83,10 @@ class NavigationMenuGenerator
                 $this->items->push(NavigationItem::create(DocumentationPage::home()));
             }
         } else {
-            collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $item): void {
-                /** @var array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>} $item */
+            collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $data): void {
+                /** @var array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>} $data */
                 try {
-                    $item = NavigationItem::create(...$item);
+                    $item = NavigationItem::create(...$data);
                 } catch (Throwable $exception) {
                     throw new InvalidConfigurationException(
                         'Invalid navigation item configuration detected the configuration file. Please double check the syntax.',
