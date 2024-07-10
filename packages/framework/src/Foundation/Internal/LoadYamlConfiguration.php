@@ -8,6 +8,7 @@ use Throwable;
 use Illuminate\Support\Arr;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
@@ -50,6 +51,10 @@ class LoadYamlConfiguration
                 $data['authors'] = $this->parseAuthors($data['authors']);
             }
 
+            if ($namespace === 'hyde' && isset($data['navigation']['custom'])) {
+                $data['navigation']['custom'] = $this->parseNavigationItems($data['navigation']['custom']);
+            }
+
             $this->mergeConfiguration($namespace, Arr::undot($data ?: []));
         }
     }
@@ -74,6 +79,17 @@ class LoadYamlConfiguration
                     previous: $exception
                 );
             }
+        });
+    }
+
+    /**
+     * @param array<array{destination: string, label: ?string, priority: ?int}> $items Where destination is a route key or an external URI.
+     * @return array<\Hyde\Framework\Features\Navigation\NavigationItem>
+     */
+    protected function parseNavigationItems(array $items): array
+    {
+        return Arr::map($items, function (array $item): NavigationItem {
+            return NavigationItem::create($item['destination'], $item['label'], $item['priority']);
         });
     }
 }

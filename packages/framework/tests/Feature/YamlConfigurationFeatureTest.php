@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
+use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
@@ -454,6 +455,43 @@ class YamlConfigurationFeatureTest extends TestCase
         }
 
         unlink('hyde.yml');
+    }
+
+    public function testCanSetCustomNavigationItemsInTheYamlConfig()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: 'https://example.com'
+                label: 'Example'
+                priority: 100
+              - destination: 'about'
+                label: 'About Us'
+                priority: 200
+              - destination: 'contact'
+                label: 'Contact'
+                priority: 300
+        YAML);
+
+        $this->runBootstrappers();
+
+        $navigationItems = config('hyde.navigation.custom');
+
+        $this->assertCount(3, $navigationItems);
+        $this->assertContainsOnlyInstancesOf(NavigationItem::class, $navigationItems);
+
+        $this->assertSame('https://example.com', $navigationItems[0]->destination);
+        $this->assertSame('Example', $navigationItems[0]->label);
+        $this->assertSame(100, $navigationItems[0]->priority);
+
+        $this->assertSame('about', $navigationItems[1]->destination);
+        $this->assertSame('About Us', $navigationItems[1]->label);
+        $this->assertSame(200, $navigationItems[1]->priority);
+
+        $this->assertSame('contact', $navigationItems[2]->destination);
+        $this->assertSame('Contact', $navigationItems[2]->label);
+        $this->assertSame(300, $navigationItems[2]->priority);
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
