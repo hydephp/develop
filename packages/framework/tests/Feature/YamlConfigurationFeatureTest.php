@@ -501,17 +501,14 @@ class YamlConfigurationFeatureTest extends TestCase
                 'destination' => 'https://example.com',
                 'label' => 'Example',
                 'priority' => 100,
-                'attributes' => [],
             ], [
                 'destination' => 'about',
                 'label' => 'About Us',
                 'priority' => 200,
-                'attributes' => [],
             ], [
                 'destination' => 'contact',
                 'label' => 'Contact',
                 'priority' => 300,
-                'attributes' => [],
             ],
         ], $configItems);
 
@@ -615,9 +612,6 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame([
             [
                 'destination' => 'about.html',
-                'label' => null,
-                'priority' => null,
-                'attributes' => [],
             ],
         ], $configItems);
 
@@ -675,6 +669,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         try {
             $this->runBootstrappers();
+            NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
         } catch (InvalidConfigurationException $exception) {
             $exceptionThrown = true;
             $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
@@ -697,6 +692,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         try {
             $this->runBootstrappers();
+            NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
         } catch (InvalidConfigurationException $exception) {
             $exceptionThrown = true;
             $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
@@ -720,6 +716,7 @@ class YamlConfigurationFeatureTest extends TestCase
 
         try {
             $this->runBootstrappers();
+            NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
         } catch (InvalidConfigurationException $exception) {
             $exceptionThrown = true;
             $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());

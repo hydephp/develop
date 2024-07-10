@@ -6,7 +6,6 @@ namespace Hyde\Foundation\Internal;
 
 use Throwable;
 use Illuminate\Support\Arr;
-use Hyde\Facades\Navigation;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
@@ -52,10 +51,6 @@ class LoadYamlConfiguration
                 $data['authors'] = $this->parseAuthors($data['authors']);
             }
 
-            if ($namespace === 'hyde' && isset($data['navigation']['custom'])) {
-                $data['navigation']['custom'] = $this->parseNavigationItems($data['navigation']['custom']);
-            }
-
             $this->mergeConfiguration($namespace, Arr::undot($data ?: []));
         }
     }
@@ -77,26 +72,6 @@ class LoadYamlConfiguration
             } catch (Throwable $exception) {
                 throw new InvalidConfigurationException(
                     'Invalid author configuration detected in the YAML config file. Please double check the syntax.',
-                    previous: $exception
-                );
-            }
-        });
-    }
-
-    /**
-     * @experimental Since the main configuration also uses arrays, the only thing this method really does is to rethrow any exceptions.
-     *
-     * @param  array<array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>}>  $items  Where destination is a route key or an external URI.
-     * @return array<array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>}>
-     */
-    protected function parseNavigationItems(array $items): array
-    {
-        return Arr::map($items, function (array $item): array {
-            try {
-                return Navigation::item(...$item);
-            } catch (Throwable $exception) {
-                throw new InvalidConfigurationException(
-                    'Invalid navigation item configuration detected the configuration file. Please double check the syntax.',
                     previous: $exception
                 );
             }
