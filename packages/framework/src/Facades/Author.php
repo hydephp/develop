@@ -7,6 +7,8 @@ namespace Hyde\Facades;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Illuminate\Support\Collection;
 
+use function compact;
+
 /**
  * Allows you to easily add pre-defined authors for your blog posts.
  *
