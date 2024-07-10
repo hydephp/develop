@@ -17,6 +17,7 @@ use function assert;
 use function collect;
 use function in_array;
 use function strtolower;
+use function trigger_deprecation;
 
 /**
  * @experimental This class may change significantly before its release.
@@ -81,7 +82,16 @@ class NavigationMenuGenerator
                 $this->items->push(NavigationItem::create(DocumentationPage::home()));
             }
         } else {
-            collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavigationItem $item): void {
+            collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavigationItem|array $item): void {
+                // In preparation of refactor:
+                // @codeCoverageIgnoreStart
+                if (is_array($item)) {
+                    $item = NavigationItem::create($item['destination'], $item['label'] ?? null, $item['priority'] ?? null);
+                } else {
+                    trigger_deprecation('hydephp/hyde', '2.0', 'Passing a NavigationItem instance directly to the navigation menu is deprecated. Use the array format instead. (Replace with \Navigation::item(...))');
+                }
+                // @codeCoverageIgnoreEnd
+
                 // Since these were added explicitly by the user, we can assume they should always be shown
                 $this->items->push($item);
             });
