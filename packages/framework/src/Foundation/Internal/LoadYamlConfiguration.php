@@ -9,10 +9,10 @@ use Illuminate\Support\Arr;
 use Hyde\Facades\Navigation;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
-use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
+use function tap;
 use function array_merge;
 
 /**
@@ -84,7 +84,7 @@ class LoadYamlConfiguration
     }
 
     /**
-     * @param array<array{destination: string, label: ?string, priority: ?int}> $items Where destination is a route key or an external URI.
+     * @param  array<array{destination: string, label: ?string, priority: ?int}>  $items  Where destination is a route key or an external URI.
      * @return array<\Hyde\Framework\Features\Navigation\NavigationItem>
      */
     protected function parseNavigationItems(array $items): array
