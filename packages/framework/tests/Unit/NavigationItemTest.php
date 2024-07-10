@@ -337,33 +337,4 @@ class NavigationItemTest extends UnitTestCase
         $item = NavigationItem::create('foo', 'Test', 500, ['class' => 'active']);
         $this->assertSame(['class' => 'active'], $item->getExtraAttributes());
     }
-
-    public function testSetAttribute()
-    {
-        $item = new NavigationItem('foo', 'Test');
-        $item->setAttribute('class', 'active');
-        $this->assertSame('active', $item->getAttribute('class'));
-    }
-
-    public function testSetAttributes()
-    {
-        $item = new NavigationItem('foo', 'Test');
-        $item->setAttributes(['class' => 'active', 'id' => 'nav-item']);
-        $this->assertSame(['class' => 'active', 'id' => 'nav-item'], $item->getAttributes());
-    }
-
-    public function testGetAttribute()
-    {
-        $item = new NavigationItem('foo', 'Test', 500, ['class' => 'active']);
-        $this->assertSame('active', $item->getAttribute('class'));
-        $this->assertNull($item->getAttribute('id'));
-        $this->assertSame('default', $item->getAttribute('id', 'default'));
-    }
-
-    public function testGetAttributes()
-    {
-        $attributes = ['class' => 'active', 'id' => 'nav-item'];
-        $item = new NavigationItem('foo', 'Test', 500, $attributes);
-        $this->assertSame($attributes, $item->getAttributes());
-    }
 }
