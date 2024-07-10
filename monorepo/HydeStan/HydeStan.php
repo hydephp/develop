@@ -25,6 +25,7 @@ final class HydeStan
     private const LINE_ANALYSERS = [
         NoTestReferenceAnalyser::class,
         NoHtmlExtensionInHydePHPLinksAnalyser::class,
+        NoExtraWhitespaceInCompressedPhpDocAnalyser::class,
     ];
 
     private array $files;
@@ -249,6 +250,23 @@ class NoHtmlExtensionInHydePHPLinksAnalyser extends LineAnalyser
             ));
 
             HydeStan::addActionsMessage('warning', $file, $lineNumber + 1, 'HydeStan: NoHtmlExtensionError', 'URL contains .html extension. Consider removing it.');
+        }
+    }
+}
+
+class NoExtraWhitespaceInCompressedPhpDocAnalyser extends LineAnalyser
+{
+    public function run(string $file, int $lineNumber, string $line): void
+    {
+        AnalysisStatisticsContainer::analysedExpressions(1);
+
+        if (str_contains($line, '/**  ')) {
+            $this->fail(sprintf('Extra whitespace in compressed PHPDoc comment at %s:%s',
+                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file,
+                $lineNumber + 1
+            ));
+
+            HydeStan::addActionsMessage('warning', $file, $lineNumber + 1, 'HydeStan: ExtraWhitespaceInPhpDocError', 'Extra whitespace found in compressed PHPDoc comment.');
         }
     }
 }
