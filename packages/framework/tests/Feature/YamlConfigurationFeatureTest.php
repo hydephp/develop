@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
@@ -517,6 +519,32 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame('contact', $navigationItems[3]->getLink());
         $this->assertSame('Contact', $navigationItems[3]->getLabel());
         $this->assertSame(300, $navigationItems[3]->getPriority());
+    }
+
+    public function testNavigationItemsInTheYamlConfigCanBeResolvedToRoutes()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: 'about'
+        YAML);
+
+        $this->runBootstrappers();
+
+        Hyde::routes()->addRoute((new MarkdownPage('about', ['title' => 'About Us', 'navigation' => ['priority' => 250]]))->getRoute());
+
+        $navigationItems = NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
+
+        // The route is already automatically added to the navigation menu, so we'll have two of it.
+        $this->assertCount(3, $navigationItems);
+        $this->assertContainsOnlyInstancesOf(NavigationItem::class, $navigationItems);
+
+        $this->assertEquals($navigationItems[1], $navigationItems[2]);
+
+        $this->assertSame('about.html', $navigationItems[1]->getLink());
+        $this->assertSame('About Us', $navigationItems[1]->getLabel());
+        $this->assertSame(250, $navigationItems[1]->getPriority());
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
