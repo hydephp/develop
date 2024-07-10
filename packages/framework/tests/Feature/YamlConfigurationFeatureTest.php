@@ -471,7 +471,7 @@ class YamlConfigurationFeatureTest extends TestCase
             $this->assertSame('Invalid author configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
         }
 
-        $this->assertTrue($exceptionThrown);
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 
@@ -680,7 +680,7 @@ class YamlConfigurationFeatureTest extends TestCase
             $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
-        $this->assertTrue($exceptionThrown);
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 
@@ -702,7 +702,7 @@ class YamlConfigurationFeatureTest extends TestCase
             $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
-        $this->assertTrue($exceptionThrown);
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 
@@ -725,7 +725,7 @@ class YamlConfigurationFeatureTest extends TestCase
             $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
-        $this->assertTrue($exceptionThrown);
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 
