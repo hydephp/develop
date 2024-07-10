@@ -619,6 +619,25 @@ class YamlConfigurationFeatureTest extends TestCase
         unlink('hyde.yml');
     }
 
+    public function testAddingExtraYamlNavigationItemFieldsThrowsAnException()
+    {
+        file_put_contents('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: 'about'
+                extra: 'field'
+        YAML);
+
+        try {
+            $this->runBootstrappers();
+        } catch (InvalidConfigurationException $exception) {
+            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+        }
+
+        unlink('hyde.yml');
+    }
+
     protected function runBootstrappers(?array $withMergedConfig = null): void
     {
         $this->refreshApplication();
