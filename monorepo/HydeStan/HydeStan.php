@@ -13,6 +13,20 @@ final class HydeStan
 {
     const VERSION = '0.0.0-dev';
 
+    private const FILE_ANALYSERS = [
+        NoFixMeAnalyser::class,
+        UnImportedFunctionAnalyser::class,
+    ];
+
+    private const TEST_FILE_ANALYSERS = [
+        NoFixMeAnalyser::class,
+        NoUsingAssertEqualsForScalarTypesTestAnalyser::class,
+    ];
+
+    private const LINE_ANALYSERS = [
+        NoTestReferenceAnalyser::class,
+    ];
+
     private array $files;
     private array $testFiles;
     private array $errors = [];
@@ -137,34 +151,28 @@ final class HydeStan
 
     private function analyseFile(string $file, string $contents): void
     {
-        $fileAnalysers = [
-            new NoFixMeAnalyser($file, $contents),
-            new UnImportedFunctionAnalyser($file, $contents),
-        ];
+        foreach (self::FILE_ANALYSERS as $fileAnalyserClass) {
+            $fileAnalyser = new $fileAnalyserClass($file, $contents);
 
-        foreach ($fileAnalysers as $analyser) {
             if ($this->debug) {
-                $this->console->debugComment('Running  '.$analyser::class);
+                $this->console->debugComment('Running  '.$fileAnalyser::class);
             }
 
-            $analyser->run($file, $contents);
+            $fileAnalyser->run($file, $contents);
             AnalysisStatisticsContainer::countedLines(substr_count($contents, "\n"));
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
-                $lineAnalysers = [
-                    new NoTestReferenceAnalyser($file, $lineNumber, $line),
-                ];
-
-                foreach ($lineAnalysers as $analyser) {
+                foreach (self::LINE_ANALYSERS as $lineAnalyserClass) {
+                    $lineAnalyser = new $lineAnalyserClass($file, $lineNumber, $line);
                     AnalysisStatisticsContainer::countedLine();
-                    $analyser->run($file, $lineNumber, $line);
+                    $lineAnalyser->run($file, $lineNumber, $line);
                     $this->aggregateLines++;
                 }
             }
         }
 
         $this->scannedLines += substr_count($contents, "\n");
-        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
+        $this->aggregateLines += (substr_count($contents, "\n") * count(self::FILE_ANALYSERS));
     }
 
     private function getFileContents(string $file): string
@@ -199,34 +207,23 @@ final class HydeStan
 
     private function analyseTestFile(string $file, string $contents): void
     {
-        $fileAnalysers = [
-            new NoFixMeAnalyser($file, $contents),
-            new NoUsingAssertEqualsForScalarTypesTestAnalyser($file, $contents),
-        ];
+        foreach (self::TEST_FILE_ANALYSERS as $fileAnalyserClass) {
+            $fileAnalyser = new $fileAnalyserClass($file, $contents);
 
-        foreach ($fileAnalysers as $analyser) {
             if ($this->debug) {
-                $this->console->debugComment('Running  '.$analyser::class);
+                $this->console->debugComment('Running  '.$fileAnalyser::class);
             }
 
-            $analyser->run($file, $contents);
+            $fileAnalyser->run($file, $contents);
             AnalysisStatisticsContainer::countedLines(substr_count($contents, "\n"));
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
-                $lineAnalysers = [
-                    //
-                ];
-
-                foreach ($lineAnalysers as $analyser) {
-                    AnalysisStatisticsContainer::countedLine();
-                    $analyser->run($file, $lineNumber, $line);
-                    $this->aggregateLines++;
-                }
+                // No line analysers defined for test files in the original code
             }
         }
 
         $this->scannedLines += substr_count($contents, "\n");
-        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
+        $this->aggregateLines += (substr_count($contents, "\n") * count(self::TEST_FILE_ANALYSERS));
     }
 }
 
