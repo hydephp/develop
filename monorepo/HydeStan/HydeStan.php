@@ -12,8 +12,6 @@ require_once __DIR__.'/includes/helpers.php';
  */
 final class HydeStan
 {
-    const VERSION = '0.0.0-dev';
-
     private const FILE_ANALYSERS = [
         NoFixMeAnalyser::class,
         UnImportedFunctionAnalyser::class,
@@ -48,7 +46,7 @@ final class HydeStan
 
         $this->console = new Console();
 
-        $this->console->info(sprintf('HydeStan v%s is running!', self::VERSION));
+        $this->console->info(sprintf('HydeStan is running!'));
         $this->console->newline();
     }
 
