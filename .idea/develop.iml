@@ -18,6 +18,9 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/testing/src" isTestSource="false" packagePrefix="Hyde\Testing\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/docs/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/docs/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/src" isTestSource="false" packagePrefix="Hyde\UIKit\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde/framework" />
