@@ -84,6 +84,8 @@ class LoadYamlConfiguration
     }
 
     /**
+     * @experimental Since the main configuration also uses arrays, the only thing this method really does is to rethrow any exceptions.
+     *
      * @param  array<array{destination: string, label: ?string, priority: ?int}>  $items  Where destination is a route key or an external URI.
      * @return array<\Hyde\Framework\Features\Navigation\NavigationItem>
      */
