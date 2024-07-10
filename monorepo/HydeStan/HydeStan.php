@@ -7,7 +7,7 @@ use Desilva\Console\Console;
 require_once __DIR__.'/includes/contracts.php';
 
 /**
- * @internal
+ * @internal Custom static analysis tool for the HydePHP Development Monorepo.
  */
 final class HydeStan
 {
