@@ -4,12 +4,29 @@ declare(strict_types=1);
 
 use Desilva\Console\Console;
 
+require_once __DIR__.'/includes/contracts.php';
+require_once __DIR__.'/includes/helpers.php';
+
 /**
- * @internal
+ * @internal Custom static analysis tool for the HydePHP Development Monorepo.
  */
 final class HydeStan
 {
-    const VERSION = '0.0.0-dev';
+    private const FILE_ANALYSERS = [
+        NoFixMeAnalyser::class,
+        UnImportedFunctionAnalyser::class,
+    ];
+
+    private const TEST_FILE_ANALYSERS = [
+        NoFixMeAnalyser::class,
+        NoUsingAssertEqualsForScalarTypesTestAnalyser::class,
+    ];
+
+    private const LINE_ANALYSERS = [
+        NoTestReferenceAnalyser::class,
+        NoHtmlExtensionInHydePHPLinksAnalyser::class,
+        NoExtraWhitespaceInCompressedPhpDocAnalyser::class,
+    ];
 
     private array $files;
     private array $testFiles;
@@ -31,7 +48,7 @@ final class HydeStan
 
         $this->console = new Console();
 
-        $this->console->info(sprintf('HydeStan v%s is running!', self::VERSION));
+        $this->console->info('HydeStan is running!');
         $this->console->newline();
     }
 
@@ -105,64 +122,38 @@ final class HydeStan
 
     private function getFiles(): array
     {
-        $files = [];
-
-        $directory = new RecursiveDirectoryIterator(BASE_PATH.'/src');
-        $iterator = new RecursiveIteratorIterator($directory);
-        $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
-
-        foreach ($regex as $file) {
-            $files[] = substr($file[0], strlen(BASE_PATH) + 1);
-        }
-
-        return $files;
+        return recursiveFileFinder('src');
     }
 
     private function getTestFiles(): array
     {
-        $files = [];
-
-        $directory = new RecursiveDirectoryIterator(BASE_PATH.'/tests');
-        $iterator = new RecursiveIteratorIterator($directory);
-        $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
-
-        foreach ($regex as $file) {
-            $files[] = substr($file[0], strlen(BASE_PATH) + 1);
-        }
-
-        return $files;
+        return recursiveFileFinder('tests');
     }
 
     private function analyseFile(string $file, string $contents): void
     {
-        $fileAnalysers = [
-            new NoFixMeAnalyser($file, $contents),
-            new UnImportedFunctionAnalyser($file, $contents),
-        ];
+        foreach (self::FILE_ANALYSERS as $fileAnalyserClass) {
+            $fileAnalyser = new $fileAnalyserClass($file, $contents);
 
-        foreach ($fileAnalysers as $analyser) {
             if ($this->debug) {
-                $this->console->debugComment('Running  '.$analyser::class);
+                $this->console->debugComment('Running  '.$fileAnalyser::class);
             }
 
-            $analyser->run($file, $contents);
+            $fileAnalyser->run($file, $contents);
             AnalysisStatisticsContainer::countedLines(substr_count($contents, "\n"));
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
-                $lineAnalysers = [
-                    new NoTestReferenceAnalyser($file, $lineNumber, $line),
-                ];
-
-                foreach ($lineAnalysers as $analyser) {
+                foreach (self::LINE_ANALYSERS as $lineAnalyserClass) {
+                    $lineAnalyser = new $lineAnalyserClass($file, $lineNumber, $line);
                     AnalysisStatisticsContainer::countedLine();
-                    $analyser->run($file, $lineNumber, $line);
+                    $lineAnalyser->run($file, $lineNumber, $line);
                     $this->aggregateLines++;
                 }
             }
         }
 
         $this->scannedLines += substr_count($contents, "\n");
-        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
+        $this->aggregateLines += (substr_count($contents, "\n") * count(self::FILE_ANALYSERS));
     }
 
     private function getFileContents(string $file): string
@@ -197,58 +188,23 @@ final class HydeStan
 
     private function analyseTestFile(string $file, string $contents): void
     {
-        $fileAnalysers = [
-            new NoFixMeAnalyser($file, $contents),
-            new NoUsingAssertEqualsForScalarTypesTestAnalyser($file, $contents),
-        ];
+        foreach (self::TEST_FILE_ANALYSERS as $fileAnalyserClass) {
+            $fileAnalyser = new $fileAnalyserClass($file, $contents);
 
-        foreach ($fileAnalysers as $analyser) {
             if ($this->debug) {
-                $this->console->debugComment('Running  '.$analyser::class);
+                $this->console->debugComment('Running  '.$fileAnalyser::class);
             }
 
-            $analyser->run($file, $contents);
+            $fileAnalyser->run($file, $contents);
             AnalysisStatisticsContainer::countedLines(substr_count($contents, "\n"));
 
             foreach (explode("\n", $contents) as $lineNumber => $line) {
-                $lineAnalysers = [
-                    //
-                ];
-
-                foreach ($lineAnalysers as $analyser) {
-                    AnalysisStatisticsContainer::countedLine();
-                    $analyser->run($file, $lineNumber, $line);
-                    $this->aggregateLines++;
-                }
+                // No line analysers defined for test files in the original code
             }
         }
 
         $this->scannedLines += substr_count($contents, "\n");
-        $this->aggregateLines += (substr_count($contents, "\n") * count($fileAnalysers));
-    }
-}
-
-abstract class Analyser
-{
-    protected function fail(string $error): void
-    {
-        HydeStan::getInstance()->addError($error);
-    }
-}
-
-abstract class FileAnalyser extends Analyser implements FileAnalyserContract
-{
-    public function __construct(protected string $file, protected string $contents)
-    {
-        //
-    }
-}
-
-abstract class LineAnalyser extends Analyser implements LineAnalyserContract
-{
-    public function __construct(protected string $file, protected int $lineNumber, protected string $line)
-    {
-        //
+        $this->aggregateLines += (substr_count($contents, "\n") * count(self::TEST_FILE_ANALYSERS));
     }
 }
 
@@ -277,6 +233,40 @@ class NoFixMeAnalyser extends FileAnalyser
 
                 // Todo we might want to check for more errors after the first marker
             }
+        }
+    }
+}
+
+class NoHtmlExtensionInHydePHPLinksAnalyser extends LineAnalyser
+{
+    public function run(string $file, int $lineNumber, string $line): void
+    {
+        AnalysisStatisticsContainer::analysedExpressions(1);
+
+        if (str_contains($line, 'https://hydephp.com/') && str_contains($line, '.html')) {
+            AnalysisStatisticsContainer::analysedExpressions(1);
+
+            $this->fail(sprintf('HTML extension used in URL at %s',
+                fileLink(BASE_PATH.'/packages/framework/'.$file, $lineNumber + 1)
+            ));
+
+            HydeStan::addActionsMessage('warning', $file, $lineNumber + 1, 'HydeStan: NoHtmlExtensionError', 'URL contains .html extension. Consider removing it.');
+        }
+    }
+}
+
+class NoExtraWhitespaceInCompressedPhpDocAnalyser extends LineAnalyser
+{
+    public function run(string $file, int $lineNumber, string $line): void
+    {
+        AnalysisStatisticsContainer::analysedExpressions(1);
+
+        if (str_contains($line, '/**  ')) {
+            $this->fail(sprintf('Extra whitespace in compressed PHPDoc comment at %s',
+                fileLink(BASE_PATH.'/packages/framework/'.$file, $lineNumber + 1)
+            ));
+
+            HydeStan::addActionsMessage('warning', $file, $lineNumber + 1, 'HydeStan: ExtraWhitespaceInPhpDocError', 'Extra whitespace found in compressed PHPDoc comment.');
         }
     }
 }
@@ -370,7 +360,7 @@ class UnImportedFunctionAnalyser extends FileAnalyser
         foreach ($calledFunctions as $calledFunction) {
             AnalysisStatisticsContainer::analysedExpression();
             if (! in_array($calledFunction, $functionImports)) {
-                echo("Found unimported function '$calledFunction' in ".realpath(__DIR__.'/../../packages/framework/'.$file))."\n";
+                echo sprintf("Found unimported function '$calledFunction' in %s\n", realpath(__DIR__.'/../../packages/framework/'.$file));
             }
         }
     }
@@ -384,80 +374,11 @@ class NoTestReferenceAnalyser extends LineAnalyser
 
         if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
             AnalysisStatisticsContainer::analysedExpressions(1);
-            $this->fail(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)),
-                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1));
+            $this->fail(sprintf('Test class %s is referenced in %s:%s',
+                trim(substr($line, 7)),
+                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file,
+                $lineNumber + 1
+            ));
         }
     }
-}
-
-class AnalysisStatisticsContainer
-{
-    private static int $linesCounted = 0;
-    private static float $expressionsAnalysed = 0;
-
-    public static function countedLine(): void
-    {
-        self::$linesCounted++;
-    }
-
-    public static function countedLines(int $count): void
-    {
-        self::$linesCounted += $count;
-    }
-
-    public static function analysedExpression(): void
-    {
-        self::$expressionsAnalysed++;
-    }
-
-    public static function analysedExpressions(float $countOrEstimate): void
-    {
-        self::$expressionsAnalysed += $countOrEstimate;
-    }
-
-    public static function getLinesCounted(): int
-    {
-        return self::$linesCounted;
-    }
-
-    public static function getExpressionsAnalysed(): int
-    {
-        return (int) round(self::$expressionsAnalysed);
-    }
-}
-
-interface FileAnalyserContract
-{
-    public function __construct(string $file, string $contents);
-
-    public function run(string $file, string $contents): void;
-}
-
-interface LineAnalyserContract
-{
-    public function __construct(string $file, int $lineNumber, string $line);
-
-    public function run(string $file, int $lineNumber, string $line): void;
-}
-
-function check_str_contains_any(array $searches, string $line): bool
-{
-    $strContainsAny = false;
-    foreach ($searches as $search) {
-        AnalysisStatisticsContainer::analysedExpression();
-        if (str_contains($line, $search)) {
-            $strContainsAny = true;
-        }
-    }
-
-    return $strContainsAny;
-}
-
-function fileLink(string $file, ?int $line = null): string
-{
-    $path = (realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file).($line ? ':'.$line : '');
-    $trim = strlen(getcwd()) + 2;
-    $path = substr($path, $trim);
-
-    return str_replace('\\', '/', $path);
 }

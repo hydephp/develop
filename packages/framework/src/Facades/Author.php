@@ -21,7 +21,7 @@ class Author
      *
      * The returned array will then be used by the framework to create a new PostAuthor instance.
      *
-     * @see https://hydephp.com/docs/1.x/customization.html#authors
+     * @see https://hydephp.com/docs/1.x/customization#authors
      *
      * @param  string|null  $name  The optional display name of the author, leave blank to use the username.
      * @param  string|null  $website  The author's optional website URL. Website, Twitter, etc.
