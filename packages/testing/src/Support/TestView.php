@@ -179,6 +179,14 @@ class TestView extends \Illuminate\Testing\TestView
         return $this;
     }
 
+    /**
+     * Get the rendered view as a string.
+     */
+    public function getRendered(): string
+    {
+        return $this->rendered;
+    }
+
     #[NoReturn]
     public function dd(bool $writeHtml = true): void
     {
