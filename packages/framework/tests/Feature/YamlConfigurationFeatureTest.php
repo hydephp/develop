@@ -557,6 +557,42 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame(500, $navigationItems[1]->getPriority());
     }
 
+    public function testTypeErrorsInNavigationYamlConfigAreRethrownMoreHelpfully()
+    {
+        file_put_contents('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: false
+        YAML);
+
+        try {
+            $this->runBootstrappers();
+        } catch (InvalidConfigurationException $exception) {
+            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+        }
+
+        unlink('hyde.yml');
+    }
+
+    public function testMustAddDestinationToYamlConfiguredNavigationItems()
+    {
+        file_put_contents('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - label: 'About Us'
+        YAML);
+
+        try {
+            $this->runBootstrappers();
+        } catch (InvalidConfigurationException $exception) {
+            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+        }
+
+        unlink('hyde.yml');
+    }
+
     public function testNavigationItemsInTheYamlConfigCanBeResolvedToRoutes()
     {
         $this->file('hyde.yml', <<<'YAML'

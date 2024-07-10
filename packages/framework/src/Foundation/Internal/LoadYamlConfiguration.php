@@ -90,7 +90,14 @@ class LoadYamlConfiguration
     protected function parseNavigationItems(array $items): array
     {
         return Arr::map($items, function (array $item): array {
-            return Navigation::item($item['destination'], $item['label'] ?? null, $item['priority'] ?? null);
+            try {
+                return Navigation::item($item['destination'], $item['label'] ?? null, $item['priority'] ?? null);
+            } catch (Throwable $exception) {
+                throw new InvalidConfigurationException(
+                    'Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.',
+                    previous: $exception
+                );
+            }
         });
     }
 }
