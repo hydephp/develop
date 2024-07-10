@@ -8,8 +8,6 @@ require_once __DIR__.'/includes/contracts.php';
 
 /**
  * @internal Custom static analysis tool for the HydePHP Development Monorepo.
- *
- * @package HydeStan
  */
 final class HydeStan
 {
