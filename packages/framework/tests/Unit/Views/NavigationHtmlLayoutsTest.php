@@ -515,7 +515,7 @@ class NavigationHtmlLayoutsTest extends TestCase
 
     protected function useSubdirectoryConfig(string $option): static
     {
-        config(['hyde.navigation.subdirectories' => $option]);
+        config(['hyde.navigation.subdirectory_display' => $option]);
 
         return $this;
     }

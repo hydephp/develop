@@ -274,7 +274,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function getSubdirectoryConfiguration(): string
     {
-        return Config::getString('hyde.navigation.subdirectories', 'hidden');
+        return Config::getString('hyde.navigation.subdirectory_display', 'hidden');
     }
 
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $class */

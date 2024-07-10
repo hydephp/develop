@@ -96,7 +96,7 @@ class NavigationMenuGenerator
 
             return $this->routes->first(fn (Route $route): bool => filled($route->getPage()->navigationMenuGroup())) !== null;
         } else {
-            return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+            return Config::getString('hyde.navigation.subdirectory_display', 'hidden') === 'dropdown';
         }
     }
 

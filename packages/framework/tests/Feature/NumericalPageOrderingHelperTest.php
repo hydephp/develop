@@ -38,7 +38,7 @@ class NumericalPageOrderingHelperTest extends TestCase
 
         $this->helper = new FilenamePrefixNavigationPriorityTestingHelper($this);
 
-        Config::set('hyde.navigation.subdirectories', 'dropdown');
+        Config::set('hyde.navigation.subdirectory_display', 'dropdown');
 
         // Todo: Replace kernel with mock class
         $this->withoutDefaultPages();

@@ -78,7 +78,7 @@ class NavigationMenuViewTest extends TestCase
 
     public function testNavigationMenuWithDropdownPages()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $page = new MarkdownPage('page');
         $bar = new MarkdownPage('foo/bar');
@@ -104,7 +104,7 @@ class NavigationMenuViewTest extends TestCase
 
     public function testNavigationMenuWithDropdownPagesWithRootGroupPage()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $foo = new MarkdownPage('foo');
         $bar = new MarkdownPage('foo/bar');

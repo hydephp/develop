@@ -412,7 +412,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationAutomaticSubdirectoryDropdownLabelsCanBeSetInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.labels' => ['hello' => 'World']]);
 
         $this->assertMenuEquals(['World'], [
@@ -444,7 +444,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testPagesInSubdirectoriesAreAddedToNavigationWhenNavigationSubdirectoriesIsSetToFlat()
     {
-        config(['hyde.navigation.subdirectories' => 'flat']);
+        config(['hyde.navigation.subdirectory_display' => 'flat']);
 
         $this->assertMenuEquals(['Foo', 'Bar', 'Baz'], [
             new MarkdownPage('about/foo'),
@@ -455,7 +455,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testPagesInSubdirectoriesAreAddedAsDropdownsWhenNavigationSubdirectoriesIsSetToDropdown()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
@@ -502,7 +502,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuDropdownItemsWithSameLabelButDifferentGroupsAreNotFiltered()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'One', 'children' => ['Foo']],
@@ -515,7 +515,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuAutomaticDropdownItemsWithSameLabelButDifferentGroupsAreNotFiltered()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'One', 'children' => ['Foo']],
@@ -532,7 +532,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         // we run into a conflicting state where we don't know what the user intended. We solve this by giving
         // precedence to the subdirectory configuration. This is opinionated, but allows for good grouping.
 
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'Foo', 'children' => ['Child']],
@@ -543,7 +543,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testCanMixSubdirectoryDropdownsWithFrontMatterDropdowns()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'Foo', 'children' => ['Bar', 'Baz']],
@@ -555,7 +555,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainMenuAutomaticDropdownLabelsCanBeSetInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.labels' => ['foo' => 'Bar']]);
 
         $this->assertMenuEquals([
@@ -1110,7 +1110,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationDropdownPriorityCanBeSetInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.order' => ['foo' => 500]]);
 
         $this->assertMenuEquals(
@@ -1121,7 +1121,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationDropdownPriorityCanBeSetInConfigUsingDifferingCases()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.order' => ['hello-world' => 500]]);
 
         $expected = [['label' => 'Hello World', 'priority' => 500]];
@@ -1176,7 +1176,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainMenuNavigationGroupCasing()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         // When using subdirectory groupings, we try to format them the same way as the page titles
 

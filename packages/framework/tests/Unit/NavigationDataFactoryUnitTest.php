@@ -248,7 +248,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testMakeGroupUsesFrontMatterGroupIfSetRegardlessOfSubdirectoryConfiguration()
     {
-        self::mockConfig(['hyde.navigation.subdirectories' => 'hidden']);
+        self::mockConfig(['hyde.navigation.subdirectory_display' => 'hidden']);
 
         $frontMatter = new FrontMatter(['navigation.group' => 'Test Group']);
         $coreDataObject = new CoreDataObject($frontMatter, new Markdown(), MarkdownPage::class, 'test.md', '', '', '');
@@ -259,7 +259,7 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
     public function testMakeGroupDefaultsToNullIfFrontMatterGroupNotSetAndSubdirectoriesNotUsed()
     {
-        self::mockConfig(['hyde.navigation.subdirectories' => 'hidden']);
+        self::mockConfig(['hyde.navigation.subdirectory_display' => 'hidden']);
 
         $coreDataObject = new CoreDataObject(new FrontMatter(), new Markdown(), MarkdownPage::class, 'test.md', '', '', '');
         $factory = new NavigationConfigTestClass($coreDataObject);

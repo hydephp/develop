@@ -259,7 +259,7 @@ Within the Hyde config you can configure how subdirectories should be displayed 
 ```php
 // filepath config/hyde.php
 'navigation' => [
-    'subdirectories' => 'dropdown'
+    'subdirectory_display' => 'dropdown'
 ]
 ```
 
@@ -279,7 +279,7 @@ For pages that can be in the main site menu, this feature needs to be enabled in
 // filepath config/hyde.php
 
 'navigation' => [
-    'subdirectories' => 'dropdown',
+    'subdirectory_display' => 'dropdown',
 ],
 ```
 

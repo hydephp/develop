@@ -239,7 +239,7 @@ class NavigationMenuTest extends TestCase
 
     public function testPagesInSubdirectoriesCanBeAddedToTheNavigationMenuWithConfigFlatSetting()
     {
-        config(['hyde.navigation.subdirectories' => 'flat']);
+        config(['hyde.navigation.subdirectory_display' => 'flat']);
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
@@ -256,7 +256,7 @@ class NavigationMenuTest extends TestCase
 
     public function testPagesInSubdirectoriesAreNotAddedToTheNavigationMenuWithConfigDropdownSetting()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         $this->directory('_pages/foo');
         $this->file('_pages/foo/bar.md');
 
@@ -275,7 +275,7 @@ class NavigationMenuTest extends TestCase
 
     public function testPagesInDropdownsDoNotGetAddedToTheMainNavigation()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         Routes::push((new MarkdownPage('foo'))->getRoute());
         Routes::push((new MarkdownPage('bar/baz'))->getRoute());
