@@ -15,7 +15,7 @@ use Hyde\Foundation\Kernel\RouteCollection;
  */
 trait HandlesFoundationCollections
 {
-    /**  @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile> */
+    /** @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\ProjectFile> */
     public function files(): FileCollection
     {
         $this->needsToBeBooted();
