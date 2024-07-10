@@ -8,6 +8,26 @@
 - Make sure you have authorization to publish the package to NPM and push to the HydeFront repository.
 - **Make sure that you have linked the local HydeFront package to the monorepo with `npm link`.**
 
+If you need to set up the "submodule", run the following commands:
+
+```bash
+cd packages/hydefront
+git init
+git remote add origin git@github.com:hydephp/hydefront.git
+git fetch
+git checkout master --force
+```
+
+If you need to set up the NPM link, run the following commands:
+
+```bash
+cd packages/hydefront
+npm link
+
+cd ../../
+npm link hydefront
+```
+
 ### Build and setup
 
 ```bash
