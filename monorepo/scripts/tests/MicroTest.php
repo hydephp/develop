@@ -51,7 +51,7 @@ class MicroTest
     }
 
     /** @throws \Exception */
-    public function assert(bool $condition, string $message = null): void
+    public function assert(bool $condition, ?string $message = null): void
     {
         if (! $condition) {
             throw new Exception($message ?? 'Assertion failed');
