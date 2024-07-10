@@ -20,7 +20,11 @@ class AuthorTest extends UnitTestCase
     {
         parent::setUp();
 
-        $config = require Hyde::path('config/hyde.php');
+        static $config = null;
+
+        if ($config === null) {
+            $config = require Hyde::path('config/hyde.php');
+        }
 
         self::mockConfig(['hyde' => $config]);
     }
