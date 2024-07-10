@@ -120,6 +120,7 @@ class NavigationItem implements Stringable
         return [$destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT];
     }
 
+    /** @return array<string, scalar> */
     public function getExtraAttributes(): array
     {
         return $this->attributes;
