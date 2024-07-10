@@ -90,7 +90,7 @@ class LoadYamlConfiguration
     protected function parseNavigationItems(array $items): array
     {
         return Arr::map($items, function (array $item): array {
-            return Navigation::item($item['destination'], $item['label'], $item['priority']);
+            return Navigation::item($item['destination'], $item['label'] ?? null, $item['priority'] ?? null);
         });
     }
 }

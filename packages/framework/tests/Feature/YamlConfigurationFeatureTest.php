@@ -521,6 +521,42 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame(300, $navigationItems[3]->getPriority());
     }
 
+    public function testOnlyNeedToAddDestinationToYamlConfiguredNavigationItems()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: 'about.html'
+        YAML);
+
+        $this->runBootstrappers();
+
+        $configItems = config('hyde.navigation.custom');
+
+        $this->assertSame([
+            [
+                'destination' => 'about.html',
+                'label' => null,
+                'priority' => null,
+            ],
+        ], $configItems);
+
+        /** @var NavigationItem[] $navigationItems */
+        $navigationItems = NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
+
+        $this->assertCount(2, $navigationItems);
+        $this->assertContainsOnlyInstancesOf(NavigationItem::class, $navigationItems);
+
+        $this->assertSame('index.html', $navigationItems[0]->getLink());
+        $this->assertSame('Home', $navigationItems[0]->getLabel());
+        $this->assertSame(0, $navigationItems[0]->getPriority());
+
+        $this->assertSame('about.html', $navigationItems[1]->getLink());
+        $this->assertSame('about.html', $navigationItems[1]->getLabel()); // The label is automatically set to the destination.
+        $this->assertSame(500, $navigationItems[1]->getPriority());
+    }
+
     public function testNavigationItemsInTheYamlConfigCanBeResolvedToRoutes()
     {
         $this->file('hyde.yml', <<<'YAML'
