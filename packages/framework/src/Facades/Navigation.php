@@ -21,9 +21,10 @@ class Navigation
      * @param  string<\Hyde\Support\Models\RouteKey>|string  $destination  Route key, or an external URI.
      * @param  string|null  $label  If not provided, Hyde will try to get it from the route's connected page, or from the URL.
      * @param  int|null  $priority  If not provided, Hyde will try to get it from the route or the default priority of 500.
+     * @param  array<string, scalar>  $attributes  Additional attributes for the navigation item.
      */
-    public static function item(string $destination, ?string $label = null, ?int $priority = null): array
+    public static function item(string $destination, ?string $label = null, ?int $priority = null, array $attributes = []): array
     {
-        return compact('destination', 'label', 'priority');
+        return compact('destination', 'label', 'priority', 'attributes');
     }
 }
