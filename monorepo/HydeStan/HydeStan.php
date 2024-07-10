@@ -46,7 +46,7 @@ final class HydeStan
 
         $this->console = new Console();
 
-        $this->console->info(sprintf('HydeStan is running!'));
+        $this->console->info('HydeStan is running!');
         $this->console->newline();
     }
 
