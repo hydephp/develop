@@ -73,10 +73,11 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             '<link rel="stylesheet" href="media/app.css">',
             '<a href="index.html"',
             '<a href="docs/index.html"',
-            '<a href="root.html" aria-current="page"',
+            '<a href="root.html"',
             '<a href="root1.html"',
             '<a href="nested/level1.html"',
             '<a href="nested/level1b.html"',
+            'aria-current="page"',
         ]);
 
         $this->assertSee('nested/level1', [
@@ -85,8 +86,9 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
             '<a href="../docs/index.html"',
             '<a href="../root.html"',
             '<a href="../root1.html"',
-            '<a href="../nested/level1.html" aria-current="page"',
+            '<a href="../nested/level1.html"',
             '<a href="../nested/level1b.html"',
+            'aria-current="page"'
         ]);
 
         $this->assertSee('docs/index', [
