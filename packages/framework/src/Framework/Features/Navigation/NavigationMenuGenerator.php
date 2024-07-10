@@ -81,8 +81,8 @@ class NavigationMenuGenerator
                 $this->items->push(NavigationItem::create(DocumentationPage::home()));
             }
         } else {
-            collect(Config::getArray('hyde.navigation.custom', []))->each(
-                /** @param array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>} $item */ function (array $item): void {
+            collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $item): void {
+                /** @var array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>} $item */
                 // Since these were added explicitly by the user, we can assume they should always be shown
                 $this->items->push(NavigationItem::create($item['destination'], $item['label'] ?? null, $item['priority'] ?? null, $item['attributes'] ?? []));
             });
