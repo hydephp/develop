@@ -9,6 +9,7 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
 use Stringable;
+use Illuminate\View\ComponentAttributeBag;
 
 use function is_string;
 
@@ -120,8 +121,8 @@ class NavigationItem implements Stringable
         return [$destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT];
     }
 
-    public function getAttributes(): array
+    public function getAttributes(): ComponentAttributeBag
     {
-        return $this->attributes;
+        return new ComponentAttributeBag($this->attributes);
     }
 }
