@@ -6,6 +6,7 @@ namespace Hyde\Foundation\Internal;
 
 use Throwable;
 use Illuminate\Support\Arr;
+use Hyde\Facades\Navigation;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
 use Hyde\Framework\Features\Navigation\NavigationItem;
@@ -88,8 +89,8 @@ class LoadYamlConfiguration
      */
     protected function parseNavigationItems(array $items): array
     {
-        return Arr::map($items, function (array $item): NavigationItem {
-            return NavigationItem::create($item['destination'], $item['label'], $item['priority']);
+        return Arr::map($items, function (array $item): array {
+            return Navigation::item($item['destination'], $item['label'], $item['priority']);
         });
     }
 }

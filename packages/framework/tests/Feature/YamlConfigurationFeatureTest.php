@@ -8,7 +8,9 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Env;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
+use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
  * Test the Yaml configuration feature.
@@ -476,22 +478,45 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->runBootstrappers();
 
-        $navigationItems = config('hyde.navigation.custom');
+        $configItems = config('hyde.navigation.custom');
 
-        $this->assertCount(3, $navigationItems);
+        $this->assertSame([
+            [
+                'destination' => 'https://example.com',
+                'label' => 'Example',
+                'priority' => 100,
+            ], [
+                'destination' => 'about',
+                'label' => 'About Us',
+                'priority' => 200,
+            ], [
+                'destination' => 'contact',
+                'label' => 'Contact',
+                'priority' => 300,
+            ],
+        ], $configItems);
+
+        /** @var NavigationItem[] $navigationItems */
+        $navigationItems = NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
+
+        $this->assertCount(4, $navigationItems);
         $this->assertContainsOnlyInstancesOf(NavigationItem::class, $navigationItems);
 
-        $this->assertSame('https://example.com', $navigationItems[0]->destination);
-        $this->assertSame('Example', $navigationItems[0]->label);
-        $this->assertSame(100, $navigationItems[0]->priority);
+        $this->assertSame('index.html', $navigationItems[0]->getLink());
+        $this->assertSame('Home', $navigationItems[0]->getLabel());
+        $this->assertSame(0, $navigationItems[0]->getPriority());
 
-        $this->assertSame('about', $navigationItems[1]->destination);
-        $this->assertSame('About Us', $navigationItems[1]->label);
-        $this->assertSame(200, $navigationItems[1]->priority);
+        $this->assertSame('https://example.com', $navigationItems[1]->getLink());
+        $this->assertSame('Example', $navigationItems[1]->getLabel());
+        $this->assertSame(100, $navigationItems[1]->getPriority());
 
-        $this->assertSame('contact', $navigationItems[2]->destination);
-        $this->assertSame('Contact', $navigationItems[2]->label);
-        $this->assertSame(300, $navigationItems[2]->priority);
+        $this->assertSame('about', $navigationItems[2]->getLink());
+        $this->assertSame('About Us', $navigationItems[2]->getLabel());
+        $this->assertSame(200, $navigationItems[2]->getPriority());
+
+        $this->assertSame('contact', $navigationItems[3]->getLink());
+        $this->assertSame('Contact', $navigationItems[3]->getLabel());
+        $this->assertSame(300, $navigationItems[3]->getPriority());
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
