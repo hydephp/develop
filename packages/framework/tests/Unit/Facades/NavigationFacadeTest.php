@@ -33,4 +33,15 @@ class NavigationFacadeTest extends UnitTestCase
             'priority' => null,
         ], $item);
     }
+
+    public function testItemWithUrl()
+    {
+        $item = Navigation::item('https://example.com', 'External', 200);
+
+        $this->assertSame([
+            'destination' => 'https://example.com',
+            'label' => 'External',
+            'priority' => 200,
+        ], $item);
+    }
 }
