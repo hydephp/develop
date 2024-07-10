@@ -102,7 +102,7 @@ class PostAuthor implements Stringable, SerializableContract
         ], $data));
     }
 
-    /**  Get a Post Author instance by username, or null if not found. */
+    /** Get a Post Author instance by username, or null if not found. */
     public static function get(string $username): ?static
     {
         return static::all()->get(static::normalizeUsername($username));
