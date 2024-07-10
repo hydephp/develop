@@ -152,6 +152,21 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->getItems());
     }
 
+    public function testCanAddCustomLinksInConfigWithExtraAttributes()
+    {
+        config(['hyde.navigation.custom' => [Navigation::item('foo', 'Foo', 100, ['class' => 'foo'])]]);
+
+        $menu = $this->createNavigationMenu();
+
+        $expected = collect([
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('foo', 'Foo', 100, ['class' => 'foo']),
+        ]);
+
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
+    }
+
     public function testDuplicatesAreNotRemovedWhenAddingInConfig()
     {
         config(['hyde.navigation.custom' => [
