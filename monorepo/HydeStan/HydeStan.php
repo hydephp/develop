@@ -120,32 +120,12 @@ final class HydeStan
 
     private function getFiles(): array
     {
-        $files = [];
-
-        $directory = new RecursiveDirectoryIterator(BASE_PATH.'/src');
-        $iterator = new RecursiveIteratorIterator($directory);
-        $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
-
-        foreach ($regex as $file) {
-            $files[] = substr($file[0], strlen(BASE_PATH) + 1);
-        }
-
-        return $files;
+        return recursiveFileFinder('src');
     }
 
     private function getTestFiles(): array
     {
-        $files = [];
-
-        $directory = new RecursiveDirectoryIterator(BASE_PATH.'/tests');
-        $iterator = new RecursiveIteratorIterator($directory);
-        $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
-
-        foreach ($regex as $file) {
-            $files[] = substr($file[0], strlen(BASE_PATH) + 1);
-        }
-
-        return $files;
+        return recursiveFileFinder('tests');
     }
 
     private function analyseFile(string $file, string $contents): void

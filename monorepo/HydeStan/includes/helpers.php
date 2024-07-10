@@ -59,3 +59,18 @@ function fileLink(string $file, ?int $line = null): string
 
     return str_replace('\\', '/', $path);
 }
+
+function recursiveFileFinder(string $directory): array
+{
+    $files = [];
+
+    $directory = new RecursiveDirectoryIterator(BASE_PATH.'/'.$directory);
+    $iterator = new RecursiveIteratorIterator($directory);
+    $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+
+    foreach ($regex as $file) {
+        $files[] = substr($file[0], strlen(BASE_PATH) + 1);
+    }
+
+    return $files;
+}
