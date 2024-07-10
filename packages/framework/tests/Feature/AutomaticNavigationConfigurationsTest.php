@@ -28,6 +28,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  *
  * @see \Hyde\Framework\Testing\Unit\Views\NavigationHtmlLayoutsTest
  *
+ * @covers \Hyde\Facades\Navigation
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
