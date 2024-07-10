@@ -47,6 +47,7 @@ class LoadYamlConfiguration
     {
         foreach ($this->yaml->getData() as $namespace => $data) {
             if ($namespace === 'hyde' && isset($data['authors'])) {
+                // Todo: We may not actually need this, since the parser in the kernel can handle this. See https://github.com/hydephp/develop/pull/1824/commits/6a076b831b3cf07341605c314f0c29bfa4c0a8da
                 $data['authors'] = $this->parseAuthors($data['authors']);
             }
 
