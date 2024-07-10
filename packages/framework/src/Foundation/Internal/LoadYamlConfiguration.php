@@ -96,7 +96,7 @@ class LoadYamlConfiguration
                 return Navigation::item(...$item);
             } catch (Throwable $exception) {
                 throw new InvalidConfigurationException(
-                    'Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.',
+                    'Invalid navigation item configuration detected the configuration file. Please double check the syntax.',
                     previous: $exception
                 );
             }

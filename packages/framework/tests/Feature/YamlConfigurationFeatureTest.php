@@ -670,7 +670,7 @@ class YamlConfigurationFeatureTest extends TestCase
         try {
             $this->runBootstrappers();
         } catch (InvalidConfigurationException $exception) {
-            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+            $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
         unlink('hyde.yml');
@@ -688,7 +688,7 @@ class YamlConfigurationFeatureTest extends TestCase
         try {
             $this->runBootstrappers();
         } catch (InvalidConfigurationException $exception) {
-            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+            $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
         unlink('hyde.yml');
@@ -707,7 +707,7 @@ class YamlConfigurationFeatureTest extends TestCase
         try {
             $this->runBootstrappers();
         } catch (InvalidConfigurationException $exception) {
-            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+            $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
         unlink('hyde.yml');
