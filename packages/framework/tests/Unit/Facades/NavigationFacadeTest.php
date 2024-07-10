@@ -12,7 +12,7 @@ use Hyde\Testing\UnitTestCase;
  */
 class NavigationFacadeTest extends UnitTestCase
 {
-    public function testItem(): void
+    public function testItem()
     {
         $item = Navigation::item('home', 'Home', 100);
 
@@ -23,7 +23,7 @@ class NavigationFacadeTest extends UnitTestCase
         ], $item);
     }
 
-    public function testItemWithOnlyDestination(): void
+    public function testItemWithOnlyDestination()
     {
         $item = Navigation::item('home');
 
