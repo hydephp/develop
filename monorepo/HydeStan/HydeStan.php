@@ -338,9 +338,11 @@ class NoTestReferenceAnalyser extends LineAnalyser
 
         if (str_starts_with($line, ' * @see') && str_ends_with($line, 'Test')) {
             AnalysisStatisticsContainer::analysedExpressions(1);
-            $this->fail(sprintf('Test class %s is referenced in %s:%s', trim(substr($line, 7)),
-                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file, $lineNumber + 1)
-            );
+            $this->fail(sprintf('Test class %s is referenced in %s:%s',
+                trim(substr($line, 7)),
+                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file,
+                $lineNumber + 1
+            ));
         }
     }
 }
