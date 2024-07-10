@@ -32,10 +32,11 @@ class NavigationItem implements Stringable
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or an external URI.
      * @param  string|null  $label  If not provided, Hyde will try to get it from the route's connected page, or from the URL.
      * @param  int|null  $priority  If not provided, Hyde will try to get it from the route or the default priority of 500.
+     * @param  array<string, scalar>  $attributes  Additional attributes for the navigation item.
      */
-    public function __construct(Route|string $destination, ?string $label = null, ?int $priority = null)
+    public function __construct(Route|string $destination, ?string $label = null, ?int $priority = null, array $attributes = [])
     {
-        [$this->destination, $this->label, $this->priority] = self::make($destination, $label, $priority);
+        [$this->destination, $this->label, $this->priority, $this->attributes] = self::make($destination, $label, $priority, $attributes);
     }
 
     /**
@@ -44,10 +45,11 @@ class NavigationItem implements Stringable
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or an external URI.
      * @param  string|null  $label  If not provided, Hyde will try to get it from the route's connected page, or from the URL.
      * @param  int|null  $priority  If not provided, Hyde will try to get it from the route or the default priority of 500.
+     * @param  array<string, scalar>  $attributes  Additional attributes for the navigation item.
      */
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null): static
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, array $attributes = []): static
     {
-        return new static(...self::make($destination, $label, $priority));
+        return new static(...self::make($destination, $label, $priority, $attributes));
     }
 
     /**
