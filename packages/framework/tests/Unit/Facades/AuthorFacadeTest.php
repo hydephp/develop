@@ -12,7 +12,7 @@ use Hyde\Testing\UnitTestCase;
 /**
  * @covers \Hyde\Facades\Author
  */
-class AuthorTest extends UnitTestCase
+class AuthorFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
