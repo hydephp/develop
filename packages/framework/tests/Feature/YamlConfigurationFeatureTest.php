@@ -583,6 +583,37 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame(250, $navigationItems[1]->getPriority());
     }
 
+    public function testExtraYamlNavigationItemFieldsAreIgnored()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: 'about'
+                extra: 'field'
+        YAML);
+
+        $this->runBootstrappers();
+
+        $configItems = config('hyde.navigation.custom');
+
+        $this->assertSame([
+            [
+                'destination' => 'about',
+                'label' => null,
+                'priority' => null,
+            ],
+        ], $configItems);
+
+        $navigationItems = NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
+
+        $this->assertCount(2, $navigationItems);
+
+        $this->assertSame('about', $navigationItems[1]->getLink());
+        $this->assertSame('about', $navigationItems[1]->getLabel());
+        $this->assertSame(500, $navigationItems[1]->getPriority());
+    }
+
     public function testTypeErrorsInNavigationYamlConfigAreRethrownMoreHelpfully()
     {
         file_put_contents('hyde.yml', <<<'YAML'
