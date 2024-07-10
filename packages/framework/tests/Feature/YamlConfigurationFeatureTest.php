@@ -25,6 +25,16 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  */
 class YamlConfigurationFeatureTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        if (file_exists('hyde.yml')) {
+            // Clean up if a test failed to clean up after itself.
+            unlink('hyde.yml');
+        }
+    }
+
     protected function tearDown(): void
     {
         $this->clearEnvVars();
