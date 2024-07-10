@@ -103,8 +103,8 @@ class NavigationItem implements Stringable
         return Hyde::currentRoute()?->getLink() === $this->getLink();
     }
 
-    /** @return array{\Hyde\Support\Models\Route|string, string, int} */
-    protected static function make(Route|string $destination, ?string $label = null, ?int $priority = null): array
+    /** @return array{\Hyde\Support\Models\Route|string, string, int, array<string, scalar>} */
+    protected static function make(Route|string $destination, ?string $label = null, ?int $priority = null, array $attributes = []): array
     {
         // Automatically resolve the destination if it's a route key.
         if (is_string($destination) && Routes::has($destination)) {
@@ -117,7 +117,7 @@ class NavigationItem implements Stringable
             $priority ??= $destination->getPage()->navigationMenuPriority();
         }
 
-        return [$destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT];
+        return [$destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT, $attributes];
     }
 
     /** @return array<string, scalar> */
