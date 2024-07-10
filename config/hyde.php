@@ -25,6 +25,7 @@
 use Hyde\Facades\Author;
 use Hyde\Facades\Meta;
 use Hyde\Enums\Feature;
+use Hyde\Facades\Navigation;
 
 return [
 
@@ -358,7 +359,7 @@ return [
         // To get started quickly, you can uncomment the defaults here.
         // See the documentation link above for more information.
         'custom' => [
-            // NavigationItem::create('https://github.com/hydephp/hyde', 'GitHub', 200),
+            // Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
         ],
 
         // How should pages in subdirectories be displayed in the menu?
