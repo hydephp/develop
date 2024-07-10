@@ -71,11 +71,6 @@ class PostAuthor implements Stringable, SerializableContract
      *
      * If your input is in the form of an array, you may rather want to use the `create` method.
      *
-     * @param  string  $username
-     * @param  string|null  $name
-     * @param  string|null  $website
-     * @param  string|null  $bio
-     * @param  string|null  $avatar
      * @param  array<string, string>  $socials
      */
     public function __construct(string $username, ?string $name = null, ?string $website = null, ?string $bio = null, ?string $avatar = null, ?array $socials = null)
