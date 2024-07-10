@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Desilva\Console\Console;
 
+require_once __DIR__.'/includes/contracts.php';
+
 /**
  * @internal
  */
@@ -228,30 +230,6 @@ final class HydeStan
     }
 }
 
-abstract class Analyser
-{
-    protected function fail(string $error): void
-    {
-        HydeStan::getInstance()->addError($error);
-    }
-}
-
-abstract class FileAnalyser extends Analyser implements FileAnalyserContract
-{
-    public function __construct(protected string $file, protected string $contents)
-    {
-        //
-    }
-}
-
-abstract class LineAnalyser extends Analyser implements LineAnalyserContract
-{
-    public function __construct(protected string $file, protected int $lineNumber, protected string $line)
-    {
-        //
-    }
-}
-
 class NoFixMeAnalyser extends FileAnalyser
 {
     public function run(string $file, string $contents): void
@@ -424,20 +402,6 @@ class AnalysisStatisticsContainer
     {
         return (int) round(self::$expressionsAnalysed);
     }
-}
-
-interface FileAnalyserContract
-{
-    public function __construct(string $file, string $contents);
-
-    public function run(string $file, string $contents): void;
-}
-
-interface LineAnalyserContract
-{
-    public function __construct(string $file, int $lineNumber, string $line);
-
-    public function run(string $file, int $lineNumber, string $line): void;
 }
 
 function check_str_contains_any(array $searches, string $line): bool
