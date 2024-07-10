@@ -14,6 +14,7 @@ use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
@@ -225,8 +226,8 @@ class NavigationMenuTest extends TestCase
 
     public function testInvalidCustomNavigationConfigurationThrowsException()
     {
-        $this->expectException(\Error::class);
-        // $this->expectExceptionMessage('Invalid configuration for custom navigation item');
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Invalid navigation item configuration detected the configuration file. Please double check the syntax.');
 
         config(['hyde.navigation.custom' => [
             ['invalid_key' => 'value'],

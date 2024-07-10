@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
+use Throwable;
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function filled;
 use function assert;
@@ -83,8 +85,15 @@ class NavigationMenuGenerator
         } else {
             collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $item): void {
                 /** @var array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>} $item */
-                $item = NavigationItem::create(...$item);
-             
+                try {
+                    $item = NavigationItem::create(...$item);
+                } catch (Throwable $exception) {
+                    throw new InvalidConfigurationException(
+                        'Invalid navigation item configuration detected the configuration file. Please double check the syntax.',
+                        previous: $exception
+                    );
+                }
+
                 // Since these were added explicitly by the user, we can assume they should always be shown
                 $this->items->push($item);
             });
