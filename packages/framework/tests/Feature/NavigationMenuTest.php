@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
+use Hyde\Facades\Navigation;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
@@ -91,9 +92,39 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->getItems());
     }
 
+    public function testCanAddCustomLinksInConfig()
+    {
+        config(['hyde.navigation.custom' => [Navigation::item('foo', 'Foo')]]);
+
+        $menu = $this->createNavigationMenu();
+
+        $expected = collect([
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('foo', 'Foo'),
+        ]);
+
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
+    }
+
+    public function testCanAddCustomLinksInConfigAsArray()
+    {
+        config(['hyde.navigation.custom' => [['destination' => 'foo', 'label' => 'Foo']]]);
+
+        $menu = $this->createNavigationMenu();
+
+        $expected = collect([
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('foo', 'Foo'),
+        ]);
+
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
+    }
+
     public function testExternalLinkCanBeAddedInConfig()
     {
-        config(['hyde.navigation.custom' => [NavigationItem::create('https://example.com', 'foo')]]);
+        config(['hyde.navigation.custom' => [Navigation::item('https://example.com', 'foo')]]);
 
         $menu = $this->createNavigationMenu();
 
@@ -108,7 +139,7 @@ class NavigationMenuTest extends TestCase
 
     public function testPathLinkCanBeAddedInConfig()
     {
-        config(['hyde.navigation.custom' => [NavigationItem::create('foo', 'foo')]]);
+        config(['hyde.navigation.custom' => [Navigation::item('foo', 'foo')]]);
 
         $menu = $this->createNavigationMenu();
 
@@ -124,8 +155,8 @@ class NavigationMenuTest extends TestCase
     public function testDuplicatesAreNotRemovedWhenAddingInConfig()
     {
         config(['hyde.navigation.custom' => [
-            NavigationItem::create('foo', 'foo'),
-            NavigationItem::create('foo', 'foo'),
+            Navigation::item('foo', 'foo'),
+            Navigation::item('foo', 'foo'),
         ]]);
 
         $menu = $this->createNavigationMenu();
@@ -143,8 +174,8 @@ class NavigationMenuTest extends TestCase
     public function testDuplicatesAreNotRemovedWhenAddingInConfigRegardlessOfDestination()
     {
         config(['hyde.navigation.custom' => [
-            NavigationItem::create('foo', 'foo'),
-            NavigationItem::create('bar', 'foo'),
+            Navigation::item('foo', 'foo'),
+            Navigation::item('bar', 'foo'),
         ]]);
 
         $menu = $this->createNavigationMenu();
@@ -163,7 +194,7 @@ class NavigationMenuTest extends TestCase
     {
         $this->file('_pages/foo.md');
 
-        config(['hyde.navigation.custom' => [NavigationItem::create('bar', 'Foo')]]);
+        config(['hyde.navigation.custom' => [Navigation::item('bar', 'Foo')]]);
 
         $menu = $this->createNavigationMenu();
 
