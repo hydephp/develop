@@ -244,6 +244,8 @@ class NoHtmlExtensionInHydePHPLinksAnalyser extends LineAnalyser
         AnalysisStatisticsContainer::analysedExpressions(1);
 
         if (str_contains($line, 'https://hydephp.com/') && str_contains($line, '.html')) {
+            AnalysisStatisticsContainer::analysedExpressions(1);
+
             $this->fail(sprintf('HTML extension used in URL at %s',
                 fileLink(BASE_PATH.'/packages/framework/'.$file, $lineNumber + 1)
             ));
