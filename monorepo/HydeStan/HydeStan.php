@@ -244,9 +244,8 @@ class NoHtmlExtensionInHydePHPLinksAnalyser extends LineAnalyser
         AnalysisStatisticsContainer::analysedExpressions(1);
 
         if (str_contains($line, 'https://hydephp.com/') && str_contains($line, '.html')) {
-            $this->fail(sprintf('HTML extension used in URL at %s:%s',
-                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file,
-                $lineNumber + 1
+            $this->fail(sprintf('HTML extension used in URL at %s',
+                fileLink(BASE_PATH.'/packages/framework/'.$file, $lineNumber + 1)
             ));
 
             HydeStan::addActionsMessage('warning', $file, $lineNumber + 1, 'HydeStan: NoHtmlExtensionError', 'URL contains .html extension. Consider removing it.');
@@ -261,9 +260,8 @@ class NoExtraWhitespaceInCompressedPhpDocAnalyser extends LineAnalyser
         AnalysisStatisticsContainer::analysedExpressions(1);
 
         if (str_contains($line, '/**  ')) {
-            $this->fail(sprintf('Extra whitespace in compressed PHPDoc comment at %s:%s',
-                realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file,
-                $lineNumber + 1
+            $this->fail(sprintf('Extra whitespace in compressed PHPDoc comment at %s',
+                fileLink(BASE_PATH.'/packages/framework/'.$file, $lineNumber + 1)
             ));
 
             HydeStan::addActionsMessage('warning', $file, $lineNumber + 1, 'HydeStan: ExtraWhitespaceInPhpDocError', 'Extra whitespace found in compressed PHPDoc comment.');
