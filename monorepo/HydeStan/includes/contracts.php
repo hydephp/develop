@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 interface FileAnalyserContract
 {
     public function __construct(string $file, string $contents);
