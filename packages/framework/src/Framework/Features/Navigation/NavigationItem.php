@@ -23,6 +23,8 @@ class NavigationItem implements Stringable
     protected string $label;
     protected int $priority;
 
+    protected array $attributes = [];
+
     /**
      * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
      *
