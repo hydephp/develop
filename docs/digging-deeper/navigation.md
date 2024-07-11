@@ -290,9 +290,9 @@ This has the great benefit of matching the navigation menu layout with the file 
 
 ```shell
 _pages/
-  01-home.md # Gets priority 1, putting it first (will be saved to _site/index.html)
-  02-about.md # Gets priority 2, putting it second (will be saved to _site/about.html)
-  03-contact.md # Gets priority 3, putting it third (will be saved to _site/contact.html)
+  01-home.md     # Priority: 1 (saved to _site/index.html)
+  02-about.md    # Priority: 2 (saved to _site/about.html)
+  03-contact.md  # Priority: 3 (saved to _site/contact.html)
 ```
 
 Hyde will then parse the number from the filename and use it as the priority for the page in the navigation menus.
