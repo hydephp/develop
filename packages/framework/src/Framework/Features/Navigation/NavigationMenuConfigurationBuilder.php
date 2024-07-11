@@ -78,7 +78,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     }
 
     /**
-     * Set the display mode for subdirectories.
+     * Set the display mode for pages in subdirectories.
      *
      * You can choose between 'dropdown', 'flat', and 'hidden'.
      *
