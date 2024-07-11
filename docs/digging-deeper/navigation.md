@@ -338,7 +338,7 @@ If you're not interested in using numerical prefix ordering, you can disable it 
 ```
 
 
-## Digging Deeper into the internals
+## Digging Deeper into the Internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally. Here is a high level overview,
 but you can find more detailed information in the [Navigation API](navigation-api) documentation.
