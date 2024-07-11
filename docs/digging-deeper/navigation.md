@@ -114,7 +114,7 @@ When customizing the main navigation menu, use the [route key](core-concepts#rou
 
 ### Changing Priorities
 
-The `navigation.order` and `sidebar.order` settings allow you to customize the order of the pages in the navigation menus.
+The `navigation.order` and `sidebar.order` settings allow you to customize the order of pages in the navigation menus.
 
 #### Basic Priority Syntax
 
