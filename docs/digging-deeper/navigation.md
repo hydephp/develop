@@ -373,7 +373,6 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
 
 ## The Navigation API
 
-If you want to interact with the site navigation programmatically, or if you want to create complex custom menus, you can do so through the new Navigation API.
-For most cases you don't need this, as Hyde creates the navigation for you. But it can be useful for advanced users and package developers.
+For advanced users and package developers, Hyde offers a Navigation API for programmatic interaction with site navigation. This API consists of a set of PHP classes allowing fluent interaction with navigation menus.
 
-The Navigation API consists of a set of PHP classes, allowing you to fluently interact with the navigation menus. You can learn more about the API in the [Navigation API](navigation-api) documentation.
+For more detailed information about the API, refer to the [Navigation API](navigation-api) documentation.
