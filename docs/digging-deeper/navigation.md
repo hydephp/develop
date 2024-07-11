@@ -18,13 +18,11 @@ There are two types of navigation menus in Hyde:
 
 This documentation will guide you through the customization process. To learn even more about sidebars, visit the [Documentation Pages](documentation-pages) documentation.
 
-
 ### Internal Structure Overview
 
 Internally, both navigation menu types extend the same base class, and thus share core functionality. This means the configuration process is similar for both types, making the documentation applicable to both.
 
 For a deeper understanding of the internal workings, refer to the [Digging Deeper](#digging-deeper-into-the-internals) section.
-
 
 ### Understanding Priorities
 
