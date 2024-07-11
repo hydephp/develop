@@ -8,7 +8,7 @@ use ArrayObject;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
- * Configuration helper method to define the navigation menu configuration with better IDE support.
+ * Configuration helper class to define the navigation menu configuration with better IDE support.
  *
  * The configured object will be cast to an array that will be used by the framework to set the config data.
  *
