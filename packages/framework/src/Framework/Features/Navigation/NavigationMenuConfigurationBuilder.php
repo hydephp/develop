@@ -16,8 +16,6 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayable
 {
-    protected array $config = [];
-
     /**
      * Set the order of the navigation items.
      *
@@ -26,7 +24,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function order(array $order): static
     {
-        $this->config['order'] = $order;
+        $this['order'] = $order;
 
         return $this;
     }
@@ -39,7 +37,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function labels(array $labels): static
     {
-        $this->config['labels'] = $labels;
+        $this['labels'] = $labels;
 
         return $this;
     }
@@ -52,7 +50,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function exclude(array $exclude): static
     {
-        $this->config['exclude'] = $exclude;
+        $this['exclude'] = $exclude;
 
         return $this;
     }
@@ -65,7 +63,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function custom(array $custom): static
     {
-        $this->config['custom'] = $custom;
+        $this['custom'] = $custom;
 
         return $this;
     }
@@ -78,13 +76,13 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function subdirectoryDisplay(string $displayMode): static
     {
-        $this->config['subdirectory_display'] = $displayMode;
+        $this['subdirectory_display'] = $displayMode;
 
         return $this;
     }
 
     public function toArray(): array
     {
-        return $this->config;
+        return $this->getArrayCopy();
     }
 }

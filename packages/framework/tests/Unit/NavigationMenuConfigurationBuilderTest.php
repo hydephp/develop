@@ -139,10 +139,15 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         $this->assertInstanceOf(\Illuminate\Contracts\Support\Arrayable::class, $this->builder);
     }
 
-    public function testArrayObjectMethods()
+    public function testArrayObjectBehavior()
     {
         $this->builder->order(['index' => 0]);
+
+        // ArrayObject methods now operate on the configuration data
         $this->assertCount(1, $this->builder);
         $this->assertEquals(['order' => ['index' => 0]], $this->builder->getArrayCopy());
+
+        // toArray() method should return the same result
+        $this->assertEquals(['order' => ['index' => 0]], $this->builder->toArray());
     }
 }
