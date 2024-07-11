@@ -297,7 +297,7 @@ _pages/
 
 As you can seem Hyde parses the number from the filename and uses it as the priority for the page in navigation menus, while stripping the prefix from the route key.
 
-### Keep in mind
+### Important Notes
 
 Here are some things to keep in mind, especially if you mix numerical prefix ordering with other ordering methods:
 
