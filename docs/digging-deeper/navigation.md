@@ -32,7 +32,7 @@ All navigation menu items have an internal priority value determining their orde
 
 ### Customization Options
 
-Here is a quick overview of what you might want to customize in your navigation menus:
+Here's an overview of what you can customize in your navigation menus:
 
 - Navigation menu item labels - the text that appears in the menu links
 - Navigation menu item priority - control the order in which the links appear
