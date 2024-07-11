@@ -148,16 +148,16 @@ It may be useful to know that we internally will assign a priority calculated ac
 
 #### Explicit Priority Syntax
 
-You can also specify explicit priorities by adding a value to the array key:
+You can also specify explicit priorities by adding a value to the array keys. We'll then use these exact values as the priorities.
 
 ```php
 // filepath: config/hyde.php
 
 'navigation' => [
     'order' => [
-        'home' => 10, // Gets priority 10
-        'about' => 15, // Gets priority 15
-        'contact' => 20, // Gets priority 20
+        'home' => 10,
+        'about' => 15,
+        'contact' => 20,
     ]
 ]
 ```
@@ -167,9 +167,9 @@ You can also specify explicit priorities by adding a value to the array key:
 
 'sidebar' => [
     'order' => [
-        'readme' => 10, // Gets priority 10
-        'installation' => 15, // Gets priority 15
-        'getting-started' => 20, // Gets priority 20
+        'readme' => 10,
+        'installation' => 15,
+        'getting-started' => 20,
     ]
 ]
 ```
