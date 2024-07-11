@@ -101,6 +101,7 @@ navigation:
     group: "My Group"
 ```
 
+**Note:** Sidebar group keys are normalized, so `My Group` and `my-group` are equivalent.
 
 ## Config File Configuration
 
