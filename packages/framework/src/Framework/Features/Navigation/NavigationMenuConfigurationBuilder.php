@@ -26,6 +26,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Set the order of the navigation items.
      *
+     * @param array $order
      * @return $this
      */
     public function order(array $order): static
@@ -36,6 +37,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Set the labels for the navigation items.
      *
+     * @param array $labels
      * @return $this
      */
     public function labels(array $labels): static
@@ -46,6 +48,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Exclude certain items from the navigation.
      *
+     * @param array $exclude
      * @return $this
      */
     public function exclude(array $exclude): static
@@ -56,6 +59,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Add custom items to the navigation.
      *
+     * @param array $custom
      * @return $this
      */
     public function custom(array $custom): static
@@ -66,6 +70,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Set the display mode for subdirectories.
      *
+     * @param string $displayMode
      * @return $this
      */
     public function subdirectoryDisplay(string $displayMode): static
