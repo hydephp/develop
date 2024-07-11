@@ -127,9 +127,9 @@ It may be useful to know that we internally will assign a priority calculated ac
 
 'navigation' => [
     'order' => [
-        'home', // Gets priority 500
-        'about', // Gets priority 501
-        'contact', // Gets priority 502
+        'home', // Priority: 500
+        'about', // Priority: 501
+        'contact', // Priority: 502
     ]
 ]
 ```
@@ -139,9 +139,9 @@ It may be useful to know that we internally will assign a priority calculated ac
 
 'sidebar' => [
     'order' => [
-        'readme', // Gets priority 500
-        'installation', // Gets priority 501
-        'getting-started', // Gets priority 502
+        'readme', // Priority: 500
+        'installation', // Priority: 501
+        'getting-started', // Priority: 502
     ]
 ]
 ```
