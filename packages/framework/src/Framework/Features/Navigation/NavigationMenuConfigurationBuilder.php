@@ -20,6 +20,8 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Set the order of the navigation items.
      *
+     * Either define a map of route keys to priorities, or just a list of route keys and we'll try to match that order.
+     *
      * @param  array<string, int>|array<string>  $order
      * @return $this
      */
@@ -32,6 +34,8 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
 
     /**
      * Set the labels for the navigation items.
+     *
+     * Each key should be a route key, and the value should be the label to display.
      *
      * @param  array<string, string>  $labels
      * @return $this
@@ -46,6 +50,8 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Exclude certain items from the navigation.
      *
+     * Each item should be a route key for the page to exclude.
+     *
      * @param  array<string>  $exclude
      * @return $this
      */
@@ -59,6 +65,8 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Add custom items to the navigation.
      *
+     * @example `[Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200, ['target' => '_blank'])]`
+     *
      * @param  array<array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>}>  $custom
      * @return $this
      */
@@ -71,6 +79,8 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
 
     /**
      * Set the display mode for subdirectories.
+     *
+     * You can choose between 'dropdown', 'flat', and 'hidden'.
      *
      * @param  'dropdown'|'flat'|'hidden'  $displayMode
      * @return $this
