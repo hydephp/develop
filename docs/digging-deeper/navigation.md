@@ -238,7 +238,7 @@ use Hyde\Facades\Navigation;
 
 ### Configure Subdirectory Display
 
-Within the Hyde config you can configure how subdirectories should be displayed in the menu.
+You can configure how subdirectories should be displayed in the menu:
 
 ```php
 // filepath: config/hyde.php
@@ -247,9 +247,10 @@ Within the Hyde config you can configure how subdirectories should be displayed 
 ]
 ```
 
-Dropdown means that pages in subdirectories will be displayed in a dropdown menu,
-while `flat` means that pages in subdirectories will be displayed as individual items in the menu.
-Hidden means that pages in subdirectories will not be displayed in the menu at all.
+**Supported Options:**
+- `dropdown`: Pages in subdirectories are displayed in a dropdown menu
+- `hidden`: Pages in subdirectories are not displayed at all the menus
+- `flat`: Pages in subdirectories are displayed as individual items
 
 ### Automatic menu groups
 
