@@ -23,26 +23,41 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
         return $this->config;
     }
 
+    /**
+     * Set the order of the navigation items.
+     */
     public function order(array $order): static
     {
         // TODO: Implement order() method.
     }
 
+    /**
+     * Set the labels for the navigation items.
+     */
     public function labels(array $labels): static
     {
         // TODO: Implement labels() method.
     }
 
+    /**
+     * Exclude certain items from the navigation.
+     */
     public function exclude(array $exclude): static
     {
         // TODO: Implement exclude() method.
     }
 
+    /**
+     * Add custom items to the navigation.
+     */
     public function custom(array $custom): static
     {
         // TODO: Implement custom() method.
     }
 
+    /**
+     * Set the display mode for subdirectories.
+     */
     public function subdirectoryDisplay(string $displayMode): static
     {
         // TODO: Implement subdirectoryDisplay() method.
