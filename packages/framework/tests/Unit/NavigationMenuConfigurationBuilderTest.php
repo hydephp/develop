@@ -146,8 +146,12 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
 
         $this->assertCount(1, $this->builder);
         $this->assertSame(['order' => ['index' => 0]], $this->builder->getArrayCopy());
+    }
 
-        // toArray() method should return the same result
+    public function testToArrayMethodReturnsSameResultAsArrayObject()
+    {
+        $this->builder->order(['index' => 0]);
+
         $this->assertSame(['order' => ['index' => 0]], $this->builder->toArray());
     }
 }
