@@ -41,7 +41,7 @@ Here's an overview of what you can customize in your navigation menus:
 
 ### Customization Methods
 
-Hyde provides a few different ways to customize the navigation menus, depending on what you prefer.
+Hyde provides multiple ways to customize navigation menus to suit your needs:
 
 Specifying the data in the front matter will override any dynamically inferred or config-defined priority.
 While this is useful for one-offs, it can make it harder to reorder items later on as you can't see the whole picture at once.
