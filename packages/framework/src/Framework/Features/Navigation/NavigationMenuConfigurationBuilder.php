@@ -20,7 +20,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
 
     public function __construct()
     {
-        parent::__construct($this->config);
+        parent::__construct($this->config, ArrayObject::ARRAY_AS_PROPS | ArrayObject::STD_PROP_LIST);
     }
 
     /**
