@@ -19,7 +19,7 @@ There are two types of navigation menus in Hyde:
 This documentation will guide you through the customization process. To learn even more about sidebars, visit the [Documentation Pages](documentation-pages) documentation.
 
 
-### Quick primer on the internals
+### Internal Structure Overview
 
 It may be beneficial to understand the internal workings of the navigation menus to take full advantage of the options.
 
@@ -28,13 +28,13 @@ they are configured is very similar, making the documentation here applicable to
 
 See the [Digging Deeper](#digging-deeper-into-the-internals) section of this page if you want the full scoop on the internals!
 
-### Primer on priorities
+### Understanding Priorities
 
 All navigation menu items have an internal priority value that determines their order in the navigation.
 Lower values mean that the item will be higher up in the menu. The default for pages is `999` which puts them last.
 However, some pages are autoconfigured to have a lower priority, for example, the `index` page defaults to a priority of `0`.
 
-### What to customize?
+### Customization Options
 
 Here is a quick overview of what you might want to customize in your navigation menus:
 
@@ -43,7 +43,7 @@ Here is a quick overview of what you might want to customize in your navigation 
 - Navigation menu item visibility - control if pages may show up in the menus
 - Navigation menu item grouping - group pages together in dropdowns
 
-### How and where to customize?
+### Customization Methods
 
 Hyde provides a few different ways to customize the navigation menus, depending on what you prefer.
 
