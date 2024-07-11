@@ -189,7 +189,7 @@ From the Hyde config you can override the label of navigation links using the by
 This is not yet supported for the sidebar, but will be in the future.
 
 ```php
-// filepath config/hyde.php
+// filepath: config/hyde.php
 'navigation' => [
     'labels' => [
         'index' => 'Start',
@@ -204,7 +204,7 @@ Sometimes, especially if you have a lot of pages, you may want to prevent links 
 To remove items from being automatically added, simply add the page's route key to the blacklist.
 
 ```php
-// filepath config/hyde.php
+// filepath: config/hyde.php
 'navigation' => [
     'exclude' => [
         '404'
@@ -220,7 +220,7 @@ When linking to an external site, you should use the `NavigationItem::create()` 
 destination and label, both required. The third argument is the priority, which is optional, and defaults to `500`.
 
 ```php
-// filepath config/hyde.php
+// filepath: config/hyde.php
 use Hyde\Framework\Features\Navigation\NavigationItem;
 
 'navigation' => [
@@ -241,7 +241,7 @@ Simplified, this will then be rendered as follows:
 Within the Hyde config you can configure how subdirectories should be displayed in the menu.
 
 ```php
-// filepath config/hyde.php
+// filepath: config/hyde.php
 'navigation' => [
     'subdirectory_display' => 'dropdown'
 ]
