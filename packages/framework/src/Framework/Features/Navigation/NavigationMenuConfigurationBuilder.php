@@ -26,7 +26,9 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function order(array $order): static
     {
-        // TODO: Implement order() method.
+        $this->config['order'] = $order;
+
+        return $this;
     }
 
     /**
@@ -37,7 +39,9 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function labels(array $labels): static
     {
-        // TODO: Implement labels() method.
+        $this->config['labels'] = $labels;
+
+        return $this;
     }
 
     /**
@@ -48,7 +52,9 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function exclude(array $exclude): static
     {
-        // TODO: Implement exclude() method.
+        $this->config['exclude'] = $exclude;
+
+        return $this;
     }
 
     /**
@@ -59,7 +65,9 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function custom(array $custom): static
     {
-        // TODO: Implement custom() method.
+        $this->config['custom'] = $custom;
+
+        return $this;
     }
 
     /**
@@ -70,7 +78,9 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function subdirectoryDisplay(string $displayMode): static
     {
-        // TODO: Implement subdirectoryDisplay() method.
+        $this->config['subdirectory_display'] = $displayMode;
+
+        return $this;
     }
 
     public function toArray(): array
