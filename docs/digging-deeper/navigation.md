@@ -307,11 +307,10 @@ As you can seem Hyde parses the number from the filename and uses it as the prio
 
 ### Using Numerical Prefix Ordering in Subdirectories
 
-This feature integrates well with automatic subdirectory-based grouping for navigation menu dropdowns and documentation sidebar categories:
+This feature integrates well with automatic subdirectory-based navigation grouping. Here are two useful tips:
 
-This integration has two main features to consider:
-1. You can use numerical prefixes in subdirectories to control the order of dropdowns.
-2. The ordering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
+1. You can use numerical prefixes in subdirectories to control the dropdown/sidebar order.
+2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
 
 Here is an example structure of how could organize a documentation site:
 
