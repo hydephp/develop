@@ -13,5 +13,5 @@ namespace Hyde\Framework\Features\Navigation;
  */
 class NavigationMenuConfigurationBuilder
 {
-    //
+    protected array $config = [];
 }
