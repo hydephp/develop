@@ -14,8 +14,8 @@ This documentation will guide you through the customization process.
 
 There are two types of navigation menus in Hyde:
 
-- **Primary Navigation Menu**: This is the main navigation menu that appears on most pages of your site.
-- **Documentation Sidebar**: This is a sidebar that appears on documentation pages and contains links to other documentation pages.
+1. **Primary Navigation Menu**: The main navigation menu appearing on most pages of your site. Unique features include dropdowns for subdirectories, depending on configuration.
+2. **Documentation Sidebar**: The sidebar on documentation pages with links to other documentation pages. Unique features include automatic grouping based on subdirectories.
 
 
 Keep on reading to learn how! To learn even more about the sidebars, visit the [Documentation Pages](documentation-pages) documentation.
