@@ -135,6 +135,13 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         ], $result);
     }
 
+    public function testHideSubdirectoriesFromNavigationShorthand()
+    {
+        $result = $this->builder->hideSubdirectoriesFromNavigation()->toArray();
+
+        $this->assertSame('hidden', $result['subdirectory_display']);
+    }
+
     public function testArrayableInterface()
     {
         $this->assertInstanceOf(Arrayable::class, $this->builder);
