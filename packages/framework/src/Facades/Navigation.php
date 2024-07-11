@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Framework\Features\Navigation\NavigationMenuConfigurationBuilder;
+
 use function compact;
 
 /**
