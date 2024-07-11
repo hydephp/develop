@@ -36,7 +36,7 @@ class Navigation
      *
      * @experimental This method is experimental and may change in the future.
      */
-    public static function builder()
+    public static function define()
     {
         //
     }
