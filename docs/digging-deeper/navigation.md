@@ -105,7 +105,7 @@ navigation:
 
 ## Config File Configuration
 
-Next up, let's look at how to customize the navigation menus using the config files.
+Let's explore how to customize navigation menus using config files:
 
 - To customize the navigation menu, use the setting `navigation.order` in the `hyde.php` config.
 - When customizing the navigation menu, you should use the [route key](core-concepts#route-keys) of the page.
