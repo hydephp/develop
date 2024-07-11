@@ -29,6 +29,13 @@ class Navigation
         return compact('destination', 'label', 'priority', 'attributes');
     }
 
+    /**
+     * Configuration helper method to define the navigation menu configuration with better IDE support.
+     *
+     * The returned object will then be cast to an array that will be used by the framework to set the config data.
+     *
+     * @experimental This method is experimental and may change in the future.
+     */
     public static function builder()
     {
         //
