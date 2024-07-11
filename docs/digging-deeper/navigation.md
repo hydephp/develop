@@ -220,11 +220,15 @@ You can easily add custom navigation menu links in the Hyde config:
 
 ```php
 // filepath: config/hyde.php
-use Hyde\Framework\Features\Navigation\NavigationItem;
+use Hyde\Facades\Navigation;
 
 'navigation' => [
     'custom' => [
-        NavigationItem::create('https://github.com/hydephp/hyde', 'GitHub', 200),
+        Navigation::item(
+            destination: 'https://github.com/hydephp/hyde', // Required
+            label: 'GitHub', // Optional, defaults to the destination value
+            priority: 200 // Optional, defaults to 500
+        ),
     ]
 ]
 ```
