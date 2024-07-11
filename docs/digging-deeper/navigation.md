@@ -70,9 +70,9 @@ You don't need to specify all the keys, only the ones you want to customize.
 ```yaml
 navigation:
     label: string  # The text to display
-    priority: int  # Order is also supported
-    hidden: bool   # Visible is also supported (but obviously invert the value)
-    group: string  # Category is also supported
+    priority: int  # The priority of the page used for determining the order, lower means higher up/first
+    hidden: bool   # Whether the page should be hidden from the navigation menu
+    group: string  # For sidebars, this is the sidebar group, for the main menu, this is the dropdown group
 ```
 
 ### `label`
@@ -86,7 +86,7 @@ navigation:
 
 ### `priority`
 
-The `priority` option allows you to control the order in which the page appears in the navigation menu. You can also use `order` instead of `priority`.
+The `priority` option allows you to control the order in which the page appears in the navigation menu. 
 
 ```yaml
 navigation:
@@ -95,7 +95,7 @@ navigation:
 
 ### `hidden`
 
-The `hidden` option allows you to control if the page appears in the navigation menu. You can also use `visible` instead of `hidden`, but obviously invert the value.
+The `hidden` option allows you to control if the page appears in the navigation menu. 
 
 ```yaml
 navigation:
@@ -107,7 +107,6 @@ navigation:
 The `group` option has a slightly different meaning depending on the type of navigation menu.
 For the primary navigation menu, it allows you to group pages together in dropdowns.
 For the sidebar, it allows you to group pages together in the sidebar under a common heading.
-You can also use `category` instead of `group`.
 
 ```yaml
 navigation:
