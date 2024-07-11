@@ -112,7 +112,7 @@ Let's explore how to customize navigation menus using configuration files:
 
 When customizing the main navigation menu, use the [route key](core-concepts#route-keys) of the page. For the sidebar, you can use either the route key or the [page identifier](core-concepts#page-identifiers).
 
-### Changing the priorities
+### Changing Priorities
 
 The `navigation.order` and `sidebar.order` settings allow you to customize the order of the pages in the navigation menus.
 
@@ -145,7 +145,7 @@ The offset is added to make it easier to place pages earlier in the list using f
 ]
 ```
 
-#### Explicit syntax for changing the priorities
+#### Explicit Priority Syntax
 
 You can also specify explicit priorities by adding a value to the array key:
 
