@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Framework\Features\Navigation\NavigationMenuConfigurationBuilder;
 use function compact;
 
 /**
@@ -36,8 +37,8 @@ class Navigation
      *
      * @experimental This method is experimental and may change in the future.
      */
-    public static function configure()
+    public static function configure(): NavigationMenuConfigurationBuilder
     {
-        //
+        return new NavigationMenuConfigurationBuilder();
     }
 }
