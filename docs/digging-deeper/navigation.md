@@ -343,7 +343,7 @@ While not essential, understanding the internal workings of the navigation syste
 
 ### Navigation Menu Classes
 
-The main navigation menu is the `MainNavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class. Both extend the same base `NavigationMenu` class.
+The main navigation menu uses the `MainNavigationMenu` class, while the documentation sidebar uses the `DocumentationSidebar` class. Both extend the base `NavigationMenu` class:
 
 ```php
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
@@ -351,13 +351,9 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 ```
 
-Within the base `NavigationMenu` class, you will find the main logic for how the menus are generated,
-while the child implementations contain the extra logic tailored for their specific use cases.
+The base `NavigationMenu` class contains the main logic for menu generation, while child implementations contain extra logic for specific use cases.
 
-All the navigation menus store the menu items in their `$items` collection containing instances of the `NavigationItem` class.
-
-The `NavigationItem` class is a simple class that contains the label and URL of the menu item and is used to represent each item in the menu.
-Dropdowns are represented by `NavigationGroup` instances, which extend the `NavigationMenu` class and contain a collection of additional `NavigationItem` instances.
+All navigation menus store items in their `$items` collection, containing instances of the `NavigationItem` class. Dropdowns are represented by `NavigationGroup` instances, which extend the `NavigationMenu` class and contain additional `NavigationItem` instances:
 
 ```php
 use Hyde\Framework\Features\Navigation\NavigationItem;
