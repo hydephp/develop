@@ -1234,6 +1234,61 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello world'])]);
     }
 
+    // Configuration tests
+
+    public function testCanConfigureMainMenuUsingArraySettings()
+    {
+        $config = [
+            'navigation' => [
+                'order' => [
+                    'foo' => 3,
+                    'bar' => 2,
+                    'baz' => 1,
+                ],
+
+                'labels' => [
+                    'foo' => 'Foo Page',
+                    'bar' => 'Bar Page',
+                    'baz' => 'Baz Page',
+                    'dropdown/item' => 'Dropdown Item Page',
+                ],
+
+                'exclude' => [
+                    'qux',
+                ],
+
+                'custom' => [
+                    [
+                        'label' => 'Custom',
+                        'destination' => 'https://example.com',
+                        'priority' => 120,
+                        'attributes' => [
+                            'target' => '_blank',
+                        ],
+                    ],
+                ],
+
+                'subdirectory_display' => 'flat',
+            ],
+        ];
+
+        config(['hyde' => $config]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Baz Page', 'priority' => 1],
+            ['label' => 'Bar Page', 'priority' => 2],
+            ['label' => 'Foo Page', 'priority' => 3],
+            ['label' => 'Custom', 'priority' => 120, 'attributes' => ['target' => '_blank']],
+            ['label' => 'Dropdown Item Page', 'priority' => 999],
+        ], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+            new MarkdownPage('qux'),
+            new MarkdownPage('dropdown/item'),
+        ]);
+    }
+
     // Testing helpers
 
     protected function assertSidebarEquals(array $expected, array $menuPages): AssertableNavigationMenu
