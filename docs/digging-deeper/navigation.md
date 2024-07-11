@@ -305,7 +305,7 @@ As you can seem Hyde parses the number from the filename and uses it as the prio
    For example: Both `_pages/01-home.md` and `_pages/01_home.md` are valid.
 3. Leading zeros are optional. `_pages/1-home.md` is equally valid.
 
-### Using numerical prefix ordering in subdirectories
+### Using Numerical Prefix Ordering in Subdirectories
 
 The numerical prefix ordering feature works great when using the automatic subdirectory-based grouping for navigation menu dropdowns and documentation sidebar categories.
 
