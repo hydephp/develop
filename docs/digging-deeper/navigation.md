@@ -299,7 +299,6 @@ As you can seem Hyde parses the number from the filename and uses it as the prio
 
 ### Important Notes
 
-
 1. The numerical prefix will still be part of the page identifier, but it will be stripped from the route key.
     - For example: `_pages/01-home.md` will have the route key `home` and the page identifier `01-home`.
 2. You can delimit the numerical prefix with either a dash or an underscore.
