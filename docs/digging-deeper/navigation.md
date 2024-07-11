@@ -116,7 +116,7 @@ When customizing the main navigation menu, use the [route key](core-concepts#rou
 
 The `navigation.order` and `sidebar.order` settings allow you to customize the order of the pages in the navigation menus.
 
-#### Basic syntax for changing the priorities
+#### Basic Priority Syntax
 
 The cleanest way is to use the list-style syntax where each item will get the priority calculated according to its position in the list, plus an offset of `500`.
 The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
