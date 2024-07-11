@@ -338,7 +338,6 @@ You can disable this feature by setting the `numerical_page_ordering` setting to
 'numerical_page_ordering' => false,
 ```
 
-While it's not recommended, as you lose out on the convenience of the automatic ordering, any front matter priority settings will override the numerical prefix ordering if you for some reason need to.
 
 ## Digging Deeper into the internals
 
