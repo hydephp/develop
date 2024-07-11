@@ -252,7 +252,7 @@ You can configure how subdirectories should be displayed in the menu:
 - `hidden`: Pages in subdirectories are not displayed at all the menus
 - `flat`: Pages in subdirectories are displayed as individual items
 
-### Automatic menu groups
+### Automatic Menu Groups
 
 HydePHP has a neat feature to automatically place pages in dropdowns based on subdirectories.
 
