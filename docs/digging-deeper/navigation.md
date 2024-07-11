@@ -299,11 +299,11 @@ As you can seem Hyde parses the number from the filename and uses it as the prio
 
 ### Important Notes
 
-1. The numerical prefix will still be part of the page identifier, but it will be stripped from the route key.
-    - For example: `_pages/01-home.md` will have the route key `home` and the page identifier `01-home`.
+1. The numerical prefix remains part of the page identifier but is stripped from the route key.
+   For example: `_pages/01-home.md` has route key `home` and page identifier `01-home`.
 2. You can delimit the numerical prefix with either a dash or an underscore.
-    - For example: `_pages/01-home.md` and `_pages/01_home.md` are both valid.
-3. The leading zeroes are optional, so `_pages/1-home.md` is also valid.
+   For example: Both `_pages/01-home.md` and `_pages/01_home.md` are valid.
+3. Leading zeros are optional. `_pages/1-home.md` is equally valid.
 
 ### Using numerical prefix ordering in subdirectories
 
