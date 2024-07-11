@@ -17,4 +17,9 @@ use Illuminate\Contracts\Support\Arrayable;
 class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayable
 {
     protected array $config = [];
+
+    public function toArray(): array
+    {
+        return $this->config;
+    }
 }
