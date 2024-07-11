@@ -73,11 +73,11 @@ class NavigationFacadeTest extends UnitTestCase
         $this->assertArrayHasKey('custom', $config);
         $this->assertArrayHasKey('subdirectory_display', $config);
 
-        $this->assertEquals(['index' => 0, 'posts' => 10], $config['order']);
-        $this->assertEquals(['index' => 'Home'], $config['labels']);
-        $this->assertEquals(['404'], $config['exclude']);
-        $this->assertEquals([Navigation::item('https://github.com', 'GitHub', 200)], $config['custom']);
-        $this->assertEquals('dropdown', $config['subdirectory_display']);
+        $this->assertSame(['index' => 0, 'posts' => 10], $config['order']);
+        $this->assertSame(['index' => 'Home'], $config['labels']);
+        $this->assertSame(['404'], $config['exclude']);
+        $this->assertSame([Navigation::item('https://github.com', 'GitHub', 200)], $config['custom']);
+        $this->assertSame('dropdown', $config['subdirectory_display']);
     }
 
     public function testConfigureWithSomeChainedMethods()
@@ -88,9 +88,9 @@ class NavigationFacadeTest extends UnitTestCase
             ->subdirectoryDisplay('flat')
             ->toArray();
 
-        $this->assertEquals(['about' => 1, 'contact' => 2], $config['order']);
-        $this->assertEquals(['about' => 'About Us'], $config['labels']);
-        $this->assertEquals('flat', $config['subdirectory_display']);
+        $this->assertSame(['about' => 1, 'contact' => 2], $config['order']);
+        $this->assertSame(['about' => 'About Us'], $config['labels']);
+        $this->assertSame('flat', $config['subdirectory_display']);
         $this->assertArrayNotHasKey('exclude', $config);
         $this->assertArrayNotHasKey('custom', $config);
     }

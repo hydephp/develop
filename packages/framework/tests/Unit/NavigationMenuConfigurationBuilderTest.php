@@ -26,7 +26,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         $result = $this->builder->order($order)->toArray();
 
         $this->assertArrayHasKey('order', $result);
-        $this->assertEquals($order, $result['order']);
+        $this->assertSame($order, $result['order']);
     }
 
     public function testLabels()
@@ -35,7 +35,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         $result = $this->builder->labels($labels)->toArray();
 
         $this->assertArrayHasKey('labels', $result);
-        $this->assertEquals($labels, $result['labels']);
+        $this->assertSame($labels, $result['labels']);
     }
 
     public function testExclude()
@@ -44,7 +44,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         $result = $this->builder->exclude($exclude)->toArray();
 
         $this->assertArrayHasKey('exclude', $result);
-        $this->assertEquals($exclude, $result['exclude']);
+        $this->assertSame($exclude, $result['exclude']);
     }
 
     public function testCustom()
@@ -56,7 +56,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         $result = $this->builder->custom($custom)->toArray();
 
         $this->assertArrayHasKey('custom', $result);
-        $this->assertEquals($custom, $result['custom']);
+        $this->assertSame($custom, $result['custom']);
     }
 
     public function testSubdirectoryDisplay()
@@ -67,7 +67,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
             $result = $this->builder->subdirectoryDisplay($mode)->toArray();
 
             $this->assertArrayHasKey('subdirectory_display', $result);
-            $this->assertEquals($mode, $result['subdirectory_display']);
+            $this->assertSame($mode, $result['subdirectory_display']);
         }
     }
 
@@ -124,7 +124,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
             ->subdirectoryDisplay('dropdown')
             ->toArray();
 
-        $this->assertEquals([
+        $this->assertSame([
             'order' => ['index' => 0, 'posts' => 10, 'docs/index' => 100],
             'labels' => ['index' => 'Home', 'docs/index' => 'Docs'],
             'exclude' => ['404'],
@@ -146,9 +146,9 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
 
         // ArrayObject methods now operate on the configuration data
         $this->assertCount(1, $this->builder);
-        $this->assertEquals(['order' => ['index' => 0]], $this->builder->getArrayCopy());
+        $this->assertSame(['order' => ['index' => 0]], $this->builder->getArrayCopy());
 
         // toArray() method should return the same result
-        $this->assertEquals(['order' => ['index' => 0]], $this->builder->toArray());
+        $this->assertSame(['order' => ['index' => 0]], $this->builder->toArray());
     }
 }
