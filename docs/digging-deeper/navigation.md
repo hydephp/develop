@@ -51,9 +51,7 @@ Additionally, general options for the entire navigation menus are also available
 
 ## Front Matter Configuration
 
-The front matter options allow you to customize the navigation menus on a per-page basis.
-Here is a quick reference of the available options. The full documentation of each option is below.
-You don't need to specify all the keys, only the ones you want to customize.
+Front matter options allow per-page customization of navigation menus. Here's a quick reference of available options:
 
 ```yaml
 navigation:
@@ -62,6 +60,8 @@ navigation:
     hidden: bool   # Whether the page should be hidden from the navigation menu
     group: string  # For sidebars, this is the sidebar group, for the main menu, this is the dropdown group
 ```
+
+You only need to specify the keys you want to customize.
 
 ### `label`
 
