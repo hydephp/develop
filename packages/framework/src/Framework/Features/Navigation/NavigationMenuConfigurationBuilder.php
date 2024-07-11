@@ -13,7 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
  *
  * The configured object will be cast to an array that will be used by the framework to set the config data.
  *
- * @experimental This class is experimental and may change in the future.
+ * @experimental This class is experimental and may change or be removed before the final release.
  */
 class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayable
 {
