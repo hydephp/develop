@@ -94,7 +94,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
         return $this->getArrayCopy();
     }
 
-    /** @internal */
+    /** @experimental May be moved to a separate helper class in the future. */
     protected static function assertType(array $types, string $value): void
     {
         if (! in_array($value, $types)) {
