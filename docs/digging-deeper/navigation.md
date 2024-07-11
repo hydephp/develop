@@ -21,12 +21,10 @@ This documentation will guide you through the customization process. To learn ev
 
 ### Internal Structure Overview
 
-It may be beneficial to understand the internal workings of the navigation menus to take full advantage of the options.
+Internally, both navigation menu types extend the same base class, and thus share core functionality. This means the configuration process is similar for both types, making the documentation applicable to both.
 
-In short, both navigation menu types extend the same class (meaning they share the same base code), this means that the way
-they are configured is very similar, making the documentation here applicable to both types of menus.
+For a deeper understanding of the internal workings, refer to the [Digging Deeper](#digging-deeper-into-the-internals) section.
 
-See the [Digging Deeper](#digging-deeper-into-the-internals) section of this page if you want the full scoop on the internals!
 
 ### Understanding Priorities
 
