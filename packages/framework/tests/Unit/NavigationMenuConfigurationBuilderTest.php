@@ -17,6 +17,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->builder = new NavigationMenuConfigurationBuilder();
     }
 
@@ -53,6 +54,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
             Navigation::item('https://example.com', 'Example', 200),
             Navigation::item('https://github.com', 'GitHub', 300),
         ];
+
         $result = $this->builder->addNavigationItems($custom)->toArray();
 
         $this->assertArrayHasKey('custom', $result);
