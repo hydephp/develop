@@ -124,7 +124,6 @@ It may be useful to know that we internally will assign a priority calculated ac
 
 ```php
 // filepath: config/hyde.php
-
 'navigation' => [
     'order' => [
         'home', // Priority: 500
@@ -136,7 +135,6 @@ It may be useful to know that we internally will assign a priority calculated ac
 
 ```php
 // filepath: config/docs.php
-
 'sidebar' => [
     'order' => [
         'readme', // Priority: 500
@@ -152,7 +150,6 @@ You can also specify explicit priorities by adding a value to the array keys. We
 
 ```php
 // filepath: config/hyde.php
-
 'navigation' => [
     'order' => [
         'home' => 10,
@@ -164,7 +161,6 @@ You can also specify explicit priorities by adding a value to the array keys. We
 
 ```php
 // filepath: config/docs.php
-
 'sidebar' => [
     'order' => [
         'readme' => 10,
