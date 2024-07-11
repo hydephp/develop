@@ -8,18 +8,16 @@ navigation:
 
 ## Introduction
 
-A great time-saving feature of HydePHP is the automatic navigation menu and documentation sidebar generation.
-Hyde is designed to automatically configure these menus for you based on the content you have in your project.
+HydePHP offers an automatic navigation menu and documentation sidebar generation feature, designed to take the pain out of creating navigation menus.
+While Hyde does its best to configure these menus automatically based on understanding your project files, you may want to customize them further.
+This documentation will guide you through the customization process.
 
 There are two types of navigation menus in Hyde:
 
 - **Primary Navigation Menu**: This is the main navigation menu that appears on most pages of your site.
 - **Documentation Sidebar**: This is a sidebar that appears on documentation pages and contains links to other documentation pages.
 
-HydePHP automatically generates all of these menus for you based on the content of your project,
-and does its best to automatically configure them in the way that you most likely want them to be.
 
-Of course, this won't always be perfect, so thankfully Hyde makes it a breeze to customize these menus to your liking.
 Keep on reading to learn how! To learn even more about the sidebars, visit the [Documentation Pages](documentation-pages) documentation.
 
 ### Quick primer on the internals
