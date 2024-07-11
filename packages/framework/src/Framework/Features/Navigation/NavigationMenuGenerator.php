@@ -11,6 +11,7 @@ use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function filled;
 use function assert;
@@ -81,9 +82,13 @@ class NavigationMenuGenerator
                 $this->items->push(NavigationItem::create(DocumentationPage::home()));
             }
         } else {
-            collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $item): void {
+            collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $data): void {
+                /** @var array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>} $data */
+                $message = 'Invalid navigation item configuration detected the configuration file. Please double check the syntax.';
+                $item = InvalidConfigurationException::try(fn () => NavigationItem::create(...$data), $message);
+
                 // Since these were added explicitly by the user, we can assume they should always be shown
-                $this->items->push(NavigationItem::create($item['destination'], $item['label'] ?? null, $item['priority'] ?? null));
+                $this->items->push($item);
             });
         }
     }

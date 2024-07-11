@@ -14,6 +14,7 @@ use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
@@ -152,6 +153,21 @@ class NavigationMenuTest extends TestCase
         $this->assertEquals($expected, $menu->getItems());
     }
 
+    public function testCanAddCustomLinksInConfigWithExtraAttributes()
+    {
+        config(['hyde.navigation.custom' => [Navigation::item('foo', 'Foo', 100, ['class' => 'foo'])]]);
+
+        $menu = $this->createNavigationMenu();
+
+        $expected = collect([
+            NavigationItem::create(Routes::get('index')),
+            NavigationItem::create('foo', 'Foo', 100, ['class' => 'foo']),
+        ]);
+
+        $this->assertCount(count($expected), $menu->getItems());
+        $this->assertEquals($expected, $menu->getItems());
+    }
+
     public function testDuplicatesAreNotRemovedWhenAddingInConfig()
     {
         config(['hyde.navigation.custom' => [
@@ -206,6 +222,18 @@ class NavigationMenuTest extends TestCase
 
         $this->assertCount(count($expected), $menu->getItems());
         $this->assertEquals($expected, $menu->getItems());
+    }
+
+    public function testInvalidCustomNavigationConfigurationThrowsException()
+    {
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Invalid navigation item configuration detected the configuration file. Please double check the syntax.');
+
+        config(['hyde.navigation.custom' => [
+            ['invalid_key' => 'value'],
+        ]]);
+
+        $this->createNavigationMenu();
     }
 
     public function testDocumentationPagesThatAreNotIndexAreNotAddedToTheMenu()

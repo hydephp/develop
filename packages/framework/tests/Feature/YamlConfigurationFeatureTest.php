@@ -456,6 +456,8 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testTypeErrorsInAuthorsYamlConfigAreRethrownMoreHelpfully()
     {
+        $exceptionThrown = false;
+
         file_put_contents('hyde.yml', <<<'YAML'
         authors:
           wrong:
@@ -465,9 +467,11 @@ class YamlConfigurationFeatureTest extends TestCase
         try {
             $this->runBootstrappers();
         } catch (InvalidConfigurationException $exception) {
+            $exceptionThrown = true;
             $this->assertSame('Invalid author configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
         }
 
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 
@@ -531,6 +535,67 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame(300, $navigationItems[3]->getPriority());
     }
 
+    public function testCanSetAttributesInNavigationItemsInTheYamlConfig()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          navigation:
+            custom:
+              - destination: 'https://example.com'
+                label: 'Example'
+                priority: 100
+                attributes:
+                  class: 'example'
+              - destination: 'about'
+                label: 'About Us'
+                priority: 200
+                attributes:
+                  class: 'about'
+                  id: 'about'
+              - destination: 'contact'
+                label: 'Contact'
+                priority: 300
+                attributes:
+                   target: '_blank'
+                   rel: 'noopener noreferrer'
+                   foo: 'bar'
+        YAML);
+
+        $this->runBootstrappers();
+
+        $configItems = config('hyde.navigation.custom');
+
+        $this->assertSame([
+            [
+                'destination' => 'https://example.com',
+                'label' => 'Example',
+                'priority' => 100,
+                'attributes' => ['class' => 'example'],
+            ], [
+                'destination' => 'about',
+                'label' => 'About Us',
+                'priority' => 200,
+                'attributes' => ['class' => 'about', 'id' => 'about'],
+            ], [
+                'destination' => 'contact',
+                'label' => 'Contact',
+                'priority' => 300,
+                'attributes' => ['target' => '_blank', 'rel' => 'noopener noreferrer', 'foo' => 'bar'],
+            ],
+        ], $configItems);
+
+        /** @var NavigationItem[] $navigationItems */
+        $navigationItems = NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
+
+        $this->assertCount(4, $navigationItems);
+        $this->assertContainsOnlyInstancesOf(NavigationItem::class, $navigationItems);
+
+        $this->assertSame([], $navigationItems[0]->getExtraAttributes());
+        $this->assertSame(['class' => 'example'], $navigationItems[1]->getExtraAttributes());
+        $this->assertSame(['class' => 'about', 'id' => 'about'], $navigationItems[2]->getExtraAttributes());
+        $this->assertSame(['target' => '_blank', 'rel' => 'noopener noreferrer', 'foo' => 'bar'], $navigationItems[3]->getExtraAttributes());
+    }
+
     public function testOnlyNeedToAddDestinationToYamlConfiguredNavigationItems()
     {
         $this->file('hyde.yml', <<<'YAML'
@@ -547,8 +612,6 @@ class YamlConfigurationFeatureTest extends TestCase
         $this->assertSame([
             [
                 'destination' => 'about.html',
-                'label' => null,
-                'priority' => null,
             ],
         ], $configItems);
 
@@ -595,6 +658,8 @@ class YamlConfigurationFeatureTest extends TestCase
 
     public function testTypeErrorsInNavigationYamlConfigAreRethrownMoreHelpfully()
     {
+        $exceptionThrown = false;
+
         file_put_contents('hyde.yml', <<<'YAML'
         hyde:
           navigation:
@@ -604,15 +669,20 @@ class YamlConfigurationFeatureTest extends TestCase
 
         try {
             $this->runBootstrappers();
+            NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
         } catch (InvalidConfigurationException $exception) {
-            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+            $exceptionThrown = true;
+            $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 
     public function testMustAddDestinationToYamlConfiguredNavigationItems()
     {
+        $exceptionThrown = false;
+
         file_put_contents('hyde.yml', <<<'YAML'
         hyde:
           navigation:
@@ -622,15 +692,20 @@ class YamlConfigurationFeatureTest extends TestCase
 
         try {
             $this->runBootstrappers();
+            NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
         } catch (InvalidConfigurationException $exception) {
-            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+            $exceptionThrown = true;
+            $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 
     public function testAddingExtraYamlNavigationItemFieldsThrowsAnException()
     {
+        $exceptionThrown = false;
+
         file_put_contents('hyde.yml', <<<'YAML'
         hyde:
           navigation:
@@ -641,10 +716,13 @@ class YamlConfigurationFeatureTest extends TestCase
 
         try {
             $this->runBootstrappers();
+            NavigationMenuGenerator::handle(MainNavigationMenu::class)->getItems()->all();
         } catch (InvalidConfigurationException $exception) {
-            $this->assertSame('Invalid navigation item configuration detected in the YAML config file. Please double check the syntax.', $exception->getMessage());
+            $exceptionThrown = true;
+            $this->assertSame('Invalid navigation item configuration detected the configuration file. Please double check the syntax.', $exception->getMessage());
         }
 
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
     }
 

@@ -20,6 +20,7 @@ class NavigationFacadeTest extends UnitTestCase
             'destination' => 'home',
             'label' => 'Home',
             'priority' => 100,
+            'attributes' => [],
         ], $item);
     }
 
@@ -31,6 +32,7 @@ class NavigationFacadeTest extends UnitTestCase
             'destination' => 'home',
             'label' => null,
             'priority' => null,
+            'attributes' => [],
         ], $item);
     }
 
@@ -42,6 +44,7 @@ class NavigationFacadeTest extends UnitTestCase
             'destination' => 'https://example.com',
             'label' => 'External',
             'priority' => 200,
+            'attributes' => [],
         ], $item);
     }
 }
