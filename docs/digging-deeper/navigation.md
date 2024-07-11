@@ -94,9 +94,7 @@ navigation:
 
 ### `group`
 
-The `group` option has a slightly different meaning depending on the type of navigation menu.
-For the primary navigation menu, it allows you to group pages together in dropdowns.
-For the sidebar, it allows you to group pages together in the sidebar under a common heading.
+For the primary navigation menu, this groups pages together in dropdowns. For the sidebar, it groups pages under a common heading.
 
 ```yaml
 navigation:
