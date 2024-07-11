@@ -18,11 +18,6 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
 {
     protected array $config = [];
 
-    public function toArray(): array
-    {
-        return $this->config;
-    }
-
     /**
      * Set the order of the navigation items.
      *
@@ -76,5 +71,10 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     public function subdirectoryDisplay(string $displayMode): static
     {
         // TODO: Implement subdirectoryDisplay() method.
+    }
+
+    public function toArray(): array
+    {
+        return $this->config;
     }
 }
