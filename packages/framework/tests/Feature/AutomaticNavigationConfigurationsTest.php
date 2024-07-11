@@ -1292,35 +1292,33 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testCanConfigureMainMenuUsingBuilderSettings()
     {
-        $builder = Navigation::configure()
-            ->order([
-                'foo' => 3,
-                'bar' => 2,
-                'baz' => 1,
-            ])
-            ->labels([
-                'foo' => 'Foo Page',
-                'bar' => 'Bar Page',
-                'baz' => 'Baz Page',
-                'dropdown/item' => 'Dropdown Item Page',
-            ])
-            ->exclude([
-                'qux',
-            ])
-            ->custom([
-                [
-                    'label' => 'Custom',
-                    'destination' => 'https://example.com',
-                    'priority' => 120,
-                    'attributes' => [
-                        'target' => '_blank',
-                    ],
-                ],
-            ])
-            ->subdirectoryDisplay('flat');
-
         $config = [
-            'navigation' => $builder,
+            'navigation' => Navigation::configure()
+                ->order([
+                    'foo' => 3,
+                    'bar' => 2,
+                    'baz' => 1,
+                ])
+                ->labels([
+                    'foo' => 'Foo Page',
+                    'bar' => 'Bar Page',
+                    'baz' => 'Baz Page',
+                    'dropdown/item' => 'Dropdown Item Page',
+                ])
+                ->exclude([
+                    'qux',
+                ])
+                ->custom([
+                    [
+                        'label' => 'Custom',
+                        'destination' => 'https://example.com',
+                        'priority' => 120,
+                        'attributes' => [
+                            'target' => '_blank',
+                        ],
+                    ],
+                ])
+                ->subdirectoryDisplay('flat'),
         ];
 
         config(['hyde' => $config]);
