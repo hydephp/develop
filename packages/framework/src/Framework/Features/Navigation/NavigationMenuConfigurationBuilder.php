@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use TypeError;
 use ArrayObject;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -76,6 +77,8 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      */
     public function subdirectoryDisplay(string $displayMode): static
     {
+        self::assertType(['dropdown', 'flat', 'hidden'], $displayMode);
+
         $this['subdirectory_display'] = $displayMode;
 
         return $this;
@@ -89,5 +92,13 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     public function toArray(): array
     {
         return $this->getArrayCopy();
+    }
+
+    /** @internal */
+    protected static function assertType(array $types, string $value): void
+    {
+        if (! in_array($value, $types)) {
+            throw new TypeError('Value must be one of: '.implode(', ', $types));
+        }
     }
 }
