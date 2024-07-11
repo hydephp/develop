@@ -90,6 +90,8 @@ navigation:
     hidden: true
 ```
 
+**Tip:** You can also use `visible: false` to achieve the same effect.
+
 ### `group`
 
 The `group` option has a slightly different meaning depending on the type of navigation menu.
