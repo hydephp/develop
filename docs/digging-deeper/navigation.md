@@ -55,10 +55,10 @@ Front matter options allow per-page customization of navigation menus. Here's a 
 
 ```yaml
 navigation:
-    label: string  # The text to display
-    priority: int  # The priority of the page used for determining the order, lower means higher up/first
+    label: string  # The displayed text in the navigation item link
+    priority: int  # The page's priority for ordering (lower means higher up/first)
     hidden: bool   # Whether the page should be hidden from the navigation menu
-    group: string  # For sidebars, this is the sidebar group, for the main menu, this is the dropdown group
+    group: string  # Set main menu dropdown or sidebar group key
 ```
 
 You only need to specify the keys you want to customize.
