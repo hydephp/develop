@@ -144,7 +144,6 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
     {
         $this->builder->order(['index' => 0]);
 
-        // ArrayObject methods now operate on the configuration data
         $this->assertCount(1, $this->builder);
         $this->assertSame(['order' => ['index' => 0]], $this->builder->getArrayCopy());
 
