@@ -28,4 +28,9 @@ class Navigation
     {
         return compact('destination', 'label', 'priority', 'attributes');
     }
+
+    public static function builder()
+    {
+        //
+    }
 }
