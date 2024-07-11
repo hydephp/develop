@@ -313,7 +313,7 @@ This integration has two main features to consider:
 1. You can use numerical prefixes in subdirectories to control the order of dropdowns.
 2. The ordering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
 
-Here is an example structure of how you may want to organize a documentation site:
+Here is an example structure of how could organize a documentation site:
 
 ```shell
 _docs/
