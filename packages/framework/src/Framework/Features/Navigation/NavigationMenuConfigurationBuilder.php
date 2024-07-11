@@ -81,6 +81,11 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
         return $this;
     }
 
+    /**
+     * Get the instance as an array.
+     *
+     * @return array{order: array<string, int>, labels: array<string, string>, exclude: array<string>, custom: array<array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>}>, subdirectory_display: string}
+     */
     public function toArray(): array
     {
         return $this->getArrayCopy();
