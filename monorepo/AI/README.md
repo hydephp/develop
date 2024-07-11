@@ -2,6 +2,8 @@
 
 ## Context string
 
+### Code generation
+
 Add this to the bottom of your prompts:
 
 ```markdown
@@ -16,4 +18,10 @@ The Hyde Philosophy:
 > Making sites should not be boring and repetitive - Hyde is all about taking focus away from boilerplate, and letting users focus on the content.
 
 Considerations: While HydePHP targets developers, not all users necessarily are familiar with Laravel, or PHP. So while we want to provide a familiar interface for Laravel/PHP users, we also want to make sure that the API is intuitive and easy to use for all users.
+```
+
+### Text generation
+
+```
+Remember that the target audience of this document are developers, though not all will necessarily be familiar with Laravel or PHP. Still, it's important to use clear and consice language that is easy to read and follow. The text should not contain marketing speach or buzzwords, nor any unnecessary fluff.
 ```
