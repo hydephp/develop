@@ -97,8 +97,6 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
 
     public function testInvalidSubdirectoryDisplay()
     {
-        $this->markTestSkipped('Not yet implemented');
-
         $this->expectException(\TypeError::class);
         $this->builder->subdirectoryDisplay('invalid');
     }
