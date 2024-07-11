@@ -334,25 +334,20 @@ return [
 
     'navigation' => Navigation::configure()
         ->setPagePriorities([
-            // Override page priority order
             'index' => 0,
             'posts' => 10,
             'docs/index' => 100,
         ])
         ->setPageLabels([
-            // Override page labels
             'index' => 'Home',
             'docs/index' => 'Docs',
         ])
         ->excludePages([
-            // Exclude pages from the navigation
             '404',
         ])
         ->addCustomNavigationItems([
-            // Add custom items to the navigation menu
             // Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
         ])
-        // Configure how subdirectories are displayed in the navigation
         ->setSubdirectoryDisplayMode('hidden'),
 
     /*
