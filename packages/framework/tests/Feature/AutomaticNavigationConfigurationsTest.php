@@ -1294,21 +1294,21 @@ class AutomaticNavigationConfigurationsTest extends TestCase
     {
         $config = [
             'navigation' => Navigation::configure()
-                ->order([
+                ->setPagePriorities([
                     'foo' => 3,
                     'bar' => 2,
                     'baz' => 1,
                 ])
-                ->labels([
+                ->setPageLabels([
                     'foo' => 'Foo Page',
                     'bar' => 'Bar Page',
                     'baz' => 'Baz Page',
                     'dropdown/item' => 'Dropdown Item Page',
                 ])
-                ->exclude([
+                ->excludePages([
                     'qux',
                 ])
-                ->custom([
+                ->addCustomNavigationItems([
                     [
                         'label' => 'Custom',
                         'destination' => 'https://example.com',
@@ -1318,7 +1318,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
                         ],
                     ],
                 ])
-                ->subdirectoryDisplay('flat'),
+                ->setSubdirectoryDisplayMode('flat'),
         ];
 
         config(['hyde' => $config]);

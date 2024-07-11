@@ -25,7 +25,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      * @param  array<string, int>|array<string>  $order
      * @return $this
      */
-    public function order(array $order): static
+    public function setPagePriorities(array $order): static
     {
         $this['order'] = $order;
 
@@ -40,7 +40,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      * @param  array<string, string>  $labels
      * @return $this
      */
-    public function labels(array $labels): static
+    public function setPageLabels(array $labels): static
     {
         $this['labels'] = $labels;
 
@@ -55,7 +55,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      * @param  array<string>  $exclude
      * @return $this
      */
-    public function exclude(array $exclude): static
+    public function excludePages(array $exclude): static
     {
         $this['exclude'] = $exclude;
 
@@ -70,7 +70,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      * @param  array<array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>}>  $custom
      * @return $this
      */
-    public function custom(array $custom): static
+    public function addCustomNavigationItems(array $custom): static
     {
         $this['custom'] = $custom;
 
@@ -85,7 +85,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      * @param  'dropdown'|'flat'|'hidden'  $displayMode
      * @return $this
      */
-    public function subdirectoryDisplay(string $displayMode): static
+    public function setSubdirectoryDisplayMode(string $displayMode): static
     {
         self::assertType(['dropdown', 'flat', 'hidden'], $displayMode);
 

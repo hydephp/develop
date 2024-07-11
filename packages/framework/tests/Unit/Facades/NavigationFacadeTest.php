@@ -59,11 +59,11 @@ class NavigationFacadeTest extends UnitTestCase
     public function testConfigureWithChainedMethods()
     {
         $config = Navigation::configure()
-            ->order(['index' => 0, 'posts' => 10])
-            ->labels(['index' => 'Home'])
-            ->exclude(['404'])
-            ->custom([Navigation::item('https://github.com', 'GitHub', 200)])
-            ->subdirectoryDisplay('dropdown')
+            ->setPagePriorities(['index' => 0, 'posts' => 10])
+            ->setPageLabels(['index' => 'Home'])
+            ->excludePages(['404'])
+            ->addCustomNavigationItems([Navigation::item('https://github.com', 'GitHub', 200)])
+            ->setSubdirectoryDisplayMode('dropdown')
             ->toArray();
 
         $this->assertIsArray($config);
@@ -83,9 +83,9 @@ class NavigationFacadeTest extends UnitTestCase
     public function testConfigureWithSomeChainedMethods()
     {
         $config = Navigation::configure()
-            ->order(['about' => 1, 'contact' => 2])
-            ->labels(['about' => 'About Us'])
-            ->subdirectoryDisplay('flat')
+            ->setPagePriorities(['about' => 1, 'contact' => 2])
+            ->setPageLabels(['about' => 'About Us'])
+            ->setSubdirectoryDisplayMode('flat')
             ->toArray();
 
         $this->assertSame(['about' => 1, 'contact' => 2], $config['order']);

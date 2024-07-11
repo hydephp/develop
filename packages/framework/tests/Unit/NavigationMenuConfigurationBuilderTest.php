@@ -20,51 +20,51 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         $this->builder = new NavigationMenuConfigurationBuilder();
     }
 
-    public function testOrder()
+    public function testSetPagePriorities()
     {
         $order = ['index' => 0, 'posts' => 10, 'docs/index' => 100];
-        $result = $this->builder->order($order)->toArray();
+        $result = $this->builder->setPagePriorities($order)->toArray();
 
         $this->assertArrayHasKey('order', $result);
         $this->assertSame($order, $result['order']);
     }
 
-    public function testLabels()
+    public function testSetPageLabels()
     {
         $labels = ['index' => 'Home', 'docs/index' => 'Docs'];
-        $result = $this->builder->labels($labels)->toArray();
+        $result = $this->builder->setPageLabels($labels)->toArray();
 
         $this->assertArrayHasKey('labels', $result);
         $this->assertSame($labels, $result['labels']);
     }
 
-    public function testExclude()
+    public function testExcludePages()
     {
         $exclude = ['404', 'admin'];
-        $result = $this->builder->exclude($exclude)->toArray();
+        $result = $this->builder->excludePages($exclude)->toArray();
 
         $this->assertArrayHasKey('exclude', $result);
         $this->assertSame($exclude, $result['exclude']);
     }
 
-    public function testCustom()
+    public function testAddCustomNavigationItems()
     {
         $custom = [
             Navigation::item('https://example.com', 'Example', 200),
             Navigation::item('https://github.com', 'GitHub', 300),
         ];
-        $result = $this->builder->custom($custom)->toArray();
+        $result = $this->builder->addCustomNavigationItems($custom)->toArray();
 
         $this->assertArrayHasKey('custom', $result);
         $this->assertSame($custom, $result['custom']);
     }
 
-    public function testSubdirectoryDisplay()
+    public function testSetSubdirectoryDisplayMode()
     {
         $displayModes = ['dropdown', 'flat', 'hidden'];
 
         foreach ($displayModes as $mode) {
-            $result = $this->builder->subdirectoryDisplay($mode)->toArray();
+            $result = $this->builder->setSubdirectoryDisplayMode($mode)->toArray();
 
             $this->assertArrayHasKey('subdirectory_display', $result);
             $this->assertSame($mode, $result['subdirectory_display']);
@@ -74,11 +74,11 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
     public function testChainedMethods()
     {
         $result = $this->builder
-            ->order(['index' => 0, 'posts' => 10])
-            ->labels(['index' => 'Home'])
-            ->exclude(['404'])
-            ->custom([Navigation::item('https://github.com', 'GitHub', 200)])
-            ->subdirectoryDisplay('dropdown')
+            ->setPagePriorities(['index' => 0, 'posts' => 10])
+            ->setPageLabels(['index' => 'Home'])
+            ->excludePages(['404'])
+            ->addCustomNavigationItems([Navigation::item('https://github.com', 'GitHub', 200)])
+            ->setSubdirectoryDisplayMode('dropdown')
             ->toArray();
 
         $this->assertArrayHasKey('order', $result);
@@ -98,28 +98,28 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
     public function testInvalidSubdirectoryDisplay()
     {
         $this->expectException(\TypeError::class);
-        $this->builder->subdirectoryDisplay('invalid');
+        $this->builder->setSubdirectoryDisplayMode('invalid');
     }
 
     public function testRealLifeUsageScenario()
     {
         $result = $this->builder
-            ->order([
+            ->setPagePriorities([
                 'index' => 0,
                 'posts' => 10,
                 'docs/index' => 100,
             ])
-            ->labels([
+            ->setPageLabels([
                 'index' => 'Home',
                 'docs/index' => 'Docs',
             ])
-            ->exclude([
+            ->excludePages([
                 '404',
             ])
-            ->custom([
+            ->addCustomNavigationItems([
                 Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
             ])
-            ->subdirectoryDisplay('dropdown')
+            ->setSubdirectoryDisplayMode('dropdown')
             ->toArray();
 
         $this->assertSame([
@@ -140,7 +140,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
 
     public function testArrayObjectBehavior()
     {
-        $this->builder->order(['index' => 0]);
+        $this->builder->setPagePriorities(['index' => 0]);
 
         $this->assertCount(1, $this->builder);
         $this->assertSame(['order' => ['index' => 0]], $this->builder->getArrayCopy());
@@ -148,7 +148,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
 
     public function testToArrayMethodReturnsSameResultAsArrayObject()
     {
-        $this->builder->order(['index' => 0]);
+        $this->builder->setPagePriorities(['index' => 0]);
 
         $this->assertSame(['order' => ['index' => 0]], $this->builder->toArray());
     }
