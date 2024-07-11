@@ -65,7 +65,7 @@ You only need to specify the keys you want to customize.
 
 ### `label`
 
-Customizes the text appearing in the navigation menu link for the page.
+Customizes the text appearing in the navigation menu link for the page. If not set anywhere else, Hyde will search for a title in the page content or generate one from the filename.
 
 ```yaml
 navigation:
