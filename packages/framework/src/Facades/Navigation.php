@@ -34,9 +34,9 @@ class Navigation
     /**
      * Configuration helper method to define the navigation menu configuration with better IDE support.
      *
-     * The returned object will then be cast to an array that will be used by the framework to set the config data.
+     * The builder is an array object that will be used by the framework to set the navigation menu configuration.
      *
-     * @experimental This method is experimental and may change in the future.
+     * @experimental This method is experimental and may change or be removed before the final release.
      */
     public static function configure(): NavigationMenuConfigurationBuilder
     {

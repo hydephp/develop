@@ -11,7 +11,9 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * Configuration helper class to define the navigation menu configuration with better IDE support.
  *
- * The configured object will be cast to an array that will be used by the framework to set the config data.
+ * The configured data will then be used by the framework to set the navigation menu configuration.
+ *
+ * @see \Hyde\Facades\Navigation::configure()
  *
  * @experimental This class is experimental and may change or be removed before the final release.
  */
