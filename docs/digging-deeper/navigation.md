@@ -341,6 +341,8 @@ If you're not interested in using numerical prefix ordering, you can disable it 
 
 While not essential, understanding the internal workings of the navigation system can be as beneficial as it's interesting. Here's a quick high-level overview of the [Navigation API](navigation-api).
 
+### Navigation Menu Classes
+
 The main navigation menu is the `MainNavigationMenu` class, and the documentation sidebar is the `DocumentationSidebar` class. Both extend the same base `NavigationMenu` class.
 
 ```php
