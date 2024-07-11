@@ -185,8 +185,7 @@ You could also combine these methods if desired:
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
 
-From the Hyde config you can override the label of navigation links using the by mapping the route key to the desired title.
-This is not yet supported for the sidebar, but will be in the future.
+If you're not happy with these, it's easy to override navigation link labels by mapping the route key to the desired title in the Hyde config:
 
 ```php
 // filepath: config/hyde.php
@@ -197,6 +196,8 @@ This is not yet supported for the sidebar, but will be in the future.
     ]
 ]
 ```
+
+**Note:** This feature is not yet supported for the sidebar.
 
 ### Excluding Items (Blacklist)
 
