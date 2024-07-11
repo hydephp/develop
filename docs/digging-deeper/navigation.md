@@ -330,7 +330,7 @@ _docs/
 
 ### Customization
 
-You can disable this feature by setting the `numerical_page_ordering` setting to `false` in the `hyde.php` config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
+If you're not interested in using numerical prefix ordering, you can disable it in the Hyde config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
 
 ```php
 // filepath config/hyde.php
