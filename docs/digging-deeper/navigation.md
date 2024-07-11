@@ -286,7 +286,7 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 HydePHP v2 introduces navigation item ordering based on numerical prefixes in filenames. This feature works for both the primary navigation menu and the documentation sidebar.
 
-For example, the following will have the same order in the navigation menu as in a file explorer:
+This has the great benefit of matching the navigation menu layout with the file structure view, and works especially great with subdirectory-based navigation grouping.
 
 ```shell
 _pages/
