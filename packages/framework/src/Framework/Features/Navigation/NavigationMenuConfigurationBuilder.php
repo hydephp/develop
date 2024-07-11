@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use ArrayObject;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * Configuration helper method to define the navigation menu configuration with better IDE support.
@@ -13,7 +14,7 @@ use ArrayObject;
  *
  * @experimental This method is experimental and may change in the future.
  */
-class NavigationMenuConfigurationBuilder extends ArrayObject
+class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayable
 {
     protected array $config = [];
 }
