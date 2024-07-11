@@ -216,10 +216,7 @@ To exclude items from being added, simply add the page's route key to the naviga
 
 ### Adding Custom Navigation Menu Links
 
-You can easily add custom navigation menu links similar to how we add Authors. Simply add a `NavigationItem` model to the `navigation.custom` array.
-
-When linking to an external site, you should use the `NavigationItem::create()` method facade. The first two arguments are the
-destination and label, both required. The third argument is the priority, which is optional, and defaults to `500`.
+You can easily add custom navigation menu links in the Hyde config:
 
 ```php
 // filepath: config/hyde.php
