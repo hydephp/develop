@@ -337,7 +337,6 @@ If you're not interested in using numerical prefix ordering, you can disable it 
 'numerical_page_ordering' => false,
 ```
 
-
 ## Digging Deeper into the Internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally. Here is a high level overview,
