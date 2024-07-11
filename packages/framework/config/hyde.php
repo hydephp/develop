@@ -345,7 +345,7 @@ return [
         ->excludePages([
             '404',
         ])
-        ->addCustomNavigationItems([
+        ->addNavigationItems([
             // Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
         ])
         ->setSubdirectoryDisplayMode('hidden'),

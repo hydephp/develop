@@ -62,7 +62,7 @@ class NavigationFacadeTest extends UnitTestCase
             ->setPagePriorities(['index' => 0, 'posts' => 10])
             ->setPageLabels(['index' => 'Home'])
             ->excludePages(['404'])
-            ->addCustomNavigationItems([Navigation::item('https://github.com', 'GitHub', 200)])
+            ->addNavigationItems([Navigation::item('https://github.com', 'GitHub', 200)])
             ->setSubdirectoryDisplayMode('dropdown')
             ->toArray();
 

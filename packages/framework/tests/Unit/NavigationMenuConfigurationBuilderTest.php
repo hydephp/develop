@@ -47,13 +47,13 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
         $this->assertSame($exclude, $result['exclude']);
     }
 
-    public function testAddCustomNavigationItems()
+    public function testAddNavigationItems()
     {
         $custom = [
             Navigation::item('https://example.com', 'Example', 200),
             Navigation::item('https://github.com', 'GitHub', 300),
         ];
-        $result = $this->builder->addCustomNavigationItems($custom)->toArray();
+        $result = $this->builder->addNavigationItems($custom)->toArray();
 
         $this->assertArrayHasKey('custom', $result);
         $this->assertSame($custom, $result['custom']);
@@ -77,7 +77,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
             ->setPagePriorities(['index' => 0, 'posts' => 10])
             ->setPageLabels(['index' => 'Home'])
             ->excludePages(['404'])
-            ->addCustomNavigationItems([Navigation::item('https://github.com', 'GitHub', 200)])
+            ->addNavigationItems([Navigation::item('https://github.com', 'GitHub', 200)])
             ->setSubdirectoryDisplayMode('dropdown')
             ->toArray();
 
@@ -116,7 +116,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
             ->excludePages([
                 '404',
             ])
-            ->addCustomNavigationItems([
+            ->addNavigationItems([
                 Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
             ])
             ->setSubdirectoryDisplayMode('dropdown')

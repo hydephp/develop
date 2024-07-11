@@ -70,7 +70,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
      * @param  array<array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>}>  $custom
      * @return $this
      */
-    public function addCustomNavigationItems(array $custom): static
+    public function addNavigationItems(array $custom): static
     {
         $this['custom'] = $custom;
 

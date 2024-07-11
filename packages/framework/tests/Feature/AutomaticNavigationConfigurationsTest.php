@@ -1308,7 +1308,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
                 ->excludePages([
                     'qux',
                 ])
-                ->addCustomNavigationItems([
+                ->addNavigationItems([
                     [
                         'label' => 'Custom',
                         'destination' => 'https://example.com',
