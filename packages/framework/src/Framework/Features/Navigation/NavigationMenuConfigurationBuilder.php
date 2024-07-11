@@ -18,11 +18,6 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
 {
     protected array $config = [];
 
-    public function __construct()
-    {
-        parent::__construct($this->config);
-    }
-
     /**
      * Set the order of the navigation items.
      *
