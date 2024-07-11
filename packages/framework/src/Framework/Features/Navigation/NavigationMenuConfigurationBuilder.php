@@ -80,7 +80,7 @@ class NavigationMenuConfigurationBuilder extends ArrayObject implements Arrayabl
     /**
      * Set the display mode for pages in subdirectories.
      *
-     * You can choose between 'dropdown', 'flat', and 'hidden'.
+     * You can choose between 'dropdown', 'flat', and 'hidden'. The default is 'hidden'.
      *
      * @param  'dropdown'|'flat'|'hidden'  $displayMode
      * @return $this
