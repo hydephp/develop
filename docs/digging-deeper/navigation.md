@@ -65,7 +65,7 @@ You only need to specify the keys you want to customize.
 
 ### `label`
 
-The `label` option allows you to customize the text that appears in the navigation menu for the page.
+Customizes the text appearing in the navigation menu link for the page.
 
 ```yaml
 navigation:
@@ -74,7 +74,7 @@ navigation:
 
 ### `priority`
 
-The `priority` option allows you to control the order in which the page appears in the navigation menu. 
+Controls the order in which the page appears in the navigation menu.
 
 ```yaml
 navigation:
@@ -83,7 +83,7 @@ navigation:
 
 ### `hidden`
 
-The `hidden` option allows you to control if the page appears in the navigation menu. 
+Determines if the page appears in the navigation menu.
 
 ```yaml
 navigation:
