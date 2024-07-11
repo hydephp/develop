@@ -20,7 +20,7 @@
             </span>
         @endisset
         @isset($post->author)
-            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="author" itemscope itemtype="https://schema.org/Person">
             <span class="opacity-75">by</span>
             <span itemprop="name">
                 {{ $post->author->name ?? $post->author->username }}
