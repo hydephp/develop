@@ -10,6 +10,7 @@ use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Facades\Navigation;
 use Hyde\Foundation\HydeKernel;
 use JetBrains\PhpStorm\NoReturn;
 use Hyde\Pages\Concerns\HydePage;
@@ -1232,6 +1233,109 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'Hello World'])]);
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello-world'])]);
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello world'])]);
+    }
+
+    // Configuration tests
+
+    public function testCanConfigureMainMenuUsingArraySettings()
+    {
+        $config = [
+            'navigation' => [
+                'order' => [
+                    'foo' => 3,
+                    'bar' => 2,
+                    'baz' => 1,
+                ],
+
+                'labels' => [
+                    'foo' => 'Foo Page',
+                    'bar' => 'Bar Page',
+                    'baz' => 'Baz Page',
+                    'dropdown/item' => 'Dropdown Item Page',
+                ],
+
+                'exclude' => [
+                    'qux',
+                ],
+
+                'custom' => [
+                    [
+                        'label' => 'Custom',
+                        'destination' => 'https://example.com',
+                        'priority' => 120,
+                        'attributes' => [
+                            'target' => '_blank',
+                        ],
+                    ],
+                ],
+
+                'subdirectory_display' => 'flat',
+            ],
+        ];
+
+        config(['hyde' => $config]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Baz Page', 'priority' => 1],
+            ['label' => 'Bar Page', 'priority' => 2],
+            ['label' => 'Foo Page', 'priority' => 3],
+            ['label' => 'Custom', 'priority' => 120, 'attributes' => ['target' => '_blank']],
+            ['label' => 'Dropdown Item Page', 'priority' => 999],
+        ], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+            new MarkdownPage('qux'),
+            new MarkdownPage('dropdown/item'),
+        ]);
+    }
+
+    public function testCanConfigureMainMenuUsingBuilderSettings()
+    {
+        $config = [
+            'navigation' => Navigation::configure()
+                ->setPagePriorities([
+                    'foo' => 3,
+                    'bar' => 2,
+                    'baz' => 1,
+                ])
+                ->setPageLabels([
+                    'foo' => 'Foo Page',
+                    'bar' => 'Bar Page',
+                    'baz' => 'Baz Page',
+                    'dropdown/item' => 'Dropdown Item Page',
+                ])
+                ->excludePages([
+                    'qux',
+                ])
+                ->addNavigationItems([
+                    [
+                        'label' => 'Custom',
+                        'destination' => 'https://example.com',
+                        'priority' => 120,
+                        'attributes' => [
+                            'target' => '_blank',
+                        ],
+                    ],
+                ])
+                ->setSubdirectoryDisplayMode('flat'),
+        ];
+
+        config(['hyde' => $config]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Baz Page', 'priority' => 1],
+            ['label' => 'Bar Page', 'priority' => 2],
+            ['label' => 'Foo Page', 'priority' => 3],
+            ['label' => 'Custom', 'priority' => 120, 'attributes' => ['target' => '_blank']],
+            ['label' => 'Dropdown Item Page', 'priority' => 999],
+        ], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+            new MarkdownPage('qux'),
+            new MarkdownPage('dropdown/item'),
+        ]);
     }
 
     // Testing helpers
