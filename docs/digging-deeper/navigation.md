@@ -235,11 +235,6 @@ use Hyde\Facades\Navigation;
 
 **Tip:** While named arguments are used in the example for clarity, they are not required.
 
-Simplified, this will then be rendered as follows:
-
-```html
-<a href="https://github.com/hydephp/hyde">GitHub</a>
-```
 
 ### Configure subdirectory handling
 
