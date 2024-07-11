@@ -23,5 +23,7 @@ Considerations: While HydePHP targets developers, not all users necessarily are 
 ### Text generation
 
 ```
-Remember that the target audience of this document are developers, though not all will necessarily be familiar with Laravel or PHP. Still, it's important to use clear and consice language that is easy to read and follow. The text should not contain marketing speach or buzzwords, nor any unnecessary fluff.
+Remember that the target audience of this document are developers with technical knowledge, though not all will necessarily be familiar with Laravel or PHP.
+While it's important to use clear and consice language, you must also make sure to use complete sentences that are easy to read and follow.
+The text should not contain marketing speach or buzzwords, nor any unnecessary fluff. Use clear code examples when they add value.
 ```
