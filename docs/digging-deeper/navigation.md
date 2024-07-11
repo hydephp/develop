@@ -170,14 +170,14 @@ You can also specify explicit priorities by adding a value to the array keys. We
 ]
 ```
 
-**You can of course also combine these methods if you want:**
+You could also combine these methods if desired:
 
 ```php
 // filepath: Applicable to both
 [
-    'readme' => 10, // Gets priority 10
-    'installation', // Gets priority 500
-    'getting-started', // Gets priority 501
+    'readme' => 10, // Priority: 10
+    'installation', // Priority: 500
+    'getting-started', // Priority: 501
 ]
 ```
 
