@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Contracts\Support\Arrayable;
 use Hyde\Framework\Features\Navigation\NavigationMenuConfigurationBuilder;
 use Hyde\Facades\Navigation;
 
@@ -136,7 +137,7 @@ class NavigationMenuConfigurationBuilderTest extends UnitTestCase
 
     public function testArrayableInterface()
     {
-        $this->assertInstanceOf(\Illuminate\Contracts\Support\Arrayable::class, $this->builder);
+        $this->assertInstanceOf(Arrayable::class, $this->builder);
     }
 
     public function testArrayObjectBehavior()
