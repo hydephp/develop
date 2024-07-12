@@ -43,4 +43,11 @@ class DynamicBlogPostPageHelper
             ->prepend(new PostAuthorsPage($authors))
             ->all();
     }
+
+    public static function authorBaseRouteKey(): string
+    {
+        // Todo: Allow customizing this
+
+        return 'authors';
+    }
 }

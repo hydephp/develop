@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Blogging\DynamicPages;
 
 use Hyde\Pages\InMemoryPage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper;
 
 /**
  * @experimental
@@ -18,7 +19,7 @@ class PostAuthorPage extends InMemoryPage
 
     public function __construct(PostAuthor $author)
     {
-        parent::__construct("authors/$author->username");
+        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey()."/$author->username");
     }
 
     public function getBladeView(): string
