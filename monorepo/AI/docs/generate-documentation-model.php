@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 // This script generates a single .txt model of all HydePHP documentation
 
@@ -9,13 +9,13 @@ $timeStart = microtime(true);
 $model = 'Start HydePHP Documentation (Framework version v'.\Hyde\Foundation\HydeKernel::VERSION . ")\n\n";
 
 // Iterate through all files in the documentation directory, recursively
-$directory = new RecursiveDirectoryIterator(__DIR__ . '/../../docs');
+$directory = new RecursiveDirectoryIterator(__DIR__ . '/../../../docs');
 $iterator = new RecursiveIteratorIterator($directory);
 $files = new RegexIterator($iterator, '/^.+\.md$/i', RecursiveRegexIterator::GET_MATCH);
 
 foreach ($files as $file) {
-    $baseDirRelativeToDocs = (str_replace(__DIR__ . '/../../docs/', '', dirname($file[0])));
-    $relativePathName = str_replace(__DIR__ . '/../../docs/', '', $file[0]);
+    $baseDirRelativeToDocs = (str_replace(__DIR__ . '/../../../docs/', '', dirname($file[0])));
+    $relativePathName = str_replace(__DIR__ . '/../../../docs/', '', $file[0]);
 
     if ($baseDirRelativeToDocs === 'redirects' || str_starts_with($baseDirRelativeToDocs, '_')) {
         continue;
