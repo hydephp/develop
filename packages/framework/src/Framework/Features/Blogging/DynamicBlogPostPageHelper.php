@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging;
 
 use Hyde\Hyde;
+use Hyde\Enums\Feature;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage;
@@ -20,7 +21,7 @@ class DynamicBlogPostPageHelper
     {
         // Todo: Also check that this feature is enabled
 
-        return Hyde::authors()->isNotEmpty() && MarkdownPost::all()->isNotEmpty();
+        return Hyde::hasFeature(Feature::MarkdownPosts) && Hyde::authors()->isNotEmpty() && MarkdownPost::all()->isNotEmpty();
     }
 
     /** @return array<\Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage> */
