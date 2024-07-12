@@ -18,8 +18,8 @@ $links = [];
 $warnings = [];
 
 $headings = [];
-$checksHeadings = false;
-$fixesHeadings = false;
+$checksHeadings = true;
+$fixesHeadings = true;
 
 class MarkdownFormatter
 {
