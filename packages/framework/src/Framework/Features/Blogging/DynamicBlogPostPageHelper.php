@@ -23,6 +23,6 @@ class DynamicBlogPostPageHelper
     /** @return array<\Hyde\Pages\InMemoryPage> */
     public static function generateAuthorPages(): array
     {
-        //
+        return [];
     }
 }
