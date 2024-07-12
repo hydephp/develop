@@ -33,7 +33,7 @@ All navigation menu items have an internal priority value determining their orde
 Here's an overview of what you can customize in your navigation menus:
 
 - Item labels: The text displayed in menu links
-- Item priorities: Control the order of link appearance
+- Item priorities: Control the order in which links appear
 - Item visibility: Choose to hide or show pages in the menu
 - Item grouping: Group pages together in dropdowns or sidebar categories
 
