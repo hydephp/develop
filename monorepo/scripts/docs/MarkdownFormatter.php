@@ -375,8 +375,8 @@ function processHeadings(): void
                 continue;
             }
 
-            // Skip some special cases
-            if (str_contains($headingText, '"') || str_contains($headingText, '`')) {
+            // Skip some special cases that can't be formatted properly by the APA method
+            if (Str::contains($headingText, ['"', '`', '-', 'filepath'], true)) {
                 continue;
             }
 
@@ -397,7 +397,7 @@ function processHeadings(): void
 
 function adjustCaseForSpecialWords(string $text): string
 {
-    $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'GitHub', 'CI/CD', 'URL'];
+    $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'HydePage', 'GitHub', 'CI/CD', 'UI ', 'URL'];
     $alwaysLowercase = ['to', 'it', 'and'];
 
     $text = str_ireplace($alwaysUppercase, $alwaysUppercase, $text);
