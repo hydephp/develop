@@ -8,7 +8,11 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 if (file_exists(__DIR__ . '/commits.cache')) {
     $raw = file_get_contents(__DIR__ . '/commits.cache');
 } else {
-    $raw = trim(shell_exec('git log --pretty=format:"%s"'));
+    // All commits:
+    // $raw = trim(shell_exec('git log --pretty=format:"%s"'));
+
+    // Only on master branch
+    $raw = trim(shell_exec('git log --pretty=format:"%s" --first-parent master'));
     file_put_contents(__DIR__ . '/commits.cache', $raw);
 }
 
