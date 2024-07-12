@@ -29,9 +29,11 @@ class DynamicBlogPostPageHelper
     {
         // Todo: This does not find authors that have no author config, we should add those to the underlying collection!
 
-        return Hyde::authors()
+        $authors = Hyde::authors()
             // This filtering is opinionated, and we can configure it, but for now it only includes authors with posts
-            ->filter(fn (PostAuthor $author): bool => $author->getPosts()->isNotEmpty())
+            ->filter(fn (PostAuthor $author): bool => $author->getPosts()->isNotEmpty());
+
+        return $authors
             ->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage("author/$author->username"))
             ->all();
     }
