@@ -20,18 +20,6 @@ The Hyde Philosophy:
 Considerations: While HydePHP targets developers, not all users necessarily are familiar with Laravel, or PHP. So while we want to provide a familiar interface for Laravel/PHP users, we also want to make sure that the API is intuitive and easy to use for all users.
 ```
 
-### Text generation
-
-Add this to the bottom of your prompts:
-
-```markdown
-Remember that the target audience of this document are developers with technical knowledge, though not all will necessarily be familiar with Laravel or PHP.
-While it's important to use clear and concise language, you must also make sure to use complete sentences that are easy to read and follow.
-The text should not contain marketing speach or buzzwords, nor any unnecessary fluff. Use clear code examples when they add value.
-Use headings to group together related sections, with subheadings to make the text easy to skim through.
-Also make sure to keep the text engaging and interesting to read!
-```
-
 
 ### Code style
 
@@ -46,4 +34,24 @@ Remember to follow our code style:
 - Make sure both code and code documentation/comments use proper English grammar and spelling, as well as proper capitalization. Don't remove "todo" comments, but make sure they are formatted like this: "Todo: Do something".
 - When writing tests, use PHPUnit where tests are defined using this format: `public function testDoingSomethingDoesSomething()`, we do not specify return types on test methods, but we do when adding testing helper methods.
 - PHPDocs should use fully qualified class names, code should import both classes and functions. Function imports are separated with a newline from class imports.
+```
+
+### Text generation
+
+Add this to the bottom of your prompts:
+
+```markdown
+Remember that the target audience of this document are developers with technical knowledge, though not all will necessarily be familiar with Laravel or PHP.
+While it's important to use clear and concise language, you must also make sure to use complete sentences that are easy to read and follow.
+The text should not contain marketing speach or buzzwords, nor any unnecessary fluff. Use clear code examples when they add value.
+Use headings to group together related sections, with subheadings to make the text easy to skim through.
+Also make sure to keep the text engaging and interesting to read!
+```
+
+### Proof reading
+
+Add this alongside the document to proofread:
+
+```
+Please proofread this documentation to ensure it's clear and contains proper wording, grammar, and formatting. Do not move around sections or change text that is already clear, as this makes it harder to see your changes.
 ```
