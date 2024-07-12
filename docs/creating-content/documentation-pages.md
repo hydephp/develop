@@ -18,7 +18,7 @@ If you have a Torchlight API token in your `.env` file, Hyde will even enable sy
 
 ### Best Practices and Hyde Expectations
 
-Since Hyde does a lot of things automatically, there are some things you may need to keep in mind when creating blog posts so that you don't get unexpected results.
+Since Hyde does a lot of things automatically, there are some things you may need to keep in mind when creating documentation pages so that you don't get unexpected results.
 
 #### Filenames
 
