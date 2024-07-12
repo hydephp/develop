@@ -201,7 +201,7 @@ If you're not happy with these, it's easy to override navigation link labels by 
 
 ### Excluding Items (Blacklist)
 
-When you have a lot of pages, it may be useful to prevent links from being added to the main navigation menu.
+When you have many pages, it may be useful to prevent links from being added to the main navigation menu.
 
 To exclude items from being added, simply add the page's route key to the navigation blacklist in the Hyde config:
 
