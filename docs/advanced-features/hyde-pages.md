@@ -7,7 +7,6 @@ navigation:
 
 >warning This article covers advanced information, and you are expected to already be familiar with [Page Models](page-models) and OOP
 
-
 ## Abstract
 
 This page contains the full API references for the built-in HydePage classes. Most users will not need to know about
@@ -37,7 +36,6 @@ under the `HydePage` class documentation which is conveniently located just belo
 | [MarkdownPost](#markdownpost)           | Class for Markdown posts.              |
 | [DocumentationPage](#documentationpage) | Class for documentation pages.         |
 | [HtmlPage](#htmlpage)                   | Class for HTML pages.                  |
-
 
 ## HydePage
 
@@ -120,7 +118,6 @@ abstract class HydePage
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/interacts-with-front-matter-methods'))->toHtml($page::class) }}
 
-
 ## BaseMarkdownPage
 
 The base class for all Markdown-based page models, with additional helpers tailored for Markdown pages.
@@ -148,7 +145,6 @@ abstract class BaseMarkdownPage extends HydePage
 ### Methods
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/base-markdown-page-methods'))->toHtml($page::class) }}
-
 
 ## InMemoryPage
 
@@ -193,7 +189,6 @@ class InMemoryPage extends HydePage
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/in-memory-page-methods'))->toHtml($page::class) }}
 
-
 ## BladePage
 
 Page class for Blade pages.
@@ -222,7 +217,6 @@ class BladePage extends HydePage
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/blade-page-methods'))->toHtml($page::class) }}
 
-
 ## MarkdownPage
 
 Page class for Markdown pages.
@@ -250,7 +244,6 @@ class MarkdownPage extends BaseMarkdownPage
 ### Methods
 
 This class does not define any additional methods.
-
 
 ## MarkdownPost
 
@@ -286,7 +279,6 @@ class MarkdownPost extends BaseMarkdownPage
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/markdown-post-methods'))->toHtml($page::class) }}
 
-
 ## DocumentationPage
 
 Page class for documentation pages.
@@ -314,7 +306,6 @@ class DocumentationPage extends BaseMarkdownPage
 ### Methods
 
 [Blade]: {{ Hyde\Markdown\Models\Markdown::fromFile(DocumentationPage::sourcePath('_data/partials/hyde-pages-api/documentation-page-methods'))->toHtml($page::class) }}
-
 
 ## HtmlPage
 

@@ -7,12 +7,10 @@ navigation:
 
 This guide will help you update your HydePHP project to the latest version.
 
-
 ## Before You Start
 
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
 The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
-
 
 ## Version Compatibility
 
@@ -38,13 +36,11 @@ Obligatory related XKCD: [https://xkcd.com/1172](https://xkcd.com/1172)
 Before you perform an update, please make sure you have a backup of your project.
 Using Git is highly recommended as it allows you to easily roll back changes if something goes wrong.
 
-
 ## Update to a major version
 
 When updating to a major version, you should read the release notes and the upgrade guide for that version.
 If you are updating multiple major versions at once, it's recommended to update one major version at a time,
 following the upgrade guide for each version. After following the upgrade guide, you can follow the post-update instructions below.
-
 
 ## Updating to a minor or patch version
 
@@ -56,7 +52,6 @@ composer update hyde/* --with-dependencies
 
 Note that if you have hardcoded a version constraint in your `composer.json` file, you may need to update it manually.
 You can always refer to the `composer.json` file in the HydePHP repository if you need a reference.
-
 
 ## Alternate update methods
 
@@ -79,7 +74,6 @@ composer update
 An alternate way to update your project is to essentially do a hard reset. This is only recommended if you haven't done many modifications to the HydePHP files.
 
 Essentially: Download the [latest release](https://github.com/hydephp/hyde/releases/latest) from GitHub, extract it to a new project directory, then copy over your source files and install the dependencies.
-
 
 ## Post-update instructions
 

@@ -13,7 +13,6 @@ For example, in a blog post you may define a category, author website, or featur
 Using front matter is optional, as Hyde will dynamically generate data based on the content itself. (Though any matter you provide will take precedence over the automatically generated data.)
 While Hyde offers some support for front matter within Blade files, most of the time you use front matter, it will be in Markdown.
 
-
 ## Front Matter Syntax
 
 Here's a refresher on Yaml, and a quick reference of the syntax Hyde uses and expects:

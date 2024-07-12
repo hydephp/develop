@@ -23,7 +23,6 @@ make sure you register it before the full application is booted so that routes c
 
 _To see how to register the page, see the examples below. But first we must look at how to actually create the page._
 
-
 ## Creating the Page
 
 To create an InMemoryPage, you need to instantiate it with the required parameters.
@@ -42,7 +41,6 @@ contents with the supplied front matter during the static site build process.
 >warning Note that `$contents` take precedence over `$view`, so if you pass both, only `$contents` will be used.
 
 You can also register a macro with the name `compile` to overload the default compile method.
-
 
 ## API Reference
 

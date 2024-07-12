@@ -12,7 +12,6 @@ HydePHP is a simple, yet powerful, static site generator. It is designed to be e
 
 This section of the documentation will cover some of the more advanced (but optional) features of the framework.
 
-
 ## Prerequisites
 
 To fully understand the features described in these chapters, it may be beneficial to first skim through the
@@ -21,7 +20,6 @@ To fully understand the features described in these chapters, it may be benefici
 You are also expected to have a basic understanding of PHP, and object-oriented programming principles.
 
 Having some familiarity with Laravel will also be beneficial, as HydePHP is built on top of the Laravel framework.
-
 
 ## Table of Contents
 
