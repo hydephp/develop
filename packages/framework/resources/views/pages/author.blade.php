@@ -1,3 +1,4 @@
+@props([/** @var \Hyde\Framework\Features\Blogging\Models\PostAuthor */ 'author'])
 @extends('hyde::layouts.app')
 @section('content')
 
