@@ -23,4 +23,9 @@ class PostAuthorsPage extends InMemoryPage
 
         $this->authors = $authors;
     }
+
+    public function getBladeView(): string
+    {
+        return $this->view;
+    }
 }
