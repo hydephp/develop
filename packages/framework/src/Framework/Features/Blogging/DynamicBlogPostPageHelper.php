@@ -29,6 +29,7 @@ class DynamicBlogPostPageHelper
     {
         // Todo: This does not find authors that have no author config, we should add those to the underlying collection!
 
-        return Hyde::authors()->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage("author/$author->username"))->all();
+        return Hyde::authors()
+            ->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage("author/$author->username"))->all();
     }
 }
