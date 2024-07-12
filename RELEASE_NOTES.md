@@ -48,6 +48,8 @@ This serves two purposes:
 - Calling the `DataCollection` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
 - Markdown includes are now converted to HTML using the custom HydePHP Markdown service, meaning they now support full GFM spec and custom Hyde features like colored blockquotes and code block filepath labels in https://github.com/hydephp/develop/pull/1738
 - Markdown returned from includes are now trimmed of trailing whitespace and newlines in https://github.com/hydephp/develop/pull/1738
+- Reorganized and cleaned up the navigation and sidebar documentation for improved clarity.
+- Moved the sidebar documentation to the documentation pages section for better organization.
 
 ### Deprecated
 - for soon-to-be removed features.
