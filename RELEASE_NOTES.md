@@ -15,6 +15,9 @@ This serves two purposes:
 - Added a new `\Hyde\Framework\Exceptions\ParseException` exception class to handle parsing exceptions in data collection files in https://github.com/hydephp/develop/pull/1732
 - Added a new `\Hyde\Framework\Exceptions\InvalidConfigurationException` exception class to handle invalid configuration exceptions in https://github.com/hydephp/develop/pull/1799
 - The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
+- Added support for setting custom navigation items in the YAML configuration in https://github.com/hydephp/develop/pull/1818
+- Added support for setting extra attributes for navigation items in https://github.com/hydephp/develop/pull/1824
+- Introduced a new navigation config builder class to simplify navigation configuration in https://github.com/hydephp/develop/pull/1827
 
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
@@ -23,6 +26,8 @@ This serves two purposes:
 - **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames. For more information, see below.
 - **Breaking:** The `Author::create()` method now returns an array instead of a `PostAuthor` instance. For more information, see below.
 - **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance. For more information, see below.
+- **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format. For more information, see the upgrade guide below.
+- **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display`.
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
