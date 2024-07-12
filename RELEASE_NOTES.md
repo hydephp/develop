@@ -340,3 +340,78 @@ For example, an empty or malformed JSON file will now throw an exception like th
 
 In order to normalize the thrown exceptions, we now rethrow the `ParseException` from `Symfony/Yaml` as our custom `ParseException` to match the JSON and Markdown validation.
 Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional. Markdown files can have an empty body if front matter is present.
+
+## New features
+
+<!-- Editors note: Todo: Maybe move to the relevant docs... -->
+
+### Navigation configuration changes
+
+The custom navigation item configuration format has been updated to use array inputs. This change allows for more flexibility and consistency in defining navigation items.
+
+#### Old format:
+
+```php
+'navigation' => [
+    'custom_items' => [
+        'Custom Item' => '/custom-page',
+    ],
+],
+```
+
+#### New format:
+
+```php
+'navigation' => [
+    'custom_items' => [
+        ['label' => 'Custom Item', 'destination' => '/custom-page'],
+    ],
+],
+```
+
+Additionally, the `hyde.navigation.subdirectories` configuration option has been renamed to `hyde.navigation.subdirectory_display`. Update your configuration files accordingly.
+
+### YAML configuration for navigation items
+
+You can now set custom navigation items directly in your YAML configuration files. This provides an alternative to defining them in the PHP configuration files.
+
+Example:
+
+```yaml
+navigation:
+  custom_items:
+    - label: Custom Item
+      destination: /custom-page
+```
+
+### Extra attributes for navigation items
+
+Navigation items now support extra attributes, allowing you to add custom data or styling to your navigation elements. You can set these attributes in both PHP and YAML configurations.
+
+Example in PHP:
+
+```php
+'navigation' => [
+    'custom_items' => [
+        [
+            'label' => 'Custom Item',
+            'destination' => '/custom-page',
+            'attributes' => ['class' => 'special-link', 'target' => '_blank'],
+        ],
+    ],
+],
+```
+
+Example in YAML:
+
+```yaml
+navigation:
+  custom_items:
+    - label: Custom Item
+      destination: /custom-page
+      attributes:
+        class: special-link
+        target: _blank
+```
+
+These changes provide more flexibility and control over your site's navigation structure. Make sure to update your configuration files and any custom code that interacts with navigation items to align with these new formats and features.
