@@ -32,6 +32,7 @@ class DynamicBlogPostPageHelper
 
         $authors = Hyde::authors()
             // This filtering is opinionated, and we can configure it, but for now it only includes authors with posts
+            // Todo: Unless the "guest" author has been modified, we should filter that too
             ->filter(fn (PostAuthor $author): bool => $author->getPosts()->isNotEmpty());
 
         if ($authors->isEmpty()) {
