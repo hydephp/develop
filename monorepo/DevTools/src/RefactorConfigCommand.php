@@ -26,6 +26,7 @@ use function file_put_contents;
 
 /**
  * @internal This class is internal to the hydephp/develop monorepo.
+ * @experimental https://github.com/hydephp/develop/pull/1833
  */
 class RefactorConfigCommand extends Command
 {
