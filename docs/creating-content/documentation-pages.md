@@ -272,6 +272,61 @@ Please note that this option is not added to the config file by default, as it's
 ],
 ```
 
+### Numerical Prefix Sidebar Ordering
+
+HydePHP v2 introduces sidebar item ordering based on numerical prefixes in filenames. This feature works for the documentation sidebar.
+
+This has the great benefit of matching the sidebar layout with the file structure view. It also works especially well with subdirectory-based sidebar grouping.
+
+```shell
+_docs/
+  01-installation.md     # Priority: 1
+  02-configuration.md    # Priority: 2
+  03-usage.md            # Priority: 3
+```
+
+As you can see, Hyde parses the number from the filename and uses it as the priority for the page in the sidebar, while stripping the prefix from the route key.
+
+#### Important Notes
+
+1. The numerical prefix remains part of the page identifier but is stripped from the route key.
+   For example: `_docs/01-installation.md` has route key `installation` and page identifier `01-installation`.
+2. You can delimit the numerical prefix with either a dash or an underscore.
+   For example: Both `_docs/01-installation.md` and `_docs/01_installation.md` are valid.
+3. Leading zeros are optional. `_docs/1-installation.md` is equally valid.
+
+#### Using Numerical Prefix Ordering in Subdirectories
+
+This feature integrates well with automatic subdirectory-based sidebar grouping. Here's an example of how you could organize a documentation site:
+
+```shell
+_docs/
+  01-getting-started/
+    01-installation.md
+    02-requirements.md
+    03-configuration.md
+  02-usage/
+    01-quick-start.md
+    02-advanced-usage.md
+  03-features/
+    01-feature-1.md
+    02-feature-2.md
+```
+
+Here are two useful tips:
+
+1. You can use numerical prefixes in subdirectories to control the sidebar group order.
+2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
+
+#### Customization
+
+If you're not interested in using numerical prefix ordering, you can disable it in the Hyde config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
+
+```php
+// filepath: config/hyde.php
+'numerical_page_ordering' => false,
+```
+
 ### Table of Contents Settings
 
 Hyde automatically generates a table of contents for the page and adds it to the sidebar.
