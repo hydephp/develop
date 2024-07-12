@@ -29,7 +29,7 @@ Since Hyde does a lot of things automatically, there are some things you may nee
 - You should always have an `index.md` file in the `_docs/` directory
 - Your page will be stored in `_site/docs/<identifier>.html` unless you [change it in the config](#output-directory)
 
-### Advanced usage and customization
+### Advanced Usage and Customization
 
 Like most of HydePHP, the Hyde Documentation module is highly customizable. Much of the frontend is composed using Blade templates and components, which you can customize to your heart's content.
 Since there are so many components, it's hard to list them all here in the documentation, so I encourage you to check out the [source code](https://github.com/hydephp/framework/tree/master/resources/views/components/docs) to see how it's all put together and find the customizations you are looking for.
@@ -51,7 +51,7 @@ This will create the following file saved as `_docs/page-title.md`
 
 ```
 
-### Front Matter is optional
+### Front Matter Is Optional
 
 You don't need to use [front matter](blog-posts#supported-front-matter-properties) to create a documentation page.
 
@@ -73,7 +73,7 @@ navigation:
 
 Hyde makes documentation pages easy to create by automatically generating dynamic content such as the sidebar and page title. If you are not happy with the results you can customize them in the config or with front matter.
 
-### Front Matter reference
+### Front Matter Reference
 
 Before we look at how to override things, here is an overview of the relevant content Hyde generates, and where the data is from as well as where it can be overridden.
 
@@ -91,7 +91,7 @@ The sidebar is automatically generated from the files in the `_docs` directory. 
 
 Since this feature shares a lot of similarities and implementation details with the navigation menu, I recommend you read the [navigation menu documentation](navigation) page as well to learn more about the fundamentals and terminology.
 
-### Sidebar ordering
+### Sidebar Ordering
 
 The sidebar is sorted/ordered by the `priority` property. The lower the priority value, the higher up in the sidebar it will be. The default priority is 999. You can override the priority using the following front matter:
 
@@ -102,7 +102,7 @@ navigation:
 
 You can also change the order in the `config/docs.php` configuration file, which may be easier to manage for larger sites. See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details.
 
-### Sidebar labels
+### Sidebar Labels
 
 The sidebar items are labelled with the `label` property. The default label is generated from the filename of the file.
 
@@ -113,7 +113,7 @@ navigation:
     label: "My Custom Sidebar Label"
 ```
 
-### Sidebar grouping
+### Sidebar Grouping
 
 Sidebar grouping allows you to group items in the sidebar under category headings. This is useful for creating a sidebar with a lot of items. The official HydePHP.com docs, for instance, use this feature.
 
@@ -128,7 +128,7 @@ navigation:
     group: "Getting Started"
 ```
 
-#### Automatic subdirectory-based grouping
+#### Automatic Subdirectory-Based Grouping
 
 You can also automatically group your documentation pages by placing source files in sub-directories.
 
@@ -155,7 +155,7 @@ This can be useful to create redirects or other items that should not be shown i
 
 Please see the [customization page](customization) for in-depth information on how to customize Hyde, including the documentation pages. Here is a high level overview for quick reference though.
 
-### Output directory
+### Output Directory
 
 If you want to store the compiled documentation pages in a different directory than the default 'docs' directory, for example to specify a version like the Hyde docs does, you can specify the output directory in the Hyde configuration file.
 
@@ -171,11 +171,11 @@ The path is relative to the site output, typically `_site`.
 
 Note that you need to take care as to not set it to something that may conflict with other parts, such as media or posts directories.
 
-### Automatic navigation menu
+### Automatic Navigation Menu
 
 By default, a link to the documentation page is added to the navigation menu when an index.md file is found in the `_docs` directory. Please see [the customization page](customization#navigation-menu--sidebar) for more information.
 
-### Sidebar header name
+### Sidebar Header Name
 
 By default, the site title shown in the sidebar header is generated from the configured site name suffixed with "docs". You can change this in the Docs configuration file. Tip: The header will link to the docs/index page, if it exists.
 
@@ -183,7 +183,7 @@ By default, the site title shown in the sidebar header is generated from the con
 'title' => 'API Documentation',
 ```
 
-### Sidebar footer customization
+### Sidebar Footer Customization
 
 The sidebar footer contains, by default, a link to your site homepage. You can change this in the `config/docs.php` file.
 
@@ -197,7 +197,7 @@ The sidebar footer contains, by default, a link to your site homepage. You can c
 
 You can also set the option to `false` to disable it entirely.
 
-### Sidebar page order
+### Sidebar Page Order
 
 To quickly arrange the order of items in the sidebar, you can reorder the page identifiers in the list and the links will be sorted in that order. Link items without an entry here will fall back to the default priority of 999, putting them last.
 
@@ -213,7 +213,7 @@ To quickly arrange the order of items in the sidebar, you can reorder the page i
 
 See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
 
-### Automatic sidebar group labels
+### Automatic Sidebar Group Labels
 
 When using the automatic sidebar grouping feature (based on subdirectories), the titles of the groups are generated from the directory names. If these are not to your liking, for example if you need to use special characters, you can override them in the Docs configuration file. The array key is the directory name, and the value is the label.
 
@@ -227,7 +227,7 @@ Please note that this option is not added to the config file by default, as it's
 ],
 ```
 
-### Table of contents settings
+### Table of Contents Settings
 
 Hyde automatically generates a table of contents for the page and adds it to the sidebar.
 
@@ -243,7 +243,7 @@ In the `config/docs.php` file you can configure the behaviour, content, and the 
 ],
 ```
 
-### Using flattened output paths
+### Using Flattened Output Paths
 
 If this setting is set to true, Hyde will output all documentation pages into the same configured documentation output directory. This means that you can use the automatic directory-based grouping feature, but still have a "flat" output structure. Note that this means that you can't have two documentation pages with the same filename or navigation menu label as they will overwrite each other.
 
@@ -271,7 +271,7 @@ The search feature is enabled by default. You can disable it by removing the `Do
 ],
 ```
 
-### Using the search
+### Using the Search
 
 The search works by generating a JSON search index which the JavaScript plugin loads asynchronously.
 
@@ -281,7 +281,7 @@ The second method is a button added to the documentation pages, similar to how A
 
 >info The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
-### Hiding pages from indexing
+### Hiding Pages from Indexing
 
 If you have a large page on your documentation site, like a changelog, you may want to hide it from the search index. You can do this by adding the page identifier to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden. The page will still be accessible as normal but will not be added to the search index JSON file.
 
@@ -292,7 +292,7 @@ If you have a large page on your documentation site, like a changelog, you may w
 ]
 ```
 
-### Live search with the realtime compiler
+### Live Search with the Realtime Compiler
 
 The Realtime Compiler that powers the `php hyde serve` command will automatically generate a fresh search index each time the browser requests it.
 
@@ -316,7 +316,7 @@ Here's an example configuration from the official HydePHP.com documentation:
 'source_file_location_base' => 'https://github.com/hydephp/docs/blob/master/',
 ```
 
-#### Changing the button text
+#### Changing the Button Text
 
 Changing the label is easy, just change the following config setting:
 
@@ -325,7 +325,7 @@ Changing the label is easy, just change the following config setting:
 'edit_source_link_text' => 'Edit Source on GitHub',
 ```
 
-#### Changing the position
+#### Changing the Position
 
 By default, the button will be shown in the documentation page footer. You can change this by setting the following config setting to `'header'`, `'footer'`, or `'both'`
 
@@ -334,7 +334,7 @@ By default, the button will be shown in the documentation page footer. You can c
 'edit_source_link_position' => 'header',
 ```
 
-#### Adding a button icon
+#### Adding a Button Icon
 
 This is not included out of the box, but is easy to add with some CSS! Just target the `.edit-page-link` class.
 
@@ -343,6 +343,6 @@ This is not included out of the box, but is easy to add with some CSS! Just targ
 .edit-page-link::before {content: "✏ "}
 ```
 
-#### Changing the Blade view
+#### Changing the Blade View
 
 You can also publish the `edit-source-button.blade.php` view and change it to your liking.
