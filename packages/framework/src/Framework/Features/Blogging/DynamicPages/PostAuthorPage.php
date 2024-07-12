@@ -26,6 +26,6 @@ class PostAuthorPage extends InMemoryPage
     {
         // Todo: Support/document overriding the view
 
-        return $this->view;
+        return 'hyde::pages.author';
     }
 }
