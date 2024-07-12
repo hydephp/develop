@@ -107,8 +107,8 @@ navigation:
 
 Let's explore how to customize navigation menus using configuration files:
 
-- For the main navigation menu, use `navigation` setting in the `hyde.php` config file.
-- For the sidebar, use `sidebar` setting in the `docs.php` config file.
+- For the main navigation menu, use the `navigation` setting in the `hyde.php` config file.
+- For the sidebar, use the `sidebar` setting in the `docs.php` config file.
 
 When customizing the main navigation menu, use the [route key](core-concepts#route-keys) of the page. For the sidebar, you can use either the route key or the [page identifier](core-concepts#page-identifiers).
 
