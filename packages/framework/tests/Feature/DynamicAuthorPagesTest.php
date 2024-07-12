@@ -44,14 +44,19 @@ class DynamicAuthorPagesTest extends TestCase
         ]);
 
         // Create three pages for Mr. Hyde
-        Hyde::pages()->addPage(new MarkdownPost(identifier: 'hyde_post_1', matter: ['author' => 'mr_hyde'], markdown: 'Content for Hyde post 1'));
-        Hyde::pages()->addPage(new MarkdownPost(identifier: 'hyde_post_2', matter: ['author' => 'mr_hyde'], markdown: 'Content for Hyde post 2'));
-        Hyde::pages()->addPage(new MarkdownPost(identifier: 'hyde_post_3', matter: ['author' => 'mr_hyde'], markdown: 'Content for Hyde post 3'));
+        $this->makePage('hyde_post_1', 'mr_hyde', 'Content for Hyde post 1');
+        $this->makePage('hyde_post_2', 'mr_hyde', 'Content for Hyde post 2');
+        $this->makePage('hyde_post_3', 'mr_hyde', 'Content for Hyde post 3');
 
         // Create two pages for Jane Doe
-        Hyde::pages()->addPage(new MarkdownPost(identifier: 'jane_post_1', matter: ['author' => 'jane_doe'], markdown: 'Content for Jane post 1'));
-        Hyde::pages()->addPage(new MarkdownPost(identifier: 'jane_post_2', matter: ['author' => 'jane_doe'], markdown: 'Content for Jane post 2'));
+        $this->makePage('jane_post_1', 'jane_doe', 'Content for Jane post 1');
+        $this->makePage('jane_post_2', 'jane_doe', 'Content for Jane post 2');
 
         // No pages for user123
+    }
+
+    protected function makePage(string $identifier, string $author, string $markdown): void
+    {
+        Hyde::pages()->addPage(new MarkdownPost(identifier: $identifier, matter: ['author' => $author], markdown: $markdown));
     }
 }
