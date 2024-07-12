@@ -39,9 +39,9 @@ If you need to guide the code style, for example with refactors, use this:
 
 ```markdown
 Remember to follow our code style:
-- Use strict types whenever possible, including closures and arrow functions. Use PHPDoc annotations to annotate things like array types/shapes and generics. Do not use PHPDocs to annotate types that can be conveyed using native PHP typing.
+- Use strict types whenever possible, including closures and arrow functions. Avoid `mixed` types whenever possible. Use PHPDoc annotations to annotate things like array types/shapes and generics. Do not use PHPDocs to annotate types that can be conveyed using native PHP typing.
 - Helper methods not part of the public API should be protected, not private. Do extract helper methods for complex parts of code to make it more readable and have each method focus on one responsability. Make sure existing helper methods are named descriptivly.
-- Use camelCase for class fields, use snake_case for non-class functions and constants.
+- Use camelCase for class fields and variables, use snake_case for non-class functions and constants.
 - Code comments should be used sparingly, and only when describing things that seem weird but that may be needed to work around quirks out of our control. In general, extracting a self describing helper method is much better.
 - Make sure both code and code documentation/comments use proper English grammar and spelling, as well as proper capitalization. Don't remove "todo" comments, but make sure they are formatted like this: "Todo: Do something".
 - When writing tests, use PHPUnit where tests are defined using this format: `public function testDoingSomethingDoesSomething()`, we do not specify return types on test methods, but we do when adding testing helper methods.
