@@ -309,7 +309,7 @@ The feature is automatically enabled when you specify a base URL in the Docs con
 
 ### Configuration
 
-As an example configuration, let's take a practical example of how HydePHP.com uses this feature.
+Here's an example configuration from the official HydePHP.com documentation:
 
 ```php
 // Filepath: config/docs.php
