@@ -181,7 +181,7 @@ You could also combine these methods if desired:
 ]
 ```
 
-### Changing Menu item Labels
+### Changing Menu Item Labels
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
 
