@@ -4,7 +4,7 @@ navigation:
     priority: 25
 ---
 
-# Customizing your Site
+# Customizing Your Site
 
 ## Introduction
 

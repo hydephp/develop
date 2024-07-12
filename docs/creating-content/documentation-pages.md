@@ -138,7 +138,7 @@ For example, putting a Markdown file in `_docs/getting-started/` is equivalent t
 
 >info Tip: When using subdirectory-based grouping, you can set the priority of the groups using the directory name as the array key in the config file.
 
-### Hiding items
+### Hiding Items
 
 You can hide items from the sidebar by adding the `hidden` property to the front matter:
 

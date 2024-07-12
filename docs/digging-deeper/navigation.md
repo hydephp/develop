@@ -181,7 +181,7 @@ You could also combine these methods if desired:
 ]
 ```
 
-### Changing Menu Item Labels
+### Changing Menu item Labels
 
 Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
 
@@ -336,7 +336,7 @@ If you're not interested in using numerical prefix ordering, you can disable it 
 'numerical_page_ordering' => false,
 ```
 
-## Digging Deeper into the Internals
+## Digging Deeper Into the Internals
 
 While not essential, understanding the internal workings of the navigation system can be as beneficial as it's interesting. Here's a quick high-level overview of the [Navigation API](navigation-api).
 
