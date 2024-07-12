@@ -34,7 +34,7 @@ class RefactorConfigCommand extends Command
     protected const SUPPORTED_FORMATS = ['yaml'];
 
     /** @var string */
-    protected $signature = 'refactor:config {format : The new configuration format}';
+    protected $signature = 'refactor:config {format : The new configuration format} {--skip-diff : Skip diffing and dump the entire config}';
 
     /** @var string */
     protected $description = 'Migrate the configuration to a different format.';
@@ -59,7 +59,11 @@ class RefactorConfigCommand extends Command
     {
         $this->ensureYamlConfigDoesNotExist();
 
-        $config = $this->getConfigDiff();
+        $config = config('hyde');
+
+        if (! $this->option('skip-diff')) {
+            $config = $this->getDiffedConfig($config);
+        }
 
         if (empty($config)) {
             $this->warn("You don't seem to have any configuration to migrate.");
@@ -84,9 +88,8 @@ class RefactorConfigCommand extends Command
         }
     }
 
-    protected function getConfigDiff(): array
+    protected function getDiffedConfig($config): array
     {
-        $config = config('hyde');
         $default = require Hyde::vendorPath('config/hyde.php');
 
         return $this->diffConfig($config, $default);
