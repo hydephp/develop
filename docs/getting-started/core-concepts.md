@@ -100,7 +100,7 @@ This can be visualized as follows, assuming a blog post is stored as `_posts/hel
 
 As you can see, the route key is simply put the relative page URL, without the .html extension.
 
-## Convention over Configuration
+## Convention Over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
 However, Hyde also strives to be modular and endlessly customizable hackable if you need it.
@@ -127,7 +127,7 @@ author: "Mr Hyde"
 date: "2023-03-14"
 ---
 
-## Markdown comes here
+## Markdown Comes Here
 
 Lorem ipsum dolor sit amet, etc.
 ```
