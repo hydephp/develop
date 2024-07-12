@@ -10,6 +10,7 @@ use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Facades\Navigation;
 use Hyde\Foundation\HydeKernel;
 use JetBrains\PhpStorm\NoReturn;
 use Hyde\Pages\Concerns\HydePage;
@@ -28,6 +29,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  *
  * @see \Hyde\Framework\Testing\Unit\Views\NavigationHtmlLayoutsTest
  *
+ * @covers \Hyde\Facades\Navigation
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
@@ -411,7 +413,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationAutomaticSubdirectoryDropdownLabelsCanBeSetInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.labels' => ['hello' => 'World']]);
 
         $this->assertMenuEquals(['World'], [
@@ -443,7 +445,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testPagesInSubdirectoriesAreAddedToNavigationWhenNavigationSubdirectoriesIsSetToFlat()
     {
-        config(['hyde.navigation.subdirectories' => 'flat']);
+        config(['hyde.navigation.subdirectory_display' => 'flat']);
 
         $this->assertMenuEquals(['Foo', 'Bar', 'Baz'], [
             new MarkdownPage('about/foo'),
@@ -454,7 +456,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testPagesInSubdirectoriesAreAddedAsDropdownsWhenNavigationSubdirectoriesIsSetToDropdown()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'About', 'children' => ['Foo', 'Bar', 'Baz']],
@@ -501,7 +503,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuDropdownItemsWithSameLabelButDifferentGroupsAreNotFiltered()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'One', 'children' => ['Foo']],
@@ -514,7 +516,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenuAutomaticDropdownItemsWithSameLabelButDifferentGroupsAreNotFiltered()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'One', 'children' => ['Foo']],
@@ -531,7 +533,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         // we run into a conflicting state where we don't know what the user intended. We solve this by giving
         // precedence to the subdirectory configuration. This is opinionated, but allows for good grouping.
 
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'Foo', 'children' => ['Child']],
@@ -542,7 +544,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testCanMixSubdirectoryDropdownsWithFrontMatterDropdowns()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $this->assertMenuEquals([
             ['label' => 'Foo', 'children' => ['Bar', 'Baz']],
@@ -554,7 +556,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainMenuAutomaticDropdownLabelsCanBeSetInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.labels' => ['foo' => 'Bar']]);
 
         $this->assertMenuEquals([
@@ -1109,7 +1111,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationDropdownPriorityCanBeSetInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.order' => ['foo' => 500]]);
 
         $this->assertMenuEquals(
@@ -1120,7 +1122,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationDropdownPriorityCanBeSetInConfigUsingDifferingCases()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
         config(['hyde.navigation.order' => ['hello-world' => 500]]);
 
         $expected = [['label' => 'Hello World', 'priority' => 500]];
@@ -1175,7 +1177,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainMenuNavigationGroupCasing()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         // When using subdirectory groupings, we try to format them the same way as the page titles
 
@@ -1231,6 +1233,109 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'Hello World'])]);
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello-world'])]);
         $this->assertSidebarEquals(['Hello World'], [new DocumentationPage('foo', ['navigation.group' => 'hello world'])]);
+    }
+
+    // Configuration tests
+
+    public function testCanConfigureMainMenuUsingArraySettings()
+    {
+        $config = [
+            'navigation' => [
+                'order' => [
+                    'foo' => 3,
+                    'bar' => 2,
+                    'baz' => 1,
+                ],
+
+                'labels' => [
+                    'foo' => 'Foo Page',
+                    'bar' => 'Bar Page',
+                    'baz' => 'Baz Page',
+                    'dropdown/item' => 'Dropdown Item Page',
+                ],
+
+                'exclude' => [
+                    'qux',
+                ],
+
+                'custom' => [
+                    [
+                        'label' => 'Custom',
+                        'destination' => 'https://example.com',
+                        'priority' => 120,
+                        'attributes' => [
+                            'target' => '_blank',
+                        ],
+                    ],
+                ],
+
+                'subdirectory_display' => 'flat',
+            ],
+        ];
+
+        config(['hyde' => $config]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Baz Page', 'priority' => 1],
+            ['label' => 'Bar Page', 'priority' => 2],
+            ['label' => 'Foo Page', 'priority' => 3],
+            ['label' => 'Custom', 'priority' => 120, 'attributes' => ['target' => '_blank']],
+            ['label' => 'Dropdown Item Page', 'priority' => 999],
+        ], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+            new MarkdownPage('qux'),
+            new MarkdownPage('dropdown/item'),
+        ]);
+    }
+
+    public function testCanConfigureMainMenuUsingBuilderSettings()
+    {
+        $config = [
+            'navigation' => Navigation::configure()
+                ->setPagePriorities([
+                    'foo' => 3,
+                    'bar' => 2,
+                    'baz' => 1,
+                ])
+                ->setPageLabels([
+                    'foo' => 'Foo Page',
+                    'bar' => 'Bar Page',
+                    'baz' => 'Baz Page',
+                    'dropdown/item' => 'Dropdown Item Page',
+                ])
+                ->excludePages([
+                    'qux',
+                ])
+                ->addNavigationItems([
+                    [
+                        'label' => 'Custom',
+                        'destination' => 'https://example.com',
+                        'priority' => 120,
+                        'attributes' => [
+                            'target' => '_blank',
+                        ],
+                    ],
+                ])
+                ->setSubdirectoryDisplayMode('flat'),
+        ];
+
+        config(['hyde' => $config]);
+
+        $this->assertMenuEquals([
+            ['label' => 'Baz Page', 'priority' => 1],
+            ['label' => 'Bar Page', 'priority' => 2],
+            ['label' => 'Foo Page', 'priority' => 3],
+            ['label' => 'Custom', 'priority' => 120, 'attributes' => ['target' => '_blank']],
+            ['label' => 'Dropdown Item Page', 'priority' => 999],
+        ], [
+            new MarkdownPage('foo'),
+            new MarkdownPage('bar'),
+            new MarkdownPage('baz'),
+            new MarkdownPage('qux'),
+            new MarkdownPage('dropdown/item'),
+        ]);
     }
 
     // Testing helpers

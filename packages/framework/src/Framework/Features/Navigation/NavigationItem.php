@@ -23,16 +23,20 @@ class NavigationItem implements Stringable
     protected string $label;
     protected int $priority;
 
+    /** @var array<string, scalar> */
+    protected array $attributes = [];
+
     /**
      * Create a new navigation menu item, automatically filling in the properties from a Route instance if provided.
      *
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or an external URI.
      * @param  string|null  $label  If not provided, Hyde will try to get it from the route's connected page, or from the URL.
      * @param  int|null  $priority  If not provided, Hyde will try to get it from the route or the default priority of 500.
+     * @param  array<string, scalar>  $attributes  Additional attributes for the navigation item.
      */
-    public function __construct(Route|string $destination, ?string $label = null, ?int $priority = null)
+    public function __construct(Route|string $destination, ?string $label = null, ?int $priority = null, array $attributes = [])
     {
-        [$this->destination, $this->label, $this->priority] = self::make($destination, $label, $priority);
+        [$this->destination, $this->label, $this->priority, $this->attributes] = self::make($destination, $label, $priority, $attributes);
     }
 
     /**
@@ -41,10 +45,11 @@ class NavigationItem implements Stringable
      * @param  \Hyde\Support\Models\Route|string<\Hyde\Support\Models\RouteKey>|string  $destination  Route instance or route key, or an external URI.
      * @param  string|null  $label  If not provided, Hyde will try to get it from the route's connected page, or from the URL.
      * @param  int|null  $priority  If not provided, Hyde will try to get it from the route or the default priority of 500.
+     * @param  array<string, scalar>  $attributes  Additional attributes for the navigation item.
      */
-    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null): static
+    public static function create(Route|string $destination, ?string $label = null, ?int $priority = null, array $attributes = []): static
     {
-        return new static(...self::make($destination, $label, $priority));
+        return new static(...self::make($destination, $label, $priority, $attributes));
     }
 
     /**
@@ -100,8 +105,8 @@ class NavigationItem implements Stringable
         return Hyde::currentRoute()?->getLink() === $this->getLink();
     }
 
-    /** @return array{\Hyde\Support\Models\Route|string, string, int} */
-    protected static function make(Route|string $destination, ?string $label = null, ?int $priority = null): array
+    /** @return array{\Hyde\Support\Models\Route|string, string, int, array<string, scalar>} */
+    protected static function make(Route|string $destination, ?string $label = null, ?int $priority = null, array $attributes = []): array
     {
         // Automatically resolve the destination if it's a route key.
         if (is_string($destination) && Routes::has($destination)) {
@@ -114,6 +119,12 @@ class NavigationItem implements Stringable
             $priority ??= $destination->getPage()->navigationMenuPriority();
         }
 
-        return [$destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT];
+        return [$destination, $label ?? $destination, $priority ?? NavigationMenu::DEFAULT, $attributes];
+    }
+
+    /** @return array<string, scalar> */
+    public function getExtraAttributes(): array
+    {
+        return $this->attributes;
     }
 }

@@ -11,6 +11,7 @@ use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function filled;
 use function assert;
@@ -81,7 +82,11 @@ class NavigationMenuGenerator
                 $this->items->push(NavigationItem::create(DocumentationPage::home()));
             }
         } else {
-            collect(Config::getArray('hyde.navigation.custom', []))->each(function (NavigationItem $item): void {
+            collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $data): void {
+                /** @var array{destination: string, label: ?string, priority: ?int, attributes: array<string, scalar>} $data */
+                $message = 'Invalid navigation item configuration detected the configuration file. Please double check the syntax.';
+                $item = InvalidConfigurationException::try(fn () => NavigationItem::create(...$data), $message);
+
                 // Since these were added explicitly by the user, we can assume they should always be shown
                 $this->items->push($item);
             });
@@ -96,7 +101,7 @@ class NavigationMenuGenerator
 
             return $this->routes->first(fn (Route $route): bool => filled($route->getPage()->navigationMenuGroup())) !== null;
         } else {
-            return Config::getString('hyde.navigation.subdirectories', 'hidden') === 'dropdown';
+            return Config::getString('hyde.navigation.subdirectory_display', 'hidden') === 'dropdown';
         }
     }
 
@@ -189,6 +194,7 @@ class NavigationMenuGenerator
 
     protected function searchForGroupLabelInConfig(string $groupKey): ?string
     {
+        // TODO: Normalize this: sidebar_group_labels -> docs.sidebar.labels
         return $this->getConfigArray($this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels')[$groupKey] ?? null;
     }
 

@@ -23,7 +23,7 @@ class RelativeLinksAcrossPagesRetainsIntegrityTest extends TestCase
         parent::setUp();
 
         config(['hyde.enable_cache_busting' => false]);
-        config(['hyde.navigation.subdirectories' => 'flat']);
+        config(['hyde.navigation.subdirectory_display' => 'flat']);
 
         $this->needsDirectory('_pages/nested');
         $this->file('_pages/root.md');

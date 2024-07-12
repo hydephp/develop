@@ -210,4 +210,45 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame('Invalid configuration.', $exception->getMessage());
         $this->assertSame($previous, $exception->getPrevious());
     }
+
+    public function testInvalidConfigurationExceptionTryMethodWithSuccessfulCallback()
+    {
+        $result = InvalidConfigurationException::try(function () {
+            return 'success';
+        });
+
+        $this->assertSame('success', $result);
+    }
+
+    public function testInvalidConfigurationExceptionTryMethodWithThrowingCallback()
+    {
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Custom error message');
+
+        InvalidConfigurationException::try(function () {
+            throw new RuntimeException('Original error');
+        }, 'Custom error message');
+    }
+
+    public function testInvalidConfigurationExceptionTryMethodWithDefaultMessage()
+    {
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Original error');
+
+        InvalidConfigurationException::try(function () {
+            throw new RuntimeException('Original error');
+        });
+    }
+
+    public function testInvalidConfigurationExceptionTryMethodPreservesPreviousException()
+    {
+        try {
+            InvalidConfigurationException::try(function () {
+                throw new RuntimeException('Original error');
+            }, 'Custom error message');
+        } catch (InvalidConfigurationException $e) {
+            $this->assertInstanceOf(RuntimeException::class, $e->getPrevious());
+            $this->assertSame('Original error', $e->getPrevious()->getMessage());
+        }
+    }
 }

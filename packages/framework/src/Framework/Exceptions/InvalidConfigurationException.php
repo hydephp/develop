@@ -45,4 +45,18 @@ class InvalidConfigurationException extends InvalidArgumentException
 
         return [$file, $line + 1];
     }
+
+    /**
+     * @internal
+     *
+     * @experimental
+     */
+    public static function try(callable $callback, ?string $message = null): mixed
+    {
+        try {
+            return $callback();
+        } catch (Throwable $exception) {
+            throw new static($message ?? $exception->getMessage(), previous: $exception);
+        }
+    }
 }

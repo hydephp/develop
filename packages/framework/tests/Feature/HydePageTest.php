@@ -1176,7 +1176,7 @@ class HydePageTest extends TestCase
 
     public function testNavigationDataFactoryHidesPageFromNavigationWhenInAAndConfigIsSetToHidden()
     {
-        config(['hyde.navigation.subdirectories' => 'hidden']);
+        config(['hyde.navigation.subdirectory_display' => 'hidden']);
 
         $page = MarkdownPage::make('foo/bar');
 
@@ -1186,7 +1186,7 @@ class HydePageTest extends TestCase
 
     public function testNavigationDataFactoryDoesNotHidePageFromNavigationWhenInASubdirectoryAndAllowedInConfiguration()
     {
-        config(['hyde.navigation.subdirectories' => 'flat']);
+        config(['hyde.navigation.subdirectory_display' => 'flat']);
 
         $page = MarkdownPage::make('foo/bar');
 
@@ -1196,7 +1196,7 @@ class HydePageTest extends TestCase
 
     public function testNavigationDataFactoryAllowsShowInNavigationAndSetsGroupWhenDropdownIsSelectedInConfig()
     {
-        config(['hyde.navigation.subdirectories' => 'dropdown']);
+        config(['hyde.navigation.subdirectory_display' => 'dropdown']);
 
         $page = MarkdownPage::make('foo/bar');
 
