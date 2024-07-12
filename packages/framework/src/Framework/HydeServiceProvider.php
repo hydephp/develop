@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework;
 
-use Hyde\Hyde;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
@@ -16,7 +15,6 @@ use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Illuminate\Support\ServiceProvider;
 use Hyde\Facades\Config;
-use Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper;
 
 /**
  * Register and bootstrap core Hyde application services.
@@ -57,15 +55,6 @@ class HydeServiceProvider extends ServiceProvider
         $this->useMediaDirectory(Config::getString('hyde.media_directory', '_media'));
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
-
-        // Todo: Move to a better location
-        Hyde::kernel()->booted(function (): void {
-            if (DynamicBlogPostPageHelper::canGenerateAuthorPages()) {
-                foreach (DynamicBlogPostPageHelper::generateAuthorPages() as $page) {
-                    Hyde::pages()->addPage($page);
-                }
-            }
-        });
     }
 
     public function boot(): void
