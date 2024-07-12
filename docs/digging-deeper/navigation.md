@@ -118,7 +118,7 @@ The `navigation.order` and `sidebar.order` settings allow you to customize the o
 
 #### Basic Priority Syntax
 
-A nice and simple way to define the order of pages, is to add their route keys as a simple list array. We'll then match that array order.
+A nice and simple way to define the order of pages is to add their route keys as a simple list array. We'll then match that array order.
 
 It may be useful to know that we internally will assign a priority calculated according to its position in the list, plus an offset of `500`. The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
 
