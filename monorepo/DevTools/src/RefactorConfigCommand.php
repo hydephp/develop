@@ -61,8 +61,13 @@ class RefactorConfigCommand extends Command
 
     protected function migrateToYaml(): void
     {
+        $usesGit = file_exists(Hyde::path('.git'));
+
         if (file_exists(Hyde::path('hyde.yml')) && ! file_exists(Hyde::path('hyde.yml.bak'))) {
             copy(Hyde::path('hyde.yml'), Hyde::path('hyde.yml.bak'));
+            if (! $usesGit) {
+                $this->warn("You're not using Git for version control, so a backup of your configuration has been created at hyde.yml.bak.");
+            }
         }
 
         try {
@@ -81,6 +86,10 @@ class RefactorConfigCommand extends Command
             unlink(Hyde::path('hyde.yml.bak'));
 
             return;
+        } finally {
+            if ($usesGit && file_exists(Hyde::path('hyde.yml.bak'))) {
+                unlink(Hyde::path('hyde.yml.bak'));
+            }
         }
     }
 
