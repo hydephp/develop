@@ -17,7 +17,10 @@ class DynamicBlogPostPageHelper
         return true;
     }
 
-    public static function generateAuthorPages(): void
+    /**
+     * @return array<\Hyde\Pages\InMemoryPage>
+     */
+    public static function generateAuthorPages(): array
     {
         //
     }

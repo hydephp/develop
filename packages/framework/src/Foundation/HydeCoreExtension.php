@@ -44,7 +44,9 @@ class HydeCoreExtension extends HydeExtension
         }
 
         if (DynamicBlogPostPageHelper::canGenerateAuthorPages()) {
-            DynamicBlogPostPageHelper::generateAuthorPages();
+            foreach (DynamicBlogPostPageHelper::generateAuthorPages() as $page) {
+                $collection->addPage($page);
+            }
         }
     }
 }
