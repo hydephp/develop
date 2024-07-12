@@ -57,3 +57,9 @@ Please proofread this documentation to ensure it's clear and contains proper wor
 Sentences should be easy to read and follow. Use proper grammar and American English. Refrain from using abbreviations. Contractions are perfectly acceptable however.
 Headings should follow the APA Title Case style. Do not move around sections or change text that is already clear, as this makes it harder to see your changes.
 ```
+
+## Models
+
+We also have some fine-tuned models that can be used for AI prompting.
+
+- [Commit message generation model](models/commit-messages.txt) - Fluent model generated from the commit messages of the HydePHP repository.
