@@ -17,7 +17,7 @@
                         @if($author->bio)
                             <p class="text-gray-600 text-sm mb-4 text-center">{{ Str::limit($author->bio, 100) }}</p>
                         @endif
-                        <a href="{{ Hyde::formatLink($author->username) }}" class="text-blue-600 hover:underline">View Profile</a>
+                        <a href="{{ Hyde::formatLink(\Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper::authorBaseRouteKey()."/$author->username") }}" class="text-blue-600 hover:underline">View Profile</a>
                     </div>
                     <div class="mt-4">
                         <p class="text-sm text-gray-500">{{ $author->getPosts()->count() }} {{ Str::plural('post', $author->getPosts()->count()) }}</p>
