@@ -337,6 +337,7 @@ If the `Feature::Darkmode` setting is disabled in the `features` array in the sa
 setting this setting to `false` will make so that the buttons will not show up in the app layout nor the documentation layout;
 instead the appropriate color scheme will be automatically applied based on the browser system settings.
 
+
 ## Blade Views
 
 Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.

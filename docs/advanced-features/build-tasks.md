@@ -153,9 +153,11 @@ class MyServiceProvider extends ServiceProvider
 }
 ```
 
+
 ## Error handling
 
 If an exception is thrown in a build task, the build command will catch it and display the error message to the user.
+
 
 ## Helper methods
 

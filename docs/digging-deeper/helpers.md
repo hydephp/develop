@@ -187,6 +187,7 @@ $time->formatUsingClosure(function (int $minutes, int $seconds): string {
 }); // 1 minutes, 30 seconds
 ```
 
+
 ## Helper Functions
 
 HydePHP comes with a few helper functions to make your life easier.
@@ -263,6 +264,7 @@ If a base URL is not set, an exception will be thrown.
 ```blade
 <a href="{{ url('page.html') }}">Link</a>
 ```
+
 
 ## Pagination Utility
 
