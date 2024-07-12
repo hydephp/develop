@@ -9,5 +9,8 @@ use Hyde\Testing\TestCase;
  */
 class DynamicAuthorPagesTest extends TestCase
 {
-    //
+    protected function setUpTestEnvironment(): void
+    {
+        //
+    }
 }
