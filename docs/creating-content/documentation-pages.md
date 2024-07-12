@@ -100,7 +100,52 @@ navigation:
     priority: 5
 ```
 
-You can also change the order in the `config/docs.php` configuration file, which may be easier to manage for larger sites. See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details.
+You can also change the order in the `config/docs.php` configuration file, which may be easier to manage for larger sites.
+
+#### Basic Priority Syntax
+
+A nice and simple way to define the order of pages is to add their route keys as a simple list array. Hyde will then match that array order.
+
+It may be useful to know that Hyde internally will assign a priority calculated according to its position in the list, plus an offset of `500`. The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
+
+```php
+// filepath: config/docs.php
+'sidebar' => [
+    'order' => [
+        'readme', // Priority: 500
+        'installation', // Priority: 501
+        'getting-started', // Priority: 502
+    ]
+]
+```
+
+#### Explicit Priority Syntax
+
+You can also specify explicit priorities by adding a value to the array keys. Hyde will then use these exact values as the priorities.
+
+```php
+// filepath: config/docs.php
+'sidebar' => [
+    'order' => [
+        'readme' => 10,
+        'installation' => 15,
+        'getting-started' => 20,
+    ]
+]
+```
+
+You could also combine these methods if desired:
+
+```php
+// filepath: config/docs.php
+'sidebar' => [
+    'order' => [
+        'readme' => 10, // Priority: 10
+        'installation', // Priority: 500
+        'getting-started', // Priority: 501
+    ]
+]
+```
 
 ### Sidebar Labels
 
