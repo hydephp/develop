@@ -33,5 +33,16 @@ class DynamicAuthorPagesTest extends TestCase
             ),
             'user123' => Author::create(),
         ]);
+
+        // Create three pages for Mr. Hyde
+        Hyde::pages()->addPage(new MarkdownPost(identifier: 'hyde_post_1', matter: ['author' => 'mr_hyde'], markdown: 'Content for Hyde post 1'));
+        Hyde::pages()->addPage(new MarkdownPost(identifier: 'hyde_post_2', matter: ['author' => 'mr_hyde'], markdown: 'Content for Hyde post 2'));
+        Hyde::pages()->addPage(new MarkdownPost(identifier: 'hyde_post_3', matter: ['author' => 'mr_hyde'], markdown: 'Content for Hyde post 3'));
+
+        // Create two pages for Jane Doe
+        Hyde::pages()->addPage(new MarkdownPost(identifier: 'jane_post_1', matter: ['author' => 'jane_doe'], markdown: 'Content for Jane post 1'));
+        Hyde::pages()->addPage(new MarkdownPost(identifier: 'jane_post_2', matter: ['author' => 'jane_doe'], markdown: 'Content for Jane post 2'));
+
+        // No pages for user123
     }
 }
