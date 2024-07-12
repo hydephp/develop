@@ -163,7 +163,7 @@ navigation:
 
 This can be useful to create redirects or other items that should not be shown in the sidebar.
 
->info The index page is by default not shown as a sidebar item, but instead is linked in the sidebar header. <br>
+>info The index page is by default not shown as a sidebar item, but instead is linked in the sidebar header.
 
 ## Customization
 
