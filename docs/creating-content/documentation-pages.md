@@ -93,7 +93,7 @@ Since this feature shares a lot of similarities and implementation details with 
 
 ### Sidebar ordering
 
-The sidebar is sorted/ordered by the `priority` property. The higher the priority the further down in the sidebar it will be. The default priority is 999. You can override the priority using the following front matter:
+The sidebar is sorted/ordered by the `priority` property. The lower the priority value, the higher up in the sidebar it will be. The default priority is 999. You can override the priority using the following front matter:
 
 ```yaml
 navigation:
