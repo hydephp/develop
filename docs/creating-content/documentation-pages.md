@@ -327,7 +327,7 @@ Changing the label is easy, just change the following config setting:
 
 #### Changing the position
 
-By default, the button will be shown in both the documentation page footer. You can change this by setting the following config setting to `'header'`, `'footer'`, or `'both'`
+By default, the button will be shown in the documentation page footer. You can change this by setting the following config setting to `'header'`, `'footer'`, or `'both'`
 
 ```php
 // Filepath: config/docs.php
