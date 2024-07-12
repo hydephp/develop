@@ -48,6 +48,7 @@ This will create the following file saved as `_docs/page-title.md`
 
 ```markdown
 # Page Title
+
 ```
 
 ### Front Matter is optional
@@ -83,7 +84,6 @@ Before we look at how to override things, here is an overview of the relevant co
 | `navigation.priority` (integer) | The priority of the page used for ordering the sidebar | Defaults to 999                     | Front matter, config |
 | `navigation.hidden` (boolean)   | Hides the page from the sidebar                        | _none_                              | Front matter, config |
 | `navigation.group` (string)     | The group the page belongs to in the sidebar           | Subdirectory, if nested             | Front matter         |
-
 
 ## Sidebar
 

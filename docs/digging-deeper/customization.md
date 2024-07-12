@@ -15,7 +15,6 @@ if you need it. This page guides you through the many options available!
 All the configuration files are stored in the config directory, and allow you to customize almost all aspects of your site.
 Each option is documented, so feel free to look through the files and get familiar with the options available to you.
 
-
 ## Accessing Configuration Values
 
 ### Configuration API Recap
@@ -58,7 +57,6 @@ In some cases, the same options can be set in the front matter of a page or in a
 When Hyde references files, especially when passing filenames between components, the file path is almost always
 relative to the root of the project. Specifying absolute paths yourself could lead to unforeseen problems.
 
-
 ## Configuration Files Overview
 
 There are a few configuration files available in the `config` directory. All options are documented, so feel free to look through the files and get familiar with the options available to you.
@@ -96,7 +94,6 @@ base HydePHP installation. However, you can publish them to your project by runn
 
 If any of these files are missing, you can run `php hyde publish:configs` to copy the default files to your project.
 
-
 ## Configuration Options
 
 While all options are already documented within the files, here are some further explanations of some of the options.
@@ -125,7 +122,7 @@ Here are the default settings:
 ### Authors
 
 Hyde supports adding authors to blog posts, allowing you to automatically include information like display names and website links.
-We even support fields for avatars, biographies, and social media profiles, which you can use in your custom Blade templates. 
+We even support fields for avatars, biographies, and social media profiles, which you can use in your custom Blade templates.
 
 While you can set all this data directly in the [front matter](blog-posts#author), that quickly becomes tedious and hard to maintain.
 Instead, you can predefine authors in the Hyde config. When writing posts, just specify the username in the front matter,
@@ -142,7 +139,7 @@ Authors are defined in the `config/hyde.php` file under the `authors` key. Each 
         // The following fields, along with the username, are used by the default blog post templates.
         name: 'Mr. Hyde',
         website: 'https://hydephp.com',
-        
+
         // These fields are not currently used in the default templates, but you can use them in your custom views.
         bio: 'The mysterious author of HydePHP',
         avatar: 'avatar.png',
@@ -175,7 +172,6 @@ author: mr_hyde
 ```
 
 If you want to override the data for a specific post, you can do so in the [front matter](blog-posts#author) which is great for guest authors or one-off posts.
-
 
 #### Available Fields
 
@@ -251,6 +247,7 @@ Note that the HTML is added to all pages. If you need to add HTML to a specific 
 
 ```yaml
 # filepath: hyde.yml
+
 hyde:
   head: "<!-- Custom HTML in the head -->"
   scripts: "<!-- Custom HTML in the body -->"
@@ -295,7 +292,6 @@ Learn more in the [Navigation Menu](navigation) documentation.
 - When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
 
 Learn more in the [Documentation Pages](documentation-pages) documentation.
-
 
 ## Additional Advanced Options
 
@@ -385,13 +381,11 @@ php hyde publish:views
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
-
 ## Frontend Styles
 
 Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template
 for you to get up and running quickly. If you want to customize these, you are free to do so.
 Please see the [Managing Assets](managing-assets) page to learn more.
-
 
 ## Markdown Configuration
 
@@ -455,7 +449,6 @@ arbitrary PHP code specified in Markdown to be executed. It's easy to enable how
 
 See the [Blade in Markdown](advanced-markdown#blade-support) documentation for more information on how to use this feature.
 
-
 ## YAML Configuration
 
 The settings in the `config/hyde.php` file can also be set by using a `hyde.yml` file in the root of your project directory.
@@ -468,6 +461,7 @@ Here is an example showing some of the `config/hyde.php` file settings, and how 
 
 ```yaml
 # filepath hyde.yml
+
 name: HydePHP
 url: "http://localhost"
 pretty_urls: false
@@ -490,6 +484,7 @@ This feature is automatically enabled when you have a `hyde:` entry **first** in
 
 ```yaml
 # filepath hyde.yml
+
 hyde:
   name: HydePHP
 
