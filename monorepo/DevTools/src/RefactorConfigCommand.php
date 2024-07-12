@@ -23,7 +23,6 @@ use function in_array;
 use function is_array;
 use function is_string;
 use function file_exists;
-use function array_udiff;
 use function str_starts_with;
 use function file_put_contents;
 
@@ -77,7 +76,7 @@ class RefactorConfigCommand extends Command
             $default = require Hyde::vendorPath('config/hyde.php');
 
             // Todo: Add argument to not diff out defaults
-            $config = array_udiff($config, $default, fn ($a, $b) => $a === $b ? 0 : 1);
+            $config = $this->diffConfig($config, $default);
 
             $config = $this->serializePhpData($config);
 
@@ -134,5 +133,43 @@ class RefactorConfigCommand extends Command
         }
 
         return [$key => $value];
+    }
+
+    // Remove any default values from the config by iterating the root array keys and comparing the values
+    protected function diffConfig(array $config, array $default): array
+    {
+        $new = [];
+
+        foreach ($config as $key => $value) {
+            if (is_array($value) && isset($default[$key])) {
+                if ($value === $default[$key]) {
+                    continue;
+                }
+            }
+
+            if (isset($default[$key]) && $value === $default[$key]) {
+                continue;
+            }
+
+            $new[$key] = $value;
+        }
+
+        return $this->arrayFilterRecurse($new);
+    }
+
+    protected function arrayFilterRecurse(array $input): array
+    {
+        foreach ($input as $key => &$value) {
+            if (is_array($value)) {
+                $value = $this->arrayFilterRecurse($value);
+                if (empty($value)) {
+                    unset($input[$key]);
+                }
+            } elseif (blank($value)) {
+                unset($input[$key]);
+            }
+        }
+
+        return $input;
     }
 }
