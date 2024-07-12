@@ -100,8 +100,7 @@ navigation:
     priority: 5
 ```
 
-You can also change the order in the Docs configuration file. See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
-_I personally think the config route is easier as it gives an instant overview, however the first way is nice as well._
+You can also change the order in the `config/docs.php` configuration file, which may be easier to manage for larger sites. See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details.
 
 ### Sidebar labels
 
