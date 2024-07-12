@@ -266,7 +266,7 @@ Enable this feature in the `hyde.php` config file by setting the `subdirectory_d
 ],
 ```
 
-Now if you create a page called `_pages/about/contact.md` it will automatically be placed in a dropdown called "About".
+Now if you create a page called `_pages/about/contact.md`, it will automatically be placed in a dropdown called "About".
 
 #### Automatic Documentation Sidebar Grouping
 
