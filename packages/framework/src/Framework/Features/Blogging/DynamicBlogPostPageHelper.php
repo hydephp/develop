@@ -34,6 +34,10 @@ class DynamicBlogPostPageHelper
             // This filtering is opinionated, and we can configure it, but for now it only includes authors with posts
             ->filter(fn (PostAuthor $author): bool => $author->getPosts()->isNotEmpty());
 
+        if ($authors->isEmpty()) {
+            return [];
+        }
+
         return $authors
             ->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage("author/$author->username"))
             ->prepend(new PostAuthorsPage($authors))
