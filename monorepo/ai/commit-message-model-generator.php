@@ -20,8 +20,9 @@ $originalLineCount = count($lines);
 // Now we filter it to remove duplicates, keeping only the earliest entry
 $lines = array_unique($lines);
 
-// Print the model
-dump($lines);
+// Print the first 100 and last 100 lines in the model
+$dump = array_slice($lines, 0, 100) + array_slice($lines, -100);
+dump($dump);
 
 $newLineCount = count($lines);
 
