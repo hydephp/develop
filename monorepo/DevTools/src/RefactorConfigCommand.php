@@ -26,63 +26,81 @@ use function file_put_contents;
 
 /**
  * @internal This class is internal to the hydephp/develop monorepo.
+ *
  * @experimental https://github.com/hydephp/develop/pull/1833
  */
 class RefactorConfigCommand extends Command
 {
+    protected const SUPPORTED_FORMATS = ['yaml'];
+
     /** @var string */
     protected $signature = 'refactor:config {format : The new configuration format}';
 
     /** @var string */
     protected $description = 'Migrate the configuration to a different format.';
 
-    protected const FORMATS = ['yaml'];
-
     public function handle(): int
     {
         $format = $this->argument('format');
-        if (! in_array($format, self::FORMATS)) {
-            $this->error('Invalid format. Supported formats: '.implode(', ', self::FORMATS));
+        if (! in_array($format, self::SUPPORTED_FORMATS)) {
+            $this->error('Invalid format. Supported formats: '.implode(', ', self::SUPPORTED_FORMATS));
 
             return 1;
         }
 
-        $this->gray(' > Migrating configuration to '.$format);
+        $this->gray(" > Migrating configuration to $format");
 
-        match ($format) {
+        return match ($format) {
             'yaml' => $this->migrateToYaml(),
         };
+    }
+
+    protected function migrateToYaml(): int
+    {
+        $this->ensureYamlConfigDoesNotExist();
+
+        $config = $this->getConfigDiff();
+
+        if (empty($config)) {
+            $this->warn("You don't seem to have any configuration to migrate.");
+
+            return 0;
+        }
+
+        $serializedConfig = $this->serializePhpData($config);
+        $yaml = $this->dumpConfigToYaml($serializedConfig);
+
+        file_put_contents(Hyde::path('hyde.yml'), $yaml);
 
         $this->info('All done!');
 
         return 0;
     }
 
-    protected function migrateToYaml(): void
+    protected function ensureYamlConfigDoesNotExist(): void
     {
         if (file_exists(Hyde::path('hyde.yml')) || file_exists(Hyde::path('hyde.yaml'))) {
             throw new RuntimeException('Configuration already exists in YAML format.');
         }
-
-        $config = config('hyde');
-
-        $default = require Hyde::vendorPath('config/hyde.php');
-
-        // Todo: Add argument to not diff out defaults
-        $config = $this->diffConfig($config, $default);
-
-        $config = $this->serializePhpData($config);
-
-        $yaml = Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
-
-        if ($yaml === '[]') {
-            $this->warn("You don't seem to have any configuration to migrate.");
-            return;
-        }
-
-        file_put_contents(Hyde::path('hyde.yml'), $yaml);
     }
 
+    protected function getConfigDiff(): array
+    {
+        $config = config('hyde');
+        $default = require Hyde::vendorPath('config/hyde.php');
+
+        return $this->diffConfig($config, $default);
+    }
+
+    protected function dumpConfigToYaml(array $config): string
+    {
+        return Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
+    }
+
+    /**
+     * @param  array<string|int, mixed>  $config
+     * @return array<string|int, mixed>
+     */
     protected function serializePhpData(array $config): array
     {
         return collect($config)->mapWithKeys(function ($value, $key) {
@@ -94,6 +112,11 @@ class RefactorConfigCommand extends Command
         })->toArray();
     }
 
+    /**
+     * @param  mixed  $value
+     * @param  string|int  $key
+     * @return array<string|int, mixed>
+     */
     protected function serializePhpValue(mixed $value, string|int $key): array
     {
         if ($value instanceof Feature) {
@@ -105,45 +128,47 @@ class RefactorConfigCommand extends Command
         }
 
         if ($value instanceof MetadataElementContract) {
-            // We don't have deserialization logic for this (yet?)
             return [$key => $value->__toString()];
         }
 
         if ($value instanceof PostAuthor) {
-            // Not fully supported in v1
-            return [$key => [
-                'username' => $value->username,
-                'name' => $value->name,
-                'website' => $value->website,
-            ]];
+            return [$key => $this->serializePostAuthor($value)];
         }
 
         return [$key => $value];
     }
 
-    // Remove any default values from the config by iterating the root array keys and comparing the values
-    protected function diffConfig(array $config, array $default): array
+    protected function serializePostAuthor(PostAuthor $author): array
     {
-        $new = [];
-
-        foreach ($config as $key => $value) {
-            if (is_array($value) && isset($default[$key])) {
-                if ($value === $default[$key]) {
-                    continue;
-                }
-            }
-
-            // Loose comparison
-            if (isset($default[$key]) && $value == $default[$key]) {
-                continue;
-            }
-
-            $new[$key] = $value;
-        }
-
-        return $this->arrayFilterRecurse($new);
+        return [
+            'username' => $author->username,
+            'name' => $author->name,
+            'website' => $author->website,
+        ];
     }
 
+    /**
+     * @param  array<string, mixed>  $config
+     * @param  array<string, mixed>  $default
+     * @return array<string, mixed>
+     */
+    protected function diffConfig(array $config, array $default): array
+    {
+        $diff = [];
+
+        foreach ($config as $key => $value) {
+            if (! isset($default[$key]) || $value != $default[$key]) {
+                $diff[$key] = $value;
+            }
+        }
+
+        return $this->arrayFilterRecurse($diff);
+    }
+
+    /**
+     * @param  array<string|int, mixed>  $input
+     * @return array<string|int, mixed>
+     */
     protected function arrayFilterRecurse(array $input): array
     {
         foreach ($input as $key => &$value) {
