@@ -10,8 +10,6 @@ use Hyde\Hyde;
  * @internal Initial class to help with dynamic blogging related pages, like author pages, tag pages, etc.
  *
  * @experimental The code here will later be moved to a more appropriate place.
- *
- * @codeCoverageIgnore This feature is experimental and not yet tested.
  */
 class DynamicBlogPostPageHelper
 {
