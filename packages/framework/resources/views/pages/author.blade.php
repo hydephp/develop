@@ -29,14 +29,7 @@
             <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Posts by {{ $author->name }}</h2>
             <ul class="space-y-4">
                 @foreach($author->getPosts() as $post)
-                    <li itemscope itemtype="https://schema.org/BlogPosting">
-                        <a href="{{ $post->getLink() }}" class="text-lg text-blue-600 dark:text-blue-400 hover:underline" itemprop="url">
-                            <span itemprop="headline">{{ $post->title }}</span>
-                        </a>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            <span itemprop="datePublished">{{ $post->date?->short }}</span>
-                        </p>
-                    </li>
+                    @include('hyde::components.article-excerpt', ['post' => $post])
                 @endforeach
             </ul>
         </div>
