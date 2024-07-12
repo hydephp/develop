@@ -166,9 +166,7 @@ You can also automatically group your documentation pages by placing source file
 
 For example, putting a Markdown file in `_docs/getting-started/` is equivalent to adding the same front matter seen above.
 
->info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they would overwrite each other.
-
->info Tip: When using subdirectory-based grouping, you can set the priority of the groups using the directory name as the array key in the config file.
+>warning Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they would overwrite each other.
 
 ### Hiding Items
 
@@ -245,17 +243,32 @@ To quickly arrange the order of items in the sidebar, you can reorder the page i
 
 See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
 
-### Automatic Sidebar Group Labels
+### Setting Sidebar Group Labels
 
-When using the automatic sidebar grouping feature (based on subdirectories), the titles of the groups are generated from the directory names. If these are not to your liking, for example if you need to use special characters, you can override them in the Docs configuration file. The array key is the directory name, and the value is the label.
-
-Please note that this option is not added to the config file by default, as it's not a super common use case. No worries though, just add the following yourself!
+When using the automatic sidebar grouping feature the titles of the groups are generated from the subdirectory names. If these are not to your liking, for example if you need to use special characters, you can override them in the configuration file. The array key is the directory name, and the value is the label.
 
 ```php
 // Filepath: config/docs.php
 
 'sidebar_group_labels' => [
     'questions-and-answers' => 'Questions & Answers',
+],
+```
+
+Please note that this option is not added to the config file by default, as it's not a super common use case. No worries though, just add the following yourself!
+
+#### Setting Group Priorities
+
+When using subdirectory-based grouping, you can set the priority of the groups using the directory name as the array key in the config file:
+
+```php
+// Filepath: config/docs.php
+'sidebar' => [
+    'order' => [
+        'readme',
+        'installation',
+        'getting-started',
+    ],
 ],
 ```
 
