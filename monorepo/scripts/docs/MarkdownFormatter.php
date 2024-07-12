@@ -403,7 +403,9 @@ function adjustCaseForSpecialWords(string $text): string
     $text = str_ireplace($alwaysLowercase, $alwaysLowercase, $text);
     $text = str_ireplace($alwaysUppercase, $alwaysUppercase, $text);
 
-    return $text;
+    $patches = ['items' => 'Items'];
+
+    return strtr($text, $patches);
 }
 
 function fixHeading(string $filename, string $heading, int $headingLevel, string $expectedCase): void
