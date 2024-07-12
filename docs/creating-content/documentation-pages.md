@@ -148,7 +148,7 @@ You can also automatically group your documentation pages by placing source file
 
 For example, putting a Markdown file in `_docs/getting-started/` is equivalent to adding the same front matter seen above.
 
->info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they overwrite each other.
+>info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they would overwrite each other.
 
 >info Tip: When using subdirectory-based grouping, you can set the priority of the groups using the directory name as the array key in the config file.
 
