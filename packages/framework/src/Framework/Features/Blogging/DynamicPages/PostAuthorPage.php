@@ -9,6 +9,8 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 /**
  * @experimental
+ *
+ * @codeCoverageIgnore This class is still experimental and not yet covered by tests.
  */
 class PostAuthorPage extends InMemoryPage
 {
