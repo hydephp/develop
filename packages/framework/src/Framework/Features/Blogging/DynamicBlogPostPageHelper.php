@@ -15,7 +15,9 @@ class DynamicBlogPostPageHelper
 {
     public static function canGenerateAuthorPages(): bool
     {
-        return Hyde::authors()->isNotEmpty(); // Todo: && feature is enabled
+        // Todo: Also check that this feature is enabled
+
+        return Hyde::authors()->isNotEmpty();
     }
 
     /** @return array<\Hyde\Pages\InMemoryPage> */
