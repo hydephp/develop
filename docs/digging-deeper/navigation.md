@@ -248,7 +248,7 @@ You can configure how subdirectories should be displayed in the menu:
 
 **Supported Options:**
 - `dropdown`: Pages in subdirectories are displayed in a dropdown menu
-- `hidden`: Pages in subdirectories are not displayed at all the menus
+- `hidden`: Pages in subdirectories are not displayed at all in the menus
 - `flat`: Pages in subdirectories are displayed as individual items
 
 ### Automatic Menu Groups
