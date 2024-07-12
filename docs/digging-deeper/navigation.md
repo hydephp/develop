@@ -183,7 +183,7 @@ You could also combine these methods if desired:
 
 ### Changing Menu Item Labels
 
-Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
+Hyde makes a few attempts to find suitable labels for the navigation menu items to automatically create helpful titles.
 
 If you're not happy with these, it's easy to override navigation link labels by mapping the route key to the desired title in the Hyde config:
 
