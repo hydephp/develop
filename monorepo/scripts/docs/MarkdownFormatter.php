@@ -403,7 +403,7 @@ function adjustCaseForSpecialWords(string $text): string
     $text = str_ireplace($alwaysLowercase, $alwaysLowercase, $text);
     $text = str_ireplace($alwaysUppercase, $alwaysUppercase, $text);
 
-    $patches = ['items' => 'Items'];
+    $patches = ['item' => 'Item'];
 
     return strtr($text, $patches);
 }
