@@ -12,5 +12,13 @@ namespace Hyde\Framework\Features\Blogging;
  */
 class DynamicBlogPostPageHelper
 {
-    //
+    public static function canGenerateAuthorPages(): bool
+    {
+        return true;
+    }
+
+    public static function generateAuthorPages(): void
+    {
+        //
+    }
 }
