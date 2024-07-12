@@ -187,12 +187,7 @@
       <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
       <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-type-coverage" />
       <path value="$PROJECT_DIR$/vendor/tomasvotruba/type-coverage" />
-      <path value="$PROJECT_DIR$/vendor/hyde/realtime-compiler" />
-      <path value="$PROJECT_DIR$/vendor/hyde/testing" />
-      <path value="$PROJECT_DIR$/vendor/hyde/ui-kit" />
-      <path value="$PROJECT_DIR$/vendor/hyde/monorepo-dev-tools" />
-      <path value="$PROJECT_DIR$/vendor/hyde/framework" />
-      <path value="$PROJECT_DIR$/vendor/hyde/publications" />
+      <path value="$PROJECT_DIR$/vendor/vimeo/psalm" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
