@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging;
 
 use Hyde\Hyde;
+use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage;
 
 /**
  * @internal Initial class to help with dynamic blogging related pages, like author pages, tag pages, etc.
@@ -20,11 +22,11 @@ class DynamicBlogPostPageHelper
         return Hyde::authors()->isNotEmpty();
     }
 
-    /** @return array<\Hyde\Pages\InMemoryPage> */
+    /** @return array<\Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage> */
     public static function generateAuthorPages(): array
     {
         // Todo: This does not find authors that have no author config, we should add those to the underlying collection!
 
-        return [];
+        return Hyde::authors()->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage("author/$author->username"))->all();
     }
 }

@@ -19,9 +19,22 @@ class DynamicAuthorPagesTest extends TestCase
     {
         $this->setUpTestEnvironment();
 
-        $this->assertTrue(Hyde::pages()->contains('author/mr_hyde'));
-        $this->assertTrue(Hyde::pages()->contains('author/jane_doe'));
-        $this->assertFalse(Hyde::pages()->contains('author/user123'));
+        $this->assertSame([
+            '_pages/404.blade.php',
+            '_pages/index.blade.php',
+            'author/mr_hyde',
+            'author/jane_doe',
+            'author/user123',
+            // TODO: 'author/anonymous',
+            // TODO: 'author/guest',
+            '_posts/hyde_post_1.md',
+            '_posts/hyde_post_2.md',
+            '_posts/hyde_post_3.md',
+            '_posts/jane_post_1.md',
+            '_posts/jane_post_2.md',
+            '_posts/anonymous_post_1.md',
+            '_posts/guest_post_1.md',
+        ], array_keys(Hyde::pages()->all()));
     }
 
     protected function setUpTestEnvironment(): void
@@ -53,7 +66,11 @@ class DynamicAuthorPagesTest extends TestCase
         $this->makePage('jane_post_1', 'jane_doe', 'Content for Jane post 1');
         $this->makePage('jane_post_2', 'jane_doe', 'Content for Jane post 2');
 
-        // No pages for user123
+        // No pages for user123, but we will add one for an author that is not in the config
+        $this->makePage('anonymous_post_1', 'anonymous', 'Content for anonymous post 1');
+
+        // We will also add a guest post, where there is no author
+        Hyde::pages()->addPage(new MarkdownPost(identifier: 'guest_post_1', markdown: 'Content for guest post 1'));
     }
 
     protected function makePage(string $identifier, string $author, string $markdown): void
