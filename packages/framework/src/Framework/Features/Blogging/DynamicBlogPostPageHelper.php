@@ -21,6 +21,8 @@ class DynamicBlogPostPageHelper
     /** @return array<\Hyde\Pages\InMemoryPage> */
     public static function generateAuthorPages(): array
     {
+        // Todo: This does not find authors that have no author config, we should add those to the underlying collection!
+
         return [];
     }
 }
