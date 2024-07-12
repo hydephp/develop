@@ -7,7 +7,6 @@ navigation:
 
 >warning This article covers advanced information that is only relevant if you want to create custom navigation menus. Instead, you may want to read the [Navigation](navigation) article for a general overview.
 
-
 ## Abstract
 
 This article describes the Navigation API introduced in HydePHP v2. Both the main navigation menu and the documentation sidebar bundled with HydePHP are built with this API.
@@ -16,7 +15,6 @@ However, if you are interested in creating your own custom navigation menus, you
 This article is intended for advanced users, as most users will not need to create custom navigation menus.
 For this reason, the documentation is very code-driven due to the technical nature of the API.
 We'll also be mixing in some practical examples of Blade and PHP code to illustrate how you can use the API in your own projects.
-
 
 ## Overview
 
@@ -73,7 +71,6 @@ $sidebar = DocumentationSidebar::get();
 ```
 
 >info Developer tip: The menus are only generated *after* the Hyde Kernel is booted. If you are getting BindingResolutionExceptions, ensure that you are not trying to access the menus too early in the application lifecycle. (Consider using the `booted` event.)
-
 
 ## Creating Custom Menus
 
@@ -148,11 +145,9 @@ Here are some general tips to keep in mind when working with the Navigation API:
 - You can also construct NavigationItem instances directly, but the `create` method is a convenient shorthand, and can fill in data from routes, if you use them.
 - It's also possible to set an item's priority as the third parameter, but here we don't need it, as they default to the order they are added.
 
-
 ## Class Reference
 
 Below is a reference of the classes and methods available in the Navigation API.
-
 
 ## NavigationMenu
 
@@ -251,7 +246,7 @@ $item->getLabel(): string;
 $item->getPriority(): int;
 
 // Check if the item is active. (Only works when the destination is a route)
-$item->isActive(): bool; 
+$item->isActive(): bool;
 ```
 
 ### Blade Example
@@ -330,7 +325,7 @@ If the destination is a route, the link will be resolved to the correct URL, usi
 
 ```php
 $item = new NavigationItem(Routes::get('index'));
-$item->getLink(); // Outputs 'index.html' 
+$item->getLink(); // Outputs 'index.html'
 
 $item = new NavigationItem('https://example.com');
 $item->getLink(); // Outputs 'https://example.com'
@@ -387,7 +382,6 @@ $item->isActive(fn($item) => $item->getLink() === 'index.html');
 
 This is useful if you want to check for a specific query parameter, or if you want to check if the item is active based on a more complex condition.
 -->
-
 
 ## NavigationGroup
 

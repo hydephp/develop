@@ -160,7 +160,6 @@ author:
       github: "hydephp"
 ```
 
-
 When using an array, you don't need to include all properties. Specified values will override the corresponding entries in the `authors` config.
 
 Note: Author usernames are automatically normalized (converted to lowercase with spaces replaced by underscores).

@@ -122,7 +122,7 @@ Here are the default settings:
 ### Authors
 
 Hyde supports adding authors to blog posts, allowing you to automatically include information like display names and website links.
-We even support fields for avatars, biographies, and social media profiles, which you can use in your custom Blade templates. 
+We even support fields for avatars, biographies, and social media profiles, which you can use in your custom Blade templates.
 
 While you can set all this data directly in the [front matter](blog-posts#author), that quickly becomes tedious and hard to maintain.
 Instead, you can predefine authors in the Hyde config. When writing posts, just specify the username in the front matter,
@@ -139,7 +139,7 @@ Authors are defined in the `config/hyde.php` file under the `authors` key. Each 
         // The following fields, along with the username, are used by the default blog post templates.
         name: 'Mr. Hyde',
         website: 'https://hydephp.com',
-        
+
         // These fields are not currently used in the default templates, but you can use them in your custom views.
         bio: 'The mysterious author of HydePHP',
         avatar: 'avatar.png',
@@ -172,7 +172,6 @@ author: mr_hyde
 ```
 
 If you want to override the data for a specific post, you can do so in the [front matter](blog-posts#author) which is great for guest authors or one-off posts.
-
 
 #### Available Fields
 

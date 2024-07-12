@@ -60,7 +60,6 @@ General options for the entire navigation menus are also available in the `hyde`
 
 Now that you know the basics, let's dive into the details of how to customize the navigation menus!
 
-
 ## Front Matter Configuration
 
 The front matter options allow you to customize the navigation menus on a per-page basis.
@@ -113,7 +112,6 @@ You can also use `category` instead of `group`.
 navigation:
     group: "My Group"
 ```
-
 
 ## Config File Configuration
 
