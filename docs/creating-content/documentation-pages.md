@@ -8,13 +8,13 @@ navigation:
 
 ## Introduction to Hyde Documentation Pages
 
-Welcome to the Hyde Documentation Pages, where creating professional-looking documentation sites has never been easier. Using the Hyde Documentation module, all you need to do is place standard Markdown files in the _docs/ directory, and Hyde takes care of the rest.
+Welcome to the Hyde Documentation Pages, where creating professional-looking documentation sites has never been easier. Using the Hyde Documentation module, all you need to do is place standard Markdown files in the `_docs/` directory, and Hyde takes care of the rest.
 
 Hyde compiles your Markdown content into beautiful static HTML pages using a TailwindCSS frontend, complete with a responsive sidebar that is automatically generated based on your Markdown files. You can even customize the order, labels, and groups of the sidebar items to suit your needs.
 
 Additionally, if you have a `_docs/index.md` file, the sidebar header will link to it, and an automatically generated "Docs" link will be added to your site's main navigation menu, pointing to your documentation page.
 
-If you have a Torchlight API token in your .env file, Hyde will even enable syntax highlighting automatically, saving you time and effort. For more information about this feature, see the [extensions page](extensions#torchlight).
+If you have a Torchlight API token in your `.env` file, Hyde will even enable syntax highlighting automatically, saving you time and effort. For more information about this feature, see the [extensions page](extensions#torchlight).
 
 ### Best Practices and Hyde Expectations
 
