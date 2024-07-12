@@ -20,6 +20,9 @@ $originalLineCount = count($lines);
 // Now we filter it to remove duplicates, keeping only the earliest entry
 $lines = array_unique($lines);
 
+// Remove merge commits (if string starts with Merge)
+$lines = array_filter($lines, fn($line) => !str_starts_with($line, 'Merge'));
+
 // Print the model
 dump($lines);
 
