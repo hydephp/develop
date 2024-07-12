@@ -150,7 +150,7 @@ For example, putting a Markdown file in `_docs/getting-started/`, is equivalent 
 
 >info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they overwrite each other.
 
->info Tip: When using subdirectory-based grouping, you can set their priority using the directory name as the array key.
+>info Tip: When using subdirectory-based grouping, you can set the priority of the groups using the directory name as the array key in the config file.
 
 ### Hiding items
 
