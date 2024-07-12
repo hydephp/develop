@@ -235,7 +235,6 @@ use Hyde\Facades\Navigation;
 
 **Tip:** While named arguments are used in the example for clarity, they are not required.
 
-
 ### Configure Subdirectory Display
 
 You can configure how subdirectories should be displayed in the menu:

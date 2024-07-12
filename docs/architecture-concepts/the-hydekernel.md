@@ -18,7 +18,6 @@ Hyde::version(); // calls $HydeKernel->version()
 The kernel is created very early on in the application lifecycle, in the `bootstrap.php` file, where it is also bound
 as a singleton into the application service container.
 
-
 ## Accessing the Kernel
 
 The HydeKernel is stored as a singleton in a static property in its own class and can be accessed in a few ways.
@@ -43,13 +42,11 @@ hyde()->version();
 
 The Kernel instance is constructed and bound in the `app/bootstrap.php` file.
 
-
 ## The Kernel Lifecycle
 
 Whenever we talk about the kernel being "booted" we are talking about the kernel's role in the autodiscovery process.
 
 You can read all about it in the [Autodiscovery Documentation](autodiscovery).
-
 
 ## API Reference
 

@@ -36,7 +36,6 @@ Any other functionality you want to add to HydePHP, such as new commands or conf
 can be added the same way as you would in Laravel, and are thus not part of our API.
 See the [Laravel package development guide](https://laravel.com/docs/10.x/packages) for more.
 
-
 ## Creating Your Extension Class
 
 The entry-point for your extension is your Extensions class. Within this, you can register the custom page classes.
@@ -112,7 +111,6 @@ class JsonPageExtension extends HydeExtension {
 
 Since the discovery steps are handled sequentially, the added pages will automatically be discovered as routes without
 us having to implement that handler method. As we inject the page objects directly, we bypass the need for the `FileCollection`.
-
 
 ## Registering Your Extension
 

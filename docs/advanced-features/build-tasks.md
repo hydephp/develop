@@ -9,7 +9,6 @@ The built-in Hyde features like sitemap generation and RSS feeds are created usi
 Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory?
 You can also overload the built-in tasks to customize them to your needs.
 
-
 ## Good to know before you start
 
 ### Types of tasks
@@ -30,7 +29,6 @@ For all these examples we assume you put the file in the `App/Actions` directory
 In a way, build tasks are like micro-commands, as they can interact directly with the build commands I/O. Please take a look at the [Laravel Console Documentation](https://laravel.com/docs/10.x/artisan#command-io) for the full list of available methods.
 
 In addition, there are some extra helpers available in the base BuildTask class that allow you to fluently format output to the console, which you will see in the examples below.
-
 
 ## Creating Build Tasks
 
@@ -101,7 +99,6 @@ Running this task will produce the following output:
 </pre>
 
 As you can see, there is no execution time tracking here, since we overrode the `printFinishMessage()` method that normally prints this. You can of course call the `withExecutionTime()` method to add this back in. See more in the API reference below.
-
 
 ## Registering the Tasks
 

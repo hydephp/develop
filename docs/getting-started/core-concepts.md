@@ -14,7 +14,6 @@ All designed so that you can focus on your content, while the framework does the
 This page provides a high-level overview of the framework's capabilities, so you can quickly grasp its benefits.
 As you delve deeper into the documentation, you'll discover the details of each feature and learn how to leverage them effectively.
 
-
 ## The HydeCLI
 
 When you are not writing Markdown and Blade, most of your interactions with Hyde will be through the command line
@@ -28,7 +27,6 @@ php hyde list
 php hyde help <command>
 php hyde <command> [--help]
 ```
-
 
 ## Directory Structure
 
@@ -46,7 +44,6 @@ To take full advantage of the framework, it may first be good to familiarize our
 | `resources/views`  | Location for Blade components (optional)                    |
 | `app`              | Location for custom PHP classes (optional)                  |
 
-
 ## Page Models
 
 The Hyde page models are an integral part of how HydePHP creates your static site. Each page in your site is represented
@@ -59,7 +56,6 @@ The page classes are very important and fill two roles:
 2. Each class _instance_ also holds the page source contents, as well as the computed data.
 
 To learn more, you can visit the [Page Models](page-models) page.
-
 
 ## File Autodiscovery
 
@@ -76,7 +72,6 @@ All source and output directories are configurable, but the defaults are as foll
 | Blog Posts     | `_posts/`        | `_site/posts/`   | `.md`               |
 | Documentation  | `_docs/`         | `_site/docs/`    | `.md`               |
 | Media Assets   | `_media/`        | `_site/media/`   | Common asset types  |
-
 
 ## Paths, Identifiers, and Route Keys
 
@@ -105,13 +100,11 @@ This can be visualized as follows, assuming a blog post is stored as `_posts/hel
 
 As you can see, the route key is simply put the relative page URL, without the .html extension.
 
-
 ## Convention over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
 However, Hyde also strives to be modular and endlessly customizable hackable if you need it.
 Take a look at the [customization and configuration guide](customization) to see the endless options available!
-
 
 ## Front Matter
 
@@ -148,7 +141,6 @@ where code in `@php` directives are statically parsed into page object's front m
 @php($title = 'BladeMatter Demo') // Equivalent to `title: 'BladeMatter Demo'` in Yaml
 ```
 
-
 ## Automatic Routing
 
 >info **In a nutshell:** Hyde will automatically create routes for your source files.
@@ -173,7 +165,6 @@ Routes::get('posts/my-post')
 
 To learn more about the routing system, please visit the [routing documentation](automatic-routing).
 
-
 ## Global Page Data
 
 During the build of each page, Hyde will inject some data available to all Blade views. If you are not planning to write
@@ -187,7 +178,6 @@ The `$page` variable is likely to the most important one, as it contains all the
 Depending on the page type, you will have different helpers available. But `$page->matter()` is likely to be very helpful.
 
 You can see all the helpers in the [Page API](hyde-pages) reference page.
-
 
 ## Terminology
 

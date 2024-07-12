@@ -16,7 +16,6 @@ As you have access to all standard Laravel Collection methods, you are encourage
 
 This article covers advanced usage intended for those who are writing their own Blade views, and is not required as Hyde comes pre-packaged with many templates for you to use.
 
-
 ## High-Level Concept Overview
 
 In short, HydePHP finds files in the specified directory, turns each file into an object, and returns a Laravel Collection of these objects.
@@ -32,7 +31,6 @@ Follow these conventions and creating dynamic static sites will be a breeze.
 6. While not enforced, each subdirectory should probably only have the same filetype to prevent developer confusion.
 7. Unlike source files for pages, files starting with underscores are not ignored.
 8. You can customize the source directory for collections through a service provider.
-
 
 ## Available Collection Types
 
@@ -53,7 +51,6 @@ The following facade methods for creating data collections are available:
 | **[Markdown](#markdown-collections)** | `::markdown()` | [`MarkdownDocument`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/MarkdownDocument.php)                                          | `.md`                 |
 | **[Yaml](#yaml-collections)**         | `::yaml()`     | [`FrontMatter`](https://github.com/hydephp/framework/blob/master/src/Markdown/Models/FrontMatter.php)                                                    | `.yaml`,&nbsp; `.yml` |
 | **[Json](#json-collections)**         | `::json()`     | [`stdClass`](https://www.php.net/manual/en/class.stdclass.php) <small>OR&nbsp;</small> [`array`](https://www.php.net/manual/en/language.types.array.php) | `.json`               |
-
 
 ## Markdown Collections
 
@@ -101,7 +98,6 @@ author: "John Doe"
 Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 ```
 
-
 ## YAML Collections
 
 ### Usage
@@ -147,7 +143,6 @@ $collection = \Hyde\Support\DataCollection::json('name', true);
 ```
 
 Since both return values use native PHP types, there are no example returns added here, as I'm sure you can imagine what they look like.
-
 
 ## Markdown Collections - Hands-on Guide
 

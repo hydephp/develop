@@ -18,7 +18,6 @@ Before reading this article, you should be familiar with the following concepts:
 -  [Page Models](page-models)
 -  [The HydeKernel](the-hydekernel)
 
-
 ## Booting Pipeline
 
 The autodiscovery is run when the HydeKernel boots. It does so in three distinct steps, which run in sequence as each
@@ -36,7 +35,6 @@ discovery process and stores the discovered data in memory.
 Usually, you will interact with the collection data through intermediaries.
 * For example, if you call `MarkdownPost::get('my-post')`, Hyde will retrieve that page from the page collection.
 * If you call `Routes::get('index')`, Hyde will retrieve that route from the route collection.
-
 
 ## The HydeKernel
 

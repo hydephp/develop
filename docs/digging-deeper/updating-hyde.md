@@ -7,12 +7,10 @@ navigation:
 
 This guide will help you update your HydePHP project to the latest version.
 
-
 ## Before You Start
 
 When updating an existing installation, first ensure that you have a backup of your project in case anything goes wrong.
 The recommended way to do this is to use Git as that allows you to smoothly roll back any changes.
-
 
 ## Version Compatibility
 
@@ -76,7 +74,6 @@ composer update
 An alternate way to update your project is to essentially do a hard reset. This is only recommended if you haven't done many modifications to the HydePHP files.
 
 Essentially: Download the [latest release](https://github.com/hydephp/hyde/releases/latest) from GitHub, extract it to a new project directory, then copy over your source files and install the dependencies.
-
 
 ## Post-update instructions
 

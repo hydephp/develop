@@ -19,11 +19,9 @@ php hyde make:post
 ```
 Learn more about scaffolding posts, and other files, in the [console commands](console-commands) documentation.
 
-
 ## Short Video Tutorial
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gjpE1U527h8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 ## Best Practices and Hyde Expectations
 
@@ -72,7 +70,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 Autem aliquid alias explicabo consequatur similique,
 animi distinctio earum ducimus minus, magnam.
 ```
-
 
 ## Supported Front Matter Properties
 
@@ -163,7 +160,6 @@ author:
       github: "hydephp"
 ```
 
-
 When using an array, you don't need to include all properties. Specified values will override the corresponding entries in the `authors` config.
 
 Note: Author usernames are automatically normalized (converted to lowercase with spaces replaced by underscores).
@@ -210,7 +206,6 @@ image:
 > See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
 > for a detailed blog post with examples and schema information!
 { .info }
-
 
 ## Using Images in Posts
 

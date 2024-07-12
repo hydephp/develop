@@ -18,7 +18,6 @@ Some extra custom styles are made in the HydeFront package, which is pre-install
 To get you started quickly, all the styles are already compiled and minified into `_media/app.css`,
 which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
 
-
 ## Additional Information and Answers to Common Questions
 
 ### Is NodeJS/NPM Required for Using Hyde?
@@ -32,7 +31,6 @@ If you want to customize the Tailwind settings or add custom styles, you will ne
 
 For example, if you customize the Blade views and add new classes or add new classes in Blade-based pages, you may need to compile the assets yourself to get the new styles.
 If you use Markdown-based pages, you do not need to compile anything as those styles are already included in the compiled CSS file.
-
 
 ## How are assets stored and managed?
 
@@ -55,7 +53,6 @@ It may seem weird to have two folders for storing the compiled assets, but it is
 The `_site` directory is intended to be excluded from version control, while the `_media` folder is included in the
 version control. You are of course free to modify this behaviour by editing the `webpack.mix.js` file to change the output directory.
 
-
 ## How Do I Compile assets?
 
 First, make sure that you have installed all the NodeJS dependencies using `npm install`.
@@ -70,7 +67,6 @@ When running the `npm run dev/prod` command, the following happens:
 
 1. Laravel Mix will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
 2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
-
 
 ## Telling Hyde where to find assets
 
@@ -109,7 +105,6 @@ What's even better is that Hyde will also inject the contents of the included `t
 so the Play CDN styles match the ones created by Laravel Mix.
 
 All in all, this allows you to tinker around with Tailwind without having to compile anything.
-
 
 ## Managing Images
 
