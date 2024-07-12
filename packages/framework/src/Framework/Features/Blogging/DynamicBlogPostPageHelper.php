@@ -9,6 +9,7 @@ use Hyde\Enums\Feature;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage;
+use Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage;
 
 /**
  * @internal Initial class to help with dynamic blogging related pages, like author pages, tag pages, etc.
@@ -35,6 +36,7 @@ class DynamicBlogPostPageHelper
 
         return $authors
             ->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage("author/$author->username"))
+            ->prepend(new PostAuthorsPage($authors))
             ->all();
     }
 }
