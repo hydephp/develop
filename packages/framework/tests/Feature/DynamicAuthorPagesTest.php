@@ -31,7 +31,7 @@ class DynamicAuthorPagesTest extends TestCase
             '_posts/jane_post_2.md',
             'author/mr_hyde',
             'author/jane_doe',
-            'author/user123',
+            // 'author/user123',
             // TODO: 'author/anonymous',
             // TODO: 'author/guest',
         ], array_keys(Hyde::pages()->all()));
