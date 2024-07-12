@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\MonorepoDevTools;
 
 use Hyde\Hyde;
-use Throwable;
+use RuntimeException;
 use Hyde\Enums\Feature;
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
@@ -13,10 +13,8 @@ use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Metadata\MetadataElementContract;
 
-use function copy;
 use function config;
 use function substr;
-use function unlink;
 use function collect;
 use function implode;
 use function in_array;
@@ -61,40 +59,22 @@ class RefactorConfigCommand extends Command
 
     protected function migrateToYaml(): void
     {
-        $usesGit = file_exists(Hyde::path('.git'));
-
-        if (file_exists(Hyde::path('hyde.yml')) && ! file_exists(Hyde::path('hyde.yml.bak'))) {
-            copy(Hyde::path('hyde.yml'), Hyde::path('hyde.yml.bak'));
-            if (! $usesGit) {
-                $this->warn("You're not using Git for version control, so a backup of your configuration has been created at hyde.yml.bak.");
-            }
+        if (file_exists(Hyde::path('hyde.yml')) || file_exists(Hyde::path('hyde.yaml'))) {
+            throw new RuntimeException('Configuration already exists in YAML format.');
         }
 
-        try {
-            $config = config('hyde');
+        $config = config('hyde');
 
-            $default = require Hyde::vendorPath('config/hyde.php');
+        $default = require Hyde::vendorPath('config/hyde.php');
 
-            // Todo: Add argument to not diff out defaults
-            $config = $this->diffConfig($config, $default);
+        // Todo: Add argument to not diff out defaults
+        $config = $this->diffConfig($config, $default);
 
-            $config = $this->serializePhpData($config);
+        $config = $this->serializePhpData($config);
 
-            $yaml = Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
+        $yaml = Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
 
-            file_put_contents(Hyde::path('hyde.yml'), $yaml);
-        } catch (Throwable $exception) {
-            $this->error('Failed to migrate configuration: '.$exception->getMessage());
-            $this->warn('Rolling back changes...');
-            copy(Hyde::path('hyde.yml.bak'), Hyde::path('hyde.yml'));
-            unlink(Hyde::path('hyde.yml.bak'));
-
-            throw $exception;
-        } finally {
-            if ($usesGit && file_exists(Hyde::path('hyde.yml.bak'))) {
-                unlink(Hyde::path('hyde.yml.bak'));
-            }
-        }
+        file_put_contents(Hyde::path('hyde.yml'), $yaml);
     }
 
     protected function serializePhpData(array $config): array
