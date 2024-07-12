@@ -34,7 +34,6 @@ Since Hyde does a lot of things automatically, there are some things you may nee
 Like most of HydePHP, the Hyde Documentation module is highly customizable. Much of the frontend is composed using Blade templates and components, which you can customize to your heart's content.
 Since there are so many components, it's hard to list them all here in the documentation, so I encourage you to check out the [source code](https://github.com/hydephp/framework/tree/master/resources/views/components/docs) to see how it's all put together and find the customizations you are looking for.
 
-
 ## Creating Documentation Pages
 
 You can create a Documentation page by adding a file to the `_docs` directory where the filename ends in `.md`.
@@ -68,7 +67,6 @@ navigation:
     priority: 5
 ---
 ```
-
 
 ## Dynamic Content Generation
 
@@ -168,7 +166,6 @@ This can be useful to create redirects or other items that should not be shown i
 
 >info The index page is by default not shown as a sidebar item, but instead is linked in the sidebar header. <br>
 
-
 ## Customization
 
 Please see the [customization page](customization) for in-depth information on how to customize Hyde, including the documentation pages. Here is a high level overview for quick reference though.
@@ -258,7 +255,6 @@ If you set this to false, Hyde will match the directory structure of the source 
 'flattened_output_paths' => true,
 ```
 
-
 ## Search Feature
 
 ### Introduction
@@ -300,7 +296,6 @@ If you have a large page on your documentation site, like a changelog, you may w
 ### Live search with the realtime compiler
 
 The Realtime Compiler that powers the `php hyde serve` command will automatically generate a fresh search index each time the browser requests it.
-
 
 ## Automatic "Edit Page" Button
 
