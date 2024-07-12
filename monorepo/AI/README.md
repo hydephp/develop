@@ -53,5 +53,7 @@ Also make sure to keep the text engaging and interesting to read!
 Add this alongside the document to proofread:
 
 ```
-Please proofread this documentation to ensure it's clear and contains proper wording, grammar, and formatting. Do not move around sections or change text that is already clear, as this makes it harder to see your changes.
+Please proofread this documentation to ensure it's clear and contains proper wording, grammar, and formatting. Make sure to use Markdown formatting where it adds value.
+Sentences should be easy to read and follow. Use proper grammar and American English. Refrain from using abbreviations. Headings should follow the APA Title Case style.
+Do not move around sections or change text that is already clear, as this makes it harder to see your changes.
 ```
