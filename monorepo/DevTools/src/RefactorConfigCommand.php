@@ -75,6 +75,11 @@ class RefactorConfigCommand extends Command
 
         $yaml = Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
 
+        if ($yaml === '[]') {
+            $this->warn("You don't seem to have any configuration to migrate.");
+            return;
+        }
+
         file_put_contents(Hyde::path('hyde.yml'), $yaml);
     }
 
