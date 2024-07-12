@@ -97,6 +97,7 @@ return [
         'Features' => \Hyde\Facades\Features::class,
         'Config' => \Hyde\Facades\Config::class,
         'Filesystem' => \Hyde\Facades\Filesystem::class,
+        'Navigation' => \Hyde\Facades\Navigation::class,
         'Routes' => \Hyde\Foundation\Facades\Routes::class,
         'HtmlPage' => \Hyde\Pages\HtmlPage::class,
         'BladePage' => \Hyde\Pages\BladePage::class,

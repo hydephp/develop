@@ -325,4 +325,16 @@ class NavigationItemTest extends UnitTestCase
     {
         $this->assertFalse(NavigationItem::create('foo', 'bar')->isActive());
     }
+
+    public function testConstructWithAttributes()
+    {
+        $item = new NavigationItem('foo', 'Test', 500, ['class' => 'active']);
+        $this->assertSame(['class' => 'active'], $item->getExtraAttributes());
+    }
+
+    public function testCreateWithAttributes()
+    {
+        $item = NavigationItem::create('foo', 'Test', 500, ['class' => 'active']);
+        $this->assertSame(['class' => 'active'], $item->getExtraAttributes());
+    }
 }
