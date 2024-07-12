@@ -283,7 +283,7 @@ The second method is a button added to the documentation pages, similar to how A
 
 ### Hiding pages from indexing
 
-If you have a large page on your documentation site, like a changelog, you may want to hide it from the search index. You can do this by adding the page identifier to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden. The page will still be accessible as normal but will be added to the search index JSON file.
+If you have a large page on your documentation site, like a changelog, you may want to hide it from the search index. You can do this by adding the page identifier to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden. The page will still be accessible as normal but will not be added to the search index JSON file.
 
 ```php
 // filepath: config/docs.php
