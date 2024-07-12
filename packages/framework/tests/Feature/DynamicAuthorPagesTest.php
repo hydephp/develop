@@ -70,11 +70,21 @@ class DynamicAuthorPagesTest extends TestCase
         $this->makePage('anonymous_post_1', 'anonymous', 'Content for anonymous post 1');
 
         // We will also add a guest post, where there is no author
-        Hyde::pages()->addPage(new MarkdownPost(identifier: 'guest_post_1', markdown: 'Content for guest post 1'));
+        $this->makePage('guest_post_1', '', 'Content for guest post 1');
     }
 
     protected function makePage(string $identifier, string $author, string $markdown): void
     {
-        Hyde::pages()->addPage(new MarkdownPost(identifier: $identifier, matter: ['author' => $author], markdown: $markdown));
+        if (filled($author)) {
+            $markdown = <<<MARKDOWN
+            ---
+            author: $author
+            ---
+            
+            $markdown
+            MARKDOWN;
+        }
+
+        $this->file("_posts/$identifier.md", $markdown);
     }
 }
