@@ -11,7 +11,6 @@ navigation:
 HydePHP is designed to be extensible, and comes with a number of built-in extensions and integrations,
 as well as support for third-party extensions and integrations.
 
-
 ## First-Party Extensions & Integrations
 
 ### Realtime Compiler
@@ -29,7 +28,6 @@ The [HydePHP UI Kit](https://github.com/hydephp/ui-kit) is a set of minimalistic
 The [GitHub Action for HydePHP](https://github.com/hydephp/action) is hands-down the easiest way to build and deploy your Hyde site to GitHub Pages.
 - Learn more at https://github.com/hydephp/action and see the documentation at https://hydephp.github.io/action
 
-
 ## Integration with Third-Party Services
 
 All third-party integrations are listed on the [Third-Party Integrations](third-party-integrations) page. Below is a summary.
@@ -38,7 +36,6 @@ All third-party integrations are listed on the [Third-Party Integrations](third-
 
 Torchlight is an amazing API for syntax highlighting, and is supported natively by HydePHP.
 - Learn more about [Torchlight](third-party-integrations#torchlight) in the documentation.
-
 
 ## Contribute
 

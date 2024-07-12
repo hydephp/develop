@@ -28,7 +28,6 @@ is registered, at which point the provider will search for any overrides in the 
    - You can use the [`RegistersFileLocations`](https://github.com/hydephp/framework/blob/master/src/Framework/Concerns/RegistersFileLocations.php)
      trait to use the same registration logic as the `HydeServiceProvider`.
 
-
 ## Customizing Source Directories
 
 The directories you place your content in are important. The directory will be used to determine the proper page type and the templates used.
@@ -69,7 +68,6 @@ public function register(): void
     ]);
 }
 ```
-
 
 ## Customizing Output Directories
 
@@ -116,7 +114,6 @@ This means that a file stored as `_posts/hello-world.md` will have the route key
 this may break your site's configuration and links, so you should always verify your site works properly after such a change.
 You can learn more about this in the [route key documentation](core-concepts#paths-identifiers-and-route-keys).
 
-
 ## Custom Source Root
 
 HydePHP will by default look for the source directories shown above in the root of your project.
@@ -141,7 +138,6 @@ php hyde change:sourceDirectory <name>
 When run, Hyde will update the source directory setting in the config file, then create the directory if it doesn't exist,
 and move all source directories and their content into it.
 
-
 ## Custom Media Directory
 
 The media directory houses assets like images and stylesheets. The default directory is `_media`, and upon building the site,
@@ -164,7 +160,6 @@ You can change the path to this directory by setting the `media_directory` optio
 Note that this change will affect both the source and output directories. For example, if you set the value to `assets`,
 all files from `assets` will be copied to `_site/assets`. If the setting starts with an underscore, that will be removed
 from the output directory, so files in `_assets` will be copied to `_site/assets`.
-
 
 ## Custom Output Directory
 
