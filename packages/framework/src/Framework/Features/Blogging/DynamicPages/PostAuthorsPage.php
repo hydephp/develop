@@ -8,6 +8,8 @@ use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper;
 
+use function compact;
+
 /**
  * @experimental
  *

@@ -8,6 +8,8 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper;
 
+use function compact;
+
 /**
  * @experimental
  *
