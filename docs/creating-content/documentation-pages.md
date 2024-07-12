@@ -117,20 +117,6 @@ navigation:
 
 Sidebar grouping allows you to group items in the sidebar under category headings. This is useful for creating a sidebar with a lot of items. The official HydePHP.com docs, for instance, use this feature.
 
-
-### Sidebar footer customization
-
-The sidebar footer contains, by default, a link to your site homepage. You can change this in the `config/docs.php` file.
-
-```php
-// filepath: config/docs.php
-
-'sidebar' => [
-    'footer' => 'My **Markdown** Footer Text',
-],
-```
-
-You can also set the option to `false` to disable it entirely.
 The feature is enabled automatically when one or more of your documentation pages have the `navigation.group` property set in the front matter, or when documentation pages are organized in subdirectories. Once activated, Hyde will switch to a slightly more compact sidebar layout with pages sorted into labeled groups. Any pages without the group information will be put in the "Other" group.
 
 #### Using Front Matter
@@ -196,6 +182,20 @@ By default, the site title shown in the sidebar header is generated from the con
 ```php
 'title' => 'API Documentation',
 ```
+
+### Sidebar footer customization
+
+The sidebar footer contains, by default, a link to your site homepage. You can change this in the `config/docs.php` file.
+
+```php
+// filepath: config/docs.php
+
+'sidebar' => [
+    'footer' => 'My **Markdown** Footer Text',
+],
+```
+
+You can also set the option to `false` to disable it entirely.
 
 ### Sidebar page order
 
