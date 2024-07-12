@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Config;
  */
 class DynamicAuthorPagesTest extends TestCase
 {
+    public function testAuthorPagesAreGenerated()
+    {
+        $this->setUpTestEnvironment();
+
+        $this->assertTrue(Hyde::pages()->contains('author/mr_hyde'));
+        $this->assertTrue(Hyde::pages()->contains('author/jane_doe'));
+        $this->assertFalse(Hyde::pages()->contains('author/user123'));
+    }
+
     protected function setUpTestEnvironment(): void
     {
         Config::set('hyde.authors', [
