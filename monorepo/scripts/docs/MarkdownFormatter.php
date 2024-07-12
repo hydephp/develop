@@ -399,6 +399,7 @@ function adjustCaseForSpecialWords(string $text): string
 
     return str_ireplace($alwaysLowercase, $alwaysLowercase, $text);
 }
+
 function fixHeading(string $filename, string $heading, int $headingLevel, string $expectedCase): void
 {
     $headingHashes = str_repeat('#', $headingLevel);
