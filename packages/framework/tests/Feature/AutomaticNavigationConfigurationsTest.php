@@ -899,12 +899,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
-    public function testPagesInSubdirectoriesAreAddedToSidebarRegardlessOfConfiguration()
+    public function testPagesInSubdirectoriesAreAddedToSidebarRegardlessOfHydeConfiguration()
     {
         $options = ['dropdown', 'flat', 'hidden'];
 
         foreach ($options as $option) {
-            config(['docs.sidebar.subdirectories' => $option]);
+            config(['hyde.navigation.subdirectory_display' => $option]);
 
             $this->assertSidebarEquals([[
                 'label' => 'About',
