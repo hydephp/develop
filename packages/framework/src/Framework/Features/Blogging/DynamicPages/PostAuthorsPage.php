@@ -26,6 +26,8 @@ class PostAuthorsPage extends InMemoryPage
 
     public function getBladeView(): string
     {
+        // Todo: Support/document overriding the view
+
         return $this->view;
     }
 }
