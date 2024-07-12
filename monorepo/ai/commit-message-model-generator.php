@@ -26,6 +26,9 @@ $lines = array_filter($lines, fn($line) => !str_starts_with($line, 'Merge'));
 // Remove revert commits (if string starts with Revert)
 $lines = array_filter($lines, fn($line) => !str_starts_with($line, 'Revert'));
 
+// Remove bump commits (if string starts with Bump)
+$lines = array_filter($lines, fn($line) => !str_starts_with($line, 'Bump'));
+
 // Print the model
 dump($lines);
 
