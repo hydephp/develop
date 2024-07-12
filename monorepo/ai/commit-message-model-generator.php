@@ -18,7 +18,7 @@ $lines = explode("\n", $raw);
 $originalLineCount = count($lines);
 
 // Now we filter it to remove duplicates, keeping only the earliest entry
-$lines = array_unique($lines);
+$lines = filter($lines);
 
 // Remove merge commits (if string starts with Merge)
 $lines = array_filter($lines, fn($line) => !str_starts_with($line, 'Merge'));
@@ -38,3 +38,20 @@ echo "Model compressed by {$compression}% (-{$diff} lines)\n";
 
 // Save the model
 file_put_contents(__DIR__ . '/commit-message-model.txt', implode("\n", $lines));
+
+function filter(array $lines): array
+{
+    $lines = array_reverse($lines);
+
+    $filtered = [];
+    $seen = [];
+
+    foreach ($lines as $line) {
+        if (!in_array($line, $seen, true)) {
+            $seen[] = $line;
+            $filtered[] = $line;
+        }
+    }
+
+    return array_reverse($filtered);
+}
