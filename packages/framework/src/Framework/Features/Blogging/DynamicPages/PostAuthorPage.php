@@ -18,7 +18,7 @@ class PostAuthorPage extends InMemoryPage
 
     public function __construct(PostAuthor $author)
     {
-        parent::__construct("author/$author->username");
+        parent::__construct("authors/$author->username");
     }
 
     public function getBladeView(): string
