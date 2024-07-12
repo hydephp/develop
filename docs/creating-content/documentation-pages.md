@@ -24,7 +24,7 @@ saving you time and effort. For more information about this feature, see the [ex
 ### Best Practices and Hyde Expectations
 
 Since Hyde does a lot of things automatically, there are some things you may need
-to keep in mind when creating blog posts so that you don't get unexpected results.
+to keep in mind when creating documentation pages so that you don't get unexpected results.
 
 #### Filenames
 
