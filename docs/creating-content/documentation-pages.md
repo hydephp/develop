@@ -134,19 +134,6 @@ You can also specify explicit priorities by adding a value to the array keys. Hy
 ]
 ```
 
-You could also combine these methods if desired:
-
-```php
-// filepath: config/docs.php
-'sidebar' => [
-    'order' => [
-        'readme' => 10, // Priority: 10
-        'installation', // Priority: 500
-        'getting-started', // Priority: 501
-    ]
-]
-```
-
 ### Sidebar Labels
 
 The sidebar items are labelled with the `label` property. The default label is generated from the filename of the file.

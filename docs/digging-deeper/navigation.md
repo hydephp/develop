@@ -146,19 +146,6 @@ You can also specify explicit priorities by adding a value to the array keys. We
 ]
 ```
 
-You could also combine these methods if desired:
-
-```php
-// filepath: config/hyde.php
-'navigation' => [
-    'order' => [
-        'home' => 10, // Priority: 10
-        'about', // Priority: 500
-        'contact', // Priority: 501
-    ]
-]
-```
-
 ### Changing Menu Item Labels
 
 Hyde makes a few attempts to find suitable labels for the navigation menu items to automatically create helpful titles.
