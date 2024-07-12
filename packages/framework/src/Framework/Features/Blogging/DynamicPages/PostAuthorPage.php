@@ -19,7 +19,7 @@ class PostAuthorPage extends InMemoryPage
 
     public function __construct(PostAuthor $author)
     {
-        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey()."/$author->username");
+        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey()."/$author->username", compact('author'));
     }
 
     public function getBladeView(): string

@@ -20,7 +20,7 @@ class PostAuthorsPage extends InMemoryPage
 
     public function __construct(Collection $authors)
     {
-        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey());
+        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey(), compact('authors'));
 
         $this->authors = $authors;
     }
