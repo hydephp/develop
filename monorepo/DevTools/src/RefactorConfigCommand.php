@@ -128,7 +128,8 @@ class RefactorConfigCommand extends Command
                 }
             }
 
-            if (isset($default[$key]) && $value === $default[$key]) {
+            // Loose comparison
+            if (isset($default[$key]) && $value == $default[$key]) {
                 continue;
             }
 
