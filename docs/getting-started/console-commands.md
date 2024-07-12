@@ -234,7 +234,7 @@ Publish the hyde components for customization. Note that existing files will be 
 |------------|-------------------------|
 | `category` | The category to publish |
 
-## Display all Registered Routes.
+## Display All Registered Routes.
 
 <a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 

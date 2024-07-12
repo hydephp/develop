@@ -24,7 +24,7 @@ saving you time and effort. For more information about this feature, see the [ex
 ### Best Practices and Hyde Expectations
 
 Since Hyde does a lot of things automatically, there are some things you may need
-to keep in mind when creating blog posts so that you don't get unexpected results.
+to keep in mind when creating documentation pages so that you don't get unexpected results.
 
 #### Filenames
 
@@ -167,7 +167,7 @@ For example, putting a Markdown file in `_docs/getting-started/`, is equivalent 
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-### Hiding items
+### Hiding Items
 
 You can hide items from the sidebar by adding the `hidden` property to the front matter:
 

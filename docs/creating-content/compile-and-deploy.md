@@ -4,7 +4,7 @@ navigation:
     label: "Compile & Deploy"
 ---
 
-# Compile and Deploy your site
+# Compile and Deploy Your Site
 
 ## Running the Build Command
 

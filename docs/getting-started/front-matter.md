@@ -51,7 +51,7 @@ author:
   website: https://example.com
 ---
 
-## Markdown comes here
+## Markdown Comes Here
 
 Lorem ipsum dolor sit amet, etc.
 ```

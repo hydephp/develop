@@ -53,7 +53,7 @@ It may seem weird to have two folders for storing the compiled assets, but it is
 The `_site` directory is intended to be excluded from version control, while the `_media` folder is included in the
 version control. You are of course free to modify this behaviour by editing the `webpack.mix.js` file to change the output directory.
 
-## How Do I Compile assets?
+## How Do I Compile Assets?
 
 First, make sure that you have installed all the NodeJS dependencies using `npm install`.
 Then run `npm run dev` to compile the assets. If you want to compile the assets for production, run `npm run prod`.

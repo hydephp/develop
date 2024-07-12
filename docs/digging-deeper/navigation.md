@@ -361,7 +361,7 @@ You can disable this feature by setting the `numerical_page_ordering` setting to
 
 While it's not recommended, as you lose out on the convenience of the automatic ordering, any front matter priority settings will override the numerical prefix ordering if you for some reason need to.
 
-## Digging Deeper into the internals
+## Digging Deeper Into the Internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally. Here is a high level overview,
 but you can find more detailed information in the [Navigation API](navigation-api) documentation.
