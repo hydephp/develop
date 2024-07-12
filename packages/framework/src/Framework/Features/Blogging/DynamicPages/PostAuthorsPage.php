@@ -11,5 +11,8 @@ use Hyde\Pages\InMemoryPage;
  */
 class PostAuthorsPage extends InMemoryPage
 {
-    //
+    public function __construct()
+    {
+        parent::__construct('authors');
+    }
 }
