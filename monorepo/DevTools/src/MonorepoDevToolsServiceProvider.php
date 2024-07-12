@@ -17,6 +17,7 @@ class MonorepoDevToolsServiceProvider extends ServiceProvider
     {
         $this->commands([
             MonorepoReleaseCommand::class,
+            RefactorConfigCommand::class,
         ]);
     }
 }
