@@ -294,7 +294,7 @@ _pages/
   03-contact.md  # Priority: 3 (saved to _site/contact.html)
 ```
 
-As you can seem Hyde parses the number from the filename and uses it as the priority for the page in navigation menus, while stripping the prefix from the route key.
+As you can see, Hyde parses the number from the filename and uses it as the priority for the page in navigation menus, while stripping the prefix from the route key.
 
 ### Important Notes
 
