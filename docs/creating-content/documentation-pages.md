@@ -115,9 +115,8 @@ navigation:
 
 ### Sidebar grouping
 
-Sidebar grouping allows you to group items in the sidebar into categories. This is useful for creating a sidebar with a lot of items. The Hyde docs for instance use this.
+Sidebar grouping allows you to group items in the sidebar under category headings. This is useful for creating a sidebar with a lot of items. The official HydePHP.com docs, for instance, use this feature.
 
-The feature is enabled automatically when one or more of your documentation pages have the `navigation.group` property set in the front matter, or when subdirectories are used. This will then switch to a slightly more compact sidebar layout with pages sorted into categories. Any pages without the group front matter will get put in the "Other" group.
 
 ### Sidebar footer customization
 
@@ -132,6 +131,7 @@ The sidebar footer contains, by default, a link to your site homepage. You can c
 ```
 
 You can also set the option to `false` to disable it entirely.
+The feature is enabled automatically when one or more of your documentation pages have the `navigation.group` property set in the front matter, or when documentation pages are organized in subdirectories. Once activated, Hyde will switch to a slightly more compact sidebar layout with pages sorted into labeled groups. Any pages without the group information will be put in the "Other" group.
 
 #### Using Front Matter
 
