@@ -40,7 +40,6 @@ php hyde serve
 
 ---
 
-
 ## Deploying Your Site
 
 One of the things that make static sites so enjoyable to work with is how easy it is to deploy them to the web.

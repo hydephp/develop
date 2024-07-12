@@ -11,7 +11,6 @@ navigation:
 HydePHP comes with a few helper classes and utilities to make your life easier. This page will cover some of the most important ones.
 Note that these helpers targets those who write custom code and Blade templates, and that you are expected to have a basic understanding of programming and PHP.
 
-
 ## File-based Collections
 
 Hyde provides `DataCollections`, a subset of [Laravel Collections](https://laravel.com/docs/10.x/collections) giving you a similar developer experience to working with Eloquent Collections. However, instead of accessing a database,
@@ -31,7 +30,6 @@ DataCollections::json(string $name, bool $asArray = false);
 ```
 
 See the [File-based Collections](collections) documentation for the full details.
-
 
 ## File Includes
 
@@ -97,7 +95,6 @@ If a `head.html` file exists in the includes directory, Hyde include that within
 #### Scripts
 
 If a `scripts.html` file exists in the includes directory, Hyde include that at the end of the `<body>` tag of the generated HTML, in addition to the one set in the `hyde.scripts` config option.
-
 
 ## Reading-Time Helper
 
