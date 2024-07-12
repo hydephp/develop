@@ -30,6 +30,7 @@ class DynamicAuthorPagesTest extends TestCase
             '_posts/hyde_post_3.md',
             '_posts/jane_post_1.md',
             '_posts/jane_post_2.md',
+            'authors',
             'author/mr_hyde',
             'author/jane_doe',
             // 'author/user123',
