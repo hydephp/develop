@@ -85,7 +85,7 @@ class RefactorConfigCommand extends Command
             copy(Hyde::path('hyde.yml.bak'), Hyde::path('hyde.yml'));
             unlink(Hyde::path('hyde.yml.bak'));
 
-            return;
+            throw $exception;
         } finally {
             if ($usesGit && file_exists(Hyde::path('hyde.yml.bak'))) {
                 unlink(Hyde::path('hyde.yml.bak'));
