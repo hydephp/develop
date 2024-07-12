@@ -336,7 +336,7 @@ If you're not interested in using numerical prefix ordering, you can disable it 
 'numerical_page_ordering' => false,
 ```
 
-## Digging Deeper into the Internals
+## Digging Deeper Into the Internals
 
 While not essential, understanding the internal workings of the navigation system can be as beneficial as it's interesting. Here's a quick high-level overview of the [Navigation API](navigation-api).
 

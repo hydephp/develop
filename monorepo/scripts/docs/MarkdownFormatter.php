@@ -18,8 +18,8 @@ $links = [];
 $warnings = [];
 
 $headings = [];
-$checksHeadings = false;
-$fixesHeadings = false;
+$checksHeadings = true;
+$fixesHeadings = true;
 
 class MarkdownFormatter
 {
@@ -375,11 +375,16 @@ function processHeadings(): void
                 continue;
             }
 
-            $expectedCase = $headingLevel < 3 ? Hyde\make_title($headingText) : Str::ucfirst($headingText);
+            // Skip some special cases that can't be formatted properly by the APA method
+            if (Str::contains($headingText, ['"', '`', '-', 'filepath'], true)) {
+                continue;
+            }
+
+            $expectedCase = $headingLevel < 3 ? Str::apa($headingText) : Str::ucfirst($headingText);
             $expectedCase = adjustCaseForSpecialWords($expectedCase);
 
             if ($headingText !== $expectedCase) {
-                $caseType = $headingLevel < 3 ? 'title' : 'sentence';
+                $caseType = $headingLevel <= 3 ? 'title' : 'sentence';
                 $warnings['Headings'][] = "Heading '$headingText' should be $caseType case in $filename (expected '$expectedCase')";
 
                 if ($fixesHeadings) {
@@ -392,13 +397,17 @@ function processHeadings(): void
 
 function adjustCaseForSpecialWords(string $text): string
 {
-    $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'GitHub'];
-    $alwaysLowercase = ['to', 'it'];
+    $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'HydePage', 'GitHub', 'CI/CD', 'UI ', 'URL'];
+    $alwaysLowercase = ['to', 'it', 'and'];
 
+    $text = str_ireplace($alwaysLowercase, $alwaysLowercase, $text);
     $text = str_ireplace($alwaysUppercase, $alwaysUppercase, $text);
 
-    return str_ireplace($alwaysLowercase, $alwaysLowercase, $text);
+    $patches = ['item' => 'Item'];
+
+    return strtr($text, $patches);
 }
+
 function fixHeading(string $filename, string $heading, int $headingLevel, string $expectedCase): void
 {
     $headingHashes = str_repeat('#', $headingLevel);
