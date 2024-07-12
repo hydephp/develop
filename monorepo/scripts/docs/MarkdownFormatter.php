@@ -400,9 +400,10 @@ function adjustCaseForSpecialWords(string $text): string
     $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'HydePage', 'GitHub', 'CI/CD', 'UI ', 'URL'];
     $alwaysLowercase = ['to', 'it', 'and'];
 
+    $text = str_ireplace($alwaysLowercase, $alwaysLowercase, $text);
     $text = str_ireplace($alwaysUppercase, $alwaysUppercase, $text);
 
-    return str_ireplace($alwaysLowercase, $alwaysLowercase, $text);
+    return $text;
 }
 
 function fixHeading(string $filename, string $heading, int $headingLevel, string $expectedCase): void
