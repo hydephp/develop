@@ -1,0 +1,46 @@
+### Follow these instructions to create a good commit message:
+
+1. **Start with an imperative verb**:
+    - Examples: Add, Update, Remove, Fix, Create, Adjust, Improve, Normalize, Simplify, Document, Change, Format, Refactor, Clean up, Rename, etc.
+
+2. **Specify the target**:
+    - Examples: workflow, documentation, configuration, test, method, helper, file, commit message, etc.
+
+3. **Optionally provide context or additional details**:
+    - Examples: to fix bug, for new feature, due to error, to improve readability, etc.
+
+4. **Maintain concise and clear language**:
+    - Ensure each message is specific and to the point.
+
+Given this structure, here are some examples of how this model might look:
+
+- `Add missing download path`
+- `Update internal documentation`
+- `Fix release notes spelling`
+- `Remove mkdir call`
+- `Create .phpstorm.meta.php`
+- `Simplify test`
+- `Normalize capitalization`
+- `Format Markdown`
+- `Refactor unit test to extend unit test case (12.5x faster)`
+
+Using the above patterns, here is a generalized template:
+
+```plaintext
+[Verb] [Target] [Optional Context/Detail]
+```
+
+### Sample Generated Commit Messages
+
+Using the template, here are a few sample commit messages:
+
+1. `Add new API endpoint for user authentication`
+2. `Update README to include setup instructions`
+3. `Fix typo in configuration file`
+4. `Remove deprecated methods from utility class`
+5. `Create initial migration scripts`
+6. `Adjust test cases to handle new validation rules`
+7. `Document code with additional comments and examples`
+8. `Format JSON response for better readability`
+9. `Refactor database connection logic to use environment variables`
+10. `Normalize header tags across all HTML files`
