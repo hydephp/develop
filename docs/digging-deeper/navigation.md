@@ -311,7 +311,7 @@ This feature integrates well with automatic subdirectory-based navigation groupi
 1. You can use numerical prefixes in subdirectories to control the dropdown/sidebar order.
 2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
 
-Here is an example structure of how could organize a documentation site:
+Here is an example structure of how you could organize a documentation site:
 
 ```shell
 _docs/
