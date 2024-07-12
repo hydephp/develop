@@ -37,331 +37,156 @@ Here's an overview of what you can customize in your navigation menus:
 - Item visibility: Choose to hide or show pages in the menu
 - Item grouping: Group pages together in dropdowns or sidebar categories
 
-### Customization Methods
+## Configuration Methods
 
 Hyde provides multiple ways to customize navigation menus to suit your needs:
 
 1. Front matter data in Markdown and Blade page files, applicable to all menu types
-2. Configuration in the `hyde` config file for main navigation items
-3. Configuration in the `docs` config file for documentation sidebar items
+2. Configuration in the `hyde.php` or `hyde.yml` config file for main navigation items
+3. Configuration in the `docs.php` config file for documentation sidebar items
 
-Keep in mind that front matter data overrides dynamically inferred or config-defined priorities. While useful for quick one-off changes on small sites, it can make reordering items later on more challenging as you can't see the entire structure at once.
+The new builder pattern in the configuration allows for a more fluent and IDE-friendly way to customize navigation. However, the old array-based method still works, as the navigation builder is an `ArrayObject` and can be used as an array.
 
-Additionally, general options for the entire navigation menus are also available in the `hyde` and `docs` config files.
+### Using the Navigation Builder
 
-## Front Matter Configuration
-
-Front matter options allow per-page customization of navigation menus. Here's a quick reference of available options:
-
-```yaml
-navigation:
-    label: string  # The displayed text in the navigation item link
-    priority: int  # The page's priority for ordering (lower means higher up/first)
-    hidden: bool   # Whether the page should be hidden from the navigation menu
-    group: string  # Set main menu dropdown or sidebar group key
-```
-
-You only need to specify the keys you want to customize.
-
-### `label`
-
-Customizes the text appearing in the navigation menu link for the page. If not set anywhere else, Hyde will search for a title in the page content or generate one from the filename.
-
-```yaml
-navigation:
-    label: "My Custom Label"
-```
-
-### `priority`
-
-Controls the order in which the page appears in the navigation menu.
-
-```yaml
-navigation:
-    priority: 10
-```
-
-### `hidden`
-
-Determines if the page appears in the navigation menu.
-
-```yaml
-navigation:
-    hidden: true
-```
-
-**Tip:** You can also use `visible: false` to achieve the same effect.
-
-### `group`
-
-For the primary navigation menu, this groups pages together in dropdowns. For the sidebar, it groups pages under a common heading.
-
-```yaml
-navigation:
-    group: "My Group"
-```
-
-**Note:** Sidebar group keys are normalized, so `My Group` and `my-group` are equivalent.
-
-## Config File Configuration
-
-Let's explore how to customize navigation menus using configuration files:
-
-- For the main navigation menu, use `navigation` setting in the `hyde.php` config file.
-- For the sidebar, use `sidebar` setting in the `docs.php` config file.
-
-When customizing the main navigation menu, use the [route key](core-concepts#route-keys) of the page. For the sidebar, you can use either the route key or the [page identifier](core-concepts#page-identifiers).
-
-### Changing Priorities
-
-The `navigation.order` and `sidebar.order` settings allow you to customize the order of pages in the navigation menus.
-
-#### Basic Priority Syntax
-
-A nice and simple way to define the order of pages, is to add their route keys as a simple list array. We'll then match that array order.
-
-It may be useful to know that we internally will assign a priority calculated according to its position in the list, plus an offset of `500`. The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
+To use the new builder pattern, you can configure your navigation in the `hyde.php` file like this:
 
 ```php
-// filepath: config/hyde.php
-'navigation' => [
-    'order' => [
-        'home', // Priority: 500
-        'about', // Priority: 501
-        'contact', // Priority: 502
-    ]
-]
+use Hyde\Facades\Navigation;
+
+return [
+    // ...
+
+    'navigation' => Navigation::configure()
+        ->setPagePriorities([
+            'index' => 0,
+            'posts' => 10,
+            'docs/index' => 100,
+        ])
+        ->setPageLabels([
+            'index' => 'Home',
+            'docs/index' => 'Docs',
+        ])
+        ->excludePages([
+            '404',
+        ])
+        ->addNavigationItems([
+            Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
+        ])
+        ->setSubdirectoryDisplayMode('hidden'),
+];
 ```
 
-```php
-// filepath: config/docs.php
-'sidebar' => [
-    'order' => [
-        'readme', // Priority: 500
-        'installation', // Priority: 501
-        'getting-started', // Priority: 502
-    ]
-]
+### Using YAML Configuration
+
+You can also set the navigation configuration in the `hyde.yml` file. The structure remains the same as the array-based method:
+
+```yaml
+hyde:
+  navigation:
+    order:
+      index: 0
+      posts: 10
+      docs/index: 100
+    labels:
+      index: Home
+      docs/index: Docs
+    exclude:
+      - 404
+    custom:
+      - destination: 'https://github.com/hydephp/hyde'
+        label: 'GitHub'
+        priority: 200
+    subdirectory_display: hidden
 ```
 
-#### Explicit Priority Syntax
+## Customization Options
 
-You can also specify explicit priorities by adding a value to the array keys. We'll then use these exact values as the priorities.
+Here's an overview of what you can customize in your navigation menus:
 
-```php
-// filepath: config/hyde.php
-'navigation' => [
-    'order' => [
-        'home' => 10,
-        'about' => 15,
-        'contact' => 20,
-    ]
-]
-```
+- Item labels: The text displayed in menu links
+- Item priorities: Control the order of link appearance
+- Item visibility: Choose to hide or show pages in the menu
+- Item grouping: Group pages together in dropdowns or sidebar categories
+
+### Setting Page Priorities
+
+Use the `setPagePriorities` method to define the order of pages in the navigation menu:
 
 ```php
-// filepath: config/docs.php
-'sidebar' => [
-    'order' => [
-        'readme' => 10,
-        'installation' => 15,
-        'getting-started' => 20,
-    ]
-]
-```
-
-You could also combine these methods if desired:
-
-```php
-// filepath: Applicable to both
-[
-    'readme' => 10, // Priority: 10
-    'installation', // Priority: 500
-    'getting-started', // Priority: 501
-]
+->setPagePriorities([
+    'index' => 0,
+    'posts' => 10,
+    'docs/index' => 100,
+])
 ```
 
 ### Changing Menu Item Labels
 
-Hyde makes a few attempts to find a suitable label for the navigation menu items to automatically create helpful titles.
-
-If you're not happy with these, it's easy to override navigation link labels by mapping the route key to the desired title in the Hyde config:
+Override navigation link labels using the `setPageLabels` method:
 
 ```php
-// filepath: config/hyde.php
-'navigation' => [
-    'labels' => [
-        'index' => 'Start',
-        'docs/index' => 'Documentation',
-    ]
-]
+->setPageLabels([
+    'index' => 'Home',
+    'docs/index' => 'Documentation',
+])
 ```
 
-**Note:** This feature is not yet supported for the sidebar.
+### Excluding Items
 
-### Excluding Items (Blacklist)
-
-When you have a lot of pages, it may be useful to prevent links from being added to the main navigation menu.
-
-To exclude items from being added, simply add the page's route key to the navigation blacklist in the Hyde config:
+Prevent links from being added to the main navigation menu using the `excludePages` method:
 
 ```php
-// filepath: config/hyde.php
-'navigation' => [
-    'exclude' => [
-        '404'
-    ]
-]
+->excludePages([
+    '404',
+])
 ```
 
 ### Adding Custom Navigation Menu Links
 
-You can easily add custom navigation menu links in the Hyde config:
+Add custom navigation menu links using the `addNavigationItems` method:
 
 ```php
-// filepath: config/hyde.php
-use Hyde\Facades\Navigation;
-
-'navigation' => [
-    'custom' => [
-        Navigation::item(
-            destination: 'https://github.com/hydephp/hyde', // Required
-            label: 'GitHub', // Optional, defaults to the destination value
-            priority: 200 // Optional, defaults to 500
-        ),
-    ]
-]
+->addNavigationItems([
+    Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
+])
 ```
-
-**Tip:** While named arguments are used in the example for clarity, they are not required.
-
 
 ### Configure Subdirectory Display
 
-You can configure how subdirectories should be displayed in the menu:
+Set how subdirectories should be displayed in the menu using the `setSubdirectoryDisplayMode` method:
 
 ```php
-// filepath: config/hyde.php
-'navigation' => [
-    'subdirectory_display' => 'dropdown'
-]
+->setSubdirectoryDisplayMode('dropdown')
 ```
 
-**Supported Options:**
-- `dropdown`: Pages in subdirectories are displayed in a dropdown menu
-- `hidden`: Pages in subdirectories are not displayed at all the menus
-- `flat`: Pages in subdirectories are displayed as individual items
+Supported options are 'dropdown', 'hidden', and 'flat'.
 
-### Automatic Menu Groups
+## Front Matter Configuration
 
-A handy feature HydePHP has is that it can automatically place pages in dropdowns based on subdirectory structures.
+Front matter options allow per-page customization of navigation menus. These options remain unchanged:
 
-#### Automatic Navigation Menu Dropdowns
-
-Enable this feature in the `hyde.php` config file by setting the `subdirectory_display` key to `dropdown`.
-
-```php
-// filepath: config/hyde.php
-'navigation' => [
-    'subdirectory_display' => 'dropdown',
-],
+```yaml
+navigation:
+  label: string  # The displayed text in the navigation item link
+  priority: int  # The page's priority for ordering (lower means higher up/first)
+  hidden: bool   # Whether the page should be hidden from the navigation menu
+  group: string  # Set main menu dropdown or sidebar group key
 ```
-
-Now if you create a page called `_pages/about/contact.md` it will automatically be placed in a dropdown called "About".
-
-#### Automatic Documentation Sidebar Grouping
-
-This feature is always enabled for documentation pages. Simply place your pages in subdirectories to have them grouped in the sidebar.
-
-For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
-
->info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
-
-#### Dropdown Menu Notes
-
-- Dropdowns take priority over standard items. If you have a dropdown with the key `about` and a page with the key `about`, the dropdown will be created, and the page won't be in the menu.
-- Example: With this file structure: `_pages/foo.md`, `_pages/foo/bar.md`, `_pages/foo/baz.md`, the link to `foo` will be lost, so please keep this in mind when using this feature.
 
 ## Numerical Prefix Navigation Ordering
 
-HydePHP v2 introduces navigation item ordering based on numerical prefixes in filenames. This feature works for both the primary navigation menu and the documentation sidebar.
+The numerical prefix navigation ordering feature remains unchanged. You can still use numerical prefixes in filenames to control the order of navigation items.
 
-This has the great benefit of matching the navigation menu layout with the file structure view, and works especially great with subdirectory-based navigation grouping.
-
-```shell
-_pages/
-  01-home.md     # Priority: 1 (saved to _site/index.html)
-  02-about.md    # Priority: 2 (saved to _site/about.html)
-  03-contact.md  # Priority: 3 (saved to _site/contact.html)
-```
-
-As you can seem Hyde parses the number from the filename and uses it as the priority for the page in navigation menus, while stripping the prefix from the route key.
-
-### Important Notes
-
-1. The numerical prefix remains part of the page identifier but is stripped from the route key.
-   For example: `_pages/01-home.md` has route key `home` and page identifier `01-home`.
-2. You can delimit the numerical prefix with either a dash or an underscore.
-   For example: Both `_pages/01-home.md` and `_pages/01_home.md` are valid.
-3. Leading zeros are optional. `_pages/1-home.md` is equally valid.
-
-### Using Numerical Prefix Ordering in Subdirectories
-
-This feature integrates well with automatic subdirectory-based navigation grouping. Here are two useful tips:
-
-1. You can use numerical prefixes in subdirectories to control the dropdown/sidebar order.
-2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
-
-Here is an example structure of how could organize a documentation site:
-
-```shell
-_docs/
-  01-getting-started/
-    01-installation.md
-    02-requirements.md
-    03-configuration.md
-  02-usage/
-    01-quick-start.md
-    02-advanced-usage.md
-  03-features/
-    01-feature-1.md
-    02-feature-2.md
-```
-
-### Customization
-
-If you're not interested in using numerical prefix ordering, you can disable it in the Hyde config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
+To disable this feature, you can use the following configuration:
 
 ```php
-// filepath: config/hyde.php
-'numerical_page_ordering' => false,
+return [
+    // ...
+    'numerical_page_ordering' => false,
+];
 ```
 
-## Digging Deeper into the Internals
+## Conclusion
 
-While not essential, understanding the internal workings of the navigation system can be as beneficial as it's interesting. Here's a quick high-level overview of the [Navigation API](navigation-api).
-
-### Navigation Menu Classes
-
-The main navigation menu uses the `MainNavigationMenu` class, while the documentation sidebar uses the `DocumentationSidebar` class. Both extend the base `NavigationMenu` class:
-
-```php
-use Hyde\Framework\Features\Navigation\MainNavigationMenu;
-use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use Hyde\Framework\Features\Navigation\NavigationMenu;
-```
-
-The base `NavigationMenu` class contains the main logic for menu generation, while child implementations contain extra logic for specific use cases.
-
-All navigation menus store items in their `$items` collection, containing instances of the `NavigationItem` class. Dropdowns are represented by `NavigationGroup` instances, which extend the `NavigationMenu` class and contain additional `NavigationItem` instances:
-
-```php
-use Hyde\Framework\Features\Navigation\NavigationItem;
-use Hyde\Framework\Features\Navigation\NavigationGroup;
-```
-
-## The Navigation API
-
-For advanced users and package developers, Hyde offers a Navigation API for programmatic interaction with site navigation. This API consists of a set of PHP classes allowing fluent interaction with navigation menus.
-
-For more detailed information about the API, refer to the [Navigation API](navigation-api) documentation.
+The new builder pattern provides a more fluent and IDE-friendly way to configure navigation in HydePHP. However, the old array-based method and YAML configuration are still supported, giving you flexibility in how you choose to customize your site's navigation.
