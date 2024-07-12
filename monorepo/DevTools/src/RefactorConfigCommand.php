@@ -23,6 +23,7 @@ use function in_array;
 use function is_array;
 use function is_string;
 use function file_exists;
+use function array_udiff;
 use function str_starts_with;
 use function file_put_contents;
 
@@ -72,11 +73,15 @@ class RefactorConfigCommand extends Command
 
         try {
             $config = config('hyde');
+
+            $default = require Hyde::vendorPath('config/hyde.php');
+
+            // Todo: Add argument to not diff out defaults
+            $config = array_udiff($config, $default, fn ($a, $b) => $a === $b ? 0 : 1);
+
             $config = $this->serializePhpData($config);
 
             $yaml = Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
-
-            // Todo: Diff out defaults? (unless with argument)
 
             file_put_contents(Hyde::path('hyde.yml'), $yaml);
         } catch (Throwable $exception) {
