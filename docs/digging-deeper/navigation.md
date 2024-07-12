@@ -8,7 +8,7 @@ navigation:
 
 ## Introduction
 
-HydePHP offers an automatic navigation menu and documentation sidebar generation feature, designed to take the pain out of creating navigation menus.
+HydePHP offers automatic navigation menu and documentation sidebar generation features, designed to take the pain out of creating navigation menus.
 While Hyde does its best to configure these menus automatically based on understanding your project files, you may want to customize them further.
 
 There are two types of navigation menus in Hyde:
