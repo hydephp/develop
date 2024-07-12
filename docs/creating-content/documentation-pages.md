@@ -162,7 +162,7 @@ navigation:
 
 #### Automatic Subdirectory-Based Grouping
 
-You can also automatically group your documentation pages by placing source files in sub-directories.
+You can also automatically group your documentation pages by placing source files in subdirectories.
 
 For example, putting a Markdown file in `_docs/getting-started/` is equivalent to adding the same front matter seen above.
 
