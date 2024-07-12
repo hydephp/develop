@@ -384,7 +384,7 @@ function processHeadings(): void
             $expectedCase = adjustCaseForSpecialWords($expectedCase);
 
             if ($headingText !== $expectedCase) {
-                $caseType = $headingLevel < 3 ? 'title' : 'sentence';
+                $caseType = $headingLevel <= 3 ? 'title' : 'sentence';
                 $warnings['Headings'][] = "Heading '$headingText' should be $caseType case in $filename (expected '$expectedCase')";
 
                 if ($fixesHeadings) {
