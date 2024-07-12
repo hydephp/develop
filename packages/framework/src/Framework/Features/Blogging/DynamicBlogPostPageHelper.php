@@ -39,7 +39,7 @@ class DynamicBlogPostPageHelper
         }
 
         return $authors
-            ->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage("author/$author->username"))
+            ->map(fn (PostAuthor $author): PostAuthorPage => new PostAuthorPage($author))
             ->prepend(new PostAuthorsPage($authors))
             ->all();
     }
