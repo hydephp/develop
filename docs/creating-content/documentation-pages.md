@@ -302,7 +302,7 @@ The Realtime Compiler that powers the `php hyde serve` command will automaticall
 
 Hyde can automatically add links to documentation pages that take the user to a GitHub page (or similar) to edit the page. This makes it great for open-source projects looking to allow others to contribute to the documentation in a quick and easy manner.
 
-The feature is automatically enabled when you specify a base URL in the Docs configuration file. Hyde expects this to be a GitHub path, but it will probably work with other methods as well, if not, please send a PR and/or create an issue on the [GitHub repository](https://github.com/hydephp/framework)!
+The feature is automatically enabled when you specify a base URL in the Docs configuration file. Hyde expects this to be a GitHub path, but it will probably work with other methods as well. If not, please send a PR and/or create an issue on the [GitHub repository](https://github.com/hydephp/framework)!
 
 >info Tip: This documentation site uses this feature, scroll down to the bottom of this page and try it out!
 
