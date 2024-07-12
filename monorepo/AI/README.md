@@ -44,4 +44,5 @@ Remember to follow our code style:
 - Use camelCase for class fields, use snake_case for non-class functions and constants.
 - Code comments should be used sparingly, and only when describing things that seem weird but that may be needed to work around quirks out of our control. In general, extracting a self describing helper method is much better.
 - When writing tests, use PHPUnit where tests are defined using this format: `public function testDoingSomethingDoesSomething()`, we do not specify return types on test methods, but we do when adding testing helper methods.
+- PHPDocs should use fully qualified class names, code should import both classes and functions. Function imports are separated with a newline from class imports.
 ```
