@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\MonorepoDevTools;
 
 use Hyde\Hyde;
+use Throwable;
 use Hyde\Enums\Feature;
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
@@ -15,6 +16,7 @@ use Hyde\Framework\Features\Metadata\MetadataElementContract;
 use function copy;
 use function config;
 use function substr;
+use function unlink;
 use function collect;
 use function implode;
 use function in_array;
@@ -63,14 +65,23 @@ class RefactorConfigCommand extends Command
             copy(Hyde::path('hyde.yml'), Hyde::path('hyde.yml.bak'));
         }
 
-        $config = config('hyde');
-        $config = $this->serializePhpData($config);
+        try {
+            $config = config('hyde');
+            $config = $this->serializePhpData($config);
 
-        $yaml = Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
+            $yaml = Yaml::dump($config, 16, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
 
-        // Todo: Diff out defaults? (unless with argument)
+            // Todo: Diff out defaults? (unless with argument)
 
-        file_put_contents(Hyde::path('hyde.yml'), $yaml);
+            file_put_contents(Hyde::path('hyde.yml'), $yaml);
+        } catch (Throwable $exception) {
+            $this->error('Failed to migrate configuration: '.$exception->getMessage());
+            $this->warn('Rolling back changes...');
+            copy(Hyde::path('hyde.yml.bak'), Hyde::path('hyde.yml'));
+            unlink(Hyde::path('hyde.yml.bak'));
+
+            return;
+        }
     }
 
     protected function serializePhpData(array $config): array
