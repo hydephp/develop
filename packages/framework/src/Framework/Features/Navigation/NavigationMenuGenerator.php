@@ -194,6 +194,7 @@ class NavigationMenuGenerator
 
     protected function searchForGroupLabelInConfig(string $groupKey): ?string
     {
+        // TODO: Normalize this: sidebar_group_labels -> docs.sidebar.labels
         return $this->getConfigArray($this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels')[$groupKey] ?? null;
     }
 

@@ -8,7 +8,7 @@ navigation:
 
 ## Introduction
 
-HydePHP offers automatic navigation menu and documentation sidebar generation features, designed to take the pain out of creating navigation menus.
+HydePHP offers automatic navigation menu generation features, designed to take the pain out of creating navigation menus.
 While Hyde does its best to configure these menus automatically based on understanding your project files, you may want to customize them further.
 
 There are two types of navigation menus in Hyde:
@@ -16,7 +16,7 @@ There are two types of navigation menus in Hyde:
 1. **Primary Navigation Menu**: The main navigation menu appearing on most pages of your site. Unique features include dropdowns for subdirectories, depending on configuration.
 2. **Documentation Sidebar**: The sidebar on documentation pages with links to other documentation pages. Unique features include automatic grouping based on subdirectories.
 
-This documentation will guide you through the customization process. To learn even more about sidebars, visit the [Documentation Pages](documentation-pages) documentation.
+This documentation will guide you through the customization process of the primary navigation menu. To learn about the documentation sidebar, visit the [Documentation Pages](documentation-pages) documentation.
 
 ### Internal Structure Overview
 
@@ -43,11 +43,10 @@ Hyde provides multiple ways to customize navigation menus to suit your needs:
 
 1. Front matter data in Markdown and Blade page files, applicable to all menu types
 2. Configuration in the `hyde` config file for main navigation items
-3. Configuration in the `docs` config file for documentation sidebar items
 
 Keep in mind that front matter data overrides dynamically inferred or config-defined priorities. While useful for quick one-off changes on small sites, it can make reordering items later on more challenging as you can't see the entire structure at once.
 
-Additionally, general options for the entire navigation menus are also available in the `hyde` and `docs` config files.
+Additionally, general options for the entire navigation menus are also available in the `hyde` config file.
 
 ## Front Matter Configuration
 
@@ -105,16 +104,15 @@ navigation:
 
 ## Config File Configuration
 
-Let's explore how to customize navigation menus using configuration files:
+Let's explore how to customize the main navigation menu using configuration files:
 
 - For the main navigation menu, use the `navigation` setting in the `hyde.php` config file.
-- For the sidebar, use the `sidebar` setting in the `docs.php` config file.
 
-When customizing the main navigation menu, use the [route key](core-concepts#route-keys) of the page. For the sidebar, you can use either the route key or the [page identifier](core-concepts#page-identifiers).
+When customizing the main navigation menu, use the [route key](core-concepts#route-keys) of the page.
 
 ### Changing Priorities
 
-The `navigation.order` and `sidebar.order` settings allow you to customize the order of pages in the navigation menus.
+The `navigation.order` setting allows you to customize the order of pages in the main navigation menu.
 
 #### Basic Priority Syntax
 
@@ -129,17 +127,6 @@ It may be useful to know that we internally will assign a priority calculated ac
         'home', // Priority: 500
         'about', // Priority: 501
         'contact', // Priority: 502
-    ]
-]
-```
-
-```php
-// filepath: config/docs.php
-'sidebar' => [
-    'order' => [
-        'readme', // Priority: 500
-        'installation', // Priority: 501
-        'getting-started', // Priority: 502
     ]
 ]
 ```
@@ -159,28 +146,6 @@ You can also specify explicit priorities by adding a value to the array keys. We
 ]
 ```
 
-```php
-// filepath: config/docs.php
-'sidebar' => [
-    'order' => [
-        'readme' => 10,
-        'installation' => 15,
-        'getting-started' => 20,
-    ]
-]
-```
-
-You could also combine these methods if desired:
-
-```php
-// filepath: Applicable to both
-[
-    'readme' => 10, // Priority: 10
-    'installation', // Priority: 500
-    'getting-started', // Priority: 501
-]
-```
-
 ### Changing Menu Item Labels
 
 Hyde makes a few attempts to find suitable labels for the navigation menu items to automatically create helpful titles.
@@ -196,8 +161,6 @@ If you're not happy with these, it's easy to override navigation link labels by 
     ]
 ]
 ```
-
-**Note:** This feature is not yet supported for the sidebar.
 
 ### Excluding Items (Blacklist)
 
@@ -268,14 +231,6 @@ Enable this feature in the `hyde.php` config file by setting the `subdirectory_d
 
 Now if you create a page called `_pages/about/contact.md`, it will automatically be placed in a dropdown called "About".
 
-#### Automatic Documentation Sidebar Grouping
-
-This feature is always enabled for documentation pages. Simply place your pages in subdirectories to have them grouped in the sidebar.
-
-For example: `_docs/getting-started/installation.md` will be placed in a group called "Getting Started".
-
->info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
-
 #### Dropdown Menu Notes
 
 - Dropdowns take priority over standard items. If you have a dropdown with the key `about` and a page with the key `about`, the dropdown will be created, and the page won't be in the menu.
@@ -283,7 +238,7 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 ## Numerical Prefix Navigation Ordering
 
-HydePHP v2 introduces navigation item ordering based on numerical prefixes in filenames. This feature works for both the primary navigation menu and the documentation sidebar.
+HydePHP v2 introduces navigation item ordering based on numerical prefixes in filenames. This feature works for the primary navigation menu.
 
 This has the great benefit of matching the navigation menu layout with the file structure view. It also works especially well with subdirectory-based navigation grouping.
 
@@ -308,24 +263,8 @@ As you can see, Hyde parses the number from the filename and uses it as the prio
 
 This feature integrates well with automatic subdirectory-based navigation grouping. Here are two useful tips:
 
-1. You can use numerical prefixes in subdirectories to control the dropdown/sidebar order.
+1. You can use numerical prefixes in subdirectories to control the dropdown order.
 2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
-
-Here is an example structure of how you could organize a documentation site:
-
-```shell
-_docs/
-  01-getting-started/
-    01-installation.md
-    02-requirements.md
-    03-configuration.md
-  02-usage/
-    01-quick-start.md
-    02-advanced-usage.md
-  03-features/
-    01-feature-1.md
-    02-feature-2.md
-```
 
 ### Customization
 

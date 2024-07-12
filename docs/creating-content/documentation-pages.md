@@ -100,7 +100,39 @@ navigation:
     priority: 5
 ```
 
-You can also change the order in the `config/docs.php` configuration file, which may be easier to manage for larger sites. See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details.
+You can also change the order in the `config/docs.php` configuration file, which may be easier to manage for larger sites.
+
+#### Basic Priority Syntax
+
+A nice and simple way to define the order of pages is to add their route keys as a simple list array. Hyde will then match that array order.
+
+It may be useful to know that Hyde internally will assign a priority calculated according to its position in the list, plus an offset of `500`. The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
+
+```php
+// filepath: config/docs.php
+'sidebar' => [
+    'order' => [
+        'readme', // Priority: 500
+        'installation', // Priority: 501
+        'getting-started', // Priority: 502
+    ]
+]
+```
+
+#### Explicit Priority Syntax
+
+You can also specify explicit priorities by adding a value to the array keys. Hyde will then use these exact values as the priorities.
+
+```php
+// filepath: config/docs.php
+'sidebar' => [
+    'order' => [
+        'readme' => 10,
+        'installation' => 15,
+        'getting-started' => 20,
+    ]
+]
+```
 
 ### Sidebar Labels
 
@@ -130,13 +162,11 @@ navigation:
 
 #### Automatic Subdirectory-Based Grouping
 
-You can also automatically group your documentation pages by placing source files in sub-directories.
+You can also automatically group your documentation pages by placing source files in subdirectories.
 
 For example, putting a Markdown file in `_docs/getting-started/` is equivalent to adding the same front matter seen above.
 
->info Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they would overwrite each other.
-
->info Tip: When using subdirectory-based grouping, you can set the priority of the groups using the directory name as the array key in the config file.
+>warning Note that when the [flattened output paths](#using-flattened-output-paths) setting is enabled (which it is by default), the file will still be compiled to the `_site/docs/` directory like it would be if you didn't use the subdirectories. Note that this means that you can't have two documentation pages with the same filename as they would overwrite each other.
 
 ### Hiding Items
 
@@ -213,11 +243,9 @@ To quickly arrange the order of items in the sidebar, you can reorder the page i
 
 See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
 
-### Automatic Sidebar Group Labels
+### Setting Sidebar Group Labels
 
-When using the automatic sidebar grouping feature (based on subdirectories), the titles of the groups are generated from the directory names. If these are not to your liking, for example if you need to use special characters, you can override them in the Docs configuration file. The array key is the directory name, and the value is the label.
-
-Please note that this option is not added to the config file by default, as it's not a super common use case. No worries though, just add the following yourself!
+When using the automatic sidebar grouping feature the titles of the groups are generated from the subdirectory names. If these are not to your liking, for example if you need to use special characters, you can override them in the configuration file. The array key is the directory name, and the value is the label.
 
 ```php
 // Filepath: config/docs.php
@@ -225,6 +253,80 @@ Please note that this option is not added to the config file by default, as it's
 'sidebar_group_labels' => [
     'questions-and-answers' => 'Questions & Answers',
 ],
+```
+
+Please note that this option is not added to the config file by default, as it's not a super common use case. No worries though, just add the following yourself!
+
+#### Setting Sidebar Group Priorities
+
+By default, each group will be assigned the lowest priority found inside the group. However, you can specify the order and priorities for sidebar group keys the same way you can for the sidebar items.
+
+Just use the sidebar group key as instead of the page identifier/route key:
+
+```php
+// Filepath: config/docs.php
+'sidebar' => [
+    'order' => [
+        'readme',
+        'installation',
+        'getting-started',
+    ],
+],
+```
+
+### Numerical Prefix Sidebar Ordering
+
+HydePHP v2 introduces sidebar item ordering based on numerical prefixes in filenames. This feature works for the documentation sidebar.
+
+This has the great benefit of matching the sidebar layout with the file structure view. It also works especially well with subdirectory-based sidebar grouping.
+
+```shell
+_docs/
+  01-installation.md     # Priority: 1
+  02-configuration.md    # Priority: 2
+  03-usage.md            # Priority: 3
+```
+
+As you can see, Hyde parses the number from the filename and uses it as the priority for the page in the sidebar, while stripping the prefix from the route key.
+
+#### Important Notes
+
+1. The numerical prefix remains part of the page identifier but is stripped from the route key.
+   For example: `_docs/01-installation.md` has route key `installation` and page identifier `01-installation`.
+2. You can delimit the numerical prefix with either a dash or an underscore.
+   For example: Both `_docs/01-installation.md` and `_docs/01_installation.md` are valid.
+3. Leading zeros are optional. `_docs/1-installation.md` is equally valid.
+
+#### Using Numerical Prefix Ordering in Subdirectories
+
+This feature integrates well with automatic subdirectory-based sidebar grouping. Here's an example of how you could organize a documentation site:
+
+```shell
+_docs/
+  01-getting-started/
+    01-installation.md
+    02-requirements.md
+    03-configuration.md
+  02-usage/
+    01-quick-start.md
+    02-advanced-usage.md
+  03-features/
+    01-feature-1.md
+    02-feature-2.md
+```
+
+Here are two useful tips:
+
+1. You can use numerical prefixes in subdirectories to control the sidebar group order.
+2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
+
+#### Customization
+
+If you're not interested in using numerical prefix ordering, you can disable it in the Hyde config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
+
+```php
+// filepath: config/hyde.php
+'numerical_page_ordering' => false,
 ```
 
 ### Table of Contents Settings

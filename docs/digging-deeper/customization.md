@@ -283,15 +283,18 @@ Still, you will likely want to customize some parts of these menus, and thankful
 
 - To customize the navigation menu, use the setting `navigation.order` in the `hyde.php` config.
 - When customizing the navigation menu, you should use the [route key](core-concepts#route-keys) of the page.
+- You can use either a basic list array or specify explicit priorities.
 
 Learn more in the [Navigation Menu](navigation) documentation.
 
 #### Customizing the documentation sidebar
 
 - To customize the sidebar, use the setting `sidebar.order` in the `docs.php` config.
-- When customizing the sidebar, can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
+- When customizing the sidebar, you can use the route key, or just the [page identifier](core-concepts#page-identifiers) of the page.
+- Similar to the navigation menu, you can use a basic list array or specify explicit priorities.
+- You can also use front matter in individual documentation pages to customize their appearance and behavior in the sidebar.
 
-Learn more in the [Documentation Pages](documentation-pages) documentation.
+Learn more in the [Documentation Pages](documentation-pages#sidebar) documentation.
 
 ## Additional Advanced Options
 
