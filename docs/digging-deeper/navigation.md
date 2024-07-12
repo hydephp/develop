@@ -20,7 +20,7 @@ This documentation will guide you through the customization process. To learn ev
 
 ### Internal Structure Overview
 
-Internally, both navigation menu types extend the same base class, and thus share core functionality. This means the configuration process is similar for both types, making the documentation applicable to both.
+Internally, both navigation menu types extend the same base class and thus share core functionality. This means the configuration process is similar for both types, making the documentation applicable to both.
 
 For a deeper understanding of the internal workings, refer to the [Digging Deeper](#digging-deeper-into-the-internals) section.
 
