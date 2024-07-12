@@ -375,7 +375,12 @@ function processHeadings(): void
                 continue;
             }
 
-            $expectedCase = $headingLevel < 3 ? Hyde\make_title($headingText) : Str::ucfirst($headingText);
+            // Skip some special cases
+            if (str_contains($headingText, '"') || str_contains($headingText, '`')) {
+                continue;
+            }
+
+            $expectedCase = $headingLevel < 3 ? Str::apa($headingText) : Str::ucfirst($headingText);
             $expectedCase = adjustCaseForSpecialWords($expectedCase);
 
             if ($headingText !== $expectedCase) {
@@ -392,8 +397,8 @@ function processHeadings(): void
 
 function adjustCaseForSpecialWords(string $text): string
 {
-    $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'GitHub'];
-    $alwaysLowercase = ['to', 'it'];
+    $alwaysUppercase = ['PHP', 'HTML', 'CLI', 'API', 'YAML', 'XML', 'RSS', 'HydeKernel', 'GitHub', 'CI/CD', 'URL'];
+    $alwaysLowercase = ['to', 'it', 'and'];
 
     $text = str_ireplace($alwaysUppercase, $alwaysUppercase, $text);
 
