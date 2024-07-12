@@ -9,9 +9,9 @@ navigation:
 ## Introduction to Hyde Pages
 
 Hyde offers two ways to create static pages:
-**Markdown pages** which are perfect for simple pages that focus heavily on the content,
+**Markdown pages** which are perfect for simple pages that focuses heavily on the content,
 and **Blade pages** which are perfect for more complex pages where you want full control over the HTML,
-and where you may want to include other components or want to use dynamic PHP code.
+and where you may want to include other components.
 
 Let's start with the basics.
 
@@ -125,8 +125,7 @@ if you don't want to use the scaffolding command.
 
 Markdown pages look great and work well for simple "about" pages and the like, but with Markdown we are still pretty limited.
 
-If you are comfortable with it and have the need for it, use Blade to create more complex pages! And mix and match between them!
-Some page types are better suited for Markdown, and others for Blade. Don't limit yourself to just one type.
+If you are comfortable with it, and have the need for it, use Blade to create more complex pages! And mix and match between them! Some page types are better suited for Markdown, and others for Blade.
 
 ### Comparison
 
@@ -134,10 +133,10 @@ Some page types are better suited for Markdown, and others for Blade. Don't limi
 |-----------------------------------------------------|-------------------------------------------------------------------------------------|
 | ➕ Easily created and updated                        | ➕ Full control over the HTML                                                        |
 | ➕ Very fast to create simple and lightweight pages  | ➕ Use the default app layout or create your own                                     |
-| ➕ Suited for content-heavy pages such as "about us" | ➕ Use Blade templates and components to keep code DRY                               |
+| ➕ Suited for content heavy pages such as "about us" | ➕ Use Blade templates and components to keep code DRY                               |
 | ➖ Not as flexible as Blade pages                    | ➕ Use arbitrary PHP right in the page to create dynamic content                     |
 |                                                     | ➕ Access to all Blade helper directives like @foreach, @if, etc.                    |
-|                                                     | ➖ Takes longer to create as you need to write the markup                            |
+|                                                     | ➖ Takes longer to create as as you need to write the markup                         |
 |                                                     | ➖ You may need to [recompile your CSS](managing-assets) if you add Tailwind classes |
 
 ### Live Demos
