@@ -257,9 +257,11 @@ When using the automatic sidebar grouping feature the titles of the groups are g
 
 Please note that this option is not added to the config file by default, as it's not a super common use case. No worries though, just add the following yourself!
 
-#### Setting Group Priorities
+#### Setting Sidebar Group Priorities
 
-When using subdirectory-based grouping, you can set the priority of the groups using the directory name as the array key in the config file:
+By default, each group will be assigned the lowest priority found inside the group. However, you can specify the order and priorities for sidebar group keys the same way you can for the sidebar items.
+
+Just use the sidebar group key as instead of the page identifier/route key:
 
 ```php
 // Filepath: config/docs.php
