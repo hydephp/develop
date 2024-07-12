@@ -104,7 +104,7 @@ You can also change the order in the `config/docs.php` configuration file, which
 
 ### Sidebar labels
 
-The sidebar items are labelled with the `label` property. The default label is the filename of the file.
+The sidebar items are labelled with the `label` property. The default label is generated from the filename of the file.
 
 You can change it with the following front matter:
 
