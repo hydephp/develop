@@ -288,7 +288,7 @@ For example: `_docs/getting-started/installation.md` will be placed in a group c
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-## Digging Deeper into the internals
+## Digging Deeper Into the Internals
 
 While not required to know, you may find it interesting to learn more about how the navigation is handled internally.
 The best way to learn about this is to look at the source code, so here is a high-level overview with details on where to look in the source code.

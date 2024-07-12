@@ -167,7 +167,7 @@ For example, putting a Markdown file in `_docs/getting-started/`, is equivalent 
 
 >info Tip: When using subdirectory-based dropdowns, you can set their priority using the directory name as the array key.
 
-### Hiding items
+### Hiding Items
 
 You can hide items from the sidebar by adding the `hidden` property to the front matter:
 
