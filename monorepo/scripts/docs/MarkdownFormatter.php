@@ -77,9 +77,8 @@ class MarkdownFormatter
                 $new_lines[] = '';
             }
 
-            // Make sure there are two empty lines before level 2 headings (but not if it's the first l2 heading)
-            // DEPRECATED: No longer desired style
-            if ($is_inside_fenced_code_block !== true && str_starts_with($line, '## ') && $index > $firstHeadingLevel + 3) {
+            // Make sure there is exactly one empty line before any heading
+            if (! $is_inside_fenced_code_block && preg_match('/^#{1,6} /', $line) && trim($last_line) != '') {
                 $new_lines[] = '';
             }
 
@@ -88,7 +87,7 @@ class MarkdownFormatter
             }
 
             // Check if line is a heading
-            if (str_starts_with($line, '##')) {
+            if (preg_match('/^#{1,6} /', $line)) {
                 $was_last_line_heading = true;
                 global $headings;
                 $headings[$filename][$index + 1] = $line;
