@@ -16,7 +16,7 @@ class Navigation
     /**
      * Configuration helper method to define a new navigation item, with better IDE support.
      *
-     * The returned array will then be used by the framework to create a new NavigationItem instance.
+     * The returned array will then be used by the framework to create a new NavigationItem instance. {@see \Hyde\Framework\Features\Navigation\NavigationItem}
      *
      * @see https://hydephp.com/docs/2.x/navigation-api
      *
