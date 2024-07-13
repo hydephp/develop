@@ -51,7 +51,7 @@ class HydeExtensionFeatureTest extends TestCase
 
         $this->kernel->boot();
 
-        $this->assertSame(['files', 'pages', 'routes'], HydeTestExtension::$callCache);
+        $this->assertSame(['booting', 'files', 'pages', 'routes', 'booted'], HydeTestExtension::$callCache);
 
         HydeTestExtension::$callCache = [];
     }
@@ -133,6 +133,19 @@ class HydeExtensionFeatureTest extends TestCase
         $this->assertEquals(new Route(new TestPageClass('bar')), Routes::get('foo/bar'));
     }
 
+    public function testBootingAndBootedMethodsAreCalled()
+    {
+        $this->kernel->registerExtension(BootableTestExtension::class);
+
+        $this->assertSame([], BootableTestExtension::$callCache);
+
+        $this->kernel->boot();
+
+        $this->assertSame(['booting', 'booted'], BootableTestExtension::$callCache);
+
+        BootableTestExtension::$callCache = [];
+    }
+
     protected function markTestSuccessful(): void
     {
         $this->assertTrue(true);
@@ -164,6 +177,16 @@ class HydeTestExtension extends HydeExtension
     public function discoverRoutes(RouteCollection $collection): void
     {
         static::$callCache[] = 'routes';
+    }
+
+    public function booting(): void
+    {
+        static::$callCache[] = 'booting';
+    }
+
+    public function booted(): void
+    {
+        static::$callCache[] = 'booted';
     }
 }
 
@@ -223,5 +246,20 @@ class InspectableTestExtension extends HydeExtension
     public static function getCalled(string $method): array
     {
         return self::$callCache[$method];
+    }
+}
+
+class BootableTestExtension extends HydeExtension
+{
+    public static array $callCache = [];
+
+    public function booting(): void
+    {
+        static::$callCache[] = 'booting';
+    }
+
+    public function booted(): void
+    {
+        static::$callCache[] = 'booted';
     }
 }
