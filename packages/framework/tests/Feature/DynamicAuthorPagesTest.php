@@ -55,6 +55,7 @@ class DynamicAuthorPagesTest extends TestCase
         $this->assertFileExists('_site/authors.html');
         $this->assertFileExists('_site/authors/mr_hyde.html');
         $this->assertFileExists('_site/authors/jane_doe.html');
+        $this->assertFileDoesNotExist('_site/author/user123.html');
 
         // Check if the built pages contain the expected content
         $authorsPage = Filesystem::get('_site/authors.html');
