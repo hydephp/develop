@@ -92,6 +92,24 @@ public function discoverRoutes(RouteCollection $collection): void;
 Any of these can be implemented in your extension class, and they will be called during the discovery. As you can see,
 the instance of the discovery collection is injected into the method for you to interact with.
 
+### Booting and Booted Callbacks
+
+In addition to the discovery handlers, you can also define `booting` and `booted` callbacks in your extension class. These methods allow you to run custom logic before and after the kernel boots, respectively.
+
+```php
+class JsonPageExtension extends HydeExtension {
+    public function booting(): void {
+        // This runs before the kernel boots, meaning pages have not been discovered yet
+    }
+
+    public function booted(): void {
+        // This runs after the kernel has booted, meaning pages have been discovered
+    }
+}
+```
+
+These methods are particularly useful for setting up your extension's environment or performing post-boot operations.
+
 #### Discovery handler example
 
 Let's go crazy and implement a discovery handler to collect `JsonPage` files from an external API! We will do this
