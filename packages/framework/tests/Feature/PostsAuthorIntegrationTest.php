@@ -201,6 +201,11 @@ class PostsAuthorIntegrationTest extends TestCase
         ], $page->author->toArray());
     }
 
+    public function testAuthorsSpecifiedInBlogPostsButNotInConfigAreFoundAndAddedToTheKernel()
+    {
+        //
+    }
+
     protected function createPostFile(string $title, string $author): void
     {
         (new CreatesNewMarkdownPostFile($title, '', '', $author))->save();
