@@ -65,7 +65,7 @@ class InMemoryPage extends HydePage
      */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {
-        parent::__construct(unslash(static::baseRouteKey()."/$identifier"), $matter);
+        parent::__construct($this->normalizeIdentifier($identifier), $matter);
 
         $this->contents = $contents;
         $this->view = $view;
@@ -150,5 +150,13 @@ class InMemoryPage extends HydePage
         }
 
         return $macro(...$parameters);
+    }
+
+    protected function normalizeIdentifier(string $identifier): string
+    {
+        // In order to create a unique identifier that won't conflict with other pages,
+        // we normalize the identifier to match the route key format Hyde uses.
+
+        return unslash(static::baseRouteKey()."/$identifier");
     }
 }
