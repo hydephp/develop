@@ -5,9 +5,13 @@
         <meta itemprop="url" content="{{ Hyde::url('posts/' . $post->identifier) }}">
     @endif
 
+    @if($post->data('image'))
+        <meta itemprop="image" content="{{ $post->data('image') }}">
+    @endif
+
     <header>
         <a href="{{ $post->getRoute() }}" class="block w-fit">
-            <h2 class="text-2xl font-bold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-colors duration-75">
+            <h2 itemprop="headline" class="text-2xl font-bold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-colors duration-75">
                 {{ $post->data('title') ?? $post->title }}
             </h2>
         </a>
@@ -31,7 +35,7 @@
 
     @if($post->data('description') !== null)
         <section role="doc-abstract" aria-label="Excerpt">
-            <p class="leading-relaxed my-1">
+            <p itemprop="description" class="leading-relaxed my-1">
                 {{ $post->data('description') }}
             </p>
         </section>
