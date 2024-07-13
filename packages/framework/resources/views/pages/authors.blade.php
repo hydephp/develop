@@ -5,7 +5,7 @@
 @php
 // If any author has an avatar, we'll use avatars for all authors, so the layout looks consistent.
 $usesAvatars = $authors->contains(fn ($author) => $author->avatar);
-// The avatar fallback can be changed here
+// The avatar fallback can be changed here (and it also works if a set avatar can't be loaded).
 $avatarFallback = 'https://cdn.jsdelivr.net/gh/hydephp/cdn-static@master/avatar.png';
 @endphp
 
@@ -17,7 +17,7 @@ $avatarFallback = 'https://cdn.jsdelivr.net/gh/hydephp/cdn-static@master/avatar.
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md" itemscope itemtype="https://schema.org/Person">
                     <div class="flex flex-col items-center">
                         @if($usesAvatars)
-                            <img src="{{ Hyde::asset($author->avatar ?? $avatarFallback) }}" alt="{{ $author->name }}" class="w-24 h-24 rounded-full mb-4" itemprop="image">
+                            <img src="{{ Hyde::asset($author->avatar ?? $avatarFallback) }}" alt="{{ $author->name }}" class="w-24 h-24 rounded-full mb-4" itemprop="image" onerror="this.onerror=null; this.src='{{ $avatarFallback }}'">
                         @endif
                         <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white" itemprop="name">{{ $author->name }}</h2>
                         @if($author->bio)
