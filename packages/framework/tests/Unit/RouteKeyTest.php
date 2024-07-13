@@ -145,7 +145,7 @@ class RouteKeyTest extends UnitTestCase
         $this->assertSame('abc-bar', RouteKey::fromPage(InMemoryPage::class, 'abc-bar')->get());
     }
 
-    public static function tearDownAfterClass(): void
+    protected function tearDown(): void
     {
         MarkdownPage::setOutputDirectory('');
     }
