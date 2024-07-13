@@ -6,7 +6,6 @@ namespace Hyde\Pages;
 
 use BadMethodCallException;
 use Closure;
-use Hyde\Support\Models\RouteKey;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
@@ -65,7 +64,7 @@ class InMemoryPage extends HydePage
      */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {
-        parent::__construct(RouteKey::fromPage(static::class, $identifier)->get(), $matter);
+        parent::__construct($identifier, $matter);
 
         $this->contents = $contents;
         $this->view = $view;
