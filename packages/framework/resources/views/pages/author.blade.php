@@ -11,17 +11,17 @@
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Home",
-                    "item": "{{ route('index') }}"
+                    "item": "{{ route('index')->getUrl() }}"
                 }, {
                     "@type": "ListItem",
                     "position": 2,
                     "name": "Authors",
-                    "item": "{{ route(DynamicBlogPostPageHelper::authorBaseRouteKey()) }}"
+                    "item": "{{ route(DynamicBlogPostPageHelper::authorBaseRouteKey())->getUrl() }}"
                 }, {
                     "@type": "ListItem",
                     "position": 3,
                     "name": "{{ $author->name }}",
-                    "item": "{{ route(DynamicBlogPostPageHelper::authorBaseRouteKey() . '/' . $author->username) }}"
+                    "item": "{{ route(DynamicBlogPostPageHelper::authorBaseRouteKey() . '/' . $author->username)->getUrl() }}"
                 }]
             }
         </script>
