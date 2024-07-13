@@ -20,6 +20,7 @@ class PostAuthorPage extends InMemoryPage
 
     public static string $sourceDirectory = 'authors';
     public static string $outputDirectory = 'authors';
+    public static string $layout = 'hyde::pages.author';
 
     public function __construct(PostAuthor $author)
     {
@@ -28,8 +29,6 @@ class PostAuthorPage extends InMemoryPage
 
     public function getBladeView(): string
     {
-        // Todo: Support/document overriding the view
-
-        return 'hyde::pages.author';
+        return static::$layout;
     }
 }
