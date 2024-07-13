@@ -41,9 +41,9 @@ class DynamicAuthorPagesTest extends TestCase
             'authors/index',
             'authors/mr_hyde',
             'authors/jane_doe',
-            // 'authors/user123',
-            // TODO: 'authors/anonymous',
-            // TODO: 'authors/guest',
+            // 'authors/user123', // This user has no posts, so no author page should be created
+            // TODO: 'authors/anonymous', // This will be supported as the author has made a post, and thus exists in the system, even if not in the config
+            // TODO: 'authors/guest', // This post has no author, so no author page should be created (if the user wants one, they can define a config author named 'guest')
         ], array_keys(Hyde::pages()->all()));
 
         $this->assertSame([
