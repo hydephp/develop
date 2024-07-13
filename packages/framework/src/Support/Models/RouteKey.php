@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 
+use function is_a;
 use function Hyde\unslash;
 
 /**
@@ -48,6 +50,12 @@ final class RouteKey implements Stringable
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public static function fromPage(string $pageClass, string $identifier): self
     {
+        if (is_a($pageClass, InMemoryPage::class, true)) {
+            // In memory pages always have the same route key as their identifier.
+
+            return new self($identifier);
+        }
+
         $identifier = self::splitNumberedIdentifiersIfNeeded($identifier);
 
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
