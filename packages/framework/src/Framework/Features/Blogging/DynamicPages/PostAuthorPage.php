@@ -11,6 +11,9 @@ use function compact;
 
 /**
  * @experimental
+ *
+ * @see \Hyde\Framework\Features\Blogging\BlogPostAuthorPages Which generates these pages.
+ * @see \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage For the individual author pages.
  */
 class PostAuthorPage extends InMemoryPage
 {

@@ -9,6 +9,9 @@ use Illuminate\Support\Collection;
 
 /**
  * @experimental
+ *
+ * @see \Hyde\Framework\Features\Blogging\BlogPostAuthorPages Which generates these pages.
+ * @see \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage For the index page of all authors.
  */
 class PostAuthorsPage extends InMemoryPage
 {
