@@ -101,16 +101,18 @@ use Hyde\Foundation\HydeKernel;
 
 class JsonPageExtension extends HydeExtension {
     public function booting(HydeKernel $kernel): void {
-        // This runs before the kernel boots, meaning pages have not been discovered yet
+        // This runs before the kernel boots and before running auto-discovery
     }
 
     public function booted(HydeKernel $kernel): void {
-        // This runs after the kernel has booted, meaning pages have been discovered
+        // This runs after the kernel boots and after running auto-discovery
     }
 }
 ```
 
-These callbacks provide powerful hooks into the Hyde system, allowing your extensions to integrate deeply and modify Hyde's behavior as needed. The `booting` callback can be used to set up the system with information needed to discover pages, while the `booted` callback can can be used to perform operations requiring knowledge of discovered data, even modifying them if needed.
+The `booting` callback can be used to set up the system with information needed to discover pages, while the `booted` callback can can be used to perform operations requiring knowledge of discovered data, even modifying them if needed.
+
+These callbacks provide powerful hooks into the Hyde system, allowing your extensions to integrate deeply and modify Hyde's behavior as needed. 
 
 #### Discovery handler example
 
