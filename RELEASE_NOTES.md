@@ -15,6 +15,7 @@ This serves two purposes:
 - Added a new `\Hyde\Framework\Exceptions\ParseException` exception class to handle parsing exceptions in data collection files in https://github.com/hydephp/develop/pull/1732
 - Added a new `\Hyde\Framework\Exceptions\InvalidConfigurationException` exception class to handle invalid configuration exceptions in https://github.com/hydephp/develop/pull/1799
 - The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
+- Added support for setting `booting()` and `booted()` callbacks in `HydeExtension` classes, allowing extension developers to hook into the kernel boot process more easily in https://github.com/hydephp/develop/pull/1847
 - Added support for setting custom navigation items in the YAML configuration in https://github.com/hydephp/develop/pull/1818
 - Added support for setting extra attributes for navigation items in https://github.com/hydephp/develop/pull/1824
 - Introduced a new navigation config builder class to simplify navigation configuration in https://github.com/hydephp/develop/pull/1827
