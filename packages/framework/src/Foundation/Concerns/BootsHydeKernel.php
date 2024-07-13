@@ -58,6 +58,9 @@ trait BootsHydeKernel
             $callback($this);
         }
 
+        // Todo: Move to extension callback
+        $this->bootAuthors();
+
         $this->booting = false;
         $this->booted = true;
     }

@@ -568,13 +568,9 @@ class HydeKernelTest extends TestCase
         $this->assertEmpty($kernel->authors());
     }
 
-    public function testAuthorsPropertyIsNotWrittenUntilThereAreAuthorsDefined()
+    public function testAuthorsPropertyWrittenWhenThereAreAuthorsDefined()
     {
         $kernel = new HydeKernel();
-
-        Config::set('hyde', []);
-
-        $this->assertEmpty($kernel->authors()->toArray());
 
         Config::set('hyde.authors', ['foo' => Author::create('foo')]);
 

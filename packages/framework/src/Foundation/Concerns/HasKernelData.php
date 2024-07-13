@@ -34,18 +34,9 @@ trait HasKernelData
      */
     public function authors(): Collection
     {
-        if (isset($this->authors)) {
-            return $this->authors;
-        }
+        $this->needsToBeBooted();
 
-        $config = collect(Config::getArray('hyde.authors', []));
-
-        if ($config->isEmpty()) {
-            // Defer setting the authors property until the next try.
-            return $config;
-        }
-
-        return $this->authors = $this->parseConfigurationAuthors($config);
+        return $this->authors;
     }
 
     protected function parseConfigurationAuthors(Collection $authors): Collection
@@ -61,5 +52,12 @@ trait HasKernelData
 
             return [$username => PostAuthor::create($author)];
         });
+    }
+
+    protected function bootAuthors(): void
+    {
+        $config = collect(Config::getArray('hyde.authors', []));
+
+        $this->authors = $this->parseConfigurationAuthors($config);
     }
 }
