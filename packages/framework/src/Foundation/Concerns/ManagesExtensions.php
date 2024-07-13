@@ -54,7 +54,8 @@ trait ManagesExtensions
             throw new InvalidArgumentException("Extension [$extension] is already registered.");
         }
 
-        $this->extensions[$extension] = new $extension();
+        $instance = new $extension();
+        $this->extensions[$extension] = $instance;
     }
 
     /**
