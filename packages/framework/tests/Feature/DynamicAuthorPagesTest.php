@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Hyde\Facades\Author;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
+use Hyde\Facades\Filesystem;
 
 /**
  * High level test for the dynamic author pages feature.
@@ -16,6 +17,13 @@ use Illuminate\Support\Facades\Config;
  */
 class DynamicAuthorPagesTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->resetSite();
+    }
+
     public function testAuthorPagesAreGenerated()
     {
         $this->setUpTestEnvironment();
@@ -42,6 +50,33 @@ class DynamicAuthorPagesTest extends TestCase
             ->expectsOutput('Creating Post Authors Pages...')
             ->expectsOutput('Creating Post Author Pages...')
             ->assertExitCode(0);
+
+        // Check if the relevant pages were built
+        $this->assertFileExists('_site/authors.html');
+        $this->assertFileExists('_site/authors/mr_hyde.html');
+        $this->assertFileExists('_site/authors/jane_doe.html');
+
+        // Check if the built pages contain the expected content
+        $authorsPage = Filesystem::get('_site/authors.html');
+        $this->assertStringContainsString('Mr. Hyde', $authorsPage);
+        $this->assertStringContainsString('Jane Doe', $authorsPage);
+        $this->assertStringNotContainsString('user123', $authorsPage);
+
+        $mrHydePage = Filesystem::get('_site/authors/mr_hyde.html');
+        $this->assertStringContainsString('Mr. Hyde', $mrHydePage);
+        $this->assertStringContainsString('The mysterious author of HydePHP', $mrHydePage);
+        $this->assertStringContainsString('https://hydephp.com', $mrHydePage);
+        $this->assertStringContainsString('@HydeFramework', $mrHydePage);
+        $this->assertStringContainsString('hydephp', $mrHydePage);
+        $this->assertStringContainsString('Hyde post 1', $mrHydePage);
+        $this->assertStringContainsString('Hyde post 2', $mrHydePage);
+        $this->assertStringContainsString('Hyde post 3', $mrHydePage);
+
+        $janeDoePage = Filesystem::get('_site/authors/jane_doe.html');
+        $this->assertStringContainsString('Jane Doe', $janeDoePage);
+        $this->assertStringContainsString('Slightly less evil. We think...', $janeDoePage);
+        $this->assertStringContainsString('Jane post 1', $janeDoePage);
+        $this->assertStringContainsString('Jane post 2', $janeDoePage);
     }
 
     protected function setUpTestEnvironment(): void
