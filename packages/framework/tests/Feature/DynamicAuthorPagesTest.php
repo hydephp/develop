@@ -37,6 +37,11 @@ class DynamicAuthorPagesTest extends TestCase
             // TODO: 'author/anonymous',
             // TODO: 'author/guest',
         ], array_keys(Hyde::pages()->all()));
+
+        $this->artisan('build')
+            ->expectsOutput('Creating Post Authors Pages...')
+            ->expectsOutput('Creating Post Author Pages...')
+            ->assertExitCode(0);
     }
 
     protected function setUpTestEnvironment(): void
