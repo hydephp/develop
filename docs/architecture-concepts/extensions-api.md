@@ -102,12 +102,10 @@ use Hyde\Foundation\HydeKernel;
 class JsonPageExtension extends HydeExtension {
     public function booting(HydeKernel $kernel): void {
         // This runs before the kernel boots, meaning pages have not been discovered yet
-        // You can use $kernel to interact with the HydeKernel instance
     }
 
     public function booted(HydeKernel $kernel): void {
         // This runs after the kernel has booted, meaning pages have been discovered
-        // You can use $kernel to interact with the HydeKernel instance
     }
 }
 ```
