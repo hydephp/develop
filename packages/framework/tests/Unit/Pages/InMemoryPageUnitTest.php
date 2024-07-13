@@ -221,4 +221,21 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertInstanceOf(FrontMatter::class, (new InMemoryPage('404'))->matter());
     }
+
+    public function testRouteKeyIsAlwaysTheIdentifier()
+    {
+        $this->assertSame('foo', (new InMemoryPage('foo'))->getRouteKey());
+        $this->assertSame('foo/bar', (new InMemoryPage('foo/bar'))->getRouteKey());
+    }
+
+    public function testRouteKeyIsAlwaysTheIdentifierEvenWhenUsingCustomOutputDirectory()
+    {
+        $this->assertSame('foo', (new InMemoryPageWithCustomOutputDirectory('foo'))->getRouteKey());
+        $this->assertSame('foo/bar', (new InMemoryPageWithCustomOutputDirectory('foo/bar'))->getRouteKey());
+    }
+}
+
+class InMemoryPageWithCustomOutputDirectory extends InMemoryPage
+{
+    public static string $outputDirectory = 'foo';
 }
