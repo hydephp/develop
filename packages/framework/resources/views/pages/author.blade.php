@@ -7,22 +7,26 @@
             {
                 "@context": "https://schema.org",
                 "@type": "BreadcrumbList",
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "{{ route('index')->getUrl() }}"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Authors",
-                    "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey())->getUrl() }}"
-                }, {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "{{ $author->name }}",
-                    "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey() . '/' . $author->username)->getUrl() }}"
-                }]
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "{{ route('index')->getUrl() }}"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Authors",
+                        "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey())->getUrl() }}"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "{{ $author->name }}",
+                        "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey() . '/' . $author->username)->getUrl() }}"
+                    }
+                ]
             }
         </script>
     @endpush

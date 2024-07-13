@@ -2,12 +2,12 @@
 @use('Illuminate\Support\Str')
 @extends('hyde::layouts.app')
 @section('content')
-@php
-// If any author has an avatar, we'll use avatars for all authors, so the layout looks consistent.
-$usesAvatars = $authors->contains(fn ($author) => $author->avatar);
-// The avatar fallback can be changed here (and it also works if a set avatar can't be loaded).
-$avatarFallback = 'https://cdn.jsdelivr.net/gh/hydephp/cdn-static@master/avatar.png';
-@endphp
+    @php
+        // If any author has an avatar, we'll use avatars for all authors, so the layout looks consistent.
+        $usesAvatars = $authors->contains(fn ($author) => $author->avatar);
+        // The avatar fallback can be changed here (and it also works if a set avatar can't be loaded).
+        $avatarFallback = 'https://cdn.jsdelivr.net/gh/hydephp/cdn-static@master/avatar.png';
+    @endphp
 
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
         <h1 class="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">Our Authors</h1>
