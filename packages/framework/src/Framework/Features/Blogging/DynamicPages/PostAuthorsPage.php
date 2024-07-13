@@ -22,6 +22,9 @@ class PostAuthorsPage extends InMemoryPage
     {
         parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey(), [
             'authors' => $authors,
+            'navigation' => [
+                'visible' => false,
+            ],
         ]);
 
         $this->authors = $authors;
