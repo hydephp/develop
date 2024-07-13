@@ -230,8 +230,8 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
 
     public function testRouteKeyIsAlwaysTheIdentifierEvenWhenUsingCustomOutputDirectory()
     {
-        $this->assertSame('foo', (new InMemoryPageWithCustomOutputDirectory('foo'))->getRouteKey());
-        $this->assertSame('foo/bar', (new InMemoryPageWithCustomOutputDirectory('foo/bar'))->getRouteKey());
+        $this->assertSame('foo/foo', (new InMemoryPageWithCustomOutputDirectory('foo'))->getRouteKey());
+        $this->assertSame('foo/foo/bar', (new InMemoryPageWithCustomOutputDirectory('foo/bar'))->getRouteKey());
     }
 }
 
