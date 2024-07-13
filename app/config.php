@@ -74,7 +74,6 @@ return [
         Hyde\Framework\HydeServiceProvider::class,
         Hyde\Foundation\Providers\ViewServiceProvider::class,
         Hyde\Foundation\Providers\NavigationServiceProvider::class,
-        \Hyde\Foundation\Providers\FeatureServiceProvider::class,
         Hyde\Console\ConsoleServiceProvider::class,
     ],
 
