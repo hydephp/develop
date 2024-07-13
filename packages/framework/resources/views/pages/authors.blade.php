@@ -23,7 +23,7 @@
                         @if($author->bio)
                             <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 text-center" itemprop="description">{{ Str::limit($author->bio, 100) }}</p>
                         @endif
-                        <a href="{{ Hyde::formatLink(\Hyde\Framework\Features\Blogging\BlogPostAuthorPages::authorBaseRouteKey()."/$author->username") }}" class="text-blue-600 dark:text-blue-400 hover:underline" itemprop="url">View Profile</a>
+                        <a href="{{ Hyde::route(\Hyde\Framework\Features\Blogging\BlogPostAuthorPages::authorBaseRouteKey()."/$author->username") }}" class="text-blue-600 dark:text-blue-400 hover:underline" itemprop="url">View Profile</a>
                     </div>
                     <div class="mt-4">
                         <p class="text-sm text-gray-500 dark:text-gray-400">
