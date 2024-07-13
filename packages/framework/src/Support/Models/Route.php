@@ -39,10 +39,22 @@ class Route implements Stringable, SerializableContract
 
     /**
      * Generate a link to the route destination, relative to the current route, and supports pretty URLs.
+     *
+     * This is the recommended method to use when generating links to other pages in your site.
      */
     public function getLink(): string
     {
         return Hyde::relativeLink($this->page->getLink());
+    }
+
+    /**
+     * Get the canonical URL for the route, if a site URL is set, falling back to a relative link.
+     *
+     * While this can decrease portability, it can be useful for SEO purposes when used correctly.
+     */
+    public function getUrl(): string
+    {
+        return $this->page->getCanonicalUrl() ?? $this->getLink();
     }
 
     public function getPage(): HydePage

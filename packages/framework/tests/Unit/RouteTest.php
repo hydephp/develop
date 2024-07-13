@@ -138,6 +138,36 @@ class RouteTest extends UnitTestCase
         $this->assertFalse($route->is(new RouteKey('bar')));
     }
 
+    public function testGetUrlReturnsCanonicalUrlIfSet()
+    {
+        $route = new Route(new MarkdownPage('foo', ['canonicalUrl' => 'https://example.com/foo']));
+
+        $this->assertSame('https://example.com/foo', $route->getUrl());
+    }
+
+    public function testGetUrlReturnsLinkIfCanonicalUrlNotSet()
+    {
+        $route = new Route(new MarkdownPage('foo'));
+
+        $this->assertSame($route->getLink(), $route->getUrl());
+    }
+
+    public function testGetUrlUsesSiteUrlIfSet()
+    {
+        self::mockConfig(['hyde.url' => 'https://example.com']);
+        $route = new Route(new MarkdownPage('foo'));
+
+        $this->assertSame('https://example.com/foo.html', $route->getUrl());
+    }
+
+    public function testGetUrlPrefersCanonicalUrlOverSiteUrl()
+    {
+        self::mockConfig(['hyde.url' => 'https://example.com']);
+        $route = new Route(new MarkdownPage('foo', ['canonicalUrl' => 'foo/bar']));
+
+        $this->assertSame('foo/bar', $route->getUrl());
+    }
+
     public function testToArrayMethod()
     {
         $this->assertSame([
