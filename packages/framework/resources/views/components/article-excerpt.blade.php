@@ -25,7 +25,7 @@
         @endisset
         @isset($post->author)
         <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <span class="opacity-75">by</span>
+            <span class="opacity-75">{{ isset($post->date) ? 'by' : 'By'}}</span>
             <span itemprop="name">
                 {{ $post->author->name }}
             </span>
