@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Config;
  * @covers \Hyde\Framework\Features\Blogging\BlogPostAuthorPages
  * @covers \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage
  * @covers \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage
- * @covers \Hyde\Foundation\Providers\FeatureServiceProvider
  * @covers \Hyde\Foundation\HydeCoreExtension
  */
 class DynamicAuthorPagesTest extends TestCase
