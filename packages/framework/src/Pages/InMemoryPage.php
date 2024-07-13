@@ -12,7 +12,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
 
 use function sprintf;
-use function Hyde\unslash;
 
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
@@ -26,7 +25,9 @@ use function Hyde\unslash;
  */
 class InMemoryPage extends HydePage
 {
-    public static string $sourceDirectory;
+    // In order to create a unique identifier that won't conflict with other pages,
+    // we set the source directory to a "virtual" source directory to prevent collisions.
+    public static string $sourceDirectory = 'memory://';
     public static string $outputDirectory;
     public static string $fileExtension;
 
@@ -65,7 +66,7 @@ class InMemoryPage extends HydePage
      */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {
-        parent::__construct($this->normalizeIdentifier($identifier), $matter);
+        parent::__construct($identifier, $matter);
 
         $this->contents = $contents;
         $this->view = $view;
@@ -150,13 +151,5 @@ class InMemoryPage extends HydePage
         }
 
         return $macro(...$parameters);
-    }
-
-    protected function normalizeIdentifier(string $identifier): string
-    {
-        // In order to create a unique identifier that won't conflict with other pages,
-        // we normalize the identifier to match the route key format Hyde uses.
-
-        return unslash(static::baseRouteKey()."/$identifier");
     }
 }
