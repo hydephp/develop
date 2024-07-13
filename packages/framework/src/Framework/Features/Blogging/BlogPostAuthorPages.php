@@ -25,8 +25,8 @@ class BlogPostAuthorPages
         // Todo: Also check that this feature is enabled
 
         return Hyde::hasFeature(Feature::MarkdownPosts)
-            && Hyde::authors()->isNotEmpty()
-            && MarkdownPost::all()->isNotEmpty();
+            && MarkdownPost::all()->isNotEmpty()
+            && Hyde::authors()->isNotEmpty();
     }
 
     /** @return array<\Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage> */
