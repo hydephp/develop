@@ -1,6 +1,31 @@
 @props([/** @var \Hyde\Framework\Features\Blogging\Models\PostAuthor */ 'author'])
 @extends('hyde::layouts.app')
 @section('content')
+    @use('Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper')
+    @push('meta')
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "{{ route('index') }}"
+                }, {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Authors",
+                    "item": "{{ route(DynamicBlogPostPageHelper::authorBaseRouteKey()) }}"
+                }, {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "{{ $author->name }}",
+                    "item": "{{ route(DynamicBlogPostPageHelper::authorBaseRouteKey() . '/' . $author->username) }}"
+                }]
+            }
+        </script>
+    @endpush
 
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
         <div class="flex flex-col items-center" itemscope itemtype="https://schema.org/Person">
