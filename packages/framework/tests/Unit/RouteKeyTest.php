@@ -20,11 +20,6 @@ class RouteKeyTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;
 
-    protected function tearDown(): void
-    {
-        MarkdownPage::setOutputDirectory('');
-    }
-
     public function testMake()
     {
         $this->assertEquals(RouteKey::make('foo'), new RouteKey('foo'));
@@ -92,12 +87,14 @@ class RouteKeyTest extends UnitTestCase
     {
         MarkdownPage::setOutputDirectory('foo');
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(MarkdownPage::class, 'bar'));
+        MarkdownPage::setOutputDirectory('');
     }
 
     public function testFromPageWithCustomNestedOutputDirectory()
     {
         MarkdownPage::setOutputDirectory('foo/bar');
         $this->assertEquals(new RouteKey('foo/bar/baz'), RouteKey::fromPage(MarkdownPage::class, 'baz'));
+        MarkdownPage::setOutputDirectory('');
     }
 
     public function testItExtractsCoreIdentifierPartFromNumericalFilenamePrefix()
