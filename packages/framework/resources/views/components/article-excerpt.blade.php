@@ -33,10 +33,10 @@
         @endisset
     </footer>
 
-    @if($post->data('description') !== null)
+    @isset($post->description)
         <section role="doc-abstract" aria-label="Excerpt">
             <p itemprop="description" class="leading-relaxed my-1">
-                {{ $post->data('description') }}
+                {{ $post->description }}
             </p>
         </section>
     @endisset
