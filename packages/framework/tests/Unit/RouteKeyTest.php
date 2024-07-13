@@ -20,6 +20,11 @@ class RouteKeyTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;
 
+    protected function tearDown(): void
+    {
+        MarkdownPage::setOutputDirectory('');
+    }
+
     public function testMake()
     {
         $this->assertEquals(RouteKey::make('foo'), new RouteKey('foo'));
@@ -143,10 +148,5 @@ class RouteKeyTest extends UnitTestCase
     {
         $this->assertSame('foo-bar', RouteKey::fromPage(MarkdownPage::class, 'foo-bar')->get());
         $this->assertSame('abc-bar', RouteKey::fromPage(MarkdownPage::class, 'abc-bar')->get());
-    }
-
-    protected function tearDown(): void
-    {
-        MarkdownPage::setOutputDirectory('');
     }
 }
