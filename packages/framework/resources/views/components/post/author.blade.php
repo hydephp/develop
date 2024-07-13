@@ -1,4 +1,4 @@
-by author
+{{ isset($page->date) ? 'by' : 'By'}} author
 <address itemprop="author" itemscope itemtype="https://schema.org/Person" aria-label="The post author" style="display: inline;">
     @if($page->author->website)
         <a href="{{ $page->author->website }}" rel="author" itemprop="url" aria-label="The author's website">
