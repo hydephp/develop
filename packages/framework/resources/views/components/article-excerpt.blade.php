@@ -5,9 +5,9 @@
         <meta itemprop="url" content="{{ Hyde::url('posts/' . $post->identifier) }}">
     @endif
 
-    @if($post->data('image'))
-        <meta itemprop="image" content="{{ $post->data('image') }}">
-    @endif
+    @isset($post->image)
+        <meta itemprop="image" content="{{ $post->image }}">
+    @endisset
 
     <header>
         <a href="{{ $post->getRoute() }}" class="block w-fit">
