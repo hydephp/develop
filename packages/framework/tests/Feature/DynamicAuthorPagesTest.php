@@ -38,7 +38,7 @@ class DynamicAuthorPagesTest extends TestCase
             '_posts/hyde_post_3.md',
             '_posts/jane_post_1.md',
             '_posts/jane_post_2.md',
-            'authors',
+            'authors/index',
             'authors/mr_hyde',
             'authors/jane_doe',
             // 'author/user123',
@@ -52,13 +52,13 @@ class DynamicAuthorPagesTest extends TestCase
             ->assertExitCode(0);
 
         // Check if the relevant pages were built
-        $this->assertFileExists('_site/authors.html');
+        $this->assertFileExists('_site/authors/index.html');
         $this->assertFileExists('_site/authors/mr_hyde.html');
         $this->assertFileExists('_site/authors/jane_doe.html');
         $this->assertFileDoesNotExist('_site/author/user123.html');
 
         // Check if the built pages contain the expected content
-        $authorsPage = Filesystem::get('_site/authors.html');
+        $authorsPage = Filesystem::get('_site/authors/index.html');
         $this->assertStringContainsString('Mr. Hyde', $authorsPage);
         $this->assertStringContainsString('Jane Doe', $authorsPage);
         $this->assertStringNotContainsString('user123', $authorsPage);

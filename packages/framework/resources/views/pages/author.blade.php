@@ -18,7 +18,7 @@
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Authors",
-                        "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey())->getUrl() }}"
+                        "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey() . '/index')->getUrl() }}"
                     },
                     {
                         "@type": "ListItem",

@@ -20,7 +20,7 @@ class PostAuthorsPage extends InMemoryPage
 
     public function __construct(Collection $authors)
     {
-        parent::__construct(BlogPostAuthorPages::authorBaseRouteKey(), [
+        parent::__construct(BlogPostAuthorPages::authorBaseRouteKey().'/index', [
             'authors' => $authors,
             'navigation' => [
                 'visible' => false, // Todo: We could make this configurable
