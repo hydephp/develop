@@ -21,7 +21,7 @@
                     </div>
                     <div class="mt-4">
                         <p class="text-sm text-gray-500 dark:text-gray-400">
-                            <span itemprop="numberOfItems">{{ $author->getPosts()->count() }}</span> {{ Str::plural('post', $author->getPosts()->count()) }}
+                            {{ $author->getPosts()->count() }} {{ Str::plural('post', $author->getPosts()->count()) }}
                         </p>
                     </div>
                 </div>
