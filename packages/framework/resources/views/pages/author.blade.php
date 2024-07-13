@@ -1,7 +1,8 @@
 @props([/** @var \Hyde\Framework\Features\Blogging\Models\PostAuthor */ 'author'])
 @extends('hyde::layouts.app')
 @section('content')
-    @use('Hyde\Framework\Features\Blogging\BlogPostAuthorPages')
+    @use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage')
+    @use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage')
     @push('meta')
         <script type="application/ld+json">
             {
@@ -18,13 +19,13 @@
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Authors",
-                        "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey() . '/index')->getUrl() }}"
+                        "item": "{{ PostAuthorsPage::route()->getUrl() }}"
                     },
                     {
                         "@type": "ListItem",
                         "position": 3,
                         "name": "{{ $author->name }}",
-                        "item": "{{ route(BlogPostAuthorPages::authorBaseRouteKey() . '/' . $author->username)->getUrl() }}"
+                        "item": "{{ PostAuthorPage::route($author->username)->getUrl() }}"
                     }
                 ]
             }
