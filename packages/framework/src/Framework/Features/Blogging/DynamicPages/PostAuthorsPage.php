@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Blogging\DynamicPages;
 
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Collection;
+use function Hyde\path_join;
 
 /**
  * @experimental
@@ -21,7 +22,9 @@ class PostAuthorsPage extends InMemoryPage
 
     public function __construct(Collection $authors)
     {
-        parent::__construct('index', [
+        $identifier = path_join(static::$outputDirectory, 'index');
+
+        parent::__construct($identifier, [
             'authors' => $authors,
             'navigation' => [
                 'visible' => false, // Todo: We could make this configurable

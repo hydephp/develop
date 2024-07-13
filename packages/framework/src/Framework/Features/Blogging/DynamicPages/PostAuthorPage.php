@@ -8,6 +8,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
 use function compact;
+use function Hyde\path_join;
 
 /**
  * @experimental
@@ -22,7 +23,9 @@ class PostAuthorPage extends InMemoryPage
 
     public function __construct(PostAuthor $author)
     {
-        parent::__construct($author->username, compact('author'));
+        $identifier = path_join(static::$outputDirectory, $author->username);
+
+        parent::__construct($identifier, compact('author'));
     }
 
     public function getBladeView(): string

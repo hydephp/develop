@@ -38,12 +38,12 @@ class DynamicAuthorPagesTest extends TestCase
             '_posts/hyde_post_3.md',
             '_posts/jane_post_1.md',
             '_posts/jane_post_2.md',
-            'index',
-            'mr_hyde',
-            'jane_doe',
-            // 'user123',
-            // TODO: 'anonymous',
-            // TODO: 'guest',
+            'authors/index',
+            'authors/mr_hyde',
+            'authors/jane_doe',
+            // 'authors/user123',
+            // TODO: 'authors/anonymous',
+            // TODO: 'authors/guest',
         ], array_keys(Hyde::pages()->all()));
 
         $this->assertSame([
