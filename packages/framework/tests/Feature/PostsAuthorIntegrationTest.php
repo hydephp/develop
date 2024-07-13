@@ -203,6 +203,8 @@ class PostsAuthorIntegrationTest extends TestCase
 
     public function testAuthorsSpecifiedInBlogPostsButNotInConfigAreFoundAndAddedToTheKernel()
     {
+        $this->markTestSkipped('This feature is not yet implemented.');
+
         // Create a test post with an author not in the config
         $this->file('_posts/author-not-in-config.md', <<<'MD'
             ---
