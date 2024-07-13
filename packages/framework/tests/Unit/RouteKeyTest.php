@@ -97,52 +97,52 @@ class RouteKeyTest extends UnitTestCase
 
     public function testItExtractsCoreIdentifierPartFromNumericalFilenamePrefix()
     {
-        $this->assertSame('test', RouteKey::fromPage(InMemoryPage::class, '01-test')->get());
+        $this->assertSame('test', RouteKey::fromPage(MarkdownPage::class, '01-test')->get());
     }
 
     public function testItExtractsCoreIdentifierPartFromNumericalFilenamePrefixWithKebabCaseSyntax()
     {
-        $this->assertSame('foo', RouteKey::fromPage(InMemoryPage::class, '01-foo')->get());
-        $this->assertSame('bar', RouteKey::fromPage(InMemoryPage::class, '02-bar')->get());
-        $this->assertSame('baz', RouteKey::fromPage(InMemoryPage::class, '03-baz')->get());
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, '01-foo')->get());
+        $this->assertSame('bar', RouteKey::fromPage(MarkdownPage::class, '02-bar')->get());
+        $this->assertSame('baz', RouteKey::fromPage(MarkdownPage::class, '03-baz')->get());
     }
 
     public function testItExtractsCoreIdentifierPartFromNumericalFilenamePrefixWithSnakeCaseSyntax()
     {
-        $this->assertSame('foo', RouteKey::fromPage(InMemoryPage::class, '01_foo')->get());
-        $this->assertSame('bar', RouteKey::fromPage(InMemoryPage::class, '02_bar')->get());
-        $this->assertSame('baz', RouteKey::fromPage(InMemoryPage::class, '03_baz')->get());
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, '01_foo')->get());
+        $this->assertSame('bar', RouteKey::fromPage(MarkdownPage::class, '02_bar')->get());
+        $this->assertSame('baz', RouteKey::fromPage(MarkdownPage::class, '03_baz')->get());
     }
 
     public function testItExtractsCoreIdentifierPartFromNumericalFilenamePrefixRegardlessOfLeadingZeroes()
     {
-        $this->assertSame('foo', RouteKey::fromPage(InMemoryPage::class, '123-foo')->get());
-        $this->assertSame('foo', RouteKey::fromPage(InMemoryPage::class, '0123-foo')->get());
-        $this->assertSame('foo', RouteKey::fromPage(InMemoryPage::class, '00123-foo')->get());
-        $this->assertSame('foo', RouteKey::fromPage(InMemoryPage::class, '000123-foo')->get());
-        $this->assertSame('foo', RouteKey::fromPage(InMemoryPage::class, '0000123-foo')->get());
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, '123-foo')->get());
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, '0123-foo')->get());
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, '00123-foo')->get());
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, '000123-foo')->get());
+        $this->assertSame('foo', RouteKey::fromPage(MarkdownPage::class, '0000123-foo')->get());
     }
 
     public function testItExtractsCoreIdentifierPartFromNumericalFilenamePrefixForNestedIdentifiers()
     {
-        $this->assertSame('foo/bar', RouteKey::fromPage(InMemoryPage::class, 'foo/01-bar')->get());
-        $this->assertSame('foo/bar/baz', RouteKey::fromPage(InMemoryPage::class, 'foo/bar/02-baz')->get());
-        $this->assertSame('foo/bar/baz', RouteKey::fromPage(InMemoryPage::class, 'foo/01-bar/03-baz')->get());
+        $this->assertSame('foo/bar', RouteKey::fromPage(MarkdownPage::class, 'foo/01-bar')->get());
+        $this->assertSame('foo/bar/baz', RouteKey::fromPage(MarkdownPage::class, 'foo/bar/02-baz')->get());
+        $this->assertSame('foo/bar/baz', RouteKey::fromPage(MarkdownPage::class, 'foo/01-bar/03-baz')->get());
     }
 
     public function testItDoesNotExtractCoreIdentifierPartFromNumericalFilenamePrefixWhenFeatureIsDisabled()
     {
         self::mockConfig(['hyde.numerical_page_ordering' => false]);
 
-        $this->assertSame('01-test', RouteKey::fromPage(InMemoryPage::class, '01-test')->get());
-        $this->assertSame('01-home', RouteKey::fromPage(InMemoryPage::class, '01-home')->get());
-        $this->assertSame('01-404', RouteKey::fromPage(InMemoryPage::class, '01-404')->get());
+        $this->assertSame('01-test', RouteKey::fromPage(MarkdownPage::class, '01-test')->get());
+        $this->assertSame('01-home', RouteKey::fromPage(MarkdownPage::class, '01-home')->get());
+        $this->assertSame('01-404', RouteKey::fromPage(MarkdownPage::class, '01-404')->get());
     }
 
     public function testItDoesNotExtractNonNumericalFilenamePrefixes()
     {
-        $this->assertSame('foo-bar', RouteKey::fromPage(InMemoryPage::class, 'foo-bar')->get());
-        $this->assertSame('abc-bar', RouteKey::fromPage(InMemoryPage::class, 'abc-bar')->get());
+        $this->assertSame('foo-bar', RouteKey::fromPage(MarkdownPage::class, 'foo-bar')->get());
+        $this->assertSame('abc-bar', RouteKey::fromPage(MarkdownPage::class, 'abc-bar')->get());
     }
 
     protected function tearDown(): void
