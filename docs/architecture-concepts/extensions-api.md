@@ -94,21 +94,25 @@ the instance of the discovery collection is injected into the method for you to 
 
 ### Booting and Booted Callbacks
 
-In addition to the discovery handlers, you can also define `booting` and `booted` callbacks in your extension class. These methods allow you to run custom logic before and after the kernel boots, respectively.
+In addition to the discovery handlers, you can also define `booting` and `booted` callbacks in your extension class. These methods allow you to run custom logic before and after the kernel boots, respectively. Both methods receive the `HydeKernel` instance as a parameter, allowing you to interact with the kernel directly.
 
 ```php
+use Hyde\Foundation\HydeKernel;
+
 class JsonPageExtension extends HydeExtension {
-    public function booting(): void {
+    public function booting(HydeKernel $kernel): void {
         // This runs before the kernel boots, meaning pages have not been discovered yet
+        // You can use $kernel to interact with the HydeKernel instance
     }
 
-    public function booted(): void {
+    public function booted(HydeKernel $kernel): void {
         // This runs after the kernel has booted, meaning pages have been discovered
+        // You can use $kernel to interact with the HydeKernel instance
     }
 }
 ```
 
-These methods are particularly useful for setting up your extension's environment or performing post-boot operations.
+These callbacks provide powerful hooks into the Hyde system, allowing your extensions to integrate deeply and modify Hyde's behavior as needed. The `booting` callback can be used to set up the system with information needed to discover pages, while the `booted` callback can can be used to perform operations requiring knowledge of discovered data, even modifying them if needed.
 
 #### Discovery handler example
 

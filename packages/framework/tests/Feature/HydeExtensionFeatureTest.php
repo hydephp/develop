@@ -133,7 +133,7 @@ class HydeExtensionFeatureTest extends TestCase
         $this->assertEquals(new Route(new TestPageClass('bar')), Routes::get('foo/bar'));
     }
 
-    public function testBootingAndBootedMethodsAreCalled()
+    public function testBootingAndBootedMethodsAreCalledWithKernel()
     {
         $this->kernel->registerExtension(BootableTestExtension::class);
 
@@ -141,7 +141,12 @@ class HydeExtensionFeatureTest extends TestCase
 
         $this->kernel->boot();
 
-        $this->assertSame(['booting', 'booted'], BootableTestExtension::$callCache);
+        $this->assertCount(2, BootableTestExtension::$callCache);
+
+        $this->assertInstanceOf(HydeKernel::class, BootableTestExtension::$callCache['booting']);
+        $this->assertInstanceOf(HydeKernel::class, BootableTestExtension::$callCache['booted']);
+        $this->assertSame($this->kernel, BootableTestExtension::$callCache['booting']);
+        $this->assertSame($this->kernel, BootableTestExtension::$callCache['booted']);
 
         BootableTestExtension::$callCache = [];
     }
@@ -179,12 +184,12 @@ class HydeTestExtension extends HydeExtension
         static::$callCache[] = 'routes';
     }
 
-    public function booting(): void
+    public function booting(HydeKernel $kernel): void
     {
         static::$callCache[] = 'booting';
     }
 
-    public function booted(): void
+    public function booted(HydeKernel $kernel): void
     {
         static::$callCache[] = 'booted';
     }
@@ -253,13 +258,13 @@ class BootableTestExtension extends HydeExtension
 {
     public static array $callCache = [];
 
-    public function booting(): void
+    public function booting(HydeKernel $kernel): void
     {
-        static::$callCache[] = 'booting';
+        static::$callCache['booting'] = $kernel;
     }
 
-    public function booted(): void
+    public function booted(HydeKernel $kernel): void
     {
-        static::$callCache[] = 'booted';
+        static::$callCache['booted'] = $kernel;
     }
 }
