@@ -18,6 +18,7 @@ class PostAuthorPage extends InMemoryPage
 {
     protected PostAuthor $author;
 
+    public static string $sourceDirectory = 'authors';
     public static string $outputDirectory = 'authors';
 
     public function __construct(PostAuthor $author)

@@ -17,6 +17,7 @@ class PostAuthorsPage extends InMemoryPage
     /** @var \Illuminate\Support\Collection<\Hyde\Framework\Features\Blogging\Models\PostAuthor> */
     protected Collection $authors;
 
+    public static string $sourceDirectory = 'authors';
     public static string $outputDirectory = 'authors';
 
     public function __construct(Collection $authors)
