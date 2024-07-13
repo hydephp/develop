@@ -27,8 +27,8 @@
         </script>
     @endpush
 
-    <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-        <div class="flex flex-col items-center" itemscope itemtype="https://schema.org/Person">
+    <main id="content" class="mx-auto max-w-7xl py-16 px-8" itemscope itemtype="https://schema.org/ProfilePage">
+        <div class="flex flex-col items-center" itemprop="mainEntity" itemscope itemtype="https://schema.org/Person">
             @if($author->avatar)
                 <img src="{{ Hyde::asset($author->avatar) }}" alt="{{ $author->name }}" class="w-32 h-32 rounded-full mb-4" itemprop="image">
             @endif
@@ -54,7 +54,9 @@
             <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Posts by {{ $author->name }}</h2>
             <ul class="space-y-4">
                 @foreach($author->getPosts() as $post)
-                    @include('hyde::components.article-excerpt', ['post' => $post])
+                    <li itemprop="relatedItem" itemscope itemtype="https://schema.org/BlogPosting">
+                        @include('hyde::components.article-excerpt', ['post' => $post])
+                    </li>
                 @endforeach
             </ul>
         </div>
