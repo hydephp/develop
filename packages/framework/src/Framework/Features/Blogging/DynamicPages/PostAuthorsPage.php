@@ -21,13 +21,14 @@ class PostAuthorsPage extends InMemoryPage
     public static string $sourceDirectory = 'authors';
     public static string $outputDirectory = 'authors';
     public static string $layout = 'hyde::pages.authors';
+    public static bool $showInNavigation = false;
 
     public function __construct(Collection $authors)
     {
         parent::__construct('index', [
             'authors' => $authors,
             'navigation' => [
-                'visible' => false, // Todo: We could make this configurable
+                'visible' => static::$showInNavigation,
             ],
         ]);
 
