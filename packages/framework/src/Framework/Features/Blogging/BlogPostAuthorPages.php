@@ -52,4 +52,19 @@ class BlogPostAuthorPages
 
         return 'authors';
     }
+
+    /**
+     * Set the base directory for the author pages. Defaults to 'authors'.
+     *
+     * @experimental
+     *
+     * @codeCoverageIgnore
+     */
+    public static function setAuthorBaseRouteKey(string $key): void
+    {
+        PostAuthorsPage::$sourceDirectory = $key;
+        PostAuthorsPage::$outputDirectory = $key;
+        PostAuthorPage::$sourceDirectory = $key;
+        PostAuthorPage::$outputDirectory = $key;
+    }
 }
