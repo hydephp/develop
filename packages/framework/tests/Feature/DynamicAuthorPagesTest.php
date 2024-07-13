@@ -46,6 +46,24 @@ class DynamicAuthorPagesTest extends TestCase
             // TODO: 'guest',
         ], array_keys(Hyde::pages()->all()));
 
+        $this->assertSame([
+            404,
+            'index',
+            'posts/anonymous_post_1',
+            'posts/guest_post_1',
+            'posts/hyde_post_1',
+            'posts/hyde_post_2',
+            'posts/hyde_post_3',
+            'posts/jane_post_1',
+            'posts/jane_post_2',
+            'authors/index',
+            'authors/mr_hyde',
+            'authors/jane_doe',
+            // 'authors/user123',
+            // TODO: 'authors/anonymous',
+            // TODO: 'authors/guest',
+        ], array_keys(Hyde::routes()->all()));
+
         $this->artisan('build')
             ->expectsOutput('Creating Post Authors Pages...')
             ->expectsOutput('Creating Post Author Pages...')
