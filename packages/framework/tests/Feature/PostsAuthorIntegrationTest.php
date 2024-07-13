@@ -203,7 +203,53 @@ class PostsAuthorIntegrationTest extends TestCase
 
     public function testAuthorsSpecifiedInBlogPostsButNotInConfigAreFoundAndAddedToTheKernel()
     {
-        //
+        // Create a test post with an author not in the config
+        $this->file('_posts/author-not-in-config.md', <<<'MD'
+            ---
+            title: Test Post
+            author: new_author
+            ---
+
+            This is a test post with a new author.
+            MD
+        );
+
+        // Ensure the config doesn't have this author
+        Config::set('hyde.authors', []);
+
+        // Rebuild the site
+        $this->artisan('rebuild _posts/author-not-in-config.md')->assertExitCode(0);
+
+        // Clean up the generated files after the test
+        $this->cleanUpWhenDone('_posts/author-not-in-config.md');
+        $this->cleanUpWhenDone('_site/posts/author-not-in-config.html');
+
+        // Assert that the file was created
+        $this->assertFileExists(Hyde::path('_site/posts/author-not-in-config.html'));
+
+        // Get the MarkdownPost object
+        $post = MarkdownPost::get('author-not-in-config');
+
+        // Assert that the post exists and has an author
+        $this->assertNotNull($post);
+        $this->assertNotNull($post->author);
+
+        // Assert that the author's username matches what we set
+        $this->assertEquals('new_author', $post->author->username);
+
+        // Check if the author was added to the Hyde kernel
+        $this->assertArrayHasKey('new_author', Hyde::kernel()->authors());
+
+        // Verify that the author in the kernel matches our post's author
+        $kernelAuthor = Hyde::kernel()->authors()['new_author'];
+        $this->assertEquals($post->author, $kernelAuthor);
+
+        // Check the rendered HTML to ensure the author is displayed correctly
+        $renderedHtml = file_get_contents(Hyde::path('_site/posts/author-not-in-config.html'));
+        $this->assertStringContainsString(
+            '<span itemprop="name" aria-label="The author\'s name" title=@new_author>new_author</span>',
+            $renderedHtml
+        );
     }
 
     protected function createPostFile(string $title, string $author): void
