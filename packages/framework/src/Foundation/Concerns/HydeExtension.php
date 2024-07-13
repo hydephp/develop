@@ -77,4 +77,22 @@ abstract class HydeExtension
     {
         //
     }
+
+    /**
+     * Register a callback to be run before the kernel is booted.
+     * Override this method to define your booting logic.
+     */
+    public function booting(): void
+    {
+        //
+    }
+
+    /**
+     * Register a callback to be run after the kernel is booted.
+     * Override this method to define your booted logic.
+     */
+    public function booted(): void
+    {
+        //
+    }
 }
