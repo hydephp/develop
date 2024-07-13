@@ -56,6 +56,9 @@ trait ManagesExtensions
 
         $instance = new $extension();
         $this->extensions[$extension] = $instance;
+
+        $this->booting([$instance, 'booting']);
+        $this->booted([$instance, 'booted']);
     }
 
     /**
