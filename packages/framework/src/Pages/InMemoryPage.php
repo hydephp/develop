@@ -6,13 +6,13 @@ namespace Hyde\Pages;
 
 use BadMethodCallException;
 use Closure;
-use Hyde\Support\Models\RouteKey;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
 
 use function sprintf;
+use function Hyde\unslash;
 
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
@@ -65,7 +65,7 @@ class InMemoryPage extends HydePage
      */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
     {
-        parent::__construct(RouteKey::fromPage(static::class, $identifier)->get(), $matter);
+        parent::__construct(unslash(static::baseRouteKey()."/$identifier"), $matter);
 
         $this->contents = $contents;
         $this->view = $view;
