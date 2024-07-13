@@ -48,6 +48,7 @@ class BlogPostAuthorPages
     public static function authorBaseRouteKey(): string
     {
         // Todo: Allow customizing this
+        // Todo: Set author base key in the page class
 
         return 'authors';
     }
