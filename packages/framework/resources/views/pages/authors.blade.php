@@ -17,13 +17,13 @@
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md" itemscope itemtype="https://schema.org/Person">
                     <div class="flex flex-col items-center">
                         @if($usesAvatars)
-                            <img src="{{ Hyde::asset($author->avatar ?? $avatarFallback) }}" alt="{{ $author->name }}" class="w-24 h-24 rounded-full mb-4" itemprop="image" onerror="this.onerror=null; this.src='{{ $avatarFallback }}'">
+                            <img src="{{ asset($author->avatar ?? $avatarFallback) }}" alt="{{ $author->name }}" class="w-24 h-24 rounded-full mb-4" itemprop="image" onerror="this.onerror=null; this.src='{{ $avatarFallback }}'">
                         @endif
                         <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white" itemprop="name">{{ $author->name }}</h2>
                         @if($author->bio)
                             <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 text-center" itemprop="description">{{ Str::limit($author->bio, 100) }}</p>
                         @endif
-                        <a href="{{ Hyde::route(\Hyde\Framework\Features\Blogging\BlogPostAuthorPages::authorBaseRouteKey()."/$author->username") }}" class="text-blue-600 dark:text-blue-400 hover:underline" itemprop="url">View Profile</a>
+                        <a href="{{ route(\Hyde\Framework\Features\Blogging\BlogPostAuthorPages::authorBaseRouteKey()."/$author->username") }}" class="text-blue-600 dark:text-blue-400 hover:underline" itemprop="url">View Profile</a>
                     </div>
                     <div class="mt-4">
                         <p class="text-sm text-gray-500 dark:text-gray-400">

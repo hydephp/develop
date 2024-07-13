@@ -34,7 +34,7 @@
     <main id="content" class="mx-auto max-w-7xl py-16 px-8" itemscope itemtype="https://schema.org/ProfilePage">
         <div class="flex flex-col items-center" itemprop="mainEntity" itemscope itemtype="https://schema.org/Person">
             @if($author->avatar)
-                <img src="{{ Hyde::asset($author->avatar) }}" alt="{{ $author->name }}" class="w-32 h-32 rounded-full mb-4" itemprop="image">
+                <img src="{{ asset($author->avatar) }}" alt="{{ $author->name }}" class="w-32 h-32 rounded-full mb-4" itemprop="image">
             @endif
             <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white" itemprop="name">{{ $author->name }}</h1>
             @if($author->bio)
