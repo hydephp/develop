@@ -80,7 +80,8 @@ abstract class HydeExtension
     }
 
     /**
-     * Register a callback to be run before the kernel is booted.
+     * Register a callback to be run before the kernel is booted,
+     * and before file/page/route discovery has begun.
      */
     public function booting(HydeKernel $kernel): void
     {
@@ -88,7 +89,8 @@ abstract class HydeExtension
     }
 
     /**
-     * Register a callback to be run after the kernel is booted.
+     * Register a callback to be run after the kernel is booted,
+     * and after file/page/route discovery has completed.
      */
     public function booted(HydeKernel $kernel): void
     {
