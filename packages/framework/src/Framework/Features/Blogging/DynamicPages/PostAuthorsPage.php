@@ -9,8 +9,6 @@ use Illuminate\Support\Collection;
 
 /**
  * @experimental
- *
- * @codeCoverageIgnore This class is still experimental and not yet covered by tests.
  */
 class PostAuthorsPage extends InMemoryPage
 {

@@ -11,8 +11,6 @@ use function compact;
 
 /**
  * @experimental
- *
- * @codeCoverageIgnore This class is still experimental and not yet covered by tests.
  */
 class PostAuthorPage extends InMemoryPage
 {
