@@ -6,7 +6,7 @@ namespace Hyde\Framework\Features\Blogging\DynamicPages;
 
 use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Collection;
-use Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper;
+use Hyde\Framework\Features\Blogging\BlogPostAuthorPages;
 
 /**
  * @experimental
@@ -20,7 +20,7 @@ class PostAuthorsPage extends InMemoryPage
 
     public function __construct(Collection $authors)
     {
-        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey(), [
+        parent::__construct(BlogPostAuthorPages::authorBaseRouteKey(), [
             'authors' => $authors,
             'navigation' => [
                 'visible' => false, // Todo: We could make this configurable

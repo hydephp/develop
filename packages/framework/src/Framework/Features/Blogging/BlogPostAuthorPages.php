@@ -12,11 +12,13 @@ use Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage;
 use Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage;
 
 /**
+ * General helper class for the dynamic blog post author pages feature.
+ *
  * @internal Initial class to help with dynamic blogging related pages, like author pages, tag pages, etc.
  *
  * @experimental The code here will later be moved to a more appropriate place.
  */
-class DynamicBlogPostPageHelper
+class BlogPostAuthorPages
 {
     public static function canGenerateAuthorPages(): bool
     {

@@ -12,7 +12,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Facades\Features;
-use Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper;
+use Hyde\Framework\Features\Blogging\BlogPostAuthorPages;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
@@ -43,8 +43,8 @@ class HydeCoreExtension extends HydeExtension
             }
         }
 
-        if (DynamicBlogPostPageHelper::canGenerateAuthorPages()) {
-            foreach (DynamicBlogPostPageHelper::generateAuthorPages() as $page) {
+        if (BlogPostAuthorPages::canGenerateAuthorPages()) {
+            foreach (BlogPostAuthorPages::generateAuthorPages() as $page) {
                 $collection->addPage($page);
             }
         }

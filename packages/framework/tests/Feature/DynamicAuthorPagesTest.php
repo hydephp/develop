@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 /**
  * High level test for the dynamic author pages feature.
  *
- * @covers \Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper
+ * @covers \Hyde\Framework\Features\Blogging\BlogPostAuthorPages
  * @covers \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage
  * @covers \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage
  * @covers \Hyde\Foundation\HydeCoreExtension
