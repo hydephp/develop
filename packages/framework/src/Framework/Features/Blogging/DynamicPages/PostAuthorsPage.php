@@ -8,8 +8,6 @@ use Hyde\Pages\InMemoryPage;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Blogging\DynamicBlogPostPageHelper;
 
-use function compact;
-
 /**
  * @experimental
  *
@@ -22,7 +20,9 @@ class PostAuthorsPage extends InMemoryPage
 
     public function __construct(Collection $authors)
     {
-        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey(), compact('authors'));
+        parent::__construct(DynamicBlogPostPageHelper::authorBaseRouteKey(), [
+            'authors' => $authors,
+        ]);
 
         $this->authors = $authors;
     }
