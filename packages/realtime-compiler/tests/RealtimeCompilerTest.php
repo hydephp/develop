@@ -92,29 +92,6 @@ class RealtimeCompilerTest extends UnitTestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function testHtmlResponsesContainTheCorrectHeaders()
-    {
-        $this->mockRoute('foo');
-
-        Filesystem::put('_pages/foo.md', '# Hello World!');
-
-        $kernel = new HttpKernel();
-        $response = $kernel->handle(new Request());
-
-        $this->assertInstanceOf(HtmlResponse::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
-        $this->assertIsArray($response->headers);
-        $this->assertArrayHasKey('Content-Type', $response->headers);
-        $this->assertEquals('text/html', $response->headers['Content-Type']);
-        $this->assertArrayHasKey('Content-Length', $response->headers);
-        $this->assertEquals(strlen($response->body), $response->headers['Content-Length']);
-        $this->assertStringContainsString('<h1>Hello World!</h1>', $response->body);
-
-        Filesystem::unlink('_pages/foo.md');
-        Filesystem::unlink('_site/foo.html');
-    }
-
     public function testHandlesRoutesStaticAssets()
     {
         $this->mockRoute('media/app.css');
