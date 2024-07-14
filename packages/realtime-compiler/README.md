@@ -7,8 +7,7 @@ The package adds a `php hyde serve` command which exposes a web server on port `
 
 ## Supported Versions
 
-This package is not intended to be used outside the HydePHP framework.
-It thus offers no guarantees for compatibility when used outside the HydePHP framework.
+This package is not intended to be used outside the HydePHP framework and offers no guarantees for compatibility with other projects.
 
 The following table shows the supported versions of this package.
 
