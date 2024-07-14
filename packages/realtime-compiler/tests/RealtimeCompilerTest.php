@@ -9,7 +9,7 @@ use Desilva\Microserve\Response;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
-use Hyde\RealtimeCompiler\Http\HtmlResponse;
+use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
 class RealtimeCompilerTest extends UnitTestCase

@@ -8,8 +8,7 @@ try {
 
     try {
         $app = \Desilva\Microserve\Microserve::boot(\Hyde\RealtimeCompiler\Http\HttpKernel::class);
-        $response = $app->handle(); // Process the request and create the response
-        $response->send(); // Send the response to the client
+        $response = $app->handle();
     } catch (Throwable $exception) {
         \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception)->send();
     }
