@@ -8,9 +8,9 @@ try {
 
     try {
         $app = \Desilva\Microserve\Microserve::boot(\Hyde\RealtimeCompiler\Http\HttpKernel::class);
-        $response = $app->handle()->send();
+        $response = $app->handle();
     } catch (Throwable $exception) {
-        \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception);
+        \Hyde\RealtimeCompiler\Http\ExceptionHandler::handle($exception)->send();
     }
 } catch (\Throwable $th) {
     // Auxiliary exception handler

@@ -136,12 +136,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/microserve.git",
-                "reference": "24a5c5c9731ff76cbb6d3d13b5c7fc1d7a6ea66c"
+                "reference": "3c1377447a53df7ec788083428ddc48eebe92193"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/24a5c5c9731ff76cbb6d3d13b5c7fc1d7a6ea66c",
-                "reference": "24a5c5c9731ff76cbb6d3d13b5c7fc1d7a6ea66c",
+                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/3c1377447a53df7ec788083428ddc48eebe92193",
+                "reference": "3c1377447a53df7ec788083428ddc48eebe92193",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +183,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-07-14T11:02:25+00:00"
+            "time": "2024-07-14T19:07:20+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
