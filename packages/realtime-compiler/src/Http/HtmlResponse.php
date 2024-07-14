@@ -8,13 +8,13 @@ use Desilva\Microserve\Response;
 
 class HtmlResponse extends Response
 {
-    public function send(): void
+    public function send(): static
     {
         $this->withHeaders([
             'Content-Type' => 'text/html',
             'Content-Length' => strlen($this->responseData['body']),
         ]);
 
-        parent::send();
+        return parent::send();
     }
 }
