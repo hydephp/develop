@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0379c6309694025468b82fad671485bc",
+    "content-hash": "1bfa05dd40e7262a8ab6e21ffdf56284",
     "packages": [
         {
             "name": "brick/math",
@@ -1122,7 +1122,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "7dd4ff1487affc000976cbd8d9f7275a87e17571"
+                "reference": "4512c1ec8a45b9ab81ab3f97efb1c1184e91ced6"
             },
             "require": {
                 "illuminate/support": "^10.0",
@@ -7354,7 +7354,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/caendesilva/psalm-coverage.git",
+                "url": "https://github.com/caendesilva/psalm-coverage",
                 "reference": "1a60d0238ef2a09476fe16b3d3d2ad92686ef92b"
             },
             "dist": {
