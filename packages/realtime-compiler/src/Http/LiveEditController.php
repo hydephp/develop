@@ -10,6 +10,7 @@ use Desilva\Microserve\Response;
 use Hyde\Support\Models\Redirect;
 use Hyde\Markdown\Models\Markdown;
 use Desilva\Microserve\JsonResponse;
+use Desilva\Microserve\HtmlResponse;
 use Illuminate\Support\Facades\Blade;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Symfony\Component\HttpKernel\Exception\HttpException;

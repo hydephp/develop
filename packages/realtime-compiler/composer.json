@@ -16,7 +16,7 @@
     ],
     "bin": ["bin/server.php"],
     "require": {
-        "desilva/microserve": "^1.0",
+        "desilva/microserve": "^2.0",
         "hyde/framework": "*"
     },
     "suggest": {

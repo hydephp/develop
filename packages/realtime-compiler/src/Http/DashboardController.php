@@ -20,6 +20,7 @@ use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\HtmlString;
 use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
+use Desilva\Microserve\HtmlResponse;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\Actions\StaticPageBuilder;
