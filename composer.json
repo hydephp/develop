@@ -73,7 +73,9 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/caendesilva/psalm-coverage"
+            "url": "https://github.com/caendesilva/psalm-coverage",
+            "no-api": true
+
         }
     ]
 }
