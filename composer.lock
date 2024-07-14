@@ -7302,23 +7302,24 @@
         },
         {
             "name": "desilva/microserve",
-            "version": "v1.0.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/microserve.git",
-                "reference": "2a55037f67578c2c9a30108a7b68051236a6b2d6"
+                "reference": "a1fca6567267996797498ba5f0e5d763d5d4f714"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/2a55037f67578c2c9a30108a7b68051236a6b2d6",
-                "reference": "2a55037f67578c2c9a30108a7b68051236a6b2d6",
+                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/a1fca6567267996797498ba5f0e5d763d5d4f714",
+                "reference": "a1fca6567267996797498ba5f0e5d763d5d4f714",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.0"
+                "phpunit/phpunit": "^10.0",
+                "symfony/var-dumper": "^6.4"
             },
             "type": "library",
             "autoload": {
@@ -7345,9 +7346,15 @@
             ],
             "support": {
                 "issues": "https://github.com/caendesilva/microserve/issues",
-                "source": "https://github.com/caendesilva/microserve/tree/v1.0.0"
+                "source": "https://github.com/caendesilva/microserve/tree/v2.0.0"
             },
-            "time": "2022-06-04T12:07:54+00:00"
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/caen",
+                    "type": "custom"
+                }
+            ],
+            "time": "2024-07-14T19:41:26+00:00"
         },
         {
             "name": "desilva/psalm-coverage",
@@ -7875,10 +7882,10 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "82dce779c60c7aad155e822a6642b63d9d866aae"
+                "reference": "3397d9ee70c4ac079f860631a99090ee8eeb47d2"
             },
             "require": {
-                "desilva/microserve": "^1.0",
+                "desilva/microserve": "^2.0",
                 "hyde/framework": "*"
             },
             "suggest": {
