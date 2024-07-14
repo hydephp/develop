@@ -16,7 +16,6 @@
     ],
     "require": {
         "php": "^8.1",
-        "desilva/microserve": "2.x-dev",
         "hyde/framework": "dev-master",
         "hyde/publications": "dev-master",
         "hyde/ui-kit": "dev-master",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "febcca5d1e151d5a8226db3bdf679d75",
+    "content-hash": "0379c6309694025468b82fad671485bc",
     "packages": [
         {
             "name": "brick/math",
@@ -129,62 +129,6 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
-        },
-        {
-            "name": "desilva/microserve",
-            "version": "2.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/caendesilva/microserve.git",
-                "reference": "d517b16e914a131589e27bb7d867bd44a6ed1722"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/d517b16e914a131589e27bb7d867bd44a6ed1722",
-                "reference": "d517b16e914a131589e27bb7d867bd44a6ed1722",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^10.0",
-                "symfony/var-dumper": "^6.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Desilva\\Microserve\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Caen De Silva",
-                    "email": "caen@desilva.se",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Lightweight API for creating PHP application servers",
-            "homepage": "https://github.com/caendesilva/microserve",
-            "keywords": [
-                "desilva",
-                "microserve"
-            ],
-            "support": {
-                "issues": "https://github.com/caendesilva/microserve/issues",
-                "source": "https://github.com/caendesilva/microserve/tree/2.x"
-            },
-            "funding": [
-                {
-                    "url": "https://www.buymeacoffee.com/caen",
-                    "type": "custom"
-                }
-            ],
-            "time": "2024-07-14T19:32:13+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -1178,7 +1122,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "4512c1ec8a45b9ab81ab3f97efb1c1184e91ced6"
+                "reference": "7dd4ff1487affc000976cbd8d9f7275a87e17571"
             },
             "require": {
                 "illuminate/support": "^10.0",
@@ -7357,6 +7301,55 @@
             "time": "2022-02-25T21:32:43+00:00"
         },
         {
+            "name": "desilva/microserve",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/caendesilva/microserve.git",
+                "reference": "2a55037f67578c2c9a30108a7b68051236a6b2d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/2a55037f67578c2c9a30108a7b68051236a6b2d6",
+                "reference": "2a55037f67578c2c9a30108a7b68051236a6b2d6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Desilva\\Microserve\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caen De Silva",
+                    "email": "caen@desilva.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lightweight API for creating PHP application servers",
+            "homepage": "https://github.com/caendesilva/microserve",
+            "keywords": [
+                "desilva",
+                "microserve"
+            ],
+            "support": {
+                "issues": "https://github.com/caendesilva/microserve/issues",
+                "source": "https://github.com/caendesilva/microserve/tree/v1.0.0"
+            },
+            "time": "2022-06-04T12:07:54+00:00"
+        },
+        {
             "name": "desilva/psalm-coverage",
             "version": "dev-master",
             "source": {
@@ -7882,10 +7875,10 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "e9efb5e6a6b23e4025d721e1a66424aa5e556309"
+                "reference": "82dce779c60c7aad155e822a6642b63d9d866aae"
             },
             "require": {
-                "desilva/microserve": "2.x-dev",
+                "desilva/microserve": "^1.0",
                 "hyde/framework": "*"
             },
             "suggest": {
@@ -11152,7 +11145,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "desilva/microserve": 20,
         "hyde/framework": 20,
         "hyde/publications": 20,
         "hyde/ui-kit": 20,
