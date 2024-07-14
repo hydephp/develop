@@ -1,9 +1,8 @@
 # Hyde Realtime Compiler Server
 
-The source code for the HydePHP Realtime Compiler/Server. This package is included with HydePHP through hyde/hyde.
+The source code for the HydePHP Realtime Compiler Server. This package is included with HydePHP through [`hyde/hyde`](https://github.com/hydephp/hyde).
 
 The package adds a `php hyde serve` command which exposes a web server on port `8080` which will compile the requested web page on the fly and serve it to the browser.
-
 
 ## Supported Versions
 
