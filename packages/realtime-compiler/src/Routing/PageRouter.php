@@ -15,7 +15,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
-use Hyde\RealtimeCompiler\Http\HtmlResponse;
+use Desilva\Microserve\HtmlResponse;
 use Hyde\Hyde;
 
 /**
