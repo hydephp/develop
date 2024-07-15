@@ -19,6 +19,15 @@ jobs:
       - name: Install dependencies
         run: composer install
 
+      - name: Configure environment
+        run: |
+          echo "HYDE_RC_RUNNER_PATH=/tmp/hyde-rc-runner" >> $GITHUB_ENV
+          if [ ${{ github.event_name }} == 'push' ]; then
+            echo "HYDE_RC_RUNNER_BRANCH=master" >> $GITHUB_ENV
+          else
+            echo "HYDE_RC_BRANCH=$GITHUB_SHA" >> $GITHUB_ENV
+          fi
+
       - name: Set up test runner
         run: php -r 'require_once __DIR__."/vendor/autoload.php"; \Hyde\RealtimeCompiler\Tests\Integration\IntegrationTestCase::setUpTestRunner();'
 
