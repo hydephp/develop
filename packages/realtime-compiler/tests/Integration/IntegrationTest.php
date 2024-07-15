@@ -59,6 +59,10 @@ class IntegrationTest extends IntegrationTestCase
             ->assertStatus(200)
             ->assertSeeText('Search the documentation site');
 
+        $this->get('/docs/search.html')
+            ->assertStatus(200)
+            ->assertSeeText('Search the documentation site');
+
         $this->get('/docs/search.json')
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
