@@ -23,7 +23,7 @@ class ExceptionHandler
         $whoops->pushHandler(new PrettyPageHandler());
         $html = $whoops->handleException($exception);
 
-        return Response::make(500, 'Internal Server Error', [
+        return Response::make($exception->getCode() >= 400 ? $exception->getCode() : 500, 'Internal Server Error', [
             'Content-Type' => 'text/html',
             'Content-Length' => strlen($html),
             'body' => $html,
