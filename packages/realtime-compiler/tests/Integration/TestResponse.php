@@ -72,7 +72,7 @@ class TestResponse
 
     public function assertStatus(int $code): static
     {
-        $this->test->assertSame($code, $this->response->getStatusCode(), "Did not receive a status code of {$code} when accessing {$this->uri}");
+        $this->test->assertSame($code, $this->response->getStatusCode(), sprintf('Did not receive expected code %s when accessing %s', $code, $this->uri));
 
         return $this;
     }
