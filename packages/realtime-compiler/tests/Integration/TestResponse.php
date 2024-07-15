@@ -63,6 +63,11 @@ class TestResponse
         dd($this->text);
     }
 
+    public function ddHeaders(): void
+    {
+        dd($this->response->getHeaders());
+    }
+
     public function assertStatus(int $code): static
     {
         $this->test->assertSame($code, $this->response->getStatusCode());
@@ -73,6 +78,22 @@ class TestResponse
     public function assertSeeText(string $text): static
     {
         $this->test->assertStringContainsString($text, $this->text);
+
+        return $this;
+    }
+
+    public function assertHeader(string $header, string $value): static
+    {
+        $this->test->assertArrayHasKey($header, $this->response->getHeaders());
+        $this->test->assertContains($value, $this->response->getHeader($header));
+
+        return $this;
+    }
+
+    public function assertJson(array $data): static
+    {
+        $this->test->assertJson($this->html);
+        $this->test->assertSame($data, json_decode($this->html, true));
 
         return $this;
     }

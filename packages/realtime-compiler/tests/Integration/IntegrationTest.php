@@ -18,4 +18,35 @@ class IntegrationTest extends IntegrationTestCase
             ->assertSeeText('RouteNotFoundException')
             ->assertSeeText('Route [non-existent-page] not found.');
     }
+
+    public function testDynamicDocumentationSearchPages()
+    {
+        file_put_contents($this->projectPath('_docs/index.md'), '# Documentation');
+        file_put_contents($this->projectPath('_docs/installation.md'), '# Installation');
+
+        $this->get('/docs/search')
+            ->assertStatus(200)
+            ->assertSeeText('Search the documentation site');
+
+        $this->get('/docs/search.json')
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                [
+                    'slug' => 'index',
+                    'title' => 'Documentation',
+                    'content' => 'Documentation',
+                    'destination' => 'index.html',
+                ],
+                [
+                    'slug' => 'installation',
+                    'title' => 'Installation',
+                    'content' => 'Installation',
+                    'destination' => 'installation.html',
+                ],
+            ]);
+
+        unlink($this->projectPath('_docs/index.md'));
+        unlink($this->projectPath('_docs/installation.md'));
+    }
 }

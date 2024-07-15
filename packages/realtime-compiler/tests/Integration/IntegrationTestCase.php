@@ -130,6 +130,11 @@ abstract class IntegrationTestCase extends TestCase
         shell_exec("cd $runner && composer require --dev hyde/realtime-compiler:dev-$branch --no-progress > setup.log 2>&1");
     }
 
+    public function projectPath(string $path = ''): string
+    {
+        return realpath(__DIR__.'/../runner').($path ? '/'.$path : '');
+    }
+
     public function get(string $uri): TestResponse
     {
         return TestResponse::get($this, $uri);
