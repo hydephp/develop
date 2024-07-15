@@ -19,6 +19,37 @@ class IntegrationTest extends IntegrationTestCase
             ->assertSeeText('Route [non-existent-page] not found.');
     }
 
+    public function testNestedIndexPageRouting()
+    {
+        if (! is_dir($this->projectPath('_pages/about'))) {
+            mkdir($this->projectPath('_pages/about'), 0755, true);
+        }
+
+        file_put_contents($this->projectPath('_docs/index.md'), '# Documentation');
+        file_put_contents($this->projectPath('_pages/about/index.md'), '# About');
+        file_put_contents($this->projectPath('_pages/about/contact.md'), '# Contact');
+
+        $this->get('/docs/index.html')->assertStatus(200)->assertSeeText('Documentation');
+        $this->get('/about/index.html')->assertStatus(200)->assertSeeText('About');
+        $this->get('/about/contact.html')->assertStatus(200)->assertSeeText('Contact');
+
+        $this->get('/docs/index')->assertStatus(200)->assertSeeText('Documentation');
+        $this->get('/about/index')->assertStatus(200)->assertSeeText('About');
+        $this->get('/about/contact')->assertStatus(200)->assertSeeText('Contact');
+
+        $this->get('/docs/')->assertStatus(200)->assertSeeText('Documentation');
+        $this->get('/about/')->assertStatus(200)->assertSeeText('About');
+        $this->get('/about/contact/')->assertStatus(200)->assertSeeText('Contact');
+
+        $this->get('/docs')->assertStatus(200)->assertSeeText('Documentation');
+        $this->get('/about')->assertStatus(200)->assertSeeText('About');
+        $this->get('/about/contact')->assertStatus(200)->assertSeeText('Contact');
+
+        unlink($this->projectPath('_docs/index.md'));
+        unlink($this->projectPath('_pages/about/index.md'));
+        unlink($this->projectPath('_pages/about/contact.md'));
+    }
+
     public function testDynamicDocumentationSearchPages()
     {
         file_put_contents($this->projectPath('_docs/index.md'), '# Documentation');
