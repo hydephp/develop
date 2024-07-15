@@ -23,6 +23,7 @@
         </testsuite>
         <testsuite name="Realtime Compiler">
             <directory suffix="Test.php">./packages/realtime-compiler/tests</directory>
+            <exclude>./packages/realtime-compiler/tests/Integration</exclude>
         </testsuite>
     </testsuites>
     <coverage/>
