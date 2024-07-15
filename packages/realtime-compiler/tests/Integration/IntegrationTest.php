@@ -45,6 +45,8 @@ class IntegrationTest extends IntegrationTestCase
         $this->get('/about')->assertStatus(200)->assertSeeText('About');
         $this->get('/about/contact')->assertStatus(200)->assertSeeText('Contact');
 
+        $this->get('/about/contact/index')->assertStatus(404);
+
         unlink($this->projectPath('_docs/index.md'));
         unlink($this->projectPath('_pages/about/index.md'));
         unlink($this->projectPath('_pages/about/contact.md'));
