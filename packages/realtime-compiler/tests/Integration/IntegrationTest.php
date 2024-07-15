@@ -9,9 +9,9 @@ class IntegrationTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        $monorepo = realpath(__DIR__.'/../../../');
+        $monorepo = realpath(__DIR__.'/../../../../');
 
-        if ($monorepo && file_exists($monorepo.'/hyde')) {
+        if ($monorepo && realpath(getcwd()) === $monorepo && file_exists($monorepo.'/hyde')) {
             throw new InvalidArgumentException('This test suite is not intended to be run from the monorepo.');
         }
 
