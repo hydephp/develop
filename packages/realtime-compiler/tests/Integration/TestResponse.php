@@ -10,6 +10,7 @@ class TestResponse
     protected ResponseInterface $response;
     protected IntegrationTestCase $test;
 
+    protected string $uri;
     protected string $html;
     protected string $text;
 
@@ -19,13 +20,14 @@ class TestResponse
 
         $response = $guzzle->get('http://localhost:8080'.$uri, ['http_errors' => false]);
 
-        return new static($test, $response);
+        return new static($test, $response, $uri);
     }
 
-    public function __construct(IntegrationTestCase $test, ResponseInterface $response)
+    public function __construct(IntegrationTestCase $test, ResponseInterface $response, string $uri)
     {
         $this->test = $test;
         $this->response = $response;
+        $this->uri = $uri;
 
         $this->parsePageData();
     }
@@ -70,7 +72,7 @@ class TestResponse
 
     public function assertStatus(int $code): static
     {
-        $this->test->assertSame($code, $this->response->getStatusCode());
+        $this->test->assertSame($code, $this->response->getStatusCode(), "Did not receive a status code of {$code} when accessing {$this->uri}");
 
         return $this;
     }
