@@ -8,9 +8,6 @@ use Desilva\Microserve\Request;
 
 class PathNormalizerMiddleware
 {
-    /**
-     * @deprecated These do not work for dynamic routes.
-     */
     protected array $pathRewrites = [
         '/docs/search.html' => '/docs/search',
     ];
