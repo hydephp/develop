@@ -16,5 +16,8 @@ jobs:
       - name: Install dependencies
         run: composer install
 
-      - name: Run tests
-        run: vendor/bin/phpunit
+      - name: Set up test runner
+        run: php -r 'require_once __DIR__."/vendor/autoload.php"; \Hyde\RealtimeCompiler\Tests\Integration\IntegrationTestCase::setUpTestRunner();'
+
+      - name: Run tests with PHPUnit
+        run: vendor/bin/phpunit --colors=always

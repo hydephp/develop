@@ -4,6 +4,9 @@
          bootstrap="vendor/autoload.php"
          colors="true"
 >
+    <extensions>
+        <bootstrap class="RobinIngelbrecht\PHPUnitPrettyPrint\PhpUnitExtension"/>
+    </extensions>
     <testsuites>
         <testsuite name="Integration Test Suite">
             <directory suffix="Test.php">./tests/Integration</directory>

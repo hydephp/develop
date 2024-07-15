@@ -2,36 +2,20 @@
 
 namespace Hyde\RealtimeCompiler\Tests\Integration;
 
-use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
-
-class IntegrationTest extends TestCase
+class IntegrationTest extends IntegrationTestCase
 {
-    public static function setUpBeforeClass(): void
+    public function testWelcome()
     {
-        $monorepo = realpath(__DIR__.'/../../../../');
-
-        if ($monorepo && realpath(getcwd()) === $monorepo && file_exists($monorepo.'/hyde')) {
-            throw new InvalidArgumentException('This test suite is not intended to be run from the monorepo.');
-        }
-
-        if (! self::hasTestRunnerSetUp()) {
-            self::setUpTestRunner();
-        }
+        $this->get('/')
+            ->assertStatus(200)
+            ->assertSeeText("You're running on HydePHP");
     }
 
-    public function testExample()
+    public function test404()
     {
-        $this->assertTrue(true);
-    }
-
-    private static function hasTestRunnerSetUp(): bool
-    {
-        return false;
-    }
-
-    private static function setUpTestRunner(): void
-    {
-        // Set up the test runner
+        $this->get('/non-existent-page')
+            ->assertStatus(404)
+            ->assertSeeText('RouteNotFoundException')
+            ->assertSeeText('Route [non-existent-page] not found.');
     }
 }
