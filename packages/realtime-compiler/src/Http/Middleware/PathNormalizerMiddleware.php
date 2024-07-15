@@ -12,7 +12,6 @@ class PathNormalizerMiddleware
      * @deprecated These do not work for dynamic routes.
      */
     protected array $pathRewrites = [
-        '/docs' => '/docs/index',
         '/docs/search.html' => '/docs/search',
     ];
 
