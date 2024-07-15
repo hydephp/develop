@@ -10,6 +10,7 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
@@ -98,6 +99,16 @@ class PageRouter
             return new DocumentationSearchPage();
         }
 
-        return Routes::getOrFail($this->normalizePath($this->request->path))->getPage();
+        try {
+            return Routes::getOrFail($this->normalizePath($this->request->path))->getPage();
+        } catch (RouteNotFoundException $exception) {
+            $index = Routes::get($this->normalizePath($this->request->path).'/index');
+
+            if ($index) {
+                return $index->getPage();
+            }
+
+            throw $exception;
+        }
     }
 }
