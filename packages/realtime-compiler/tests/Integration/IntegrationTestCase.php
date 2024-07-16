@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\RealtimeCompiler\Tests\Integration;
 
 use InvalidArgumentException;
@@ -39,8 +41,9 @@ abstract class IntegrationTestCase extends TestCase
             }
 
             fclose($process);
-            $throwInsteadOfKill = false;
-            if ($throwInsteadOfKill) {
+
+            $throwOnBusyPort = false;
+            if ($throwOnBusyPort) {
                 throw new RuntimeException(sprintf('Port 8080 is already in use. (PID %s)', $pid));
             } else {
                 // Kill the process using the port
@@ -50,19 +53,53 @@ abstract class IntegrationTestCase extends TestCase
 
         // Start the server in a background process, keeping the task ID for later
         $null = PHP_OS_FAMILY === 'Windows' ? 'NUL' : '/dev/null';
-        self::$server = proc_open("php hyde serve > $null", [], $pipes, realpath(__DIR__.'/../runner'));
+        self::$server = proc_open("php hyde serve > $null", [], $pipes, realpath(self::getRunnerPath()));
 
         // Wait for the server to start
+        $waitTime = time();
         while (@fsockopen('localhost', 8080, $errno, $errstr, 1) === false) {
-            if (proc_get_status(self::$server)['running'] === false) {
-                break;
+            // Timeout after 5 seconds
+            if (time() - $waitTime > 5) {
+                throw new RuntimeException('Failed to start the test server.');
             }
+
+            if (proc_get_status(self::$server)['running'] === false) {
+                // Make a head request to the server to see if it's running
+                if (shell_exec('curl -I http://localhost:8080') === false) {
+                    break;
+                }
+            }
+
+            // Sleep 20ms
+            usleep(20000);
         }
 
         // Assert that the server was started successfully
         if (! self::$server) {
             throw new RuntimeException('Failed to start the test server.');
         }
+    }
+
+    protected static function getRunnerPath(): string
+    {
+        // Get path from the environment variable
+        $path = getenv('HYDE_RC_RUNNER_PATH');
+
+        if ($path === false) {
+            throw new RuntimeException('HYDE_RC_RUNNER_PATH environment variable is not set.');
+        }
+
+        // Check that it's not a child of the project root
+        $packageDir = realpath(__DIR__.'/../../');
+        if (str_starts_with($path, $packageDir)) {
+            throw new RuntimeException('HYDE_RC_RUNNER_PATH cannot be a child of the package root as junctioning will massivly inflate vendor directory.');
+        }
+
+        if (file_exists($path)) {
+            $path = realpath($path);
+        }
+
+        return $path;
     }
 
     public function __destruct()
@@ -75,7 +112,7 @@ abstract class IntegrationTestCase extends TestCase
 
     protected static function hasTestRunnerSetUp(): bool
     {
-        return file_exists(__DIR__.'/../runner');
+        return file_exists(self::getRunnerPath()) && file_exists(self::getRunnerPath().'/vendor/autoload.php');
     }
 
     public static function setUpTestRunner(): void
@@ -83,14 +120,19 @@ abstract class IntegrationTestCase extends TestCase
         echo "\33[33mSetting up test runner...\33[0m This may take a while.\n";
 
         $archive = 'https://github.com/hydephp/hyde/archive/refs/heads/master.zip';
-        $target = __DIR__.'/../runner';
+        $target = self::getRunnerPath();
+        if (file_exists($target)) {
+            rmdir($target);
+        }
 
+        echo "\33[33mDownloading test runner scaffolding...\33[0m\n";
         $raw = file_get_contents($archive);
 
         if ($raw === false) {
             throw new RuntimeException('Failed to download test runner.');
         }
 
+        echo "\33[33mExtracting archive...\33[0m\n";
         $zipPath = tempnam(sys_get_temp_dir(), 'hyde-master');
 
         if ($zipPath === false) {
@@ -124,15 +166,30 @@ abstract class IntegrationTestCase extends TestCase
 
         $runner = realpath($target);
 
+        if ($runner === false) {
+            throw new RuntimeException('Failed to get the real path of the test runner.');
+        }
+
+        $workDir = getcwd();
+
         // Junction the package source of hyde/realtime-compiler to the test runner
-        $branch = trim(shell_exec('git rev-parse --abbrev-ref HEAD') ?: 'master');
-        shell_exec("cd $runner && composer config repositories.realtime-compiler path ../../");
-        shell_exec("cd $runner && composer require --dev hyde/realtime-compiler:dev-$branch --no-progress > setup.log 2>&1");
+        $branch = getenv('HYDE_RC_BRANCH') ?: trim(shell_exec('git rev-parse --abbrev-ref HEAD') ?: 'master');
+        echo "\33[33mInstalling hyde/realtime-compiler:dev-$branch...\33[0m\n";
+        chdir($runner);
+        exec('composer config repositories.realtime-compiler path '.realpath(__DIR__.'/../../'), $output, $return);
+        if ($return !== 0) {
+            throw new RuntimeException('Failed to add repository path.');
+        }
+        exec("composer require --dev hyde/realtime-compiler:dev-$branch --no-progress", $output, $return);
+        if ($return !== 0) {
+            throw new RuntimeException('Failed to install hyde/realtime-compiler.');
+        }
+        chdir($workDir);
     }
 
     public function projectPath(string $path = ''): string
     {
-        return realpath(__DIR__.'/../runner').($path ? '/'.$path : '');
+        return realpath(self::getRunnerPath()).($path ? '/'.$path : '');
     }
 
     public function get(string $uri): TestResponse

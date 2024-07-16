@@ -9,7 +9,6 @@ use Desilva\Microserve\Request;
 class PathNormalizerMiddleware
 {
     protected array $pathRewrites = [
-        '/docs' => '/docs/index',
         '/docs/search.html' => '/docs/search',
     ];
 
