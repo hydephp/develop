@@ -35,6 +35,8 @@ class Router
             return $this->proxyStatic();
         }
 
+        // Todo: Boot app here so we can read virtual routes from container
+
         if (in_array($this->request->path, $this->virtualRoutes)) {
             if ($this->request->path === '/ping') {
                 return new JsonResponse(200, 'OK', [
