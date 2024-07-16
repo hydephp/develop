@@ -12,4 +12,9 @@ class RealtimeCompiler
     {
         //
     }
+
+    public function getVirtualRoutes(): array
+    {
+        return [];
+    }
 }
