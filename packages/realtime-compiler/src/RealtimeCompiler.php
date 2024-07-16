@@ -8,9 +8,7 @@ use Hyde\Support\Models\Route;
 
 class RealtimeCompiler
 {
-    /**
-     * @var array<string, Route>
-     */
+    /** @var array<string, Route> */
     private array $virtualRoutes = [];
 
     public function registerVirtualRoute(string $uri, Route $route): void
@@ -18,9 +16,7 @@ class RealtimeCompiler
         $this->virtualRoutes[$uri] = $route;
     }
 
-    /**
-     * @return array<string, Route>
-     */
+    /** @return array<string, Route> */
     public function getVirtualRoutes(): array
     {
         return $this->virtualRoutes;
