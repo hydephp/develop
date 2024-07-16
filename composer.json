@@ -16,17 +16,17 @@
     ],
     "require": {
         "php": "^8.1",
-        "hyde/framework": "dev-master",
-        "hyde/publications": "dev-master",
-        "hyde/ui-kit": "dev-master",
+        "hyde/framework": "*",
+        "hyde/publications": "*",
+        "hyde/ui-kit": "*",
         "laravel-zero/framework": "^10.0"
     },
     "require-dev": {
         "desilva/psalm-coverage": "dev-master",
         "driftingly/rector-laravel": "^0.14.1",
-        "hyde/monorepo-dev-tools": "dev-master",
-        "hyde/realtime-compiler": "dev-master",
-        "hyde/testing": "dev-master",
+        "hyde/monorepo-dev-tools": "*",
+        "hyde/realtime-compiler": "*",
+        "hyde/testing": "*",
         "jetbrains/phpstorm-attributes": "^1.0",
         "laravel/tinker": "^2.7",
         "pestphp/pest-plugin-type-coverage": "^2.8",
