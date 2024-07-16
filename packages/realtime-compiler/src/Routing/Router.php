@@ -38,7 +38,7 @@ class Router
         if (isset($virtualRoutes[$this->request->path])) {
             // Todo: Also check that there is no file based page with the same path since that should take precedence
 
-            return $virtualRoutes[$this->request->path];
+            return $virtualRoutes[$this->request->path]();
         }
 
         return PageRouter::handle($this->request);

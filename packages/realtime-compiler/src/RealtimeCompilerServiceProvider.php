@@ -18,8 +18,10 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->app->make(RealtimeCompiler::class)->registerVirtualRoute('/ping', new JsonResponse(200, 'OK', [
-            'server' => 'Hyde/RealtimeCompiler',
-        ]));
+        $this->app->make(RealtimeCompiler::class)->registerVirtualRoute('/ping', function (): JsonResponse {
+            return new JsonResponse(200, 'OK', [
+                'server' => 'Hyde/RealtimeCompiler',
+            ]);
+        });
     }
 }
