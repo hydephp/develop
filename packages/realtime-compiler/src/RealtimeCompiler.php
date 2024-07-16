@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler;
 
-use Hyde\Support\Models\Route;
+use Desilva\Microserve\Response;
 
 class RealtimeCompiler
 {
-    /** @var array<string, Route> */
+    /** @var array<string, Response> */
     private array $virtualRoutes = [];
 
-    public function registerVirtualRoute(string $uri, Route $route): void
+    public function registerVirtualRoute(string $uri, Response $route): void
     {
         $this->virtualRoutes[$uri] = $route;
     }
 
-    /** @return array<string, Route> */
+    /** @return array<string, Response> */
     public function getVirtualRoutes(): array
     {
         return $this->virtualRoutes;
