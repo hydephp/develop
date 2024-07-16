@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5b00b328408d10137d87a733894c5ec",
+    "content-hash": "6989c7336f28a584261e8b5c658baeb4",
     "packages": [
         {
             "name": "brick/math",
@@ -11154,7 +11154,13 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "desilva/psalm-coverage": 20
+        "hyde/framework": 20,
+        "hyde/publications": 20,
+        "hyde/ui-kit": 20,
+        "desilva/psalm-coverage": 20,
+        "hyde/monorepo-dev-tools": 20,
+        "hyde/realtime-compiler": 20,
+        "hyde/testing": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
