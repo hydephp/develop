@@ -6,6 +6,9 @@ namespace Hyde\RealtimeCompiler;
 
 use Desilva\Microserve\Response;
 
+/**
+ * @public This class is part of the public API and is covered by the backward compatibility promise.
+ */
 class RealtimeCompiler
 {
     /** @var array<string, callable(\Desilva\Microserve\Request): Response> */
