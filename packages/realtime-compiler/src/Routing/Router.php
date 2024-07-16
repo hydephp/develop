@@ -38,7 +38,7 @@ class Router
             return $this->proxyStatic();
         }
 
-        // Todo: Boot app here so we can read virtual routes from container
+        $this->bootApplication();
 
         if (in_array($this->request->path, $this->virtualRoutes)) {
             if ($this->request->path === '/ping') {

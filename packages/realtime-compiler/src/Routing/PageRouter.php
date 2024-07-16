@@ -13,7 +13,6 @@ use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Desilva\Microserve\HtmlResponse;
@@ -25,14 +24,12 @@ use Hyde\Hyde;
 class PageRouter
 {
     use SendsErrorResponses;
-    use InteractsWithLaravel;
 
     protected Request $request;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->bootApplication();
     }
 
     protected function handlePageRequest(): Response
