@@ -13,8 +13,6 @@
       <sourceFolder url="file://$MODULE_DIR$/monorepo/DevTools/src" isTestSource="false" packagePrefix="Hyde\MonorepoDevTools\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/testing/src" isTestSource="false" packagePrefix="Hyde\Testing\" />
-      <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests/runner/app" isTestSource="false" packagePrefix="App\" />
-      <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests/runner/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/src" isTestSource="false" packagePrefix="Hyde\UIKit\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" />
