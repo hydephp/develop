@@ -21,4 +21,9 @@ class VirtualRouteController
     {
         return (new DashboardController($request))->handle();
     }
+
+    public static function liveEdit(Request $request): Response
+    {
+        return (new LiveEditController($request))->handle();
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler;
 
 use Illuminate\Support\ServiceProvider;
+use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 
@@ -23,6 +24,10 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
 
         if (DashboardController::enabled()) {
             $router->registerVirtualRoute('/dashboard', [VirtualRouteController::class, 'dashboard']);
+        }
+
+        if (LiveEditController::enabled()) {
+            $router->registerVirtualRoute('/_hyde/live-edit', [VirtualRouteController::class, 'liveEdit']);
         }
     }
 }

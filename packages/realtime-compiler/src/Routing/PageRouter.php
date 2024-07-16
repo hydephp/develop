@@ -34,10 +34,6 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
-        if ($this->request->path === '/_hyde/live-edit' && LiveEditController::enabled()) {
-            return (new LiveEditController($this->request))->handle();
-        }
-
         return new HtmlResponse(200, 'OK', [
             'body' => $this->getHtml($this->getPageFromRoute()),
         ]);
