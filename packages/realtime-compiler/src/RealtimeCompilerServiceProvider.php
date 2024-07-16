@@ -11,9 +11,7 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(RealtimeCompiler::class, function () {
-            return new RealtimeCompiler();
-        });
+        $this->app->singleton(RealtimeCompiler::class);
     }
 
     public function boot(): void
