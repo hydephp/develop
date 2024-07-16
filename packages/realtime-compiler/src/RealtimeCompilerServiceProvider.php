@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler;
 
-use Desilva\Microserve\JsonResponse;
 use Illuminate\Support\ServiceProvider;
+use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 
 class RealtimeCompilerServiceProvider extends ServiceProvider
 {
@@ -18,10 +18,6 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->app->make(RealtimeCompiler::class)->registerVirtualRoute('/ping', function (): JsonResponse {
-            return new JsonResponse(200, 'OK', [
-                'server' => 'Hyde/RealtimeCompiler',
-            ]);
-        });
+        $this->app->make(RealtimeCompiler::class)->registerVirtualRoute('/ping', [VirtualRouteController::class, 'ping']);
     }
 }
