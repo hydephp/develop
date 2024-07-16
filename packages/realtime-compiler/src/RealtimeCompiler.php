@@ -9,7 +9,7 @@ use Desilva\Microserve\Response;
 class RealtimeCompiler
 {
     /** @var array<string, Response> */
-    private array $virtualRoutes = [];
+    protected array $virtualRoutes = [];
 
     public function registerVirtualRoute(string $uri, Response $route): void
     {
