@@ -136,6 +136,13 @@ class CustomExceptionsTest extends UnitTestCase
         $this->assertSame("Invalid data in file: 'example.txt'", $exception->getMessage());
     }
 
+    public function testParseExceptionWithJsonExtension()
+    {
+        $exception = new ParseException('example.json');
+
+        $this->assertSame("Invalid Json in file: 'example.json'", $exception->getMessage());
+    }
+
     public function testParseExceptionWithUnsupportedExtension()
     {
         $exception = new ParseException('example.foo');
