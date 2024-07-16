@@ -1173,7 +1173,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-master",
+            "version": "dev-deeper-realtime-compiler-integration",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1220,7 +1220,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-master",
+            "version": "dev-deeper-realtime-compiler-integration",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -7832,7 +7832,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-master",
+            "version": "dev-deeper-realtime-compiler-integration",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -7858,7 +7858,7 @@
         },
         {
             "name": "hyde/realtime-compiler",
-            "version": "dev-master",
+            "version": "dev-2.x-dev",
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
@@ -7914,7 +7914,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-master",
+            "version": "dev-deeper-realtime-compiler-integration",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
