@@ -14,4 +14,9 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
             return new RealtimeCompiler();
         });
     }
+
+    public function boot(): void
+    {
+        //
+    }
 }
