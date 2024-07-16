@@ -16,6 +16,8 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->app->make(RealtimeCompiler::class)->registerVirtualRoute('/ping', [VirtualRouteController::class, 'ping']);
+        $router = $this->app->make(RealtimeCompiler::class);
+
+        $router->registerVirtualRoute('/ping', [VirtualRouteController::class, 'ping']);
     }
 }
