@@ -34,10 +34,6 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
-        if ($this->request->path === '/dashboard' && DashboardController::enabled()) {
-            return (new DashboardController($this->request))->handle();
-        }
-
         if ($this->request->path === '/_hyde/live-edit' && LiveEditController::enabled()) {
             return (new LiveEditController($this->request))->handle();
         }
