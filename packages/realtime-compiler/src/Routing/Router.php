@@ -20,6 +20,9 @@ class Router
 
     protected Request $request;
 
+    /**
+     * @deprecated This should be moved to the container.
+     */
     protected array $virtualRoutes = [
         '/ping',
     ];
