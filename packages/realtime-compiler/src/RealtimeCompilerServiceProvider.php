@@ -9,9 +9,6 @@ use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 
-/**
- * @public This class is part of the public API and is covered by the backward compatibility promise.
- */
 class RealtimeCompilerServiceProvider extends ServiceProvider
 {
     public function register(): void
