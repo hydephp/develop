@@ -78,6 +78,9 @@
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\PublishViewsCommand publishOption" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\BuildSiteCommand runPreBuildActions" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\Console\Commands\MakePageCommand validateOptions" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider boot" />
+      <entry_point TYPE="phpClass" FQNAME="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" />
+      <entry_point TYPE="phpMethod" FQNAME="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider register" />
     </entry_point>
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_a_torchlight_api_token_is_set" />
     <pattern value="\Hyde\Framework\Services\ValidationService" />
@@ -154,5 +157,8 @@
     <pattern value="\Hyde\Console\Commands\PublishViewsCommand" member="publishOption" />
     <pattern value="\Hyde\Console\Commands\BuildSiteCommand" member="runPreBuildActions" />
     <pattern value="\Hyde\Console\Commands\MakePageCommand" member="validateOptions" />
+    <pattern value="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" member="boot" />
+    <pattern value="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" />
+    <pattern value="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" member="register" />
   </component>
 </project>
