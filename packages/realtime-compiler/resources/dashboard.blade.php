@@ -231,7 +231,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tr>
-                                    @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
+                                    @foreach(['Page Type', 'Route Key', 'Source File', 'Output File'] as $header)
                                         <th>{{ $header }}</th>
                                     @endforeach
                                     <th class="text-end">Actions</th>
@@ -253,9 +253,6 @@
                                         </td>
                                         <td>
                                             {{ $route->getOutputPath() }}
-                                        </td>
-                                        <td>
-                                            {{ $route->getPageIdentifier() }}
                                         </td>
                                         <td class="text-end">
                                             <div class="d-flex justify-content-end">
