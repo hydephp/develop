@@ -16,7 +16,7 @@ use Throwable;
  * @template TKey of array-key
  * @template TValue
  *
- * @extends Collection<TKey, TValue>
+ * @extends \Illuminate\Support\Collection<TKey, TValue>
  *
  * These collections are the heart of the discovery process.
  *
