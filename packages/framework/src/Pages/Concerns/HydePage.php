@@ -140,7 +140,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get a collection of all pages, parsed into page models.
      *
-     * @return \Hyde\Foundation\Kernel\PageCollection<static>
+     * @return \Hyde\Foundation\Kernel\PageCollection<string, static>
      */
     public static function all(): PageCollection
     {
