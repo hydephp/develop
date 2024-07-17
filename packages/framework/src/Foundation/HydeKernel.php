@@ -70,13 +70,8 @@ class HydeKernel implements SerializableContract
     protected Filesystem $filesystem;
     protected Hyperlinks $hyperlinks;
 
-    /** @var \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\SourceFile> */
     protected FileCollection $files;
-
-    /** @var \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concerns\HydePage> */
     protected PageCollection $pages;
-
-    /** @var \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
     protected RouteCollection $routes;
 
     protected bool $booted = false;
