@@ -264,7 +264,11 @@
                                                         <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                         <input type="hidden" name="action" value="openPageInEditor">
                                                         <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
-                                                        <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
+                                                        @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
+                                                            <button type="submit" class="btn btn-outline-secondary btn-sm me-2" title="Cannot edit in-memory pages" style="pointer-events: auto; cursor: unset" disabled>Edit</button>
+                                                        @else
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
+                                                        @endif
                                                     </form>
                                                 @endif
                                                 <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
