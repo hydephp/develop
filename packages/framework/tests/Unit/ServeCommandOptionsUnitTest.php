@@ -319,6 +319,26 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $command->openInBrowser();
     }
 
+    public function testGetOpenCommandForWindows()
+    {
+        $this->assertSame('start', $this->getMock()->getOpenCommand('Windows'));
+    }
+
+    public function testGetOpenCommandForDarwin()
+    {
+        $this->assertSame('open', $this->getMock()->getOpenCommand('Darwin'));
+    }
+
+    public function testGetOpenCommandForLinux()
+    {
+        $this->assertSame('xdg-open', $this->getMock()->getOpenCommand('Linux'));
+    }
+
+    public function testGetOpenCommandForUnknownOS()
+    {
+        $this->assertNull($this->getMock()->getOpenCommand('UnknownOS'));
+    }
+
     protected function getTestRunnerBinary(): string
     {
         return match (PHP_OS_FAMILY) {
@@ -387,6 +407,11 @@ class ServeCommandMock extends ServeCommand
     public function option($key = null)
     {
         return $this->input->getOption($key);
+    }
+
+    public function getOpenCommand(string $osFamily): ?string
+    {
+        return parent::getOpenCommand($osFamily);
     }
 }
 
