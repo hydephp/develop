@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5b00b328408d10137d87a733894c5ec",
+    "content-hash": "456a940034f98973b71cc83c67ff3563",
     "packages": [
         {
             "name": "brick/math",
@@ -1123,11 +1123,11 @@
         },
         {
             "name": "hyde/framework",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "4512c1ec8a45b9ab81ab3f97efb1c1184e91ced6"
+                "reference": "784479be93b9882e4416fcec249de2e839f72df4"
             },
             "require": {
                 "illuminate/support": "^10.0",
@@ -1173,7 +1173,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1220,7 +1220,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -7832,7 +7832,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -7858,11 +7858,11 @@
         },
         {
             "name": "hyde/realtime-compiler",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "8dede06db83f19a82dd542ca52504a8f2327acfa"
+                "reference": "6a68a736b9cb318aaaa6ee9c82ea508b0d45a985"
             },
             "require": {
                 "desilva/microserve": "^2.0",
@@ -7914,7 +7914,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
@@ -9806,21 +9806,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.15.25",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "015935c7ed9e48a4f5895ba974f337e20a263841"
+                "reference": "b38a3eed3ce2046f40c001255e2fec9d2746bacf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/015935c7ed9e48a4f5895ba974f337e20a263841",
-                "reference": "015935c7ed9e48a4f5895ba974f337e20a263841",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/b38a3eed3ce2046f40c001255e2fec9d2746bacf",
+                "reference": "b38a3eed3ce2046f40c001255e2fec9d2746bacf",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.14"
+                "phpstan/phpstan": "^1.11"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -9828,15 +9828,13 @@
                 "rector/rector-phpunit": "*",
                 "rector/rector-symfony": "*"
             },
+            "suggest": {
+                "ext-dom": "To manipulate phpunit.xml via the custom-rule command"
+            },
             "bin": [
                 "bin/rector"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.15-dev"
-                }
-            },
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -9855,7 +9853,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.15.25"
+                "source": "https://github.com/rectorphp/rector/tree/1.2.1"
             },
             "funding": [
                 {
@@ -9863,7 +9861,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-20T16:07:39+00:00"
+            "time": "2024-07-16T00:22:54+00:00"
         },
         {
             "name": "sebastian/cli-parser",
