@@ -73,7 +73,6 @@ final class FileCollection extends BaseFoundationCollection
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\SourceFile>
      */
     public function getFiles(?string $pageClass = null): FileCollection
     {

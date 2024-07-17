@@ -55,7 +55,6 @@ final class RouteCollection extends BaseFoundationCollection
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
      */
     public function getRoutes(?string $pageClass = null): RouteCollection
     {

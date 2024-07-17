@@ -61,7 +61,6 @@ final class PageCollection extends BaseFoundationCollection
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concerns\HydePage>
      */
     public function getPages(?string $pageClass = null): PageCollection
     {
