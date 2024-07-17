@@ -13,6 +13,11 @@ use Throwable;
 /**
  * Base class for the kernel auto-discovery collections.
  *
+ * @template TKey of array-key
+ * @template TValue
+ *
+ * @extends \Illuminate\Support\Collection<TKey, TValue>
+ *
  * These collections are the heart of the discovery process.
  *
  * They are responsible for discovering the files, pages, and routes,

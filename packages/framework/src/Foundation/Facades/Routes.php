@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Routes extends Facade
 {
-    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
     public static function getFacadeRoot(): RouteCollection
     {
         return HydeKernel::getInstance()->routes();
@@ -41,7 +40,6 @@ class Routes extends Facade
         return static::getFacadeRoot()->getRoute($routeKey);
     }
 
-    /** @return \Hyde\Foundation\Kernel\RouteCollection<\Hyde\Support\Models\Route> */
     public static function all(): RouteCollection
     {
         return static::getFacadeRoot()->getRoutes();

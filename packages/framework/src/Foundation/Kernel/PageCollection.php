@@ -14,7 +14,7 @@ use Hyde\Support\Filesystem\SourceFile;
  *
  * @template T of \Hyde\Pages\Concerns\HydePage
  *
- * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
+ * @extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, HydePage> $items The pages in the collection.
  *
@@ -59,10 +59,7 @@ final class PageCollection extends BaseFoundationCollection
         return $this->get($sourcePath) ?? throw new FileNotFoundException($sourcePath);
     }
 
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concerns\HydePage>
-     */
+    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */
     public function getPages(?string $pageClass = null): PageCollection
     {
         return $pageClass ? $this->filter(function (HydePage $page) use ($pageClass): bool {

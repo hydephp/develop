@@ -26,6 +26,8 @@ use function array_merge;
 class LoadYamlConfiguration
 {
     protected YamlConfigurationRepository $yaml;
+
+    /** @var array<string, array<string, null|scalar|array>> */
     protected array $config;
 
     public function bootstrap(Application $app): void
@@ -33,7 +35,10 @@ class LoadYamlConfiguration
         $this->yaml = $app->make(YamlConfigurationRepository::class);
 
         if ($this->yaml->hasYamlConfigFile()) {
-            tap($app->make('config'), function (Repository $config): void {
+            /** @var Repository $config */
+            $config = $app->make('config');
+
+            tap($config, function (Repository $config): void {
                 $this->config = $config->all();
                 $this->mergeParsedConfiguration();
             })->set($this->config);

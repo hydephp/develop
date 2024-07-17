@@ -13,7 +13,6 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
-use Hyde\Support\Filesystem\SourceFile;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\HtmlString;
 use JetBrains\PhpStorm\Pure;
@@ -53,9 +52,9 @@ use JetBrains\PhpStorm\Pure;
  * @method static string getMediaDirectory()
  * @method static string getMediaOutputDirectory()
  * @method static Features features()
- * @method static FileCollection<string, SourceFile> files()
- * @method static PageCollection<string, HydePage> pages()
- * @method static RouteCollection<string, Route> routes()
+ * @method static FileCollection files()
+ * @method static PageCollection pages()
+ * @method static RouteCollection routes()
  * @method static Route|null currentRoute()
  * @method static HydeKernel getInstance()
  * @method static Filesystem filesystem()

@@ -56,6 +56,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/tomasvotruba/type-coverage" />
       <excludeFolder url="file://$MODULE_DIR$/.phpunit.result.cache" />
       <excludeFolder url="file://$MODULE_DIR$/.vscode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/database" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/orchestra/testbench-core" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psalm/plugin-laravel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/routing" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
