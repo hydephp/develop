@@ -146,7 +146,7 @@ class ServeCommand extends Command
 
     protected function openInBrowser(string $path = '/'): void
     {
-        $binary = $this->getOpenCommand((string) PHP_OS_FAMILY);
+        $binary = $this->getOpenCommand(PHP_OS_FAMILY);
 
         $command = sprintf('%s http://%s:%d', $binary, $this->getHostSelection(), $this->getPortSelection());
         $command = rtrim("$command/$path", '/');
