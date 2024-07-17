@@ -10,11 +10,11 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Http\DashboardController;
-use Hyde\RealtimeCompiler\Http\HtmlResponse;
+use Desilva\Microserve\HtmlResponse;
 use Hyde\Hyde;
 
 /**
@@ -23,26 +23,16 @@ use Hyde\Hyde;
 class PageRouter
 {
     use SendsErrorResponses;
-    use InteractsWithLaravel;
 
     protected Request $request;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->bootApplication();
     }
 
     protected function handlePageRequest(): Response
     {
-        if ($this->request->path === '/dashboard' && DashboardController::enabled()) {
-            return (new DashboardController($this->request))->handle();
-        }
-
-        if ($this->request->path === '/_hyde/live-edit' && LiveEditController::enabled()) {
-            return (new LiveEditController($this->request))->handle();
-        }
-
         return new HtmlResponse(200, 'OK', [
             'body' => $this->getHtml($this->getPageFromRoute()),
         ]);
@@ -91,6 +81,16 @@ class PageRouter
 
     protected function getPageFromRoute(): HydePage
     {
-        return Routes::getOrFail($this->normalizePath($this->request->path))->getPage();
+        try {
+            return Routes::getOrFail($this->normalizePath($this->request->path))->getPage();
+        } catch (RouteNotFoundException $exception) {
+            $index = Routes::get($this->normalizePath($this->request->path).'/index');
+
+            if ($index) {
+                return $index->getPage();
+            }
+
+            throw $exception;
+        }
     }
 }

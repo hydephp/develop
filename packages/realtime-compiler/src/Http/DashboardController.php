@@ -20,6 +20,7 @@ use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\HtmlString;
 use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
+use Desilva\Microserve\HtmlResponse;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\Actions\StaticPageBuilder;
@@ -329,7 +330,7 @@ class DashboardController extends BaseController
         $content = $this->request->data['contentInput'] ?? $this->abort(400, 'Must provide content');
         $pageType = $this->request->data['pageTypeSelection'] ?? $this->abort(400, 'Must provide page type');
 
-        // Optional data
+        // Optional data // Todo: Filter empty data? Comment them?
         $postDescription = $this->request->data['postDescription'] ?? null;
         $postCategory = $this->request->data['postCategory'] ?? null;
         $postAuthor = $this->request->data['postAuthor'] ?? null;
