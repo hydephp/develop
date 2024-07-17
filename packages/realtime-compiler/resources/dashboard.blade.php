@@ -231,7 +231,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tr>
-                                    @foreach(['Page Type', 'Route Key', 'Source File', 'Output File', 'Identifier'] as $header)
+                                    @foreach(['Page Type', 'Route Key', 'Source File', 'Output File'] as $header)
                                         <th>{{ $header }}</th>
                                     @endforeach
                                     <th class="text-end">Actions</th>
@@ -245,13 +245,14 @@
                                             {{ $route->getRouteKey() }}
                                         </td>
                                         <td>
-                                            {{ $route->getSourcePath() }}
+                                            @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
+                                                <i class="text-muted" title="This page is generated dynamically and does not have a source file.">{{ '<none>' }}</i>
+                                            @else
+                                                {{ $route->getSourcePath() }}
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $route->getOutputPath() }}
-                                        </td>
-                                        <td>
-                                            {{ $route->getPageIdentifier() }}
                                         </td>
                                         <td class="text-end">
                                             <div class="d-flex justify-content-end">
@@ -260,7 +261,11 @@
                                                         <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                         <input type="hidden" name="action" value="openPageInEditor">
                                                         <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
-                                                        <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
+                                                        @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
+                                                            <button type="submit" class="btn btn-outline-secondary btn-sm me-2" title="Cannot edit in-memory pages" style="pointer-events: auto; cursor: unset" disabled>Edit</button>
+                                                        @else
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
+                                                        @endif
                                                     </form>
                                                 @endif
                                                 <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
