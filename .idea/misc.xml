@@ -81,6 +81,8 @@
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider boot" />
       <entry_point TYPE="phpClass" FQNAME="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" />
       <entry_point TYPE="phpMethod" FQNAME="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider register" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Providers\AppServiceProvider boot" />
+      <entry_point TYPE="phpClass" FQNAME="\App\Providers\AppServiceProvider" />
     </entry_point>
     <pattern value="\Hyde\Framework\Services\ValidationService" member="check_a_torchlight_api_token_is_set" />
     <pattern value="\Hyde\Framework\Services\ValidationService" />
@@ -160,5 +162,7 @@
     <pattern value="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" member="boot" />
     <pattern value="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" />
     <pattern value="\Hyde\RealtimeCompiler\RealtimeCompilerServiceProvider" member="register" />
+    <pattern value="\App\Providers\AppServiceProvider" member="boot" />
+    <pattern value="\App\Providers\AppServiceProvider" />
   </component>
 </project>
