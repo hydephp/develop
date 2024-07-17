@@ -71,9 +71,7 @@ final class FileCollection extends BaseFoundationCollection
         return $this->get($path) ?? throw new FileNotFoundException($path);
     }
 
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     */
+    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */
     public function getFiles(?string $pageClass = null): FileCollection
     {
         return $pageClass ? $this->filter(function (SourceFile $file) use ($pageClass): bool {

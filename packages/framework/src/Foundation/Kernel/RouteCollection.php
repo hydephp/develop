@@ -53,9 +53,7 @@ final class RouteCollection extends BaseFoundationCollection
         return $this->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     */
+    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */
     public function getRoutes(?string $pageClass = null): RouteCollection
     {
         return $pageClass ? $this->filter(function (Route $route) use ($pageClass): bool {
