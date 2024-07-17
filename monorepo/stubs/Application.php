@@ -12,6 +12,5 @@ class Application
      */
     public function make(string $abstract)
     {
-        // Psalm stub method to get service container generics support
     }
 }
