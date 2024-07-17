@@ -51,14 +51,13 @@ class BuildService
     /** @deprecated This method will be replaced by a build task in v2.0 */
     public function transferMediaAssets(): void
     {
-        $hyde = Hyde::kernel();
-        $this->needsDirectory($hyde->siteMediaPath());
+        $this->needsDirectory(Hyde::siteMediaPath());
 
         $this->comment('Transferring Media Assets...');
-        $this->withProgressBar(MediaFile::files(), function (string $identifier) use ($hyde): void {
-            $sitePath = $hyde->siteMediaPath($identifier);
+        $this->withProgressBar(MediaFile::files(), function (string $identifier): void {
+            $sitePath = Hyde::siteMediaPath($identifier);
             $this->needsParentDirectory($sitePath);
-            copy($hyde->mediaPath($identifier), $sitePath);
+            copy(Hyde::mediaPath($identifier), $sitePath);
         });
 
         $this->newLine(2);
