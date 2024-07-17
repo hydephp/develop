@@ -321,26 +321,22 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
 
     public function testGetOpenCommandForWindows()
     {
-        $command = $this->getMockWithCustomOS('Windows');
-        $this->assertSame('start', $command->getOpenCommand());
+        $this->assertSame('start', $this->getMock()->getOpenCommand('Windows'));
     }
 
     public function testGetOpenCommandForDarwin()
     {
-        $command = $this->getMockWithCustomOS('Darwin');
-        $this->assertSame('open', $command->getOpenCommand());
+        $this->assertSame('open', $this->getMock()->getOpenCommand('Darwin'));
     }
 
     public function testGetOpenCommandForLinux()
     {
-        $command = $this->getMockWithCustomOS('Linux');
-        $this->assertSame('xdg-open', $command->getOpenCommand());
+        $this->assertSame('xdg-open', $this->getMock()->getOpenCommand('Linux'));
     }
 
     public function testGetOpenCommandForUnknownOS()
     {
-        $command = $this->getMockWithCustomOS('UnknownOS');
-        $this->assertNull($command->getOpenCommand());
+        $this->assertNull($this->getMock()->getOpenCommand('UnknownOS'));
     }
 
     protected function getTestRunnerBinary(): string
@@ -411,6 +407,11 @@ class ServeCommandMock extends ServeCommand
     public function option($key = null)
     {
         return $this->input->getOption($key);
+    }
+
+    public function getOpenCommand(string $osFamily): ?string
+    {
+        return parent::getOpenCommand($osFamily);
     }
 }
 
