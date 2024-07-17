@@ -25,6 +25,7 @@
         <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
     </plugins>
     <stubs>
+        <file name="monorepo/stubs/helpers.php" />
         <file name="monorepo/stubs/Application.php" />
     </stubs>
 </psalm>
