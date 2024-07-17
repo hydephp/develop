@@ -7881,6 +7881,13 @@
                 "bin/server.php"
             ],
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hyde\\RealtimeCompiler\\RealtimeCompilerServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Hyde\\RealtimeCompiler\\": "src/"

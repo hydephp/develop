@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Routing;
 
-use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\RealtimeCompiler\RealtimeCompiler;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
 use Hyde\RealtimeCompiler\Models\FileObject;
@@ -20,10 +20,6 @@ class Router
 
     protected Request $request;
 
-    protected array $virtualRoutes = [
-        '/ping',
-    ];
-
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -35,12 +31,12 @@ class Router
             return $this->proxyStatic();
         }
 
-        if (in_array($this->request->path, $this->virtualRoutes)) {
-            if ($this->request->path === '/ping') {
-                return new JsonResponse(200, 'OK', [
-                    'server' => 'Hyde/RealtimeCompiler',
-                ]);
-            }
+        $this->bootApplication();
+
+        $virtualRoutes = app(RealtimeCompiler::class)->getVirtualRoutes();
+
+        if (isset($virtualRoutes[$this->request->path])) {
+            return $virtualRoutes[$this->request->path]($this->request);
         }
 
         return PageRouter::handle($this->request);
