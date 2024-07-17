@@ -6,7 +6,6 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
@@ -88,7 +87,7 @@ class BuildService
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     protected function getPageTypes(): array
     {
-        return PageCollection::getPages()->map(function (HydePage $page): string {
+        return Hyde::pages()->map(function (HydePage $page): string {
             return $page::class;
         })->unique()->values()->toArray();
     }
