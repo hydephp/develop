@@ -16,6 +16,11 @@
             <directory name="app/storage" />
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <MissingConstructor>
+            <errorLevel type="suppress"/>
+        </MissingConstructor>
+    </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
     </plugins>
