@@ -616,6 +616,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Hyde-Console-Commands-ServeCommand.html#method_openInBrowser"
         },                {
+            "fqsen": "\\Hyde\\Console\\Commands\\ServeCommand\u003A\u003AgetOpenCommand\u0028\u0029",
+            "name": "getOpenCommand",
+            "summary": "",
+            "url": "classes/Hyde-Console-Commands-ServeCommand.html#method_getOpenCommand"
+        },                {
             "fqsen": "\\Hyde\\Console\\Commands\\ServeCommand\u003A\u003A\u0024signature",
             "name": "signature",
             "summary": "",
