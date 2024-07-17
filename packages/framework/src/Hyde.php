@@ -22,7 +22,6 @@ use JetBrains\PhpStorm\Pure;
  * General facade for Hyde services.
  *
  * @see \Hyde\Foundation\HydeKernel
- * @mixin \Hyde\Foundation\HydeKernel
  *
  * @author  Caen De Silva <caen@desilva.se>
  * @copyright 2022 Caen De Silva
