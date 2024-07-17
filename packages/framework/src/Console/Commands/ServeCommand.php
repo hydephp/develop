@@ -146,7 +146,7 @@ class ServeCommand extends Command
 
     protected function openInBrowser(string $path = '/'): void
     {
-        $binary = $this->getOpenCommand();
+        $binary = $this->getOpenCommand(PHP_OS_FAMILY);
 
         $command = sprintf('%s http://%s:%d', $binary, $this->getHostSelection(), $this->getPortSelection());
         $command = rtrim("$command/$path", '/');
@@ -160,9 +160,9 @@ class ServeCommand extends Command
         }
     }
 
-    protected function getOpenCommand(): ?string
+    protected function getOpenCommand(string $osFamily): ?string
     {
-        return match (PHP_OS_FAMILY) {
+        return match ($osFamily) {
             'Windows' => 'start',
             'Darwin' => 'open',
             'Linux' => 'xdg-open',
