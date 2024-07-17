@@ -33,6 +33,7 @@ class LoadYamlConfiguration
         $this->yaml = $app->make(YamlConfigurationRepository::class);
 
         if ($this->yaml->hasYamlConfigFile()) {
+            /** @var Repository $config */
             $config = $app->make('config');
 
             tap($config, function (Repository $config): void {
