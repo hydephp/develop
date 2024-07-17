@@ -15,7 +15,7 @@ use Hyde\Support\Models\Route;
  *
  * @template T of \Hyde\Support\Models\Route
  *
- * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
+ * @extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, Route> $items The routes in the collection.
  *
@@ -53,10 +53,7 @@ final class RouteCollection extends BaseFoundationCollection
         return $this->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
-    /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass
-     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
-     */
+    /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */
     public function getRoutes(?string $pageClass = null): RouteCollection
     {
         return $pageClass ? $this->filter(function (Route $route) use ($pageClass): bool {
