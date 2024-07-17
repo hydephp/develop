@@ -6,6 +6,7 @@ namespace Hyde\Pages\Concerns;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Foundation\Facades;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Foundation\Facades\Routes;
@@ -143,7 +144,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function all(): PageCollection
     {
-        return Hyde::pages()->getPages(static::class);
+        return Facades\Pages::getPages(static::class);
     }
 
     // Section: Filesystem
