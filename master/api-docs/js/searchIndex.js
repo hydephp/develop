@@ -3571,11 +3571,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Hyde-Framework-Features-Metadata-MetadataBag.html#method_add"
         },                {
-            "fqsen": "\\Hyde\\Framework\\Features\\Metadata\\MetadataBag\u003A\u003AaddElement\u0028\u0029",
-            "name": "addElement",
-            "summary": "",
-            "url": "classes/Hyde-Framework-Features-Metadata-MetadataBag.html#method_addElement"
-        },                {
             "fqsen": "\\Hyde\\Framework\\Features\\Metadata\\MetadataBag\u003A\u003AaddGenericElement\u0028\u0029",
             "name": "addGenericElement",
             "summary": "",
