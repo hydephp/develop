@@ -3,6 +3,16 @@
 /**
  * @template T
  *
+ * @param  class-string<T>  $abstract
+ * @return T
+ */
+function app(string $abstract)
+{
+}
+
+/**
+ * @template T
+ *
  * @param  T  $value
  * @param  (callable(T): mixed)|null  $callback
  * @return ($callback is null ? HigherOrderTapProxy<T> : T)
