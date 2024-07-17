@@ -245,7 +245,11 @@
                                             {{ $route->getRouteKey() }}
                                         </td>
                                         <td>
-                                            {{ $route->getPage() instanceof \Hyde\Pages\InMemoryPage ? 'none' : $route->getSourcePath() }}
+                                            @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
+                                                <span class="text-muted" title="This page is generated dynamically and does not have a source file.">none</span>
+                                            @else
+                                                {{ $route->getSourcePath() }}
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $route->getOutputPath() }}
