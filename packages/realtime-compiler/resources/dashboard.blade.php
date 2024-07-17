@@ -245,7 +245,7 @@
                                             {{ $route->getRouteKey() }}
                                         </td>
                                         <td>
-                                            {{ $route->getSourcePath() }}
+                                            {{ $route->getPage() instanceof \Hyde\Pages\InMemoryPage ? 'none' : $route->getSourcePath() }}
                                         </td>
                                         <td>
                                             {{ $route->getOutputPath() }}
