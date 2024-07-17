@@ -18,7 +18,7 @@ use function str_starts_with;
  *
  * @template T of \Hyde\Support\Filesystem\SourceFile
  *
- * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
+ * @extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, SourceFile> $items The files in the collection.
  *

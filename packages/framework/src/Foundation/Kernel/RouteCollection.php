@@ -15,7 +15,7 @@ use Hyde\Support\Models\Route;
  *
  * @template T of \Hyde\Support\Models\Route
  *
- * @template-extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
+ * @extends \Hyde\Foundation\Concerns\BaseFoundationCollection<string, T>
  *
  * @property array<string, Route> $items The routes in the collection.
  *
