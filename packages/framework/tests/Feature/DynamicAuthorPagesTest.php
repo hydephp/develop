@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Facades\Author;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
