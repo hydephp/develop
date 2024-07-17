@@ -26,6 +26,8 @@ use function array_merge;
 class LoadYamlConfiguration
 {
     protected YamlConfigurationRepository $yaml;
+
+    /** @var array<string, array<string, null|scalar|array>> */
     protected array $config;
 
     public function bootstrap(Application $app): void
