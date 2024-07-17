@@ -36,6 +36,10 @@
         "rector/rector": "^1.2.1",
         "squizlabs/php_codesniffer": "^3.7"
     },
+    "replace": {
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php80": "*"
+    },
     "conflict": {
         "symfony/string": ">=7.0"
     },
