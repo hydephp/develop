@@ -16,4 +16,7 @@
             <directory name="app/storage" />
         </ignoreFiles>
     </projectFiles>
+    <plugins>
+        <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
+    </plugins>
 </psalm>
