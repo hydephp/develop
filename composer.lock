@@ -7862,7 +7862,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "fb353ea0d8af2e762fce56e562c8e782a5873fa2"
+                "reference": "8dede06db83f19a82dd542ca52504a8f2327acfa"
             },
             "require": {
                 "desilva/microserve": "^2.0",
@@ -7881,6 +7881,13 @@
                 "bin/server.php"
             ],
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hyde\\RealtimeCompiler\\RealtimeCompilerServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Hyde\\RealtimeCompiler\\": "src/"
