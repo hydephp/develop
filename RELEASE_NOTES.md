@@ -18,6 +18,7 @@ This serves two purposes:
 - Removed the nullable type hint from the `PostAuthor` class's `name` property as it is now always set in https://github.com/hydephp/develop/pull/1794
 - Improved the accessibility of the heading permalinks feature in https://github.com/hydephp/develop/pull/1803
 - Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
+- Realtime Compiler: Virtual routes are now managed through the service container in https://github.com/hydephp/develop/pull/1858
 
 ### Deprecated
 - The `PostAuthor::getName()` method is now deprecated and will be removed in v2. (use `$author->name` instead) in https://github.com/hydephp/develop/pull/1794
