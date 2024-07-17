@@ -360,6 +360,29 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
             }
         };
     }
+
+    protected function getMockWithCustomOS(string $osFamily): ServeCommandMock
+    {
+        return new class($osFamily) extends ServeCommandMock {
+            private string $osFamily;
+
+            public function __construct(string $osFamily)
+            {
+                parent::__construct();
+                $this->osFamily = $osFamily;
+            }
+
+            protected function getOpenCommand(): ?string
+            {
+                return match ($this->osFamily) {
+                    'Windows' => 'start',
+                    'Darwin' => 'open',
+                    'Linux' => 'xdg-open',
+                    default => null
+                };
+            }
+        };
+    }
 }
 
 /**
