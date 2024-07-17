@@ -246,7 +246,7 @@
                                         </td>
                                         <td>
                                             @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
-                                                <span class="text-muted" title="This page is generated dynamically and does not have a source file.">none</span>
+                                                <i class="text-muted" title="This page is generated dynamically and does not have a source file.">{{ '<none>' }}</i>
                                             @else
                                                 {{ $route->getSourcePath() }}
                                             @endif
