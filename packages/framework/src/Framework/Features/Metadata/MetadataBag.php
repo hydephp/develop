@@ -62,6 +62,7 @@ class MetadataBag implements Htmlable
         };
     }
 
+    /** @param 'links'|'metadata'|'properties' $type */
     protected function addElement(string $type, MetadataElementContract $element): static
     {
         $this->{$type}[$element->uniqueKey()] = $element;
