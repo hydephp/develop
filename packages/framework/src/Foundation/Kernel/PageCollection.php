@@ -31,6 +31,8 @@ final class PageCollection extends BaseFoundationCollection
     public function addPage(HydePage $page): void
     {
         $this->put($page->getSourcePath(), $page);
+
+        // TODO: If Kernel is booted, also add the route
     }
 
     protected function runDiscovery(): void
