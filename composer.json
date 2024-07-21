@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "desilva/psalm-coverage": "dev-master",
-        "driftingly/rector-laravel": "^0.14.1",
+        "driftingly/rector-laravel": "^1.2.0",
         "hyde/monorepo-dev-tools": "*",
         "hyde/realtime-compiler": "*",
         "hyde/testing": "*",
