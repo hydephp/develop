@@ -33,6 +33,7 @@ This serves two purposes:
 - Realtime Compiler: Updated the exception handler to match HTTP exception codes when sending error responses in https://github.com/hydephp/develop/pull/1853
 - Realtime Compiler: Improved routing for nested index pages in https://github.com/hydephp/develop/pull/1852
 - Realtime Compiler: Improved the dashboard https://github.com/hydephp/develop/pull/1866 fixing https://github.com/hydephp/realtime-compiler/issues/22 and https://github.com/hydephp/realtime-compiler/issues/29
+- Realtime Compiler: Fixed support for serving media assets in subdirectories https://github.com/hydephp/realtime-compiler/issues/26 in https://github.com/hydephp/develop/pull/1872
 
 ### Security
 - in case of vulnerabilities.
