@@ -58,6 +58,7 @@ return [
         NunoMaduro\LaravelConsoleSummary\SummaryCommand::class,
         Symfony\Component\Console\Command\DumpCompletionCommand::class,
         Symfony\Component\Console\Command\HelpCommand::class,
+        \Illuminate\Cache\Console\ClearCommand::class,
         \Hyde\Console\Commands\DebugCommand::class,
         \Torchlight\Commands\Install::class,
     ],
