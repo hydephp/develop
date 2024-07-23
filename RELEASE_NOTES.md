@@ -13,6 +13,7 @@ This serves two purposes:
 - Updated the `HydeKernel` array representation to include the Hyde version in https://github.com/hydephp/develop/pull/1786
 - Registered the `cache:clear` command to make it easier to clear the cache in https://github.com/hydephp/develop/pull/1881
 - Added a new `Hyperlinks::isRemote()` helper method to check if a URL is remote in https://github.com/hydephp/develop/pull/1882
+- All page types now support the `description` front matter field (used in page metadata) in https://github.com/hydephp/develop/pull/1884
 
 ### Changed
 - Updated the `Serializable` trait to provide a default automatic `toArray` method in https://github.com/hydephp/develop/pull/1791
