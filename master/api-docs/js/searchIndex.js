@@ -3656,6 +3656,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Hyde-Framework-Features-Metadata-PageMetadataBag.html#method_resolveImageLink"
         },                {
+            "fqsen": "\\Hyde\\Framework\\Features\\Metadata\\PageMetadataBag\u003A\u003AcalculatePathTraversal\u0028\u0029",
+            "name": "calculatePathTraversal",
+            "summary": "",
+            "url": "classes/Hyde-Framework-Features-Metadata-PageMetadataBag.html#method_calculatePathTraversal"
+        },                {
             "fqsen": "\\Hyde\\Framework\\Features\\Metadata\\PageMetadataBag\u003A\u003A\u0024page",
             "name": "page",
             "summary": "",
