@@ -1426,6 +1426,11 @@ Search.appendIndex(
             "summary": "Get\u0020a\u0020route\u0020instance\u0020by\u0020its\u0020key\u0020from\u0020the\u0020kernel\u0027s\u0020route\u0020collection.",
             "url": "classes/Hyde-Foundation-Kernel-Hyperlinks.html#method_route"
         },                {
+            "fqsen": "\\Hyde\\Foundation\\Kernel\\Hyperlinks\u003A\u003AisRemote\u0028\u0029",
+            "name": "isRemote",
+            "summary": "Determine\u0020if\u0020the\u0020given\u0020URL\u0020is\u0020a\u0020remote\u0020link.",
+            "url": "classes/Hyde-Foundation-Kernel-Hyperlinks.html#method_isRemote"
+        },                {
             "fqsen": "\\Hyde\\Foundation\\Kernel\\Hyperlinks\u003A\u003A\u0024kernel",
             "name": "kernel",
             "summary": "",
