@@ -173,4 +173,12 @@ class Hyperlinks
     {
         return $this->kernel->routes()->get($key);
     }
+
+    /**
+     * Determine if the given URL is a remote link.
+     */
+    public static function isRemote(string $url): bool
+    {
+        return str_starts_with($url, 'http') || str_starts_with($url, '//');
+    }
 }

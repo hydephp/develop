@@ -127,4 +127,34 @@ class HyperlinksTest extends TestCase
     {
         $this->assertNull($this->class->route('foo'));
     }
+
+    public function testIsRemoteWithHttpUrl()
+    {
+        $this->assertTrue(Hyperlinks::isRemote('http://example.com'));
+    }
+
+    public function testIsRemoteWithHttpsUrl()
+    {
+        $this->assertTrue(Hyperlinks::isRemote('https://example.com'));
+    }
+
+    public function testIsRemoteWithProtocolRelativeUrl()
+    {
+        $this->assertTrue(Hyperlinks::isRemote('//example.com'));
+    }
+
+    public function testIsRemoteWithRelativeUrl()
+    {
+        $this->assertFalse(Hyperlinks::isRemote('/path/to/resource'));
+    }
+
+    public function testIsRemoteWithAbsoluteLocalPath()
+    {
+        $this->assertFalse(Hyperlinks::isRemote('/var/www/html/index.php'));
+    }
+
+    public function testIsRemoteWithEmptyString()
+    {
+        $this->assertFalse(Hyperlinks::isRemote(''));
+    }
 }
