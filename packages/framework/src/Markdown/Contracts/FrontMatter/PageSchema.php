@@ -13,7 +13,7 @@ interface PageSchema extends FrontMatterSchema
 {
     public const PAGE_SCHEMA = [
         'title' => 'string',
-        'canonicalUrl' => 'string', // While not present in the page data, it is supported as a front matter key for the accessor data source.
+        'canonicalUrl' => 'string', // While not present in the page data as a property, it is used for the accessor method, which reads this value from the front matter.
         'navigation' => NavigationSchema::NAVIGATION_SCHEMA,
     ];
 }
