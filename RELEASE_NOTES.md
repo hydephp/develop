@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - Updated the `HydeKernel` array representation to include the Hyde version in https://github.com/hydephp/develop/pull/1786
+- Registered the `cache:clear` command to make it easier to clear the cache in https://github.com/hydephp/develop/pull/1881
 
 ### Changed
 - Updated the `Serializable` trait to provide a default automatic `toArray` method in https://github.com/hydephp/develop/pull/1791
