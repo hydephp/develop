@@ -60,8 +60,8 @@ class ArticleExcerptViewTest extends TestCase
             'date' => '2022-01-01',
         ]));
 
-        $this->assertStringContainsString('Jan 1st, 2022</span>', $view);
-        $this->assertStringNotContainsString('Jan 1st, 2022</span>,', $view);
+        $this->assertStringContainsString('Jan 1st, 2022</time>', $view);
+        $this->assertStringNotContainsString('Jan 1st, 2022</time>,', $view);
     }
 
     public function testThereIsACommaAfterDateStringWhenThereIsAAuthor()
@@ -71,7 +71,7 @@ class ArticleExcerptViewTest extends TestCase
             'author' => 'John Doe',
         ]));
 
-        $this->assertStringContainsString('Jan 1st, 2022</span>,', $view);
+        $this->assertStringContainsString('Jan 1st, 2022</time>,', $view);
     }
 
     public function testItempropImageIsNotAddedWhenThereIsNoImage()
