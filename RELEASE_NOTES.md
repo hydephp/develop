@@ -38,7 +38,9 @@ This serves two purposes:
 - Minor: Methods in the `Includes` facade now return `HtmlString` objects instead of `string` in https://github.com/hydephp/develop/pull/1738. For more information, see below.
 - Minor: `Includes::path()` and  `Includes::get()` methods now normalizes paths to be basenames to match the behaviour of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
 - Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
-- Minor: Updated the `Hyde::url()` helper to return `null` instead of throwing a `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760
+- Minor: Updated the `Hyde::url()` helper throw a `BadMethodCallException` instead `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760 and https://github.com/hydephp/develop/pull/1890
+- Minor: Updated the blog post layout and post feed component to use the `BlogPosting` Schema.org type instead of `Article` in https://github.com/hydephp/develop/pull/1887
+- Added more rich markup data to blog post components in https://github.com/hydephp/develop/pull/1888 (Note that this inevitably changes the HTML output of the blog post components, and that any customized templates will need to be republished to reflect these changes)
 - Overhauled the blog post author feature in https://github.com/hydephp/develop/pull/1782
 - Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
 - Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
@@ -59,9 +61,10 @@ This serves two purposes:
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
 - Removed the deprecated global`unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
-- Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now returning `null` if no base URL is set in https://github.com/hydephp/develop/pull/1760
+- Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now throwing `BadMethodCallException` if no base URL is set in https://github.com/hydephp/develop/pull/1760
 - Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
+- Removed the deprecated `FeaturedImage::isRemote()` method in https://github.com/hydephp/develop/pull/1883. Use `Hyperlinks::isRemote()` instead.
 
 ### Fixed
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
@@ -341,6 +344,26 @@ For example, an empty or malformed JSON file will now throw an exception like th
 
 In order to normalize the thrown exceptions, we now rethrow the `ParseException` from `Symfony/Yaml` as our custom `ParseException` to match the JSON and Markdown validation.
 Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional. Markdown files can have an empty body if front matter is present.
+
+### Removal of `FeaturedImage::isRemote()` method
+
+The `FeaturedImage::isRemote()` method has been removed in v2.0. This method was deprecated in v1.8.0 and has now been completely removed.
+
+#### Upgrade guide
+
+If you were using `FeaturedImage::isRemote()` in your code, you should replace it with `Hyperlinks::isRemote()`. Here's how to update your code:
+
+```php
+// Old code
+FeaturedImage::isRemote($source);
+
+// New code
+use Hyde\Foundation\Kernel\Hyperlinks;
+
+Hyperlinks::isRemote($source);
+```
+
+This change was implemented in https://github.com/hydephp/develop/pull/1883. Make sure to update any instances of `FeaturedImage::isRemote()` in your codebase to ensure compatibility with HydePHP v2.0.
 
 ## New features
 

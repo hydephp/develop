@@ -7,8 +7,8 @@ namespace Hyde\Framework\Features\Metadata;
 use Hyde\Facades\Meta;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Foundation\Kernel\Hyperlinks;
 
-use function str_starts_with;
 use function substr_count;
 use function str_repeat;
 
@@ -34,6 +34,11 @@ class PageMetadataBag extends MetadataBag
             $this->add(Meta::link('canonical', $page->getCanonicalUrl()));
         }
 
+        if ($page->has('description')) {
+            $this->add(Meta::name('description', $page->data('description')));
+            $this->add(Meta::property('description', $page->data('description')));
+        }
+
         if ($page->has('title')) {
             $this->add(Meta::name('twitter:title', $page->title()));
             $this->add(Meta::property('title', $page->title()));
@@ -46,7 +51,6 @@ class PageMetadataBag extends MetadataBag
 
     protected function addMetadataForMarkdownPost(MarkdownPost $page): void
     {
-        $this->addPostMetadataIfExists($page, 'description');
         $this->addPostMetadataIfExists($page, 'author');
         $this->addPostMetadataIfExists($page, 'category', 'keywords');
 
@@ -77,7 +81,11 @@ class PageMetadataBag extends MetadataBag
     {
         // Since this is run before the page is rendered, we don't have the currentPage property.
         // So we need to run some of the same calculations here to resolve the image path link.
-        return str_starts_with($image, 'http') ? $image
-            : str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/')).$image;
+        return Hyperlinks::isRemote($image) ? $image : $this->calculatePathTraversal().$image;
+    }
+
+    private function calculatePathTraversal(): string
+    {
+        return str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/'));
     }
 }

@@ -1,8 +1,12 @@
 @php /** @var \Hyde\Pages\MarkdownPost $post */ @endphp
-<article class="mt-4 mb-8" itemscope itemtype="https://schema.org/Article">
+<article itemprop="item" itemscope itemtype="https://schema.org/BlogPosting">
     <meta itemprop="identifier" content="{{ $post->identifier }}">
-    @if(Hyde::hasSiteUrl())
-        <meta itemprop="url" content="{{ Hyde::url('posts/' . $post->identifier) }}">
+    @if($post->getCanonicalUrl())
+        <meta itemprop="url" content="{{ $post->getCanonicalUrl()  }}">
+    @endif
+
+    @isset($post->image)
+         <meta itemprop="image" content="{{ $post->image }}">
     @endif
 
     @isset($post->image)
@@ -20,7 +24,7 @@
     <footer>
         @isset($post->date)
             <span class="opacity-75">
-                <span itemprop="dateCreated datePublished">{{ $post->date->short }}</span>{{ isset($post->author) ? ',' : '' }}
+                <time itemprop="dateCreated datePublished" datetime="{{ $post->date->datetime }}">{{ $post->date->short }}</time>{{ isset($post->author) ? ',' : '' }}
             </span>
         @endisset
         @isset($post->author)

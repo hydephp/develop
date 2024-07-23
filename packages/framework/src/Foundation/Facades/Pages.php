@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Pages extends Facade
 {
-    /** @return \Hyde\Foundation\Kernel\PageCollection<string, \Hyde\Pages\Concerns\HydePage> */
     public static function getFacadeRoot(): PageCollection
     {
         return HydeKernel::getInstance()->pages();

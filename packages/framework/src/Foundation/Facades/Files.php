@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Files extends Facade
 {
-    /** @return \Hyde\Foundation\Kernel\FileCollection<string, \Hyde\Support\Filesystem\SourceFile> */
     public static function getFacadeRoot(): FileCollection
     {
         return HydeKernel::getInstance()->files();
