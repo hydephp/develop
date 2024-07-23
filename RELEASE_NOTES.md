@@ -343,6 +343,26 @@ For example, an empty or malformed JSON file will now throw an exception like th
 In order to normalize the thrown exceptions, we now rethrow the `ParseException` from `Symfony/Yaml` as our custom `ParseException` to match the JSON and Markdown validation.
 Additionally, an exception will be thrown if a data file is empty, as this is unlikely to be intentional. Markdown files can have an empty body if front matter is present.
 
+### Removal of `FeaturedImage::isRemote()` method
+
+The `FeaturedImage::isRemote()` method has been removed in v2.0. This method was deprecated in v1.8.0 and has now been completely removed.
+
+#### Upgrade guide
+
+If you were using `FeaturedImage::isRemote()` in your code, you should replace it with `Hyperlinks::isRemote()`. Here's how to update your code:
+
+```php
+// Old code
+FeaturedImage::isRemote($source);
+
+// New code
+use Hyde\Foundation\Kernel\Hyperlinks;
+
+Hyperlinks::isRemote($source);
+```
+
+This change was implemented in https://github.com/hydephp/develop/pull/1883. Make sure to update any instances of `FeaturedImage::isRemote()` in your codebase to ensure compatibility with HydePHP v2.0.
+
 ## New features
 
 <!-- Editors note: Todo: Maybe move to the relevant docs... -->
