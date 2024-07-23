@@ -352,6 +352,7 @@ They will be compiled using the Laravel Blade engine to the _site/ directory.</p
     <span>
                                 &nbsp;: string|null    </span>
 </dt>
+<dd>Get the canonical URL for the page to use in the `&lt;link rel=&quot;canonical&quot;&gt;` tag.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Hyde-Pages-Concerns-HydePage.html#method_getIdentifier">getIdentifier()</a>
@@ -1466,11 +1467,12 @@ within the source directory are retained in order to satisfy the page identifier
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/Pages/Concerns/HydePage.php"><a href="files/packages-framework-src-pages-concerns-hydepage.html"><abbr title="packages/framework/src/Pages/Concerns/HydePage.php">HydePage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">400</span>
+    <span class="phpdocumentor-element-found-in__line">407</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the canonical URL for the page to use in the `&lt;link rel=&quot;canonical&quot;&gt;` tag.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getCanonicalUrl</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
@@ -1478,7 +1480,11 @@ within the source directory are retained in order to satisfy the page identifier
     <div class="phpdocumentor-label-line">
         </div>
     
-    
+        <section class="phpdocumentor-description"><p>It can be explicitly set in the front matter using the <code class="prettyprint">canonicalUrl</code> key,
+otherwise it will be generated based on the site URL and the output path,
+unless there is no configured base URL, leading to this returning null.</p>
+</section>
+
     
     
 
@@ -2972,7 +2978,7 @@ within the source directory are retained in order to satisfy the page identifier
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="packages/framework/src/Pages/Concerns/HydePage.php"><a href="files/packages-framework-src-pages-concerns-hydepage.html"><abbr title="packages/framework/src/Pages/Concerns/HydePage.php">HydePage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">416</span>
+    <span class="phpdocumentor-element-found-in__line">423</span>
 
     </aside>
 

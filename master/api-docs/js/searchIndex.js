@@ -5353,7 +5353,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Hyde\\Pages\\Concerns\\HydePage\u003A\u003AgetCanonicalUrl\u0028\u0029",
             "name": "getCanonicalUrl",
-            "summary": "",
+            "summary": "Get\u0020the\u0020canonical\u0020URL\u0020for\u0020the\u0020page\u0020to\u0020use\u0020in\u0020the\u0020\u0060\u003Clink\u0020rel\u003D\u0022canonical\u0022\u003E\u0060\u0020tag.",
             "url": "classes/Hyde-Pages-Concerns-HydePage.html#method_getCanonicalUrl"
         },                {
             "fqsen": "\\Hyde\\Pages\\Concerns\\HydePage\u003A\u003AconstructMetadata\u0028\u0029",
