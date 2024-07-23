@@ -33,7 +33,7 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->asset($name, $preferQualifiedUrl);
     }
 
-    public function url(string $path = ''): ?string
+    public function url(string $path = ''): string
     {
         return $this->hyperlinks->url($path);
     }
