@@ -21,6 +21,7 @@ This serves two purposes:
 - Improved the accessibility of the heading permalinks feature in https://github.com/hydephp/develop/pull/1803
 - The `torchlight:install` command is now hidden from the command list as it's already installed in https://github.com/hydephp/develop/pull/1879
 - Updated the home page fallback link in the 404 template to lead to the site root in https://github.com/hydephp/develop/pull/1880 (fixes https://github.com/hydephp/develop/issues/1781)
+- Normalized remote URL checks so that protocol relative URLs `//` are consistently considered to be remote in all places in https://github.com/hydephp/develop/pull/1882 (fixes https://github.com/hydephp/develop/issues/1788)
 - Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
 - Realtime Compiler: Virtual routes are now managed through the service container in https://github.com/hydephp/develop/pull/1858
 - Realtime Compiler: Improved the dashboard layout in https://github.com/hydephp/develop/pull/1866
