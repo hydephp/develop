@@ -111,7 +111,7 @@ class Hyperlinks
      */
     public function asset(string $name, bool $preferQualifiedUrl = false): string
     {
-        if (str_starts_with($name, 'http')) {
+        if (static::isRemote($name)) {
             return $name;
         }
 
@@ -147,7 +147,7 @@ class Hyperlinks
     {
         $path = $this->formatLink(trim($path, '/'));
 
-        if (str_starts_with($path, 'http')) {
+        if (static::isRemote($path)) {
             return $path;
         }
 
