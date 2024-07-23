@@ -9,6 +9,7 @@ use Stringable;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\BuildWarnings;
+use JetBrains\PhpStorm\Deprecated;
 use Illuminate\Support\Facades\Http;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -241,6 +242,12 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         return 0;
     }
 
+    /**
+     * @codeCoverageIgnore Deprecated method.
+     *
+     * @deprecated This method will be removed in v2.0. Please use `Hyperlinks::isRemote` instead.
+     */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Foundation\Kernel\Hyperlinks::isRemote method', replacement: '\Hyde\Foundation\Kernel\Hyperlinks::isRemote(%parametersList%)', since: '1.8.0')]
     public static function isRemote(string $source): bool
     {
         return Hyperlinks::isRemote($source);
