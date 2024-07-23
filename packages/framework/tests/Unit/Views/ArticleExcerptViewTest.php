@@ -63,6 +63,13 @@ class ArticleExcerptViewTest extends TestCase
         $this->assertStringContainsString('<time itemprop="dateCreated datePublished" datetime="2022-01-01T00:00:00+00:00">Jan 1st, 2022</time>', $view);
     }
 
+    public function testDateIsNotAddedWhenNotSet()
+    {
+        $view = $this->renderTestView(MarkdownPost::make());
+
+        $this->assertStringNotContainsString('<time', $view);
+    }
+
     public function testThereIsNoCommaAfterDateStringWhenThereIsNoAuthor()
     {
         $view = $this->renderTestView(MarkdownPost::make(matter: [
