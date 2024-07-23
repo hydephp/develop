@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Meta;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Features\Metadata\Elements\LinkElement;
 use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
 use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
@@ -271,16 +273,66 @@ class MetadataTest extends TestCase
 
     public function testAddsDescriptionWhenDescriptionIsSetInPost()
     {
-        $page = MarkdownPost::make(matter: ['description' => 'My Description']);
+        $page = new MarkdownPost(matter: ['description' => 'My Description']);
 
         $this->assertPageHasMetadata($page, '<meta name="description" content="My Description">');
+        $this->assertPageHasMetadata($page, '<meta property="og:description" content="My Description">');
     }
 
     public function testDoesNotAddDescriptionWhenDescriptionIsNotSetInPost()
     {
         $page = new MarkdownPost();
 
-        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description" content="My Description">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description"');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:description"');
+    }
+
+    public function testAddsDescriptionWhenDescriptionIsSetInMarkdownPage()
+    {
+        $page = new MarkdownPage(matter: ['description' => 'My Page Description']);
+
+        $this->assertPageHasMetadata($page, '<meta name="description" content="My Page Description">');
+        $this->assertPageHasMetadata($page, '<meta property="og:description" content="My Page Description">');
+    }
+
+    public function testDoesNotAddDescriptionWhenDescriptionIsNotSetInMarkdownPage()
+    {
+        $page = new MarkdownPage();
+
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description"');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:description"');
+    }
+
+    public function testAddsDescriptionWhenDescriptionIsSetInBladePage()
+    {
+        $page = new BladePage(matter: ['description' => 'My Page Description']);
+
+        $this->assertPageHasMetadata($page, '<meta name="description" content="My Page Description">');
+        $this->assertPageHasMetadata($page, '<meta property="og:description" content="My Page Description">');
+    }
+
+    public function testDoesNotAddDescriptionWhenDescriptionIsNotSetInBladePage()
+    {
+        $page = new BladePage();
+
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description"');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:description"');
+    }
+
+    public function testAddsDescriptionWhenDescriptionIsSetInDocumentationPage()
+    {
+        $page = new DocumentationPage(matter: ['description' => 'My Page Description']);
+
+        $this->assertPageHasMetadata($page, '<meta name="description" content="My Page Description">');
+        $this->assertPageHasMetadata($page, '<meta property="og:description" content="My Page Description">');
+    }
+
+    public function testDoesNotAddDescriptionWhenDescriptionIsNotSetInDocumentationPage()
+    {
+        $page = new DocumentationPage();
+
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description"');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:description"');
     }
 
     public function testAddsAuthorWhenAuthorIsSetInPost()
