@@ -398,6 +398,14 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
+     * Get the description of the page to use in the `<meta name="description">` tag.
+     */
+    public function getDescription(): ?string
+    {
+        return $this->matter('description');
+    }
+
+    /**
      * Get the canonical URL for the page to use in the `<link rel="canonical">` tag.
      *
      * It can be explicitly set in the front matter using the `canonicalUrl` key,
