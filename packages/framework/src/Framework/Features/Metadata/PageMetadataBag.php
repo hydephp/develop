@@ -36,6 +36,7 @@ class PageMetadataBag extends MetadataBag
 
         if ($page->has('description')) {
             $this->add(Meta::name('description', $page->data('description')));
+            $this->add(Meta::property('description', $page->data('description')));
         }
 
         if ($page->has('title')) {

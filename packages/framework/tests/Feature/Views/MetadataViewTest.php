@@ -186,6 +186,7 @@ class MetadataViewTest extends TestCase
             '<meta name="keywords" content="My category">',
             '<meta name="url" content="https://example.com/posts/test.html">',
             '<meta property="og:title" content="HydePHP - My title">',
+            '<meta property="og:description" content="My description">',
             '<meta property="og:url" content="https://example.com/posts/test.html">',
             '<meta property="og:type" content="article">',
             '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">',
@@ -233,6 +234,7 @@ class MetadataViewTest extends TestCase
             '<meta name="author" content="Mr. Hyde">',
             '<meta name="keywords" content="My category">',
             '<meta property="og:title" content="HydePHP - My title">',
+            '<meta property="og:description" content="My description">',
             '<meta property="og:type" content="article">',
             '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">',
             '<meta property="og:image" content="../media/image.jpg">',
@@ -286,6 +288,7 @@ class MetadataViewTest extends TestCase
             '<link rel="stylesheet" href="media/app.css">',
             '<meta name="twitter:title" content="HydePHP - My Page Title">',
             '<meta property="og:title" content="HydePHP - My Page Title">',
+            '<meta property="og:description" content="My page description">',
             '<meta name="description" content="My page description">',
         ]));
     }
