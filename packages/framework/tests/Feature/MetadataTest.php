@@ -271,7 +271,7 @@ class MetadataTest extends TestCase
 
     public function testAddsDescriptionWhenDescriptionIsSetInPost()
     {
-        $page = MarkdownPost::make(matter: ['description' => 'My Description']);
+        $page = new MarkdownPost(matter: ['description' => 'My Description']);
 
         $this->assertPageHasMetadata($page, '<meta name="description" content="My Description">');
         $this->assertPageHasMetadata($page, '<meta property="og:description" content="My Description">');
