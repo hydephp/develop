@@ -63,6 +63,11 @@ class Router
             return false;
         }
 
+        // Don't proxy the search.json file, as it's generated on the fly.
+        if (str_ends_with($request->path, 'search.json')) {
+            return false;
+        }
+
         // The page is not a web page, so we assume it should be proxied.
         return true;
     }
