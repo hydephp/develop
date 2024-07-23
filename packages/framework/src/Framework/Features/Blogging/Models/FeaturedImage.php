@@ -63,7 +63,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         protected readonly ?string $licenseUrl = null,
         protected readonly ?string $copyrightText = null
     ) {
-        $this->type = self::isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
+        $this->type = Hyperlinks::isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
     }
 
