@@ -24,7 +24,7 @@ class ArticleExcerptViewTest extends TestCase
     public function testComponentCanBeRendered()
     {
         $view = $this->renderTestView(MarkdownPost::make());
-        $this->assertStringContainsString('https://schema.org/Article', $view);
+        $this->assertStringContainsString('https://schema.org/BlogPosting', $view);
     }
 
     public function testComponentRendersPostData()
