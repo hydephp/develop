@@ -37,6 +37,7 @@ class SchemaContractsTest extends UnitTestCase
         $this->assertSame([
             'title' => 'string',
             'canonicalUrl' => 'string',
+            'description' => 'string',
             'navigation' => NavigationSchema::NAVIGATION_SCHEMA,
         ], PageSchema::PAGE_SCHEMA);
 

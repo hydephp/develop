@@ -14,6 +14,7 @@ interface PageSchema extends FrontMatterSchema
     public const PAGE_SCHEMA = [
         'title' => 'string',
         'canonicalUrl' => 'string', // While not present in the page data as a property, it is used for the accessor method, which reads this value from the front matter.
+        'description' => 'string', // For per page <meta name='description'> tag values. It is also only used as an accessor method for the front matter, not a property.
         'navigation' => NavigationSchema::NAVIGATION_SCHEMA,
     ];
 }
