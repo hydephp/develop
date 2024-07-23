@@ -54,6 +54,15 @@ class ArticleExcerptViewTest extends TestCase
         $this->assertStringContainsString('John Doe', $view);
     }
 
+    public function testMetadataHasIsoDate()
+    {
+        $view = $this->renderTestView(MarkdownPost::make(matter: [
+            'date' => '2022-01-01',
+        ]));
+
+        $this->assertStringContainsString('<time itemprop="dateCreated datePublished" datetime="2022-01-01T00:00:00+00:00">Jan 1st, 2022</time>', $view);
+    }
+
     public function testThereIsNoCommaAfterDateStringWhenThereIsNoAuthor()
     {
         $view = $this->renderTestView(MarkdownPost::make(matter: [

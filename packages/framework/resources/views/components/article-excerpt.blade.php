@@ -20,7 +20,7 @@
     <footer>
         @isset($post->date)
             <span class="opacity-75">
-                <time itemprop="dateCreated datePublished">{{ $post->date->short }}</time>{{ isset($post->author) ? ',' : '' }}
+                <time itemprop="dateCreated datePublished" datetime="{{ $post->date->datetime }}">{{ $post->date->short }}</time>{{ isset($post->author) ? ',' : '' }}
             </span>
         @endisset
         @isset($post->author)
