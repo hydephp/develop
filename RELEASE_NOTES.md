@@ -40,6 +40,7 @@ This serves two purposes:
 - Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
 - Minor: Updated the `Hyde::url()` helper to return `null` instead of throwing a `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760
 - Minor: Updated the blog post layout and post feed component to use the `BlogPosting` Schema.org type instead of `Article` in https://github.com/hydephp/develop/pull/1887
+- Added more rich markup data to blog post components in https://github.com/hydephp/develop/pull/1888 (Note that this inevitably changes the HTML output of the blog post components, and that any customized templates will need to be republished to reflect these changes)
 - Overhauled the blog post author feature in https://github.com/hydephp/develop/pull/1782
 - Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
 - Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
