@@ -10,8 +10,6 @@ use Hyde\Support\Models\RouteKey;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 
-use function compact;
-
 /**
  * @experimental
  *
@@ -28,7 +26,9 @@ class PostAuthorPage extends InMemoryPage
 
     public function __construct(PostAuthor $author)
     {
-        parent::__construct($author->username, compact('author'));
+        parent::__construct($author->username, [
+            'author' => $author,
+        ]);
     }
 
     public function getBladeView(): string
