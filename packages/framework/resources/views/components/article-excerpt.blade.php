@@ -1,5 +1,5 @@
 @php /** @var \Hyde\Pages\MarkdownPost $post */ @endphp
-<article class="mt-4 mb-8" itemscope itemtype="https://schema.org/BlogPosting">
+<article itemprop="item" itemscope itemtype="https://schema.org/BlogPosting">
     <meta itemprop="identifier" content="{{ $post->identifier }}">
     @if(Hyde::hasSiteUrl())
         <meta itemprop="url" content="{{ Hyde::url('posts/' . $post->identifier) }}">
