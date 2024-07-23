@@ -10,6 +10,7 @@ use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Http;
+use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
@@ -19,7 +20,6 @@ use function file_exists;
 use function filesize;
 use function sprintf;
 use function key;
-use function str_starts_with;
 
 /**
  * Object representation of a blog post's featured image.
@@ -243,6 +243,6 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     public static function isRemote(string $source): bool
     {
-        return str_starts_with($source, 'http') || str_starts_with($source, '//');
+        return Hyperlinks::isRemote($source);
     }
 }
