@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd20ed0dc33c413deadf7b4543376db1",
+    "content-hash": "18ddef27e26184d2d139589a09ac61dd",
     "packages": [
         {
             "name": "brick/math",
@@ -1123,11 +1123,11 @@
         },
         {
             "name": "hyde/framework",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "4512c1ec8a45b9ab81ab3f97efb1c1184e91ced6"
+                "reference": "784479be93b9882e4416fcec249de2e839f72df4"
             },
             "require": {
                 "illuminate/support": "^10.0",
@@ -1173,7 +1173,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-increase-type-coverage",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1220,7 +1220,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-increase-type-coverage",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -7636,35 +7636,21 @@
         },
         {
             "name": "driftingly/rector-laravel",
-            "version": "0.14.2",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/driftingly/rector-laravel.git",
-                "reference": "60c69b4adb4404260707dbe8e9dddb0546f6564c"
+                "reference": "ac4831aebc8cf4285be83c8aa538ae816004d071"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/60c69b4adb4404260707dbe8e9dddb0546f6564c",
-                "reference": "60c69b4adb4404260707dbe8e9dddb0546f6564c",
+                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/ac4831aebc8cf4285be83c8aa538ae816004d071",
+                "reference": "ac4831aebc8cf4285be83c8aa538ae816004d071",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
-            },
-            "require-dev": {
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "^1.8.2",
-                "phpstan/phpstan-strict-rules": "^1.2",
-                "phpstan/phpstan-webmozart-assert": "^1.1",
-                "phpunit/phpunit": "^9.5",
-                "rector/phpstan-rules": "^0.6",
-                "rector/rector": "^0.14.7",
-                "rector/rector-debugging": "dev-main",
-                "symplify/easy-coding-standard": "^11.0",
-                "symplify/phpstan-extensions": "^11.0",
-                "symplify/phpstan-rules": "^11.0",
-                "symplify/rule-doc-generator": "^11.0",
-                "symplify/vendor-patches": "^11.0"
+                "php": "^7.2 || ^8.0",
+                "rector/rector": "^1.0"
             },
             "type": "rector-extension",
             "autoload": {
@@ -7679,9 +7665,9 @@
             "description": "Rector upgrades rules for Laravel Framework",
             "support": {
                 "issues": "https://github.com/driftingly/rector-laravel/issues",
-                "source": "https://github.com/driftingly/rector-laravel/tree/0.14.2"
+                "source": "https://github.com/driftingly/rector-laravel/tree/1.2.0"
             },
-            "time": "2023-01-06T19:34:12+00:00"
+            "time": "2024-05-03T16:09:54+00:00"
         },
         {
             "name": "felixfbecker/advanced-json-rpc",
@@ -7898,7 +7884,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-increase-type-coverage",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -7924,11 +7910,11 @@
         },
         {
             "name": "hyde/realtime-compiler",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "8dede06db83f19a82dd542ca52504a8f2327acfa"
+                "reference": "6a68a736b9cb318aaaa6ee9c82ea508b0d45a985"
             },
             "require": {
                 "desilva/microserve": "^2.0",
@@ -7980,7 +7966,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-increase-type-coverage",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
@@ -11212,16 +11198,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.10.1",
+            "version": "3.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877"
+                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/8f90f7a53ce271935282967f53d0894f8f1ff877",
-                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/86e5f5dd9a840c46810ebe5ff1885581c42a3017",
+                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
                 "shasum": ""
             },
             "require": {
@@ -11288,7 +11274,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-05-22T21:24:41+00:00"
+            "time": "2024-07-21T23:26:44+00:00"
         },
         {
             "name": "symfony/filesystem",
