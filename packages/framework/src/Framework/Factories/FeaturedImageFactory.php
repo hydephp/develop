@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use RuntimeException;
 use Illuminate\Support\Str;
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
@@ -72,7 +73,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             throw new RuntimeException(sprintf('No featured image source was found in "%s"', $this->filePath ?? 'unknown file'));
         }
 
-        if (FeaturedImage::isRemote($value)) {
+        if (Hyperlinks::isRemote($value)) {
             return $value;
         }
 

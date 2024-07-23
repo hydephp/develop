@@ -12,6 +12,7 @@ This serves two purposes:
 ### Added
 - Updated the `HydeKernel` array representation to include the Hyde version in https://github.com/hydephp/develop/pull/1786
 - Registered the `cache:clear` command to make it easier to clear the cache in https://github.com/hydephp/develop/pull/1881
+- Added a new `Hyperlinks::isRemote()` helper method to check if a URL is remote in https://github.com/hydephp/develop/pull/1882
 
 ### Changed
 - Updated the `Serializable` trait to provide a default automatic `toArray` method in https://github.com/hydephp/develop/pull/1791
@@ -20,12 +21,14 @@ This serves two purposes:
 - Improved the accessibility of the heading permalinks feature in https://github.com/hydephp/develop/pull/1803
 - The `torchlight:install` command is now hidden from the command list as it's already installed in https://github.com/hydephp/develop/pull/1879
 - Updated the home page fallback link in the 404 template to lead to the site root in https://github.com/hydephp/develop/pull/1880 (fixes https://github.com/hydephp/develop/issues/1781)
+- Normalized remote URL checks so that protocol relative URLs `//` are consistently considered to be remote in all places in https://github.com/hydephp/develop/pull/1882 (fixes https://github.com/hydephp/develop/issues/1788)
 - Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
 - Realtime Compiler: Virtual routes are now managed through the service container in https://github.com/hydephp/develop/pull/1858
 - Realtime Compiler: Improved the dashboard layout in https://github.com/hydephp/develop/pull/1866
 
 ### Deprecated
 - The `PostAuthor::getName()` method is now deprecated and will be removed in v2. (use `$author->name` instead) in https://github.com/hydephp/develop/pull/1794
+- Deprecated the `FeaturedImage::isRemote()` method in favor of the new `Hyperlinks::isRemote()` method in https://github.com/hydephp/develop/pull/1882
 
 ### Removed
 - for now removed features.

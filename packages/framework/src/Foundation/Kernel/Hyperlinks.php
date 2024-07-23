@@ -111,7 +111,7 @@ class Hyperlinks
      */
     public function asset(string $name, bool $preferQualifiedUrl = false): string
     {
-        if (str_starts_with($name, 'http')) {
+        if (static::isRemote($name)) {
             return $name;
         }
 
@@ -147,7 +147,7 @@ class Hyperlinks
     {
         $path = $this->formatLink(trim($path, '/'));
 
-        if (str_starts_with($path, 'http')) {
+        if (static::isRemote($path)) {
             return $path;
         }
 
@@ -172,5 +172,13 @@ class Hyperlinks
     public function route(string $key): ?Route
     {
         return $this->kernel->routes()->get($key);
+    }
+
+    /**
+     * Determine if the given URL is a remote link.
+     */
+    public static function isRemote(string $url): bool
+    {
+        return str_starts_with($url, 'http') || str_starts_with($url, '//');
     }
 }
