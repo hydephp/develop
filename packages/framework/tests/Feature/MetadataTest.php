@@ -281,8 +281,8 @@ class MetadataTest extends TestCase
     {
         $page = new MarkdownPost();
 
-        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description" content="My Description">');
-        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:description" content="My Description">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description"');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:description"');
     }
 
     public function testAddsAuthorWhenAuthorIsSetInPost()
