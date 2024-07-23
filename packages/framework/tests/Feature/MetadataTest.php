@@ -274,6 +274,7 @@ class MetadataTest extends TestCase
         $page = MarkdownPost::make(matter: ['description' => 'My Description']);
 
         $this->assertPageHasMetadata($page, '<meta name="description" content="My Description">');
+        $this->assertPageHasMetadata($page, '<meta property="og:description" content="My Description">');
     }
 
     public function testDoesNotAddDescriptionWhenDescriptionIsNotSetInPost()
@@ -281,6 +282,7 @@ class MetadataTest extends TestCase
         $page = new MarkdownPost();
 
         $this->assertPageDoesNotHaveMetadata($page, '<meta name="description" content="My Description">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:description" content="My Description">');
     }
 
     public function testAddsAuthorWhenAuthorIsSetInPost()
