@@ -9,7 +9,9 @@ use Stringable;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\BuildWarnings;
+use JetBrains\PhpStorm\Deprecated;
 use Illuminate\Support\Facades\Http;
+use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
@@ -19,7 +21,6 @@ use function file_exists;
 use function filesize;
 use function sprintf;
 use function key;
-use function str_starts_with;
 
 /**
  * Object representation of a blog post's featured image.
@@ -63,7 +64,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         protected readonly ?string $licenseUrl = null,
         protected readonly ?string $copyrightText = null
     ) {
-        $this->type = self::isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
+        $this->type = Hyperlinks::isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
     }
 
@@ -241,8 +242,14 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         return 0;
     }
 
+    /**
+     * @codeCoverageIgnore Deprecated method.
+     *
+     * @deprecated This method will be removed in v2.0. Please use `Hyperlinks::isRemote` instead.
+     */
+    #[Deprecated(reason: 'Replaced by the \Hyde\Foundation\Kernel\Hyperlinks::isRemote method', replacement: '\Hyde\Foundation\Kernel\Hyperlinks::isRemote(%parametersList%)', since: '1.8.0')]
     public static function isRemote(string $source): bool
     {
-        return str_starts_with($source, 'http') || str_starts_with($source, '//');
+        return Hyperlinks::isRemote($source);
     }
 }

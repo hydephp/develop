@@ -7,8 +7,8 @@ namespace Hyde\Framework\Features\Metadata;
 use Hyde\Facades\Meta;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Foundation\Kernel\Hyperlinks;
 
-use function str_starts_with;
 use function substr_count;
 use function str_repeat;
 
@@ -77,7 +77,7 @@ class PageMetadataBag extends MetadataBag
     {
         // Since this is run before the page is rendered, we don't have the currentPage property.
         // So we need to run some of the same calculations here to resolve the image path link.
-        return str_starts_with($image, 'http') ? $image
+        return Hyperlinks::isRemote($image) ? $image
             : str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/')).$image;
     }
 }
