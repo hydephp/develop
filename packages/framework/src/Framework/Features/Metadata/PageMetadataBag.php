@@ -34,6 +34,11 @@ class PageMetadataBag extends MetadataBag
             $this->add(Meta::link('canonical', $page->getCanonicalUrl()));
         }
 
+        if ($page->has('description')) {
+            $this->add(Meta::name('description', $page->data('description')));
+            $this->add(Meta::property('description', $page->data('description')));
+        }
+
         if ($page->has('title')) {
             $this->add(Meta::name('twitter:title', $page->title()));
             $this->add(Meta::property('title', $page->title()));
@@ -46,7 +51,6 @@ class PageMetadataBag extends MetadataBag
 
     protected function addMetadataForMarkdownPost(MarkdownPost $page): void
     {
-        $this->addPostMetadataIfExists($page, 'description');
         $this->addPostMetadataIfExists($page, 'author');
         $this->addPostMetadataIfExists($page, 'category', 'keywords');
 
