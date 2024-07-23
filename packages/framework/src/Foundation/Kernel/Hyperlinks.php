@@ -162,7 +162,7 @@ class Hyperlinks
         }
 
         // User is trying to get the base URL, but it's not set
-        // This exception is deprecated and will be removed in v2.0.0, and we will return null instead.
+        // This exception is deprecated and will be removed in v2.0.0, and we will throw a BadMethodCallException instead.
         throw new BaseUrlNotSetException();
     }
 
