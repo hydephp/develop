@@ -39,6 +39,7 @@ This serves two purposes:
 - Minor: `Includes::path()` and  `Includes::get()` methods now normalizes paths to be basenames to match the behaviour of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
 - Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
 - Minor: Updated the `Hyde::url()` helper to return `null` instead of throwing a `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760
+- Minor: Updated the blog post layout to use the `BlogPosting` Schema.org type instead of `Article` in https://github.com/hydephp/develop/pull/1887
 - Overhauled the blog post author feature in https://github.com/hydephp/develop/pull/1782
 - Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
 - Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
