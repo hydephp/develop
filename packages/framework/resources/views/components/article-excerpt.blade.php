@@ -5,6 +5,10 @@
         <meta itemprop="url" content="{{ $post->getCanonicalUrl()  }}">
     @endif
 
+    @isset($post->image)
+         <meta itemprop="image" content="{{ $post->image }}">
+    @endif
+
     <header>
         <a href="{{ $post->getRoute() }}" class="block w-fit">
             <h2 itemprop="headline" class="text-2xl font-bold text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-colors duration-75">

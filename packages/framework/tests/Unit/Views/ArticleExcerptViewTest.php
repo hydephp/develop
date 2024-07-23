@@ -73,4 +73,29 @@ class ArticleExcerptViewTest extends TestCase
 
         $this->assertStringContainsString('Jan 1st, 2022</span>,', $view);
     }
+
+    public function testItempropImageIsNotAddedWhenThereIsNoImage()
+    {
+        $view = $this->renderTestView(MarkdownPost::make());
+        $this->assertStringNotContainsString('itemprop="image"', $view);
+    }
+
+    public function testItempropImageIsAddedWhenThereIsAnImage()
+    {
+        // Test with local path
+        $viewLocal = $this->renderTestView(MarkdownPost::make(matter: [
+            'image' => 'path/to/local/image.jpg',
+        ]));
+
+        $this->assertStringContainsString('itemprop="image"', $viewLocal);
+        $this->assertStringContainsString('content="media/path/to/local/image.jpg"', $viewLocal);
+
+        // Test with remote URL
+        $viewRemote = $this->renderTestView(MarkdownPost::make(matter: [
+            'image' => 'https://example.com/image.jpg',
+        ]));
+
+        $this->assertStringContainsString('itemprop="image"', $viewRemote);
+        $this->assertStringContainsString('content="https://example.com/image.jpg"', $viewRemote);
+    }
 }
