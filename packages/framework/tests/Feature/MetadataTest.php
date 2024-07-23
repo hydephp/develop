@@ -280,7 +280,7 @@ class MetadataTest extends TestCase
     {
         $page = new MarkdownPost();
 
-        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description" content="My Description">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="description"');
     }
 
     public function testAddsAuthorWhenAuthorIsSetInPost()
@@ -294,7 +294,7 @@ class MetadataTest extends TestCase
     {
         $page = new MarkdownPost();
 
-        $this->assertPageDoesNotHaveMetadata($page, '<meta name="author" content="My Author">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="author"');
     }
 
     public function testAddsKeywordsWhenCategoryIsSetInPost()
@@ -308,7 +308,7 @@ class MetadataTest extends TestCase
     {
         $page = new MarkdownPost();
 
-        $this->assertPageDoesNotHaveMetadata($page, '<meta name="keywords" content="My Category">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta name="keywords"');
     }
 
     public function testAddsUrlPropertyWhenCanonicalUrlIsSetInPost()
@@ -322,14 +322,14 @@ class MetadataTest extends TestCase
     {
         $page = new MarkdownPost();
 
-        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url"');
     }
 
     public function testDoesNotAddUrlPropertyWhenCanonicalUrlIsNull()
     {
         $page = MarkdownPost::make(matter: ['canonicalUrl' => null]);
 
-        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url" content="example.html">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:url"');
     }
 
     public function testAddsTitlePropertyWhenTitleIsSetInPost()
@@ -356,7 +356,7 @@ class MetadataTest extends TestCase
     public function testDoesNotAddPublishedTimePropertyWhenDateIsNotSetInPost()
     {
         $page = new MarkdownPost();
-        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:article:published_time" content="2022-01-01T00:00:00+00:00">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:article:published_time"');
     }
 
     public function testAddsImagePropertyWhenImageIsSetInPost()
@@ -369,7 +369,7 @@ class MetadataTest extends TestCase
     public function testDoesNotAddImagePropertyWhenImageIsNotSetInPost()
     {
         $page = new MarkdownPost();
-        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:image" content="media/image.jpg">');
+        $this->assertPageDoesNotHaveMetadata($page, '<meta property="og:image"');
     }
 
     public function testAddsTypePropertyAutomatically()
