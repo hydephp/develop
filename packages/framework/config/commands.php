@@ -59,6 +59,7 @@ return [
         Symfony\Component\Console\Command\DumpCompletionCommand::class,
         Symfony\Component\Console\Command\HelpCommand::class,
         \Hyde\Console\Commands\DebugCommand::class,
+        \Torchlight\Commands\Install::class,
     ],
 
     /*

@@ -17,6 +17,7 @@ This serves two purposes:
 - Updated the `PostAuthor` class's `name` property to fall back to the `username` property if the `name` property is not set in https://github.com/hydephp/develop/pull/1794
 - Removed the nullable type hint from the `PostAuthor` class's `name` property as it is now always set in https://github.com/hydephp/develop/pull/1794
 - Improved the accessibility of the heading permalinks feature in https://github.com/hydephp/develop/pull/1803
+- The `torchlight:install` command is now hidden from the command list as it's already installed in https://github.com/hydephp/develop/pull/1879
 - Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
 - Realtime Compiler: Virtual routes are now managed through the service container in https://github.com/hydephp/develop/pull/1858
 - Realtime Compiler: Improved the dashboard layout in https://github.com/hydephp/develop/pull/1866
