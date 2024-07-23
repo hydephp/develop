@@ -397,6 +397,13 @@ abstract class HydePage implements PageSchema, SerializableContract
         return $this->navigation->group;
     }
 
+    /**
+     * Get the canonical URL for the page to use in the `<link rel="canonical">` tag.
+     *
+     * It can be explicitly set in the front matter using the `canonicalUrl` key,
+     * otherwise it will be generated based on the site URL and the output path,
+     * unless there is no configured base URL, leading to this returning null.
+     */
     public function getCanonicalUrl(): ?string
     {
         /** @var ?string $value */
