@@ -179,4 +179,21 @@ class BladePageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertInstanceOf(FrontMatter::class, (new BladePage('foo'))->matter());
     }
+
+    public function testGetCanonicalUrl()
+    {
+        $page = new BladePage('foo');
+        $this->assertNull($page->getCanonicalUrl());
+
+        self::mockConfig(['hyde.url' => 'https://example.com']);
+
+        $this->assertSame('https://example.com/foo.html', $page->getCanonicalUrl());
+
+        self::mockConfig(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
+
+        $this->assertSame('https://example.com/foo', $page->getCanonicalUrl());
+
+        $page = new BladePage('foo', ['canonicalUrl' => 'foo']);
+        $this->assertSame('foo', $page->getCanonicalUrl());
+    }
 }

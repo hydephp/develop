@@ -221,4 +221,21 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertInstanceOf(FrontMatter::class, (new InMemoryPage('404'))->matter());
     }
+
+    public function testGetCanonicalUrl()
+    {
+        $page = new InMemoryPage('foo');
+        $this->assertNull($page->getCanonicalUrl());
+
+        self::mockConfig(['hyde.url' => 'https://example.com']);
+
+        $this->assertSame('https://example.com/foo.html', $page->getCanonicalUrl());
+
+        self::mockConfig(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
+
+        $this->assertSame('https://example.com/foo', $page->getCanonicalUrl());
+
+        $page = new InMemoryPage('foo', ['canonicalUrl' => 'foo']);
+        $this->assertSame('foo', $page->getCanonicalUrl());
+    }
 }

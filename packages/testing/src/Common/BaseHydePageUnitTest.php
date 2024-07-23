@@ -113,4 +113,6 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
     abstract public function testMatter();
 
     abstract public function testOutputPath();
+
+    abstract public function testGetCanonicalUrl();
 }
