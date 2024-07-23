@@ -81,8 +81,6 @@ class PageMetadataBag extends MetadataBag
     {
         // Since this is run before the page is rendered, we don't have the currentPage property.
         // So we need to run some of the same calculations here to resolve the image path link.
-
-        // Todo: Cleanup
         return Hyperlinks::isRemote($image) ? $image
             : str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/')).$image;
     }
