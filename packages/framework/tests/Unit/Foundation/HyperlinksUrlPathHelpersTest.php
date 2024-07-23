@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
+use BadMethodCallException;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Testing\TestCase;
@@ -153,11 +154,14 @@ class HyperlinksUrlPathHelpersTest extends TestCase
         $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar/'));
     }
 
-    public function testQualifiedUrlReturnsNullWhenNoSiteUrlIsSet()
+    public function testQualifiedUrlThrowsExceptionWhenNoSiteUrlIsSet()
     {
         $this->withSiteUrl(null);
 
-        $this->assertNull($this->class->url());
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('The site URL is not set in the configuration.');
+
+        $this->class->url();
     }
 
     public function testHelperFallsBackToRelativeLinksWhenNoSiteUrlIsSet()

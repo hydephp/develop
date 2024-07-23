@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -178,6 +179,7 @@ class HelpersTest extends TestCase
     public function testUrlFunctionWithoutBaseUrlOrPath()
     {
         $this->app['config']->set(['hyde.url' => null]);
+        $this->expectException(BadMethodCallException::class);
         $this->assertNull(url());
     }
 
@@ -185,6 +187,7 @@ class HelpersTest extends TestCase
     public function testUrlFunctionWithLocalhostBaseUrlButNoPath()
     {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
+        $this->expectException(BadMethodCallException::class);
         $this->assertNull(url());
     }
 
