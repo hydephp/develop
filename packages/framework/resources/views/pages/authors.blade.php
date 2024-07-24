@@ -24,7 +24,7 @@
                         <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white" itemprop="name">{{ $author->name }}</h2>
                     </header>
                     @if($author->bio)
-                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 text-center" itemprop="description">{{ Str::limit($author->bio, 100) }}</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-center" itemprop="description">{{ Str::limit($author->bio, 100) }}</p>
                     @endif
                     <nav>
                         <a href="{{ route(\Hyde\Framework\Features\Blogging\BlogPostAuthorPages::authorBaseRouteKey()."/$author->username") }}" class="text-blue-600 dark:text-blue-400 hover:underline" itemprop="url">View Profile</a>
