@@ -1,0 +1,41 @@
+name: Matrix Tests
+
+on:
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - 'app/**'
+      - 'packages/**'
+      - 'resources/**'
+      - 'tests/**'
+      - 'config/**'
+      - '.github/workflows/matrix-tests.yml'
+      - '*.*'
+
+jobs:
+
+  test-matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        php: [8.1, 8.2, 8.3]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: fileinfo, zip
+      - uses: actions/checkout@v4
+
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/pest --log-junit report.xml
+
+      - name: Ping statistics server with test results
+        run: |
+          curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
+          php ping.php "Monorepo PR Matrix" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
