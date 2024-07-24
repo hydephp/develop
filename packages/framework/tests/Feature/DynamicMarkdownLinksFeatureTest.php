@@ -7,7 +7,8 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Hyde
+ * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
+ * @covers \Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter
  */
 class DynamicMarkdownLinksFeatureTest extends TestCase
 {
