@@ -7,10 +7,11 @@ Todo
 ## View
 
 ````markdown
-Please follow these instructions when generating tests:
+Please follow these instructions when generating view tests:
 
 - This is for a Laravel-based static site generator called HydePHP. The tests are written in PHPUnit, but we have some custom helpers, listed below.
 - When writing tests, use PHPUnit where tests are defined using this format: `public function testDoingSomethingDoesSomething()`, we do not specify return types on test methods, but we do when adding testing helper methods.
+- Remember to cover all code paths for various configurations and test fixture setups,
 
 Here is a base view testing setup:
 
