@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Blogging\DynamicPages;
 
 use Hyde\Pages\InMemoryPage;
-use Hyde\Support\Models\Route;
-use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Collection;
-use Hyde\Foundation\Facades\Routes;
 
 /**
  * @experimental
@@ -41,10 +38,5 @@ class PostAuthorsPage extends InMemoryPage
     public function getBladeView(): string
     {
         return static::$layout;
-    }
-
-    public static function route(): ?Route
-    {
-        return Routes::get(RouteKey::fromPage(static::class, 'index')->get());
     }
 }
