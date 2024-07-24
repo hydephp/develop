@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
@@ -62,6 +63,10 @@ class BuildService
 
     protected function getClassPluralName(string $pageClass): string
     {
+        if ($pageClass === InMemoryPage::class) {
+            return 'Dynamic Pages';
+        }
+
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
     }
 
@@ -69,6 +74,10 @@ class BuildService
     protected function getPageTypes(): array
     {
         return Hyde::pages()->map(function (HydePage $page): string {
+            if ($page instanceof InMemoryPage) {
+                return InMemoryPage::class;
+            }
+
             return $page::class;
         })->unique()->values()->toArray();
     }
