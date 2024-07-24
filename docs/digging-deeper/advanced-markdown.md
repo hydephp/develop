@@ -156,24 +156,65 @@ anything within the path label will be rendered as HTML. This means you can add 
 ```
 ````
 
-### Dynamic Markdown links
+## Dynamic Markdown Links
 
-In order to create automatically resolved links from your pages and posts, you can use the special Hyde Markdown link syntax.
+HydePHP provides a powerful feature for creating automatically resolved links within your pages and posts using a special Hyde Markdown link syntax. This feature allows you to generate dynamic links that are resolved based on the current page being rendered.
 
-For all the supported syntax options, Hyde will resolve a relative link based on the current page being rendered.
+### Usage
 
-Since this happens in our Markdown processor, this will work regardless of if you have custom HTML or Blade enabled for your site.
+You can use the following syntax options in your Markdown files:
 
 ```markdown
 <!-- Resolving a route -->
 [Home](hyde::route('home'))
 
 <!-- Resolving a relative link -->
-[Home](hyde::relativeLink('home'))
+[About](hyde::relativeLink('about'))
 
 <!-- Resolving a media asset -->
-![Image](hyde::asset('image.jpg'))
+![Logo](hyde::asset('logo.png'))
 ```
+
+### How It Works
+
+The Hyde Markdown processor handles these special links during the conversion process. This means that the feature works regardless of whether you have custom HTML or Blade enabled for your site.
+
+Here's what each function does:
+
+- `hyde::route()`: Generates a link to a specific route in your Hyde site.
+- `hyde::relativeLink()`: Creates a relative link to another page.
+- `hyde::asset()`: Resolves the path to a media asset in your site.
+
+### Behavior and Error Handling
+
+- If the specified route or asset exists, Hyde will generate the correct URL.
+- If a route specified in `hyde::route()` does not exist, a `RouteNotFoundException` will be thrown. This helps catch errors early in the development process.
+
+>info Note: The exception throwing behavior for non-existent routes is designed to provide immediate feedback during development. In production environments, you may want to handle these exceptions gracefully.
+
+### Best Practices
+
+1. Always double-check that the pages or assets you're linking to exist in your project.
+2. Use meaningful names for your routes to make your Markdown more readable and maintainable.
+3. Consider using `hyde::relativeLink()` for local navigation if your site structure might change.
+
+### Customization
+
+You can customize how Hyde handles dynamic links by modifying the `config/hyde.php` file. For example, you might want to change how non-existent routes are handled in production:
+
+```php
+// filepath: config/hyde.php
+'dynamic_links' => [
+    'throw_exception_on_missing_route' => env('APP_ENV') === 'local',
+],
+```
+
+### Limitations
+
+- The dynamic link syntax is only processed within Markdown files. It won't work in plain HTML or Blade templates.
+- Make sure to use the correct syntax (`hyde::function('parameter')`) as other variations may not be recognized.
+
+By using these dynamic Markdown links, you can create more maintainable and flexible content, allowing your site structure to evolve without breaking internal links.
 
 ### Limitations
 
