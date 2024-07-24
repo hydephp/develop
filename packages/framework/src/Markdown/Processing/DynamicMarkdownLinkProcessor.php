@@ -11,8 +11,17 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 {
     public static function postprocess(string $html): string
     {
-        /** @var array<string, callable(array<int, string>): string> $patterns */
-        $patterns = [
+        foreach (static::patterns() as $pattern => $replacement) {
+            $html = preg_replace_callback($pattern, $replacement, $html);
+        }
+
+        return $html;
+    }
+
+    /** @return array<string, callable(array<int, string>): string> */
+    protected static function patterns(): array
+    {
+        return [
             '/<a href="hyde::route\(\'([^\']+)\'\)"/' => function (array $matches): string {
                 return '<a href="'.Hyde::route($matches[1]).'"';
             },
@@ -23,11 +32,5 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
                 return '<img src="'.Hyde::asset($matches[1]).'"';
             },
         ];
-
-        foreach ($patterns as $pattern => $replacement) {
-            $html = preg_replace_callback($pattern, $replacement, $html);
-        }
-
-        return $html;
     }
 }
