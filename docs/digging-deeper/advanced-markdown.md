@@ -165,7 +165,7 @@ HydePHP provides a powerful feature for creating automatically resolved links wi
 You can use the following syntax options in your Markdown files:
 
 ```markdown
-<!-- Resolving a route -->
+<!-- Resolving a page route -->
 [Home](hyde::route('home'))
 
 <!-- Resolving a relative link -->
@@ -179,42 +179,18 @@ You can use the following syntax options in your Markdown files:
 
 The Hyde Markdown processor handles these special links during the conversion process. This means that the feature works regardless of whether you have custom HTML or Blade enabled for your site.
 
+
 Here's what each function does:
 
-- `hyde::route()`: Generates a link to a specific route in your Hyde site.
-- `hyde::relativeLink()`: Creates a relative link to another page.
-- `hyde::asset()`: Resolves the path to a media asset in your site.
-
-### Behavior and Error Handling
-
-- If the specified route or asset exists, Hyde will generate the correct URL.
-- If a route specified in `hyde::route()` does not exist, a `RouteNotFoundException` will be thrown. This helps catch errors early in the development process.
-
->info Note: The exception throwing behavior for non-existent routes is designed to provide immediate feedback during development. In production environments, you may want to handle these exceptions gracefully.
-
-### Best Practices
-
-1. Always double-check that the pages or assets you're linking to exist in your project.
-2. Use meaningful names for your routes to make your Markdown more readable and maintainable.
-3. Consider using `hyde::relativeLink()` for local navigation if your site structure might change.
-
-### Customization
-
-You can customize how Hyde handles dynamic links by modifying the `config/hyde.php` file. For example, you might want to change how non-existent routes are handled in production:
-
-```php
-// filepath: config/hyde.php
-'dynamic_links' => [
-    'throw_exception_on_missing_route' => env('APP_ENV') === 'local',
-],
-```
-
-### Limitations
-
-- The dynamic link syntax is only processed within Markdown files. It won't work in plain HTML or Blade templates.
-- Make sure to use the correct syntax (`hyde::function('parameter')`) as other variations may not be recognized.
+- `hyde::route()`: Generates a link to a specific route in your Hyde site. This is equivalent to `{{ Hyde::route('route.name') }}` in Blade (But we throw if the route doesn't exist).
+- `hyde::relativeLink()`: Creates a relative link to another page. This is equivalent to `{{ Hyde::relativeLink('path') }}` in Blade.
+- `hyde::asset()`: Resolves the path to a media asset in your site. This is equivalent to `{{ Hyde::asset('path') }}` in Blade.
 
 By using these dynamic Markdown links, you can create more maintainable and flexible content, allowing your site structure to evolve without breaking internal links.
+
+### Considerations
+
+**Note:** For the route helper we throw an exception if the route doesn't exist. This is to provide immediate feedback during development.
 
 ### Limitations
 
