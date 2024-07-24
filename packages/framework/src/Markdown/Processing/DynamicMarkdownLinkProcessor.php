@@ -8,5 +8,8 @@ use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
 class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 {
-    //
+    public static function postprocess(string $html): string
+    {
+        // TODO: Implement postprocess() method.
+    }
 }
