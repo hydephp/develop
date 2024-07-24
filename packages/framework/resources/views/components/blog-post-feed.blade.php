@@ -4,5 +4,5 @@
         <meta itemprop="position" content="{{ $index + 1 }}">
         @include('hyde::components.article-excerpt')
     </li>
-  @endforeach
+@endforeach
 </ol>
