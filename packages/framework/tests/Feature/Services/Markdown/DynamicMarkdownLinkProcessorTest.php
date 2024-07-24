@@ -83,11 +83,11 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
     public function testMultipleReplacements()
     {
-        $input = <<<'MARKDOWN'
+        $input = <<<'HTML'
         <a href="hyde::route('home')">Home</a>
         <a href="hyde::relativeLink('about')">About</a>
         <img src="hyde::asset('logo.png')" alt="Logo" />
-        MARKDOWN;
+        HTML;
 
         $expected = <<<'HTML'
         <a href="home.html">Home</a>
