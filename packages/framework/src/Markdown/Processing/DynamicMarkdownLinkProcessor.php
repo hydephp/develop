@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Processing;
 
-class DynamicMarkdownLinkProcessor
+use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
+
+class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 {
     //
 }
