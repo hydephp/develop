@@ -30,13 +30,7 @@
         <div class="mt-12">
             <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Posts by {{ $author->name }}</h2>
             <ul class="space-y-4">
-                @foreach($author->getPosts() as $post)
-                    <li>
-                        <article itemscope itemtype="https://schema.org/BlogPosting">
-                            @include('hyde::components.article-excerpt', ['post' => $post])
-                        </article>
-                    </li>
-                @endforeach
+                @include('hyde::components.blog-post-feed', ['posts' => $author->getPosts()])
             </ul>
         </div>
     </main>
