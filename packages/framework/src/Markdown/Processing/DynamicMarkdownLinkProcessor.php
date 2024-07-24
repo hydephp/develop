@@ -34,9 +34,6 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 
                 return '<a href="'.$route.'"';
             },
-            '/<a href="hyde::relativeLink\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
-                return '<a href="'.Hyde::relativeLink($matches[2]).'"';
-            },
             '/<img src="hyde::asset\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
                 return '<img src="'.Hyde::asset($matches[2]).'"';
             },

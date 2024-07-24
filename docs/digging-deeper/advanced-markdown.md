@@ -173,9 +173,6 @@ You can use the following syntax options in your Markdown files:
 <!-- Resolving a page route -->
 [Home](hyde::route('home'))
 
-<!-- Resolving a relative link -->
-[About](hyde::relativeLink('about'))
-
 <!-- Resolving a media asset -->
 ![Logo](hyde::asset('logo.png'))
 ```
@@ -190,9 +187,6 @@ The example above is equivalent to the following Blade syntax:
 ```blade
 <!-- Resolving a page route -->
 {{ Hyde::route('route.name') ?? throw new RouteNotFoundException() }}
-
-<!-- Resolving a relative link -->
-{{ Hyde::relativeLink('path') }}
 
 <!-- Resolving a media asset -->
 {{ Hyde::asset('path') }}
