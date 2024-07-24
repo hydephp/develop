@@ -12,6 +12,9 @@ use Hyde\Testing\UnitTestCase;
  */
 class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     public function testSignature()
     {
         $this->assertSame('>', ColoredBlockquotes::signature());
