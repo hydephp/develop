@@ -67,4 +67,26 @@ class BlogPostFeedComponentViewTest extends TestCase
             ->assertSee('Jane Doe')
             ->assertSeeHtml('</ol>');
     }
+
+    public function testPostFeedWithCustomPosts()
+    {
+        Hyde::pages()->add(new MarkdownPost('global', ['author' => 'default'], 'Ignored post content'));
+
+        $customPosts = [
+            new MarkdownPost('hello-world', ['author' => 'mr_hyde'], 'Hello World!'),
+            new MarkdownPost('second-post', ['author' => 'jane_doe'], 'Another post content'),
+        ];
+
+        $view = $this->view(view('hyde::components.blog-post-feed', [
+            'posts' => $customPosts,
+        ]));
+
+        $view->assertSeeHtml('<ol itemscope itemtype="https://schema.org/ItemList">')
+            ->assertDontSee('Ignored post content')
+            ->assertSee('Hello World')
+            ->assertSee('Mr. Hyde')
+            ->assertSee('Another post content')
+            ->assertSee('Jane Doe')
+            ->assertSeeHtml('</ol>');
+    }
 }
