@@ -10,7 +10,9 @@
     @endphp
 
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
-        <h1 class="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">Our Authors</h1>
+        <header class="mb-8">
+            <h1 class="text-center text-3xl font-bold">Our Authors</h1>
+        </header>
 
         <div class="flex flex-wrap justify-center gap-8">
             @foreach($authors as $author)
