@@ -91,10 +91,11 @@ class LoadYamlConfiguration
     protected function parseFeatures(array $features): array
     {
         return array_map(function (string $feature): Feature {
-            $enumName = Str::studly($feature);
-            $case = Feature::fromName($enumName);
+            $name = Str::studly($feature);
+            $case = Feature::fromName($name);
+
             if (! $case) {
-                throw new InvalidConfigurationException("Invalid feature '{$feature}' specified in the YAML config file. (Feature::{$enumName} does not exist)");
+                throw new InvalidConfigurationException("Invalid feature '{$feature}' specified in the YAML config file. (Feature::{$name} does not exist)");
             }
 
             return $case;
