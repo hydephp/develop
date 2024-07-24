@@ -158,7 +158,7 @@ anything within the path label will be rendered as HTML. This means you can add 
 
 ## Dynamic Markdown Links
 
-HydePHP provides a powerful feature for creating automatically resolved links within your pages and posts using a special Hyde Markdown link syntax. This feature allows you to generate dynamic links that are resolved based on the current page being rendered.
+HydePHP provides a powerful feature for automatically resolving dynamic links within your pages and posts using a special Hyde Markdown link syntax, designed to match the syntax of the `Hyde` facade.
 
 ### Usage
 
@@ -175,22 +175,25 @@ You can use the following syntax options in your Markdown files:
 ![Logo](hyde::asset('logo.png'))
 ```
 
-### How It Works
-
-The Hyde Markdown processor handles these special links during the conversion process. This means that the feature works regardless of whether you have custom HTML or Blade enabled for your site.
+By using these dynamic Markdown links, you can create more maintainable and flexible content, allowing your site structure to evolve without breaking internal links. The feature is always enabled in the Markdown converter.
 
 
-Here's what each function does:
+### Breakdown
 
-- `hyde::route()`: Generates a link to a specific route in your Hyde site. This is equivalent to `{{ Hyde::route('route.name') }}` in Blade (But we throw if the route doesn't exist).
-- `hyde::relativeLink()`: Creates a relative link to another page. This is equivalent to `{{ Hyde::relativeLink('path') }}` in Blade.
-- `hyde::asset()`: Resolves the path to a media asset in your site. This is equivalent to `{{ Hyde::asset('path') }}` in Blade.
+The example above is equivalent to the following Blade syntax:
 
-By using these dynamic Markdown links, you can create more maintainable and flexible content, allowing your site structure to evolve without breaking internal links.
+```blade
+<!-- Resolving a page route -->
+{{ Hyde::route('route.name') ?? throw new RouteNotFoundException() }}
 
-### Considerations
+<!-- Resolving a relative link -->
+{{ Hyde::relativeLink('path') }}
 
-**Note:** For the route helper we throw an exception if the route doesn't exist. This is to provide immediate feedback during development.
+<!-- Resolving a media asset -->
+{{ Hyde::asset('path') }}
+```
+
+As you can see, we throw an exception if the route doesn't exist, to provide immediate feedback during development.
 
 ### Limitations
 
