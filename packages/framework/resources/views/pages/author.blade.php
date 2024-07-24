@@ -1,8 +1,8 @@
 @props([/** @var \Hyde\Framework\Features\Blogging\Models\PostAuthor */ 'author'])
+@use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage')
+@use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage')
 @extends('hyde::layouts.app')
 @section('content')
-    @use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage')
-    @use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage')
 
     <main id="content" class="mx-auto max-w-7xl py-16 px-8" itemscope itemtype="https://schema.org/ProfilePage">
         <div class="flex flex-col items-center" itemprop="mainEntity" itemscope itemtype="https://schema.org/Person">
@@ -38,5 +38,4 @@
             </ul>
         </div>
     </main>
-
 @endsection
