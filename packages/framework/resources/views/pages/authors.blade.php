@@ -6,7 +6,7 @@
         // If any author has an avatar, we'll use avatars for all authors, so the layout looks consistent.
         $usesAvatars = $authors->contains(fn ($author) => $author->avatar);
         // The avatar fallback can be changed here (and it also works if a set avatar can't be loaded).
-        $avatarFallback = asset('avatar.png') ?? 'https://cdn.jsdelivr.net/gh/hydephp/cdn-static@master/avatar.png';
+        $avatarFallback = Asset::hasMediaFile('avatar.png') ? Asset::mediaLink('avatar.png') : 'https://cdn.jsdelivr.net/gh/hydephp/cdn-static@master/avatar.png';
     @endphp
 
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
