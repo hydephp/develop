@@ -1,4 +1,4 @@
-name: 🧪 Matrix Tests
+name: Matrix Tests
 
 on:
   pull_request:
