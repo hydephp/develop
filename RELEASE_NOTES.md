@@ -57,6 +57,7 @@ This serves two purposes:
 - Reorganized and cleaned up the navigation and sidebar documentation for improved clarity.
 - Moved the sidebar documentation to the documentation pages section for better organization.
 - The build command now groups together all `InMemoryPage` instances under one progress bar group in https://github.com/hydephp/develop/pull/1897
+- The `Markdown::render()` method will now always render Markdown using the custom HydePHP Markdown service (thus getting smart features like our Markdown processors) in https://github.com/hydephp/develop/pull/1900
 
 ### Deprecated
 - for soon-to-be removed features.
