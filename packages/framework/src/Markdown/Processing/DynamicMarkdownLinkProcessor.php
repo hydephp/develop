@@ -46,6 +46,7 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
             // While the other patterns work regardless of if input is valid,
             // this method returns null, which silently fails to an empty string.
             // So we instead throw an exception to alert the developer of the issue.
+
             throw new RouteNotFoundException($routeKey);
         }
     }
