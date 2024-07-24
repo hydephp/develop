@@ -1,4 +1,4 @@
-name: 🔥 Coverage Tests
+name: 🧮 Coverage Tests
 
 on:
   pull_request:
