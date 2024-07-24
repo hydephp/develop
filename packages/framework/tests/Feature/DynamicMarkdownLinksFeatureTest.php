@@ -9,8 +9,11 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 
 /**
  * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
@@ -154,5 +157,28 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         HTML;
 
         $this->assertSame($expected, Hyde::markdown($input)->toHtml());
+    }
+
+    public function testNonExistentRouteThrowsExceptionWithLineLocationWhenRenderingAPage()
+    {
+        $this->file('_pages/test.md', <<<'MARKDOWN'
+        Some
+        Extra
+        Newlines
+
+        [test](hyde::route('non-existent'))
+        
+        And some more text.
+        MARKDOWN);
+
+        try {
+            $page = MarkdownPage::parse('test');
+            StaticPageBuilder::handle($page);
+        } catch (RouteNotFoundException $exception) {
+            $this->assertSame('Route [non-existent] not found (in file _pages/test.md)', $exception->getMessage());
+            $this->assertSame(realpath(Hyde::path('_pages/test.md')), $exception->getFile());
+            $this->assertSame(5, $exception->getLine());
+            $this->assertIsString($exception->getFile());
+        }
     }
 }

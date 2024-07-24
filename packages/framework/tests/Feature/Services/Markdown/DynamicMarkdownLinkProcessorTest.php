@@ -6,7 +6,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
+use Mockery;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
@@ -108,6 +110,20 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
     public function testNonExistentRouteThrowsException()
     {
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage('Route [non-existent] not found.');
+
+        $input = '<p><a href="hyde::route(\'non-existent\')">Non-existent Route</a></p>';
+        DynamicMarkdownLinkProcessor::postprocess($input);
+    }
+
+    public function testNonExistentRouteThrowsExceptionWithGracefulLineFindingWhenNoFileSourceExists()
+    {
+        $instance = Mockery::mock(RenderData::class);
+        $instance->shouldReceive('getPage')->andReturn(new MarkdownPage('test'));
+
+        Render::swap($instance);
+
         $this->expectException(RouteNotFoundException::class);
         $this->expectExceptionMessage('Route [non-existent] not found.');
 
