@@ -36,6 +36,9 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $input = '<p><a href="hyde::route(\'home\')">Home</a></p>';
         $expected = '<p><a href="home.html">Home</a></p>';
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+
+        $inputUnquoted = '<p><a href="hyde::route(home)">Home</a></p>';
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($inputUnquoted));
     }
 
     public function testRelativeLinkReplacement()
@@ -43,6 +46,9 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $input = '<p><a href="hyde::relativeLink(\'about\')">About</a></p>';
         $expected = '<p><a href="about">About</a></p>';
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+
+        $inputUnquoted = '<p><a href="hyde::relativeLink(about)">About</a></p>';
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($inputUnquoted));
     }
 
     public function testAssetReplacement()
@@ -50,6 +56,9 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $input = '<p><img src="hyde::asset(\'image.jpg\')" alt="Image" /></p>';
         $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+
+        $inputUnquoted = '<p><img src="hyde::asset(image.jpg)" alt="Image" /></p>';
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($inputUnquoted));
     }
 
     public function testMultipleReplacements()
@@ -67,6 +76,14 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         HTML;
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+
+        $inputUnquoted = <<<'MARKDOWN'
+        <a href="hyde::route(home)">Home</a>
+        <a href="hyde::relativeLink(about)">About</a>
+        <img src="hyde::asset(logo.png)" alt="Logo" />
+        MARKDOWN;
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($inputUnquoted));
     }
 
     public function testNoReplacements()

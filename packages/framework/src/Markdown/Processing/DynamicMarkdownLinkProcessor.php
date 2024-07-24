@@ -22,14 +22,14 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
     protected static function patterns(): array
     {
         return [
-            '/<a href="hyde::route\(\'([^\']+)\'\)"/' => function (array $matches): string {
-                return '<a href="'.Hyde::route($matches[1]).'"';
+            '/<a href="hyde::route\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
+                return '<a href="'.Hyde::route($matches[2]).'"';
             },
-            '/<a href="hyde::relativeLink\(\'([^\']+)\'\)"/' => function (array $matches): string {
-                return '<a href="'.Hyde::relativeLink($matches[1]).'"';
+            '/<a href="hyde::relativeLink\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
+                return '<a href="'.Hyde::relativeLink($matches[2]).'"';
             },
-            '/<img src="hyde::asset\(\'([^\']+)\'\)"/' => function (array $matches): string {
-                return '<img src="'.Hyde::asset($matches[1]).'"';
+            '/<img src="hyde::asset\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
+                return '<img src="'.Hyde::asset($matches[2]).'"';
             },
         ];
     }
