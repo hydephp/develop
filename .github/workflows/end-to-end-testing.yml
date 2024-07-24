@@ -76,7 +76,6 @@ jobs:
   visual-regression-testing:
     runs-on: ubuntu-latest
     needs: dusk-browser-tests
-    # if: (! github.event.pull_request.draft)
     if: contains(github.event.pull_request.labels.*.name, 'run-visual-tests') || github.event_name == 'push'
     steps:
       - name: Download Dusk generated pages
