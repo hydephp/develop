@@ -163,51 +163,40 @@ The filepaths are hidden on mobile devices using CSS to prevent them from overla
 
 ## Dynamic Markdown Links
 
-HydePHP provides a powerful feature for automatically resolving dynamic links within your pages and posts using source file paths, which are then converted to the appropriate routes in the built site.
+## Overview
+HydePHP automatically resolves links in your Markdown files using source file paths, converting them to appropriate routes in the built site.
 
-### Usage
-
-You can use the following syntax options in your Markdown files:
+## Usage
+In your Markdown files, use source file paths for links:
 
 ```markdown
-<!-- Resolving a page route -->
 [Home](/_pages/index.blade.php)
-
-<!-- Resolving a media asset -->
 ![Logo](/_media/logo.svg)
 ```
 
-By using these dynamic Markdown links, you can create more maintainable and flexible content, allowing your site structure to evolve without breaking internal links. The feature is always enabled in the Markdown converter.
+## How It Works
+During the build process, HydePHP converts source paths to their corresponding routes:
 
-### How It Works
+- `/_pages/index.blade.php` becomes `index.html`
+- `/_pages/blog/post.blade.php` becomes `blog/post.html`
+- `/_media/logo.svg` becomes `media/logo.svg`
 
-When you use a source file path in your Markdown links, HydePHP will automatically convert it to the appropriate route or asset path in the built site. For example:
+## Benefits
+- Enhanced IDE support (autocompletion, error checking)
+- Proper syntax highlighting in Markdown editors
+- Easy navigation to source files
 
-- `/_pages/index.blade.php` will be converted to `index.html`
-- `/_pages/blog/post.blade.php` will be converted to `blog/post.html`
-- `/_media/logo.svg` will be converted to `media/logo.svg`
+## Limitations
+- Doesn't support dynamic routes
+- Content becomes coupled to project structure
+- Requires manual updates if files are moved or renamed
 
-This conversion happens during the build process, ensuring that your links are always up-to-date with your current site structure.
+## Best Practices
+1. Use leading slashes in links for consistency
+2. Maintain an organized file structure
+3. Regularly check for broken links, especially after file operations
 
-### Benefits
-
-1. **IDE Support**: By using actual file paths, you get better IDE support, including autocompletion and error checking.
-2. **Syntax Highlighting**: Your Markdown editor can provide proper syntax highlighting for these links, as they use standard Markdown syntax.
-3. **Easy Navigation**: You can easily navigate to the source files by clicking on the links in your IDE.
-
-### Limitations
-
-- This syntax doesn't support linking to dynamic routes. For such cases, you may need to use a different approach.
-- If you move or rename source files, make sure to update any Markdown links referencing them to avoid broken links.
-- While this approach provides better IDE support and syntax highlighting, it does couple your content to your project structure. Consider this trade-off when deciding to use this feature.
-
-### Best Practices
-
-1. Always use the leading slash (`/`) in your links to ensure consistency and avoid potential issues with relative paths.
-2. Keep your file structure organized and consistent to make it easier to manage links.
-3. Regularly check for broken links in your content, especially after moving or renaming files.
-
-By following these guidelines and understanding the limitations, you can effectively use dynamic Markdown links to create more maintainable and flexible content in your HydePHP projects.
+By leveraging this feature, you can create more maintainable content while enjoying improved developer tooling support.
 
 ## Configuration
 

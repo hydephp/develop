@@ -8,6 +8,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Support\Includes;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
@@ -15,6 +16,8 @@ use Hyde\Foundation\Facades\Routes;
 /**
  * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
  * @covers \Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter
+ *
+ * @see \Hyde\Framework\Testing\Feature\Services\Markdown\DynamicMarkdownLinkProcessorTest
  */
 class DynamicMarkdownLinksFeatureTest extends TestCase
 {
@@ -141,5 +144,109 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         HTML;
 
         $this->assertSame($expected, Hyde::markdown($input)->toHtml());
+    }
+
+    public function testCanRenderPageWithDynamicMarkdownLinks()
+    {
+        $this->file('_pages/test.md', <<<'MARKDOWN'
+        [Home](/_pages/index.blade.php)
+        ![Logo](/_media/logo.png)
+
+        [non-existent](/_pages/non-existent.md)
+        ![non-existent](/_media/non-existent.png)
+        MARKDOWN);
+
+        $page = MarkdownPage::get('test');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $expected = [
+            '<a href="index.html">Home</a>',
+            '<img src="media/logo.png" alt="Logo" />',
+            '<a href="/_pages/non-existent.md">non-existent</a>',
+            '<img src="/_media/non-existent.png" alt="non-existent" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+    }
+
+    public function testCanRenderNestedPageWithDynamicMarkdownLinks()
+    {
+        $this->file('_pages/nested/test.md', <<<'MARKDOWN'
+        [Home](/_pages/index.blade.php)
+        ![Logo](/_media/logo.png)
+
+        [non-existent](/_pages/non-existent.md)
+        ![non-existent](/_media/non-existent.png)
+        MARKDOWN);
+
+        $page = MarkdownPage::get('nested/test');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $expected = [
+            '<a href="../index.html">Home</a>',
+            '<img src="../media/logo.png" alt="Logo" />',
+            '<a href="/_pages/non-existent.md">non-existent</a>',
+            '<img src="/_media/non-existent.png" alt="non-existent" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+    }
+
+    public function testCanRenderIncludeWithDynamicMarkdownLinks()
+    {
+        // if there is no current path data, we assume the file is included from the root
+
+        $this->file('resources/includes/test.md', <<<'MARKDOWN'
+        [Home](/_pages/index.blade.php)
+        ![Logo](/_media/logo.png)
+
+        [non-existent](/_pages/non-existent.md)
+        ![non-existent](/_media/non-existent.png)
+        MARKDOWN);
+
+        $html = Includes::markdown('test')->toHtml();
+
+        $expected = [
+            '<a href="index.html">Home</a>',
+            '<img src="media/logo.png" alt="Logo" />',
+            '<a href="/_pages/non-existent.md">non-existent</a>',
+            '<img src="/_media/non-existent.png" alt="non-existent" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+    }
+
+    public function testCanRenderIncludeFromNestedPageWithDynamicMarkdownLinks()
+    {
+        $this->mockCurrentPage('nested/test');
+
+        $this->file('resources/includes/test.md', <<<'MARKDOWN'
+        [Home](/_pages/index.blade.php)
+        ![Logo](/_media/logo.png)
+
+        [non-existent](/_pages/non-existent.md)
+        ![non-existent](/_media/non-existent.png)
+        MARKDOWN);
+
+        $html = Includes::markdown('test')->toHtml();
+
+        $expected = [
+            '<a href="../index.html">Home</a>',
+            '<img src="../media/logo.png" alt="Logo" />',
+            '<a href="/_pages/non-existent.md">non-existent</a>',
+            '<img src="/_media/non-existent.png" alt="non-existent" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
     }
 }
