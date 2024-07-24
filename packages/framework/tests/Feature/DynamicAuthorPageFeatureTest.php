@@ -18,7 +18,7 @@ use Hyde\Facades\Filesystem;
  * @covers \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage
  * @covers \Hyde\Foundation\HydeCoreExtension
  */
-class DynamicAuthorPagesTest extends TestCase
+class DynamicAuthorPageFeatureTest extends TestCase
 {
     protected function tearDown(): void
     {
