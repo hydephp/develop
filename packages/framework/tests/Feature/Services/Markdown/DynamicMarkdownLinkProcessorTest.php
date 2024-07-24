@@ -105,6 +105,8 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
+    // Fault tolerance tests
+
     public function testMalformedRouteLink()
     {
         $input = '<p><a href="hyde::route(\'home">Malformed Home</a></p>';
