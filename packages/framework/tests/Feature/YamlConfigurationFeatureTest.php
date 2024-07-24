@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
+use ReflectionClass;
+use Hyde\Enums\Feature;
 use Hyde\Testing\TestCase;
+use Hyde\Facades\Features;
 use Illuminate\Support\Env;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Framework\Features\Navigation\NavigationItem;
@@ -724,6 +727,50 @@ class YamlConfigurationFeatureTest extends TestCase
 
         $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
         unlink('hyde.yml');
+    }
+
+    public function testCanSpecifyFeaturesInYamlConfiguration()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          features:
+            - html-pages
+            - markdown-posts
+            - blade-pages
+            - markdown-pages
+            - documentation-pages
+        YAML);
+
+        $this->runBootstrappers();
+
+        $expectedFeatures = [
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+            Feature::MarkdownPages,
+            Feature::DocumentationPages,
+        ];
+
+        // Test that the Features facade methods return the correct values
+        $this->assertTrue(Features::hasHtmlPages());
+        $this->assertTrue(Features::hasMarkdownPosts());
+        $this->assertTrue(Features::hasBladePages());
+        $this->assertTrue(Features::hasMarkdownPages());
+        $this->assertTrue(Features::hasDocumentationPages());
+        $this->assertFalse(Features::hasDarkmode());
+        $this->assertFalse(Features::hasDocumentationSearch());
+        $this->assertFalse(Features::hasTorchlight());
+
+        // Test that a disabled feature returns false
+        $this->assertFalse(Features::has(Feature::Darkmode));
+
+
+        // Use reflection to access the protected features property
+        $reflection = new ReflectionClass(Hyde::features());
+        $featuresProperty = $reflection->getProperty('features');
+        $actualFeatures = $featuresProperty->getValue(Hyde::features());
+
+        $this->assertSame($expectedFeatures, $actualFeatures);
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
