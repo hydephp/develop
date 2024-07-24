@@ -53,21 +53,33 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
             $exception = new RouteNotFoundException($routeKey);
 
             // In order to show the developer where this error is, we try to find the faulty Markdown file.
-            $page = Render::getPage();
-            if ($page !== null) {
-                $path = $page->getSourcePath();
-                $contents = Filesystem::getContents($path);
-                // Try to find the line number of the error.
-                $lineNumber = strpos($contents, $routeKey);
-                if ($lineNumber !== false) {
-                    $lineNumber = substr_count(substr($contents, 0, $lineNumber), "\n") + 1;
-                    $exception->setErroredFile($path, $lineNumber);
-                } else {
-                    $exception->setErroredFile($path);
-                }
-            }
+            self::tryToFindErroredLine($routeKey, $exception);
 
             throw $exception;
+        }
+    }
+
+    /**
+     * @interal If we use more features like these we may want to wrap the RouteNotFoundException in a custom MarkdownPageException.
+     *
+     * @experimental
+     *
+     * @codeCoverageIgnore
+     */
+    protected static function tryToFindErroredLine($routeKey, RouteNotFoundException $exception): void
+    {
+        $page = Render::getPage();
+        if ($page !== null) {
+            $path = $page->getSourcePath();
+            $contents = Filesystem::getContents($path);
+            // Try to find the line number of the error.
+            $lineNumber = strpos($contents, $routeKey);
+            if ($lineNumber !== false) {
+                $lineNumber = substr_count(substr($contents, 0, $lineNumber), "\n") + 1;
+                $exception->setErroredFile($path, $lineNumber);
+            } else {
+                $exception->setErroredFile($path);
+            }
         }
     }
 }
