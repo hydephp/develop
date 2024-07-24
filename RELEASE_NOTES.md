@@ -21,6 +21,7 @@ This serves two purposes:
 - Introduced a new navigation config builder class to simplify navigation configuration in https://github.com/hydephp/develop/pull/1827
 - You can now add custom posts to the blog post feed component when including it directly in https://github.com/hydephp/develop/pull/1893
 - Added a `Feature::fromName()` enum helper in https://github.com/hydephp/develop/pull/1895
+- Added support for specifying features in the YAML configuration in https://github.com/hydephp/develop/pull/1896
 
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
