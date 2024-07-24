@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Processing;
 
 use Hyde\Hyde;
+use Hyde\Support\Models\Route;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
@@ -25,12 +26,7 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
         return [
             '/<a href="hyde::route\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
                 $route = Hyde::route($matches[2]);
-                if ($route === null) {
-                    // While the other patterns work regardless of if input is valid,
-                    // this method returns null, which silently fails to an empty string.
-                    // So we instead throw an exception to alert the developer of the issue.
-                    throw new RouteNotFoundException($matches[2]);
-                }
+                static::validateRouteExists($route, $matches[2]);
 
                 return '<a href="'.$route.'"';
             },
@@ -41,5 +37,15 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
                 return '<img src="'.Hyde::asset($matches[2]).'"';
             },
         ];
+    }
+
+    protected static function validateRouteExists(?Route $route, $routeKey): void
+    {
+        if ($route === null) {
+            // While the other patterns work regardless of if input is valid,
+            // this method returns null, which silently fails to an empty string.
+            // So we instead throw an exception to alert the developer of the issue.
+            throw new RouteNotFoundException($routeKey);
+        }
     }
 }
