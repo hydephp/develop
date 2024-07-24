@@ -172,7 +172,7 @@ Since this happens in our Markdown processor, this will work regardless of if yo
 [Home](hyde::relativeLink('home'))
 
 <!-- Resolving a media asset -->
-![Image](hyde::media('image.jpg'))
+![Image](hyde::asset('image.jpg'))
 ```
 
 ### Limitations
