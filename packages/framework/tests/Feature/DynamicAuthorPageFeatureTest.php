@@ -106,7 +106,7 @@ class DynamicAuthorPageFeatureTest extends TestCase
                 name: 'John Doe',
                 website: 'https://johndoe.dev',
                 bio: 'Full-stack developer and HydePHP enthusiast',
-                avatar: 'john-avatar.jpg',
+                avatar: 'https://ui-avatars.com/api/?name=John+Doe&background=0D8ABC&color=fff',
                 socials: [
                     'twitter' => '@john_doe_dev',
                     'github' => 'johndoedev',
@@ -116,7 +116,6 @@ class DynamicAuthorPageFeatureTest extends TestCase
                 name: 'Jane Smith',
                 website: 'https://janesmith.design',
                 bio: 'UX designer with a passion for creating intuitive interfaces',
-                avatar: 'jane-avatar.jpg',
                 socials: [
                     'dribbble' => 'jane_smith_design',
                     'linkedin' => 'janesmith-ux',
