@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Enums;
 
+use function constant;
+
 /**
  * A configurable feature that belongs to the Features class.
  *
@@ -24,4 +26,9 @@ enum Feature
 
     // Integrations
     case Torchlight;
+
+    public static function fromName(string $name): self
+    {
+        return constant("self::$name");
+    }
 }
