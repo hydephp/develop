@@ -12,6 +12,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\RenderData;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
@@ -103,6 +104,15 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $input = '<p>This is a regular <a href="https://example.com">link</a> with no Hyde syntax.</p>';
 
         $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testNonExistentRouteThrowsException()
+    {
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage('Route [non-existent] not found.');
+
+        $input = '<p><a href="hyde::route(\'non-existent\')">Non-existent Route</a></p>';
+        DynamicMarkdownLinkProcessor::postprocess($input);
     }
 
     // Fault tolerance tests

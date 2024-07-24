@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Processing;
 
 use Hyde\Hyde;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
 class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
@@ -23,7 +24,15 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
     {
         return [
             '/<a href="hyde::route\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
-                return '<a href="'.Hyde::route($matches[2]).'"';
+                $route = Hyde::route($matches[2]);
+                if ($route === null) {
+                    // While the other patterns work regardless of if input is valid,
+                    // this method returns null, which silently fails to an empty string.
+                    // So we instead throw an exception to alert the developer of the issue.
+                    throw new RouteNotFoundException($matches[2]);
+                }
+
+                return '<a href="'.$route.'"';
             },
             '/<a href="hyde::relativeLink\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
                 return '<a href="'.Hyde::relativeLink($matches[2]).'"';
