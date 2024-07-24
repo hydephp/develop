@@ -35,21 +35,21 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
     {
         $input = '<p><a href="hyde::route(\'home\')">Home</a></p>';
         $expected = '<p><a href="home.html">Home</a></p>';
-        $this->assertEquals($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     public function testRelativeLinkReplacement()
     {
         $input = '<p><a href="hyde::relativeLink(\'about\')">About</a></p>';
         $expected = '<p><a href="about">About</a></p>';
-        $this->assertEquals($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     public function testAssetReplacement()
     {
         $input = '<p><img src="hyde::asset(\'image.jpg\')" alt="Image" /></p>';
         $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
-        $this->assertEquals($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     public function testMultipleReplacements()
@@ -66,12 +66,12 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         <img src="media/logo.png" alt="Logo" />
         HTML;
 
-        $this->assertEquals($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     public function testNoReplacements()
     {
         $input = '<p>This is a regular <a href="https://example.com">link</a> with no Hyde syntax.</p>';
-        $this->assertEquals($input, DynamicMarkdownLinkProcessor::postprocess($input));
+        $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 }
