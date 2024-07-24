@@ -36,10 +36,9 @@ class FeatureEnumTest extends UnitTestCase
         $this->assertSame(Feature::Torchlight, Feature::fromName('Torchlight'));
     }
 
-    public function testFromNameMethodThrowsExceptionForInvalidName()
+    public function testFromNameMethodReturnsNullForInvalidName()
     {
-        $this->expectException(\Error::class);
-        Feature::fromName('InvalidFeatureName');
+        $this->assertNull(Feature::fromName('InvalidName'));
     }
 
     public function testEnumValuesAreUnique()

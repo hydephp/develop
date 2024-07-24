@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Enums;
 
+use function defined;
 use function constant;
 
 /**
@@ -27,8 +28,12 @@ enum Feature
     // Integrations
     case Torchlight;
 
-    public static function fromName(string $name): self
+    public static function fromName(string $name): ?self
     {
+        if (! defined("self::$name")) {
+            return null;
+        }
+
         return constant("self::$name");
     }
 }
