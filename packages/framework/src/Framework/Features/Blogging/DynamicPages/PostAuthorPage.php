@@ -11,7 +11,7 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
  * @experimental
  *
  * @see \Hyde\Framework\Features\Blogging\BlogPostAuthorPages Which generates these pages.
- * @see \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage For the individual author pages.
+ * @see \Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage For the index page of all authors.
  */
 class PostAuthorPage extends InMemoryPage
 {
