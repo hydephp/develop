@@ -95,7 +95,7 @@ class LoadYamlConfiguration
             $case = Feature::fromName($name);
 
             if (! $case) {
-                throw new InvalidConfigurationException("Invalid feature '{$feature}' specified in the YAML config file. (Feature::{$name} does not exist)");
+                throw new InvalidConfigurationException("Invalid feature '$feature' specified in the YAML config file. (Feature::$name does not exist)");
             }
 
             return $case;
