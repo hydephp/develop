@@ -115,6 +115,22 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
+    public function testMalformedRouteLink2()
+    {
+        $input = '<p><a href="hyde::route(\'home)">Malformed Home</a></p>';
+        $expected = '<p><a href="hyde::route(\'home)">Malformed Home</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testMalformedRouteLink3()
+    {
+        $input = '<p><a href="hyde::route(\'home\'">Malformed Home</a></p>';
+        $expected = '<p><a href="hyde::route(\'home\'">Malformed Home</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
     public function testMalformedRelativeLink()
     {
         $input = '<p><a href="hyde::relativeLink(about\')">Malformed About</a></p>';
