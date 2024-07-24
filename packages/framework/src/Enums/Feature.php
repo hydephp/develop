@@ -28,6 +28,7 @@ enum Feature
     // Integrations
     case Torchlight;
 
+    /** Translates a case name into the corresponding Enum case, if any. If there is no matching case defined, it will return null. */
     public static function fromName(string $name): ?self
     {
         if (! defined("self::$name")) {
