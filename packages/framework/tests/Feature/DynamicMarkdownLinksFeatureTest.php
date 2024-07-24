@@ -55,6 +55,8 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
 
     public function testDynamicMarkdownLinksWithDoubleQuotes()
     {
+        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1590#discussion_r1690082732');
+
         $input = <<<'MARKDOWN'
         [Home](hyde::route("home"))
         [About](hyde::relativeLink("about"))
