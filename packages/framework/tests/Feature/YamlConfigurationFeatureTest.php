@@ -764,6 +764,35 @@ class YamlConfigurationFeatureTest extends TestCase
         // Test that a disabled feature returns false
         $this->assertFalse(Features::has(Feature::Darkmode));
 
+        // Use reflection to access the protected features property
+        $reflection = new ReflectionClass(Hyde::features());
+        $featuresProperty = $reflection->getProperty('features');
+        $actualFeatures = $featuresProperty->getValue(Hyde::features());
+
+        $this->assertSame($expectedFeatures, $actualFeatures);
+    }
+
+    public function testCanSpecifyFeaturesInYamlConfigurationWithUnderscores()
+    {
+        $this->file('hyde.yml', <<<'YAML'
+        hyde:
+          features:
+            - html_pages
+            - markdown_posts
+            - blade_pages
+            - markdown_pages
+            - documentation_pages
+        YAML);
+
+        $this->runBootstrappers();
+
+        $expectedFeatures = [
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+            Feature::MarkdownPages,
+            Feature::DocumentationPages,
+        ];
 
         // Use reflection to access the protected features property
         $reflection = new ReflectionClass(Hyde::features());
@@ -771,6 +800,28 @@ class YamlConfigurationFeatureTest extends TestCase
         $actualFeatures = $featuresProperty->getValue(Hyde::features());
 
         $this->assertSame($expectedFeatures, $actualFeatures);
+    }
+
+    public function testExceptionIsThrownWhenFeatureIsNotDefined()
+    {
+        $exceptionThrown = false;
+
+        file_put_contents('hyde.yml', <<<'YAML'
+        hyde:
+          features:
+            - not-a-feature
+        YAML);
+
+        try {
+            $this->runBootstrappers();
+        } catch (InvalidConfigurationException $exception) {
+            $exceptionThrown = true;
+            $this->assertSame("Invalid feature 'not-a-feature' specified in the YAML config file. (Feature::NotAFeature does not exist)", $exception->getMessage());
+        }
+
+        unlink('hyde.yml');
+
+        $this->assertTrue($exceptionThrown, 'Failed asserting that the exception was thrown.');
     }
 
     protected function runBootstrappers(?array $withMergedConfig = null): void
