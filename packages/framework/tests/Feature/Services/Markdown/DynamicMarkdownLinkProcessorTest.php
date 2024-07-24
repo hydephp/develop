@@ -104,4 +104,91 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
         $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
     }
+
+    public function testMalformedRouteLink()
+    {
+        $input = '<p><a href="hyde::route(\'home">Malformed Home</a></p>';
+        $expected = '<p><a href="hyde::route(\'home">Malformed Home</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testMalformedRelativeLink()
+    {
+        $input = '<p><a href="hyde::relativeLink(about\')">Malformed About</a></p>';
+        $expected = '<p><a href="hyde::relativeLink(about\')">Malformed About</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testMalformedAssetLink()
+    {
+        $input = '<p><img src="hyde::asset(\'image.jpg" alt="Malformed Image" /></p>';
+        $expected = '<p><img src="hyde::asset(\'image.jpg" alt="Malformed Image" /></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testEmptyRouteLink()
+    {
+        $input = '<p><a href="hyde::route()">Empty Route</a></p>';
+        $expected = '<p><a href="hyde::route()">Empty Route</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testEmptyRelativeLink()
+    {
+        $input = '<p><a href="hyde::relativeLink()">Empty Relative Link</a></p>';
+        $expected = '<p><a href="hyde::relativeLink()">Empty Relative Link</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testEmptyAssetLink()
+    {
+        $input = '<p><img src="hyde::asset()" alt="Empty Asset" /></p>';
+        $expected = '<p><img src="hyde::asset()" alt="Empty Asset" /></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testMixedValidAndInvalidLinks()
+    {
+        $input = <<<'HTML'
+        <a href="hyde::route('home')">Valid Home</a>
+        <a href="hyde::route(invalid'">Invalid Route</a>
+        <a href="hyde::relativeLink('about')">Valid About</a>
+        <a href="hyde::relativeLink(about')">Invalid Relative</a>
+        <img src="hyde::asset('logo.png')" alt="Valid Logo" />
+        <img src="hyde::asset('image.jpg" alt="Invalid Asset" />
+        HTML;
+
+        $expected = <<<'HTML'
+        <a href="home.html">Valid Home</a>
+        <a href="hyde::route(invalid'">Invalid Route</a>
+        <a href="about">Valid About</a>
+        <a href="hyde::relativeLink(about')">Invalid Relative</a>
+        <img src="media/logo.png" alt="Valid Logo" />
+        <img src="hyde::asset('image.jpg" alt="Invalid Asset" />
+        HTML;
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testMalformedHydeSyntax()
+    {
+        $input = '<p><a href="hyde:route(\'home\')">Malformed Hyde Syntax</a></p>';
+        $expected = '<p><a href="hyde:route(\'home\')">Malformed Hyde Syntax</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testNonExistentRouteFunction()
+    {
+        $input = '<p><a href="hyde::nonexistent(\'home\')">Non-existent Function</a></p>';
+        $expected = '<p><a href="hyde::nonexistent(\'home\')">Non-existent Function</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
 }
