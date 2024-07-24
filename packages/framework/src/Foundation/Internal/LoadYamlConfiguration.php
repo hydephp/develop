@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Internal;
 
+use Hyde\Enums\Feature;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Hyde\Foundation\Application;
 use Illuminate\Config\Repository;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
@@ -56,6 +58,10 @@ class LoadYamlConfiguration
                 $data['authors'] = $this->parseAuthors($data['authors']);
             }
 
+            if ($namespace === 'hyde' && isset($data['features'])) {
+                $data['features'] = $this->parseFeatures($data['features']);
+            }
+
             $this->mergeConfiguration($namespace, Arr::undot($data ?: []));
         }
     }
@@ -76,5 +82,23 @@ class LoadYamlConfiguration
 
             return InvalidConfigurationException::try(fn () => [$username => PostAuthor::create($author)], $message);
         });
+    }
+
+    /**
+     * @param  array<string>  $features
+     * @return array<\Hyde\Enums\Feature>
+     */
+    protected function parseFeatures(array $features): array
+    {
+        return array_map(function (string $feature): Feature {
+            $name = Str::studly($feature);
+            $case = Feature::fromName($name);
+
+            if (! $case) {
+                throw new InvalidConfigurationException("Invalid feature '{$feature}' specified in the YAML config file. (Feature::{$name} does not exist)");
+            }
+
+            return $case;
+        }, $features);
     }
 }
