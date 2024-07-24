@@ -31,8 +31,10 @@
             <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Posts by {{ $author->name }}</h2>
             <ul class="space-y-4">
                 @foreach($author->getPosts() as $post)
-                    <li itemprop="relatedItem" itemscope itemtype="https://schema.org/BlogPosting">
-                        @include('hyde::components.article-excerpt', ['post' => $post])
+                    <li>
+                        <article itemscope itemtype="https://schema.org/BlogPosting">
+                            @include('hyde::components.article-excerpt', ['post' => $post])
+                        </article>
                     </li>
                 @endforeach
             </ul>
