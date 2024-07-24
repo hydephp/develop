@@ -3,6 +3,14 @@ name: 🧪 Matrix Tests
 on:
   pull_request:
     branches: [ "master" ]
+    paths:
+      - 'app/**'
+      - 'packages/**'
+      - 'resources/**'
+      - 'tests/**'
+      - 'config/**'
+      - '.github/workflows/matrix-tests.yml'
+      - '*.*'
 
 jobs:
 
