@@ -26,6 +26,7 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
         return [
             '/<a href="hyde::route\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
                 $route = Hyde::route($matches[2]);
+
                 static::validateRouteExists($route, $matches[2]);
 
                 return '<a href="'.$route.'"';
