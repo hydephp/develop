@@ -9,8 +9,6 @@ use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 
 /**
  * The base Markdown converter class.
- *
- * "Extends" \League\CommonMark\CommonMarkConverter.
  */
 class MarkdownConverter extends \League\CommonMark\MarkdownConverter
 {
