@@ -12,6 +12,9 @@ use Hyde\Markdown\Models\Markdown;
  */
 class MarkdownFacadeTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     public function testRender(): void
     {
         $html = Markdown::render('# Hello World!');
