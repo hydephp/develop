@@ -56,6 +56,7 @@ This serves two purposes:
 - Markdown returned from includes are now trimmed of trailing whitespace and newlines in https://github.com/hydephp/develop/pull/1738
 - Reorganized and cleaned up the navigation and sidebar documentation for improved clarity.
 - Moved the sidebar documentation to the documentation pages section for better organization.
+- The build command now groups together all `InMemoryPage` instances under one progress bar group in https://github.com/hydephp/develop/pull/1897
 
 ### Deprecated
 - for soon-to-be removed features.
