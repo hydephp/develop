@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Processing;
 
 use Hyde\Hyde;
+use Hyde\Facades\Filesystem;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
+use Illuminate\Support\Facades\File;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
@@ -54,7 +56,15 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
             $page = Render::getPage();
             if ($page !== null) {
                 $path = $page->getSourcePath();
-                $exception->setErroredFile($path);
+                $contents = Filesystem::getContents($path);
+                // Try to find the line number of the error.
+                $lineNumber = strpos($contents, $routeKey);
+                if ($lineNumber !== false) {
+                    $lineNumber = substr_count(substr($contents, 0, $lineNumber), "\n") + 1;
+                    $exception->setErroredFile($path, $lineNumber);
+                } else {
+                    $exception->setErroredFile($path);
+                }
             }
 
             throw $exception;

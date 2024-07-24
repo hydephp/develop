@@ -28,8 +28,11 @@ class RouteNotFoundException extends Exception
      *
      * @codeCoverageIgnore
      */
-    public function setErroredFile(string $path): void
+    public function setErroredFile(string $path, int $line = 0): void
     {
-        $this->message = rtrim($this->message, '.').sprintf(' (in file [%s])', $path);
+        $this->message = rtrim($this->message, '.').sprintf(' (in file %s)', $path);
+
+        $this->file = realpath($path) ?: $path;
+        $this->line = $line;
     }
 }
