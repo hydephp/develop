@@ -3,36 +3,32 @@
 @section('content')
     @use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorPage')
     @use('Hyde\Framework\Features\Blogging\DynamicPages\PostAuthorsPage')
-    @push('meta')
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                    {
-                        "@type": "ListItem",
-                        "position": 1,
-                        "name": "Home",
-                        "item": "{{ route('index')->getUrl() }}"
-                    },
-                    {
-                        "@type": "ListItem",
-                        "position": 2,
-                        "name": "Authors",
-                        "item": "{{ PostAuthorsPage::route()->getUrl() }}"
-                    },
-                    {
-                        "@type": "ListItem",
-                        "position": 3,
-                        "name": "{{ $author->name }}",
-                        "item": "{{ PostAuthorPage::route($author->username)->getUrl() }}"
-                    }
-                ]
-            }
-        </script>
-    @endpush
 
     <main id="content" class="mx-auto max-w-7xl py-16 px-8" itemscope itemtype="https://schema.org/ProfilePage">
+        <nav itemscope itemtype="https://schema.org/BreadcrumbList" class="mb-8">
+            <ol class="flex space-x-2">
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="{{ route('index')->getUrl() }}">
+                        <span itemprop="name">Home</span>
+                    </a>
+                    <meta itemprop="position" content="1" />
+                </li>
+                <li>&gt;</li>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="{{ PostAuthorsPage::route()->getUrl() }}">
+                        <span itemprop="name">Authors</span>
+                    </a>
+                    <meta itemprop="position" content="2" />
+                </li>
+                <li>&gt;</li>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">{{ $author->name }}</span>
+                    <meta itemprop="item" content="{{ PostAuthorPage::route($author->username)->getUrl() }}" />
+                    <meta itemprop="position" content="3" />
+                </li>
+            </ol>
+        </nav>
+
         <div class="flex flex-col items-center" itemprop="mainEntity" itemscope itemtype="https://schema.org/Person">
             @if($author->avatar)
                 <img src="{{ asset($author->avatar) }}" alt="{{ $author->name }}" class="w-32 h-32 rounded-full mb-4" itemprop="image">
