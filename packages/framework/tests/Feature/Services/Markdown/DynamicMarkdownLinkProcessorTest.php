@@ -54,8 +54,18 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
     public function testMultipleReplacements()
     {
-        $input = '<p><a href="hyde::route(\'home\')">Home</a> <a href="hyde::relativeLink(\'about\')">About</a> <img src="hyde::asset(\'logo.png\')" alt="Logo" /></p>';
-        $expected = '<p><a href="home.html">Home</a> <a href="about">About</a> <img src="media/logo.png" alt="Logo" /></p>';
+        $input = <<<'MARKDOWN'
+        <a href="hyde::route('home')">Home</a>
+        <a href="hyde::relativeLink('about')">About</a>
+        <img src="hyde::asset('logo.png')" alt="Logo" />
+        MARKDOWN;
+
+        $expected = <<<'HTML'
+        <a href="home.html">Home</a>
+        <a href="about">About</a>
+        <img src="media/logo.png" alt="Logo" />
+        HTML;
+
         $this->assertEquals($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
