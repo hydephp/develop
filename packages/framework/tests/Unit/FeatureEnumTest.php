@@ -12,16 +12,18 @@ use Hyde\Enums\Feature;
  */
 class FeatureEnumTest extends UnitTestCase
 {
-    public function testEnumCasesExist()
+    public function testEnumCases()
     {
-        $this->assertInstanceOf(Feature::class, Feature::HtmlPages);
-        $this->assertInstanceOf(Feature::class, Feature::MarkdownPosts);
-        $this->assertInstanceOf(Feature::class, Feature::BladePages);
-        $this->assertInstanceOf(Feature::class, Feature::MarkdownPages);
-        $this->assertInstanceOf(Feature::class, Feature::DocumentationPages);
-        $this->assertInstanceOf(Feature::class, Feature::Darkmode);
-        $this->assertInstanceOf(Feature::class, Feature::DocumentationSearch);
-        $this->assertInstanceOf(Feature::class, Feature::Torchlight);
+        $this->assertSame([
+            Feature::HtmlPages,
+            Feature::MarkdownPosts,
+            Feature::BladePages,
+            Feature::MarkdownPages,
+            Feature::DocumentationPages,
+            Feature::Darkmode,
+            Feature::DocumentationSearch,
+            Feature::Torchlight,
+        ], Feature::cases());
     }
 
     public function testFromNameMethod()
@@ -39,12 +41,5 @@ class FeatureEnumTest extends UnitTestCase
     public function testFromNameMethodReturnsNullForInvalidName()
     {
         $this->assertNull(Feature::fromName('InvalidName'));
-    }
-
-    public function testEnumValuesAreUnique()
-    {
-        $values = array_map(fn($case) => $case->name, Feature::cases());
-        $uniqueValues = array_unique($values);
-        $this->assertSame(count($values), count($uniqueValues));
     }
 }
