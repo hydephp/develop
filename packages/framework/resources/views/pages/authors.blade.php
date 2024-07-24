@@ -12,9 +12,9 @@
     <main id="content" class="mx-auto max-w-7xl py-16 px-8">
         <h1 class="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">Our Authors</h1>
 
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-wrap justify-center gap-8">
             @foreach($authors as $author)
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md" itemscope itemtype="https://schema.org/Person">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/3" itemscope itemtype="https://schema.org/Person">
                     <div class="flex flex-col items-center">
                         @if($usesAvatars)
                             <img src="{{ asset($author->avatar ?? $avatarFallback) }}" alt="{{ $author->name }}" class="w-24 h-24 rounded-full mb-4" itemprop="image" onerror="this.onerror=null; this.src='{{ $avatarFallback }}'">
