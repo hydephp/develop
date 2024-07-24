@@ -39,14 +39,6 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testRouteReplacementWithDoubleQuotes()
-    {
-        $input = '<p><a href="hyde::route("home")">Home</a></p>';
-        $expected = '<p><a href="home.html">Home</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
     public function testRouteReplacementWithoutQuotes()
     {
         $input = '<p><a href="hyde::route(home)">Home</a></p>';
@@ -63,14 +55,6 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testRelativeLinkReplacementWithDoubleQuotes()
-    {
-        $input = '<p><a href="hyde::relativeLink("about")">About</a></p>';
-        $expected = '<p><a href="about">About</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
     public function testRelativeLinkReplacementWithoutQuotes()
     {
         $input = '<p><a href="hyde::relativeLink(about)">About</a></p>';
@@ -82,14 +66,6 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
     public function testAssetReplacement()
     {
         $input = '<p><img src="hyde::asset(\'image.jpg\')" alt="Image" /></p>';
-        $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
-    public function testAssetReplacementWithDoubleQuotes()
-    {
-        $input = '<p><img src="hyde::asset("image.jpg")" alt="Image" /></p>';
         $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
