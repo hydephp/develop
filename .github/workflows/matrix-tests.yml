@@ -1,4 +1,4 @@
-name: 🧪 Test Suite (Pull Requests)
+name: 🧪 Matrix Tests
 
 on:
   pull_request:
