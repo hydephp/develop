@@ -20,4 +20,16 @@ class RouteNotFoundException extends Exception
     {
         parent::__construct($routeKey ? sprintf('Route [%s] not found.', $routeKey) : $this->message);
     }
+
+    /**
+     * @interal
+     *
+     * @experimental
+     *
+     * @codeCoverageIgnore
+     */
+    public function setErroredFile(string $path): void
+    {
+        $this->message = rtrim($this->message, '.').sprintf(' (in file [%s])', $path);
+    }
 }

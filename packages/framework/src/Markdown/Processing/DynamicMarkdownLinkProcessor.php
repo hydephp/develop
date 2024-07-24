@@ -6,6 +6,7 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
+use Hyde\Support\Facades\Render;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
@@ -47,7 +48,16 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
             // this method returns null, which silently fails to an empty string.
             // So we instead throw an exception to alert the developer of the issue.
 
-            throw new RouteNotFoundException($routeKey);
+            $exception = new RouteNotFoundException($routeKey);
+
+            // In order to show the developer where this error is, we try to find the faulty Markdown file.
+            $page = Render::getPage();
+            if ($page !== null) {
+                $path = $page->getSourcePath();
+                $exception->setErroredFile($path);
+            }
+
+            throw $exception;
         }
     }
 }
