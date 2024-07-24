@@ -156,6 +156,11 @@ anything within the path label will be rendered as HTML. This means you can add 
 ```
 ````
 
+### Limitations
+
+The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
+
+
 ## Dynamic Markdown Links
 
 HydePHP provides a powerful feature for automatically resolving dynamic links within your pages and posts using a special Hyde Markdown link syntax, designed to match the syntax of the `Hyde` facade.
@@ -195,9 +200,6 @@ The example above is equivalent to the following Blade syntax:
 
 As you can see, we throw an exception if the route doesn't exist, to provide immediate feedback during development.
 
-### Limitations
-
-The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
 
 ## Configuration
 
