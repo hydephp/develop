@@ -25,6 +25,7 @@ class PostAuthorPage extends InMemoryPage
     {
         parent::__construct($author->username, [
             'author' => $author,
+            'title' => $author->name,
             'navigation' => [
                 'visible' => PostAuthorsPage::$showInNavigation,
             ],
