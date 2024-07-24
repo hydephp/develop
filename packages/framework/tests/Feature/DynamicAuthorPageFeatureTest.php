@@ -34,16 +34,16 @@ class DynamicAuthorPageFeatureTest extends TestCase
         $this->assertSame([
             '_pages/404.blade.php',
             '_pages/index.blade.php',
-            '_posts/anonymous_post_1.md',
-            '_posts/guest_post_1.md',
-            '_posts/hyde_post_1.md',
-            '_posts/hyde_post_2.md',
-            '_posts/hyde_post_3.md',
-            '_posts/jane_post_1.md',
-            '_posts/jane_post_2.md',
+            '_posts/coffee_lover_post.md',
+            '_posts/guest_post_about_cats.md',
+            '_posts/hyde_framework_intro.md',
+            '_posts/laravel_tips.md',
+            '_posts/php8_features.md',
+            '_posts/ux_principles.md',
+            '_posts/web_design_trends.md',
             'authors/index',
-            'authors/mr_hyde',
-            'authors/jane_doe',
+            'authors/john_doe',
+            'authors/jane_smith',
             // 'authors/user123', // This user has no posts, so no author page should be created
             // TODO: 'authors/anonymous', // This will be supported as the author has made a post, and thus exists in the system, even if not in the config
             // TODO: 'authors/guest', // This post has no author, so no author page should be created (if the user wants one, they can define a config author named 'guest')
@@ -52,16 +52,16 @@ class DynamicAuthorPageFeatureTest extends TestCase
         $this->assertSame([
             404,
             'index',
-            'posts/anonymous_post_1',
-            'posts/guest_post_1',
-            'posts/hyde_post_1',
-            'posts/hyde_post_2',
-            'posts/hyde_post_3',
-            'posts/jane_post_1',
-            'posts/jane_post_2',
+            'posts/coffee_lover_post',
+            'posts/guest_post_about_cats',
+            'posts/hyde_framework_intro',
+            'posts/laravel_tips',
+            'posts/php8_features',
+            'posts/ux_principles',
+            'posts/web_design_trends',
             'authors/index',
-            'authors/mr_hyde',
-            'authors/jane_doe',
+            'authors/john_doe',
+            'authors/jane_smith',
             // 'authors/user123',
             // TODO: 'authors/anonymous',
             // TODO: 'authors/guest',
@@ -74,67 +74,70 @@ class DynamicAuthorPageFeatureTest extends TestCase
 
         // Check if the relevant pages were built
         $this->assertFileExists('_site/authors/index.html');
-        $this->assertFileExists('_site/authors/mr_hyde.html');
-        $this->assertFileExists('_site/authors/jane_doe.html');
-        $this->assertFileDoesNotExist('_site/author/user123.html');
+        $this->assertFileExists('_site/authors/john_doe.html');
+        $this->assertFileExists('_site/authors/jane_smith.html');
 
         // Check if the built pages contain the expected content
         $authorsPage = Filesystem::get('_site/authors/index.html');
-        $this->assertStringContainsString('Mr. Hyde', $authorsPage);
-        $this->assertStringContainsString('Jane Doe', $authorsPage);
-        $this->assertStringNotContainsString('user123', $authorsPage);
+        $this->assertStringContainsString('John Doe', $authorsPage);
+        $this->assertStringContainsString('Jane Smith', $authorsPage);
 
-        $mrHydePage = Filesystem::get('_site/authors/mr_hyde.html');
-        $this->assertStringContainsString('Mr. Hyde', $mrHydePage);
-        $this->assertStringContainsString('The mysterious author of HydePHP', $mrHydePage);
-        $this->assertStringContainsString('https://hydephp.com', $mrHydePage);
-        $this->assertStringContainsString('@HydeFramework', $mrHydePage);
-        $this->assertStringContainsString('hydephp', $mrHydePage);
-        $this->assertStringContainsString('Hyde post 1', $mrHydePage);
-        $this->assertStringContainsString('Hyde post 2', $mrHydePage);
-        $this->assertStringContainsString('Hyde post 3', $mrHydePage);
+        $johnDoePage = Filesystem::get('_site/authors/john_doe.html');
+        $this->assertStringContainsString('John Doe', $johnDoePage);
+        $this->assertStringContainsString('Full-stack developer and HydePHP enthusiast', $johnDoePage);
+        $this->assertStringContainsString('https://johndoe.dev', $johnDoePage);
+        $this->assertStringContainsString('@john_doe_dev', $johnDoePage);
+        $this->assertStringContainsString('johndoedev', $johnDoePage);
+        $this->assertStringContainsString('Introduction to HydePHP Framework', $johnDoePage);
+        $this->assertStringContainsString('Laravel Tips and Tricks', $johnDoePage);
+        $this->assertStringContainsString('Exploring PHP 8 Features', $johnDoePage);
 
-        $janeDoePage = Filesystem::get('_site/authors/jane_doe.html');
-        $this->assertStringContainsString('Jane Doe', $janeDoePage);
-        $this->assertStringContainsString('Slightly less evil. We think...', $janeDoePage);
-        $this->assertStringContainsString('Jane post 1', $janeDoePage);
-        $this->assertStringContainsString('Jane post 2', $janeDoePage);
+        $janeSmithPage = Filesystem::get('_site/authors/jane_smith.html');
+        $this->assertStringContainsString('Jane Smith', $janeSmithPage);
+        $this->assertStringContainsString('UX designer with a passion for creating intuitive interfaces', $janeSmithPage);
+        $this->assertStringContainsString('Web Design Trends for 2024', $janeSmithPage);
+        $this->assertStringContainsString('Essential UX Principles Every Designer Should Know', $janeSmithPage);
     }
 
     protected function setUpTestEnvironment(): void
     {
         Config::set('hyde.authors', [
-            'mr_hyde' => Author::create(
-                name: 'Mr. Hyde',
-                website: 'https://hydephp.com',
-                bio: 'The mysterious author of HydePHP',
-                avatar: 'avatar.png',
+            'john_doe' => Author::create(
+                name: 'John Doe',
+                website: 'https://johndoe.dev',
+                bio: 'Full-stack developer and HydePHP enthusiast',
+                avatar: 'john-avatar.jpg',
                 socials: [
-                    'twitter' => '@HydeFramework',
-                    'github' => 'hydephp',
+                    'twitter' => '@john_doe_dev',
+                    'github' => 'johndoedev',
                 ],
             ),
-            'jane_doe' => Author::create(
-                name: 'Jane Doe',
-                bio: 'Slightly less evil. We think...',
+            'jane_smith' => Author::create(
+                name: 'Jane Smith',
+                website: 'https://janesmith.design',
+                bio: 'UX designer with a passion for creating intuitive interfaces',
+                avatar: 'jane-avatar.jpg',
+                socials: [
+                    'dribbble' => 'jane_smith_design',
+                    'linkedin' => 'janesmith-ux',
+                ],
             ),
-            'user123' => Author::create(),
         ]);
 
-        // Create three pages for Mr. Hyde
-        $this->makePage('hyde_post_1', 'mr_hyde', 'Content for Hyde post 1');
-        $this->makePage('hyde_post_2', 'mr_hyde', 'Content for Hyde post 2');
-        $this->makePage('hyde_post_3', 'mr_hyde', 'Content for Hyde post 3');
+        // Create three pages for John Doe
+        $this->makePage('hyde_framework_intro', 'john_doe', 'Introduction to HydePHP Framework: A powerful static site generator');
+        $this->makePage('laravel_tips', 'john_doe', 'Laravel Tips and Tricks: Boost your productivity with these handy techniques');
+        $this->makePage('php8_features', 'john_doe', 'Exploring PHP 8 Features: What\'s new and exciting in the latest version');
 
-        // Create two pages for Jane Doe
-        $this->makePage('jane_post_1', 'jane_doe', 'Content for Jane post 1');
-        $this->makePage('jane_post_2', 'jane_doe', 'Content for Jane post 2');
+        // Create two pages for Jane Smith
+        $this->makePage('web_design_trends', 'jane_smith', 'Web Design Trends for 2024: Stay ahead of the curve with these emerging design patterns');
+        $this->makePage('ux_principles', 'jane_smith', 'Essential UX Principles Every Designer Should Know: Creating user-centric experiences');
 
-        // No pages for user123, but we will add one for an author that is not in the config
-        $this->makePage('anonymous_post_1', 'anonymous', 'Content for anonymous post 1');
+        // Add a post for an author that is not in the config
+        $this->makePage('coffee_lover_post', 'coffee_enthusiast', 'The Art of Brewing: My Journey Through Different Coffee Preparation Methods');
 
-        // We will also add a guest post, where there is no author
-        $this->makePage('guest_post_1', '', 'Content for guest post 1');
+        // Add a guest post with no author
+        $this->makePage('guest_post_about_cats', '', '10 Reasons Why Cats Make the Purr-fect Companions');
     }
 
     protected function makePage(string $identifier, string $author, string $markdown): void
