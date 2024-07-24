@@ -9,7 +9,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Hyde
  */
-class DynamicMarkdownLinksTest extends TestCase
+class DynamicMarkdownLinksFeatureTest extends TestCase
 {
     public function testExample()
     {
