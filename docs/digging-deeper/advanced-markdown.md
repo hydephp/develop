@@ -165,7 +165,7 @@ The filepaths are hidden on mobile devices using CSS to prevent them from overla
 
 HydePHP provides a powerful feature for automatically converting Markdown links to source files to the corresponding routes in the built site.
 
-This allows for much better writing experience when using an IDE, as you can easily navigate to the source file by clicking on the link. Hyde will then automatically resolve the link to the correct route when building the site, formatting the links properly using dynamic relative paths and your configured `pretty_urls` setting.
+This allows for a much better writing experience when using an IDE, as you can easily navigate to the source file by clicking on the link. Hyde will then automatically resolve the link to the correct route when building the site, formatting the links properly using dynamic relative paths and your configured `pretty_urls` setting.
 
 ## Usage
 
@@ -182,7 +182,7 @@ As you can see, it works for both pages and media assets. The leading slash is o
 
 ### Behind the Scenes
 
-During the build process, HydePHP converts source paths to their corresponding routes, and evaluates them depending on the page being rendered.
+During the build process, HydePHP converts source paths to their corresponding routes and evaluates them depending on the page being rendered.
 
 If your page is in the site root then:
 
@@ -196,16 +196,16 @@ If your page is in a subdirectory then:
 
 Of course, if your page is in a more deeply nested directory, the number of `../` will increase accordingly.
 
-We will of course also match your configured preference for `pretty_urls` and only include the `.html` extension when desired.
+We will also match your configured preference for `pretty_urls` and only include the `.html` extension when desired.
 
 ### Limitations
 
 There are some limitations and considerations to keep in mind when using this feature:
 
-- This feature won't work for dynamic routes (not backed by a file)
+- This feature will not work for dynamic routes (not backed by a file)
 - If you rename a file, links will break. Your IDE may warn about this.
-- If a file is not found, we won't be able to see it when evaluating links.
-- Relative links are not supported (so ../_pages/index.blade.php won't work)
+- If a file is not found, we will not be able to see it when evaluating links.
+- Relative links are not supported (so `../_pages/index.blade.php` will not work)
 
 ## Configuration
 
