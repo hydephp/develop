@@ -9,9 +9,12 @@ use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
 use Hyde\Testing\UnitTestCase;
+use Hyde\Support\Facades\Render;
 use Illuminate\Support\HtmlString;
+use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Filesystem\Filesystem;
+use Hyde\Testing\MocksKernelFeatures;
 
 /**
  * @covers \Hyde\Support\Includes
@@ -20,6 +23,8 @@ use Illuminate\Filesystem\Filesystem;
  */
 class IncludesFacadeUnitTest extends UnitTestCase
 {
+    use MocksKernelFeatures;
+
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
@@ -28,6 +33,10 @@ class IncludesFacadeUnitTest extends UnitTestCase
         parent::setUp();
 
         Blade::swap(Mockery::mock());
+
+        $this->setupTestKernel();
+        $this->kernel->setRoutes(collect());
+        Render::swap(new RenderData());
     }
 
     protected function tearDown(): void

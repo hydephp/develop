@@ -163,37 +163,49 @@ The filepaths are hidden on mobile devices using CSS to prevent them from overla
 
 ## Dynamic Markdown Links
 
-HydePHP provides a powerful feature for automatically resolving dynamic links within your pages and posts using a special Hyde Markdown link syntax, designed to match the syntax of the `Hyde` facade.
+## Overview
 
-### Usage
+HydePHP provides a powerful feature for automatically converting Markdown links to source files to the corresponding routes in the built site.
 
-You can use the following syntax options in your Markdown files:
+This allows for much better writing experience when using an IDE, as you can easily navigate to the source file by clicking on the link.
+
+## Usage
+
+Using the feature is simple: Just use source file paths for links:
 
 ```markdown
-<!-- Resolving a page route -->
-[Home](hyde::route('home'))
-
-<!-- Resolving a media asset -->
-![Logo](hyde::asset('logo.png'))
+[Home](/_pages/index.blade.php)
+![Logo](/_media/logo.svg)
 ```
 
-By using these dynamic Markdown links, you can create more maintainable and flexible content, allowing your site structure to evolve without breaking internal links. The feature is always enabled in the Markdown converter.
+As you can see, it works for both pages and media assets. The leading slash is optional and will be ignored by Hyde, but including it often gives better IDE support.
 
+### Behind the Scenes
 
-### Breakdown
+During the build process, HydePHP converts source paths to their corresponding routes, and evaluates them depending on the page being rendered.
 
-The example above is equivalent to the following Blade syntax:
+If your page is in the site root then:
 
-```blade
-<!-- Resolving a page route -->
-{{ Hyde::route('route.name') ?? throw new RouteNotFoundException() }}
+- `/_pages/index.blade.php` becomes `index.html`
+- `/_media/logo.svg` becomes `media/logo.svg`
 
-<!-- Resolving a media asset -->
-{{ Hyde::asset('path') }}
-```
+If your page is in a subdirectory then:
 
-As you can see, we throw an exception if the route doesn't exist, to provide immediate feedback during development.
+- `/_pages/index.blade.php` becomes `../index.html`
+- `/_media/logo.svg` becomes `../media/logo.svg`
 
+Of course, if your page is in a more deeply nested directory, the number of `../` will increase accordingly.
+
+We will of course also match your configured preference for `pretty_urls` and only include the `.html` extension when desired.
+
+### Limitations
+
+There are some limitations and considerations to keep in mind when using this feature:
+
+- This feature won't work for dynamic routes (not backed by a file)
+- If you rename a file, links will break. Your IDE may warn about this.
+- If a file is not found, we won't be able to see it when evaluating links.
+- Relative links are not supported (so ../_pages/index.blade.php won't work)
 
 ## Configuration
 

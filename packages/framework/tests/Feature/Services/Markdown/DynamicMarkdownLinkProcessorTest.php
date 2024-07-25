@@ -6,13 +6,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
-use Hyde\Pages\InMemoryPage;
+use Hyde\Pages\BladePage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\RenderData;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
@@ -31,37 +31,40 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
         Render::swap(new RenderData());
 
-        Routes::addRoute(new Route(new InMemoryPage('home')));
+        Routes::addRoute(new Route(new BladePage('index')));
+        Routes::addRoute(new Route(new MarkdownPost('post')));
+
+        // Todo: No way to mock media files, so we are using app.css as a test asset for now.
     }
 
     public function testRouteReplacement()
     {
-        $input = '<p><a href="hyde::route(\'home\')">Home</a></p>';
-        $expected = '<p><a href="home.html">Home</a></p>';
+        $input = '<p><a href="_pages/index.blade.php">Home</a></p>';
+        $expected = '<p><a href="index.html">Home</a></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testRouteReplacementWithoutQuotes()
+    public function testRouteReplacementWithLeadingSlash()
     {
-        $input = '<p><a href="hyde::route(home)">Home</a></p>';
-        $expected = '<p><a href="home.html">Home</a></p>';
+        $input = '<p><a href="/_pages/index.blade.php">Home</a></p>';
+        $expected = '<p><a href="index.html">Home</a></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     public function testAssetReplacement()
     {
-        $input = '<p><img src="hyde::asset(\'image.jpg\')" alt="Image" /></p>';
-        $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
+        $input = '<p><img src="_media/app.css" alt="Logo" /></p>';
+        $expected = '<p><img src="media/app.css" alt="Logo" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testAssetReplacementWithoutQuotes()
+    public function testAssetReplacementWithLeadingSlash()
     {
-        $input = '<p><img src="hyde::asset(image.jpg)" alt="Image" /></p>';
-        $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
+        $input = '<p><img src="/_media/app.css" alt="Logo" /></p>';
+        $expected = '<p><img src="media/app.css" alt="Logo" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
@@ -69,13 +72,13 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
     public function testMultipleReplacements()
     {
         $input = <<<'HTML'
-        <a href="hyde::route('home')">Home</a>
-        <img src="hyde::asset('logo.png')" alt="Logo" />
+        <a href="_pages/index.blade.php">Home</a>
+        <img src="_media/app.css" alt="Logo" />
         HTML;
 
         $expected = <<<'HTML'
-        <a href="home.html">Home</a>
-        <img src="media/logo.png" alt="Logo" />
+        <a href="index.html">Home</a>
+        <img src="media/app.css" alt="Logo" />
         HTML;
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
@@ -88,61 +91,28 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testNonExistentRouteThrowsException()
+    public function testNestedRouteReplacement()
     {
-        $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage('Route [non-existent] not found.');
+        $input = '<p><a href="_posts/post.md">Blog Post</a></p>';
+        $expected = '<p><a href="posts/post.html">Blog Post</a></p>';
 
-        $input = '<p><a href="hyde::route(\'non-existent\')">Non-existent Route</a></p>';
-        DynamicMarkdownLinkProcessor::postprocess($input);
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     // Fault tolerance tests
 
-    public function testMalformedRouteLink()
+    public function testNonExistentRouteIsNotReplaced()
     {
-        $input = '<p><a href="hyde::route(\'home">Malformed Home</a></p>';
-        $expected = '<p><a href="hyde::route(\'home">Malformed Home</a></p>';
+        $input = '<p><a href="_pages/non-existent.blade.php">Non-existent Route</a></p>';
+        $expected = '<p><a href="_pages/non-existent.blade.php">Non-existent Route</a></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testMalformedRouteLink2()
+    public function testNonExistentAssetIsNotReplaced()
     {
-        $input = '<p><a href="hyde::route(\'home)">Malformed Home</a></p>';
-        $expected = '<p><a href="hyde::route(\'home)">Malformed Home</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
-    public function testMalformedRouteLink3()
-    {
-        $input = '<p><a href="hyde::route(\'home\'">Malformed Home</a></p>';
-        $expected = '<p><a href="hyde::route(\'home\'">Malformed Home</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
-    public function testMalformedAssetLink()
-    {
-        $input = '<p><img src="hyde::asset(\'image.jpg" alt="Malformed Image" /></p>';
-        $expected = '<p><img src="hyde::asset(\'image.jpg" alt="Malformed Image" /></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
-    public function testEmptyRouteLink()
-    {
-        $input = '<p><a href="hyde::route()">Empty Route</a></p>';
-        $expected = '<p><a href="hyde::route()">Empty Route</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
-    public function testEmptyAssetLink()
-    {
-        $input = '<p><img src="hyde::asset()" alt="Empty Asset" /></p>';
-        $expected = '<p><img src="hyde::asset()" alt="Empty Asset" /></p>';
+        $input = '<p><img src="_media/non-existent.png" alt="Non-existent Asset" /></p>';
+        $expected = '<p><img src="_media/non-existent.png" alt="Non-existent Asset" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
@@ -150,35 +120,26 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
     public function testMixedValidAndInvalidLinks()
     {
         $input = <<<'HTML'
-        <a href="hyde::route('home')">Valid Home</a>
-        <a href="hyde::route(invalid'">Invalid Route</a>
-        <img src="hyde::asset('logo.png')" alt="Valid Logo" />
-        <img src="hyde::asset('image.jpg" alt="Invalid Asset" />
+        <a href="_pages/index.blade.php">Valid Home</a>
+        <a href="_pages/invalid.blade.php">Invalid Route</a>
+        <img src="_media/app.css" alt="Valid Logo" />
+        <img src="_media/invalid.jpg" alt="Invalid Asset" />
         HTML;
 
         $expected = <<<'HTML'
-        <a href="home.html">Valid Home</a>
-        <a href="hyde::route(invalid'">Invalid Route</a>
-        <img src="media/logo.png" alt="Valid Logo" />
-        <img src="hyde::asset('image.jpg" alt="Invalid Asset" />
+        <a href="index.html">Valid Home</a>
+        <a href="_pages/invalid.blade.php">Invalid Route</a>
+        <img src="media/app.css" alt="Valid Logo" />
+        <img src="_media/invalid.jpg" alt="Invalid Asset" />
         HTML;
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testMalformedHydeSyntax()
+    public function testResetAssetMapCache()
     {
-        $input = '<p><a href="hyde:route(\'home\')">Malformed Hyde Syntax</a></p>';
-        $expected = '<p><a href="hyde:route(\'home\')">Malformed Hyde Syntax</a></p>';
+        DynamicMarkdownLinkProcessor::resetAssetMapCache();
 
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
-    public function testNonExistentRouteFunction()
-    {
-        $input = '<p><a href="hyde::nonexistent(\'home\')">Non-existent Function</a></p>';
-        $expected = '<p><a href="hyde::nonexistent(\'home\')">Non-existent Function</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+        $this->assertTrue(true);
     }
 }
