@@ -6,13 +6,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
-use Hyde\Pages\InMemoryPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\RenderData;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
