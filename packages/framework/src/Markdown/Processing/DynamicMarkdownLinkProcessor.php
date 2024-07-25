@@ -77,6 +77,8 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 
     /**
      * @internal Testing helper to reset the asset map cache.
+     *
+     * @codeCoverageIgnore Only used in tests, where it's implicitly covered.
      */
     public static function resetAssetMapCache(): void
     {
