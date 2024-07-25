@@ -11,6 +11,7 @@ This serves two purposes:
 
 ### Added
 - You can now specify navigation priorities by adding a numeric prefix to the source file names in https://github.com/hydephp/develop/pull/1709
+- Added support for resolving dynamic links to source files in Markdown documents in https://github.com/hydephp/develop/pull/1590
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
 - Added a new `\Hyde\Framework\Exceptions\ParseException` exception class to handle parsing exceptions in data collection files in https://github.com/hydephp/develop/pull/1732
 - Added a new `\Hyde\Framework\Exceptions\InvalidConfigurationException` exception class to handle invalid configuration exceptions in https://github.com/hydephp/develop/pull/1799
