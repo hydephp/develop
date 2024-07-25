@@ -50,13 +50,15 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
     }
 
     /**
-     * @todo Consider adding caching, since this is not a singleton like the routes.
-     *
      * @return array<string, \Hyde\Support\Filesystem\MediaFile>
      */
     protected static function assetMap(): array
     {
-        $assetMap = [];
+        static $assetMap = null;
+
+        if ($assetMap !== null) {
+            return $assetMap;
+        }
 
         foreach (MediaFile::all() as $mediaFile) {
             $assetMap[$mediaFile->getPath()] = $mediaFile;
