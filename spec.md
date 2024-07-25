@@ -775,6 +775,5 @@ Implementation Plan:
       ```
 
    These changes will ensure your project is compatible with HydePHP v2.0 and takes full advantage of the new Asset API.
-   ```
 
 This proposal aims to simplify the Asset API while maintaining flexibility and power. It adheres to the HydePHP philosophy by providing an intuitive interface that should be easy to use for both Laravel developers and those less familiar with the framework. The implementation plan ensures a smooth transition from v1 to v2, with clear deprecation notices and comprehensive upgrade instructions.
