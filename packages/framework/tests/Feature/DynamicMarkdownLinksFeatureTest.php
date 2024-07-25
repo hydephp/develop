@@ -28,6 +28,14 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         touch('_media/image.jpg');
     }
 
+    public static function tearDownAfterClass(): void
+    {
+        unlink('_media/logo.png');
+        unlink('_media/image.jpg');
+
+        parent::tearDownAfterClass();
+    }
+
     public function testBasicDynamicMarkdownLinks()
     {
         $input = <<<'MARKDOWN'
