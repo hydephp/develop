@@ -74,4 +74,12 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
     {
         return Hyde::asset(Str::after($mediaFile->getPath(), '_media/'));
     }
+
+    /**
+     * @internal Testing helper to reset the asset map cache.
+     */
+    public static function resetAssetMapCache(): void
+    {
+        static::$assetMapCache = null;
+    }
 }
