@@ -11,6 +11,11 @@ use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
 class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 {
+    /**
+     * @var array<string, \Hyde\Support\Filesystem\MediaFile>|null
+     */
+    protected static ?array $assetMapCache = null;
+
     public static function postprocess(string $html): string
     {
         foreach (static::routeMap() as $sourcePath => $route) {
@@ -54,17 +59,15 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
      */
     protected static function assetMap(): array
     {
-        static $assetMap = null;
+        if (static::$assetMapCache === null) {
+            static::$assetMapCache = [];
 
-        if ($assetMap !== null) {
-            return $assetMap;
+            foreach (MediaFile::all() as $mediaFile) {
+                static::$assetMapCache[$mediaFile->getPath()] = $mediaFile;
+            }
         }
 
-        foreach (MediaFile::all() as $mediaFile) {
-            $assetMap[$mediaFile->getPath()] = $mediaFile;
-        }
-
-        return $assetMap;
+        return static::$assetMapCache;
     }
 
     protected static function assetPath(MediaFile $mediaFile): string
