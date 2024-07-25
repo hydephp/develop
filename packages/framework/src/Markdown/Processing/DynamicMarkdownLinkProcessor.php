@@ -18,25 +18,4 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 
         return $html;
     }
-
-    /** @return array<string, callable(array<int, string>): string> */
-    protected static function patterns(): array
-    {
-        return [
-            '/<a href="hyde::route\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
-                $route = Hyde::route($matches[2]);
-                if ($route === null) {
-                    // While the other patterns work regardless of if input is valid,
-                    // this method returns null, which silently fails to an empty string.
-                    // So we instead throw an exception to alert the developer of the issue.
-                    throw new RouteNotFoundException($matches[2]);
-                }
-
-                return '<a href="'.$route.'"';
-            },
-            '/<img src="hyde::asset\(([\'"]?)([^\'"]+)\1\)"/' => function (array $matches): string {
-                return '<img src="'.Hyde::asset($matches[2]).'"';
-            },
-        ];
-    }
 }
