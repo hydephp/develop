@@ -11,9 +11,7 @@ use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
 class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 {
-    /**
-     * @var array<string, \Hyde\Support\Filesystem\MediaFile>|null
-     */
+    /** @var array<string, \Hyde\Support\Filesystem\MediaFile>|null */
     protected static ?array $assetMapCache = null;
 
     public static function postprocess(string $html): string
@@ -39,9 +37,7 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
         return $html;
     }
 
-    /**
-     * @return array<string, \Hyde\Support\Models\Route>
-     */
+    /** @return array<string, \Hyde\Support\Models\Route> */
     protected static function routeMap(): array
     {
         $map = [];
@@ -54,9 +50,7 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
         return $map;
     }
 
-    /**
-     * @return array<string, \Hyde\Support\Filesystem\MediaFile>
-     */
+    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> */
     protected static function assetMap(): array
     {
         if (static::$assetMapCache === null) {
@@ -75,9 +69,7 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
         return Hyde::asset(Str::after($mediaFile->getPath(), '_media/'));
     }
 
-    /**
-     * @internal Testing helper to reset the asset map cache.
-     */
+    /** @internal Testing helper to reset the asset map cache. */
     public static function resetAssetMapCache(): void
     {
         static::$assetMapCache = null;
