@@ -8,7 +8,8 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Hyde\Pages\InMemoryPage;
+use Hyde\Support\Includes;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 
@@ -39,35 +40,12 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
     public function testBasicDynamicMarkdownLinks()
     {
         $input = <<<'MARKDOWN'
-        [Home](hyde::route('home'))
-        ![Logo](hyde::asset('logo.png'))
-        
-        [Home](hyde::route(home))
-        ![Logo](hyde::asset(logo.png))
+        [Home](/_pages/index.blade.php)
+        ![Logo](/_media/logo.png)
         MARKDOWN;
 
         $expected = <<<'HTML'
-        <p><a href="home.html">Home</a>
-        <img src="media/logo.png" alt="Logo" /></p>
-        <p><a href="home.html">Home</a>
-        <img src="media/logo.png" alt="Logo" /></p>
-
-        HTML;
-
-        $this->assertSame($expected, Hyde::markdown($input)->toHtml());
-    }
-
-    public function testDynamicMarkdownLinksWithDoubleQuotes()
-    {
-        $this->markTestSkipped('https://github.com/hydephp/develop/pull/1590#discussion_r1690082732');
-
-        $input = <<<'MARKDOWN'
-        [Home](hyde::route("home"))
-        ![Logo](hyde::asset("logo.png"))
-        MARKDOWN;
-
-        $expected = <<<'HTML'
-        <p><a href="home.html">Home</a>
+        <p><a href="index.html">Home</a>
         <img src="media/logo.png" alt="Logo" /></p>
 
         HTML;
@@ -78,13 +56,13 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
     public function testDynamicMarkdownLinksInParagraphs()
     {
         $input = <<<'MARKDOWN'
-        This is a paragraph with a [link to home](hyde::route('home')).
+        This is a paragraph with a [link to home](/_pages/index.blade.php).
 
-        Another paragraph with an ![image](hyde::asset('image.jpg')).
+        Another paragraph with an ![image](/_media/image.jpg).
         MARKDOWN;
 
         $expected = <<<'HTML'
-        <p>This is a paragraph with a <a href="home.html">link to home</a>.</p>
+        <p>This is a paragraph with a <a href="index.html">link to home</a>.</p>
         <p>Another paragraph with an <img src="media/image.jpg" alt="image" />.</p>
 
         HTML;
@@ -95,14 +73,14 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
     public function testDynamicMarkdownLinksInLists()
     {
         $input = <<<'MARKDOWN'
-        - [Home](hyde::route('home'))
-        - ![Logo](hyde::asset('logo.png'))
+        - [Home](/_pages/index.blade.php)
+        - ![Logo](/_media/logo.png)
         MARKDOWN;
 
         $expected = <<<'HTML'
         <ul>
         <li>
-        <a href="home.html">Home</a>
+        <a href="index.html">Home</a>
         </li>
         <li>
         <img src="media/logo.png" alt="Logo" />
@@ -116,12 +94,14 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
 
     public function testDynamicMarkdownLinksWithNestedRoutes()
     {
+        Routes::addRoute(new Route(new MarkdownPage('about/contact')));
+
         $input = <<<'MARKDOWN'
-        [Blog Post](hyde::route('blog/post'))
+        [Contact](/_pages/about/contact.md)
         MARKDOWN;
 
         $expected = <<<'HTML'
-        <p><a href="blog/post.html">Blog Post</a></p>
+        <p><a href="about/contact.html">Contact</a></p>
 
         HTML;
 
@@ -131,19 +111,35 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
     public function testMixOfDynamicAndRegularMarkdownLinks()
     {
         $input = <<<'MARKDOWN'
-        [Home](hyde::route('home'))
+        [Home](/_pages/index.blade.php)
         [External](https://example.com)
         [Regular](regular-link.html)
-        ![Logo](hyde::asset('logo.png'))
+        ![Logo](/_media/logo.png)
         ![External Image](https://example.com/image.jpg)
         MARKDOWN;
 
         $expected = <<<'HTML'
-        <p><a href="home.html">Home</a>
+        <p><a href="index.html">Home</a>
         <a href="https://example.com">External</a>
         <a href="regular-link.html">Regular</a>
         <img src="media/logo.png" alt="Logo" />
         <img src="https://example.com/image.jpg" alt="External Image" /></p>
+
+        HTML;
+
+        $this->assertSame($expected, Hyde::markdown($input)->toHtml());
+    }
+
+    public function testLinksWithLeadingSlash()
+    {
+        $input = <<<'MARKDOWN'
+        [Home with slash](/_pages/index.blade.php)
+        ![Logo with slash](/_media/logo.png)
+        MARKDOWN;
+
+        $expected = <<<'HTML'
+        <p><a href="index.html">Home with slash</a>
+        <img src="media/logo.png" alt="Logo with slash" /></p>
 
         HTML;
 
