@@ -113,7 +113,6 @@ For additional context on the naming conventions, here is the entire Hyde facade
 We also have a MediaFile class that looks like this:
 
 ```php
-
 /**
  * File abstraction for a project media file.
  */
