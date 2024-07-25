@@ -110,7 +110,7 @@ For additional context on the naming conventions, here is the entire Hyde facade
  * @method static void boot()
 ```
 
-We also have a MediaFile class that looks like this:
+We also have a MediaFile class that looks like this, maybe we can unify this as well:
 
 ```php
 /**
