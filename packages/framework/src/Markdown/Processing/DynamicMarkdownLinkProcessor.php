@@ -13,20 +13,20 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
     {
         foreach (static::routeMap() as $sourcePath => $route) {
             $patterns = [
-                '<a href="'.$sourcePath.'">',
-                '<a href="/'.$sourcePath.'">',
+                sprintf('<a href="%s">', $sourcePath),
+                sprintf('<a href="/%s">', $sourcePath),
             ];
 
-            $html = str_replace($patterns, '<a href="'.$route->getLink().'">', $html);
+            $html = str_replace($patterns, sprintf('<a href="%s">', $route->getLink()), $html);
         }
 
         foreach (static::assetMap() as $path => $mediaFile) {
             $patterns = [
-                '<img src="'.$path.'"',
-                '<img src="/'.$path.'"',
+                sprintf('<img src="%s"', $path),
+                sprintf('<img src="/%s"', $path),
             ];
 
-            $html = str_replace($patterns, '<img src="'.static::assetPath($mediaFile).'"', $html);
+            $html = str_replace($patterns, sprintf('<img src="%s"', static::assetPath($mediaFile)), $html);
         }
 
         return $html;
