@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Processing;
 
 use Hyde\Hyde;
+use Illuminate\Support\Str;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
@@ -60,5 +61,10 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
         }
 
         return $assetMap;
+    }
+
+    protected static function assetPath(MediaFile $mediaFile): string
+    {
+        return Hyde::asset(Str::after($mediaFile->getPath(), '_media/'));
     }
 }
