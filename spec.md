@@ -46,7 +46,7 @@ asset() // Calls Hyde::asset
 
 ## AI Context
 
-Please provide feedback on how we can improve the Asset API.
+Please provide feedback on how we for HydePHP v2 can improve the Asset API, designed to make it easy to interact with Asset files stored in the `_media` directory.
 
 For context: This is for static site generator HydePHP, based on Laravel.
 
@@ -62,6 +62,7 @@ Considerations: While HydePHP targets developers, not all users necessarily are 
 
 For additional context on the naming conventions, here is the entire Hyde facade methods:
 
+```php
  * @method static string path(string $path = '')
  * @method static string vendorPath(string $path = '', string $package = 'framework')
  * @method static string pathToAbsolute(string $path)
@@ -107,3 +108,78 @@ For additional context on the naming conventions, here is the entire Hyde facade
  * @method static array toArray()
  * @method static bool isBooted()
  * @method static void boot()
+```
+
+We also have a MediaFile class that looks like this:
+
+```php
+
+/**
+ * File abstraction for a project media file.
+ */
+class MediaFile extends ProjectFile
+{
+    /** @var array<string> The default extensions for media types */
+    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+
+    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
+    public static function all(): array
+    {
+        return static::discoverMediaAssetFiles();
+    }
+
+    /** @return array<string> Array of filenames relative to the _media/ directory */
+    public static function files(): array
+    {
+        return array_keys(static::all());
+    }
+
+    public function getIdentifier(): string
+    {
+        return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
+    }
+
+    public function toArray(): array
+    {
+        return array_merge(parent::toArray(), [
+            'length' => $this->getContentLength(),
+            'mimeType' => $this->getMimeType(),
+        ]);
+    }
+
+    public function getContentLength(): int
+    {
+        if (! is_file($this->getAbsolutePath())) {
+            throw new FileNotFoundException($this->path);
+        }
+
+        return filesize($this->getAbsolutePath());
+    }
+
+    public function getMimeType(): string
+    {
+        return mime_content_type($this->getAbsolutePath());
+    }
+
+    protected static function discoverMediaAssetFiles(): array
+    {
+        return collect(static::getMediaAssetFiles())->mapWithKeys(function (string $path): array {
+            $file = static::make($path);
+
+            return [$file->getIdentifier() => $file];
+        })->all();
+    }
+
+    protected static function getMediaAssetFiles(): array
+    {
+        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
+    }
+
+    protected static function getMediaGlobPattern(): string
+    {
+        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
+            Config::getArray('hyde.media_extensions', self::EXTENSIONS)
+        ));
+    }
+}
+```
