@@ -10,7 +10,9 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Support\Includes;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
@@ -246,6 +248,149 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
             '<img src="../media/logo.png" alt="Logo" />',
             '<a href="/_pages/non-existent.md">non-existent</a>',
             '<img src="/_media/non-existent.png" alt="non-existent" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+    }
+
+    public function testDynamicMarkdownLinksForDifferentPageTypes()
+    {
+        $this->file('_pages/test.md', <<<'MARKDOWN'
+        [Home](/_pages/index.blade.php)
+        [Documentation](/_docs/index.md)
+        [Readme](/_docs/readme.md)
+        [Example](/_pages/example.md)
+        [Contact](/_pages/about/contact.md)
+        [About](/_pages/about/index.md)
+        [Post](/_posts/hello-world.md)
+        
+        ![Logo](/_media/logo.png)
+        MARKDOWN);
+
+        Routes::addRoute(new Route(new MarkdownPage('example')));
+        Routes::addRoute(new Route(new MarkdownPage('about/index')));
+        Routes::addRoute(new Route(new MarkdownPage('about/contact')));
+        Routes::addRoute(new Route(new MarkdownPost('hello-world')));
+        Routes::addRoute(new Route(new DocumentationPage('index')));
+        Routes::addRoute(new Route(new DocumentationPage('readme')));
+
+        $page = MarkdownPage::get('test');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $expected = [
+            '<a href="index.html">Home</a>',
+            '<a href="docs/index.html">Documentation</a>',
+            '<a href="docs/readme.html">Readme</a>',
+            '<a href="example.html">Example</a>',
+            '<a href="about/contact.html">Contact</a>',
+            '<a href="about/index.html">About</a>',
+            '<a href="posts/hello-world.html">Post</a>',
+            '<img src="media/logo.png" alt="Logo" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+    }
+
+    public function testDynamicMarkdownLinksUseTheSitePrettyUrlConfiguration()
+    {
+        config(['hyde.pretty_urls' => true]);
+
+        $this->file('_pages/test.md', <<<'MARKDOWN'
+        [Home](/_pages/index.blade.php)
+        [Documentation](/_docs/index.md)
+        [Readme](/_docs/readme.md)
+        [Example](/_pages/example.md)
+        [Contact](/_pages/about/contact.md)
+        [About](/_pages/about/index.md)
+        [Post](/_posts/hello-world.md)
+        
+        ![Logo](/_media/logo.png)
+        MARKDOWN);
+
+        Routes::addRoute(new Route(new MarkdownPage('example')));
+        Routes::addRoute(new Route(new MarkdownPage('about/index')));
+        Routes::addRoute(new Route(new MarkdownPage('about/contact')));
+        Routes::addRoute(new Route(new MarkdownPost('hello-world')));
+        Routes::addRoute(new Route(new DocumentationPage('index')));
+        Routes::addRoute(new Route(new DocumentationPage('readme')));
+
+        $page = MarkdownPage::get('test');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $expected = [
+            '<a href="./">Home</a>',
+            '<a href="docs/">Documentation</a>',
+            '<a href="docs/readme">Readme</a>',
+            '<a href="example">Example</a>',
+            '<a href="about/contact">Contact</a>',
+            '<a href="about/">About</a>',
+            '<a href="posts/hello-world">Post</a>',
+            '<img src="media/logo.png" alt="Logo" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+    }
+
+    public function testDynamicMarkdownLinksFromDifferentPageTypes()
+    {
+        $links = <<<'MARKDOWN'
+        [Docs](/_docs/docs.md)
+        [Post](/_posts/post.md)
+        [Page](/_pages/page.md)
+        ![Logo](/_media/logo.png)
+        MARKDOWN;
+
+        $this->file('_docs/docs.md', $links);
+        $this->file('_posts/post.md', $links);
+        $this->file('_pages/page.md', $links);
+
+        $page = DocumentationPage::get('docs');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $expected = [
+            '<a href="../docs/docs.html">Docs</a>',
+            '<a href="../posts/post.html">Post</a>',
+            '<a href="../page.html">Page</a>',
+            '<img src="../media/logo.png" alt="Logo" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+
+        $page = MarkdownPost::get('post');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $expected = [
+            '<a href="../docs/docs.html">Docs</a>',
+            '<a href="../posts/post.html">Post</a>',
+            '<a href="../page.html">Page</a>',
+            '<img src="../media/logo.png" alt="Logo" />',
+        ];
+
+        foreach ($expected as $expectation) {
+            $this->assertStringContainsString($expectation, $html);
+        }
+
+        $page = MarkdownPage::get('page');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
+
+        $expected = [
+            '<a href="docs/docs.html">Docs</a>',
+            '<a href="posts/post.html">Post</a>',
+            '<a href="page.html">Page</a>',
+            '<img src="media/logo.png" alt="Logo" />',
         ];
 
         foreach ($expected as $expectation) {
