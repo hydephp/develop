@@ -20,12 +20,12 @@ use Hyde\Foundation\Facades\Routes;
  */
 class DynamicMarkdownLinksFeatureTest extends TestCase
 {
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        parent::setUp();
+        parent::setUpBeforeClass();
 
-        Routes::addRoute(new Route(new InMemoryPage('home')));
-        Routes::addRoute(new Route(new InMemoryPage('blog/post')));
+        touch('_media/logo.png');
+        touch('_media/image.jpg');
     }
 
     public function testBasicDynamicMarkdownLinks()
