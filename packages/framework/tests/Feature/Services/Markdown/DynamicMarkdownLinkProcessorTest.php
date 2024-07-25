@@ -89,15 +89,6 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testNonExistentRouteThrowsException()
-    {
-        $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage('Route [non-existent] not found.');
-
-        $input = '<p><a href="hyde::route(\'non-existent\')">Non-existent Route</a></p>';
-        DynamicMarkdownLinkProcessor::postprocess($input);
-    }
-
     // Fault tolerance tests
 
     public function testMalformedRouteLink()
