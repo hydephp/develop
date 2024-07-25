@@ -517,3 +517,264 @@ $appJsUrl = Asset::cdnLink('app.js');
 ```
 
 This API maintains the simplicity-first approach of Hyde while providing power when needed. It should be intuitive for both Laravel-familiar developers and those new to the framework, aligning well with Hyde's philosophy and goals.
+
+### Unified Asset API
+
+Author: Claude 3.5 Sonnet
+Link: https://claude.ai/chat/9c1c98cc-db92-41cc-9a8e-1f51fd9a04d5
+
+Certainly, I'd be happy to help you improve the Asset API for HydePHP v2. Based on your requirements and the HydePHP philosophy, I've come up with a proposal for a new, more unified Asset API. Here's the proposed new API and implementation plan:
+
+```php
+<?php
+
+namespace Hyde\Framework\Facades;
+
+use Hyde\Framework\Contracts\AssetContract;
+use Hyde\Framework\Services\AssetService;
+
+/**
+ * @method static string get(string $path, bool $absolute = false)
+ * @method static string url(string $path)
+ * @method static bool exists(string $path)
+ * @method static int size(string $path)
+ * @method static string mime(string $path)
+ * @method static string|null hash(string $path)
+ * @method static AssetContract instance(string $path)
+ */
+class Asset extends Facade
+{
+    protected static function getFacadeAccessor()
+    {
+        return AssetService::class;
+    }
+}
+
+// AssetService.php
+class AssetService implements AssetContract
+{
+    protected $validateExistence;
+
+    public function __construct(bool $validateExistence = false)
+    {
+        $this->validateExistence = $validateExistence;
+    }
+
+    public function get(string $path, bool $absolute = false): string
+    {
+        if ($this->validateExistence && !$this->exists($path)) {
+            throw new AssetNotFoundException("Asset not found: {$path}");
+        }
+
+        return $absolute ? $this->getAbsolutePath($path) : $this->getRelativePath($path);
+    }
+
+    public function url(string $path): string
+    {
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            return $path;
+        }
+
+        return Hyde::url($this->get($path));
+    }
+
+    public function exists(string $path): bool
+    {
+        return file_exists($this->getAbsolutePath($path));
+    }
+
+    public function size(string $path): int
+    {
+        return filesize($this->getAbsolutePath($path));
+    }
+
+    public function mime(string $path): string
+    {
+        return mime_content_type($this->getAbsolutePath($path));
+    }
+
+    public function hash(string $path): ?string
+    {
+        $file = $this->getAbsolutePath($path);
+        return file_exists($file) ? md5_file($file) : null;
+    }
+
+    public function instance(string $path): AssetContract
+    {
+        return new Asset($path);
+    }
+
+    protected function getAbsolutePath(string $path): string
+    {
+        return Hyde::mediaPath($path);
+    }
+
+    protected function getRelativePath(string $path): string
+    {
+        return Hyde::mediaLink($path);
+    }
+}
+
+// Asset.php (implements AssetContract)
+class Asset implements AssetContract
+{
+    protected $path;
+
+    public function __construct(string $path)
+    {
+        $this->path = $path;
+    }
+
+    public function get(bool $absolute = false): string
+    {
+        return app(AssetService::class)->get($this->path, $absolute);
+    }
+
+    public function url(): string
+    {
+        return app(AssetService::class)->url($this->path);
+    }
+
+    public function exists(): bool
+    {
+        return app(AssetService::class)->exists($this->path);
+    }
+
+    public function size(): int
+    {
+        return app(AssetService::class)->size($this->path);
+    }
+
+    public function mime(): string
+    {
+        return app(AssetService::class)->mime($this->path);
+    }
+
+    public function hash(): ?string
+    {
+        return app(AssetService::class)->hash($this->path);
+    }
+}
+
+// Helper function
+function asset(string $path, bool $absolute = false): string
+{
+    return Asset::get($path, $absolute);
+}
+
+```
+
+This new API proposal aims to simplify and unify the asset-related functions while maintaining flexibility and adhering to the HydePHP philosophy. Here's a breakdown of the changes and the implementation plan:
+
+1. Unified API:
+   - All asset-related functions are now under the `Asset` facade.
+   - The `get()` method replaces both `mediaLink()` and `asset()`, with an optional parameter for absolute paths.
+   - Added `url()` method to handle both local and remote URLs.
+   - Included utility methods like `exists()`, `size()`, `mime()`, and `hash()` for common operations.
+
+2. Validation:
+   - Instead of a parameter to validate, we've added a constructor parameter in the `AssetService` that can be set via configuration or environment variable.
+
+3. Flexibility:
+   - The `instance()` method allows for object-oriented usage when needed.
+
+Implementation Plan:
+
+1. Deprecation process in v1:
+   - Add deprecation notices to the existing methods in the `Asset` and `Hyde` facades.
+   - Introduce the new `Asset` facade with the proposed methods, marking them as `@since 1.x`.
+   - Update the documentation to recommend using the new `Asset` facade.
+
+2. Implementation in v2:
+   - Remove the deprecated methods from the `Asset` and `Hyde` facades.
+   - Fully implement the new `AssetService` and `Asset` classes.
+   - Update all internal usage to use the new API.
+
+3. Configuration:
+   - Add a new configuration option in `config/hyde.php`:
+     ```php
+     'assets' => [
+         'validate_existence' => env('HYDE_VALIDATE_ASSETS', false),
+     ],
+     ```
+
+4. Release Notes:
+   ```markdown
+   # HydePHP v2.0 Release Notes
+
+   ## Asset API Overhaul
+
+   We've completely revamped the Asset API to provide a more intuitive and unified interface for handling media files. Key changes include:
+
+   - New `Asset` facade with streamlined methods
+   - Simplified asset retrieval with `Asset::get()`
+   - Built-in URL handling with `Asset::url()`
+   - Additional utility methods: `exists()`, `size()`, `mime()`, `hash()`
+   - Object-oriented usage available through `Asset::instance()`
+   - Global `asset()` helper function updated
+
+   These changes aim to improve developer experience and make asset handling more straightforward and consistent.
+   ```
+
+5. Upgrade Guide:
+   ```markdown
+   # Upgrading to HydePHP v2.0
+
+   ## Asset API Changes
+
+   1. Replace all usage of `Hyde::mediaLink()`, `Hyde::asset()`, and `Asset::mediaLink()` with `Asset::get()`:
+
+      ```php
+      // Old
+      $path = Hyde::mediaLink('image.jpg');
+      $path = Hyde::asset('image.jpg');
+      $path = Asset::mediaLink('image.jpg');
+
+      // New
+      $path = Asset::get('image.jpg');
+      ```
+
+   2. For absolute paths, use the second parameter of `Asset::get()`:
+
+      ```php
+      $absolutePath = Asset::get('image.jpg', true);
+      ```
+
+   3. Use `Asset::url()` for handling both local and remote URLs:
+
+      ```php
+      $url = Asset::url('image.jpg');
+      $url = Asset::url('https://example.com/image.jpg');
+      ```
+
+   4. Take advantage of new utility methods:
+
+      ```php
+      if (Asset::exists('image.jpg')) {
+          $size = Asset::size('image.jpg');
+          $mime = Asset::mime('image.jpg');
+          $hash = Asset::hash('image.jpg');
+      }
+      ```
+
+   5. For object-oriented usage, use `Asset::instance()`:
+
+      ```php
+      $asset = Asset::instance('image.jpg');
+      $path = $asset->get();
+      $exists = $asset->exists();
+      ```
+
+   6. Update your configuration file to include the new asset validation option:
+
+      ```php
+      // config/hyde.php
+      'assets' => [
+          'validate_existence' => env('HYDE_VALIDATE_ASSETS', false),
+      ],
+      ```
+
+   These changes will ensure your project is compatible with HydePHP v2.0 and takes full advantage of the new Asset API.
+   ```
+
+This proposal aims to simplify the Asset API while maintaining flexibility and power. It adheres to the HydePHP philosophy by providing an intuitive interface that should be easy to use for both Laravel developers and those less familiar with the framework. The implementation plan ensures a smooth transition from v1 to v2, with clear deprecation notices and comprehensive upgrade instructions.
