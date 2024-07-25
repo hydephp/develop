@@ -37,32 +37,32 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
     public function testRouteReplacement()
     {
-        $input = '<p><a href="hyde::route(\'home\')">Home</a></p>';
-        $expected = '<p><a href="home.html">Home</a></p>';
+        $input = '<p><a href="_pages/index.blade.php">Home</a></p>';
+        $expected = '<p><a href="index.html">Home</a></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testRouteReplacementWithoutQuotes()
+    public function testRouteReplacementWithLeadingSlash()
     {
-        $input = '<p><a href="hyde::route(home)">Home</a></p>';
-        $expected = '<p><a href="home.html">Home</a></p>';
+        $input = '<p><a href="/_pages/index.blade.php">Home</a></p>';
+        $expected = '<p><a href="index.html">Home</a></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     public function testAssetReplacement()
     {
-        $input = '<p><img src="hyde::asset(\'image.jpg\')" alt="Image" /></p>';
-        $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
+        $input = '<p><img src="_media/logo.png" alt="Logo" /></p>';
+        $expected = '<p><img src="media/logo.png" alt="Logo" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
-    public function testAssetReplacementWithoutQuotes()
+    public function testAssetReplacementWithLeadingSlash()
     {
-        $input = '<p><img src="hyde::asset(image.jpg)" alt="Image" /></p>';
-        $expected = '<p><img src="media/image.jpg" alt="Image" /></p>';
+        $input = '<p><img src="/_media/logo.png" alt="Logo" /></p>';
+        $expected = '<p><img src="media/logo.png" alt="Logo" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
@@ -70,12 +70,12 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
     public function testMultipleReplacements()
     {
         $input = <<<'HTML'
-        <a href="hyde::route('home')">Home</a>
-        <img src="hyde::asset('logo.png')" alt="Logo" />
+        <a href="_pages/index.blade.php">Home</a>
+        <img src="_media/logo.png" alt="Logo" />
         HTML;
 
         $expected = <<<'HTML'
-        <a href="home.html">Home</a>
+        <a href="index.html">Home</a>
         <img src="media/logo.png" alt="Logo" />
         HTML;
 
@@ -87,6 +87,14 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $input = '<p>This is a regular <a href="https://example.com">link</a> with no Hyde syntax.</p>';
 
         $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testNestedRouteReplacement()
+    {
+        $input = '<p><a href="_posts/post.md">Blog Post</a></p>';
+        $expected = '<p><a href="posts/post.html">Blog Post</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     // Fault tolerance tests
