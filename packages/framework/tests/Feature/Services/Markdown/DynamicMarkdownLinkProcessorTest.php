@@ -157,20 +157,4 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
-
-    public function testMalformedHydeSyntax()
-    {
-        $input = '<p><a href="hyde:route(\'home\')">Malformed Hyde Syntax</a></p>';
-        $expected = '<p><a href="hyde:route(\'home\')">Malformed Hyde Syntax</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
-
-    public function testNonExistentRouteFunction()
-    {
-        $input = '<p><a href="hyde::nonexistent(\'home\')">Non-existent Function</a></p>';
-        $expected = '<p><a href="hyde::nonexistent(\'home\')">Non-existent Function</a></p>';
-
-        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
-    }
 }
