@@ -88,4 +88,41 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
         $this->assertSame($input, DynamicMarkdownLinkProcessor::postprocess($input));
     }
+
+    // Fault tolerance tests
+
+    public function testNonExistentRouteIsNotReplaced()
+    {
+        $input = '<p><a href="_pages/non-existent.blade.php">Non-existent Route</a></p>';
+        $expected = '<p><a href="_pages/non-existent.blade.php">Non-existent Route</a></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testNonExistentAssetIsNotReplaced()
+    {
+        $input = '<p><img src="_media/non-existent.png" alt="Non-existent Asset" /></p>';
+        $expected = '<p><img src="_media/non-existent.png" alt="Non-existent Asset" /></p>';
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
+
+    public function testMixedValidAndInvalidLinks()
+    {
+        $input = <<<'HTML'
+        <a href="_pages/index.blade.php">Valid Home</a>
+        <a href="_pages/invalid.blade.php">Invalid Route</a>
+        <img src="_media/logo.png" alt="Valid Logo" />
+        <img src="_media/invalid.jpg" alt="Invalid Asset" />
+        HTML;
+
+        $expected = <<<'HTML'
+        <a href="index.html">Valid Home</a>
+        <a href="_pages/invalid.blade.php">Invalid Route</a>
+        <img src="media/logo.png" alt="Valid Logo" />
+        <img src="_media/invalid.jpg" alt="Invalid Asset" />
+        HTML;
+
+        $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
+    }
 }
