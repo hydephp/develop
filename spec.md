@@ -188,6 +188,7 @@ class MediaFile extends ProjectFile
 ### Fluent Asset API
 
 Author: Claude 3.5 Sonnet
+Link: https://claude.ai/chat/3b4529e1-79f5-48b9-ac8f-d35fa705a377
 
 Based on the provided information and the goals of HydePHP, here are some suggestions to improve the Asset API for version 2:
 
