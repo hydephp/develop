@@ -6,7 +6,6 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Hyde;
 use Illuminate\Support\Str;
-use Hyde\Support\Models\Route;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 
@@ -17,33 +16,25 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 
     public static function postprocess(string $html): string
     {
-        $html = static::processMap(static::routeMap(), $html, 'a', 'href');
-        $html = static::processMap(static::assetMap(), $html, 'img', 'src');
-
-        return $html;
-    }
-
-    /**
-     * @param array<string, \Hyde\Support\Models\Route|\Hyde\Support\Filesystem\MediaFile> $map
-     */
-    protected static function processMap(array $map, string $html, string $tag, string $attribute): string
-    {
-        foreach ($map as $sourcePath => $item) {
+        foreach (static::routeMap() as $sourcePath => $route) {
             $patterns = [
-                sprintf('<%s %s="%s"', $tag, $attribute, $sourcePath),
-                sprintf('<%s %s="/%s"', $tag, $attribute, $sourcePath),
+                sprintf('<a href="%s"', $sourcePath),
+                sprintf('<a href="/%s"', $sourcePath),
             ];
 
-            $replacement = sprintf('<%s %s="%s"', $tag, $attribute, static::getItemPath($item));
-            $html = str_replace($patterns, $replacement, $html);
+            $html = str_replace($patterns, sprintf('<a href="%s"', $route->getLink()), $html);
+        }
+
+        foreach (static::assetMap() as $sourcePath => $mediaFile) {
+            $patterns = [
+                sprintf('<img src="%s"', $sourcePath),
+                sprintf('<img src="/%s"', $sourcePath),
+            ];
+
+            $html = str_replace($patterns, sprintf('<img src="%s"', static::assetPath($mediaFile)), $html);
         }
 
         return $html;
-    }
-
-    protected static function getItemPath(MediaFile|Route $item): string
-    {
-        return $item instanceof MediaFile ? static::assetPath($item) : $item->getLink();
     }
 
     /** @return array<string, \Hyde\Support\Models\Route> */
