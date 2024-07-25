@@ -43,3 +43,67 @@ Hyde::asset() // Gets a relative web link to the given image stored in the _site
 ```php
 asset() // Calls Hyde::asset 
 ```
+
+## AI Context
+
+Please provide feedback on how we can improve the Asset API.
+
+For context: This is for static site generator HydePHP, based on Laravel.
+
+Motto: "Simplicity first. Power when you need it. Quality always."
+Tagline: Create static websites with the tools you already know and love with HydePHP.
+
+The Hyde Philosophy:
+> Developing Hyde sites, and contributing to the framework should be a joy. Great Developer Experience (DX) is our top priority.
+> Code should make sense and be intuitive, especially user-facing APIs. Convention over configuration, but not at the expense of flexibility.
+> Making sites should not be boring and repetitive - Hyde is all about taking focus away from boilerplate, and letting users focus on the content.
+
+Considerations: While HydePHP targets developers, not all users necessarily are familiar with Laravel, or PHP. So while we want to provide a familiar interface for Laravel/PHP users, we also want to make sure that the API is intuitive and easy to use for all users.
+
+For additional context on the naming conventions, here is the entire Hyde facade methods:
+
+ * @method static string path(string $path = '')
+ * @method static string vendorPath(string $path = '', string $package = 'framework')
+ * @method static string pathToAbsolute(string $path)
+ * @method static string pathToRelative(string $path)
+ * @method static string sitePath(string $path = '')
+ * @method static string mediaPath(string $path = '')
+ * @method static string siteMediaPath(string $path = '')
+ * @method static string formatLink(string $destination)
+ * @method static string relativeLink(string $destination)
+ * @method static string mediaLink(string $destination, bool $validate = false)
+ * @method static string asset(string $name, bool $preferQualifiedUrl = false)
+ * @method static string url(string $path = '')
+ * @method static Route|null route(string $key)
+ * @method static string makeTitle(string $value)
+ * @method static string normalizeNewlines(string $string)
+ * @method static string stripNewlines(string $string)
+ * @method static string trimSlashes(string $string)
+ * @method static HtmlString markdown(string $text, bool $stripIndentation = false)
+ * @method static string currentPage()
+ * @method static string currentRouteKey()
+ * @method static string getBasePath()
+ * @method static string getSourceRoot()
+ * @method static string getOutputDirectory()
+ * @method static string getMediaDirectory()
+ * @method static string getMediaOutputDirectory()
+ * @method static Features features()
+ * @method static Collection<string, PostAuthor> authors()
+ * @method static FileCollection files()
+ * @method static PageCollection pages()
+ * @method static RouteCollection routes()
+ * @method static Route|null currentRoute()
+ * @method static HydeKernel getInstance()
+ * @method static Filesystem filesystem()
+ * @method static array getRegisteredExtensions()
+ * @method static bool hasFeature(Feature $feature)
+ * @method static bool hasSiteUrl()
+ * @method static void setInstance(HydeKernel $instance)
+ * @method static void setBasePath(string $basePath)
+ * @method static void setOutputDirectory(string $outputDirectory)
+ * @method static void setMediaDirectory(string $mediaDirectory)
+ * @method static void setSourceRoot(string $sourceRoot)
+ * @method static void shareViewData(HydePage $page)
+ * @method static array toArray()
+ * @method static bool isBooted()
+ * @method static void boot()
