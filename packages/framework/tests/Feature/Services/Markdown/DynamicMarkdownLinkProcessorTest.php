@@ -33,6 +33,8 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
         Routes::addRoute(new Route(new BladePage('index')));
         Routes::addRoute(new Route(new MarkdownPost('post')));
+
+        // Todo: No way to mock media files, so we are using app.css as a test asset for now.
     }
 
     public function testRouteReplacement()
@@ -53,16 +55,16 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
     public function testAssetReplacement()
     {
-        $input = '<p><img src="_media/logo.png" alt="Logo" /></p>';
-        $expected = '<p><img src="media/logo.png" alt="Logo" /></p>';
+        $input = '<p><img src="_media/app.css" alt="Logo" /></p>';
+        $expected = '<p><img src="media/app.css" alt="Logo" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
 
     public function testAssetReplacementWithLeadingSlash()
     {
-        $input = '<p><img src="/_media/logo.png" alt="Logo" /></p>';
-        $expected = '<p><img src="media/logo.png" alt="Logo" /></p>';
+        $input = '<p><img src="/_media/app.css" alt="Logo" /></p>';
+        $expected = '<p><img src="media/app.css" alt="Logo" /></p>';
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
@@ -71,12 +73,12 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
     {
         $input = <<<'HTML'
         <a href="_pages/index.blade.php">Home</a>
-        <img src="_media/logo.png" alt="Logo" />
+        <img src="_media/app.css" alt="Logo" />
         HTML;
 
         $expected = <<<'HTML'
         <a href="index.html">Home</a>
-        <img src="media/logo.png" alt="Logo" />
+        <img src="media/app.css" alt="Logo" />
         HTML;
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
@@ -120,14 +122,14 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         $input = <<<'HTML'
         <a href="_pages/index.blade.php">Valid Home</a>
         <a href="_pages/invalid.blade.php">Invalid Route</a>
-        <img src="_media/logo.png" alt="Valid Logo" />
+        <img src="_media/app.css" alt="Valid Logo" />
         <img src="_media/invalid.jpg" alt="Invalid Asset" />
         HTML;
 
         $expected = <<<'HTML'
         <a href="index.html">Valid Home</a>
         <a href="_pages/invalid.blade.php">Invalid Route</a>
-        <img src="media/logo.png" alt="Valid Logo" />
+        <img src="media/app.css" alt="Valid Logo" />
         <img src="_media/invalid.jpg" alt="Invalid Asset" />
         HTML;
 
