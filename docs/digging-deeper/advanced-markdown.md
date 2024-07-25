@@ -205,6 +205,7 @@ There are some limitations and considerations to keep in mind when using this fe
 - This feature won't work for dynamic routes (not backed by a file)
 - If you rename a file, links will break. Your IDE may warn about this.
 - If a file is not found, we won't be able to see it when evaluating links.
+- Relative links are not supported (so ../_pages/index.blade.php won't work)
 
 ## Configuration
 
