@@ -12,9 +12,6 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 {
     public static function postprocess(string $html): string
     {
-        foreach (static::patterns() as $pattern => $replacement) {
-            $html = preg_replace_callback($pattern, $replacement, $html);
-        }
 
         return $html;
     }
