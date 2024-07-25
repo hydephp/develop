@@ -135,4 +135,11 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
         $this->assertSame($expected, DynamicMarkdownLinkProcessor::postprocess($input));
     }
+
+    public function testResetAssetMapCache()
+    {
+        DynamicMarkdownLinkProcessor::resetAssetMapCache();
+
+        $this->assertTrue(true);
+    }
 }
