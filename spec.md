@@ -4,6 +4,58 @@
 
 In order to rework the Asset API, we need to analyze the current state of the API, to find what can be improved.
 
+### Background
+
+Remember the original problem: The current system is confusing and unintuitive with multiple and inconsistent ways to access assets.
+
+Additionally, keep in mind that most ways users will commonly use this API is to link to assets in the `_media` directory, and to check if they exist.
+
+For example: Consider these Blade snippets from the default views, showing common usages that actual end users may use:
+
+```blade
+{{-- The compiled Tailwind/App styles --}}
+@if(config('hyde.load_app_styles_from_cdn', false))
+    <link rel="stylesheet" href="{{ Asset::cdnLink('app.css') }}">
+@elseif(Asset::hasMediaFile('app.css'))
+    <link rel="stylesheet" href="{{ Asset::mediaLink('app.css') }}">
+@endif
+
+{{-- The compiled Laravel Mix scripts --}}
+@if(Asset::hasMediaFile('app.js'))
+    <script defer src="{{ Asset::mediaLink('app.js') }}"></script>
+@endif
+
+@if (file_exists(Hyde::mediaPath('favicon.ico')))
+    <link rel="shortcut icon" href="{{ Hyde::relativeLink('media/favicon.ico') }}" type="image/x-icon">
+@endif
+```
+
+Some other example usages could be things like:
+
+```blade
+<img src="{{ asset('images/logo.png') }}" alt="Logo">
+```
+
+We also use the Asset API helpers in the internal codebase that actually powers the static site generator. These kinds of usages would usually only be used by us, package developers, and serious power users. They have an important, but secondary role in the API design. Here are some examples from our codebase:
+
+```php
+// Code that transfers media assets from the source directory to the site output directory
+$this->createDirectoryifItDoesNotExist(Hyde::siteMediaPath());
+$this->mapWithProgressBar(MediaFile::files(), function (string $identifier): void {
+   copy(Hyde::mediaPath($identifier), Hyde::siteMediaPath($identifier));
+});
+
+// Helpers in the featured image class
+public function getSource(): string {
+    return Hyde::mediaLink($this->source);
+}
+
+protected function setSource(string $source): string {
+   // Normalize away any leading media path prefixes.
+   return Str::after($source, Hyde::getMediaDirectory().'/');
+}
+```
+
 ## Current State
 
 ### Asset Facade
