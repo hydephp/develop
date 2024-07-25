@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
+use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Models\Route;
