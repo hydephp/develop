@@ -163,40 +163,37 @@ The filepaths are hidden on mobile devices using CSS to prevent them from overla
 
 ## Dynamic Markdown Links
 
-## Overview
-HydePHP automatically resolves links in your Markdown files using source file paths, converting them to appropriate routes in the built site.
+HydePHP provides a powerful feature for automatically resolving dynamic links within your pages and posts using a special Hyde Markdown link syntax, designed to match the syntax of the `Hyde` facade.
 
-## Usage
-In your Markdown files, use source file paths for links:
+### Usage
+
+You can use the following syntax options in your Markdown files:
 
 ```markdown
-[Home](/_pages/index.blade.php)
-![Logo](/_media/logo.svg)
+<!-- Resolving a page route -->
+[Home](hyde::route('home'))
+
+<!-- Resolving a media asset -->
+![Logo](hyde::asset('logo.png'))
 ```
 
-## How It Works
-During the build process, HydePHP converts source paths to their corresponding routes:
+By using these dynamic Markdown links, you can create more maintainable and flexible content, allowing your site structure to evolve without breaking internal links. The feature is always enabled in the Markdown converter.
 
-- `/_pages/index.blade.php` becomes `index.html`
-- `/_pages/blog/post.blade.php` becomes `blog/post.html`
-- `/_media/logo.svg` becomes `media/logo.svg`
 
-## Benefits
-- Enhanced IDE support (autocompletion, error checking)
-- Proper syntax highlighting in Markdown editors
-- Easy navigation to source files
+### Breakdown
 
-## Limitations
-- Doesn't support dynamic routes
-- Content becomes coupled to project structure
-- Requires manual updates if files are moved or renamed
+The example above is equivalent to the following Blade syntax:
 
-## Best Practices
-1. Use leading slashes in links for consistency
-2. Maintain an organized file structure
-3. Regularly check for broken links, especially after file operations
+```blade
+<!-- Resolving a page route -->
+{{ Hyde::route('route.name') ?? throw new RouteNotFoundException() }}
 
-By leveraging this feature, you can create more maintainable content while enjoying improved developer tooling support.
+<!-- Resolving a media asset -->
+{{ Hyde::asset('path') }}
+```
+
+As you can see, we throw an exception if the route doesn't exist, to provide immediate feedback during development.
+
 
 ## Configuration
 
