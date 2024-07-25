@@ -31,7 +31,8 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
         Render::swap(new RenderData());
 
-        Routes::addRoute(new Route(new InMemoryPage('home')));
+        Routes::addRoute(new Route(new BladePage('index')));
+        Routes::addRoute(new Route(new MarkdownPost('post')));
     }
 
     public function testRouteReplacement()
