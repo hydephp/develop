@@ -163,18 +163,18 @@ The filepaths are hidden on mobile devices using CSS to prevent them from overla
 
 ## Dynamic Markdown Links
 
-## Overview
-
 HydePHP provides a powerful feature for automatically converting Markdown links to source files to the corresponding routes in the built site.
 
-This allows for much better writing experience when using an IDE, as you can easily navigate to the source file by clicking on the link.
+This allows for much better writing experience when using an IDE, as you can easily navigate to the source file by clicking on the link. Hyde will then automatically resolve the link to the correct route when building the site, formatting the links properly using dynamic relative paths and your configured `pretty_urls` setting.
 
 ## Usage
 
-Using the feature is simple: Just use source file paths for links:
+Using the feature is simple: Just use the source file path when linking to the page you want to resolve:
 
 ```markdown
 [Home](/_pages/index.blade.php)
+[Docs](/_docs/index.md)
+[Featured Post](/_posts/hello-world.md)
 ![Logo](/_media/logo.svg)
 ```
 
