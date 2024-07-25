@@ -31,4 +31,19 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 
         return $html;
     }
+
+    /**
+     * @return array<string, \Hyde\Support\Models\Route>
+     */
+    protected static function routeMap(): array
+    {
+        $map = [];
+
+        /** @var \Hyde\Support\Models\Route $route */
+        foreach (Hyde::routes() as $route) {
+            $map[$route->getSourcePath()] = $route;
+        }
+
+        return $map;
+    }
 }
