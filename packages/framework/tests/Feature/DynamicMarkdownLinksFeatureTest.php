@@ -12,6 +12,7 @@ use Hyde\Support\Includes;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
  * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
@@ -27,6 +28,8 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
 
         touch('_media/logo.png');
         touch('_media/image.jpg');
+
+        DynamicMarkdownLinkProcessor::resetAssetMapCache();
     }
 
     public static function tearDownAfterClass(): void
