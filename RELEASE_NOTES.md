@@ -33,7 +33,6 @@ This serves two purposes:
 - **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance. For more information, see below.
 - **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format. For more information, see the upgrade guide below.
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display`.
-- **Breaking:** The `HYDEFRONT_VERSION` and `HYDEFRONT_CDN_URL` constants in the `AssetService` class have been changed from `public` to `protected`. This improves encapsulation but may affect code that directly accessed these constants. For more information, see below.
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
@@ -60,7 +59,6 @@ This serves two purposes:
 - Moved the sidebar documentation to the documentation pages section for better organization.
 - The build command now groups together all `InMemoryPage` instances under one progress bar group in https://github.com/hydephp/develop/pull/1897
 - The `Markdown::render()` method will now always render Markdown using the custom HydePHP Markdown service (thus getting smart features like our Markdown processors) in https://github.com/hydephp/develop/pull/1900
-- The HydeFront asset version and CDN URL are now hardcoded in the `AssetService` class instead of being configurable in https://github.com/hydephp/develop/pull/1909
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -68,13 +66,11 @@ This serves two purposes:
 ### Removed
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
-- Breaking: Removed the `hydefront_version` and `hydefront_cdn_url` configuration options from the `hyde.php` config file in https://github.com/hydephp/develop/pull/1909
 - Removed the deprecated global`unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
 - Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now throwing `BadMethodCallException` if no base URL is set in https://github.com/hydephp/develop/pull/1760
 - Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 - Removed the deprecated `FeaturedImage::isRemote()` method in https://github.com/hydephp/develop/pull/1883. Use `Hyperlinks::isRemote()` instead.
-- The `HYDEFRONT_VERSION` and `HYDEFRONT_CDN_URL` constants in the `AssetService` class have been removed from the public API in https://github.com/hydephp/develop/pull/1910
 
 ### Fixed
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
@@ -242,58 +238,6 @@ The following methods in the `Features` class have been renamed to follow a more
 - `Features::rss()` has been renamed to `Features::hasRss()`
 
 Note that this class was previously marked as internal in v1, but the change is logged here in case it was used in configuration files or custom code.
-
-### Asset API Changes
-
-The overall asset API has been improved and cleaned up. Unfortunately, this means that there are some breaking changes to the API.
-
-#### Removal of HydeFront version and CDN URL configuration options
-
-The `hydefront_version` and `hydefront_cdn_url` configuration options have been removed from the `config/hyde.php` file. These options were previously used to specify the HydeFront version and CDN URL for loading assets.
-
-**Impact:** Low. This change will only affect users who have customized these options.
-
-**Upgrade steps:**
-
-<!-- TODO: Deprecate the constants in v1 -->
-
-1. Remove the following lines from your `config/hyde.php` file if they exist:
-   ```php
-   'hydefront_version' => \Hyde\Framework\Services\AssetService::HYDEFRONT_VERSION,
-   'hydefront_cdn_url' => \Hyde\Framework\Services\AssetService::HYDEFRONT_CDN_URL,
-   ```
-2. If you were using a custom CDN URL, you will need to implement your own solution for serving HydeFront assets from a different CDN. Consider copying the assets to your preferred CDN and updating your templates accordingly.
-
-**Rationale:** The ability to change the HydeFront version was removed because using a different version than the one bundled with your Hyde project could lead to compatibility issues. The CDN URL configuration was removed to simplify the asset loading process.
-
-If you need to use a different CDN for serving HydeFront assets, you should implement a custom solution tailored to your specific needs. You may also open a feature request if you believe this functionality should be added back in a future release.
-
-#### AssetService constants visibility changes
-
-The `HYDEFRONT_VERSION` and `HYDEFRONT_CDN_URL` constants in the `AssetService` class are now `protected` instead of `public`. This change improves encapsulation and reduces the public API surface.
-
-**Impact:** Low. This change will only affect users who directly accessed these constants in their custom code.
-
-**Upgrade steps:**
-
-1. If you were directly accessing `AssetService::HYDEFRONT_VERSION` or `AssetService::HYDEFRONT_CDN_URL` in your code, you will need to update your implementation.
-2. Instead of using these constants directly, use the public methods provided by the `AssetService` class to interact with asset-related functionality.
-
-For example, if you were using:
-
-```php
-$version = AssetService::HYDEFRONT_VERSION;
-```
-
-You should now use:
-
-```php
-$version = (new AssetService())->version();
-```
-
-If you need access to the CDN URL pattern, consider using the `cdnLink()` method of the `AssetService` class instead.
-
-These changes were implemented to improve the API design and encapsulation of the `AssetService` class. If you have any custom implementations that relied on these constants, please review and update your code accordingly.
 
 ## Low impact
 
