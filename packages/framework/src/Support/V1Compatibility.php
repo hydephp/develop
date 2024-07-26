@@ -41,7 +41,7 @@ trait V1Compatibility
      * @deprecated Use Hyde::asset() instead.
      * @see \Hyde\Hyde::asset()
      */
-    #[Deprecated(reason: 'Use Hyde::asset() instead', replacement: '\Hyde\Hyde::asset(%parametersList%)')]
+    #[Deprecated(reason: 'Use Hyde::asset() instead', replacement: 'Hyde::asset(%parametersList%)')]
     public static function mediaLink(string $destination): string
     {
         return HydeKernel::getInstance()->mediaLink($destination);
