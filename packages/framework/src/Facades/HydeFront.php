@@ -22,8 +22,7 @@ class HydeFront
     public static function cdnLink(string $file): string
     {
         return str_replace(
-            ['{{ $version }}', '{{ $file }}'],
-            [static::version(), $file],
+            ['{{ $version }}', '{{ $file }}'], [static::version(), $file],
             static::HYDEFRONT_CDN_URL
         );
     }
