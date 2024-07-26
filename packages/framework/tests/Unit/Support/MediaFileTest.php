@@ -241,4 +241,23 @@ class MediaFileTest extends UnitTestCase
     {
         $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
     }
+
+    public function testCanGetSiteMediaOutputDirectory()
+    {
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+    }
+
+    public function testGetSiteMediaOutputDirectoryUsesTrimmedVersionOfMediaSourceDirectory()
+    {
+        Hyde::setMediaDirectory('_foo');
+        $this->assertSame(Hyde::path('_site/foo'), MediaFile::outputPath());
+    }
+
+    public function testGetSiteMediaOutputDirectoryUsesConfiguredSiteOutputDirectory()
+    {
+        Hyde::setOutputDirectory(Hyde::path('foo'));
+        Hyde::setMediaDirectory('bar');
+
+        $this->assertSame(Hyde::path('foo/bar'), MediaFile::outputPath());
+    }
 }

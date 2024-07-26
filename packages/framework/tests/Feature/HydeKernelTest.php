@@ -392,31 +392,6 @@ class HydeKernelTest extends TestCase
         $this->assertSame('foo', Hyde::getMediaOutputDirectory());
     }
 
-    public function testCanGetSiteMediaOutputDirectory()
-    {
-        // Todo: Move to MediaFileTest
-
-        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
-    }
-
-    public function testGetSiteMediaOutputDirectoryUsesTrimmedVersionOfMediaSourceDirectory()
-    {
-        // Todo: Move to MediaFileTest
-
-        Hyde::setMediaDirectory('_foo');
-        $this->assertSame(Hyde::path('_site/foo'), MediaFile::outputPath());
-    }
-
-    public function testGetSiteMediaOutputDirectoryUsesConfiguredSiteOutputDirectory()
-    {
-        // Todo: Move to MediaFileTest
-
-        Hyde::setOutputDirectory(Hyde::path('foo'));
-        Hyde::setMediaDirectory('bar');
-
-        $this->assertSame(Hyde::path('foo/bar'), MediaFile::outputPath());
-    }
-
     public function testMediaOutputDirectoryCanBeChangedInConfiguration()
     {
         $this->assertSame('_media', Hyde::getMediaDirectory());
