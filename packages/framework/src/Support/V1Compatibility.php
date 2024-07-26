@@ -18,7 +18,7 @@ trait V1Compatibility
      * @deprecated Use MediaFile::sourcePath() instead.
      * @see \Hyde\Support\Filesystem\MediaFile::sourcePath()
      */
-    #[Deprecated(reason: 'Use MediaFile::sourcePath() instead', replacement: '\Hyde\Support\Filesystem\MediaFile::sourcePath()')]
+    #[Deprecated(reason: 'Use MediaFile::sourcePath() instead', replacement: '\Hyde\Support\Filesystem\MediaFile::sourcePath(%parametersList%)')]
     public static function mediaPath(string $path = ''): string
     {
         return MediaFile::sourcePath($path);
@@ -28,7 +28,7 @@ trait V1Compatibility
      * @deprecated Use MediaFile::outputPath() instead.
      * @see \Hyde\Support\Filesystem\MediaFile::outputPath()
      */
-    #[Deprecated(reason: 'Use MediaFile::outputPath() instead', replacement: '\Hyde\Support\Filesystem\MediaFile::outputPath()')]
+    #[Deprecated(reason: 'Use MediaFile::outputPath() instead', replacement: '\Hyde\Support\Filesystem\MediaFile::outputPath(%parametersList%)')]
     public static function siteMediaPath(string $path = ''): string
     {
         return MediaFile::outputPath($path);
