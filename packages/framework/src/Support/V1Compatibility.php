@@ -37,8 +37,8 @@ trait V1Compatibility
         return MediaFile::outputPath($path);
     }
 
-    public static function mediaLink(string $destination, bool $validate = false): string
+    public static function mediaLink(string $destination): string
     {
-        return HydeKernel::getInstance()->mediaLink($destination, $validate);
+        return HydeKernel::getInstance()->mediaLink($destination);
     }
 }

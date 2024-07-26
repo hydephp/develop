@@ -23,9 +23,9 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->relativeLink($destination);
     }
 
-    public function mediaLink(string $destination, bool $validate = false): string
+    public function mediaLink(string $destination): string
     {
-        return $this->hyperlinks->mediaLink($destination, $validate);
+        return $this->hyperlinks->mediaLink($destination);
     }
 
     public function asset(string $name): string

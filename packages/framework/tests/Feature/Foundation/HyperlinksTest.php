@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature\Foundation;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\Hyperlinks;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
@@ -105,16 +104,15 @@ class HyperlinksTest extends TestCase
         $this->assertSame('assets/foo', $this->class->mediaLink('foo'));
     }
 
-    public function testMediaLinkHelperWithValidationAndExistingFile()
+    public function testMediaLinkHelperWithExistingFile()
     {
         $this->file('_media/foo');
-        $this->assertSame('media/foo', $this->class->mediaLink('foo', true));
+        $this->assertSame('media/foo', $this->class->mediaLink('foo'));
     }
 
-    public function testMediaLinkHelperWithValidationAndNonExistingFile()
+    public function testMediaLinkHelperWithNonExistingFile()
     {
-        $this->expectException(FileNotFoundException::class);
-        $this->class->mediaLink('foo', true);
+        $this->assertSame('media/foo', $this->class->mediaLink('foo'));
     }
 
     public function testRouteHelper()
