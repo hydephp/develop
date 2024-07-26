@@ -6,7 +6,6 @@ namespace Hyde\Facades;
 
 use Hyde\Hyde;
 use Illuminate\Support\Str;
-use JetBrains\PhpStorm\Deprecated;
 
 use function md5_file;
 use function file_exists;
@@ -53,27 +52,5 @@ class Asset
         return Config::getBool('hyde.enable_cache_busting', true)
             ? '?v='.md5_file(Hyde::mediaPath("$file"))
             : '';
-    }
-
-    /**
-     * @deprecated Use HydeFront::version() instead.
-     *
-     * @codeCoverageIgnore Deprecated method.
-     */
-    #[Deprecated(reason: 'Use HydeFront::version() instead.', replacement: '\Hyde\Facades\HydeFront::version()')]
-    public static function version(): string
-    {
-        return HydeFront::version();
-    }
-
-    /**
-     * @deprecated Use HydeFront::cdnLink() instead.
-     *
-     * @codeCoverageIgnore Deprecated method.
-     */
-    #[Deprecated(reason: 'Use HydeFront::cdnLink() instead.', replacement: '\Hyde\Facades\HydeFront::cdnLink()')]
-    public static function cdnLink(string $file): string
-    {
-        return HydeFront::cdnLink($file);
     }
 }
