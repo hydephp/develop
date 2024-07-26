@@ -59,6 +59,7 @@ This serves two purposes:
 - Moved the sidebar documentation to the documentation pages section for better organization.
 - The build command now groups together all `InMemoryPage` instances under one progress bar group in https://github.com/hydephp/develop/pull/1897
 - The `Markdown::render()` method will now always render Markdown using the custom HydePHP Markdown service (thus getting smart features like our Markdown processors) in https://github.com/hydephp/develop/pull/1900
+- The HydeFront asset version and CDN URL are now hardcoded in the `AssetService` class instead of being configurable in https://github.com/hydephp/develop/pull/1909
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -66,6 +67,7 @@ This serves two purposes:
 ### Removed
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
+- Breaking: Removed the `hydefront_version` and `hydefront_cdn_url` configuration options from the `hyde.php` config file in https://github.com/hydephp/develop/pull/1909
 - Removed the deprecated global`unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
 - Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now throwing `BadMethodCallException` if no base URL is set in https://github.com/hydephp/develop/pull/1760
 - Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
@@ -243,7 +245,26 @@ Note that this class was previously marked as internal in v1, but the change is 
 
 The overall asset API has been improved and cleaned up. Unfortunately, this means that there are some breaking changes to the API.
 
+#### Removal of HydeFront version and CDN URL configuration options
 
+The `hydefront_version` and `hydefront_cdn_url` configuration options have been removed from the `config/hyde.php` file. These options were previously used to specify the HydeFront version and CDN URL for loading assets.
+
+**Impact:** Low. This change will only affect users who have customized these options.
+
+**Upgrade steps:**
+
+<!-- TODO: Deprecate the constants in v1 -->
+
+1. Remove the following lines from your `config/hyde.php` file if they exist:
+   ```php
+   'hydefront_version' => \Hyde\Framework\Services\AssetService::HYDEFRONT_VERSION,
+   'hydefront_cdn_url' => \Hyde\Framework\Services\AssetService::HYDEFRONT_CDN_URL,
+   ```
+2. If you were using a custom CDN URL, you will need to implement your own solution for serving HydeFront assets from a different CDN. Consider copying the assets to your preferred CDN and updating your templates accordingly.
+
+**Rationale:** The ability to change the HydeFront version was removed because using a different version than the one bundled with your Hyde project could lead to compatibility issues. The CDN URL configuration was removed to simplify the asset loading process.
+
+If you need to use a different CDN for serving HydeFront assets, you should implement a custom solution tailored to your specific needs. You may also open a feature request if you believe this functionality should be added back in a future release.
 
 ## Low impact
 
