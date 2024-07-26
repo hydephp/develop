@@ -82,17 +82,17 @@ class HelpersTest extends TestCase
     }
 
     /** @covers ::asset */
-    public function testAssetFunctionWithSetBaseUrl()
-    {
-        $this->app['config']->set(['hyde.url' => 'https://example.com']);
-        $this->assertSame('https://example.com/media/foo', asset('foo'));
-    }
-
-    /** @covers ::asset */
     public function testAssetFunctionWithExternalUrl()
     {
         $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
         $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithSetBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+        $this->assertSame('https://example.com/media/foo', asset('foo'));
     }
 
     /** @covers ::asset */
