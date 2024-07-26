@@ -2,19 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Support;
+namespace Hyde\Framework\Testing\Unit\Support;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
+use Hyde\Testing\CreatesTemporaryFiles;
 
 /**
  * @covers \Hyde\Support\Filesystem\MediaFile
  */
-class MediaFileTest extends TestCase
+class MediaFileTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+    }
+
     public function testCanConstruct()
     {
         $file = new MediaFile('foo');
