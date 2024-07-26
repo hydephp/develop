@@ -101,6 +101,14 @@ class Filesystem
     }
 
     /**
+     * Get the absolute path to the compiled site's media directory, or a file within it.
+     */
+    public function siteMediaPath(string $path = ''): string
+    {
+        return MediaFile::outputPath($path);
+    }
+
+    /**
      * Get the absolute path to the compiled site directory, or a file within it.
      */
     public function sitePath(string $path = ''): string
@@ -110,14 +118,6 @@ class Filesystem
         }
 
         return $this->path(path_join(Hyde::getOutputDirectory(), unslash($path)));
-    }
-
-    /**
-     * Get the absolute path to the compiled site's media directory, or a file within it.
-     */
-    public function siteMediaPath(string $path = ''): string
-    {
-        return MediaFile::outputPath($path);
     }
 
     /**

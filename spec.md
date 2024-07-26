@@ -78,17 +78,17 @@ Asset::hasMediaFile(string $file) // Returns file_exists(Hyde::mediaPath($file))
 
 ```php
 Hyde::mediaPath() // Get the absolute path to the media source directory, or a file within it. (Intended as a sibling to Hyde::path and Hyde::sitePath helpers, and the HydePage::path methods)
+Hyde::siteMediaPath() //  Get the absolute path to the compiled site's media directory, or a file within it. (Intended as a sibling to Hyde::sitePath)
 Hyde::mediaLink() // Gets a relative web link to the given file stored in the _site/media folder. (Intended as a sibling to Hyde::relativeLink, which is called by this) (A second $validate parameter will return throw an exception if the file does not exist)
 Hyde::asset() // Gets a relative web link to the given image stored in the _site/media folder. (But leaves remote URLs alone) (A second $preferQualifiedUrl parameter will return a fully qualified URL if a site URL is set)
-Hyde::siteMediaPath() //  Get the absolute path to the compiled site's media directory, or a file within it. (Intended as a sibling to Hyde::sitePath)
 
 /**
  * Real implementations of the facade methods:
  * 
  * @see \Hyde\Foundation\HydeKernel::mediaPath {@see \Hyde\Foundation\Kernel\Filesystem::mediaPath}
+ * @see \Hyde\Foundation\HydeKernel::siteMediaPath {@see \Hyde\Foundation\Kernel\Filesystem::siteMediaPath}
  * @see \Hyde\Foundation\HydeKernel::mediaLink {@see \Hyde\Foundation\Kernel\Hyperlinks::mediaLink}
  * @see \Hyde\Foundation\HydeKernel::asset {@see \Hyde\Foundation\Kernel\Hyperlinks::asset}
- * @see \Hyde\Foundation\HydeKernel::siteMediaPath {@see \Hyde\Foundation\Kernel\Filesystem::siteMediaPath}
  */
 ```
 
