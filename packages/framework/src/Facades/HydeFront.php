@@ -21,11 +21,6 @@ class HydeFront
 
     public static function cdnLink(string $file): string
     {
-        return static::constructCdnPath($file);
-    }
-
-    protected static function constructCdnPath(string $file): string
-    {
         return str_replace(
             ['{{ $version }}', '{{ $file }}'],
             [static::version(), $file],
