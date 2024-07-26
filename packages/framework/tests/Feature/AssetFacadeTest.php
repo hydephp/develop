@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Facades\Asset
  *
- * @see \Hyde\Framework\Testing\Unit\AssetServiceUnitTest
+ * @see \Hyde\Framework\Testing\Unit\Facades\AssetFacadeUnitTest
  */
 class AssetFacadeTest extends TestCase
 {

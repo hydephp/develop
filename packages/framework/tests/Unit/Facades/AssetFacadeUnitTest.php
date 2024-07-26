@@ -11,6 +11,8 @@ use Hyde\Framework\Services\AssetService;
 
 /**
  * @covers \Hyde\Facades\Asset
+ *
+ * @see \Hyde\Framework\Testing\Feature\AssetFacadeTest
  */
 class AssetFacadeUnitTest extends UnitTestCase
 {
