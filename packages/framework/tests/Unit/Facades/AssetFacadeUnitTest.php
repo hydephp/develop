@@ -12,7 +12,7 @@ use Hyde\Framework\Services\AssetService;
 /**
  * @covers \Hyde\Facades\Asset
  */
-class AssetFacadeTest extends UnitTestCase
+class AssetFacadeUnitTest extends UnitTestCase
 {
     protected function setUp(): void
     {
