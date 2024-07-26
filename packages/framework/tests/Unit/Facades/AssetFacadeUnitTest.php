@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Unit\Facades;
 use Hyde\Hyde;
 use Hyde\Facades\Asset;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Framework\Services\AssetService;
 
 /**
  * @covers \Hyde\Facades\Asset
@@ -20,9 +19,6 @@ class AssetFacadeUnitTest extends UnitTestCase
     {
         self::needsKernel();
         self::mockConfig();
-
-        // Temporary interoperability with the old AssetService
-        Asset::swap(new AssetService());
     }
 
     public function testServiceHasVersionString()
