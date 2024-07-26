@@ -37,6 +37,11 @@ trait V1Compatibility
         return MediaFile::outputPath($path);
     }
 
+    /**
+     * @deprecated Use Hyde::asset() instead.
+     * @see \Hyde\Hyde::asset()
+     */
+    #[Deprecated(reason: 'Use Hyde::asset() instead', replacement: '\Hyde\Hyde::asset(%parametersList%)')]
     public static function mediaLink(string $destination): string
     {
         return HydeKernel::getInstance()->mediaLink($destination);
