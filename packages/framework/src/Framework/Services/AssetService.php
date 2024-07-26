@@ -36,9 +36,6 @@ class AssetService
     /** @var string The default HydeFront CDN path pattern. The Blade-style placeholders are replaced with the proper values. */
     final protected const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
 
-    protected string $version = self::HYDEFRONT_VERSION;
-    protected string $cdnUrl = self::HYDEFRONT_CDN_URL;
-
     public static function version(): string
     {
         return static::HYDEFRONT_VERSION;
