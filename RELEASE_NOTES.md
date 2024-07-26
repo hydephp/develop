@@ -239,6 +239,12 @@ The following methods in the `Features` class have been renamed to follow a more
 
 Note that this class was previously marked as internal in v1, but the change is logged here in case it was used in configuration files or custom code.
 
+### Asset API Changes
+
+The overall asset API has been improved and cleaned up. Unfortunately, this means that there are some breaking changes to the API.
+
+
+
 ## Low impact
 
 ### Navigation internal changes
