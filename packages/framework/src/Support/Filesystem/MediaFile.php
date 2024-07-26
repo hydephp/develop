@@ -34,7 +34,7 @@ class MediaFile extends ProjectFile
     /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
     public static function all(): array
     {
-        return static::discoverMediaAssetFiles();
+        return static::discoverMediaFiles();
     }
 
     /** @return array<string> Array of filenames relative to the _media/ directory */
@@ -123,16 +123,16 @@ class MediaFile extends ProjectFile
         return 'text/plain';
     }
 
-    protected static function discoverMediaAssetFiles(): array
+    protected static function discoverMediaFiles(): array
     {
-        return collect(static::getMediaAssetFiles())->mapWithKeys(function (string $path): array {
+        return collect(static::getMediaFiles())->mapWithKeys(function (string $path): array {
             $file = static::make($path);
 
             return [$file->getIdentifier() => $file];
         })->all();
     }
 
-    protected static function getMediaAssetFiles(): array
+    protected static function getMediaFiles(): array
     {
         return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
     }
