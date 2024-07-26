@@ -41,6 +41,14 @@ class MediaFile extends ProjectFile
         return array_keys(static::all());
     }
 
+    /**
+     * Get the absolute path to the media source directory, or a file within it.
+     */
+    public static function mediaPath(string $path = ''): string
+    {
+        return Hyde::mediaPath($path);
+    }
+
     public function getIdentifier(): string
     {
         return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
