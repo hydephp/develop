@@ -6,6 +6,7 @@ namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -46,7 +47,7 @@ class MediaFile extends ProjectFile
      */
     public static function mediaPath(string $path = ''): string
     {
-        return Hyde::mediaPath($path);
+        return HydeKernel::getInstance()->mediaPath($path);
     }
 
     /**
@@ -54,7 +55,7 @@ class MediaFile extends ProjectFile
      */
     public static function siteMediaPath(string $path = ''): string
     {
-        return Hyde::siteMediaPath($path);
+        return HydeKernel::getInstance()->siteMediaPath($path);
     }
 
     public function getIdentifier(): string
