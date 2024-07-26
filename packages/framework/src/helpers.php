@@ -46,7 +46,7 @@ namespace {
 
         if (! function_exists('route')) {
             /**
-             * Get a page route by its key.
+             * Get a page route instance by its key. Casting it to a string will return a relative link to the page.
              */
             function route(string $key): ?Hyde\Support\Models\Route
             {
