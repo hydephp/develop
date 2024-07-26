@@ -21,19 +21,6 @@ class AssetFacadeUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function testServiceHasVersionString()
-    {
-        $this->assertIsString(Asset::version());
-    }
-
-    public function testCdnLinkHelper()
-    {
-        $this->assertSame(
-            'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/styles.css',
-            Asset::cdnLink('styles.css')
-        );
-    }
-
     public function testHasMediaFileHelper()
     {
         $this->assertFalse(Asset::hasMediaFile('styles.css'));

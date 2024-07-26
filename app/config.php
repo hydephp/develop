@@ -94,6 +94,7 @@ return [
         'Meta' => \Hyde\Facades\Meta::class,
         'Asset' => \Hyde\Facades\Asset::class,
         'Author' => \Hyde\Facades\Author::class,
+        'HydeFront' => \Hyde\Facades\HydeFront::class,
         'Features' => \Hyde\Facades\Features::class,
         'Config' => \Hyde\Facades\Config::class,
         'Filesystem' => \Hyde\Facades\Filesystem::class,

@@ -15,7 +15,7 @@ For example: Consider these Blade snippets from the default views, showing commo
 ```blade
 {{-- The compiled Tailwind/App styles --}}
 @if(config('hyde.load_app_styles_from_cdn', false))
-    <link rel="stylesheet" href="{{ Asset::cdnLink('app.css') }}">
+    <link rel="stylesheet" href="{{ HydeFront::cdnLink('app.css') }}">
 @elseif(Asset::hasMediaFile('app.css'))
     <link rel="stylesheet" href="{{ Asset::mediaLink('app.css') }}">
 @endif
@@ -61,7 +61,7 @@ protected function setSource(string $source): string {
 ### Asset Facade
 
 ```php
-Asset::cdnLink(string $file) // Gets remote URL to any file in /dist/ in the HydeFront version
+HydeFront::cdnLink(string $file) // Gets remote URL to any file in /dist/ in the HydeFront version
 Asset::mediaLink(string $file) // Returns Hyde::mediaLink but with a cache buster
 Asset::hasMediaFile(string $file) // Returns file_exists(Hyde::mediaPath($file))
 
@@ -576,7 +576,7 @@ $size = $logo->getSize();
 $mimeType = $logo->getMimeType();
 
 // HydeFront CDN link (for app.js or app.css)
-$appJsUrl = Asset::cdnLink('app.js');
+$appJsUrl = HydeFront::cdnLink('app.js');
 ```
 
 This API maintains the simplicity-first approach of Hyde while providing power when needed. It should be intuitive for both Laravel-familiar developers and those new to the framework, aligning well with Hyde's philosophy and goals.
