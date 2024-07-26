@@ -12,6 +12,8 @@ use Hyde\Testing\UnitTestCase;
  */
 class HydeFrontFacadeTest extends UnitTestCase
 {
+    // Todo: Check the version is correct? (When running in monorepo)
+
     public function testVersionReturnsString()
     {
         $this->assertIsString(HydeFront::version());
