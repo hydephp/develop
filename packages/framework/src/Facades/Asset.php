@@ -6,15 +6,10 @@ namespace Hyde\Facades;
 
 use Hyde\Hyde;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\Deprecated;
 
-use function rtrim;
-use function explode;
-use function implode;
 use function md5_file;
 use function file_exists;
-use function str_replace;
-use function preg_replace;
-use function str_contains;
 use function file_get_contents;
 
 /**
@@ -25,22 +20,6 @@ use function file_get_contents;
  */
 class Asset
 {
-    /** @var string The default HydeFront SemVer tag to load. This constant is set to match the styles used for the installed framework version. */
-    final protected const HYDEFRONT_VERSION = 'v3.4';
-
-    /** @var string The default HydeFront CDN path pattern. The Blade-style placeholders are replaced with the proper values. */
-    final protected const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
-
-    public static function version(): string
-    {
-        return static::HYDEFRONT_VERSION;
-    }
-
-    public static function cdnLink(string $file): string
-    {
-        return static::constructCdnPath($file);
-    }
-
     public static function mediaLink(string $file): string
     {
         return Hyde::mediaLink($file).static::getCacheBustKey($file);
@@ -69,18 +48,32 @@ class Asset
         return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n".rtrim($config, ",\n\r"));
     }
 
-    protected static function constructCdnPath(string $file): string
-    {
-        return str_replace(
-            ['{{ $version }}', '{{ $file }}'], [static::version(), $file],
-            static::HYDEFRONT_CDN_URL
-        );
-    }
-
     protected static function getCacheBustKey(string $file): string
     {
         return Config::getBool('hyde.enable_cache_busting', true)
             ? '?v='.md5_file(Hyde::mediaPath("$file"))
             : '';
+    }
+
+    /**
+     * @deprecated Use HydeFront::version() instead.
+     *
+     * @codeCoverageIgnore Deprecated method.
+     */
+    #[Deprecated(reason: 'Use HydeFront::version() instead.', replacement: '\Hyde\Facades\HydeFront::version()')]
+    public static function version(): string
+    {
+        return HydeFront::version();
+    }
+
+    /**
+     * @deprecated Use HydeFront::cdnLink() instead.
+     *
+     * @codeCoverageIgnore Deprecated method.
+     */
+    #[Deprecated(reason: 'Use HydeFront::cdnLink() instead.', replacement: '\Hyde\Facades\HydeFront::cdnLink()')]
+    public static function cdnLink(string $file): string
+    {
+        return HydeFront::cdnLink($file);
     }
 }
