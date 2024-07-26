@@ -23,6 +23,7 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->relativeLink($destination);
     }
 
+    /** @deprecated Use Hyde::asset() instead. */
     public function mediaLink(string $destination): string
     {
         return $this->hyperlinks->mediaLink($destination);

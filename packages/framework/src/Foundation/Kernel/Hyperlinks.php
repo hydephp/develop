@@ -90,6 +90,8 @@ class Hyperlinks
     /**
      * Gets a relative web link to the given file stored in the _site/media folder.
      *
+     * @deprecated Use Hyde::asset() instead.
+     *
      * An exception will be thrown if the file does not exist in the _media directory,
      * and the second argument is set to true.
      */
