@@ -8,13 +8,11 @@ use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
 use function str_ends_with;
 use function str_starts_with;
 use function substr_count;
-use function file_exists;
 use function str_replace;
 use function str_repeat;
 use function substr;
@@ -97,10 +95,6 @@ class Hyperlinks
      */
     public function mediaLink(string $destination): string
     {
-        if (false && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
-            throw new FileNotFoundException($sourcePath);
-        }
-
         return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination");
     }
 
