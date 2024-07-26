@@ -50,8 +50,7 @@ class AssetFacadeUnitTest extends UnitTestCase
 
     public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
     {
-        $service = new AssetService();
-        $this->assertIsString($config = $service->injectTailwindConfig());
+        $this->assertIsString($config = Asset::injectTailwindConfig());
         $this->assertStringContainsString("darkMode: 'class'", $config);
         $this->assertStringContainsString('theme: {', $config);
         $this->assertStringContainsString('extend: {', $config);
