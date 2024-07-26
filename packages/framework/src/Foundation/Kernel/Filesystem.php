@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
-use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -90,22 +89,6 @@ class Filesystem
         return normalize_slashes(str_starts_with($path, $this->path())
             ? unslash(str_replace($this->path(), '', $path))
             : $path);
-    }
-
-    /**
-     * Get the absolute path to the media source directory, or a file within it.
-     */
-    public function mediaPath(string $path = ''): string
-    {
-        return MediaFile::sourcePath($path);
-    }
-
-    /**
-     * Get the absolute path to the compiled site's media directory, or a file within it.
-     */
-    public function siteMediaPath(string $path = ''): string
-    {
-        return MediaFile::outputPath($path);
     }
 
     /**

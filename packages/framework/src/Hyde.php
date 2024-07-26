@@ -34,8 +34,6 @@ use JetBrains\PhpStorm\Pure;
  * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
  * @method static string sitePath(string $path = '')
- * @method static string mediaPath(string $path = '')
- * @method static string siteMediaPath(string $path = '')
  * @method static string formatLink(string $destination)
  * @method static string relativeLink(string $destination)
  * @method static string mediaLink(string $destination, bool $validate = false)
