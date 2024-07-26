@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
+use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -96,11 +97,7 @@ class Filesystem
      */
     public function mediaPath(string $path = ''): string
     {
-        if (empty($path)) {
-            return Hyde::path(Hyde::getMediaDirectory());
-        }
-
-        return Hyde::path(path_join(Hyde::getMediaDirectory(), unslash($path)));
+        return MediaFile::sourcePath($path);
     }
 
     /**
@@ -120,13 +117,7 @@ class Filesystem
      */
     public function siteMediaPath(string $path = ''): string
     {
-        if (empty($path)) {
-            return Hyde::sitePath(Hyde::getMediaOutputDirectory());
-        }
-
-        $path = unslash($path);
-
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory()."/$path");
+        return MediaFile::outputPath($path);
     }
 
     /**

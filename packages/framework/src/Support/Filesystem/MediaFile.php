@@ -6,10 +6,11 @@ namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
+use function Hyde\unslash;
+use function Hyde\path_join;
 use function extension_loaded;
 use function file_exists;
 use function array_merge;
@@ -47,7 +48,11 @@ class MediaFile extends ProjectFile
      */
     public static function sourcePath(string $path = ''): string
     {
-        return HydeKernel::getInstance()->mediaPath($path);
+        if (empty($path)) {
+            return Hyde::path(Hyde::getMediaDirectory());
+        }
+
+        return Hyde::path(path_join(Hyde::getMediaDirectory(), unslash($path)));
     }
 
     /**
@@ -55,7 +60,13 @@ class MediaFile extends ProjectFile
      */
     public static function outputPath(string $path = ''): string
     {
-        return HydeKernel::getInstance()->siteMediaPath($path);
+        if (empty($path)) {
+            return Hyde::sitePath(Hyde::getMediaOutputDirectory());
+        }
+
+        $path = unslash($path);
+
+        return Hyde::sitePath(Hyde::getMediaOutputDirectory()."/$path");
     }
 
     public function getIdentifier(): string
