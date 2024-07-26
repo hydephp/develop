@@ -22,4 +22,16 @@ class HydeFrontFacadeTest extends UnitTestCase
         $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/styles.css';
         $this->assertSame($expected, HydeFront::cdnLink('styles.css'));
     }
+
+    public function testCdnLinkReturnsCorrectUrlForHydeCss()
+    {
+        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/hyde.css';
+        $this->assertSame($expected, HydeFront::cdnLink('hyde.css'));
+    }
+
+    public function testCdnLinkReturnsCorrectUrlForInvalidFile()
+    {
+        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/invalid';
+        $this->assertSame($expected, HydeFront::cdnLink('invalid'));
+    }
 }
