@@ -4623,7 +4623,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\route\u0028\u0029",
             "name": "route",
-            "summary": "Get\u0020a\u0020page\u0020route\u0020by\u0020its\u0020key.",
+            "summary": "Get\u0020a\u0020page\u0020route\u0020instance\u0020by\u0020its\u0020key.\u0020Casting\u0020it\u0020to\u0020a\u0020string\u0020will\u0020return\u0020a\u0020relative\u0020link\u0020to\u0020the\u0020page.",
             "url": "namespaces/default.html#function_route"
         },                {
             "fqsen": "\\url\u0028\u0029",
