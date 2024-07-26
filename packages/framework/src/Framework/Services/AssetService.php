@@ -41,8 +41,8 @@ class AssetService
 
     public function __construct()
     {
-        $this->version = Config::getString('hyde.hydefront_version', self::HYDEFRONT_VERSION);
-        $this->cdnUrl = Config::getString('hyde.hydefront_url', self::HYDEFRONT_CDN_URL);
+        $this->version = self::HYDEFRONT_VERSION;
+        $this->cdnUrl = self::HYDEFRONT_CDN_URL;
     }
 
     public function version(): string
