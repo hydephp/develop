@@ -106,10 +106,9 @@ class Hyperlinks
      * Gets a relative web link to the given image stored in the _site/media folder.
      * If the image is remote (starts with http) it will be returned as is.
      *
-     * If true is passed as the second argument, and a base URL is set,
-     * the image will be returned with a qualified absolute URL.
+     * If a base URL is set, the image will be returned with a qualified absolute URL.
      */
-    public function asset(string $name, bool $preferQualifiedUrl = false): string
+    public function asset(string $name): string
     {
         if (static::isRemote($name)) {
             return $name;
@@ -117,7 +116,7 @@ class Hyperlinks
 
         $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
 
-        if ($preferQualifiedUrl && $this->hasSiteUrl()) {
+        if ($this->hasSiteUrl()) {
             return $this->url($name);
         }
 

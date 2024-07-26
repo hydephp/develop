@@ -28,9 +28,9 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->mediaLink($destination, $validate);
     }
 
-    public function asset(string $name, bool $preferQualifiedUrl = false): string
+    public function asset(string $name): string
     {
-        return $this->hyperlinks->asset($name, $preferQualifiedUrl);
+        return $this->hyperlinks->asset($name);
     }
 
     public function url(string $path = ''): string

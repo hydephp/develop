@@ -22,9 +22,9 @@ namespace {
             /**
              * Get a relative link or URL to an asset in the media directory.
              */
-            function asset(string $name, bool $preferQualifiedUrl = false): string
+            function asset(string $name): string
             {
-                return hyde()->asset($name, $preferQualifiedUrl);
+                return hyde()->asset($name);
             }
         }
 
