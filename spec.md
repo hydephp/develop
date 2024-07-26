@@ -242,7 +242,7 @@ class MediaFile extends ProjectFile
 ```markdown
 Task: Split out the HydeFront related parts of the AssetService to a new facade class.
 Motivation: We are simplifying the Asset API in https://github.com/hydephp/develop/pull/1904, and most users won't need the HydeFront related parts of the AssetService. Later, we will be able to merge the simplified AssetService into the other Asset helpers.
-Implementation: Make the necessary changes to the code and tests. Also update the release notes to detail all breaking changes and the upgrade path. Make sure the release notes contains all necessary information, but is not too verbose and should not contain any fluff. Also write a brief pull request description.
+Implementation: Make the necessary changes to the code and tests. Also update the release notes to detail all breaking changes and the upgrade path. Make sure the release notes contains all necessary information, but is not too verbose and should not contain any fluff. Also write a brief pull request description detailing the changes made and why they were made.
 Context: This is for v2 of static site generator HydePHP. Remember to match the code style of the existing codebase.
 ```
 
