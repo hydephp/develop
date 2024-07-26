@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace {
     use Hyde\Foundation\HydeKernel;
+    use JetBrains\PhpStorm\Deprecated;
 
     if (! function_exists('hyde')) {
         /**
@@ -22,7 +23,7 @@ namespace {
             /**
              * Get a relative link or URL to an asset in the media directory.
              */
-            function asset(string $name, bool $preferQualifiedUrl = false): string
+            function asset(string $name, #[Deprecated(reason: 'This will be enabled automatically when a site URL is set')] bool $preferQualifiedUrl = false): string
             {
                 return hyde()->asset($name, $preferQualifiedUrl);
             }

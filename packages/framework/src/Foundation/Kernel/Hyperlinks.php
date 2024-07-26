@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
+use JetBrains\PhpStorm\Deprecated;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -109,7 +110,7 @@ class Hyperlinks
      * If true is passed as the second argument, and a base URL is set,
      * the image will be returned with a qualified absolute URL.
      */
-    public function asset(string $name, bool $preferQualifiedUrl = false): string
+    public function asset(string $name, #[Deprecated(reason: 'This will be enabled automatically when a site URL is set')] bool $preferQualifiedUrl = false): string
     {
         if (static::isRemote($name)) {
             return $name;
