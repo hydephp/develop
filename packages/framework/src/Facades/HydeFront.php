@@ -9,10 +9,10 @@ use function str_replace;
 class HydeFront
 {
     /** @var string The default HydeFront SemVer tag to load. This constant is set to match the styles used for the installed framework version. */
-    final protected const HYDEFRONT_VERSION = 'v3.4';
+    protected const HYDEFRONT_VERSION = 'v3.4';
 
     /** @var string The default HydeFront CDN path pattern. The Blade-style placeholders are replaced with the proper values. */
-    final protected const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
+    protected const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}';
 
     public static function version(): string
     {
