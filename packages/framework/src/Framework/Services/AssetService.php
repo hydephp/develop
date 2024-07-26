@@ -23,9 +23,7 @@ use function file_get_contents;
  *
  * @deprecated Will be merged into the Asset facade.
  *
- * This class is loaded into the service container, making it easy to access and modify.
- *
- * The class also provides helper methods for interacting with versioned files,
+ * This class provides static methods for interacting with versioned files,
  * as well as the HydeFront CDN service and the media directories.
  *
  * @see \Hyde\Facades\Asset
@@ -41,27 +39,27 @@ class AssetService
     protected string $version = self::HYDEFRONT_VERSION;
     protected string $cdnUrl = self::HYDEFRONT_CDN_URL;
 
-    public function version(): string
+    public static function version(): string
     {
-        return $this->version;
+        return static::HYDEFRONT_VERSION;
     }
 
-    public function cdnLink(string $file): string
+    public static function cdnLink(string $file): string
     {
-        return $this->constructCdnPath($file);
+        return static::constructCdnPath($file);
     }
 
-    public function mediaLink(string $file): string
+    public static function mediaLink(string $file): string
     {
-        return Hyde::mediaLink($file).$this->getCacheBustKey($file);
+        return Hyde::mediaLink($file).static::getCacheBustKey($file);
     }
 
-    public function hasMediaFile(string $file): bool
+    public static function hasMediaFile(string $file): bool
     {
         return file_exists(Hyde::mediaPath($file));
     }
 
-    public function injectTailwindConfig(): string
+    public static function injectTailwindConfig(): string
     {
         if (! file_exists(Hyde::path('tailwind.config.js'))) {
             return '';
@@ -79,15 +77,15 @@ class AssetService
         return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n".rtrim($config, ",\n\r"));
     }
 
-    protected function constructCdnPath(string $file): string
+    protected static function constructCdnPath(string $file): string
     {
         return str_replace(
-            ['{{ $version }}', '{{ $file }}'], [$this->version(), $file],
-            $this->cdnUrl
+            ['{{ $version }}', '{{ $file }}'], [static::version(), $file],
+            static::HYDEFRONT_CDN_URL
         );
     }
 
-    protected function getCacheBustKey(string $file): string
+    protected static function getCacheBustKey(string $file): string
     {
         return Config::getBool('hyde.enable_cache_busting', true)
             ? '?v='.md5_file(Hyde::mediaPath("$file"))
