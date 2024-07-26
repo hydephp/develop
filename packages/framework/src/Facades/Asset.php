@@ -18,6 +18,11 @@ use function file_exists;
  */
 class Asset
 {
+    public static function get(string $file): string
+    {
+        return Hyde::asset($file);
+    }
+
     public static function mediaLink(string $file): string
     {
         return Hyde::mediaLink($file).static::getCacheBustKey($file);

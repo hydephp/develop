@@ -31,6 +31,11 @@ class AssetFacadeUnitTest extends UnitTestCase
         $this->cleanUpFilesystem();
     }
 
+    public function testGetHelper()
+    {
+        $this->assertSame(Hyde::asset('foo'), Asset::get('foo'));
+    }
+
     public function testHasMediaFileHelper()
     {
         $this->assertFalse(Asset::hasMediaFile('styles.css'));
