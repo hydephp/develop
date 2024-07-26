@@ -25,25 +25,25 @@ class AssetFacadeTest extends UnitTestCase
 
     public function testServiceHasVersionString()
     {
-        $this->assertIsString((new AssetService())->version());
+        $this->assertIsString(Asset::version());
     }
 
     public function testCdnLinkHelper()
     {
         $this->assertSame(
             'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/styles.css',
-            (new AssetService())->cdnLink('styles.css')
+            Asset::cdnLink('styles.css')
         );
     }
 
     public function testHasMediaFileHelper()
     {
-        $this->assertFalse((new AssetService())->hasMediaFile('styles.css'));
+        $this->assertFalse(Asset::hasMediaFile('styles.css'));
     }
 
     public function testHasMediaFileHelperReturnsTrueForExistingFile()
     {
-        $this->assertTrue((new AssetService())->hasMediaFile('app.css'));
+        $this->assertTrue(Asset::hasMediaFile('app.css'));
     }
 
     public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
@@ -60,8 +60,8 @@ class AssetFacadeTest extends UnitTestCase
     public function testInjectTailwindConfigHandlesMissingConfigFileGracefully()
     {
         rename(Hyde::path('tailwind.config.js'), Hyde::path('tailwind.config.js.bak'));
-        $this->assertIsString((new AssetService())->injectTailwindConfig());
-        $this->assertSame('', (new AssetService())->injectTailwindConfig());
+        $this->assertIsString(Asset::injectTailwindConfig());
+        $this->assertSame('', Asset::injectTailwindConfig());
         rename(Hyde::path('tailwind.config.js.bak'), Hyde::path('tailwind.config.js'));
     }
 }
