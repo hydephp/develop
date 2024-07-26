@@ -37,7 +37,7 @@ use JetBrains\PhpStorm\Pure;
  * @method static string formatLink(string $destination)
  * @method static string relativeLink(string $destination)
  * @method static string mediaLink(string $destination, bool $validate = false)
- * @method static string asset(string $name, bool $preferQualifiedUrl = false)
+ * @method static string asset(string $name)
  * @method static string url(string $path = '')
  * @method static Route|null route(string $key)
  * @method static string makeTitle(string $value)
