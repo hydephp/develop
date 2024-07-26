@@ -13,7 +13,7 @@ use Hyde\Testing\TestCase;
  *
  * @see \Hyde\Framework\Testing\Unit\AssetServiceUnitTest
  */
-class AssetServiceTest extends TestCase
+class AssetFacadeTest extends TestCase
 {
     public function testMediaLinkReturnsMediaPathWithCacheKey()
     {
