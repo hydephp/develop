@@ -39,12 +39,6 @@ class AssetService
     protected string $version = self::HYDEFRONT_VERSION;
     protected string $cdnUrl = self::HYDEFRONT_CDN_URL;
 
-    public function __construct()
-    {
-        $this->version = self::HYDEFRONT_VERSION;
-        $this->cdnUrl = self::HYDEFRONT_CDN_URL;
-    }
-
     public function version(): string
     {
         return $this->version;
