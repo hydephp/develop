@@ -13,6 +13,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 
 use function Hyde\normalize_slashes;
@@ -263,31 +264,19 @@ class FilesystemTest extends UnitTestCase
     public function testHelperForMediaPath()
     {
         $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
-    }
+        $this->assertSame(MediaFile::sourcePath(), Hyde::mediaPath());
 
-    public function testHelperForMediaPathReturnsPathToFileWithinTheDirectory()
-    {
-        $this->assertSame(Hyde::path('_media/foo.css'), Hyde::mediaPath('foo.css'));
-    }
-
-    public function testGetMediaPathReturnsAbsolutePath()
-    {
-        $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
+        $this->assertSame(Hyde::path('_media/foo.png'), Hyde::mediaPath('foo.png'));
+        $this->assertSame(MediaFile::sourcePath('foo.png'), Hyde::mediaPath('foo.png'));
     }
 
     public function testHelperForMediaOutputPath()
     {
         $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
-    }
+        $this->assertSame(MediaFile::outputPath(), Hyde::siteMediaPath());
 
-    public function testHelperForMediaOutputPathReturnsPathToFileWithinTheDirectory()
-    {
-        $this->assertSame(Hyde::path('_site/media/foo.css'), Hyde::siteMediaPath('foo.css'));
-    }
-
-    public function testGetMediaOutputPathReturnsAbsolutePath()
-    {
-        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
+        $this->assertSame(Hyde::path('_site/media/foo.png'), Hyde::siteMediaPath('foo.png'));
+        $this->assertSame(MediaFile::outputPath('foo.png'), Hyde::siteMediaPath('foo.png'));
     }
 
     public function testHelperForSiteOutputPath()

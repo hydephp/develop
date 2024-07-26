@@ -211,4 +211,34 @@ class MediaFileTest extends UnitTestCase
     {
         $this->assertSame('foo/bar', MediaFile::make('foo/bar')->getIdentifier());
     }
+
+    public function testHelperForMediaPath()
+    {
+        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
+    }
+
+    public function testHelperForMediaPathReturnsPathToFileWithinTheDirectory()
+    {
+        $this->assertSame(Hyde::path('_media/foo.css'), MediaFile::sourcePath('foo.css'));
+    }
+
+    public function testGetMediaPathReturnsAbsolutePath()
+    {
+        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
+    }
+
+    public function testHelperForMediaOutputPath()
+    {
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+    }
+
+    public function testHelperForMediaOutputPathReturnsPathToFileWithinTheDirectory()
+    {
+        $this->assertSame(Hyde::path('_site/media/foo.css'), MediaFile::outputPath('foo.css'));
+    }
+
+    public function testGetMediaOutputPathReturnsAbsolutePath()
+    {
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+    }
 }
