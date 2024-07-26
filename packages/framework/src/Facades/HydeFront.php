@@ -42,6 +42,9 @@ class HydeFront
         return sprintf(static::HYDEFRONT_CDN_URL, static::version(), $file);
     }
 
+    /**
+     * This method is used to inject the Tailwind CSS configuration into the Play CDN integration.
+     */
     public static function injectTailwindConfig(): string
     {
         if (! file_exists(Hyde::path('tailwind.config.js'))) {
