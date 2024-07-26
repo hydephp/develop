@@ -20,7 +20,10 @@ namespace {
     } else {
         if (! function_exists('asset')) {
             /**
-             * Get a relative link or URL to an asset in the media directory.
+             * Gets a relative web link to the given file stored in the `_site/media` folder.
+             * If the image is already qualified (starts with `http`) it will be returned as is.
+             *
+             * If a base URL is configured, the image will be returned with a qualified absolute URL.
              */
             function asset(string $name): string
             {
