@@ -6,12 +6,12 @@ namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Facades\Asset;
 use Hyde\Framework\Services\AssetService;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Facades\Asset
  */
-class AssetFacadeTest extends TestCase
+class AssetFacadeTest extends UnitTestCase
 {
     public function testAssetFacadeReturnsTheAssetService()
     {
