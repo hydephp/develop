@@ -105,6 +105,7 @@ return [
         'MarkdownPage' => \Hyde\Pages\MarkdownPage::class,
         'MarkdownPost' => \Hyde\Pages\MarkdownPost::class,
         'DocumentationPage' => \Hyde\Pages\DocumentationPage::class,
+        'MediaFile' => \Hyde\Support\Filesystem\MediaFile::class,
         'DataCollection' => \Hyde\Support\DataCollection::class,
         'Includes' => \Hyde\Support\Includes::class,
         'Feature' => \Hyde\Enums\Feature::class,

@@ -7,6 +7,7 @@ namespace Hyde;
 use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Support\V1Compatibility;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
@@ -33,8 +34,6 @@ use JetBrains\PhpStorm\Pure;
  * @method static string pathToAbsolute(string $path)
  * @method static string pathToRelative(string $path)
  * @method static string sitePath(string $path = '')
- * @method static string mediaPath(string $path = '')
- * @method static string siteMediaPath(string $path = '')
  * @method static string formatLink(string $destination)
  * @method static string relativeLink(string $destination)
  * @method static string mediaLink(string $destination, bool $validate = false)
@@ -79,6 +78,8 @@ use JetBrains\PhpStorm\Pure;
  */
 class Hyde extends Facade
 {
+    use V1Compatibility;
+
     public static function version(): string
     {
         return HydeKernel::version();

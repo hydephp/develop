@@ -13,6 +13,7 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Enums\Feature;
 use Hyde\Foundation\Kernel\Filesystem;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
@@ -262,9 +263,9 @@ class HydeKernelTest extends TestCase
         $this->assertSame(Hyde::path('_pages'), MarkdownPage::path());
         $this->assertSame(Hyde::path('_docs'), DocumentationPage::path());
 
-        $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
+        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
         $this->assertSame(Hyde::path('_site'), Hyde::sitePath());
-        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
     }
 
     public function testPathToRelativeHelperReturnsRelativePathForGivenPath()
@@ -389,25 +390,6 @@ class HydeKernelTest extends TestCase
     {
         Hyde::setMediaDirectory('_foo');
         $this->assertSame('foo', Hyde::getMediaOutputDirectory());
-    }
-
-    public function testCanGetSiteMediaOutputDirectory()
-    {
-        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
-    }
-
-    public function testGetSiteMediaOutputDirectoryUsesTrimmedVersionOfMediaSourceDirectory()
-    {
-        Hyde::setMediaDirectory('_foo');
-        $this->assertSame(Hyde::path('_site/foo'), Hyde::siteMediaPath());
-    }
-
-    public function testGetSiteMediaOutputDirectoryUsesConfiguredSiteOutputDirectory()
-    {
-        Hyde::setOutputDirectory(Hyde::path('foo'));
-        Hyde::setMediaDirectory('bar');
-
-        $this->assertSame(Hyde::path('foo/bar'), Hyde::siteMediaPath());
     }
 
     public function testMediaOutputDirectoryCanBeChangedInConfiguration()

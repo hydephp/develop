@@ -2,19 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Support;
+namespace Hyde\Framework\Testing\Unit\Support;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
+use Hyde\Testing\CreatesTemporaryFiles;
 
 /**
  * @covers \Hyde\Support\Filesystem\MediaFile
  */
-class MediaFileTest extends TestCase
+class MediaFileTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+    }
+
     public function testCanConstruct()
     {
         $file = new MediaFile('foo');
@@ -199,5 +210,54 @@ class MediaFileTest extends TestCase
     public function testGetIdentifierWithSubdirectory()
     {
         $this->assertSame('foo/bar', MediaFile::make('foo/bar')->getIdentifier());
+    }
+
+    public function testHelperForMediaPath()
+    {
+        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
+    }
+
+    public function testHelperForMediaPathReturnsPathToFileWithinTheDirectory()
+    {
+        $this->assertSame(Hyde::path('_media/foo.css'), MediaFile::sourcePath('foo.css'));
+    }
+
+    public function testGetMediaPathReturnsAbsolutePath()
+    {
+        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
+    }
+
+    public function testHelperForMediaOutputPath()
+    {
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+    }
+
+    public function testHelperForMediaOutputPathReturnsPathToFileWithinTheDirectory()
+    {
+        $this->assertSame(Hyde::path('_site/media/foo.css'), MediaFile::outputPath('foo.css'));
+    }
+
+    public function testGetMediaOutputPathReturnsAbsolutePath()
+    {
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+    }
+
+    public function testCanGetSiteMediaOutputDirectory()
+    {
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+    }
+
+    public function testGetSiteMediaOutputDirectoryUsesTrimmedVersionOfMediaSourceDirectory()
+    {
+        Hyde::setMediaDirectory('_foo');
+        $this->assertSame(Hyde::path('_site/foo'), MediaFile::outputPath());
+    }
+
+    public function testGetSiteMediaOutputDirectoryUsesConfiguredSiteOutputDirectory()
+    {
+        Hyde::setOutputDirectory(Hyde::path('foo'));
+        Hyde::setMediaDirectory('bar');
+
+        $this->assertSame(Hyde::path('foo/bar'), MediaFile::outputPath());
     }
 }
