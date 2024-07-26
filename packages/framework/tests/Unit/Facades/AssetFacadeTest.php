@@ -18,6 +18,9 @@ class AssetFacadeTest extends UnitTestCase
     {
         self::needsKernel();
         self::mockConfig();
+
+        // Temporary interoperability with the old AssetService
+        Asset::swap(new AssetService());
     }
 
     public function testServiceHasVersionString()
