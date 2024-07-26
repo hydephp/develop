@@ -6,6 +6,11 @@ namespace Hyde\Facades;
 
 use function sprintf;
 
+/**
+ * HydeFront is the NPM package that bundles the default precompiled CSS and JavaScript assets for HydePHP.
+ *
+ * This facade makes it easy to access these assets from the HydeFront CDN, automatically getting the correct version.
+ */
 class HydeFront
 {
     /** @var string The default HydeFront SemVer tag to load. This constant is set to match the styles used for the installed framework version. */
