@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Http;
 use Hyde\Foundation\Kernel\Hyperlinks;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
@@ -213,7 +214,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForLocalImage(): int
     {
-        $storagePath = Hyde::mediaPath($this->source);
+        $storagePath = MediaFile::sourcePath($this->source);
 
         if (! file_exists($storagePath)) {
             throw new FileNotFoundException(customMessage: sprintf('Featured image [%s] not found.', Hyde::pathToRelative($storagePath)));

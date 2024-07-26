@@ -263,20 +263,20 @@ class FilesystemTest extends UnitTestCase
 
     public function testHelperForMediaPath()
     {
-        $this->assertSame(Hyde::path('_media'), Hyde::mediaPath());
-        $this->assertSame(MediaFile::sourcePath(), Hyde::mediaPath());
+        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
+        $this->assertSame(MediaFile::sourcePath(), MediaFile::sourcePath());
 
-        $this->assertSame(Hyde::path('_media/foo.png'), Hyde::mediaPath('foo.png'));
-        $this->assertSame(MediaFile::sourcePath('foo.png'), Hyde::mediaPath('foo.png'));
+        $this->assertSame(Hyde::path('_media/foo.png'), MediaFile::sourcePath('foo.png'));
+        $this->assertSame(MediaFile::sourcePath('foo.png'), MediaFile::sourcePath('foo.png'));
     }
 
     public function testHelperForMediaOutputPath()
     {
-        $this->assertSame(Hyde::path('_site/media'), Hyde::siteMediaPath());
-        $this->assertSame(MediaFile::outputPath(), Hyde::siteMediaPath());
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+        $this->assertSame(MediaFile::outputPath(), MediaFile::outputPath());
 
-        $this->assertSame(Hyde::path('_site/media/foo.png'), Hyde::siteMediaPath('foo.png'));
-        $this->assertSame(MediaFile::outputPath('foo.png'), Hyde::siteMediaPath('foo.png'));
+        $this->assertSame(Hyde::path('_site/media/foo.png'), MediaFile::outputPath('foo.png'));
+        $this->assertSame(MediaFile::outputPath('foo.png'), MediaFile::outputPath('foo.png'));
     }
 
     public function testHelperForSiteOutputPath()
