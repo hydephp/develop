@@ -118,7 +118,7 @@ class Hyperlinks
 
         $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
 
-        if ($preferQualifiedUrl && $this->hasSiteUrl()) {
+        if ($this->hasSiteUrl()) {
             return $this->url($name);
         }
 
