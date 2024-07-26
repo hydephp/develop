@@ -21,24 +21,9 @@ class AssetServiceUnitTest extends UnitTestCase
         self::mockConfig();
     }
 
-    public function testVersionStringConstant()
-    {
-        $this->assertSame('v3.4', AssetService::HYDEFRONT_VERSION);
-    }
-
     public function testServiceHasVersionString()
     {
         $this->assertIsString((new AssetService())->version());
-    }
-
-    public function testVersionStringDefaultsToConstant()
-    {
-        $this->assertSame(AssetService::HYDEFRONT_VERSION, (new AssetService())->version());
-    }
-
-    public function testCdnPatternConstant()
-    {
-        $this->assertSame('https://cdn.jsdelivr.net/npm/hydefront@{{ $version }}/dist/{{ $file }}', AssetService::HYDEFRONT_CDN_URL);
     }
 
     public function testCdnLinkHelper()

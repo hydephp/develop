@@ -33,6 +33,7 @@ This serves two purposes:
 - **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance. For more information, see below.
 - **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format. For more information, see the upgrade guide below.
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display`.
+- **Breaking:** The `HYDEFRONT_VERSION` and `HYDEFRONT_CDN_URL` constants in the `AssetService` class have been changed from `public` to `protected`. This improves encapsulation but may affect code that directly accessed these constants. For more information, see below.
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
@@ -73,6 +74,7 @@ This serves two purposes:
 - Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 - Removed the deprecated `FeaturedImage::isRemote()` method in https://github.com/hydephp/develop/pull/1883. Use `Hyperlinks::isRemote()` instead.
+- The `HYDEFRONT_VERSION` and `HYDEFRONT_CDN_URL` constants in the `AssetService` class have been removed from the public API in https://github.com/hydephp/develop/pull/1910
 
 ### Fixed
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
@@ -265,6 +267,33 @@ The `hydefront_version` and `hydefront_cdn_url` configuration options have been 
 **Rationale:** The ability to change the HydeFront version was removed because using a different version than the one bundled with your Hyde project could lead to compatibility issues. The CDN URL configuration was removed to simplify the asset loading process.
 
 If you need to use a different CDN for serving HydeFront assets, you should implement a custom solution tailored to your specific needs. You may also open a feature request if you believe this functionality should be added back in a future release.
+
+#### AssetService constants visibility changes
+
+The `HYDEFRONT_VERSION` and `HYDEFRONT_CDN_URL` constants in the `AssetService` class are now `protected` instead of `public`. This change improves encapsulation and reduces the public API surface.
+
+**Impact:** Low. This change will only affect users who directly accessed these constants in their custom code.
+
+**Upgrade steps:**
+
+1. If you were directly accessing `AssetService::HYDEFRONT_VERSION` or `AssetService::HYDEFRONT_CDN_URL` in your code, you will need to update your implementation.
+2. Instead of using these constants directly, use the public methods provided by the `AssetService` class to interact with asset-related functionality.
+
+For example, if you were using:
+
+```php
+$version = AssetService::HYDEFRONT_VERSION;
+```
+
+You should now use:
+
+```php
+$version = (new AssetService())->version();
+```
+
+If you need access to the CDN URL pattern, consider using the `cdnLink()` method of the `AssetService` class instead.
+
+These changes were implemented to improve the API design and encapsulation of the `AssetService` class. If you have any custom implementations that relied on these constants, please review and update your code accordingly.
 
 ## Low impact
 
