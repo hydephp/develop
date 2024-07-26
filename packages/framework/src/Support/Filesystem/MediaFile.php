@@ -45,7 +45,7 @@ class MediaFile extends ProjectFile
     /**
      * Get the absolute path to the media source directory, or a file within it.
      */
-    public static function mediaPath(string $path = ''): string
+    public static function sourcePath(string $path = ''): string
     {
         return HydeKernel::getInstance()->mediaPath($path);
     }
@@ -53,7 +53,7 @@ class MediaFile extends ProjectFile
     /**
      * Get the absolute path to the compiled site's media directory, or a file within it.
      */
-    public static function siteMediaPath(string $path = ''): string
+    public static function outputPath(string $path = ''): string
     {
         return HydeKernel::getInstance()->siteMediaPath($path);
     }
