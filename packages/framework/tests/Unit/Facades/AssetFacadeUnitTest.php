@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Facades;
 
-use Hyde\Hyde;
 use Hyde\Facades\Asset;
 use Hyde\Testing\UnitTestCase;
 
@@ -29,25 +28,5 @@ class AssetFacadeUnitTest extends UnitTestCase
     public function testHasMediaFileHelperReturnsTrueForExistingFile()
     {
         $this->assertTrue(Asset::hasMediaFile('app.css'));
-    }
-
-    public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
-    {
-        $config = Asset::injectTailwindConfig();
-
-        $this->assertIsString($config);
-        $this->assertStringContainsString("darkMode: 'class'", $config);
-        $this->assertStringContainsString('theme: {', $config);
-        $this->assertStringContainsString('extend: {', $config);
-        $this->assertStringContainsString('typography: {', $config);
-        $this->assertStringNotContainsString('plugins', $config);
-    }
-
-    public function testInjectTailwindConfigHandlesMissingConfigFileGracefully()
-    {
-        rename(Hyde::path('tailwind.config.js'), Hyde::path('tailwind.config.js.bak'));
-        $this->assertIsString(Asset::injectTailwindConfig());
-        $this->assertSame('', Asset::injectTailwindConfig());
-        rename(Hyde::path('tailwind.config.js.bak'), Hyde::path('tailwind.config.js'));
     }
 }

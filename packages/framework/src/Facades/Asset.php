@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Hyde\Hyde;
-use Illuminate\Support\Str;
 
 use function md5_file;
 use function file_exists;
-use function file_get_contents;
 
 /**
  * Handles the retrieval of core asset files, either from the HydeFront CDN or from the local media folder.
@@ -27,24 +25,6 @@ class Asset
     public static function hasMediaFile(string $file): bool
     {
         return file_exists(Hyde::mediaPath($file));
-    }
-
-    public static function injectTailwindConfig(): string
-    {
-        if (! file_exists(Hyde::path('tailwind.config.js'))) {
-            return '';
-        }
-
-        $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
-
-        // Remove the plugins array, as it is not used in the frontend.
-        if (str_contains($config, 'plugins: [')) {
-            $tokens = explode('plugins: [', $config, 2);
-            $tokens[1] = Str::after($tokens[1], ']');
-            $config = implode('', $tokens);
-        }
-
-        return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n".rtrim($config, ",\n\r"));
     }
 
     protected static function getCacheBustKey(string $file): string

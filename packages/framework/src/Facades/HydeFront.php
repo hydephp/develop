@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Hyde\Hyde;
+use Illuminate\Support\Str;
+
 use function sprintf;
 
 /**
@@ -37,5 +40,23 @@ class HydeFront
     public static function cdnLink(string $file): string
     {
         return sprintf(static::HYDEFRONT_CDN_URL, static::version(), $file);
+    }
+
+    public static function injectTailwindConfig(): string
+    {
+        if (! file_exists(Hyde::path('tailwind.config.js'))) {
+            return '';
+        }
+
+        $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
+
+        // Remove the plugins array, as it is not used in the frontend.
+        if (str_contains($config, 'plugins: [')) {
+            $tokens = explode('plugins: [', $config, 2);
+            $tokens[1] = Str::after($tokens[1], ']');
+            $config = implode('', $tokens);
+        }
+
+        return preg_replace('/\s+/', ' ', "/* tailwind.config.js */ \n".rtrim($config, ",\n\r"));
     }
 }
