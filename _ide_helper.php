@@ -33,7 +33,6 @@ $sidebar = app('navigation.sidebar');
 class Hyde extends \Hyde\Hyde {}
 class Site extends \Hyde\Facades\Site {}
 class Meta extends \Hyde\Facades\Meta {}
-/** @mixin \Hyde\Framework\Services\AssetService */
 class Asset extends \Hyde\Facades\Asset {}
 class Author extends \Hyde\Facades\Author {}
 class Features extends \Hyde\Facades\Features {}

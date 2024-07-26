@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Framework\Services\AssetService;
+use Hyde\Facades\Asset;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Services\AssetService
+ * @covers \Hyde\Facades\Asset
  *
- * @see \Hyde\Framework\Testing\Unit\AssetServiceUnitTest
+ * @see \Hyde\Framework\Testing\Unit\Facades\AssetFacadeUnitTest
  */
-class AssetServiceTest extends TestCase
+class AssetFacadeTest extends TestCase
 {
     public function testMediaLinkReturnsMediaPathWithCacheKey()
     {
-        $service = new AssetService();
-
-        $this->assertIsString($path = $service->mediaLink('app.css'));
+        $this->assertIsString($path = Asset::mediaLink('app.css'));
         $this->assertSame('media/app.css?v='.md5_file(Hyde::path('_media/app.css')), $path);
     }
 
@@ -27,8 +25,7 @@ class AssetServiceTest extends TestCase
     {
         config(['hyde.enable_cache_busting' => false]);
 
-        $service = new AssetService();
-        $path = $service->mediaLink('app.css');
+        $path = Asset::mediaLink('app.css');
 
         $this->assertIsString($path);
         $this->assertSame('media/app.css', $path);
@@ -41,8 +38,7 @@ class AssetServiceTest extends TestCase
 
         Hyde::setMediaDirectory('_assets');
 
-        $service = new AssetService();
-        $path = $service->mediaLink('app.css');
+        $path = Asset::mediaLink('app.css');
 
         $this->assertIsString($path);
         $this->assertSame('assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')), $path);

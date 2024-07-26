@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Unit;
+namespace Hyde\Framework\Testing\Unit\Facades;
 
-use Hyde\Framework\Services\AssetService;
-use Hyde\Testing\UnitTestCase;
 use Hyde\Hyde;
+use Hyde\Facades\Asset;
+use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Framework\Services\AssetService
+ * @covers \Hyde\Facades\Asset
  *
- * @see \Hyde\Framework\Testing\Feature\AssetServiceTest
+ * @see \Hyde\Framework\Testing\Feature\AssetFacadeTest
  */
-class AssetServiceUnitTest extends UnitTestCase
+class AssetFacadeUnitTest extends UnitTestCase
 {
     protected function setUp(): void
     {
@@ -23,31 +23,32 @@ class AssetServiceUnitTest extends UnitTestCase
 
     public function testServiceHasVersionString()
     {
-        $this->assertIsString((new AssetService())->version());
+        $this->assertIsString(Asset::version());
     }
 
     public function testCdnLinkHelper()
     {
         $this->assertSame(
             'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/styles.css',
-            (new AssetService())->cdnLink('styles.css')
+            Asset::cdnLink('styles.css')
         );
     }
 
     public function testHasMediaFileHelper()
     {
-        $this->assertFalse((new AssetService())->hasMediaFile('styles.css'));
+        $this->assertFalse(Asset::hasMediaFile('styles.css'));
     }
 
     public function testHasMediaFileHelperReturnsTrueForExistingFile()
     {
-        $this->assertTrue((new AssetService())->hasMediaFile('app.css'));
+        $this->assertTrue(Asset::hasMediaFile('app.css'));
     }
 
     public function testInjectTailwindConfigReturnsExtractedTailwindConfig()
     {
-        $service = new AssetService();
-        $this->assertIsString($config = $service->injectTailwindConfig());
+        $config = Asset::injectTailwindConfig();
+
+        $this->assertIsString($config);
         $this->assertStringContainsString("darkMode: 'class'", $config);
         $this->assertStringContainsString('theme: {', $config);
         $this->assertStringContainsString('extend: {', $config);
@@ -58,8 +59,8 @@ class AssetServiceUnitTest extends UnitTestCase
     public function testInjectTailwindConfigHandlesMissingConfigFileGracefully()
     {
         rename(Hyde::path('tailwind.config.js'), Hyde::path('tailwind.config.js.bak'));
-        $this->assertIsString((new AssetService())->injectTailwindConfig());
-        $this->assertSame('', (new AssetService())->injectTailwindConfig());
+        $this->assertIsString(Asset::injectTailwindConfig());
+        $this->assertSame('', Asset::injectTailwindConfig());
         rename(Hyde::path('tailwind.config.js.bak'), Hyde::path('tailwind.config.js'));
     }
 }
