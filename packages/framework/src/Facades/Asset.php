@@ -7,7 +7,6 @@ namespace Hyde\Facades;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 
-use function md5_file;
 use function file_exists;
 
 /**
@@ -35,8 +34,6 @@ class Asset
 
     protected static function getCacheBustKey(string $file): string
     {
-        return Config::getBool('hyde.enable_cache_busting', true)
-            ? '?v='.md5_file(MediaFile::sourcePath("$file"))
-            : '';
+        return MediaFile::getCacheBustKey($file);
     }
 }
