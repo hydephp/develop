@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -99,7 +100,7 @@ class Hyperlinks
             throw new FileNotFoundException($sourcePath);
         }
 
-        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination");
+        return $this->withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
     }
 
     /**
@@ -117,10 +118,10 @@ class Hyperlinks
         $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
 
         if ($this->hasSiteUrl()) {
-            return $this->url($name);
+            return $this->withCacheBusting($this->url($name), $name);
         }
 
-        return $this->relativeLink($name);
+        return $this->withCacheBusting($this->relativeLink($name), $name);
     }
 
     /**
@@ -179,5 +180,13 @@ class Hyperlinks
     public static function isRemote(string $url): bool
     {
         return str_starts_with($url, 'http') || str_starts_with($url, '//');
+    }
+
+    /**
+     * Apply cache to the URL if enabled in the configuration.
+     */
+    protected function withCacheBusting(string $url, string $file): string
+    {
+        return $url.MediaFile::getCacheBustKey($file);
     }
 }
