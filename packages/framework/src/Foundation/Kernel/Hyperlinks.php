@@ -108,13 +108,14 @@ class Hyperlinks
             return $name;
         }
 
+        $path = $name;
         $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
 
         if ($this->hasSiteUrl()) {
-            return $this->withCacheBusting($this->url($name), $name);
+            return $this->withCacheBusting($this->url($name), $path);
         }
 
-        return $this->withCacheBusting($this->relativeLink($name), $name);
+        return $this->withCacheBusting($this->relativeLink($name), $path);
     }
 
     /**
