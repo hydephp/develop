@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 
+use function hyde;
 use function file_exists;
 
 /**
@@ -19,12 +19,12 @@ class Asset
 {
     public static function get(string $file): string
     {
-        return Hyde::asset($file);
+        return hyde()->asset($file);
     }
 
     public static function mediaLink(string $file): string
     {
-        return Hyde::mediaLink($file).MediaFile::getCacheBustKey($file);
+        return hyde()->mediaLink($file).MediaFile::getCacheBustKey($file);
     }
 
     public static function hasMediaFile(string $file): bool
