@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Concerns;
 
+use Hyde\Support\Filesystem\MediaFile;
+
 /**
  * @internal Single-use trait for the Filesystem class.
  *
@@ -21,6 +23,6 @@ trait HasMediaFiles
      */
     public function assets(): array
     {
-        return $this->assets;
+        return $this->assets ??= MediaFile::all();
     }
 }
