@@ -16,12 +16,8 @@ use function file_exists;
 use function array_merge;
 use function array_keys;
 use function filesize;
-use function implode;
 use function pathinfo;
-use function collect;
 use function is_file;
-use function sprintf;
-use function glob;
 
 /**
  * File abstraction for a project media file.
@@ -34,7 +30,7 @@ class MediaFile extends ProjectFile
     /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
     public static function all(): array
     {
-        return static::discoverMediaFiles();
+        return Hyde::assets();
     }
 
     /** @return array<string> Array of filenames relative to the _media/ directory */
@@ -121,27 +117,6 @@ class MediaFile extends ProjectFile
         }
 
         return 'text/plain';
-    }
-
-    protected static function discoverMediaFiles(): array
-    {
-        return collect(static::getMediaFiles())->mapWithKeys(function (string $path): array {
-            $file = static::make($path);
-
-            return [$file->getIdentifier() => $file];
-        })->all();
-    }
-
-    protected static function getMediaFiles(): array
-    {
-        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
-    }
-
-    protected static function getMediaGlobPattern(): string
-    {
-        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
-            Config::getArray('hyde.media_extensions', self::EXTENSIONS)
-        ));
     }
 
     /** @internal */
