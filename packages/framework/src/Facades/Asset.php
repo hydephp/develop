@@ -24,7 +24,7 @@ class Asset
 
     public static function mediaLink(string $file): string
     {
-        return hyde()->mediaLink($file).MediaFile::getCacheBustKey($file);
+        return hyde()->mediaLink($file);
     }
 
     public static function hasMediaFile(string $file): bool

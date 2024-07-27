@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -99,7 +100,7 @@ class Hyperlinks
             throw new FileNotFoundException($sourcePath);
         }
 
-        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination");
+        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination").MediaFile::getCacheBustKey($destination);
     }
 
     /**
