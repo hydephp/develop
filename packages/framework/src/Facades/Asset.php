@@ -24,16 +24,11 @@ class Asset
 
     public static function mediaLink(string $file): string
     {
-        return Hyde::mediaLink($file).static::getCacheBustKey($file);
+        return Hyde::mediaLink($file).MediaFile::getCacheBustKey($file);
     }
 
     public static function hasMediaFile(string $file): bool
     {
         return file_exists(MediaFile::sourcePath($file));
-    }
-
-    protected static function getCacheBustKey(string $file): string
-    {
-        return MediaFile::getCacheBustKey($file);
     }
 }
