@@ -42,6 +42,14 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         parent::tearDownAfterClass();
     }
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Todo: We can add one test with the cache busting enabled
+        config(['hyde.enable_cache_busting' => false]);
+    }
+
     public function testBasicDynamicMarkdownLinks()
     {
         $input = <<<'MARKDOWN'
