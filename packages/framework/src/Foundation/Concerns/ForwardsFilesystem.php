@@ -42,4 +42,9 @@ trait ForwardsFilesystem
     {
         return $this->filesystem->pathToRelative($path);
     }
+
+    public function assets(): array
+    {
+        return $this->filesystem->assets();
+    }
 }
