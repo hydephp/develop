@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support;
 
+use Hyde\Foundation\HydeKernel;
 use JetBrains\PhpStorm\Deprecated;
 use Hyde\Support\Filesystem\MediaFile;
 
@@ -34,5 +35,15 @@ trait V1Compatibility
     public static function siteMediaPath(string $path = ''): string
     {
         return MediaFile::outputPath($path);
+    }
+
+    /**
+     * @deprecated Use Hyde::asset() instead.
+     * @see \Hyde\Hyde::asset()
+     */
+    #[Deprecated(reason: 'Use Hyde::asset() instead', replacement: 'Hyde::asset(%parametersList%)')]
+    public static function mediaLink(string $destination): string
+    {
+        return HydeKernel::getInstance()->mediaLink($destination);
     }
 }

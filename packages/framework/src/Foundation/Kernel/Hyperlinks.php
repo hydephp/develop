@@ -9,13 +9,11 @@ use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
 use function str_ends_with;
 use function str_starts_with;
 use function substr_count;
-use function file_exists;
 use function str_replace;
 use function str_repeat;
 use function substr;
@@ -91,16 +89,11 @@ class Hyperlinks
     /**
      * Gets a relative web link to the given file stored in the _site/media folder.
      *
-     * An exception will be thrown if the file does not exist in the _media directory,
-     * and the second argument is set to true.
+     * @deprecated Use Hyde::asset() instead.
      */
-    public function mediaLink(string $destination, bool $validate = false): string
+    public function mediaLink(string $destination): string
     {
-        if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
-            throw new FileNotFoundException($sourcePath);
-        }
-
-        return $this->withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
+        return $this->asset($destination);
     }
 
     /**
@@ -115,13 +108,14 @@ class Hyperlinks
             return $name;
         }
 
+        $path = $name;
         $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
 
         if ($this->hasSiteUrl()) {
-            return $this->withCacheBusting($this->url($name), $name);
+            return $this->withCacheBusting($this->url($name), $path);
         }
 
-        return $this->withCacheBusting($this->relativeLink($name), $name);
+        return $this->withCacheBusting($this->relativeLink($name), $path);
     }
 
     /**
