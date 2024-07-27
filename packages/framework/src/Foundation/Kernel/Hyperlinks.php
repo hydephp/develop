@@ -93,7 +93,7 @@ class Hyperlinks
      */
     public function mediaLink(string $destination): string
     {
-        return $this->withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
+        return $this->asset($destination);
     }
 
     /**
