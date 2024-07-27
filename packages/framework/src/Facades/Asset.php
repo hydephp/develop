@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 
-use function md5_file;
+use function hyde;
 use function file_exists;
 
 /**
@@ -20,23 +19,16 @@ class Asset
 {
     public static function get(string $file): string
     {
-        return Hyde::asset($file);
+        return hyde()->asset($file);
     }
 
     public static function mediaLink(string $file): string
     {
-        return Hyde::mediaLink($file).static::getCacheBustKey($file);
+        return hyde()->mediaLink($file);
     }
 
     public static function hasMediaFile(string $file): bool
     {
         return file_exists(MediaFile::sourcePath($file));
-    }
-
-    protected static function getCacheBustKey(string $file): string
-    {
-        return Config::getBool('hyde.enable_cache_busting', true)
-            ? '?v='.md5_file(MediaFile::sourcePath("$file"))
-            : '';
     }
 }

@@ -143,4 +143,12 @@ class MediaFile extends ProjectFile
             Config::getArray('hyde.media_extensions', self::EXTENSIONS)
         ));
     }
+
+    /** @internal */
+    public static function getCacheBustKey(string $file): string
+    {
+        return Config::getBool('hyde.enable_cache_busting', true) && file_exists(MediaFile::sourcePath("$file"))
+            ? '?v='.md5_file(MediaFile::sourcePath("$file"))
+            : '';
+    }
 }

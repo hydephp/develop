@@ -355,14 +355,12 @@ return [
     | Cache Busting
     |--------------------------------------------------------------------------
     |
-    | Any assets loaded using the Asset::mediaLink() helper will automatically
-    | have a cache busting query string appended to the URL. This is useful
+    | Any assets loaded using the Hyde Asset helpers will automatically have
+    | a "cache busting" query string appended to the URL. This is useful
     | when you want to force browsers to load a new version of an asset.
+    | All included Blade templates use this feature to load assets.
     |
-    | The mediaLink helper is used in the built-in views to load the
-    | default stylesheets and scripts, and thus use this feature.
-    |
-    | To disable cache busting, set this setting to false.
+    | To disable the cache busting, set this setting to false.
     |
     */
 
