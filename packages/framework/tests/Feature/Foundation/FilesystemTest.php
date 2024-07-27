@@ -21,6 +21,7 @@ use function Hyde\normalize_slashes;
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
+ * @covers \Hyde\Foundation\Concerns\HasMediaFiles
  */
 class FilesystemTest extends UnitTestCase
 {
