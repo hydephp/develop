@@ -9,6 +9,7 @@ use Hyde\Facades\Features;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Support\V1Compatibility;
 use Illuminate\Support\Collection;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\Kernel\PageCollection;
@@ -37,6 +38,7 @@ use JetBrains\PhpStorm\Pure;
  * @method static string formatLink(string $destination)
  * @method static string relativeLink(string $destination)
  * @method static string mediaLink(string $destination, bool $validate = false)
+ * @method static Collection<string, MediaFile> assets()
  * @method static string asset(string $name)
  * @method static string url(string $path = '')
  * @method static Route|null route(string $key)
