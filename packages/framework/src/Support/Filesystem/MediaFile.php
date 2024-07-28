@@ -60,9 +60,7 @@ class MediaFile extends ProjectFile
             return Hyde::sitePath(Hyde::getMediaOutputDirectory());
         }
 
-        $path = unslash($path);
-
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory()."/$path");
+        return Hyde::sitePath(path_join(Hyde::getMediaOutputDirectory(), unslash($path)));
     }
 
     public function getIdentifier(): string
