@@ -332,5 +332,8 @@ class MediaFileTest extends UnitTestCase
         Hyde::setMediaDirectory('bar');
 
         $this->assertSame(Hyde::path('foo/bar'), MediaFile::outputPath());
+
+        Hyde::setOutputDirectory(Hyde::path('_site'));
+        Hyde::setMediaDirectory('_media');
     }
 }
