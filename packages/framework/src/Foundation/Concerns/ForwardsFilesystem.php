@@ -44,6 +44,7 @@ trait ForwardsFilesystem
         return $this->filesystem->pathToRelative($path);
     }
 
+    /** @return Collection<string, \Hyde\Support\Filesystem\MediaFile> */
     public function assets(): Collection
     {
         return $this->filesystem->assets();
