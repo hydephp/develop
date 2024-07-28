@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
+use Hyde\Foundation\Concerns\HasMediaFiles;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -29,6 +30,8 @@ use function touch;
  */
 class Filesystem
 {
+    use HasMediaFiles;
+
     protected HydeKernel $kernel;
 
     public function __construct(HydeKernel $kernel)

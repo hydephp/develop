@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Foundation;
 
 use Hyde\Foundation\HydeKernel;
+use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
@@ -21,6 +22,7 @@ use function Hyde\normalize_slashes;
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
+ * @covers \Hyde\Foundation\Concerns\HasMediaFiles
  */
 class FilesystemTest extends UnitTestCase
 {
@@ -29,6 +31,7 @@ class FilesystemTest extends UnitTestCase
     protected Filesystem $filesystem;
 
     protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
 
     protected function setUp(): void
     {
@@ -353,5 +356,33 @@ class FilesystemTest extends UnitTestCase
         foreach ($testStrings as $testString) {
             $this->assertSame(normalize_slashes($testString), Hyde::pathToRelative($testString));
         }
+    }
+
+    public function testAssetsMethodGetsAllSiteAssets()
+    {
+        $this->assertEquals(new Collection([
+            'app.css' => new MediaFile('_media/app.css'),
+        ]), $this->filesystem->assets());
+    }
+
+    public function testAssetsMethodGetsAllSiteAssetsAsArray()
+    {
+        $assets = $this->filesystem->assets()->toArray();
+
+        $assets['app.css']['length'] = 123;
+
+        $this->assertSame([
+            'app.css' => [
+                'name' => 'app.css',
+                'path' => '_media/app.css',
+                'length' => 123,
+                'mimeType' => 'text/css',
+            ],
+        ], $assets);
+    }
+
+    public function testAssetsMethodReturnsAssetCollectionSingleton()
+    {
+        $this->assertSame($this->filesystem->assets(), $this->filesystem->assets());
     }
 }

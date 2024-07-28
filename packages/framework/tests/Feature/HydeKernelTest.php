@@ -204,6 +204,18 @@ class HydeKernelTest extends TestCase
         $this->assertSame('assets/foo.jpg', Hyde::asset('foo.jpg'));
     }
 
+    public function testAssetsHelperGetsAllSiteAssets()
+    {
+        $this->assertEquals(new Collection([
+            'app.css' => new MediaFile('_media/app.css'),
+        ]), Hyde::assets());
+    }
+
+    public function testAssetsHelperReturnsAssetCollectionSingleton()
+    {
+        $this->assertSame(Hyde::assets(), Hyde::assets());
+    }
+
     public function testRouteHelper()
     {
         $this->assertNotNull(Hyde::route('index'));
