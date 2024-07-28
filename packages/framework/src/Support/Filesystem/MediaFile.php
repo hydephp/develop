@@ -84,6 +84,7 @@ class MediaFile extends ProjectFile
         return array_merge(parent::toArray(), [
             'length' => $this->getContentLength(),
             'mimeType' => $this->getMimeType(),
+            'hash' => $this->getHash(),
         ]);
     }
 

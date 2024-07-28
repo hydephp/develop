@@ -154,6 +154,7 @@ class MediaFileTest extends UnitTestCase
             'path' => '_media/foo.txt',
             'length' => 7,
             'mimeType' => 'text/plain',
+            'hash' => hash('crc32', 'foo bar'),
         ], MediaFile::make('foo.txt')->toArray());
     }
 
@@ -166,6 +167,7 @@ class MediaFileTest extends UnitTestCase
             'path' => '_media/foo',
             'length' => 7,
             'mimeType' => 'text/plain',
+            'hash' => hash('crc32', 'foo bar'),
         ], MediaFile::make('foo')->toArray());
     }
 
@@ -179,6 +181,7 @@ class MediaFileTest extends UnitTestCase
             'path' => '_media/foo/bar.txt',
             'length' => 0,
             'mimeType' => 'text/plain',
+            'hash' => hash('crc32', ''),
         ], MediaFile::make('foo/bar.txt')->toArray());
 
         Filesystem::unlink('_media/foo/bar.txt');
