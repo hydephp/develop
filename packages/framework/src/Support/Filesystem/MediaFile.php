@@ -63,6 +63,9 @@ class MediaFile extends ProjectFile
         return Hyde::sitePath(path_join(Hyde::getMediaOutputDirectory(), unslash($path)));
     }
 
+    /**
+     * Get the path to the media file relative to the media directory.
+     */
     public function getIdentifier(): string
     {
         return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
