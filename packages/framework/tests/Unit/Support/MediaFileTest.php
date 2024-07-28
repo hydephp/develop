@@ -222,7 +222,7 @@ class MediaFileTest extends UnitTestCase
     {
         $this->assertEquals([
             'app.css' => new MediaFile('_media/app.css'),
-        ], MediaFile::all());
+        ], MediaFile::all()->all());
     }
 
     public function testAllHelperDoesNotIncludeNonMediaFiles()
@@ -231,7 +231,7 @@ class MediaFileTest extends UnitTestCase
 
         $this->assertEquals([
             'app.css' => new MediaFile('_media/app.css'),
-        ], MediaFile::all());
+        ], MediaFile::all()->all());
     }
 
     public function testFilesHelperReturnsAllMediaFiles()

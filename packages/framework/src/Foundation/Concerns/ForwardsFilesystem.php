@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Foundation\Kernel\Filesystem;
+use Illuminate\Support\Collection;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -43,7 +44,7 @@ trait ForwardsFilesystem
         return $this->filesystem->pathToRelative($path);
     }
 
-    public function assets(): array
+    public function assets(): Collection
     {
         return $this->filesystem->assets();
     }

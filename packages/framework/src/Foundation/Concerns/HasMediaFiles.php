@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Concerns;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Support\Filesystem\MediaFile;
+use Illuminate\Support\Collection;
 
 use function implode;
 use function collect;
@@ -20,26 +21,26 @@ use function glob;
  */
 trait HasMediaFiles
 {
-    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
-    protected array $assets;
+    /** @var Collection<string, \Hyde\Support\Filesystem\MediaFile> The Collection keys are the filenames relative to the _media/ directory */
+    protected Collection $assets;
 
     /**
      * Get all media files in the project.
      *
-     * @return array<string, \Hyde\Support\Filesystem\MediaFile>
+     * @return Collection<string, \Hyde\Support\Filesystem\MediaFile>
      */
-    public function assets(): array
+    public function assets(): Collection
     {
         return $this->assets ??= static::discoverMediaFiles();
     }
 
-    protected static function discoverMediaFiles(): array
+    protected static function discoverMediaFiles(): Collection
     {
         return collect(static::getMediaFiles())->mapWithKeys(function (string $path): array {
             $file = MediaFile::make($path);
 
             return [$file->getIdentifier() => $file];
-        })->all();
+        });
     }
 
     protected static function getMediaFiles(): array

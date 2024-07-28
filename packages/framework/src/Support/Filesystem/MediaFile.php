@@ -6,6 +6,7 @@ namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -14,7 +15,6 @@ use function Hyde\path_join;
 use function extension_loaded;
 use function file_exists;
 use function array_merge;
-use function array_keys;
 use function filesize;
 use function pathinfo;
 use function is_file;
@@ -27,8 +27,8 @@ class MediaFile extends ProjectFile
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
-    /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
-    public static function all(): array
+    /** @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
+    public static function all(): Collection
     {
         return Hyde::assets();
     }
@@ -36,7 +36,7 @@ class MediaFile extends ProjectFile
     /** @return array<string> Array of filenames relative to the _media/ directory */
     public static function files(): array
     {
-        return array_keys(static::all());
+        return static::all()->keys()->all();
     }
 
     /**
