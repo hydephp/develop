@@ -101,6 +101,17 @@ class MediaFileTest extends UnitTestCase
         $this->assertSame('_media/foo', MediaFile::make(Hyde::path('_media/foo'))->path);
     }
 
+    public function testCustomMediaPathsAreNormalizedToRelativeCustomizedMediaPath()
+    {
+        Hyde::setMediaDirectory('bar');
+
+        $this->assertSame('bar/foo', MediaFile::make('foo')->path);
+        $this->assertSame('bar/foo', MediaFile::make('bar/foo')->path);
+        $this->assertSame('bar/foo', MediaFile::make(Hyde::path('foo'))->path);
+
+        Hyde::setMediaDirectory('_media');
+    }
+
     public function testGetNameReturnsNameOfFile()
     {
         $this->assertSame('foo.txt', MediaFile::make('foo.txt')->getName());
