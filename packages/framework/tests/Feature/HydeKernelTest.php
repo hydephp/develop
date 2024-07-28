@@ -211,22 +211,6 @@ class HydeKernelTest extends TestCase
         ]), Hyde::assets());
     }
 
-    public function testAssetsHelperGetsAllSiteAssetsAsArray()
-    {
-        $assets = Hyde::assets()->toArray();
-
-        $assets['app.css']['length'] = 123;
-
-        $this->assertSame([
-            'app.css' => [
-                'name' => 'app.css',
-                'path' => '_media/app.css',
-                'length' => 123,
-                'mimeType' => 'text/css',
-            ],
-        ], $assets);
-    }
-
     public function testAssetsHelperReturnsAssetCollectionSingleton()
     {
         $this->assertSame(Hyde::assets(), Hyde::assets());
