@@ -136,8 +136,8 @@ class MediaFile extends ProjectFile
     /** @internal */
     public static function getCacheBustKey(string $file): string
     {
-        return Config::getBool('hyde.enable_cache_busting', true) && file_exists(MediaFile::sourcePath("$file"))
-            ? '?v='.MediaFile::make($file)->getHash()
+        return Config::getBool('hyde.enable_cache_busting', true) && file_exists(static::sourcePath("$file"))
+            ? '?v='.static::make($file)->getHash()
             : '';
     }
 }
