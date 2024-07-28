@@ -128,6 +128,11 @@ class MediaFile extends ProjectFile
         return 'text/plain';
     }
 
+    public function getHash(): string
+    {
+        return md5_file($this->getAbsolutePath());
+    }
+
     /** @internal */
     public static function getCacheBustKey(string $file): string
     {

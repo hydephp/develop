@@ -336,4 +336,11 @@ class MediaFileTest extends UnitTestCase
         Hyde::setOutputDirectory(Hyde::path('_site'));
         Hyde::setMediaDirectory('_media');
     }
+
+    public function testGetHash()
+    {
+        $this->file('_media/foo.txt', 'Hello World!');
+
+        $this->assertSame(md5('Hello World!'), MediaFile::make('foo.txt')->getHash());
+    }
 }
