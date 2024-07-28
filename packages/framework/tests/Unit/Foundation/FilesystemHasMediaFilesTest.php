@@ -9,23 +9,21 @@ use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
-use Mockery;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Filesystem
- * @covers \Hyde\Foundation\Concerns\HasMediaFiles
  */
 class FilesystemHasMediaFilesTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
-    protected Filesystem $filesystem;
+    protected TestableFilesystem $filesystem;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->filesystem = new Filesystem(Hyde::getInstance());
+        $this->filesystem = new TestableFilesystem(Hyde::getInstance());
     }
 
     public function testAssetsMethodReturnsSameInstanceOnSubsequentCalls()
@@ -38,9 +36,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testAssetsMethodReturnsEmptyCollectionWhenNoMediaFiles()
     {
-        $this->mockStaticMethod(Filesystem::class, 'getMediaFiles', function () {
-            return [];
-        });
+        $this->filesystem->setTestMediaFiles([]);
 
         $assets = $this->filesystem->assets();
 
@@ -50,15 +46,13 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testAssetsMethodWithCustomMediaExtensions()
     {
-        $this->app['config']->set('hyde.media_extensions', ['jpg', 'png']);
+        Hyde::getInstance()->config()->set('hyde.media_extensions', ['jpg', 'png']);
 
-        $this->mockStaticMethod(Filesystem::class, 'getMediaFiles', function () {
-            return [
-                Hyde::path('_media/image1.jpg'),
-                Hyde::path('_media/image2.png'),
-                Hyde::path('_media/document.pdf'), // This should be excluded
-            ];
-        });
+        $this->filesystem->setTestMediaFiles([
+            Hyde::path('_media/image1.jpg'),
+            Hyde::path('_media/image2.png'),
+            Hyde::path('_media/document.pdf'), // This should be excluded
+        ]);
 
         $assets = $this->filesystem->assets();
 
@@ -70,12 +64,10 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testAssetsMethodWithNestedDirectories()
     {
-        $this->mockStaticMethod(Filesystem::class, 'getMediaFiles', function () {
-            return [
-                Hyde::path('_media/images/photo.jpg'),
-                Hyde::path('_media/documents/report.pdf'),
-            ];
-        });
+        $this->filesystem->setTestMediaFiles([
+            Hyde::path('_media/images/photo.jpg'),
+            Hyde::path('_media/documents/report.pdf'),
+        ]);
 
         $assets = $this->filesystem->assets();
 
@@ -86,12 +78,10 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testAssetsMethodWithInvalidMediaFile()
     {
-        $this->mockStaticMethod(Filesystem::class, 'getMediaFiles', function () {
-            return [
-                Hyde::path('_media/valid.jpg'),
-                Hyde::path('_media/invalid'), // File without extension
-            ];
-        });
+        $this->filesystem->setTestMediaFiles([
+            Hyde::path('_media/valid.jpg'),
+            Hyde::path('_media/invalid'), // File without extension
+        ]);
 
         $assets = $this->filesystem->assets();
 
@@ -102,29 +92,27 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testGetMediaGlobPatternWithCustomMediaDirectory()
     {
-        $this->app['config']->set('hyde.media_directory', 'custom_media');
+        Hyde::getInstance()->config()->set('hyde.media_directory', 'custom_media');
 
-        $pattern = $this->invokeProtectedMethod(Filesystem::class, 'getMediaGlobPattern');
+        $pattern = $this->filesystem->getTestMediaGlobPattern();
 
         $this->assertStringContainsString('custom_media/', $pattern);
     }
 
     public function testGetMediaGlobPatternWithCustomExtensions()
     {
-        $this->app['config']->set('hyde.media_extensions', ['gif', 'svg']);
+        Hyde::getInstance()->config()->set('hyde.media_extensions', ['gif', 'svg']);
 
-        $pattern = $this->invokeProtectedMethod(Filesystem::class, 'getMediaGlobPattern');
+        $pattern = $this->filesystem->getTestMediaGlobPattern();
 
         $this->assertStringContainsString('{gif,svg}', $pattern);
     }
 
     public function testDiscoverMediaFilesWithEmptyResult()
     {
-        $this->mockStaticMethod(Filesystem::class, 'getMediaFiles', function () {
-            return [];
-        });
+        $this->filesystem->setTestMediaFiles([]);
 
-        $result = $this->invokeProtectedMethod(Filesystem::class, 'discoverMediaFiles');
+        $result = $this->filesystem->getTestDiscoverMediaFiles();
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertTrue($result->isEmpty());
@@ -132,31 +120,40 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testDiscoverMediaFilesWithMultipleFiles()
     {
-        $this->mockStaticMethod(Filesystem::class, 'getMediaFiles', function () {
-            return [
-                Hyde::path('_media/image.jpg'),
-                Hyde::path('_media/document.pdf'),
-            ];
-        });
+        $this->filesystem->setTestMediaFiles([
+            Hyde::path('_media/image.jpg'),
+            Hyde::path('_media/document.pdf'),
+        ]);
 
-        $result = $this->invokeProtectedMethod(Filesystem::class, 'discoverMediaFiles');
+        $result = $this->filesystem->getTestDiscoverMediaFiles();
 
         $this->assertCount(2, $result);
         $this->assertInstanceOf(MediaFile::class, $result->get('image.jpg'));
         $this->assertInstanceOf(MediaFile::class, $result->get('document.pdf'));
     }
+}
 
-    protected function mockStaticMethod($class, $method, $return)
+class TestableFilesystem extends Filesystem
+{
+    private static array $testMediaFiles = [];
+
+    public function setTestMediaFiles(array $files): void
     {
-        $mock = Mockery::mock('alias:' . $class);
-        $mock->shouldReceive($method)->andReturn($return);
+        self::$testMediaFiles = $files;
     }
 
-    protected function invokeProtectedMethod($class, $method, array $args = [])
+    protected static function getMediaFiles(): array
     {
-        $reflection = new \ReflectionClass($class);
-        $method = $reflection->getMethod($method);
-        $method->setAccessible(true);
-        return $method->invokeArgs(null, $args);
+        return self::$testMediaFiles;
+    }
+
+    public function getTestMediaGlobPattern(): string
+    {
+        return static::getMediaGlobPattern();
+    }
+
+    public function getTestDiscoverMediaFiles(): Collection
+    {
+        return static::discoverMediaFiles();
     }
 }
