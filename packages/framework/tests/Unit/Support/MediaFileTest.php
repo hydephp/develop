@@ -68,7 +68,7 @@ class MediaFileTest extends UnitTestCase
         $file = new MediaFile('foo');
 
         $this->assertInstanceOf(MediaFile::class, $file);
-        $this->assertSame('foo', $file->path);
+        $this->assertSame('_media/foo', $file->path);
     }
 
     public function testCanMake()
@@ -78,7 +78,7 @@ class MediaFileTest extends UnitTestCase
 
     public function testCanConstructWithNestedPaths()
     {
-        $this->assertSame('path/to/file.txt', MediaFile::make('path/to/file.txt')->path);
+        $this->assertSame('_media/path/to/file.txt', MediaFile::make('path/to/file.txt')->path);
     }
 
     public function testPathIsNormalizedToRelativeMediaPath()
@@ -88,17 +88,17 @@ class MediaFileTest extends UnitTestCase
 
     public function testAbsolutePathIsNormalizedToRelativeMediaPath()
     {
-        $this->assertSame('foo', MediaFile::make(Hyde::path('foo'))->path);
+        $this->assertSame('_media/foo', MediaFile::make(Hyde::path('foo'))->path);
     }
 
     public function testMediaPathIsNormalizedToRelativeMediaPath()
     {
-        $this->assertSame('foo', MediaFile::make('_media/foo')->path);
+        $this->assertSame('_media/foo', MediaFile::make('_media/foo')->path);
     }
 
     public function testAbsoluteMediaPathIsNormalizedToRelativeMediaPath()
     {
-        $this->assertSame('foo', MediaFile::make(Hyde::path('_media/foo'))->path);
+        $this->assertSame('_media/foo', MediaFile::make(Hyde::path('_media/foo'))->path);
     }
 
     public function testGetNameReturnsNameOfFile()
@@ -109,38 +109,38 @@ class MediaFileTest extends UnitTestCase
 
     public function testGetPathReturnsPathOfFile()
     {
-        $this->assertSame('foo.txt', MediaFile::make('foo.txt')->getPath());
-        $this->assertSame('foo/bar.txt', MediaFile::make('foo/bar.txt')->getPath());
+        $this->assertSame('_media/foo.txt', MediaFile::make('foo.txt')->getPath());
+        $this->assertSame('_media/foo/bar.txt', MediaFile::make('foo/bar.txt')->getPath());
     }
 
     public function testGetAbsolutePathReturnsAbsolutePathOfFile()
     {
-        $this->assertSame(Hyde::path('foo.txt'), MediaFile::make('foo.txt')->getAbsolutePath());
-        $this->assertSame(Hyde::path('foo/bar.txt'), MediaFile::make('foo/bar.txt')->getAbsolutePath());
+        $this->assertSame(Hyde::path('_media/foo.txt'), MediaFile::make('foo.txt')->getAbsolutePath());
+        $this->assertSame(Hyde::path('_media/foo/bar.txt'), MediaFile::make('foo/bar.txt')->getAbsolutePath());
     }
 
     public function testGetContentsReturnsContentsOfFile()
     {
-        $this->file('foo.txt', 'foo bar');
+        $this->file('_media/foo.txt', 'foo bar');
         $this->assertSame('foo bar', MediaFile::make('foo.txt')->getContents());
     }
 
     public function testGetExtensionReturnsExtensionOfFile()
     {
-        $this->file('foo.txt', 'foo');
+        $this->file('_media/foo.txt', 'foo');
         $this->assertSame('txt', MediaFile::make('foo.txt')->getExtension());
 
-        $this->file('foo.png', 'foo');
+        $this->file('_media/foo.png', 'foo');
         $this->assertSame('png', MediaFile::make('foo.png')->getExtension());
     }
 
     public function testToArrayReturnsArrayOfFileProperties()
     {
-        $this->file('foo.txt', 'foo bar');
+        $this->file('_media/foo.txt', 'foo bar');
 
         $this->assertSame([
             'name' => 'foo.txt',
-            'path' => 'foo.txt',
+            'path' => '_media/foo.txt',
             'length' => 7,
             'mimeType' => 'text/plain',
         ], MediaFile::make('foo.txt')->toArray());
@@ -148,11 +148,11 @@ class MediaFileTest extends UnitTestCase
 
     public function testToArrayWithEmptyFileWithNoExtension()
     {
-        $this->file('foo', 'foo bar');
+        $this->file('_media/foo', 'foo bar');
 
         $this->assertSame([
             'name' => 'foo',
-            'path' => 'foo',
+            'path' => '_media/foo',
             'length' => 7,
             'mimeType' => 'text/plain',
         ], MediaFile::make('foo')->toArray());
@@ -160,38 +160,38 @@ class MediaFileTest extends UnitTestCase
 
     public function testToArrayWithFileInSubdirectory()
     {
-        mkdir(Hyde::path('foo'));
-        touch(Hyde::path('foo/bar.txt'));
+        mkdir(Hyde::path('_media/foo'));
+        touch(Hyde::path('_media/foo/bar.txt'));
 
         $this->assertSame([
             'name' => 'bar.txt',
-            'path' => 'foo/bar.txt',
+            'path' => '_media/foo/bar.txt',
             'length' => 0,
             'mimeType' => 'text/plain',
         ], MediaFile::make('foo/bar.txt')->toArray());
 
-        Filesystem::unlink('foo/bar.txt');
-        rmdir(Hyde::path('foo'));
+        Filesystem::unlink('_media/foo/bar.txt');
+        rmdir(Hyde::path('_media/foo'));
     }
 
     public function testGetContentLength()
     {
-        $this->file('foo', 'Hello World!');
+        $this->file('_media/foo', 'Hello World!');
         $this->assertSame(12, MediaFile::make('foo')->getContentLength());
     }
 
     public function testGetContentLengthWithEmptyFile()
     {
-        $this->file('foo', '');
+        $this->file('_media/foo', '');
         $this->assertSame(0, MediaFile::make('foo')->getContentLength());
     }
 
     public function testGetContentLengthWithDirectory()
     {
-        $this->directory('foo');
+        $this->directory('_media/foo');
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [foo] not found.');
+        $this->expectExceptionMessage('File [_media/foo] not found.');
 
         MediaFile::make('foo')->getContentLength();
     }
@@ -199,32 +199,32 @@ class MediaFileTest extends UnitTestCase
     public function testGetContentLengthWithNonExistentFile()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [foo] not found.');
+        $this->expectExceptionMessage('File [_media/foo] not found.');
 
         MediaFile::make('foo')->getContentLength();
     }
 
     public function testGetMimeType()
     {
-        $this->file('foo.txt', 'Hello World!');
+        $this->file('_media/foo.txt', 'Hello World!');
         $this->assertSame('text/plain', MediaFile::make('foo.txt')->getMimeType());
     }
 
     public function testGetMimeTypeWithoutExtension()
     {
-        $this->file('foo', 'Hello World!');
+        $this->file('_media/foo', 'Hello World!');
         $this->assertSame('text/plain', MediaFile::make('foo')->getMimeType());
     }
 
     public function testGetMimeTypeWithEmptyFile()
     {
-        $this->file('foo', '');
+        $this->file('_media/foo', '');
         $this->assertSame('application/x-empty', MediaFile::make('foo')->getMimeType());
     }
 
     public function testGetMimeTypeWithDirectory()
     {
-        $this->directory('foo');
+        $this->directory('_media/foo');
         $this->assertSame('directory', MediaFile::make('foo')->getMimeType());
     }
 
