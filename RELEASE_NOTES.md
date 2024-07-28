@@ -16,6 +16,7 @@ This serves two purposes:
 - All page types now support the `description` front matter field (used in page metadata) in https://github.com/hydephp/develop/pull/1884
 
 ### Changed
+- Changed the `Hyde` facade to use a `@mixin` annotation instead of single method annotations in https://github.com/hydephp/develop/pull/1919
 - Updated the `Serializable` trait to provide a default automatic `toArray` method in https://github.com/hydephp/develop/pull/1791
 - Updated the `PostAuthor` class's `name` property to fall back to the `username` property if the `name` property is not set in https://github.com/hydephp/develop/pull/1794
 - Removed the nullable type hint from the `PostAuthor` class's `name` property as it is now always set in https://github.com/hydephp/develop/pull/1794
