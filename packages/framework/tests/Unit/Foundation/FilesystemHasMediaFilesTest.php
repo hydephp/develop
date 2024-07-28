@@ -46,7 +46,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testAssetsMethodWithCustomMediaExtensions()
     {
-        Hyde::getInstance()->config()->set('hyde.media_extensions', ['jpg', 'png']);
+        self::mockConfig(['hyde.media_extensions' => ['jpg', 'png']]);
 
         $this->filesystem->setTestMediaFiles([
             Hyde::path('_media/image1.jpg'),
@@ -92,7 +92,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testGetMediaGlobPatternWithCustomMediaDirectory()
     {
-        Hyde::getInstance()->config()->set('hyde.media_directory', 'custom_media');
+        self::mockConfig(['hyde.media_directory' => 'custom_media']);
 
         $pattern = $this->filesystem->getTestMediaGlobPattern();
 
@@ -101,7 +101,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testGetMediaGlobPatternWithCustomExtensions()
     {
-        Hyde::getInstance()->config()->set('hyde.media_extensions', ['gif', 'svg']);
+        self::mockConfig(['hyde.media_extensions' => ['gif', 'svg']]);
 
         $pattern = $this->filesystem->getTestMediaGlobPattern();
 
