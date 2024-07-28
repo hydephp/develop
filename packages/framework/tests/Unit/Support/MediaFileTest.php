@@ -341,6 +341,6 @@ class MediaFileTest extends UnitTestCase
     {
         $this->file('_media/foo.txt', 'Hello World!');
 
-        $this->assertSame(md5('Hello World!'), MediaFile::make('foo.txt')->getHash());
+        $this->assertSame(hash('crc32', 'Hello World!'), MediaFile::make('foo.txt')->getHash());
     }
 }

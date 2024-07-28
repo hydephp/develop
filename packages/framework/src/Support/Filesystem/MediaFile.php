@@ -130,7 +130,7 @@ class MediaFile extends ProjectFile
 
     public function getHash(): string
     {
-        return md5_file($this->getAbsolutePath());
+        return hash_file('crc32', $this->getAbsolutePath());
     }
 
     /** @internal */
