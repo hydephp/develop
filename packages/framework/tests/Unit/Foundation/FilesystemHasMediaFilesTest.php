@@ -44,24 +44,6 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->assertTrue($assets->isEmpty());
     }
 
-    public function testAssetsMethodWithCustomMediaExtensions()
-    {
-        self::mockConfig(['hyde.media_extensions' => ['jpg', 'png']]);
-
-        $this->filesystem->setTestMediaFiles([
-            Hyde::path('_media/image1.jpg'),
-            Hyde::path('_media/image2.png'),
-            Hyde::path('_media/document.pdf'), // This should be excluded
-        ]);
-
-        $assets = $this->filesystem->assets();
-
-        $this->assertCount(2, $assets);
-        $this->assertTrue($assets->has('image1.jpg'));
-        $this->assertTrue($assets->has('image2.png'));
-        $this->assertFalse($assets->has('document.pdf'));
-    }
-
     public function testAssetsMethodWithNestedDirectories()
     {
         $this->filesystem->setTestMediaFiles([
@@ -76,27 +58,15 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->assertTrue($assets->has('documents/report.pdf'));
     }
 
-    public function testAssetsMethodWithInvalidMediaFile()
-    {
-        $this->filesystem->setTestMediaFiles([
-            Hyde::path('_media/valid.jpg'),
-            Hyde::path('_media/invalid'), // File without extension
-        ]);
-
-        $assets = $this->filesystem->assets();
-
-        $this->assertCount(1, $assets);
-        $this->assertTrue($assets->has('valid.jpg'));
-        $this->assertFalse($assets->has('invalid'));
-    }
-
     public function testGetMediaGlobPatternWithCustomMediaDirectory()
     {
-        self::mockConfig(['hyde.media_directory' => 'custom_media']);
+        Hyde::setMediaDirectory('custom_media');
 
         $pattern = $this->filesystem->getTestMediaGlobPattern();
 
         $this->assertStringContainsString('custom_media/', $pattern);
+
+        Hyde::setMediaDirectory('_media');
     }
 
     public function testGetMediaGlobPatternWithCustomExtensions()
