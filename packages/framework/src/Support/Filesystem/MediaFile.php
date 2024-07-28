@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 
 use function Hyde\unslash;
 use function Hyde\path_join;
+use function Hyde\trim_slashes;
 use function extension_loaded;
 use function file_exists;
 use function array_merge;
@@ -29,6 +30,8 @@ class MediaFile extends ProjectFile
 
     public function __construct(string $path)
     {
+        $path = trim_slashes(Str::after($path, Hyde::getMediaDirectory()));
+
         parent::__construct($path);
     }
 
