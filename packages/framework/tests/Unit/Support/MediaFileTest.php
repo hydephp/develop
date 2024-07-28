@@ -81,17 +81,22 @@ class MediaFileTest extends UnitTestCase
         $this->assertSame('path/to/file.txt', MediaFile::make('path/to/file.txt')->path);
     }
 
-    public function testAbsolutePathIsNormalizedToRelative()
+    public function testPathIsNormalizedToRelativeMediaPath()
+    {
+        $this->assertSame('_media/foo', MediaFile::make('foo')->path);
+    }
+
+    public function testAbsolutePathIsNormalizedToRelativeMediaPath()
     {
         $this->assertSame('foo', MediaFile::make(Hyde::path('foo'))->path);
     }
 
-    public function testMediaPathIsNormalizedToRelative()
+    public function testMediaPathIsNormalizedToRelativeMediaPath()
     {
         $this->assertSame('foo', MediaFile::make('_media/foo')->path);
     }
 
-    public function testAbsoluteMediaPathIsNormalizedToRelative()
+    public function testAbsoluteMediaPathIsNormalizedToRelativeMediaPath()
     {
         $this->assertSame('foo', MediaFile::make(Hyde::path('_media/foo'))->path);
     }
