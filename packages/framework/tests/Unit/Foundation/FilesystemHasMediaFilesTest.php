@@ -144,31 +144,7 @@ class TestableFilesystem extends Filesystem
 
     protected static function getMediaFiles(): array
     {
-        $pattern = static::getMediaGlobPattern();
-        $baseDir = Hyde::path('_media');
-        $patternParts = explode('/', $pattern);
-        $globPattern = end($patternParts);
-
-        return array_filter(self::$testMediaFiles, function ($file) use ($baseDir, $globPattern) {
-            $relativePath = str_replace($baseDir . DIRECTORY_SEPARATOR, '', $file);
-            return self::matchesGlobPattern($relativePath, $globPattern);
-        });
-    }
-
-    private static function matchesGlobPattern(string $filename, string $pattern): bool
-    {
-        $regex = self::globToRegex($pattern);
-        return preg_match($regex, $filename) === 1;
-    }
-
-    private static function globToRegex(string $pattern): string
-    {
-        $regex = preg_quote($pattern, '/');
-        $regex = str_replace('\*', '.*', $regex);
-        $regex = str_replace('\{', '(', $regex);
-        $regex = str_replace('\}', ')', $regex);
-        $regex = str_replace(',', '|', $regex);
-        return '/^' . $regex . '$/i';
+        return self::$testMediaFiles;
     }
 
     public function getTestMediaGlobPattern(): string
