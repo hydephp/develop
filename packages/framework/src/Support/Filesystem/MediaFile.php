@@ -152,6 +152,10 @@ class MediaFile extends ProjectFile
 
     public function getHash(): string
     {
+        if (isset($this->hash)) {
+            return $this->hash;
+        }
+
         return hash_file('crc32', $this->getAbsolutePath());
     }
 
