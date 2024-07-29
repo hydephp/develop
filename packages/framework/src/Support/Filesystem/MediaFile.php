@@ -15,10 +15,7 @@ use function Hyde\unslash;
 use function Hyde\path_join;
 use function Hyde\trim_slashes;
 use function extension_loaded;
-use function file_exists;
 use function array_merge;
-use function filesize;
-use function pathinfo;
 
 /**
  * File abstraction for a project media file.
@@ -45,7 +42,7 @@ class MediaFile extends ProjectFile
 
         parent::__construct($path);
 
-        if (is_file($this->getAbsolutePath())) {
+        if (Filesystem::isFile($this->getAbsolutePath())) {
             $this->length = $this->findContentLength();
             $this->mimeType = $this->findMimeType();
             $this->hash = $this->findHash();
@@ -123,7 +120,7 @@ class MediaFile extends ProjectFile
     /** @internal */
     public static function getCacheBustKey(string $file): string
     {
-        return Config::getBool('hyde.enable_cache_busting', true) && file_exists(static::sourcePath("$file"))
+        return Config::getBool('hyde.enable_cache_busting', true) && Filesystem::exists(static::sourcePath("$file"))
             ? '?v='.static::make($file)->getHash()
             : '';
     }
@@ -142,12 +139,12 @@ class MediaFile extends ProjectFile
 
     protected function findContentLength(): int
     {
-        return filesize($this->getAbsolutePath());
+        return Filesystem::size($this->getAbsolutePath());
     }
 
     protected function findMimeType(): string
     {
-        $extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
+        $extension = Filesystem::extension($this->getAbsolutePath());
 
         // See if we can find a mime type for the extension instead of
         // having to rely on a PHP extension and filesystem lookups.
@@ -170,8 +167,8 @@ class MediaFile extends ProjectFile
             return $lookup[$extension];
         }
 
-        if (extension_loaded('fileinfo') && file_exists($this->getAbsolutePath())) {
-            return mime_content_type($this->getAbsolutePath());
+        if (extension_loaded('fileinfo') && Filesystem::exists($this->getAbsolutePath())) {
+            return Filesystem::mimeType($this->getAbsolutePath());
         }
 
         return 'text/plain';
@@ -179,6 +176,6 @@ class MediaFile extends ProjectFile
 
     protected function findHash(): string
     {
-        return hash_file('crc32', $this->getAbsolutePath());
+        return Filesystem::hash($this->getAbsolutePath(), 'crc32');
     }
 }
