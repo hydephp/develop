@@ -42,7 +42,7 @@ class MediaFile extends ProjectFile
 
         parent::__construct($path);
 
-        if (Filesystem::isFile($this->getAbsolutePath())) {
+        if (Filesystem::isFile($this->getPath())) {
             $this->length = $this->findContentLength();
             $this->mimeType = $this->findMimeType();
             $this->hash = $this->findHash();
@@ -139,12 +139,12 @@ class MediaFile extends ProjectFile
 
     protected function findContentLength(): int
     {
-        return Filesystem::size($this->getAbsolutePath());
+        return Filesystem::size($this->getPath());
     }
 
     protected function findMimeType(): string
     {
-        $extension = Filesystem::extension($this->getAbsolutePath());
+        $extension = Filesystem::extension($this->getPath());
 
         // See if we can find a mime type for the extension instead of
         // having to rely on a PHP extension and filesystem lookups.
@@ -167,8 +167,8 @@ class MediaFile extends ProjectFile
             return $lookup[$extension];
         }
 
-        if (extension_loaded('fileinfo') && Filesystem::exists($this->getAbsolutePath())) {
-            return Filesystem::mimeType($this->getAbsolutePath());
+        if (extension_loaded('fileinfo') && Filesystem::exists($this->getPath())) {
+            return Filesystem::mimeType($this->getPath());
         }
 
         return 'text/plain';
@@ -176,6 +176,6 @@ class MediaFile extends ProjectFile
 
     protected function findHash(): string
     {
-        return Filesystem::hash($this->getAbsolutePath(), 'crc32');
+        return Filesystem::hash($this->getPath(), 'crc32');
     }
 }
