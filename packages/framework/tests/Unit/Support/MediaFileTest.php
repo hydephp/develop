@@ -371,4 +371,23 @@ class MediaFileTest extends UnitTestCase
 
         $this->assertSame(hash('crc32', 'Hello World!'), MediaFile::make('foo.txt')->getHash());
     }
+
+    public function testExceptionIsThrownWhenConstructingFileThatDoesNotExist()
+    {
+        MediaFile::$validateExistence = true;
+
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('File [_media/foo] not found.');
+
+        MediaFile::make('foo');
+    }
+
+    public function testExceptionIsNotThrownWhenConstructingFileThatDoesExist()
+    {
+        MediaFile::$validateExistence = true;
+
+        $this->file('_media/foo', 'Hello World!');
+
+        $this->assertInstanceOf(MediaFile::class, MediaFile::make('foo'));
+    }
 }
