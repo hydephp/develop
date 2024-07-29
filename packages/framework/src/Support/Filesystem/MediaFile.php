@@ -107,6 +107,10 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
+        if (isset($this->length)) {
+            return $this->length;
+        }
+
         return filesize($this->getAbsolutePath());
     }
 
