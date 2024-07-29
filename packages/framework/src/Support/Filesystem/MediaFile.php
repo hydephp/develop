@@ -32,12 +32,13 @@ class MediaFile extends ProjectFile
     public function __construct(string $path)
     {
         $path = trim_slashes(Str::after(Hyde::pathToRelative($path), Hyde::getMediaDirectory()));
+        $path = static::sourcePath($path);
 
         if (Filesystem::missing($path)) {
             throw new FileNotFoundException($path);
         }
 
-        parent::__construct(static::sourcePath($path));
+        parent::__construct($path);
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
