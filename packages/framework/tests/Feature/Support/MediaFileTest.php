@@ -87,7 +87,7 @@ class MediaFileTest extends TestCase
         $this->assertEquals('custom_media/custom_file.txt', $mediaFile->getPath());
         $this->assertEquals(Hyde::path('custom_media/custom_file.txt'), $mediaFile->getAbsolutePath());
 
-        Hyde::setMediaDirectory('_media'); // Reset to default
+        Hyde::setMediaDirectory('_media');
     }
 
     public function testMediaFileOutputPaths()
@@ -98,7 +98,7 @@ class MediaFileTest extends TestCase
         Hyde::setOutputDirectory('custom_output');
         $this->assertEquals(Hyde::path('custom_output/media'), MediaFile::outputPath());
 
-        Hyde::setOutputDirectory('_site'); // Reset to default
+        Hyde::setOutputDirectory('_site');
     }
 
     public function testMediaFileCacheBusting()
@@ -108,6 +108,6 @@ class MediaFileTest extends TestCase
         $cacheBustKey = MediaFile::getCacheBustKey('cachebust_test.js');
 
         $this->assertStringStartsWith('?v=', $cacheBustKey);
-        $this->assertSame('?v=cd5de5e7', $cacheBustKey); // Expect crc32 hash
+        $this->assertSame('?v=cd5de5e7', $cacheBustKey); // Expect CRC32 hash
     }
 }
