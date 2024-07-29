@@ -243,19 +243,6 @@ class MediaFileTest extends UnitTestCase
         $this->assertSame('application/x-empty', MediaFile::make('foo')->getMimeType());
     }
 
-    public function testGetMimeTypeWithDirectory()
-    {
-        $this->markTestSkipped('Undecided on what should happen here.');
-        $this->directory('_media/foo');
-        $this->assertSame('directory', MediaFile::make('foo')->getMimeType());
-    }
-
-    public function testGetMimeTypeWithNonExistentFile()
-    {
-        $this->markTestSkipped('Undecided on what should happen here.');
-        $this->assertSame('text/plain', MediaFile::make('foo')->getMimeType());
-    }
-
     public function testAllHelperReturnsAllMediaFiles()
     {
         $this->assertEquals([
