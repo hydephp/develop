@@ -28,6 +28,14 @@ class MediaFileTest extends TestCase
         $this->assertSame(Hyde::path('_media/test.txt'), $mediaFile->getAbsolutePath());
         $this->assertSame('Hello, World!', $mediaFile->getContents());
         $this->assertSame('txt', $mediaFile->getExtension());
+
+        $this->assertSame([
+            'name' => 'test.txt',
+            'path' => '_media/test.txt',
+            'length' => 13,
+            'mimeType' => 'text/plain',
+            'hash' => 'dffed8e6',
+        ], $mediaFile->toArray());
     }
 
     public function testMediaFileDiscovery()
