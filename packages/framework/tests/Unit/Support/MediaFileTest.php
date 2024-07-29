@@ -21,9 +21,16 @@ class MediaFileTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
+    protected function setUp(): void
+    {
+        MediaFile::$validateExistence = false;
+    }
+
     protected function tearDown(): void
     {
         $this->cleanUpFilesystem();
+
+        MediaFile::$validateExistence = true;
     }
 
     /** @deprecated */

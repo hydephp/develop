@@ -24,6 +24,13 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
     {
         parent::setUp();
         $this->filesystem = new TestableFilesystem(Hyde::getInstance());
+        MediaFile::$validateExistence = false;
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        MediaFile::$validateExistence = true;
     }
 
     public function testAssetsMethodReturnsSameInstanceOnSubsequentCalls()
