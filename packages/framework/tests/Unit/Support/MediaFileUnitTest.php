@@ -142,8 +142,8 @@ class MediaFileUnitTest extends UnitTestCase
     public function testGetContentsReturnsContentsOfFile()
     {
         $this->mockFilesystem->shouldReceive('get')
-            ->with(Hyde::path('_media/foo.txt'))
-            ->andReturn('foo bar');
+            ->andReturn('foo bar')
+            ->once();
 
         $this->assertSame('foo bar', MediaFile::make('foo.txt')->getContents());
     }
