@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Support;
 
+use Mockery;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\CreatesTemporaryFiles;
+use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 
 /**
  * @covers \Hyde\Support\Filesystem\MediaFile
@@ -18,6 +20,7 @@ use Hyde\Testing\CreatesTemporaryFiles;
  */
 class MediaFileUnitTest extends UnitTestCase
 {
+    // TODO: Use mocks here instead of filesystem operations
     use CreatesTemporaryFiles;
 
     protected static bool $needsKernel = true;
@@ -26,50 +29,18 @@ class MediaFileUnitTest extends UnitTestCase
     protected function setUp(): void
     {
         MediaFile::$validateExistence = false;
+
+        $this->mockFilesystem([
+            'missing' => false,
+        ]);
     }
 
     protected function tearDown(): void
     {
+        // TODO: Use mocks here instead of filesystem operations
         $this->cleanUpFilesystem();
 
         MediaFile::$validateExistence = true;
-    }
-
-    /** @deprecated */
-    public function testDiscoveryBenchmark()
-    {
-        $this->markTestSkipped('Uncomment this line to run the benchmark.');
-
-        $urls = [
-            'https://raw.githubusercontent.com/caendesilva/RandomDatasets/master/Media/austria.jpg',
-            'https://raw.githubusercontent.com/caendesilva/RandomDatasets/master/Media/boat.jpg',
-            'https://raw.githubusercontent.com/caendesilva/RandomDatasets/master/Media/croatia.jpg',
-            'https://raw.githubusercontent.com/caendesilva/RandomDatasets/master/Media/fireworks.jpg',
-            'https://raw.githubusercontent.com/caendesilva/RandomDatasets/master/Media/hallstatt.jpg',
-            'https://raw.githubusercontent.com/caendesilva/RandomDatasets/master/Media/lemonade.jpg',
-            'https://raw.githubusercontent.com/caendesilva/RandomDatasets/master/Media/photographer.jpg',
-        ];
-
-        foreach ($urls as $url) {
-            $this->file('_media/'.basename($url), file_get_contents($url));
-        }
-
-        $this->file('_media/foo.css', 'body { color: red; }');
-        $this->file('_media/foo.js', 'console.log("Hello, World!");');
-        $this->file('_media/nested/foo.css', 'foo');
-        $this->file('_media/empty.css', '');
-        $this->file('_media/ignored', 'ignored');
-        $this->directory('_media/empty');
-        $this->file('_media/large.css', str_repeat('a', 1024 * 1024 * 10)); // 10 MB
-
-        // Warm up the classloader / cache
-        echo 'Warmup: '.\Illuminate\Support\Benchmark::measure(function () {
-            MediaFile::all();
-        })."ms\n";
-
-        echo 'Benchmark: '.\Illuminate\Support\Benchmark::measure(function () {
-            MediaFile::all();
-        }, 1000)."ms avg/1000/its\n";
     }
 
     public function testCanConstruct()
@@ -362,5 +333,10 @@ class MediaFileUnitTest extends UnitTestCase
         $this->file('_media/foo', 'Hello World!');
 
         $this->assertInstanceOf(MediaFile::class, MediaFile::make('foo'));
+    }
+
+    protected function mockFilesystem(array $methods): void
+    {
+        app()->instance(BaseFilesystem::class, Mockery::mock(BaseFilesystem::class, $methods));
     }
 }
