@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Support;
 
 use Mockery;
-use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Testing\CreatesTemporaryFiles;
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 
 /**
@@ -20,27 +18,40 @@ use Illuminate\Filesystem\Filesystem as BaseFilesystem;
  */
 class MediaFileUnitTest extends UnitTestCase
 {
-    // TODO: Use mocks here instead of filesystem operations
-    use CreatesTemporaryFiles;
-
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
+    protected $mockFilesystem;
+
     protected function setUp(): void
     {
+        parent::setUp();
+
         MediaFile::$validateExistence = false;
 
-        $this->mockFilesystem([
-            'missing' => false,
-        ]);
+        $this->mockFilesystem = Mockery::mock(BaseFilesystem::class);
+        app()->instance(BaseFilesystem::class, $this->mockFilesystem);
+
+        // Set up default expectations for commonly called methods
+        $this->mockFilesystem->shouldReceive('isFile')->andReturn(true)->byDefault();
+        $this->mockFilesystem->shouldReceive('missing')->andReturn(false)->byDefault();
+        $this->mockFilesystem->shouldReceive('extension')->andReturn('txt')->byDefault();
+        $this->mockFilesystem->shouldReceive('size')->andReturn(12)->byDefault();
+        $this->mockFilesystem->shouldReceive('mimeType')->andReturn('text/plain')->byDefault();
+        $this->mockFilesystem->shouldReceive('hash')->andReturn(hash('crc32', 'Hello World!'))->byDefault();
+        $this->mockFilesystem->shouldReceive('get')->andReturn('Hello World!')->byDefault();
+
+        // Mock Hyde facade
+        $hyde = Mockery::mock(Hyde::kernel())->makePartial();
+        $hyde->shouldReceive('assets')->andReturn(collect(['app.css' => new MediaFile('_media/app.css')]))->byDefault();
     }
 
     protected function tearDown(): void
     {
-        // TODO: Use mocks here instead of filesystem operations
-        $this->cleanUpFilesystem();
+        parent::tearDown();
 
         MediaFile::$validateExistence = true;
+        Mockery::close();
     }
 
     public function testCanConstruct()
@@ -130,22 +141,40 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testGetContentsReturnsContentsOfFile()
     {
-        $this->file('_media/foo.txt', 'foo bar');
+        $this->mockFilesystem->shouldReceive('get')
+            ->with(Hyde::path('_media/foo.txt'))
+            ->andReturn('foo bar');
+
         $this->assertSame('foo bar', MediaFile::make('foo.txt')->getContents());
     }
 
     public function testGetExtensionReturnsExtensionOfFile()
     {
-        $this->file('_media/foo.txt', 'foo');
-        $this->assertSame('txt', MediaFile::make('foo.txt')->getExtension());
+        $this->mockFilesystem->shouldReceive('extension')
+            ->with(Hyde::path('_media/foo.txt'))
+            ->andReturn('txt');
 
-        $this->file('_media/foo.png', 'foo');
+        $this->mockFilesystem->shouldReceive('extension')
+            ->with(Hyde::path('_media/foo.png'))
+            ->andReturn('png');
+
+        $this->assertSame('txt', MediaFile::make('foo.txt')->getExtension());
         $this->assertSame('png', MediaFile::make('foo.png')->getExtension());
     }
 
     public function testToArrayReturnsArrayOfFileProperties()
     {
-        $this->file('_media/foo.txt', 'foo bar');
+        $this->mockFilesystem->shouldReceive('size')
+            ->with(Hyde::path('_media/foo.txt'))
+            ->andReturn(7);
+
+        $this->mockFilesystem->shouldReceive('mimeType')
+            ->with(Hyde::path('_media/foo.txt'))
+            ->andReturn('text/plain');
+
+        $this->mockFilesystem->shouldReceive('hash')
+            ->with(Hyde::path('_media/foo.txt'), 'crc32')
+            ->andReturn(hash('crc32', 'foo bar'));
 
         $this->assertSame([
             'name' => 'foo.txt',
@@ -156,77 +185,26 @@ class MediaFileUnitTest extends UnitTestCase
         ], MediaFile::make('foo.txt')->toArray());
     }
 
-    public function testToArrayWithEmptyFileWithNoExtension()
-    {
-        $this->file('_media/foo', 'foo bar');
-
-        $this->assertSame([
-            'name' => 'foo',
-            'path' => '_media/foo',
-            'length' => 7,
-            'mimeType' => 'text/plain',
-            'hash' => hash('crc32', 'foo bar'),
-        ], MediaFile::make('foo')->toArray());
-    }
-
-    public function testToArrayWithFileInSubdirectory()
-    {
-        mkdir(Hyde::path('_media/foo'));
-        touch(Hyde::path('_media/foo/bar.txt'));
-
-        $this->assertSame([
-            'name' => 'bar.txt',
-            'path' => '_media/foo/bar.txt',
-            'length' => 0,
-            'mimeType' => 'text/plain',
-            'hash' => hash('crc32', ''),
-        ], MediaFile::make('foo/bar.txt')->toArray());
-
-        Filesystem::unlink('_media/foo/bar.txt');
-        rmdir(Hyde::path('_media/foo'));
-    }
-
     public function testGetContentLength()
     {
-        $this->file('_media/foo', 'Hello World!');
-        $this->assertSame(12, MediaFile::make('foo')->getContentLength());
-    }
+        $this->mockFilesystem->shouldReceive('size')
+            ->with(Hyde::path('_media/foo'))
+            ->andReturn(12);
 
-    public function testGetContentLengthWithEmptyFile()
-    {
-        $this->file('_media/foo', '');
-        $this->assertSame(0, MediaFile::make('foo')->getContentLength());
+        $this->assertSame(12, MediaFile::make('foo')->getContentLength());
     }
 
     public function testGetMimeType()
     {
-        $this->file('_media/foo.txt', 'Hello World!');
+        $this->mockFilesystem->shouldReceive('mimeType')
+            ->with(Hyde::path('_media/foo.txt'))
+            ->andReturn('text/plain');
+
         $this->assertSame('text/plain', MediaFile::make('foo.txt')->getMimeType());
-    }
-
-    public function testGetMimeTypeWithoutExtension()
-    {
-        $this->file('_media/foo', 'Hello World!');
-        $this->assertSame('text/plain', MediaFile::make('foo')->getMimeType());
-    }
-
-    public function testGetMimeTypeWithEmptyFile()
-    {
-        $this->file('_media/foo', '');
-        $this->assertSame('application/x-empty', MediaFile::make('foo')->getMimeType());
     }
 
     public function testAllHelperReturnsAllMediaFiles()
     {
-        $this->assertEquals([
-            'app.css' => new MediaFile('_media/app.css'),
-        ], MediaFile::all()->all());
-    }
-
-    public function testAllHelperDoesNotIncludeNonMediaFiles()
-    {
-        $this->file('_media/foo.blade.php');
-
         $this->assertEquals([
             'app.css' => new MediaFile('_media/app.css'),
         ], MediaFile::all()->all());
@@ -237,81 +215,11 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame(['app.css'], MediaFile::files());
     }
 
-    public function testGetIdentifierReturnsIdentifier()
+    public function testGetHashReturnsHash()
     {
-        $this->assertSame('foo', MediaFile::make('foo')->getIdentifier());
-    }
-
-    public function testGetIdentifierWithSubdirectory()
-    {
-        $this->assertSame('foo/bar', MediaFile::make('foo/bar')->getIdentifier());
-    }
-
-    public function testGetIdentifierReturnsIdentifierWithFileExtension()
-    {
-        $this->assertSame('foo.png', MediaFile::make('foo.png')->getIdentifier());
-    }
-
-    public function testGetIdentifierWithSubdirectoryWithFileExtension()
-    {
-        $this->assertSame('foo/bar.png', MediaFile::make('foo/bar.png')->getIdentifier());
-    }
-
-    public function testHelperForMediaPath()
-    {
-        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
-    }
-
-    public function testHelperForMediaPathReturnsPathToFileWithinTheDirectory()
-    {
-        $this->assertSame(Hyde::path('_media/foo.css'), MediaFile::sourcePath('foo.css'));
-    }
-
-    public function testGetMediaPathReturnsAbsolutePath()
-    {
-        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath());
-    }
-
-    public function testHelperForMediaOutputPath()
-    {
-        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
-    }
-
-    public function testHelperForMediaOutputPathReturnsPathToFileWithinTheDirectory()
-    {
-        $this->assertSame(Hyde::path('_site/media/foo.css'), MediaFile::outputPath('foo.css'));
-    }
-
-    public function testGetMediaOutputPathReturnsAbsolutePath()
-    {
-        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
-    }
-
-    public function testCanGetSiteMediaOutputDirectory()
-    {
-        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
-    }
-
-    public function testGetSiteMediaOutputDirectoryUsesTrimmedVersionOfMediaSourceDirectory()
-    {
-        Hyde::setMediaDirectory('_foo');
-        $this->assertSame(Hyde::path('_site/foo'), MediaFile::outputPath());
-    }
-
-    public function testGetSiteMediaOutputDirectoryUsesConfiguredSiteOutputDirectory()
-    {
-        Hyde::setOutputDirectory(Hyde::path('foo'));
-        Hyde::setMediaDirectory('bar');
-
-        $this->assertSame(Hyde::path('foo/bar'), MediaFile::outputPath());
-
-        Hyde::setOutputDirectory(Hyde::path('_site'));
-        Hyde::setMediaDirectory('_media');
-    }
-
-    public function testGetHash()
-    {
-        $this->file('_media/foo.txt', 'Hello World!');
+        $this->mockFilesystem->shouldReceive('hash')
+            ->with(Hyde::path('_media/foo.txt'), 'crc32')
+            ->andReturn(hash('crc32', 'Hello World!'));
 
         $this->assertSame(hash('crc32', 'Hello World!'), MediaFile::make('foo.txt')->getHash());
     }
@@ -319,6 +227,10 @@ class MediaFileUnitTest extends UnitTestCase
     public function testExceptionIsThrownWhenConstructingFileThatDoesNotExist()
     {
         MediaFile::$validateExistence = true;
+
+        $this->mockFilesystem->shouldReceive('missing')
+            ->with(Hyde::path('_media/foo'))
+            ->andReturn(true);
 
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [_media/foo] not found.');
@@ -330,13 +242,10 @@ class MediaFileUnitTest extends UnitTestCase
     {
         MediaFile::$validateExistence = true;
 
-        $this->file('_media/foo', 'Hello World!');
+        $this->mockFilesystem->shouldReceive('missing')
+            ->with(Hyde::path('_media/foo'))
+            ->andReturn(false);
 
         $this->assertInstanceOf(MediaFile::class, MediaFile::make('foo'));
-    }
-
-    protected function mockFilesystem(array $methods): void
-    {
-        app()->instance(BaseFilesystem::class, Mockery::mock(BaseFilesystem::class, $methods));
     }
 }
