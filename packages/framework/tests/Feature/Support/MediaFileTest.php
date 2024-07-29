@@ -23,11 +23,11 @@ class MediaFileTest extends TestCase
         $mediaFile = MediaFile::make('test.txt');
 
         $this->assertInstanceOf(MediaFile::class, $mediaFile);
-        $this->assertEquals('test.txt', $mediaFile->getName());
-        $this->assertEquals('_media/test.txt', $mediaFile->getPath());
-        $this->assertEquals(Hyde::path('_media/test.txt'), $mediaFile->getAbsolutePath());
-        $this->assertEquals('Hello, World!', $mediaFile->getContents());
-        $this->assertEquals('txt', $mediaFile->getExtension());
+        $this->assertSame('test.txt', $mediaFile->getName());
+        $this->assertSame('_media/test.txt', $mediaFile->getPath());
+        $this->assertSame(Hyde::path('_media/test.txt'), $mediaFile->getAbsolutePath());
+        $this->assertSame('Hello, World!', $mediaFile->getContents());
+        $this->assertSame('txt', $mediaFile->getExtension());
     }
 
     public function testMediaFileDiscovery()
@@ -45,7 +45,7 @@ class MediaFileTest extends TestCase
         $this->assertArrayHasKey('script.js', $allFiles);
 
         $fileNames = MediaFile::files();
-        $this->assertEquals(['image.png', 'app.css', 'style.css', 'script.js'], $fileNames);
+        $this->assertSame(['image.png', 'app.css', 'style.css', 'script.js'], $fileNames);
     }
 
     public function testMediaFileProperties()
@@ -55,9 +55,9 @@ class MediaFileTest extends TestCase
 
         $mediaFile = MediaFile::make('large_file.txt');
 
-        $this->assertEquals(1024, $mediaFile->getContentLength());
-        $this->assertEquals('text/plain', $mediaFile->getMimeType());
-        $this->assertEquals(hash('crc32', $content), $mediaFile->getHash());
+        $this->assertSame(1024, $mediaFile->getContentLength());
+        $this->assertSame('text/plain', $mediaFile->getMimeType());
+        $this->assertSame(hash('crc32', $content), $mediaFile->getHash());
     }
 
     public function testMediaFilePathHandling()
@@ -66,8 +66,8 @@ class MediaFileTest extends TestCase
 
         $mediaFile = MediaFile::make('subfolder/nested_file.txt');
 
-        $this->assertEquals('subfolder/nested_file.txt', $mediaFile->getIdentifier());
-        $this->assertEquals('_media/subfolder/nested_file.txt', $mediaFile->getPath());
+        $this->assertSame('subfolder/nested_file.txt', $mediaFile->getIdentifier());
+        $this->assertSame('_media/subfolder/nested_file.txt', $mediaFile->getPath());
     }
 
     public function testMediaFileExceptionHandling()
@@ -84,19 +84,19 @@ class MediaFileTest extends TestCase
 
         $mediaFile = MediaFile::make('custom_file.txt');
 
-        $this->assertEquals('custom_media/custom_file.txt', $mediaFile->getPath());
-        $this->assertEquals(Hyde::path('custom_media/custom_file.txt'), $mediaFile->getAbsolutePath());
+        $this->assertSame('custom_media/custom_file.txt', $mediaFile->getPath());
+        $this->assertSame(Hyde::path('custom_media/custom_file.txt'), $mediaFile->getAbsolutePath());
 
         Hyde::setMediaDirectory('_media');
     }
 
     public function testMediaFileOutputPaths()
     {
-        $this->assertEquals(Hyde::path('_site/media'), MediaFile::outputPath());
-        $this->assertEquals(Hyde::path('_site/media/test.css'), MediaFile::outputPath('test.css'));
+        $this->assertSame(Hyde::path('_site/media'), MediaFile::outputPath());
+        $this->assertSame(Hyde::path('_site/media/test.css'), MediaFile::outputPath('test.css'));
 
         Hyde::setOutputDirectory('custom_output');
-        $this->assertEquals(Hyde::path('custom_output/media'), MediaFile::outputPath());
+        $this->assertSame(Hyde::path('custom_output/media'), MediaFile::outputPath());
 
         Hyde::setOutputDirectory('_site');
     }
