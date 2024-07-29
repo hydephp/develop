@@ -29,12 +29,15 @@ class MediaFile extends ProjectFile
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
+    /** @internal Controls whether to validate the existence of the file. Turning this off may lead to unexpected behavior. */
+    public static bool $validateExistence = true;
+
     public function __construct(string $path)
     {
         $path = trim_slashes(Str::after(Hyde::pathToRelative($path), Hyde::getMediaDirectory()));
         $path = static::sourcePath($path);
 
-        if (Filesystem::missing($path)) {
+        if (static::$validateExistence && Filesystem::missing($path)) {
             throw new FileNotFoundException($path);
         }
 
