@@ -13,8 +13,10 @@ use Hyde\Testing\CreatesTemporaryFiles;
 
 /**
  * @covers \Hyde\Support\Filesystem\MediaFile
+ *
+ * @see \Hyde\Framework\Testing\Feature\Support\MediaFileTest
  */
-class MediaFileTest extends UnitTestCase
+class MediaFileUnitTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;
 
