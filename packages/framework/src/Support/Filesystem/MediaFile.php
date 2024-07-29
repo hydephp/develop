@@ -31,6 +31,10 @@ class MediaFile extends ProjectFile
     /** @internal Controls whether to validate the existence of the file. Turning this off may lead to unexpected behavior. */
     public static bool $validateExistence = true;
 
+    protected int $length;
+    protected string $mimeType;
+    protected string $hash;
+
     public function __construct(string $path)
     {
         $path = $this->normalizePath($path);
@@ -40,6 +44,12 @@ class MediaFile extends ProjectFile
         }
 
         parent::__construct($path);
+
+        if (is_file($this->getAbsolutePath())) {
+            $this->length = filesize($this->getAbsolutePath());
+            $this->mimeType = $this->getMimeType();
+            $this->hash = $this->getHash();
+        }
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
