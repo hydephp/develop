@@ -19,7 +19,6 @@ use function file_exists;
 use function array_merge;
 use function filesize;
 use function pathinfo;
-use function is_file;
 
 /**
  * File abstraction for a project media file.
@@ -106,10 +105,6 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
-        if (! is_file($this->getAbsolutePath())) {
-            throw new FileNotFoundException($this->path);
-        }
-
         return filesize($this->getAbsolutePath());
     }
 

@@ -225,24 +225,6 @@ class MediaFileTest extends UnitTestCase
         $this->assertSame(0, MediaFile::make('foo')->getContentLength());
     }
 
-    public function testGetContentLengthWithDirectory()
-    {
-        $this->directory('_media/foo');
-
-        $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [_media/foo] not found.');
-
-        MediaFile::make('foo')->getContentLength();
-    }
-
-    public function testGetContentLengthWithNonExistentFile()
-    {
-        $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [_media/foo] not found.');
-
-        MediaFile::make('foo')->getContentLength();
-    }
-
     public function testGetMimeType()
     {
         $this->file('_media/foo.txt', 'Hello World!');
