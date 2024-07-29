@@ -32,19 +32,20 @@ class MediaFileTest extends TestCase
 
     public function testMediaFileDiscovery()
     {
+        // App.css is a default file
         $this->file('_media/image.png', 'PNG content');
         $this->file('_media/style.css', 'CSS content');
         $this->file('_media/script.js', 'JS content');
 
         $allFiles = MediaFile::all();
 
-        $this->assertCount(3, $allFiles);
+        $this->assertCount(4, $allFiles);
         $this->assertArrayHasKey('image.png', $allFiles);
         $this->assertArrayHasKey('style.css', $allFiles);
         $this->assertArrayHasKey('script.js', $allFiles);
 
         $fileNames = MediaFile::files();
-        $this->assertEquals(['image.png', 'style.css', 'script.js'], $fileNames);
+        $this->assertEquals(['image.png', 'app.css', 'style.css', 'script.js'], $fileNames);
     }
 
     public function testMediaFileProperties()
