@@ -6,7 +6,6 @@ namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
@@ -32,10 +31,6 @@ class MediaFile extends ProjectFile
     public function __construct(string $path)
     {
         $path = trim_slashes(Str::after(Hyde::pathToRelative($path), Hyde::getMediaDirectory()));
-
-        if (Filesystem::missing($path)) {
-            throw new FileNotFoundException($path);
-        }
 
         parent::__construct(static::sourcePath($path));
     }
