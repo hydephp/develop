@@ -33,15 +33,7 @@ class MediaFile extends ProjectFile
 
     public function __construct(string $path)
     {
-        $path = Hyde::pathToRelative($path);
-
-        // Normalize paths using output directory to have source directory prefix
-        if (str_starts_with($path, Hyde::getMediaOutputDirectory()) && str_starts_with(Hyde::getMediaDirectory(), '_')) {
-            $path = '_'.$path;
-        }
-
-        $path = trim_slashes(Str::after($path, Hyde::getMediaDirectory()));
-        $path = static::sourcePath($path);
+        $path = $this->normalizePath($path);
 
         if (static::$validateExistence && Filesystem::missing($path)) {
             throw new FileNotFoundException($path);
@@ -151,5 +143,17 @@ class MediaFile extends ProjectFile
         return Config::getBool('hyde.enable_cache_busting', true) && file_exists(static::sourcePath("$file"))
             ? '?v='.static::make($file)->getHash()
             : '';
+    }
+
+    protected function normalizePath(string $path): string
+    {
+        $path = Hyde::pathToRelative($path);
+
+        // Normalize paths using output directory to have source directory prefix
+        if (str_starts_with($path, Hyde::getMediaOutputDirectory()) && str_starts_with(Hyde::getMediaDirectory(), '_')) {
+            $path = '_'.$path;
+        }
+
+        return static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
     }
 }
