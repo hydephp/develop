@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Support;
 
 use Hyde\Facades\Filesystem;
-use Illuminate\Support\Facades\File;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
@@ -21,13 +20,6 @@ class MediaFileTest extends UnitTestCase
 
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        File::shouldReceive('missing')->andReturn(false);
-    }
 
     protected function tearDown(): void
     {
