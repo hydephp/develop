@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Support;
 
-use Mockery;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Facades\File;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -12,7 +11,6 @@ use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\CreatesTemporaryFiles;
-use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 
 /**
  * @covers \Hyde\Support\Filesystem\MediaFile
@@ -28,15 +26,11 @@ class MediaFileTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->mockFilesystem([
-            'missing' => false,
-        ]);
+        File::shouldReceive('missing')->andReturn(false);
     }
 
     protected function tearDown(): void
     {
-        $this->withoutMockingFilesystem();
-
         $this->cleanUpFilesystem();
     }
 
@@ -146,25 +140,21 @@ class MediaFileTest extends UnitTestCase
 
     public function testGetContentsReturnsContentsOfFile()
     {
-        $this->mockFilesystem([
-            'missing' => false,
-            'get' => 'foo bar',
-        ]);
-
+        $this->file('_media/foo.txt', 'foo bar');
         $this->assertSame('foo bar', MediaFile::make('foo.txt')->getContents());
     }
 
     public function testGetExtensionReturnsExtensionOfFile()
     {
+        $this->file('_media/foo.txt', 'foo');
         $this->assertSame('txt', MediaFile::make('foo.txt')->getExtension());
 
+        $this->file('_media/foo.png', 'foo');
         $this->assertSame('png', MediaFile::make('foo.png')->getExtension());
     }
 
     public function testToArrayReturnsArrayOfFileProperties()
     {
-        $this->withoutMockingFilesystem();
-
         $this->file('_media/foo.txt', 'foo bar');
 
         $this->assertSame([
@@ -178,8 +168,6 @@ class MediaFileTest extends UnitTestCase
 
     public function testToArrayWithEmptyFileWithNoExtension()
     {
-        $this->withoutMockingFilesystem();
-
         $this->file('_media/foo', 'foo bar');
 
         $this->assertSame([
@@ -193,8 +181,6 @@ class MediaFileTest extends UnitTestCase
 
     public function testToArrayWithFileInSubdirectory()
     {
-        $this->withoutMockingFilesystem();
-
         mkdir(Hyde::path('_media/foo'));
         touch(Hyde::path('_media/foo/bar.txt'));
 
@@ -212,11 +198,7 @@ class MediaFileTest extends UnitTestCase
 
     public function testGetContentLength()
     {
-        $this->mockFilesystem([
-            'missing' => false,
-            'size' => 12,
-        ]);
-
+        $this->file('_media/foo', 'Hello World!');
         $this->assertSame(12, MediaFile::make('foo')->getContentLength());
     }
 
@@ -228,8 +210,6 @@ class MediaFileTest extends UnitTestCase
 
     public function testGetContentLengthWithDirectory()
     {
-        $this->withoutMockingFilesystem();
-
         $this->directory('_media/foo');
 
         $this->expectException(FileNotFoundException::class);
@@ -373,15 +353,5 @@ class MediaFileTest extends UnitTestCase
         $this->file('_media/foo.txt', 'Hello World!');
 
         $this->assertSame(hash('crc32', 'Hello World!'), MediaFile::make('foo.txt')->getHash());
-    }
-
-    protected function mockFilesystem(array $methods): void
-    {
-        app()->instance(BaseFilesystem::class, Mockery::mock(BaseFilesystem::class, $methods));
-    }
-
-    protected function withoutMockingFilesystem(): void
-    {
-        app()->forgetInstance(BaseFilesystem::class);
     }
 }
