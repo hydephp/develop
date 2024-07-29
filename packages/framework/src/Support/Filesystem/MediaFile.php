@@ -46,9 +46,9 @@ class MediaFile extends ProjectFile
         parent::__construct($path);
 
         if (is_file($this->getAbsolutePath())) {
-            $this->length = filesize($this->getAbsolutePath());
-            $this->mimeType = $this->getMimeType();
-            $this->hash = $this->getHash();
+            $this->length = $this->findContentLength();
+            $this->mimeType = $this->findMimeType();
+            $this->hash = $this->findHash();
         }
     }
 
@@ -107,19 +107,46 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
-        if (isset($this->length)) {
-            return $this->length;
-        }
-
-        return filesize($this->getAbsolutePath());
+        return $this->length;
     }
 
     public function getMimeType(): string
     {
-        if (isset($this->mimeType)) {
-            return $this->mimeType;
+        return $this->mimeType;
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    /** @internal */
+    public static function getCacheBustKey(string $file): string
+    {
+        return Config::getBool('hyde.enable_cache_busting', true) && file_exists(static::sourcePath("$file"))
+            ? '?v='.static::make($file)->getHash()
+            : '';
+    }
+
+    protected function normalizePath(string $path): string
+    {
+        $path = Hyde::pathToRelative($path);
+
+        // Normalize paths using output directory to have source directory prefix
+        if (str_starts_with($path, Hyde::getMediaOutputDirectory()) && str_starts_with(Hyde::getMediaDirectory(), '_')) {
+            $path = '_'.$path;
         }
 
+        return static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
+    }
+
+    protected function findContentLength(): int
+    {
+        return filesize($this->getAbsolutePath());
+    }
+
+    protected function findMimeType(): string
+    {
         $extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
 
         // See if we can find a mime type for the extension instead of
@@ -150,32 +177,8 @@ class MediaFile extends ProjectFile
         return 'text/plain';
     }
 
-    public function getHash(): string
+    protected function findHash(): string
     {
-        if (isset($this->hash)) {
-            return $this->hash;
-        }
-
         return hash_file('crc32', $this->getAbsolutePath());
-    }
-
-    /** @internal */
-    public static function getCacheBustKey(string $file): string
-    {
-        return Config::getBool('hyde.enable_cache_busting', true) && file_exists(static::sourcePath("$file"))
-            ? '?v='.static::make($file)->getHash()
-            : '';
-    }
-
-    protected function normalizePath(string $path): string
-    {
-        $path = Hyde::pathToRelative($path);
-
-        // Normalize paths using output directory to have source directory prefix
-        if (str_starts_with($path, Hyde::getMediaOutputDirectory()) && str_starts_with(Hyde::getMediaDirectory(), '_')) {
-            $path = '_'.$path;
-        }
-
-        return static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
     }
 }
