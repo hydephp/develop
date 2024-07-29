@@ -108,6 +108,16 @@ class MediaFileTest extends UnitTestCase
         $this->assertSame('_media/foo', MediaFile::make(Hyde::path('_media/foo'))->path);
     }
 
+    public function testOutputMediaPathIsNormalizedToRelativeMediaPath()
+    {
+        $this->assertSame('_media/foo', MediaFile::make('media/foo')->path);
+    }
+
+    public function testAbsoluteOutputMediaPathIsNormalizedToRelativeMediaPath()
+    {
+        $this->assertSame('_media/foo', MediaFile::make(Hyde::path('media/foo'))->path);
+    }
+
     public function testCustomMediaPathsAreNormalizedToRelativeCustomizedMediaPath()
     {
         Hyde::setMediaDirectory('bar');
@@ -115,6 +125,14 @@ class MediaFileTest extends UnitTestCase
         $this->assertSame('bar/foo', MediaFile::make('foo')->path);
         $this->assertSame('bar/foo', MediaFile::make('bar/foo')->path);
         $this->assertSame('bar/foo', MediaFile::make(Hyde::path('foo'))->path);
+
+        Hyde::setMediaDirectory('_bar');
+
+        $this->assertSame('_bar/foo', MediaFile::make('foo')->path);
+        $this->assertSame('_bar/foo', MediaFile::make('_bar/foo')->path);
+        $this->assertSame('_bar/foo', MediaFile::make(Hyde::path('_bar/foo'))->path);
+        $this->assertSame('_bar/foo', MediaFile::make('bar/foo')->path);
+        $this->assertSame('_bar/foo', MediaFile::make(Hyde::path('foo'))->path);
 
         Hyde::setMediaDirectory('_media');
     }

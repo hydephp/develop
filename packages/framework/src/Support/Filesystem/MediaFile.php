@@ -34,7 +34,14 @@ class MediaFile extends ProjectFile
 
     public function __construct(string $path)
     {
-        $path = trim_slashes(Str::after(Hyde::pathToRelative($path), Hyde::getMediaDirectory()));
+        $path = Hyde::pathToRelative($path);
+
+        // Normalize paths using output directory to have source directory prefix
+        if (str_starts_with($path, Hyde::getMediaOutputDirectory()) && str_starts_with(Hyde::getMediaDirectory(), '_')) {
+            $path = '_'.$path;
+        }
+
+        $path = trim_slashes(Str::after($path, Hyde::getMediaDirectory()));
         $path = static::sourcePath($path);
 
         if (static::$validateExistence && Filesystem::missing($path)) {
