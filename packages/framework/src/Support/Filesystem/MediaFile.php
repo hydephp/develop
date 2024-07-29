@@ -116,6 +116,10 @@ class MediaFile extends ProjectFile
 
     public function getMimeType(): string
     {
+        if (isset($this->mimeType)) {
+            return $this->mimeType;
+        }
+
         $extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
 
         // See if we can find a mime type for the extension instead of
