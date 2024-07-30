@@ -9,12 +9,17 @@ use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
 use Hyde\Testing\UnitTestCase;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Collection;
 use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Filesystem\Filesystem;
 use Hyde\Testing\MocksKernelFeatures;
+use Hyde\Foundation\Kernel\FileCollection;
+use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Foundation\Kernel\RouteCollection;
 
 /**
  * @covers \Hyde\Support\Includes
@@ -37,6 +42,22 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->setupTestKernel();
         $this->kernel->setRoutes(collect());
         Render::swap(new RenderData());
+
+        HydeKernel::setInstance(new class extends HydeKernel
+        {
+            // Bypass discovery to isolate test
+            public function boot(): void
+            {
+                $this->files = FileCollection::init($this);
+                $this->pages = PageCollection::init($this);
+                $this->routes = RouteCollection::init($this);
+            }
+
+            public function assets(): Collection
+            {
+                return collect();
+            }
+        });
     }
 
     protected function tearDown(): void
@@ -44,20 +65,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
         Mockery::close();
 
         parent::tearDown();
-    }
-
-    public static function setUpBeforeClass(): void
-    {
-        rename('_media/app.css', '_media/app.css.bak');
-
-        parent::setUpBeforeClass();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        rename('_media/app.css.bak', '_media/app.css');
-
-        parent::tearDownAfterClass();
     }
 
     public function testPathReturnsTheIncludesDirectory()
