@@ -21,7 +21,25 @@ class MediaFileUnitTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
+    protected static string $originalBasePath;
+
     protected $mockFilesystem;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        static::$originalBasePath = Hyde::getBasePath();
+
+        Hyde::setBasePath('/base/path');
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        Hyde::setBasePath(static::$originalBasePath);
+
+        parent::tearDownAfterClass();
+    }
 
     protected function setUp(): void
     {
@@ -203,18 +221,6 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame('text/plain', MediaFile::make('foo.txt')->getMimeType());
     }
 
-    public function testAllHelperReturnsAllMediaFiles()
-    {
-        $this->assertEquals([
-            'app.css' => new MediaFile('_media/app.css'),
-        ], MediaFile::all()->all());
-    }
-
-    public function testFilesHelperReturnsAllMediaFiles()
-    {
-        $this->assertSame(['app.css'], MediaFile::files());
-    }
-
     public function testGetHashReturnsHash()
     {
         $this->mockFilesystem->shouldReceive('hash')
@@ -247,5 +253,73 @@ class MediaFileUnitTest extends UnitTestCase
             ->andReturn(false);
 
         $this->assertInstanceOf(MediaFile::class, MediaFile::make('foo'));
+    }
+
+    public function testGetIdentifierWithSubdirectory()
+    {
+        $this->assertSame('foo/bar', MediaFile::make('foo/bar')->getIdentifier());
+    }
+
+    public function testGetIdentifierReturnsIdentifierWithFileExtension()
+    {
+        $this->assertSame('foo.png', MediaFile::make('foo.png')->getIdentifier());
+    }
+
+    public function testGetIdentifierWithSubdirectoryWithFileExtension()
+    {
+        $this->assertSame('foo/bar.png', MediaFile::make('foo/bar.png')->getIdentifier());
+    }
+
+    public function testHelperForMediaPath()
+    {
+        $this->assertSame('/base/path/_media', MediaFile::sourcePath());
+    }
+
+    public function testHelperForMediaPathReturnsPathToFileWithinTheDirectory()
+    {
+        $this->assertSame('/base/path/_media/foo.css', MediaFile::sourcePath('foo.css'));
+    }
+
+    public function testGetMediaPathReturnsAbsolutePath()
+    {
+        $this->assertSame('/base/path/_media', MediaFile::sourcePath());
+    }
+
+    public function testHelperForMediaOutputPath()
+    {
+        $this->assertSame('/base/path/_site/media', MediaFile::outputPath());
+    }
+
+    public function testHelperForMediaOutputPathReturnsPathToFileWithinTheDirectory()
+    {
+        $this->assertSame('/base/path/_site/media/foo.css', MediaFile::outputPath('foo.css'));
+    }
+
+    public function testGetMediaOutputPathReturnsAbsolutePath()
+    {
+        $this->assertSame('/base/path/_site/media', MediaFile::outputPath());
+    }
+
+    public function testCanGetSiteMediaOutputDirectory()
+    {
+        $this->assertSame('/base/path/_site/media', MediaFile::outputPath());
+    }
+
+    public function testGetSiteMediaOutputDirectoryUsesTrimmedVersionOfMediaSourceDirectory()
+    {
+        Hyde::setMediaDirectory('_foo');
+        $this->assertSame('/base/path/_site/foo', MediaFile::outputPath());
+        Hyde::setMediaDirectory('_media'); // Reset to default
+    }
+
+    public function testGetSiteMediaOutputDirectoryUsesConfiguredSiteOutputDirectory()
+    {
+        Hyde::setOutputDirectory('/base/path/foo');
+        Hyde::setMediaDirectory('bar');
+
+        $this->assertSame('/base/path/foo/bar', MediaFile::outputPath());
+
+        Hyde::setOutputDirectory('/base/path/_site'); // Reset to default
+        Hyde::setMediaDirectory('_media'); // Reset to default
     }
 }
