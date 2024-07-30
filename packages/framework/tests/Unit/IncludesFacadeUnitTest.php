@@ -42,7 +42,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function tearDown(): void
     {
         Mockery::close();
-        self::resetKernel();
 
         parent::tearDown();
     }
