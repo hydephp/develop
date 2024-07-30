@@ -8,18 +8,15 @@ use Mockery;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
+use Illuminate\Support\Str;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\Collection;
 use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Filesystem\Filesystem;
 use Hyde\Testing\MocksKernelFeatures;
-use Hyde\Foundation\Kernel\FileCollection;
-use Hyde\Foundation\Kernel\PageCollection;
-use Hyde\Foundation\Kernel\RouteCollection;
+use Hyde\Framework\Services\MarkdownService;
 
 /**
  * @covers \Hyde\Support\Includes
@@ -43,21 +40,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->kernel->setRoutes(collect());
         Render::swap(new RenderData());
 
-        HydeKernel::setInstance(new class extends HydeKernel
-        {
-            // Bypass discovery to isolate test
-            public function boot(): void
-            {
-                $this->files = FileCollection::init($this);
-                $this->pages = PageCollection::init($this);
-                $this->routes = RouteCollection::init($this);
-            }
-
-            public function assets(): Collection
-            {
-                return collect();
-            }
-        });
+        app()->bind(MarkdownService::class, SimpleMarkdownServiceTestClass::class);
     }
 
     protected function tearDown(): void
@@ -274,5 +257,17 @@ class IncludesFacadeUnitTest extends UnitTestCase
     {
         $this->assertInstanceOf(HtmlString::class, $actual);
         $this->assertSame((string) $expected, $actual->toHtml());
+    }
+}
+
+class SimpleMarkdownServiceTestClass
+{
+    public function __construct(protected string $markdown = '')
+    {
+    }
+
+    public function parse(): string
+    {
+        return Str::markdown($this->markdown);
     }
 }
