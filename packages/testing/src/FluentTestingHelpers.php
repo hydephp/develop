@@ -58,4 +58,39 @@ trait FluentTestingHelpers
             $this->assertSame($first, $var);
         }
     }
+
+    /**
+     * @experimental Helper to print and die.
+     */
+    protected function dd($var): void
+    {
+        if (is_string($var)) {
+            echo "```\n";
+            echo $var.($var[-1] === "\n" ? '' : "\n");
+            echo "```\n";
+        } elseif (is_array($var)) {
+            echo "```php\n";
+            echo $this->formatArray($var);
+            echo "```\n";
+        } else {
+            dd($var);
+        }
+
+        exit;
+    }
+
+    /**
+     * @experimental Helper function to format an array as a plain PHP array with [] syntax.
+     */
+    private function formatArray(array $array): string
+    {
+        $json = json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+        // Transform JSON to PHP array syntax
+        $php = preg_replace('/^(\s*)\"(\w+)\":/m', '$1$2:', $json); // Remove quotes from keys
+        $php = str_replace('{', '[', $php); // Replace { with [
+        $php = str_replace('}', ']', $php); // Replace } with ]
+
+        return $php."\n";
+    }
 }

@@ -10,7 +10,7 @@ class Application
      * @param  class-string<T>  $abstract
      * @return T
      */
-    public function make(string $abstract)
+    public function make(string $abstract, array $parameters = [])
     {
     }
 }
