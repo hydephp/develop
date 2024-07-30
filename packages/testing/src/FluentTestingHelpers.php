@@ -58,4 +58,20 @@ trait FluentTestingHelpers
             $this->assertSame($first, $var);
         }
     }
+
+    /**
+     * @experimental Helper to print and die.
+     */
+    protected function dd($var): void
+    {
+        if (is_string($var)) {
+            echo $var;
+        } elseif(is_array($var)) {
+            var_export($var);
+        } else {
+            dd($var);
+        }
+
+        die;
+    }
 }
