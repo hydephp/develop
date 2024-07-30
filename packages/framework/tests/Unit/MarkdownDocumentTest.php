@@ -15,7 +15,7 @@ use Illuminate\Support\HtmlString;
  * @covers \Hyde\Markdown\Models\MarkdownDocument
  * @covers \Hyde\Markdown\Models\Markdown
  */
-class MarkdownHelpersTest extends TestCase
+class MarkdownDocumentTest extends TestCase
 {
     public function testConstructorCreatesNewMarkdownDocument()
     {
