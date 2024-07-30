@@ -68,7 +68,7 @@ trait FluentTestingHelpers
             echo "```\n";
             echo $var.($var[-1] === "\n" ? '' : "\n");
             echo "```\n";
-        } elseif(is_array($var)) {
+        } elseif (is_array($var)) {
             echo "```php\n";
             echo $this->formatArray($var);
             echo "```\n";
@@ -76,7 +76,7 @@ trait FluentTestingHelpers
             dd($var);
         }
 
-        die;
+        exit;
     }
 
     /**
