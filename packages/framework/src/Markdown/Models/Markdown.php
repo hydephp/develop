@@ -90,6 +90,9 @@ class Markdown implements Arrayable, Stringable, Htmlable
      */
     public static function render(string $markdown, ?string $pageClass = null): string
     {
-        return (new MarkdownService($markdown, $pageClass))->parse();
+        return app(MarkdownService::class, [
+            'markdown' => $markdown,
+            'pageClass' => $pageClass,
+        ])->parse();
     }
 }
