@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Framework\Services\MarkdownService;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -66,6 +67,23 @@ class HydeServiceProviderTest extends TestCase
         $this->assertTrue($this->app->bound(BuildTaskService::class));
         $this->assertInstanceOf(BuildTaskService::class, $this->app->make(BuildTaskService::class));
         $this->assertSame($this->app->make(BuildTaskService::class), $this->app->make(BuildTaskService::class));
+    }
+
+    public function testProviderRegistersMarkdownServiceAsBasicBinding()
+    {
+        $args = ['markdown' => 'foo'];
+
+        $this->assertTrue($this->app->bound(MarkdownService::class));
+        $this->assertInstanceOf(MarkdownService::class, $this->app->make(MarkdownService::class, $args));
+        $this->assertNotSame($this->app->make(MarkdownService::class, $args), $this->app->make(MarkdownService::class, $args));
+    }
+
+    public function testCanSwapMarkdownServiceBinding()
+    {
+        $this->app->bind(MarkdownService::class, fn () => 'foo');
+
+        $this->assertTrue($this->app->bound(MarkdownService::class));
+        $this->assertSame('foo', $this->app->make(MarkdownService::class));
     }
 
     public function testProviderRegistersSourceDirectories()
