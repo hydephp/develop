@@ -65,7 +65,9 @@ trait FluentTestingHelpers
     protected function dd($var): void
     {
         if (is_string($var)) {
-            echo $var;
+            echo "```\n";
+            echo $var.($var[-1] === "\n" ? '' : "\n");
+            echo "```\n";
         } elseif(is_array($var)) {
             var_export($var);
         } else {
