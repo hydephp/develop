@@ -21,9 +21,6 @@
             <errorLevel type="suppress"/>
         </MissingConstructor>
     </issueHandlers>
-    <plugins>
-        <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
-    </plugins>
     <stubs>
         <file name="monorepo/stubs/helpers.php" />
         <file name="monorepo/stubs/Application.php" />
