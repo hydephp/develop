@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca5014401c1d6c9e5f1853e6fc9a9a53",
+    "content-hash": "b58d960178485f947289793201f5dc32",
     "packages": [
         {
             "name": "brick/math",
@@ -1173,7 +1173,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-master",
+            "version": "dev-bump-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1220,7 +1220,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-master",
+            "version": "dev-bump-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -7688,41 +7688,6 @@
             "time": "2024-01-30T19:34:25+00:00"
         },
         {
-            "name": "driftingly/rector-laravel",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/driftingly/rector-laravel.git",
-                "reference": "849fe4e86ee6fc841a704a81393b59702108740e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/849fe4e86ee6fc841a704a81393b59702108740e",
-                "reference": "849fe4e86ee6fc841a704a81393b59702108740e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0",
-                "rector/rector": "^1.0"
-            },
-            "type": "rector-extension",
-            "autoload": {
-                "psr-4": {
-                    "RectorLaravel\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Rector upgrades rules for Laravel Framework",
-            "support": {
-                "issues": "https://github.com/driftingly/rector-laravel/issues",
-                "source": "https://github.com/driftingly/rector-laravel/tree/1.2.1"
-            },
-            "time": "2024-07-30T17:02:47+00:00"
-        },
-        {
             "name": "felixfbecker/advanced-json-rpc",
             "version": "v3.2.1",
             "source": {
@@ -7937,7 +7902,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-master",
+            "version": "dev-bump-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -8019,7 +7984,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-master",
+            "version": "dev-bump-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
@@ -10211,65 +10176,6 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.12.4"
             },
             "time": "2024-06-10T01:18:23+00:00"
-        },
-        {
-            "name": "rector/rector",
-            "version": "1.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rectorphp/rector.git",
-                "reference": "044e6364017882d1e346da8690eeabc154da5495"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/044e6364017882d1e346da8690eeabc154da5495",
-                "reference": "044e6364017882d1e346da8690eeabc154da5495",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.11"
-            },
-            "conflict": {
-                "rector/rector-doctrine": "*",
-                "rector/rector-downgrade-php": "*",
-                "rector/rector-phpunit": "*",
-                "rector/rector-symfony": "*"
-            },
-            "suggest": {
-                "ext-dom": "To manipulate phpunit.xml via the custom-rule command"
-            },
-            "bin": [
-                "bin/rector"
-            ],
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
-            "keywords": [
-                "automation",
-                "dev",
-                "migration",
-                "refactoring"
-            ],
-            "support": {
-                "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/1.2.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/tomasvotruba",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-07-25T07:44:34+00:00"
         },
         {
             "name": "revolt/event-loop",

@@ -27,7 +27,6 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
-      <path value="$PROJECT_DIR$/vendor/driftingly/rector-laravel" />
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/felixfbecker/advanced-json-rpc" />
       <path value="$PROJECT_DIR$/vendor/felixfbecker/language-server-protocol" />
@@ -149,7 +148,6 @@
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
       <path value="$PROJECT_DIR$/vendor/webmozart/path-util" />
-      <path value="$PROJECT_DIR$/vendor/rector/rector" />
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/jetbrains/phpstorm-attributes" />
       <path value="$PROJECT_DIR$/vendor/desilva/psalm-type-coverage" />
