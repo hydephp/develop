@@ -30,7 +30,7 @@
         "pestphp/pest-plugin-type-coverage": "2.x-dev",
         "phpstan/phpstan": "^1.8",
         "psalm/plugin-laravel": "^2.11",
-        "desilva/psalm-coverage": "dev-legacy"
+        "desilva/psalm-coverage": "legacy-dev"
     },
     "replace": {
         "symfony/polyfill-php72": "*",
