@@ -22,15 +22,15 @@
         "laravel-zero/framework": "^10.0"
     },
     "require-dev": {
-        "vimeo/psalm": "dev-type-coverage as 5.20.0",
         "hyde/monorepo-dev-tools": "*",
         "hyde/realtime-compiler": "*",
         "hyde/testing": "*",
         "jetbrains/phpstorm-attributes": "^1.0",
         "laravel/tinker": "^2.7",
-        "pestphp/pest-plugin-type-coverage": "^2.8",
+        "pestphp/pest-plugin-type-coverage": "2.x-dev",
         "phpstan/phpstan": "^1.8",
-        "psalm/plugin-laravel": "^2.11"
+        "psalm/plugin-laravel": "^2.11",
+        "vimeo/psalm": "dev-type-coverage as 5.20.0"
     },
     "replace": {
         "symfony/polyfill-php72": "*",

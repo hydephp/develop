@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03cc13c21c97f249386ef00bcf212eac",
+    "content-hash": "3b881f4f35152836e418358ce51d9218",
     "packages": [
         {
             "name": "brick/math",
@@ -9009,28 +9009,29 @@
         },
         {
             "name": "pestphp/pest-plugin-type-coverage",
-            "version": "v2.8.4",
+            "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest-plugin-type-coverage.git",
-                "reference": "ce599efae7c2493e300960cb9c697a9bdd15c44e"
+                "reference": "147f8b6d5dc180a756aa694d34f606050b823c71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/ce599efae7c2493e300960cb9c697a9bdd15c44e",
-                "reference": "ce599efae7c2493e300960cb9c697a9bdd15c44e",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/147f8b6d5dc180a756aa694d34f606050b823c71",
+                "reference": "147f8b6d5dc180a756aa694d34f606050b823c71",
                 "shasum": ""
             },
             "require": {
                 "pestphp/pest-plugin": "^2.1.1",
                 "php": "^8.1",
-                "phpstan/phpstan": "^1.11.6",
+                "phpstan/phpstan": "^1.11.8",
                 "tomasvotruba/type-coverage": "^0.2.8"
             },
             "require-dev": {
-                "pestphp/pest": "^2.34.8",
+                "pestphp/pest": "^2.34.9",
                 "pestphp/pest-dev-tools": "^2.16.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "pest": {
@@ -9062,7 +9063,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest-plugin-type-coverage/issues",
-                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v2.8.4"
+                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/2.x"
             },
             "funding": [
                 {
@@ -9078,7 +9079,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-07-01T17:18:50+00:00"
+            "time": "2024-07-24T12:09:30+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -11646,6 +11647,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "pestphp/pest-plugin-type-coverage": 20,
         "vimeo/psalm": 20
     },
     "prefer-stable": true,
