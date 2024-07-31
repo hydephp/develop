@@ -58,6 +58,7 @@ class HydeKernel implements SerializableContract
     use Serializable;
     use Macroable;
 
+    /** @var string The current SemVer version of HydePHP */
     final public const VERSION = '1.7.3';
 
     protected static self $instance;
