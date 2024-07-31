@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b881f4f35152836e418358ce51d9218",
+    "content-hash": "13104f3c16d783493ca26483acecf656",
     "packages": [
         {
             "name": "brick/math",
@@ -11491,16 +11491,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "dev-type-coverage",
+            "version": "dev-legacy",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/psalm-coverage",
-                "reference": "20dc8068f8f4729113592c06f6f97e11bd5bd1ff"
+                "reference": "694215c86f6810f4548e6ab5ed9a675ee168f2e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/20dc8068f8f4729113592c06f6f97e11bd5bd1ff",
-                "reference": "20dc8068f8f4729113592c06f6f97e11bd5bd1ff",
+                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/694215c86f6810f4548e6ab5ed9a675ee168f2e5",
+                "reference": "694215c86f6810f4548e6ab5ed9a675ee168f2e5",
                 "shasum": ""
             },
             "require": {
@@ -11522,7 +11522,7 @@
                 "fidry/cpu-core-counter": "^0.4.1 || ^0.5.1 || ^1.0.0",
                 "netresearch/jsonmapper": "^1.0 || ^2.0 || ^3.0 || ^4.0",
                 "nikic/php-parser": "^5.0.0",
-                "php": "~8.1.0 || ~8.2.4 || ~8.3.0",
+                "php": "~8.1.17 || ~8.2.4 || ~8.3.0",
                 "sebastian/diff": "^4.0 || ^5.0 || ^6.0",
                 "spatie/array-to-xml": "^2.17.0 || ^3.0",
                 "symfony/console": "^4.1.6 || ^5.0 || ^6.0 || ^7.0",
@@ -11559,7 +11559,7 @@
                 "psalm-refactor",
                 "psalter"
             ],
-            "type": "project",
+            "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "6.x-dev",
@@ -11634,13 +11634,13 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2024-07-31T11:28:03+00:00"
+            "time": "2024-07-31T09:53:28+00:00"
         }
     ],
     "aliases": [
         {
             "package": "vimeo/psalm",
-            "version": "dev-type-coverage",
+            "version": "dev-legacy",
             "alias": "5.20.0",
             "alias_normalized": "5.20.0.0"
         }

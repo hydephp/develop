@@ -30,7 +30,7 @@
         "pestphp/pest-plugin-type-coverage": "2.x-dev",
         "phpstan/phpstan": "^1.8",
         "psalm/plugin-laravel": "^2.11",
-        "vimeo/psalm": "dev-type-coverage as 5.20.0"
+        "vimeo/psalm": "dev-legacy as 5.20.0"
     },
     "replace": {
         "symfony/polyfill-php72": "*",
