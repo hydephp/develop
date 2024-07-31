@@ -547,14 +547,16 @@ jobs:
           php-version: "8.1"
       - uses: actions/checkout@v4
 
-      - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Download static analysis tools
+        run: |
+          wget https://github.com/php-parallel-lint/PHP-Parallel-Lint/releases/latest/download/parallel-lint.phar
+          wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
 
       - name: Check syntax (PHP Parallel Lint)
-        run: vendor/bin/parallel-lint --colors app config packages tests --show-deprecated
+        run: php parallel-lint.phar --colors app config packages tests --show-deprecated
 
       - name: Check coding syntax/standards (PHP CodeSniffer)
-        run: vendor/bin/phpcs --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true
+        run: php phpcs.phar --colors --cache=build/cache/phpcs.cache packages --standard=PSR2 --extensions="php" --ignore="*test.php,*.blade.php,ValidationService.php" || true
 
 
   run-static-analysis-psalm:
