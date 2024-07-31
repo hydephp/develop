@@ -11494,12 +11494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/psalm-coverage",
-                "reference": "ec125d14874578ad3cf40dee05707528724246b8"
+                "reference": "db7869a32553ddc493d8720b5a7bc84f49055be5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/ec125d14874578ad3cf40dee05707528724246b8",
-                "reference": "ec125d14874578ad3cf40dee05707528724246b8",
+                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/db7869a32553ddc493d8720b5a7bc84f49055be5",
+                "reference": "db7869a32553ddc493d8720b5a7bc84f49055be5",
                 "shasum": ""
             },
             "require": {
@@ -11521,7 +11521,7 @@
                 "fidry/cpu-core-counter": "^0.4.1 || ^0.5.1 || ^1.0.0",
                 "netresearch/jsonmapper": "^1.0 || ^2.0 || ^3.0 || ^4.0",
                 "nikic/php-parser": "^5.0.0",
-                "php": "~8.1.17 || ~8.2.4 || ~8.3.0",
+                "php": "~8.1.0 || ~8.2.4 || ~8.3.0",
                 "sebastian/diff": "^4.0 || ^5.0 || ^6.0",
                 "spatie/array-to-xml": "^2.17.0 || ^3.0",
                 "symfony/console": "^4.1.6 || ^5.0 || ^6.0 || ^7.0",
@@ -11633,7 +11633,7 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2024-07-31T10:12:29+00:00"
+            "time": "2024-07-31T10:53:03+00:00"
         }
     ],
     "aliases": [
