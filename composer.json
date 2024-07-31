@@ -22,7 +22,7 @@
         "laravel-zero/framework": "^10.0"
     },
     "require-dev": {
-        "desilva/psalm-coverage": "dev-master",
+        "vimeo/psalm": "dev-type-coverage as 5.20.0",
         "driftingly/rector-laravel": "^1.2.0",
         "hyde/monorepo-dev-tools": "*",
         "hyde/realtime-compiler": "*",
