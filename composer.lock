@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fc1f0e51c939bc51cd0e57485950b34",
+    "content-hash": "51bea0fb107cbafb480399a6d0817a74",
     "packages": [
         {
             "name": "brick/math",
@@ -7421,7 +7421,7 @@
         },
         {
             "name": "desilva/psalm-coverage",
-            "version": "dev-legacy",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/psalm-coverage",
@@ -7480,6 +7480,7 @@
                 "ext-curl": "In order to send data to shepherd",
                 "ext-igbinary": "^2.0.5 is required, used to serialize caching data"
             },
+            "default-branch": true,
             "bin": [
                 "psalm",
                 "psalm-language-server",
@@ -11478,8 +11479,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "pestphp/pest-plugin-type-coverage": 20,
-        "desilva/psalm-coverage": 20
+        "desilva/psalm-coverage": 20,
+        "pestphp/pest-plugin-type-coverage": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
