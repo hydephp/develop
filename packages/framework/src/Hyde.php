@@ -24,38 +24,19 @@ use JetBrains\PhpStorm\Pure;
  */
 class Hyde extends Facade
 {
-    /**
-     * @psalm-return non-empty-string
-     */
     public static function version(): string
     {
         return HydeKernel::version();
     }
 
-    /**
-     * @psalm-return HydeKernel
-     */
     public static function getFacadeRoot(): HydeKernel
     {
         return HydeKernel::getInstance();
     }
 
-    /**
-     * @psalm-return HydeKernel
-     */
     #[Pure]
     public static function kernel(): HydeKernel
     {
         return HydeKernel::getInstance();
-    }
-
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor(): string
-    {
-        return 'hyde';
     }
 }
