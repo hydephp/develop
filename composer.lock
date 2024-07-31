@@ -11494,12 +11494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/caendesilva/psalm-coverage",
-                "reference": "db7869a32553ddc493d8720b5a7bc84f49055be5"
+                "reference": "20dc8068f8f4729113592c06f6f97e11bd5bd1ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/db7869a32553ddc493d8720b5a7bc84f49055be5",
-                "reference": "db7869a32553ddc493d8720b5a7bc84f49055be5",
+                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/20dc8068f8f4729113592c06f6f97e11bd5bd1ff",
+                "reference": "20dc8068f8f4729113592c06f6f97e11bd5bd1ff",
                 "shasum": ""
             },
             "require": {
@@ -11633,7 +11633,7 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2024-07-31T10:53:03+00:00"
+            "time": "2024-07-31T11:28:03+00:00"
         }
     ],
     "aliases": [
