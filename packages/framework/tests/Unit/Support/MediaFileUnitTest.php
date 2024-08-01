@@ -189,7 +189,7 @@ class MediaFileUnitTest extends UnitTestCase
     public function testNormalizePathWithParentDirectoryReferences()
     {
         $this->assertSame('_media/foo.txt', MediaFile::make('../_media/foo.txt')->path);
-        $this->assertSame('_media/baz/../bar/foo.txt', MediaFile::make('_media/baz/../bar/foo.txt')->path);
+        $this->assertSame('_media/baz/../bar/foo.txt', MediaFile::make('_media/baz/../bar/foo.txt')->path); // We don't do anything about this
     }
 
     public function testGetNameReturnsNameOfFile()
