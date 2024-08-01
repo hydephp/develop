@@ -42,11 +42,9 @@ class MediaFile extends ProjectFile
 
         parent::__construct($path);
 
-        if (Filesystem::isFile($this->getPath())) {
-            $this->length = $this->findContentLength();
-            $this->mimeType = $this->findMimeType();
-            $this->hash = $this->findHash();
-        }
+        $this->length = $this->findContentLength();
+        $this->mimeType = $this->findMimeType();
+        $this->hash = $this->findHash();
     }
 
     /** @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
