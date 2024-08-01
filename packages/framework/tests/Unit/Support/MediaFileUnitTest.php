@@ -139,6 +139,59 @@ class MediaFileUnitTest extends UnitTestCase
         Hyde::setMediaDirectory('_media');
     }
 
+    public function testConstructorWithVariousInputFormats()
+    {
+        $this->assertSame('_media/foo.txt', MediaFile::make('foo.txt')->path);
+        $this->assertSame('_media/foo.txt', MediaFile::make('_media/foo.txt')->path);
+        $this->assertSame('_media/foo.txt', MediaFile::make(Hyde::path('_media/foo.txt'))->path);
+        $this->assertSame('_media/foo.txt', MediaFile::make('media/foo.txt')->path);
+    }
+
+    public function testConstructorWithValidationDisabled()
+    {
+        MediaFile::$validateExistence = false;
+        $this->mockFilesystem->shouldReceive('missing')->never();
+
+        $file = new MediaFile('non_existent_file.txt');
+        $this->assertInstanceOf(MediaFile::class, $file);
+    }
+
+    public function testConstructorSetsProperties()
+    {
+        $file = new MediaFile('foo.txt');
+        $this->assertNotNull($file->length);
+        $this->assertNotNull($file->mimeType);
+        $this->assertNotNull($file->hash);
+    }
+
+    public function testNormalizePathWithAbsolutePath()
+    {
+        $this->assertSame('_media/foo.txt', MediaFile::make(Hyde::path('_media/foo.txt'))->path);
+    }
+
+    public function testNormalizePathWithRelativePath()
+    {
+        $this->assertSame('_media/foo.txt', MediaFile::make('foo.txt')->path);
+    }
+
+    public function testNormalizePathWithOutputDirectoryPath()
+    {
+        Hyde::setMediaDirectory('_custom_media');
+        $this->assertSame('_custom_media/foo.txt', MediaFile::make('custom_media/foo.txt')->path);
+        Hyde::setMediaDirectory('_media'); // Reset to default
+    }
+
+    public function testNormalizePathWithAlreadyCorrectFormat()
+    {
+        $this->assertSame('_media/foo.txt', MediaFile::make('_media/foo.txt')->path);
+    }
+
+    public function testNormalizePathWithParentDirectoryReferences()
+    {
+        $this->assertSame('_media/foo.txt', MediaFile::make('../_media/foo.txt')->path);
+        $this->assertSame('_media/baz/../bar/foo.txt', MediaFile::make('_media/baz/../bar/foo.txt')->path);
+    }
+
     public function testGetNameReturnsNameOfFile()
     {
         $this->assertSame('foo.txt', MediaFile::make('foo.txt')->getName());
