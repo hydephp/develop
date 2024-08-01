@@ -47,7 +47,11 @@ class MediaFile extends ProjectFile
         $this->hash = $this->findHash();
     }
 
-    /** @return array<string> Array of filenames relative to the _media/ directory */
+    /**
+     * @return array<string> Array of filenames relative to the _media/ directory
+     *
+     * @example `['app.css', 'images/logo.svg']`
+     */
     public static function files(): array
     {
         return static::all()->keys()->all();
