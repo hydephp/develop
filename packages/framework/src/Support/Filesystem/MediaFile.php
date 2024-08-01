@@ -48,7 +48,9 @@ class MediaFile extends ProjectFile
     }
 
     /**
-     * @return array<string> Array of filenames relative to the _media/ directory {@example `['app.css', 'images/logo.svg']`}
+     * @return array<string> Array of filenames relative to the _media/ directory
+     *
+     * @example `['app.css', 'images/logo.svg']`
      */
     public static function files(): array
     {
