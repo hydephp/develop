@@ -28,17 +28,10 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->filesystem = new TestableFilesystem(Hyde::getInstance());
 
         $mock = Mockery::mock(BaseFilesystem::class)->makePartial();
+        $mock->shouldReceive('missing')->andReturn(false)->byDefault();
         $mock->shouldReceive('size')->andReturn(100)->byDefault();
         $mock->shouldReceive('hash')->andReturn('hash')->byDefault();
         app()->instance(BaseFilesystem::class, $mock);
-
-        MediaFile::$validateExistence = false;
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        MediaFile::$validateExistence = true;
     }
 
     public function testAssetsMethodReturnsSameInstanceOnSubsequentCalls()

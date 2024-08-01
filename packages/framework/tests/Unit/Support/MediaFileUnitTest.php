@@ -45,8 +45,6 @@ class MediaFileUnitTest extends UnitTestCase
     {
         parent::setUp();
 
-        MediaFile::$validateExistence = false;
-
         $this->mockFilesystem = Mockery::mock(BaseFilesystem::class);
         app()->instance(BaseFilesystem::class, $this->mockFilesystem);
 
@@ -68,7 +66,6 @@ class MediaFileUnitTest extends UnitTestCase
     {
         parent::tearDown();
 
-        MediaFile::$validateExistence = true;
         Mockery::close();
     }
 
@@ -145,15 +142,6 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame('_media/foo.txt', MediaFile::make('_media/foo.txt')->path);
         $this->assertSame('_media/foo.txt', MediaFile::make(Hyde::path('_media/foo.txt'))->path);
         $this->assertSame('_media/foo.txt', MediaFile::make('media/foo.txt')->path);
-    }
-
-    public function testConstructorWithValidationDisabled()
-    {
-        MediaFile::$validateExistence = false;
-        $this->mockFilesystem->shouldReceive('missing')->never();
-
-        $file = new MediaFile('non_existent_file.txt');
-        $this->assertInstanceOf(MediaFile::class, $file);
     }
 
     public function testConstructorSetsProperties()
@@ -285,8 +273,6 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testExceptionIsThrownWhenConstructingFileThatDoesNotExist()
     {
-        MediaFile::$validateExistence = true;
-
         $this->mockFilesystem->shouldReceive('missing')
             ->with(Hyde::path('_media/foo'))
             ->andReturn(true);
@@ -299,8 +285,6 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testExceptionIsNotThrownWhenConstructingFileThatDoesExist()
     {
-        MediaFile::$validateExistence = true;
-
         $this->mockFilesystem->shouldReceive('missing')
             ->with(Hyde::path('_media/foo'))
             ->andReturn(false);

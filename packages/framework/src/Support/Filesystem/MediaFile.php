@@ -25,9 +25,6 @@ class MediaFile extends ProjectFile
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
-    /** @internal Controls whether to validate the existence of the file, intended for unit testing. Turning this off may lead to unexpected behavior. */
-    public static bool $validateExistence = true;
-
     public readonly int $length;
     public readonly string $mimeType;
     public readonly string $hash;
@@ -36,7 +33,7 @@ class MediaFile extends ProjectFile
     {
         $path = $this->normalizePath($path);
 
-        if (static::$validateExistence && Filesystem::missing($path)) {
+        if (Filesystem::missing($path)) {
             throw new FileNotFoundException($path);
         }
 
