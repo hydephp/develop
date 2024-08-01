@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
+use Mockery;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
+use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Filesystem
@@ -24,6 +26,12 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
     {
         parent::setUp();
         $this->filesystem = new TestableFilesystem(Hyde::getInstance());
+
+        $mock = Mockery::mock(BaseFilesystem::class)->makePartial();
+        $mock->shouldReceive('size')->andReturn(100)->byDefault();
+        $mock->shouldReceive('hash')->andReturn('hash')->byDefault();
+        app()->instance(BaseFilesystem::class, $mock);
+
         MediaFile::$validateExistence = false;
     }
 
