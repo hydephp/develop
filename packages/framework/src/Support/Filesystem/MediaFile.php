@@ -28,9 +28,9 @@ class MediaFile extends ProjectFile
     /** @internal Controls whether to validate the existence of the file, intended for unit testing. Turning this off may lead to unexpected behavior. */
     public static bool $validateExistence = true;
 
-    protected int $length;
-    protected string $mimeType;
-    protected string $hash;
+    public readonly int $length;
+    public readonly string $mimeType;
+    public readonly string $hash;
 
     public function __construct(string $path)
     {
