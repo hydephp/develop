@@ -150,7 +150,7 @@ class MediaFile extends ProjectFile
 
     protected function findMimeType(): string
     {
-        $extension = Filesystem::extension($this->getPath());
+        $extension = $this->getExtension();
 
         // See if we can find a mime type for the extension instead of
         // having to rely on a PHP extension and filesystem lookups.
