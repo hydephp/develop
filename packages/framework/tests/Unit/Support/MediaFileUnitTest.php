@@ -322,4 +322,34 @@ class MediaFileUnitTest extends UnitTestCase
         Hyde::setOutputDirectory('/base/path/_site'); // Reset to default
         Hyde::setMediaDirectory('_media'); // Reset to default
     }
+
+    public function testSourcePathWithEmptyString()
+    {
+        $this->assertSame(Hyde::path('_media'), MediaFile::sourcePath(''));
+    }
+
+    public function testSourcePathWithSubdirectories()
+    {
+        $this->assertSame(Hyde::path('_media/foo/bar'), MediaFile::sourcePath('foo/bar'));
+    }
+
+    public function testSourcePathWithLeadingSlash()
+    {
+        $this->assertSame(Hyde::path('_media/foo'), MediaFile::sourcePath('/foo'));
+    }
+
+    public function testOutputPathWithEmptyString()
+    {
+        $this->assertSame(Hyde::sitePath('media'), MediaFile::outputPath(''));
+    }
+
+    public function testOutputPathWithSubdirectories()
+    {
+        $this->assertSame(Hyde::sitePath('media/foo/bar'), MediaFile::outputPath('foo/bar'));
+    }
+
+    public function testOutputPathWithLeadingSlash()
+    {
+        $this->assertSame(Hyde::sitePath('media/foo'), MediaFile::outputPath('/foo'));
+    }
 }
