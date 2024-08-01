@@ -57,7 +57,11 @@ class MediaFile extends ProjectFile
         return static::all()->keys()->all();
     }
 
-    /** @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
+    /**
+     * Get a collection of all media files, parsed into MediaFile instances, keyed by the filenames relative to the `_media/` directory.
+     *
+     * @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile>
+     */
     public static function all(): Collection
     {
         return Hyde::assets();
