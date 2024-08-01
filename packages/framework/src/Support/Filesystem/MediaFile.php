@@ -25,7 +25,7 @@ class MediaFile extends ProjectFile
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
-    /** @internal Controls whether to validate the existence of the file. Turning this off may lead to unexpected behavior. */
+    /** @internal Controls whether to validate the existence of the file, intended for unit testing. Turning this off may lead to unexpected behavior. */
     public static bool $validateExistence = true;
 
     protected int $length;
