@@ -48,12 +48,12 @@ jobs:
           # Start unit tests in the background
           (
             cd unit_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --log-junit=../coverage/unit.junit.xml --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]   \x1b[0m /' &
+            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]   \x1b[0m /' &
           ) &
           # Start feature tests in the background
           (
             cd feature_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/feature.cov --log-junit=../coverage/feature.junit.xml --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed -E $'s/^/\x1b[35m[FEATURE]\x1b[0m /' &
+            vendor/bin/pest --colors=always --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed -E $'s/^/\x1b[35m[FEATURE]\x1b[0m /' &
           ) &
           
           # Wait for both background processes to finish
@@ -66,14 +66,6 @@ jobs:
         run: |
           php phpcov.phar merge --clover=coverage.xml coverage
           cp coverage.xml coverage/
-
-      - name: Merge JUnit XML reports
-        run: |
-          echo '<?xml version="1.0" encoding="UTF-8"?>' > report.xml
-          echo '<testsuites>' >> report.xml
-          sed -n '/<testsuite/,/<\/testsuite>/p' coverage/unit.junit.xml >> report.xml
-          sed -n '/<testsuite/,/<\/testsuite>/p' coverage/feature.junit.xml >> report.xml
-          echo '</testsuites>' >> report.xml
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v4
