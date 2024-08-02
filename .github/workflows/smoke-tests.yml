@@ -12,27 +12,33 @@ jobs:
   run-smoke-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: src
 
       - name: Validate composer.json and composer.lock
-        run: composer validate --strict --no-check-all
+        run: |
+          cd src && composer validate --strict --no-check-all
 
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v4
         with:
-          path: vendor
+          path: src/vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: |
+          cd src && composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Prepare test directories
         run: |
-          cp -R . unit_tests
-          cp -R . feature_tests
+          cp -R src unit_tests
+          cp -R src feature_tests
+          mv src/.git .
 
       - name: Execute Tests in Parallel
         run: |
