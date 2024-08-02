@@ -39,8 +39,9 @@ jobs:
       - name: Execute Tests in Parallel
         run: |
           mkdir -p test_results
-          
-          # Function to run tests
+          mkdir -p test_outputs
+
+          # Function to run tests and update progress
           run_tests() {
             local suite=$1
             local testsuite=$2
@@ -51,7 +52,23 @@ jobs:
               padding=" "
             fi
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}]${padding} /"
+            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | tee "../test_outputs/${suite}.log" | while IFS= read -r line
+            do
+              echo "." >> "../test_outputs/${suite}.progress"
+              tput cup 0 0
+              echo -e "\033[2J"  # Clear the screen
+              for s in unit feature_hyde feature_framework publications realtime_compiler; do
+                local p=""
+                if [ "$s" == "unit" ]; then
+                  p="   "
+                elif [ "$s" == "feature_hyde" ] || [ "$s" == "publications" ]; then
+                  p=" "
+                fi
+                echo -n "[${s^^}]${p} "
+                cat "../test_outputs/${s}.progress" 2>/dev/null || echo -n ""
+                echo ""
+              done
+            done
           }
           
           # Run tests in parallel
@@ -63,6 +80,21 @@ jobs:
           
           # Wait for all background jobs to finish
           wait
+
+      - name: Display Unit Tests Output
+        run: cat test_outputs/unit.log
+
+      - name: Display Feature Hyde Tests Output
+        run: cat test_outputs/feature_hyde.log
+
+      - name: Display Feature Framework Tests Output
+        run: cat test_outputs/feature_framework.log
+
+      - name: Display Publications Tests Output
+        run: cat test_outputs/publications.log
+
+      - name: Display Realtime Compiler Tests Output
+        run: cat test_outputs/realtime_compiler.log
 
       - name: Merge JUnit XML Reports
         run: |
