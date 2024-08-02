@@ -45,19 +45,38 @@ jobs:
       - name: Execute Tests in Parallel
         run: |
           mkdir -p coverage
-          # Start unit tests in the background
-          (
-            cd unit_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]   \x1b[0m /' &
-          ) &
-          # Start feature tests in the background
-          (
-            cd feature_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed -E $'s/^/\x1b[35m[FEATURE]\x1b[0m /' &
-          ) &
+          # Create named pipes
+          mkfifo unit_pipe feature_pipe
           
-          # Wait for both background processes to finish
-          wait
+          # Function to run tests and signal completion
+          run_tests() {
+            local suite=$1
+            local pipe=$2
+            cd ${suite}_tests
+            vendor/bin/pest --colors=always --coverage-php=../coverage/${suite}.cov --testsuite=$3 2>&1 | \
+              sed -E "s/^/[${suite^^}] /"
+            echo "done" > $pipe
+          }
+          
+          # Start tests in background
+          run_tests unit unit_pipe UnitFramework &
+          run_tests feature feature_pipe "FeatureHyde,FeatureFramework,Publications,Realtime Compiler" &
+          
+          # Wait for both test suites to complete
+          while true; do
+            if [ -z "$(jobs -p)" ]; then
+              break
+            fi
+            if read -r -t 1 line < unit_pipe; then
+              [ "$line" = "done" ] && pkill -P $$ sed
+            fi
+            if read -r -t 1 line < feature_pipe; then
+              [ "$line" = "done" ] && pkill -P $$ sed
+            fi
+          done
+          
+          # Clean up pipes
+          rm unit_pipe feature_pipe
 
       - name: Download phpcov
         run: wget https://phar.phpunit.de/phpcov.phar
