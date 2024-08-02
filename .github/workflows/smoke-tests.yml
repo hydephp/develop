@@ -31,9 +31,9 @@ jobs:
 
       - name: Prepare test directories
         run: |
-          mkdir unit_tests feature_tests
-          cp -R . unit_tests/
-          cp -R . feature_tests/
+          mkdir -p unit_tests feature_tests
+          rsync -av --exclude='unit_tests' --exclude='feature_tests' . unit_tests/
+          rsync -av --exclude='unit_tests' --exclude='feature_tests' . feature_tests/
 
       - name: Run Parallel Smoke Tests
         id: smoke-tests
