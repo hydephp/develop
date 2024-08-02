@@ -34,12 +34,15 @@ jobs:
           echo "Starting directory preparation"
           start_time=$(date +%s%N)
           
+          # Create a single copy of the source
+          cp -R src test_base
+          
+          # Create symbolic links for other test directories
           for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-          cp -R src ${suite}_tests &
+          ln -s test_base ${suite}_tests
           done
           
-          wait
-          
+          # Move .git directory
           mv src/.git .
           
           end_time=$(date +%s%N)
