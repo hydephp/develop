@@ -40,8 +40,6 @@ jobs:
           
           # Move the .git directory out of src
           mv src/.git .
-          
-          echo "Directory setup completed"
 
       - name: Execute Tests in Parallel
         run: |
