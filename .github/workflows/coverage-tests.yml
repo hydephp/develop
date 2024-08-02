@@ -42,9 +42,6 @@ jobs:
           cp -R src unit_tests
           cp -R src feature_tests
 
-      - name: Install expect package
-        run: sudo apt-get install -y expect
-
       - name: Create custom output formatter
         run: |
           cat << EOF > formatter.sh
@@ -60,13 +57,12 @@ jobs:
             else
               feature_progress+="\$result"
             fi
-            printf "\rUnit:    %-50s" "\$unit_progress"
-            printf "\nFeature: %-50s" "\$feature_progress"
-            printf "\033[1A"  # Move cursor up one line
+            echo -ne "\rUnit:    \$unit_progress"
+            echo -ne "\nFeature: \$feature_progress"
+            echo -ne "\033[1A"  # Move cursor up one line
           }
 
           while IFS= read -r line; do
-            echo "\$line" >> "\$1_output.log"
             if [[ \$line == *"[x]"* ]]; then
               update_progress "\$1" "X"
             elif [[ \$line == *"[✓]"* ]]; then
@@ -84,13 +80,13 @@ jobs:
           # Start unit tests in the background
           (
             cd unit_tests
-            unbuffer vendor/bin/pest --coverage-php=../coverage/unit.cov --testsuite=UnitFramework | unbuffer -p ../formatter.sh unit
+            vendor/bin/pest --coverage-php=../coverage/unit.cov --testsuite=UnitFramework | tee unit_output.log | ../formatter.sh unit
           ) &
           
           # Start feature tests in the background
           (
             cd feature_tests
-            unbuffer vendor/bin/pest --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" | unbuffer -p ../formatter.sh feature
+            vendor/bin/pest --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" | tee feature_output.log | ../formatter.sh feature
           ) &
           
           # Wait for both background processes to finish
@@ -98,11 +94,11 @@ jobs:
 
       - name: Print Unit Test Output
         if: always()
-        run: cat unit_output.log
+        run: cat unit_tests/unit_output.log
 
       - name: Print Feature Test Output
         if: always()
-        run: cat feature_output.log
+        run: cat feature_tests/feature_output.log
 
       - name: Download phpcov
         run: wget https://phar.phpunit.de/phpcov.phar
