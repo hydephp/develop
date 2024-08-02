@@ -39,7 +39,7 @@ jobs:
           
           # Create symbolic links for other test directories
           for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-            ln -s test_base ${suite}_tests
+          ln -s test_base ${suite}_tests
           done
           
           # Move .git directory
