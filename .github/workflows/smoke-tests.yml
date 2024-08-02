@@ -43,8 +43,12 @@ jobs:
           run_tests() {
             local suite=$1
             local testsuite=$2
+            local padding=""
+            if [ "$suite" == "unit" ]; then
+              padding="   "
+            fi
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}] /"
+            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}]${padding} /"
           }
           
           # Run tests in parallel and combine output
