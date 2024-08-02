@@ -31,10 +31,29 @@ jobs:
 
       - name: Prepare test directories
         run: |
-          for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-            cp -R src ${suite}_tests
-          done
+          # Move .git directory out of src
           mv src/.git .
+          
+          # Create a base test directory
+          mkdir base_test
+          
+          # Move essential files and directories
+          mv src/{composer.json,composer.lock,vendor,tests} base_test/
+          
+          # Create symlinks for other directories
+          for dir in src/*; do
+            if [ -d "$dir" ]; then
+              ln -s "../src/$(basename $dir)" "base_test/$(basename $dir)"
+            fi
+          done
+          
+          # Create test suite directories
+          for suite in unit feature_hyde feature_framework publications realtime_compiler; do
+            cp -R base_test ${suite}_tests
+          done
+          
+          # Clean up
+          rm -rf base_test
 
       - name: Execute Tests in Parallel
         run: |
