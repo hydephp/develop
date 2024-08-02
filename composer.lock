@@ -1173,7 +1173,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-dusk-testing",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1220,7 +1220,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-dusk-testing",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -7857,7 +7857,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-dusk-testing",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -7939,7 +7939,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-dusk-testing",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
