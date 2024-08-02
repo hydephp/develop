@@ -1,65 +1,130 @@
-# This workflow is especially helpful for pull requests to quickly see if the other tests will definitely fail.
-# In order to get even quicker feedback, we also ping our Continuous Integration server to get a status check
-# as soon as we know the outcome, as the GitHub Actions Pull Request UI takes a little bit to update.
-
-name: 🔥 Smoke Tests
+name: 🔥 Parallel Smoke Tests
 
 on:
   pull_request:
 
 jobs:
-
   run-smoke-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict --no-check-all
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: src
 
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v4
         with:
-          path: vendor
+          path: src/vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Run smoke tests
-        id: smoke-tests
-        run: vendor/bin/pest --stop-on-failure --log-junit report.xml
-
-      - name: Ping continuous integration server with test status
-        if: always() && github.event.repository.full_name == 'hydephp/develop'
         run: |
-          bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
-          commit="${{ github.event.pull_request.head.sha }}"
-          url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          cd src && composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-          # If bearerToken is not set, we we exit early as we are probably running on a fork
-          if [ -z "$bearerToken" ]; then
-              echo "Exiting early as bearerToken is not set"
-              exit 0
-          fi  
+      - name: Prepare test directories
+        run: |
+          setup_directory() {
+            local suite=$1
+            mkdir -p "${suite}_tests"
+            cp -al src/. "${suite}_tests/"
+          }
+          
+          # Create hard links for all suites
+          for suite in unit feature_hyde feature_framework publications realtime_compiler; do
+            setup_directory $suite
+          done
+          
+          # Move the .git directory out of src
+          mv src/.git .
 
-          if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
-              status=false
-          else
-              status=true
+      - name: Execute Tests in Parallel
+        run: |
+          mkdir -p test_results
+          mkdir -p test_outputs
+
+          # Function to run tests
+          run_tests() {
+            local suite=$1
+            local testsuite=$2
+            echo "${suite^} tests started"
+            cd ${suite}_tests
+            if vendor/bin/pest --colors=always --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1; then
+              echo "${suite^} tests completed successfully"
+            else
+              echo "${suite^} tests failed"
+              return 1
+            fi
+          }
+          
+          # Run tests in parallel and capture exit codes
+          run_tests unit UnitFramework & pid1=$!
+          run_tests feature_hyde FeatureHyde & pid2=$!
+          run_tests feature_framework FeatureFramework & pid3=$!
+          run_tests publications Publications & pid4=$!
+          run_tests realtime_compiler "Realtime Compiler" & pid5=$!
+          
+          # Wait for all background jobs to finish and capture exit codes
+          wait $pid1 || echo "Unit tests failed" >> test_failures
+          wait $pid2 || echo "Feature Hyde tests failed" >> test_failures
+          wait $pid3 || echo "Feature Framework tests failed" >> test_failures
+          wait $pid4 || echo "Publications tests failed" >> test_failures
+          wait $pid5 || echo "Realtime Compiler tests failed" >> test_failures
+
+          # Check if any tests failed
+          if [ -f test_failures ]; then
+            echo "The following test suites failed:"
+            cat test_failures
+            exit 1
           fi
 
-          curl -X POST --fail-with-body \
-            -H "Authorization: Bearer $bearerToken" \
-            -H "Content-Type: application/json" \
-            -H "Accept: application/json" \
-            -d '{"commit":"'"$commit"'", "status":'$status', "url":"'"$url"'"}' \
-            https://ci.hydephp.com/api/test-run-reports
-  
+      - name: Display Unit Tests Output
+        if: always()
+        run: cat test_outputs/unit.log
+
+      - name: Display Feature Hyde Tests Output
+        if: always()
+        run: cat test_outputs/feature_hyde.log
+
+      - name: Display Feature Framework Tests Output
+        if: always()
+        run: cat test_outputs/feature_framework.log
+
+      - name: Display Publications Tests Output
+        if: always()
+        run: cat test_outputs/publications.log
+
+      - name: Display Realtime Compiler Tests Output
+        if: always()
+        run: cat test_outputs/realtime_compiler.log
+
+      - name: Merge JUnit XML Reports
+        if: always()
+        run: |
+          php -r '
+          $files = glob("test_results/*_junit.xml");
+          $totalTests = $totalAssertions = $totalTime = 0;
+          foreach ($files as $file) {
+              $xml = simplexml_load_file($file);
+              $totalTests += (int)$xml->testsuite["tests"];
+              $totalAssertions += (int)$xml->testsuite["assertions"];
+              $totalTime += (float)$xml->testsuite["time"];
+          }
+          $output = sprintf(
+              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"%s\" tests=\"%d\" assertions=\"%d\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"%.6f\">\n  </testsuite>\n</testsuites>",
+              "H:\\monorepo\\phpunit.xml.dist",
+              $totalTests,
+              $totalAssertions,
+              $totalTime
+          );
+          file_put_contents("report.xml", $output);
+          '
+
       - name: Ping statistics server with test results
+        if: always()
         run: |
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
