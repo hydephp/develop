@@ -44,32 +44,35 @@ jobs:
 
       - name: Execute Tests in Parallel
         run: |
+          mkdir -p coverage
           # Start unit tests in the background
           (
             cd unit_tests
-            vendor/bin/pest --coverage --coverage-clover ../unit-clover.xml --log-junit ../unit-report.xml --testsuite=UnitFramework
+            vendor/bin/pest --coverage-php=../coverage/unit.cov --testsuite=UnitFramework
           ) &
           
           # Start feature tests in the background
           (
             cd feature_tests
-            vendor/bin/pest --coverage --coverage-clover ../feature-clover.xml --log-junit ../feature-report.xml --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler"
+            vendor/bin/pest --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler"
           ) &
           
           # Wait for both background processes to finish
           wait
 
-      - name: Install phpcov
-        run: composer global require phpunit/phpcov
+      - name: Download phpcov
+        run: wget https://phar.phpunit.de/phpcov.phar
 
       - name: Merge coverage reports
-        run: phpcov merge --clover merged-clover.xml unit-clover.xml feature-clover.xml
+        run: |
+          php phpcov.phar merge --clover=coverage.xml coverage
+          cp coverage.xml coverage/
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./merged-clover.xml
+          files: ./coverage.xml
 
       - name: Ping statistics server with test results
         run: |
