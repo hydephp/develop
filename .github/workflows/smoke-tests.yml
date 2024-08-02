@@ -1,14 +1,9 @@
-# This workflow is especially helpful for pull requests to quickly see if the other tests will definitely fail.
-# In order to get even quicker feedback, we also ping our Continuous Integration server to get a status check
-# as soon as we know the outcome, as the GitHub Actions Pull Request UI takes a little bit to update.
-
 name: 🔥 Parallel Smoke Tests
 
 on:
   pull_request:
 
 jobs:
-
   run-smoke-tests:
     runs-on: ubuntu-latest
     steps:
