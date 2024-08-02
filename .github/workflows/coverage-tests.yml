@@ -1,4 +1,4 @@
-name: 🧪 Coverage Tests
+name: 🧪 Parallel Coverage Tests
 
 on:
   pull_request:
@@ -29,13 +29,33 @@ jobs:
       - name: Set environment to testing
         run: echo "ENV=testing" > .env
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
-        run: vendor/bin/pest --coverage --coverage-clover clover.xml --log-junit report.xml
+      - name: Prepare test directories
+        run: |
+          mkdir unit_tests feature_tests
+          cp -R . unit_tests/
+          cp -R . feature_tests/
+
+      - name: Execute Unit Tests
+        run: |
+          cd unit_tests
+          vendor/bin/pest --coverage --coverage-clover ../unit-clover.xml --log-junit ../unit-report.xml tests/Unit
+
+      - name: Execute Feature Tests
+        run: |
+          cd feature_tests
+          vendor/bin/pest --coverage --coverage-clover ../feature-clover.xml --log-junit ../feature-report.xml tests/Feature
+
+      - name: Install phpcov
+        run: composer global require phpunit/phpcov
+
+      - name: Merge coverage reports
+        run: phpcov merge --clover merged-clover.xml unit-clover.xml feature-clover.xml
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./merged-clover.xml
 
       - name: Ping statistics server with test results
         run: |
