@@ -67,6 +67,26 @@ jobs:
           php phpcov.phar merge --clover=coverage.xml coverage
           cp coverage.xml coverage/
 
+      - name: Create fake JUnit XML
+        run: |
+          php -r '
+          $coverage = simplexml_load_file("coverage.xml");
+          $metrics = $coverage->project->metrics;
+          
+          $junit = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><testsuites></testsuites>");
+          $testsuite = $junit->addChild("testsuite");
+          $testsuite->addAttribute("name", "All Tests");
+          $testsuite->addAttribute("tests", (string)$metrics["elements"]);
+          $testsuite->addAttribute("assertions", (string)$metrics["coveredelements"]);
+          $testsuite->addAttribute("errors", "0");
+          $testsuite->addAttribute("warnings", "0");
+          $testsuite->addAttribute("failures", (string)($metrics["elements"] - $metrics["coveredelements"]));
+          $testsuite->addAttribute("skipped", "0");
+          $testsuite->addAttribute("time", "0");
+          
+          $junit->asXML("report.xml");
+          '
+
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v4
         with:
