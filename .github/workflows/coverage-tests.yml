@@ -1,4 +1,4 @@
-name: 🧪 Parallel Coverage Tests
+name: 🧪 Coverage Tests
 
 on:
   pull_request:
@@ -9,99 +9,35 @@ jobs:
     steps:
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.3"
+          php-version: "8.1"
           coverage: xdebug
           extensions: fileinfo
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          path: src
+      - uses: actions/checkout@v4
 
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v4
         with:
-          path: src/vendor
+          path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
 
       - name: Install Composer Dependencies
-        run: |
-          cd src
-          composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Set environment to testing
-        run: |
-          cd src
-          echo "ENV=testing" > .env
+        run: echo "ENV=testing" > .env
 
-      - name: Prepare test directories
-        run: |
-          cp -R src unit_tests
-          cp -R src feature_tests
-          mv src/.git .          
-
-      - name: Execute Tests in Parallel
-        run: |
-          mkdir -p coverage
-          
-          # Function to run tests
-          run_tests() {
-            local suite=$1
-            local testsuite=$2
-            cd ${suite}_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/${suite}.cov --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}] /"
-          }
-          
-          # Run tests in parallel and combine output
-          (run_tests unit UnitFramework) &
-          (run_tests feature "FeatureHyde,FeatureFramework,Publications,Realtime Compiler") &
-          
-          # Wait for all background jobs to finish
-          wait
-
-      - name: Download phpcov
-        run: wget https://phar.phpunit.de/phpcov.phar
-
-      - name: Merge coverage reports
-        run: |
-          # Merge coverage reports
-          php phpcov.phar merge --clover=raw_coverage.xml coverage
-
-          # Fix paths in the coverage report
-          sed 's/\.\/[^\/]*\/packages/\.\/packages/g' raw_coverage.xml > coverage.xml
-          cp coverage.xml coverage/
-
-      - name: Create JUnit XML
-        run: |
-          php -r '
-          $coverage = simplexml_load_file("coverage.xml");
-          $metrics = $coverage->project->metrics;
-          
-          $junit = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><testsuites></testsuites>");
-          $testsuite = $junit->addChild("testsuite");
-          $testsuite->addAttribute("name", "All Tests");
-          $testsuite->addAttribute("tests", (string)$metrics["elements"]);
-          $testsuite->addAttribute("assertions", (string)$metrics["coveredelements"]);
-          $testsuite->addAttribute("errors", "0");
-          $testsuite->addAttribute("warnings", "0");
-          $testsuite->addAttribute("failures", (string)($metrics["elements"] - $metrics["coveredelements"]));
-          $testsuite->addAttribute("skipped", "0");
-          $testsuite->addAttribute("time", "0");
-          
-          $junit->asXML("report.xml");
-          '
+      - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
+        run: vendor/bin/pest --coverage --coverage-clover clover.xml --log-junit report.xml
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/coverage.xml
 
       - name: Ping statistics server with test results
         run: |
-          cat report.xml
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo Coverage Tests" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name }}
