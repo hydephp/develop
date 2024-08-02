@@ -40,29 +40,51 @@ jobs:
         run: |
           mkdir -p test_results
           
-          # Function to run tests
+          # Function to run tests and update progress
           run_tests() {
             local suite=$1
             local testsuite=$2
             local padding=""
             if [ "$suite" == "unit" ]; then
-              padding="   "
-            elif [ "$suite" == "feature_hyde" ] || [ "$suite" == "publications" ]; then
-              padding=" "
+              padding="               "
+            elif [ "$suite" == "feature_hyde" ]; then
+              padding="       "
+            elif [ "$suite" == "feature_framework" ]; then
+              padding="  "
+            elif [ "$suite" == "publications" ]; then
+              padding="       "
+            elif [ "$suite" == "realtime_compiler" ]; then
+              padding="  "
             fi
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}]${padding} /"
+            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_results/${suite}_output.txt" 2>&1 &
+            local pid=$!
+            echo -n "[${suite^^}]${padding}"
+            while kill -0 $pid 2>/dev/null; do
+              echo -n "."
+              sleep 0.1
+            done
+            echo ""
+            wait $pid
           }
           
           # Run tests in parallel
-          (run_tests unit UnitFramework) &
-          (run_tests feature_hyde FeatureHyde) &
-          (run_tests feature_framework FeatureFramework) &
-          (run_tests publications Publications) &
-          (run_tests realtime_compiler "Realtime Compiler") &
+          run_tests unit UnitFramework &
+          run_tests feature_hyde FeatureHyde &
+          run_tests feature_framework FeatureFramework &
+          run_tests publications Publications &
+          run_tests realtime_compiler "Realtime Compiler" &
           
           # Wait for all background jobs to finish
           wait
+          
+          echo "Tests completed. Full output:"
+          echo "============================"
+          for suite in unit feature_hyde feature_framework publications realtime_compiler; do
+            echo "[${suite^^}] Output:"
+            cat "test_results/${suite}_output.txt"
+            echo "============================"
+          done
 
       - name: Merge JUnit XML Reports
         run: |
