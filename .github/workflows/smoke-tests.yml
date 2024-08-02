@@ -41,33 +41,14 @@ jobs:
           mkdir -p test_results
           mkdir -p test_outputs
 
-          # Function to run tests and update progress
+          # Function to run tests
           run_tests() {
             local suite=$1
             local testsuite=$2
-            local padding=""
-            if [ "$suite" == "unit" ]; then
-              padding="   "
-            elif [ "$suite" == "feature_hyde" ] || [ "$suite" == "publications" ]; then
-              padding=" "
-            fi
+            echo "${suite^} tests started"
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | tee "../test_outputs/${suite}.log" | while IFS= read -r line
-            do
-              echo "." >> "../test_outputs/${suite}.progress"
-              echo -e "\n\n\n\n\n"  # Print 5 newlines to separate outputs
-              for s in unit feature_hyde feature_framework publications realtime_compiler; do
-                local p=""
-                if [ "$s" == "unit" ]; then
-                  p="   "
-                elif [ "$s" == "feature_hyde" ] || [ "$s" == "publications" ]; then
-                  p=" "
-                fi
-                echo -n "[${s^^}]${p} "
-                cat "../test_outputs/${s}.progress" 2>/dev/null || echo -n ""
-                echo ""
-              done
-            done
+            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1
+            echo "${suite^} tests completed"
           }
           
           # Run tests in parallel
