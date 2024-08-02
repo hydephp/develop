@@ -55,8 +55,7 @@ jobs:
             vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | tee "../test_outputs/${suite}.log" | while IFS= read -r line
             do
               echo "." >> "../test_outputs/${suite}.progress"
-              tput cup 0 0
-              echo -e "\033[2J"  # Clear the screen
+              echo -e "\n\n\n\n\n"  # Print 5 newlines to separate outputs
               for s in unit feature_hyde feature_framework publications realtime_compiler; do
                 local p=""
                 if [ "$s" == "unit" ]; then
