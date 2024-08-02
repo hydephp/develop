@@ -31,8 +31,9 @@ jobs:
 
       - name: Prepare test directories
         run: |
-          cp -R src unit_tests
-          cp -R src feature_tests
+          for suite in unit feature_hyde feature_framework publications realtime_compiler; do
+            cp -R src ${suite}_tests
+          done
           mv src/.git .
 
       - name: Execute Tests in Parallel
@@ -46,14 +47,19 @@ jobs:
             local padding=""
             if [ "$suite" == "unit" ]; then
               padding="   "
+            elif [ "$suite" == "feature_hyde" ] || [ "$suite" == "publications" ]; then
+              padding=" "
             fi
             cd ${suite}_tests
             vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}]${padding} /"
           }
           
-          # Run tests in parallel and combine output
+          # Run tests in parallel
           (run_tests unit UnitFramework) &
-          (run_tests feature "FeatureHyde,FeatureFramework,Publications,Realtime Compiler") &
+          (run_tests feature_hyde FeatureHyde) &
+          (run_tests feature_framework FeatureFramework) &
+          (run_tests publications Publications) &
+          (run_tests realtime_compiler "Realtime Compiler") &
           
           # Wait for all background jobs to finish
           wait
