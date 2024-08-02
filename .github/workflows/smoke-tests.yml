@@ -31,21 +31,17 @@ jobs:
 
       - name: Prepare test directories
         run: |
-          # Create a shared vendor directory
-          mkdir shared_vendor
-          mv src/vendor shared_vendor/vendor
-
           # Function to create test directory
           create_test_dir() {
             local suite=$1
-            mkdir ${suite}_tests
+            cp -R src ${suite}_tests
             cd ${suite}_tests
           
-            # Copy necessary files and directories
-            cp -R ../src/{app,config,packages,resources,tests,composer.json,composer.lock,phpunit.xml.dist} .
+            # Remove vendor directory
+            rm -rf vendor
           
-            # Symlink the vendor directory
-            ln -s ../shared_vendor/vendor vendor
+            # Create hard link to vendor directory
+            ln ../src/vendor vendor
           
             cd ..
           }
