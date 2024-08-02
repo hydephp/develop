@@ -63,6 +63,7 @@ jobs:
           }
 
           while IFS= read -r line; do
+            echo "\$line" >> "\$1_full_output.log"
             if [[ \$line == *"[x]"* ]]; then
               update_progress "\$1" "X"
             elif [[ \$line == *"[✓]"* ]]; then
@@ -80,13 +81,13 @@ jobs:
           # Start unit tests in the background
           (
             cd unit_tests
-            vendor/bin/pest --coverage-php=../coverage/unit.cov --testsuite=UnitFramework | tee unit_output.log | ../formatter.sh unit
+            vendor/bin/pest --coverage-php=../coverage/unit.cov --testsuite=UnitFramework 2>&1 | ../formatter.sh unit
           ) &
           
           # Start feature tests in the background
           (
             cd feature_tests
-            vendor/bin/pest --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" | tee feature_output.log | ../formatter.sh feature
+            vendor/bin/pest --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | ../formatter.sh feature
           ) &
           
           # Wait for both background processes to finish
@@ -94,11 +95,11 @@ jobs:
 
       - name: Print Unit Test Output
         if: always()
-        run: cat unit_tests/unit_output.log
+        run: cat unit_full_output.log
 
       - name: Print Feature Test Output
         if: always()
-        run: cat feature_tests/feature_output.log
+        run: cat feature_full_output.log
 
       - name: Download phpcov
         run: wget https://phar.phpunit.de/phpcov.phar
