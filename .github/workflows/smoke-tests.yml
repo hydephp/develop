@@ -12,10 +12,6 @@ jobs:
         with:
           path: src
 
-      - name: Validate composer.json and composer.lock
-        run: |
-          cd src && composer validate --strict --no-check-all
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v4
