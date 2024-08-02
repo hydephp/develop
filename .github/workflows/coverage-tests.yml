@@ -48,13 +48,13 @@ jobs:
           # Start unit tests in the background
           (
             cd unit_tests
-            vendor/bin/pest --coverage-php=../coverage/unit.cov --testsuite=UnitFramework
+            vendor/bin/pest --coverage-php=../coverage/unit.cov --testsuite=UnitFramework 2>&1 | sed 's/^/[UNIT] /' &
           ) &
           
           # Start feature tests in the background
           (
             cd feature_tests
-            vendor/bin/pest --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler"
+            vendor/bin/pest --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed 's/^/[FEATURE] /' &
           ) &
           
           # Wait for both background processes to finish
