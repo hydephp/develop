@@ -62,7 +62,7 @@ foreach (explode(' ', $junit) as $pair) {
 $data['commit'] = shell_exec('git rev-parse HEAD');
 $data['branch'] = $branch ?? shell_exec('git branch --show-current');
 $data['runner_os'] = php_uname('s');
-var_dump($data);
+
 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
 $resp = curl_exec($curl);
