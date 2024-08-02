@@ -60,36 +60,57 @@ jobs:
             local testsuite=$2
             echo "${suite^} tests started"
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1
-            echo "${suite^} tests completed"
+            if vendor/bin/pest --colors=always --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1; then
+              echo "${suite^} tests completed successfully"
+            else
+              echo "${suite^} tests failed"
+              return 1
+            fi
           }
           
-          # Run tests in parallel
-          (run_tests unit UnitFramework) &
-          (run_tests feature_hyde FeatureHyde) &
-          (run_tests feature_framework FeatureFramework) &
-          (run_tests publications Publications) &
-          (run_tests realtime_compiler "Realtime Compiler") &
+          # Run tests in parallel and capture exit codes
+          run_tests unit UnitFramework & pid1=$!
+          run_tests feature_hyde FeatureHyde & pid2=$!
+          run_tests feature_framework FeatureFramework & pid3=$!
+          run_tests publications Publications & pid4=$!
+          run_tests realtime_compiler "Realtime Compiler" & pid5=$!
           
-          # Wait for all background jobs to finish
-          wait
+          # Wait for all background jobs to finish and capture exit codes
+          wait $pid1 || echo "Unit tests failed" >> test_failures
+          wait $pid2 || echo "Feature Hyde tests failed" >> test_failures
+          wait $pid3 || echo "Feature Framework tests failed" >> test_failures
+          wait $pid4 || echo "Publications tests failed" >> test_failures
+          wait $pid5 || echo "Realtime Compiler tests failed" >> test_failures
+
+          # Check if any tests failed
+          if [ -f test_failures ]; then
+            echo "The following test suites failed:"
+            cat test_failures
+            exit 1
+          fi
 
       - name: Display Unit Tests Output
+        if: always()
         run: cat test_outputs/unit.log
 
       - name: Display Feature Hyde Tests Output
+        if: always()
         run: cat test_outputs/feature_hyde.log
 
       - name: Display Feature Framework Tests Output
+        if: always()
         run: cat test_outputs/feature_framework.log
 
       - name: Display Publications Tests Output
+        if: always()
         run: cat test_outputs/publications.log
 
       - name: Display Realtime Compiler Tests Output
+        if: always()
         run: cat test_outputs/realtime_compiler.log
 
       - name: Merge JUnit XML Reports
+        if: always()
         run: |
           php -r '
           $files = glob("test_results/*_junit.xml");
@@ -111,6 +132,7 @@ jobs:
           '
 
       - name: Ping statistics server with test results
+        if: always()
         run: |
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
