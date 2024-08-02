@@ -45,38 +45,37 @@ jobs:
       - name: Execute Tests in Parallel
         run: |
           mkdir -p coverage
-          # Create named pipes
-          mkfifo unit_pipe feature_pipe
           
-          # Function to run tests and signal completion
-          run_tests() {
-            local suite=$1
-            local pipe=$2
-            cd ${suite}_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/${suite}.cov --testsuite=$3 2>&1 | \
-              sed -E "s/^/[${suite^^}] /"
-            echo "done" > $pipe
-          }
+          echo "Starting Unit Tests..."
+          (
+            cd unit_tests
+            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --testsuite=UnitFramework 2>&1 | sed -E 's/^/[UNIT] /'
+            echo "[UNIT] Tests completed"
+          ) > unit_output.log 2>&1 &
           
-          # Start tests in background
-          run_tests unit unit_pipe UnitFramework &
-          run_tests feature feature_pipe "FeatureHyde,FeatureFramework,Publications,Realtime Compiler" &
+          echo "Starting Feature Tests..."
+          (
+            cd feature_tests
+            vendor/bin/pest --colors=always --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed -E 's/^/[FEATURE] /'
+            echo "[FEATURE] Tests completed"
+          ) > feature_output.log 2>&1 &
           
-          # Wait for both test suites to complete
-          while true; do
-            if [ -z "$(jobs -p)" ]; then
-              break
-            fi
-            if read -r -t 1 line < unit_pipe; then
-              [ "$line" = "done" ] && pkill -P $$ sed
-            fi
-            if read -r -t 1 line < feature_pipe; then
-              [ "$line" = "done" ] && pkill -P $$ sed
-            fi
-          done
+          echo "Waiting for tests to complete..."
+          wait
+          echo "All tests completed"
           
-          # Clean up pipes
-          rm unit_pipe feature_pipe
+          echo "Unit Test Output:"
+          cat unit_output.log
+          
+          echo "Feature Test Output:"
+          cat feature_output.log
+
+      - name: Check Coverage Files
+        run: |
+          echo "Checking coverage files..."
+          ls -l coverage/
+          [ -f coverage/unit.cov ] && echo "Unit coverage file exists" || echo "Unit coverage file is missing"
+          [ -f coverage/feature.cov ] && echo "Feature coverage file exists" || echo "Feature coverage file is missing"
 
       - name: Download phpcov
         run: wget https://phar.phpunit.de/phpcov.phar
