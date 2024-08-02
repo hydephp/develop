@@ -46,36 +46,20 @@ jobs:
         run: |
           mkdir -p coverage
           
-          echo "Starting Unit Tests..."
-          (
-            cd unit_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --testsuite=UnitFramework 2>&1 | sed -E 's/^/[UNIT] /'
-            echo "[UNIT] Tests completed"
-          ) > unit_output.log 2>&1 &
+          # Function to run tests
+          run_tests() {
+            local suite=$1
+            local testsuite=$2
+            cd ${suite}_tests
+            vendor/bin/pest --colors=always --coverage-php=../coverage/${suite}.cov --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}] /"
+          }
           
-          echo "Starting Feature Tests..."
-          (
-            cd feature_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed -E 's/^/[FEATURE] /'
-            echo "[FEATURE] Tests completed"
-          ) > feature_output.log 2>&1 &
+          # Run tests in parallel and combine output
+          (run_tests unit UnitFramework) &
+          (run_tests feature "FeatureHyde,FeatureFramework,Publications,Realtime Compiler") &
           
-          echo "Waiting for tests to complete..."
+          # Wait for all background jobs to finish
           wait
-          echo "All tests completed"
-          
-          echo "Unit Test Output:"
-          cat unit_output.log
-          
-          echo "Feature Test Output:"
-          cat feature_output.log
-
-      - name: Check Coverage Files
-        run: |
-          echo "Checking coverage files..."
-          ls -l coverage/
-          [ -f coverage/unit.cov ] && echo "Unit coverage file exists" || echo "Unit coverage file is missing"
-          [ -f coverage/feature.cov ] && echo "Feature coverage file exists" || echo "Feature coverage file is missing"
 
       - name: Download phpcov
         run: wget https://phar.phpunit.de/phpcov.phar
