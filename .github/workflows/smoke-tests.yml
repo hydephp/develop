@@ -62,32 +62,6 @@ jobs:
           $combined->asXML("report.xml");
           '
 
-      - name: Ping continuous integration server with test status
-        if: always() && github.event.repository.full_name == 'hydephp/develop'
-        run: |
-          bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
-          commit="${{ github.event.pull_request.head.sha }}"
-          url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-          # If bearerToken is not set, we we exit early as we are probably running on a fork
-          if [ -z "$bearerToken" ]; then
-              echo "Exiting early as bearerToken is not set"
-              exit 0
-          fi  
-
-          if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
-              status=false
-          else
-              status=true
-          fi
-
-          curl -X POST --fail-with-body \
-            -H "Authorization: Bearer $bearerToken" \
-            -H "Content-Type: application/json" \
-            -H "Accept: application/json" \
-            -d '{"commit":"'"$commit"'", "status":'$status', "url":"'"$url"'"}' \
-            https://ci.hydephp.com/api/test-run-reports
-  
       - name: Ping statistics server with test results
         run: |
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
