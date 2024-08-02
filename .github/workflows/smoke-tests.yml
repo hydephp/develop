@@ -31,31 +31,9 @@ jobs:
 
       - name: Prepare test directories
         run: |
-          # Create a shared vendor directory
-          mkdir shared_vendor
-          mv src/vendor shared_vendor/vendor
-
-          # Function to create test directory
-          create_test_dir() {
-            local suite=$1
-            mkdir ${suite}_tests
-            cd ${suite}_tests
-          
-            # Copy necessary files and directories
-            cp -R ../src/{app,config,packages,resources,tests,composer.json,composer.lock,phpunit.xml.dist} .
-          
-            # Symlink the vendor directory
-            ln -s ../shared_vendor/vendor vendor
-          
-            cd ..
-          }
-
-          # Create test directories for each suite
           for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-            create_test_dir $suite
+            cp -R src ${suite}_tests
           done
-
-          # Move .git directory to the root of the working directory
           mv src/.git .
 
       - name: Execute Tests in Parallel
