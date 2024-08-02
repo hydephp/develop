@@ -31,7 +31,7 @@ jobs:
 
       - name: Prepare test directories
         run: |
-          for suite in unit feature_hyde feature_framework publications realtime_compiler; do
+          for suite in unit featurehyde featureframework publications realtimecompiler; do
             cp -R src ${suite}_tests
           done
           mv src/.git .
@@ -46,8 +46,8 @@ jobs:
             local testsuite=$2
             local padding=""
             if [ "$suite" == "unit" ]; then
-              padding="   "
-            elif [ "$suite" == "feature_hyde" ] || [ "$suite" == "publications" ]; then
+              padding="           "
+            elif [ "$suite" == "featurehyde" ] || [ "$suite" == "publications" ]; then
               padding=" "
             fi
             cd ${suite}_tests
@@ -58,10 +58,10 @@ jobs:
           
           # Start all test suites
           run_tests unit UnitFramework
-          run_tests feature_hyde FeatureHyde
-          run_tests feature_framework FeatureFramework
+          run_tests featurehyde FeatureHyde
+          run_tests featureframework FeatureFramework
           run_tests publications Publications
-          run_tests realtime_compiler "Realtime Compiler"
+          run_tests realtimecompiler "Realtime Compiler"
           
           # Function to display progress
           display_progress() {
@@ -69,10 +69,10 @@ jobs:
               clear
               echo "Test Progress:"
               echo "[UNIT]               $(cat test_results/unit_progress.txt 2>/dev/null || echo '')"
-              echo "[FEATURE_HYDE]       $(cat test_results/feature_hyde_progress.txt 2>/dev/null || echo '')"
-              echo "[FEATURE_FRAMEWORK]  $(cat test_results/feature_framework_progress.txt 2>/dev/null || echo '')"
+              echo "[FEATURE_HYDE]       $(cat test_results/featurehyde_progress.txt 2>/dev/null || echo '')"
+              echo "[FEATURE_FRAMEWORK]  $(cat test_results/featureframework_progress.txt 2>/dev/null || echo '')"
               echo "[PUBLICATIONS]       $(cat test_results/publications_progress.txt 2>/dev/null || echo '')"
-              echo "[REALTIME_COMPILER]  $(cat test_results/realtime_compiler_progress.txt 2>/dev/null || echo '')"
+              echo "[REALTIME_COMPILER]  $(cat test_results/realtimecompiler_progress.txt 2>/dev/null || echo '')"
               sleep 1
             done
           }
@@ -91,25 +91,25 @@ jobs:
           clear
           echo "Final Test Progress:"
           echo "[UNIT]               $(cat test_results/unit_progress.txt 2>/dev/null || echo '')"
-          echo "[FEATURE_HYDE]       $(cat test_results/feature_hyde_progress.txt 2>/dev/null || echo '')"
-          echo "[FEATURE_FRAMEWORK]  $(cat test_results/feature_framework_progress.txt 2>/dev/null || echo '')"
+          echo "[FEATURE_HYDE]       $(cat test_results/featurehyde_progress.txt 2>/dev/null || echo '')"
+          echo "[FEATURE_FRAMEWORK]  $(cat test_results/featureframework_progress.txt 2>/dev/null || echo '')"
           echo "[PUBLICATIONS]       $(cat test_results/publications_progress.txt 2>/dev/null || echo '')"
-          echo "[REALTIME_COMPILER]  $(cat test_results/realtime_compiler_progress.txt 2>/dev/null || echo '')"
+          echo "[REALTIME_COMPILER]  $(cat test_results/realtimecompiler_progress.txt 2>/dev/null || echo '')"
 
       - name: Display Unit Tests Output
         run: cat test_results/unit_output.log
 
       - name: Display Feature Hyde Tests Output
-        run: cat test_results/feature_hyde_output.log
+        run: cat test_results/featurehyde_output.log
 
       - name: Display Feature Framework Tests Output
-        run: cat test_results/feature_framework_output.log
+        run: cat test_results/featureframework_output.log
 
       - name: Display Publications Tests Output
         run: cat test_results/publications_output.log
 
       - name: Display Realtime Compiler Tests Output
-        run: cat test_results/realtime_compiler_output.log
+        run: cat test_results/realtimecompiler_output.log
 
       - name: Merge JUnit XML Reports
         run: |
