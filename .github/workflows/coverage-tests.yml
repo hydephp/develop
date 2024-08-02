@@ -48,13 +48,12 @@ jobs:
           # Start unit tests in the background
           (
             cd unit_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --log-junit=../coverage/unit.xml --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]   \x1b[0m /' &
+            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]   \x1b[0m /' &
           ) &
-          
           # Start feature tests in the background
           (
             cd feature_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/feature.cov --log-junit=../coverage/feature.xml --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed -E $'s/^/\x1b[35m[FEATURE]\x1b[0m /' &
+            vendor/bin/pest --colors=always --coverage-php=../coverage/feature.cov --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler" 2>&1 | sed -E $'s/^/\x1b[35m[FEATURE]\x1b[0m /' &
           ) &
           
           # Wait for both background processes to finish
@@ -67,15 +66,6 @@ jobs:
         run: |
           php phpcov.phar merge --clover=coverage.xml coverage
           cp coverage.xml coverage/
-
-      - name: Download JUnit merger script
-        run: |
-          wget https://gist.githubusercontent.com/cgoldberg/4320815/raw/efcf6830f516f79b82e7bd631b076363eda3ed99/merge_junit_results.py
-          chmod +x merge_junit_results.py
-
-      - name: Merge JUnit XML reports
-        run: |
-          python merge_junit_results.py coverage/unit.xml coverage/feature.xml > report.xml
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v4
