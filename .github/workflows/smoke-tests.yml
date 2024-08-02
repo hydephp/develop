@@ -55,7 +55,8 @@ jobs:
               padding="  "
             fi
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}]${padding}/" | sed -E "s/$/\n/"
+            echo "[${suite^^}]${padding}" # Print the header
+            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E 's/^/  /' # Indent the output
           }
           
           # Run tests in parallel
