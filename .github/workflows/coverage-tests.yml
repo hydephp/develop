@@ -66,7 +66,11 @@ jobs:
 
       - name: Merge coverage reports
         run: |
-          php phpcov.phar merge --clover=coverage.xml coverage
+          # Merge coverage reports
+          php phpcov.phar merge --clover=raw_coverage.xml coverage
+
+          # Fix paths in the coverage report
+          sed 's/\.\/[^\/]*\/packages/\.\/packages/g' raw_coverage.xml > coverage.xml
           cp coverage.xml coverage/
 
       - name: Create fake JUnit XML
