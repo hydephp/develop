@@ -31,20 +31,10 @@ jobs:
 
       - name: Prepare test directories
         run: |
-          echo "Starting directory preparation"
-          start_time=$(date +%s%N)
-          
           for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-          cp -R src ${suite}_tests &
+            time cp -R src ${suite}_tests
           done
-          
-          wait
-          
-          mv src/.git .
-          
-          end_time=$(date +%s%N)
-          duration=$(( (end_time - start_time) / 1000000 ))
-          echo "Directory preparation completed in $duration milliseconds"
+          time mv src/.git .
 
       - name: Execute Tests in Parallel
         run: |
