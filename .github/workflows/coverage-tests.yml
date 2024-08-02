@@ -45,12 +45,12 @@ jobs:
       - name: Execute Unit Tests
         run: |
           cd unit_tests
-          vendor/bin/pest --coverage --coverage-clover ../unit-clover.xml --log-junit ../unit-report.xml tests/Unit
+          vendor/bin/pest --coverage --coverage-clover ../unit-clover.xml --log-junit ../unit-report.xml --testsuite=UnitFramework
 
       - name: Execute Feature Tests
         run: |
           cd feature_tests
-          vendor/bin/pest --coverage --coverage-clover ../feature-clover.xml --log-junit ../feature-report.xml tests/Feature
+          vendor/bin/pest --coverage --coverage-clover ../feature-clover.xml --log-junit ../feature-report.xml --testsuite=FeatureHyde,FeatureFramework,Publications,"Realtime Compiler"
 
       - name: Install phpcov
         run: composer global require phpunit/phpcov
