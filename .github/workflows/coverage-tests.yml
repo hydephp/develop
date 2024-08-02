@@ -48,7 +48,7 @@ jobs:
           # Start unit tests in the background
           (
             cd unit_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --log-junit=../coverage/unit.xml --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]\x1b[0m /' &
+            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --log-junit=../coverage/unit.xml --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]   \x1b[0m /' &
           ) &
           
           # Start feature tests in the background
