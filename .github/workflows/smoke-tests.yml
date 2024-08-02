@@ -33,17 +33,18 @@ jobs:
         run: |
           setup_directory() {
             local suite=$1
-            time cp -R src/ ${suite}_tests/
+            mkdir -p "${suite}_tests"
+            cp -al src/ "${suite}_tests/"
           }
-
+          
+          # Create hard links for all suites
           for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-            setup_directory $suite &
+          setup_directory $suite
           done
-
-          wait
-
-          time mv src/.git .
-
+          
+          # Move the .git directory out of src
+          mv src/.git .
+          
           echo "Directory setup completed"
 
       - name: Execute Tests in Parallel
