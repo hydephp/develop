@@ -12,28 +12,35 @@ jobs:
           php-version: "8.1"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v4
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: src
 
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v4
         with:
-          path: vendor
+          path: src/vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: |
+          cd src
+          composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Set environment to testing
-        run: echo "ENV=testing" > .env
+        run: |
+          cd src
+          echo "ENV=testing" > .env
 
       - name: Prepare test directories
         run: |
-          mkdir unit_tests feature_tests
-          cp -R . unit_tests/
-          cp -R . feature_tests/
+          cp -R src unit_tests
+          cp -R src feature_tests
 
       - name: Execute Unit Tests
         run: |
