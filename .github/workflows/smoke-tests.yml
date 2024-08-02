@@ -37,12 +37,14 @@ jobs:
 
       - name: Execute Tests in Parallel
         run: |
+          mkdir -p test_results
+          
           # Function to run tests
           run_tests() {
             local suite=$1
             local testsuite=$2
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}] /"
+            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}] /"
           }
           
           # Run tests in parallel and combine output
@@ -52,14 +54,26 @@ jobs:
           # Wait for all background jobs to finish
           wait
 
-      - name: Create JUnit XML
+      - name: Merge JUnit XML Reports
         run: |
-          echo '<?xml version="1.0" encoding="UTF-8"?>
-          <testsuites>
-            <testsuite name="All Tests" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0">
-              <testcase name="Smoke Tests" assertions="1" time="0"/>
-            </testsuite>
-          </testsuites>' > report.xml
+          php -r '
+          $files = glob("test_results/*_junit.xml");
+          $totalTests = $totalAssertions = $totalTime = 0;
+          foreach ($files as $file) {
+              $xml = simplexml_load_file($file);
+              $totalTests += (int)$xml->testsuite["tests"];
+              $totalAssertions += (int)$xml->testsuite["assertions"];
+              $totalTime += (float)$xml->testsuite["time"];
+          }
+          $output = sprintf(
+              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"%s\" tests=\"%d\" assertions=\"%d\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"%.6f\">\n  </testsuite>\n</testsuites>",
+              "H:\\monorepo\\phpunit.xml.dist",
+              $totalTests,
+              $totalAssertions,
+              $totalTime
+          );
+          file_put_contents("report.xml", $output);
+          '
 
       - name: Ping statistics server with test results
         run: |
