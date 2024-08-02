@@ -2,7 +2,7 @@
 # In order to get even quicker feedback, we also ping our Continuous Integration server to get a status check
 # as soon as we know the outcome, as the GitHub Actions Pull Request UI takes a little bit to update.
 
-name: 🔥 Smoke Tests
+name: 🔥 Parallel Smoke Tests
 
 on:
   pull_request:
@@ -29,9 +29,38 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Run smoke tests
+      - name: Prepare test directories
+        run: |
+          mkdir unit_tests feature_tests
+          cp -R . unit_tests/
+          cp -R . feature_tests/
+
+      - name: Run Parallel Smoke Tests
         id: smoke-tests
-        run: vendor/bin/pest --stop-on-failure --log-junit report.xml
+        run: |
+          run_tests() {
+            local suite=$1
+            local testsuite=$2
+            cd ${suite}_tests
+            ../vendor/bin/pest --stop-on-failure --log-junit ../${suite}_report.xml --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}] /"
+          }
+          
+          (run_tests unit UnitFramework) &
+          (run_tests feature "FeatureHyde,FeatureFramework,Publications,Realtime Compiler") &
+          
+          wait
+
+      - name: Combine Test Reports
+        if: always()
+        run: |
+          php -r '
+          $unit = simplexml_load_file("unit_report.xml");
+          $feature = simplexml_load_file("feature_report.xml");
+          $combined = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><testsuites></testsuites>");
+          foreach ($unit->testsuite as $suite) $combined->addChild("testsuite", $suite);
+          foreach ($feature->testsuite as $suite) $combined->addChild("testsuite", $suite);
+          $combined->asXML("report.xml");
+          '
 
       - name: Ping continuous integration server with test status
         if: always() && github.event.repository.full_name == 'hydephp/develop'
