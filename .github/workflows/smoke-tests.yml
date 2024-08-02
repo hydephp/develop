@@ -32,9 +32,9 @@ jobs:
       - name: Prepare test directories
         run: |
           for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-            cp -R src ${suite}_tests
+            time cp -R src ${suite}_tests
           done
-          mv src/.git .
+          time mv src/.git .
 
       - name: Execute Tests in Parallel
         run: |
