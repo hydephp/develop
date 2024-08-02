@@ -40,7 +40,7 @@ jobs:
         run: |
           mkdir -p test_results
           
-          # Function to run tests
+          # Function to run tests and update progress
           run_tests() {
             local suite=$1
             local testsuite=$2
@@ -51,18 +51,65 @@ jobs:
               padding=" "
             fi
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | sed -E "s/^/[${suite^^}]${padding} /"
+            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" 2>&1 | tee "../test_results/${suite}_output.log" | while IFS= read -r line; do
+              echo "." >> "../test_results/${suite}_progress.txt"
+            done &
           }
           
-          # Run tests in parallel
-          (run_tests unit UnitFramework) &
-          (run_tests feature_hyde FeatureHyde) &
-          (run_tests feature_framework FeatureFramework) &
-          (run_tests publications Publications) &
-          (run_tests realtime_compiler "Realtime Compiler") &
+          # Start all test suites
+          run_tests unit UnitFramework
+          run_tests feature_hyde FeatureHyde
+          run_tests feature_framework FeatureFramework
+          run_tests publications Publications
+          run_tests realtime_compiler "Realtime Compiler"
           
-          # Wait for all background jobs to finish
+          # Function to display progress
+          display_progress() {
+            while true; do
+              clear
+              echo "Test Progress:"
+              echo "[UNIT]               $(cat test_results/unit_progress.txt 2>/dev/null || echo '')"
+              echo "[FEATURE_HYDE]       $(cat test_results/feature_hyde_progress.txt 2>/dev/null || echo '')"
+              echo "[FEATURE_FRAMEWORK]  $(cat test_results/feature_framework_progress.txt 2>/dev/null || echo '')"
+              echo "[PUBLICATIONS]       $(cat test_results/publications_progress.txt 2>/dev/null || echo '')"
+              echo "[REALTIME_COMPILER]  $(cat test_results/realtime_compiler_progress.txt 2>/dev/null || echo '')"
+              sleep 1
+            done
+          }
+          
+          # Start progress display in background
+          display_progress &
+          display_pid=$!
+          
+          # Wait for all test suites to finish
           wait
+          
+          # Stop progress display
+          kill $display_pid
+          
+          # Display final progress
+          clear
+          echo "Final Test Progress:"
+          echo "[UNIT]               $(cat test_results/unit_progress.txt 2>/dev/null || echo '')"
+          echo "[FEATURE_HYDE]       $(cat test_results/feature_hyde_progress.txt 2>/dev/null || echo '')"
+          echo "[FEATURE_FRAMEWORK]  $(cat test_results/feature_framework_progress.txt 2>/dev/null || echo '')"
+          echo "[PUBLICATIONS]       $(cat test_results/publications_progress.txt 2>/dev/null || echo '')"
+          echo "[REALTIME_COMPILER]  $(cat test_results/realtime_compiler_progress.txt 2>/dev/null || echo '')"
+
+      - name: Display Unit Tests Output
+        run: cat test_results/unit_output.log
+
+      - name: Display Feature Hyde Tests Output
+        run: cat test_results/feature_hyde_output.log
+
+      - name: Display Feature Framework Tests Output
+        run: cat test_results/feature_framework_output.log
+
+      - name: Display Publications Tests Output
+        run: cat test_results/publications_output.log
+
+      - name: Display Realtime Compiler Tests Output
+        run: cat test_results/realtime_compiler_output.log
 
       - name: Merge JUnit XML Reports
         run: |
