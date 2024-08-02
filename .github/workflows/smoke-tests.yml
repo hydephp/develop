@@ -31,10 +31,20 @@ jobs:
 
       - name: Prepare test directories
         run: |
+          setup_directory() {
+            local suite=$1
+            time rsync -a --delete src/ ${suite}_tests/
+          }
+
           for suite in unit feature_hyde feature_framework publications realtime_compiler; do
-            time cp -R src ${suite}_tests
+            setup_directory $suite &
           done
+
+          wait
+
           time mv src/.git .
+
+          echo "Directory setup completed"
 
       - name: Execute Tests in Parallel
         run: |
