@@ -48,7 +48,7 @@ jobs:
           # Start unit tests in the background
           (
             cd unit_tests
-            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --log-junit=../coverage/unit.xml --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]\x1b[0m /' &
+            vendor/bin/pest --colors=always --coverage-php=../coverage/unit.cov --log-junit=../coverage/unit.xml --testsuite=UnitFramework 2>&1 | sed -E $'s/^/\x1b[36m[UNIT]   \x1b[0m /' &
           ) &
           
           # Start feature tests in the background
@@ -60,23 +60,13 @@ jobs:
           # Wait for both background processes to finish
           wait
 
-      - name: Debug - List coverage directory
-        run: |
-          ls -la coverage
-          echo "Current working directory: $(pwd)"
-
       - name: Download phpcov
         run: wget https://phar.phpunit.de/phpcov.phar
 
       - name: Merge coverage reports
         run: |
-          php phpcov.phar merge --clover=coverage.xml coverage || echo "phpcov merge failed"
-          [ -f coverage.xml ] && cp coverage.xml coverage/ || echo "coverage.xml not created"
-
-      - name: Debug - Check merged coverage
-        run: |
-          [ -f coverage.xml ] && echo "coverage.xml exists" || echo "coverage.xml does not exist"
-          [ -f coverage/coverage.xml ] && echo "coverage/coverage.xml exists" || echo "coverage/coverage.xml does not exist"
+          php phpcov.phar merge --clover=coverage.xml coverage
+          cp coverage.xml coverage/
 
       - name: Download JUnit merger script
         run: |
@@ -85,11 +75,7 @@ jobs:
 
       - name: Merge JUnit XML reports
         run: |
-          python merge_junit_results.py coverage/unit.xml coverage/feature.xml > report.xml || echo "JUnit merge failed"
-
-      - name: Debug - Check merged JUnit report
-        run: |
-          [ -f report.xml ] && echo "report.xml exists" || echo "report.xml does not exist"
+          python merge_junit_results.py coverage/unit.xml coverage/feature.xml > report.xml
 
       - name: "Publish coverage report to Codecov"
         uses: codecov/codecov-action@v4
