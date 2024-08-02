@@ -74,7 +74,7 @@ jobs:
           sed 's/\.\/[^\/]*\/packages/\.\/packages/g' raw_coverage.xml > coverage.xml
           cp coverage.xml coverage/
 
-      - name: Create fake JUnit XML
+      - name: Create JUnit XML
         run: |
           php -r '
           $coverage = simplexml_load_file("coverage.xml");
