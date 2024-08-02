@@ -60,7 +60,7 @@ jobs:
             local testsuite=$2
             echo "${suite^} tests started"
             cd ${suite}_tests
-            vendor/bin/pest --colors=always --stop-on-failure --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1
+            vendor/bin/pest --colors=always --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1
             echo "${suite^} tests completed"
           }
           
