@@ -24,7 +24,7 @@ class MarkdownPostTest extends TestCase
         ]));
 
         $this->assertInstanceOf(PostAuthor::class, $post->author);
-        $this->assertSame('John Doe', $post->author->username);
+        $this->assertSame('john_doe', $post->author->username);
         $this->assertSame('John Doe', $post->author->name);
         $this->assertNull($post->author->website);
     }
@@ -43,6 +43,23 @@ class MarkdownPostTest extends TestCase
         $this->assertSame('john_doe', $post->author->username);
         $this->assertSame('John Doe', $post->author->name);
         $this->assertSame('https://example.com', $post->author->website);
+    }
+
+    public function testAuthorRetrievalUsesNormalizedUsernameToFindTheRightAuthorRegardlessOfFormatting()
+    {
+        $postA = new MarkdownPost(matter: FrontMatter::fromArray([
+            'author' => 'mr hyde',
+        ]));
+
+        $postB = new MarkdownPost(matter: FrontMatter::fromArray([
+            'author' => 'Mr Hyde',
+        ]));
+
+        $postC = new MarkdownPost(matter: FrontMatter::fromArray([
+            'author' => 'mr_hyde',
+        ]));
+
+        $this->assertAllSame($postA->author, $postB->author, $postC->author);
     }
 
     public function testConstructorCanCreateANewImageInstanceFromAString()

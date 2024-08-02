@@ -23,8 +23,9 @@
 */
 
 use Hyde\Facades\Author;
-use Hyde\Enums\Feature;
 use Hyde\Facades\Meta;
+use Hyde\Enums\Feature;
+use Hyde\Facades\Navigation;
 
 return [
 
@@ -248,7 +249,6 @@ return [
     |
     | Some of Hyde's features are optional. Feel free to disable the features
     | you don't need by removing or commenting them out from this array.
-    | This config concept is directly inspired by Laravel Jetstream.
     |
     */
 
@@ -278,17 +278,26 @@ return [
     | However, it's tedious to have to add those to each and every
     | post you make, and keeping them updated is even harder.
     |
-    | Here you can add predefined authors. When writing posts,
-    | just specify the username in the front matter, and the
-    | rest of the data will be pulled from a matching entry.
+    | To solve this problem, you can add predefined authors with this setting.
+    | When writing posts just specify the author's username (the array key).
+    | Hyde will pull the matching data from here and fill in the blanks.
     |
     */
 
     'authors' => [
-        Author::create(
-            'mr_hyde', // Required username
-            'Mr. Hyde', // Optional display name
-            'https://hydephp.com' // Optional website URL
+        'mr_hyde' => Author::create(
+            // The following settings are used in the default blog post template.
+            name: 'Mr. Hyde', // Optional display name
+            website: 'https://hydephp.com', // Optional website URL
+
+            // The following settings are not used in the bundled templates,
+            // but you can use them in your own custom views, for example.
+            // bio: 'The mysterious author of HydePHP',
+            // avatar: 'avatar.png',
+            // socials: [
+            //     'twitter' => 'HydeFramework',
+            //     'github' => 'hydephp',
+            // ],
         ),
     ],
 
@@ -323,40 +332,23 @@ return [
     |
     */
 
-    'navigation' => [
-        // This configuration sets the priorities used to determine the order of the menu.
-        // The default values have been added below for reference and easy editing.
-        // The array key is the page's route key, the value is the priority.
-        // Lower values show up first in the menu. The default is 999.
-        'order' => [
+    'navigation' => Navigation::configure()
+        ->setPagePriorities([
             'index' => 0,
             'posts' => 10,
             'docs/index' => 100,
-        ],
-
-        // In case you want to customize the labels for the menu items, you can do so here.
-        // Simply add the route key as the array key, and the label as the value.
-        'labels' => [
+        ])
+        ->setPageLabels([
             'index' => 'Home',
             'docs/index' => 'Docs',
-        ],
-
-        // These are the route keys of pages that should not show up in the navigation menu.
-        'exclude' => [
+        ])
+        ->excludePages([
             '404',
-        ],
-
-        // Any extra links you want to add to the navigation menu can be added here.
-        // To get started quickly, you can uncomment the defaults here.
-        // See the documentation link above for more information.
-        'custom' => [
-            // NavItem::forLink('https://github.com/hydephp/hyde', 'GitHub', 200),
-        ],
-
-        // How should pages in subdirectories be displayed in the menu?
-        // You can choose between 'dropdown', 'flat', and 'hidden'.
-        'subdirectories' => 'hidden',
-    ],
+        ])
+        ->addNavigationItems([
+            // Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
+        ])
+        ->setSubdirectoryDisplayMode('hidden'),
 
     /*
     |--------------------------------------------------------------------------
