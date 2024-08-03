@@ -133,6 +133,7 @@ class MediaFile extends ProjectFile
             $path = '_'.$path;
         }
 
+        // Normalize the path to include the media directory
         $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
 
         if (Filesystem::missing($path)) {
