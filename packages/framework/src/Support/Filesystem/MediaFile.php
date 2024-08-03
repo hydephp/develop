@@ -31,7 +31,7 @@ class MediaFile extends ProjectFile
 
     public function __construct(string $path)
     {
-        $path = $this->normalizePath($path);
+        $path = $this->getNormalizedPath($path);
 
         if (Filesystem::missing($path)) {
             throw new FileNotFoundException($path);
@@ -128,7 +128,7 @@ class MediaFile extends ProjectFile
             : '';
     }
 
-    protected function normalizePath(string $path): string
+    protected function getNormalizedPath(string $path): string
     {
         $path = Hyde::pathToRelative($path);
 
