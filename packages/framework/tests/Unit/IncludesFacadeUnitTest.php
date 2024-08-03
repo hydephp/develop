@@ -8,6 +8,7 @@ use Mockery;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
+use Illuminate\Support\Str;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\HtmlString;
@@ -15,6 +16,7 @@ use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Filesystem\Filesystem;
 use Hyde\Testing\MocksKernelFeatures;
+use Hyde\Framework\Services\MarkdownService;
 
 /**
  * @covers \Hyde\Support\Includes
@@ -37,6 +39,8 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->setupTestKernel();
         $this->kernel->setRoutes(collect());
         Render::swap(new RenderData());
+
+        app()->bind(MarkdownService::class, SimpleMarkdownServiceTestClass::class);
     }
 
     protected function tearDown(): void
@@ -253,5 +257,17 @@ class IncludesFacadeUnitTest extends UnitTestCase
     {
         $this->assertInstanceOf(HtmlString::class, $actual);
         $this->assertSame((string) $expected, $actual->toHtml());
+    }
+}
+
+class SimpleMarkdownServiceTestClass
+{
+    public function __construct(protected string $markdown = '')
+    {
+    }
+
+    public function parse(): string
+    {
+        return Str::markdown($this->markdown);
     }
 }

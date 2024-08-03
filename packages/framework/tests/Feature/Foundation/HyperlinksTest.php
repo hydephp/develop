@@ -107,8 +107,8 @@ class HyperlinksTest extends TestCase
 
     public function testMediaLinkHelperWithValidationAndExistingFile()
     {
-        $this->file('_media/foo');
-        $this->assertSame('media/foo?v=d41d8cd98f00b204e9800998ecf8427e', $this->class->mediaLink('foo', true));
+        $this->file('_media/foo', 'test');
+        $this->assertSame('media/foo?v=accf8b33', $this->class->mediaLink('foo', true));
     }
 
     public function testMediaLinkHelperWithValidationAndNonExistingFile()

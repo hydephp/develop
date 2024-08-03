@@ -49,7 +49,7 @@ class AssetFacadeUnitTest extends UnitTestCase
     public function testMediaLinkReturnsMediaPathWithCacheKey()
     {
         $this->assertIsString($path = Asset::mediaLink('app.css'));
-        $this->assertSame('media/app.css?v='.md5_file(Hyde::path('_media/app.css')), $path);
+        $this->assertSame('media/app.css?v='.hash_file('crc32', Hyde::path('_media/app.css')), $path);
     }
 
     public function testMediaLinkReturnsMediaPathWithoutCacheKeyIfCacheBustingIsDisabled()
@@ -72,6 +72,6 @@ class AssetFacadeUnitTest extends UnitTestCase
         $path = Asset::mediaLink('app.css');
 
         $this->assertIsString($path);
-        $this->assertSame('assets/app.css?v='.md5_file(Hyde::path('_assets/app.css')), $path);
+        $this->assertSame('assets/app.css?v='.hash_file('crc32', Hyde::path('_assets/app.css')), $path);
     }
 }

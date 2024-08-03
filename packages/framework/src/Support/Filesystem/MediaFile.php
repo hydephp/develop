@@ -6,18 +6,16 @@ namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
 use function Hyde\unslash;
 use function Hyde\path_join;
+use function Hyde\trim_slashes;
 use function extension_loaded;
-use function file_exists;
 use function array_merge;
-use function filesize;
-use function pathinfo;
-use function is_file;
 
 /**
  * File abstraction for a project media file.
@@ -27,16 +25,37 @@ class MediaFile extends ProjectFile
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
-    /** @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
-    public static function all(): Collection
+    public readonly int $length;
+    public readonly string $mimeType;
+    public readonly string $hash;
+
+    public function __construct(string $path)
     {
-        return Hyde::assets();
+        parent::__construct($this->getNormalizedPath($path));
+
+        $this->length = $this->findContentLength();
+        $this->mimeType = $this->findMimeType();
+        $this->hash = $this->findHash();
     }
 
-    /** @return array<string> Array of filenames relative to the _media/ directory */
+    /**
+     * Get an array of media asset filenames relative to the `_media/` directory.
+     *
+     * @return array<int, string> {@example `['app.css', 'images/logo.svg']`}
+     */
     public static function files(): array
     {
         return static::all()->keys()->all();
+    }
+
+    /**
+     * Get a collection of all media files, parsed into `MediaFile` instances, keyed by the filenames relative to the `_media/` directory.
+     *
+     * @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile>
+     */
+    public static function all(): Collection
+    {
+        return Hyde::assets();
     }
 
     /**
@@ -60,11 +79,12 @@ class MediaFile extends ProjectFile
             return Hyde::sitePath(Hyde::getMediaOutputDirectory());
         }
 
-        $path = unslash($path);
-
-        return Hyde::sitePath(Hyde::getMediaOutputDirectory()."/$path");
+        return Hyde::sitePath(path_join(Hyde::getMediaOutputDirectory(), unslash($path)));
     }
 
+    /**
+     * Get the path to the media file relative to the media directory.
+     */
     public function getIdentifier(): string
     {
         return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
@@ -75,21 +95,60 @@ class MediaFile extends ProjectFile
         return array_merge(parent::toArray(), [
             'length' => $this->getContentLength(),
             'mimeType' => $this->getMimeType(),
+            'hash' => $this->getHash(),
         ]);
     }
 
     public function getContentLength(): int
     {
-        if (! is_file($this->getAbsolutePath())) {
-            throw new FileNotFoundException($this->path);
-        }
-
-        return filesize($this->getAbsolutePath());
+        return $this->length;
     }
 
     public function getMimeType(): string
     {
-        $extension = pathinfo($this->getAbsolutePath(), PATHINFO_EXTENSION);
+        return $this->mimeType;
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    /** @internal */
+    public static function getCacheBustKey(string $file): string
+    {
+        return Config::getBool('hyde.enable_cache_busting', true) && Filesystem::exists(static::sourcePath("$file"))
+            ? '?v='.static::make($file)->getHash()
+            : '';
+    }
+
+    protected function getNormalizedPath(string $path): string
+    {
+        $path = Hyde::pathToRelative($path);
+
+        // Normalize paths using output directory to have source directory prefix
+        if (str_starts_with($path, Hyde::getMediaOutputDirectory()) && str_starts_with(Hyde::getMediaDirectory(), '_')) {
+            $path = '_'.$path;
+        }
+
+        // Normalize the path to include the media directory
+        $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
+
+        if (Filesystem::missing($path)) {
+            throw new FileNotFoundException($path);
+        }
+
+        return $path;
+    }
+
+    protected function findContentLength(): int
+    {
+        return Filesystem::size($this->getPath());
+    }
+
+    protected function findMimeType(): string
+    {
+        $extension = $this->getExtension();
 
         // See if we can find a mime type for the extension instead of
         // having to rely on a PHP extension and filesystem lookups.
@@ -112,18 +171,15 @@ class MediaFile extends ProjectFile
             return $lookup[$extension];
         }
 
-        if (extension_loaded('fileinfo') && file_exists($this->getAbsolutePath())) {
-            return mime_content_type($this->getAbsolutePath());
+        if (extension_loaded('fileinfo') && Filesystem::exists($this->getPath())) {
+            return Filesystem::mimeType($this->getPath());
         }
 
         return 'text/plain';
     }
 
-    /** @internal */
-    public static function getCacheBustKey(string $file): string
+    protected function findHash(): string
     {
-        return Config::getBool('hyde.enable_cache_busting', true) && file_exists(MediaFile::sourcePath("$file"))
-            ? '?v='.md5_file(MediaFile::sourcePath("$file"))
-            : '';
+        return Filesystem::hash($this->getPath(), 'crc32');
     }
 }

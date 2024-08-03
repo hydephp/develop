@@ -377,6 +377,7 @@ class FilesystemTest extends UnitTestCase
                 'path' => '_media/app.css',
                 'length' => 123,
                 'mimeType' => 'text/css',
+                'hash' => hash_file('crc32', Hyde::path('_media/app.css')),
             ],
         ], $assets);
     }
