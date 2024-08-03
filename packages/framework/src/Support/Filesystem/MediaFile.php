@@ -137,7 +137,9 @@ class MediaFile extends ProjectFile
             $path = '_'.$path;
         }
 
-        return static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
+        $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
+
+        return $path;
     }
 
     protected function findContentLength(): int
