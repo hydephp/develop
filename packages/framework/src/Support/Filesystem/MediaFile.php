@@ -31,9 +31,7 @@ class MediaFile extends ProjectFile
 
     public function __construct(string $path)
     {
-        $path = $this->getNormalizedPath($path);
-
-        parent::__construct($path);
+        parent::__construct($this->getNormalizedPath($path));
 
         $this->length = $this->findContentLength();
         $this->mimeType = $this->findMimeType();
