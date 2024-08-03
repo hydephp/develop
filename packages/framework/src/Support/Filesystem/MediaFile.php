@@ -33,10 +33,6 @@ class MediaFile extends ProjectFile
     {
         $path = $this->getNormalizedPath($path);
 
-        if (Filesystem::missing($path)) {
-            throw new FileNotFoundException($path);
-        }
-
         parent::__construct($path);
 
         $this->length = $this->findContentLength();
@@ -138,6 +134,10 @@ class MediaFile extends ProjectFile
         }
 
         $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
+
+        if (Filesystem::missing($path)) {
+            throw new FileNotFoundException($path);
+        }
 
         return $path;
     }
