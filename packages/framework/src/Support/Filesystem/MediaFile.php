@@ -112,9 +112,7 @@ class MediaFile extends ProjectFile
     }
 
     /**
-     * Get the content length of the file.
-     *
-     * @return int The content length in bytes
+     * Get the content length of the file in bytes.
      */
     public function getContentLength(): int
     {
@@ -123,8 +121,6 @@ class MediaFile extends ProjectFile
 
     /**
      * Get the MIME type of the file.
-     *
-     * @return string The MIME type
      */
     public function getMimeType(): string
     {
@@ -133,8 +129,6 @@ class MediaFile extends ProjectFile
 
     /**
      * Get the CRC32 hash of the file.
-     *
-     * @return string The file hash
      */
     public function getHash(): string
     {
