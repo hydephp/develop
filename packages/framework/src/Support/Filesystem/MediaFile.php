@@ -100,7 +100,7 @@ class MediaFile extends ProjectFile
     /**
      * Get the file information as an array.
      *
-     * @return array<string, mixed> The file information
+     * @return array<string, int|string> The file information
      */
     public function toArray(): array
     {
