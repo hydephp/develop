@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Hyde;
 use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
@@ -96,11 +97,11 @@ class Hyperlinks
      */
     public function mediaLink(string $destination, bool $validate = false): string
     {
-        if ($validate && ! file_exists($sourcePath = $this->kernel->getMediaDirectory().'/'.$destination)) {
+        if ($validate && ! file_exists($sourcePath = Hyde::getMediaDirectory().'/'.$destination)) {
             throw new FileNotFoundException($sourcePath);
         }
 
-        return static::withCacheBusting($this->relativeLink($this->kernel->getMediaOutputDirectory().'/'.$destination), $destination);
+        return static::withCacheBusting($this->relativeLink(Hyde::getMediaOutputDirectory().'/'.$destination), $destination);
     }
 
     /**
