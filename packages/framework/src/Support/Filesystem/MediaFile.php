@@ -132,7 +132,7 @@ class MediaFile extends ProjectFile
     }
 
     /**
-     * Get the hash of the file.
+     * Get the CRC32 hash of the file.
      *
      * @return string The file hash
      */
