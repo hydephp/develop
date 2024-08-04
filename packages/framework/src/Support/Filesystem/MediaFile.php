@@ -29,6 +29,13 @@ class MediaFile extends ProjectFile
     public readonly string $mimeType;
     public readonly string $hash;
 
+    /**
+     * Create a new MediaFile instance.
+     *
+     * @param  string  $path  The file path relative to the project root or media source directory.
+     *
+     * @throws FileNotFoundException If the file does not exist in the media source directory.
+     */
     public function __construct(string $path)
     {
         parent::__construct($this->getNormalizedPath($path));
@@ -90,6 +97,11 @@ class MediaFile extends ProjectFile
         return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
     }
 
+    /**
+     * Get the file information as an array.
+     *
+     * @return array<string, mixed> The file information
+     */
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
@@ -99,16 +111,31 @@ class MediaFile extends ProjectFile
         ]);
     }
 
+    /**
+     * Get the content length of the file.
+     *
+     * @return int The content length in bytes
+     */
     public function getContentLength(): int
     {
         return $this->length;
     }
 
+    /**
+     * Get the MIME type of the file.
+     *
+     * @return string The MIME type
+     */
     public function getMimeType(): string
     {
         return $this->mimeType;
     }
 
+    /**
+     * Get the hash of the file.
+     *
+     * @return string The file hash
+     */
     public function getHash(): string
     {
         return $this->hash;
