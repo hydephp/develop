@@ -135,6 +135,14 @@ class MediaFile extends ProjectFile
         return $this->hash;
     }
 
+    /**
+     * Get a relative web link to the media file.
+     */
+    public function getLink(): string
+    {
+        return Hyde::asset($this->getIdentifier());
+    }
+
     /** @internal */
     public static function getCacheBustKey(string $file): string
     {
