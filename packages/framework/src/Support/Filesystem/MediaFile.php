@@ -146,6 +146,7 @@ class MediaFile extends ProjectFile
         return Filesystem::size($this->getPath());
     }
 
+    /** @todo Move to Filesystem::findMimeType($path) */
     protected function findMimeType(): string
     {
         $extension = $this->getExtension();
