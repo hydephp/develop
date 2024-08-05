@@ -114,17 +114,17 @@ class Hyperlinks
      */
     public function asset(string $name): string
     {
-        if (static::isRemote($name)) {
+        if (Hyperlinks::isRemote($name)) {
             return $name;
         }
 
         $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
 
         if (Hyde::hasSiteUrl()) {
-            return static::withCacheBusting(Hyde::url($name), $name);
+            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
         }
 
-        return static::withCacheBusting(Hyde::relativeLink($name), $name);
+        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
     }
 
     /**
