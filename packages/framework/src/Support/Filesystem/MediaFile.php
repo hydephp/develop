@@ -33,9 +33,7 @@ class MediaFile extends ProjectFile
     {
         parent::__construct($this->getNormalizedPath($path));
 
-        $this->length = $this->findContentLength();
-        $this->mimeType = $this->findMimeType();
-        $this->hash = $this->findHash();
+        $this->boot();
     }
 
     /**
@@ -182,5 +180,12 @@ class MediaFile extends ProjectFile
     protected function findHash(): string
     {
         return Filesystem::hash($this->getPath(), 'crc32');
+    }
+
+    protected function boot(): void
+    {
+        $this->length = $this->findContentLength();
+        $this->mimeType = $this->findMimeType();
+        $this->hash = $this->findHash();
     }
 }
