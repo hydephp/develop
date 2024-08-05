@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
+use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -140,7 +141,19 @@ class MediaFile extends ProjectFile
      */
     public function getLink(): string
     {
-        return Hyde::asset($this->getIdentifier());
+        $name = $this->getIdentifier();
+
+        if (Hyperlinks::isRemote($name)) {
+            return $name;
+        }
+
+        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
+
+        if (Hyde::hasSiteUrl()) {
+            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
+        }
+
+        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
     }
 
     /** @internal */
