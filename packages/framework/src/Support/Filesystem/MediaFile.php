@@ -142,10 +142,6 @@ class MediaFile extends ProjectFile
         // Normalize the path to include the media directory
         $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
 
-        if (Filesystem::missing($path)) {
-            throw new FileNotFoundException($path);
-        }
-
         return $path;
     }
 
@@ -194,6 +190,10 @@ class MediaFile extends ProjectFile
 
     protected function boot(): void
     {
+        if (Filesystem::missing($this->getPath())) {
+            throw new FileNotFoundException($this->getPath());
+        }
+
         $this->length = $this->findContentLength();
         $this->mimeType = $this->findMimeType();
         $this->hash = $this->findHash();

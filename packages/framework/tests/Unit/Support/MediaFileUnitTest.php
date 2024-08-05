@@ -271,7 +271,7 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame(hash('crc32', 'Hello World!'), MediaFile::make('foo.txt')->getHash());
     }
 
-    public function testExceptionIsThrownWhenConstructingFileThatDoesNotExist()
+    public function testExceptionIsThrownWhenBootingFileThatDoesNotExist()
     {
         $this->mockFilesystem->shouldReceive('missing')
             ->with(Hyde::path('_media/foo'))
@@ -280,7 +280,7 @@ class MediaFileUnitTest extends UnitTestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [_media/foo] not found.');
 
-        MediaFile::make('foo');
+        MediaFile::make('foo')->getContentLength();
     }
 
     public function testExceptionIsNotThrownWhenConstructingFileThatDoesExist()

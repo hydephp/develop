@@ -81,7 +81,7 @@ class MediaFileTest extends TestCase
     public function testMediaFileExceptionHandling()
     {
         $this->expectException(FileNotFoundException::class);
-        MediaFile::make('non_existent_file.txt');
+        MediaFile::make('non_existent_file.txt')->getContentLength();
     }
 
     public function testMediaDirectoryCustomization()
