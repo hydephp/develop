@@ -271,7 +271,8 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame(hash('crc32', 'Hello World!'), MediaFile::make('foo.txt')->getHash());
     }
 
-    public function testExceptionIsThrownWhenBootingFileThatDoesNotExist()
+    /** @dataProvider bootableMethodsProvider */
+    public function testExceptionIsThrownWhenBootingFileThatDoesNotExist(string $bootableMethod)
     {
         $this->mockFilesystem->shouldReceive('missing')
             ->with(Hyde::path('_media/foo'))
@@ -280,7 +281,7 @@ class MediaFileUnitTest extends UnitTestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('File [_media/foo] not found.');
 
-        MediaFile::make('foo')->getContentLength();
+        MediaFile::make('foo')->$bootableMethod();
     }
 
     public function testExceptionIsNotThrownWhenConstructingFileThatDoesExist()
@@ -388,5 +389,14 @@ class MediaFileUnitTest extends UnitTestCase
     public function testOutputPathWithLeadingSlash()
     {
         $this->assertSame(Hyde::sitePath('media/foo'), MediaFile::outputPath('/foo'));
+    }
+
+    public static function bootableMethodsProvider(): array
+    {
+        return [
+            ['getContentLength'],
+            ['getMimeType'],
+            ['getHash'],
+        ];
     }
 }
