@@ -97,27 +97,21 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
-        if (! isset($this->length)) {
-            $this->boot();
-        }
+        $this->ensureInstanceIsBooted('length');
 
         return $this->length;
     }
 
     public function getMimeType(): string
     {
-        if (! isset($this->mimeType)) {
-            $this->boot();
-        }
+        $this->ensureInstanceIsBooted('mimeType');
 
         return $this->mimeType;
     }
 
     public function getHash(): string
     {
-        if (! isset($this->hash)) {
-            $this->boot();
-        }
+        $this->ensureInstanceIsBooted('hash');
 
         return $this->hash;
     }
@@ -187,6 +181,13 @@ class MediaFile extends ProjectFile
     protected function findHash(): string
     {
         return Filesystem::hash($this->getPath(), 'crc32');
+    }
+
+    protected function ensureInstanceIsBooted(string $property): void
+    {
+        if (! isset($this->$property)) {
+            $this->boot();
+        }
     }
 
     protected function boot(): void
