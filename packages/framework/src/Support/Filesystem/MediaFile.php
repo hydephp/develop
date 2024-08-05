@@ -143,10 +143,6 @@ class MediaFile extends ProjectFile
     {
         $name = $this->getIdentifier();
 
-        if (Hyperlinks::isRemote($name)) {
-            return $name;
-        }
-
         $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
 
         if (Hyde::hasSiteUrl()) {
