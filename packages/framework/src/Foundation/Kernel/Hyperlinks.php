@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Hyde;
 use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
@@ -117,7 +118,7 @@ class Hyperlinks
             return $name;
         }
 
-        $name = Str::start($name, $this->kernel->getMediaOutputDirectory().'/');
+        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
 
         if ($this->hasSiteUrl()) {
             return static::withCacheBusting($this->url($name), $name);
