@@ -32,8 +32,6 @@ class MediaFile extends ProjectFile
     public function __construct(string $path)
     {
         parent::__construct($this->getNormalizedPath($path));
-
-        $this->boot();
     }
 
     /**
@@ -99,16 +97,28 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
+        if (! isset($this->length)) {
+            $this->boot();
+        }
+
         return $this->length;
     }
 
     public function getMimeType(): string
     {
+        if (! isset($this->mimeType)) {
+            $this->boot();
+        }
+
         return $this->mimeType;
     }
 
     public function getHash(): string
     {
+        if (! isset($this->hash)) {
+            $this->boot();
+        }
+
         return $this->hash;
     }
 
