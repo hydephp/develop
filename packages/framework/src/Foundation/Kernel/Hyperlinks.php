@@ -120,11 +120,11 @@ class Hyperlinks
 
         $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
 
-        if ($this->hasSiteUrl()) {
-            return static::withCacheBusting($this->url($name), $name);
+        if (Hyde::hasSiteUrl()) {
+            return static::withCacheBusting(Hyde::url($name), $name);
         }
 
-        return static::withCacheBusting($this->relativeLink($name), $name);
+        return static::withCacheBusting(Hyde::relativeLink($name), $name);
     }
 
     /**
