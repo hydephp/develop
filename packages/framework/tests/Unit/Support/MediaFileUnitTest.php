@@ -147,9 +147,9 @@ class MediaFileUnitTest extends UnitTestCase
     public function testConstructorSetsProperties()
     {
         $file = new MediaFile('foo.txt');
-        $this->assertNotNull($file->length);
-        $this->assertNotNull($file->mimeType);
-        $this->assertNotNull($file->hash);
+        $this->assertNotNull($file->getContentLength());
+        $this->assertNotNull($file->getMimeType());
+        $this->assertNotNull($file->getHash());
     }
 
     public function testNormalizePathWithAbsolutePath()
