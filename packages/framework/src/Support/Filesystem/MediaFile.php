@@ -25,17 +25,13 @@ class MediaFile extends ProjectFile
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
-    public readonly int $length;
-    public readonly string $mimeType;
-    public readonly string $hash;
+    protected readonly int $length;
+    protected readonly string $mimeType;
+    protected readonly string $hash;
 
     public function __construct(string $path)
     {
         parent::__construct($this->getNormalizedPath($path));
-
-        $this->length = $this->findContentLength();
-        $this->mimeType = $this->findMimeType();
-        $this->hash = $this->findHash();
     }
 
     /**
@@ -101,16 +97,22 @@ class MediaFile extends ProjectFile
 
     public function getContentLength(): int
     {
+        $this->ensureInstanceIsBooted('length');
+
         return $this->length;
     }
 
     public function getMimeType(): string
     {
+        $this->ensureInstanceIsBooted('mimeType');
+
         return $this->mimeType;
     }
 
     public function getHash(): string
     {
+        $this->ensureInstanceIsBooted('hash');
+
         return $this->hash;
     }
 
@@ -124,6 +126,7 @@ class MediaFile extends ProjectFile
 
     protected function getNormalizedPath(string $path): string
     {
+        // Ensure we are working with a relative project path
         $path = Hyde::pathToRelative($path);
 
         // Normalize paths using output directory to have source directory prefix
@@ -133,10 +136,6 @@ class MediaFile extends ProjectFile
 
         // Normalize the path to include the media directory
         $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
-
-        if (Filesystem::missing($path)) {
-            throw new FileNotFoundException($path);
-        }
 
         return $path;
     }
@@ -182,5 +181,23 @@ class MediaFile extends ProjectFile
     protected function findHash(): string
     {
         return Filesystem::hash($this->getPath(), 'crc32');
+    }
+
+    protected function ensureInstanceIsBooted(string $property): void
+    {
+        if (! isset($this->$property)) {
+            $this->boot();
+        }
+    }
+
+    protected function boot(): void
+    {
+        if (Filesystem::missing($this->getPath())) {
+            throw new FileNotFoundException($this->getPath());
+        }
+
+        $this->length = $this->findContentLength();
+        $this->mimeType = $this->findMimeType();
+        $this->hash = $this->findHash();
     }
 }
