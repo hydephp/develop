@@ -132,6 +132,7 @@ class MediaFile extends ProjectFile
 
     protected function getNormalizedPath(string $path): string
     {
+        // Ensure we are working with a relative project path
         $path = Hyde::pathToRelative($path);
 
         // Normalize paths using output directory to have source directory prefix
