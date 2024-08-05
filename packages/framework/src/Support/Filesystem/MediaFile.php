@@ -25,9 +25,9 @@ class MediaFile extends ProjectFile
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
 
-    public readonly int $length;
-    public readonly string $mimeType;
-    public readonly string $hash;
+    protected readonly int $length;
+    protected readonly string $mimeType;
+    protected readonly string $hash;
 
     public function __construct(string $path)
     {
