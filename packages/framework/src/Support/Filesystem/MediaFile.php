@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
+use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -29,6 +30,13 @@ class MediaFile extends ProjectFile
     public readonly string $mimeType;
     public readonly string $hash;
 
+    /**
+     * Create a new MediaFile instance.
+     *
+     * @param  string  $path  The file path relative to the project root or media source directory.
+     *
+     * @throws FileNotFoundException If the file does not exist in the media source directory.
+     */
     public function __construct(string $path)
     {
         parent::__construct($this->getNormalizedPath($path));
@@ -90,6 +98,11 @@ class MediaFile extends ProjectFile
         return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
     }
 
+    /**
+     * Get the file information as an array.
+     *
+     * @return array{name: string, path: string, length: int, mimeType: string, hash: string}
+     */
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
@@ -99,19 +112,44 @@ class MediaFile extends ProjectFile
         ]);
     }
 
+    /**
+     * Get the content length of the file in bytes.
+     */
     public function getContentLength(): int
     {
         return $this->length;
     }
 
+    /**
+     * Get the MIME type of the file.
+     */
     public function getMimeType(): string
     {
         return $this->mimeType;
     }
 
+    /**
+     * Get the CRC32 hash of the file.
+     */
     public function getHash(): string
     {
         return $this->hash;
+    }
+
+    /**
+     * Get a relative web link to the media file.
+     */
+    public function getLink(): string
+    {
+        $name = $this->getIdentifier();
+
+        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
+
+        if (Hyde::hasSiteUrl()) {
+            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
+        }
+
+        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
     }
 
     /** @internal */

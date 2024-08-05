@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Support;
 
 use Mockery;
+use Illuminate\View\Factory;
+use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
@@ -51,6 +54,7 @@ class MediaFileUnitTest extends UnitTestCase
         // Set up default expectations for commonly called methods
         $this->mockFilesystem->shouldReceive('isFile')->andReturn(true)->byDefault();
         $this->mockFilesystem->shouldReceive('missing')->andReturn(false)->byDefault();
+        $this->mockFilesystem->shouldReceive('exists')->andReturn(true)->byDefault();
         $this->mockFilesystem->shouldReceive('extension')->andReturn('txt')->byDefault();
         $this->mockFilesystem->shouldReceive('size')->andReturn(12)->byDefault();
         $this->mockFilesystem->shouldReceive('mimeType')->andReturn('text/plain')->byDefault();
@@ -60,6 +64,12 @@ class MediaFileUnitTest extends UnitTestCase
         // Mock Hyde facade
         $hyde = Mockery::mock(Hyde::kernel())->makePartial();
         $hyde->shouldReceive('assets')->andReturn(collect(['app.css' => new MediaFile('_media/app.css')]))->byDefault();
+
+        // Mock render data
+        \Illuminate\Support\Facades\View::swap(Mockery::mock(Factory::class)->makePartial());
+        Render::swap(new RenderData());
+
+        self::mockConfig(['hyde.enable_cache_busting' => false]);
     }
 
     protected function tearDown(): void
@@ -388,5 +398,88 @@ class MediaFileUnitTest extends UnitTestCase
     public function testOutputPathWithLeadingSlash()
     {
         $this->assertSame(Hyde::sitePath('media/foo'), MediaFile::outputPath('/foo'));
+    }
+
+    public function testGetLink()
+    {
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('media/foo.txt', $file->getLink());
+    }
+
+    public function testGetLinkWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('custom_media');
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('custom_media/foo.txt', $file->getLink());
+        Hyde::setMediaDirectory('_media'); // Reset to default
+    }
+
+    public function testGetLinkWithPrettyUrls()
+    {
+        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.pretty_urls' => true]);
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('media/foo.txt', $file->getLink());
+    }
+
+    public function testGetLinkWithNestedFile()
+    {
+        $file = MediaFile::make('subdirectory/foo.txt');
+        $this->assertSame('media/subdirectory/foo.txt', $file->getLink());
+    }
+
+    public function testGetLinkWithBaseUrl()
+    {
+        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.url' => 'https://example.com']);
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('https://example.com/media/foo.txt', $file->getLink());
+    }
+
+    public function testGetLinkWithBaseUrlAndPrettyUrls()
+    {
+        self::mockConfig([
+            'hyde.enable_cache_busting' => false,
+            'hyde.url' => 'https://example.com',
+            'hyde.pretty_urls' => true,
+        ]);
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('https://example.com/media/foo.txt', $file->getLink());
+    }
+
+    public function testGetLinkWithCacheBusting()
+    {
+        self::mockConfig(['hyde.enable_cache_busting' => true]);
+        $this->mockFilesystem->shouldReceive('hash')
+            ->andReturn('abc123');
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('media/foo.txt?v=abc123', $file->getLink());
+    }
+
+    public function testGetLinkWithCacheBustingDisabled()
+    {
+        self::mockConfig(['hyde.enable_cache_busting' => false]);
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('media/foo.txt', $file->getLink());
+    }
+
+    public function testGetLinkWithCurrentPageContext()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $file = MediaFile::make('baz.txt');
+        $this->assertSame('../media/baz.txt', $file->getLink());
+    }
+
+    public function testGetLinkWithCurrentPageContextAndCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('custom_media');
+        $this->mockCurrentPage('foo/bar');
+        $file = MediaFile::make('baz.txt');
+        $this->assertSame('../custom_media/baz.txt', $file->getLink());
+        Hyde::setMediaDirectory('_media'); // Reset to default
+    }
+
+    // Helper method to mock the current page
+    protected function mockCurrentPage(string $page): void
+    {
+        Render::shouldReceive('getRouteKey')->andReturn($page);
     }
 }

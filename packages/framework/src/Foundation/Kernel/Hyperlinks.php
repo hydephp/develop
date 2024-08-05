@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Hyde;
 use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
@@ -91,6 +92,8 @@ class Hyperlinks
     /**
      * Gets a relative web link to the given file stored in the _site/media folder.
      *
+     * @deprecated Use the `asset` method instead.
+     *
      * An exception will be thrown if the file does not exist in the _media directory,
      * and the second argument is set to true.
      */
@@ -100,7 +103,7 @@ class Hyperlinks
             throw new FileNotFoundException($sourcePath);
         }
 
-        return $this->withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
+        return static::withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
     }
 
     /**
@@ -111,17 +114,17 @@ class Hyperlinks
      */
     public function asset(string $name): string
     {
-        if (static::isRemote($name)) {
+        if (Hyperlinks::isRemote($name)) {
             return $name;
         }
 
-        $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
+        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
 
-        if ($this->hasSiteUrl()) {
-            return $this->withCacheBusting($this->url($name), $name);
+        if (Hyde::hasSiteUrl()) {
+            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
         }
 
-        return $this->withCacheBusting($this->relativeLink($name), $name);
+        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
     }
 
     /**
@@ -183,9 +186,9 @@ class Hyperlinks
     }
 
     /**
-     * Apply cache to the URL if enabled in the configuration.
+     * @internal Apply cache to the URL if enabled in the configuration.
      */
-    protected function withCacheBusting(string $url, string $file): string
+    public static function withCacheBusting(string $url, string $file): string
     {
         return $url.MediaFile::getCacheBustKey($file);
     }
