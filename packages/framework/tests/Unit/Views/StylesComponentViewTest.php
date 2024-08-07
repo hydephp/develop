@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Views;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Facades\Asset;
+use Hyde\Facades\HydeFront;
 use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
@@ -80,7 +80,7 @@ class StylesComponentViewTest extends TestCase
     public function testComponentRendersAppCdnLinkWhenEnabledInConfig()
     {
         config(['hyde.load_app_styles_from_cdn' => true]);
-        $this->assertStringContainsString(Asset::cdnLink('app.css'), $this->renderTestView());
+        $this->assertStringContainsString(HydeFront::cdnLink('app.css'), $this->renderTestView());
     }
 
     public function testComponentDoesNotRenderLinkToLocalAppCssWhenCdnLinkIsEnabledInConfig()

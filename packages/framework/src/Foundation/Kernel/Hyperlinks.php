@@ -8,6 +8,7 @@ use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -99,17 +100,16 @@ class Hyperlinks
             throw new FileNotFoundException($sourcePath);
         }
 
-        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination");
+        return $this->withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
     }
 
     /**
-     * Gets a relative web link to the given image stored in the _site/media folder.
-     * If the image is remote (starts with http) it will be returned as is.
+     * Gets a relative web link to the given file stored in the `_site/media` folder.
+     * If the image is already qualified (starts with `http`) it will be returned as is.
      *
-     * If true is passed as the second argument, and a base URL is set,
-     * the image will be returned with a qualified absolute URL.
+     * If a base URL is configured, the image will be returned with a qualified absolute URL.
      */
-    public function asset(string $name, bool $preferQualifiedUrl = false): string
+    public function asset(string $name): string
     {
         if (static::isRemote($name)) {
             return $name;
@@ -117,11 +117,11 @@ class Hyperlinks
 
         $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
 
-        if ($preferQualifiedUrl && $this->hasSiteUrl()) {
-            return $this->url($name);
+        if ($this->hasSiteUrl()) {
+            return $this->withCacheBusting($this->url($name), $name);
         }
 
-        return $this->relativeLink($name);
+        return $this->withCacheBusting($this->relativeLink($name), $name);
     }
 
     /**
@@ -180,5 +180,13 @@ class Hyperlinks
     public static function isRemote(string $url): bool
     {
         return str_starts_with($url, 'http') || str_starts_with($url, '//');
+    }
+
+    /**
+     * Apply cache to the URL if enabled in the configuration.
+     */
+    protected function withCacheBusting(string $url, string $file): string
+    {
+        return $url.MediaFile::getCacheBustKey($file);
     }
 }

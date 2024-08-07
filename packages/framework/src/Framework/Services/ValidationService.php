@@ -11,6 +11,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Enums\Feature;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Models\ValidationResult as Result;
 
 use function count;
@@ -102,12 +103,12 @@ class ValidationService
 
     public function check_site_has_an_app_css_stylesheet(Result $result): Result
     {
-        if (file_exists(Hyde::siteMediaPath('/app.css')) || file_exists(Hyde::mediaPath('app.css'))) {
+        if (file_exists(MediaFile::outputPath('/app.css')) || file_exists(MediaFile::sourcePath('app.css'))) {
             return $result->pass('Your site has an app.css stylesheet');
         }
 
         return $result->fail(sprintf('Could not find an app.css file in the %s or %s directory!',
-            Hyde::pathToRelative(Hyde::siteMediaPath()), Hyde::getMediaDirectory()
+            Hyde::pathToRelative(MediaFile::outputPath()), Hyde::getMediaDirectory()
         ))->withTip('You may need to run `npm run dev`.`');
     }
 

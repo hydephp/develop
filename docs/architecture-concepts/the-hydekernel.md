@@ -218,7 +218,7 @@ Hyde::mediaLink(string $destination, bool $validate): string
 No description provided.
 
 ```php
-Hyde::asset(string $name, bool $preferQualifiedUrl): string
+Hyde::asset(string $name): string
 ```
 
 #### `url()`

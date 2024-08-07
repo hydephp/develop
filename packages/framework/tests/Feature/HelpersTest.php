@@ -77,36 +77,36 @@ class HelpersTest extends TestCase
     /** @covers ::asset */
     public function testAssetFunctionWithQualifiedUrl()
     {
-        $this->assertSame(Hyde::asset('foo', true), asset('foo', true));
-        $this->assertSame('media/foo', asset('foo', true));
-    }
-
-    /** @covers ::asset */
-    public function testAssetFunctionWithQualifiedUrlAndSetBaseUrl()
-    {
-        $this->app['config']->set(['hyde.url' => 'https://example.com']);
-        $this->assertSame('https://example.com/media/foo', asset('foo', true));
+        $this->assertSame(Hyde::asset('foo', true), asset('foo'));
+        $this->assertSame('media/foo', asset('foo'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionWithExternalUrl()
     {
         $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
-        $this->assertSame('https://example.com/foo', asset('https://example.com/foo', true));
+        $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
     }
 
     /** @covers ::asset */
-    public function testAssetFunctionWithQualifiedUrlAndNoBaseUrl()
+    public function testAssetFunctionWithSetBaseUrl()
+    {
+        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+        $this->assertSame('https://example.com/media/foo', asset('foo'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithNoBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => null]);
-        $this->assertSame('media/foo', asset('foo', true));
+        $this->assertSame('media/foo', asset('foo'));
     }
 
     /** @covers ::asset */
-    public function testAssetFunctionWithQualifiedUrlAndLocalhostBaseUrl()
+    public function testAssetFunctionWithLocalhostBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
-        $this->assertSame('media/foo', asset('foo', true));
+        $this->assertSame('media/foo', asset('foo'));
     }
 
     /** @covers ::asset */
