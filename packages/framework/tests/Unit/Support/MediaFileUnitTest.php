@@ -271,6 +271,45 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame(hash('crc32', 'Hello World!'), MediaFile::make('foo.txt')->getHash());
     }
 
+    public function testGetMimeTypeReturnsLookupValueForKnownExtension()
+    {
+        $this->mockFilesystem->shouldReceive('extension')
+            ->with(Hyde::path('_media/foo.txt'))
+            ->andReturn('txt');
+
+        $this->assertSame('text/plain', MediaFile::make('foo.txt')->getMimeType());
+    }
+
+    public function testGetMimeTypeUsesFileinfoForUnknownExtension()
+    {
+        $this->mockFilesystem->shouldReceive('extension')
+            ->with(Hyde::path('_media/foo.xyz'))
+            ->andReturn('xyz');
+
+        $this->mockFilesystem->shouldReceive('exists')
+            ->with(Hyde::path('_media/foo.xyz'))
+            ->andReturn(true);
+
+        $this->mockFilesystem->shouldReceive('mimeType')
+            ->with(Hyde::path('_media/foo.xyz'))
+            ->andReturn('application/octet-stream');
+
+        $this->assertSame('application/octet-stream', MediaFile::make('foo.xyz')->getMimeType());
+    }
+
+    public function testGetMimeTypeReturnsTextPlainForNonExistentFile()
+    {
+        $this->mockFilesystem->shouldReceive('extension')
+            ->with(Hyde::path('_media/nonexistent.xyz'))
+            ->andReturn('xyz');
+
+        $this->mockFilesystem->shouldReceive('exists')
+            ->with(Hyde::path('_media/nonexistent.xyz'))
+            ->andReturn(false);
+
+        $this->assertSame('text/plain', MediaFile::make('nonexistent.xyz')->getMimeType());
+    }
+
     /** @dataProvider bootableMethodsProvider */
     public function testExceptionIsThrownWhenBootingFileThatDoesNotExist(string $bootableMethod)
     {
