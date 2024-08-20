@@ -517,6 +517,63 @@ class MediaFileUnitTest extends UnitTestCase
         Hyde::setMediaDirectory('_media'); // Reset to default
     }
 
+    public function testCanCastToString()
+    {
+        $file = new MediaFile('foo.txt');
+        $this->assertIsString((string) $file);
+        $this->assertSame('media/foo.txt', (string) $file);
+    }
+
+    public function testStringCastReturnsLink()
+    {
+        $file = new MediaFile('foo.txt');
+        $this->assertSame($file->getLink(), (string) $file);
+    }
+
+    public function testStringCastWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('custom_media');
+        $file = new MediaFile('foo.txt');
+        $this->assertSame('custom_media/foo.txt', (string) $file);
+        Hyde::setMediaDirectory('_media'); // Reset to default
+    }
+
+    public function testStringCastWithPrettyUrls()
+    {
+        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.pretty_urls' => true]);
+        $file = new MediaFile('foo.txt');
+        $this->assertSame('media/foo.txt', (string) $file);
+    }
+
+    public function testStringCastWithNestedFile()
+    {
+        $file = new MediaFile('subdirectory/foo.txt');
+        $this->assertSame('media/subdirectory/foo.txt', (string) $file);
+    }
+
+    public function testStringCastWithBaseUrl()
+    {
+        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.url' => 'https://example.com']);
+        $file = new MediaFile('foo.txt');
+        $this->assertSame('https://example.com/media/foo.txt', (string) $file);
+    }
+
+    public function testStringCastWithCacheBusting()
+    {
+        self::mockConfig(['hyde.enable_cache_busting' => true]);
+        $this->mockFilesystem->shouldReceive('hash')
+            ->andReturn('abc123');
+        $file = new MediaFile('foo.txt');
+        $this->assertSame('media/foo.txt?v=abc123', (string) $file);
+    }
+
+    public function testStringCastWithCurrentPageContext()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $file = new MediaFile('baz.txt');
+        $this->assertSame('../media/baz.txt', (string) $file);
+    }
+
     // Helper method to mock the current page
     protected function mockCurrentPage(string $page): void
     {

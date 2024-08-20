@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
+use Stringable;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
@@ -21,7 +22,7 @@ use function array_merge;
 /**
  * File abstraction for a project media file.
  */
-class MediaFile extends ProjectFile
+class MediaFile extends ProjectFile implements Stringable
 {
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
@@ -40,6 +41,14 @@ class MediaFile extends ProjectFile
     public function __construct(string $path)
     {
         parent::__construct($this->getNormalizedPath($path));
+    }
+
+    /**
+     * Cast the instance to a string which is the resolved web link to the media file.
+     */
+    public function __toString(): string
+    {
+        return $this->getLink();
     }
 
     /**
