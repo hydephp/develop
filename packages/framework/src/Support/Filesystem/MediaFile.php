@@ -95,17 +95,19 @@ class MediaFile extends ProjectFile
     }
 
     /**
-     * Get the file information as an array.
-     *
-     * @return array{name: string, path: string, length: int, mimeType: string, hash: string}
+     * Get a relative web link to the media file.
      */
-    public function toArray(): array
+    public function getLink(): string
     {
-        return array_merge(parent::toArray(), [
-            'length' => $this->getContentLength(),
-            'mimeType' => $this->getMimeType(),
-            'hash' => $this->getHash(),
-        ]);
+        $name = $this->getIdentifier();
+
+        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
+
+        if (Hyde::hasSiteUrl()) {
+            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
+        }
+
+        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
     }
 
     /**
@@ -139,19 +141,17 @@ class MediaFile extends ProjectFile
     }
 
     /**
-     * Get a relative web link to the media file.
+     * Get the file information as an array.
+     *
+     * @return array{name: string, path: string, length: int, mimeType: string, hash: string}
      */
-    public function getLink(): string
+    public function toArray(): array
     {
-        $name = $this->getIdentifier();
-
-        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
-
-        if (Hyde::hasSiteUrl()) {
-            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
-        }
-
-        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
+        return array_merge(parent::toArray(), [
+            'length' => $this->getContentLength(),
+            'mimeType' => $this->getMimeType(),
+            'hash' => $this->getHash(),
+        ]);
     }
 
     /** @internal */
