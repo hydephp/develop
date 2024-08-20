@@ -172,6 +172,7 @@ class MediaFile extends ProjectFile
         // Normalize the path to include the media directory
         $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
 
+        // Since assets need to exist on disk in order to be copied to the built site files we validate that the file is real here.
         if (Filesystem::missing($path)) {
             throw new FileNotFoundException($path);
         }
