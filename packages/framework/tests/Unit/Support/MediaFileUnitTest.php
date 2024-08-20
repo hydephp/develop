@@ -288,7 +288,7 @@ class MediaFileUnitTest extends UnitTestCase
             ->andReturn(true);
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('Cannot get metadata for a file that does not exist on disk. (File [_media/foo] not found)');
+        $this->expectExceptionMessage('File [_media/foo] not found.');
 
         MediaFile::make('foo');
     }

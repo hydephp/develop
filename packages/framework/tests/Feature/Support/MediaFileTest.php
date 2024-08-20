@@ -78,13 +78,10 @@ class MediaFileTest extends TestCase
         $this->assertSame('_media/subfolder/nested_file.txt', $mediaFile->getPath());
     }
 
-    public function testCanCreateInMemoryMediaFileInstances()
+    public function testMediaFileExceptionHandling()
     {
-        $mediaFile = MediaFile::make('non_existent_file.txt');
-
-        $this->assertInstanceOf(MediaFile::class, $mediaFile);
-
-        $this->assertSame('non_existent_file.txt', $mediaFile->getAbsolutePath());
+        $this->expectException(FileNotFoundException::class);
+        MediaFile::make('non_existent_file.txt');
     }
 
     public function testMediaDirectoryCustomization()

@@ -41,13 +41,9 @@ class MediaFile extends ProjectFile
     {
         parent::__construct($this->getNormalizedPath($path));
 
-        if (Filesystem::exists($this->getAbsolutePath())) {
-            [$contentLength, $mimeType, $hash] = $this->getMetadata();
-
-            $this->length = $contentLength;
-            $this->mimeType = $mimeType;
-            $this->hash = $hash;
-        }
+        $this->length = $this->findContentLength();
+        $this->mimeType = $this->findMimeType();
+        $this->hash = $this->findHash();
     }
 
     /**
@@ -176,6 +172,10 @@ class MediaFile extends ProjectFile
         // Normalize the path to include the media directory
         $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
 
+        if (Filesystem::missing($path)) {
+            throw new FileNotFoundException($path);
+        }
+
         return $path;
     }
 
@@ -219,18 +219,5 @@ class MediaFile extends ProjectFile
     protected function findHash(): string
     {
         return Filesystem::hash($this->getPath(), 'crc32');
-    }
-
-    protected function getMetadata(): array
-    {
-        if (Filesystem::missing($this->getAbsolutePath())) {
-            throw new FileNotFoundException($this->getPath(), "Cannot get metadata for a file that does not exist on disk. (File [{$this->getPath()}] not found)");
-        }
-
-        $contentLength = $this->findContentLength();
-        $mimeType = $this->findMimeType();
-        $hash = $this->findHash();
-
-        return [$contentLength, $mimeType, $hash];
     }
 }
