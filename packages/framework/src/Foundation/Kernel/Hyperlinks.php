@@ -11,7 +11,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Illuminate\Support\Str;
 
 use function str_ends_with;
 use function str_starts_with;
@@ -111,6 +110,8 @@ class Hyperlinks
      * If the image is already qualified (starts with `http`) it will be returned as is.
      *
      * If a base URL is configured, the image will be returned with a qualified absolute URL.
+     *
+     * @throws FileNotFoundException If the file does not exist in the `_media` directory in order to make the issue clear.
      */
     public function asset(string $name): string
     {
@@ -118,13 +119,13 @@ class Hyperlinks
             return $name;
         }
 
-        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
+        $asset = Hyde::assets()->get($name);
 
-        if (Hyde::hasSiteUrl()) {
-            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
+        if ($asset) {
+            return $asset->getLink();
         }
 
-        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
+        throw new FileNotFoundException(MediaFile::sourcePath($name), appendAfterPath: ' when trying to resolve a media asset.');
     }
 
     /**

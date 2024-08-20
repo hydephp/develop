@@ -70,15 +70,8 @@ class HelpersTest extends TestCase
     /** @covers ::asset */
     public function testAssetFunction()
     {
-        $this->assertSame(Hyde::asset('foo'), asset('foo'));
-        $this->assertSame('media/foo', asset('foo'));
-    }
-
-    /** @covers ::asset */
-    public function testAssetFunctionWithQualifiedUrl()
-    {
-        $this->assertSame(Hyde::asset('foo', true), asset('foo'));
-        $this->assertSame('media/foo', asset('foo'));
+        $this->assertSame(Hyde::asset('app.css'), asset('app.css'));
+        $this->assertSame('media/app.css', asset('app.css'));
     }
 
     /** @covers ::asset */
@@ -92,21 +85,21 @@ class HelpersTest extends TestCase
     public function testAssetFunctionWithSetBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => 'https://example.com']);
-        $this->assertSame('https://example.com/media/foo', asset('foo'));
+        $this->assertSame('https://example.com/media/app.css', asset('app.css'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionWithNoBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => null]);
-        $this->assertSame('media/foo', asset('foo'));
+        $this->assertSame('media/app.css', asset('app.css'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionWithLocalhostBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
-        $this->assertSame('media/foo', asset('foo'));
+        $this->assertSame('media/app.css', asset('app.css'));
     }
 
     /** @covers ::asset */
@@ -114,7 +107,7 @@ class HelpersTest extends TestCase
     {
         Render::shouldReceive('getRouteKey')->andReturn('foo/bar');
 
-        $this->assertSame('../media/foo', asset('foo'));
+        $this->assertSame('../media/app.css', asset('app.css'));
     }
 
     /** @covers ::asset */
@@ -122,15 +115,16 @@ class HelpersTest extends TestCase
     {
         Render::shouldReceive('getRouteKey')->andReturn('foo/bar/baz');
 
-        $this->assertSame('../../media/foo', asset('foo'));
+        $this->assertSame('../../media/app.css', asset('app.css'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionWithCustomMediaDirectory()
     {
+        $this->file('custom/app.css');
         Hyde::setMediaDirectory('custom');
 
-        $this->assertSame('custom/foo', asset('foo'));
+        $this->assertSame('custom/app.css', asset('app.css'));
     }
 
     /** @covers ::route */

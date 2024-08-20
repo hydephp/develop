@@ -10,6 +10,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Hyde\Testing\CreatesTemporaryFiles;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * @covers \Hyde\Facades\Asset
@@ -33,7 +34,13 @@ class AssetFacadeUnitTest extends UnitTestCase
 
     public function testGetHelper()
     {
-        $this->assertSame(Hyde::asset('foo'), Asset::get('foo'));
+        $this->assertSame(Hyde::asset('app.css'), Asset::get('app.css'));
+    }
+
+    public function testGetHelperWithNonExistentFile()
+    {
+        $this->expectException(FileNotFoundException::class);
+        Asset::get('styles.css');
     }
 
     public function testHasMediaFileHelper()

@@ -39,6 +39,8 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         unlink('_media/logo.png');
         unlink('_media/image.jpg');
 
+        DynamicMarkdownLinkProcessor::resetAssetMapCache();
+
         parent::tearDownAfterClass();
     }
 
