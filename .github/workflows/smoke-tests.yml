@@ -83,23 +83,33 @@ jobs:
 
       - name: Display Unit Tests Output
         if: always()
-        run: cat test_outputs/unit.log
+        run: |
+          cat test_outputs/unit.log
+          grep -q "Unit tests failed" test_failures && exit 1 || exit 0
 
       - name: Display Feature Hyde Tests Output
         if: always()
-        run: cat test_outputs/feature_hyde.log
+        run: |
+          cat test_outputs/feature_hyde.log
+          grep -q "Feature Hyde tests failed" test_failures && exit 1 || exit 0
 
       - name: Display Feature Framework Tests Output
         if: always()
-        run: cat test_outputs/feature_framework.log
+        run: |
+          cat test_outputs/feature_framework.log
+          grep -q "Feature Framework tests failed" test_failures && exit 1 || exit 0
 
       - name: Display Publications Tests Output
         if: always()
-        run: cat test_outputs/publications.log
+        run: |
+          cat test_outputs/publications.log
+          grep -q "Publications tests failed" test_failures && exit 1 || exit 0
 
       - name: Display Realtime Compiler Tests Output
         if: always()
-        run: cat test_outputs/realtime_compiler.log
+        run: |
+          cat test_outputs/realtime_compiler.log
+          grep -q "Realtime Compiler tests failed" test_failures && exit 1 || exit 0
 
       - name: Merge JUnit XML Reports
         if: always()
