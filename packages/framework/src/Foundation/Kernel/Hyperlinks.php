@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
-use Hyde\Hyde;
 use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
@@ -116,13 +115,7 @@ class Hyperlinks
      */
     public function asset(string $name): MediaFile
     {
-        $asset = Hyde::assets()->get($name);
-
-        if ($asset) {
-            return $asset;
-        }
-
-        throw new FileNotFoundException(MediaFile::sourcePath($name), appendAfterPath: ' when trying to resolve a media asset.');
+        return MediaFile::get($name);
     }
 
     /**

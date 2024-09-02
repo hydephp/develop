@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Foundation;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\Hyperlinks;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -73,18 +74,16 @@ class HyperlinksTest extends TestCase
         $this->class->asset('non_existent_file.jpg');
     }
 
-    public function testAssetHelperThrowsExceptionFileWithNoExtension()
+    public function testAssetHelperCanGetFileWithNoExtension()
     {
         $this->file('_media/no_extension');
-        $this->expectException(FileNotFoundException::class);
-        $this->class->asset('no_extension');
+        $this->assertInstanceOf(MediaFile::class, $this->class->asset('no_extension'));
     }
 
-    public function testAssetHelperThrowsExceptionForNonExistentFileNonMediaExtension()
+    public function testAssetHelperCanGetFileWithNonMediaExtension()
     {
         $this->file('_media/test.foo');
-        $this->expectException(FileNotFoundException::class);
-        $this->class->asset('test.foo');
+        $this->assertInstanceOf(MediaFile::class, $this->class->asset('test.foo'));
     }
 
     public function testAssetHelperThrowsExceptionWithHelpfulMessage()
