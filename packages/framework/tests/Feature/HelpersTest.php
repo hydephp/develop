@@ -13,6 +13,7 @@ use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
@@ -71,8 +72,11 @@ class HelpersTest extends TestCase
     /** @covers ::asset */
     public function testAssetFunction()
     {
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));
+
         $this->assertSame(Hyde::asset('app.css'), asset('app.css'));
-        $this->assertSame('media/app.css', asset('app.css'));
+        $this->assertSame('media/app.css', (string) asset('app.css'));
     }
 
     /** @covers ::asset */
@@ -86,38 +90,53 @@ class HelpersTest extends TestCase
     /** @covers ::asset */
     public function testAssetFunctionWithSetBaseUrl()
     {
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));
+
         $this->app['config']->set(['hyde.url' => 'https://example.com']);
-        $this->assertSame('https://example.com/media/app.css', asset('app.css'));
+        $this->assertSame('https://example.com/media/app.css', (string) asset('app.css'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionWithNoBaseUrl()
     {
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));
+
         $this->app['config']->set(['hyde.url' => null]);
-        $this->assertSame('media/app.css', asset('app.css'));
+        $this->assertSame('media/app.css', (string) asset('app.css'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionWithLocalhostBaseUrl()
     {
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));
+
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
-        $this->assertSame('media/app.css', asset('app.css'));
+        $this->assertSame('media/app.css', (string) asset('app.css'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionFromNestedPage()
     {
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));
+
         Render::shouldReceive('getRouteKey')->andReturn('foo/bar');
 
-        $this->assertSame('../media/app.css', asset('app.css'));
+        $this->assertSame('../media/app.css', (string) asset('app.css'));
     }
 
     /** @covers ::asset */
     public function testAssetFunctionFromDeeplyNestedPage()
     {
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));
+
         Render::shouldReceive('getRouteKey')->andReturn('foo/bar/baz');
 
-        $this->assertSame('../../media/app.css', asset('app.css'));
+        $this->assertSame('../../media/app.css', (string) asset('app.css'));
     }
 
     /** @covers ::asset */
@@ -126,7 +145,10 @@ class HelpersTest extends TestCase
         $this->file('custom/app.css');
         Hyde::setMediaDirectory('custom');
 
-        $this->assertSame('custom/app.css', asset('app.css'));
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('custom/app.css'), asset('app.css'));
+
+        $this->assertSame('custom/app.css', (string) asset('app.css'));
     }
 
     /** @covers ::route */

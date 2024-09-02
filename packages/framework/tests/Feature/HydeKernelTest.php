@@ -182,15 +182,30 @@ class HydeKernelTest extends TestCase
         $this->assertSame('../media/foo', Hyde::mediaLink('foo'));
     }
 
+    public function testAssetHelperReturnsMediaFileInstanceForGivenName()
+    {
+        $this->file('_media/foo.jpg');
+
+        $asset = Hyde::asset('foo.jpg');
+
+        $this->assertInstanceOf(MediaFile::class, $asset);
+        $this->assertEquals(new MediaFile('_media/foo.jpg'), $asset);
+
+        $this->assertSame('foo.jpg', $asset->getName());
+        $this->assertSame('_media/foo.jpg', $asset->getPath());
+        $this->assertSame('media/foo.jpg', $asset->getLink());
+        $this->assertSame('media/foo.jpg', (string) $asset);
+    }
+
     public function testAssetHelperReturnsAssetPathForGivenName()
     {
         $this->file('_media/foo.jpg');
 
         Render::share('routeKey', 'foo');
-        $this->assertSame('media/foo.jpg', Hyde::asset('foo.jpg'));
+        $this->assertSame('media/foo.jpg', (string) Hyde::asset('foo.jpg'));
 
         Render::share('routeKey', 'foo/bar');
-        $this->assertSame('../media/foo.jpg', Hyde::asset('foo.jpg'));
+        $this->assertSame('../media/foo.jpg', (string) Hyde::asset('foo.jpg'));
     }
 
     public function testAssetHelperTrimsMediaPrefix()
@@ -198,7 +213,7 @@ class HydeKernelTest extends TestCase
         $this->markTestSkipped('needs to reimplement normalization on the get method');
         $this->file('_media/foo.jpg');
 
-        $this->assertSame('media/foo.jpg', Hyde::asset('media/foo.jpg'));
+        $this->assertSame('media/foo.jpg', (string) Hyde::asset('media/foo.jpg'));
     }
 
     public function testAssetHelperSupportsCustomMediaDirectories()
@@ -206,7 +221,7 @@ class HydeKernelTest extends TestCase
         $this->file('_assets/foo.jpg');
 
         Hyde::setMediaDirectory('_assets');
-        $this->assertSame('assets/foo.jpg', Hyde::asset('foo.jpg'));
+        $this->assertSame('assets/foo.jpg', (string) Hyde::asset('foo.jpg'));
     }
 
     public function testAssetsHelperGetsAllSiteAssets()

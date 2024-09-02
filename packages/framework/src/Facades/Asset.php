@@ -17,7 +17,7 @@ use function file_exists;
  */
 class Asset
 {
-    public static function get(string $file): string
+    public static function get(string $file): MediaFile
     {
         return hyde()->asset($file);
     }

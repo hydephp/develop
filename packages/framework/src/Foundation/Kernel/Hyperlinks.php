@@ -106,18 +106,20 @@ class Hyperlinks
     }
 
     /**
-     * Gets a relative web link to the given file stored in the `_site/media` folder.
+     * Gets a MediaAsset instance for the given file stored in the `_site/media` folder.
+     * The returned value can be cast into a string in Blade views to resole the URL.
      *
      * If a base URL is configured, the image will be returned with a qualified absolute URL.
+     * Otherwise, a relative path will be returned based on the rendered page's location.
      *
      * @throws FileNotFoundException If the file does not exist in the `_media` directory in order to make the issue clear.
      */
-    public function asset(string $name): string
+    public function asset(string $name): MediaFile
     {
         $asset = Hyde::assets()->get($name);
 
         if ($asset) {
-            return $asset->getLink();
+            return $asset;
         }
 
         throw new FileNotFoundException(MediaFile::sourcePath($name), appendAfterPath: ' when trying to resolve a media asset.');

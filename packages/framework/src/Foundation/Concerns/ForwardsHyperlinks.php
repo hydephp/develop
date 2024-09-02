@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use Hyde\Support\Models\Route;
+use Hyde\Support\Filesystem\MediaFile;
 
 /**
  * @internal Single-use trait for the HydeKernel class.
@@ -28,7 +29,7 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->mediaLink($destination, $validate);
     }
 
-    public function asset(string $name): string
+    public function asset(string $name): MediaFile
     {
         return $this->hyperlinks->asset($name);
     }
