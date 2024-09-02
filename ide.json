@@ -16,6 +16,29 @@
             ]
         },
         {
+            "complete": "directoryFiles",
+            "options": {
+                "directory": "/_media"
+            },
+            "condition": [
+                {
+                    "methodNames": ["get", "mediaLink", "hasMediaFile"],
+                    "place": "parameter",
+                    "classFqn": ["\\Hyde\\Facades\\Asset"],
+                    "parameters": [1]
+                }, {
+                    "methodNames": ["asset"],
+                    "place": "parameter",
+                    "classFqn": ["Hyde\\Foundation\\HydeKernel", "\\Hyde\\Hyde", "Hyde"],
+                    "parameters": [1]
+                }, {
+                    "functionNames": ["asset"],
+                    "place": "parameter",
+                    "parameters": [1]
+                }
+            ]
+        },
+        {
             "complete": "configKey",
             "condition": [
                 {
