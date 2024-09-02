@@ -52,6 +52,14 @@ class MediaFile extends ProjectFile implements Stringable
     }
 
     /**
+     * Create a media file instance for the given file.
+     */
+    public static function make(string $path): static
+    {
+        return parent::make($path);
+    }
+
+    /**
      * Get or create a media file instance from the HydeKernel for the given file.
      */
     public static function get(string $file): MediaFile
