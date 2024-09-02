@@ -13,6 +13,7 @@ use Hyde\Testing\TestCase;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * Covers the helpers in helpers.php.
@@ -77,7 +78,8 @@ class HelpersTest extends TestCase
     /** @covers ::asset */
     public function testAssetFunctionWithExternalUrl()
     {
-        $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('File [_media/https://example.com/foo] not found when trying to resolve a media asset.');
         $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
     }
 

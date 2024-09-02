@@ -188,11 +188,9 @@ class HydeKernelTest extends TestCase
 
         Render::share('routeKey', 'foo');
         $this->assertSame('media/foo.jpg', Hyde::asset('foo.jpg'));
-        $this->assertSame('https://example.com/foo.jpg', Hyde::asset('https://example.com/foo.jpg'));
 
         Render::share('routeKey', 'foo/bar');
         $this->assertSame('../media/foo.jpg', Hyde::asset('foo.jpg'));
-        $this->assertSame('https://example.com/foo.jpg', Hyde::asset('https://example.com/foo.jpg'));
     }
 
     public function testImageHelperTrimsMediaPrefix()

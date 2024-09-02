@@ -27,32 +27,17 @@ class HyperlinksTest extends TestCase
 
     public function testAssetHelperGetsRelativeWebLinkToImageStoredInSiteMediaFolder()
     {
-        $tests = [
-            'test.jpg' => 'media/test.jpg',
-            'http://example.com/test.jpg' => 'http://example.com/test.jpg',
-            'https://example.com/test.jpg' => 'https://example.com/test.jpg',
-        ];
         $this->file('_media/test.jpg');
 
-        foreach ($tests as $input => $expected) {
-            $this->assertSame($this->class->asset($input), $expected);
-        }
+        $this->assertSame($this->class->asset('test.jpg'), 'media/test.jpg');
     }
 
     public function testAssetHelperResolvesPathsForNestedPages()
     {
-        $tests = [
-            'test.jpg' => '../media/test.jpg',
-            'http://example.com/test.jpg' => 'http://example.com/test.jpg',
-            'https://example.com/test.jpg' => 'https://example.com/test.jpg',
-        ];
-
         $this->file('_media/test.jpg');
 
-        foreach ($tests as $input => $expected) {
-            $this->mockCurrentPage('foo/bar');
-            $this->assertSame($this->class->asset($input), $expected);
-        }
+        $this->mockCurrentPage('foo/bar');
+        $this->assertSame($this->class->asset('test.jpg'), '../media/test.jpg');
     }
 
     public function testAssetHelperReturnsQualifiedAbsoluteUriWhenSiteHasBaseUrl()
@@ -111,6 +96,9 @@ class HyperlinksTest extends TestCase
 
     public function testAssetHelperReturnsInputWhenImageIsAlreadyQualifiedRegardlessOfMatchingTheConfiguredUrl()
     {
+        $this->expectExceptionMessage('File [_media/http://localhost/media/test.jpg] not found when trying to resolve a media asset.');
+        $this->expectException(FileNotFoundException::class);
+
         config(['hyde.url' => 'https://example.org']);
         $this->assertSame('http://localhost/media/test.jpg', $this->class->asset('http://localhost/media/test.jpg'));
     }

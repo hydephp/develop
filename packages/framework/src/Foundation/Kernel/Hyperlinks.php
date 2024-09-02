@@ -107,7 +107,6 @@ class Hyperlinks
 
     /**
      * Gets a relative web link to the given file stored in the `_site/media` folder.
-     * If the image is already qualified (starts with `http`) it will be returned as is.
      *
      * If a base URL is configured, the image will be returned with a qualified absolute URL.
      *
@@ -115,10 +114,6 @@ class Hyperlinks
      */
     public function asset(string $name): string
     {
-        if (Hyperlinks::isRemote($name)) {
-            return $name;
-        }
-
         $asset = Hyde::assets()->get($name);
 
         if ($asset) {
