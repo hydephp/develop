@@ -28,7 +28,7 @@ class AssetAPIFeatureTest extends TestCase
             'hasMediaFileTrue' => true,
             'hasMediaFileFalse' => false,
             'links' => [
-                'media/app.css?v='.MediaFile::get('app.css')->getHash(),
+                "media/app.css?v={$this->getAppStylesVersion()}",
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
@@ -55,10 +55,8 @@ class AssetAPIFeatureTest extends TestCase
 
         $html = Blade::render($view);
 
-        $version = MediaFile::get('app.css')->getHash();
-
         $this->assertSame(<<<HTML
-        <link rel="stylesheet" href="media/app.css?v=$version">
+        <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
             <link rel="stylesheet" href="media/app.css">
             <link rel="stylesheet" href="media/app.css">
             <link rel="stylesheet" href="media/app.css">
@@ -66,5 +64,10 @@ class AssetAPIFeatureTest extends TestCase
             Missing missing.png
 
         HTML, $html);
+    }
+
+    protected function getAppStylesVersion(): string
+    {
+        return MediaFile::get('app.css')->getHash();
     }
 }
