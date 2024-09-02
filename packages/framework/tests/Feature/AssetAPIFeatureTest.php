@@ -11,6 +11,31 @@ use Hyde\Support\Filesystem\MediaFile;
  */
 class AssetAPIFeatureTest extends TestCase
 {
+    public function testAssetAPIExamples()
+    {
+        $conditions = [
+            'hasMediaFileTrue' => Asset::hasMediaFile('app.css'),
+            'hasMediaFileFalse' => Asset::hasMediaFile('missing.png'),
+            'links' => [
+                Asset::mediaLink('app.css'),
+                Asset::get('app.css'),
+                Hyde::asset('app.css'),
+                asset('app.css'),
+            ],
+        ];
+
+        $this->assertSame([
+            'hasMediaFileTrue' => true,
+            'hasMediaFileFalse' => false,
+            'links' => [
+                'media/app.css?v='.MediaFile::get('app.css')->getHash(),
+                MediaFile::get('app.css'),
+                MediaFile::get('app.css'),
+                MediaFile::get('app.css'),
+            ],
+        ], $conditions);
+    }
+
     public function testAssetAPIUsagesInBladeViews()
     {
         $view = /** @lang Blade */ <<<'Blade'
