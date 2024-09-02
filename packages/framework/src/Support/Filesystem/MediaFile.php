@@ -56,7 +56,7 @@ class MediaFile extends ProjectFile implements Stringable
      */
     public static function get(string $file): MediaFile
     {
-        return Hyde::asset($file);
+        return Hyde::assets()->get($file) ?? static::make($file);
     }
 
     /**
