@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\Blade;
 use Hyde\Support\Filesystem\MediaFile;
 
@@ -19,7 +20,11 @@ class AssetAPIFeatureTest extends TestCase
             'links' => [
                 Asset::mediaLink('app.css'),
                 Asset::get('app.css'),
-                Hyde::asset('app.css'),
+                \Hyde::asset('app.css'),
+                \Hyde\Hyde::asset('app.css'),
+                Hyde::kernel()->asset('app.css'),
+                HydeKernel::getInstance()->asset('app.css'),
+                hyde()->asset('app.css'),
                 asset('app.css'),
             ],
         ];
@@ -29,6 +34,10 @@ class AssetAPIFeatureTest extends TestCase
             'hasMediaFileFalse' => false,
             'links' => [
                 "media/app.css?v={$this->getAppStylesVersion()}",
+                MediaFile::get('app.css'),
+                MediaFile::get('app.css'),
+                MediaFile::get('app.css'),
+                MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
