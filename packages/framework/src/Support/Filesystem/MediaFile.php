@@ -21,6 +21,8 @@ use function array_merge;
 
 /**
  * File abstraction for a project media file.
+ *
+ * All input paths are relative to the project's media source directory.
  */
 class MediaFile extends ProjectFile implements Stringable
 {
