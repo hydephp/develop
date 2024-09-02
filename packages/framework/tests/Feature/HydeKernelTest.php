@@ -182,7 +182,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame('../media/foo', Hyde::mediaLink('foo'));
     }
 
-    public function testImageHelperReturnsImagePathForGivenName()
+    public function testAssetHelperReturnsAssetPathForGivenName()
     {
         $this->file('_media/foo.jpg');
 
@@ -193,7 +193,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame('../media/foo.jpg', Hyde::asset('foo.jpg'));
     }
 
-    public function testImageHelperTrimsMediaPrefix()
+    public function testAssetHelperTrimsMediaPrefix()
     {
         $this->markTestSkipped('needs to reimplement normalization on the get method');
         $this->file('_media/foo.jpg');
@@ -201,7 +201,7 @@ class HydeKernelTest extends TestCase
         $this->assertSame('media/foo.jpg', Hyde::asset('media/foo.jpg'));
     }
 
-    public function testImageHelperSupportsCustomMediaDirectories()
+    public function testAssetHelperSupportsCustomMediaDirectories()
     {
         $this->file('_assets/foo.jpg');
 
