@@ -14,10 +14,12 @@ class AssetAPIFeatureTest extends TestCase
 {
     public function testAssetAPIExamples()
     {
+        // Tests for the Asset API, can be used to try out the PhpStorm autocompletion
+
         $conditions = [
             'hasMediaFileTrue' => Asset::hasMediaFile('app.css'),
             'hasMediaFileFalse' => Asset::hasMediaFile('missing.png'),
-            'links' => [
+            'getters' => [
                 Asset::mediaLink('app.css'),
                 Asset::get('app.css'),
                 \Hyde::asset('app.css'),
@@ -27,12 +29,19 @@ class AssetAPIFeatureTest extends TestCase
                 hyde()->asset('app.css'),
                 asset('app.css'),
             ],
+            'accessors' => [
+                new MediaFile('app.css'),
+                MediaFile::make('app.css'),
+                MediaFile::get('app.css'),
+                MediaFile::sourcePath('app.css'),
+                MediaFile::outputPath('app.css'),
+            ],
         ];
 
-        $this->assertSame([
+        $this->assertEquals([
             'hasMediaFileTrue' => true,
             'hasMediaFileFalse' => false,
-            'links' => [
+            'getters' => [
                 "media/app.css?v={$this->getAppStylesVersion()}",
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
@@ -41,6 +50,13 @@ class AssetAPIFeatureTest extends TestCase
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
+            ],
+            'accessors' => [
+                new MediaFile('app.css'),
+                new MediaFile('app.css'),
+                MediaFile::get('app.css'),
+                Hyde::path('_media/app.css'),
+                Hyde::sitePath('media/app.css'),
             ],
         ], $conditions);
     }
