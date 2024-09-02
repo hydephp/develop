@@ -13,7 +13,7 @@ class AssetAPIFeatureTest extends TestCase
 {
     public function testAssetAPIUsagesInBladeViews()
     {
-        $view = <<<'Blade'
+        $view = /** @lang Blade */ <<<'Blade'
         @if(Asset::hasMediaFile('app.css'))
             <link rel="stylesheet" href="{{ Asset::mediaLink('app.css') }}">
             <link rel="stylesheet" href="{{ Asset::get('app.css') }}">
