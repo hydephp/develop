@@ -52,16 +52,6 @@ class MediaFile extends ProjectFile implements Stringable
     }
 
     /**
-     * Get an array of media asset filenames relative to the `_media/` directory.
-     *
-     * @return array<int, string> {@example `['app.css', 'images/logo.svg']`}
-     */
-    public static function files(): array
-    {
-        return static::all()->keys()->all();
-    }
-
-    /**
      * Get a collection of all media files, parsed into `MediaFile` instances, keyed by the filenames relative to the `_media/` directory.
      *
      * @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile>
@@ -69,6 +59,16 @@ class MediaFile extends ProjectFile implements Stringable
     public static function all(): Collection
     {
         return Hyde::assets();
+    }
+
+    /**
+     * Get an array of media asset filenames relative to the `_media/` directory.
+     *
+     * @return array<int, string> {@example `['app.css', 'images/logo.svg']`}
+     */
+    public static function files(): array
+    {
+        return static::all()->keys()->all();
     }
 
     /**
