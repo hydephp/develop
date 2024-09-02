@@ -26,6 +26,12 @@
                     "place": "parameter",
                     "classFqn": ["\\Hyde\\Facades\\Asset"],
                     "parameters": [1]
+                },
+                {
+                    "methodNames": ["__construct", "get", "make", "sourcePath", "outputPath"],
+                    "place": "parameter",
+                    "classFqn": ["Hyde\\Support\\Filesystem\\MediaFile"],
+                    "parameters": [1]
                 }, {
                     "methodNames": ["asset"],
                     "place": "parameter",
