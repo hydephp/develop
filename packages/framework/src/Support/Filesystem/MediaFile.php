@@ -52,7 +52,7 @@ class MediaFile extends ProjectFile implements Stringable
     }
 
     /**
-     * Get a media file instance from the HydeKernel for the given file.
+     * Get or create a media file instance from the HydeKernel for the given file.
      */
     public static function get(string $file): MediaFile
     {
