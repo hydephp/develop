@@ -52,6 +52,14 @@ class MediaFile extends ProjectFile implements Stringable
     }
 
     /**
+     * Get a media file instance from the HydeKernel for the given file.
+     */
+    public static function get(string $file): MediaFile
+    {
+        return Hyde::asset($file);
+    }
+
+    /**
      * Get a collection of all media files, parsed into `MediaFile` instances, keyed by the filenames relative to the `_media/` directory.
      *
      * @return \Illuminate\Support\Collection<string, \Hyde\Support\Filesystem\MediaFile>

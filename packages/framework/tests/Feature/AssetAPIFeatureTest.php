@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Blade;
+use Hyde\Support\Filesystem\MediaFile;
 
 /**
  * @coversNothing High level test for the Asset API
@@ -30,7 +30,7 @@ class AssetAPIFeatureTest extends TestCase
 
         $html = Blade::render($view);
 
-        $version = Hyde::assets()->get('app.css')->getHash();
+        $version = MediaFile::get('app.css')->getHash();
 
         $this->assertSame(<<<HTML
         <link rel="stylesheet" href="media/app.css?v=$version">

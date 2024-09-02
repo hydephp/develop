@@ -224,6 +224,13 @@ class HydeKernelTest extends TestCase
         $this->assertSame('assets/foo.jpg', (string) Hyde::asset('foo.jpg'));
     }
 
+    public function testAssetsHelperGetsAssetsFromKernel()
+    {
+        $this->assertSame(Hyde::kernel()->assets(), Hyde::assets());
+        $this->assertSame(Hyde::asset('app.css'), Hyde::assets()->get('app.css'));
+        $this->assertSame(MediaFile::get('app.css'), Hyde::asset('app.css'));
+    }
+
     public function testAssetsHelperGetsAllSiteAssets()
     {
         $this->assertEquals(new Collection([

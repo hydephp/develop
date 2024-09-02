@@ -92,6 +92,11 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertEquals(new MediaFile('foo'), MediaFile::make('foo'));
     }
 
+    public function testCanGet()
+    {
+        $this->assertEquals(new MediaFile('app.css'), MediaFile::get('app.css'));
+    }
+
     public function testCanConstructWithNestedPaths()
     {
         $this->assertSame('_media/path/to/file.txt', MediaFile::make('path/to/file.txt')->path);
