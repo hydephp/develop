@@ -333,7 +333,7 @@ class MediaFileUnitTest extends UnitTestCase
             ->andReturn(true);
 
         $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('File [_media/foo] not found.');
+        $this->expectExceptionMessage('File [_media/foo] not found when trying to resolve a media asset.');
 
         MediaFile::make('foo')->$bootableMethod();
     }

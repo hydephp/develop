@@ -204,7 +204,7 @@ class MediaFile extends ProjectFile implements Stringable
 
         // Since assets need to exist on disk in order to be copied to the built site files we validate that the file is real here.
         if (Filesystem::missing($path)) {
-            throw new FileNotFoundException($path);
+            throw new FileNotFoundException($path, appendAfterPath: ' when trying to resolve a media asset.');
         }
 
         return $path;
