@@ -29,7 +29,7 @@ class HyperlinksTest extends TestCase
     {
         $this->file('_media/test.jpg');
 
-        $this->assertSame($this->class->asset('test.jpg'), 'media/test.jpg');
+        $this->assertSame('media/test.jpg', $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperResolvesPathsForNestedPages()
@@ -37,7 +37,7 @@ class HyperlinksTest extends TestCase
         $this->file('_media/test.jpg');
 
         $this->mockCurrentPage('foo/bar');
-        $this->assertSame($this->class->asset('test.jpg'), '../media/test.jpg');
+        $this->assertSame('../media/test.jpg', $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperReturnsQualifiedAbsoluteUriWhenSiteHasBaseUrl()
