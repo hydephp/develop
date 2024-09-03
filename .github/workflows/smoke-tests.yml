@@ -52,7 +52,7 @@ jobs:
             local testsuite=$2
             echo "${suite^} tests started"
             cd ${suite}_tests
-            if vendor/bin/pest --colors=always --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1; then
+            if vendor/bin/pest --colors=always --compact --log-junit="../test_results/${suite}_junit.xml" --testsuite="$testsuite" > "../test_outputs/${suite}.log" 2>&1; then
               echo "${suite^} tests completed successfully"
             else
               echo "${suite^} tests failed"
