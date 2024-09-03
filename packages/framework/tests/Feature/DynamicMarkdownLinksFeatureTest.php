@@ -44,6 +44,13 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         parent::tearDownAfterClass();
     }
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.enable_cache_busting' => false]);
+    }
+
     public function testBasicDynamicMarkdownLinks()
     {
         $input = <<<'MARKDOWN'

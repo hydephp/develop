@@ -23,6 +23,13 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
  */
 class HelpersTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.enable_cache_busting' => false]);
+    }
+
     /** @covers ::hyde */
     public function testHydeFunctionExists()
     {
@@ -77,6 +84,21 @@ class HelpersTest extends TestCase
 
         $this->assertSame(Hyde::asset('app.css'), asset('app.css'));
         $this->assertSame('media/app.css', (string) asset('app.css'));
+    }
+
+    /** @covers ::asset */
+    public function testAssetFunctionWithCacheBusting()
+    {
+        config(['hyde.enable_cache_busting' => true]);
+
+        $this->assertInstanceOf(MediaFile::class, asset('app.css'));
+        $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));
+
+        $this->assertSame(Hyde::asset('app.css'), asset('app.css'));
+        $this->assertSame(
+            'media/app.css?v='.hash_file('crc32', Hyde::path('_media/app.css')),
+            (string) asset('app.css')
+        );
     }
 
     /** @covers ::asset */

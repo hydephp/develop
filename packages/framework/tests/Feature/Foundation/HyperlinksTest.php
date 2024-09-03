@@ -30,7 +30,7 @@ class HyperlinksTest extends TestCase
     {
         $this->file('_media/test.jpg');
 
-        $this->assertSame('media/test.jpg', (string) $this->class->asset('test.jpg'));
+        $this->assertSame('media/test.jpg?v=00000000', (string) $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperResolvesPathsForNestedPages()
@@ -38,34 +38,34 @@ class HyperlinksTest extends TestCase
         $this->file('_media/test.jpg');
 
         $this->mockCurrentPage('foo/bar');
-        $this->assertSame('../media/test.jpg', (string) $this->class->asset('test.jpg'));
+        $this->assertSame('../media/test.jpg?v=00000000', (string) $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperReturnsQualifiedAbsoluteUriWhenSiteHasBaseUrl()
     {
         config(['hyde.url' => 'https://example.org']);
         $this->file('_media/test.jpg');
-        $this->assertSame('https://example.org/media/test.jpg', (string) $this->class->asset('test.jpg'));
+        $this->assertSame('https://example.org/media/test.jpg?v=00000000', (string) $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperReturnsDefaultRelativePathWhenSiteHasNoBaseUrl()
     {
         $this->withoutSiteUrl();
         $this->file('_media/test.jpg');
-        $this->assertSame('media/test.jpg', (string) $this->class->asset('test.jpg'));
+        $this->assertSame('media/test.jpg?v=00000000', (string) $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperReturnsDefaultRelativePathWhenSiteBaseUrlIsLocalhost()
     {
         $this->file('_media/test.jpg');
-        $this->assertSame('media/test.jpg', (string) $this->class->asset('test.jpg'));
+        $this->assertSame('media/test.jpg?v=00000000', (string) $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperUsesConfiguredMediaDirectory()
     {
         Hyde::setMediaDirectory('_assets');
         $this->file('_assets/test.jpg');
-        $this->assertSame('assets/test.jpg', (string) $this->class->asset('test.jpg'));
+        $this->assertSame('assets/test.jpg?v=00000000', (string) $this->class->asset('test.jpg'));
     }
 
     public function testAssetHelperThrowsExceptionForNonExistentFile()
@@ -99,7 +99,7 @@ class HyperlinksTest extends TestCase
         $this->expectException(FileNotFoundException::class);
 
         config(['hyde.url' => 'https://example.org']);
-        $this->assertSame('http://localhost/media/test.jpg', (string) $this->class->asset('http://localhost/media/test.jpg'));
+        $this->assertSame('http://localhost/media/test.jpg?v=00000000', (string) $this->class->asset('http://localhost/media/test.jpg'));
     }
 
     public function testMediaLinkHelper()

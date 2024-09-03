@@ -82,9 +82,9 @@ class AssetAPIFeatureTest extends TestCase
 
         $this->assertSame(<<<HTML
         <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
-            <link rel="stylesheet" href="media/app.css">
-            <link rel="stylesheet" href="media/app.css">
-            <link rel="stylesheet" href="media/app.css">
+            <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
+            <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
+            <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
         
             Missing missing.png
 

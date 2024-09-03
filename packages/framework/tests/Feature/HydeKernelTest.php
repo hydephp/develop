@@ -193,8 +193,8 @@ class HydeKernelTest extends TestCase
 
         $this->assertSame('foo.jpg', $asset->getName());
         $this->assertSame('_media/foo.jpg', $asset->getPath());
-        $this->assertSame('media/foo.jpg', $asset->getLink());
-        $this->assertSame('media/foo.jpg', (string) $asset);
+        $this->assertSame('media/foo.jpg?v=00000000', $asset->getLink());
+        $this->assertSame('media/foo.jpg?v=00000000', (string) $asset);
     }
 
     public function testAssetHelperReturnsAssetPathForGivenName()
@@ -202,10 +202,10 @@ class HydeKernelTest extends TestCase
         $this->file('_media/foo.jpg');
 
         Render::share('routeKey', 'foo');
-        $this->assertSame('media/foo.jpg', (string) Hyde::asset('foo.jpg'));
+        $this->assertSame('media/foo.jpg?v=00000000', (string) Hyde::asset('foo.jpg'));
 
         Render::share('routeKey', 'foo/bar');
-        $this->assertSame('../media/foo.jpg', (string) Hyde::asset('foo.jpg'));
+        $this->assertSame('../media/foo.jpg?v=00000000', (string) Hyde::asset('foo.jpg'));
     }
 
     public function testAssetHelperTrimsMediaPrefix()
@@ -213,7 +213,7 @@ class HydeKernelTest extends TestCase
         $this->markTestSkipped('needs to reimplement normalization on the get method');
         $this->file('_media/foo.jpg');
 
-        $this->assertSame('media/foo.jpg', (string) Hyde::asset('media/foo.jpg'));
+        $this->assertSame('media/foo.jpg?v=00000000', (string) Hyde::asset('media/foo.jpg'));
     }
 
     public function testAssetHelperSupportsCustomMediaDirectories()
@@ -221,7 +221,48 @@ class HydeKernelTest extends TestCase
         $this->file('_assets/foo.jpg');
 
         Hyde::setMediaDirectory('_assets');
-        $this->assertSame('assets/foo.jpg', (string) Hyde::asset('foo.jpg'));
+        $this->assertSame('assets/foo.jpg?v=00000000', (string) Hyde::asset('foo.jpg'));
+    }
+
+    public function testAssetHelperWithoutCacheBusting()
+    {
+        $this->file('_media/foo.jpg');
+
+        Config::set('hyde.enable_cache_busting', false);
+
+        $this->assertSame('media/foo.jpg', (string) Hyde::asset('foo.jpg'));
+    }
+
+    public function testAssetHelperWithoutCacheBustingWithChangedSettingInTheSameLifecycle()
+    {
+        $this->file('_media/foo.jpg');
+
+        $this->assertSame('media/foo.jpg?v=00000000', (string) Hyde::asset('foo.jpg'));
+
+        Config::set('hyde.enable_cache_busting', false);
+
+        $this->assertSame('media/foo.jpg', (string) Hyde::asset('foo.jpg'));
+
+        Config::set('hyde.enable_cache_busting', true);
+
+        $this->assertSame('media/foo.jpg?v=00000000', (string) Hyde::asset('foo.jpg'));
+    }
+
+    public function testAssetHelperWithoutCacheBustingWithChangedSettingInTheSameLifecycleForSameInstance()
+    {
+        $this->file('_media/foo.jpg');
+
+        $instance = Hyde::asset('foo.jpg');
+
+        $this->assertSame('media/foo.jpg?v=00000000', (string) $instance);
+
+        Config::set('hyde.enable_cache_busting', false);
+
+        $this->assertSame('media/foo.jpg', (string) $instance);
+
+        Config::set('hyde.enable_cache_busting', true);
+
+        $this->assertSame('media/foo.jpg?v=00000000', (string) $instance);
     }
 
     public function testAssetsHelperGetsAssetsFromKernel()

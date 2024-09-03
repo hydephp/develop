@@ -130,10 +130,10 @@ class MediaFile extends ProjectFile implements Stringable
         $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
 
         if (Hyde::hasSiteUrl()) {
-            return static::withCacheBusting(Hyde::url($name), $name);
+            return Hyde::url($name).$this->getCacheBustKey();
         }
 
-        return static::withCacheBusting(Hyde::relativeLink($name), $name);
+        return Hyde::relativeLink($name).$this->getCacheBustKey();
     }
 
     /**
@@ -185,6 +185,13 @@ class MediaFile extends ProjectFile implements Stringable
     {
         return Config::getBool('hyde.enable_cache_busting', true) && Filesystem::exists(static::sourcePath("$file"))
             ? '?v='.static::make($file)->getHash()
+            : '';
+    }
+
+    protected function getCacheBustKey(): string
+    {
+        return Config::getBool('hyde.enable_cache_busting', true)
+            ? '?v='.$this->getHash()
             : '';
     }
 
@@ -268,10 +275,5 @@ class MediaFile extends ProjectFile implements Stringable
         $this->length = $this->findContentLength();
         $this->mimeType = $this->findMimeType();
         $this->hash = $this->findHash();
-    }
-
-    protected static function withCacheBusting(string $url, string $file): string
-    {
-        return $url.MediaFile::legacy_getCacheBustKey($file);
     }
 }
