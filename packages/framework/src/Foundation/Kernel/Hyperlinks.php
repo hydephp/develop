@@ -181,6 +181,6 @@ class Hyperlinks
      */
     public static function withCacheBusting(string $url, string $file): string
     {
-        return $url.MediaFile::getCacheBustKey($file);
+        return $url.MediaFile::legacy_getCacheBustKey($file);
     }
 }
