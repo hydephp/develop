@@ -9,7 +9,6 @@ use Stringable;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
-use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -131,10 +130,10 @@ class MediaFile extends ProjectFile implements Stringable
         $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
 
         if (Hyde::hasSiteUrl()) {
-            return Hyperlinks::withCacheBusting(Hyde::url($name), $name);
+            return static::withCacheBusting(Hyde::url($name), $name);
         }
 
-        return Hyperlinks::withCacheBusting(Hyde::relativeLink($name), $name);
+        return static::withCacheBusting(Hyde::relativeLink($name), $name);
     }
 
     /**
@@ -269,5 +268,10 @@ class MediaFile extends ProjectFile implements Stringable
         $this->length = $this->findContentLength();
         $this->mimeType = $this->findMimeType();
         $this->hash = $this->findHash();
+    }
+
+    protected static function withCacheBusting(string $url, string $file): string
+    {
+        return $url.MediaFile::getCacheBustKey($file);
     }
 }

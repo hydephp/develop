@@ -177,7 +177,7 @@ class Hyperlinks
     }
 
     /**
-     * @internal Apply cache to the URL if enabled in the configuration.
+     * @deprecated Use the `MediaFile::getCacheBustKey` method instead.
      */
     public static function withCacheBusting(string $url, string $file): string
     {
