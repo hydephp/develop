@@ -24,7 +24,7 @@ class Asset
 
     public static function mediaLink(string $file): string
     {
-        return (string) hyde()->asset($file);
+        return hyde()->mediaLink($file);
     }
 
     public static function hasMediaFile(string $file): bool

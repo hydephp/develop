@@ -42,7 +42,7 @@ class AssetAPIFeatureTest extends TestCase
             'hasMediaFileTrue' => true,
             'hasMediaFileFalse' => false,
             'getters' => [
-                MediaFile::get('app.css'),
+                "media/app.css?v={$this->getAppStylesVersion()}",
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
                 MediaFile::get('app.css'),
@@ -80,8 +80,8 @@ class AssetAPIFeatureTest extends TestCase
 
         $html = Blade::render($view);
 
-        $this->assertSame(<<<'HTML'
-        <link rel="stylesheet" href="media/app.css">
+        $this->assertSame(<<<HTML
+        <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
             <link rel="stylesheet" href="media/app.css">
             <link rel="stylesheet" href="media/app.css">
             <link rel="stylesheet" href="media/app.css">

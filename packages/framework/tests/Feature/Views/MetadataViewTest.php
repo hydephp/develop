@@ -92,7 +92,7 @@ class MetadataViewTest extends TestCase
 
         $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
-            '<link rel="stylesheet" href="https://example.com/media/app.css">',
+            '<link rel="stylesheet" href="media/app.css">',
             '<link rel="canonical" href="https://example.com/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
@@ -108,7 +108,7 @@ class MetadataViewTest extends TestCase
 
         $assertions = $this->assertSee('test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
-            '<link rel="stylesheet" href="https://example.com/media/app.css">',
+            '<link rel="stylesheet" href="media/app.css">',
             '<link rel="canonical" href="https://example.com/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
@@ -124,7 +124,7 @@ class MetadataViewTest extends TestCase
 
         $assertions = $this->assertSee('docs/test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
-            '<link rel="stylesheet" href="https://example.com/media/app.css">',
+            '<link rel="stylesheet" href="../media/app.css">',
             '<link rel="canonical" href="https://example.com/docs/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta property="og:title" content="HydePHP - Test">',
@@ -141,7 +141,7 @@ class MetadataViewTest extends TestCase
         $assertions = $this->assertSee('posts/test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - Test</title>',
             '<link rel="alternate" href="https://example.com/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
-            '<link rel="stylesheet" href="https://example.com/media/app.css">',
+            '<link rel="stylesheet" href="../media/app.css">',
             '<link rel="canonical" href="https://example.com/posts/test.html">',
             '<meta name="twitter:title" content="HydePHP - Test">',
             '<meta name="url" content="https://example.com/posts/test.html">',
@@ -178,7 +178,7 @@ class MetadataViewTest extends TestCase
         $assertions = $this->assertSee('posts/test', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - My title</title>',
             '<link rel="alternate" href="https://example.com/feed.xml" type="application/rss+xml" title="HydePHP RSS Feed">',
-            '<link rel="stylesheet" href="https://example.com/media/app.css">',
+            '<link rel="stylesheet" href="../media/app.css">',
             '<link rel="canonical" href="https://example.com/posts/test.html">',
             '<meta name="twitter:title" content="HydePHP - My title">',
             '<meta name="description" content="My description">',
@@ -285,7 +285,7 @@ class MetadataViewTest extends TestCase
 
         $this->assertSee('test-page', array_merge($this->getDefaultTags(), [
             '<title>HydePHP - My Page Title</title>',
-            '<link rel="stylesheet" href="https://example.com/media/app.css">',
+            '<link rel="stylesheet" href="media/app.css">',
             '<meta name="twitter:title" content="HydePHP - My Page Title">',
             '<meta property="og:title" content="HydePHP - My Page Title">',
             '<meta property="og:description" content="My page description">',
