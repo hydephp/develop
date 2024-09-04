@@ -95,9 +95,9 @@ class Hyperlinks
      * An exception will be thrown if the file does not exist in the _media directory,
      * and the second argument is set to true.
      */
-    public function mediaLink(string $destination): string
+    public function mediaLink(string $destination, bool $validate = false): string
     {
-        if (false && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
+        if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
             throw new FileNotFoundException($sourcePath);
         }
 
