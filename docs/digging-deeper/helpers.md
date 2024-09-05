@@ -107,6 +107,8 @@ There are a few ways to create a new `ReadingTime` instance. Either create a new
 In all cases, you will end up with a `ReadingTime` object that you can use to get the reading time.
 
 ```php
+use Hyde\Support\ReadingTime;
+
 // Via constructor
 $time = new ReadingTime('Input text string');
 
