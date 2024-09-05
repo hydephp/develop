@@ -483,7 +483,9 @@ Includes::markdown('example.md', 'Default content');
 <h3>Create a new <code>ReadingTime</code> instance<a id="create-a-new-readingtime-instance" href="#create-a-new-readingtime-instance" class="heading-permalink" title="Permalink"></a></h3>
 <p>There are a few ways to create a new <code>ReadingTime</code> instance. Either create a new instance directly, or use the static <code>fromString</code> or <code>fromFile</code>  helpers.</p>
 <p>In all cases, you will end up with a <code>ReadingTime</code> object that you can use to get the reading time.</p>
-<pre><code class="language-php">// Via constructor
+<pre><code class="language-php">use Hyde\Support\ReadingTime;
+
+// Via constructor
 $time = new ReadingTime('Input text string');
 
 // Via static method
