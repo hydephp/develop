@@ -15,7 +15,6 @@ use Illuminate\Support\Str;
 use function Hyde\unslash;
 use function Hyde\path_join;
 use function Hyde\trim_slashes;
-use function extension_loaded;
 use function array_merge;
 
 /**
@@ -221,37 +220,9 @@ class MediaFile extends ProjectFile implements Stringable
         return Filesystem::size($this->getPath());
     }
 
-    /** @todo Move to Filesystem::findMimeType($path) */
     protected function findMimeType(): string
     {
-        $extension = $this->getExtension();
-
-        // See if we can find a mime type for the extension instead of
-        // having to rely on a PHP extension and filesystem lookups.
-        $lookup = [
-            'txt' => 'text/plain',
-            'md' => 'text/markdown',
-            'html' => 'text/html',
-            'css' => 'text/css',
-            'svg' => 'image/svg+xml',
-            'png' => 'image/png',
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'json' => 'application/json',
-            'js' => 'application/javascript',
-            'xml' => 'application/xml',
-        ];
-
-        if (isset($lookup[$extension])) {
-            return $lookup[$extension];
-        }
-
-        if (extension_loaded('fileinfo') && Filesystem::exists($this->getPath())) {
-            return Filesystem::mimeType($this->getPath());
-        }
-
-        return 'text/plain';
+        return Filesystem::findMimeType($this->getPath());
     }
 
     protected function findHash(): string
