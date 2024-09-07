@@ -447,6 +447,18 @@ class FilesystemFacadeTest extends TestCase
         rmdir(Hyde::path('foo'));
     }
 
+    public function testFindMimeType()
+    {
+        $this->file('test.txt', 'content');
+        $this->assertSame('text/plain', Filesystem::findMimeType('test.txt'));
+
+        $this->file('test.png', 'content');
+        $this->assertSame('image/png', Filesystem::findMimeType('test.png'));
+
+        $this->file('test.unknown', 'content');
+        $this->assertSame('text/plain', Filesystem::findMimeType('test.unknown'));
+    }
+
     protected function createExpectation(string $method, mixed $returns, ...$args): void
     {
         File::shouldReceive($method)->withArgs($args)->once()->andReturn($returns);
