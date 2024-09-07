@@ -102,33 +102,33 @@ class HyperlinksTest extends TestCase
         $this->assertSame('http://localhost/media/test.jpg?v=00000000', (string) $this->class->asset('http://localhost/media/test.jpg'));
     }
 
-    public function testMediaLinkHelper()
-    {
-        $this->assertSame('media/foo', $this->class->mediaLink('foo'));
-    }
-
-    public function testMediaLinkHelperWithRelativePath()
-    {
-        $this->mockCurrentPage('foo/bar');
-        $this->assertSame('../media/foo', $this->class->mediaLink('foo'));
-    }
-
-    public function testMediaLinkHelperUsesConfiguredMediaDirectory()
-    {
-        Hyde::setMediaDirectory('_assets');
-        $this->assertSame('assets/foo', $this->class->mediaLink('foo'));
-    }
-
-    public function testMediaLinkHelperWithValidationAndExistingFile()
+    public function testAssetHelper()
     {
         $this->file('_media/foo', 'test');
-        $this->assertSame('media/foo?v=accf8b33', $this->class->mediaLink('foo', true));
+        $class = $this->class;
+        $this->assertSame('media/foo?v=accf8b33', (string) $class->asset('foo'));
     }
 
-    public function testMediaLinkHelperWithValidationAndNonExistingFile()
+    public function testAssetHelperWithRelativePath()
+    {
+        $this->mockCurrentPage('foo/bar');
+        $this->file('_media/foo', 'test');
+        $class = $this->class;
+        $this->assertSame('../media/foo?v=accf8b33', (string) $class->asset('foo'));
+    }
+
+    public function testAssetHelperWithExistingFile()
+    {
+        $this->file('_media/foo', 'test');
+        $class = $this->class;
+        $this->assertSame('media/foo?v=accf8b33', (string) $class->asset('foo'));
+    }
+
+    public function testAssetHelperWithNonExistingFile()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->class->mediaLink('foo', true);
+        $class = $this->class;
+        (string) $class->asset('foo');
     }
 
     public function testRouteHelper()

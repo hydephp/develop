@@ -173,13 +173,15 @@ class HydeKernelTest extends TestCase
         $this->assertSame('../foo', Hyde::relativeLink('foo'));
     }
 
-    public function testMediaLinkHelperReturnsRelativeLinkToDestination()
+    public function testAssetHelperReturnsRelativeLinkToDestination()
     {
+        $this->file('_media/foo');
+
         Render::share('routeKey', 'bar');
-        $this->assertSame('media/foo', Hyde::mediaLink('foo'));
+        $this->assertSame('media/foo?v=00000000', (string) Hyde::asset('foo'));
 
         Render::share('routeKey', 'foo/bar');
-        $this->assertSame('../media/foo', Hyde::mediaLink('foo'));
+        $this->assertSame('../media/foo?v=00000000', (string) Hyde::asset('foo'));
     }
 
     public function testAssetHelperReturnsMediaFileInstanceForGivenName()

@@ -17,11 +17,11 @@ class AssetAPIFeatureTest extends TestCase
         // Tests for the Asset API, can be used to try out the PhpStorm autocompletion
 
         $conditions = [
-            'hasMediaFileTrue' => Asset::hasMediaFile('app.css'),
-            'hasMediaFileFalse' => Asset::hasMediaFile('missing.png'),
+            'hasMediaFileTrue' => \Hyde\Facades\Asset::hasMediaFile('app.css'),
+            'hasMediaFileFalse' => \Hyde\Facades\Asset::hasMediaFile('missing.png'),
             'getters' => [
-                Asset::mediaLink('app.css'),
-                Asset::get('app.css'),
+                (string) \Hyde\Facades\Asset::get('app.css'),
+                \Hyde\Facades\Asset::get('app.css'),
                 \Hyde::asset('app.css'),
                 \Hyde\Hyde::asset('app.css'),
                 Hyde::kernel()->asset('app.css'),
@@ -65,7 +65,6 @@ class AssetAPIFeatureTest extends TestCase
     {
         $view = /** @lang Blade */ <<<'Blade'
         @if(Asset::hasMediaFile('app.css'))
-            <link rel="stylesheet" href="{{ Asset::mediaLink('app.css') }}">
             <link rel="stylesheet" href="{{ Asset::get('app.css') }}">
             <link rel="stylesheet" href="{{ Hyde::asset('app.css') }}">
             <link rel="stylesheet" href="{{ asset('app.css') }}">
@@ -82,7 +81,6 @@ class AssetAPIFeatureTest extends TestCase
 
         $this->assertSame(<<<HTML
         <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
-            <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
             <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
             <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
         
