@@ -157,12 +157,4 @@ class Hyperlinks
     {
         return str_starts_with($url, 'http') || str_starts_with($url, '//');
     }
-
-    /**
-     * @deprecated Use the `MediaFile::getCacheBustKey` method instead.
-     */
-    public static function withCacheBusting(string $url, string $file): string
-    {
-        return $url.MediaFile::legacy_getCacheBustKey($file);
-    }
 }
