@@ -449,14 +449,101 @@ class FilesystemFacadeTest extends TestCase
 
     public function testFindMimeType()
     {
-        $this->file('test.txt', 'content');
-        $this->assertSame('text/plain', Filesystem::findMimeType('test.txt'));
+        // Test known extensions
+        $this->assertSame('text/plain', Filesystem::findMimeType('file.txt'));
+        $this->assertSame('text/markdown', Filesystem::findMimeType('file.md'));
+        $this->assertSame('text/html', Filesystem::findMimeType('file.html'));
+        $this->assertSame('text/css', Filesystem::findMimeType('file.css'));
+        $this->assertSame('image/svg+xml', Filesystem::findMimeType('file.svg'));
+        $this->assertSame('image/png', Filesystem::findMimeType('file.png'));
+        $this->assertSame('image/jpeg', Filesystem::findMimeType('file.jpg'));
+        $this->assertSame('image/jpeg', Filesystem::findMimeType('file.jpeg'));
+        $this->assertSame('image/gif', Filesystem::findMimeType('file.gif'));
+        $this->assertSame('application/json', Filesystem::findMimeType('file.json'));
+        $this->assertSame('application/javascript', Filesystem::findMimeType('file.js'));
+        $this->assertSame('application/xml', Filesystem::findMimeType('file.xml'));
 
-        $this->file('test.png', 'content');
-        $this->assertSame('image/png', Filesystem::findMimeType('test.png'));
+        // Test with remote URLs
+        $this->assertSame('text/plain', Filesystem::findMimeType('https://example.com/file.txt'));
+        $this->assertSame('text/markdown', Filesystem::findMimeType('https://example.com/file.md'));
+        $this->assertSame('text/html', Filesystem::findMimeType('https://example.com/file.html'));
+        $this->assertSame('text/css', Filesystem::findMimeType('https://example.com/file.css'));
+        $this->assertSame('image/svg+xml', Filesystem::findMimeType('https://example.com/file.svg'));
+        $this->assertSame('image/png', Filesystem::findMimeType('https://example.com/file.png'));
+        $this->assertSame('image/jpeg', Filesystem::findMimeType('https://example.com/file.jpg'));
+        $this->assertSame('image/jpeg', Filesystem::findMimeType('https://example.com/file.jpeg'));
+        $this->assertSame('image/gif', Filesystem::findMimeType('https://example.com/file.gif'));
+        $this->assertSame('application/json', Filesystem::findMimeType('https://example.com/file.json'));
+        $this->assertSame('application/javascript', Filesystem::findMimeType('https://example.com/file.js'));
+        $this->assertSame('application/xml', Filesystem::findMimeType('https://example.com/file.xml'));
 
-        $this->file('test.unknown', 'content');
-        $this->assertSame('text/plain', Filesystem::findMimeType('test.unknown'));
+        // Test unknown extension
+        $this->assertSame('text/plain', Filesystem::findMimeType('file.unknown'));
+
+        // Test file without extension
+        $this->assertSame('text/plain', Filesystem::findMimeType('file'));
+
+        // Test relative path
+        $this->assertSame('text/plain', Filesystem::findMimeType('path/to/file.txt'));
+
+        // Test absolute path
+        $this->assertSame('text/plain', Filesystem::findMimeType('/absolute/path/to/file.txt'));
+
+        // Test URL
+        $this->assertSame('text/html', Filesystem::findMimeType('https://example.com/page.html'));
+
+        // Test case sensitivity
+        $this->assertSame('text/plain', Filesystem::findMimeType('file.TXT'));
+
+        // Test fileinfo fallback for existing files where the extension is not in the lookup table
+        $this->file('text.unknown', 'text');
+        $this->assertSame('text/plain', Filesystem::findMimeType('text.unknown'));
+
+        $this->file('blank.unknown', '');
+        $this->assertSame('application/x-empty', Filesystem::findMimeType('blank.unknown'));
+
+        $this->file('empty.unknown');
+        $this->assertSame('application/x-empty', Filesystem::findMimeType('empty.unknown'));
+
+        $this->file('json.unknown', '{"key": "value"}');
+        $this->assertSame('application/json', Filesystem::findMimeType('json.unknown'));
+
+        $this->file('xml.unknown', '<?xml version="1.0" encoding="UTF-8"?><root></root>');
+        $this->assertSame('text/xml', Filesystem::findMimeType('xml.unknown'));
+
+        $this->file('html.unknown', '<!DOCTYPE html><html><head><title>Test</title></head><body></body></html>');
+        $this->assertSame('text/html', Filesystem::findMimeType('html.unknown'));
+
+        $this->file('yaml.unknown', 'key: value');
+        $this->assertSame('text/plain', Filesystem::findMimeType('yaml.unknown')); // YAML is not detected by fileinfo
+
+        $this->file('css.unknown', 'body { color: red; }');
+        $this->assertSame('text/plain', Filesystem::findMimeType('css.unknown')); // CSS is not detected by fileinfo
+
+        $this->file('js.unknown', 'console.log("Hello, World!");');
+        $this->assertSame('text/plain', Filesystem::findMimeType('js.unknown')); // JavaScript is not detected by fileinfo
+
+        $this->file('binary.unknown', "\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F"); // 16 bytes of binary data
+        $this->assertSame('application/octet-stream', Filesystem::findMimeType('binary.unknown'));
+
+        $this->file('png.unknown', base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAvM1P4AAAAASUVORK5CYII=')); // 1x1 transparent PNG
+        $this->assertSame('image/png', Filesystem::findMimeType('png.unknown'));
+
+        $this->file('jpeg.unknown', base64_decode('/9j/4AAQSkZJRgABAQEAYABgAAD/4QA6RXhpZgAATU0AKgAAAAgAA1IBAAABAAAAngIBAAABAAAAnwICAAABAAAAnQ==')); // 1x1 JPEG
+        $this->assertSame('image/jpeg', Filesystem::findMimeType('jpeg.unknown'));
+
+        $this->file('gif.unknown', base64_decode('R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=')); // 1x1 GIF
+        $this->assertSame('image/gif', Filesystem::findMimeType('gif.unknown'));
+
+        // Test non-existing file
+        $this->assertSame('text/plain', Filesystem::findMimeType('non_existing_file.txt'));
+
+        // Test it uses lookup before fileinfo (so lookup overrides fileinfo)
+        $this->file('file.png', 'Not PNG content');
+        $this->assertSame('image/png', Filesystem::findMimeType('file.png'));
+
+        $this->file('png.txt', base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAvM1P4AAAAASUVORK5CYII=')); // 1x1 transparent PNG
+        $this->assertSame('text/plain', Filesystem::findMimeType('png.txt'));
     }
 
     protected function createExpectation(string $method, mixed $returns, ...$args): void
