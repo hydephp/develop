@@ -83,7 +83,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     {
         if ($this->type === self::TYPE_LOCAL) {
             // Return value is always resolvable from a compiled page in the _site directory.
-            return Hyde::mediaLink($this->source);
+            return (string) Hyde::asset($this->source);
         }
 
         return $this->source;
