@@ -449,6 +449,17 @@ class FilesystemFacadeTest extends TestCase
         rmdir(Hyde::path('foo'));
     }
 
+    public function testFindMimeTypeLookup()
+    {
+        $this->assertSame('text/plain', Filesystem::findMimeType('test.txt'));
+    }
+
+    public function testFindMimeTypeWithKnownFile()
+    {
+        $this->file('test.txt', 'This is a test file.');
+        $this->assertSame('text/plain', Filesystem::findMimeType('test.txt'));
+    }
+
     public function testFindMimeTypeWithUnknownExtension()
     {
         $this->file('text.unknown', 'text');
