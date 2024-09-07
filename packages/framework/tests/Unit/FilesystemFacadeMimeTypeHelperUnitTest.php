@@ -14,9 +14,8 @@ class FilesystemFacadeMimeTypeHelperUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    public function testFindMimeType()
+    public function testFindMimeTypeWithKnownExtensions()
     {
-        // Test known extensions
         $this->assertSame('text/plain', Filesystem::findMimeType('file.txt'));
         $this->assertSame('text/markdown', Filesystem::findMimeType('file.md'));
         $this->assertSame('text/html', Filesystem::findMimeType('file.html'));
@@ -29,8 +28,10 @@ class FilesystemFacadeMimeTypeHelperUnitTest extends UnitTestCase
         $this->assertSame('application/json', Filesystem::findMimeType('file.json'));
         $this->assertSame('application/javascript', Filesystem::findMimeType('file.js'));
         $this->assertSame('application/xml', Filesystem::findMimeType('file.xml'));
+    }
 
-        // Test with remote URLs
+    public function testFindMimeTypeWithRemoteUrls()
+    {
         $this->assertSame('text/plain', Filesystem::findMimeType('https://example.com/file.txt'));
         $this->assertSame('text/markdown', Filesystem::findMimeType('https://example.com/file.md'));
         $this->assertSame('text/html', Filesystem::findMimeType('https://example.com/file.html'));
