@@ -14,35 +14,37 @@ class FilesystemFacadeMimeTypeHelperUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    public function testFindMimeTypeWithKnownExtensions()
+    /**
+     * @dataProvider mimeTypeProvider
+     */
+    public function testFindMimeTypeWithKnownExtensions(string $extension, string $expectedMimeType)
     {
-        $this->assertSame('text/plain', Filesystem::findMimeType('file.txt'));
-        $this->assertSame('text/markdown', Filesystem::findMimeType('file.md'));
-        $this->assertSame('text/html', Filesystem::findMimeType('file.html'));
-        $this->assertSame('text/css', Filesystem::findMimeType('file.css'));
-        $this->assertSame('image/svg+xml', Filesystem::findMimeType('file.svg'));
-        $this->assertSame('image/png', Filesystem::findMimeType('file.png'));
-        $this->assertSame('image/jpeg', Filesystem::findMimeType('file.jpg'));
-        $this->assertSame('image/jpeg', Filesystem::findMimeType('file.jpeg'));
-        $this->assertSame('image/gif', Filesystem::findMimeType('file.gif'));
-        $this->assertSame('application/json', Filesystem::findMimeType('file.json'));
-        $this->assertSame('application/javascript', Filesystem::findMimeType('file.js'));
-        $this->assertSame('application/xml', Filesystem::findMimeType('file.xml'));
+        $this->assertSame($expectedMimeType, Filesystem::findMimeType("file.$extension"));
     }
 
-    public function testFindMimeTypeWithRemoteUrls()
+    /**
+     * @dataProvider mimeTypeProvider
+     */
+    public function testFindMimeTypeWithRemoteUrls(string $extension, string $expectedMimeType)
     {
-        $this->assertSame('text/plain', Filesystem::findMimeType('https://example.com/file.txt'));
-        $this->assertSame('text/markdown', Filesystem::findMimeType('https://example.com/file.md'));
-        $this->assertSame('text/html', Filesystem::findMimeType('https://example.com/file.html'));
-        $this->assertSame('text/css', Filesystem::findMimeType('https://example.com/file.css'));
-        $this->assertSame('image/svg+xml', Filesystem::findMimeType('https://example.com/file.svg'));
-        $this->assertSame('image/png', Filesystem::findMimeType('https://example.com/file.png'));
-        $this->assertSame('image/jpeg', Filesystem::findMimeType('https://example.com/file.jpg'));
-        $this->assertSame('image/jpeg', Filesystem::findMimeType('https://example.com/file.jpeg'));
-        $this->assertSame('image/gif', Filesystem::findMimeType('https://example.com/file.gif'));
-        $this->assertSame('application/json', Filesystem::findMimeType('https://example.com/file.json'));
-        $this->assertSame('application/javascript', Filesystem::findMimeType('https://example.com/file.js'));
-        $this->assertSame('application/xml', Filesystem::findMimeType('https://example.com/file.xml'));
+        $this->assertSame($expectedMimeType, Filesystem::findMimeType("https://example.com/file.$extension"));
+    }
+
+    public static function mimeTypeProvider(): array
+    {
+        return [
+            ['txt', 'text/plain'],
+            ['md', 'text/markdown'],
+            ['html', 'text/html'],
+            ['css', 'text/css'],
+            ['svg', 'image/svg+xml'],
+            ['png', 'image/png'],
+            ['jpg', 'image/jpeg'],
+            ['jpeg', 'image/jpeg'],
+            ['gif', 'image/gif'],
+            ['json', 'application/json'],
+            ['js', 'application/javascript'],
+            ['xml', 'application/xml'],
+        ];
     }
 }
