@@ -205,14 +205,6 @@ No description provided.
 Hyde::relativeLink(string $destination): string
 ```
 
-#### `mediaLink()`
-
-No description provided.
-
-```php
-Hyde::mediaLink(string $destination, bool $validate): string
-```
-
 #### `asset()`
 
 No description provided.

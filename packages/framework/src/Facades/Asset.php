@@ -22,11 +22,6 @@ class Asset
         return hyde()->asset($file);
     }
 
-    public static function mediaLink(string $file): string
-    {
-        return hyde()->mediaLink($file);
-    }
-
     public static function hasMediaFile(string $file): bool
     {
         return file_exists(MediaFile::sourcePath($file));

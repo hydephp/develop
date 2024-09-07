@@ -14,7 +14,6 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use function str_ends_with;
 use function str_starts_with;
 use function substr_count;
-use function file_exists;
 use function str_replace;
 use function str_repeat;
 use function substr;
@@ -85,23 +84,6 @@ class Hyperlinks
         }
 
         return str_replace('//', '/', $route);
-    }
-
-    /**
-     * Gets a relative web link to the given file stored in the _site/media folder.
-     *
-     * @deprecated Use the `asset` method instead.
-     *
-     * An exception will be thrown if the file does not exist in the _media directory,
-     * and the second argument is set to true.
-     */
-    public function mediaLink(string $destination, bool $validate = false): string
-    {
-        if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
-            throw new FileNotFoundException($sourcePath);
-        }
-
-        return static::withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
     }
 
     /**
