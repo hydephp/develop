@@ -30,6 +30,36 @@ class FilesystemFacadeMimeTypeHelperUnitTest extends UnitTestCase
         $this->assertSame($expectedMimeType, Filesystem::findMimeType("https://example.com/file.$extension"));
     }
 
+    public function testFindMimeTypeWithUnknownExtension()
+    {
+        $this->assertSame('text/plain', Filesystem::findMimeType('file.unknown'));
+    }
+
+    public function testFindMimeTypeWithFileWithoutExtension()
+    {
+        $this->assertSame('text/plain', Filesystem::findMimeType('file'));
+    }
+
+    public function testFindMimeTypeWithRelativePath()
+    {
+        $this->assertSame('text/plain', Filesystem::findMimeType('path/to/file.txt'));
+    }
+
+    public function testFindMimeTypeWithAbsolutePath()
+    {
+        $this->assertSame('text/plain', Filesystem::findMimeType('/absolute/path/to/file.txt'));
+    }
+
+    public function testFindMimeTypeWithUrl()
+    {
+        $this->assertSame('text/html', Filesystem::findMimeType('https://example.com/page.html'));
+    }
+
+    public function testFindMimeTypeWithCaseSensitivity()
+    {
+        $this->assertSame('text/plain', Filesystem::findMimeType('file.TXT'));
+    }
+
     public static function mimeTypeProvider(): array
     {
         return [

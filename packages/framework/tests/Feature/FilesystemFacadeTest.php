@@ -451,24 +451,6 @@ class FilesystemFacadeTest extends TestCase
 
     public function testFindMimeType()
     {
-        // Test unknown extension
-        $this->assertSame('text/plain', Filesystem::findMimeType('file.unknown'));
-
-        // Test file without extension
-        $this->assertSame('text/plain', Filesystem::findMimeType('file'));
-
-        // Test relative path
-        $this->assertSame('text/plain', Filesystem::findMimeType('path/to/file.txt'));
-
-        // Test absolute path
-        $this->assertSame('text/plain', Filesystem::findMimeType('/absolute/path/to/file.txt'));
-
-        // Test URL
-        $this->assertSame('text/html', Filesystem::findMimeType('https://example.com/page.html'));
-
-        // Test case sensitivity
-        $this->assertSame('text/plain', Filesystem::findMimeType('file.TXT'));
-
         // Test fileinfo fallback for existing files where the extension is not in the lookup table
         $this->file('text.unknown', 'text');
         $this->assertSame('text/plain', Filesystem::findMimeType('text.unknown'));
