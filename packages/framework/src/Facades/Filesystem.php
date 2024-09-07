@@ -130,7 +130,8 @@ class Filesystem
     }
 
     /**
-     *  Find the MIME type of a file.
+     * Improved mime type detection for the given path that can be relative to the project root,
+     * or a remote URL where this will try to guess the mime type based on the file extension.
      *
      * @param  string  $path  The path to the file, relative to the project root or a remote URL.
      */
