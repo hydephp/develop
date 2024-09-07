@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Filesystem;
 
 use Hyde\Hyde;
+use Stringable;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
@@ -14,13 +15,14 @@ use Illuminate\Support\Str;
 use function Hyde\unslash;
 use function Hyde\path_join;
 use function Hyde\trim_slashes;
-use function extension_loaded;
 use function array_merge;
 
 /**
  * File abstraction for a project media file.
+ *
+ * All input paths are relative to the project's media source directory.
  */
-class MediaFile extends ProjectFile
+class MediaFile extends ProjectFile implements Stringable
 {
     /** @var array<string> The default extensions for media types */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
@@ -29,19 +31,40 @@ class MediaFile extends ProjectFile
     protected readonly string $mimeType;
     protected readonly string $hash;
 
+    /**
+     * Create a new MediaFile instance.
+     *
+     * @param  string  $path  The file path relative to the project root or media source directory.
+     *
+     * @throws FileNotFoundException If the file does not exist in the media source directory.
+     */
     public function __construct(string $path)
     {
         parent::__construct($this->getNormalizedPath($path));
     }
 
     /**
-     * Get an array of media asset filenames relative to the `_media/` directory.
-     *
-     * @return array<int, string> {@example `['app.css', 'images/logo.svg']`}
+     * Cast the instance to a string which is the resolved web link to the media file.
      */
-    public static function files(): array
+    public function __toString(): string
     {
-        return static::all()->keys()->all();
+        return $this->getLink();
+    }
+
+    /**
+     * Create a media file instance for the given file.
+     */
+    public static function make(string $path): static
+    {
+        return parent::make($path);
+    }
+
+    /**
+     * Get or create a media file instance from the HydeKernel for the given file.
+     */
+    public static function get(string $path): MediaFile
+    {
+        return Hyde::assets()->get($path) ?? static::make($path);
     }
 
     /**
@@ -52,6 +75,16 @@ class MediaFile extends ProjectFile
     public static function all(): Collection
     {
         return Hyde::assets();
+    }
+
+    /**
+     * Get an array of media asset filenames relative to the `_media/` directory.
+     *
+     * @return array<int, string> {@example `['app.css', 'images/logo.svg']`}
+     */
+    public static function files(): array
+    {
+        return static::all()->keys()->all();
     }
 
     /**
@@ -86,6 +119,57 @@ class MediaFile extends ProjectFile
         return Str::after($this->getPath(), Hyde::getMediaDirectory().'/');
     }
 
+    /**
+     * Get a relative web link to the media file.
+     */
+    public function getLink(): string
+    {
+        $name = $this->getIdentifier();
+
+        $name = Str::start($name, Hyde::getMediaOutputDirectory().'/');
+
+        if (Hyde::hasSiteUrl()) {
+            return Hyde::url($name).$this->getCacheBustKey();
+        }
+
+        return Hyde::relativeLink($name).$this->getCacheBustKey();
+    }
+
+    /**
+     * Get the content length of the file in bytes.
+     */
+    public function getContentLength(): int
+    {
+        $this->ensureInstanceIsBooted('length');
+
+        return $this->length;
+    }
+
+    /**
+     * Get the MIME type of the file.
+     */
+    public function getMimeType(): string
+    {
+        $this->ensureInstanceIsBooted('mimeType');
+
+        return $this->mimeType;
+    }
+
+    /**
+     * Get the CRC32 hash of the file.
+     */
+    public function getHash(): string
+    {
+        $this->ensureInstanceIsBooted('hash');
+
+        return $this->hash;
+    }
+
+    /**
+     * Get the file information as an array.
+     *
+     * @return array{name: string, path: string, length: int, mimeType: string, hash: string}
+     */
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
@@ -95,32 +179,18 @@ class MediaFile extends ProjectFile
         ]);
     }
 
-    public function getContentLength(): int
-    {
-        $this->ensureInstanceIsBooted('length');
-
-        return $this->length;
-    }
-
-    public function getMimeType(): string
-    {
-        $this->ensureInstanceIsBooted('mimeType');
-
-        return $this->mimeType;
-    }
-
-    public function getHash(): string
-    {
-        $this->ensureInstanceIsBooted('hash');
-
-        return $this->hash;
-    }
-
-    /** @internal */
-    public static function getCacheBustKey(string $file): string
+    /** @deprecated Use instance helper */
+    public static function legacy_getCacheBustKey(string $file): string
     {
         return Config::getBool('hyde.enable_cache_busting', true) && Filesystem::exists(static::sourcePath("$file"))
             ? '?v='.static::make($file)->getHash()
+            : '';
+    }
+
+    protected function getCacheBustKey(): string
+    {
+        return Config::getBool('hyde.enable_cache_busting', true)
+            ? '?v='.$this->getHash()
             : '';
     }
 
@@ -137,6 +207,11 @@ class MediaFile extends ProjectFile
         // Normalize the path to include the media directory
         $path = static::sourcePath(trim_slashes(Str::after($path, Hyde::getMediaDirectory())));
 
+        // Since assets need to exist on disk in order to be copied to the built site files we validate that the file is real here.
+        if (Filesystem::missing($path)) {
+            throw new FileNotFoundException($path, appendAfterPath: ' when trying to resolve a media asset.');
+        }
+
         return $path;
     }
 
@@ -145,37 +220,9 @@ class MediaFile extends ProjectFile
         return Filesystem::size($this->getPath());
     }
 
-    /** @todo Move to Filesystem::findMimeType($path) */
     protected function findMimeType(): string
     {
-        $extension = $this->getExtension();
-
-        // See if we can find a mime type for the extension instead of
-        // having to rely on a PHP extension and filesystem lookups.
-        $lookup = [
-            'txt' => 'text/plain',
-            'md' => 'text/markdown',
-            'html' => 'text/html',
-            'css' => 'text/css',
-            'svg' => 'image/svg+xml',
-            'png' => 'image/png',
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'json' => 'application/json',
-            'js' => 'application/javascript',
-            'xml' => 'application/xml',
-        ];
-
-        if (isset($lookup[$extension])) {
-            return $lookup[$extension];
-        }
-
-        if (extension_loaded('fileinfo') && Filesystem::exists($this->getPath())) {
-            return Filesystem::mimeType($this->getPath());
-        }
-
-        return 'text/plain';
+        return Filesystem::findMimeType($this->getPath());
     }
 
     protected function findHash(): string

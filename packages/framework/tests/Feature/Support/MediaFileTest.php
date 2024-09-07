@@ -113,7 +113,7 @@ class MediaFileTest extends TestCase
     {
         $this->file('_media/cachebust_test.js', 'console.log("Hello");');
 
-        $cacheBustKey = MediaFile::getCacheBustKey('cachebust_test.js');
+        $cacheBustKey = MediaFile::legacy_getCacheBustKey('cachebust_test.js');
 
         $this->assertStringStartsWith('?v=', $cacheBustKey);
         $this->assertSame('?v=cd5de5e7', $cacheBustKey); // Expect CRC32 hash

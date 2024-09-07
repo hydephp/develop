@@ -10,6 +10,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Hyde\Testing\CreatesTemporaryFiles;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * @covers \Hyde\Facades\Asset
@@ -33,7 +34,13 @@ class AssetFacadeUnitTest extends UnitTestCase
 
     public function testGetHelper()
     {
-        $this->assertSame(Hyde::asset('foo'), Asset::get('foo'));
+        $this->assertSame(Hyde::asset('app.css'), Asset::get('app.css'));
+    }
+
+    public function testGetHelperWithNonExistentFile()
+    {
+        $this->expectException(FileNotFoundException::class);
+        Asset::get('styles.css');
     }
 
     public function testHasMediaFileHelper()
@@ -46,30 +53,32 @@ class AssetFacadeUnitTest extends UnitTestCase
         $this->assertTrue(Asset::hasMediaFile('app.css'));
     }
 
-    public function testMediaLinkReturnsMediaPathWithCacheKey()
+    public function testAssetReturnsMediaPathWithCacheKey()
     {
-        $this->assertIsString($path = Asset::mediaLink('app.css'));
+        $this->assertIsString($path = (string) Asset::get('app.css'));
         $this->assertSame('media/app.css?v='.hash_file('crc32', Hyde::path('_media/app.css')), $path);
     }
 
-    public function testMediaLinkReturnsMediaPathWithoutCacheKeyIfCacheBustingIsDisabled()
+    public function testAssetReturnsMediaPathWithoutCacheKeyIfCacheBustingIsDisabled()
     {
         self::mockConfig(['hyde.enable_cache_busting' => false]);
 
-        $path = Asset::mediaLink('app.css');
+        $path = (string) Asset::get('app.css');
 
         $this->assertIsString($path);
         $this->assertSame('media/app.css', $path);
     }
 
-    public function testMediaLinkSupportsCustomMediaDirectories()
+    public function testAssetSupportsCustomMediaDirectories()
     {
-        $this->directory('_assets');
-        $this->file('_assets/app.css');
+        self::resetKernel();
 
         Hyde::setMediaDirectory('_assets');
 
-        $path = Asset::mediaLink('app.css');
+        $this->directory('_assets');
+        $this->file('_assets/app.css');
+
+        $path = (string) Asset::get('app.css');
 
         $this->assertIsString($path);
         $this->assertSame('assets/app.css?v='.hash_file('crc32', Hyde::path('_assets/app.css')), $path);

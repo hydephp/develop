@@ -17,14 +17,9 @@ use function file_exists;
  */
 class Asset
 {
-    public static function get(string $file): string
+    public static function get(string $file): MediaFile
     {
         return hyde()->asset($file);
-    }
-
-    public static function mediaLink(string $file): string
-    {
-        return hyde()->mediaLink($file);
     }
 
     public static function hasMediaFile(string $file): bool

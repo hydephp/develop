@@ -10,12 +10,10 @@ use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use Illuminate\Support\Str;
 
 use function str_ends_with;
 use function str_starts_with;
 use function substr_count;
-use function file_exists;
 use function str_replace;
 use function str_repeat;
 use function substr;
@@ -89,39 +87,17 @@ class Hyperlinks
     }
 
     /**
-     * Gets a relative web link to the given file stored in the _site/media folder.
-     *
-     * An exception will be thrown if the file does not exist in the _media directory,
-     * and the second argument is set to true.
-     */
-    public function mediaLink(string $destination, bool $validate = false): string
-    {
-        if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
-            throw new FileNotFoundException($sourcePath);
-        }
-
-        return $this->withCacheBusting($this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination"), $destination);
-    }
-
-    /**
-     * Gets a relative web link to the given file stored in the `_site/media` folder.
-     * If the image is already qualified (starts with `http`) it will be returned as is.
+     * Gets a MediaAsset instance for the given file stored in the `_site/media` folder.
+     * The returned value can be cast into a string in Blade views to resole the URL.
      *
      * If a base URL is configured, the image will be returned with a qualified absolute URL.
+     * Otherwise, a relative path will be returned based on the rendered page's location.
+     *
+     * @throws FileNotFoundException If the file does not exist in the `_media` directory in order to make the issue clear.
      */
-    public function asset(string $name): string
+    public function asset(string $name): MediaFile
     {
-        if (static::isRemote($name)) {
-            return $name;
-        }
-
-        $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
-
-        if ($this->hasSiteUrl()) {
-            return $this->withCacheBusting($this->url($name), $name);
-        }
-
-        return $this->withCacheBusting($this->relativeLink($name), $name);
+        return MediaFile::get($name);
     }
 
     /**
@@ -180,13 +156,5 @@ class Hyperlinks
     public static function isRemote(string $url): bool
     {
         return str_starts_with($url, 'http') || str_starts_with($url, '//');
-    }
-
-    /**
-     * Apply cache to the URL if enabled in the configuration.
-     */
-    protected function withCacheBusting(string $url, string $file): string
-    {
-        return $url.MediaFile::getCacheBustKey($file);
     }
 }

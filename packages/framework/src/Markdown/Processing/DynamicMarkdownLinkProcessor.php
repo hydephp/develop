@@ -66,7 +66,7 @@ class DynamicMarkdownLinkProcessor implements MarkdownPostProcessorContract
 
     protected static function assetPath(MediaFile $mediaFile): string
     {
-        return Hyde::asset(Str::after($mediaFile->getPath(), '_media/'));
+        return Hyde::asset(Str::after($mediaFile->getPath(), '_media/'))->getLink();
     }
 
     /** @internal Testing helper to reset the asset map cache. */

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 
+use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Hyde\Testing\UnitTestCase;
@@ -13,6 +15,17 @@ use Hyde\Testing\UnitTestCase;
  */
 class ShortcodeProcessorTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Todo: Fix coupling so we don't need to use the Render facade at all here.
+        Render::swap(new RenderData());
+    }
+
     public function testConstructorDiscoversDefaultShortcodes()
     {
         $shortcodes = (new ShortcodeProcessor('foo'))->getShortcodes();
