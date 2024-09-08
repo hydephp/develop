@@ -37,7 +37,7 @@ abstract class UnitTestCase extends BaseTestCase
         }
 
         if (static::$needsRender) {
-            Render::swap(new RenderData());
+            self::mockCurrentRouteKey();
         }
     }
 
