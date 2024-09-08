@@ -27,6 +27,8 @@ class NavigationItemTest extends UnitTestCase
 {
     protected function setUp(): void
     {
+        // Todo: Figure out why in the world we need this
+        self::$hasSetUpKernel = false;
 
         self::needsKernel();
         self::mockConfig();
