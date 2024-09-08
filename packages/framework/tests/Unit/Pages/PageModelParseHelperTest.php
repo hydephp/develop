@@ -19,6 +19,11 @@ class PageModelParseHelperTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
+    protected function tearDown(): void
+    {
+        $this->verifyMockeryExpectations();
+    }
+
     public function testBladePageGetHelperReturnsBladePageObject()
     {
         $this->mockFilesystemCalls('_pages/foo.blade.php');
