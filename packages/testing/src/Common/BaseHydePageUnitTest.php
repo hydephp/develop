@@ -26,7 +26,7 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
     {
         self::setupKernel();
         self::mockConfig();
-        self::mockCurrentRouteKey();
+        self::mockRender();
 
         View::swap($mock = Mockery::mock(Factory::class, [
             'make' => Mockery::mock(Factory::class, [

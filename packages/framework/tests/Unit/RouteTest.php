@@ -20,7 +20,7 @@ class RouteTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        self::mockCurrentRouteKey();
+        self::mockRender();
     }
 
     public function testConstructorCreatesRouteFromPageModel()

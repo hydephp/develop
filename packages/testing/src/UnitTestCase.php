@@ -37,7 +37,7 @@ abstract class UnitTestCase extends BaseTestCase
         }
 
         if (static::$needsRender) {
-            self::mockCurrentRouteKey();
+            self::mockRender();
         }
     }
 
@@ -50,6 +50,11 @@ abstract class UnitTestCase extends BaseTestCase
     protected static function resetKernel(): void
     {
         HydeKernel::setInstance(new HydeKernel());
+    }
+
+    protected static function mockRender(): void
+    {
+        Render::swap(new RenderData());
     }
 
     protected static function mockConfig(array $items = []): void
