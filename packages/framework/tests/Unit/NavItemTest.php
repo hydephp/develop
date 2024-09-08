@@ -25,18 +25,9 @@ use Mockery;
  */
 class NavItemTest extends UnitTestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        self::$hasSetUpKernel = false;
-
-        self::needsKernel();
-        self::mockConfig();
-    }
-
-    protected function setUp(): void
-    {
-        Render::swap(new RenderData());
-    }
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+    protected static bool $needsRender = true;
 
     public function testConstruct()
     {
@@ -129,6 +120,8 @@ class NavItemTest extends UnitTestCase
 
     public function testForRouteWithMissingRouteKey()
     {
+        self::resetKernel();
+
         $this->expectException(RouteNotFoundException::class);
         NavItem::forRoute('foo', 'foo');
     }
