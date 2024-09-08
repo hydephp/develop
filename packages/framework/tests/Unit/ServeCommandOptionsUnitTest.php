@@ -37,8 +37,6 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
 
         Mockery::close();
-
-        parent::tearDown();
     }
 
     public function testGetHostSelection()

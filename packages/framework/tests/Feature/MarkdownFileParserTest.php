@@ -35,8 +35,6 @@ class MarkdownFileParserTest extends UnitTestCase
     protected function tearDown(): void
     {
         Filesystem::unlink('_posts/test-post.md');
-
-        parent::tearDown();
     }
 
     public function testCanParseMarkdownFile()

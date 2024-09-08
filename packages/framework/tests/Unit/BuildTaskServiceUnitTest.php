@@ -45,8 +45,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
-
         $this->verifyMockeryExpectations();
     }
 
