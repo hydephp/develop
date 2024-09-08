@@ -46,9 +46,9 @@ abstract class UnitTestCase extends BaseTestCase
 
     protected static function mockRender(): Render
     {
-        Render::swap(new RenderData());
-
-        return new Render();
+        return tap(new Render(), function () {
+            Render::swap(new RenderData());
+        });
     }
 
     protected static function mockCurrentRouteKey(?string $routeKey = null): void
