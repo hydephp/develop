@@ -71,6 +71,14 @@ abstract class UnitTestCase extends BaseTestCase
         });
     }
 
+    /** @return \Illuminate\Filesystem\Filesystem&\Mockery\MockInterface */
+    protected function mockFilesystemStrict(array $methods = []): Filesystem
+    {
+        return tap(Mockery::mock(Filesystem::class, $methods), function ($filesystem) {
+            app()->instance(Filesystem::class, $filesystem);
+        });
+    }
+
     protected function verifyMockeryExpectations(): void
     {
         $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
