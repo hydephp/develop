@@ -69,4 +69,11 @@ abstract class UnitTestCase extends BaseTestCase
             app()->instance(Filesystem::class, $filesystem);
         });
     }
+
+    protected function verifyMockeryExpectations(): void
+    {
+        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
+
+        Mockery::close();
+    }
 }

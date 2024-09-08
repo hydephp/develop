@@ -56,8 +56,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         DataCollections::markdown('foo')->keys()->toArray();
 
-        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testFindMarkdownFilesWithNoFiles()
@@ -71,7 +70,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         $this->assertSame([], DataCollections::markdown('foo')->keys()->toArray());
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testFindMarkdownFilesWithFiles()
@@ -86,7 +85,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
         $this->assertSame(['bar.md'], DataCollections::markdown('foo')->keys()->toArray());
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()

@@ -321,13 +321,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         return tap(new BuildTaskService(), fn (BuildTaskService $service) => $this->service = $service);
     }
 
-    protected function verifyMockeryExpectations(): void
-    {
-        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
-
-        Mockery::close();
-    }
-
     protected function mockKernelFilesystem(array $files = []): void
     {
         $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])
