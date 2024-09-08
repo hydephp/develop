@@ -9,7 +9,6 @@ use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 
 use function str_ends_with;
 use function str_starts_with;
@@ -93,7 +92,7 @@ class Hyperlinks
      * If a base URL is configured, the image will be returned with a qualified absolute URL.
      * Otherwise, a relative path will be returned based on the rendered page's location.
      *
-     * @throws FileNotFoundException If the file does not exist in the `_media` directory in order to make the issue clear.
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory.
      */
     public function asset(string $name): MediaFile
     {

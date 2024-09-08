@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace {
     use Hyde\Foundation\HydeKernel;
     use Hyde\Support\Filesystem\MediaFile;
-    use Hyde\Framework\Exceptions\FileNotFoundException;
 
     if (! function_exists('hyde')) {
         /**
@@ -28,7 +27,7 @@ namespace {
              * If a base URL is configured, the image will be returned with a qualified absolute URL.
              * Otherwise, a relative path will be returned based on the rendered page's location.
              *
-             * @throws FileNotFoundException If the file does not exist in the `_media` directory in order to make the issue clear.
+             * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory.
              */
             function asset(string $name): MediaFile
             {
