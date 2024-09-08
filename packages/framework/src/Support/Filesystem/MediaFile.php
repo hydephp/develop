@@ -36,7 +36,7 @@ class MediaFile extends ProjectFile implements Stringable
      *
      * @param  string  $path  The file path relative to the project root or media source directory.
      *
-     * @throws FileNotFoundException If the file does not exist in the media source directory.
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the media source directory.
      */
     public function __construct(string $path)
     {
