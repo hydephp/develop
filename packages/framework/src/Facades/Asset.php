@@ -6,8 +6,6 @@ namespace Hyde\Facades;
 
 use Hyde\Support\Filesystem\MediaFile;
 
-use function file_exists;
-
 /**
  * Handles the retrieval of core asset files, either from the HydeFront CDN or from the local media folder.
  *
@@ -23,6 +21,6 @@ class Asset
 
     public static function exists(string $file): bool
     {
-        return file_exists(MediaFile::sourcePath($file));
+        return Filesystem::exists(MediaFile::sourcePath($file));
     }
 }
