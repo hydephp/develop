@@ -8,7 +8,6 @@ use Mockery;
 use Illuminate\View\Factory;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\View;
 use Hyde\Testing\CreatesTemporaryFiles;
 
@@ -27,6 +26,7 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
     {
         self::setupKernel();
         self::mockConfig();
+        self::mockCurrentRouteKey();
 
         View::swap($mock = Mockery::mock(Factory::class, [
             'make' => Mockery::mock(Factory::class, [
@@ -39,8 +39,6 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
         ]));
         app()->bind(\Illuminate\Contracts\View\Factory::class, fn () => $mock);
         app()->bind('view', fn () => $mock);
-
-        Render::swap(new RenderData());
     }
 
     protected function tearDown(): void
