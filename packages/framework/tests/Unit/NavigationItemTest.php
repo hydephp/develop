@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\InMemoryPage;
