@@ -12,14 +12,10 @@ use Hyde\Support\BuildWarnings;
 use Illuminate\Support\Facades\Http;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
 use function array_key_exists;
 use function array_flip;
-use function file_exists;
-use function filesize;
-use function sprintf;
 use function key;
 
 /**
@@ -214,13 +210,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForLocalImage(): int
     {
-        $storagePath = MediaFile::sourcePath($this->source);
-
-        if (! file_exists($storagePath)) {
-            throw new FileNotFoundException(customMessage: sprintf('Featured image [%s] not found.', Hyde::pathToRelative($storagePath)));
-        }
-
-        return filesize($storagePath);
+        return MediaFile::get($this->source)->getContentLength();
     }
 
     protected function getContentLengthForRemoteImage(): int
