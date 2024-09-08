@@ -6,7 +6,6 @@ namespace Hyde\Facades;
 
 use Hyde\Support\Filesystem\MediaFile;
 
-use function hyde;
 use function file_exists;
 
 /**
@@ -19,7 +18,7 @@ class Asset
 {
     public static function get(string $file): MediaFile
     {
-        return hyde()->asset($file);
+        return MediaFile::get($file);
     }
 
     public static function exists(string $file): bool
