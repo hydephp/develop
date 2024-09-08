@@ -13,13 +13,17 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class UnitTestCase extends BaseTestCase
 {
+    protected static bool $hasSetUpKernel = false;
+
     protected static bool $needsKernel = false;
     protected static bool $needsConfig = false;
     protected static bool $needsRender = false;
 
     protected static function needsKernel(): void
     {
-        self::setupKernel();
+        if (! self::$hasSetUpKernel) {
+            self::setupKernel();
+        }
     }
 
     public static function setUpBeforeClass(): void
@@ -40,6 +44,7 @@ abstract class UnitTestCase extends BaseTestCase
     protected static function setupKernel(): void
     {
         HydeKernel::setInstance(new HydeKernel());
+        self::$hasSetUpKernel = true;
     }
 
     protected static function resetKernel(): void
