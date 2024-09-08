@@ -57,16 +57,16 @@ abstract class UnitTestCase extends BaseTestCase
         Render::swap(new RenderData());
     }
 
+    protected static function mockCurrentRouteKey(?string $routeKey = null): void
+    {
+        Render::swap(new RenderData());
+        Render::shouldReceive('getRouteKey')->andReturn($routeKey);
+    }
+
     protected static function mockConfig(array $items = []): void
     {
         app()->bind('config', fn (): Repository => new Repository($items));
 
         Config::swap(app('config'));
-    }
-
-    protected static function mockCurrentRouteKey(?string $routeKey = null): void
-    {
-        Render::swap(new RenderData());
-        Render::shouldReceive('getRouteKey')->andReturn($routeKey);
     }
 }
