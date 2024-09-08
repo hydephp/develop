@@ -27,7 +27,7 @@ class NavItemTest extends UnitTestCase
 {
     public static function setUpBeforeClass(): void
     {
-        self::needsKernel();
+        self::resetKernel();
         self::mockConfig();
     }
 

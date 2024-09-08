@@ -33,7 +33,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
     {
         parent::setUp();
 
-        self::needsKernel();
+        self::resetKernel();
 
         $this->html ??= file_get_contents(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'));
     }

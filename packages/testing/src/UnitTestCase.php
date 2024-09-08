@@ -17,15 +17,10 @@ abstract class UnitTestCase extends BaseTestCase
     protected static bool $needsConfig = false;
     protected static bool $needsRender = false;
 
-    protected static function needsKernel(): void
-    {
-        self::setupKernel();
-    }
-
     public static function setUpBeforeClass(): void
     {
         if (static::$needsKernel) {
-            self::needsKernel();
+            self::resetKernel();
         }
 
         if (static::$needsConfig) {
