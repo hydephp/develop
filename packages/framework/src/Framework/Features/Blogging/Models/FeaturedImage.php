@@ -210,7 +210,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForLocalImage(): int
     {
-        return MediaFile::get($this->source)->getContentLength();
+        return MediaFile::get($this->source)->getLength();
     }
 
     protected function getContentLengthForRemoteImage(): int

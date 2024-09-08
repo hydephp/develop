@@ -162,7 +162,7 @@ class MediaFileUnitTest extends UnitTestCase
     public function testConstructorSetsProperties()
     {
         $file = new MediaFile('foo.txt');
-        $this->assertNotNull($file->getContentLength());
+        $this->assertNotNull($file->getLength());
         $this->assertNotNull($file->getMimeType());
         $this->assertNotNull($file->getHash());
     }
@@ -259,13 +259,13 @@ class MediaFileUnitTest extends UnitTestCase
         ], MediaFile::make('foo.txt')->toArray());
     }
 
-    public function testGetContentLength()
+    public function testGetLength()
     {
         $this->mockFilesystem->shouldReceive('size')
             ->with(Hyde::path('_media/foo'))
             ->andReturn(12);
 
-        $this->assertSame(12, MediaFile::make('foo')->getContentLength());
+        $this->assertSame(12, MediaFile::make('foo')->getLength());
     }
 
     public function testGetMimeType()
@@ -588,7 +588,7 @@ class MediaFileUnitTest extends UnitTestCase
     public static function bootableMethodsProvider(): array
     {
         return [
-            ['getContentLength'],
+            ['getLength'],
             ['getMimeType'],
             ['getHash'],
         ];

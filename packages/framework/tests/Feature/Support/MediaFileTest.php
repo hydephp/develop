@@ -64,7 +64,7 @@ class MediaFileTest extends TestCase
 
         $mediaFile = MediaFile::make('large_file.txt');
 
-        $this->assertSame(1024, $mediaFile->getContentLength());
+        $this->assertSame(1024, $mediaFile->getLength());
         $this->assertSame('text/plain', $mediaFile->getMimeType());
         $this->assertSame(hash('crc32', $content), $mediaFile->getHash());
     }
@@ -82,7 +82,7 @@ class MediaFileTest extends TestCase
     public function testMediaFileExceptionHandling()
     {
         $this->expectException(FileNotFoundException::class);
-        MediaFile::make('non_existent_file.txt')->getContentLength();
+        MediaFile::make('non_existent_file.txt')->getLength();
     }
 
     public function testMediaDirectoryCustomization()

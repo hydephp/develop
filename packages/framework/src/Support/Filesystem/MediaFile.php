@@ -138,7 +138,7 @@ class MediaFile extends ProjectFile implements Stringable
     /**
      * Get the content length of the file in bytes.
      */
-    public function getContentLength(): int
+    public function getLength(): int
     {
         $this->ensureInstanceIsBooted('length');
 
@@ -173,7 +173,7 @@ class MediaFile extends ProjectFile implements Stringable
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
-            'length' => $this->getContentLength(),
+            'length' => $this->getLength(),
             'mimeType' => $this->getMimeType(),
             'hash' => $this->getHash(),
         ]);
@@ -207,7 +207,7 @@ class MediaFile extends ProjectFile implements Stringable
         return $path;
     }
 
-    protected function findContentLength(): int
+    protected function findLength(): int
     {
         return Filesystem::size($this->getPath());
     }
@@ -231,7 +231,7 @@ class MediaFile extends ProjectFile implements Stringable
 
     protected function boot(): void
     {
-        $this->length = $this->findContentLength();
+        $this->length = $this->findLength();
         $this->mimeType = $this->findMimeType();
         $this->hash = $this->findHash();
     }
