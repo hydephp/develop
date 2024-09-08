@@ -9,7 +9,6 @@ use Hyde\Facades\Asset;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
-use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
@@ -17,19 +16,12 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
  */
 class AssetFacadeUnitTest extends UnitTestCase
 {
-    use CreatesTemporaryFiles;
-
     protected function setUp(): void
     {
         self::needsKernel();
         self::mockConfig();
 
         Render::swap(new RenderData());
-    }
-
-    protected function tearDown(): void
-    {
-        $this->cleanUpFilesystem();
     }
 
     public function testGetHelper()
@@ -67,20 +59,5 @@ class AssetFacadeUnitTest extends UnitTestCase
 
         $this->assertIsString($path);
         $this->assertSame('media/app.css', $path);
-    }
-
-    public function testAssetSupportsCustomMediaDirectories()
-    {
-        self::resetKernel();
-
-        Hyde::setMediaDirectory('_assets');
-
-        $this->directory('_assets');
-        $this->file('_assets/app.css');
-
-        $path = (string) Asset::get('app.css');
-
-        $this->assertIsString($path);
-        $this->assertSame('assets/app.css?v='.hash_file('crc32', Hyde::path('_assets/app.css')), $path);
     }
 }

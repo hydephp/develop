@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Hyde\Hyde;
+use Hyde\Facades\Asset;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\Blade;
@@ -122,6 +124,19 @@ class AssetAPIFeatureTest extends TestCase
 
         $this->assertSame(Hyde::path('_media/non_existent_file.txt'), MediaFile::sourcePath($nonExistentFile));
         $this->assertSame(Hyde::path('_site/media/non_existent_file.txt'), MediaFile::outputPath($nonExistentFile));
+    }
+
+    public function testAssetSupportsCustomMediaDirectories()
+    {
+        Hyde::setMediaDirectory('_assets');
+
+        $this->directory('_assets');
+        $this->file('_assets/app.css');
+
+        $path = (string) Asset::get('app.css');
+
+        $this->assertIsString($path);
+        $this->assertSame('assets/app.css?v='.hash_file('crc32', Hyde::path('_assets/app.css')), $path);
     }
 
     protected function getAppStylesVersion(): string
