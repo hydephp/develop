@@ -179,14 +179,6 @@ class MediaFile extends ProjectFile implements Stringable
         ]);
     }
 
-    /** @deprecated Use instance helper */
-    public static function legacy_getCacheBustKey(string $file): string
-    {
-        return Config::getBool('hyde.enable_cache_busting', true) && Filesystem::exists(static::sourcePath("$file"))
-            ? '?v='.static::make($file)->getHash()
-            : '';
-    }
-
     protected function getCacheBustKey(): string
     {
         return Config::getBool('hyde.enable_cache_busting', true)

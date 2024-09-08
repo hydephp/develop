@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Support;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Str;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 
@@ -113,7 +114,7 @@ class MediaFileTest extends TestCase
     {
         $this->file('_media/cachebust_test.js', 'console.log("Hello");');
 
-        $cacheBustKey = MediaFile::legacy_getCacheBustKey('cachebust_test.js');
+        $cacheBustKey = Str::after(MediaFile::make('cachebust_test.js')->getLink(), '.js');
 
         $this->assertStringStartsWith('?v=', $cacheBustKey);
         $this->assertSame('?v=cd5de5e7', $cacheBustKey); // Expect CRC32 hash
