@@ -26,9 +26,8 @@ class RenderHelperTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
+        self::mockRender();
 
-        Render::swap(new RenderData());
         View::swap(Mockery::mock(Factory::class)->makePartial());
     }
 

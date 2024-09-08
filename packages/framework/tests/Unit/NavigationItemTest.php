@@ -35,7 +35,7 @@ class NavigationItemTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        Render::swap(new RenderData());
+        self::mockRender();
     }
 
     public function testConstruct()
