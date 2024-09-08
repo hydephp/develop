@@ -9,13 +9,16 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Pages\Concerns\HydePage::parse
  */
-class PageModelParseHelperTest extends TestCase
+class PageModelParseHelperTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     public function testBladePageGetHelperReturnsBladePageObject()
     {
         Filesystem::touch('_pages/foo.blade.php');
