@@ -239,10 +239,6 @@ class MediaFile extends ProjectFile implements Stringable
 
     protected function boot(): void
     {
-        if (Filesystem::missing($this->getPath())) {
-            throw new FileNotFoundException($this->getPath());
-        }
-
         $this->length = $this->findContentLength();
         $this->mimeType = $this->findMimeType();
         $this->hash = $this->findHash();
