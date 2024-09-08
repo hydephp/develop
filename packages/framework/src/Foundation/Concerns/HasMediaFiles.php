@@ -6,13 +6,13 @@ namespace Hyde\Foundation\Concerns;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
 use Illuminate\Support\Collection;
 
 use function implode;
 use function collect;
 use function sprintf;
-use function glob;
 
 /**
  * @internal Single-use trait for the Filesystem class.
@@ -45,7 +45,7 @@ trait HasMediaFiles
 
     protected static function getMediaFiles(): array
     {
-        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
+        return Filesystem::glob(static::getMediaGlobPattern(), GLOB_BRACE) ?: [];
     }
 
     protected static function getMediaGlobPattern(): string
