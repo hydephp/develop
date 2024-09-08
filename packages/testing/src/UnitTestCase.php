@@ -65,10 +65,9 @@ abstract class UnitTestCase extends BaseTestCase
 
     protected function mockFilesystem(array $methods): Filesystem
     {
-        $filesystem = Mockery::mock(Filesystem::class, $methods)->makePartial();
-
-        app()->instance(Filesystem::class, $filesystem);
-
-        return $filesystem;
+        return tap(
+            Mockery::mock(Filesystem::class, $methods)->makePartial(),
+            fn ($filesystem) => app()->instance(Filesystem::class, $filesystem)
+        );
     }
 }
