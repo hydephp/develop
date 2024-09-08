@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Hyde;
+use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
@@ -50,6 +51,13 @@ class PageModelParseHelperTest extends UnitTestCase
         $this->mockFilesystemCalls('_docs/foo.md');
 
         $this->assertInstanceOf(DocumentationPage::class, DocumentationPage::parse('foo'));
+    }
+    
+    public function testHtmlPageGetHelperReturnsHtmlPageObject()
+    {
+        $this->mockFilesystemCalls('_pages/foo.html');
+
+        $this->assertInstanceOf(HtmlPage::class, HtmlPage::parse('foo'));
     }
 
     protected function mockFilesystemCalls(string $path): void
