@@ -52,15 +52,16 @@ abstract class UnitTestCase extends BaseTestCase
         HydeKernel::setInstance(new HydeKernel());
     }
 
-    protected static function mockRender(): void
+    protected static function mockRender(): Render
     {
         Render::swap(new RenderData());
+
+        return new Render();
     }
 
     protected static function mockCurrentRouteKey(?string $routeKey = null): void
     {
-        Render::swap(new RenderData());
-        Render::shouldReceive('getRouteKey')->andReturn($routeKey);
+        self::mockRender()->shouldReceive('getRouteKey')->andReturn($routeKey);
     }
 
     protected static function mockConfig(array $items = []): void
