@@ -7,18 +7,23 @@ namespace Hyde\Facades;
 use Hyde\Support\Filesystem\MediaFile;
 
 /**
- * Handles the retrieval of core asset files, either from the HydeFront CDN or from the local media folder.
+ * Simplified facade to interact with media files.
  *
- * This class provides static methods for interacting with versioned files,
- * as well as the HydeFront CDN service and the media directories.
+ * @see \Hyde\Support\Filesystem\MediaFile
  */
 class Asset
 {
+    /**
+     * Get a MediaFile instance for the given filename in the media source directory.
+     */
     public static function get(string $file): MediaFile
     {
         return MediaFile::get($file);
     }
 
+    /**
+     * Check if a media file exists in the source directory.
+     */
     public static function exists(string $file): bool
     {
         return Filesystem::exists(MediaFile::sourcePath($file));
