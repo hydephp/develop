@@ -22,7 +22,7 @@
             },
             "condition": [
                 {
-                    "methodNames": ["get", "hasMediaFile"],
+                    "methodNames": ["get", "exists"],
                     "place": "parameter",
                     "classFqn": ["\\Hyde\\Facades\\Asset"],
                     "parameters": [1]

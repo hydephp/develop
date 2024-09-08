@@ -22,8 +22,8 @@ class AssetAPIFeatureTest extends TestCase
         // Tests for the Asset API, can be used to try out the PhpStorm autocompletion
 
         $conditions = [
-            'hasMediaFileTrue' => \Hyde\Facades\Asset::hasMediaFile('app.css'),
-            'hasMediaFileFalse' => \Hyde\Facades\Asset::hasMediaFile('missing.png'),
+            'existsTrue' => \Hyde\Facades\Asset::exists('app.css'),
+            'existsFalse' => \Hyde\Facades\Asset::exists('missing.png'),
             'getters' => [
                 (string) \Hyde\Facades\Asset::get('app.css'),
                 \Hyde\Facades\Asset::get('app.css'),
@@ -44,8 +44,8 @@ class AssetAPIFeatureTest extends TestCase
         ];
 
         $this->assertEquals([
-            'hasMediaFileTrue' => true,
-            'hasMediaFileFalse' => false,
+            'existsTrue' => true,
+            'existsFalse' => false,
             'getters' => [
                 "media/app.css?v={$this->getAppStylesVersion()}",
                 MediaFile::get('app.css'),
@@ -69,13 +69,13 @@ class AssetAPIFeatureTest extends TestCase
     public function testAssetAPIUsagesInBladeViews()
     {
         $view = /** @lang Blade */ <<<'Blade'
-        @if(Asset::hasMediaFile('app.css'))
+        @if(Asset::exists('app.css'))
             <link rel="stylesheet" href="{{ Asset::get('app.css') }}">
             <link rel="stylesheet" href="{{ Hyde::asset('app.css') }}">
             <link rel="stylesheet" href="{{ asset('app.css') }}">
         @endif
         
-        @if(Asset::hasMediaFile('missing.png'))
+        @if(Asset::exists('missing.png'))
             Found missing.png
         @else
             Missing missing.png

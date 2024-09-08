@@ -45,12 +45,12 @@ class AssetFacadeUnitTest extends UnitTestCase
 
     public function testHasMediaFileHelper()
     {
-        $this->assertFalse(Asset::hasMediaFile('styles.css'));
+        $this->assertFalse(Asset::exists('styles.css'));
     }
 
     public function testHasMediaFileHelperReturnsTrueForExistingFile()
     {
-        $this->assertTrue(Asset::hasMediaFile('app.css'));
+        $this->assertTrue(Asset::exists('app.css'));
     }
 
     public function testAssetReturnsMediaPathWithCacheKey()
