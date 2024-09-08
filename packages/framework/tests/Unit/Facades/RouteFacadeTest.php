@@ -23,6 +23,11 @@ class RouteFacadeTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
+    protected function setUp(): void
+    {
+        Render::swap(new RenderData());
+    }
+
     public function testRouteFacadeAllMethodReturnsAllRoutes()
     {
         $this->assertSame(Hyde::routes(), Routes::all());
@@ -64,8 +69,6 @@ class RouteFacadeTest extends UnitTestCase
         Render::shouldReceive('getRoute')->andReturn($route);
 
         $this->assertSame($route, Routes::current());
-
-        $this->resetMockInstance();
     }
 
     public function testCurrentReturnsNullIfRouteIsNotFound()
@@ -73,8 +76,6 @@ class RouteFacadeTest extends UnitTestCase
         Render::shouldReceive('getRoute')->andReturn(null);
 
         $this->assertNull(Routes::current());
-
-        $this->resetMockInstance();
     }
 
     public function testExistsForExistingRoute()
@@ -85,10 +86,5 @@ class RouteFacadeTest extends UnitTestCase
     public function testExistsForNonExistingRoute()
     {
         $this->assertFalse(Routes::exists('not-found'));
-    }
-
-    protected function resetMockInstance(): void
-    {
-        Render::swap(new RenderData());
     }
 }
