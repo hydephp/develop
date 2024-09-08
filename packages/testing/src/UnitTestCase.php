@@ -58,9 +58,9 @@ abstract class UnitTestCase extends BaseTestCase
 
     protected static function mockConfig(array $items = []): void
     {
-        app()->bind('config', fn (): Repository => new Repository($items));
-
-        Config::swap(app('config'));
+        Config::swap(tap(new Repository($items), function ($config) {
+            app()->instance('config', $config);
+        }));
     }
 
     protected function mockFilesystem(array $methods): Filesystem
