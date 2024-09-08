@@ -11,7 +11,6 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
@@ -22,11 +21,6 @@ class RouteFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
-
-    protected function setUp(): void
-    {
-        Render::swap(new RenderData());
-    }
 
     public function testRouteFacadeAllMethodReturnsAllRoutes()
     {
@@ -66,6 +60,7 @@ class RouteFacadeTest extends UnitTestCase
     {
         $route = new Route(new MarkdownPage('foo'));
 
+        self::mockRender();
         Render::shouldReceive('getRoute')->andReturn($route);
 
         $this->assertSame($route, Routes::current());
@@ -73,6 +68,7 @@ class RouteFacadeTest extends UnitTestCase
 
     public function testCurrentReturnsNullIfRouteIsNotFound()
     {
+        self::mockRender();
         Render::shouldReceive('getRoute')->andReturn(null);
 
         $this->assertNull(Routes::current());
