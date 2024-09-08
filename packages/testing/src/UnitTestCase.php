@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Testing;
 
 use Hyde\Foundation\HydeKernel;
+use Hyde\Support\Facades\Render;
 use Illuminate\Config\Repository;
 use Illuminate\Support\Facades\Config;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -50,5 +51,10 @@ abstract class UnitTestCase extends BaseTestCase
         app()->bind('config', fn (): Repository => new Repository($items));
 
         Config::swap(app('config'));
+    }
+
+    protected static function mockCurrentRouteKey(string $routeKey): void
+    {
+        Render::shouldReceive('getRouteKey')->andReturn($routeKey);
     }
 }
