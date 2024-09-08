@@ -33,8 +33,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
         Blade::swap(Mockery::mock());
 
-        $this->setupTestKernel();
-        $this->kernel->setRoutes(collect());
+        $this->setupTestKernel()->setRoutes(collect());
     }
 
     protected function tearDown(): void
