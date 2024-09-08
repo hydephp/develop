@@ -17,6 +17,7 @@ abstract class UnitTestCase extends BaseTestCase
 
     protected static bool $needsKernel = false;
     protected static bool $needsConfig = false;
+    protected static bool $needsRender = false;
 
     protected static function needsKernel(): void
     {
@@ -33,6 +34,10 @@ abstract class UnitTestCase extends BaseTestCase
 
         if (static::$needsConfig) {
             self::mockConfig();
+        }
+
+        if (static::$needsRender) {
+            Render::swap(new RenderData());
         }
     }
 
