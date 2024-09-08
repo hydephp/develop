@@ -6,6 +6,7 @@ use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\Blade;
 use Hyde\Support\Filesystem\MediaFile;
+use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * High level test for the Asset API.
@@ -91,6 +92,36 @@ class AssetAPIFeatureTest extends TestCase
             Missing missing.png
 
         HTML, $html);
+    }
+
+    public function testThrowsExceptionForNonExistentMediaFile()
+    {
+        $nonExistentFile = 'non_existent_file.txt';
+
+        $accessors = [
+            fn () => \Hyde\Facades\Asset::get($nonExistentFile),
+            fn () => \Hyde::asset($nonExistentFile),
+            fn () => \Hyde\Hyde::asset($nonExistentFile),
+            fn () => Hyde::kernel()->asset($nonExistentFile),
+            fn () => HydeKernel::getInstance()->asset($nonExistentFile),
+            fn () => hyde()->asset($nonExistentFile),
+            fn () => asset($nonExistentFile),
+            fn () => new MediaFile($nonExistentFile),
+            fn () => MediaFile::make($nonExistentFile),
+            fn () => MediaFile::get($nonExistentFile),
+        ];
+
+        foreach ($accessors as $test => $accessor) {
+            try {
+                $accessor();
+                $this->fail('Expected exception to be thrown for syntax test #'.$test);
+            } catch (FileNotFoundException $exception) {
+                $this->assertSame('File [_media/non_existent_file.txt] not found when trying to resolve a media asset.', $exception->getMessage());
+            }
+        }
+
+        $this->assertSame(Hyde::path('_media/non_existent_file.txt'), MediaFile::sourcePath($nonExistentFile));
+        $this->assertSame(Hyde::path('_site/media/non_existent_file.txt'), MediaFile::outputPath($nonExistentFile));
     }
 
     protected function getAppStylesVersion(): string
