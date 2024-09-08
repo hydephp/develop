@@ -63,10 +63,12 @@ abstract class UnitTestCase extends BaseTestCase
         Config::swap(app('config'));
     }
 
-    protected function mockFilesystem(array $methods): void
+    protected function mockFilesystem(array $methods): Filesystem
     {
         $filesystem = Mockery::mock(Filesystem::class, $methods)->makePartial();
 
         app()->instance(Filesystem::class, $filesystem);
+
+        return $filesystem;
     }
 }
