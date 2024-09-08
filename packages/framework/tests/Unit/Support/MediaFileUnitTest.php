@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Support;
 
 use Mockery;
 use Illuminate\View\Factory;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -61,10 +62,6 @@ class MediaFileUnitTest extends UnitTestCase
         $this->mockFilesystem->shouldReceive('hash')->andReturn(hash('crc32', 'Hello World!'))->byDefault();
         $this->mockFilesystem->shouldReceive('get')->andReturn('Hello World!')->byDefault();
 
-        // Mock Hyde facade
-        $hyde = Mockery::mock(Hyde::kernel())->makePartial();
-        $hyde->shouldReceive('assets')->andReturn(collect(['app.css' => new MediaFile('_media/app.css')]))->byDefault();
-
         // Mock render data
         \Illuminate\Support\Facades\View::swap(Mockery::mock(Factory::class)->makePartial());
         Render::swap(new RenderData());
@@ -94,7 +91,16 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testCanGet()
     {
+        $kernel = HydeKernel::getInstance();
+
+        $hyde = Mockery::mock(Hyde::kernel())->makePartial();
+        $hyde->shouldReceive('assets')->andReturn(collect(['app.css' => new MediaFile('_media/app.css')]));
+
+        HydeKernel::setInstance($hyde);
+
         $this->assertEquals(new MediaFile('app.css'), MediaFile::get('app.css'));
+
+        HydeKernel::setInstance($kernel);
     }
 
     public function testCanConstructWithNestedPaths()
