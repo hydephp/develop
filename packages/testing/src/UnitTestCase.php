@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Testing;
 
+use Mockery;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Support\Facades\Render;
 use Illuminate\Config\Repository;
 use Hyde\Support\Models\RenderData;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -59,5 +61,12 @@ abstract class UnitTestCase extends BaseTestCase
         app()->bind('config', fn (): Repository => new Repository($items));
 
         Config::swap(app('config'));
+    }
+
+    protected function mockFilesystem(array $methods): void
+    {
+        $filesystem = Mockery::mock(Filesystem::class, $methods)->makePartial();
+
+        app()->instance(Filesystem::class, $filesystem);
     }
 }

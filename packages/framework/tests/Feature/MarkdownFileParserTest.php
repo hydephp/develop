@@ -4,23 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Illuminate\Filesystem\Filesystem;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\UnitTestCase;
-use Mockery;
 
 class MarkdownFileParserTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
-
-    protected function mockFilesystem(array $methods): void
-    {
-        $filesystem = Mockery::mock(Filesystem::class, $methods)->makePartial();
-
-        app()->instance(Filesystem::class, $filesystem);
-    }
 
     public function testCanParseMarkdownFile()
     {
