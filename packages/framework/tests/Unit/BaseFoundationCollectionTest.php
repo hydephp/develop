@@ -15,7 +15,7 @@ use Exception;
  */
 class BaseFoundationCollectionTest extends UnitTestCase
 {
-    public function testInit()
+    public function testBaseFoundationCollectionInitialization()
     {
         self::resetKernel();
 
