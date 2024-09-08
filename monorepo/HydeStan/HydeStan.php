@@ -20,6 +20,7 @@ final class HydeStan
     private const TEST_FILE_ANALYSERS = [
         NoFixMeAnalyser::class,
         NoUsingAssertEqualsForScalarTypesTestAnalyser::class,
+        NoParentSetUpTearDownInUnitTestCaseAnalyser::class,
     ];
 
     private const LINE_ANALYSERS = [
@@ -379,6 +380,27 @@ class NoTestReferenceAnalyser extends LineAnalyser
                 realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file,
                 $lineNumber + 1
             ));
+        }
+    }
+}
+
+class NoParentSetUpTearDownInUnitTestCaseAnalyser extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        if (! str_contains($contents, 'extends UnitTestCase')) {
+            return;
+        }
+
+        $methods = ['setUp', 'tearDown'];
+
+        foreach ($methods as $method) {
+            AnalysisStatisticsContainer::analysedExpression();
+            if (str_contains($contents, "parent::$method()")) {
+                $lineNumber = substr_count(substr($contents, 0, strpos($contents, $method)), "\n") + 1;
+                $this->fail(sprintf("Found '%s' method in UnitTestCase at %s", "parent::$method()", fileLink($file, $lineNumber, false)));
+                HydeStan::addActionsMessage('error', $file, $lineNumber, "HydeStan: UnnecessaryParent{$method}MethodError", "{$method} method in UnitTestCase performs no operation and should be removed.");
+            }
         }
     }
 }

@@ -51,11 +51,14 @@ function check_str_contains_any(array $searches, string $line): bool
     return $strContainsAny;
 }
 
-function fileLink(string $file, ?int $line = null): string
+function fileLink(string $file, ?int $line = null, bool $substr = true): string
 {
     $path = (realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file).($line ? ':'.$line : '');
-    $trim = strlen(getcwd()) + 2;
-    $path = substr($path, $trim);
+
+    if ($substr) {
+        $trim = strlen(getcwd()) + 2;
+        $path = substr($path, $trim);
+    }
 
     return str_replace('\\', '/', $path);
 }
