@@ -22,7 +22,7 @@ class Asset
         return hyde()->asset($file);
     }
 
-    public static function hasMediaFile(string $file): bool
+    public static function exists(string $file): bool
     {
         return file_exists(MediaFile::sourcePath($file));
     }
