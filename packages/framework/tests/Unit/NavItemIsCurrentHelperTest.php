@@ -23,11 +23,6 @@ class NavItemIsCurrentHelperTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
-    protected function tearDown(): void
-    {
-        Render::swap(new RenderData());
-    }
-
     public function testIsCurrent()
     {
         $this->mockRenderData($this->makeRoute('foo'));
