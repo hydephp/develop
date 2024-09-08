@@ -64,15 +64,9 @@ abstract class UnitTestCase extends BaseTestCase
     }
 
     /** @return \Illuminate\Filesystem\Filesystem&\Mockery\MockInterface */
-    protected function mockFilesystem(array $methods = [], bool $partial = true): Filesystem
+    protected function mockFilesystem(array $methods = []): Filesystem
     {
-        $mock = Mockery::mock(Filesystem::class, $methods);
-     
-        if ($partial) {
-            $mock->makePartial();
-        }
-     
-        return tap($mock, function ($filesystem) {
+        return tap(Mockery::mock(Filesystem::class, $methods)->makePartial(), function ($filesystem) {
             app()->instance(Filesystem::class, $filesystem);
         });
     }
