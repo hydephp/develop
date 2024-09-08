@@ -15,10 +15,11 @@ use Hyde\Testing\UnitTestCase;
  */
 class RouteTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     protected function setUp(): void
     {
-        self::setupKernel();
-        self::mockConfig();
         self::mockCurrentRouteKey();
     }
 
