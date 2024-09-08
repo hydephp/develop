@@ -56,7 +56,6 @@ class PageModelParseHelperTest extends UnitTestCase
     {
         $this->mockFilesystemStrict()
             ->shouldReceive('missing')->once()->with(Hyde::path($path))->andReturn(false)
-            ->shouldReceive('isFile')->once()->with(Hyde::path($path))->andReturn(true)
             ->shouldReceive('get')->once()->with(Hyde::path($path))->andReturn('foo');
     }
 }
