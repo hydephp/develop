@@ -21,10 +21,7 @@ class PageModelParseHelperTest extends UnitTestCase
 
     public function testBladePageGetHelperReturnsBladePageObject()
     {
-        $this->mockFilesystemStrict()
-            ->shouldReceive('missing')->with(Hyde::path('_pages/foo.blade.php'))->andReturn(false)
-            ->shouldReceive('isFile')->with(Hyde::path('_pages/foo.blade.php'))->andReturn(true)
-            ->shouldReceive('get')->with(Hyde::path('_pages/foo.blade.php'))->andReturn('foo');
+        $this->mockFilesystemCalls('_pages/foo.blade.php');
 
         $object = BladePage::parse('foo');
         $this->assertInstanceOf(BladePage::class, $object);
@@ -32,10 +29,7 @@ class PageModelParseHelperTest extends UnitTestCase
 
     public function testMarkdownPageGetHelperReturnsMarkdownPageObject()
     {
-        $this->mockFilesystemStrict()
-            ->shouldReceive('missing')->with(Hyde::path('_pages/foo.md'))->andReturn(false)
-            ->shouldReceive('isFile')->with(Hyde::path('_pages/foo.md'))->andReturn(true)
-            ->shouldReceive('get')->with(Hyde::path('_pages/foo.md'))->andReturn('foo');
+        $this->mockFilesystemCalls('_pages/foo.md');
 
         $object = MarkdownPage::parse('foo');
         $this->assertInstanceOf(MarkdownPage::class, $object);
@@ -43,10 +37,7 @@ class PageModelParseHelperTest extends UnitTestCase
 
     public function testMarkdownPostGetHelperReturnsMarkdownPostObject()
     {
-        $this->mockFilesystemStrict()
-            ->shouldReceive('missing')->with(Hyde::path('_posts/foo.md'))->andReturn(false)
-            ->shouldReceive('isFile')->with(Hyde::path('_posts/foo.md'))->andReturn(true)
-            ->shouldReceive('get')->with(Hyde::path('_posts/foo.md'))->andReturn('foo');
+        $this->mockFilesystemCalls('_posts/foo.md');
 
         $object = MarkdownPost::parse('foo');
         $this->assertInstanceOf(MarkdownPost::class, $object);
@@ -54,12 +45,17 @@ class PageModelParseHelperTest extends UnitTestCase
 
     public function testDocumentationPageGetHelperReturnsDocumentationPageObject()
     {
-        $this->mockFilesystemStrict()
-            ->shouldReceive('missing')->with(Hyde::path('_docs/foo.md'))->andReturn(false)
-            ->shouldReceive('isFile')->with(Hyde::path('_docs/foo.md'))->andReturn(true)
-            ->shouldReceive('get')->with(Hyde::path('_docs/foo.md'))->andReturn('foo');
+        $this->mockFilesystemCalls('_docs/foo.md');
 
         $object = DocumentationPage::parse('foo');
         $this->assertInstanceOf(DocumentationPage::class, $object);
+    }
+
+    protected function mockFilesystemCalls(string $path): void
+    {
+        $this->mockFilesystemStrict()
+            ->shouldReceive('missing')->with(Hyde::path($path))->andReturn(false)
+            ->shouldReceive('isFile')->with(Hyde::path($path))->andReturn(true)
+            ->shouldReceive('get')->with(Hyde::path($path))->andReturn('foo');
     }
 }
