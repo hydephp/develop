@@ -111,7 +111,7 @@ class ReadingTimeTest extends UnitTestCase
 
     public function testFromFile()
     {
-        app()->instance(Filesystem::class, Mockery::mock(Filesystem::class)->shouldReceive('get')->with(Hyde::path('foo.md'), false)->andReturn('Hello world')->getMock());
+        app()->instance(Filesystem::class, Mockery::mock(Filesystem::class)->shouldReceive('get')->with(Hyde::path('foo.md'))->andReturn('Hello world')->getMock());
 
         $this->assertInstanceOf(ReadingTime::class, ReadingTime::fromFile('foo.md'));
         $this->assertEquals(new ReadingTime('Hello world'), ReadingTime::fromFile('foo.md'));

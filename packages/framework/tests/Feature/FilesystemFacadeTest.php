@@ -80,16 +80,30 @@ class FilesystemFacadeTest extends TestCase
 
     public function testGetContents()
     {
-        $this->createExpectation('get', 'string', Hyde::path('path'), false);
+        $this->createExpectation('get', 'string', Hyde::path('path'));
 
         Filesystem::getContents('path');
     }
 
+    public function testGetContentsWithLock()
+    {
+        $this->createExpectation('get', 'string', Hyde::path('path'), true);
+
+        Filesystem::getContents('path', true);
+    }
+
     public function testPutContents()
     {
-        $this->createExpectation('put', true, Hyde::path('path'), 'string', false);
+        $this->createExpectation('put', true, Hyde::path('path'), 'string');
 
         Filesystem::putContents('path', 'string');
+    }
+
+    public function testPutContentsWithLock()
+    {
+        $this->createExpectation('put', true, Hyde::path('path'), 'string', true);
+
+        Filesystem::putContents('path', 'string', true);
     }
 
     public function testExists()
