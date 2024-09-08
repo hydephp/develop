@@ -53,7 +53,7 @@ abstract class UnitTestCase extends BaseTestCase
         Config::swap(app('config'));
     }
 
-    protected static function mockCurrentRouteKey(string $routeKey): void
+    protected static function mockCurrentRouteKey(string $routeKey = ''): void
     {
         Render::shouldReceive('getRouteKey')->andReturn($routeKey);
     }
