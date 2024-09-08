@@ -23,32 +23,28 @@ class PageModelParseHelperTest extends UnitTestCase
     {
         $this->mockFilesystemCalls('_pages/foo.blade.php');
 
-        $object = BladePage::parse('foo');
-        $this->assertInstanceOf(BladePage::class, $object);
+        $this->assertInstanceOf(BladePage::class, BladePage::parse('foo'));
     }
 
     public function testMarkdownPageGetHelperReturnsMarkdownPageObject()
     {
         $this->mockFilesystemCalls('_pages/foo.md');
 
-        $object = MarkdownPage::parse('foo');
-        $this->assertInstanceOf(MarkdownPage::class, $object);
+        $this->assertInstanceOf(MarkdownPage::class, MarkdownPage::parse('foo'));
     }
 
     public function testMarkdownPostGetHelperReturnsMarkdownPostObject()
     {
         $this->mockFilesystemCalls('_posts/foo.md');
 
-        $object = MarkdownPost::parse('foo');
-        $this->assertInstanceOf(MarkdownPost::class, $object);
+        $this->assertInstanceOf(MarkdownPost::class, MarkdownPost::parse('foo'));
     }
 
     public function testDocumentationPageGetHelperReturnsDocumentationPageObject()
     {
         $this->mockFilesystemCalls('_docs/foo.md');
 
-        $object = DocumentationPage::parse('foo');
-        $this->assertInstanceOf(DocumentationPage::class, $object);
+        $this->assertInstanceOf(DocumentationPage::class, DocumentationPage::parse('foo'));
     }
 
     protected function mockFilesystemCalls(string $path): void
