@@ -21,9 +21,7 @@ abstract class UnitTestCase extends BaseTestCase
 
     protected static function needsKernel(): void
     {
-        if (! static::$hasSetUpKernel) {
             self::setupKernel();
-        }
     }
 
     public static function setUpBeforeClass(): void

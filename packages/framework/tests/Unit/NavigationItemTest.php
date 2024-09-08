@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Hyde;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Pages\InMemoryPage;
@@ -27,9 +28,6 @@ class NavigationItemTest extends UnitTestCase
 {
     protected function setUp(): void
     {
-        // Todo: Figure out why in the world we need this
-        static::$hasSetUpKernel = false;
-
         self::needsKernel();
         self::mockConfig();
         self::mockRender();
