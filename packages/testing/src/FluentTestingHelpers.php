@@ -37,7 +37,11 @@ trait FluentTestingHelpers
      */
     protected function withSiteUrl(?string $url = 'https://example.com'): void
     {
-        config(['hyde.url' => $url]);
+        if ($this instanceof UnitTestCase) {
+            self::mockConfig(['hyde.url' => $url]);
+        } else {
+            config(['hyde.url' => $url]);
+        }
     }
 
     /**
