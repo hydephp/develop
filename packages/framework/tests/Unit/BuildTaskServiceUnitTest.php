@@ -156,7 +156,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testCanSetOutputWithOutputStyle()
     {
-        $this->can(fn () => $this->service->setOutput(Mockery::mock(OutputStyle::class)));
+        $this->can(fn () => $this->service->setOutput($this->mockOutput()));
     }
 
     public function testGenerateBuildManifestExtendsPostBuildTask()
@@ -255,7 +255,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPreBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
-        $output = Mockery::mock(OutputStyle::class)->makePartial();
+        $output = $this->mockOutput();
         $task = $this->setupMock(TestPreBuildTask::class, 'run')->with($output)->once()->getMock();
 
         $this->service->setOutput($output);
@@ -265,7 +265,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPostBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
-        $output = Mockery::mock(OutputStyle::class)->makePartial();
+        $output = $this->mockOutput();
         $task = $this->setupMock(TestPostBuildTask::class, 'run')->with($output)->once()->getMock();
 
         $this->service->setOutput($output);
@@ -335,6 +335,11 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     protected function setupMock(string $class, string $method): Mockery\ExpectationInterface|Mockery\Expectation|Mockery\HigherOrderMessage
     {
         return Mockery::mock($class)->makePartial()->shouldReceive($method)->once();
+    }
+
+    protected function mockOutput(): Mockery\LegacyMockInterface|Mockery\MockInterface|OutputStyle
+    {
+        return Mockery::mock(OutputStyle::class)->makePartial();
     }
 }
 
