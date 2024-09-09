@@ -35,6 +35,11 @@ class PageModelGetHelperTest extends UnitTestCase
             ->shouldReceive('glob')->once()->with(Hyde::path('_docs/{*,**/*}.md'), GLOB_BRACE)->andReturn([])->byDefault();
     }
 
+    protected function tearDown(): void
+    {
+        $this->verifyMockeryExpectations();
+    }
+
     public function testBladePageGetHelperReturnsBladePageCollection()
     {
         $this->shouldReceiveGlob('_pages/{*,**/*}.blade.php')->andReturn(['_pages/test-page.blade.php']);
