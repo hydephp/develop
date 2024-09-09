@@ -181,12 +181,12 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testCanRunPreBuildTasks()
     {
-        $this->can($this->service->runPreBuildTasks(...));
+        $this->can(fn () => $this->service->runPreBuildTasks(...));
     }
 
     public function testCanRunPostBuildTasks()
     {
-        $this->can($this->service->runPostBuildTasks(...));
+        $this->can(fn () => $this->service->runPostBuildTasks(...));
     }
 
     public function testCanRunPreBuildTasksWithTasks()
