@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Carbon;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 
@@ -14,12 +14,13 @@ use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
  *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePostCommandTest
  */
-class CreatesNewMarkdownPostFileTest extends TestCase
+class CreatesNewMarkdownPostFileTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     protected function setUp(): void
     {
-        parent::setUp();
-
         Carbon::setTestNow(Carbon::create(2024));
     }
 
