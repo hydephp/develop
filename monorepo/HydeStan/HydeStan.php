@@ -21,6 +21,7 @@ final class HydeStan
         NoFixMeAnalyser::class,
         NoUsingAssertEqualsForScalarTypesTestAnalyser::class,
         NoParentSetUpTearDownInUnitTestCaseAnalyser::class,
+        UnitTestCaseExtensionAnalyzer::class,
     ];
 
     private const LINE_ANALYSERS = [
@@ -401,6 +402,24 @@ class NoParentSetUpTearDownInUnitTestCaseAnalyser extends FileAnalyser
                 $this->fail(sprintf("Found '%s' method in UnitTestCase at %s", "parent::$method()", fileLink($file, $lineNumber, false)));
                 HydeStan::addActionsMessage('error', $file, $lineNumber, "HydeStan: UnnecessaryParent{$method}MethodError", "{$method} method in UnitTestCase performs no operation and should be removed.");
             }
+        }
+    }
+}
+
+class UnitTestCaseExtensionAnalyzer extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        // Check if the file is in the unit namespace
+        if (! str_contains($file, 'Unit')) {
+            return;
+        }
+
+        // Check if the class extends TestCase but not UnitTestCase
+        if (str_contains($contents, 'extends TestCase') && ! str_contains($contents, 'extends UnitTestCase')) {
+            $lineNumber = substr_count(substr($contents, 0, strpos($contents, 'extends TestCase')), "\n") + 1;
+
+            echo sprintf('Test in unit namespace extends TestCase instead of UnitTestCase at %s', fileLink($file, $lineNumber, false))."\n";
         }
     }
 }
