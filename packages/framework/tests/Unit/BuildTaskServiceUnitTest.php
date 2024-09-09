@@ -207,7 +207,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPreBuildTasksCallsHandleMethods()
     {
-        $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
+        $task = $this->setupMock(TestPreBuildTask::class, 'handle')->getMock();
 
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
@@ -215,7 +215,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPostBuildTasksCallsHandleMethods()
     {
-        $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('handle')->once()->getMock();
+        $task = $this->setupMock(TestPostBuildTask::class, 'handle')->getMock();
 
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
@@ -223,7 +223,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPreBuildTasksCallsRunMethods()
     {
-        $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
+        $task = $this->setupMock(TestPreBuildTask::class, 'run')->getMock();
 
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
@@ -231,7 +231,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPostBuildTasksCallsRunMethods()
     {
-        $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->once()->getMock();
+        $task = $this->setupMock(TestPostBuildTask::class, 'run')->getMock();
 
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
@@ -239,7 +239,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPreBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
     {
-        $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+        $task = $this->setupMock(TestPreBuildTask::class, 'run')->with(null)->once()->getMock();
 
         $this->service->registerTask($task);
         $this->service->runPreBuildTasks();
@@ -247,7 +247,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testRunPostBuildTasksCallsRunMethodsWithNullWhenServiceHasNoOutput()
     {
-        $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with(null)->once()->getMock();
+        $task = $this->setupMock(TestPostBuildTask::class, 'run')->with(null)->once()->getMock();
 
         $this->service->registerTask($task);
         $this->service->runPostBuildTasks();
@@ -256,7 +256,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testRunPreBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
-        $task = Mockery::mock(TestPreBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+        $task = $this->setupMock(TestPreBuildTask::class, 'run')->with($output)->once()->getMock();
 
         $this->service->setOutput($output);
         $this->service->registerTask($task);
@@ -266,7 +266,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testRunPostBuildTasksCallsRunMethodsWithOutputWhenServiceHasOutput()
     {
         $output = Mockery::mock(OutputStyle::class)->makePartial();
-        $task = Mockery::mock(TestPostBuildTask::class)->makePartial()->shouldReceive('run')->with($output)->once()->getMock();
+        $task = $this->setupMock(TestPostBuildTask::class, 'run')->with($output)->once()->getMock();
 
         $this->service->setOutput($output);
         $this->service->registerTask($task);
@@ -319,8 +319,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     protected function mockKernelFilesystem(array $files = []): void
     {
-        $filesystem = Mockery::mock(Filesystem::class, [HydeKernel::getInstance()])
-            ->makePartial()->shouldReceive('smartGlob')->once()
+        $filesystem = $this->setupMock(Filesystem::class, 'smartGlob')
             ->with('app/Actions/*BuildTask.php', 0)
             ->andReturn(collect($files))->getMock();
 
@@ -331,6 +330,11 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     protected function resetKernelInstance(): void
     {
         HydeKernel::setInstance(new HydeKernel());
+    }
+
+    protected function setupMock(string $class, string $method): Mockery\ExpectationInterface|Mockery\Expectation|Mockery\HigherOrderMessage
+    {
+        return Mockery::mock($class)->makePartial()->shouldReceive($method)->once();
     }
 }
 
