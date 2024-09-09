@@ -419,6 +419,8 @@ class UnitTestCaseExtensionAnalyzer extends FileAnalyser
         if (str_contains($contents, 'extends TestCase') && ! str_contains($contents, 'extends UnitTestCase')) {
             $lineNumber = substr_count(substr($contents, 0, strpos($contents, 'extends TestCase')), "\n") + 1;
 
+            todo(realpath(__DIR__.'/../../packages/framework/'.$file), $lineNumber, 'Refactor unit test to extend UnitTestCase instead of TestCase');
+
             echo sprintf('Test in unit namespace extends TestCase instead of UnitTestCase at %s', fileLink($file, $lineNumber, false))."\n";
         }
     }

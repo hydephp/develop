@@ -77,3 +77,61 @@ function recursiveFileFinder(string $directory): array
 
     return $files;
 }
+
+class TodoBuffer
+{
+    private static array $todos = [];
+
+    public static function add(string $file, int $line, string $todo): void
+    {
+        self::$todos[] = [
+            'file' => $file,
+            'line' => $line,
+            'todo' => $todo,
+        ];
+    }
+
+    public static function getTodos(): array
+    {
+        return self::$todos;
+    }
+
+    public static function writeTaskFile(): void
+    {
+        $todos = self::getTodos();
+
+        if (empty($todos)) {
+            return;
+        }
+
+        $taskFile = __DIR__.'/../todo.md';
+
+        $content = '# Todos'."\n\n";
+        $groupedTodos = [];
+
+        $baseDir = realpath(__DIR__.'/../../../');
+
+        foreach ($todos as $todo) {
+            $path = "{$todo['file']}:{$todo['line']}";
+            $path = str_replace('\\', '/', $path);
+
+            $path = substr($path, strlen($baseDir) + 1);
+
+            $groupedTodos[$todo['todo']][] = "[$path]($path)";
+        }
+
+        foreach ($groupedTodos as $todo => $items) {
+            $content .= "## $todo\n\n";
+            foreach ($items as $item) {
+                $content .= "- $item\n";
+            }
+        }
+
+        file_put_contents($taskFile, $content);
+    }
+}
+
+function todo(string $file, int $line, string $todo): void
+{
+    TodoBuffer::add($file, $line, $todo);
+}
