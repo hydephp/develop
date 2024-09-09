@@ -412,16 +412,26 @@ class UnitTestCaseExtensionAnalyzer extends FileAnalyser
     {
         // Check if the file is in the unit namespace
         if (! str_contains($file, 'Unit')) {
+            AnalysisStatisticsContainer::analysedExpression();
+
             return;
         }
+
+        AnalysisStatisticsContainer::analysedExpression();
 
         // Unit view tests are allowed to extend TestCase
         if (str_contains($file, 'ViewTest')) {
+            AnalysisStatisticsContainer::analysedExpression();
+
             return;
         }
 
+        AnalysisStatisticsContainer::analysedExpression();
+
         // Check if the class extends TestCase but not UnitTestCase
         if (str_contains($contents, 'extends TestCase') && ! str_contains($contents, 'extends UnitTestCase')) {
+            AnalysisStatisticsContainer::analysedExpressions(2);
+
             $lineNumber = substr_count(substr($contents, 0, strpos($contents, 'extends TestCase')), "\n") + 1;
 
             todo(realpath(__DIR__.'/../../packages/framework/'.$file), $lineNumber, 'Refactor unit test to extend UnitTestCase instead of TestCase');
