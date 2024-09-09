@@ -34,6 +34,13 @@ abstract class UnitTestCase extends BaseTestCase
         }
     }
 
+    public static function tearDownAfterClass(): void
+    {
+        if (app()->bound(Filesystem::class) && app()->make(Filesystem::class) instanceof Mockery\MockInterface) {
+            app()->forgetInstance(Filesystem::class);
+        }
+    }
+
     protected static function setupKernel(): void
     {
         HydeKernel::setInstance(new HydeKernel());
