@@ -9,14 +9,21 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 
 /**
  * @see \Hyde\Pages\Concerns\HydePage::all()
  */
-class PageModelGetHelperTest extends TestCase
+class PageModelGetHelperTest extends UnitTestCase
 {
+    protected static bool $needsConfig = true;
+
+    protected function setUp(): void
+    {
+        self::setupKernel();
+    }
+
     public function testBladePageGetHelperReturnsBladePageCollection()
     {
         $collection = BladePage::all();
