@@ -5,14 +5,21 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Facades\Author;
+use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
-use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Facades\Author
  */
-class AuthorTest extends TestCase
+class AuthorTest extends UnitTestCase
 {
+    protected function setUp(): void
+    {
+        self::mockConfig(['hyde.authors' => [
+            Author::create('mr_hyde', 'Mr. Hyde', 'https://hydephp.com'),
+        ]]);
+    }
+
     public function testCreate()
     {
         $author = Author::create('john_doe', 'John Doe', 'https://johndoe.com');
