@@ -415,6 +415,11 @@ class UnitTestCaseExtensionAnalyzer extends FileAnalyser
             return;
         }
 
+        // Unit view tests are allowed to extend TestCase
+        if (str_contains($file, 'ViewTest')) {
+            return;
+        }
+
         // Check if the class extends TestCase but not UnitTestCase
         if (str_contains($contents, 'extends TestCase') && ! str_contains($contents, 'extends UnitTestCase')) {
             $lineNumber = substr_count(substr($contents, 0, strpos($contents, 'extends TestCase')), "\n") + 1;
