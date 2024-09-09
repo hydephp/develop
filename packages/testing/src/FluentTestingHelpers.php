@@ -45,7 +45,7 @@ trait FluentTestingHelpers
      */
     protected function withoutSiteUrl(): void
     {
-        config(['hyde.url' => null]);
+        $this->withSiteUrl(null);
     }
 
     /** Assert that all the given variables are the same. */
