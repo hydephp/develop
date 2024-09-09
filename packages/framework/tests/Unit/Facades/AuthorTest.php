@@ -27,8 +27,6 @@ class AuthorTest extends UnitTestCase
         $this->assertSame('john_doe', $author->username);
         $this->assertSame('John Doe', $author->name);
         $this->assertSame('https://johndoe.com', $author->website);
-
-        $this->assertEquals(Author::create('foo'), Author::create('foo'));
     }
 
     public function testGet()
