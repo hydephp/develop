@@ -151,16 +151,12 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testCanSetOutputWithNull()
     {
-        $this->can(function () {
-            $this->service->setOutput(null);
-        });
+        $this->can(fn () => $this->service->setOutput(null));
     }
 
     public function testCanSetOutputWithOutputStyle()
     {
-        $this->can(function () {
-            $this->service->setOutput(Mockery::mock(OutputStyle::class));
-        });
+        $this->can(fn () => $this->service->setOutput(Mockery::mock(OutputStyle::class)));
     }
 
     public function testGenerateBuildManifestExtendsPostBuildTask()
