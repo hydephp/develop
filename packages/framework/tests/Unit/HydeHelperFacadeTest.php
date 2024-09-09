@@ -19,23 +19,16 @@ class HydeHelperFacadeTest extends UnitTestCase
 
     public function testFeaturesFacadeReturnsInstanceOfFeaturesClass()
     {
-        $this->assertInstanceOf(
-            Features::class,
-            Hyde::features()
-        );
+        $this->assertInstanceOf(Features::class, Hyde::features());
     }
 
     public function testFeaturesFacadeCanBeUsedToCallStaticMethodsOnFeaturesClass()
     {
-        $this->assertTrue(
-            Hyde::features()->hasMarkdownPosts()
-        );
+        $this->assertTrue(Hyde::features()->hasMarkdownPosts());
     }
 
     public function testHydeHasFeatureShorthandCallsStaticMethodOnFeaturesClass()
     {
-        $this->assertTrue(
-            Hyde::hasFeature(Feature::MarkdownPosts)
-        );
+        $this->assertTrue(Hyde::hasFeature(Feature::MarkdownPosts));
     }
 }
