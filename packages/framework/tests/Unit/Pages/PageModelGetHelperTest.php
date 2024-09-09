@@ -10,6 +10,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
+use Mockery\ExpectationInterface;
 use Illuminate\Support\Collection;
 
 /**
@@ -36,9 +37,8 @@ class PageModelGetHelperTest extends UnitTestCase
 
     public function testBladePageGetHelperReturnsBladePageCollection()
     {
-        $this->filesystem->shouldReceive('glob')->once()->with(Hyde::path('_pages/{*,**/*}.blade.php'), GLOB_BRACE)->andReturn(['_pages/test-page.blade.php']);
-        $this->filesystem->shouldReceive('missing')->once()->with(Hyde::path('_pages/test-page.blade.php'))->andReturnFalse();
-        $this->filesystem->shouldReceive('get')->once()->with(Hyde::path('_pages/test-page.blade.php'))->andReturn('content');
+        $this->shouldReceiveGlob('_pages/{*,**/*}.blade.php')->andReturn(['_pages/test-page.blade.php']);
+        $this->shouldFindFile('_pages/test-page.blade.php');
 
         $collection = BladePage::all();
         $this->assertCount(1, $collection);
@@ -48,9 +48,8 @@ class PageModelGetHelperTest extends UnitTestCase
 
     public function testMarkdownPageGetHelperReturnsMarkdownPageCollection()
     {
-        $this->filesystem->shouldReceive('glob')->once()->with(Hyde::path('_pages/{*,**/*}.md'), GLOB_BRACE)->andReturn(['_pages/test-page.md']);
-        $this->filesystem->shouldReceive('missing')->once()->with(Hyde::path('_pages/test-page.md'))->andReturnFalse();
-        $this->filesystem->shouldReceive('get')->once()->with(Hyde::path('_pages/test-page.md'))->andReturn('content');
+        $this->shouldReceiveGlob('_pages/{*,**/*}.md')->andReturn(['_pages/test-page.md']);
+        $this->shouldFindFile('_pages/test-page.md');
 
         $collection = MarkdownPage::all();
         $this->assertCount(1, $collection);
@@ -60,9 +59,8 @@ class PageModelGetHelperTest extends UnitTestCase
 
     public function testMarkdownPostGetHelperReturnsMarkdownPostCollection()
     {
-        $this->filesystem->shouldReceive('glob')->once()->with(Hyde::path('_posts/{*,**/*}.md'), GLOB_BRACE)->andReturn(['_posts/test-post.md']);
-        $this->filesystem->shouldReceive('missing')->once()->with(Hyde::path('_posts/test-post.md'))->andReturnFalse();
-        $this->filesystem->shouldReceive('get')->once()->with(Hyde::path('_posts/test-post.md'))->andReturn('content');
+        $this->shouldReceiveGlob('_posts/{*,**/*}.md')->andReturn(['_posts/test-post.md']);
+        $this->shouldFindFile('_posts/test-post.md');
 
         $collection = MarkdownPost::all();
         $this->assertCount(1, $collection);
@@ -72,13 +70,23 @@ class PageModelGetHelperTest extends UnitTestCase
 
     public function testDocumentationPageGetHelperReturnsDocumentationPageCollection()
     {
-        $this->filesystem->shouldReceive('glob')->once()->with(Hyde::path('_docs/{*,**/*}.md'), GLOB_BRACE)->andReturn(['_docs/test-page.md']);
-        $this->filesystem->shouldReceive('missing')->once()->with(Hyde::path('_docs/test-page.md'))->andReturnFalse();
-        $this->filesystem->shouldReceive('get')->once()->with(Hyde::path('_docs/test-page.md'))->andReturn('content');
+        $this->shouldReceiveGlob('_docs/{*,**/*}.md')->andReturn(['_docs/test-page.md']);
+        $this->shouldFindFile('_docs/test-page.md');
 
         $collection = DocumentationPage::all();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(DocumentationPage::class, $collection);
+    }
+
+    protected function shouldReceiveGlob(string $withPath): ExpectationInterface
+    {
+        return $this->filesystem->shouldReceive('glob')->once()->with(Hyde::path($withPath), GLOB_BRACE);
+    }
+
+    protected function shouldFindFile(string $file): void
+    {
+        $this->filesystem->shouldReceive('missing')->once()->with(Hyde::path($file))->andReturnFalse();
+        $this->filesystem->shouldReceive('get')->once()->with(Hyde::path($file))->andReturn('content');
     }
 }
