@@ -6,21 +6,25 @@ namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Hyperlinks;
+use Hyde\Testing\FluentTestingHelpers;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Hyperlinks
  * @covers \Hyde\Framework\Exceptions\BaseUrlNotSetException
  */
-class HyperlinksUrlPathHelpersTest extends TestCase
+class HyperlinksUrlPathHelpersTest extends UnitTestCase
 {
+    use FluentTestingHelpers;
+
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     protected Hyperlinks $class;
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->class = new Hyperlinks(HydeKernel::getInstance());
     }
 
@@ -118,7 +122,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testQualifiedUrlHelperWithAlreadyQualifiedUrlWhenSiteUrlIsSet()
     {
-        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+        self::mockConfig(['hyde.url' => 'https://example.com']);
 
         $this->assertSame('https://example.com/foo', $this->class->url('https://example.com/foo'));
         $this->assertSame('http://localhost/foo', $this->class->url('http://localhost/foo'));
@@ -126,7 +130,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testQualifiedUrlHelperWithAlreadyQualifiedUrlWhenSiteUrlIsSetToSomethingElse()
     {
-        $this->app['config']->set(['hyde.url' => 'my-site.com']);
+        self::mockConfig(['hyde.url' => 'my-site.com']);
 
         $this->assertSame('https://example.com/foo', $this->class->url('https://example.com/foo'));
         $this->assertSame('http://localhost/foo', $this->class->url('http://localhost/foo'));
@@ -141,7 +145,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testQualifiedUrlHelperWithAlreadyQualifiedUrlStillFormatsPathWhenSiteUrlIsSet()
     {
-        $this->app['config']->set(['hyde.url' => 'https://example.com']);
+        self::mockConfig(['hyde.url' => 'https://example.com']);
         $this->assertSame('https://example.com/foo/bar.html', $this->class->url('https://example.com/foo/bar.html'));
         $this->assertSame('http://localhost/foo/bar.html', $this->class->url('http://localhost/foo/bar.html'));
         $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar/'));
@@ -149,7 +153,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testQualifiedUrlHelperWithAlreadyQualifiedUrlStillFormatsPathWithPrettyUrls()
     {
-        $this->app['config']->set(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
         $this->assertSame('https://example.com/foo/bar', $this->class->url('https://example.com/foo/bar.html'));
         $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar.html'));
         $this->assertSame('http://localhost/foo/bar', $this->class->url('http://localhost/foo/bar/'));
@@ -177,7 +181,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHelperFallsBackToPrettyRelativeLinksWhenNoSiteUrlIsSetAndPrettyUrlsAreEnabled()
     {
-        config(['hyde.url' => '', 'hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.url' => '', 'hyde.pretty_urls' => true]);
 
         $this->assertSame('/', $this->class->url('index.html'));
         $this->assertSame('foo', $this->class->url('foo.html'));
@@ -197,7 +201,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHelperFallsBackToPrettyRelativeLinksWhenSiteUrlIsSetToLocalhostAndPrettyUrlsAreEnabled()
     {
-        config(['hyde.url' => 'http://localhost', 'hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.url' => 'http://localhost', 'hyde.pretty_urls' => true]);
 
         $this->assertSame('/', $this->class->url('index.html'));
         $this->assertSame('foo', $this->class->url('foo.html'));
@@ -214,7 +218,7 @@ class HyperlinksUrlPathHelpersTest extends TestCase
 
     public function testHelperReturnsExpectedStringWhenPrettyUrlsAreEnabled()
     {
-        config(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.url' => 'https://example.com', 'hyde.pretty_urls' => true]);
 
         $this->assertSame('https://example.com', $this->class->url('index.html'));
         $this->assertSame('https://example.com/foo', $this->class->url('foo.html'));
