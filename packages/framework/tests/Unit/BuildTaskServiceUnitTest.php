@@ -291,6 +291,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
             'app/Actions/GenerateRssFeedBuildTask.php' => GenerateRssFeed::class,
             'app/Actions/GenerateSearchBuildTask.php' => GenerateSearch::class,
         ];
+
         $this->mockKernelFilesystem($files);
 
         $this->can($this->createService(...));
