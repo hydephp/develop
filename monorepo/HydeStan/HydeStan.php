@@ -87,6 +87,8 @@ final class HydeStan
             $this->analyseFile($file, $this->getFileContents($file));
         }
 
+        $this->console->info('Finished analyzing files!');
+
         $this->runTestStan();
 
         $endTime = microtime(true) - $time;
