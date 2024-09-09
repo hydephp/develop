@@ -7,13 +7,16 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
  */
-class HydeHelperFacadeTest extends TestCase
+class HydeHelperFacadeTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     public function testFeaturesFacadeReturnsInstanceOfFeaturesClass()
     {
         $this->assertInstanceOf(
