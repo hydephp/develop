@@ -18,8 +18,6 @@ class AuthorFacadeTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         static $config = null;
 
         if ($config === null) {

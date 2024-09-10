@@ -5,10 +5,17 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Hyde;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
-class HydeFacadesAreAliasedInAppConfigTest extends TestCase
+class HydeFacadesAreAliasedInAppConfigTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
+    protected function setUp(): void
+    {
+        self::mockConfig(['app' => require Hyde::path('app/config.php')]);
+    }
+
     public function testAllFacadesAreAliasedInAppConfig()
     {
         $this->assertArrayHasKey('Hyde', config('app.aliases'));

@@ -8,6 +8,7 @@ use Mockery;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
+use AllowDynamicProperties;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
@@ -19,6 +20,7 @@ use Hyde\Testing\MocksKernelFeatures;
  *
  * @see \Hyde\Framework\Testing\Feature\IncludesFacadeTest
  */
+#[AllowDynamicProperties]
 class IncludesFacadeUnitTest extends UnitTestCase
 {
     use MocksKernelFeatures;
@@ -29,8 +31,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         Blade::swap(Mockery::mock());
 
         $this->setupTestKernel()->setRoutes(collect());
@@ -39,8 +39,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function tearDown(): void
     {
         Mockery::close();
-
-        parent::tearDown();
     }
 
     public function testPathReturnsTheIncludesDirectory()
@@ -63,7 +61,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.txt';
         $expected = 'foo bar';
 
-        $this->mockFilesystem(function ($filesystem) use ($expected, $filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($expected, $filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($expected);
         });
@@ -76,7 +74,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.txt';
         $default = 'default';
 
-        $this->mockFilesystem(function ($filesystem) use ($filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(false);
         });
 
@@ -90,7 +88,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $normalized = 'bar.txt';
         $expected = 'foo bar';
 
-        $this->mockFilesystem(function ($filesystem) use ($expected, $normalized) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($expected, $normalized) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($normalized))->andReturn(true);
             $filesystem->shouldReceive('get')->with($this->includesPath($normalized))->andReturn($expected);
         });
@@ -103,7 +101,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.html';
         $expected = '<h1>foo bar</h1>';
 
-        $this->mockFilesystem(function ($filesystem) use ($expected, $filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($expected, $filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($expected);
         });
@@ -116,7 +114,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.html';
         $default = '<h1>default</h1>';
 
-        $this->mockFilesystem(function ($filesystem) use ($filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(false);
         });
 
@@ -126,7 +124,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     public function testHtmlWithAndWithoutExtension()
     {
-        $this->mockFilesystem(function ($filesystem) {
+        $this->mockFilesystemFromClosure(function ($filesystem) {
             $filename = 'foo.html';
             $content = '<h1>foo bar</h1>';
 
@@ -142,7 +140,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.md';
         $expected = '<h1>foo bar</h1>';
 
-        $this->mockFilesystem(function ($filesystem) use ($filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
             $content = '# foo bar';
 
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
@@ -158,7 +156,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $default = '# default';
         $expected = '<h1>default</h1>';
 
-        $this->mockFilesystem(function ($filesystem) use ($filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(false);
         });
 
@@ -170,7 +168,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
     {
         $expected = '<h1>foo bar</h1>';
 
-        $this->mockFilesystem(function ($filesystem) {
+        $this->mockFilesystemFromClosure(function ($filesystem) {
             $content = '# foo bar';
             $filename = 'foo.md';
 
@@ -188,7 +186,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $filename = 'foo.blade.php';
         $expected = 'foo bar';
 
-        $this->mockFilesystem(function ($filesystem) use ($expected, $filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($expected, $filename) {
             $content = '{{ "foo bar" }}';
 
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
@@ -202,7 +200,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     public function testBladeWithAndWithoutExtension()
     {
-        $this->mockFilesystem(function ($filesystem) {
+        $this->mockFilesystemFromClosure(function ($filesystem) {
             $expected = 'foo bar';
             $content = '{{ "foo bar" }}';
             $filename = 'foo.blade.php';
@@ -222,7 +220,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $default = '{{ "default" }}';
         $expected = 'default';
 
-        $this->mockFilesystem(function ($filesystem) use ($default, $expected, $filename) {
+        $this->mockFilesystemFromClosure(function ($filesystem) use ($default, $expected, $filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(false);
 
             Blade::shouldReceive('render')->with($default)->andReturn($expected);
@@ -232,7 +230,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->assertHtmlStringIsSame($expected, Includes::blade($filename, $default));
     }
 
-    protected function mockFilesystem(Closure $config): void
+    protected function mockFilesystemFromClosure(Closure $config): void
     {
         $filesystem = Mockery::mock(Filesystem::class);
 

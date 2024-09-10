@@ -10,7 +10,9 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Models\Route;
+use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Support\Models\RenderData;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
@@ -22,11 +24,10 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;
     protected static bool $needsKernel = true;
-    protected static bool $needsRender = true;
 
     protected function setUp(): void
     {
-        parent::setUp();
+        Render::swap(new RenderData());
 
         Routes::addRoute(new Route(new BladePage('index')));
         Routes::addRoute(new Route(new MarkdownPost('post')));

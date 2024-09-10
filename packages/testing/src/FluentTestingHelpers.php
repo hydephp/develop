@@ -37,7 +37,11 @@ trait FluentTestingHelpers
      */
     protected function withSiteUrl(?string $url = 'https://example.com'): void
     {
-        config(['hyde.url' => $url]);
+        if ($this instanceof UnitTestCase) {
+            self::mockConfig(['hyde.url' => $url]);
+        } else {
+            config(['hyde.url' => $url]);
+        }
     }
 
     /**
@@ -45,7 +49,7 @@ trait FluentTestingHelpers
      */
     protected function withoutSiteUrl(): void
     {
-        config(['hyde.url' => null]);
+        $this->withSiteUrl(null);
     }
 
     /** Assert that all the given variables are the same. */

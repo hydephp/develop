@@ -15,9 +15,9 @@ use Exception;
  */
 class BaseFoundationCollectionTest extends UnitTestCase
 {
-    public function testInit()
+    public function testBaseFoundationCollectionInitialization()
     {
-        $this->needsKernel();
+        self::resetKernel();
 
         $booted = BaseFoundationCollectionTestClass::init(HydeKernel::getInstance())->boot();
 

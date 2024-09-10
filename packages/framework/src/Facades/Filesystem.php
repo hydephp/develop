@@ -113,7 +113,7 @@ class Filesystem
      */
     public static function getContents(string $path, bool $lock = false): string
     {
-        return self::get($path, $lock);
+        return self::get(...func_get_args());
     }
 
     /**
@@ -126,7 +126,7 @@ class Filesystem
      */
     public static function putContents(string $path, string $contents, bool $lock = false): bool|int
     {
-        return self::put($path, $contents, $lock);
+        return self::put(...func_get_args());
     }
 
     protected static function filesystem(): \Illuminate\Filesystem\Filesystem

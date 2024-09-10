@@ -25,12 +25,9 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
  */
 class NavigationItemTest extends UnitTestCase
 {
-    protected function setUp(): void
-    {
-        self::needsKernel();
-        self::mockConfig();
-        self::mockRender();
-    }
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+    protected static bool $needsRender = true;
 
     public function testConstruct()
     {
