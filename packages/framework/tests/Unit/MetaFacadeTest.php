@@ -6,20 +6,16 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Facades\Meta;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Facades\Meta
  */
-class MetaFacadeTest extends TestCase
+class MetaFacadeTest extends UnitTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        config(['hyde.meta' => []]);
-        $this->withoutSiteUrl();
-    }
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+    protected static bool $needsRender = true;
 
     public function testNameMethodReturnsAValidHtmlMetaString()
     {
