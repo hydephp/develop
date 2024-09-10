@@ -11,7 +11,7 @@ use Hyde\Testing\TestCase;
 /**
  * @covers \Hyde\Facades\Meta
  */
-class MetadataHelperTest extends TestCase
+class MetaFacadeTest extends TestCase
 {
     protected function setUp(): void
     {
