@@ -18,7 +18,7 @@ use Hyde\Testing\CreatesTemporaryFiles;
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
  * @covers \Hyde\Framework\Factories\BlogPostDataFactory
  */
-class PageModelConstructorsTest extends UnitTestCase
+class PageModelParsingTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;
 
