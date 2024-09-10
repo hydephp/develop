@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature;
+namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Facades\Filesystem;
-use Hyde\Hyde;
+use Hyde\Testing\UnitTestCase;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\CreatesTemporaryFiles;
 
 /**
  * Test the constructor actions and schema constructors for page models.
@@ -19,8 +18,18 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Factories\HydePageDataFactory
  * @covers \Hyde\Framework\Factories\BlogPostDataFactory
  */
-class PageModelConstructorsTest extends TestCase
+class PageModelParsingTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+    }
+
     public function testDynamicDataConstructorCanFindTitleFromFrontMatter()
     {
         $this->markdown('_pages/foo.md', '# Foo Bar', ['title' => 'My Title']);
@@ -55,13 +64,10 @@ class PageModelConstructorsTest extends TestCase
 
     public function testDocumentationPageParserCanGetGroupAutomaticallyFromNestedPage()
     {
-        mkdir(Hyde::path('_docs/foo'));
-        touch(Hyde::path('_docs/foo/bar.md'));
+        $this->directory('_docs/foo');
+        $this->file('_docs/foo/bar.md');
 
         $page = DocumentationPage::parse('foo/bar');
         $this->assertSame('foo', $page->navigationMenuGroup());
-
-        Filesystem::unlink('_docs/foo/bar.md');
-        rmdir(Hyde::path('_docs/foo'));
     }
 }
