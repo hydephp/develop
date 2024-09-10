@@ -19,58 +19,37 @@ class MetaFacadeTest extends UnitTestCase
 
     public function testNameMethodReturnsAValidHtmlMetaString()
     {
-        $this->assertEquals(
-            '<meta name="foo" content="bar">',
-            Meta::name('foo', 'bar')
-        );
+        $this->assertSame('<meta name="foo" content="bar">', (string) Meta::name('foo', 'bar'));
     }
 
     public function testPropertyMethodReturnsAValidHtmlMetaString()
     {
-        $this->assertEquals(
-            '<meta property="og:foo" content="bar">',
-            Meta::property('foo', 'bar')
-        );
+        $this->assertSame('<meta property="og:foo" content="bar">', (string) Meta::property('foo', 'bar'));
     }
 
     public function testPropertyMethodAcceptsPropertyWithOgPrefix()
     {
-        $this->assertEquals(
-            '<meta property="og:foo" content="bar">',
-            Meta::property('og:foo', 'bar')
-        );
+        $this->assertSame('<meta property="og:foo" content="bar">', (string) Meta::property('og:foo', 'bar'));
     }
 
     public function testPropertyMethodAcceptsPropertyWithoutOgPrefix()
     {
-        $this->assertEquals(
-            '<meta property="og:foo" content="bar">',
-            Meta::property('foo', 'bar')
-        );
+        $this->assertSame('<meta property="og:foo" content="bar">', (string) Meta::property('foo', 'bar'));
     }
 
     public function testLinkMethodReturnsAValidHtmlLinkString()
     {
-        $this->assertEquals(
-            '<link rel="foo" href="bar">',
-            Meta::link('foo', 'bar')
-        );
+        $this->assertSame('<link rel="foo" href="bar">', (string) Meta::link('foo', 'bar'));
     }
 
     public function testLinkMethodReturnsAValidHtmlLinkStringWithAttributes()
     {
-        $this->assertEquals(
-            '<link rel="foo" href="bar" title="baz">',
-            Meta::link('foo', 'bar', ['title' => 'baz'])
-        );
+        $this->assertSame('<link rel="foo" href="bar" title="baz">', (string) Meta::link('foo', 'bar', ['title' => 'baz']));
     }
 
     public function testLinkMethodReturnsAValidHtmlLinkStringWithMultipleAttributes()
     {
-        $this->assertEquals(
-            '<link rel="foo" href="bar" title="baz" type="text/css">',
-            Meta::link('foo', 'bar', ['title' => 'baz', 'type' => 'text/css'])
-        );
+        $this->assertSame('<link rel="foo" href="bar" title="baz" type="text/css">', (string) Meta::link('foo', 'bar', ['title' => 'baz', 'type' => 'text/css']));
     }
 
     public function testGetMethodReturnsGlobalMetadataBag()
