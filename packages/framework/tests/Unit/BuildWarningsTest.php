@@ -21,8 +21,6 @@ class BuildWarningsTest extends UnitTestCase
     protected function tearDown(): void
     {
         app()->forgetInstance(BuildWarnings::class);
-
-        parent::tearDown();
     }
 
     public function testGetInstance()

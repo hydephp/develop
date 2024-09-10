@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Arr;
+use AllowDynamicProperties;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Testing\MocksKernelFeatures;
 use Illuminate\Support\Facades\Blade;
@@ -28,6 +29,7 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
  * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  */
+#[AllowDynamicProperties]
 class NavigationAPITest extends TestCase
 {
     use MocksKernelFeatures;

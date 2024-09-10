@@ -12,6 +12,9 @@ $debug = in_array('--debug', $argv, true);
 $analyser = new HydeStan($debug);
 $analyser->run();
 
+// Todo: Could add a flag for this
+TodoBuffer::writeTaskFile();
+
 if ($analyser->hasErrors()) {
     exit(1);
 }

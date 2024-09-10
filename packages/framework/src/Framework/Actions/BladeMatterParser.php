@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
-use Hyde\Hyde;
 use RuntimeException;
+use Hyde\Facades\Filesystem;
 
-use function file_get_contents;
 use function str_ends_with;
 use function str_starts_with;
 use function substr_count;
@@ -53,7 +52,7 @@ class BladeMatterParser
 
     public static function parseFile(string $path): array
     {
-        return static::parseString(file_get_contents(Hyde::path($path)));
+        return static::parseString(Filesystem::getContents($path));
     }
 
     public static function parseString(string $contents): array

@@ -29,13 +29,16 @@ class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         View::swap(Mockery::mock(Factory::class)->makePartial());
         $this->renderData = new RenderData();
         Render::swap($this->renderData);
 
         self::mockConfig();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->verifyMockeryExpectations();
     }
 
     protected function createSidebar(): DocumentationSidebar
