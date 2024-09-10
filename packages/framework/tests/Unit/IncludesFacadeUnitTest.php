@@ -10,9 +10,7 @@ use Hyde\Hyde;
 use Hyde\Support\Includes;
 use AllowDynamicProperties;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Support\Facades\Render;
 use Illuminate\Support\HtmlString;
-use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Filesystem\Filesystem;
 use Hyde\Testing\MocksKernelFeatures;
@@ -29,14 +27,13 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
+    protected static bool $needsRender = true;
 
     protected function setUp(): void
     {
         Blade::swap(Mockery::mock());
 
-        $this->setupTestKernel();
-        $this->kernel->setRoutes(collect());
-        Render::swap(new RenderData());
+        $this->setupTestKernel()->setRoutes(collect());
     }
 
     protected function tearDown(): void
