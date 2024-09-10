@@ -26,8 +26,6 @@ class PostAuthorTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         self::resetKernel();
     }
 

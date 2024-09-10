@@ -35,8 +35,6 @@ class FilesystemTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->originalBasePath = Hyde::getBasePath();
         $this->filesystem = new Filesystem(Hyde::getInstance());
     }
@@ -44,8 +42,6 @@ class FilesystemTest extends UnitTestCase
     protected function tearDown(): void
     {
         Hyde::getInstance()->setBasePath($this->originalBasePath);
-
-        parent::tearDown();
     }
 
     public function testGetBasePathReturnsKernelsBasePath()

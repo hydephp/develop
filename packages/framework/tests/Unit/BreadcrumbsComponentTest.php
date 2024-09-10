@@ -23,7 +23,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
 {
     protected function setUp(): void
     {
-        self::needsKernel();
+        self::resetKernel();
         self::mockConfig();
     }
 
@@ -52,7 +52,7 @@ class BreadcrumbsComponentTest extends UnitTestCase
 
         $this->assertSame($view, (new BreadcrumbsComponent())->render());
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testCanGenerateBreadcrumbs()

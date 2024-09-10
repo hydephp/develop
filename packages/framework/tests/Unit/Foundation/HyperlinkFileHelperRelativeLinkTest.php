@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Hyde;
-use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\RenderData;
 use Hyde\Testing\InteractsWithPages;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Facades\View;
@@ -22,10 +20,10 @@ class HyperlinkFileHelperRelativeLinkTest extends UnitTestCase
 
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
+    protected static bool $needsRender = true;
 
     protected function setUp(): void
     {
-        Render::swap(new RenderData());
         View::swap(Mockery::mock(Factory::class)->makePartial());
     }
 

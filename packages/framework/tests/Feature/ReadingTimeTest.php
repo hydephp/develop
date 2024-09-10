@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Mockery;
 use Hyde\Hyde;
 use Hyde\Support\ReadingTime;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Filesystem\Filesystem;
 
 /**
  * @covers \Hyde\Support\ReadingTime
@@ -111,13 +109,12 @@ class ReadingTimeTest extends UnitTestCase
 
     public function testFromFile()
     {
-        app()->instance(Filesystem::class, Mockery::mock(Filesystem::class)->shouldReceive('get')->with(Hyde::path('foo.md'), false)->andReturn('Hello world')->getMock());
+        $this->mockFilesystemStrict()->shouldReceive('get')->twice()->with(Hyde::path('foo.md'))->andReturn('Hello world');
 
         $this->assertInstanceOf(ReadingTime::class, ReadingTime::fromFile('foo.md'));
         $this->assertEquals(new ReadingTime('Hello world'), ReadingTime::fromFile('foo.md'));
 
-        Mockery::close();
-        app()->forgetInstance(Filesystem::class);
+        $this->verifyMockeryExpectations();
     }
 
     protected function words(int $words): string

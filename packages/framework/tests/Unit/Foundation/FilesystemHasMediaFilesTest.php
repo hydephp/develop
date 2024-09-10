@@ -24,13 +24,13 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         $this->filesystem = new TestableFilesystem(Hyde::getInstance());
 
         $mock = Mockery::mock(BaseFilesystem::class)->makePartial();
         $mock->shouldReceive('missing')->andReturn(false)->byDefault();
         $mock->shouldReceive('size')->andReturn(100)->byDefault();
         $mock->shouldReceive('hash')->andReturn('hash')->byDefault();
+
         app()->instance(BaseFilesystem::class, $mock);
     }
 

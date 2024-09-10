@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Blade;
 /**
  * @covers \Hyde\Framework\Views\Components\LinkComponent
  */
-class LinkComponentTest extends TestCase
+class LinkComponentViewTest extends TestCase
 {
     public function testLinkComponentCanBeRendered()
     {

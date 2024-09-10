@@ -18,7 +18,7 @@ class AssetFacadeUnitTest extends UnitTestCase
 {
     protected function setUp(): void
     {
-        self::needsKernel();
+        self::setupKernel();
         self::mockConfig();
 
         Render::swap(new RenderData());

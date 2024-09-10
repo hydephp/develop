@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Config;
 
 beforeEach(function () {
     $this->mockConfig();
-    $this->needsKernel();
+    $this->setupKernel();
 });
 
 test('has feature method returns false when feature is disabled', function (Feature $feature) {

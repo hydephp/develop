@@ -20,6 +20,8 @@ final class HydeStan
     private const TEST_FILE_ANALYSERS = [
         NoFixMeAnalyser::class,
         NoUsingAssertEqualsForScalarTypesTestAnalyser::class,
+        NoParentSetUpTearDownInUnitTestCaseAnalyser::class,
+        UnitTestCaseExtensionAnalyzer::class,
     ];
 
     private const LINE_ANALYSERS = [
@@ -84,6 +86,8 @@ final class HydeStan
 
             $this->analyseFile($file, $this->getFileContents($file));
         }
+
+        $this->console->info('Finished analyzing files!');
 
         $this->runTestStan();
 
@@ -379,6 +383,62 @@ class NoTestReferenceAnalyser extends LineAnalyser
                 realpath(__DIR__.'/../../packages/framework/'.$file) ?: $file,
                 $lineNumber + 1
             ));
+        }
+    }
+}
+
+class NoParentSetUpTearDownInUnitTestCaseAnalyser extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        if (! str_contains($contents, 'extends UnitTestCase')) {
+            return;
+        }
+
+        $methods = ['setUp', 'tearDown'];
+
+        foreach ($methods as $method) {
+            AnalysisStatisticsContainer::analysedExpression();
+            if (str_contains($contents, "parent::$method()")) {
+                $lineNumber = substr_count(substr($contents, 0, strpos($contents, $method)), "\n") + 1;
+                $this->fail(sprintf("Found '%s' method in UnitTestCase at %s", "parent::$method()", fileLink($file, $lineNumber, false)));
+                HydeStan::addActionsMessage('error', $file, $lineNumber, "HydeStan: UnnecessaryParent{$method}MethodError", "{$method} method in UnitTestCase performs no operation and should be removed.");
+            }
+        }
+    }
+}
+
+class UnitTestCaseExtensionAnalyzer extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        // Check if the file is in the unit namespace
+        if (! str_contains($file, 'Unit')) {
+            AnalysisStatisticsContainer::analysedExpression();
+
+            return;
+        }
+
+        AnalysisStatisticsContainer::analysedExpression();
+
+        // Unit view tests are allowed to extend TestCase
+        if (str_contains($file, 'ViewTest')) {
+            AnalysisStatisticsContainer::analysedExpression();
+
+            return;
+        }
+
+        AnalysisStatisticsContainer::analysedExpression();
+
+        // Check if the class extends TestCase but not UnitTestCase
+        if (str_contains($contents, 'extends TestCase') && ! str_contains($contents, 'extends UnitTestCase')) {
+            AnalysisStatisticsContainer::analysedExpressions(2);
+
+            $lineNumber = substr_count(substr($contents, 0, strpos($contents, 'extends TestCase')), "\n") + 1;
+
+            todo(realpath(__DIR__.'/../../packages/framework/'.$file), $lineNumber, 'Refactor unit test to extend UnitTestCase instead of TestCase');
+
+            echo sprintf('Test in unit namespace extends TestCase instead of UnitTestCase at %s', fileLink($file, $lineNumber, false))."\n";
         }
     }
 }

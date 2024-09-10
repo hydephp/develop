@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
+use Hyde\Pages\BladePage;
+use Hyde\Facades\Filesystem;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
@@ -157,6 +160,36 @@ class MarkdownPostTest extends TestCase
 
         $page = MarkdownPost::make(matter: ['image' => 'foo.png']);
         $this->assertSame('assets/foo.png?v=98b41d87', $page->image->getSource());
+    }
+
+    public function testBlogPostCanBeCreatedWithoutFrontMatter()
+    {
+        file_put_contents(Hyde::path('_posts/test-post.md'), '# My New Post');
+
+        StaticPageBuilder::handle(MarkdownPost::get('test-post'));
+
+        $this->assertFileExists(Hyde::path('_site/posts/test-post.html'));
+
+        Filesystem::unlink('_posts/test-post.md');
+        Filesystem::unlink('_site/posts/test-post.html');
+    }
+
+    public function testBlogPostFeedCanBeRenderedWhenPostHasNoFrontMatter()
+    {
+        file_put_contents(Hyde::path('_posts/test-post.md'), '# My New Post');
+
+        // Create a temporary page to test the feed
+        copy(Hyde::vendorPath('resources/views/components/blog-post-feed.blade.php'),
+            Hyde::path('_pages/feed-test.blade.php')
+        );
+
+        StaticPageBuilder::handle(BladePage::get('feed-test'));
+
+        $this->assertFileExists(Hyde::path('_site/feed-test.html'));
+
+        Filesystem::unlink('_posts/test-post.md');
+        Filesystem::unlink('_pages/feed-test.blade.php');
+        Filesystem::unlink('_site/feed-test.html');
     }
 
     protected function setupMediaFileAndCacheBusting(bool $enableCacheBusting = false): void

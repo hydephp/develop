@@ -27,8 +27,6 @@ class DataCollectionUnitTest extends UnitTestCase
     protected function tearDown(): void
     {
         MockableDataCollection::tearDown();
-
-        parent::tearDown();
     }
 
     public function testClassHasStaticSourceDirectoryProperty()
@@ -58,46 +56,29 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testFindMarkdownFilesCallsProperGlobPattern()
     {
-        $filesystem = Mockery::mock(Filesystem::class, ['exists' => true]);
-        $filesystem->shouldReceive('glob')
-            ->with(Hyde::path('resources/collections/foo/*.{md}'), GLOB_BRACE)
-            ->once();
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystemFacade(['shouldReceiveGlob' => true]);
 
         DataCollection::markdown('foo')->keys()->toArray();
 
-        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testFindMarkdownFilesWithNoFiles()
     {
-        $filesystem = Mockery::mock(Filesystem::class, [
-            'exists' => true,
-            'glob' => [],
-        ]);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystemFacade();
 
         $this->assertSame([], DataCollection::markdown('foo')->keys()->toArray());
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testFindMarkdownFilesWithFiles()
     {
-        $filesystem = Mockery::mock(Filesystem::class, [
-            'exists' => true,
-            'glob' => ['bar.md'],
-            'get' => 'foo',
-        ]);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystemFacade(['glob' => ['bar.md']]);
 
         $this->assertSame(['bar.md'], DataCollection::markdown('foo')->keys()->toArray());
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
@@ -503,6 +484,28 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->expectExceptionMessage("Invalid Json in file: 'foo/control.json' (Control character error, possibly incorrectly encoded)");
 
         MockableDataCollection::json('foo');
+    }
+
+    protected function mockFilesystemFacade(array $config = []): void
+    {
+        $defaults = [
+            'exists' => true,
+            'glob' => [],
+            'get' => 'foo',
+        ];
+
+        $config = array_merge($defaults, $config);
+
+        $filesystem = Mockery::mock(Filesystem::class, $config);
+
+        if (isset($config['shouldReceiveGlob'])) {
+            $filesystem->shouldReceive('glob')
+                ->with(Hyde::path('resources/collections/foo/*.{md}'), GLOB_BRACE)
+                ->once()
+                ->andReturn($config['glob']);
+        }
+
+        app()->instance(Filesystem::class, $filesystem);
     }
 
     protected function assertMarkdownCollectionStructure(array $expected, DataCollection $collection): void

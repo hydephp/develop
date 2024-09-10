@@ -278,7 +278,7 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
 
     public static function pageTypeProvider(): array
     {
-        self::needsKernel();
+        self::setupKernel();
         self::mockConfig();
 
         return array_combine(

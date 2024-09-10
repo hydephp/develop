@@ -25,6 +25,6 @@ class MarkdownFacadeTest extends UnitTestCase
         $this->assertIsString($html);
         $this->assertSame("<h1>Hello World!</h1>\n", $html);
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 }

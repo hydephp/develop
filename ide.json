@@ -10,7 +10,7 @@
                 {
                     "methodNames": ["path"],
                     "place": "parameter",
-                    "classFqn": ["\\Hyde\\Hyde"],
+                    "classFqn": ["Hyde\\Foundation\\HydeKernel", "\\Hyde\\Hyde", "Hyde"],
                     "parameters": [1]
                 }
             ]

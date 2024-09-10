@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
-use Hyde\Facades\Filesystem;
 use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
@@ -15,33 +13,9 @@ class MarkdownFileParserTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    protected function makeTestPost(): void
-    {
-        Filesystem::putContents('_posts/test-post.md', <<<'MD'
-            ---
-            title: My New Post
-            category: blog
-            author: Mr. Hyde
-            ---
-
-            # My New Post
-
-            This is a post stub used in the automated tests
-
-            MD
-        );
-    }
-
-    protected function tearDown(): void
-    {
-        Filesystem::unlink('_posts/test-post.md');
-
-        parent::tearDown();
-    }
-
     public function testCanParseMarkdownFile()
     {
-        file_put_contents(Hyde::path('_posts/test-post.md'), 'Foo bar');
+        $this->mockFilesystem(['get' => 'Foo bar']);
 
         $document = MarkdownFileParser::parse('_posts/test-post.md');
 
@@ -52,7 +26,17 @@ class MarkdownFileParserTest extends UnitTestCase
 
     public function testCanParseMarkdownFileWithFrontMatter()
     {
-        $this->makeTestPost();
+        $this->mockFilesystem(['get' => <<<'MD'
+            ---
+            title: My New Post
+            category: blog
+            author: Mr. Hyde
+            ---
+
+            # My New Post
+
+            This is a post stub used in the automated tests
+            MD]);
 
         $document = MarkdownFileParser::parse('_posts/test-post.md');
 
@@ -76,7 +60,17 @@ class MarkdownFileParserTest extends UnitTestCase
 
     public function testParsedMarkdownPostContainsValidFrontMatter()
     {
-        $this->makeTestPost();
+        $this->mockFilesystem(['get' => <<<'MD'
+            ---
+            title: My New Post
+            category: blog
+            author: Mr. Hyde
+            ---
+
+            # My New Post
+
+            This is a post stub used in the automated tests
+            MD]);
 
         $post = MarkdownFileParser::parse('_posts/test-post.md');
 
@@ -87,7 +81,7 @@ class MarkdownFileParserTest extends UnitTestCase
 
     public function testCanParseMarkdownFileWithFrontMatterAndNoMarkdownBody()
     {
-        file_put_contents(Hyde::path('_posts/test-post.md'), "---\nfoo: bar\n---");
+        $this->mockFilesystem(['get' => "---\nfoo: bar\n---"]);
 
         $document = MarkdownFileParser::parse('_posts/test-post.md');
 

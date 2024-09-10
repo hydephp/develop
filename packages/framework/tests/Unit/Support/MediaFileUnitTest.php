@@ -47,8 +47,6 @@ class MediaFileUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->mockFilesystem = Mockery::mock(BaseFilesystem::class);
         app()->instance(BaseFilesystem::class, $this->mockFilesystem);
 
@@ -71,9 +69,7 @@ class MediaFileUnitTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
-
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testCanConstruct()

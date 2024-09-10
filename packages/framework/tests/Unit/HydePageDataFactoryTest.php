@@ -22,8 +22,6 @@ class HydePageDataFactoryTest extends UnitTestCase
     protected function tearDown(): void
     {
         self::mockConfig();
-
-        parent::tearDown();
     }
 
     public function testCanConstruct()

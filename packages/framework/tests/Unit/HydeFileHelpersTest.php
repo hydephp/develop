@@ -4,16 +4,29 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Mockery;
+use Illuminate\View\Factory;
+use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
-use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\View;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
  */
-class HydeFileHelpersTest extends TestCase
+class HydeFileHelpersTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function setUp(): void
+    {
+        self::mockRender();
+
+        View::swap(Mockery::mock(Factory::class)->makePartial());
+    }
+
     public function testCurrentPageReturnsCurrentPageViewProperty()
     {
         Render::share('routeKey', 'foo');

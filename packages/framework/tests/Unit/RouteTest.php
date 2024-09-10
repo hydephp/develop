@@ -6,8 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Support\Facades\Render;
-use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
@@ -17,11 +15,12 @@ use Hyde\Testing\UnitTestCase;
  */
 class RouteTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
     protected function setUp(): void
     {
-        self::setupKernel();
-        self::mockConfig();
-        Render::swap(new RenderData());
+        self::mockRender();
     }
 
     public function testConstructorCreatesRouteFromPageModel()
@@ -80,7 +79,7 @@ class RouteTest extends UnitTestCase
     public function testGetLinkReturnsCorrectPathForNestedCurrentPage()
     {
         $route = new Route(new MarkdownPage('foo'));
-        Render::shouldReceive('getRouteKey')->andReturn('foo/bar');
+        self::mockCurrentRouteKey('foo/bar');
 
         $this->assertSame(Hyde::relativeLink($route->getOutputPath()), $route->getLink());
         $this->assertSame('../foo.html', $route->getLink());

@@ -27,8 +27,6 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         Render::swap(new RenderData());
 
         Routes::addRoute(new Route(new BladePage('index')));
