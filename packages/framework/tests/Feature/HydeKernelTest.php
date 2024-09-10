@@ -360,6 +360,12 @@ class HydeKernelTest extends TestCase
         $this->assertSame('/foo', Hyde::getOutputDirectory());
     }
 
+    public function testSiteOutputDirectoryPathIsNormalizedToTrimTrailingSlashes()
+    {
+        Hyde::setOutputDirectory('foo/bar/');
+        $this->assertSame('foo/bar', Hyde::kernel()->getOutputDirectory());
+    }
+
     public function testCanGetMediaDirectory()
     {
         $this->assertSame('_media', Hyde::getMediaDirectory());

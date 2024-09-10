@@ -7,14 +7,16 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Concerns\ValidatesExistence;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\BladePage;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Concerns\ValidatesExistence
  * @covers \Hyde\Framework\Exceptions\FileNotFoundException
  */
-class ValidatesExistenceTest extends TestCase
+class ValidatesExistenceTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     public function testValidateExistenceDoesNothingIfFileExists()
     {
         $class = new ValidatesExistenceTestClass();

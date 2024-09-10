@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 
 use function basename;
-use function glob;
 use function str_starts_with;
 
 /**
@@ -59,7 +59,7 @@ final class FileCollection extends BaseFoundationCollection
     protected function discoverFilesFor(string $pageClass): void
     {
         // Scan the source directory, and directories therein, for files that match the model's file extension.
-        foreach (glob($this->kernel->path($pageClass::sourcePath('{*,**/*}')), GLOB_BRACE) as $path) {
+        foreach (Filesystem::smartGlob($pageClass::sourcePath('{*,**/*}'), GLOB_BRACE) as $path) {
             if (! str_starts_with(basename((string) $path), '_')) {
                 $this->addFile(SourceFile::make($path, $pageClass));
             }

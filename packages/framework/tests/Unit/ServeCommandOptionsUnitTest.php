@@ -34,11 +34,7 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
-
-        Mockery::close();
-
-        parent::tearDown();
+        $this->verifyMockeryExpectations();
     }
 
     public function testGetHostSelection()

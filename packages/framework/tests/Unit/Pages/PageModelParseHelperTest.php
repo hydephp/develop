@@ -4,55 +4,58 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use Hyde\Facades\Filesystem;
+use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
-use Hyde\Testing\TestCase;
+use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Pages\Concerns\HydePage::parse
  */
-class PageModelParseHelperTest extends TestCase
+class PageModelParseHelperTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function tearDown(): void
+    {
+        $this->verifyMockeryExpectations();
+    }
+
     public function testBladePageGetHelperReturnsBladePageObject()
     {
-        Filesystem::touch('_pages/foo.blade.php');
+        $this->mockFilesystemCalls('_pages/foo.blade.php');
 
-        $object = BladePage::parse('foo');
-        $this->assertInstanceOf(BladePage::class, $object);
-
-        Filesystem::unlink('_pages/foo.blade.php');
+        $this->assertInstanceOf(BladePage::class, BladePage::parse('foo'));
     }
 
     public function testMarkdownPageGetHelperReturnsMarkdownPageObject()
     {
-        Filesystem::touch('_pages/foo.md');
+        $this->mockFilesystemCalls('_pages/foo.md');
 
-        $object = MarkdownPage::parse('foo');
-        $this->assertInstanceOf(MarkdownPage::class, $object);
-
-        Filesystem::unlink('_pages/foo.md');
+        $this->assertInstanceOf(MarkdownPage::class, MarkdownPage::parse('foo'));
     }
 
     public function testMarkdownPostGetHelperReturnsMarkdownPostObject()
     {
-        Filesystem::touch('_posts/foo.md');
+        $this->mockFilesystemCalls('_posts/foo.md');
 
-        $object = MarkdownPost::parse('foo');
-        $this->assertInstanceOf(MarkdownPost::class, $object);
-
-        Filesystem::unlink('_posts/foo.md');
+        $this->assertInstanceOf(MarkdownPost::class, MarkdownPost::parse('foo'));
     }
 
     public function testDocumentationPageGetHelperReturnsDocumentationPageObject()
     {
-        Filesystem::touch('_docs/foo.md');
+        $this->mockFilesystemCalls('_docs/foo.md');
 
-        $object = DocumentationPage::parse('foo');
-        $this->assertInstanceOf(DocumentationPage::class, $object);
+        $this->assertInstanceOf(DocumentationPage::class, DocumentationPage::parse('foo'));
+    }
 
-        Filesystem::unlink('_docs/foo.md');
+    protected function mockFilesystemCalls(string $path): void
+    {
+        $this->mockFilesystemStrict()
+            ->shouldReceive('missing')->once()->with(Hyde::path($path))->andReturn(false)
+            ->shouldReceive('get')->once()->with(Hyde::path($path))->andReturn('foo');
     }
 }

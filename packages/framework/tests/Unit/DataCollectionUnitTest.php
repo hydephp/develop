@@ -47,50 +47,55 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testFindMarkdownFilesCallsProperGlobPattern()
     {
-        $filesystem = Mockery::mock(Filesystem::class, ['exists' => true]);
-        $filesystem->shouldReceive('glob')
-            ->with(Hyde::path('resources/collections/foo/*.{md}'), GLOB_BRACE)
-            ->once();
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystemFacade(['shouldReceiveGlob' => true]);
 
         DataCollections::markdown('foo')->keys()->toArray();
 
-        $this->addToAssertionCount(Mockery::getContainer()->mockery_getExpectationCount());
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testFindMarkdownFilesWithNoFiles()
     {
-        $filesystem = Mockery::mock(Filesystem::class, [
-            'exists' => true,
-            'glob' => [],
-        ]);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystemFacade();
 
         $this->assertSame([], DataCollections::markdown('foo')->keys()->toArray());
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testFindMarkdownFilesWithFiles()
     {
-        $filesystem = Mockery::mock(Filesystem::class, [
-            'exists' => true,
-            'glob' => ['bar.md'],
-            'get' => 'foo',
-        ]);
-
-        app()->instance(Filesystem::class, $filesystem);
+        $this->mockFilesystemFacade(['glob' => ['bar.md']]);
 
         $this->assertSame(['bar.md'], DataCollections::markdown('foo')->keys()->toArray());
 
-        Mockery::close();
+        $this->verifyMockeryExpectations();
     }
 
     public function testStaticMarkdownHelperReturnsNewDataCollectionInstance()
     {
         $this->assertInstanceOf(DataCollections::class, DataCollections::markdown('foo'));
+    }
+
+    protected function mockFilesystemFacade(array $config = []): void
+    {
+        $defaults = [
+            'exists' => true,
+            'glob' => [],
+            'get' => 'foo',
+        ];
+
+        $config = array_merge($defaults, $config);
+
+        $filesystem = Mockery::mock(Filesystem::class, $config);
+
+        if (isset($config['shouldReceiveGlob'])) {
+            $filesystem->shouldReceive('glob')
+                ->with(Hyde::path('resources/collections/foo/*.{md}'), GLOB_BRACE)
+                ->once()
+                ->andReturn($config['glob']);
+        }
+
+        app()->instance(Filesystem::class, $filesystem);
     }
 }
