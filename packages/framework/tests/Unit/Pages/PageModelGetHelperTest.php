@@ -77,7 +77,6 @@ class PageModelGetHelperTest extends UnitTestCase
     {
         $this->shouldReceiveGlob('_docs/{*,**/*}.md')->andReturn(['_docs/test-page.md']);
         $this->shouldFindFile('_docs/test-page.md');
-
         $collection = DocumentationPage::all();
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Collection::class, $collection);

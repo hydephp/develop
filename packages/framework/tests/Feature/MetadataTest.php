@@ -528,7 +528,7 @@ class MetadataTest extends TestCase
             ],
         ]);
 
-        $this->assertPageHasMetadata($page, '<meta name="author" content="username">');
+        $this->assertPageHasMetadata($page, '<meta name="author" content="Username">');
     }
 
     public function testDynamicPostAuthorReturnsAuthorNameWhenAuthorSetToArrayUsingName()

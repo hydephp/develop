@@ -168,6 +168,7 @@ class RealtimeCompilerTest extends UnitTestCase
     public function testDocsSearchRendersSearchPage()
     {
         $this->mockRoute('docs/search');
+        Filesystem::put('_docs/index.md', '# Hello World!');
 
         $kernel = new HttpKernel();
         $response = $kernel->handle(new Request());
@@ -177,6 +178,7 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertEquals('OK', $response->statusMessage);
         $this->assertStringContainsString('Search the documentation site', $response->body);
 
+        Filesystem::unlink('_docs/index.md');
         Filesystem::unlink('_site/docs/search.html');
     }
 

@@ -15,7 +15,7 @@ use Illuminate\Support\HtmlString;
  * @covers \Hyde\Markdown\Models\MarkdownDocument
  * @covers \Hyde\Markdown\Models\Markdown
  */
-class MarkdownDocumentTest extends TestCase
+class MarkdownHelpersTest extends TestCase
 {
     public function testConstructorCreatesNewMarkdownDocument()
     {
@@ -107,5 +107,31 @@ class MarkdownDocumentTest extends TestCase
 
         $markdown = new Markdown("foo\nbar");
         $this->assertSame("foo\nbar", $markdown->body());
+    }
+
+    public function testRender(): void
+    {
+        $html = Markdown::render('# Hello World!');
+
+        $this->assertIsString($html);
+        $this->assertSame("<h1>Hello World!</h1>\n", $html);
+    }
+
+    public function testRenderWithCustomHydeMarkdownFeatures()
+    {
+        $html = Markdown::render(<<<'MARKDOWN'
+        # Hello World
+        
+        >info Colored blockquote
+        
+        [Home](/_pages/index.blade.php)
+        MARKDOWN);
+
+        $this->assertSame(<<<'HTML'
+        <h1>Hello World</h1>
+        <blockquote class="info"><p>Colored blockquote</p></blockquote>
+        <p><a href="index.html">Home</a></p>
+
+        HTML, $html);
     }
 }

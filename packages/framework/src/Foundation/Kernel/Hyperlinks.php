@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Kernel;
 
 use Hyde\Facades\Config;
+use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
 
@@ -140,8 +140,9 @@ class Hyperlinks
      * Return a qualified URL to the supplied path if a base URL is set.
      *
      * @param  string  $path  An optional relative path suffix. Omit to return the base URL.
+     * @return string The qualified URL, or the base URL if no path is supplied.
      *
-     * @throws BaseUrlNotSetException If no site URL is set and no path is provided.
+     * @throws BadMethodCallException If the site URL is not set in the configuration and no path is supplied.
      */
     public function url(string $path = ''): string
     {
@@ -161,9 +162,8 @@ class Hyperlinks
             return $path;
         }
 
-        // User is trying to get the base URL, but it's not set
-        // This exception is deprecated and will be removed in v2.0.0, and we will throw a BadMethodCallException instead.
-        throw new BaseUrlNotSetException();
+        // User is trying to get the base URL, but it's not set, so we throw an exception.
+        throw new BadMethodCallException('The site URL is not set in the configuration.');
     }
 
     /**

@@ -51,7 +51,7 @@ class DocumentationPage extends BaseMarkdownPage
 
     public static function hasTableOfContents(): bool
     {
-        return Config::getBool('docs.table_of_contents.enabled', true);
+        return Config::getBool('docs.sidebar.table_of_contents.enabled', true);
     }
 
     /**
@@ -70,7 +70,7 @@ class DocumentationPage extends BaseMarkdownPage
     public function getRouteKey(): string
     {
         return Config::getBool('docs.flattened_output_paths', true)
-            ? unslash(static::outputDirectory().'/'.basename($this->identifier))
+            ? unslash(static::outputDirectory().'/'.basename(parent::getRouteKey()))
             : parent::getRouteKey();
     }
 

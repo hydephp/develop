@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use BadMethodCallException;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
@@ -142,13 +143,9 @@ class HelpersTest extends TestCase
     /** @covers ::route */
     public function testRouteFunctionWithInvalidRoute()
     {
-        $this->assertNull(route('foo'));
-    }
+        $this->expectException(\Hyde\Framework\Exceptions\RouteNotFoundException::class);
 
-    /** @covers ::route */
-    public function testRouteFunctionReturnsNullForNonExistentRoute()
-    {
-        $this->assertNull(route('nonexistent'));
+        route('invalid');
     }
 
     /** @covers ::url */
@@ -182,7 +179,7 @@ class HelpersTest extends TestCase
     public function testUrlFunctionWithoutBaseUrlOrPath()
     {
         $this->app['config']->set(['hyde.url' => null]);
-        $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
+        $this->expectException(BadMethodCallException::class);
         $this->assertNull(url());
     }
 
@@ -190,7 +187,7 @@ class HelpersTest extends TestCase
     public function testUrlFunctionWithLocalhostBaseUrlButNoPath()
     {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
-        $this->expectException(\Hyde\Framework\Exceptions\BaseUrlNotSetException::class);
+        $this->expectException(BadMethodCallException::class);
         $this->assertNull(url());
     }
 

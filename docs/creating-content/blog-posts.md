@@ -147,13 +147,22 @@ author: mr_hyde
 
 ```yaml
 author:
+    # These are used in the default author templates
     name: "Mr. Hyde"
     username: mr_hyde
     website: https://twitter.com/HydeFramework
+
+    # These are not used in the default author templates, but can be used in your custom views
+    bio: "The mysterious author of HydePHP"
+    avatar: avatar.png
+    socials:
+      twitter: "@HydeFramework"
+      github: "hydephp"
 ```
 
-When specifying an array you don't need all the sub-properties. The example just shows all the supported values.
-Array values here will override all the values in the `authors` config entry.
+When using an array, you don't need to include all properties. Specified values will override the corresponding entries in the `authors` config.
+
+Note: Author usernames are automatically normalized (converted to lowercase with spaces replaced by underscores).
 
 ### Image
 

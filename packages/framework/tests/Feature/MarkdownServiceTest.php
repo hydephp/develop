@@ -192,7 +192,7 @@ class MarkdownServiceTest extends TestCase
     {
         $service = new MarkdownServiceTestClass(pageClass: DocumentationPage::class);
 
-        Config::set('docs.table_of_contents.enabled', true);
+        Config::set('docs.sidebar.table_of_contents.enabled', true);
 
         $this->assertTrue($service->canEnablePermalinks());
     }
