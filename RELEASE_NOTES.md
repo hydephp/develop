@@ -23,6 +23,11 @@ This serves two purposes:
 - You can now add custom posts to the blog post feed component when including it directly in https://github.com/hydephp/develop/pull/1893
 - Added a `Feature::fromName()` enum helper in https://github.com/hydephp/develop/pull/1895
 - Added support for specifying features in the YAML configuration in https://github.com/hydephp/develop/pull/1896
+- **Added a new consolidated Asset API to better handle media files.**
+  - Added several new methods to the `MediaFile` class with methods like `getLink()`, `getLength()`, `getMimeType()`, etc.
+  - Added new `HydeFront` facade to handle CDN links and Tailwind config injection.
+  - Added method `Asset::exists()` has to check if a media file exists.
+
 
 ### Changed
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
@@ -60,6 +65,19 @@ This serves two purposes:
 - The build command now groups together all `InMemoryPage` instances under one progress bar group in https://github.com/hydephp/develop/pull/1897
 - The `Markdown::render()` method will now always render Markdown using the custom HydePHP Markdown service (thus getting smart features like our Markdown processors) in https://github.com/hydephp/develop/pull/1900
 - Improved how the `MarkdownService` class is accessed, by binding it into the service container, in https://github.com/hydephp/develop/pull/1922
+- **Many MediaFile related helpers has been changed or completely rewritten** to provide a simplified API for interacting with media files.
+  - **Note:** For most end users, the changes will have minimal direct impact, but if you have custom code that interacts with media files, you may need to update it.
+  - The `Asset` facade has been e restructured to be more scoped and easier to use, splitting out a separate `HydeFront` facade and inlining the `AssetService` class.
+  - All asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior).
+  - Renamed method `Asset::hasMediaFile` to `Asset::exists` in https://github.com/hydephp/develop/pull/1957
+  - Renamed method `MediaFile::getContentLength` to `MediaFile::getLength` in https://github.com/hydephp/develop/pull/1904
+  - Replaced method `Hyde::mediaPath` with `MediaFile::sourcePath` in https://github.com/hydephp/develop/pull/1911
+  - Replaced method `Hyde::siteMediaPath` with `MediaFile::outputPath` in https://github.com/hydephp/develop/pull/1911
+  - We will now throw an exception if you try to get a media file that does not exist in order to prevent missing assets from going unnoticed in https://github.com/hydephp/develop/pull/1932
+- **MediaFile performance improvements:**
+  - Media assets are now cached in the HydeKernel, giving a massive performance boost and making it easier to access the instances in https://github.com/hydephp/develop/pull/1917
+  - Media file metadata is now lazy loaded and then cached in memory, providing performance improvements for files that may not be used in a build in https://github.com/hydephp/develop/pull/1933
+  - We now use the much faster `CRC32` hashing algoritm instead of `MD5` for cache busting keys in https://github.com/hydephp/develop/pull/1918
 
 ### Deprecated
 - for soon-to-be removed features.
@@ -72,6 +90,11 @@ This serves two purposes:
 - Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 - Removed the deprecated `FeaturedImage::isRemote()` method in https://github.com/hydephp/develop/pull/1883. Use `Hyperlinks::isRemote()` instead.
+- **With the new Asset API, a few features had to be moved/removed:**
+  - `AssetService` class has been removed (was merged into the `Asset` facade) in https://github.com/hydephp/develop/pull/1908
+  - Removed HydeFront methods from the `Asset` facade (moved to the new HydeFront facade) in https://github.com/hydephp/develop/pull/1907
+  - The config options `hyde.hydefront_version` and `hyde.hydefront_cdn_url` have been removed in https://github.com/hydephp/develop/pull/1909 (as changing these could lead to incompatible asset versions, defeating the feature's purpose)
+  - Removed `Hyde::mediaLink()` method replaced by `Hyde::asset()` in https://github.com/hydephp/develop/pull/1932
 
 ### Fixed
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
@@ -239,6 +262,94 @@ The following methods in the `Features` class have been renamed to follow a more
 - `Features::rss()` has been renamed to `Features::hasRss()`
 
 Note that this class was previously marked as internal in v1, but the change is logged here in case it was used in configuration files or custom code.
+
+### Asset API Changes
+
+#### Overview
+For most end users, the changes to the Asset API in HydePHP 2.x will have minimal direct impact. However, if you have custom code that interacts with media files, you may need to update it.
+
+The most important thing to note is that all asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior).
+
+#### Side effects to consider
+
+Regardless of if you need to make changes to your code, there are a few side effects to consider:
+
+- All cache busting keys will have changed since we changed the hashing algorithm from `MD5` to `CRC32`.
+- Media file getters now return MediaFile instances instead of strings. But these can still be used the same way in Blade `{{ }}` tags, as they can be cast to strings.
+- Due to the internal normalizations, we will consistently use cache busting keys and use qualified paths when site URLs are set.
+- An exception will be thrown if you try to get a media file that does not exist in order to prevent missing assets from going unnoticed.
+
+These side effects should not have any negative impact on your site, but may cause the generated HTML to look slightly different.
+
+#### Impact on Your Code
+
+If you are using strict type declarations, you may need to update your code to expect a `MediaFile` instance instead of a string path; or you should cast the `MediaFile` instance to a string when needed.
+
+Most changes were made in https://github.com/hydephp/develop/pull/1904 which contains extra information and the reasoning behind the changes.
+
+#### Updating Your Code
+
+Once you have determined that you need to update your code, here are the steps you should take:
+
+1. Replace usages of `Asset::mediaLink()` with `Asset::get()`:
+
+   ```php
+   // Before (returns a string)
+   Asset::mediaLink('image.jpg');
+   
+   // After (returns a MediaFile instance that can be cast to a string)
+   Asset::get('image.jpg');
+   ```
+
+2. Replace `Hyde::mediaLink()` with `Hyde::asset()`:
+
+   ```php
+   // Before
+   $link = Hyde::mediaLink('image.jpg');
+   
+   // After
+   $link = Hyde::asset('image.jpg');
+   ```
+
+3. Update CDN link generation:
+
+   ```php
+   // Before
+   $cdnLink = Asset::cdnLink('app.css');
+   
+   // After
+   $cdnLink = HydeFront::cdnLink('app.css');
+   ```
+
+4. Replace `Asset::hasMediaFile()` with `Asset::exists()`:
+
+   ```php
+   // Before
+   if (Asset::hasMediaFile('image.jpg')) {
+       // ...
+   }
+   
+   // After
+   if (Asset::exists('image.jpg')) {
+       // ...
+   }
+   ```
+
+5. Update Tailwind config injection:
+
+   ```php
+   // Before
+   $config = Asset::injectTailwindConfig();
+   
+   // After
+   $config = HydeFront::injectTailwindConfig();
+   ```
+
+6. Remove any references to `hyde.hydefront_version` and `hyde.hydefront_cdn_url` in your config files as these options have been removed.
+
+7. If you were using `AssetService` directly, refactor your code to use the new `Asset` facade, `MediaFile` class, or `HydeFront` facade as appropriate.
+
+These changes simplify the Asset API and provide more robust handling of media files. The new `MediaFile` class offers additional functionality for working with assets.
 
 ## Low impact
 
