@@ -36,13 +36,15 @@ class HydeFront
      * Get the CDN link for a specific file.
      *
      * @param  'app.css'|'hyde.css'|'hyde.css.map'  $file
+     *
+     * @link https://cdn.jsdelivr.net/npm/hydefront@latest/dist/ for the available files.
      */
     public static function cdnLink(string $file): string
     {
         return sprintf(static::HYDEFRONT_CDN_URL, static::version(), $file);
     }
 
-    /** This method is used to inject the Tailwind CSS configuration into the Play CDN integration. */
+    /** This method is used to inject the project's Tailwind CSS configuration into the Play CDN integration so it can match the styles. */
     public static function injectTailwindConfig(): string
     {
         if (! file_exists(Hyde::path('tailwind.config.js'))) {
@@ -51,7 +53,7 @@ class HydeFront
 
         $config = Str::between(file_get_contents(Hyde::path('tailwind.config.js')), '{', '}');
 
-        // Remove the plugins array, as it is not used in the frontend.
+        // Remove the plugins array, as it is not used in the frontend build.
         if (str_contains($config, 'plugins: [')) {
             $tokens = explode('plugins: [', $config, 2);
             $tokens[1] = Str::after($tokens[1], ']');
