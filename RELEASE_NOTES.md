@@ -24,9 +24,10 @@ This serves two purposes:
 - Added a `Feature::fromName()` enum helper in https://github.com/hydephp/develop/pull/1895
 - Added support for specifying features in the YAML configuration in https://github.com/hydephp/develop/pull/1896
 - **Added a new consolidated Asset API to better handle media files.**
-  - Added several new methods to the `MediaFile` class with methods like `getLink()`, `getLength()`, `getMimeType()`, etc.
+  - Added several new fluent methods to the `MediaFile` class, like `getLink()`, `getLength()`, `getMimeType()`, etc.
   - Added new `HydeFront` facade to handle CDN links and Tailwind config injection.
   - Added method `Asset::exists()` has to check if a media file exists.
+  - Added a `Hyde::assets()` method to get all media file instancess in the site.
 
 
 ### Changed
@@ -69,6 +70,7 @@ This serves two purposes:
   - **Note:** For most end users, the changes will have minimal direct impact, but if you have custom code that interacts with media files, you may need to update it.
   - The `Asset` facade has been e restructured to be more scoped and easier to use, splitting out a separate `HydeFront` facade and inlining the `AssetService` class.
   - All asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior).
+  - The `Hyde::asset()` method and `asset()` function now return `MediaFile` instances instead of strings, and will throw an exception if the asset does not exist.
   - Renamed method `Asset::hasMediaFile` to `Asset::exists` in https://github.com/hydephp/develop/pull/1957
   - Renamed method `MediaFile::getContentLength` to `MediaFile::getLength` in https://github.com/hydephp/develop/pull/1904
   - Replaced method `Hyde::mediaPath` with `MediaFile::sourcePath` in https://github.com/hydephp/develop/pull/1911
@@ -95,6 +97,8 @@ This serves two purposes:
   - Removed HydeFront methods from the `Asset` facade (moved to the new HydeFront facade) in https://github.com/hydephp/develop/pull/1907
   - The config options `hyde.hydefront_version` and `hyde.hydefront_cdn_url` have been removed in https://github.com/hydephp/develop/pull/1909 (as changing these could lead to incompatible asset versions, defeating the feature's purpose)
   - Removed `Hyde::mediaLink()` method replaced by `Hyde::asset()` in https://github.com/hydephp/develop/pull/1932
+  - Removed `Hyde::mediaPath()` method replaced by `MediaFile::sourcePath()` in https://github.com/hydephp/develop/pull/1911
+  - Removed `Hyde::siteMediaPath()` method replaced by `MediaFile::outputPath()` in https://github.com/hydephp/develop/pull/1911
 
 ### Fixed
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
