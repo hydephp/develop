@@ -152,6 +152,45 @@ foreach ($matrix as $key => $options) {
     generate($options);
 }
 
+// Update the HydeKernel page
+(function (): void {
+    echo "\n\033[33mUpdating the HydeKernel page...\033[0m";
+
+    $pages = [
+        'hyde-kernel-base-methods',
+        'hyde-kernel-foundation-methods',
+        'hyde-kernel-string-methods',
+        'hyde-kernel-hyperlink-methods',
+        'hyde-kernel-filesystem-methods',
+        'hyde-kernel-kernel-methods',
+        'hyde-kernel-extensions-methods',
+        'hyde-kernel-view-methods',
+        'hyde-kernel-boot-methods',
+    ];
+
+    $page = 'docs/architecture-concepts/the-hydekernel.md';
+
+    // Replace everything between <!-- Start generated docs for the HydeKernel --> and <!-- End generated docs for the HydeKernel -->
+    // With the concatenated content of the partials
+
+    $startMarker = '<!-- Start generated docs for the HydeKernel -->';
+    $endMarker = '<!-- End generated docs for the HydeKernel -->';
+
+    $rootPath = realpath(__DIR__.'/../../../');
+
+    $content = '';
+    foreach ($pages as $partial) {
+        $content .= trim(file_get_contents($rootPath.'/docs/_data/partials/hyde-pages-api/'.$partial.'.md'))."\n\n";
+    }
+
+    $file = file_get_contents($page);
+    $file = preg_replace('/<!-- Start generated docs for the HydeKernel -->.*<!-- End generated docs for the HydeKernel -->/s', $startMarker."\n\n".$content.$endMarker, $file);
+
+    file_put_contents($page, $file);
+
+    echo " \033[37mDone!\033[0m\n";
+})();
+
 // Assemble end time in milliseconds
 $timeEnd = microtime(true);
 $time = number_format(($timeEnd - $timeStart) * 1000, 2);
