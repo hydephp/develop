@@ -296,65 +296,22 @@ Most changes were made in https://github.com/hydephp/develop/pull/1904 which con
 
 Once you have determined that you need to update your code, here are the steps you should take:
 
-1. Replace usages of `Asset::mediaLink()` with `Asset::get()`:
-
+1. Update calls to renamed methods:
    ```php
-   // Before (returns a string)
-   Asset::mediaLink('image.jpg');
-   
-   // After (returns a MediaFile instance that can be cast to a string)
-   Asset::get('image.jpg');
+   // Replace this:                      With this:
+   Hyde::mediaLink('image.png')      =>  Hyde::asset('image.png');
+   Asset::mediaLink('image.png')     =>  Asset::get('image.png');
+   Asset::hasMediaFile('image.png')  =>  Asset::exists('image.png');
+   Asset::cdnLink('app.css')         =>  HydeFront::cdnLink('app.css');
+   Asset::injectTailwindConfig()     =>  HydeFront::injectTailwindConfig();
+   FeaturedImage::isRemote($source)  =>  Hyperlinks::isRemote($source);
    ```
 
-2. Replace `Hyde::mediaLink()` with `Hyde::asset()`:
+2. Rename the option `hyde.enable_cache_busting` to `hyde.cache_busting` in your configuration file.
 
-   ```php
-   // Before
-   $link = Hyde::mediaLink('image.jpg');
-   
-   // After
-   $link = Hyde::asset('image.jpg');
-   ```
+3. Remove any references to `hyde.hydefront_version` and `hyde.hydefront_cdn_url` in your config files as these options have been removed.
 
-3. Update CDN link generation:
-
-   ```php
-   // Before
-   $cdnLink = Asset::cdnLink('app.css');
-   
-   // After
-   $cdnLink = HydeFront::cdnLink('app.css');
-   ```
-
-4. Replace `Asset::hasMediaFile()` with `Asset::exists()`:
-
-   ```php
-   // Before
-   if (Asset::hasMediaFile('image.jpg')) {
-       // ...
-   }
-   
-   // After
-   if (Asset::exists('image.jpg')) {
-       // ...
-   }
-   ```
-
-5. Update Tailwind config injection:
-
-   ```php
-   // Before
-   $config = Asset::injectTailwindConfig();
-   
-   // After
-   $config = HydeFront::injectTailwindConfig();
-   ```
-
-6. Rename the option `hyde.enable_cache_busting` to `hyde.cache_busting` in your configuration file.
-
-7. Remove any references to `hyde.hydefront_version` and `hyde.hydefront_cdn_url` in your config files as these options have been removed.
-
-8. If you were using `AssetService` directly, refactor your code to use the new `Asset` facade, `MediaFile` class, or `HydeFront` facade as appropriate.
+4. If you were using `AssetService` directly, refactor your code to use the new `Asset` facade, `MediaFile` class, or `HydeFront` facade as appropriate.
 
 These changes simplify the Asset API and provide more robust handling of media files. The new `MediaFile` class offers additional functionality for working with assets.
 
