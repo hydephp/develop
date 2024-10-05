@@ -27,7 +27,7 @@ jobs:
         run: npm run prod
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: 'assets'
           path: 'dist'
