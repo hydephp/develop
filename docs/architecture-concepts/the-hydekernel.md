@@ -53,6 +53,8 @@ You can read all about it in the [Autodiscovery Documentation](autodiscovery).
 Since the most common way to interact with the kernel is through the Hyde facade, we will use that for the examples.
 But you could just as well chain the methods on the accessed kernel singleton instance if you wanted.
 
+<!-- Start generated docs for the HydeKernel -->
+
 <section id="hyde-kernel-base-methods">
 
 <!-- Start generated docs for Hyde\Foundation\HydeKernel -->
@@ -557,3 +559,5 @@ Hyde::booted(callable(\Hyde\Foundation\HydeKernel): void): void
 <!-- End generated docs for Hyde\Foundation\Concerns\BootsHydeKernel -->
 
 </section>
+
+<!-- End generated docs for the HydeKernel -->
