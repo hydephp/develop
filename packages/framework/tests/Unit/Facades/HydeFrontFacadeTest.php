@@ -15,7 +15,18 @@ class HydeFrontFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    // Todo: Check the version is correct? (When running in monorepo)
+    public function testVersionReturnsCorrectHydeFrontVersion()
+    {
+        if (file_exists(Hyde::path('README.md')) && ! str_contains(file_get_contents(Hyde::path('README.md')), 'HydePHP - Source Code Monorepo')) {
+            $this->markTestSkipped('Test skipped when not running in the monorepo.');
+        }
+
+        $package = json_decode(file_get_contents(Hyde::path('packages/hydefront/package.json')), true);
+
+        [$major, $minor] = explode('.', $package['version']);
+
+        $this->assertSame("v$major.$minor", HydeFront::version());
+    }
 
     public function testVersionReturnsString()
     {
