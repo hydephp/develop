@@ -26,7 +26,7 @@ class MetadataViewTest extends TestCase
         parent::setUp();
 
         $this->withSiteUrl();
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
     }
 
     protected function build(?string $page = null): void

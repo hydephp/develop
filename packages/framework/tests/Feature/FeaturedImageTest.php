@@ -21,7 +21,7 @@ class FeaturedImageTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
 
         $this->file('_media/foo', 'test');
         $this->file('_media/source');
@@ -118,7 +118,7 @@ class FeaturedImageTest extends TestCase
 
     public function testImagePathsWithCacheBusting()
     {
-        config(['hyde.enable_cache_busting' => true]);
+        config(['hyde.cache_busting' => true]);
 
         $this->assertSame('media/foo?v=accf8b33', (new FeaturedImage('_media/foo', ...$this->defaultArguments()))->getSource());
         $this->assertSame('media/foo?v=accf8b33', FeaturedImageFactory::make(new FrontMatter(['image.source' => 'foo']))->getSource());

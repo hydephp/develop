@@ -20,7 +20,7 @@ class FeaturedImageViewTest extends TestCase
     {
         parent::setUp();
         $this->file('_media/foo.jpg', 'test content');
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
     }
 
     public function testTheView()
@@ -259,7 +259,7 @@ class FeaturedImageViewTest extends TestCase
 
     public function testCacheBusting()
     {
-        config(['hyde.enable_cache_busting' => true]);
+        config(['hyde.cache_busting' => true]);
         $component = $this->renderComponent();
         $this->assertStringContainsString('src="media/foo.jpg?v=98b41d87"', $component);
     }

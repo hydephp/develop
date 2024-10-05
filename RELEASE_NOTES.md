@@ -39,6 +39,7 @@ This serves two purposes:
 - **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance. For more information, see below.
 - **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format. For more information, see the upgrade guide below.
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display`.
+- **Breaking:** Renamed the `hyde.enable_cache_busting` configuration option to `hyde.cache_busting` in https://github.com/hydephp/develop/pull/1980
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
@@ -349,9 +350,11 @@ Once you have determined that you need to update your code, here are the steps y
    $config = HydeFront::injectTailwindConfig();
    ```
 
-6. Remove any references to `hyde.hydefront_version` and `hyde.hydefront_cdn_url` in your config files as these options have been removed.
+6. Rename the option `hyde.enable_cache_busting` to `hyde.cache_busting` in your configuration file.
 
-7. If you were using `AssetService` directly, refactor your code to use the new `Asset` facade, `MediaFile` class, or `HydeFront` facade as appropriate.
+7. Remove any references to `hyde.hydefront_version` and `hyde.hydefront_cdn_url` in your config files as these options have been removed.
+
+8. If you were using `AssetService` directly, refactor your code to use the new `Asset` facade, `MediaFile` class, or `HydeFront` facade as appropriate.
 
 These changes simplify the Asset API and provide more robust handling of media files. The new `MediaFile` class offers additional functionality for working with assets.
 

@@ -64,7 +64,7 @@ class MediaFileUnitTest extends UnitTestCase
         \Illuminate\Support\Facades\View::swap(Mockery::mock(Factory::class)->makePartial());
         Render::swap(new RenderData());
 
-        self::mockConfig(['hyde.enable_cache_busting' => false]);
+        self::mockConfig(['hyde.cache_busting' => false]);
     }
 
     protected function tearDown(): void
@@ -463,7 +463,7 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testGetLinkWithPrettyUrls()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.cache_busting' => false, 'hyde.pretty_urls' => true]);
         $file = MediaFile::make('foo.txt');
         $this->assertSame('media/foo.txt', $file->getLink());
     }
@@ -476,7 +476,7 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testGetLinkWithBaseUrl()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.url' => 'https://example.com']);
+        self::mockConfig(['hyde.cache_busting' => false, 'hyde.url' => 'https://example.com']);
         $file = MediaFile::make('foo.txt');
         $this->assertSame('https://example.com/media/foo.txt', $file->getLink());
     }
@@ -484,7 +484,7 @@ class MediaFileUnitTest extends UnitTestCase
     public function testGetLinkWithBaseUrlAndPrettyUrls()
     {
         self::mockConfig([
-            'hyde.enable_cache_busting' => false,
+            'hyde.cache_busting' => false,
             'hyde.url' => 'https://example.com',
             'hyde.pretty_urls' => true,
         ]);
@@ -494,7 +494,7 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testGetLinkWithCacheBusting()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => true]);
+        self::mockConfig(['hyde.cache_busting' => true]);
         $this->mockFilesystem->shouldReceive('hash')
             ->andReturn('abc123');
         $file = MediaFile::make('foo.txt');
@@ -503,7 +503,7 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testGetLinkWithCacheBustingDisabled()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => false]);
+        self::mockConfig(['hyde.cache_busting' => false]);
         $file = MediaFile::make('foo.txt');
         $this->assertSame('media/foo.txt', $file->getLink());
     }
@@ -547,7 +547,7 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testStringCastWithPrettyUrls()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.pretty_urls' => true]);
+        self::mockConfig(['hyde.cache_busting' => false, 'hyde.pretty_urls' => true]);
         $file = new MediaFile('foo.txt');
         $this->assertSame('media/foo.txt', (string) $file);
     }
@@ -560,14 +560,14 @@ class MediaFileUnitTest extends UnitTestCase
 
     public function testStringCastWithBaseUrl()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => false, 'hyde.url' => 'https://example.com']);
+        self::mockConfig(['hyde.cache_busting' => false, 'hyde.url' => 'https://example.com']);
         $file = new MediaFile('foo.txt');
         $this->assertSame('https://example.com/media/foo.txt', (string) $file);
     }
 
     public function testStringCastWithCacheBusting()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => true]);
+        self::mockConfig(['hyde.cache_busting' => true]);
         $this->mockFilesystem->shouldReceive('hash')
             ->andReturn('abc123');
         $file = new MediaFile('foo.txt');

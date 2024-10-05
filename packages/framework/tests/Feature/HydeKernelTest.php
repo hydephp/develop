@@ -230,7 +230,7 @@ class HydeKernelTest extends TestCase
     {
         $this->file('_media/foo.jpg');
 
-        Config::set('hyde.enable_cache_busting', false);
+        Config::set('hyde.cache_busting', false);
 
         $this->assertSame('media/foo.jpg', (string) Hyde::asset('foo.jpg'));
     }
@@ -241,11 +241,11 @@ class HydeKernelTest extends TestCase
 
         $this->assertSame('media/foo.jpg?v=00000000', (string) Hyde::asset('foo.jpg'));
 
-        Config::set('hyde.enable_cache_busting', false);
+        Config::set('hyde.cache_busting', false);
 
         $this->assertSame('media/foo.jpg', (string) Hyde::asset('foo.jpg'));
 
-        Config::set('hyde.enable_cache_busting', true);
+        Config::set('hyde.cache_busting', true);
 
         $this->assertSame('media/foo.jpg?v=00000000', (string) Hyde::asset('foo.jpg'));
     }
@@ -258,11 +258,11 @@ class HydeKernelTest extends TestCase
 
         $this->assertSame('media/foo.jpg?v=00000000', (string) $instance);
 
-        Config::set('hyde.enable_cache_busting', false);
+        Config::set('hyde.cache_busting', false);
 
         $this->assertSame('media/foo.jpg', (string) $instance);
 
-        Config::set('hyde.enable_cache_busting', true);
+        Config::set('hyde.cache_busting', true);
 
         $this->assertSame('media/foo.jpg?v=00000000', (string) $instance);
     }

@@ -53,7 +53,7 @@ class AssetFacadeUnitTest extends UnitTestCase
 
     public function testAssetReturnsMediaPathWithoutCacheKeyIfCacheBustingIsDisabled()
     {
-        self::mockConfig(['hyde.enable_cache_busting' => false]);
+        self::mockConfig(['hyde.cache_busting' => false]);
 
         $path = (string) Asset::get('app.css');
 

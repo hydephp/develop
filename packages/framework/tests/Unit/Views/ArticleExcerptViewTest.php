@@ -112,7 +112,7 @@ class ArticleExcerptViewTest extends TestCase
     {
         $this->file('_media/image.jpg');
 
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
 
         $viewLocalNoCache = $this->renderTestView(MarkdownPost::make(matter: [
             'image' => 'image.jpg',
