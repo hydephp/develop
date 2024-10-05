@@ -27,7 +27,7 @@ class HelpersTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
     }
 
     /** @covers ::hyde */
@@ -89,7 +89,7 @@ class HelpersTest extends TestCase
     /** @covers ::asset */
     public function testAssetFunctionWithCacheBusting()
     {
-        config(['hyde.enable_cache_busting' => true]);
+        config(['hyde.cache_busting' => true]);
 
         $this->assertInstanceOf(MediaFile::class, asset('app.css'));
         $this->assertEquals(new MediaFile('media/app.css'), asset('app.css'));

@@ -86,7 +86,7 @@ class RssFeedServiceTest extends TestCase
 
     public function testMarkdownBlogPostsAreAddedToRssFeedThroughAutodiscovery()
     {
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
 
         file_put_contents(Hyde::path('_posts/rss.md'), <<<'MD'
             ---

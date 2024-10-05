@@ -77,7 +77,7 @@ class HeadComponentViewTest extends TestCase
         $this->file('_media/favicon.ico');
         $this->mockPage(currentPage: 'foo/bar');
 
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
 
         $this->assertStringContainsString('<link rel="shortcut icon" href="../media/favicon.ico" type="image/x-icon">', $this->renderTestView());
     }

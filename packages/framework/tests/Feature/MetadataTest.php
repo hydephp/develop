@@ -526,7 +526,7 @@ class MetadataTest extends TestCase
 
     public function testDynamicPostMetaPropertiesContainsImageLinkWithoutCacheBusting()
     {
-        config(['hyde.enable_cache_busting' => false]);
+        config(['hyde.cache_busting' => false]);
 
         $this->file('_media/foo.jpg');
 

@@ -195,6 +195,6 @@ class MarkdownPostTest extends TestCase
     protected function setupMediaFileAndCacheBusting(bool $enableCacheBusting = false): void
     {
         $this->file('_media/foo.png', 'test content');
-        config(['hyde.enable_cache_busting' => $enableCacheBusting]);
+        config(['hyde.cache_busting' => $enableCacheBusting]);
     }
 }

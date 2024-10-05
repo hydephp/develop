@@ -183,7 +183,7 @@ class MediaFile extends ProjectFile implements Stringable
 
     protected function getCacheBustKey(): string
     {
-        return Config::getBool('hyde.enable_cache_busting', true)
+        return Config::getBool('hyde.cache_busting', true)
             ? '?v='.$this->getHash()
             : '';
     }
