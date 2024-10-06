@@ -342,20 +342,6 @@ Specifies the path where the build manifest should be saved, relative to the pro
 'build_manifest_path' => 'app/storage/framework/cache/build-manifest.json',
 ```
 
-### `hydefront_version` and `hydefront_cdn_url`
-
-These options allow you to specify the HydeFront version and CDN URL when loading `app.css` from the CDN.
-
-Only change these if you know what you're doing as some versions may be incompatible with your Hyde version.
-
-```php
-// filepath config/hyde.php
-use \Hyde\Framework\Services\AssetService;
-
-'hydefront_version' => AssetService::HYDEFRONT_VERSION,
-'hydefront_cdn_url' => AssetService::HYDEFRONT_CDN_URL,
-```
-
 ### `theme_toggle_buttons`
 
 >info This feature was added in HydePHP v1.7.0

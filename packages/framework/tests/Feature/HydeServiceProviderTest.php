@@ -10,7 +10,6 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
-use Hyde\Framework\Services\AssetService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Hyde;
@@ -53,13 +52,6 @@ class HydeServiceProviderTest extends TestCase
     public function testProviderHasBootMethod()
     {
         $this->assertTrue(method_exists($this->provider, 'boot'));
-    }
-
-    public function testProviderRegistersAssetServiceAsSingleton()
-    {
-        $this->assertTrue($this->app->bound(AssetService::class));
-        $this->assertInstanceOf(AssetService::class, $this->app->make(AssetService::class));
-        $this->assertSame($this->app->make(AssetService::class), $this->app->make(AssetService::class));
     }
 
     public function testProviderRegistersBuildTaskServiceAsSingleton()

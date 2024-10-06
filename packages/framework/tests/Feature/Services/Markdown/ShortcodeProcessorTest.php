@@ -13,6 +13,14 @@ use Hyde\Testing\UnitTestCase;
  */
 class ShortcodeProcessorTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+    protected static bool $needsConfig = true;
+
+    protected function setUp(): void
+    {
+        self::mockCurrentRouteKey('foo');
+    }
+
     public function testConstructorDiscoversDefaultShortcodes()
     {
         $shortcodes = (new ShortcodeProcessor('foo'))->getShortcodes();

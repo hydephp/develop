@@ -7,6 +7,7 @@ namespace Hyde\Framework\Actions\PreBuildTasks;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 
 use function basename;
@@ -22,7 +23,7 @@ class CleanSiteDirectory extends PreBuildTask
     {
         if ($this->isItSafeToCleanOutputDirectory()) {
             Filesystem::unlink(glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
-            Filesystem::cleanDirectory(Hyde::siteMediaPath());
+            Filesystem::cleanDirectory(MediaFile::outputPath());
         }
     }
 
