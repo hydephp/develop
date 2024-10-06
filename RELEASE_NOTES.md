@@ -67,6 +67,7 @@ This serves two purposes:
 - The build command now groups together all `InMemoryPage` instances under one progress bar group in https://github.com/hydephp/develop/pull/1897
 - The `Markdown::render()` method will now always render Markdown using the custom HydePHP Markdown service (thus getting smart features like our Markdown processors) in https://github.com/hydephp/develop/pull/1900
 - Improved how the `MarkdownService` class is accessed, by binding it into the service container, in https://github.com/hydephp/develop/pull/1922
+- Improved the media asset transfer build task to have better output in https://github.com/hydephp/develop/pull/1904
 - **Many MediaFile related helpers has been changed or completely rewritten** to provide a simplified API for interacting with media files.
   - **Note:** For most end users, the changes will have minimal direct impact, but if you have custom code that interacts with media files, you may need to update it.
   - The `Asset` facade has been e restructured to be more scoped and easier to use, splitting out a separate `HydeFront` facade and inlining the `AssetService` class.
