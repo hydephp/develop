@@ -59,10 +59,12 @@ class StaticSiteServiceTest extends TestCase
 
     public function testBuildCommandTransfersMediaAssetFiles()
     {
-        file_put_contents(Hyde::path('_media/test-image.png'), 'foo');
-        $this->artisan('build');
+        $this->file('_media/test-image.png', 'foo');
+        $this->artisan('build')
+            ->expectsOutputToContain('Transferring Media Assets...');
+
         $this->assertFileEquals(Hyde::path('_media/test-image.png'), Hyde::path('_site/media/test-image.png'));
-        Filesystem::unlink('_media/test-image.png');
+
         Filesystem::unlink('_site/media/test-image.png');
     }
 
@@ -70,9 +72,26 @@ class StaticSiteServiceTest extends TestCase
     {
         $this->directory('_media/foo');
 
-        file_put_contents(Hyde::path('_media/foo/img.png'), 'foo');
+        $this->file('_media/foo/img.png', 'foo');
         $this->artisan('build')->assertSuccessful();
         $this->assertFileEquals(Hyde::path('_media/foo/img.png'), Hyde::path('_site/media/foo/img.png'));
+    }
+
+    public function testBuildCommandCreatesNeededDirectoriesRecursively()
+    {
+        $this->directory('_media/foo/bar');
+        $this->file('_media/1.png');
+        $this->file('_media/foo/2.png');
+        $this->file('_media/foo/bar/3.png');
+
+        Filesystem::deleteDirectory('_site');
+
+        $this->artisan('build')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/media/1.png'));
+        $this->assertFileExists(Hyde::path('_site/media/foo/2.png'));
+        $this->assertFileExists(Hyde::path('_site/media/foo/bar/3.png'));
     }
 
     public function testAllPageTypesCanBeCompiled()
@@ -96,12 +115,6 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/markdown.html'));
         $this->assertFileExists(Hyde::path('_site/posts/post.html'));
         $this->assertFileExists(Hyde::path('_site/docs/docs.html'));
-
-        Filesystem::unlink('_site/html.html');
-        Filesystem::unlink('_site/blade.html');
-        Filesystem::unlink('_site/markdown.html');
-        Filesystem::unlink('_site/posts/post.html');
-        Filesystem::unlink('_site/docs/docs.html');
     }
 
     public function testOnlyProgressBarsForTypesWithPagesAreShown()
@@ -120,8 +133,6 @@ class StaticSiteServiceTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/blade.html'));
         $this->assertFileExists(Hyde::path('_site/markdown.html'));
-        Filesystem::unlink('_site/blade.html');
-        Filesystem::unlink('_site/markdown.html');
     }
 
     public function testPrintInitialInformationAllowsApiToBeDisabled()
