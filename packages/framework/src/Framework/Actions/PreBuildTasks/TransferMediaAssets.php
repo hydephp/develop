@@ -18,6 +18,10 @@ class TransferMediaAssets extends PreBuildTask
     {
         $this->newLine();
 
+        if (MediaFile::all()->isEmpty()) {
+            $this->skip("No media files to transfer.\n");
+        }
+
         $this->withProgressBar(MediaFile::all(), function (MediaFile $file): void {
             $sitePath = $file->getOutputPath();
             $this->needsParentDirectory($sitePath);

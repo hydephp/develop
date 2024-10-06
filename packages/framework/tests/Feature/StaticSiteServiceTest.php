@@ -95,6 +95,19 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/media/foo/bar/3.png'));
     }
 
+    public function testBuildCommandSkipsMediaTransferWhenThereAreNoAssets()
+    {
+        rename(Hyde::path('_media/app.css'), Hyde::path('_media/app.css.bak'));
+
+        $this->artisan('build')
+            ->expectsOutputToContain('Transferring Media Assets... ')
+            ->expectsOutputToContain('Skipped')
+            ->expectsOutputToContain('> No media files to transfer.')
+            ->assertExitCode(0);
+
+        rename(Hyde::path('_media/app.css.bak'), Hyde::path('_media/app.css'));
+    }
+
     public function testAllPageTypesCanBeCompiled()
     {
         $this->file('_pages/html.html');
