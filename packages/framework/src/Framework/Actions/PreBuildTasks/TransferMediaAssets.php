@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PreBuildTasks;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
@@ -25,7 +26,7 @@ class TransferMediaAssets extends PreBuildTask
         $this->withProgressBar(MediaFile::all(), function (MediaFile $file): void {
             $sitePath = $file->getOutputPath();
             $this->needsParentDirectory($sitePath);
-            copy($file->getAbsolutePath(), $sitePath);
+            Filesystem::putContents($sitePath, $file->getContents());
         });
 
         $this->newLine();
