@@ -78,7 +78,7 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileEquals(Hyde::path('_media/foo/img.png'), Hyde::path('_site/media/foo/img.png'));
     }
 
-    public function testBuildCommandCreatesNeededDirectoriesRecursively()
+    public function testBuildCommandCreatesNeededMediaDirectoriesRecursively()
     {
         $this->directory('_media/foo/bar');
         $this->file('_media/1.png');
