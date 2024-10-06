@@ -138,6 +138,14 @@ class MediaFile extends ProjectFile implements Stringable
     }
 
     /**
+     * Get the absolute path to the media file in the compiled site.
+     */
+    public function getOutputPath(): string
+    {
+        return static::outputPath($this->getIdentifier());
+    }
+
+    /**
      * Get the content length of the file in bytes.
      */
     public function getLength(): int

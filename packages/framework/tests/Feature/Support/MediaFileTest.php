@@ -54,7 +54,7 @@ class MediaFileTest extends TestCase
         $this->assertArrayHasKey('script.js', $allFiles);
 
         $fileNames = MediaFile::files();
-        $this->assertSame(['image.png', 'app.css', 'style.css', 'script.js'], $fileNames);
+        $this->assertEqualsCanonicalizing(['image.png', 'app.css', 'style.css', 'script.js'], $fileNames);
     }
 
     public function testMediaFileProperties()
@@ -118,5 +118,47 @@ class MediaFileTest extends TestCase
 
         $this->assertStringStartsWith('?v=', $cacheBustKey);
         $this->assertSame('?v=cd5de5e7', $cacheBustKey); // Expect CRC32 hash
+    }
+
+    public function testGetOutputPath()
+    {
+        $this->file('_media/test.txt', 'Hello, World!');
+        $mediaFile = MediaFile::make('test.txt');
+
+        $expectedPath = Hyde::path('_site/media/test.txt');
+        $this->assertSame($expectedPath, $mediaFile->getOutputPath());
+    }
+
+    public function testGetOutputPathWithNestedFile()
+    {
+        $this->file('_media/subfolder/nested_file.txt', 'Nested content');
+        $mediaFile = MediaFile::make('subfolder/nested_file.txt');
+
+        $expectedPath = Hyde::path('_site/media/subfolder/nested_file.txt');
+        $this->assertSame($expectedPath, $mediaFile->getOutputPath());
+    }
+
+    public function testGetOutputPathWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('custom_media');
+        $this->file('custom_media/custom_file.txt', 'Custom content');
+        $mediaFile = MediaFile::make('custom_file.txt');
+
+        $expectedPath = Hyde::path('_site/custom_media/custom_file.txt');
+        $this->assertSame($expectedPath, $mediaFile->getOutputPath());
+
+        Hyde::setMediaDirectory('_media'); // Reset to default
+    }
+
+    public function testGetOutputPathWithCustomOutputDirectory()
+    {
+        Hyde::setOutputDirectory('custom_output');
+        $this->file('_media/test.txt', 'Hello, World!');
+        $mediaFile = MediaFile::make('test.txt');
+
+        $expectedPath = Hyde::path('custom_output/media/test.txt');
+        $this->assertSame($expectedPath, $mediaFile->getOutputPath());
+
+        Hyde::setOutputDirectory('_site'); // Reset to default
     }
 }

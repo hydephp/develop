@@ -581,6 +581,34 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame('../media/baz.txt', (string) $file);
     }
 
+    public function testGetOutputPath()
+    {
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('/base/path/_site/media/foo.txt', $file->getOutputPath());
+    }
+
+    public function testGetOutputPathWithNestedFile()
+    {
+        $file = MediaFile::make('subdirectory/foo.txt');
+        $this->assertSame('/base/path/_site/media/subdirectory/foo.txt', $file->getOutputPath());
+    }
+
+    public function testGetOutputPathWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('custom_media');
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('/base/path/_site/custom_media/foo.txt', $file->getOutputPath());
+        Hyde::setMediaDirectory('_media'); // Reset to default
+    }
+
+    public function testGetOutputPathWithCustomOutputDirectory()
+    {
+        Hyde::setOutputDirectory('/base/path/custom_output');
+        $file = MediaFile::make('foo.txt');
+        $this->assertSame('/base/path/custom_output/media/foo.txt', $file->getOutputPath());
+        Hyde::setOutputDirectory('/base/path/_site'); // Reset to default
+    }
+
     // Helper method to mock the current page
     protected function mockCurrentPage(string $page): void
     {
