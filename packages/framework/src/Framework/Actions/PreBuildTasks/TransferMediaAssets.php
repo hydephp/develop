@@ -16,8 +16,6 @@ class TransferMediaAssets extends PreBuildTask
 
     public function handle(): void
     {
-        $this->needsDirectory(MediaFile::outputPath());
-
         $this->newLine();
 
         $this->withProgressBar(MediaFile::all(), function (MediaFile $file): void {
