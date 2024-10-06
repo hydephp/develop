@@ -18,6 +18,7 @@ use Hyde\Framework\Actions\StaticPageBuilder;
  * @covers \Hyde\Console\Commands\BuildSiteCommand
  * @covers \Hyde\Framework\Services\BuildService
  * @covers \Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory
+ * @covers \Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets
  */
 class StaticSiteServiceTest extends TestCase
 {
