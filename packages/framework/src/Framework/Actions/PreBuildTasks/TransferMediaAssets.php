@@ -20,10 +20,10 @@ class TransferMediaAssets extends PreBuildTask
 
         $this->newLine();
 
-        $this->withProgressBar(MediaFile::files(), function (string $identifier): void {
-            $sitePath = MediaFile::outputPath($identifier);
+        $this->withProgressBar(MediaFile::all(), function (MediaFile $file): void {
+            $sitePath = $file->getOutputPath();
             $this->needsParentDirectory($sitePath);
-            copy(MediaFile::sourcePath($identifier), $sitePath);
+            copy($file->getAbsolutePath(), $sitePath);
         });
 
         $this->newLine();
