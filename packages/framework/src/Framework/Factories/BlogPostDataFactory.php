@@ -13,7 +13,7 @@ use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Support\Models\DateString;
-use Hyde\Framework\Features\Blogging\DatePrefixHelper;
+use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 
 use function is_string;
 
@@ -88,8 +88,8 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
             return new DateString($this->getMatter('date'));
         }
 
-        if (DatePrefixHelper::hasDatePrefix($this->filePath)) {
-            $date = DatePrefixHelper::extractDate($this->filePath);
+        if (BlogPostDatePrefixHelper::hasDatePrefix($this->filePath)) {
+            $date = BlogPostDatePrefixHelper::extractDate($this->filePath);
 
             return new DateString($date->format('Y-m-d H:i'));
         }

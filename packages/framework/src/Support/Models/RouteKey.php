@@ -8,7 +8,7 @@ use Stringable;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
-use Hyde\Framework\Features\Blogging\DatePrefixHelper;
+use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 
 use function Hyde\unslash;
 
@@ -70,8 +70,8 @@ final class RouteKey implements Stringable
         }
 
         if (is_a($pageClass, MarkdownPost::class, true)) {
-            if (DatePrefixHelper::hasDatePrefix($identifier)) {
-                return DatePrefixHelper::stripDatePrefix($identifier);
+            if (BlogPostDatePrefixHelper::hasDatePrefix($identifier)) {
+                return BlogPostDatePrefixHelper::stripDatePrefix($identifier);
             }
         }
 

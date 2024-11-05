@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Support\Models\DateString;
-use Hyde\Framework\Features\Blogging\DatePrefixHelper;
+use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
  * High level test for the feature that allows dates to be set using prefixes in blog post filenames.
  *
- * @covers \Hyde\Framework\Features\Blogging\DatePrefixHelper
+ * @covers \Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper
  * @covers \Hyde\Framework\Factories\BlogPostDataFactory
  * @covers \Hyde\Support\Models\RouteKey
  *
@@ -22,18 +22,18 @@ class BlogPostDatePrefixHelperTest extends TestCase
 {
     public function testCanDetectDatePrefix()
     {
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post.md'));
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-10-30-my-post.md'));
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('my-post.md'));
+        $this->assertTrue(BlogPostDatePrefixHelper::hasDatePrefix('2024-11-05-my-post.md'));
+        $this->assertTrue(BlogPostDatePrefixHelper::hasDatePrefix('2024-11-05-10-30-my-post.md'));
+        $this->assertFalse(BlogPostDatePrefixHelper::hasDatePrefix('my-post.md'));
     }
 
     public function testCanExtractDateFromPrefix()
     {
-        $date = DatePrefixHelper::extractDate('2024-11-05-my-post.md');
+        $date = BlogPostDatePrefixHelper::extractDate('2024-11-05-my-post.md');
         $this->assertNotNull($date);
         $this->assertSame('2024-11-05', $date->format('Y-m-d'));
 
-        $date = DatePrefixHelper::extractDate('2024-11-05-10-30-my-post.md');
+        $date = BlogPostDatePrefixHelper::extractDate('2024-11-05-10-30-my-post.md');
         $this->assertNotNull($date);
         $this->assertSame('2024-11-05 10:30', $date->format('Y-m-d H:i'));
     }

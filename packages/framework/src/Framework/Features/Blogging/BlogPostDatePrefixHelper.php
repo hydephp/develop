@@ -11,7 +11,7 @@ use InvalidArgumentException;
 /**
  * @internal Helper class for handling date prefixes in blog post filenames
  */
-class DatePrefixHelper
+class BlogPostDatePrefixHelper
 {
     /**
      * We accept ISO 8601 dates in the format 'YYYY-MM-DD' and optionally a time in the format 'HH-MM', separated by a hyphen.
