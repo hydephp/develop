@@ -23,8 +23,13 @@ trait ForwardsHyperlinks
         return $this->hyperlinks->relativeLink($destination);
     }
 
+    /**
+     * @deprecated This method will be removed in v2.0. Please use `asset()` instead.
+     */
     public function mediaLink(string $destination, bool $validate = false): string
     {
+        trigger_deprecation('hyde/framework', '1.8.0', 'The %s() method is deprecated, use %s() instead.', __METHOD__, 'asset');
+
         return $this->hyperlinks->mediaLink($destination, $validate);
     }
 

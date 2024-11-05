@@ -92,6 +92,8 @@ class Hyperlinks
      *
      * An exception will be thrown if the file does not exist in the _media directory,
      * and the second argument is set to true.
+     *
+     * @deprecated This method will be removed in v2.0. Please use `asset()` instead.
      */
     public function mediaLink(string $destination, bool $validate = false): string
     {
