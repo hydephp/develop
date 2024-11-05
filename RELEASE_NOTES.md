@@ -20,6 +20,7 @@ This serves two purposes:
 - Added support for setting `booting()` and `booted()` callbacks in `HydeExtension` classes, allowing extension developers to hook into the kernel boot process more easily in https://github.com/hydephp/develop/pull/1847
 - Added support for setting custom navigation items in the YAML configuration in https://github.com/hydephp/develop/pull/1818
 - Added support for setting extra attributes for navigation items in https://github.com/hydephp/develop/pull/1824
+- Added support for setting the blog post publishing date as a prefix in the source file name in https://github.com/hydephp/develop/pull/2000
 - Introduced a new navigation config builder class to simplify navigation configuration in https://github.com/hydephp/develop/pull/1827
 - You can now add custom posts to the blog post feed component when including it directly in https://github.com/hydephp/develop/pull/1893
 - Added a `Feature::fromName()` enum helper in https://github.com/hydephp/develop/pull/1895
