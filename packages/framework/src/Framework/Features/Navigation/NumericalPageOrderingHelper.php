@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 
 use function ltrim;
@@ -23,12 +22,6 @@ class NumericalPageOrderingHelper
 {
     /** @var array<string> The delimiters that are used to separate the numerical prefix from the rest of the identifier. */
     protected const DELIMITERS = ['-', '_'];
-
-    /** Check if the feature is enabled. */
-    public static function enabled(): bool
-    {
-        return Config::getBool('hyde.numerical_page_ordering', true);
-    }
 
     /** Determines if a given identifier has a numerical prefix. */
     public static function hasNumericalPrefix(string $identifier): bool

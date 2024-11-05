@@ -236,45 +236,6 @@ Now if you create a page called `_pages/about/contact.md`, it will automatically
 - Dropdowns take priority over standard items. If you have a dropdown with the key `about` and a page with the key `about`, the dropdown will be created, and the page won't be in the menu.
 - Example: With this file structure: `_pages/foo.md`, `_pages/foo/bar.md`, `_pages/foo/baz.md`, the link to `foo` will be lost, so please keep this in mind when using this feature.
 
-## Numerical Prefix Navigation Ordering
-
-HydePHP v2 introduces navigation item ordering based on numerical prefixes in filenames. This feature works for the primary navigation menu.
-
-This has the great benefit of matching the navigation menu layout with the file structure view. It also works especially well with subdirectory-based navigation grouping.
-
-```shell
-_pages/
-  01-home.md     # Priority: 1 (saved to _site/index.html)
-  02-about.md    # Priority: 2 (saved to _site/about.html)
-  03-contact.md  # Priority: 3 (saved to _site/contact.html)
-```
-
-As you can see, Hyde parses the number from the filename and uses it as the priority for the page in navigation menus, while stripping the prefix from the route key.
-
-### Important Notes
-
-1. The numerical prefix remains part of the page identifier but is stripped from the route key.
-   For example: `_pages/01-home.md` has route key `home` and page identifier `01-home`.
-2. You can delimit the numerical prefix with either a dash or an underscore.
-   For example: Both `_pages/01-home.md` and `_pages/01_home.md` are valid.
-3. Leading zeros are optional. `_pages/1-home.md` is equally valid.
-
-### Using Numerical Prefix Ordering in Subdirectories
-
-This feature integrates well with automatic subdirectory-based navigation grouping. Here are two useful tips:
-
-1. You can use numerical prefixes in subdirectories to control the dropdown order.
-2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
-
-### Customization
-
-If you're not interested in using numerical prefix ordering, you can disable it in the Hyde config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
-
-```php
-// filepath: config/hyde.php
-'numerical_page_ordering' => false,
-```
-
 ## Digging Deeper Into the Internals
 
 While not essential, understanding the internal workings of the navigation system can be as beneficial as it's interesting. Here's a quick high-level overview of the [Navigation API](navigation-api).
