@@ -137,4 +137,53 @@ class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
         $result = DatePrefixHelper::stripDatePrefix('2024-11-05-extra-hyphens-in-title.md');
         $this->assertSame('extra-hyphens-in-title.md', $result);
     }
+
+    public function testInvalidSingleDigitMonthOrDay()
+    {
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-1-5-my-post.md')); // Single-digit month and day
+    }
+
+    public function testFileWithValidDatePrefixButInvalidExtension()
+    {
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post.txt')); // Unsupported file extension
+    }
+
+    public function testTimePrefixWithLeadingZeroInHourOrMinute()
+    {
+        $date = DatePrefixHelper::extractDate('2024-11-05-00-30-my-post.md');
+        $this->assertSame('2024-11-05 00:30', $date->format('Y-m-d H:i'));
+
+        $date = DatePrefixHelper::extractDate('2024-11-05-10-00-my-post.md');
+        $this->assertSame('2024-11-05 10:00', $date->format('Y-m-d H:i'));
+    }
+
+    public function testFilenameWithPotentiallyMisleadingHyphens()
+    {
+        $date = DatePrefixHelper::extractDate('2024-11-05-extra-hyphens---title.md');
+        $this->assertSame('2024-11-05 00:00', $date->format('Y-m-d H:i'));
+    }
+
+    public function testLeapYearDate()
+    {
+        $date = DatePrefixHelper::extractDate('2024-02-29-my-leap-year-post.md');
+        $this->assertSame('2024-02-29 00:00', $date->format('Y-m-d H:i'));
+    }
+
+    public function testInvalidDates()
+    {
+        $date = DatePrefixHelper::extractDate('2024-04-31-my-post.md');
+        $this->assertSame('2024-05-01 00:00', $date->format('Y-m-d H:i'));
+    }
+
+    public function testStripDateWithVariousUnconventionalExtensions()
+    {
+        $result = DatePrefixHelper::stripDatePrefix('2024-11-05-my-post.md');
+        $this->assertSame('my-post.md', $result);
+
+        $result = DatePrefixHelper::stripDatePrefix('2024-11-05-my-post.markdown');
+        $this->assertSame('my-post.markdown', $result);
+
+        $result = DatePrefixHelper::stripDatePrefix('2024-11-05-my-post.txt'); // Should still strip but ignore extension
+        $this->assertSame('my-post.txt', $result);
+    }
 }
