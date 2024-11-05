@@ -9,6 +9,9 @@ use Hyde\Framework\Features\Blogging\DatePrefixHelper;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
+/**
+ * High level test for the feature that allows dates to be set using prefixes in blog post filenames.
+ */
 class BlogPostDatePrefixHelperTest extends TestCase
 {
     public function testCanDetectDatePrefix()
