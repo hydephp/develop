@@ -91,9 +91,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         if (DatePrefixHelper::hasDatePrefix($this->filePath)) {
             $date = DatePrefixHelper::extractDate($this->filePath);
 
-            if ($date !== null) {
-                return new DateString($date->format('Y-m-d H:i'));
-            }
+            return new DateString($date->format('Y-m-d H:i'));
         }
 
         return null;

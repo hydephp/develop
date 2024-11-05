@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Blogging;
 
 use DateTime;
 use DateTimeInterface;
+use InvalidArgumentException;
 use Hyde\Support\Models\DateString;
 
 /**
@@ -20,10 +21,10 @@ class DatePrefixHelper
         return preg_match(static::DATE_PATTERN, basename($filepath)) === 1;
     }
 
-    public static function extractDate(string $filepath): ?DateTimeInterface
+    public static function extractDate(string $filepath): DateTimeInterface
     {
         if (! preg_match(static::DATE_PATTERN, basename($filepath), $matches)) {
-            return null;
+            throw new InvalidArgumentException('The given filepath does not contain a valid ISO 8601 date prefix.');
         }
 
         $dateString = $matches[1];
