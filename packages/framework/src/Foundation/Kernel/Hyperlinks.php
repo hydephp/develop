@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
+use JetBrains\PhpStorm\Deprecated;
 use Hyde\Framework\Exceptions\BaseUrlNotSetException;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
@@ -92,7 +93,10 @@ class Hyperlinks
      *
      * An exception will be thrown if the file does not exist in the _media directory,
      * and the second argument is set to true.
+     *
+     * @deprecated This method will be removed in v2.0. Please use `asset()` instead.
      */
+    #[Deprecated(reason: 'Use `asset` method instead.', replacement: '%class%->asset(%parameter0%)')]
     public function mediaLink(string $destination, bool $validate = false): string
     {
         if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
