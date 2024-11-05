@@ -2,6 +2,7 @@
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Support\Models\DateString;
 use Hyde\Framework\Features\Blogging\DatePrefixHelper;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
@@ -31,7 +32,7 @@ class BlogPostDatePrefixTest extends TestCase
         $this->file('_posts/2024-11-05-my-post.md', '# Hello World');
         $post = MarkdownPost::parse('2024-11-05-my-post');
 
-        $this->assertInstanceOf(\DateTimeInterface::class, $post->date);
+        $this->assertInstanceOf(DateString::class, $post->date);
     }
 
     public function testDatePrefixIsStrippedFromRouteKey()
