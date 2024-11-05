@@ -8,22 +8,19 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
-use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
-use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
- * High level test for the feature that allows navigation items to be sorted by filename prefix.
+ * High level test for the feature that allows sidebar items to be sorted by filename prefix.
  *
  * The feature can be disabled in the config. It also works within sidebar groups,
  * so that multiple groups can have the same prefix independent of other groups.
  *
  * @covers \Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper
- * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  * @covers \Hyde\Framework\Factories\NavigationDataFactory
  * @covers \Hyde\Support\Models\RouteKey
@@ -51,18 +48,18 @@ class NumericalPageOrderingHelperTest extends TestCase
         parent::tearDown();
     }
 
-    public function testSourceFilesHaveTheirNumericalPrefixTrimmedFromRouteKeys()
+    public function testDocumentationPageSourceFilesHaveTheirNumericalPrefixTrimmedFromRouteKeys()
     {
-        $this->file('_pages/01-home.md');
+        $this->file('_docs/01-readme.md');
 
-        $identifier = '01-home';
+        $identifier = '01-readme';
 
         // Assert it is discovered.
-        $discovered = MarkdownPage::get($identifier);
+        $discovered = DocumentationPage::get($identifier);
         $this->assertNotNull($discovered, 'The page was not discovered.');
 
         // Assert it is parsable
-        $parsed = MarkdownPage::parse($identifier);
+        $parsed = DocumentationPage::parse($identifier);
         $this->assertNotNull($parsed, 'The page was not parsable.');
 
         // Sanity check
@@ -74,26 +71,26 @@ class NumericalPageOrderingHelperTest extends TestCase
         $this->assertSame($identifier, $page->getIdentifier());
 
         // Assert the route key is trimmed.
-        $this->assertSame('home', $page->getRouteKey());
+        $this->assertSame('docs/readme', $page->getRouteKey());
 
         // Assert route key dependents are trimmed.
-        $this->assertSame('home.html', $page->getOutputPath());
+        $this->assertSame('docs/readme.html', $page->getOutputPath());
     }
 
     public function testSourceFilesDoNotHaveTheirNumericalPrefixTrimmedFromRouteKeysWhenFeatureIsDisabled()
     {
         Config::set('hyde.numerical_page_ordering', false);
 
-        $this->file('_pages/01-home.md');
+        $this->file('_docs/01-readme.md');
 
-        $identifier = '01-home';
+        $identifier = '01-readme';
 
         // Assert it is discovered.
-        $discovered = MarkdownPage::get($identifier);
+        $discovered = DocumentationPage::get($identifier);
         $this->assertNotNull($discovered, 'The page was not discovered.');
 
         // Assert it is parsable
-        $parsed = MarkdownPage::parse($identifier);
+        $parsed = DocumentationPage::parse($identifier);
         $this->assertNotNull($parsed, 'The page was not parsable.');
 
         // Sanity check
@@ -104,11 +101,11 @@ class NumericalPageOrderingHelperTest extends TestCase
         // Assert identifier is the same.
         $this->assertSame($identifier, $page->getIdentifier());
 
-        // Assert the route key is trimmed.
-        $this->assertSame($identifier, $page->getRouteKey());
+        // Assert the route key is not trimmed.
+        $this->assertSame('docs/'.$identifier, $page->getRouteKey());
 
         // Assert route key dependents are trimmed.
-        $this->assertSame("$identifier.html", $page->getOutputPath());
+        $this->assertSame("docs/$identifier.html", $page->getOutputPath());
     }
 
     public function testFlatSidebarNavigationOrdering()
@@ -219,24 +216,24 @@ class NumericalPageOrderingHelperTest extends TestCase
 
     protected function setUpSidebarFixture(array $files): self
     {
-        return $this->setupFixture($files, sidebar: true);
+        return $this->setupFixture($files);
     }
 
-    protected function setupFixture(array $files, bool $sidebar = false): self
+    protected function setupFixture(array $files): self
     {
-        $this->helper->setupFixture($files, $sidebar);
+        $this->helper->setupFixture($files);
 
         return $this;
     }
 
     protected function assertSidebarOrder(array $expected): void
     {
-        $this->assertOrder($expected, sidebar: true);
+        $this->assertOrder($expected);
     }
 
-    protected function assertOrder(array $expected, bool $sidebar = false): void
+    protected function assertOrder(array $expected): void
     {
-        $actual = $this->helper->createComparisonFormat($sidebar);
+        $actual = $this->helper->createComparisonFormat();
 
         $this->assertSame($expected, $actual);
     }
@@ -264,10 +261,10 @@ class FilenamePrefixNavigationPriorityTestingHelper
         $this->test = $test;
     }
 
-    public function setupFixture(array $files, bool $sidebar = false): void
+    public function setupFixture(array $files): void
     {
         foreach ($files as $key => $file) {
-            $class = $sidebar ? DocumentationPage::class : MarkdownPage::class;
+            $class = DocumentationPage::class;
 
             is_string($file)
                 ? $this->setupFixtureItem($class, $file)
@@ -297,30 +294,30 @@ class FilenamePrefixNavigationPriorityTestingHelper
         return sprintf("# %s\n\nHello, world!\n", str($file)->after('-')->before('.')->ucfirst());
     }
 
-    public function createComparisonFormat(bool $sidebar): array
+    public function createComparisonFormat(): array
     {
-        $type = $sidebar ? DocumentationSidebar::class : MainNavigationMenu::class;
+        $type = DocumentationSidebar::class;
         $menu = NavigationMenuGenerator::handle($type);
 
-        return $this->mapItemsToStrings($menu, $sidebar)->all();
+        return $this->mapItemsToStrings($menu)->all();
     }
 
-    protected function mapItemsToStrings(MainNavigationMenu|DocumentationSidebar $menu, bool $sidebar)
+    protected function mapItemsToStrings(DocumentationSidebar $menu)
     {
         return $menu->getItems()->mapWithKeys(fn ($item, $key) => $item instanceof NavigationItem
-            ? [$key => $this->formatRouteKey($item->getPage()->getRouteKey(), $sidebar)]
-            : [$item->getGroupKey() => $this->mapChildItems($item, $sidebar)]);
+            ? [$key => $this->formatRouteKey($item->getPage()->getRouteKey())]
+            : [$item->getGroupKey() => $this->mapChildItems($item)]);
     }
 
-    protected function mapChildItems(NavigationGroup $item, bool $sidebar)
+    protected function mapChildItems(NavigationGroup $item)
     {
-        return $item->getItems()->map(function (NavigationItem $item) use ($sidebar) {
-            return basename($this->formatRouteKey($item->getPage()->getRouteKey(), $sidebar));
+        return $item->getItems()->map(function (NavigationItem $item) {
+            return basename($this->formatRouteKey($item->getPage()->getRouteKey()));
         })->all();
     }
 
-    protected function formatRouteKey(string $routeKey, bool $sidebar): string
+    protected function formatRouteKey(string $routeKey): string
     {
-        return $sidebar ? Str::after($routeKey, 'docs/') : $routeKey;
+        return Str::after($routeKey, 'docs/');
     }
 }

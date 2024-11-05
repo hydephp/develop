@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 
 use function Hyde\unslash;
@@ -48,7 +49,9 @@ final class RouteKey implements Stringable
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public static function fromPage(string $pageClass, string $identifier): self
     {
-        $identifier = self::splitNumberedIdentifiersIfNeeded($identifier);
+        if (is_a($pageClass, DocumentationPage::class, true)) {
+            $identifier = self::splitNumberedIdentifiersIfNeeded($identifier);
+        }
 
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
     }
