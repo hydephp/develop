@@ -15,14 +15,14 @@ class DatePrefixHelper
 {
     protected const DATE_PATTERN = '/^(\d{4}-\d{2}-\d{2})(?:-(\d{2}-\d{2}))?-/';
 
-    public static function hasDatePrefix(string $identifier): bool
+    public static function hasDatePrefix(string $filepath): bool
     {
-        return preg_match(static::DATE_PATTERN, $identifier) === 1;
+        return preg_match(static::DATE_PATTERN, basename($filepath)) === 1;
     }
 
-    public static function extractDate(string $identifier): ?DateTimeInterface
+    public static function extractDate(string $filepath): ?DateTimeInterface
     {
-        if (! preg_match(static::DATE_PATTERN, $identifier, $matches)) {
+        if (! preg_match(static::DATE_PATTERN, basename($filepath), $matches)) {
             return null;
         }
 
@@ -34,9 +34,9 @@ class DatePrefixHelper
         return new DateTime($dateString);
     }
 
-    public static function stripDatePrefix(string $identifier): string
+    public static function stripDatePrefix(string $filepath): string
     {
-        return preg_replace(static::DATE_PATTERN, '', $identifier);
+        return preg_replace(static::DATE_PATTERN, '', basename($filepath));
     }
 
     public static function createDateString(DateTimeInterface $date): DateString
