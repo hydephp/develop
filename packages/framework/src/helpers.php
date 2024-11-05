@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace {
     use Hyde\Foundation\HydeKernel;
+    use Hyde\Support\Filesystem\MediaFile;
 
     if (! function_exists('hyde')) {
         /**
@@ -20,11 +21,17 @@ namespace {
     } else {
         if (! function_exists('asset')) {
             /**
-             * Get a relative link or URL to an asset in the media directory.
+             * Gets a MediaAsset instance for the given file stored in the `_site/media` folder.
+             * The returned value can be cast into a string in Blade views to resole the URL.
+             *
+             * If a base URL is configured, the image will be returned with a qualified absolute URL.
+             * Otherwise, a relative path will be returned based on the rendered page's location.
+             *
+             * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory.
              */
-            function asset(string $name, bool $preferQualifiedUrl = false): string
+            function asset(string $name): MediaFile
             {
-                return hyde()->asset($name, $preferQualifiedUrl);
+                return hyde()->asset($name);
             }
         }
 

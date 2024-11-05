@@ -33,6 +33,8 @@ class DynamicMarkdownLinkProcessorTest extends UnitTestCase
         Routes::addRoute(new Route(new MarkdownPost('post')));
 
         // Todo: No way to mock media files, so we are using app.css as a test asset for now.
+
+        self::mockConfig(['hyde.cache_busting' => false]);
     }
 
     public function testRouteReplacement()

@@ -8,13 +8,11 @@ use Hyde\Facades\Config;
 use BadMethodCallException;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\HydeKernel;
-use Hyde\Framework\Exceptions\FileNotFoundException;
-use Illuminate\Support\Str;
+use Hyde\Support\Filesystem\MediaFile;
 
 use function str_ends_with;
 use function str_starts_with;
 use function substr_count;
-use function file_exists;
 use function str_replace;
 use function str_repeat;
 use function substr;
@@ -88,40 +86,17 @@ class Hyperlinks
     }
 
     /**
-     * Gets a relative web link to the given file stored in the _site/media folder.
+     * Gets a MediaAsset instance for the given file stored in the `_site/media` folder.
+     * The returned value can be cast into a string in Blade views to resole the URL.
      *
-     * An exception will be thrown if the file does not exist in the _media directory,
-     * and the second argument is set to true.
-     */
-    public function mediaLink(string $destination, bool $validate = false): string
-    {
-        if ($validate && ! file_exists($sourcePath = "{$this->kernel->getMediaDirectory()}/$destination")) {
-            throw new FileNotFoundException($sourcePath);
-        }
-
-        return $this->relativeLink("{$this->kernel->getMediaOutputDirectory()}/$destination");
-    }
-
-    /**
-     * Gets a relative web link to the given image stored in the _site/media folder.
-     * If the image is remote (starts with http) it will be returned as is.
+     * If a base URL is configured, the image will be returned with a qualified absolute URL.
+     * Otherwise, a relative path will be returned based on the rendered page's location.
      *
-     * If true is passed as the second argument, and a base URL is set,
-     * the image will be returned with a qualified absolute URL.
+     * @throws \Hyde\Framework\Exceptions\FileNotFoundException If the file does not exist in the `_media` source directory.
      */
-    public function asset(string $name, bool $preferQualifiedUrl = false): string
+    public function asset(string $name): MediaFile
     {
-        if (static::isRemote($name)) {
-            return $name;
-        }
-
-        $name = Str::start($name, "{$this->kernel->getMediaOutputDirectory()}/");
-
-        if ($preferQualifiedUrl && $this->hasSiteUrl()) {
-            return $this->url($name);
-        }
-
-        return $this->relativeLink($name);
+        return MediaFile::get($name);
     }
 
     /**

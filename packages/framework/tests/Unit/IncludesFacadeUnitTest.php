@@ -8,6 +8,7 @@ use Mockery;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Support\Includes;
+use Illuminate\Support\Str;
 use AllowDynamicProperties;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\HtmlString;
@@ -143,6 +144,8 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
             $content = '# foo bar';
 
+            $filesystem->shouldReceive('glob')->andReturn([])->byDefault(); // Looking for media files
+
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
@@ -248,5 +251,17 @@ class IncludesFacadeUnitTest extends UnitTestCase
     {
         $this->assertInstanceOf(HtmlString::class, $actual);
         $this->assertSame((string) $expected, $actual->toHtml());
+    }
+}
+
+class SimpleMarkdownServiceTestClass
+{
+    public function __construct(protected string $markdown = '')
+    {
+    }
+
+    public function parse(): string
+    {
+        return Str::markdown($this->markdown);
     }
 }

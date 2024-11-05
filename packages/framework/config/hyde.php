@@ -355,18 +355,16 @@ return [
     | Cache Busting
     |--------------------------------------------------------------------------
     |
-    | Any assets loaded using the Asset::mediaLink() helper will automatically
-    | have a cache busting query string appended to the URL. This is useful
+    | Any assets loaded using the Hyde Asset helpers will automatically have
+    | a "cache busting" query string appended to the URL. This is useful
     | when you want to force browsers to load a new version of an asset.
+    | All included Blade templates use this feature to load assets.
     |
-    | The mediaLink helper is used in the built-in views to load the
-    | default stylesheets and scripts, and thus use this feature.
-    |
-    | To disable cache busting, set this setting to false.
+    | To disable the cache busting, set this setting to false.
     |
     */
 
-    'enable_cache_busting' => true,
+    'cache_busting' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -469,11 +467,6 @@ return [
 
     // Where should the build manifest be saved? (Relative to project root, for example _site/build-manifest.json)
     'build_manifest_path' => 'app/storage/framework/cache/build-manifest.json',
-
-    // Here you can specify HydeFront version and URL for when loading app.css from the CDN.
-    // Only change these if you know what you're doing as some versions may be incompatible with your Hyde version.
-    'hydefront_version' => \Hyde\Framework\Services\AssetService::HYDEFRONT_VERSION,
-    'hydefront_cdn_url' => \Hyde\Framework\Services\AssetService::HYDEFRONT_CDN_URL,
 
     // Should the theme toggle buttons be displayed in the layouts?
     'theme_toggle_buttons' => true,

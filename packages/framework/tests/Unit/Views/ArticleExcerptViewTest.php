@@ -96,17 +96,34 @@ class ArticleExcerptViewTest extends TestCase
         $this->assertStringNotContainsString('itemprop="image"', $view);
     }
 
-    public function testItempropImageIsAddedWhenThereIsAnImage()
+    public function testItempropImageIsAddedWhenThereIsAnImageWithLocalPath()
     {
-        // Test with local path
+        $this->file('_media/image.jpg');
+
         $viewLocal = $this->renderTestView(MarkdownPost::make(matter: [
-            'image' => 'path/to/local/image.jpg',
+            'image' => 'image.jpg',
         ]));
 
         $this->assertStringContainsString('itemprop="image"', $viewLocal);
-        $this->assertStringContainsString('content="media/path/to/local/image.jpg"', $viewLocal);
+        $this->assertStringContainsString('content="media/image.jpg?v=00000000"', $viewLocal);
+    }
 
-        // Test with remote URL
+    public function testItempropImageIsAddedWhenThereIsAnImageWithLocalPathNoCache()
+    {
+        $this->file('_media/image.jpg');
+
+        config(['hyde.cache_busting' => false]);
+
+        $viewLocalNoCache = $this->renderTestView(MarkdownPost::make(matter: [
+            'image' => 'image.jpg',
+        ]));
+
+        $this->assertStringContainsString('itemprop="image"', $viewLocalNoCache);
+        $this->assertStringContainsString('content="media/image.jpg"', $viewLocalNoCache);
+    }
+
+    public function testItempropImageIsAddedWhenThereIsAnImageWithRemoteUrl()
+    {
         $viewRemote = $this->renderTestView(MarkdownPost::make(matter: [
             'image' => 'https://example.com/image.jpg',
         ]));
