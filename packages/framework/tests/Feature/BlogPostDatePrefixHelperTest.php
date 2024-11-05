@@ -11,6 +11,10 @@ use Hyde\Testing\TestCase;
 
 /**
  * High level test for the feature that allows dates to be set using prefixes in blog post filenames.
+ *
+ * @covers \Hyde\Framework\Features\Blogging\DatePrefixHelper
+ * @covers \Hyde\Framework\Factories\BlogPostDataFactory
+ * @covers \Hyde\Support\Models\RouteKey
  */
 class BlogPostDatePrefixHelperTest extends TestCase
 {
