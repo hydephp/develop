@@ -17,6 +17,7 @@ class RealtimeCompilerTest extends UnitTestCase
     public static function setUpBeforeClass(): void
     {
         putenv('SERVER_LIVE_EDIT=false');
+        putenv('SERVER_SAVE_PREVIEW=true');
 
         define('BASE_PATH', realpath(__DIR__.'/../../../'));
 
