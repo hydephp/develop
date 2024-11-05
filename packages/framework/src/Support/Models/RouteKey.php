@@ -6,7 +6,9 @@ namespace Hyde\Support\Models;
 
 use Stringable;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
+use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 
 use function Hyde\unslash;
 
@@ -49,18 +51,28 @@ final class RouteKey implements Stringable
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public static function fromPage(string $pageClass, string $identifier): self
     {
-        if (is_a($pageClass, DocumentationPage::class, true)) {
-            $identifier = self::splitNumberedIdentifiersIfNeeded($identifier);
-        }
+        $identifier = self::stripPrefixIfNeeded($pageClass, $identifier);
 
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
     }
 
-    /** @experimental */
-    protected static function splitNumberedIdentifiersIfNeeded(string $identifier): string
+    /**
+     * @experimental
+     *
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     * */
+    protected static function stripPrefixIfNeeded(string $pageClass, string $identifier): string
     {
-        if (NumericalPageOrderingHelper::hasNumericalPrefix($identifier)) {
-            return NumericalPageOrderingHelper::splitNumericPrefix($identifier)[1];
+        if (is_a($pageClass, DocumentationPage::class, true)) {
+            if (NumericalPageOrderingHelper::hasNumericalPrefix($identifier)) {
+                return NumericalPageOrderingHelper::splitNumericPrefix($identifier)[1];
+            }
+        }
+
+        if (is_a($pageClass, MarkdownPost::class, true)) {
+            if (BlogPostDatePrefixHelper::hasDatePrefix($identifier)) {
+                return BlogPostDatePrefixHelper::stripDatePrefix($identifier);
+            }
         }
 
         return $identifier;

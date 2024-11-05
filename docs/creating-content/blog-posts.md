@@ -42,6 +42,31 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 ✔ _posts/hello-world.md # Valid and will be compiled to _site/posts/hello-world.html
 ```
 
+#### Date Prefixes
+
+You **optionally** can set a blog post's publication date by prefixing the filename with a date in ISO 8601 format (`YYYY-MM-DD`). Optionally, you can also include the time (`HH-MM`).
+
+```bash
+# Basic date prefix (sets date to 2024-11-05 00:00)
+2024-11-05-my-first-post.md
+
+# Date and time prefix (sets date to 2024-11-05 10:30)
+2024-11-05-10-30-my-first-post.md
+```
+
+**The date prefix will be:**
+1. Stripped from the route key (resulting in clean URLs like `posts/my-first-post`)
+2. Used to set the post's publication date (unless explicitly defined in front matter)
+
+**Important notes:**
+- Dates must be in ISO 8601 format (`YYYY-MM-DD` or `YYYY-MM-DD-HH-MM`)
+- Days and months must use leading zeros (e.g., `2024-01-05` not `2024-1-5`)
+- Time is optional and uses 24-hour format with a hyphen separator (`HH-MM`)
+- Front matter dates take precedence over filename dates
+- Using date prefixes is entirely optional!
+
+This feature provides an intuitive way to organize your blog posts chronologically while maintaining clean URLs, and matches the behavior of many popular static site generators for interoperability.
+
 ### Front Matter
 
 Front matter is optional, but highly recommended for blog posts as the front matter is used to construct dynamic HTML
