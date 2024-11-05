@@ -245,6 +245,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function checkFilePrefixForOrder(): ?int
     {
+        if (! $this->isInstanceOf(DocumentationPage::class)) {
+            return null;
+        }
+
         if (! NumericalPageOrderingHelper::enabled()) {
             return null;
         }
