@@ -31,6 +31,7 @@ This serves two purposes:
 ### Deprecated
 - The `PostAuthor::getName()` method is now deprecated and will be removed in v2. (use `$author->name` instead) in https://github.com/hydephp/develop/pull/1794
 - Deprecated the `FeaturedImage::isRemote()` method in favor of the new `Hyperlinks::isRemote()` method in https://github.com/hydephp/develop/pull/1882
+- Deprecated the `Hyde::mediaLink()` method in favor of the `Hyde::asset()` method in https://github.com/hydephp/develop/pull/1993
 
 ### Removed
 - for now removed features.
