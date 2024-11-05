@@ -12,6 +12,7 @@ class BlogPostDatePrefixTest extends TestCase
     public function testCanDetectDatePrefix()
     {
         $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post.md'));
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-10-30-my-post.md'));
         $this->assertFalse(DatePrefixHelper::hasDatePrefix('my-post.md'));
     }
 
@@ -20,7 +21,10 @@ class BlogPostDatePrefixTest extends TestCase
         $date = DatePrefixHelper::extractDate('2024-11-05-my-post.md');
         $this->assertNotNull($date);
         $this->assertSame('2024-11-05', $date->format('Y-m-d'));
-        $this->assertSame('00:00', $date->format('H:i'));
+
+        $date = DatePrefixHelper::extractDate('2024-11-05-10-30-my-post.md');
+        $this->assertNotNull($date);
+        $this->assertSame('2024-11-05 10:30', $date->format('Y-m-d H:i'));
     }
 
     public function testCanGetDateFromBlogPostFilename()
@@ -30,6 +34,15 @@ class BlogPostDatePrefixTest extends TestCase
 
         $this->assertInstanceOf(DateString::class, $post->date);
         $this->assertSame('2024-11-05 00:00', $post->date->string);
+    }
+
+    public function testCanGetDateFromBlogPostFilenameWithTime()
+    {
+        $this->file('_posts/2024-11-05-10-30-my-post.md', '# Hello World');
+        $post = MarkdownPost::parse('2024-11-05-10-30-my-post');
+
+        $this->assertInstanceOf(DateString::class, $post->date);
+        $this->assertSame('2024-11-05 10:30', $post->date->string);
     }
 
     public function testDatePrefixIsStrippedFromRouteKey()
