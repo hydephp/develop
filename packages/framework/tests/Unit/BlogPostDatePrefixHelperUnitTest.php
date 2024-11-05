@@ -12,8 +12,6 @@ use Hyde\Framework\Features\Blogging\DatePrefixHelper;
  */
 class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
 {
-    protected static bool $needsConfig = true;
-
     public function testHasDatePrefixWithValidDateOnly()
     {
         $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post.md'));
