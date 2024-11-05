@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\Blogging;
 use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
-use Hyde\Support\Models\DateString;
 
 /**
  * @internal Helper class for handling date prefixes in blog post filenames
@@ -43,10 +42,5 @@ class DatePrefixHelper
     public static function stripDatePrefix(string $filepath): string
     {
         return preg_replace(static::DATE_PATTERN, '', basename($filepath));
-    }
-
-    public static function createDateString(DateTimeInterface $date): DateString
-    {
-        return new DateString($date->format('Y-m-d H:i'));
     }
 }
