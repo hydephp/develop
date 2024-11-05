@@ -58,19 +58,19 @@ class BlogPostDatePrefixTest extends TestCase
         $this->file('_posts/2024-11-05-my-post.md', '# Hello World');
         $post = MarkdownPost::parse('2024-11-05-my-post');
 
-        $this->assertSame('2024-11-05 00:00', $post->date->format('Y-m-d H:i'));
+        $this->assertSame('2024-11-05 00:00', $post->date->string);
     }
 
     public function testFrontMatterDateTakesPrecedenceOverPrefix()
     {
         $this->file('_posts/2024-11-05-my-post.md', <<<'MD'
         ---
-        date: 2024-12-25
+        date: "2024-12-25"
         ---
         # Hello World
         MD);
 
         $post = MarkdownPost::parse('2024-11-05-my-post');
-        $this->assertSame('2024-12-25', $post->date->format('Y-m-d'));
+        $this->assertSame('2024-12-25', $post->date->string);
     }
 }
