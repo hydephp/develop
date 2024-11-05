@@ -21,13 +21,6 @@ class HighLevelViewTest extends DuskTestCase
 {
     public $mockConsoleOutput = false;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        config(['hyde.server.save_preview' => true]);
-    }
-
     protected function tearDown(): void
     {
         parent::tearDown();
