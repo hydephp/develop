@@ -49,11 +49,6 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertEquals(200, $response->statusCode);
         $this->assertEquals('OK', $response->statusMessage);
         $this->assertStringContainsString('<title>Welcome to HydePHP!</title>', $response->body);
-
-        $this->assertFileExists(hyde()->path('_site/index.html'));
-        $this->assertEquals($response->body, Filesystem::get('_site/index.html'));
-
-        Filesystem::unlink('_site/index.html');
     }
 
     public function testHandlesRoutesCustomPages()
@@ -71,13 +66,10 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertStringContainsString('<h1>Hello World!</h1>', $response->body);
 
         Filesystem::unlink('_pages/foo.md');
-        Filesystem::unlink('_site/foo.html');
     }
 
     public function testHandlesRoutesPagesWithHtmlExtension()
     {
-        $this->mockRoute('foo.html');
-
         Filesystem::put('_pages/foo.md', '# Hello World!');
 
         $kernel = new HttpKernel();
@@ -89,7 +81,6 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertStringContainsString('<h1>Hello World!</h1>', $response->body);
 
         Filesystem::unlink('_pages/foo.md');
-        Filesystem::unlink('_site/foo.html');
     }
 
     public function testHandlesRoutesStaticAssets()
@@ -144,7 +135,6 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertStringContainsString('<h1>Hello World!</h1>', $response->body);
 
         Filesystem::unlink('_pages/foo.md');
-        Filesystem::unlink('_site/foo.html');
     }
 
     public function testDocsUriPathIsReroutedToDocsIndex()
@@ -162,7 +152,6 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertStringContainsString('HydePHP Docs', $response->body);
 
         Filesystem::unlink('_docs/index.md');
-        Filesystem::unlink('_site/docs/index.html');
     }
 
     public function testDocsSearchRendersSearchPage()
@@ -179,7 +168,6 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertStringContainsString('Search the documentation site', $response->body);
 
         Filesystem::unlink('_docs/index.md');
-        Filesystem::unlink('_site/docs/search.html');
     }
 
     public function testPingRouteReturnsPingResponse()
