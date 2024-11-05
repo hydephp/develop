@@ -7,7 +7,7 @@ use Hyde\Framework\Features\Blogging\DatePrefixHelper;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
-class BlogPostDatePrefixTest extends TestCase
+class BlogPostDatePrefixHelperTest extends TestCase
 {
     public function testCanDetectDatePrefix()
     {
