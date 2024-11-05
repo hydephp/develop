@@ -10,6 +10,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
+
 - You can now specify navigation priorities by adding a numeric prefix to the source file names in https://github.com/hydephp/develop/pull/1709
 - Added support for resolving dynamic links to source files in Markdown documents in https://github.com/hydephp/develop/pull/1590
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
@@ -25,12 +26,13 @@ This serves two purposes:
 - Added environment variable support for saving previews in https://github.com/hydephp/develop/pull/1996
 - Added support for specifying features in the YAML configuration in https://github.com/hydephp/develop/pull/1896
 - **Added a new consolidated Asset API to better handle media files.**
-  - Added several new fluent methods to the `MediaFile` class, like `getLink()`, `getLength()`, `getMimeType()`, etc.
-  - Added new `HydeFront` facade to handle CDN links and Tailwind config injection.
-  - Added method `Asset::exists()` has to check if a media file exists.
-  - Added a `Hyde::assets()` method to get all media file instances in the site.
+    - Added several new fluent methods to the `MediaFile` class, like `getLink()`, `getLength()`, `getMimeType()`, etc.
+    - Added new `HydeFront` facade to handle CDN links and Tailwind config injection.
+    - Added method `Asset::exists()` has to check if a media file exists.
+    - Added a `Hyde::assets()` method to get all media file instances in the site.
 
 ### Changed
+
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
 - **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
@@ -47,7 +49,7 @@ This serves two purposes:
 - Minor: Changed the default build task message to make it more concise in https://github.com/hydephp/develop/pull/1659
 - Minor: Data collection files are now validated for syntax errors during discovery in https://github.com/hydephp/develop/pull/1732
 - Minor: Methods in the `Includes` facade now return `HtmlString` objects instead of `string` in https://github.com/hydephp/develop/pull/1738. For more information, see below.
-- Minor: `Includes::path()` and  `Includes::get()` methods now normalize paths to be basenames to match the behavior of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
+- Minor: `Includes::path()` and `Includes::get()` methods now normalize paths to be basenames to match the behavior of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
 - Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
 - Minor: Updated the `Hyde::url()` helper throw a `BadMethodCallException` instead `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760 and https://github.com/hydephp/develop/pull/1890
 - Minor: Updated the blog post layout and post feed component to use the `BlogPosting` Schema.org type instead of `Article` in https://github.com/hydephp/develop/pull/1887
@@ -70,24 +72,26 @@ This serves two purposes:
 - Improved how the `MarkdownService` class is accessed, by binding it into the service container, in https://github.com/hydephp/develop/pull/1922
 - Improved the media asset transfer build task to have better output in https://github.com/hydephp/develop/pull/1904
 - **Many MediaFile related helpers have been changed or completely rewritten** to provide a simplified API for interacting with media files.
-  - **Note:** For most end users, the changes will have minimal direct impact, but if you have custom code that interacts with media files, you may need to update it.
-  - The `Asset` facade has been restructured to be more scoped and easier to use, splitting out a separate `HydeFront` facade and inlining the `AssetService` class.
-  - All asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior).
-  - The `Hyde::asset()` method and `asset()` function now return `MediaFile` instances instead of strings, and will throw an exception if the asset does not exist.
-  - Renamed method `Asset::hasMediaFile` to `Asset::exists` in https://github.com/hydephp/develop/pull/1957
-  - Renamed method `MediaFile::getContentLength` to `MediaFile::getLength` in https://github.com/hydephp/develop/pull/1904
-  - Replaced method `Hyde::mediaPath` with `MediaFile::sourcePath` in https://github.com/hydephp/develop/pull/1911
-  - Replaced method `Hyde::siteMediaPath` with `MediaFile::outputPath` in https://github.com/hydephp/develop/pull/1911
-  - We will now throw an exception if you try to get a media file that does not exist in order to prevent missing assets from going unnoticed in https://github.com/hydephp/develop/pull/1932
+    - **Note:** For most end users, the changes will have minimal direct impact, but if you have custom code that interacts with media files, you may need to update it.
+    - The `Asset` facade has been restructured to be more scoped and easier to use, splitting out a separate `HydeFront` facade and inlining the `AssetService` class.
+    - All asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior).
+    - The `Hyde::asset()` method and `asset()` function now return `MediaFile` instances instead of strings, and will throw an exception if the asset does not exist.
+    - Renamed method `Asset::hasMediaFile` to `Asset::exists` in https://github.com/hydephp/develop/pull/1957
+    - Renamed method `MediaFile::getContentLength` to `MediaFile::getLength` in https://github.com/hydephp/develop/pull/1904
+    - Replaced method `Hyde::mediaPath` with `MediaFile::sourcePath` in https://github.com/hydephp/develop/pull/1911
+    - Replaced method `Hyde::siteMediaPath` with `MediaFile::outputPath` in https://github.com/hydephp/develop/pull/1911
+    - We will now throw an exception if you try to get a media file that does not exist in order to prevent missing assets from going unnoticed in https://github.com/hydephp/develop/pull/1932
 - **MediaFile performance improvements:**
-  - Media assets are now cached in the HydeKernel, giving a massive performance boost and making it easier to access the instances in https://github.com/hydephp/develop/pull/1917
-  - Media file metadata is now lazy loaded and then cached in memory, providing performance improvements for files that may not be used in a build in https://github.com/hydephp/develop/pull/1933
-  - We now use the much faster `CRC32` hashing algorithm instead of `MD5` for cache busting keys in https://github.com/hydephp/develop/pull/1918
+    - Media assets are now cached in the HydeKernel, giving a massive performance boost and making it easier to access the instances in https://github.com/hydephp/develop/pull/1917
+    - Media file metadata is now lazy loaded and then cached in memory, providing performance improvements for files that may not be used in a build in https://github.com/hydephp/develop/pull/1933
+    - We now use the much faster `CRC32` hashing algorithm instead of `MD5` for cache busting keys in https://github.com/hydephp/develop/pull/1918
 
 ### Deprecated
+
 - for soon-to-be removed features.
 
 ### Removed
+
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
 - Removed the deprecated global `unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
@@ -96,17 +100,19 @@ This serves two purposes:
 - Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
 - Removed the deprecated `FeaturedImage::isRemote()` method in https://github.com/hydephp/develop/pull/1883. Use `Hyperlinks::isRemote()` instead.
 - **With the new Asset API, a few features had to be moved/removed:**
-  - `AssetService` class has been removed (was merged into the `Asset` facade) in https://github.com/hydephp/develop/pull/1908
-  - Removed HydeFront methods from the `Asset` facade (moved to the new HydeFront facade) in https://github.com/hydephp/develop/pull/1907
-  - The config options `hyde.hydefront_version` and `hyde.hydefront_cdn_url` have been removed in https://github.com/hydephp/develop/pull/1909 (as changing these could lead to incompatible asset versions, defeating the feature's purpose)
-  - Removed `Hyde::mediaLink()` method replaced by `Hyde::asset()` in https://github.com/hydephp/develop/pull/1932
-  - Removed `Hyde::mediaPath()` method replaced by `MediaFile::sourcePath()` in https://github.com/hydephp/develop/pull/1911
-  - Removed `Hyde::siteMediaPath()` method replaced by `MediaFile::outputPath()` in https://github.com/hydephp/develop/pull/1911
+    - `AssetService` class has been removed (was merged into the `Asset` facade) in https://github.com/hydephp/develop/pull/1908
+    - Removed HydeFront methods from the `Asset` facade (moved to the new HydeFront facade) in https://github.com/hydephp/develop/pull/1907
+    - The config options `hyde.hydefront_version` and `hyde.hydefront_cdn_url` have been removed in https://github.com/hydephp/develop/pull/1909 (as changing these could lead to incompatible asset versions, defeating the feature's purpose)
+    - Removed `Hyde::mediaLink()` method replaced by `Hyde::asset()` in https://github.com/hydephp/develop/pull/1932
+    - Removed `Hyde::mediaPath()` method replaced by `MediaFile::sourcePath()` in https://github.com/hydephp/develop/pull/1911
+    - Removed `Hyde::siteMediaPath()` method replaced by `MediaFile::outputPath()` in https://github.com/hydephp/develop/pull/1911
 
 ### Fixed
+
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
 
 ### Security
+
 - in case of vulnerabilities.
 
 ### Upgrade Guide
@@ -142,11 +148,11 @@ The easiest way to upgrade is to publish updated configuration files (`hyde.php`
 
 The following configuration entries have been updated:
 
--  Changed configuration option `docs.sidebar_order` to `docs.sidebar.order` in https://github.com/hydephp/develop/pull/1583
--  Upgrade path: Move the `sidebar_order` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
+- Changed configuration option `docs.sidebar_order` to `docs.sidebar.order` in https://github.com/hydephp/develop/pull/1583
+- Upgrade path: Move the `sidebar_order` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
 
--  Changed configuration option `docs.table_of_contents` to `docs.sidebar.table_of_contents` in https://github.com/hydephp/develop/pull/1584
--  Upgrade path: Move the `table_of_contents` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
+- Changed configuration option `docs.table_of_contents` to `docs.sidebar.table_of_contents` in https://github.com/hydephp/develop/pull/1584
+- Upgrade path: Move the `table_of_contents` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
 
 ### Features configuration changes
 
@@ -164,11 +170,11 @@ The `hyde.features` configuration format has changed to use Enums instead of sta
     Features::bladePages(),
     Features::markdownPages(),
     Features::documentationPages(),
-    
+
     // Frontend Features
     Features::darkmode(),
     Features::documentationSearch(),
-    
+
     // Integrations
     Features::torchlight(),
 ],
@@ -221,6 +227,7 @@ Here is the full list of changes:
 #### Upgrade guide:
 
 1. Update your `config/hyde.php` file to use the new author configuration format:
+
    ```php
    'authors' => [
        'username' => Author::create(
@@ -234,14 +241,16 @@ Here is the full list of changes:
    ```
 
 2. Review and update any code that uses the `Author` facade:
-  - The `create()` method now returns an array instead of a `PostAuthor` instance.
-  - The `get()` method may return `null`, so handle this case in your code.
+
+- The `create()` method now returns an array instead of a `PostAuthor` instance.
+- The `get()` method may return `null`, so handle this case in your code.
 
 3. Check your blog post front matter and ensure that `author` fields match the new username keys in your configuration.
 
 4. If you have custom templates that use author data, update them to:
-  - Optional: Feel free to use the new available fields: `bio`, `avatar`, and `socials`.
-  - Account for usernames now being lowercase with underscores which may lead to changed HTML or URL paths.
+
+- Optional: Feel free to use the new available fields: `bio`, `avatar`, and `socials`.
+- Account for usernames now being lowercase with underscores which may lead to changed HTML or URL paths.
 
 5. If you were relying on `Author::get()` to create new authors on the fly, update your code to handle `null` returns or create authors explicitly.
 
@@ -273,6 +282,7 @@ Note that this class was previously marked as internal in v1, but the change is 
 ### Asset API Changes
 
 #### Overview
+
 For most end users, the changes to the Asset API in HydePHP 2.x will have minimal direct impact. However, if you have custom code that interacts with media files, you may need to update it.
 
 The most important thing to note is that all asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior).
@@ -299,6 +309,7 @@ Most changes were made in https://github.com/hydephp/develop/pull/1904 which con
 Once you have determined that you need to update your code, here are the steps you should take:
 
 1. Update calls to renamed methods:
+
    ```php
    // Replace this:                      With this:
    Hyde::mediaLink('image.png')      =>  Hyde::asset('image.png');
@@ -324,10 +335,10 @@ These changes simplify the Asset API and provide more robust handling of media f
 The navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations.
 
 If you have previously in your custom code done any of the following, or similar, you will need to adapt your code to use the new Navigation API:
+
 - Created custom navigation menus or Blade components
 - Extended or called the navigation related classes directly
 - Customized the navigation system in any way beyond the standard configuration
-
 
 #### Upgrade guide
 
@@ -344,10 +355,10 @@ Some HTML IDs have been renamed to follow a more consistent naming convention.
 If you have used any of the following selectors in custom code you wrote yourself, you will need to update to use the new changed IDs.
 
 #### https://github.com/hydephp/develop/pull/1622
+
 - Rename HTML ID `#searchMenu` to `#search-menu`
 - Rename HTML ID `#searchMenuButton` to `#search-menu-button`
 - Rename HTML ID `#searchMenuButtonMobile` to `#search-menu-button-mobile`
-
 
 ### New documentation search implementation
 
@@ -397,6 +408,7 @@ The RFC was implemented in https://github.com/hydephp/develop/pull/1738
 #### Remember to escape output if necessary
 
 **Note:** Remember that this means that includes are **no longer escaped** by default, so make sure to escape the output if necessary, for example if the content is user-generated.
+
 - (Use `{{ e(Includes::html('foo')) }}` instead of `{{ Includes::html('foo') }}` to escape the output, matching the previous behavior.)
 
 ### DataCollection API changes
@@ -417,11 +429,11 @@ Unfortunately, this means that existing setups may need to be adjusted to work w
 #### Issues that may arise
 
 If you start getting a `ParseException` when using the `DataCollection` class, it may be due to malformed data collection files.
-Starting from this version, we validate the syntax of JSON and YAML in data files during discovery, including any front matter in Markdown data files. 
+Starting from this version, we validate the syntax of JSON and YAML in data files during discovery, including any front matter in Markdown data files.
 We do this to help you catch errors early. See https://github.com/hydephp/develop/issues/1736 for more information.
 
 For example, an empty or malformed JSON file will now throw an exception like this:
- 
+
 ```php
 \Hyde\Framework\Exceptions\ParseException: Invalid JSON in file: 'foo/baz.json' (Syntax error)
 ```
