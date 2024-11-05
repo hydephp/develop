@@ -14,11 +14,11 @@ use InvalidArgumentException;
 class DatePrefixHelper
 {
     /**
-     * We accept ISO 8601 dates in the format 'YYYY-MM-DD' and optionally a time in the format 'HH-MM', separated by a hyphen.
+     * We accept ISO 8601 dates in the format 'YYYY-MM-DD'.
      *
      * @var string The regular expression pattern for matching a date prefix in a filename
      */
-    protected const DATE_PATTERN = '/^(\d{4}-\d{2}-\d{2})(?:-(\d{2}-\d{2}))?-/';
+    protected const DATE_PATTERN = '/^(\d{4}-\d{2}-\d{2})-/';
 
     public static function hasDatePrefix(string $filepath): bool
     {
@@ -31,12 +31,7 @@ class DatePrefixHelper
             throw new InvalidArgumentException('The given filepath does not contain a valid ISO 8601 date prefix.');
         }
 
-        $dateString = $matches[1];
-        if (isset($matches[2])) {
-            $dateString .= ' '.str_replace('-', ':', $matches[2]);
-        }
-
-        return new DateTime($dateString);
+        return new DateTime($matches[1].' 00:00');
     }
 
     public static function stripDatePrefix(string $filepath): string
