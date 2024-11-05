@@ -15,6 +15,8 @@ use Hyde\Testing\TestCase;
  * @covers \Hyde\Framework\Features\Blogging\DatePrefixHelper
  * @covers \Hyde\Framework\Factories\BlogPostDataFactory
  * @covers \Hyde\Support\Models\RouteKey
+ *
+ * @see \Hyde\Framework\Testing\Unit\BlogPostDatePrefixHelperUnitTest
  */
 class BlogPostDatePrefixHelperTest extends TestCase
 {
