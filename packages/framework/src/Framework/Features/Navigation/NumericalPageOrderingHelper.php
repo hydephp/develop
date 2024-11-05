@@ -15,7 +15,7 @@ use function array_map;
 use function preg_match;
 
 /**
- * @internal This class contains shared helper code for the framework to provide numerical page ordering.
+ * @internal This class contains shared helper code for the framework to provide numerical page ordering for documentation sidebars.
  *           It is not intended to be used outside the framework code internals.
  */
 class NumericalPageOrderingHelper
