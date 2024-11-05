@@ -20,11 +20,11 @@ class BlogPostDatePrefixTest extends TestCase
     {
         $date = DatePrefixHelper::extractDate('2024-11-05-my-post.md');
         $this->assertNotNull($date);
-        $this->assertEquals('2024-11-05', $date->format('Y-m-d'));
+        $this->assertSame('2024-11-05', $date->format('Y-m-d'));
 
         $date = DatePrefixHelper::extractDate('2024-11-05-10-30-my-post.md');
         $this->assertNotNull($date);
-        $this->assertEquals('2024-11-05 10:30', $date->format('Y-m-d H:i'));
+        $this->assertSame('2024-11-05 10:30', $date->format('Y-m-d H:i'));
     }
 
     public function testCanGetDateFromBlogPostFilename()
@@ -33,7 +33,7 @@ class BlogPostDatePrefixTest extends TestCase
         $post = MarkdownPost::parse('2024-11-05-my-post');
 
         $this->assertInstanceOf(DateString::class, $post->date);
-        $this->assertEquals('2024-11-05 00:00', $post->date->string);
+        $this->assertSame('2024-11-05 00:00', $post->date->string);
     }
 
     public function testCanGetDateFromBlogPostFilenameWithTime()
@@ -42,7 +42,7 @@ class BlogPostDatePrefixTest extends TestCase
         $post = MarkdownPost::parse('2024-11-05-10-30-my-post');
 
         $this->assertInstanceOf(DateString::class, $post->date);
-        $this->assertEquals('2024-11-05 10:30', $post->date->string);
+        $this->assertSame('2024-11-05 10:30', $post->date->string);
     }
 
     public function testDatePrefixIsStrippedFromRouteKey()
@@ -50,7 +50,7 @@ class BlogPostDatePrefixTest extends TestCase
         $this->file('_posts/2024-11-05-my-post.md', '# Hello World');
         $post = MarkdownPost::parse('2024-11-05-my-post');
         
-        $this->assertEquals('posts/my-post', $post->getRouteKey());
+        $this->assertSame('posts/my-post', $post->getRouteKey());
     }
 
     public function testDateFromPrefixIsUsedWhenNoFrontMatterDate()
@@ -58,7 +58,7 @@ class BlogPostDatePrefixTest extends TestCase
         $this->file('_posts/2024-11-05-my-post.md', '# Hello World');
         $post = MarkdownPost::parse('2024-11-05-my-post');
         
-        $this->assertEquals('2024-11-05 00:00', $post->date->format('Y-m-d H:i'));
+        $this->assertSame('2024-11-05 00:00', $post->date->format('Y-m-d H:i'));
     }
 
     public function testFrontMatterDateTakesPrecedenceOverPrefix()
@@ -71,6 +71,6 @@ class BlogPostDatePrefixTest extends TestCase
         MD);
         
         $post = MarkdownPost::parse('2024-11-05-my-post');
-        $this->assertEquals('2024-12-25', $post->date->format('Y-m-d'));
+        $this->assertSame('2024-12-25', $post->date->format('Y-m-d'));
     }
 }
