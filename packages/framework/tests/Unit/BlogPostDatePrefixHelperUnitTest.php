@@ -46,12 +46,16 @@ class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
     public function testExtractDateWithoutDatePrefix()
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The given filepath does not contain a valid ISO 8601 date prefix.');
+
         DatePrefixHelper::extractDate('my-post.md');
     }
 
     public function testExtractDateWithInvalidDatePrefixFormat()
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The given filepath does not contain a valid ISO 8601 date prefix.');
+
         DatePrefixHelper::extractDate('2024-11-XX-my-post.md');
     }
 
