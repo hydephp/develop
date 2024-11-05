@@ -18,7 +18,7 @@ class DatePrefixHelper
      *
      * @var string The regular expression pattern for matching a date prefix in a filename
      */
-    protected const DATE_PATTERN = '/^(\d{4}-\d{2}-\d{2})(?:-(\d{2}-\d{2}))?-/';
+    protected const DATE_PATTERN = '/^(\d{4}-\d{2}-\d{2})(?:-(2[0-3]|[01]\d)-([0-5]\d))?-/';
 
     public static function hasDatePrefix(string $filepath): bool
     {
