@@ -33,6 +33,16 @@ class BlogPostDatePrefixTest extends TestCase
         $post = MarkdownPost::parse('2024-11-05-my-post');
 
         $this->assertInstanceOf(DateString::class, $post->date);
+        $this->assertEquals('2024-11-05 00:00', $post->date->string);
+    }
+
+    public function testCanGetDateFromBlogPostFilenameWithTime()
+    {
+        $this->file('_posts/2024-11-05-10-30-my-post.md', '# Hello World');
+        $post = MarkdownPost::parse('2024-11-05-10-30-my-post');
+
+        $this->assertInstanceOf(DateString::class, $post->date);
+        $this->assertEquals('2024-11-05 10:30', $post->date->string);
     }
 
     public function testDatePrefixIsStrippedFromRouteKey()
