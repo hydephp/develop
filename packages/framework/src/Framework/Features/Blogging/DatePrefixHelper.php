@@ -14,6 +14,11 @@ use Hyde\Support\Models\DateString;
  */
 class DatePrefixHelper
 {
+    /**
+     * We accept ISO 8601 dates in the format 'YYYY-MM-DD' and optionally a time in the format 'HH-MM', separated by a hyphen.
+     *
+     * @var string The regular expression pattern for matching a date prefix in a filename
+     */
     protected const DATE_PATTERN = '/^(\d{4}-\d{2}-\d{2})(?:-(\d{2}-\d{2}))?-/';
 
     public static function hasDatePrefix(string $filepath): bool
