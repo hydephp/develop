@@ -320,15 +320,6 @@ Here are two useful tips:
 1. You can use numerical prefixes in subdirectories to control the sidebar group order.
 2. The numbering within a subdirectory works independently of its siblings, so you can start from one in each subdirectory.
 
-#### Customization
-
-If you're not interested in using numerical prefix ordering, you can disable it in the Hyde config file. Hyde will then no longer extract the priority and will no longer strip the prefix from the route key.
-
-```php
-// filepath: config/hyde.php
-'numerical_page_ordering' => false,
-```
-
 ### Table of Contents Settings
 
 Hyde automatically generates a table of contents for the page and adds it to the sidebar.

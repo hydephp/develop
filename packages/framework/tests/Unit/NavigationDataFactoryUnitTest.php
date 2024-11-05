@@ -305,15 +305,6 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(3, (new NavigationConfigTestClass($this->makeCoreDataObject('foo/01-bar/03-baz.md', pageClass: DocumentationPage::class)))->makePriority());
     }
 
-    public function testItDoesNotExtractPriorityFromNumericalFilenamePrefixWhenFeatureIsDisabled()
-    {
-        self::mockConfig(['hyde.numerical_page_ordering' => false]);
-
-        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('01-test.md', pageClass: DocumentationPage::class)))->makePriority());
-        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('01-home.md', pageClass: DocumentationPage::class)))->makePriority());
-        $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('01-404.md', pageClass: DocumentationPage::class)))->makePriority());
-    }
-
     public function testItDoesNotExtractNonNumericalFilenamePrefixes()
     {
         $this->assertSame(999, (new NavigationConfigTestClass($this->makeCoreDataObject('foo-bar.md', pageClass: DocumentationPage::class)))->makePriority());

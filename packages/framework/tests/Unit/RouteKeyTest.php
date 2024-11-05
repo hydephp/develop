@@ -132,15 +132,6 @@ class RouteKeyTest extends UnitTestCase
         $this->assertSame('docs/foo/bar/baz', RouteKey::fromPage(DocumentationPage::class, 'foo/01-bar/03-baz')->get());
     }
 
-    public function testItDoesNotExtractCoreIdentifierPartFromNumericalFilenamePrefixWhenFeatureIsDisabled()
-    {
-        self::mockConfig(['hyde.numerical_page_ordering' => false]);
-
-        $this->assertSame('docs/01-test', RouteKey::fromPage(DocumentationPage::class, '01-test')->get());
-        $this->assertSame('docs/01-home', RouteKey::fromPage(DocumentationPage::class, '01-home')->get());
-        $this->assertSame('docs/01-404', RouteKey::fromPage(DocumentationPage::class, '01-404')->get());
-    }
-
     public function testItDoesNotExtractNonNumericalFilenamePrefixes()
     {
         $this->assertSame('docs/foo-bar', RouteKey::fromPage(DocumentationPage::class, 'foo-bar')->get());

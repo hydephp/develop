@@ -59,7 +59,7 @@ final class RouteKey implements Stringable
     /** @experimental */
     protected static function splitNumberedIdentifiersIfNeeded(string $identifier): string
     {
-        if (NumericalPageOrderingHelper::enabled() && NumericalPageOrderingHelper::hasNumericalPrefix($identifier)) {
+        if (NumericalPageOrderingHelper::hasNumericalPrefix($identifier)) {
             return NumericalPageOrderingHelper::splitNumericPrefix($identifier)[1];
         }
 

@@ -7,7 +7,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Services;
 
 use SimpleXMLElement;
-use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
@@ -29,8 +28,6 @@ class SitemapServiceTest extends TestCase
 
         copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
         copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
-
-        Config::set(['hyde.numerical_page_ordering' => false]);
     }
 
     public function testServiceInstantiatesXmlElement()

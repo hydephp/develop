@@ -17,8 +17,7 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 /**
  * High level test for the feature that allows sidebar items to be sorted by filename prefix.
  *
- * The feature can be disabled in the config. It also works within sidebar groups,
- * so that multiple groups can have the same prefix independent of other groups.
+ * It also works within sidebar groups, so that multiple groups can have the same prefix independent of other groups.
  *
  * @covers \Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper
  * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
@@ -75,37 +74,6 @@ class NumericalPageOrderingHelperTest extends TestCase
 
         // Assert route key dependents are trimmed.
         $this->assertSame('docs/readme.html', $page->getOutputPath());
-    }
-
-    public function testSourceFilesDoNotHaveTheirNumericalPrefixTrimmedFromRouteKeysWhenFeatureIsDisabled()
-    {
-        Config::set('hyde.numerical_page_ordering', false);
-
-        $this->file('_docs/01-readme.md');
-
-        $identifier = '01-readme';
-
-        // Assert it is discovered.
-        $discovered = DocumentationPage::get($identifier);
-        $this->assertNotNull($discovered, 'The page was not discovered.');
-
-        // Assert it is parsable
-        $parsed = DocumentationPage::parse($identifier);
-        $this->assertNotNull($parsed, 'The page was not parsable.');
-
-        // Sanity check
-        $this->assertEquals($discovered, $parsed);
-
-        $page = $discovered;
-
-        // Assert identifier is the same.
-        $this->assertSame($identifier, $page->getIdentifier());
-
-        // Assert the route key is not trimmed.
-        $this->assertSame('docs/'.$identifier, $page->getRouteKey());
-
-        // Assert route key dependents are trimmed.
-        $this->assertSame("docs/$identifier.html", $page->getOutputPath());
     }
 
     public function testFlatSidebarNavigationOrdering()

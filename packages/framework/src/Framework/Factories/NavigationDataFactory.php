@@ -249,10 +249,6 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             return null;
         }
 
-        if (! NumericalPageOrderingHelper::enabled()) {
-            return null;
-        }
-
         if (! NumericalPageOrderingHelper::hasNumericalPrefix($this->identifier)) {
             return null;
         }
