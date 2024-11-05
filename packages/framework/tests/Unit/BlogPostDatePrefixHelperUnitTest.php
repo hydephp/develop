@@ -61,7 +61,9 @@ class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
 
     public function testExtractDateWithMalformedTime()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Failed to parse time string (2024-11-05 25:99)');
+
         DatePrefixHelper::extractDate('2024-11-05-25-99-my-post.md');
     }
 
