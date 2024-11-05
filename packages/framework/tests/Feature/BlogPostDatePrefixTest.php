@@ -26,6 +26,14 @@ class BlogPostDatePrefixTest extends TestCase
         $this->assertEquals('2024-11-05 10:30', $date->format('Y-m-d H:i'));
     }
 
+    public function testCanGetDateFromBlogPostFilename()
+    {
+        $this->file('_posts/2024-11-05-my-post.md', '# Hello World');
+        $post = MarkdownPost::parse('2024-11-05-my-post');
+
+        $this->assertInstanceOf(\DateTimeInterface::class, $post->date);
+    }
+
     public function testDatePrefixIsStrippedFromRouteKey()
     {
         $this->file('_posts/2024-11-05-my-post.md', '# Hello World');
