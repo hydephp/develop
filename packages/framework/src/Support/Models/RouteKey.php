@@ -56,10 +56,10 @@ final class RouteKey implements Stringable
         return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
     }
 
-    /** 
+    /**
      * @experimental
      *
-     * @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass 
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      * */
     protected static function stripPrefixIfNeeded(string $pageClass, string $identifier): string
     {

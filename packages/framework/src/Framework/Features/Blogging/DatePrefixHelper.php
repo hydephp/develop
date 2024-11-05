@@ -34,7 +34,7 @@ class DatePrefixHelper
 
         $dateString = $matches[1];
         if (isset($matches[2])) {
-            $dateString .= ' ' . str_replace('-', ':', $matches[2]);
+            $dateString .= ' '.str_replace('-', ':', $matches[2]);
         }
 
         return new DateTime($dateString);
