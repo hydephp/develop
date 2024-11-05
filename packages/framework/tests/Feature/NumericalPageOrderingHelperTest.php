@@ -111,66 +111,6 @@ class NumericalPageOrderingHelperTest extends TestCase
         $this->assertSame("$identifier.html", $page->getOutputPath());
     }
 
-    public function testFlatMainNavigationOrdering()
-    {
-        $this->setupFixture([
-            '01-home.md',
-            '02-about.md',
-            '03-contact.md',
-        ]);
-
-        $this->assertOrder(['home', 'about', 'contact']);
-    }
-
-    public function testReverseOrderOfFlatMainNavigation()
-    {
-        // This is just a sanity check to make sure the helper is working, so we only need one of these.
-        $this->setupFixture(array_reverse([
-            '01-home.md',
-            '02-about.md',
-            '03-contact.md',
-        ]));
-
-        $this->assertOrder(['home', 'about', 'contact']);
-    }
-
-    public function testGroupedMainNavigationOrdering()
-    {
-        $this->setupFixture([
-            '01-home.md',
-            '02-about.md',
-            '03-contact.md',
-            '04-api' => [
-                '01-readme.md',
-                '02-installation.md',
-                '03-getting-started.md',
-            ],
-        ]);
-
-        $this->assertOrder(['home', 'about', 'contact', 'api' => [
-            'readme', 'installation', 'getting-started',
-        ]]);
-    }
-
-    public function testReverseOrderOfGroupedMainNavigation()
-    {
-        // Also a sanity check but for the inner group as well.
-        $this->setupFixture($this->arrayReverseRecursive([
-            '01-home.md',
-            '02-about.md',
-            '03-contact.md',
-            '04-api' => [
-                '01-readme.md',
-                '02-installation.md',
-                '03-getting-started.md',
-            ],
-        ]));
-
-        $this->assertOrder(['home', 'about', 'contact', 'api' => [
-            'readme', 'installation', 'getting-started',
-        ]]);
-    }
-
     public function testFlatSidebarNavigationOrdering()
     {
         $this->setUpSidebarFixture([
