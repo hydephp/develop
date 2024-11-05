@@ -29,33 +29,33 @@ class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
 
     public function testHasDatePrefixWithInvalidDateFormat()
     {
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-123-05-my-post.md')); // Invalid month
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-11-123-my-post.md')); // Invalid day
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-11-my-post.md')); // Missing day
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('202-11-05-my-post.md')); // Invalid year format
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-123-05-my-post.md'));
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-11-123-my-post.md'));
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-11-my-post.md'));
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('202-11-05-my-post.md'));
     }
 
     public function testHasDatePrefixWithInvalidTimeFormat()
     {
         // These are all true, because the parser will think that the time is part of the slug, so we can't reliably detect these cases, as there is technically a *date* prefix
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-123-00-my-post.md')); // Invalid hour
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-10-123-my-post.md')); // Invalid minute
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-1030-my-post.md')); // Missing hyphen between hour and minute
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-123-00-my-post.md'));
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-10-123-my-post.md'));
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-1030-my-post.md'));
     }
 
     public function testHasDatePrefixWithNoDatePrefixButSimilarPattern()
     {
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('hello-2024-11-05.md')); // Date-like pattern in the middle
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024/11/05-my-post.md')); // Date separated by slashes
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('11-05-2024-my-post.md')); // Date in non-ISO format
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('post-2024-11-05.md')); // Date-like pattern at the end
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('hello-2024-11-05.md'));
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024/11/05-my-post.md'));
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('11-05-2024-my-post.md'));
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('post-2024-11-05.md'));
     }
 
     public function testHasDatePrefixWithExtraCharactersAroundDate()
     {
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('x2024-11-05-my-post.md')); // Extra character at start
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post-.md')); // Extra hyphen at end
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post123.md')); // Extra numbers after filename
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('x2024-11-05-my-post.md'));
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post-.md'));
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post123.md'));
     }
 
     public function testExtractDateWithValidDateOnly()
@@ -140,12 +140,12 @@ class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
 
     public function testInvalidSingleDigitMonthOrDay()
     {
-        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-1-5-my-post.md')); // Single-digit month and day
+        $this->assertFalse(DatePrefixHelper::hasDatePrefix('2024-1-5-my-post.md'));
     }
 
     public function testFileWithValidDatePrefixButInvalidExtension()
     {
-        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post.txt')); // Unsupported file extension
+        $this->assertTrue(DatePrefixHelper::hasDatePrefix('2024-11-05-my-post.txt'));
     }
 
     public function testTimePrefixWithLeadingZeroInHourOrMinute()
@@ -183,7 +183,7 @@ class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
         $result = DatePrefixHelper::stripDatePrefix('2024-11-05-my-post.markdown');
         $this->assertSame('my-post.markdown', $result);
 
-        $result = DatePrefixHelper::stripDatePrefix('2024-11-05-my-post.txt'); // Should still strip but ignore extension
+        $result = DatePrefixHelper::stripDatePrefix('2024-11-05-my-post.txt');
         $this->assertSame('my-post.txt', $result);
     }
 }
