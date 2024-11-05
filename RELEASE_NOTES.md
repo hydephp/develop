@@ -22,6 +22,7 @@ This serves two purposes:
 - Introduced a new navigation config builder class to simplify navigation configuration in https://github.com/hydephp/develop/pull/1827
 - You can now add custom posts to the blog post feed component when including it directly in https://github.com/hydephp/develop/pull/1893
 - Added a `Feature::fromName()` enum helper in https://github.com/hydephp/develop/pull/1895
+- Added environment variable support for saving previews in https://github.com/hydephp/develop/pull/1996
 - Added support for specifying features in the YAML configuration in https://github.com/hydephp/develop/pull/1896
 - **Added a new consolidated Asset API to better handle media files.**
   - Added several new fluent methods to the `MediaFile` class, like `getLink()`, `getLength()`, `getMimeType()`, etc.

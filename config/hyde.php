@@ -423,7 +423,7 @@ return [
         'host' => env('SERVER_HOST', 'localhost'),
 
         // Should preview pages be saved to the output directory?
-        'save_preview' => false,
+        'save_preview' => env('SERVER_SAVE_PREVIEW', false),
 
         // Should the live edit feature be enabled?
         'live_edit' => env('SERVER_LIVE_EDIT', true),

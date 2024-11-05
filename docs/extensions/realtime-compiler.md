@@ -31,7 +31,7 @@ The server can be configured in the `config/hyde.php` file to change the port, h
 'server' => [
     'port' => env('SERVER_PORT', 8080),
     'host' => env('SERVER_HOST', 'localhost'),
-    'save_preview' => false,
+    'save_preview' => env('SERVER_SAVE_PREVIEW', false),
 ],
 ```
 
