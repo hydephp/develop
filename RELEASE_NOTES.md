@@ -41,6 +41,7 @@ This serves two purposes:
 - Fixed heading permalinks button text showing in Google Search previews https://github.com/hydephp/develop/issues/1801 in https://github.com/hydephp/develop/pull/1803
 - Fixed routing issues with nested 404 pages where an index page does not exist https://github.com/hydephp/develop/issues/1781 in https://github.com/hydephp/develop/pull/1880
 - Fixed URL metadata for blog posts not using customized post output directories in https://github.com/hydephp/develop/pull/1889
+- Improved printed documentation views in https://github.com/hydephp/develop/pull/2005
 - Realtime Compiler: Updated the exception handler to match HTTP exception codes when sending error responses in https://github.com/hydephp/develop/pull/1853
 - Realtime Compiler: Improved routing for nested index pages in https://github.com/hydephp/develop/pull/1852
 - Realtime Compiler: Improved the dashboard https://github.com/hydephp/develop/pull/1866 fixing https://github.com/hydephp/realtime-compiler/issues/22 and https://github.com/hydephp/realtime-compiler/issues/29
