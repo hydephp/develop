@@ -11,7 +11,7 @@
 * See https://hydephp.com/docs/1.x/managing-assets#loading-from-cdn
 */
 
-@import '~hydefront/dist/hyde.css';
+@import 'hydefront/dist/hyde.css';
 
 @tailwind base;
 @tailwind components;
