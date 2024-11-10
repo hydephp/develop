@@ -20,10 +20,10 @@ export default defineConfig({
         outDir: '_site/media',
         emptyOutDir: true,
         rollupOptions: {
-            input: {
-                app: resolve(__dirname, 'resources/assets/app.js'),
-                style: resolve(__dirname, 'resources/assets/app.css')
-            },
+            input: [
+                resolve(__dirname, 'resources/assets/app.js'),
+                resolve(__dirname, 'resources/assets/app.css')
+            ],
             output: {
                 entryFileNames: '[name].js',
                 chunkFileNames: '[name].js',
