@@ -57,7 +57,6 @@ version control. You are of course free to modify this behaviour by editing the 
 
 First, make sure that you have installed all the NodeJS dependencies using `npm install`.
 Then run `npm run dev` to compile the assets in development mode. For production builds, run `npm run build`.
-You can also run `npm run preview` to preview the built assets.
 
 ### How does it work?
 
