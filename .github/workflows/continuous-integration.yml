@@ -128,7 +128,7 @@ jobs:
 
       - name: Build assets for production
         working-directory: 'packages/hydefront'
-        run: npm run prod
+        run: npm run build
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -164,7 +164,7 @@ jobs:
         run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
 
       - name: Build assets for production
-        run: npm run prod
+        run: npm run build
 
       - name: Copy compiled app.css file to HydeFront dist folder
         run: cp _media/app.css packages/hydefront/dist/app.css

@@ -168,7 +168,7 @@ class StaticSiteServiceTest extends TestCase
 
         Process::assertRan(fn ($process) => $process->command === 'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line');
         Process::assertRan(fn ($process) => $process->command === 'npm run dev');
-        Process::assertRan(fn ($process) => $process->command === 'npm run prod');
+        Process::assertRan(fn ($process) => $process->command === 'npm run build');
     }
 
     public function testPrettyUrlsOptionOutput()

@@ -48,7 +48,7 @@ This will create commits in both the monorepo and submodule. Now follow the foll
 
 1. Verify that both commits are correct.
 2. Build the new `app.css` through the monorepo
-    - [ ] `npm run prod`
+    - [ ] `npm run build`
 3. Copy the compiled file to the HydeFront repository so it can be served from the CDN.
     - [ ] `cp _media/app.css packages/hydefront/dist/app.css`
 4. Amend the HydeFront commit with the new `app.css` file.
