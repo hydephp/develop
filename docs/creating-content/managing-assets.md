@@ -13,7 +13,7 @@ With Hyde, **you don't have to do it**, in fact, you can skip this entire page i
 But as always with Hyde, you can customize everything if you want to.
 
 Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions.
-Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Laravel Mix.
+Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Tailwind and Vite setup.
 
 To get you started quickly, all the styles are already compiled and minified into `_media/app.css`,
 which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
@@ -51,22 +51,22 @@ all asset files here will get copied as they are into the `_site/media` folder.
 It may seem weird to have two folders for storing the compiled assets, but it is quite useful.
 
 The `_site` directory is intended to be excluded from version control, while the `_media` folder is included in the
-version control. You are of course free to modify this behaviour by editing the `webpack.mix.js` file to change the output directory.
+version control. You are of course free to modify this behaviour by editing the `vite.config.js` file to change the output directory.
 
 ## How Do I Compile Assets?
 
 First, make sure that you have installed all the NodeJS dependencies using `npm install`.
-Then run `npm run dev` to compile the assets. If you want to compile the assets for production, run `npm run prod`.
-You can also run `npm run watch` to watch for changes in the source files and recompile the assets automatically.
+Then run `npm run dev` to compile the assets in development mode. For production builds, run `npm run build`.
+You can also run `npm run preview` to preview the built assets.
 
 ### How does it work?
 
-Hyde uses [Laravel Mix](https://laravel-mix.com/) (which is a wrapper for [Webpack](https://webpack.js.org/)) to compile the assets.
+Hyde uses [Vite](https://vite.dev/) to compile assets.
 
 When running the `npm run dev/prod` command, the following happens:
 
-1. Laravel Mix will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
-2. Mix then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
+1. Vite will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
+2. Vite then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
 
 ## Telling Hyde where to find assets
 
@@ -102,7 +102,7 @@ set `use_play_cdn` to `true` in the `config/hyde.php` file. This will in additio
 also add a script tag which loads the TailwindCSS Play CDN.
 
 What's even better is that Hyde will also inject the contents of the included `tailwind.config.js` file into the script tag,
-so the Play CDN styles match the ones created by Laravel Mix.
+so the Play CDN styles match the ones created by Vite.
 
 All in all, this allows you to tinker around with Tailwind without having to compile anything.
 
