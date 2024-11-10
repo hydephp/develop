@@ -1,4 +1,4 @@
-{{-- The compiled Laravel Mix scripts --}}
+{{-- The compiled Vite scripts --}}
 @if(Asset::exists('app.js'))
     <script defer src="{{ Asset::get('app.js') }}"></script>
 @endif
