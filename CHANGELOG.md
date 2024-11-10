@@ -1472,7 +1472,7 @@ However, if you are a package developer, or if you have published Blade views or
 
 ### Changed
 
-- Change the the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
+- Change the Prettier integration to only modify HTML files https://github.com/hydephp/develop/issues/102
 - Change how the `docs/search.html` page is rendered, by handling page logic in the view, to decouple it from the build search command
 
 ### Fixed
