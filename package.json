@@ -2,8 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview"
+        "build": "vite build"
     },
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.15",
