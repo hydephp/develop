@@ -85,7 +85,8 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testHandlesRoutesStaticAssets()
     {
-        $this->mockRoute('media/app.css');
+        $this->mockRoute('media/test.css');
+        Filesystem::put('_media/test.css', 'test');
 
         $kernel = new HttpKernel();
         $response = $kernel->handle(new Request());
@@ -93,7 +94,25 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(200, $response->statusCode);
         $this->assertEquals('OK', $response->statusMessage);
-        $this->assertEquals(file_get_contents(\Hyde\Hyde::path('_media/app.css')), $response->body);
+        $this->assertEquals('test', $response->body);
+
+        Filesystem::unlink('_media/test.css');
+    }
+
+    public function testNormalizesMediaPath()
+    {
+        $this->mockRoute('media/test.css');
+        Filesystem::put('_media/test.css', 'test');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals(200, $response->statusCode);
+        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertEquals('test', $response->body);
+
+        Filesystem::unlink('_media/test.css');
     }
 
     public function testThrowsRouteNotFoundExceptionForMissingRoute()
