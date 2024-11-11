@@ -32,6 +32,7 @@ This serves two purposes:
     - Added new `HydeFront` facade to handle CDN links and Tailwind config injection.
     - Added method `Asset::exists()` has to check if a media file exists.
     - Added a `Hyde::assets()` method to get all media file instances in the site.
+- Added new `npm run build` command for compiling frontend assets with Vite
 
 ### Changed
 
@@ -112,6 +113,7 @@ This serves two purposes:
     - Removed `Hyde::mediaPath()` method replaced by `MediaFile::sourcePath()` in https://github.com/hydephp/develop/pull/1911
     - Removed `Hyde::siteMediaPath()` method replaced by `MediaFile::outputPath()` in https://github.com/hydephp/develop/pull/1911
 - Removed Laravel Mix as a dependency in https://github.com/hydephp/develop/pull/2010 (replaced with Vite)
+- **Breaking:** Removed `npm run prod` command (replaced with `npm run build`)
 
 ### Fixed
 
