@@ -6,7 +6,6 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Illuminate\Support\Arr;
 use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\BuildService;
@@ -102,13 +101,6 @@ class BuildSiteCommand extends Command
 
         if ($this->option('run-vite')) {
             $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
-
-            /** @var \Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets $task */
-            $task = Arr::first($this->taskService->getRegisteredTasks(), function (string $task): bool {
-                return class_basename($task) === 'TransferMediaAssets';
-            });
-
-            (new $task)->run($this->output); // Transfer media assets to the public directory
         }
     }
 
