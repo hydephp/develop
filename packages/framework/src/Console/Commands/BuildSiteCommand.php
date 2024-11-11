@@ -105,7 +105,7 @@ class BuildSiteCommand extends Command
         }
 
         if ($this->option('run-prod')) {
-            $this->runNodeCommand('npm run prod', 'Building frontend assets for production!');
+            $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
         }
     }
 

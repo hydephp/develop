@@ -19,7 +19,7 @@ The Hyde stylesheet contains a small set of styles that don't make sense to use 
 Normally, this file is imported into the main.css file.
 
 - **App.css**:
-A compiled and minified file containing the TailwindCSS styles for a base Hyde installation. It includes the Hyde.css file. This file is identical to what one would get by running `npm run prod` in a new HydePHP project (which incidentally is exactly how this file is generated).
+A compiled and minified file containing the TailwindCSS styles for a base Hyde installation. It includes the Hyde.css file. This file is identical to what one would get by running `npm run build` in a new HydePHP project (which incidentally is exactly how this file is generated).
 
 
 ## Usage
