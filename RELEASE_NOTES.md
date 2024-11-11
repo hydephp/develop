@@ -26,6 +26,7 @@ This serves two purposes:
 - Added a `Feature::fromName()` enum helper in https://github.com/hydephp/develop/pull/1895
 - Added environment variable support for saving previews in https://github.com/hydephp/develop/pull/1996
 - Added support for specifying features in the YAML configuration in https://github.com/hydephp/develop/pull/1896
+- Added Vite as a build tool in https://github.com/hydephp/develop/pull/2010
 - **Added a new consolidated Asset API to better handle media files.**
     - Added several new fluent methods to the `MediaFile` class, like `getLink()`, `getLength()`, `getMimeType()`, etc.
     - Added new `HydeFront` facade to handle CDN links and Tailwind config injection.
@@ -86,6 +87,9 @@ This serves two purposes:
     - Media assets are now cached in the HydeKernel, giving a massive performance boost and making it easier to access the instances in https://github.com/hydephp/develop/pull/1917
     - Media file metadata is now lazy loaded and then cached in memory, providing performance improvements for files that may not be used in a build in https://github.com/hydephp/develop/pull/1933
     - We now use the much faster `CRC32` hashing algorithm instead of `MD5` for cache busting keys in https://github.com/hydephp/develop/pull/1918
+- **Replaced Laravel Mix with Vite for frontend asset compilation** in https://github.com/hydephp/develop/pull/2010
+    - **Breaking:** You must now use `npm run build` to compile your assets, instead of `npm run prod`
+
 
 ### Deprecated
 
@@ -107,6 +111,7 @@ This serves two purposes:
     - Removed `Hyde::mediaLink()` method replaced by `Hyde::asset()` in https://github.com/hydephp/develop/pull/1932
     - Removed `Hyde::mediaPath()` method replaced by `MediaFile::sourcePath()` in https://github.com/hydephp/develop/pull/1911
     - Removed `Hyde::siteMediaPath()` method replaced by `MediaFile::outputPath()` in https://github.com/hydephp/develop/pull/1911
+- Removed Laravel Mix as a dependency in https://github.com/hydephp/develop/pull/2010 (replaced with Vite)
 
 ### Fixed
 
