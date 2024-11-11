@@ -84,6 +84,10 @@ class BuildSiteCommand extends Command
             Config::set(['hyde.pretty_urls' => true]);
         }
 
+        if ($this->option('run-vite')) {
+            $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
+        }
+
         $this->taskService->runPreBuildTasks();
     }
 
@@ -97,10 +101,6 @@ class BuildSiteCommand extends Command
                 'Prettifying code!',
                 'prettify code'
             );
-        }
-
-        if ($this->option('run-vite')) {
-            $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
         }
     }
 
