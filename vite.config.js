@@ -17,7 +17,7 @@ export default defineConfig({
         }
     },
     build: {
-        outDir: '_site/media',
+        outDir: '_media',
         emptyOutDir: true,
         rollupOptions: {
             input: [
@@ -30,43 +30,5 @@ export default defineConfig({
                 assetFileNames: '[name].[ext]'
             }
         }
-    },
-    plugins: [
-        {
-            name: 'copy-media',
-            writeBundle() {
-                // Copy files from _site/media to _media
-                const fs = require('fs');
-                const path = require('path');
-
-                const sourceDir = '_site/media';
-                const targetDir = '_media';
-
-                if (!fs.existsSync(targetDir)) {
-                    fs.mkdirSync(targetDir, { recursive: true });
-                }
-
-                // Copy all files recursively
-                function copyRecursively(source, target) {
-                    const files = fs.readdirSync(source);
-
-                    files.forEach(file => {
-                        const sourcePath = path.join(source, file);
-                        const targetPath = path.join(target, file);
-
-                        if (fs.lstatSync(sourcePath).isDirectory()) {
-                            if (!fs.existsSync(targetPath)) {
-                                fs.mkdirSync(targetPath, { recursive: true });
-                            }
-                            copyRecursively(sourcePath, targetPath);
-                        } else {
-                            fs.copyFileSync(sourcePath, targetPath);
-                        }
-                    });
-                }
-
-                copyRecursively(sourceDir, targetDir);
-            }
-        }
-    ]
+    }
 });
