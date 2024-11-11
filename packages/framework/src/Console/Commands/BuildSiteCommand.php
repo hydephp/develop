@@ -29,7 +29,9 @@ class BuildSiteCommand extends Command
         {--run-vite : Build frontend assets using Vite}
         {--run-prettier : Format the output using NPM Prettier}
         {--pretty-urls : Should links in output use pretty URLs?}
-        {--no-api : Disable API calls, for example, Torchlight}';
+        {--no-api : Disable API calls, for example, Torchlight}
+        {--run-dev : [Removed] Use --run-vite instead}
+        {--run-prod : [Removed] Use --run-vite instead}';
 
     /** @var string */
     protected $description = 'Build the static site';
@@ -39,6 +41,12 @@ class BuildSiteCommand extends Command
 
     public function handle(): int
     {
+        // CodeCoverageIgnoreStart
+        if ($this->option('run-dev') || $this->option('run-prod')) {
+            return $this->deprecatedRunMixCommandFailure();
+        }
+        // CodeCoverageIgnoreEnd
+
         $timeStart = microtime(true);
 
         $this->title('Building your static site!');
@@ -152,5 +160,22 @@ class BuildSiteCommand extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * This method is called when the removed --run-dev or --run-prod options are used.
+     *
+     * @deprecated Use --run-vite instead
+     * @since v2.0 - This will be removed after 2-3 minor releases depending on the timeframe between them. (~v2.3)
+     *
+     * @codeCoverageIgnore
+     */
+    protected function deprecatedRunMixCommandFailure(): int
+    {
+        $this->error('The --run-dev and --run-prod options have been removed in HydePHP v2.0.');
+        $this->info('Please use --run-vite instead to build assets for production with Vite.');
+        $this->line('See https://github.com/hydephp/develop/pull/2013 for more information.');
+
+        return Command::FAILURE;
     }
 }
