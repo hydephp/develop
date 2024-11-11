@@ -91,7 +91,7 @@ This serves two purposes:
 - **Replaced Laravel Mix with Vite for frontend asset compilation** in https://github.com/hydephp/develop/pull/2010
     - **Breaking:** You must now use `npm run build` to compile your assets, instead of `npm run prod`
     - Bundled assets are now compiled directly into the `_media` folder, and will not be copied to the `_site/media` folder by the NPM command in https://github.com/hydephp/develop/pull/2011
-
+- The realtime compiler now only serves assets from the media source directory (`_media`), and no longer checks the site output directory (`_site/media`) in https://github.com/hydephp/develop/pull/2012
 
 ### Deprecated
 
@@ -123,6 +123,12 @@ This serves two purposes:
 ### Security
 
 - in case of vulnerabilities.
+
+### Package updates
+
+#### Realtime Compiler
+
+- Simplified the asset file locator to only serve files from the media source directory in https://github.com/hydephp/develop/pull/2012
 
 ### Upgrade Guide
 
