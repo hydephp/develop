@@ -26,8 +26,7 @@ class BuildSiteCommand extends Command
 {
     /** @var string */
     protected $signature = 'build
-        {--run-dev : Run the NPM dev script after build}
-        {--run-prod : Run the NPM prod script after build}
+        {--run-vite : Build frontend assets using Vite}
         {--run-prettier : Format the output using NPM Prettier}
         {--pretty-urls : Should links in output use pretty URLs?}
         {--no-api : Disable API calls, for example, Torchlight}';
@@ -100,11 +99,7 @@ class BuildSiteCommand extends Command
             );
         }
 
-        if ($this->option('run-dev')) {
-            $this->runNodeCommand('npm run dev', 'Building frontend assets for development!');
-        }
-
-        if ($this->option('run-prod')) {
+        if ($this->option('run-vite')) {
             $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
         }
     }

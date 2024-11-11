@@ -92,6 +92,7 @@ This serves two purposes:
     - **Breaking:** You must now use `npm run build` to compile your assets, instead of `npm run prod`
     - Bundled assets are now compiled directly into the `_media` folder, and will not be copied to the `_site/media` folder by the NPM command in https://github.com/hydephp/develop/pull/2011
 - The realtime compiler now only serves assets from the media source directory (`_media`), and no longer checks the site output directory (`_site/media`) in https://github.com/hydephp/develop/pull/2012
+- **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--run-vite` flag that uses Vite to build assets in https://github.com/hydephp/develop/pull/2013
 
 ### Deprecated
 

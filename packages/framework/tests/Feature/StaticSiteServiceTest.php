@@ -160,14 +160,12 @@ class StaticSiteServiceTest extends TestCase
     {
         Process::fake();
 
-        $this->artisan('build --run-prettier --run-dev --run-prod')
+        $this->artisan('build --run-prettier --run-vite')
             ->expectsOutput('Prettifying code! This may take a second.')
-            ->expectsOutput('Building frontend assets for development! This may take a second.')
             ->expectsOutput('Building frontend assets for production! This may take a second.')
             ->assertExitCode(0);
 
         Process::assertRan(fn ($process) => $process->command === 'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line');
-        Process::assertRan(fn ($process) => $process->command === 'npm run dev');
         Process::assertRan(fn ($process) => $process->command === 'npm run build');
     }
 
