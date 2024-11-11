@@ -62,10 +62,9 @@ Then run `npm run dev` to compile the assets in development mode. For production
 
 Hyde uses [Vite](https://vite.dev/) to compile assets.
 
-When running the `npm run dev/prod` command, the following happens:
+When running the `npm run dev/prod` command, Vite will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
 
-1. Vite will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
-2. Vite then copies the `_media` folder into `_site/media`, this is so that they are automatically accessible to your site without having to rerun `php hyde build`.
+The compiled assets will then be automatically copied to `_site/media` when you run `php hyde build`.
 
 ## Telling Hyde where to find assets
 

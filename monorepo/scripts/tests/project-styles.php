@@ -20,8 +20,5 @@ test('can build assets using vite', function () {
     $output = shell_exec('cd '.BASE_PATH.' && npm run build');
 
     $this->assert(file_exists(BASE_PATH.'/_media/app.css'), 'CSS file does not exist');
-    $this->assert(file_exists(BASE_PATH.'/_site/media/app.css'), 'CSS file does not exist');
-
     $this->assert(file_exists(BASE_PATH.'/_media/app.js'), 'JS file does not exist');
-    $this->assert(file_exists(BASE_PATH.'/_site/media/app.js'), 'JS file does not exist');
 });

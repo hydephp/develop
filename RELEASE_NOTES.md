@@ -90,6 +90,7 @@ This serves two purposes:
     - We now use the much faster `CRC32` hashing algorithm instead of `MD5` for cache busting keys in https://github.com/hydephp/develop/pull/1918
 - **Replaced Laravel Mix with Vite for frontend asset compilation** in https://github.com/hydephp/develop/pull/2010
     - **Breaking:** You must now use `npm run build` to compile your assets, instead of `npm run prod`
+    - Bundled assets are now compiled directly into the `_media` folder, and will not be copied to the `_site/media` folder by the NPM command in https://github.com/hydephp/develop/pull/2011
 
 
 ### Deprecated
