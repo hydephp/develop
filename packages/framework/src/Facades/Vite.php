@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Illuminate\Support\HtmlString;
+
 /**
  * Vite facade for handling Vite-related operations.
  */
@@ -16,10 +18,20 @@ class Vite
         return true;
     }
 
-    public static function assets(array $paths): string
+    public static function assets(array $paths): HtmlString
     {
-        // TODO: Implement this
+        $html = sprintf('<script src="http://localhost:3000/@vite/client" type="module"></script>');
 
-        return '';
+        foreach ($paths as $path) {
+            if (str_ends_with($path, '.css')) {
+                $html .= sprintf('<link rel="stylesheet" href="http://localhost:3000/%s">', $path);
+            }
+
+            if (str_ends_with($path, '.js')) {
+                $html .= sprintf('<script src="http://localhost:3000/%s" type="module"></script>', $path);
+            }
+        }
+
+        return new HtmlString($html);
     }
 }
