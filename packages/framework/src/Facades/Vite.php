@@ -20,7 +20,7 @@ class Vite
 
         // Check if Vite dev server is running by attempting to connect to it
         // Todo: Check performance on Windows (takes less than 1ms on macOS)
-        $server = @fsockopen('localhost', 3000, $errno, $errstr, 0.1);
+        $server = @fsockopen('localhost', 5173, $errno, $errstr, 0.1);
 
         if ($server) {
             fclose($server);
@@ -33,15 +33,15 @@ class Vite
 
     public static function assets(array $paths): HtmlString
     {
-        $html = sprintf('<script src="http://localhost:3000/@vite/client" type="module"></script>');
+        $html = sprintf('<script src="http://localhost:5173/@vite/client" type="module"></script>');
 
         foreach ($paths as $path) {
             if (str_ends_with($path, '.css')) {
-                $html .= sprintf('<link rel="stylesheet" href="http://localhost:3000/%s">', $path);
+                $html .= sprintf('<link rel="stylesheet" href="http://localhost:5173/%s">', $path);
             }
 
             if (str_ends_with($path, '.js')) {
-                $html .= sprintf('<script src="http://localhost:3000/%s" type="module"></script>', $path);
+                $html .= sprintf('<script src="http://localhost:5173/%s" type="module"></script>', $path);
             }
         }
 

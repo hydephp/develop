@@ -36,7 +36,7 @@ class ConsoleOutput
             (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled' ?
                 sprintf('<span class="text-white">Live dashboard:</span> <a href="%s/dashboard" class="text-yellow-500">%s/dashboard</a>', $url, $url) : null,
             Arr::get($environment, 'HYDE_SERVER_VITE') === 'enabled' ?
-                sprintf('<span class="text-white">Vite HMR server:</span> <a href="http://%s:3000" class="text-yellow-500">http://%s:3000</a>', $host, $host) : null,
+                sprintf('<span class="text-white">Vite HMR server:</span> <a href="http://%s:5173" class="text-yellow-500">http://%s:5173</a>', $host, $host) : null,
             '',
         ]);
 
