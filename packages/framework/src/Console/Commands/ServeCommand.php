@@ -71,7 +71,10 @@ class ServeCommand extends Command
     {
         $viteCommand = 'npm run dev';
 
-        Process::forever()->env($this->getViteEnvironmentVariables())->run($viteCommand, $this->getViteOutputHandler());
+        Process::forever()
+            ->start($viteCommand, function (string $type, string $line): void {
+                $this->output->write($line);
+            });
 
         $this->info('Vite development server started for HMR.');
     }
@@ -108,7 +111,14 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()->env($this->getEnvironmentVariables())->run($command, $this->getOutputHandler());
+        Process::forever()
+            ->env($this->getEnvironmentVariables())
+            ->start($command, $this->getOutputHandler());
+
+        // Keep the main process running
+        while (true) {
+            usleep(1000000); // Sleep for 1 second
+        }
     }
 
     protected function getEnvironmentVariables(): array
