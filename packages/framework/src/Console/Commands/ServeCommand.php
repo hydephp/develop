@@ -177,4 +177,11 @@ class ServeCommand extends Command
             default => null
         };
     }
+
+    protected function runViteProcess(): void
+    {
+        Process::forever()->start('npm run dev', function (string $type, string $output): void {
+            $this->output->write($output);
+        });
+    }
 }
