@@ -35,6 +35,7 @@ class ServeCommand extends Command
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
         {--open=false : Open the site preview in the browser.}
+        {--vite : Enable Vite for Hot Module Replacement (HMR)}
     ';
 
     /** @var string */
@@ -51,13 +52,43 @@ class ServeCommand extends Command
             $this->openInBrowser((string) $this->option('open'));
         }
 
-        $this->runServerProcess(sprintf('php -S %s:%d %s',
+        $command = sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
             $this->getPortSelection(),
             $this->getExecutablePath()
-        ));
+        );
+
+        if ($this->option('vite')) {
+            $this->runViteProcess();
+        }
+
+        $this->runServerProcess($command);
 
         return Command::SUCCESS;
+    }
+
+    protected function runViteProcess(): void
+    {
+        $viteCommand = 'npm run dev';
+
+        Process::forever()->env($this->getViteEnvironmentVariables())->run($viteCommand, $this->getViteOutputHandler());
+
+        $this->info('Vite development server started for HMR.');
+    }
+
+    protected function getViteEnvironmentVariables(): array
+    {
+        return Arr::whereNotNull([
+            'NODE_ENV' => 'development',
+            'PORT' => 3000,
+        ]);
+    }
+
+    protected function getViteOutputHandler(): Closure
+    {
+        return function (string $type, string $line): void {
+            $this->output->write($line);
+        };
     }
 
     protected function getHostSelection(): string
@@ -103,6 +134,10 @@ class ServeCommand extends Command
         $this->useBasicOutput()
             ? $this->output->writeln('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
             : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection(), $this->getEnvironmentVariables());
+
+        if ($this->option('vite')) {
+            $this->console->printViteMessage();
+        }
     }
 
     protected function getOutputHandler(): Closure

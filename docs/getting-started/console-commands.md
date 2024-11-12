@@ -101,7 +101,7 @@ Run the static site builder for a single file
 <a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-php hyde serve [--host [HOST]] [--port [PORT]]
+php hyde serve [--host [HOST]] [--port [PORT]] [--vite]
 ```
 
 Start the realtime compiler server.
