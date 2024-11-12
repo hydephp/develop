@@ -11,29 +11,9 @@ use Illuminate\Support\HtmlString;
  */
 class Vite
 {
-    protected static bool $isRunning = false;
-    protected static bool $hasChecked = false;
-
     public static function running(): bool
     {
-        if (! static::$hasChecked) {
-            static::checkViteStatus();
-        }
-
-        return static::$isRunning;
-    }
-
-    protected static function checkViteStatus(): void
-    {
-        static::$hasChecked = true;
-
-        // Try to establish a connection to the Vite server
-        $connection = @fsockopen('localhost', 3000, $errno, $errstr, 0.1);
-        
-        if ($connection) {
-            static::$isRunning = true;
-            fclose($connection);
-        }
+        return env('HYDE_SERVER_VITE') === 'enabled';
     }
 
     public static function assets(array $paths): HtmlString

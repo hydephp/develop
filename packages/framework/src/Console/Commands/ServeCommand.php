@@ -137,6 +137,7 @@ class ServeCommand extends Command
             'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
             'HYDE_PLAY_CDN' => $this->parseEnvironmentOption('play-cdn'),
+            'HYDE_SERVER_VITE' => $this->option('vite') ? 'enabled' : null,
         ]);
     }
 
