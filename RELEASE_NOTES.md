@@ -27,6 +27,7 @@ This serves two purposes:
 - Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
 - Realtime Compiler: Virtual routes are now managed through the service container in https://github.com/hydephp/develop/pull/1858
 - Realtime Compiler: Improved the dashboard layout in https://github.com/hydephp/develop/pull/1866
+- Realtime Compiler: Shorten the realtime compiler server start message from "Press Ctrl+C to stop" to "Use Ctrl+C to stop" to better fit 80 column terminals in https://github.com/hydephp/develop/pull/2017
 
 ### Deprecated
 - The `PostAuthor::getName()` method is now deprecated and will be removed in v2. (use `$author->name` instead) in https://github.com/hydephp/develop/pull/1794
