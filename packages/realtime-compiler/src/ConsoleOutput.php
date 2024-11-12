@@ -54,16 +54,6 @@ class ConsoleOutput
         render("<div class=\"text-green-500\">$body</div>");
     }
 
-    public function printViteMessage(): void
-    {
-        $this->output->writeln([
-            '',
-            ' <info>Starting Vite development server...</info>',
-            ' <comment>HMR will be available on port 3000</comment>',
-            '',
-        ]);
-    }
-
     public function getFormatter(): Closure
     {
         return function (string $type, string $line): void {
