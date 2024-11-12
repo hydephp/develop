@@ -84,7 +84,7 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()->env($this->getEnvironmentVariables())->run($command, $this->getOutputHandler());
+        $this->server = Process::forever()->env($this->getEnvironmentVariables())->start($command, $this->getOutputHandler());
     }
 
     protected function getEnvironmentVariables(): array
