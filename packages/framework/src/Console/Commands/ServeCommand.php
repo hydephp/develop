@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Contracts\Process\InvokedProcess;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Sleep;
 use InvalidArgumentException;
 use Hyde\Console\Concerns\Command;
 use Hyde\RealtimeCompiler\ConsoleOutput;
@@ -73,7 +74,7 @@ class ServeCommand extends Command
                 echo $this->vite->latestOutput();
             }
 
-            usleep(100000); // Sleep for 100ms
+            Sleep::usleep(100000); // 100ms
         }
 
         return Command::SUCCESS;
