@@ -67,49 +67,6 @@ class ServeCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function runViteProcess(): void
-    {
-        $viteCommand = 'npm run dev';
-
-        Process::forever()
-            ->env($this->getViteEnvironmentVariables())
-            ->tty(true)
-            ->start($viteCommand, function (string $type, string $output): void {
-                if (Process::ERR === $type) {
-                    $this->error($output);
-                } else {
-                    $this->line($output);
-                }
-                if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-                    flush();
-                }
-            });
-
-        $this->info('Vite development server started for HMR.');
-    }
-
-    protected function getViteEnvironmentVariables(): array
-    {
-        return Arr::whereNotNull([
-            'NODE_ENV' => 'development',
-            'PORT' => 3000,
-        ]);
-    }
-
-    protected function getViteOutputHandler(): Closure
-    {
-        return function (string $type, string $output): void {
-            if (Process::ERR === $type) {
-                $this->error($output);
-            } else {
-                $this->line($output);
-            }
-            if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-                flush();
-            }
-        };
-    }
-
     protected function getHostSelection(): string
     {
         return (string) $this->option('host') ?: Config::getString('hyde.server.host', 'localhost');
@@ -127,32 +84,7 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        $process = Process::forever()
-            ->env($this->getEnvironmentVariables())
-            ->tty(true)
-            ->start($command, function (string $type, string $output): void {
-                if (Process::ERR === $type) {
-                    $this->error($output);
-                } else {
-                    $this->line($output);
-                }
-            });
-
-        if (PHP_OS_FAMILY !== 'Windows') {
-            pcntl_async_signals(true);
-            pcntl_signal(SIGINT, function () use ($process) {
-                $this->info("\nShutting down servers...");
-                $process->stop();
-                exit;
-            });
-        }
-
-        while (true) {
-            usleep(1000000); // Sleep for 1 second
-            if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-                flush();
-            }
-        }
+        Process::forever()->env($this->getEnvironmentVariables())->run($command, $this->getOutputHandler());
     }
 
     protected function getEnvironmentVariables(): array
@@ -179,10 +111,6 @@ class ServeCommand extends Command
         $this->useBasicOutput()
             ? $this->output->writeln('<info>Starting the HydeRC server...</info> Press Ctrl+C to stop')
             : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection(), $this->getEnvironmentVariables());
-
-        if ($this->option('vite')) {
-            $this->console->printViteMessage();
-        }
     }
 
     protected function getOutputHandler(): Closure
