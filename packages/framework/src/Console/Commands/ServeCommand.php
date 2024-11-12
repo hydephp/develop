@@ -73,7 +73,17 @@ class ServeCommand extends Command
 
         Process::forever()
             ->env($this->getViteEnvironmentVariables())
-            ->start($viteCommand, $this->getViteOutputHandler());
+            ->tty(true)
+            ->start($viteCommand, function (string $type, string $output): void {
+                if (Process::ERR === $type) {
+                    $this->error($output);
+                } else {
+                    $this->line($output);
+                }
+                if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+                    flush();
+                }
+            });
 
         $this->info('Vite development server started for HMR.');
     }
@@ -88,8 +98,15 @@ class ServeCommand extends Command
 
     protected function getViteOutputHandler(): Closure
     {
-        return function (string $type, string $line): void {
-            $this->output->write($line);
+        return function (string $type, string $output): void {
+            if (Process::ERR === $type) {
+                $this->error($output);
+            } else {
+                $this->line($output);
+            }
+            if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+                flush();
+            }
         };
     }
 
@@ -112,7 +129,14 @@ class ServeCommand extends Command
     {
         $process = Process::forever()
             ->env($this->getEnvironmentVariables())
-            ->start($command, $this->getOutputHandler());
+            ->tty(true)
+            ->start($command, function (string $type, string $output): void {
+                if (Process::ERR === $type) {
+                    $this->error($output);
+                } else {
+                    $this->line($output);
+                }
+            });
 
         if (PHP_OS_FAMILY !== 'Windows') {
             pcntl_async_signals(true);
@@ -123,9 +147,11 @@ class ServeCommand extends Command
             });
         }
 
-        // Keep the main process running
         while (true) {
             usleep(1000000); // Sleep for 1 second
+            if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+                flush();
+            }
         }
     }
 
