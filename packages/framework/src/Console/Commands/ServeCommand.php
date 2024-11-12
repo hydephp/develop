@@ -7,7 +7,7 @@ namespace Hyde\Console\Commands;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
-use Illuminate\Process\InvokedProcess;
+use Illuminate\Contracts\Process\InvokedProcess;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Hyde\Console\Concerns\Command;
