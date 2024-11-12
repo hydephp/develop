@@ -13,7 +13,22 @@ class Vite
 {
     public static function running(): bool
     {
-        return env('HYDE_SERVER_VITE') === 'enabled';
+        // Check if Vite was enabled via the serve command
+        if (env('HYDE_SERVER_VITE') === 'enabled') {
+            return true;
+        }
+
+        // Check if Vite dev server is running by attempting to connect to it
+        // Todo: Check performance on Windows (takes less than 1ms on macOS)
+        $server = @fsockopen('localhost', 3000, $errno, $errstr, 0.1);
+
+        if ($server) {
+            fclose($server);
+
+            return true;
+        }
+
+        return false;
     }
 
     public static function assets(array $paths): HtmlString
