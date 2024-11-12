@@ -71,7 +71,7 @@ class ServeCommand extends Command
 
         while ($this->server->running()) {
             if (isset($this->vite) && $this->vite->running()) {
-                echo $this->vite->latestOutput();
+                $this->line($this->vite->latestOutput());
             }
 
             Sleep::usleep(100000); // 100ms
