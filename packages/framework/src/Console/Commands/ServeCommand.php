@@ -65,6 +65,10 @@ class ServeCommand extends Command
         $this->runServerProcess($command);
 
         while ($this->server->running()) {
+            if (isset($this->vite) && $this->vite->running()) {
+                echo $this->vite->latestOutput();
+            }
+
             sleep(1);
         }
 
@@ -184,8 +188,6 @@ class ServeCommand extends Command
 
     protected function runViteProcess(): void
     {
-        Process::forever()->start('npm run dev', function (string $type, string $output): void {
-            $this->output->write($output);
-        });
+        $this->vite = Process::forever()->start('npm run dev');
     }
 }
