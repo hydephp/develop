@@ -72,9 +72,8 @@ class ServeCommand extends Command
         $viteCommand = 'npm run dev';
 
         Process::forever()
-            ->start($viteCommand, function (string $type, string $line): void {
-                $this->output->write($line);
-            });
+            ->env($this->getViteEnvironmentVariables())
+            ->start($viteCommand, $this->getViteOutputHandler());
 
         $this->info('Vite development server started for HMR.');
     }
@@ -111,9 +110,18 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()
+        $process = Process::forever()
             ->env($this->getEnvironmentVariables())
             ->start($command, $this->getOutputHandler());
+
+        if (PHP_OS_FAMILY !== 'Windows') {
+            pcntl_async_signals(true);
+            pcntl_signal(SIGINT, function () use ($process) {
+                $this->info("\nShutting down servers...");
+                $process->stop();
+                exit;
+            });
+        }
 
         // Keep the main process running
         while (true) {
