@@ -73,7 +73,7 @@ class ServeCommand extends Command
                 echo $this->vite->latestOutput();
             }
 
-            sleep(1);
+            usleep(100000); // Sleep for 100ms
         }
 
         return Command::SUCCESS;
