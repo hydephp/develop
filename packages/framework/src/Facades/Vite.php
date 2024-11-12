@@ -7,5 +7,17 @@ namespace Hyde\Facades;
  */
 class Vite
 {
-    //
+    public static function running(): bool
+    {
+        // TODO: Implement this
+
+        return true;
+    }
+
+    public static function assets(array $paths): string
+    {
+        // TODO: Implement this
+
+        return '';
+    }
 }
