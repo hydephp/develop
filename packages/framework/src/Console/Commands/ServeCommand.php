@@ -193,6 +193,25 @@ class ServeCommand extends Command
 
     protected function runViteProcess(): void
     {
+        if (! $this->isPortAvailable(5173)) {
+            throw new InvalidArgumentException(
+                'Unable to start Vite server: Port 5173 is already in use. '.
+                'Please stop any other Vite processes and try again.'
+            );
+        }
+
         $this->vite = Process::forever()->start('npm run dev');
+    }
+
+    protected function isPortAvailable(int $port): bool
+    {
+        $socket = @fsockopen('localhost', $port, $errno, $errstr, 1);
+        if ($socket !== false) {
+            fclose($socket);
+
+            return false;
+        }
+
+        return true;
     }
 }

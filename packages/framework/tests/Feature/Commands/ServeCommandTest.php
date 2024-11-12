@@ -265,6 +265,17 @@ class ServeCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
+    public function testHydeServeCommandWithViteOptionThrowsWhenPortIsInUse()
+    {
+        $socket = stream_socket_server('tcp://127.0.0.1:5173');
+
+        $this->artisan('serve --vite')
+            ->expectsOutputToContain('Unable to start Vite server: Port 5173 is already in use')
+            ->assertExitCode(1);
+
+        stream_socket_shutdown($socket, STREAM_SHUT_RDWR);
+    }
+
     protected function binaryPath(): string
     {
         return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
