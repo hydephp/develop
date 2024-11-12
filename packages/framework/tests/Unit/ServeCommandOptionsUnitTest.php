@@ -367,6 +367,8 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
 
             protected function runServerProcess(string $command): void
             {
+                $this->server = Mockery::mock(\Illuminate\Contracts\Process\InvokedProcess::class);
+                $this->server->shouldReceive('running')->once()->andReturn(false);
             }
 
             protected function openInBrowser(string $path = '/'): void

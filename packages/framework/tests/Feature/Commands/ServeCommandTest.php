@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Contracts\Process\InvokedProcess;
 use Illuminate\Support\Facades\Process;
 use TypeError;
 
@@ -138,6 +139,11 @@ class ServeCommandTest extends TestCase
 
     public function testHydeServeCommandPassesThroughProcessOutput()
     {
+        $mockProcess = mock(InvokedProcess::class);
+        $mockProcess->shouldReceive('running')
+            ->once()
+            ->andReturn(false);
+
         Process::shouldReceive('forever')
             ->once()
             ->withNoArgs()
@@ -148,14 +154,14 @@ class ServeCommandTest extends TestCase
             ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false])
             ->andReturnSelf();
 
-        Process::shouldReceive('run')
+        Process::shouldReceive('start')
             ->once()
             ->withArgs(function (string $command, Closure $handle) {
                 $handle('type', 'foo');
 
                 return $command === "php -S localhost:8080 {$this->binaryPath()}";
             })
-            ->andReturnSelf();
+            ->andReturn($mockProcess);
 
         $this->artisan('serve --no-ansi')
             ->expectsOutput('Starting the HydeRC server... Press Ctrl+C to stop')
