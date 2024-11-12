@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Illuminate\Process\InvokedProcess;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Hyde\Console\Concerns\Command;
@@ -42,6 +43,9 @@ class ServeCommand extends Command
     protected $description = 'Start the realtime compiler server';
 
     protected ConsoleOutput $console;
+
+    protected InvokedProcess $server;
+    protected InvokedProcess $vite;
 
     public function safeHandle(): int
     {
