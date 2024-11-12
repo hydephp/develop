@@ -64,6 +64,10 @@ class ServeCommand extends Command
 
         $this->runServerProcess($command);
 
+        while ($this->server->running()) {
+            sleep(1);
+        }
+
         return Command::SUCCESS;
     }
 
