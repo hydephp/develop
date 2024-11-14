@@ -430,7 +430,6 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
 
             protected function openInBrowser(string $path = '/'): void
             {
-                //
             }
         };
     }

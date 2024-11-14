@@ -26,7 +26,6 @@ class ViteFacadeTest extends UnitTestCase
 
         $this->assertTrue(Vite::running());
 
-        // Clean up
         stream_socket_shutdown($server, STREAM_SHUT_RDWR);
     }
 
