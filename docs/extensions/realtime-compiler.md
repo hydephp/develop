@@ -50,18 +50,6 @@ The server can be configured in the `config/hyde.php` file to change the port, h
 
     // Should the live edit feature be enabled?
     'live_edit' => env('SERVER_LIVE_EDIT', true),
-
-    // Configure the realtime compiler dashboard
-    'dashboard' => [
-        // Should the realtime compiler dashboard be enabled?
-        'enabled' => env('SERVER_DASHBOARD', true),
-
-        // Can the dashboard make edits to the project file system?
-        'interactive' => true,
-
-        // Should the dashboard show tips?
-        'tips' => true,
-    ],
 ],
 ```
 
@@ -83,9 +71,15 @@ The dashboard can be customized, and disabled, in the `config/hyde.php` file.
 // filepath config/hyde.php
 
 'server' => [
+    // Configure the realtime compiler dashboard
     'dashboard' => [
+        // Should the realtime compiler dashboard be enabled?
         'enabled' => env('SERVER_DASHBOARD', true),
+
+        // Can the dashboard make edits to the project file system?
         'interactive' => true,
+
+        // Should the dashboard show tips?
         'tips' => true,
     ],
 ],
