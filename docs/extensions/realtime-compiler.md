@@ -39,9 +39,29 @@ The server can be configured in the `config/hyde.php` file to change the port, h
 // filepath config/hyde.php
 
 'server' => [
+    // The default port the preview is served on
     'port' => env('SERVER_PORT', 8080),
+
+    // The default host the preview is served on
     'host' => env('SERVER_HOST', 'localhost'),
+
+    // Should preview pages be saved to the output directory?
     'save_preview' => true,
+
+    // Should the live edit feature be enabled?
+    'live_edit' => env('SERVER_LIVE_EDIT', true),
+
+    // Configure the realtime compiler dashboard
+    'dashboard' => [
+        // Should the realtime compiler dashboard be enabled?
+        'enabled' => env('SERVER_DASHBOARD', true),
+
+        // Can the dashboard make edits to the project file system?
+        'interactive' => true,
+
+        // Should the dashboard show tips?
+        'tips' => true,
+    ],
 ],
 ```
 
