@@ -439,7 +439,6 @@ return [
             // Should the dashboard show tips?
             'tips' => true,
         ],
-
     ],
 
     /*

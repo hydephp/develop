@@ -45,7 +45,7 @@ export default defineConfig({
     },
     build: {
         outDir: '_media',
-        emptyOutDir: true,
+        emptyOutDir: false,
         rollupOptions: {
             input: [
                 resolve(__dirname, 'resources/assets/app.js'),

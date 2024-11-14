@@ -103,7 +103,7 @@ class ConsoleOutput
 
     protected function formatServerStartedLine(string $line): string
     {
-        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Press Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line), 'green-500');
+        return $this->formatLine(sprintf('PHP %s Development Server started. <span class="text-yellow-500">Use Ctrl+C to stop.</span>', PHP_VERSION), $this->parseDate($line), 'green-500');
     }
 
     protected function formatRequestLine(string $line): string
