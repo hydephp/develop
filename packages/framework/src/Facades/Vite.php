@@ -20,7 +20,7 @@ class Vite
 
         // Check if Vite dev server is running by attempting to connect to it
         // Todo: Improve performance on Windows (takes less than 1ms on macOS, but around 100ms on Windows)
-        set_error_handler(fn () => false);
+        set_error_handler(fn () => false); // Todo: This warning surpressor does not work on Windows
         $server = fsockopen('localhost', 5173, $errno, $errstr, 0.1);
         restore_error_handler();
 
