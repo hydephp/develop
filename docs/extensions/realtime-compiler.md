@@ -21,6 +21,16 @@ This will start a local development server at `http://localhost:8080`
 
 >warning Please note that the server is designed for local development, and should not be used on a public network.
 
+### Options
+
+- `--host=`: <comment>[default: "localhost"]</comment>
+- `--port=`: <comment>[default: 8080]</comment>
+- `--save-preview=`: Should the served page be saved to disk? (Overrides config setting)
+- `--dashboard=`: Enable the realtime compiler dashboard. (Overrides config setting)
+- `--pretty-urls=`: Enable pretty URLs. (Overrides config setting)
+- `--play-cdn=`: Enable the Tailwind Play CDN. (Overrides config setting)
+- `--open=false`: Open the site preview in the browser.
+
 ### Configuration
 
 The server can be configured in the `config/hyde.php` file to change the port, host, and to customize its features.
@@ -29,9 +39,29 @@ The server can be configured in the `config/hyde.php` file to change the port, h
 // filepath config/hyde.php
 
 'server' => [
+    // The default port the preview is served on
     'port' => env('SERVER_PORT', 8080),
+
+    // The default host the preview is served on
     'host' => env('SERVER_HOST', 'localhost'),
+
+    // Should preview pages be saved to the output directory?
     'save_preview' => true,
+
+    // Should the live edit feature be enabled?
+    'live_edit' => env('SERVER_LIVE_EDIT', true),
+
+    // Configure the realtime compiler dashboard
+    'dashboard' => [
+        // Should the realtime compiler dashboard be enabled?
+        'enabled' => env('SERVER_DASHBOARD', true),
+
+        // Can the dashboard make edits to the project file system?
+        'interactive' => true,
+
+        // Should the dashboard show tips?
+        'tips' => true,
+    ],
 ],
 ```
 
