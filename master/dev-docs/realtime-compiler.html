@@ -289,6 +289,9 @@
 <a href="#usage">Usage</a>
 </li>
 <li>
+<a href="#options">Options</a>
+</li>
+<li>
 <a href="#configuration">Configuration</a>
 </li>
 <li>
@@ -349,12 +352,51 @@ allowing you to preview your static site on a local development server without h
 </code></pre>
 <p>This will start a local development server at <code>http://localhost:8080</code></p>
 <blockquote class="warning"><p>Please note that the server is designed for local development, and should not be used on a public network.</p></blockquote>
+<h3>Options<a id="options" href="#options" class="heading-permalink" title="Permalink"></a></h3>
+<ul>
+<li>
+<code>--host=</code>: <comment>[default: &quot;localhost&quot;]</comment>
+</li>
+<li>
+<code>--port=</code>: <comment>[default: 8080]</comment>
+</li>
+<li>
+<code>--save-preview=</code>: Should the served page be saved to disk? (Overrides config setting)</li>
+<li>
+<code>--dashboard=</code>: Enable the realtime compiler dashboard. (Overrides config setting)</li>
+<li>
+<code>--pretty-urls=</code>: Enable pretty URLs. (Overrides config setting)</li>
+<li>
+<code>--play-cdn=</code>: Enable the Tailwind Play CDN. (Overrides config setting)</li>
+<li>
+<code>--open=false</code>: Open the site preview in the browser.</li>
+</ul>
 <h3>Configuration<a id="configuration" href="#configuration" class="heading-permalink" title="Permalink"></a></h3>
 <p>The server can be configured in the <code>config/hyde.php</code> file to change the port, host, and to customize its features.</p>
 <pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>config/hyde.php</small>'server' =&gt; [
+    // The default port the preview is served on
     'port' =&gt; env('SERVER_PORT', 8080),
+
+    // The default host the preview is served on
     'host' =&gt; env('SERVER_HOST', 'localhost'),
+
+    // Should preview pages be saved to the output directory?
     'save_preview' =&gt; true,
+
+    // Should the live edit feature be enabled?
+    'live_edit' =&gt; env('SERVER_LIVE_EDIT', true),
+
+    // Configure the realtime compiler dashboard
+    'dashboard' =&gt; [
+        // Should the realtime compiler dashboard be enabled?
+        'enabled' =&gt; env('SERVER_DASHBOARD', true),
+
+        // Can the dashboard make edits to the project file system?
+        'interactive' =&gt; true,
+
+        // Should the dashboard show tips?
+        'tips' =&gt; true,
+    ],
 ],
 </code></pre>
 <h3>Live dashboard<a id="live-dashboard" href="#live-dashboard" class="heading-permalink" title="Permalink"></a></h3>
