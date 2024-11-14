@@ -98,7 +98,7 @@
                                                     await navigator.clipboard.writeText(data);
                                                     document.getElementById("copyPathToClipboardButtonIcon").style.display = 'none';
                                                     document.getElementById("copyPathToClipboardButtonIconSuccess").style.display = 'inline';
-                                                    await new Promise(resolve => setTimeout(resolve, 5173)).then(function () {
+                                                    await new Promise(resolve => setTimeout(resolve, 3000)).then(function () {
                                                         document.getElementById("copyPathToClipboardButtonIcon").style.display = 'inline';
                                                         document.getElementById("copyPathToClipboardButtonIconSuccess").style.display = 'none';
                                                     });
