@@ -207,6 +207,7 @@ class ServeCommand extends Command
         $this->vite = Process::forever()->start('npm run dev');
     }
 
+    /** @experimental This feature may be removed before the final release. */
     protected function isPortAvailable(int $port): bool
     {
         $socket = @fsockopen('localhost', $port, $errno, $errstr, 1);
