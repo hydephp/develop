@@ -12,6 +12,14 @@ import path from 'path';
 const hydeVitePlugin = () => ({
     name: 'hyde-vite',
     configureServer(server) {
+        // Create hot file when Vite server starts
+        fs.writeFileSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'), '');
+
+        // Remove hot file when Vite server closes
+        server.httpServer?.on('close', () => {
+            fs.unlinkSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'));
+        });
+
         // Render the Vite index page when the root URL is requested
         server.middlewares.use((req, res, next) => {
             if (req.url === '/') {
