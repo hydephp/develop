@@ -116,8 +116,6 @@ The live editor plugin code will not be saved to your static site.
 ],
 ```
 
-_The live editor was added in Hyde Realtime Compiler Server v3.2.0 (December 2023)_
-
 ### Source code
 
 - **GitHub**: [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler)
