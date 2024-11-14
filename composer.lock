@@ -1127,11 +1127,11 @@
         },
         {
             "name": "hyde/framework",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "4512c1ec8a45b9ab81ab3f97efb1c1184e91ced6"
+                "reference": "784479be93b9882e4416fcec249de2e839f72df4"
             },
             "require": {
                 "illuminate/support": "^10.0",
@@ -1177,7 +1177,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-bump-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1224,7 +1224,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-bump-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -7859,7 +7859,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-bump-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -7885,11 +7885,11 @@
         },
         {
             "name": "hyde/realtime-compiler",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "8dede06db83f19a82dd542ca52504a8f2327acfa"
+                "reference": "6a68a736b9cb318aaaa6ee9c82ea508b0d45a985"
             },
             "require": {
                 "desilva/microserve": "^2.0",
@@ -7941,7 +7941,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-bump-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
@@ -8188,16 +8188,16 @@
         },
         {
             "name": "jetbrains/phpstorm-attributes",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JetBrains/phpstorm-attributes.git",
-                "reference": "22fb28d679deceedba8366dbae65cc8ebfc17e26"
+                "reference": "64de815a4509c29e00d5e3474087fd24c171afc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JetBrains/phpstorm-attributes/zipball/22fb28d679deceedba8366dbae65cc8ebfc17e26",
-                "reference": "22fb28d679deceedba8366dbae65cc8ebfc17e26",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-attributes/zipball/64de815a4509c29e00d5e3474087fd24c171afc2",
+                "reference": "64de815a4509c29e00d5e3474087fd24c171afc2",
                 "shasum": ""
             },
             "type": "library",
@@ -8224,9 +8224,9 @@
             ],
             "support": {
                 "issues": "https://youtrack.jetbrains.com/newIssue?project=WI",
-                "source": "https://github.com/JetBrains/phpstorm-attributes/tree/1.1"
+                "source": "https://github.com/JetBrains/phpstorm-attributes/tree/1.2"
             },
-            "time": "2023-09-01T08:50:25+00:00"
+            "time": "2024-10-11T10:46:19+00:00"
         },
         {
             "name": "laravel/dusk",
