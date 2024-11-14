@@ -16,9 +16,11 @@ const hydeVitePlugin = () => ({
         fs.writeFileSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'), '');
 
         // Remove hot file when Vite server closes
-        process.on('SIGINT', () => {
-            fs.rmSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'));
-            process.exit();
+        ['SIGINT', 'SIGTERM'].forEach(signal => {
+            process.on(signal, () => {
+                fs.rmSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'));
+                process.exit();
+            });
         });
 
         // Render the Vite index page when the root URL is requested
