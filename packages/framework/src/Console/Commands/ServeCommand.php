@@ -7,7 +7,9 @@ namespace Hyde\Console\Commands;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Illuminate\Contracts\Process\InvokedProcess;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Sleep;
 use InvalidArgumentException;
 use Hyde\Console\Concerns\Command;
 use Hyde\RealtimeCompiler\ConsoleOutput;
@@ -35,12 +37,16 @@ class ServeCommand extends Command
         {--pretty-urls= : Enable pretty URLs. (Overrides config setting)}
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
         {--open=false : Open the site preview in the browser.}
+        {--vite : Enable Vite for Hot Module Replacement (HMR)}
     ';
 
     /** @var string */
     protected $description = 'Start the realtime compiler server';
 
     protected ConsoleOutput $console;
+
+    protected InvokedProcess $server;
+    protected InvokedProcess $vite;
 
     public function safeHandle(): int
     {
@@ -51,11 +57,29 @@ class ServeCommand extends Command
             $this->openInBrowser((string) $this->option('open'));
         }
 
-        $this->runServerProcess(sprintf('php -S %s:%d %s',
+        $command = sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
             $this->getPortSelection(),
             $this->getExecutablePath()
-        ));
+        );
+
+        if ($this->option('vite')) {
+            $this->runViteProcess();
+        }
+
+        $this->runServerProcess($command);
+
+        while ($this->server->running()) {
+            if (isset($this->vite) && $this->vite->running()) {
+                $output = $this->vite->latestOutput();
+
+                if ($output) {
+                    $this->output->write($output);
+                }
+            }
+
+            Sleep::usleep(100000); // 100ms
+        }
 
         return Command::SUCCESS;
     }
@@ -77,7 +101,7 @@ class ServeCommand extends Command
 
     protected function runServerProcess(string $command): void
     {
-        Process::forever()->env($this->getEnvironmentVariables())->run($command, $this->getOutputHandler());
+        $this->server = Process::forever()->env($this->getEnvironmentVariables())->start($command, $this->getOutputHandler());
     }
 
     protected function getEnvironmentVariables(): array
@@ -88,6 +112,7 @@ class ServeCommand extends Command
             'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
             'HYDE_PLAY_CDN' => $this->parseEnvironmentOption('play-cdn'),
+            'HYDE_SERVER_VITE' => $this->option('vite') ? 'enabled' : null,
         ]);
     }
 
@@ -168,5 +193,30 @@ class ServeCommand extends Command
             'Linux' => 'xdg-open',
             default => null
         };
+    }
+
+    protected function runViteProcess(): void
+    {
+        if (! $this->isPortAvailable(5173)) {
+            throw new InvalidArgumentException(
+                'Unable to start Vite server: Port 5173 is already in use. '.
+                'Please stop any other Vite processes and try again.'
+            );
+        }
+
+        $this->vite = Process::forever()->start('npm run dev');
+    }
+
+    /** @experimental This feature may be removed before the final release. */
+    protected function isPortAvailable(int $port): bool
+    {
+        $socket = @fsockopen('localhost', $port, $errno, $errstr, 1);
+        if ($socket !== false) {
+            fclose($socket);
+
+            return false;
+        }
+
+        return true;
     }
 }

@@ -37,6 +37,7 @@ class Asset extends \Hyde\Facades\Asset {}
 class Author extends \Hyde\Facades\Author {}
 class Features extends \Hyde\Facades\Features {}
 class Config extends \Hyde\Facades\Config {}
+class Vite extends \Hyde\Facades\Vite {}
 /** @mixin \Illuminate\Filesystem\Filesystem */
 class Filesystem extends \Hyde\Facades\Filesystem {}
 class DataCollection extends \Hyde\Support\DataCollection {}

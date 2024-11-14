@@ -33,6 +33,8 @@ This serves two purposes:
     - Added method `Asset::exists()` has to check if a media file exists.
     - Added a `Hyde::assets()` method to get all media file instances in the site.
 - Added new `npm run build` command for compiling frontend assets with Vite
+- Added a Vite HMR support for the realtime compiler in https://github.com/hydephp/develop/pull/2016
+- Added Vite facade in https://github.com/hydephp/develop/pull/2016
 
 ### Changed
 
@@ -131,6 +133,7 @@ This serves two purposes:
 #### Realtime Compiler
 
 - Simplified the asset file locator to only serve files from the media source directory in https://github.com/hydephp/develop/pull/2012
+- Added Vite HMR support in https://github.com/hydephp/develop/pull/2016
 
 ### Upgrade Guide
 
