@@ -21,6 +21,16 @@ This will start a local development server at `http://localhost:8080`
 
 >warning Please note that the server is designed for local development, and should not be used on a public network.
 
+### Options
+
+- `--host=`: <comment>[default: "localhost"]</comment>
+- `--port=`: <comment>[default: 8080]</comment>
+- `--save-preview=`: Should the served page be saved to disk? (Overrides config setting)
+- `--dashboard=`: Enable the realtime compiler dashboard. (Overrides config setting)
+- `--pretty-urls=`: Enable pretty URLs. (Overrides config setting)
+- `--play-cdn=`: Enable the Tailwind Play CDN. (Overrides config setting)
+- `--open=false`: Open the site preview in the browser.
+
 ### Configuration
 
 The server can be configured in the `config/hyde.php` file to change the port, host, and to customize its features.
