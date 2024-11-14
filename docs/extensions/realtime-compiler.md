@@ -41,13 +41,13 @@ The server can be configured in the `config/hyde.php` file to change the port, h
 'server' => [
     // The default port the preview is served on
     'port' => env('SERVER_PORT', 8080),
-    
+
     // The default host the preview is served on
     'host' => env('SERVER_HOST', 'localhost'),
-    
+
     // Should preview pages be saved to the output directory?
     'save_preview' => env('SERVER_SAVE_PREVIEW', false),
-    
+
     // Should the live edit feature be enabled?
     'live_edit' => env('SERVER_LIVE_EDIT', true),
 ],
