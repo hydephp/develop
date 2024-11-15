@@ -9,6 +9,34 @@ import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path from 'path';
 
+const hydeVitePlugin = () => ({
+    name: 'hyde-vite',
+    configureServer(server) {
+        // Create hot file when Vite server starts
+        fs.writeFileSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'), '');
+
+        // Remove hot file when Vite server closes
+        ['SIGINT', 'SIGTERM'].forEach(signal => {
+            process.on(signal, () => {
+                fs.rmSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'));
+                process.exit();
+            });
+        });
+
+        // Render the Vite index page when the root URL is requested
+        server.middlewares.use((req, res, next) => {
+            if (req.url === '/') {
+                res.end(fs.readFileSync(
+                    path.resolve(__dirname, 'vendor/hyde/realtime-compiler/resources/vite-index-page.html'),
+                    'utf-8'
+                ));
+            } else {
+                next();
+            }
+        });
+    }
+});
+
 export default defineConfig({
     server: {
         port: 5173,
@@ -18,23 +46,7 @@ export default defineConfig({
         },
         middlewareMode: false,
     },
-    plugins: [
-        {
-            name: 'hyde-vite-server',
-            configureServer(server) {
-                server.middlewares.use((req, res, next) => {
-                    if (req.url === '/') {
-                        res.end(fs.readFileSync(
-                            path.resolve(__dirname, 'vendor/hyde/realtime-compiler/resources/vite-index-page.html'),
-                            'utf-8'
-                        ));
-                    } else {
-                        next();
-                    }
-                });
-            },
-        },
-    ],
+    plugins: [hydeVitePlugin()],
     css: {
         postcss: {
             plugins: [

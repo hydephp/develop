@@ -4,12 +4,22 @@ namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Testing\UnitTestCase;
 use Hyde\Facades\Vite;
+use Hyde\Testing\CreatesTemporaryFiles;
 
 /**
  * @covers \Hyde\Facades\Vite
  */
 class ViteFacadeTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
+    protected static bool $needsKernel = true;
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpFilesystem();
+    }
+
     public function testRunningReturnsTrueWhenEnvironmentVariableIsSet()
     {
         putenv('HYDE_SERVER_VITE=enabled');
@@ -19,17 +29,14 @@ class ViteFacadeTest extends UnitTestCase
         putenv('HYDE_SERVER_VITE');
     }
 
-    public function testRunningReturnsTrueWhenViteServerIsAccessible()
+    public function testRunningReturnsTrueWhenViteHotFileExists()
     {
-        // Create a mock server to simulate Vite
-        $server = stream_socket_server('tcp://localhost:5173');
+        $this->file('app/storage/framework/cache/vite.hot');
 
         $this->assertTrue(Vite::running());
-
-        stream_socket_shutdown($server, STREAM_SHUT_RDWR);
     }
 
-    public function testRunningReturnsFalseWhenViteServerIsNotAccessible()
+    public function testRunningReturnsFalseWhenViteHotFileDoesNotExist()
     {
         $this->assertFalse(Vite::running());
     }
