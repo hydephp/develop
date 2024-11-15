@@ -115,9 +115,3 @@ Key files to modify:
 - CDN usage changes
 
 This plan maintains backward compatibility through the CDN while providing a more flexible component-based approach for customization. The changes align with modern frontend practices while keeping Hyde's simplicity.
-
-## Changes Made:
-
-Lists all the changes made to the codebase to implement the new component system in order to make the changelog later on, and to keep track of the changes.
-
-- Remove x-cloak style from app CSS as we have it in the head HTML
