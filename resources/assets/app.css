@@ -16,3 +16,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.table-of-contents {
+    @apply pb-3;
+}
+
+.table-of-contents > li {
+    @apply my-[0.35rem];
+}
+
+.table-of-contents ul {
+    @apply pl-2;
+}
+
+.table-of-contents a {
+    @apply block -ml-8 pl-8 opacity-80 hover:opacity-100 hover:bg-gray-200/20 transition-all duration-300 relative;
+}
+
+.table-of-contents a::before {
+    @apply content-['#'] text-[75%] opacity-50 mr-1 transition-opacity duration-300;
+}
+
+.table-of-contents a:hover::before {
+    @apply opacity-100;
+}
