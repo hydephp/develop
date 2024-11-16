@@ -17,6 +17,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Documentation Pages - Table of Contents
+ */
+
 .table-of-contents {
     @apply pb-3;
 }
@@ -42,7 +46,7 @@
 }
 
 /**
- * Heading Permalinks
+ * Documentation Pages - Heading Permalinks
  */
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
