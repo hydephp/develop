@@ -10,7 +10,7 @@
             name="search" 
             id="search-input"
             x-model="searchTerm"
-            @input.debounce.250ms="search()"
+            @input="search()"
             placeholder="Search..." 
             autocomplete="off" 
             autofocus
