@@ -42,7 +42,9 @@
             <x-hyde::docs.hyde-search/>
         </div>
 
-        <footer class="prose dark:prose-invert text-center font-mono hidden sm:block">
+        <footer x-data="{ hasResults: false }" @search-results-updated.window="hasResults = $event.detail.hasResults"
+            class="prose dark:prose-invert text-center font-mono hidden sm:block"
+            x-show="!hasResults">
             <small>
                 Press <code class="p-0"><kbd title="Forward slash" class="shadow-none">/</kbd></code> to open search window.
                 Use <code class="p-0"><kbd title="Escape key" class="shadow-none">esc</kbd></code> to close.

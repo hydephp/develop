@@ -49,6 +49,7 @@
 
                     if (!this.searchTerm) {
                         this.statusMessage = '';
+                        window.dispatchEvent(new CustomEvent('search-results-updated', { detail: { hasResults: false } }));
                         return;
                     }
 
@@ -59,6 +60,7 @@
 
                     if (searchResults.length === 0) {
                         this.statusMessage = 'No results found.';
+                        window.dispatchEvent(new CustomEvent('search-results-updated', { detail: { hasResults: false } }));
                         return;
                     }
 
@@ -79,6 +81,8 @@
 
                     const timeMs = Math.round((performance.now() - startTime) * 100) / 100;
                     this.statusMessage = `Found ${totalMatches} result${totalMatches !== 1 ? 's' : ''} in ${searchResults.length} pages. ~${timeMs}ms`;
+
+                    window.dispatchEvent(new CustomEvent('search-results-updated', { detail: { hasResults: true } }));
                 },
 
                 getSearchContext(content) {
