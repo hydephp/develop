@@ -97,6 +97,7 @@ This serves two purposes:
 - **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--run-vite` flag that uses Vite to build assets in https://github.com/hydephp/develop/pull/2013
 - Moved the Vite build step to run before the site build to prevent duplicate media asset transfers in https://github.com/hydephp/develop/pull/2013
 - Ported the HydeSearch plugin used for the documentation search to be an Alpine.js implementation in https://github.com/hydephp/develop/pull/2029
+  - Renamed Blade component `hyde::components.docs.search-widget` to `hyde::components.docs.search-modal` in https://github.com/hydephp/develop/pull/2029
 
 ### Deprecated
 
