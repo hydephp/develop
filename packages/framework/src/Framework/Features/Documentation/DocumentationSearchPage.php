@@ -29,7 +29,7 @@ class DocumentationSearchPage extends InMemoryPage
             'title' => 'Search',
             'navigation' => ['hidden' => true],
             'article' => false,
-        ], view: 'hyde::pages.documentation-search');
+        ], view: 'hyde::pages.docs.search');
     }
 
     public static function enabled(): bool
