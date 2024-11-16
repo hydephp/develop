@@ -1,4 +1,4 @@
-export default function initHydeSearch(searchIndexUrl) {
+function initHydeSearch(searchIndexUrl) {
     return {
         searchIndex: [],
         searchTerm: '',
