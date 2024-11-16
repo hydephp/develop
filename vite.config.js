@@ -37,6 +37,13 @@ const hydeVitePlugin = () => ({
     }
 });
 
+const hasJavaScriptContent = () => {
+    const appJsPath = resolve(__dirname, 'resources/assets/app.js');
+    if (!fs.existsSync(appJsPath)) return false;
+    const content = fs.readFileSync(appJsPath, 'utf-8');
+    return content.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim().length > 0;
+};
+
 export default defineConfig({
     server: {
         port: 5173,
@@ -60,7 +67,7 @@ export default defineConfig({
         emptyOutDir: false,
         rollupOptions: {
             input: [
-                resolve(__dirname, 'resources/assets/app.js'),
+                ...(hasJavaScriptContent() ? [resolve(__dirname, 'resources/assets/app.js')] : []),
                 resolve(__dirname, 'resources/assets/app.css')
             ],
             output: {
