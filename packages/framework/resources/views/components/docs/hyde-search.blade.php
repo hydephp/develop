@@ -1,8 +1,4 @@
 <div id="hyde-search" x-data="hydeSearch">
-    <noscript>
-        The search feature requires JavaScript to be enabled in your browser.
-    </noscript>
-    
     <div class="relative">
         <input 
             {{ $attributes->merge(['class' => 'w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3']) }}
