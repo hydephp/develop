@@ -10,9 +10,9 @@
     </div>
 
     <div x-show="searchTerm" class="mt-4">
-        <p x-text="statusMessage" class="text-sm text-gray-600 dark:text-gray-400 mb-4"></p>
+        <p x-text="statusMessage" class="text-sm text-gray-600 dark:text-gray-400 mb-2 pb-2"></p>
 
-        <dl class="space-y-4 max-h-[60vh] overflow-x-hidden overflow-y-auto">
+        <dl class="space-y-4 -mt-4 max-h-[60vh] overflow-x-hidden overflow-y-auto">
             <template x-for="result in results" :key="result.slug">
                 <div>
                     <dt class="font-medium">
