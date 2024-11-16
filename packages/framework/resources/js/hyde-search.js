@@ -63,10 +63,15 @@ function initHydeSearch(searchIndexUrl) {
             const sentenceStart = content.lastIndexOf('.', searchTermPos) + 1;
             const sentenceEnd = content.indexOf('.', searchTermPos) + 1;
             const sentence = content.substring(sentenceStart, sentenceEnd).trim();
+            const template = document.getElementById('search-highlight-template');
 
             return sentence.replace(
                 new RegExp(this.searchTerm, 'gi'),
-                match => `<mark class="bg-yellow-400 dark:bg-yellow-300">${match}</mark>`
+                match => {
+                    const mark = template.content.querySelector('mark').cloneNode();
+                    mark.textContent = match;
+                    return mark.outerHTML;
+                }
             );
         }
     };
