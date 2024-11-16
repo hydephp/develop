@@ -38,7 +38,7 @@
             </button>
         </header>
         <div>
-            <x-hyde::docs.search-input/>
+            <x-hyde::docs.hyde-search/>
         </div>
         <footer class="prose dark:prose-invert mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
             <small class="mt-4">

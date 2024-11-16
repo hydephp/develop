@@ -19,7 +19,6 @@
 
         @if(Hyde\Facades\Features::hasDocumentationSearch())
             @include('hyde::components.docs.search-widget')
-            @include('hyde::components.docs.search-scripts')
         @endif
     </div>
 
