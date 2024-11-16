@@ -30,8 +30,7 @@
                     <dt class="font-medium">
                         <a :href="result.destination" 
                            x-text="result.title"
-                           class="text-indigo-600 dark:text-indigo-400 hover:underline"></a>
-                        <span class="text-sm text-gray-600 dark:text-gray-400" 
+                           class="text-indigo-600 dark:text-indigo-400 hover:underline"></a><span class="text-sm text-gray-600 dark:text-gray-400" 
                               x-text="`, ${result.matches} occurrence${result.matches !== 1 ? 's' : ''} found.`"></span>
                     </dt>
                     <dd class="mt-1 text-sm text-gray-600 dark:text-gray-400" x-html="result.context"></dd>
