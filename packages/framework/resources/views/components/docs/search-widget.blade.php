@@ -40,10 +40,10 @@
         <div>
             <x-hyde::docs.search-input/>
         </div>
-        <footer class="mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
+        <footer class="prose dark:prose-invert mt-auto -mb-2 leading-4 text-center font-mono hidden sm:flex justify-center">
             <small class="mt-4">
-                Press <code><kbd title="Forward slash">/</kbd></code> to open search window.
-                Use <code><kbd title="Escape key">esc</kbd></code> to close.
+                Press <code class="p-0"><kbd title="Forward slash" class="shadow-none">/</kbd></code> to open search window.
+                Use <code class="p-0"><kbd title="Escape key" class="shadow-none">esc</kbd></code> to close.
             </small>
         </footer>
     </aside>
