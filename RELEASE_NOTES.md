@@ -98,6 +98,7 @@ This serves two purposes:
 - Moved the Vite build step to run before the site build to prevent duplicate media asset transfers in https://github.com/hydephp/develop/pull/2013
 - Ported the HydeSearch plugin used for the documentation search to be an Alpine.js implementation in https://github.com/hydephp/develop/pull/2029
   - Renamed Blade component `hyde::components.docs.search-widget` to `hyde::components.docs.search-modal` in https://github.com/hydephp/develop/pull/2029
+  - Added support for customizing the search implementation by creating a `resources/js/HydeSearch.js` file in https://github.com/hydephp/develop/pull/2031
 
 ### Deprecated
 
