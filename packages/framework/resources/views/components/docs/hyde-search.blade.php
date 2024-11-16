@@ -1,15 +1,7 @@
 <div id="hyde-search" x-data="hydeSearch">
     <div class="relative">
-        <input
+        <input type="search" name="search" id="search-input" x-model="searchTerm" @input="search()" placeholder="Search..." autocomplete="off" autofocus
                 {{ $attributes->merge(['class' => 'w-full rounded text-base leading-normal bg-gray-100 dark:bg-gray-700 py-2 px-3']) }}
-                type="search"
-                name="search"
-                id="search-input"
-                x-model="searchTerm"
-                @input="search()"
-                placeholder="Search..."
-                autocomplete="off"
-                autofocus
         >
 
         <div x-show="isLoading" class="absolute right-3 top-2.5">
@@ -24,10 +16,7 @@
             <template x-for="result in results" :key="result.slug">
                 <div>
                     <dt class="font-medium">
-                        <a :href="result.destination"
-                           x-text="result.title"
-                           class="text-indigo-600 dark:text-indigo-400 hover:underline"></a><span class="text-sm text-gray-600 dark:text-gray-400"
-                                                                                                  x-text="`, ${result.matches} occurrence${result.matches !== 1 ? 's' : ''} found.`"></span>
+                        <a :href="result.destination" x-text="result.title" class="text-indigo-600 dark:text-indigo-400 hover:underline"></a><span class="text-sm text-gray-600 dark:text-gray-400" x-text="`, ${result.matches} occurrence${result.matches !== 1 ? 's' : ''} found.`"></span>
                     </dt>
                     <dd class="mt-1 text-sm text-gray-700 dark:text-gray-300" x-html="result.context"></dd>
                 </div>
