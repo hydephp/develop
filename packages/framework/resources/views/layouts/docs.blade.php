@@ -18,8 +18,7 @@
         @include('hyde::components.docs.sidebar-backdrop')
 
         @if(Hyde\Facades\Features::hasDocumentationSearch())
-            @include('hyde::components.docs.search-widget')
-            @include('hyde::components.docs.search-scripts')
+            @include('hyde::components.docs.search-modal')
         @endif
     </div>
 

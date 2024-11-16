@@ -351,11 +351,13 @@ If you set this to false, Hyde will match the directory structure of the source 
 
 ### Introduction
 
-The HydeSearch plugin adds a search feature to documentation pages. It consists of two parts, a search index generator that runs during the build command, and a frontend JavaScript plugin that adds the actual search widget.
+Hyde includes a built-in search feature for documentation pages powered by Alpine.js. It consists of two parts:
+1. A search index generator that runs during the build command
+2. An Alpine.js powered frontend that provides the search interface
 
->info Tip: The HydeSearch plugin is what powers the search feature on this site! Why not [try it out](search)?
+>info Tip: The search feature is what powers the search on this site! Why not [try it out](search)?
 
-The search feature is enabled by default. You can disable it by removing the `DocumentationSearch` option from the Hyde `Features` config array.
+The search feature is enabled by default. You can disable it by removing the `DocumentationSearch` option from the Hyde `Features` config array:
 
 ```php
 // filepath: config/hyde.php
@@ -366,17 +368,27 @@ The search feature is enabled by default. You can disable it by removing the `Do
 
 ### Using the Search
 
-The search works by generating a JSON search index which the JavaScript plugin loads asynchronously.
+The search works by generating a JSON search index which Alpine.js loads asynchronously. There are two ways to access the search:
 
-Two ways to access the search are added, one is a full page search screen that will be saved to `docs/search.html`.
-
-The second method is a button added to the documentation pages, similar to how Algolia DocSearch works. Opening it will open a modal with an integrated search screen. You can also open the dialog using the keyboard shortcut `/`.
+1. A full-page search screen at `docs/search.html`
+2. A modal dialog accessible via a button in the documentation pages (similar to Algolia DocSearch). You can also open this dialog using the keyboard shortcut `/`
 
 >info The full page can be disabled by setting `create_search_page` to `false` in the `docs` config.
 
+### Search Features
+
+The search implementation includes:
+- Real-time search results as you type
+- Context highlighting of search terms
+- Match counting and search timing statistics
+- Dark mode support
+- Loading state indicators
+- Keyboard navigation support
+- Mobile-responsive design
+
 ### Hiding Pages from Indexing
 
-If you have a large page on your documentation site, like a changelog, you may want to hide it from the search index. You can do this by adding the page identifier to the `exclude_from_search` array in the `docs` config, similar to how navigation menu items are hidden. The page will still be accessible as normal but will not be added to the search index JSON file.
+For large pages like changelogs, you may want to exclude them from the search index. Add the page identifier to the `exclude_from_search` array in the docs config:
 
 ```php
 // filepath: config/docs.php
@@ -385,9 +397,11 @@ If you have a large page on your documentation site, like a changelog, you may w
 ]
 ```
 
+The page will remain accessible but won't appear in search results.
+
 ### Live Search with the Realtime Compiler
 
-The Realtime Compiler that powers the `php hyde serve` command will automatically generate a fresh search index each time the browser requests it.
+When using `php hyde serve`, the Realtime Compiler automatically generates a fresh search index each time it's requested, ensuring your search results stay current during development.
 
 ## Automatic "Edit Page" Button
 
