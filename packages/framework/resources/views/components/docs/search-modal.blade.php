@@ -23,15 +23,15 @@
 </button>
 
 <div id="search-window-container" x-show="searchWindowOpen" x-cloak role="dialog" class="z-30 fixed top-0 left-0 w-screen h-screen flex flex-col items-center px-8 py-24 md:py-16">
-    <aside x-on:click.away="searchWindowOpen = false" id="search-menu" 
-        class="bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden 
+    <aside x-on:click.away="searchWindowOpen = false" id="search-menu"
+           class="bg-white dark:bg-gray-800 z-50 p-4 rounded-lg overflow-y-hidden
         min-h-[300px] max-h-[75vh] w-[70ch] max-w-full cursor-auto
         flex flex-col gap-4">
-        
+
         <header class="flex justify-between items-center border-b dark:border-gray-700 pb-3 md:hidden">
             <strong>Search the documentation site</strong>
-            <button @click="searchWindowOpen = false" title="Close search window" 
-                class="opacity-75 hover:opacity-100" aria-label="Close search window">
+            <button @click="searchWindowOpen = false" title="Close search window"
+                    class="opacity-75 hover:opacity-100" aria-label="Close search window">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
@@ -39,12 +39,12 @@
         </header>
 
         <div class="flex-grow">
-            <x-hyde::docs.hyde-search/>
+            <x-hyde::docs.hyde-search />
         </div>
 
         <footer x-data="{ hasResults: false }" @search-results-updated.window="hasResults = $event.detail.hasResults"
-            class="prose dark:prose-invert text-center font-mono hidden sm:block"
-            x-show="!hasResults">
+                class="prose dark:prose-invert text-center font-mono hidden sm:block"
+                x-show="!hasResults">
             <small>
                 Press <code class="p-0"><kbd title="Forward slash" class="shadow-none">/</kbd></code> to open search window.
                 Use <code class="p-0"><kbd title="Escape key" class="shadow-none">esc</kbd></code> to close.
