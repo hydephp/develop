@@ -63,7 +63,7 @@
                 
                 return sentence.replace(
                     new RegExp(this.searchTerm, 'gi'),
-                    match => `<mark class="bg-yellow-200 dark:bg-yellow-800">${match}</mark>`
+                    match => `<mark class="bg-yellow-400 dark:bg-yellow-300">${match}</mark>`
                 );
             }
         }));
