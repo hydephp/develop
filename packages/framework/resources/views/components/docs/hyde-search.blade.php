@@ -27,7 +27,10 @@
     </div>
 
     <script>
-		{!! file_get_contents(Hyde::vendorPath('resources/js/hyde-search.js')) !!}
+		{!! file_get_contents(file_exists(Hyde::path('resources/js/hyde-search.js')) 
+			? Hyde::path('resources/js/hyde-search.js')
+			: Hyde::vendorPath('resources/js/hyde-search.js')
+		) !!}
         
         document.addEventListener('alpine:init', () => {
             Alpine.data('hydeSearch', () => 
