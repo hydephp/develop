@@ -82,7 +82,7 @@ class DocumentationSearchPageTest extends TestCase
         $page = new DocumentationSearchPage();
 
         Hyde::shareViewData($page);
-        $this->assertStringContainsString('<h1>Search the documentation site</h1>', $page->compile());
+        $this->assertStringContainsString('<h1>Search the HydePHP Documentation</h1>', $page->compile());
     }
 
     public function testRenderedSearchPageUsesDocumentationPageLayout()
@@ -105,5 +105,23 @@ class DocumentationSearchPageTest extends TestCase
         $this->assertStringNotContainsString('<header id="document-header"', $html);
         $this->assertStringNotContainsString('<section id="document-main-content"', $html);
         $this->assertStringNotContainsString('<footer id="document-footer"', $html);
+    }
+
+    public function testRenderedSearchPageUsesCustomSidebarHeader()
+    {
+        config(['docs.sidebar.header' => 'My Project']);
+        $page = new DocumentationSearchPage();
+
+        Hyde::shareViewData($page);
+        $this->assertStringContainsString('<h1>Search My Project</h1>', $page->compile());
+    }
+
+    public function testRenderedSearchPageExpandsDocsInSidebarHeader()
+    {
+        config(['docs.sidebar.header' => 'Custom Docs']);
+        $page = new DocumentationSearchPage();
+
+        Hyde::shareViewData($page);
+        $this->assertStringContainsString('<h1>Search the Custom Documentation</h1>', $page->compile());
     }
 }
