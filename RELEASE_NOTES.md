@@ -123,6 +123,7 @@ This serves two purposes:
 ### Fixed
 
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
+- The `app.js` file will now only be compiled if it has scripts in https://github.com/hydephp/develop/pull/2028
 
 ### Security
 
