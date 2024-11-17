@@ -1,4 +1,0 @@
-/** Patches https://github.com/tailwindlabs/tailwindcss-typography/pull/346 */
-.prose :where(th,td):not(:where([class~=not-prose],[class~=not-prose] *)) {
-  text-align: start;
-}
