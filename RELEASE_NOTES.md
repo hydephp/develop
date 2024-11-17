@@ -103,6 +103,7 @@ This serves two purposes:
   - Added support for customizing the search implementation by creating a `resources/js/HydeSearch.js` file in https://github.com/hydephp/develop/pull/2031
 - Normalized default Tailwind Typography Prose code block styles to match Torchlight's theme, ensuring consistent styling across Markdown and Torchlight code blocks in https://github.com/hydephp/develop/pull/2036.
 - Extracted CSS component partials in HydeFront in https://github.com/hydephp/develop/pull/2038
+- Replaced HydeFront styles with Tailwind in https://github.com/hydephp/develop/pull/2024
 
 ### Deprecated
 
