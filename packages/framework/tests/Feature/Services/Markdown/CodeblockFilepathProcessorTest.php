@@ -215,7 +215,7 @@ class CodeblockFilepathProcessorTest extends TestCase
         HTML;
 
         $expected = <<<'HTML'
-        <pre><code class="torchlight"><!-- Syntax highlighted by torchlight.dev --><small class="relative top-0 right-2 float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block"><span class="sr-only">Filepath: </span>foo.html</small><div class="line"><span class="line-number">1</span>&nbsp;</div></code></pre>
+        <pre><code class="torchlight"><!-- Syntax highlighted by torchlight.dev --><small class="relative -top-1 right-3 float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block"><span class="sr-only">Filepath: </span>foo.html</small><div class="line"><span class="line-number">1</span>&nbsp;</div></code></pre>
         HTML;
 
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
