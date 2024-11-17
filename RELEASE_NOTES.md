@@ -150,6 +150,7 @@ This serves two purposes:
 
 #### HydeFront
 
+- Removed all Sass styles after porting everything to Tailwind in https://github.com/hydephp/develop/pull/2024
 - Removed the `hyde.css` file in https://github.com/hydephp/develop/pull/2037 as all its styles were refactored to Tailwind in https://github.com/hydephp/develop/pull/2024
 - Extracted CSS component partials in https://github.com/hydephp/develop/pull/2038
 
