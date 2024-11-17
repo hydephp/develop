@@ -71,6 +71,10 @@ module.exports = {
                         },
                         pre: {
                             backgroundColor: '#292D3E',
+                            borderRadius: '0.25rem',
+                            marginTop: '1rem',
+                            marginBottom: '1rem',
+                            overflowX: 'auto',
                             code: {
                                 fontFamily: "'Fira Code Regular', Consolas, Monospace, 'Courier New'",
                             }
