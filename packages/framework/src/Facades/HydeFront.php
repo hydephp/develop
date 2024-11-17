@@ -35,7 +35,7 @@ class HydeFront
     /**
      * Get the CDN link for a specific file.
      *
-     * @param  'app.css'|'hyde.css'|'hyde.css.map'  $file
+     * @param  'app.css'  $file
      *
      * @link https://cdn.jsdelivr.net/npm/hydefront@latest/dist/ for the available files.
      */
