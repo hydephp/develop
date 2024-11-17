@@ -50,7 +50,7 @@ module.exports = {
                                 content: 'unset',
                             },
                         },
-                        code: {
+                        'code:not(pre code)': {
                             font: 'unset',
                             backgroundColor: '#80808033',
                             paddingLeft: '4px',
