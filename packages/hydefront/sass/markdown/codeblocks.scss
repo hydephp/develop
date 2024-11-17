@@ -1,17 +1,3 @@
-// Opinionated styles
-
-code {
-	max-width: 80vw;
-	overflow-x: auto;
-	vertical-align: top;
-	word-break: break-all;
-}
-
-pre code {
-	display: block;
-	max-width: unset;
-}
-
 // Filepath labels
 
 pre>code>.filepath {

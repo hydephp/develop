@@ -57,7 +57,11 @@ module.exports = {
                             paddingRight: '4px',
                             marginLeft: '-2px',
                             marginRight: '1px',
-                            borderRadius: '4px'
+                            borderRadius: '4px',
+                            maxWidth: '80vw',
+                            overflowX: 'auto',
+                            verticalAlign: 'top',
+                            wordBreak: 'break-all'
                         },
                         'code::before': {
                             content: 'unset',
