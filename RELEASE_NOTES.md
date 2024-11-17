@@ -128,6 +128,7 @@ This serves two purposes:
 - Removed CDN include for the HydeSearch plugin replaced by Alpine.js implementation in https://github.com/hydephp/develop/pull/2029
   - This also removes the `<x-hyde::docs.search-input />` and `<x-hyde::docs.search-scripts />` Blade components, replaced by the new `<x-hyde::docs.hyde-search />` component.
 - Removed the `.torchlight-enabled` CSS class in https://github.com/hydephp/develop/pull/2036.
+- Removed The `hyde.css` file from HydeFront in https://github.com/hydephp/develop/pull/2037 as all styles were refactored to Tailwind in https://github.com/hydephp/develop/pull/2024.
 
 ### Fixed
 
@@ -144,6 +145,10 @@ This serves two purposes:
 
 - Simplified the asset file locator to only serve files from the media source directory in https://github.com/hydephp/develop/pull/2012
 - Added Vite HMR support in https://github.com/hydephp/develop/pull/2016
+
+#### HydeFront
+
+- Removed the `hyde.css` file in https://github.com/hydephp/develop/pull/2037 as all its styles were refactored to Tailwind in https://github.com/hydephp/develop/pull/2024
 
 ### Upgrade Guide
 
