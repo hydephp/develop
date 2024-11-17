@@ -70,6 +70,7 @@ module.exports = {
                             content: 'unset',
                         },
                         pre: {
+                            backgroundColor: '#292D3E',
                             code: {
                                 fontFamily: "'Fira Code Regular', Consolas, Monospace, 'Courier New'",
                             }
