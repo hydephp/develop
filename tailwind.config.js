@@ -75,12 +75,10 @@ module.exports = {
                             marginTop: '1rem',
                             marginBottom: '1rem',
                             overflowX: 'auto',
-                            padding: '0',
                             code: {
                                 fontFamily: "'Fira Code Regular', Consolas, Monospace, 'Courier New'",
-                                padding: '0.75rem 1rem',
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 invert: {
