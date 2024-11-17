@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('hyde.language', 'en') }}">
+<html lang="{{ config('hyde.language', 'en') }}" class="scroll-smooth">
 <head>
     @include('hyde::layouts.head')
 </head>
