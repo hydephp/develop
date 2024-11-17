@@ -164,7 +164,7 @@ class IncludesFacadeTest extends TestCase
         <h1>Heading</h1>
         <p>This is a paragraph. It has some <strong>bold</strong> and <em>italic</em> text.</p>
         <blockquote class="info"><p>Info Blockquote</p></blockquote>
-        <pre><code class="language-php"><small class="filepath not-prose"><span class="sr-only">Filepath: </span>hello.php</small>echo 'Hello, World!';
+        <pre><code class="language-php"><small class="relative top-0 right-0 float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block"><span class="sr-only">Filepath: </span>hello.php</small>echo 'Hello, World!';
         </code></pre>
         <h2>Subheading</h2>
         <ul>
