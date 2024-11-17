@@ -102,6 +102,7 @@ This serves two purposes:
   - Renamed Blade component `hyde::components.docs.search-widget` to `hyde::components.docs.search-modal` in https://github.com/hydephp/develop/pull/2029
   - Added support for customizing the search implementation by creating a `resources/js/HydeSearch.js` file in https://github.com/hydephp/develop/pull/2031
 - Normalized default Tailwind Typography Prose code block styles to match Torchlight's theme, ensuring consistent styling across Markdown and Torchlight code blocks in https://github.com/hydephp/develop/pull/2036.
+- Extracted CSS component partials in HydeFront in https://github.com/hydephp/develop/pull/2038
 
 ### Deprecated
 
@@ -149,6 +150,7 @@ This serves two purposes:
 #### HydeFront
 
 - Removed the `hyde.css` file in https://github.com/hydephp/develop/pull/2037 as all its styles were refactored to Tailwind in https://github.com/hydephp/develop/pull/2024
+- Extracted CSS component partials in https://github.com/hydephp/develop/pull/2038
 
 ### Upgrade Guide
 
