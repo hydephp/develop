@@ -1,9 +1,5 @@
 pre code.torchlight {
-    @apply block py-4 px-0 min-w-max;
-}
-
-pre code.torchlight .line {
-    @apply px-4;
+    @apply block min-w-max;
 }
 
 pre code.torchlight .line-number, pre code.torchlight .summary-caret {

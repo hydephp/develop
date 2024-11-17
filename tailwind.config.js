@@ -79,9 +79,6 @@ module.exports = {
                                 fontFamily: "'Fira Code Regular', Consolas, Monospace, 'Courier New'",
                             },
                         },
-                        'pre:has(code.torchlight)': {
-                            padding: '0',
-                        }
                     },
                 },
                 invert: {
