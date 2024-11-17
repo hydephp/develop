@@ -14,3 +14,40 @@ pre code.torchlight .line-number, pre code.torchlight .summary-caret {
     filter: blur(0px);
     opacity: 1;
 }
+
+/* Collapsing */
+
+.torchlight summary:focus {
+    outline: none;
+}
+
+.torchlight details > summary::marker,
+.torchlight details > summary::-webkit-details-marker {
+    display: none;
+}
+
+.torchlight details .summary-caret::after {
+    pointer-events: none;
+}
+
+.torchlight .summary-caret-empty::after,
+.torchlight details .summary-caret-middle::after,
+.torchlight details .summary-caret-end::after {
+    content: " ";
+}
+
+.torchlight details[open] .summary-caret-start::after {
+    content: "-";
+}
+
+.torchlight details:not([open]) .summary-caret-start::after {
+    content: "+";
+}
+
+.torchlight details[open] .summary-hide-when-open {
+    display: none;
+}
+
+.torchlight details:not([open]) .summary-hide-when-open {
+    display: initial;
+}
