@@ -13,7 +13,7 @@
 
 @import 'hydefront/components/table-of-contents.css';
 @import 'hydefront/components/heading-permalinks.css';
-@import 'hydefront/components/torchlight.css';
+@import 'hydefront/components/torchlight/base.css';
 @import 'hydefront/components/blockquotes.css';
 
 @tailwind base;
