@@ -33,7 +33,7 @@ npm link hydefront
 ```bash
 cd packages/hydefront
 git pull origin master
-npm run prod
+npm run build
 ```
 
 ### Build, version, and publish
