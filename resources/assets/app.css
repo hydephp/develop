@@ -69,3 +69,19 @@
 .heading-permalink:hover, .heading-permalink:focus {
     @apply opacity-100 grayscale-0;
 }
+
+/**
+ * Torchlight
+ */
+
+pre code.torchlight {
+    @apply block py-4 px-0 min-w-max;
+}
+ 
+pre code.torchlight .line {
+    @apply px-4;
+}
+ 
+pre code.torchlight .line-number, pre code.torchlight .summary-caret {
+    @apply mr-4;
+}

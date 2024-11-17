@@ -101,6 +101,7 @@ This serves two purposes:
 - Ported the HydeSearch plugin used for the documentation search to be an Alpine.js implementation in https://github.com/hydephp/develop/pull/2029
   - Renamed Blade component `hyde::components.docs.search-widget` to `hyde::components.docs.search-modal` in https://github.com/hydephp/develop/pull/2029
   - Added support for customizing the search implementation by creating a `resources/js/HydeSearch.js` file in https://github.com/hydephp/develop/pull/2031
+- Normalized default Tailwind Typography Prose code block styles to match Torchlight's theme, ensuring consistent styling across Markdown and Torchlight code blocks in https://github.com/hydephp/develop/pull/2036.
 
 ### Deprecated
 
@@ -126,6 +127,7 @@ This serves two purposes:
 - **Breaking:** Removed `npm run prod` command (replaced with `npm run build`)
 - Removed CDN include for the HydeSearch plugin replaced by Alpine.js implementation in https://github.com/hydephp/develop/pull/2029
   - This also removes the `<x-hyde::docs.search-input />` and `<x-hyde::docs.search-scripts />` Blade components, replaced by the new `<x-hyde::docs.hyde-search />` component.
+- Removed the `.torchlight-enabled` CSS class in https://github.com/hydephp/develop/pull/2036.
 
 ### Fixed
 

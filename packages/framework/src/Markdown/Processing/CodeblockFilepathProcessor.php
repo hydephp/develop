@@ -80,12 +80,13 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         /** @var int $index */
         foreach ($lines as $index => $line) {
             if (str_starts_with($line, '<!-- HYDE[Filepath]')) {
+                $torchlight = str_contains($html, static::$torchlightKey);
                 $path = static::trimHydeDirective($line);
                 unset($lines[$index]);
                 $codeBlockLine = $index + 1;
-                $label = static::resolveTemplate($path);
+                $label = static::resolveTemplate($path, $torchlight);
 
-                $lines[$codeBlockLine] = str_contains($html, static::$torchlightKey)
+                $lines[$codeBlockLine] = $torchlight
                     ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
                     : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
             }
@@ -112,10 +113,11 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         ));
     }
 
-    protected static function resolveTemplate(string $path): string
+    protected static function resolveTemplate(string $path, bool $torchlight): string
     {
         return View::make('hyde::components.filepath-label', [
             'path' => Config::getBool('markdown.allow_html', false) ? new HtmlString($path) : $path,
+            'torchlight' => $torchlight,
         ])->render();
     }
 
