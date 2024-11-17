@@ -35,6 +35,8 @@ class HydeFront
     /**
      * Get the CDN link for a specific file.
      *
+     * @deprecated This method may be removed before the final v2.0 release as there is now currently only one file available.
+     *
      * @param  'app.css'  $file
      *
      * @link https://cdn.jsdelivr.net/npm/hydefront@latest/dist/ for the available files.
