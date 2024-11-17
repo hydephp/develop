@@ -75,7 +75,7 @@
  */
 
 pre code.torchlight {
-    @apply block py-4 min-w-max;
+    @apply block py-4 px-0 min-w-max;
 }
  
 pre code.torchlight .line {
