@@ -27,10 +27,6 @@ pre>code>.filepath {
 	}
 }
 
-.torchlight-enabled pre>code>.filepath {
-	right: 1rem;
-}
-
 // Hide it on small screens as it tends to overlay the actual code
 @media screen and (max-width: 767px) {
 	pre>code>.filepath {
