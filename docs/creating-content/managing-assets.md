@@ -13,7 +13,7 @@ With Hyde, **you don't have to do it**, in fact, you can skip this entire page i
 But as always with Hyde, you can customize everything if you want to.
 
 Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions.
-Some extra custom styles are made in the HydeFront package, which is pre-installed and bundled in the pre-configured Tailwind and Vite setup.
+Some extra component styles are organized into modular files in the HydeFront package, which is pre-installed and bundled in the pre-configured Tailwind and Vite setup.
 
 To get you started quickly, all the styles are already compiled and minified into `_media/app.css`,
 which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
@@ -26,7 +26,7 @@ No, it is optional. All the compiled styles that you need are already installed,
 
 ### When Should Assets be Compiled?
 
-The `_media/app.css` file that comes with Hyde contains TailwindCSS for all classes that are used in the default Blade views, as well as the HydeFront custom styles.
+The `_media/app.css` file that comes with Hyde contains TailwindCSS for all classes that are used in the default Blade views, as well as the HydeFront component styles.
 If you want to customize the Tailwind settings or add custom styles, you will need to recompile the styles yourself.
 
 For example, if you customize the Blade views and add new classes or add new classes in Blade-based pages, you may need to compile the assets yourself to get the new styles.
@@ -65,6 +65,12 @@ Hyde uses [Vite](https://vite.dev/) to compile assets.
 When running the `npm run dev/prod` command, Vite will compile the `resources/assets/app.css` file into `_media/app.css` using PostCSS with TailwindCSS and AutoPrefixer.
 
 The compiled assets will then be automatically copied to `_site/media` when you run `php hyde build`.
+
+### Customizing HydeFront Components
+
+HydeFront components are modular and can be easily customized to fit your needs.
+
+You can either remove the import of the component you want to customize and replace it with your own styles, or keep the import and add overriding styles after it (since CSS cascade order matters).
 
 ## Telling Hyde where to find assets
 

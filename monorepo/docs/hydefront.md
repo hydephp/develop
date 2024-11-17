@@ -1,6 +1,6 @@
 # Internal HydeFront documentation
 
-## Building and creating a new HydeFront version
+## Creating a new HydeFront version
 
 ### Prerequisites
 
@@ -28,15 +28,14 @@ cd ../../
 npm link hydefront
 ```
 
-### Build and setup
+### Setup
 
 ```bash
 cd packages/hydefront
 git pull origin master
-npm run build
 ```
 
-### Build, version, and publish
+### Version and publish
 
 Head back to the monorepo root and run the following command to bump the version of the HydeFront package:
 

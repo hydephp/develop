@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Views;
 
-use Hyde\Facades\Filesystem;
 use Hyde\Facades\HydeFront;
 use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
@@ -87,12 +86,5 @@ class StylesComponentViewTest extends TestCase
     {
         config(['hyde.load_app_styles_from_cdn' => true]);
         $this->assertStringNotContainsString('<link rel="stylesheet" href="media/app.css"', $this->renderTestView());
-    }
-
-    public function testComponentDoesNotRenderCdnLinkWhenALocalFileExists()
-    {
-        Filesystem::touch('_media/hyde.css');
-        $this->assertStringNotContainsString('https://cdn.jsdelivr.net/npm/hydefront', $this->renderTestView());
-        Filesystem::unlink('_media/hyde.css');
     }
 }
