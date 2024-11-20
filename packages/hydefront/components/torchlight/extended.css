@@ -10,8 +10,7 @@
     outline: none;
 }
 
-.torchlight details > summary::marker,
-.torchlight details > summary::-webkit-details-marker {
+.torchlight details > summary::marker, .torchlight details > summary::-webkit-details-marker {
     display: none;
 }
 
@@ -19,9 +18,7 @@
     pointer-events: none;
 }
 
-.torchlight .summary-caret-empty::after,
-.torchlight details .summary-caret-middle::after,
-.torchlight details .summary-caret-end::after {
+.torchlight .summary-caret-empty::after, .torchlight details .summary-caret-middle::after, .torchlight details .summary-caret-end::after {
     content: " ";
 }
 
