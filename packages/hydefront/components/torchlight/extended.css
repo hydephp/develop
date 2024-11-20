@@ -7,15 +7,15 @@
 /* Collapsing */
 
 .torchlight summary:focus {
-    outline: none;
+    @apply outline-none;
 }
 
 .torchlight details > summary::marker, .torchlight details > summary::-webkit-details-marker {
-    display: none;
+    @apply hidden;
 }
 
 .torchlight details .summary-caret::after {
-    pointer-events: none;
+    @apply pointer-events-none;
 }
 
 .torchlight .summary-caret-empty::after, .torchlight details .summary-caret-middle::after, .torchlight details .summary-caret-end::after {
@@ -31,9 +31,9 @@
 }
 
 .torchlight details[open] .summary-hide-when-open {
-    display: none;
+    @apply hidden;
 }
 
 .torchlight details:not([open]) .summary-hide-when-open {
-    display: initial;
+    @apply block;
 }

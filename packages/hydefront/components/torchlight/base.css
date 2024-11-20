@@ -9,7 +9,7 @@ pre code.torchlight .line-number, pre code.torchlight .summary-caret {
 }
 
 .prose .torchlight-link, .torchlight-link {
-    text-decoration: underline;
+    @apply underline;
 }
 
 .torchlight.has-focus-lines .line:not(.line-focus) {
@@ -20,5 +20,5 @@ pre code.torchlight .line-number, pre code.torchlight .summary-caret {
  
 .torchlight.has-focus-lines:hover .line:not(.line-focus) {
     filter: blur(0px);
-    opacity: 1;
+    @apply opacity-100;
 }
