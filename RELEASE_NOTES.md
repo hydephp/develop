@@ -38,6 +38,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
+- Fixed Tailwind content paths for nested Blade pages in https://github.com/hydephp/develop/pull/2042
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
 - Fixed heading permalinks button text showing in Google Search previews https://github.com/hydephp/develop/issues/1801 in https://github.com/hydephp/develop/pull/1803
 - Fixed routing issues with nested 404 pages where an index page does not exist https://github.com/hydephp/develop/issues/1781 in https://github.com/hydephp/develop/pull/1880
