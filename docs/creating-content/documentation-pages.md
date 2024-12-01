@@ -336,6 +336,8 @@ In the `config/docs.php` file you can configure the behaviour, content, and the 
 ],
 ```
 
+To customize the markup or styles of the table of contents, you can publish the `x-hyde::docs.table-of-contents` Blade component and modify it to your liking.
+
 ### Using Flattened Output Paths
 
 If this setting is set to true, Hyde will output all documentation pages into the same configured documentation output directory. This means that you can use the automatic directory-based grouping feature, but still have a "flat" output structure. Note that this means that you can't have two documentation pages with the same filename or navigation menu label as they will overwrite each other.
