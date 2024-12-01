@@ -14,7 +14,7 @@
 
         @if(config('docs.sidebar.table_of_contents.enabled', true))
             <span class="sr-only">Table of contents</span>
-            {!! $page->getTableOfContents() !!}
+            <x-hyde::docs.table-of-contents :items="$page->getTableOfContents()" />
         @endif
     @else
         <a href="{{ $item->getLink() }}" @class([$grouped
