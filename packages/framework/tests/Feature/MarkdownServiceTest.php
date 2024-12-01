@@ -29,7 +29,7 @@ class MarkdownServiceTest extends TestCase
     {
         $markdown = '## Hello World!';
 
-        $html = (new MarkdownService($markdown))->withPermalinks()->parse();
+        $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
 
         $this->assertIsString($html);
         $this->assertSame(
