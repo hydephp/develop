@@ -18,15 +18,14 @@ class GeneratesTableOfContents
     public function __construct(Markdown|string $markdown)
     {
         $this->markdown = (string) $markdown;
+
         $this->minHeadingLevel = Config::getInt('docs.sidebar.table_of_contents.min_heading_level', 2);
         $this->maxHeadingLevel = Config::getInt('docs.sidebar.table_of_contents.max_heading_level', 4);
     }
 
     public function execute(): array
     {
-        $headings = $this->parseHeadings();
-
-        return $this->buildTableOfContents($headings);
+        return $this->buildTableOfContents($this->parseHeadings());
     }
 
     protected function parseHeadings(): array
