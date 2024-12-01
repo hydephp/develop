@@ -112,6 +112,8 @@ class HeadingRendererUnitTest extends UnitTestCase
         $rendered = $renderer->render(new Heading(2), $childRenderer);
 
         $this->assertStringNotContainsString('heading-permalink', $rendered);
+
+        self::mockConfig(['markdown.permalinks.enabled' => true]);
     }
 
     #[TestWith([1, false])]
