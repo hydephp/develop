@@ -9,9 +9,7 @@
             </a>
             
             @if(! empty($item['children']))
-                <ul class="pl-2">
-                    <x-hyde::docs.table-of-contents :items="$item['children']" />
-                </ul>
+                <x-hyde::docs.table-of-contents :items="$item['children']" />
             @endif
         </li>
     @endforeach
