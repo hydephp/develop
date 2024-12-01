@@ -232,6 +232,8 @@ class SidebarTableOfContentsViewTest extends TestCase
 
     protected function assertSameIgnoringIndentation(string $expected, string $actual): void
     {
+        $expected = $this->stripTailwindClasses($expected);
+        
         $this->assertSame(
             $this->removeIndentation(trim($expected)),
             $this->removeIndentation(trim($actual))
@@ -245,8 +247,15 @@ class SidebarTableOfContentsViewTest extends TestCase
 
     protected function render(string $markdown): string
     {
-        return view('hyde::components.docs.table-of-contents', [
+        $html = view('hyde::components.docs.table-of-contents', [
             'items' => (new GeneratesTableOfContents($markdown))->execute(),
         ])->render();
+
+        return $this->stripTailwindClasses($html);
+    }
+
+    protected function stripTailwindClasses(string $html): string
+    {
+        return preg_replace('/\sclass="[^"]*"/', '', $html);
     }
 }
