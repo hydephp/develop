@@ -30,20 +30,20 @@ class GeneratesTableOfContents
     protected function parseHeadings(): array
     {
         preg_match_all('/^#{2,4}\s+(.+)$/m', $this->markdown, $matches);
-        
+
         $headings = [];
         foreach ($matches[0] as $index => $heading) {
             $level = substr_count($heading, '#');
             $title = $matches[1][$index];
             $slug = Str::slug($title);
-            
+
             $headings[] = [
                 'level' => $level,
                 'title' => $title,
                 'slug' => $slug,
             ];
         }
-        
+
         return $headings;
     }
 
@@ -51,7 +51,7 @@ class GeneratesTableOfContents
     {
         $minLevel = Config::getInt('docs.sidebar.table_of_contents.min_heading_level', 2);
         $maxLevel = Config::getInt('docs.sidebar.table_of_contents.max_heading_level', 4);
-        
+
         $items = [];
         $stack = [&$items];
         $previousLevel = $minLevel;

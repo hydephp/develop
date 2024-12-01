@@ -9,7 +9,7 @@
                 {{ $item['title'] }}
             </a>
             
-            @if(!empty($item['children']))
+            @if(! empty($item['children']))
                 <ul class="pl-2">
                     <x-hyde::docs.table-of-contents :items="$item['children']" />
                 </ul>
