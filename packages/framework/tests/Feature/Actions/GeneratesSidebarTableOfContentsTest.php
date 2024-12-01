@@ -20,6 +20,25 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
     {
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
         $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertEquals([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [],
+            ],
+            [
+                'title' => 'Level 2B',
+                'slug' => 'level-2b',
+                'children' => [
+                    [
+                        'title' => 'Level 3',
+                        'slug' => 'level-3',
+                        'children' => [],
+                    ],
+                ],
+            ],
+        ], $result);
     }
 
     public function testReturnStringContainsExpectedContent()
@@ -29,6 +48,22 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2
         ### Level 3
         MARKDOWN;
+        
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertEquals([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [
+                    [
+                        'title' => 'Level 3',
+                        'slug' => 'level-3',
+                        'children' => [],
+                    ],
+                ],
+            ],
+        ], $result);
     }
 
     public function testCanGenerateTableOfContentsForDocumentUsingSetextHeaders()
@@ -83,6 +118,22 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2
         ### Level 3
         MARKDOWN;
+        
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertEquals([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [
+                    [
+                        'title' => 'Level 3',
+                        'slug' => 'level-3',
+                        'children' => [],
+                    ],
+                ],
+            ],
+        ], $result);
     }
 
     public function testWithMultipleNestedHeadings()
@@ -101,6 +152,55 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2C
         ### Level 3D
         MARKDOWN;
+        
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertEquals([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [
+                    [
+                        'title' => 'Level 3',
+                        'slug' => 'level-3',
+                        'children' => [
+                            [
+                                'title' => 'Level 4',
+                                'slug' => 'level-4',
+                                'children' => [],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Level 2B',
+                'slug' => 'level-2b',
+                'children' => [
+                    [
+                        'title' => 'Level 3B',
+                        'slug' => 'level-3b',
+                        'children' => [],
+                    ],
+                    [
+                        'title' => 'Level 3C',
+                        'slug' => 'level-3c',
+                        'children' => [],
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Level 2C',
+                'slug' => 'level-2c',
+                'children' => [
+                    [
+                        'title' => 'Level 3D',
+                        'slug' => 'level-3d',
+                        'children' => [],
+                    ],
+                ],
+            ],
+        ], $result);
     }
 
     public function testWithMultipleLevelOneHeadings()
@@ -113,6 +213,33 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2B
         ### Level 3B
         MARKDOWN;
+        
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertEquals([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [
+                    [
+                        'title' => 'Level 3',
+                        'slug' => 'level-3',
+                        'children' => [],
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Level 2B',
+                'slug' => 'level-2b',
+                'children' => [
+                    [
+                        'title' => 'Level 3B',
+                        'slug' => 'level-3b',
+                        'children' => [],
+                    ],
+                ],
+            ],
+        ], $result);
     }
 
     public function testWithNoHeadings()
