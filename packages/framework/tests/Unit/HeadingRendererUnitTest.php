@@ -30,10 +30,13 @@ use PHPUnit\Framework\Attributes\TestWith;
 class HeadingRendererUnitTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;
+    protected static ?array $cachedConfig = null;
 
     protected function setUp(): void
     {
         $this->createRealBladeCompilerEnvironment();
+
+        self::mockConfig(['markdown' => self::$cachedConfig ??= require __DIR__.'/../../config/markdown.php']);
     }
 
     public function testCanConstruct()
@@ -112,8 +115,6 @@ class HeadingRendererUnitTest extends UnitTestCase
         $rendered = $renderer->render(new Heading(2), $childRenderer);
 
         $this->assertStringNotContainsString('heading-permalink', $rendered);
-
-        self::mockConfig(['markdown.permalinks.enabled' => true]);
     }
 
     #[TestWith([1, false])]
