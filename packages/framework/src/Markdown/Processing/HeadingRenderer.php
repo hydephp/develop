@@ -34,12 +34,14 @@ class HeadingRenderer implements NodeRendererInterface
 
         $content = $childRenderer->renderNodes($node->children());
 
-        return view('hyde::components.markdown-heading', [
+        $rendered = view('hyde::components.markdown-heading', [
             'level' => $node->getLevel(),
             'slot' => $content,
             'addPermalink' => $this->canAddPermalink($content, $node->getLevel()),
             'extraAttributes' => $node->data->get('attributes'),
         ])->render();
+
+        return $rendered;
     }
 
     protected function canAddPermalink(string $content, int $level): bool
