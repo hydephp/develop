@@ -280,7 +280,7 @@ class SidebarTableOfContentsViewTest extends TestCase
     protected function assertHtmlStructure(string $expected, string $actual): void
     {
         $expected = $this->stripTailwindClasses($expected);
-        
+
         $this->assertSame(
             $this->normalize($this->reindent($this->removeIndentation(trim($expected)))),
             $this->normalize($this->reindent($this->removeIndentation(trim($actual)))),
@@ -301,7 +301,7 @@ class SidebarTableOfContentsViewTest extends TestCase
         libxml_use_internal_errors(true);
 
         // Load the HTML into DOMDocument, wrapping in a temporary container if needed
-        $doc->loadHTML('<!DOCTYPE html><html><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $doc->loadHTML('<!DOCTYPE html><html><body>'.$html.'</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         // Clear any libxml errors
         libxml_clear_errors();
@@ -310,7 +310,7 @@ class SidebarTableOfContentsViewTest extends TestCase
         $body = $doc->getElementsByTagName('body')->item(0);
 
         // If body is empty, return an empty string
-        if (!$body) {
+        if (! $body) {
             return '';
         }
 
@@ -327,17 +327,17 @@ class SidebarTableOfContentsViewTest extends TestCase
             if ($child->nodeType === XML_TEXT_NODE) {
                 // Trim whitespace from text nodes
                 $text = trim($child->nodeValue);
-                if (!empty($text)) {
-                    $output .= $indent . $text . "\n";
+                if (! empty($text)) {
+                    $output .= $indent.$text."\n";
                 }
             } elseif ($child->nodeType === XML_ELEMENT_NODE) {
                 // Open the tag
-                $output .= $indent . '<' . $child->nodeName;
+                $output .= $indent.'<'.$child->nodeName;
 
                 // Add attributes
                 if ($child->hasAttributes()) {
                     foreach ($child->attributes as $attr) {
-                        $output .= ' ' . $attr->nodeName . '="' . htmlspecialchars($attr->nodeValue) . '"';
+                        $output .= ' '.$attr->nodeName.'="'.htmlspecialchars($attr->nodeValue).'"';
                     }
                 }
 
@@ -345,12 +345,12 @@ class SidebarTableOfContentsViewTest extends TestCase
 
                 // Recursively format children
                 if ($child->childNodes->length > 0) {
-                    $output .= "\n" . $this->formatNode($child, $level + 1);
+                    $output .= "\n".$this->formatNode($child, $level + 1);
                     $output .= $indent; // Closing tag at the same indentation
                 }
 
                 // Close the tag
-                $output .= '</' . $child->nodeName . ">\n";
+                $output .= '</'.$child->nodeName.">\n";
             }
         }
 
