@@ -144,13 +144,6 @@ class MarkdownService
         return $this;
     }
 
-    public function withPermalinks(): static
-    {
-        $this->addFeature('permalinks');
-
-        return $this;
-    }
-
     public function isDocumentationPage(): bool
     {
         return isset($this->pageClass) && $this->pageClass === DocumentationPage::class;

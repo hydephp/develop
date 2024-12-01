@@ -157,14 +157,6 @@ class MarkdownServiceTest extends TestCase
         $this->assertContains('table-of-contents', $service->features);
     }
 
-    public function testMethodWithPermalinksMethodChainAddsThePermalinksFeature()
-    {
-        $service = $this->makeService();
-
-        $service->withPermalinks();
-        $this->assertContains('permalinks', $service->features);
-    }
-
     public function testHasFeatureReturnsTrueIfTheFeatureIsInTheArray()
     {
         $service = $this->makeService();
@@ -178,14 +170,6 @@ class MarkdownServiceTest extends TestCase
         $service = $this->makeService();
 
         $this->assertFalse($service->hasFeature('test'));
-    }
-
-    public function testMethodCanEnablePermalinksReturnsTrueIfThePermalinksFeatureIsInTheArray()
-    {
-        $service = $this->makeService();
-
-        $service->addFeature('permalinks');
-        $this->assertTrue($service->canEnablePermalinks());
     }
 
     public function testMethodCanEnablePermalinksIsAutomaticallyForDocumentationPages()
