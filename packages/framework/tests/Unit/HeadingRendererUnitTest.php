@@ -20,6 +20,7 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use Mockery;
+use PHPUnit\Framework\Attributes\TestWith;
 
 /**
  * @covers \Hyde\Markdown\Processing\HeadingRenderer
@@ -113,29 +114,22 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringNotContainsString('heading-permalink', $rendered);
     }
 
-    public function testCanAddPermalinkBasedOnConfiguration()
+    #[TestWith([1, false])]
+    #[TestWith([2, true])]
+    #[TestWith([3, true])]
+    #[TestWith([4, true])]
+    #[TestWith([5, true])]
+    #[TestWith([6, true])]
+    public function testCanAddPermalinkBasedOnConfiguration(int $level, bool $shouldHavePermalink): void
     {
+        $childRenderer = $this->mockChildNodeRenderer('Test Content');
         $renderer = new HeadingRenderer(DocumentationPage::class);
-        $heading = new Heading(2);
-        $childRenderer = Mockery::mock(ChildNodeRendererInterface::class);
+        $rendered = $renderer->render(new Heading($level), $childRenderer);
 
-        $childRenderer->shouldReceive('renderNodes')
-            ->andReturn('Test Content');
-
-        // Test with different heading levels
-        foreach (range(1, 2) as $level) {
-            $heading->setLevel($level);
-            $rendered = $renderer->render($heading, $childRenderer);
-
-            $this->assertStringNotContainsString('heading-permalink', $rendered);
-        }
-
-        // Test with different heading levels
-        foreach (range(3, 6) as $level) {
-            $heading->setLevel($level);
-            $rendered = $renderer->render($heading, $childRenderer);
-
+        if ($shouldHavePermalink) {
             $this->assertStringContainsString('heading-permalink', $rendered);
+        } else {
+            $this->assertStringNotContainsString('heading-permalink', $rendered);
         }
     }
 
