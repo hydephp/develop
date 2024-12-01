@@ -24,12 +24,14 @@ class HeadingRendererUnitTest extends UnitTestCase
         // Create a minimal view environment without the full service provider
         $view = new Factory(
             new EngineResolver(),
-            new FileViewFinder(
+            $finder = new FileViewFinder(
                 new Filesystem(),
                 [realpath(__DIR__ . '/../../resources/views')]
             ),
             new Dispatcher()
         );
+
+        $finder->addNamespace('hyde', realpath(__DIR__ . '/../../resources/views'));
 
         app()->instance('view', $view);
         app()->instance(FactoryContract::class, $view);
