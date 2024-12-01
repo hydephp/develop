@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Testing\Feature\Actions;
+namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Testing\UnitTestCase;

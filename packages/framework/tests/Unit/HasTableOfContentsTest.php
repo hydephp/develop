@@ -10,7 +10,7 @@ use Hyde\Testing\UnitTestCase;
 /**
  * @covers \Hyde\Pages\DocumentationPage
  *
- * @see \Hyde\Framework\Testing\Feature\Actions\GeneratesSidebarTableOfContentsTest
+ * @see \Hyde\Framework\Testing\Unit\GeneratesSidebarTableOfContentsTest
  */
 class HasTableOfContentsTest extends UnitTestCase
 {
