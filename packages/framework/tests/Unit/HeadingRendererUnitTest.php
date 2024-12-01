@@ -11,6 +11,8 @@ use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
+use Hyde\Markdown\Processing\HeadingRenderer;
+use Hyde\Pages\DocumentationPage;
 use Illuminate\View\FileViewFinder;
 use Illuminate\Filesystem\Filesystem;
 
@@ -24,6 +26,18 @@ class HeadingRendererUnitTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->createRealBladeCompilerEnvironment();
+    }
+
+    public function testCanConstruct()
+    {
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+        $this->assertInstanceOf(HeadingRenderer::class, $renderer);
+    }
+
+    public function testCanConstructWithPageClass()
+    {
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+        $this->assertInstanceOf(HeadingRenderer::class, $renderer);
     }
 
     protected function createRealBladeCompilerEnvironment(): void
