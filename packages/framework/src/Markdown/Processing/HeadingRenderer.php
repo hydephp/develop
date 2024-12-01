@@ -44,6 +44,8 @@ class HeadingRenderer implements NodeRendererInterface
 
     protected function canAddPermalink(string $content): bool
     {
-        return config('markdown.permalinks.enabled', true) && ! str_contains($content, 'class="heading-permalink"') && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
+        return config('markdown.permalinks.enabled', true)
+            && ! str_contains($content, 'class="heading-permalink"')
+            && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
     }
 }
