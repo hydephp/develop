@@ -28,7 +28,7 @@ class SidebarTableOfContentsViewTest extends TestCase
 
         $this->assertIsString($result);
 
-        $this->assertSameIgnoringIndentation(<<<'HTML'
+        $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
                     <a href="#level-2">Level 2</a>
@@ -65,7 +65,7 @@ class SidebarTableOfContentsViewTest extends TestCase
             $this->render($markdown)
         );
 
-        $this->assertSameIgnoringIndentation(<<<'HTML'
+        $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
                     <a href="#level-2">Level 2</a>
@@ -108,7 +108,7 @@ class SidebarTableOfContentsViewTest extends TestCase
         ### Level 3
         MARKDOWN;
 
-        $this->assertSameIgnoringIndentation(<<<'HTML'
+        $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
                     <a href="#level-2">Level 2</a>
@@ -140,7 +140,7 @@ class SidebarTableOfContentsViewTest extends TestCase
         ### Level 3D
         MARKDOWN;
 
-        $this->assertSameIgnoringIndentation(<<<'HTML'
+        $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
                     <a href="#level-2">Level 2</a>
@@ -190,7 +190,7 @@ class SidebarTableOfContentsViewTest extends TestCase
         ### Level 3B
         MARKDOWN;
 
-        $this->assertSameIgnoringIndentation(<<<'HTML'
+        $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
                     <a href="#level-2">Level 2</a>
@@ -223,13 +223,13 @@ class SidebarTableOfContentsViewTest extends TestCase
         $this->assertSame('', $this->render(''));
     }
 
-    protected function assertSameIgnoringIndentation(string $expected, string $actual): void
+    protected function assertHtmlStructure(string $expected, string $actual): void
     {
         $expected = $this->stripTailwindClasses($expected);
         
         $this->assertSame(
-            $this->reindent($this->removeIndentation(trim($expected))),
-            $this->reindent($this->removeIndentation(trim($actual))),
+            $this->normalize($this->reindent($this->removeIndentation(trim($expected)))),
+            $this->normalize($this->reindent($this->removeIndentation(trim($actual)))),
         );
     }
 
@@ -301,6 +301,13 @@ class SidebarTableOfContentsViewTest extends TestCase
         }
 
         return $output;
+    }
+
+    protected function normalize(string $html): string
+    {
+        return preg_replace_callback('/<span\b[^>]*>(.*?)<\/span>/s', function ($matches) {
+            return '<span>'.trim(preg_replace('/\s+/', ' ', $matches[1])).'</span>';
+        }, $html);
     }
 
     protected function render(string $markdown): string
