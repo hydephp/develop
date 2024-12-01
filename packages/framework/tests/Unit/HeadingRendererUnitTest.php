@@ -51,8 +51,8 @@ class HeadingRendererUnitTest extends UnitTestCase
             );
         });
 
-        $finder = new FileViewFinder($filesystem, [realpath(__DIR__ . '/../../resources/views')]);
-        $finder->addNamespace('hyde', realpath(__DIR__ . '/../../resources/views'));
+        $finder = new FileViewFinder($filesystem, [realpath(__DIR__.'/../../resources/views')]);
+        $finder->addNamespace('hyde', realpath(__DIR__.'/../../resources/views'));
 
         $view = new Factory($resolver, $finder, new Dispatcher());
 
@@ -63,8 +63,7 @@ class HeadingRendererUnitTest extends UnitTestCase
     protected function mockChildNodeRenderer(string $contents): ChildNodeRendererInterface
     {
         $childRenderer = Mockery::mock(ChildNodeRendererInterface::class);
-        $childRenderer->shouldReceive('renderNodes')
-            ->andReturn($contents);
+        $childRenderer->shouldReceive('renderNodes')->andReturn($contents);
 
         return $childRenderer;
     }
