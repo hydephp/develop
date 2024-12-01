@@ -1,6 +1,6 @@
 @props(['items'])
 
-<ul class="py-3 space-y-1.5">
+<ul class="table-of-contents py-3 space-y-1.5">
     @foreach($items as $item)
         <li>
             <a href="#{{ $item['slug'] }}" 
