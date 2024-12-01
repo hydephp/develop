@@ -59,4 +59,13 @@ class HeadingRendererUnitTest extends UnitTestCase
         app()->instance('view', $view);
         app()->instance(FactoryContract::class, $view);
     }
+
+    protected function mockChildNodeRenderer(string $contents): ChildNodeRendererInterface
+    {
+        $childRenderer = Mockery::mock(ChildNodeRendererInterface::class);
+        $childRenderer->shouldReceive('renderNodes')
+            ->andReturn($contents);
+
+        return $childRenderer;
+    }
 }
