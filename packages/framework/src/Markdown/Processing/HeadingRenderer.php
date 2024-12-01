@@ -28,6 +28,7 @@ class HeadingRenderer implements NodeRendererInterface
             'level' => $node->getLevel(),
             'slot' => $content,
             'addPermalink' => config('markdown.features.permalinks', true) && ! str_contains($content, 'class="heading-permalink"'),
+            'extraAttributes' =>  $node->data->get('attributes')
         ])->render();
     }
 }
