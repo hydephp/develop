@@ -2,7 +2,7 @@
     'level' => 1,
     'id' => null,
     'extraAttributes' => [],
-    'addPermalink' => config('markdown.features.permalinks', true),
+    'addPermalink' => config('markdown.permalinks.enabled', true),
 ])
 
 @php
