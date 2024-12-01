@@ -30,7 +30,7 @@ class GeneratesTableOfContents
     protected function parseHeadings(): array
     {
         // Match both ATX-style (###) and Setext-style (===, ---) headers
-        $pattern = '/^(?:#{2,4}\s+(.+)|(.+)\n([=\-])\3+)$/m';
+        $pattern = '/^(?:#{1,6}\s+(.+)|(.+)\n([=\-])\3+)$/m';
         preg_match_all($pattern, $this->markdown, $matches);
 
         $headings = [];

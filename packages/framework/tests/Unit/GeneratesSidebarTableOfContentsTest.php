@@ -373,6 +373,63 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ], $result);
     }
 
+    public function testWithAllHeadingLevels()
+    {
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 1,
+            'docs.sidebar.table_of_contents.max_heading_level' => 6,
+        ]);
+
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        #### Level 4
+        ##### Level 5
+        ###### Level 6
+        MARKDOWN;
+
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+
+        $this->assertSame([
+            [
+                'title' => 'Level 1',
+                'slug' => 'level-1',
+                'children' => [
+                    [
+                        'title' => 'Level 2',
+                        'slug' => 'level-2',
+                        'children' => [
+                            [
+                                'title' => 'Level 3',
+                                'slug' => 'level-3',
+                                'children' => [
+                                    [
+                                        'title' => 'Level 4',
+                                        'slug' => 'level-4',
+                                        'children' => [
+                                            [
+                                                'title' => 'Level 5',
+                                                'slug' => 'level-5',
+                                                'children' => [
+                                                    [
+                                                        'title' => 'Level 6',
+                                                        'slug' => 'level-6',
+                                                        'children' => [],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ], $result);
+    }
+
     public function testHandlesInvalidConfigLevels()
     {
         // Test negative levels
