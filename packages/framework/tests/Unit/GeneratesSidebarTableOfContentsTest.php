@@ -91,7 +91,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
-    public function testNonHeadingMarkdownIsRemoved()
+    public function testNonHeadingMarkdownIsIgnored()
     {
         $expected = <<<'MARKDOWN'
         # Level 1
