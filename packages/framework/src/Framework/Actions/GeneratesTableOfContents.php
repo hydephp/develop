@@ -30,36 +30,69 @@ class GeneratesTableOfContents
 
     protected function parseHeadings(): array
     {
+        $matches = $this->matchHeadingPatterns();
+        $headings = [];
+
+        foreach ($matches[0] as $index => $heading) {
+            $headingData = $this->parseHeadingData($heading, $matches, $index);
+            
+            if ($headingData === null) {
+                continue;
+            }
+
+            $headings[] = $this->createHeadingEntry($headingData);
+        }
+
+        return $headings;
+    }
+
+    protected function matchHeadingPatterns(): array
+    {
         // Match both ATX-style (###) and Setext-style (===, ---) headers
         $pattern = '/^(?:#{1,6}\s+(.+)|(.+)\n([=\-])\3+)$/m';
         preg_match_all($pattern, $this->markdown, $matches);
 
-        $headings = [];
-        foreach ($matches[0] as $index => $heading) {
-            // Handle ATX-style headers (###)
-            if (str_starts_with($heading, '#')) {
-                $level = substr_count($heading, '#');
-                $title = $matches[1][$index];
-            }
-            // Handle Setext-style headers (=== or ---)
-            else {
-                $title = trim($matches[2][$index]);
-                $level = $matches[3][$index] === '=' ? 1 : 2;
-                // Only add if the config level is met
-                if ($level < $this->minHeadingLevel) {
-                    continue;
-                }
-            }
+        return $matches;
+    }
 
-            $slug = Str::slug($title);
-            $headings[] = [
-                'level' => $level,
-                'title' => $title,
-                'slug' => $slug,
-            ];
+    protected function parseHeadingData(string $heading, array $matches, int $index): ?array
+    {
+        if (str_starts_with($heading, '#')) {
+            return $this->parseAtxHeading($heading, $matches[1][$index]);
+        }
+        
+        return $this->parseSetextHeading($matches[2][$index], $matches[3][$index]);
+    }
+
+    protected function parseAtxHeading(string $heading, string $title): array
+    {
+        return [
+            'level' => substr_count($heading, '#'),
+            'title' => $title,
+        ];
+    }
+
+    protected function parseSetextHeading(string $title, string $marker): ?array
+    {
+        $level = $marker === '=' ? 1 : 2;
+        
+        if ($level < $this->minHeadingLevel) {
+            return null;
         }
 
-        return $headings;
+        return [
+            'level' => $level,
+            'title' => trim($title),
+        ];
+    }
+
+    protected function createHeadingEntry(array $headingData): array
+    {
+        return [
+            'level' => $headingData['level'],
+            'title' => $headingData['title'],
+            'slug' => Str::slug($headingData['title']),
+        ];
     }
 
     protected function buildTableOfContents(array $headings): array
