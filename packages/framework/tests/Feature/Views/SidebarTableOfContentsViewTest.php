@@ -235,14 +235,79 @@ class SidebarTableOfContentsViewTest extends TestCase
         $expected = $this->stripTailwindClasses($expected);
         
         $this->assertSame(
-            $this->removeIndentation(trim($expected)),
-            $this->removeIndentation(trim($actual))
+            $this->reindent($this->removeIndentation(trim($expected))),
+            $this->reindent($this->removeIndentation(trim($actual))),
         );
     }
 
     protected function removeIndentation(string $actual): string
     {
         return implode("\n", array_map('trim', explode("\n", $actual)));
+    }
+
+    protected function reindent(string $html): string
+    {
+        // Create a new DOMDocument instance
+        $doc = new \DOMDocument();
+
+        // Suppress warnings from malformed HTML
+        libxml_use_internal_errors(true);
+
+        // Load the HTML into DOMDocument, wrapping in a temporary container if needed
+        $doc->loadHTML('<!DOCTYPE html><html><body>' . $html . '</body></html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // Clear any libxml errors
+        libxml_clear_errors();
+
+        // Retrieve the body content
+        $body = $doc->getElementsByTagName('body')->item(0);
+
+        // If body is empty, return an empty string
+        if (!$body) {
+            return '';
+        }
+
+        // Use a recursive helper function to process child nodes
+        return $this->formatNode($body, 0);
+    }
+
+    protected function formatNode(\DOMNode $node, int $level): string
+    {
+        $indent = str_repeat('  ', $level); // Two spaces for each indentation level
+        $output = '';
+
+        foreach ($node->childNodes as $child) {
+            if ($child->nodeType === XML_TEXT_NODE) {
+                // Trim whitespace from text nodes
+                $text = trim($child->nodeValue);
+                if (!empty($text)) {
+                    $output .= $indent . $text . "\n";
+                }
+            } elseif ($child->nodeType === XML_ELEMENT_NODE) {
+                // Open the tag
+                $output .= $indent . '<' . $child->nodeName;
+
+                // Add attributes
+                if ($child->hasAttributes()) {
+                    foreach ($child->attributes as $attr) {
+                        $output .= ' ' . $attr->nodeName . '="' . htmlspecialchars($attr->nodeValue) . '"';
+                    }
+                }
+
+                $output .= '>';
+
+                // Recursively format children
+                if ($child->childNodes->length > 0) {
+                    $output .= "\n" . $this->formatNode($child, $level + 1);
+                    $output .= $indent; // Closing tag at the same indentation
+                }
+
+                // Close the tag
+                $output .= '</' . $child->nodeName . ">\n";
+            }
+        }
+
+        return $output;
     }
 
     protected function render(string $markdown): string
