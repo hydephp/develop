@@ -113,6 +113,32 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringNotContainsString('heading-permalink', $rendered);
     }
 
+    public function testCanAddPermalinkBasedOnConfiguration()
+    {
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+        $heading = new Heading(2);
+        $childRenderer = Mockery::mock(ChildNodeRendererInterface::class);
+
+        $childRenderer->shouldReceive('renderNodes')
+            ->andReturn('Test Content');
+
+        // Test with different heading levels
+        foreach (range(1, 2) as $level) {
+            $heading->setLevel($level);
+            $rendered = $renderer->render($heading, $childRenderer);
+
+            $this->assertStringNotContainsString('heading-permalink', $rendered);
+        }
+
+        // Test with different heading levels
+        foreach (range(3, 6) as $level) {
+            $heading->setLevel($level);
+            $rendered = $renderer->render($heading, $childRenderer);
+
+            $this->assertStringContainsString('heading-permalink', $rendered);
+        }
+    }
+
     public function testForwardsHeadingAttributes()
     {
         $childRenderer = $this->mockChildNodeRenderer('Test Content');
