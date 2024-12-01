@@ -23,7 +23,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
         $result = (new GeneratesTableOfContents($markdown))->execute();
         
-        $this->assertEquals([
+        $this->assertSame([
             [
                 'title' => 'Level 2',
                 'slug' => 'level-2',
@@ -53,7 +53,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         
         $result = (new GeneratesTableOfContents($markdown))->execute();
         
-        $this->assertEquals([
+        $this->assertSame([
             [
                 'title' => 'Level 2',
                 'slug' => 'level-2',
@@ -89,6 +89,22 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             (new GeneratesTableOfContents($expected))->execute(),
             (new GeneratesTableOfContents($markdown))->execute()
         );
+
+        $this->assertSame(
+            [
+                [
+                    'title' => 'Level 2',
+                    'slug' => 'level-2',
+                    'children' => [],
+                ],
+                [
+                    'title' => 'Level 2B',
+                    'slug' => 'level-2b',
+                    'children' => [],
+                ],
+            ],
+            (new GeneratesTableOfContents($markdown))->execute(),
+        );
     }
 
     public function testNonHeadingMarkdownIsIgnored()
@@ -112,6 +128,23 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             (new GeneratesTableOfContents($expected))->execute(),
             (new GeneratesTableOfContents($actual))->execute()
         );
+
+        $this->assertSame(
+            [
+                [
+                    'title' => 'Level 2',
+                    'slug' => 'level-2',
+                    'children' => [
+                        [
+                            'title' => 'Level 3',
+                            'slug' => 'level-3',
+                            'children' => [],
+                        ],
+                    ],
+                ],
+            ],
+            (new GeneratesTableOfContents($actual))->execute(),
+        );
     }
 
     public function testWithNoLevelOneHeading()
@@ -123,7 +156,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         
         $result = (new GeneratesTableOfContents($markdown))->execute();
         
-        $this->assertEquals([
+        $this->assertSame([
             [
                 'title' => 'Level 2',
                 'slug' => 'level-2',
@@ -157,7 +190,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         
         $result = (new GeneratesTableOfContents($markdown))->execute();
         
-        $this->assertEquals([
+        $this->assertSame([
             [
                 'title' => 'Level 2',
                 'slug' => 'level-2',
@@ -218,7 +251,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         
         $result = (new GeneratesTableOfContents($markdown))->execute();
         
-        $this->assertEquals([
+        $this->assertSame([
             [
                 'title' => 'Level 2',
                 'slug' => 'level-2',
