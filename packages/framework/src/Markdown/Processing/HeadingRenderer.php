@@ -41,7 +41,7 @@ class HeadingRenderer implements NodeRendererInterface
             'extraAttributes' => $node->data->get('attributes'),
         ])->render();
 
-        return $rendered;
+        return $this->postProcess($rendered);
     }
 
     protected function canAddPermalink(string $content, int $level): bool
@@ -51,5 +51,17 @@ class HeadingRenderer implements NodeRendererInterface
             && $level <= config('markdown.permalinks.max_level', 6)
             && ! str_contains($content, 'class="heading-permalink"')
             && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
+    }
+
+    protected function postProcess(string $html): string
+    {
+        $html = str_replace('<h1 >', '<h1>', $html);
+        $html = str_replace('<h2 >', '<h2>', $html);
+        $html = str_replace('<h3 >', '<h3>', $html);
+        $html = str_replace('<h4 >', '<h4>', $html);
+        $html = str_replace('<h5 >', '<h5>', $html);
+        $html = str_replace('<h6 >', '<h6>', $html);
+
+        return implode('', array_map('trim', explode("\n", $html)));
     }
 }
