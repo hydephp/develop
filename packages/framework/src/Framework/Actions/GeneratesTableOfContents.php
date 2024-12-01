@@ -133,7 +133,9 @@ class GeneratesTableOfContents
     {
         if ($currentLevel > $previousLevel) {
             $this->nestNewLevel($stack);
-        } elseif ($currentLevel < $previousLevel) {
+        } 
+
+        if ($currentLevel < $previousLevel) {
             $this->unwindStack($stack, $currentLevel);
         }
     }
