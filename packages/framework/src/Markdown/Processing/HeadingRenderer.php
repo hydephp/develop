@@ -37,14 +37,16 @@ class HeadingRenderer implements NodeRendererInterface
         return view('hyde::components.markdown-heading', [
             'level' => $node->getLevel(),
             'slot' => $content,
-            'addPermalink' => $this->canAddPermalink($content),
+            'addPermalink' => $this->canAddPermalink($content, $node->getLevel()),
             'extraAttributes' => $node->data->get('attributes'),
         ])->render();
     }
 
-    protected function canAddPermalink(string $content): bool
+    protected function canAddPermalink(string $content, int $level): bool
     {
         return config('markdown.permalinks.enabled', true)
+            && $level >= config('markdown.permalinks.min_level', 1)
+            && $level <= config('markdown.permalinks.max_level', 6)
             && ! str_contains($content, 'class="heading-permalink"')
             && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
     }
