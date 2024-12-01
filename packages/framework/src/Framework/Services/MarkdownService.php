@@ -7,6 +7,7 @@ namespace Hyde\Framework\Services;
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Markdown\Models\MarkdownDocument;
+use Hyde\Markdown\Processing\HeadingRenderer;
 use Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\MarkdownConverter;
@@ -14,6 +15,7 @@ use Hyde\Markdown\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
+use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 
 use function str_contains;
 use function str_replace;
@@ -86,6 +88,8 @@ class MarkdownService
         foreach ($this->extensions as $extension) {
             $this->initializeExtension($extension);
         }
+
+        $this->configureCustomHeadingRenderer();
 
         $this->registerPreProcessors();
         $this->registerPostProcessors();
@@ -271,5 +275,11 @@ class MarkdownService
         }
 
         return [0, 0];
+    }
+
+    protected function configureCustomHeadingRenderer(): void
+    {
+        $environment = $this->converter->getEnvironment();
+        $environment->addRenderer(Heading::class, new HeadingRenderer());
     }
 }
