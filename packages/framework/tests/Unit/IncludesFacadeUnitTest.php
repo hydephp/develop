@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Illuminate\Contracts\View\Factory;
 use Mockery;
 use Closure;
 use Hyde\Hyde;
@@ -35,8 +34,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
     {
         Blade::swap(Mockery::mock());
 
-        // Mock the View factory
-        $viewFactory = Mockery::mock(Factory::class);
+        $viewFactory = Mockery::mock(\Illuminate\Contracts\View\Factory::class);
         $viewFactory->shouldReceive('make')
             ->with('hyde::components.markdown-heading', Mockery::any())
             ->andReturn(Mockery::mock([
@@ -44,6 +42,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
             ]));
 
         app()->instance('view', $viewFactory);
+        app()->instance(\Illuminate\Contracts\View\Factory::class, $viewFactory);
 
         $this->setupTestKernel()->setRoutes(collect());
     }
