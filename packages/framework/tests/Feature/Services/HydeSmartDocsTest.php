@@ -18,32 +18,32 @@ class HydeSmartDocsTest extends TestCase
     {
         $article = $this->makeArticle("# Header Content \n\n Body Content");
 
-        $this->assertEquals('<h1>Header Content</h1>', $article->renderHeader());
-        $this->assertEquals('<p>Body Content</p>', $article->renderBody());
+        $this->assertSame('<h1>Header Content</h1>', $article->renderHeader()->toHtml());
+        $this->assertSame('<p>Body Content</p>', $article->renderBody()->toHtml());
     }
 
     public function testClassCanHandleDocumentWithNoHeader()
     {
         $article = $this->makeArticle('Body Content');
 
-        $this->assertEquals('', $article->renderHeader());
-        $this->assertEquals('<p>Body Content</p>', $article->renderBody());
+        $this->assertSame('', $article->renderHeader()->toHtml());
+        $this->assertSame('<p>Body Content</p>', $article->renderBody()->toHtml());
     }
 
     public function testClassCanHandleDocumentWithOnlyHeader()
     {
         $article = $this->makeArticle('# Header Content');
 
-        $this->assertEquals('<h1>Header Content</h1>', $article->renderHeader());
-        $this->assertEquals('', $article->renderBody());
+        $this->assertSame('<h1>Header Content</h1>', $article->renderHeader()->toHtml());
+        $this->assertSame('', $article->renderBody()->toHtml());
     }
 
     public function testClassCanHandleEmptyDocument()
     {
         $article = $this->makeArticle('');
 
-        $this->assertEquals('', $article->renderHeader());
-        $this->assertEquals('', $article->renderBody());
+        $this->assertSame('', $article->renderHeader()->toHtml());
+        $this->assertSame('', $article->renderBody()->toHtml());
     }
 
     public function testRenderedContentIsHtmlable()
@@ -61,7 +61,7 @@ class HydeSmartDocsTest extends TestCase
 
         $this->assertInstanceOf(SemanticDocumentationArticle::class, $article);
 
-        $this->assertEquals('<p>Hello world.</p>', $article->renderBody());
+        $this->assertSame('<p>Hello world.</p>', $article->renderBody()->toHtml());
     }
 
     public function testRenderHeaderReturnsTheExtractedHeader()
