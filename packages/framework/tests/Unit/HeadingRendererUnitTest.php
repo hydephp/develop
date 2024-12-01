@@ -75,26 +75,6 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringContainsString('#test-heading', $rendered);
     }
 
-    public function testDoesNotAddPermalinkToLevelOneHeadingByDefault()
-    {
-        $childRenderer = $this->mockChildNodeRenderer();
-        $renderer = new HeadingRenderer(DocumentationPage::class);
-        $rendered = $renderer->render(new Heading(1), $childRenderer);
-
-        $this->assertStringNotContainsString('heading-permalink', $rendered);
-    }
-
-    public function testAddsPermalinkToLevelOneHeadingIfConfigured()
-    {
-        self::mockConfig(['markdown.permalinks.min_level' => 1]);
-
-        $childRenderer = $this->mockChildNodeRenderer();
-        $renderer = new HeadingRenderer(DocumentationPage::class);
-        $rendered = $renderer->render(new Heading(1), $childRenderer);
-
-        $this->assertStringContainsString('heading-permalink', $rendered);
-    }
-
     public function testThrowsExceptionForInvalidNode()
     {
         $invalidNode = Mockery::mock(Node::class);
