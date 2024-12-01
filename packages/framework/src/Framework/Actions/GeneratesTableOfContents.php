@@ -15,9 +15,14 @@ class GeneratesTableOfContents
 {
     protected string $markdown;
 
+    protected int $minHeadingLevel = 2;
+    protected int $maxHeadingLevel = 4;
+
     public function __construct(Markdown|string $markdown)
     {
         $this->markdown = (string) $markdown;
+        $this->minHeadingLevel = Config::getInt('docs.sidebar.table_of_contents.min_heading_level', 2);
+        $this->maxHeadingLevel = Config::getInt('docs.sidebar.table_of_contents.max_heading_level', 4);
     }
 
     public function execute(): array
@@ -45,7 +50,7 @@ class GeneratesTableOfContents
                 $title = trim($matches[2][$index]);
                 $level = $matches[3][$index] === '=' ? 1 : 2;
                 // Only add if the config level is met
-                if ($level < Config::getInt('docs.sidebar.table_of_contents.min_heading_level', 2)) {
+                if ($level < $this->minHeadingLevel) {
                     continue;
                 }
             }
@@ -63,15 +68,12 @@ class GeneratesTableOfContents
 
     protected function buildTableOfContents(array $headings): array
     {
-        $minLevel = Config::getInt('docs.sidebar.table_of_contents.min_heading_level', 2);
-        $maxLevel = Config::getInt('docs.sidebar.table_of_contents.max_heading_level', 4);
-
         $items = [];
         $stack = [&$items];
-        $previousLevel = $minLevel;
+        $previousLevel = $this->minHeadingLevel;
 
         foreach ($headings as $heading) {
-            if ($heading['level'] < $minLevel || $heading['level'] > $maxLevel) {
+            if ($heading['level'] < $this->minHeadingLevel || $heading['level'] > $this->maxHeadingLevel) {
                 continue;
             }
 
@@ -84,7 +86,7 @@ class GeneratesTableOfContents
             if ($heading['level'] > $previousLevel) {
                 $stack[] = &$stack[count($stack) - 1][count($stack[count($stack) - 1]) - 1]['children'];
             } elseif ($heading['level'] < $previousLevel) {
-                array_splice($stack, $heading['level'] - $minLevel + 1);
+                array_splice($stack, $heading['level'] - $this->minHeadingLevel + 1);
             }
 
             $stack[count($stack) - 1][] = $item;
