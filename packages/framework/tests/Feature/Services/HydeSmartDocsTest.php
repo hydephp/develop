@@ -214,6 +214,16 @@ class HydeSmartDocsTest extends TestCase
         $this->assertStringContainsString('<p>Hello world.</p>', $rendered);
     }
 
+    public function testClassCanParseDocumentWithDisabledPermalinks()
+    {
+        config(['markdown.permalinks.enabled' => false]);
+
+        $article = $this->makeArticle("# Header Content \n\n Body Content");
+
+        $this->assertSame('<h1>Header Content</h1>', $article->renderHeader()->toHtml());
+        $this->assertSame('<p>Body Content</p>', $article->renderBody()->toHtml());
+    }
+
     protected function makeArticle(string $sourceFileContents = "# Foo\n\nHello world."): SemanticDocumentationArticle
     {
         $this->file('_docs/foo.md', $sourceFileContents);
