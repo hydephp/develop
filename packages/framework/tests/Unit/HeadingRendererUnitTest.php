@@ -42,28 +42,19 @@ class HeadingRendererUnitTest extends UnitTestCase
 
     protected function createRealBladeCompilerEnvironment(): void
     {
-        // Create and configure the engine resolver
         $resolver = new EngineResolver();
         $filesystem = new Filesystem();
 
-        // Register the blade engine
         $resolver->register('blade', function () use ($filesystem) {
             return new CompilerEngine(
                 new BladeCompiler($filesystem, sys_get_temp_dir())
             );
         });
 
-        // Create the view factory with the configured resolver
-        $view = new Factory(
-            $resolver,
-            $finder = new FileViewFinder(
-                $filesystem,
-                [realpath(__DIR__ . '/../../resources/views')]
-            ),
-            new Dispatcher()
-        );
-
+        $finder = new FileViewFinder($filesystem, [realpath(__DIR__ . '/../../resources/views')]);
         $finder->addNamespace('hyde', realpath(__DIR__ . '/../../resources/views'));
+
+        $view = new Factory($resolver, $finder, new Dispatcher());
 
         app()->instance('view', $view);
         app()->instance(FactoryContract::class, $view);
