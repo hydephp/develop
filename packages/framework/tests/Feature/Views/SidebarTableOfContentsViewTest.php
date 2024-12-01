@@ -256,6 +256,13 @@ class SidebarTableOfContentsViewTest extends TestCase
 
     protected function stripTailwindClasses(string $html): string
     {
-        return preg_replace('/\sclass="[^"]*"/', '', $html);
+        $replacements = [
+            ' py-3 space-y-1.5' => '',
+            'block pl-8 -ml-8 opacity-80 hover:opacity-100 hover:bg-gray-200/20 transition-all duration-300 relative' => '$anchor',
+            'text-[75%] opacity-50 mr-1 hover:opacity-100 transition-opacity duration-300' => '$icon',
+            'pl-2' => '$children',
+        ];
+
+        return str_replace(array_keys($replacements), array_values($replacements), $html);
     }
 }
