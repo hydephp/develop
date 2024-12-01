@@ -17,11 +17,11 @@ use League\CommonMark\Renderer\NodeRendererInterface;
  */
 class HeadingRenderer implements NodeRendererInterface
 {
-    /** @var class-string<\Hyde\Pages\Concerns\HydePage> */
-    protected string $pageClass;
+    /** @var ?class-string<\Hyde\Pages\Concerns\HydePage> */
+    protected ?string $pageClass = null;
 
-    /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
-    public function __construct(string $pageClass)
+    /** @param ?class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
+    public function __construct(string $pageClass = null)
     {
         $this->pageClass = $pageClass;
     }
