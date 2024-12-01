@@ -286,4 +286,90 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
     {
         $this->assertSame([], (new GeneratesTableOfContents(''))->execute());
     }
+
+    public function testRespectsMinHeadingLevelConfig()
+    {
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 3,
+        ]);
+
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        #### Level 4
+        MARKDOWN;
+        
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertSame([
+            [
+                'title' => 'Level 3',
+                'slug' => 'level-3',
+                'children' => [
+                    [
+                        'title' => 'Level 4',
+                        'slug' => 'level-4',
+                        'children' => [],
+                    ],
+                ],
+            ],
+        ], $result);
+    }
+
+    public function testRespectsMaxHeadingLevelConfig()
+    {
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.max_heading_level' => 2,
+        ]);
+
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        #### Level 4
+        MARKDOWN;
+        
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertSame([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [],
+            ],
+        ], $result);
+    }
+
+    public function testRespectsMinAndMaxHeadingLevelConfig()
+    {
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 2,
+            'docs.sidebar.table_of_contents.max_heading_level' => 3,
+        ]);
+
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        #### Level 4
+        ##### Level 5
+        MARKDOWN;
+        
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        
+        $this->assertSame([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [
+                    [
+                        'title' => 'Level 3',
+                        'slug' => 'level-3',
+                        'children' => [],
+                    ],
+                ],
+            ],
+        ], $result);
+    }
 }
