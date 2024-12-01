@@ -1,4 +1,9 @@
-@props(['level' => 1, 'id' => null, 'addPermalink' => config('markdown.features.permalinks', true), 'extraAttributes' => []])
+@props([
+    'level' => 1,
+    'id' => null,
+    'extraAttributes' => [],
+    'addPermalink' => config('markdown.features.permalinks', true),
+])
 
 @php
     $tag = 'h' . $level;
