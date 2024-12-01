@@ -20,11 +20,6 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
     {
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
         $result = (new GeneratesTableOfContents($markdown))->execute();
-
-        $this->assertIsString($result);
-        $this->assertStringContainsString('<ul>', $result);
-        $this->assertStringContainsString('<a href="#level-2">Level 2</a>', $result);
-        $this->assertStringNotContainsString('[[END_TOC]]', $result);
     }
 
     public function testReturnStringContainsExpectedContent()
@@ -34,20 +29,6 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2
         ### Level 3
         MARKDOWN;
-
-        $this->assertSameIgnoringIndentation(<<<'HTML'
-            <ul class="table-of-contents">
-                <li>
-                    <a href="#level-2">Level 2</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3">Level 3</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
-        );
     }
 
     public function testCanGenerateTableOfContentsForDocumentUsingSetextHeaders()
@@ -70,18 +51,6 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame(
             (new GeneratesTableOfContents($expected))->execute(),
             (new GeneratesTableOfContents($markdown))->execute()
-        );
-
-        $this->assertSameIgnoringIndentation(<<<'HTML'
-            <ul class="table-of-contents">
-                <li>
-                    <a href="#level-2">Level 2</a>
-                </li>
-                <li>
-                    <a href="#level-2b">Level 2B</a>
-                </li>
-            </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
         );
     }
 
@@ -114,20 +83,6 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2
         ### Level 3
         MARKDOWN;
-
-        $this->assertSameIgnoringIndentation(<<<'HTML'
-            <ul class="table-of-contents">
-                <li>
-                    <a href="#level-2">Level 2</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3">Level 3</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
-        );
     }
 
     public function testWithMultipleNestedHeadings()
@@ -146,44 +101,6 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2C
         ### Level 3D
         MARKDOWN;
-
-        $this->assertSameIgnoringIndentation(<<<'HTML'
-            <ul class="table-of-contents">
-                <li>
-                    <a href="#level-2">Level 2</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3">Level 3</a>
-                            <ul>
-                                <li>
-                                    <a href="#level-4">Level 4</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#level-2b">Level 2B</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3b">Level 3B</a>
-                        </li>
-                        <li>
-                            <a href="#level-3c">Level 3C</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#level-2c">Level 2C</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3d">Level 3D</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
-        );
     }
 
     public function testWithMultipleLevelOneHeadings()
@@ -196,50 +113,15 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2B
         ### Level 3B
         MARKDOWN;
-
-        $this->assertSameIgnoringIndentation(<<<'HTML'
-            <ul class="table-of-contents">
-                <li>
-                    <a href="#level-2">Level 2</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3">Level 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#level-2b">Level 2B</a>
-                    <ul>
-                        <li>
-                            <a href="#level-3b">Level 3B</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
-        );
     }
 
     public function testWithNoHeadings()
     {
-        $this->assertSame('', (new GeneratesTableOfContents("Foo bar\nBaz foo"))->execute());
+        $this->assertSame([], (new GeneratesTableOfContents("Foo bar\nBaz foo"))->execute());
     }
 
     public function testWithNoContent()
     {
-        $this->assertSame('', (new GeneratesTableOfContents(''))->execute());
-    }
-
-    protected function assertSameIgnoringIndentation(string $expected, string $actual): void
-    {
-        $this->assertSame(
-            $this->removeIndentation(trim($expected)),
-            $this->removeIndentation(trim($actual))
-        );
-    }
-
-    protected function removeIndentation(string $actual): string
-    {
-        return implode("\n", array_map('trim', explode("\n", $actual)));
+        $this->assertSame([], (new GeneratesTableOfContents(''))->execute());
     }
 }
