@@ -7,15 +7,13 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Actions;
 
 use Hyde\Framework\Actions\GeneratesTableOfContents;
-use Hyde\Testing\UnitTestCase;
+use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\GeneratesTableOfContents
  */
-class GeneratesSidebarTableOfContentsTest extends UnitTestCase
+class GeneratesSidebarTableOfContentsTest extends TestCase
 {
-    protected static bool $needsConfig = true;
-
     public function testCanGenerateTableOfContents()
     {
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
