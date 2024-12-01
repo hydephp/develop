@@ -97,23 +97,22 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringNotContainsString('heading-permalink', $rendered);
     }
 
-    #[TestWith([1, false])]
-    #[TestWith([2, true])]
-    #[TestWith([3, true])]
-    #[TestWith([4, true])]
-    #[TestWith([5, true])]
-    #[TestWith([6, true])]
-    public function testCanAddPermalinkBasedOnConfiguration(int $level, bool $shouldHavePermalink): void
+    public function testAddsPermalinksBasedOnConfiguration(): void
     {
         $childRenderer = $this->mockChildNodeRenderer('Test Content');
         $renderer = new HeadingRenderer(DocumentationPage::class);
-        $rendered = $renderer->render(new Heading($level), $childRenderer);
 
-        if ($shouldHavePermalink) {
-            $this->assertStringContainsString('heading-permalink', $rendered);
-        } else {
-            $this->assertStringNotContainsString('heading-permalink', $rendered);
-        }
+        self::mockConfig(['markdown.permalinks.min_level' => 2, 'markdown.permalinks.max_level' => 6]);
+
+        $this->validateHeadingPermalinkStates($renderer, $childRenderer);
+
+        self::mockConfig(['markdown.permalinks.min_level' => 3, 'markdown.permalinks.max_level' => 4]);
+
+        $this->validateHeadingPermalinkStates($renderer, $childRenderer);
+
+        self::mockConfig(['markdown.permalinks.min_level' => 0, 'markdown.permalinks.max_level' => 0]);
+
+        $this->validateHeadingPermalinkStates($renderer, $childRenderer);
     }
 
     public function testForwardsHeadingAttributes()
@@ -179,5 +178,20 @@ class HeadingRendererUnitTest extends UnitTestCase
         $childRenderer->shouldReceive('renderNodes')->andReturn($contents);
 
         return $childRenderer;
+    }
+
+    protected function validateHeadingPermalinkStates(HeadingRenderer $renderer, ChildNodeRendererInterface $childRenderer): void
+    {
+        foreach (range(1, 6) as $level) {
+            $rendered = $renderer->render(new Heading($level), $childRenderer);
+
+            $shouldHavePermalink = $level >= config('markdown.permalinks.min_level') && $level <= config('markdown.permalinks.max_level');
+
+            if ($shouldHavePermalink) {
+                $this->assertStringContainsString('heading-permalink', $rendered);
+            } else {
+                $this->assertStringNotContainsString('heading-permalink', $rendered);
+            }
+        }
     }
 }
