@@ -7,9 +7,6 @@ namespace Hyde\Framework\Actions;
 use Hyde\Facades\Config;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Str;
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 
 class GeneratesTableOfContents
 {

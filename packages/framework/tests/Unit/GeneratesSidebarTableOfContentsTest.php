@@ -22,7 +22,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
     {
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 2',
@@ -50,9 +50,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2
         ### Level 3
         MARKDOWN;
-        
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 2',
@@ -153,9 +153,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2
         ### Level 3
         MARKDOWN;
-        
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 2',
@@ -187,9 +187,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2C
         ### Level 3D
         MARKDOWN;
-        
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 2',
@@ -248,9 +248,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ## Level 2B
         ### Level 3B
         MARKDOWN;
-        
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 2',
@@ -299,9 +299,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ### Level 3
         #### Level 4
         MARKDOWN;
-        
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 3',
@@ -329,9 +329,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         ### Level 3
         #### Level 4
         MARKDOWN;
-        
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 2',
@@ -355,9 +355,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         #### Level 4
         ##### Level 5
         MARKDOWN;
-        
+
         $result = (new GeneratesTableOfContents($markdown))->execute();
-        
+
         $this->assertSame([
             [
                 'title' => 'Level 2',
@@ -437,7 +437,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             'docs.sidebar.table_of_contents.min_heading_level' => -1,
             'docs.sidebar.table_of_contents.max_heading_level' => -2,
         ]);
-        
+
         $markdown = "## Level 2\n### Level 3";
         $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
 
@@ -446,7 +446,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             'docs.sidebar.table_of_contents.min_heading_level' => 7,
             'docs.sidebar.table_of_contents.max_heading_level' => 8,
         ]);
-        
+
         $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
 
         // Test swapped levels (min > max)
@@ -454,7 +454,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             'docs.sidebar.table_of_contents.min_heading_level' => 4,
             'docs.sidebar.table_of_contents.max_heading_level' => 2,
         ]);
-        
+
         $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
     }
 
@@ -477,15 +477,15 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 
         $this->assertSame([
             [
-                "title" => "Level 1",
-                "slug" => "level-1",
-                "children" => [
+                'title' => 'Level 1',
+                'slug' => 'level-1',
+                'children' => [
                     [
-                        "title" => "Level 2",
-                        "slug" => "level-2",
-                        "children" => [],
-                    ]
-                ]
+                        'title' => 'Level 2',
+                        'slug' => 'level-2',
+                        'children' => [],
+                    ],
+                ],
             ],
         ], $result);
 
