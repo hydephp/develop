@@ -44,7 +44,7 @@ class GeneratesTableOfContents
 
         foreach ($matches[0] as $index => $heading) {
             $headingData = $this->parseHeadingData($heading, $matches, $index);
-            
+
             if ($headingData === null) {
                 continue;
             }
@@ -76,7 +76,7 @@ class GeneratesTableOfContents
         if (str_starts_with($heading, '#')) {
             return $this->parseAtxHeading($heading, $matches[1][$index]);
         }
-        
+
         return $this->parseSetextHeading($matches[2][$index], $matches[3][$index]);
     }
 
@@ -97,7 +97,7 @@ class GeneratesTableOfContents
     protected function parseSetextHeading(string $title, string $marker): ?array
     {
         $level = $marker === '=' ? 1 : 2;
-        
+
         if ($level < $this->minHeadingLevel) {
             return null;
         }
