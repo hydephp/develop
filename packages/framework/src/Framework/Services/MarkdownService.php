@@ -13,7 +13,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\MarkdownConverter;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract as PreProcessor;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract as PostProcessor;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\DisallowedRawHtml\DisallowedRawHtmlExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 
@@ -202,22 +201,6 @@ class MarkdownService
             'torchlight.attribution.markdown',
             'Syntax highlighted by torchlight.dev'
         ));
-    }
-
-    protected function configurePermalinksExtension(): void
-    {
-        $this->addExtension(HeadingPermalinkExtension::class);
-
-        $this->config = array_merge([
-            'heading_permalink' => [
-                'id_prefix' => '',
-                'fragment_prefix' => '',
-                'symbol' => '',
-                'insert' => 'after',
-                'min_heading_level' => 2,
-                'aria_hidden' => false,
-            ],
-        ], $this->config);
     }
 
     protected function enableAllHtmlElements(): void
