@@ -27,7 +27,7 @@ class HeadingRenderer implements NodeRendererInterface
         return view('hyde::components.markdown-heading', [
             'level' => $node->getLevel(),
             'slot' => $content,
-            'addPermalink' => config('markdown.features.permalinks', true),
+            'addPermalink' => config('markdown.features.permalinks', true) && ! str_contains($content, 'class="heading-permalink"'),
         ])->render();
     }
 }
