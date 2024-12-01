@@ -23,12 +23,15 @@ class HeadingRendererUnitTest extends UnitTestCase
 {
     protected function setUp(): void
     {
-        // Create a minimal view environment without the full service provider
-        
+        $this->createRealBladeCompilerEnvironment();
+    }
+
+    protected function createRealBladeCompilerEnvironment(): void
+    {
         // Create and configure the engine resolver
         $resolver = new EngineResolver();
         $filesystem = new Filesystem();
-        
+
         // Register the blade engine
         $resolver->register('blade', function () use ($filesystem) {
             return new CompilerEngine(
