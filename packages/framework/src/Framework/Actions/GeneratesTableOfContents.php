@@ -69,15 +69,13 @@ class GeneratesTableOfContents
         $previousLevel = $this->minHeadingLevel;
 
         foreach ($headings as $heading) {
-            if (! $this->isHeadingWithinBounds($heading)) {
-                continue;
-            }
+            if ($this->isHeadingWithinBounds($heading)) {
+                $item = $this->createTableItem($heading);
+                $this->updateStackForHeadingLevel($stack, $heading['level'], $previousLevel);
 
-            $item = $this->createTableItem($heading);
-            $this->updateStackForHeadingLevel($stack, $heading['level'], $previousLevel);
-            
-            $stack[count($stack) - 1][] = $item;
-            $previousLevel = $heading['level'];
+                $stack[count($stack) - 1][] = $item;
+                $previousLevel = $heading['level'];
+            }
         }
 
         return $items;
