@@ -6,7 +6,6 @@ namespace Hyde\Pages;
 
 use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 
@@ -52,14 +51,6 @@ class DocumentationPage extends BaseMarkdownPage
     public static function hasTableOfContents(): bool
     {
         return Config::getBool('docs.sidebar.table_of_contents.enabled', true);
-    }
-
-    /**
-     * Generate Table of Contents as HTML from a Markdown document body.
-     */
-    public function getTableOfContents(): string
-    {
-        return (new GeneratesTableOfContents($this->markdown))->execute();
     }
 
     /**

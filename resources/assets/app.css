@@ -11,7 +11,6 @@
 * See https://hydephp.com/docs/1.x/managing-assets#loading-from-cdn
 */
 
-@import 'hydefront/components/table-of-contents.css';
 @import 'hydefront/components/heading-permalinks.css';
 @import 'hydefront/components/torchlight.css';
 @import 'hydefront/components/blockquotes.css';

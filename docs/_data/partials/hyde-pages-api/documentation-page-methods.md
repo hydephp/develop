@@ -35,14 +35,6 @@ No description provided.
 $page->getOnlineSourcePath(): string|false
 ```
 
-#### `getTableOfContents()`
-
-Generate Table of Contents as HTML from a Markdown document body.
-
-```php
-$page->getTableOfContents(): string
-```
-
 #### `getRouteKey()`
 
 Get the route key for the page.

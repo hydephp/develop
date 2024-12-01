@@ -6,64 +6,90 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Facades\Config;
 use Hyde\Markdown\Models\Markdown;
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
-use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
-use League\CommonMark\MarkdownConverter;
+use Illuminate\Support\Str;
 
-use function strpos;
-use function substr;
-
-/**
- * Generates a table of contents for the Markdown document, most commonly used for the sidebar.
- */
 class GeneratesTableOfContents
 {
     protected string $markdown;
 
+    protected int $minHeadingLevel = 2;
+    protected int $maxHeadingLevel = 4;
+
     public function __construct(Markdown|string $markdown)
     {
         $this->markdown = (string) $markdown;
+        $this->minHeadingLevel = Config::getInt('docs.sidebar.table_of_contents.min_heading_level', 2);
+        $this->maxHeadingLevel = Config::getInt('docs.sidebar.table_of_contents.max_heading_level', 4);
     }
 
-    public function execute(): string
+    public function execute(): array
     {
-        $config = [
-            'table_of_contents' => [
-                'html_class' => 'table-of-contents',
-                'position' => 'placeholder',
-                'placeholder' => '[[START_TOC]]',
-                'style' => 'bullet',
-                'min_heading_level' => Config::getInt('docs.sidebar.table_of_contents.min_heading_level', 2),
-                'max_heading_level' => Config::getInt('docs.sidebar.table_of_contents.max_heading_level', 4),
-                'normalize' => 'relative',
-            ],
-            'heading_permalink' => [
-                'fragment_prefix' => '',
-            ],
-        ];
+        $headings = $this->parseHeadings();
 
-        $environment = new Environment($config);
-        $environment->addExtension(new CommonMarkCoreExtension());
-        $environment->addExtension(new HeadingPermalinkExtension());
-        $environment->addExtension(new TableOfContentsExtension());
-
-        $converter = new MarkdownConverter($environment);
-        $html = $converter->convert($this->markdown."\n[[START_TOC]]")->getContent();
-
-        return $this->extractTableOfContents($html);
+        return $this->buildTableOfContents($headings);
     }
 
-    protected function extractTableOfContents(string $html): string
+    protected function parseHeadings(): array
     {
-        // The table of contents is always at the end of the document, so we can just strip everything before it.
-        $position = strpos($html, '<ul class="table-of-contents">');
-        if ($position === false) {
-            // The document has no headings, so we'll just return an empty string.
-            return '';
+        // Match both ATX-style (###) and Setext-style (===, ---) headers
+        $pattern = '/^(?:#{1,6}\s+(.+)|(.+)\n([=\-])\3+)$/m';
+        preg_match_all($pattern, $this->markdown, $matches);
+
+        $headings = [];
+        foreach ($matches[0] as $index => $heading) {
+            // Handle ATX-style headers (###)
+            if (str_starts_with($heading, '#')) {
+                $level = substr_count($heading, '#');
+                $title = $matches[1][$index];
+            }
+            // Handle Setext-style headers (=== or ---)
+            else {
+                $title = trim($matches[2][$index]);
+                $level = $matches[3][$index] === '=' ? 1 : 2;
+                // Only add if the config level is met
+                if ($level < $this->minHeadingLevel) {
+                    continue;
+                }
+            }
+
+            $slug = Str::slug($title);
+            $headings[] = [
+                'level' => $level,
+                'title' => $title,
+                'slug' => $slug,
+            ];
         }
 
-        return substr($html, $position);
+        return $headings;
+    }
+
+    protected function buildTableOfContents(array $headings): array
+    {
+        $items = [];
+        $stack = [&$items];
+        $previousLevel = $this->minHeadingLevel;
+
+        foreach ($headings as $heading) {
+            if ($heading['level'] < $this->minHeadingLevel || $heading['level'] > $this->maxHeadingLevel) {
+                continue;
+            }
+
+            $item = [
+                'title' => $heading['title'],
+                'slug' => $heading['slug'],
+                'children' => [],
+            ];
+
+            if ($heading['level'] > $previousLevel) {
+                $stack[] = &$stack[count($stack) - 1][count($stack[count($stack) - 1]) - 1]['children'];
+            } elseif ($heading['level'] < $previousLevel) {
+                array_splice($stack, $heading['level'] - $this->minHeadingLevel + 1);
+            }
+
+            $stack[count($stack) - 1][] = $item;
+            $previousLevel = $heading['level'];
+        }
+
+        return $items;
     }
 }

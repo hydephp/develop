@@ -22,12 +22,6 @@ use Illuminate\Support\Facades\File;
  */
 class DocumentationPageTest extends TestCase
 {
-    public function testCanGenerateTableOfContents()
-    {
-        $page = DocumentationPage::make(markdown: '# Foo');
-        $this->assertIsString($page->getTableOfContents());
-    }
-
     public function testCanGetCurrentPagePath()
     {
         $page = DocumentationPage::make('foo');

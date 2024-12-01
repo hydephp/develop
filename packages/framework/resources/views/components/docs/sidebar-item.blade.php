@@ -1,4 +1,5 @@
 @props(['grouped' => false])
+@use('Hyde\Framework\Actions\GeneratesTableOfContents')
 @php /** @var \Hyde\Framework\Features\Navigation\NavigationItem $item */ @endphp
 <li @class(['sidebar-item -ml-4 pl-4', $grouped
         ? 'active -ml-8 pl-8 bg-black/5 dark:bg-black/10'
@@ -14,7 +15,7 @@
 
         @if(config('docs.sidebar.table_of_contents.enabled', true))
             <span class="sr-only">Table of contents</span>
-            {!! $page->getTableOfContents() !!}
+            <x-hyde::docs.table-of-contents :items="(new GeneratesTableOfContents($page->markdown))->execute()" />
         @endif
     @else
         <a href="{{ $item->getLink() }}" @class([$grouped

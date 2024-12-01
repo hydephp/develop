@@ -113,6 +113,7 @@ This serves two purposes:
 
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
+- Breaking: Removed the `DocumentationPage::getTableOfContents()` method as we now use Blade to generate the table of contents in https://github.com/hydephp/develop/pull/2045
 - Removed the deprecated global `unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
 - Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now throwing `BadMethodCallException` if no base URL is set in https://github.com/hydephp/develop/pull/1760
 - Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
@@ -499,6 +500,28 @@ Hyperlinks::isRemote($source);
 ```
 
 This change was implemented in https://github.com/hydephp/develop/pull/1883. Make sure to update any instances of `FeaturedImage::isRemote()` in your codebase to ensure compatibility with HydePHP v2.0.
+
+### Blade-based table of contents generator
+
+The way we generate table of contents for documentation pages have been changed from a helper method to a Blade component.
+
+This new system is much easier to customize and style, and is up to 40 times faster than the old system.
+
+See https://github.com/hydephp/develop/pull/2045 for more information.
+
+#### Scope
+
+The likelihood of impact is low, but if any of the following are true, you may need to update your code:
+
+- If you have used the `Hyde\Framework\Actions\GeneratesTableOfContents` class in custom code, you will likely need to update that code for the rewritten class.
+- If you have called the `getTableOfContents` method of the `DocumentationPage` class in custom code, you will need to update that usage as the that message has been removed.
+- If you have published the `resources/views/components/docs/sidebar-item.blade.php` component, you will need to update it to call the new component instead of the old generator rendering.
+
+#### Changes
+- Adds a new `resources/views/components/docs/table-of-contents.blade.php` component containing the structure and styles for the table of contents
+- Rewrites the `GeneratesTableOfContents` class to use a custom implementation instead of using CommonMark
+- The `execute` method of the `GeneratesTableOfContents` class now returns an array of data, instead of a string of HTML. This data should be fed into the new component
+- Removed the `table-of-contents.css` file as styles are now made using Tailwind
 
 ## New features
 
