@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Processing;
 
+use Hyde\Pages\DocumentationPage;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
@@ -43,6 +44,6 @@ class HeadingRenderer implements NodeRendererInterface
 
     protected function canAddPermalink(string $content): bool
     {
-        return config('markdown.permalinks.enabled', true) && ! str_contains($content, 'class="heading-permalink"');
+        return config('markdown.permalinks.enabled', true) && ! str_contains($content, 'class="heading-permalink"') && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
     }
 }
