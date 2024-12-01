@@ -18,22 +18,15 @@ class SidebarTableOfContentsViewTest extends TestCase
 {
     public function testCanGenerateTableOfContents()
     {
-        $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
-        $result = $this->render($markdown);
-
-        $this->assertIsString($result);
-        $this->assertStringContainsString('<ul>', $result);
-        $this->assertStringContainsString('<a href="#level-2">Level 2</a>', $result);
-        $this->assertStringNotContainsString('[[END_TOC]]', $result);
-    }
-
-    public function testReturnStringContainsExpectedContent()
-    {
         $markdown = <<<'MARKDOWN'
         # Level 1
         ## Level 2
         ### Level 3
         MARKDOWN;
+
+        $result = $this->render($markdown);
+
+        $this->assertIsString($result);
 
         $this->assertSameIgnoringIndentation(<<<'HTML'
             <ul class="table-of-contents">
@@ -46,7 +39,7 @@ class SidebarTableOfContentsViewTest extends TestCase
                     </ul>
                 </li>
             </ul>
-            HTML, $this->render($markdown)
+            HTML, $result
         );
     }
 
