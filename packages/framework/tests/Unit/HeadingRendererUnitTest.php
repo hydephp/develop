@@ -7,6 +7,8 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Contracts\View\Factory as FactoryContract;
 use Illuminate\Events\Dispatcher;
+use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
@@ -22,10 +24,23 @@ class HeadingRendererUnitTest extends UnitTestCase
     protected function setUp(): void
     {
         // Create a minimal view environment without the full service provider
+        
+        // Create and configure the engine resolver
+        $resolver = new EngineResolver();
+        $filesystem = new Filesystem();
+        
+        // Register the blade engine
+        $resolver->register('blade', function () use ($filesystem) {
+            return new CompilerEngine(
+                new BladeCompiler($filesystem, sys_get_temp_dir())
+            );
+        });
+
+        // Create the view factory with the configured resolver
         $view = new Factory(
-            new EngineResolver(),
+            $resolver,
             $finder = new FileViewFinder(
-                new Filesystem(),
+                $filesystem,
                 [realpath(__DIR__ . '/../../resources/views')]
             ),
             new Dispatcher()
