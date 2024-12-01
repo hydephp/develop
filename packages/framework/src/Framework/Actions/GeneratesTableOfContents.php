@@ -144,6 +144,7 @@ class GeneratesTableOfContents
     {
         $lastStackIndex = count($stack) - 1;
         $lastItemIndex = count($stack[$lastStackIndex]) - 1;
+
         $stack[] = &$stack[$lastStackIndex][$lastItemIndex]['children'];
     }
 
