@@ -11,6 +11,8 @@ use Hyde\Testing\TestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\GeneratesTableOfContents
+ *
+ * @see \Hyde\Framework\Testing\Unit\GeneratesSidebarTableOfContentsTest
  */
 class SidebarTableOfContentsViewTest extends TestCase
 {

@@ -11,6 +11,8 @@ use Hyde\Testing\UnitTestCase;
 
 /**
  * @covers \Hyde\Framework\Actions\GeneratesTableOfContents
+ *
+ * @see \Hyde\Framework\Testing\Feature\Views\SidebarTableOfContentsViewTest
  */
 class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 {
