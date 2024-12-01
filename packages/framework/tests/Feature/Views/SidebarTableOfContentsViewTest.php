@@ -31,10 +31,16 @@ class SidebarTableOfContentsViewTest extends TestCase
         $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
-                    <a href="#level-2">Level 2</a>
+                    <a href="#level-2">
+                        <span>#</span>
+                        Level 2
+                    </a>
                     <ul>
                         <li>
-                            <a href="#level-3">Level 3</a>
+                            <a href="#level-3">
+                                <span>#</span>
+                                Level 3
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -68,10 +74,16 @@ class SidebarTableOfContentsViewTest extends TestCase
         $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
-                    <a href="#level-2">Level 2</a>
+                    <a href="#level-2">
+                        <span>#</span>
+                        Level 2
+                    </a>
                 </li>
                 <li>
-                    <a href="#level-2b">Level 2B</a>
+                    <a href="#level-2b">
+                        <span>#</span>
+                        Level 2B
+                    </a>
                 </li>
             </ul>
             HTML, $this->render($markdown)
@@ -111,10 +123,16 @@ class SidebarTableOfContentsViewTest extends TestCase
         $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
-                    <a href="#level-2">Level 2</a>
+                    <a href="#level-2">
+                        <span>#</span>
+                        Level 2
+                    </a>
                     <ul>
                         <li>
-                            <a href="#level-3">Level 3</a>
+                            <a href="#level-3">
+                                <span>#</span>
+                                Level 3
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -143,34 +161,58 @@ class SidebarTableOfContentsViewTest extends TestCase
         $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
-                    <a href="#level-2">Level 2</a>
+                    <a href="#level-2">
+                        <span>#</span>
+                        Level 2
+                    </a>
                     <ul>
                         <li>
-                            <a href="#level-3">Level 3</a>
+                            <a href="#level-3">
+                                <span>#</span>
+                                Level 3
+                            </a>
                             <ul>
                                 <li>
-                                    <a href="#level-4">Level 4</a>
+                                    <a href="#level-4">
+                                        <span>#</span>
+                                        Level 4
+                                    </a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#level-2b">Level 2B</a>
+                    <a href="#level-2b">
+                        <span>#</span>
+                        Level 2B
+                    </a>
                     <ul>
                         <li>
-                            <a href="#level-3b">Level 3B</a>
+                            <a href="#level-3b">
+                                <span>#</span>
+                                Level 3B
+                            </a>
                         </li>
                         <li>
-                            <a href="#level-3c">Level 3C</a>
+                            <a href="#level-3c">
+                                <span>#</span>
+                                Level 3C
+                            </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#level-2c">Level 2C</a>
+                    <a href="#level-2c">
+                        <span>#</span>
+                        Level 2C
+                    </a>
                     <ul>
                         <li>
-                            <a href="#level-3d">Level 3D</a>
+                            <a href="#level-3d">
+                                <span>#</span>
+                                Level 3D
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -193,18 +235,30 @@ class SidebarTableOfContentsViewTest extends TestCase
         $this->assertHtmlStructure(<<<'HTML'
             <ul class="table-of-contents">
                 <li>
-                    <a href="#level-2">Level 2</a>
+                    <a href="#level-2">
+                        <span>#</span>
+                        Level 2
+                    </a>
                     <ul>
                         <li>
-                            <a href="#level-3">Level 3</a>
+                            <a href="#level-3">
+                                <span>#</span>
+                                Level 3
+                            </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#level-2b">Level 2B</a>
+                    <a href="#level-2b">
+                        <span>#</span>
+                        Level 2B
+                    </a>
                     <ul>
                         <li>
-                            <a href="#level-3b">Level 3B</a>
+                            <a href="#level-3b">
+                                <span>#</span>
+                                Level 3B
+                            </a>
                         </li>
                     </ul>
                 </li>
