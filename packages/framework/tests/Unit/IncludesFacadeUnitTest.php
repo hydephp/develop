@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Illuminate\Contracts\View\Factory;
 use Mockery;
 use Closure;
 use Hyde\Hyde;
@@ -33,16 +34,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function setUp(): void
     {
         Blade::swap(Mockery::mock());
-
-        $viewFactory = Mockery::mock(\Illuminate\Contracts\View\Factory::class);
-        $viewFactory->shouldReceive('make')
-            ->with('hyde::components.markdown-heading', Mockery::any())
-            ->andReturn(Mockery::mock([
-                'render' => '<h1>Mocked Heading</h1>'
-            ]));
-
-        app()->instance('view', $viewFactory);
-        app()->instance(\Illuminate\Contracts\View\Factory::class, $viewFactory);
 
         $this->setupTestKernel()->setRoutes(collect());
     }
@@ -160,6 +151,8 @@ class IncludesFacadeUnitTest extends UnitTestCase
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
 
+        $this->mockViewFactory($expected);
+
         $this->assertHtmlStringIsSame($expected, Includes::markdown($filename));
     }
 
@@ -172,6 +165,8 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(false);
         });
+
+        $this->mockViewFactory($expected);
 
         $this->assertNull(Includes::markdown($filename));
         $this->assertHtmlStringIsSame($expected, Includes::markdown($filename, $default));
@@ -188,6 +183,8 @@ class IncludesFacadeUnitTest extends UnitTestCase
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
+
+        $this->mockViewFactory($expected);
 
         $this->assertHtmlStringIsSame($expected, Includes::markdown('foo.md'));
         $this->assertHtmlStringIsSame(Includes::markdown('foo.md'), Includes::markdown('foo'));
@@ -250,6 +247,18 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $config($filesystem);
 
         app()->instance(Filesystem::class, $filesystem);
+    }
+
+    protected function mockViewFactory(string $result): void
+    {
+        $viewFactory = Mockery::mock(Factory::class);
+        $viewFactory->shouldReceive('make')
+            ->andReturn(Mockery::mock([
+                'render' => $result,
+            ]))->byDefault();
+
+        app()->instance('view', $viewFactory);
+        app()->instance(Factory::class, $viewFactory);
     }
 
     protected function includesPath(string $filename): string
