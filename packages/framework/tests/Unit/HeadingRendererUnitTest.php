@@ -20,7 +20,6 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use Mockery;
-use PHPUnit\Framework\Attributes\TestWith;
 
 /**
  * @covers \Hyde\Markdown\Processing\HeadingRenderer
@@ -117,21 +116,90 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringNotContainsString('heading-permalink', $rendered);
     }
 
-    #[TestWith([1, false])]
-    #[TestWith([2, true])]
-    #[TestWith([3, true])]
-    #[TestWith([4, true])]
-    #[TestWith([5, true])]
-    #[TestWith([6, true])]
-    public function testCanAddPermalinkBasedOnConfiguration(int $level, bool $shouldHavePermalink): void
+    public function testPermalinksAreAddedDependingOnConfigurationWithDefaultRange(): void
     {
         $childRenderer = $this->mockChildNodeRenderer('Test Content');
         $renderer = new HeadingRenderer(DocumentationPage::class);
-        $rendered = $renderer->render(new Heading($level), $childRenderer);
 
-        if ($shouldHavePermalink) {
+        foreach (range(1, 6) as $level) {
+            $rendered = $renderer->render(new Heading($level), $childRenderer);
+
+            $shouldHavePermalink = $level >= 2;
+
+            if ($shouldHavePermalink) {
+                $this->assertStringContainsString('heading-permalink', $rendered);
+            } else {
+                $this->assertStringNotContainsString('heading-permalink', $rendered);
+            }
+        }
+    }
+
+    public function testPermalinksAreAddedDependingOnConfigurationWithFullRange(): void
+    {
+        self::mockConfig(['markdown.permalinks.min_level' => 1, 'markdown.permalinks.max_level' => 6]);
+
+        $childRenderer = $this->mockChildNodeRenderer('Test Content');
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+
+        foreach (range(1, 6) as $level) {
+            $rendered = $renderer->render(new Heading($level), $childRenderer);
+
             $this->assertStringContainsString('heading-permalink', $rendered);
-        } else {
+        }
+    }
+
+    public function testPermalinksAreAddedDependingOnConfigurationWithCustomRange(): void
+    {
+        self::mockConfig(['markdown.permalinks.min_level' => 3, 'markdown.permalinks.max_level' => 4]);
+
+        $childRenderer = $this->mockChildNodeRenderer('Test Content');
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+
+        foreach (range(1, 6) as $level) {
+            $rendered = $renderer->render(new Heading($level), $childRenderer);
+
+            $shouldHavePermalink = $level >= 3 && $level <= 4;
+
+            if ($shouldHavePermalink) {
+                $this->assertStringContainsString('heading-permalink', $rendered);
+            } else {
+                $this->assertStringNotContainsString('heading-permalink', $rendered);
+            }
+        }
+    }
+
+    public function testPermalinksAreAddedDependingOnConfigurationWithNoRange(): void
+    {
+        self::mockConfig(['markdown.permalinks.min_level' => 0, 'markdown.permalinks.max_level' => 0]);
+
+        $childRenderer = $this->mockChildNodeRenderer('Test Content');
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+
+        foreach (range(1, 6) as $level) {
+            $rendered = $renderer->render(new Heading($level), $childRenderer);
+
+            $this->assertStringNotContainsString('heading-permalink', $rendered);
+        }
+
+        self::mockConfig(['markdown.permalinks.min_level' => 7, 'markdown.permalinks.max_level' => 8]);
+
+        $childRenderer = $this->mockChildNodeRenderer('Test Content');
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+
+        foreach (range(1, 6) as $level) {
+            $rendered = $renderer->render(new Heading($level), $childRenderer);
+
+            $this->assertStringNotContainsString('heading-permalink', $rendered);
+        }
+
+        self::mockConfig(['markdown.permalinks.min_level' => -6, 'markdown.permalinks.max_level' => -5]);
+
+        $childRenderer = $this->mockChildNodeRenderer('Test Content');
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+
+        foreach (range(1, 6) as $level) {
+            $rendered = $renderer->render(new Heading($level), $childRenderer);
+
             $this->assertStringNotContainsString('heading-permalink', $rendered);
         }
     }
