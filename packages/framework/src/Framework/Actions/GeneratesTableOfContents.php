@@ -69,26 +69,53 @@ class GeneratesTableOfContents
         $previousLevel = $this->minHeadingLevel;
 
         foreach ($headings as $heading) {
-            if ($heading['level'] < $this->minHeadingLevel || $heading['level'] > $this->maxHeadingLevel) {
+            if (! $this->isHeadingWithinBounds($heading)) {
                 continue;
             }
 
-            $item = [
-                'title' => $heading['title'],
-                'slug' => $heading['slug'],
-                'children' => [],
-            ];
-
-            if ($heading['level'] > $previousLevel) {
-                $stack[] = &$stack[count($stack) - 1][count($stack[count($stack) - 1]) - 1]['children'];
-            } elseif ($heading['level'] < $previousLevel) {
-                array_splice($stack, $heading['level'] - $this->minHeadingLevel + 1);
-            }
-
+            $item = $this->createTableItem($heading);
+            $this->updateStackForHeadingLevel($stack, $heading['level'], $previousLevel);
+            
             $stack[count($stack) - 1][] = $item;
             $previousLevel = $heading['level'];
         }
 
         return $items;
+    }
+
+    protected function isHeadingWithinBounds(array $heading): bool
+    {
+        return $heading['level'] >= $this->minHeadingLevel && 
+               $heading['level'] <= $this->maxHeadingLevel;
+    }
+
+    protected function createTableItem(array $heading): array
+    {
+        return [
+            'title' => $heading['title'],
+            'slug' => $heading['slug'],
+            'children' => [],
+        ];
+    }
+
+    protected function updateStackForHeadingLevel(array &$stack, int $currentLevel, int $previousLevel): void
+    {
+        if ($currentLevel > $previousLevel) {
+            $this->nestNewLevel($stack);
+        } elseif ($currentLevel < $previousLevel) {
+            $this->unwindStack($stack, $currentLevel);
+        }
+    }
+
+    protected function nestNewLevel(array &$stack): void
+    {
+        $lastStackIndex = count($stack) - 1;
+        $lastItemIndex = count($stack[$lastStackIndex]) - 1;
+        $stack[] = &$stack[$lastStackIndex][$lastItemIndex]['children'];
+    }
+
+    protected function unwindStack(array &$stack, int $currentLevel): void
+    {
+        array_splice($stack, $currentLevel - $this->minHeadingLevel + 1);
     }
 }
