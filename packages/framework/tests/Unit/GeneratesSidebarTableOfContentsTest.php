@@ -372,4 +372,104 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             ],
         ], $result);
     }
+
+    public function testHandlesInvalidConfigLevels()
+    {
+        // Test negative levels
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => -1,
+            'docs.sidebar.table_of_contents.max_heading_level' => -2,
+        ]);
+        
+        $markdown = "## Level 2\n### Level 3";
+        $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
+
+        // Test levels above 6
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 7,
+            'docs.sidebar.table_of_contents.max_heading_level' => 8,
+        ]);
+        
+        $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
+
+        // Test swapped levels (min > max)
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 4,
+            'docs.sidebar.table_of_contents.max_heading_level' => 2,
+        ]);
+        
+        $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
+    }
+
+    public function testSetextHeadersWithDifferentConfigLevels()
+    {
+        // Test where both setext headers should be included
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 1,
+            'docs.sidebar.table_of_contents.max_heading_level' => 2,
+        ]);
+
+        $markdown = <<<'MARKDOWN'
+        Level 1
+        =======
+        Level 2
+        -------
+        MARKDOWN;
+
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+
+        $this->assertSame([
+            [
+                "title" => "Level 1",
+                "slug" => "level-1",
+                "children" => [
+                    [
+                        "title" => "Level 2",
+                        "slug" => "level-2",
+                        "children" => [],
+                    ]
+                ]
+            ],
+        ], $result);
+
+        // Test where no setext headers should be included
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 3,
+            'docs.sidebar.table_of_contents.max_heading_level' => 4,
+        ]);
+
+        $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
+    }
+
+    public function testEmptyRangeConfig()
+    {
+        // Test where min and max are the same but valid
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 2,
+            'docs.sidebar.table_of_contents.max_heading_level' => 2,
+        ]);
+
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ## Level 2
+        ### Level 3
+        MARKDOWN;
+
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+        $this->assertSame([
+            [
+                'title' => 'Level 2',
+                'slug' => 'level-2',
+                'children' => [],
+            ],
+        ], $result);
+
+        // Test where range results in no valid levels
+        self::mockConfig([
+            'docs.sidebar.table_of_contents.min_heading_level' => 3,
+            'docs.sidebar.table_of_contents.max_heading_level' => 2,
+        ]);
+
+        $this->assertSame([], (new GeneratesTableOfContents($markdown))->execute());
+    }
 }
