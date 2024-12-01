@@ -10,9 +10,9 @@
     $id = $id ?? \Illuminate\Support\Str::slug($slot);
 @endphp
 
-<{{ $tag }} {{ $attributes->merge(['id' => $id, ...$extraAttributes]) }}>
+<{{ $tag }} {{ $attributes->merge([...$extraAttributes]) }}>
     {!! $slot !!}
     @if($addPermalink === true)
-        <a href="#{{ $id }}" class="heading-permalink" aria-label="Permalink for this section"></a>
+        <a id="{{ $id }}" href="#{{ $id }}" class="heading-permalink" title="Permalink"></a>
     @endif
 </{{ $tag }}> 
