@@ -19,7 +19,7 @@ class SidebarTableOfContentsViewTest extends TestCase
     public function testCanGenerateTableOfContents()
     {
         $markdown = "# Level 1\n## Level 2\n## Level 2B\n### Level 3\n";
-        $result = (new GeneratesTableOfContents($markdown))->execute();
+        $result = $this->render($markdown);
 
         $this->assertIsString($result);
         $this->assertStringContainsString('<ul>', $result);
@@ -46,7 +46,7 @@ class SidebarTableOfContentsViewTest extends TestCase
                     </ul>
                 </li>
             </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
+            HTML, $this->render($markdown)
         );
     }
 
@@ -68,8 +68,8 @@ class SidebarTableOfContentsViewTest extends TestCase
         MARKDOWN;
 
         $this->assertSame(
-            (new GeneratesTableOfContents($expected))->execute(),
-            (new GeneratesTableOfContents($markdown))->execute()
+            $this->render($expected),
+            $this->render($markdown)
         );
 
         $this->assertSameIgnoringIndentation(<<<'HTML'
@@ -81,7 +81,7 @@ class SidebarTableOfContentsViewTest extends TestCase
                     <a href="#level-2b">Level 2B</a>
                 </li>
             </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
+            HTML, $this->render($markdown)
         );
     }
 
@@ -103,8 +103,8 @@ class SidebarTableOfContentsViewTest extends TestCase
         MARKDOWN;
 
         $this->assertSame(
-            (new GeneratesTableOfContents($expected))->execute(),
-            (new GeneratesTableOfContents($actual))->execute()
+            $this->render($expected),
+            $this->render($actual)
         );
     }
 
@@ -126,7 +126,7 @@ class SidebarTableOfContentsViewTest extends TestCase
                     </ul>
                 </li>
             </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
+            HTML, $this->render($markdown)
         );
     }
 
@@ -182,7 +182,7 @@ class SidebarTableOfContentsViewTest extends TestCase
                     </ul>
                 </li>
             </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
+            HTML, $this->render($markdown)
         );
     }
 
@@ -216,18 +216,18 @@ class SidebarTableOfContentsViewTest extends TestCase
                     </ul>
                 </li>
             </ul>
-            HTML, (new GeneratesTableOfContents($markdown))->execute()
+            HTML, $this->render($markdown)
         );
     }
 
     public function testWithNoHeadings()
     {
-        $this->assertSame('', (new GeneratesTableOfContents("Foo bar\nBaz foo"))->execute());
+        $this->assertSame('', $this->render("Foo bar\nBaz foo"));
     }
 
     public function testWithNoContent()
     {
-        $this->assertSame('', (new GeneratesTableOfContents(''))->execute());
+        $this->assertSame('', $this->render(''));
     }
 
     protected function assertSameIgnoringIndentation(string $expected, string $actual): void
@@ -241,5 +241,12 @@ class SidebarTableOfContentsViewTest extends TestCase
     protected function removeIndentation(string $actual): string
     {
         return implode("\n", array_map('trim', explode("\n", $actual)));
+    }
+
+    protected function render(string $markdown): string
+    {
+        return view('hyde::components.docs.table-of-contents', [
+            'items' => (new GeneratesTableOfContents($markdown))->execute(),
+        ])->render();
     }
 }
