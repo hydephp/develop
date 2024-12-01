@@ -46,7 +46,8 @@ class HeadingRenderer implements NodeRendererInterface
         return $this->postProcess($rendered);
     }
 
-    protected function canAddPermalink(string $content, int $level): bool
+    /** @internal */
+    public function canAddPermalink(string $content, int $level): bool
     {
         return config('markdown.permalinks.enabled', true)
             && $level >= config('markdown.permalinks.min_level', 2)
@@ -55,7 +56,8 @@ class HeadingRenderer implements NodeRendererInterface
             && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
     }
 
-    protected function postProcess(string $html): string
+    /** @internal */
+    public function postProcess(string $html): string
     {
         $html = preg_replace('/<h([1-6]) >/', '<h$1>', $html);
 
