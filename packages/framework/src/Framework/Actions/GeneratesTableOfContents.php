@@ -20,13 +20,11 @@ class GeneratesTableOfContents
         $this->markdown = (string) $markdown;
     }
 
-    public function execute(): string
+    public function execute(): array
     {
         $headings = $this->parseHeadings();
 
-        return view('hyde::components.docs.table-of-contents', [
-            'items' => $this->buildTableOfContents($headings),
-        ])->render();
+        return $this->buildTableOfContents($headings);
     }
 
     protected function parseHeadings(): array
