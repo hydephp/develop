@@ -316,8 +316,8 @@ class SidebarTableOfContentsViewTest extends TestCase
     {
         $replacements = [
             ' py-3 space-y-1.5' => '',
-            'class="block pl-8 -ml-8 opacity-80 hover:opacity-100 hover:bg-gray-200/20 transition-all duration-300 relative" ' => '',
-            'class="text-[75%] opacity-50 mr-1 hover:opacity-100 transition-opacity duration-300" ' => '',
+            ' class="block pl-8 -ml-8 opacity-80 hover:opacity-100 hover:bg-gray-200/20 transition-all duration-300 relative"' => '',
+            'class="text-[75%] opacity-50 mr-1 hover:opacity-100 transition-opacity duration-300"' => '',
         ];
 
         return str_replace(array_keys($replacements), array_values($replacements), $html);
