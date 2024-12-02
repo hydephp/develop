@@ -210,6 +210,15 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', $processedHtml);
     }
 
+    public function testPostProcessRemovesSpacesCausedByNoExtraBladeAttributesButLeavesExtraAttributesAlone()
+    {
+        $renderer = new HeadingRenderer();
+        $html = "<h1 class=\"foo-bar baz\">Title</h1>\n<h2 >Subtitle</h2>";
+        $processedHtml = $renderer->postProcess($html);
+
+        $this->assertSame('<h1 class="foo-bar baz">Title</h1><h2>Subtitle</h2>', $processedHtml);
+    }
+
     public function testPostProcessTrimsWhitespaceAndIndentationFromLines()
     {
         $renderer = new HeadingRenderer();
