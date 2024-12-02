@@ -95,11 +95,37 @@ class MarkdownHeadingRendererTest extends TestCase
         ### Another Heading {data-test="value"}
         MARKDOWN;
 
+        $html = (new MarkdownService($markdown, MarkdownPage::class))->parse();
+
+        $this->assertStringContainsString('id="custom-id"', $html);
+        $this->assertStringContainsString('class="custom-class"', $html);
+        $this->assertStringContainsString('data-test="value"', $html);
+
+        $this->assertSame(<<<'HTML'
+        <h2 class="custom-class" id="custom-id">Heading</h2>
+        <h3 data-test="value">Another Heading</h3>
+        
+        HTML, $html);
+    }
+
+    public function testHeadingsWithCustomAttributesAndPermalinks()
+    {
+        $markdown = <<<'MARKDOWN'
+        ## Heading {.custom-class #custom-id}
+        ### Another Heading {data-test="value"}
+        MARKDOWN;
+
         $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
 
-        $this->assertStringContainsString('class="custom-class"', $html);
         $this->assertStringContainsString('id="custom-id"', $html);
+        $this->assertStringContainsString('class="custom-class"', $html);
         $this->assertStringContainsString('data-test="value"', $html);
+
+        $this->assertSame(<<<'HTML'
+        <h2 class="custom-class" id="custom-id">Heading<a id="heading" href="#heading" class="heading-permalink" title="Permalink"></a></h2>
+        <h3 data-test="value">Another Heading<a id="another-heading" href="#another-heading" class="heading-permalink" title="Permalink"></a></h3>
+        
+        HTML, $html);
     }
 
     public function testPermalinkConfigurationLevels()
@@ -124,6 +150,16 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertStringContainsString('<h4>H4 Has Permalink<a', $html);
         $this->assertStringNotContainsString('<h5>H5 No Permalink</h1><a', $html);
         $this->assertStringNotContainsString('<h6>H6 No Permalink</h1><a', $html);
+
+        $this->assertSame(<<<'HTML'
+        <h1>H1 No Permalink</h1>
+        <h2>H2 Has Permalink<a id="h2-has-permalink" href="#h2-has-permalink" class="heading-permalink" title="Permalink"></a></h2>
+        <h3>H3 Has Permalink<a id="h3-has-permalink" href="#h3-has-permalink" class="heading-permalink" title="Permalink"></a></h3>
+        <h4>H4 Has Permalink<a id="h4-has-permalink" href="#h4-has-permalink" class="heading-permalink" title="Permalink"></a></h4>
+        <h5>H5 No Permalink</h5>
+        <h6>H6 No Permalink</h6>
+        
+        HTML, $html);
     }
 
     public function testDisablingPermalinksGlobally()
@@ -147,6 +183,12 @@ class MarkdownHeadingRendererTest extends TestCase
 
         $this->assertStringContainsString('Heading with &amp; special &lt; &gt; &quot;characters&quot;', $html);
         $this->assertStringContainsString('Heading with émojis 🎉', $html);
+
+        $this->assertSame(<<<'HTML'
+        <h2>Heading with &amp; special &lt; &gt; &quot;characters&quot;<a id="heading-with-amp-special-lt-gt-quotcharactersquot" href="#heading-with-amp-special-lt-gt-quotcharactersquot" class="heading-permalink" title="Permalink"></a></h2>
+        <h3>Heading with émojis 🎉<a id="heading-with-emojis" href="#heading-with-emojis" class="heading-permalink" title="Permalink"></a></h3>
+
+        HTML, $html);
     }
 
     public function testCustomPageClassConfiguration()
