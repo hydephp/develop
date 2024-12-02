@@ -192,6 +192,41 @@ class MarkdownHeadingRendererTest extends TestCase
         HTML, $html);
     }
 
+    public function testHeadingsAllowMarkdownStyling()
+    {
+        $markdown = <<<'MARKDOWN'
+        ## Heading with **Markdown** styling
+        MARKDOWN;
+
+        $html = (new MarkdownService($markdown, MarkdownPage::class))->parse();
+
+        $this->assertStringContainsString('Heading with <strong>Markdown</strong> styling', $html);
+
+        $this->assertSame(<<<'HTML'
+        <h2>Heading with <strong>Markdown</strong> styling</h2>
+
+        HTML, $html);
+    }
+
+    public function testHeadingsAllowBasicHtmlButEscapesDangerousInput()
+    {
+        $markdown = <<<'MARKDOWN'
+        ## Heading with <strong>HTML</strong>
+        ### Heading with <script>alert('XSS')</script>
+        MARKDOWN;
+
+        $html = (new MarkdownService($markdown, MarkdownPage::class))->parse();
+
+        $this->assertStringContainsString('Heading with <strong>HTML</strong>', $html);
+        $this->assertStringContainsString("Heading with &lt;script>alert('XSS')&lt;/script>", $html);
+
+        $this->assertSame(<<<'HTML'
+        <h2>Heading with <strong>HTML</strong></h2>
+        <h3>Heading with &lt;script>alert('XSS')&lt;/script></h3>
+
+        HTML, $html);
+    }
+
     public function testCustomPageClassConfiguration()
     {
         config(['markdown.permalinks.pages' => [MarkdownPage::class]]);
