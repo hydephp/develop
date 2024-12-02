@@ -184,6 +184,7 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertStringContainsString('Heading with &amp; special &lt; &gt; &quot;characters&quot;', $html);
         $this->assertStringContainsString('Heading with émojis 🎉', $html);
 
+        // Todo: Try to normalize to heading-with-special-characters?
         $this->assertSame(<<<'HTML'
         <h2>Heading with &amp; special &lt; &gt; &quot;characters&quot;<a id="heading-with-amp-special-lt-gt-quotcharactersquot" href="#heading-with-amp-special-lt-gt-quotcharactersquot" class="heading-permalink" title="Permalink"></a></h2>
         <h3>Heading with émojis 🎉<a id="heading-with-emojis" href="#heading-with-emojis" class="heading-permalink" title="Permalink"></a></h3>
