@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Processing\HeadingRenderer;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Contracts\View\Factory as FactoryContract;
 use Illuminate\Events\Dispatcher;
@@ -150,6 +151,36 @@ class HeadingRendererUnitTest extends UnitTestCase
 
         $this->assertStringContainsString('class="custom-class"', $rendered);
         $this->assertStringContainsString('foo="bar"', $rendered);
+    }
+
+    public function testCanAddPermalinkReturnsFalseForExistingPermalink(): void
+    {
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+        $content = 'Test Content<a class="heading-permalink"></a>';
+        
+        $result = $renderer->canAddPermalink($content, 2);
+        
+        $this->assertFalse($result);
+    }
+
+    public function testCanAddPermalinkReturnsFalseForNotEnabledPageClass(): void
+    {
+        $renderer = new HeadingRenderer(MarkdownPage::class);
+        $result = $renderer->canAddPermalink('Test Content', 2);
+
+        $this->assertFalse($result);
+    }
+
+    public function testCanAddPermalinkWithCustomPageClasses(): void
+    {
+        self::mockConfig([
+            'markdown.permalinks.pages' => [DocumentationPage::class, MarkdownPage::class],
+        ]);
+
+        $renderer = new HeadingRenderer(MarkdownPage::class);
+        $result = $renderer->canAddPermalink('Test Content', 2);
+        
+        $this->assertTrue($result);
     }
 
     protected function createRealBladeCompilerEnvironment(): void
