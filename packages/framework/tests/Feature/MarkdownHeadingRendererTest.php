@@ -35,6 +35,16 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertStringContainsString('<h4>Heading 4</h4>', $html);
         $this->assertStringContainsString('<h5>Heading 5</h5>', $html);
         $this->assertStringContainsString('<h6>Heading 6</h6>', $html);
+
+        $this->assertSame(<<<'HTML'
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
+        <h6>Heading 6</h6>
+
+        HTML, $html);
     }
 
     public function testPermalinksInDocumentationPages()
@@ -47,6 +57,11 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertStringContainsString('href="#documentation-heading"', $html);
         $this->assertStringContainsString('title="Permalink"', $html);
         // $this->assertStringContainsString('aria-label="Permalink to this heading"', $html);
+
+        $this->assertSame(<<<'HTML'
+        <h2>Documentation Heading<a id="documentation-heading" href="#documentation-heading" class="heading-permalink" title="Permalink"></a></h2>
+
+        HTML, $html);
     }
 
     public function testPermalinksAreNotAddedToRegularMarkdownPages()
