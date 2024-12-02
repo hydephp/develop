@@ -45,6 +45,8 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertStringContainsString('heading-permalink', $html);
         $this->assertStringContainsString('id="documentation-heading"', $html);
         $this->assertStringContainsString('href="#documentation-heading"', $html);
+        $this->assertStringContainsString('title="Permalink"', $html);
+        // $this->assertStringContainsString('aria-label="Permalink to this heading"', $html);
     }
 
     public function testPermalinksAreNotAddedToRegularMarkdownPages()
