@@ -21,7 +21,6 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use Mockery;
-use PHPUnit\Framework\Attributes\TestWith;
 
 /**
  * @covers \Hyde\Markdown\Processing\HeadingRenderer
@@ -157,9 +156,9 @@ class HeadingRendererUnitTest extends UnitTestCase
     {
         $renderer = new HeadingRenderer(DocumentationPage::class);
         $content = 'Test Content<a class="heading-permalink"></a>';
-        
+
         $result = $renderer->canAddPermalink($content, 2);
-        
+
         $this->assertFalse($result);
     }
 
@@ -179,7 +178,7 @@ class HeadingRendererUnitTest extends UnitTestCase
 
         $renderer = new HeadingRenderer(MarkdownPage::class);
         $result = $renderer->canAddPermalink('Test Content', 2);
-        
+
         $this->assertTrue($result);
     }
 
