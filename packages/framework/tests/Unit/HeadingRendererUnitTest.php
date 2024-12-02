@@ -201,7 +201,7 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame($expected, $processedHtml);
     }
 
-    public function testPostProcessRemovesSpacesAfterHeadingTags()
+    public function testPostProcessRemovesSpacesCausedByNoExtraBladeAttributes()
     {
         $renderer = new HeadingRenderer();
         $html = "<h1 >Title</h1>\n<h2 >Subtitle</h2>";
