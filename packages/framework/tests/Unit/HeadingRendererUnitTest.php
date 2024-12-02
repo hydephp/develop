@@ -98,7 +98,7 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringNotContainsString('heading-permalink', $rendered);
     }
 
-    public function testAddsPermalinksBasedOnConfiguration(): void
+    public function testAddsPermalinksBasedOnConfiguredHeadingLevels(): void
     {
         $childRenderer = $this->mockChildNodeRenderer('Test Content');
         $renderer = new HeadingRenderer(DocumentationPage::class);
