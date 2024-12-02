@@ -231,7 +231,7 @@ class HeadingRendererUnitTest extends UnitTestCase
     public function testPostProcessHandlesEmptyString()
     {
         $renderer = new HeadingRenderer();
-        $html = "";
+        $html = '';
         $processedHtml = $renderer->postProcess($html);
 
         $this->assertSame('', $processedHtml);
@@ -240,7 +240,7 @@ class HeadingRendererUnitTest extends UnitTestCase
     public function testPostProcessHandlesNoHeadingTags()
     {
         $renderer = new HeadingRenderer();
-        $html = "<p>Paragraph</p>";
+        $html = '<p>Paragraph</p>';
         $processedHtml = $renderer->postProcess($html);
 
         $this->assertSame('<p>Paragraph</p>', $processedHtml);
