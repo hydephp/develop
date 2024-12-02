@@ -165,9 +165,8 @@ class HeadingRendererUnitTest extends UnitTestCase
     public function testCanAddPermalinkReturnsFalseForNotEnabledPageClass(): void
     {
         $renderer = new HeadingRenderer(MarkdownPage::class);
-        $result = $renderer->canAddPermalink('Test Content', 2);
 
-        $this->assertFalse($result);
+        $this->assertFalse($renderer->canAddPermalink('Test Content', 2));
     }
 
     public function testCanAddPermalinkWithCustomPageClasses(): void
@@ -177,15 +176,12 @@ class HeadingRendererUnitTest extends UnitTestCase
         ]);
 
         $renderer = new HeadingRenderer(MarkdownPage::class);
-        $result = $renderer->canAddPermalink('Test Content', 2);
 
-        $this->assertTrue($result);
+        $this->assertTrue($renderer->canAddPermalink('Test Content', 2));
     }
 
     public function testPostProcessMethodNormalizesInputToMatchCommonMark()
     {
-        $renderer = new HeadingRenderer(DocumentationPage::class);
-
         // Actual HTML output returned from Blade
         $html = <<<'HTML'
         <h2 >
@@ -197,53 +193,42 @@ class HeadingRendererUnitTest extends UnitTestCase
         // What CommonMark would generate from the same input Markdown
         $expected = '<h2>Test Heading<a id="test-heading" href="#test-heading" class="heading-permalink" title="Permalink"></a></h2>';
 
-        $processedHtml = $renderer->postProcess($html);
-        $this->assertSame($expected, $processedHtml);
+        $this->assertSame($expected, (new HeadingRenderer())->postProcess($html));
     }
 
     public function testPostProcessRemovesSpacesCausedByNoExtraBladeAttributes()
     {
-        $renderer = new HeadingRenderer();
         $html = "<h1 >Title</h1>\n<h2 >Subtitle</h2>";
-        $processedHtml = $renderer->postProcess($html);
 
-        $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', $processedHtml);
+        $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', (new HeadingRenderer())->postProcess($html));
     }
 
     public function testPostProcessRemovesSpacesCausedByNoExtraBladeAttributesButLeavesExtraAttributesAlone()
     {
-        $renderer = new HeadingRenderer();
         $html = "<h1 class=\"foo-bar baz\">Title</h1>\n<h2 >Subtitle</h2>";
-        $processedHtml = $renderer->postProcess($html);
 
-        $this->assertSame('<h1 class="foo-bar baz">Title</h1><h2>Subtitle</h2>', $processedHtml);
+        $this->assertSame('<h1 class="foo-bar baz">Title</h1><h2>Subtitle</h2>', (new HeadingRenderer())->postProcess($html));
     }
 
     public function testPostProcessTrimsWhitespaceAndIndentationFromLines()
     {
-        $renderer = new HeadingRenderer();
         $html = "  <h1>Title</h1>  \n  <h2>Subtitle</h2>  ";
-        $processedHtml = $renderer->postProcess($html);
 
-        $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', $processedHtml);
+        $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', (new HeadingRenderer())->postProcess($html));
     }
 
     public function testPostProcessHandlesEmptyString()
     {
-        $renderer = new HeadingRenderer();
         $html = '';
-        $processedHtml = $renderer->postProcess($html);
 
-        $this->assertSame('', $processedHtml);
+        $this->assertSame('', (new HeadingRenderer())->postProcess($html));
     }
 
     public function testPostProcessHandlesNoHeadingTags()
     {
-        $renderer = new HeadingRenderer();
         $html = '<p>Paragraph</p>';
-        $processedHtml = $renderer->postProcess($html);
 
-        $this->assertSame('<p>Paragraph</p>', $processedHtml);
+        $this->assertSame('<p>Paragraph</p>', (new HeadingRenderer())->postProcess($html));
     }
 
     protected function createRealBladeCompilerEnvironment(): void
