@@ -182,6 +182,61 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertTrue($result);
     }
 
+    public function testPostProcessMethodNormalizesInputToMatchCommonMark()
+    {
+        $renderer = new HeadingRenderer(DocumentationPage::class);
+
+        // Actual HTML output returned from Blade
+        $html = <<<'HTML'
+        <h2 >
+            Test Heading
+                    <a id="test-heading" href="#test-heading" class="heading-permalink" title="Permalink"></a>
+            </h2> 
+        HTML;
+
+        // What CommonMark would generate from the same input Markdown
+        $expected = '<h2>Test Heading<a id="test-heading" href="#test-heading" class="heading-permalink" title="Permalink"></a></h2>';
+
+        $processedHtml = $renderer->postProcess($html);
+        $this->assertSame($expected, $processedHtml);
+    }
+
+    public function testPostProcessRemovesSpacesAfterHeadingTags()
+    {
+        $renderer = new HeadingRenderer();
+        $html = "<h1 >Title</h1>\n<h2 >Subtitle</h2>";
+        $processedHtml = $renderer->postProcess($html);
+
+        $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', $processedHtml);
+    }
+
+    public function testPostProcessTrimsWhitespaceAndIndentationFromLines()
+    {
+        $renderer = new HeadingRenderer();
+        $html = "  <h1>Title</h1>  \n  <h2>Subtitle</h2>  ";
+        $processedHtml = $renderer->postProcess($html);
+
+        $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', $processedHtml);
+    }
+
+    public function testPostProcessHandlesEmptyString()
+    {
+        $renderer = new HeadingRenderer();
+        $html = "";
+        $processedHtml = $renderer->postProcess($html);
+
+        $this->assertSame('', $processedHtml);
+    }
+
+    public function testPostProcessHandlesNoHeadingTags()
+    {
+        $renderer = new HeadingRenderer();
+        $html = "<p>Paragraph</p>";
+        $processedHtml = $renderer->postProcess($html);
+
+        $this->assertSame('<p>Paragraph</p>', $processedHtml);
+    }
+
     protected function createRealBladeCompilerEnvironment(): void
     {
         $resolver = new EngineResolver();
