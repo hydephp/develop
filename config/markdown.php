@@ -108,7 +108,6 @@ return [
     */
 
     'permalinks' => [
-        'enabled' => true,
         'pages' => [
             \Hyde\Pages\DocumentationPage::class,
         ],

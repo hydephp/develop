@@ -164,7 +164,7 @@ class MarkdownHeadingRendererTest extends TestCase
 
     public function testDisablingPermalinksGlobally()
     {
-        config(['markdown.permalinks.enabled' => false]);
+        config(['markdown.permalinks.pages' => []]);
 
         $markdown = '## Heading';
         $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();

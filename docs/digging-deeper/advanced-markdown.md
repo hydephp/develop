@@ -169,13 +169,11 @@ Hyde automatically adds clickable permalink anchors to headings in documentation
 
 The feature is enabled by default for documentation pages. When enabled, Hyde will automatically add permalink anchors to headings between levels 2-4 (h2-h4). The permalinks are hidden by default and appear when hovering over the heading.
 
-
-You can disable the feature, or enable it for other page types, in the `config/markdown.php` file.
+You can enable it for other page types by adding the page class to the `permalinks.pages` array in the `config/markdown.php` file, or disable it for all pages by setting the array to an empty array.
 
 ```php
 // filepath: config/markdown.php
 'permalinks' => [
-    'enabled' => true,
     'pages' => [
         \Hyde\Pages\DocumentationPage::class,
     ],
