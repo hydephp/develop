@@ -162,19 +162,6 @@ class MarkdownService
             Features::hasTorchlight();
     }
 
-    public function canEnablePermalinks(): bool
-    {
-        if ($this->hasFeature('permalinks')) {
-            return true;
-        }
-
-        if ($this->isDocumentationPage() && DocumentationPage::hasTableOfContents()) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function hasFeature(string $feature): bool
     {
         return in_array($feature, $this->features);

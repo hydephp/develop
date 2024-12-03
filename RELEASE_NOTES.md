@@ -133,6 +133,7 @@ This serves two purposes:
 - Removed the `.torchlight-enabled` CSS class in https://github.com/hydephp/develop/pull/2036.
 - Removed The `hyde.css` file from HydeFront in https://github.com/hydephp/develop/pull/2037 as all styles were refactored to Tailwind in https://github.com/hydephp/develop/pull/2024.
 - Removed the `MarkdownService::withPermalinks` method in https://github.com/hydephp/develop/pull/2047
+- Removed the `MarkdownService::canEnablePermalinks` method in https://github.com/hydephp/develop/pull/2047
 
 ### Fixed
 

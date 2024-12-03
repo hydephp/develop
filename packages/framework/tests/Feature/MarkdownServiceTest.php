@@ -172,22 +172,6 @@ class MarkdownServiceTest extends TestCase
         $this->assertFalse($service->hasFeature('test'));
     }
 
-    public function testMethodCanEnablePermalinksIsAutomaticallyForDocumentationPages()
-    {
-        $service = new MarkdownServiceTestClass(pageClass: DocumentationPage::class);
-
-        Config::set('docs.sidebar.table_of_contents.enabled', true);
-
-        $this->assertTrue($service->canEnablePermalinks());
-    }
-
-    public function testMethodCanEnablePermalinksReturnsFalseIfThePermalinksFeatureIsNotInTheArray()
-    {
-        $service = $this->makeService();
-
-        $this->assertFalse($service->canEnablePermalinks());
-    }
-
     public function testMethodCanEnableTorchlightReturnsTrueIfTheTorchlightFeatureIsInTheArray()
     {
         $service = $this->makeService();
