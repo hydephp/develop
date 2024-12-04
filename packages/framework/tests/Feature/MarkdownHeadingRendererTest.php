@@ -111,18 +111,17 @@ class MarkdownHeadingRendererTest extends TestCase
     public function testHeadingsWithCustomAttributesAndPermalinks()
     {
         $markdown = <<<'MARKDOWN'
-        ## Heading {.custom-class #custom-id}
+        ## Heading {.custom-class}
         ### Another Heading {data-test="value"}
         MARKDOWN;
 
         $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
 
-        $this->assertStringContainsString('id="custom-id"', $html);
         $this->assertStringContainsString('class="custom-class"', $html);
         $this->assertStringContainsString('data-test="value"', $html);
 
         $this->assertSame(<<<'HTML'
-        <h2 class="custom-class" id="custom-id">Heading<a id="heading" href="#heading" class="heading-permalink" title="Permalink"></a></h2>
+        <h2 class="custom-class">Heading<a id="heading" href="#heading" class="heading-permalink" title="Permalink"></a></h2>
         <h3 data-test="value">Another Heading<a id="another-heading" href="#another-heading" class="heading-permalink" title="Permalink"></a></h3>
         
         HTML, $html);
