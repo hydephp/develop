@@ -11,13 +11,15 @@
 
     if ($addPermalink === true) {
         $extraAttributes['id'] = $id;
+
+        isset($extraAttributes['class']) ? $extraAttributes['class'] .= ' group w-fit' : $extraAttributes['class'] = 'group w-fit';
     }
 @endphp
 
-<{{ $tag }} {{ $attributes->merge([...$extraAttributes, 'class' => 'w-fit']) }}>
+<{{ $tag }} {{ $attributes->merge([...$extraAttributes]) }}>
     {!! $slot !!}
     @if($addPermalink === true)
-        <a href="#{{ $id }}" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 hover:opacity-100 focus:opacity-100 hover:grayscale-0 focus:grayscale-0" title="Permalink">
+        <a href="#{{ $id }}" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">
             #
         </a>
     @endif
