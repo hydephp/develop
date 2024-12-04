@@ -35,7 +35,7 @@ class MarkdownServiceTest extends TestCase
         $this->assertIsString($html);
         $this->assertStringContainsString('heading-permalink', $html, 'Permalink should be added to documentation pages by default');
         $this->assertSame(
-            '<h2>Hello World!<a id="hello-world" href="#hello-world" class="heading-permalink" title="Permalink"></a></h2>'."\n", $html
+            '<h2 id="hello-world">Hello World!<a href="#hello-world" class="heading-permalink" title="Permalink"></a></h2>'."\n", $html
         );
 
         $html = (new MarkdownService($markdown))->parse();

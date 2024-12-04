@@ -59,7 +59,7 @@ class MarkdownHeadingRendererTest extends TestCase
         // $this->assertStringContainsString('aria-label="Permalink to this heading"', $html);
 
         $this->assertSame(<<<'HTML'
-        <h2>Documentation Heading<a id="documentation-heading" href="#documentation-heading" class="heading-permalink" title="Permalink"></a></h2>
+        <h2 id="documentation-heading">Documentation Heading<a href="#documentation-heading" class="heading-permalink" title="Permalink"></a></h2>
 
         HTML, $html);
     }
@@ -121,8 +121,8 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertStringContainsString('data-test="value"', $html);
 
         $this->assertSame(<<<'HTML'
-        <h2 class="custom-class">Heading<a id="heading" href="#heading" class="heading-permalink" title="Permalink"></a></h2>
-        <h3 data-test="value">Another Heading<a id="another-heading" href="#another-heading" class="heading-permalink" title="Permalink"></a></h3>
+        <h2 class="custom-class" id="heading">Heading<a href="#heading" class="heading-permalink" title="Permalink"></a></h2>
+        <h3 data-test="value" id="another-heading">Another Heading<a href="#another-heading" class="heading-permalink" title="Permalink"></a></h3>
         
         HTML, $html);
     }
@@ -144,17 +144,17 @@ class MarkdownHeadingRendererTest extends TestCase
         $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
 
         $this->assertStringNotContainsString('<h1>H1 No Permalink</h1><a', $html);
-        $this->assertStringContainsString('<h2>H2 Has Permalink<a', $html);
-        $this->assertStringContainsString('<h3>H3 Has Permalink<a', $html);
-        $this->assertStringContainsString('<h4>H4 Has Permalink<a', $html);
+        $this->assertStringContainsString('<h2 id="h2-has-permalink">H2 Has Permalink<a', $html);
+        $this->assertStringContainsString('<h3 id="h3-has-permalink">H3 Has Permalink<a', $html);
+        $this->assertStringContainsString('<h4 id="h4-has-permalink">H4 Has Permalink<a', $html);
         $this->assertStringNotContainsString('<h5>H5 No Permalink</h1><a', $html);
         $this->assertStringNotContainsString('<h6>H6 No Permalink</h1><a', $html);
 
         $this->assertSame(<<<'HTML'
         <h1>H1 No Permalink</h1>
-        <h2>H2 Has Permalink<a id="h2-has-permalink" href="#h2-has-permalink" class="heading-permalink" title="Permalink"></a></h2>
-        <h3>H3 Has Permalink<a id="h3-has-permalink" href="#h3-has-permalink" class="heading-permalink" title="Permalink"></a></h3>
-        <h4>H4 Has Permalink<a id="h4-has-permalink" href="#h4-has-permalink" class="heading-permalink" title="Permalink"></a></h4>
+        <h2 id="h2-has-permalink">H2 Has Permalink<a href="#h2-has-permalink" class="heading-permalink" title="Permalink"></a></h2>
+        <h3 id="h3-has-permalink">H3 Has Permalink<a href="#h3-has-permalink" class="heading-permalink" title="Permalink"></a></h3>
+        <h4 id="h4-has-permalink">H4 Has Permalink<a href="#h4-has-permalink" class="heading-permalink" title="Permalink"></a></h4>
         <h5>H5 No Permalink</h5>
         <h6>H6 No Permalink</h6>
         
@@ -185,8 +185,8 @@ class MarkdownHeadingRendererTest extends TestCase
 
         // Todo: Try to normalize to heading-with-special-characters?
         $this->assertSame(<<<'HTML'
-        <h2>Heading with &amp; special &lt; &gt; &quot;characters&quot;<a id="heading-with-amp-special-lt-gt-quotcharactersquot" href="#heading-with-amp-special-lt-gt-quotcharactersquot" class="heading-permalink" title="Permalink"></a></h2>
-        <h3>Heading with émojis 🎉<a id="heading-with-emojis" href="#heading-with-emojis" class="heading-permalink" title="Permalink"></a></h3>
+        <h2 id="heading-with-amp-special-lt-gt-quotcharactersquot">Heading with &amp; special &lt; &gt; &quot;characters&quot;<a href="#heading-with-amp-special-lt-gt-quotcharactersquot" class="heading-permalink" title="Permalink"></a></h2>
+        <h3 id="heading-with-emojis">Heading with émojis 🎉<a href="#heading-with-emojis" class="heading-permalink" title="Permalink"></a></h3>
 
         HTML, $html);
     }

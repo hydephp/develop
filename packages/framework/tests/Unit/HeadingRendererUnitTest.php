@@ -61,7 +61,7 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringContainsString('<h2', $rendered);
         $this->assertStringContainsString('</h2>', $rendered);
 
-        $this->assertSame('<h2>Test Heading<a id="test-heading" href="#test-heading" class="heading-permalink" title="Permalink"></a></h2>', $rendered);
+        $this->assertSame('<h2 id="test-heading">Test Heading<a href="#test-heading" class="heading-permalink" title="Permalink"></a></h2>', $rendered);
     }
 
     public function testAddsPermalinkToValidHeadings()
