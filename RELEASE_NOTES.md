@@ -104,6 +104,7 @@ This serves two purposes:
 - Normalized default Tailwind Typography Prose code block styles to match Torchlight's theme, ensuring consistent styling across Markdown and Torchlight code blocks in https://github.com/hydephp/develop/pull/2036.
 - Extracted CSS component partials in HydeFront in https://github.com/hydephp/develop/pull/2038
 - Replaced HydeFront styles with Tailwind in https://github.com/hydephp/develop/pull/2024
+- The `id` attributes for heading permalinks have been moved from the anchor to the heading element in https://github.com/hydephp/develop/pull/2052
 
 ### Deprecated
 
