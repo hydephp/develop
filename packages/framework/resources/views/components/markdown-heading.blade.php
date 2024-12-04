@@ -14,9 +14,11 @@
     }
 @endphp
 
-<{{ $tag }} {{ $attributes->merge([...$extraAttributes]) }}>
+<{{ $tag }} {{ $attributes->merge([...$extraAttributes, 'class' => 'w-fit']) }}>
     {!! $slot !!}
     @if($addPermalink === true)
-        <a href="#{{ $id }}" class="heading-permalink" title="Permalink"></a>
+        <a href="#{{ $id }}" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 hover:opacity-100 focus:opacity-100 hover:grayscale-0 focus:grayscale-0" title="Permalink">
+            #
+        </a>
     @endif
-</{{ $tag }}> 
+</{{ $tag }}>

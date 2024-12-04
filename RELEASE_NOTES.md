@@ -525,6 +525,7 @@ The likelihood of impact is low, but if any of the following are true, you may n
 - Rewrites the `GeneratesTableOfContents` class to use a custom implementation instead of using CommonMark
 - The `execute` method of the `GeneratesTableOfContents` class now returns an array of data, instead of a string of HTML. This data should be fed into the new component
 - Removed the `table-of-contents.css` file as styles are now made using Tailwind
+- Removed the `heading-permalinks.css` file as styles are now made using Tailwind
 
 ## New features
 
