@@ -9,13 +9,10 @@
     $tag = 'h' . $level;
     $id = $id ?? \Illuminate\Support\Str::slug($slot);
 
-    if ($addPermalink === true) {
-        $extraAttributes['id'] = $id;
-
-        isset($extraAttributes['class'])
-            ? $extraAttributes['class'] .= ' group w-fit scroll-mt-2'
-            : $extraAttributes['class'] = 'group w-fit scroll-mt-2';
-    }
+    $extraAttributes = array_merge($extraAttributes, [
+        'id' => $addPermalink ? $id : ($extraAttributes['id'] ?? null),
+        'class' => trim(($extraAttributes['class'] ?? '') . ($addPermalink ? ' group w-fit scroll-mt-2' : '')),
+    ]);
 @endphp
 
 <{{ $tag }} {{ $attributes->merge([...$extraAttributes]) }}>
