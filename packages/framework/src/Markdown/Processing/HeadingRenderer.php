@@ -70,18 +70,22 @@ class HeadingRenderer implements NodeRendererInterface
 
     protected function makeHeadingId(string $contents): string
     {
-        $identifier = Str::slug($contents);
+        $identifier = $this->ensureIdentifierIsUnique(Str::slug($contents));
 
-        // Check for duplicates in the tracker
-        $id = $identifier;
+        $this->headingRegistry[] = $identifier;
+
+        return $identifier;
+    }
+
+    protected function ensureIdentifierIsUnique(string $slug): string
+    {
+        $identifier = $slug;
         $suffix = 2;
-        while (in_array($id, $this->headingRegistry)) {
-            $id = $identifier.'-'.$suffix++;
+
+        while (in_array($identifier, $this->headingRegistry)) {
+            $identifier = $slug.'-'.$suffix++;
         }
 
-        // Record the ID in the tracker and return it
-        $this->headingRegistry[] = $id;
-
-        return $id;
+        return $identifier;
     }
 }
