@@ -103,7 +103,7 @@ class MarkdownHeadingRendererTest extends TestCase
 
         $this->assertSame(<<<'HTML'
         <h2 class="custom-class" id="custom-id">Heading</h2>
-        <h3 data-test="value">Another Heading</h3>
+        <h3 data-test="value" >Another Heading</h3>
         
         HTML, $html);
     }
