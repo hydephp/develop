@@ -104,6 +104,7 @@ This serves two purposes:
 - Normalized default Tailwind Typography Prose code block styles to match Torchlight's theme, ensuring consistent styling across Markdown and Torchlight code blocks in https://github.com/hydephp/develop/pull/2036.
 - Extracted CSS component partials in HydeFront in https://github.com/hydephp/develop/pull/2038
 - Replaced HydeFront styles with Tailwind in https://github.com/hydephp/develop/pull/2024
+- The `id` attributes for heading permalinks have been moved from the anchor to the heading element in https://github.com/hydephp/develop/pull/2052
 
 ### Deprecated
 
@@ -524,6 +525,7 @@ The likelihood of impact is low, but if any of the following are true, you may n
 - Rewrites the `GeneratesTableOfContents` class to use a custom implementation instead of using CommonMark
 - The `execute` method of the `GeneratesTableOfContents` class now returns an array of data, instead of a string of HTML. This data should be fed into the new component
 - Removed the `table-of-contents.css` file as styles are now made using Tailwind
+- Removed the `heading-permalinks.css` file as styles are now made using Tailwind
 
 ## New features
 

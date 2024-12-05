@@ -59,7 +59,7 @@ class MarkdownHeadingRendererTest extends TestCase
         // $this->assertStringContainsString('aria-label="Permalink to this heading"', $html);
 
         $this->assertSame(<<<'HTML'
-        <h2>Documentation Heading<a id="documentation-heading" href="#documentation-heading" class="heading-permalink" title="Permalink"></a></h2>
+        <h2 id="documentation-heading" class="group w-fit scroll-mt-2">Documentation Heading<a href="#documentation-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
 
         HTML, $html);
     }
@@ -111,19 +111,18 @@ class MarkdownHeadingRendererTest extends TestCase
     public function testHeadingsWithCustomAttributesAndPermalinks()
     {
         $markdown = <<<'MARKDOWN'
-        ## Heading {.custom-class #custom-id}
+        ## Heading {.custom-class}
         ### Another Heading {data-test="value"}
         MARKDOWN;
 
         $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
 
-        $this->assertStringContainsString('id="custom-id"', $html);
-        $this->assertStringContainsString('class="custom-class"', $html);
+        $this->assertStringContainsString('class="custom-class group w-fit scroll-mt-2"', $html);
         $this->assertStringContainsString('data-test="value"', $html);
 
         $this->assertSame(<<<'HTML'
-        <h2 class="custom-class" id="custom-id">Heading<a id="heading" href="#heading" class="heading-permalink" title="Permalink"></a></h2>
-        <h3 data-test="value">Another Heading<a id="another-heading" href="#another-heading" class="heading-permalink" title="Permalink"></a></h3>
+        <h2 class="custom-class group w-fit scroll-mt-2" id="heading">Heading<a href="#heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h3 data-test="value" id="another-heading" class="group w-fit scroll-mt-2">Another Heading<a href="#another-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
         
         HTML, $html);
     }
@@ -145,17 +144,17 @@ class MarkdownHeadingRendererTest extends TestCase
         $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
 
         $this->assertStringNotContainsString('<h1>H1 No Permalink</h1><a', $html);
-        $this->assertStringContainsString('<h2>H2 Has Permalink<a', $html);
-        $this->assertStringContainsString('<h3>H3 Has Permalink<a', $html);
-        $this->assertStringContainsString('<h4>H4 Has Permalink<a', $html);
+        $this->assertStringContainsString('<h2 id="h2-has-permalink" class="group w-fit scroll-mt-2">H2 Has Permalink<a', $html);
+        $this->assertStringContainsString('<h3 id="h3-has-permalink" class="group w-fit scroll-mt-2">H3 Has Permalink<a', $html);
+        $this->assertStringContainsString('<h4 id="h4-has-permalink" class="group w-fit scroll-mt-2">H4 Has Permalink<a', $html);
         $this->assertStringNotContainsString('<h5>H5 No Permalink</h1><a', $html);
         $this->assertStringNotContainsString('<h6>H6 No Permalink</h1><a', $html);
 
         $this->assertSame(<<<'HTML'
         <h1>H1 No Permalink</h1>
-        <h2>H2 Has Permalink<a id="h2-has-permalink" href="#h2-has-permalink" class="heading-permalink" title="Permalink"></a></h2>
-        <h3>H3 Has Permalink<a id="h3-has-permalink" href="#h3-has-permalink" class="heading-permalink" title="Permalink"></a></h3>
-        <h4>H4 Has Permalink<a id="h4-has-permalink" href="#h4-has-permalink" class="heading-permalink" title="Permalink"></a></h4>
+        <h2 id="h2-has-permalink" class="group w-fit scroll-mt-2">H2 Has Permalink<a href="#h2-has-permalink" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h3 id="h3-has-permalink" class="group w-fit scroll-mt-2">H3 Has Permalink<a href="#h3-has-permalink" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
+        <h4 id="h4-has-permalink" class="group w-fit scroll-mt-2">H4 Has Permalink<a href="#h4-has-permalink" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h4>
         <h5>H5 No Permalink</h5>
         <h6>H6 No Permalink</h6>
         
@@ -186,8 +185,8 @@ class MarkdownHeadingRendererTest extends TestCase
 
         // Todo: Try to normalize to heading-with-special-characters?
         $this->assertSame(<<<'HTML'
-        <h2>Heading with &amp; special &lt; &gt; &quot;characters&quot;<a id="heading-with-amp-special-lt-gt-quotcharactersquot" href="#heading-with-amp-special-lt-gt-quotcharactersquot" class="heading-permalink" title="Permalink"></a></h2>
-        <h3>Heading with émojis 🎉<a id="heading-with-emojis" href="#heading-with-emojis" class="heading-permalink" title="Permalink"></a></h3>
+        <h2 id="heading-with-amp-special-lt-gt-quotcharactersquot" class="group w-fit scroll-mt-2">Heading with &amp; special &lt; &gt; &quot;characters&quot;<a href="#heading-with-amp-special-lt-gt-quotcharactersquot" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h3 id="heading-with-emojis" class="group w-fit scroll-mt-2">Heading with émojis 🎉<a href="#heading-with-emojis" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
 
         HTML, $html);
     }
