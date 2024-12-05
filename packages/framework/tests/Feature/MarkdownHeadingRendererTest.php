@@ -240,4 +240,44 @@ class MarkdownHeadingRendererTest extends TestCase
         $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
         $this->assertStringNotContainsString('heading-permalink', $html);
     }
+
+    public function testItHandlesMultipleHeadingsWithTheSameName()
+    {
+        $markdown = <<<'MARKDOWN'
+        ## Heading
+        ## Heading
+        ## Unique Heading
+        ## With Children
+        ### Child Heading
+        ### Child Heading
+        ### Unique Child Heading
+        #### Child Heading
+        MARKDOWN;
+
+        $html = (new MarkdownService($markdown, DocumentationPage::class))->parse();
+
+        $this->assertSame(<<<'HTML'
+        <h2 id="heading" class="group w-fit scroll-mt-2">Heading<a href="#heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h2 id="heading-2" class="group w-fit scroll-mt-2">Heading<a href="#heading-2" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h2 id="unique-heading" class="group w-fit scroll-mt-2">Unique Heading<a href="#unique-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h2 id="with-children" class="group w-fit scroll-mt-2">With Children<a href="#with-children" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h3 id="child-heading" class="group w-fit scroll-mt-2">Child Heading<a href="#child-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
+        <h3 id="child-heading-2" class="group w-fit scroll-mt-2">Child Heading<a href="#child-heading-2" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
+        <h3 id="unique-child-heading" class="group w-fit scroll-mt-2">Unique Child Heading<a href="#unique-child-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
+        <h4 id="child-heading-3" class="group w-fit scroll-mt-2">Child Heading<a href="#child-heading-3" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h4>
+        
+        HTML, $html);
+    }
+
+    public function testDoesNotChangeAnythingIfMultipleHeadingsWithTheSameNameAreInDifferentPages()
+    {
+        $markdown = <<<'MARKDOWN'
+        ## Heading
+        MARKDOWN;
+
+        $html1 = (new MarkdownService($markdown, DocumentationPage::class))->parse();
+        $html2 = (new MarkdownService($markdown, DocumentationPage::class))->parse();
+
+        $this->assertSame($html1, $html2);
+    }
 }
