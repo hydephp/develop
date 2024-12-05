@@ -21,6 +21,7 @@ class HeadingRenderer implements NodeRendererInterface
     /** @var ?class-string<\Hyde\Pages\Concerns\HydePage> */
     protected ?string $pageClass = null;
 
+    /** @var array<string> */
     protected array $headingRegistry = [];
 
     /** @param ?class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
