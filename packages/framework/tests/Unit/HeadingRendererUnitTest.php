@@ -61,7 +61,7 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertStringContainsString('<h2', $rendered);
         $this->assertStringContainsString('</h2>', $rendered);
 
-        $this->assertSame('<h2 id="test-heading" class="group w-fit">Test Heading<a href="#test-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>', $rendered);
+        $this->assertSame('<h2 id="test-heading" class="group w-fit scroll-mt-2">Test Heading<a href="#test-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>', $rendered);
     }
 
     public function testAddsPermalinkToValidHeadings()
@@ -124,7 +124,7 @@ class HeadingRendererUnitTest extends UnitTestCase
         $heading->data->set('attributes', ['class' => 'custom-class']);
         $rendered = $renderer->render($heading, $childRenderer);
 
-        $this->assertStringContainsString('class="custom-class group w-fit', $rendered);
+        $this->assertStringContainsString('class="custom-class group w-fit scroll-mt-2', $rendered);
     }
 
     public function testForwardsArbitraryHeadingAttributes()
@@ -148,7 +148,7 @@ class HeadingRendererUnitTest extends UnitTestCase
         $heading->data->set('attributes', ['class' => 'custom-class', 'foo' => 'bar']);
         $rendered = $renderer->render($heading, $childRenderer);
 
-        $this->assertStringContainsString('class="custom-class group w-fit"', $rendered);
+        $this->assertStringContainsString('class="custom-class group w-fit scroll-mt-2"', $rendered);
         $this->assertStringContainsString('foo="bar"', $rendered);
     }
 

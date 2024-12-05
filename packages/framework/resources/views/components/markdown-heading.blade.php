@@ -12,7 +12,7 @@
     if ($addPermalink === true) {
         $extraAttributes['id'] = $id;
 
-        isset($extraAttributes['class']) ? $extraAttributes['class'] .= ' group w-fit' : $extraAttributes['class'] = 'group w-fit';
+        isset($extraAttributes['class']) ? $extraAttributes['class'] .= ' group w-fit scroll-mt-2' : $extraAttributes['class'] = 'group w-fit scroll-mt-2';
     }
 @endphp
 
