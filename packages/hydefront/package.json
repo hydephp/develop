@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/hydephp/hydefront#readme",
   "devDependencies": {
-    "sass": "1.81.0"
+    "sass": "1.82.0"
   },
   "main": "dist/hyde.css"
 }
