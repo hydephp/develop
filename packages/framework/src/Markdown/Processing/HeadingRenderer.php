@@ -59,6 +59,7 @@ class HeadingRenderer implements NodeRendererInterface
     /** @internal */
     public function postProcess(string $html): string
     {
+        $html = str_replace('class=""', '', $html);
         $html = preg_replace('/<h([1-6]) >/', '<h$1>', $html);
 
         return implode('', array_map('trim', explode("\n", $html)));

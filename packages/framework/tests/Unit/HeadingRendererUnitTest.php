@@ -217,6 +217,13 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame('<h1>Title</h1><h2>Subtitle</h2>', (new HeadingRenderer())->postProcess($html));
     }
 
+    public function testPostProcessTrimsEmptyClassAttributes()
+    {
+        $html = '<h1 class="">Title</h1>';
+
+        $this->assertSame('<h1>Title</h1>', (new HeadingRenderer())->postProcess($html));
+    }
+
     public function testPostProcessHandlesEmptyString()
     {
         $html = '';
