@@ -55,6 +55,9 @@ class MarkdownService
     /** @var array<class-string<\Hyde\Markdown\Contracts\MarkdownPostProcessorContract>> */
     protected array $postprocessors = [];
 
+    /** @var array<string> */
+    protected array $headingRegistry = [];
+
     public function __construct(string $markdown, ?string $pageClass = null)
     {
         $this->pageClass = $pageClass;
@@ -243,6 +246,6 @@ class MarkdownService
     protected function configureCustomHeadingRenderer(): void
     {
         $environment = $this->converter->getEnvironment();
-        $environment->addRenderer(Heading::class, new HeadingRenderer($this->pageClass));
+        $environment->addRenderer(Heading::class, new HeadingRenderer($this->pageClass, $this->headingRegistry));
     }
 }

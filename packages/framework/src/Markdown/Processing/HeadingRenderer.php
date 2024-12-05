@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Markdown\Processing;
 
 use Hyde\Pages\DocumentationPage;
+use Illuminate\Support\Str;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
@@ -20,10 +21,13 @@ class HeadingRenderer implements NodeRendererInterface
     /** @var ?class-string<\Hyde\Pages\Concerns\HydePage> */
     protected ?string $pageClass = null;
 
+    protected array $headingRegistry = [];
+
     /** @param ?class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
-    public function __construct(string $pageClass = null)
+    public function __construct(string $pageClass = null, array &$headingRegistry = [])
     {
         $this->pageClass = $pageClass;
+        $this->headingRegistry = &$headingRegistry;
     }
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): string
@@ -37,6 +41,7 @@ class HeadingRenderer implements NodeRendererInterface
         $rendered = view('hyde::components.markdown-heading', [
             'level' => $node->getLevel(),
             'slot' => $content,
+            'id' => $this->makeHeadingId($content),
             'addPermalink' => $this->canAddPermalink($content, $node->getLevel()),
             'extraAttributes' => $node->data->get('attributes'),
         ])->render();
@@ -61,5 +66,22 @@ class HeadingRenderer implements NodeRendererInterface
         $html = preg_replace('/<h([1-6]) >/', '<h$1>', $html);
 
         return implode('', array_map('trim', explode("\n", $html)));
+    }
+
+    protected function makeHeadingId(string $contents): string
+    {
+        $identifier = Str::slug($contents);
+
+        // Check for duplicates in the tracker
+        $id = $identifier;
+        $suffix = 1;
+        while (in_array($id, $this->headingRegistry)) {
+            $id = $identifier.'-'.$suffix++;
+        }
+
+        // Record the ID in the tracker and return it
+        $this->headingRegistry[] = $id;
+
+        return $id;
     }
 }
