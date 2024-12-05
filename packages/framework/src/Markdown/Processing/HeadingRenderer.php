@@ -74,7 +74,7 @@ class HeadingRenderer implements NodeRendererInterface
 
         // Check for duplicates in the tracker
         $id = $identifier;
-        $suffix = 1;
+        $suffix = 2;
         while (in_array($id, $this->headingRegistry)) {
             $id = $identifier.'-'.$suffix++;
         }
