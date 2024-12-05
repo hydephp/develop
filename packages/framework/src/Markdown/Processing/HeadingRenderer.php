@@ -14,8 +14,6 @@ use League\CommonMark\Renderer\NodeRendererInterface;
  * Renders a heading node, and supports built-in permalink generation.
  *
  * @see \League\CommonMark\Extension\CommonMark\Renderer\Block\HeadingRenderer
- *
- * @todo Add more options to customize the permalink.
  */
 class HeadingRenderer implements NodeRendererInterface
 {
