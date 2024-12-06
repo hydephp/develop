@@ -244,7 +244,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     protected function mockFilesystemFromClosure(Closure $config): void
     {
-        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem = Mockery::mock(Filesystem::class)->makePartial();
 
         $config($filesystem);
 
