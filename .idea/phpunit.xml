@@ -9,7 +9,7 @@
         <option value="$PROJECT_DIR$/packages/publications/tests" />
         <option value="$PROJECT_DIR$/packages/hyde/tests/Feature" />
         <option value="$PROJECT_DIR$/tests" />
-        <option value="$PROJECT_DIR$/packages/realtime-compiler/tests/Integration" />
+        <option value="$PROJECT_DIR$/packages/realtime-compiler/tests" />
       </list>
     </option>
   </component>
