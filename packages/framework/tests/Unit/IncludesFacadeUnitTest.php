@@ -41,6 +41,8 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function tearDown(): void
     {
         $this->verifyMockeryExpectations();
+
+        app()->forgetInstance(Filesystem::class);
     }
 
     public function testPathReturnsTheIncludesDirectory()
