@@ -135,7 +135,7 @@ class HtmlTestingSupportMetaTest extends UnitTestCase
 
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertContainsOnlyInstancesOf(TestableHtmlElement::class, $collection);
-        $this->assertSame(['Foo', 'Bar'], $collection->map->text->all());
+        $this->assertEquals(['Foo', 'Bar'], $collection->map->text->all());
     }
 
     public function testGetElementsByClassWithChildNodes()
