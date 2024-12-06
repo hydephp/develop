@@ -55,7 +55,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
     public function testCanUseMarkdownWithinBlockquote()
     {
         $this->assertSame(
-            <<<HTML
+            <<<'HTML'
             <blockquote class="info">
                 <p>foo <strong>bar</strong></p>
             </blockquote>
