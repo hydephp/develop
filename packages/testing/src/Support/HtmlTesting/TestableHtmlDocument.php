@@ -6,6 +6,7 @@ namespace Hyde\Testing\Support\HtmlTesting;
 
 use DOMElement;
 use DOMDocument;
+use DOMXPath;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\Assert as PHPUnit;
@@ -80,12 +81,11 @@ class TestableHtmlDocument
      */
     public function getElementsByClass(string $class): Collection
     {
-        $xpath = new \DOMXPath($this->document); // Use the existing DOMDocument
+        $xpath = new DOMXPath($this->document);
         $nodeList = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class ')]");
 
         $collection = collect();
         foreach ($nodeList as $node) {
-            // Ensure we are only adding DOMElement objects to the collection.
             if ($node instanceof DOMElement) {
                 $collection->push($this->parseNodeRecursive($node));
             }
