@@ -6,6 +6,7 @@ namespace Hyde\Testing\Support\HtmlTesting;
 
 use DOMElement;
 use DOMDocument;
+use DOMXPath;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Testing\Assert as PHPUnit;
@@ -80,21 +81,17 @@ class TestableHtmlDocument
      */
     public function getElementsByClass(string $class): Collection
     {
-        $matchingNodes = collect();
+        $xpath = new DOMXPath($this->document);
+        $nodeList = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class ')]");
 
-        $traverse = function (TestableHtmlElement $node) use (&$traverse, $class, &$matchingNodes): void {
-            if (in_array($class, $node->classes, true)) {
-                $matchingNodes->push($node);
+        $collection = collect();
+        foreach ($nodeList as $node) {
+            if ($node instanceof DOMElement) {
+                $collection->push($this->parseNodeRecursive($node));
             }
+        }
 
-            foreach ($node->nodes as $childNode) {
-                $traverse($childNode);
-            }
-        };
-
-        $traverse($this->getRootElement());
-
-        return $matchingNodes;
+        return $collection;
     }
 
     /**
