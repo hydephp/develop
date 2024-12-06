@@ -163,6 +163,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $expected = '<h1>default</h1>';
 
         $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
+            $filesystem->shouldReceive('glob')->andReturn([])->byDefault(); // Looking for media files
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(false);
         });
 
@@ -180,6 +181,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
             $content = '# foo bar';
             $filename = 'foo.md';
 
+            $filesystem->shouldReceive('glob')->andReturn([])->byDefault(); // Looking for media files
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
