@@ -80,21 +80,18 @@ class TestableHtmlDocument
      */
     public function getElementsByClass(string $class): Collection
     {
-        $matchingNodes = collect();
+        $xpath = new \DOMXPath($this->document); // Use the existing DOMDocument
+        $nodeList = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $class ')]");
 
-        $traverse = function (TestableHtmlElement $node) use (&$traverse, $class, &$matchingNodes): void {
-            if (in_array($class, $node->classes, true)) {
-                $matchingNodes->push($node);
+        $collection = collect();
+        foreach ($nodeList as $node) {
+            // Ensure we are only adding DOMElement objects to the collection.
+            if ($node instanceof DOMElement) {
+                $collection->push($this->parseNodeRecursive($node));
             }
+        }
 
-            foreach ($node->nodes as $childNode) {
-                $traverse($childNode);
-            }
-        };
-
-        $traverse($this->getRootElement());
-
-        return $matchingNodes;
+        return $collection;
     }
 
     /**
