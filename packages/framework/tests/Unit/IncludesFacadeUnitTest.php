@@ -243,7 +243,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function mockFilesystemFromClosure(Closure $config): void
     {
         $filesystem = Mockery::mock(Filesystem::class);
-        $filesystem->shouldReceive('missing')->andReturn(false)->byDefault();
+        $filesystem->shouldReceive('glob')->andReturn(false)->byDefault();
 
         $config($filesystem);
 
