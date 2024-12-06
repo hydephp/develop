@@ -9,10 +9,10 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/publications/src" isTestSource="false" packagePrefix="Hyde\Publications\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests" isTestSource="true" packagePrefix="Hyde\RealtimeCompiler\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests" isTestSource="true" packagePrefix="Hyde\Testing\" />
-      <sourceFolder url="file://$MODULE_DIR$/monorepo/DevTools/src" isTestSource="false" packagePrefix="Hyde\MonorepoDevTools\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/testing/src" isTestSource="false" packagePrefix="Hyde\Testing\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/src" isTestSource="false" packagePrefix="Hyde\UIKit\" />
@@ -20,7 +20,6 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/publications/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/packages/realtime-compiler/tests/Integration" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde/framework" />
       <excludeFolder url="file://$MODULE_DIR$/packages/realtime-compiler/vendor/hyde" />
