@@ -71,6 +71,52 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
         );
     }
 
+    /**
+     * @dataProvider blockquoteProvider
+     */
+    public function testItResolvesAllShortcodes(string $input, string $expectedOutput)
+    {
+        $this->assertSame($expectedOutput, ColoredBlockquotes::resolve($input));
+    }
+
+    public static function blockquoteProvider(): array
+    {
+        return [
+            [
+                '>danger This is a danger blockquote',
+                <<<'HTML'
+                <blockquote class="danger">
+                    <p>This is a danger blockquote</p>
+                </blockquote>
+                HTML,
+            ],
+            [
+                '>info This is an info blockquote',
+                <<<'HTML'
+                <blockquote class="info">
+                    <p>This is an info blockquote</p>
+                </blockquote>
+                HTML,
+            ],
+            [
+                '>success This is a success blockquote',
+                <<<'HTML'
+                <blockquote class="success">
+                    <p>This is a success blockquote</p>
+                </blockquote>
+                HTML,
+            ],
+            [
+                '>warning This is a warning blockquote',
+                <<<'HTML'
+                <blockquote class="warning">
+                    <p>This is a warning blockquote</p>
+                </blockquote>
+                HTML,
+            ],
+        ];
+    }
+
     // Todo: Extract trait for this and MarkdownHeadingRendererUnitTest
     protected function createRealBladeCompilerEnvironment(): void
     {
