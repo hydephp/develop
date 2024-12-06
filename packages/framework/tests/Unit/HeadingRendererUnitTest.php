@@ -8,14 +8,7 @@ use Hyde\Markdown\Processing\HeadingRenderer;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\UnitTestCase;
-use Illuminate\Contracts\View\Factory as FactoryContract;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\Compilers\BladeCompiler;
-use Illuminate\View\Engines\CompilerEngine;
-use Illuminate\View\Engines\EngineResolver;
-use Illuminate\View\Factory;
-use Illuminate\View\FileViewFinder;
+use Hyde\Testing\UsesRealBladeInUnitTests;
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
@@ -29,6 +22,8 @@ use Mockery;
  */
 class HeadingRendererUnitTest extends UnitTestCase
 {
+    use UsesRealBladeInUnitTests;
+
     protected static bool $needsConfig = true;
     protected static ?array $cachedConfig = null;
 
@@ -236,26 +231,6 @@ class HeadingRendererUnitTest extends UnitTestCase
         $html = '<p>Paragraph</p>';
 
         $this->assertSame('<p>Paragraph</p>', (new HeadingRenderer())->postProcess($html));
-    }
-
-    protected function createRealBladeCompilerEnvironment(): void
-    {
-        $resolver = new EngineResolver();
-        $filesystem = new Filesystem();
-
-        $resolver->register('blade', function () use ($filesystem) {
-            return new CompilerEngine(
-                new BladeCompiler($filesystem, sys_get_temp_dir())
-            );
-        });
-
-        $finder = new FileViewFinder($filesystem, [realpath(__DIR__.'/../../resources/views')]);
-        $finder->addNamespace('hyde', realpath(__DIR__.'/../../resources/views'));
-
-        $view = new Factory($resolver, $finder, new Dispatcher());
-
-        app()->instance('view', $view);
-        app()->instance(FactoryContract::class, $view);
     }
 
     protected function mockChildNodeRenderer(string $contents = 'Test Heading'): ChildNodeRendererInterface
