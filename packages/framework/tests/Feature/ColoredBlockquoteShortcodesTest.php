@@ -44,17 +44,22 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
 
     public function testResolveMethod()
     {
-        $this->assertSame(
-            '<blockquote class="info"><p>foo</p></blockquote>',
-            ColoredBlockquotes::resolve('>info foo')
+        $this->assertSame(<<<'HTML'
+            <blockquote class="info">
+                <p>foo</p>
+            </blockquote>
+            HTML, ColoredBlockquotes::resolve('>info foo')
         );
     }
 
     public function testCanUseMarkdownWithinBlockquote()
     {
         $this->assertSame(
-            '<blockquote class="info"><p>foo <strong>bar</strong></p></blockquote>',
-            ColoredBlockquotes::resolve('>info foo **bar**')
+            <<<HTML
+            <blockquote class="info">
+                <p>foo <strong>bar</strong></p>
+            </blockquote>
+            HTML, ColoredBlockquotes::resolve('>info foo **bar**')
         );
     }
 

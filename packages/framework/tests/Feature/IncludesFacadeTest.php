@@ -163,7 +163,9 @@ class IncludesFacadeTest extends TestCase
         $expected = <<<'HTML'
         <h1>Heading</h1>
         <p>This is a paragraph. It has some <strong>bold</strong> and <em>italic</em> text.</p>
-        <blockquote class="info"><p>Info Blockquote</p></blockquote>
+        <blockquote class="info">
+            <p>Info Blockquote</p>
+        </blockquote>
         <pre><code class="language-php"><small class="relative float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block top-0 right-0"><span class="sr-only">Filepath: </span>hello.php</small>echo 'Hello, World!';
         </code></pre>
         <h2>Subheading</h2>
