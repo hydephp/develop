@@ -41,6 +41,8 @@ class IncludesFacadeUnitTest extends UnitTestCase
     protected function tearDown(): void
     {
         $this->verifyMockeryExpectations();
+
+        app()->forgetInstance(Filesystem::class);
     }
 
     public function testPathReturnsTheIncludesDirectory()
@@ -145,8 +147,6 @@ class IncludesFacadeUnitTest extends UnitTestCase
         $this->mockFilesystemFromClosure(function ($filesystem) use ($filename) {
             $content = '# foo bar';
 
-            $filesystem->shouldReceive('glob')->andReturn([])->byDefault(); // Looking for media files
-
             $filesystem->shouldReceive('exists')->with($this->includesPath($filename))->andReturn(true);
             $filesystem->shouldReceive('get')->with($this->includesPath($filename))->andReturn($content);
         });
@@ -242,7 +242,7 @@ class IncludesFacadeUnitTest extends UnitTestCase
 
     protected function mockFilesystemFromClosure(Closure $config): void
     {
-        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem = Mockery::mock(Filesystem::class)->makePartial();
 
         $config($filesystem);
 

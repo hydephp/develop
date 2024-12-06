@@ -12,7 +12,6 @@
 */
 
 @import 'hydefront/components/torchlight.css';
-@import 'hydefront/components/blockquotes.css';
 
 @tailwind base;
 @tailwind components;

@@ -67,29 +67,10 @@ coloured blockquotes. Simply append the desired colour after the initial `>` cha
 
 ### Customizations
 
-You can easily customize these styles too by adding and editing the following in your `resources/app.css` file, and then recompiling your site styles.
-The code examples here use the Tailwind `@apply` directives, but you could also use `border-color: something;` just as well.
+You can easily customize these styles by publishing and editing the `markdown-blockquote.blade.php` file.
 
-```css
-/* filepath resources/app.css
-
-/* Markdown Features */
-
-.prose blockquote.info {
-    @apply border-blue-500;
-}
-
-.prose blockquote.success {
-    @apply border-green-500;
-}
-
-.prose blockquote.warning {
-    @apply border-amber-500;
-}
-
-.prose blockquote.danger {
-    @apply border-red-600;
-}
+```bash
+php hyde publish:views components
 ```
 
 ### Markdown usage
