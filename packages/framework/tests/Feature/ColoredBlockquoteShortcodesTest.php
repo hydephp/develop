@@ -66,6 +66,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
         );
     }
 
+    // Todo: Extract trait for this and MarkdownHeadingRendererUnitTest
     protected function createRealBladeCompilerEnvironment(): void
     {
         $resolver = new EngineResolver();
