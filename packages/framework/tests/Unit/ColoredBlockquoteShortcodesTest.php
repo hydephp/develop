@@ -40,7 +40,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
     public function testResolveMethod()
     {
         $this->assertSame(<<<'HTML'
-            <blockquote class="info">
+            <blockquote class="border-blue-500">
                 <p>foo</p>
             </blockquote>
             HTML, ColoredBlockquotes::resolve('>info foo')
@@ -51,7 +51,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
     {
         $this->assertSame(
             <<<'HTML'
-            <blockquote class="info">
+            <blockquote class="border-blue-500">
                 <p>foo <strong>bar</strong></p>
             </blockquote>
             HTML, ColoredBlockquotes::resolve('>info foo **bar**')
@@ -80,7 +80,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
             [
                 '>danger This is a danger blockquote',
                 <<<'HTML'
-                <blockquote class="danger">
+                <blockquote class="border-red-600">
                     <p>This is a danger blockquote</p>
                 </blockquote>
                 HTML,
@@ -88,7 +88,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
             [
                 '>info This is an info blockquote',
                 <<<'HTML'
-                <blockquote class="info">
+                <blockquote class="border-blue-500">
                     <p>This is an info blockquote</p>
                 </blockquote>
                 HTML,
@@ -96,7 +96,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
             [
                 '>success This is a success blockquote',
                 <<<'HTML'
-                <blockquote class="success">
+                <blockquote class="border-green-500">
                     <p>This is a success blockquote</p>
                 </blockquote>
                 HTML,
@@ -104,7 +104,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
             [
                 '>warning This is a warning blockquote',
                 <<<'HTML'
-                <blockquote class="warning">
+                <blockquote class="border-amber-500">
                     <p>This is a warning blockquote</p>
                 </blockquote>
                 HTML,

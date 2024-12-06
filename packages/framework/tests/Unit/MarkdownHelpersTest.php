@@ -129,7 +129,7 @@ class MarkdownHelpersTest extends TestCase
 
         $this->assertSame(<<<'HTML'
         <h1>Hello World</h1>
-        <blockquote class="info">
+        <blockquote class="border-blue-500">
             <p>Colored blockquote</p>
         </blockquote>
         <p><a href="index.html">Home</a></p>

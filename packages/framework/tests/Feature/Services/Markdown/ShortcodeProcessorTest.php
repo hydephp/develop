@@ -38,7 +38,7 @@ class ShortcodeProcessorTest extends UnitTestCase
         $processor = new ShortcodeProcessor('>info foo');
 
         $this->assertSame(<<<'HTML'
-        <blockquote class="info">
+        <blockquote class="border-blue-500">
             <p>foo</p>
         </blockquote>
         HTML, $processor->run());
@@ -55,7 +55,7 @@ class ShortcodeProcessorTest extends UnitTestCase
     {
         $this->assertSame(
             <<<'HTML'
-            <blockquote class="info">
+            <blockquote class="border-blue-500">
                 <p>foo</p>
             </blockquote>
             HTML, ShortcodeProcessor::preprocess('>info foo')
