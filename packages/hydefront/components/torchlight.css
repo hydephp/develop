@@ -1,3 +1,8 @@
+/*
+ * This file contains the default styles for the Torchlight syntax highlighter.
+ * You can easily include this file through your resources/assets/app.css file.
+ */
+
 pre code.torchlight .line-number, pre code.torchlight .summary-caret {
     @apply mr-4;
 }
