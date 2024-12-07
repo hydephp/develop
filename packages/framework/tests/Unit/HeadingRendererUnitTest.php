@@ -273,6 +273,11 @@ class HeadingRendererUnitTest extends UnitTestCase
             ['hello_world', 'hello-world'],
             ['user@host', 'user-at-host'],
             ['', ''],
+            ['Introduction', 'introduction'],
+            ['Getting Started', 'getting-started'],
+            ['Installation Guide', 'installation-guide'],
+            ['API Reference', 'api-reference'],
+            ['Frequently Asked Questions', 'frequently-asked-questions'],
         ];
     }
 }
