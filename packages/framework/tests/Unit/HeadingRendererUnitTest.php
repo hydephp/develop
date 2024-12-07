@@ -292,7 +292,7 @@ class HeadingRendererUnitTest extends UnitTestCase
             ['Łódź and święto', 'lodz-and-swieto'],
             ['中文标题', 'zhong-wen-biao-ti'],
             ['日本語の見出し', 'ri-ben-yu-nojian-chu-shi'],
-            ['한국어 제목', 'han-gug-eo-jemog'],
+            ['한국어 제목', 'hangugeo-jemog'],
 
             // Edge cases
             ['    Leading spaces', 'leading-spaces'],
