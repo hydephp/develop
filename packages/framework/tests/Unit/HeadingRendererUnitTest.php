@@ -234,13 +234,12 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame('<p>Paragraph</p>', (new HeadingRenderer())->postProcess($html));
     }
 
-    public function testHeadingIdentifierGeneration()
+    /**
+     * @dataProvider headingIdentifierProvider
+     */
+    public function testHeadingIdentifierGeneration($input, $expected)
     {
-        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello world'));
-        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello-world'));
-        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello_world'));
-        $this->assertSame('user-at-host', HeadingRenderer::makeIdentifier('user@host'));
-        $this->assertSame('', HeadingRenderer::makeIdentifier(''));
+        $this->assertSame($expected, HeadingRenderer::makeIdentifier($input));
     }
 
     protected function mockChildNodeRenderer(string $contents = 'Test Heading'): ChildNodeRendererInterface
@@ -264,5 +263,16 @@ class HeadingRendererUnitTest extends UnitTestCase
                 $this->assertStringNotContainsString('heading-permalink', $rendered);
             }
         }
+    }
+
+    public static function headingIdentifierProvider(): array
+    {
+        return [
+            ['hello world', 'hello-world'],
+            ['hello-world', 'hello-world'],
+            ['hello_world', 'hello-world'],
+            ['user@host', 'user-at-host'],
+            ['', ''],
+        ];
     }
 }
