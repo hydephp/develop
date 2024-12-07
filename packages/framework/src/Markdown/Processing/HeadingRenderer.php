@@ -71,7 +71,7 @@ class HeadingRenderer implements NodeRendererInterface
 
     protected function makeHeadingId(string $contents): string
     {
-        $identifier = $this->ensureIdentifierIsUnique(Str::slug($contents));
+        $identifier = $this->ensureIdentifierIsUnique(static::makeIdentifier($contents));
 
         $this->headingRegistry[] = $identifier;
 
@@ -88,5 +88,11 @@ class HeadingRenderer implements NodeRendererInterface
         }
 
         return $identifier;
+    }
+
+    /** @internal */
+    public static function makeIdentifier(string $title): string
+    {
+        return e(Str::slug(Str::transliterate(html_entity_decode($title)), dictionary: ['@' => 'at', '&' => 'and', '<' => '', '>' => '']));
     }
 }

@@ -183,9 +183,8 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertStringContainsString('Heading with &amp; special &lt; &gt; &quot;characters&quot;', $html);
         $this->assertStringContainsString('Heading with émojis 🎉', $html);
 
-        // Todo: Try to normalize to heading-with-special-characters?
         $this->assertSame(<<<'HTML'
-        <h2 id="heading-with-amp-special-lt-gt-quotcharactersquot" class="group w-fit scroll-mt-2">Heading with &amp; special &lt; &gt; &quot;characters&quot;<a href="#heading-with-amp-special-lt-gt-quotcharactersquot" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
+        <h2 id="heading-with-and-special-characters" class="group w-fit scroll-mt-2">Heading with &amp; special &lt; &gt; &quot;characters&quot;<a href="#heading-with-and-special-characters" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
         <h3 id="heading-with-emojis" class="group w-fit scroll-mt-2">Heading with émojis 🎉<a href="#heading-with-emojis" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
 
         HTML, $html);

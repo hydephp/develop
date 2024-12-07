@@ -25,6 +25,7 @@ class HeadingRendererUnitTest extends UnitTestCase
     use UsesRealBladeInUnitTests;
 
     protected static bool $needsConfig = true;
+    protected static bool $needsKernel = true;
     protected static ?array $cachedConfig = null;
 
     protected function setUp(): void
@@ -233,6 +234,23 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame('<p>Paragraph</p>', (new HeadingRenderer())->postProcess($html));
     }
 
+    /**
+     * @dataProvider headingIdentifierProvider
+     */
+    public function testHeadingIdentifierGeneration($input, $expected)
+    {
+        $this->assertSame($expected, HeadingRenderer::makeIdentifier($input));
+    }
+
+    /**
+     * @dataProvider headingIdentifierProvider
+     */
+    public function testHeadingIdentifierGenerationWithEscapedInput($input, $expected)
+    {
+        $this->assertSame(HeadingRenderer::makeIdentifier($input), HeadingRenderer::makeIdentifier(e($input)));
+        $this->assertSame($expected, HeadingRenderer::makeIdentifier(e($input)));
+    }
+
     protected function mockChildNodeRenderer(string $contents = 'Test Heading'): ChildNodeRendererInterface
     {
         $childRenderer = Mockery::mock(ChildNodeRendererInterface::class);
@@ -254,5 +272,45 @@ class HeadingRendererUnitTest extends UnitTestCase
                 $this->assertStringNotContainsString('heading-permalink', $rendered);
             }
         }
+    }
+
+    public static function headingIdentifierProvider(): array
+    {
+        return [
+            // Basic cases
+            ['Hello World', 'hello-world'],
+            ['Simple Heading', 'simple-heading'],
+            ['Heading With Numbers 123', 'heading-with-numbers-123'],
+
+            // Special characters
+            ['Heading with & symbol', 'heading-with-and-symbol'],
+            ['Heading with < > symbols', 'heading-with-symbols'],
+            ['Heading with "quotes"', 'heading-with-quotes'],
+            ['Heading with / and \\', 'heading-with-and'],
+            ['Heading with punctuation!?!', 'heading-with-punctuation'],
+            ['Hyphenated-heading-name', 'hyphenated-heading-name'],
+
+            // Emojis
+            ['Heading with emoji 🎉', 'heading-with-emoji'],
+            ['Another emoji 🤔 test', 'another-emoji-test'],
+            ['Multiple emojis 🎉🤔✨', 'multiple-emojis'],
+
+            // Accented and non-ASCII characters
+            ['Accented é character', 'accented-e-character'],
+            ['Café Crème', 'cafe-creme'],
+            ['Łódź and święto', 'lodz-and-swieto'],
+            ['中文标题', 'zhong-wen-biao-ti'],
+            ['日本語の見出し', 'ri-ben-yu-nojian-chu-shi'],
+            ['한국어 제목', 'hangugeo-jemog'],
+
+            // Edge cases
+            ['    Leading spaces', 'leading-spaces'],
+            ['Trailing spaces    ', 'trailing-spaces'],
+            ['  Surrounded by spaces  ', 'surrounded-by-spaces'],
+            ['----', ''],
+            ['%%%%%%%', ''],
+            ['    ', ''],
+            ['1234567890', '1234567890'],
+        ];
     }
 }
