@@ -14,7 +14,6 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use Mockery;
-use PHPUnit\Framework\Attributes\TestWith;
 
 /**
  * @covers \Hyde\Markdown\Processing\HeadingRenderer
@@ -235,14 +234,13 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame('<p>Paragraph</p>', (new HeadingRenderer())->postProcess($html));
     }
 
-    #[TestWith(['hello world', 'hello-world'])]
-    #[TestWith(['hello-world', 'hello-world'])]
-    #[TestWith(['hello_world', 'hello-world'])]
-    #[TestWith(['user@host', 'user-at-host'])]
-    #[TestWith(['', ''])]
-    public function testHeadingIdentifierGeneration(string $input, string $expected): void
+    public function testHeadingIdentifierGeneration()
     {
-        $this->assertSame($expected, HeadingRenderer::makeIdentifier($input));
+        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello world'));
+        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello-world'));
+        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello_world'));
+        $this->assertSame('user-at-host', HeadingRenderer::makeIdentifier('user@host'));
+        $this->assertSame('', HeadingRenderer::makeIdentifier(''));
     }
 
     protected function mockChildNodeRenderer(string $contents = 'Test Heading'): ChildNodeRendererInterface
