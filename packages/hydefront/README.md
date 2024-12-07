@@ -33,8 +33,9 @@ HydeFront is not intended to be used for standalone projects and comes with no w
 
 Changes in HydeFront are tied to those in the Hyde Framework and differing versions may be incompatible.
 
-| Hyde Version | Version | Supported          | Notes                   |
-|:-------------|---------|--------------------|-------------------------|
-| 1.x LTS      | 3.x     | :white_check_mark: | Latest                  |
-| 0.x Beta     | 2.x     | :x:                | Unsupported             |
-| 0.x Alpha    | 1.x     | :x:                | Unsupported             |
+| Hyde Version | Version | Supported          | Notes       |
+|:-------------|---------|--------------------|-------------|
+| 2.x          | 4.x     | :white_check_mark: | Latest      |
+| 1.x LTS      | 3.x     | :white_check_mark: | LTS Support |
+| 0.x Beta     | 2.x     | :x:                | Unsupported |
+| 0.x Alpha    | 1.x     | :x:                | Unsupported |
