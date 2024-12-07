@@ -6,7 +6,7 @@ namespace Hyde\Framework\Actions;
 
 use Hyde\Facades\Config;
 use Hyde\Markdown\Models\Markdown;
-use Illuminate\Support\Str;
+use Hyde\Markdown\Processing\HeadingRenderer;
 
 /**
  * Generates a nested table of contents from Markdown headings.
@@ -117,7 +117,7 @@ class GeneratesTableOfContents
         return [
             'level' => $headingData['level'],
             'title' => $headingData['title'],
-            'slug' => Str::slug($headingData['title']),
+            'slug' => HeadingRenderer::makeIdentifier($headingData['title']),
         ];
     }
 
