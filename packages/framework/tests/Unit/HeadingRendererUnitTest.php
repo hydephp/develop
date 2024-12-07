@@ -275,7 +275,7 @@ class HeadingRendererUnitTest extends UnitTestCase
 
             // Special characters
             ['Heading with & symbol', 'heading-with-and-symbol'],
-            ['Heading with < > symbols', 'heading-with-lt-gt-symbols'],
+            ['Heading with < > symbols', 'heading-with-symbols'],
             ['Heading with "quotes"', 'heading-with-quot-quotes'],
             ['Heading with / and \\', 'heading-with-and'],
             ['Heading with punctuation!?!', 'heading-with-punctuation'],
