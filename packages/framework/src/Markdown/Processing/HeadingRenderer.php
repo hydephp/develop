@@ -93,11 +93,11 @@ class HeadingRenderer implements NodeRendererInterface
     /** @internal */
     public static function makeIdentifier(string $title): string
     {
-        return Str::slug(Str::transliterate($title), dictionary: [
+        return e(Str::slug(Str::transliterate(html_entity_decode($title)), dictionary: [
             '@' => 'at',
             '&' => 'and',
             '<' => '',
             '>' => '',
-        ]);
+        ]));
     }
 }
