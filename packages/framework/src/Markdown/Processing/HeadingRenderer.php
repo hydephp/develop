@@ -90,7 +90,8 @@ class HeadingRenderer implements NodeRendererInterface
         return $identifier;
     }
 
-    protected static function makeIdentifier(string $title): string
+    /** @internal */
+    public static function makeIdentifier(string $title): string
     {
         return Str::slug($title);
     }
