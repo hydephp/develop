@@ -25,6 +25,7 @@ class HeadingRendererUnitTest extends UnitTestCase
     use UsesRealBladeInUnitTests;
 
     protected static bool $needsConfig = true;
+    protected static bool $needsKernel = true;
     protected static ?array $cachedConfig = null;
 
     protected function setUp(): void
