@@ -307,10 +307,10 @@ class HeadingRendererUnitTest extends UnitTestCase
             ['    Leading spaces', 'leading-spaces'],
             ['Trailing spaces    ', 'trailing-spaces'],
             ['  Surrounded by spaces  ', 'surrounded-by-spaces'],
-            ['----', ''], // All hyphens
-            ['%%%%%%%', ''], // All special characters
-            ['    ', ''], // Empty after trimming
-            ['1234567890', '1234567890'], // Numbers only
+            ['----', ''],
+            ['%%%%%%%', ''],
+            ['    ', ''],
+            ['1234567890', '1234567890'],
         ];
     }
 }
