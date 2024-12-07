@@ -95,6 +95,7 @@ class HeadingRenderer implements NodeRendererInterface
     {
         return Str::slug(Str::transliterate($title), dictionary: [
             '@' => 'at',
+            '&' => 'and',
         ]);
     }
 }
