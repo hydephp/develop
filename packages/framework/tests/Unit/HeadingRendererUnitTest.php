@@ -268,28 +268,39 @@ class HeadingRendererUnitTest extends UnitTestCase
     public static function headingIdentifierProvider(): array
     {
         return [
-            ['hello world', 'hello-world'],
-            ['hello-world', 'hello-world'],
-            ['hello_world', 'hello-world'],
-            ['user@host', 'user-at-host'],
-            ['', ''],
-            ['Introduction', 'introduction'],
-            ['Getting Started', 'getting-started'],
-            ['Installation Guide', 'installation-guide'],
-            ['API Reference', 'api-reference'],
-            ['Frequently Asked Questions', 'frequently-asked-questions'],
-            ['123 heading', '123-heading'],
-            ['heading with multiple spaces', 'heading-with-multiple-spaces'],
-            ['heading_with_underscores_and-dashes', 'heading-with-underscores-and-dashes'],
-            ['heading with special characters !@#$', 'heading-with-special-characters-at'],
-            ['heading with numbers 123', 'heading-with-numbers-123'],
-            ['UPPERCASE HEADING', 'uppercase-heading'],
-            ['heading with emoji 😊', 'heading-with-emoji'],
-            ['heading with mixed CASE and 123 numbers', 'heading-with-mixed-case-and-123-numbers'],
-            ['heading with punctuation, commas, and periods.', 'heading-with-punctuation-commas-and-periods'],
-            ['heading with quotes "double" and \'single\'', 'heading-with-quotes-double-and-single'],
-            ['heading with slashes / and \\', 'heading-with-slashes-and'],
-            ['heading with parentheses (and brackets) [and braces] {and more}', 'heading-with-parentheses-and-brackets-and-braces-and-more'],
+            // Basic cases
+            ['Hello World', 'hello-world'],
+            ['Simple Heading', 'simple-heading'],
+            ['Heading With Numbers 123', 'heading-with-numbers-123'],
+
+            // Special characters
+            ['Heading with & symbol', 'heading-with-amp-symbol'],
+            ['Heading with < > symbols', 'heading-with-lt-gt-symbols'],
+            ['Heading with "quotes"', 'heading-with-quot-quotes'],
+            ['Heading with / and \\', 'heading-with-and'],
+            ['Heading with punctuation!?!', 'heading-with-punctuation'],
+            ['Hyphenated-heading-name', 'hyphenated-heading-name'],
+
+            // Emojis
+            ['Heading with emoji 🎉', 'heading-with-emoji'],
+            ['Another emoji 🤔 test', 'another-emoji-test'],
+            ['Multiple emojis 🎉🤔✨', 'multiple-emojis'],
+
+            // Accented and non-ASCII characters
+            ['Accented é character', 'accented-e-character'],
+            ['Café Crème', 'cafe-creme'],
+            ['Łódź and święto', 'lodz-and-swieto'],
+            ['中文标题', ''],
+            ['日本語の見出し', ''],
+
+            // Edge cases
+            ['    Leading spaces', 'leading-spaces'],
+            ['Trailing spaces    ', 'trailing-spaces'],
+            ['  Surrounded by spaces  ', 'surrounded-by-spaces'],
+            ['----', ''], // All hyphens
+            ['%%%%%%%', ''], // All special characters
+            ['    ', ''], // Empty after trimming
+            ['1234567890', '1234567890'], // Numbers only
         ];
     }
 }
