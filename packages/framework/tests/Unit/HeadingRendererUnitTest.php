@@ -234,6 +234,15 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame('<p>Paragraph</p>', (new HeadingRenderer())->postProcess($html));
     }
 
+    public function testHeadingIdentifierGeneration()
+    {
+        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello world'));
+        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello-world'));
+        $this->assertSame('hello-world', HeadingRenderer::makeIdentifier('hello_world'));
+        $this->assertSame('user-at-host', HeadingRenderer::makeIdentifier('user@host'));
+        $this->assertSame('', HeadingRenderer::makeIdentifier(''));
+    }
+
     protected function mockChildNodeRenderer(string $contents = 'Test Heading'): ChildNodeRendererInterface
     {
         $childRenderer = Mockery::mock(ChildNodeRendererInterface::class);
