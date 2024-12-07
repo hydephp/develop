@@ -242,6 +242,15 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame($expected, HeadingRenderer::makeIdentifier($input));
     }
 
+    /**
+     * @dataProvider headingIdentifierProvider
+     */
+    public function testHeadingIdentifierGenerationWithEscapedInput($input, $expected)
+    {
+        $this->assertSame(HeadingRenderer::makeIdentifier($input), HeadingRenderer::makeIdentifier(e($input)));
+        $this->assertSame($expected, HeadingRenderer::makeIdentifier(e($input)));
+    }
+
     protected function mockChildNodeRenderer(string $contents = 'Test Heading'): ChildNodeRendererInterface
     {
         $childRenderer = Mockery::mock(ChildNodeRendererInterface::class);
