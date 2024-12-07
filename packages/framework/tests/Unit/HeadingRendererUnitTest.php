@@ -290,8 +290,8 @@ class HeadingRendererUnitTest extends UnitTestCase
             ['Accented é character', 'accented-e-character'],
             ['Café Crème', 'cafe-creme'],
             ['Łódź and święto', 'lodz-and-swieto'],
-            ['中文标题', ''],
-            ['日本語の見出し', ''],
+            ['中文标题', 'zhong-wen-biao-ti'],
+            ['日本語の見出し', 'ri-ben-yu-nojian-chu-si'],
 
             // Edge cases
             ['    Leading spaces', 'leading-spaces'],
