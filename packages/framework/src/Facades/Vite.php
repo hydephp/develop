@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Illuminate\Support\HtmlString;
+use InvalidArgumentException;
 
 /**
  * Vite facade for handling Vite-related operations.
@@ -33,6 +34,7 @@ class Vite
         return new HtmlString($html);
     }
 
+    /** @throws InvalidArgumentException If the asset type is not supported. */
     protected static function formatAssetPath(string $path): string
     {
         if (static::isCssPath($path)) {
@@ -43,7 +45,8 @@ class Vite
             return static::formatScriptInclude($path);
         }
 
-        return ''; // TODO: Throw an exception?
+        // We don't know how to handle other asset types, so we throw an exception to let the user know.
+        throw new InvalidArgumentException("Unsupported asset type for path: '$path'");
     }
 
     protected static function checkIfViteWasEnabledViaTheServeCommand(): bool

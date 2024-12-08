@@ -8,6 +8,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Facades\Vite;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Illuminate\Support\HtmlString;
+use InvalidArgumentException;
 
 /**
  * @covers \Hyde\Facades\Vite
@@ -70,9 +71,20 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertStringContainsString('<script src="http://localhost:5173/@vite/client" type="module"></script>', (string) $html);
     }
 
-    public function testItDoesNotIncludeUnknownExtensions()
+    public function testAssetMethodThrowsExceptionForUnknownExtensions()
     {
-        $this->assertSame((string) Vite::assets([]), (string) Vite::assets(['foo.txt']));
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unsupported asset type for path: 'foo.txt'");
+
+        Vite::asset('foo.txt');
+    }
+
+    public function testAssetsMethodThrowsExceptionForUnknownExtensions()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unsupported asset type for path: 'foo.txt'");
+
+        Vite::assets(['foo.txt']);
     }
 
     public function testAssetsMethodReturnsHtmlString()
@@ -151,15 +163,6 @@ class ViteFacadeTest extends UnitTestCase
         $html = Vite::asset('resources/css/app.css');
 
         $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.css">';
-
-        $this->assertSame($expected, (string) $html);
-    }
-
-    public function testAssetMethodDoesNotIncludeUnknownExtensions()
-    {
-        $html = Vite::asset('unknown.ext');
-
-        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script>';
 
         $this->assertSame($expected, (string) $html);
     }
