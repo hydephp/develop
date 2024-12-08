@@ -117,12 +117,6 @@ When running the `npm run dev/prod` command, Vite will compile the `resources/as
 
 The compiled assets will then be automatically copied to `_site/media` when you run `php hyde build`.
 
-### Customizing HydeFront Components
-
-HydeFront components are modular and can be easily customized to fit your needs.
-
-You can either remove the import of the component you want to customize and replace it with your own styles, or keep the import and add overriding styles after it (since CSS cascade order matters).
-
 ## Telling Hyde where to find assets
 
 ### Customizing the Blade templates
