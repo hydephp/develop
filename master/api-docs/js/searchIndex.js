@@ -4448,7 +4448,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Hyde\\Framework\\Services\\MarkdownService\u003A\u003AnormalizeIndentationLevel\u0028\u0029",
             "name": "normalizeIndentationLevel",
-            "summary": "Normalize\u0020indentation\u0020for\u0020an\u0020un\u002Dcompiled\u0020Markdown\u0020string.",
+            "summary": "Normalize\u0020indentation\u0020for\u0020an\u0020un\u002Dcompiled\u0020Markdown\u0020string",
             "url": "classes/Hyde-Framework-Services-MarkdownService.html#method_normalizeIndentationLevel"
         },                {
             "fqsen": "\\Hyde\\Framework\\Services\\MarkdownService\u003A\u003AgetNormalizedLines\u0028\u0029",
