@@ -42,7 +42,7 @@ class Vite
 
     protected static function isCssPath(string $path): bool
     {
-        return str_ends_with($path, '.css');
+        return preg_match('/\.(css|less|sass|scss|styl|stylus|pcss|postcss)$/', $path) === 1;
     }
 
     protected static function isJsPath(string $path): bool

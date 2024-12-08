@@ -98,4 +98,21 @@ class ViteFacadeTest extends UnitTestCase
 
         $this->assertSame($expected, (string) $html);
     }
+
+    /**
+     * @dataProvider cssFileExtensions
+     */
+    public function testAssetsMethodSupportsAllCssFileExtensions(string $extension)
+    {
+        $html = Vite::assets(["resources/css/app.$extension"]);
+
+        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.'.$extension.'">';
+
+        $this->assertSame($expected, (string) $html);
+    }
+
+    public static function cssFileExtensions(): array
+    {
+        return array_map(fn (string $ext): array => [$ext], ['css', 'less', 'sass', 'scss', 'styl', 'stylus', 'pcss', 'postcss']);
+    }
 }
