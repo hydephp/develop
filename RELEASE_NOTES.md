@@ -571,8 +571,8 @@ See https://github.com/hydephp/develop/pull/2045 for more information.
 The likelihood of impact is low, but if any of the following are true, you may need to update your code:
 
 - If you have used the `Hyde\Framework\Actions\GeneratesTableOfContents` class in custom code, you will likely need to update that code for the rewritten class.
-- If you have called the `getTableOfContents` method of the `DocumentationPage` class in custom code, you will need to update that usage as the that method has been removed.
 - If you have published the `resources/views/components/docs/sidebar-item.blade.php` component, you will need to update it to call the new component instead of the old generator rendering.
+- If you have called the `getTableOfContents` method of the `DocumentationPage` class in custom code, you will need to update that usage as the that method has been removed.
 
 #### Changes
 - Adds a new `resources/views/components/docs/table-of-contents.blade.php` component containing the structure and styles for the table of contents
