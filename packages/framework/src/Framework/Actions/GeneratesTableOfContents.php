@@ -41,11 +41,9 @@ class GeneratesTableOfContents
         foreach ($matches[0] as $index => $heading) {
             $headingData = $this->parseHeadingData($heading, $matches, $index);
 
-            if ($headingData === null) {
-                continue;
+            if ($headingData !== null) {
+                $headings[] = $this->createHeadingEntry($headingData);
             }
-
-            $headings[] = $this->createHeadingEntry($headingData);
         }
 
         return $headings;
