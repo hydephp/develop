@@ -24,6 +24,8 @@ use function trim;
 
 /**
  * Resolves file path comments found in Markdown code blocks into a neat badge shown in the top right corner.
+ *
+ * @todo See about replacing this with a custom Codeblock Blade view that can be customized, even supporting click to copy buttons or arbitrary other features.
  */
 class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, MarkdownPostProcessorContract
 {
