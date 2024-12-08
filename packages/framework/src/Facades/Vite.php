@@ -13,7 +13,7 @@ class Vite
 {
     public static function running(): bool
     {
-        return self::checkIfViteWasEnabledViaTheServeCommand() || Filesystem::exists('app/storage/framework/cache/vite.hot');
+        return static::checkIfViteWasEnabledViaTheServeCommand() || Filesystem::exists('app/storage/framework/cache/vite.hot');
     }
 
     /** @param array<string> $paths */
@@ -30,11 +30,11 @@ class Vite
 
     protected static function formatAssetPath(string $path): string
     {
-        if (self::isCssPath($path)) {
+        if (static::isCssPath($path)) {
             return static::formatStylesheetLink($path);
         }
 
-        if (self::isJsPath($path)) {
+        if (static::isJsPath($path)) {
             return static::formatScriptInclude($path);
         }
 
