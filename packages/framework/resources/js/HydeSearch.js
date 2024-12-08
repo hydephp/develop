@@ -1,3 +1,14 @@
+/**
+ * This file provides support for the Alpine.js search component.
+ *
+ * It's automatically loaded by the hyde-search.blade.php component.
+ *
+ * It can be replaced by a custom implementation, at the developer's own risk,
+ * by providing a new compatible implementation in ./resources/js/HydeSearch.js.
+ *
+ * @param {string} searchIndexUrl
+ * @returns {Object}
+ */
 function initHydeSearch(searchIndexUrl) {
     return {
         searchIndex: [],
