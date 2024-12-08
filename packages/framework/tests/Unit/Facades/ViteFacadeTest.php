@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit\Facades;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Facades\Vite;
 use Hyde\Testing\CreatesTemporaryFiles;
+use Illuminate\Support\HtmlString;
 
 /**
  * @covers \Hyde\Facades\Vite
@@ -76,6 +77,6 @@ class ViteFacadeTest extends UnitTestCase
 
     public function testAssetsMethodReturnsHtmlString()
     {
-        $this->assertInstanceOf(\Illuminate\Support\HtmlString::class, Vite::assets([]));
+        $this->assertInstanceOf(HtmlString::class, Vite::assets([]));
     }
 }
