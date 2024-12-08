@@ -507,6 +507,57 @@ Hyperlinks::isRemote($source);
 
 This change was implemented in https://github.com/hydephp/develop/pull/1883. Make sure to update any instances of `FeaturedImage::isRemote()` in your codebase to ensure compatibility with HydePHP v2.0.
 
+## New Asset System
+
+### Abstract
+
+The new asset system is a complete rewrite of the HydeFront asset handling system, replacing Laravel Mix with Vite, and favouring Blade-based components with Tailwind classes over CSS partials and custom stylesheets.
+
+### Enhancements
+
+- **Replaced Laravel Mix with Vite for frontend asset compilation.** ([#2010], [#2011], [#2012], [#2013], [#2016], [#2021])
+    - Bundled assets are now compiled directly into the `_media` folder.
+    - The realtime compiler now only serves assets from the media source directory (`_media`).
+    - Added a new `npm run build` command for compiling frontend assets with Vite.
+    - Added Vite facade for Blade templates.
+    - Added Vite Hot Module Replacement (HMR) support to the realtime compiler.
+    - Build command now uses Vite to compile assets when the `--run-vite` flag is passed.
+
+- **Improved HydeFront integration.** ([#2024], [#2029], [#2031], [#2036], [#2037], [#2038], [#2039])
+    - HydeFront styles are now refactored into Tailwind.
+    - HydeFront now acts as a component library with granular Tailwind styles in `app.css`.
+    - HydeSearch plugin ported to Alpine.js, improving performance and customizability.
+    - Normalized Tailwind Typography Prose code block styles to match Torchlight.
+    - Extracted CSS component partials in HydeFront.
+    - Removed `hyde.css` from HydeFront, as all styles are now included in `app.css`.
+
+- **Implemented a custom Blade-based heading renderer for Markdown.** ([#2047], [#2052])
+    - Improves permalink handling and customization options.
+    - `id` attributes for heading permalinks have been moved from the anchor to the heading element.
+- **Colored Markdown blockquotes are now rendered using Blade and Tailwind CSS.** ([#2056])
+- The `app.js` file will now only be compiled if it has scripts. ([#2028])
+
+
+### Breaking Changes
+
+- Replaced Laravel Mix with Vite. ([#2010])
+    - You must now use `npm run build` to compile your assets, instead of `npm run prod`.
+- Removed `--run-dev` and `--run-prod` build command flags, replaced by `--run-vite`. ([#2013])
+- Removed `DocumentationPage::getTableOfContents()` method. Table of contents are now generated using a Blade component. ([#2045])
+- Removed `hyde.css` from HydeFront, requiring recompilation of assets if you were extending it. ([#2037])
+- Changed how HydeFront is included in projects.  Instead of separate `hyde.css` and `app.css`, all styles are now in `app.css`. ([#2024])
+
+
+### Removals
+
+- Removed Laravel Mix as a dependency. ([#2010])
+- Removed `npm run prod` command. ([#2010])
+- Removed CDN include for HydeSearch plugin. ([#2029])
+- Removed the `<x-hyde::docs.search-input />` and `<x-hyde::docs.search-scripts />` Blade components, replaced by `<x-hyde::docs.hyde-search />`. ([#2029])
+- Removed the `.torchlight-enabled` CSS class. ([#2036])
+- Removed the `MarkdownService::withPermalinks` and `MarkdownService::canEnablePermalinks` methods. ([#2047])
+
+
 ### Blade-based table of contents generator
 
 The way we generate table of contents for documentation pages have been changed from a helper method to a Blade component.
