@@ -18,7 +18,6 @@ class Vite
             return true;
         }
 
-        // Check for Vite hot file
         return Filesystem::exists('app/storage/framework/cache/vite.hot');
     }
 
