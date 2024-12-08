@@ -227,9 +227,7 @@ class MarkdownService
         ], $this->config);
     }
 
-    /**
-     * Normalize indentation for an un-compiled Markdown string.
-     */
+    /** Normalize indentation for an un-compiled Markdown string */
     public static function normalizeIndentationLevel(string $string): string
     {
         $lines = self::getNormalizedLines($string);
