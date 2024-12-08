@@ -18,6 +18,57 @@ Some extra component styles are organized into modular files in the HydeFront pa
 To get you started quickly, all the styles are already compiled and minified into `_media/app.css`,
 which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
 
+## Vite
+
+Hyde uses [Vite](https://vitejs.dev/) to compile assets. Vite is a build tool that aims to provide a faster and more efficient development experience for modern web projects.
+
+### Why Vite?
+
+HydePHP integrates Vite to compile assets such as CSS and JavaScript files. This integration ensures that your assets are processed efficiently, enhancing the development workflow by leveraging Vite's rapid build system.
+
+#### Asset Management
+
+**Development and Production Modes**
+
+- **Development Mode**: Use `npm run dev` to start the Vite development HMR server, which provides fast live reloading and efficient compilation during development.
+- **Production Mode**: Use `npm run build` for creating optimized, minified asset bundles ready for production deployment.
+
+**Asset Compilation**:
+
+- Assets are compiled from the `resources/assets` directory. The primary CSS file, `app.css`, is processed with TailwindCSS and other specified tools like PostCSS.
+- Vite automatically processes all scripts and styles, outputting compiled files to the `_media` directory. These are copied to `_site/media` when the static site is built with `php hyde build`.
+
+>warn Note that the HydePHP Vite integration only supports CSS and JavaScript files, if you try to load other file types, they will not be processed by Vite.
+
+**Configuration**:
+- You can customize Vite's behavior and output paths by modifying the pre-configured `vite.config.js` file in the project root directory.
+
+### Blade Integration
+
+Hyde effortlessly integrates Vite with Blade views, allowing you to include compiled assets in your templates. The Blade components `hyde::layouts.styles` and `hyde::layouts.scripts` are already set up to load the compiled CSS and JavaScript files.
+
+You can check if the Vite HMR server is running with `Vite::running()`, and you can include CSS and JavaScript resources with `Vite::asset('path')`, or `Vite::assets([])` to supply an array of paths.
+
+**Example: Using Vite if the HMR server is enabled, or loading the compiled CSS file if not:**
+
+```blade
+@if(Vite::running())
+    {{ Vite::assets(['resources/assets/app.css']) }}
+@else
+    <link rel="stylesheet" href="{{ asset('media/app.css') }}">
+@endif
+```
+
+### Hot Module Replacement (HMR)
+
+Vite's HMR feature allows for instant updates to the browser without requiring a full page reload. This **only works** through the realtime compiler when the Vite development server is also running.
+
+You can start both of these by running `npm run dev` and `php hyde serve` in separate terminals, or using the `--vite` flag with the serve command:
+
+```bash
+php hyde serve --vite
+```
+
 ## Additional Information and Answers to Common Questions
 
 ### Is NodeJS/NPM Required for Using Hyde?
