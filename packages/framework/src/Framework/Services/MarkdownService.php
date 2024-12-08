@@ -55,7 +55,7 @@ class MarkdownService
     /** @var array<class-string<\Hyde\Markdown\Contracts\MarkdownPostProcessorContract>> */
     protected array $postprocessors = [];
 
-    /** @var array<string> */
+    /** @var array<string> Tracks all the headings in the document to ensure identifiers are unique */
     protected array $headingRegistry = [];
 
     public function __construct(string $markdown, ?string $pageClass = null)
