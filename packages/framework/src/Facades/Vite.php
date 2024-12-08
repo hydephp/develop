@@ -16,6 +16,11 @@ class Vite
         return static::checkIfViteWasEnabledViaTheServeCommand() || Filesystem::exists('app/storage/framework/cache/vite.hot');
     }
 
+    public static function asset(string $path): HtmlString
+    {
+        return static::assets([$path]);
+    }
+
     /** @param array<string> $paths */
     public static function assets(array $paths): HtmlString
     {

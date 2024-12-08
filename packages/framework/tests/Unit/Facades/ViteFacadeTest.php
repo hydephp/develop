@@ -129,6 +129,38 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertSame($expected, (string) $html);
     }
 
+    public function testAssetMethodReturnsHtmlString()
+    {
+        $this->assertInstanceOf(HtmlString::class, Vite::asset('foo.js'));
+    }
+
+    public function testAssetMethodGeneratesCorrectHtmlForJavaScriptFile()
+    {
+        $html = Vite::asset('resources/js/app.js');
+
+        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><script src="http://localhost:5173/resources/js/app.js" type="module"></script>';
+
+        $this->assertSame($expected, (string) $html);
+    }
+
+    public function testAssetMethodGeneratesCorrectHtmlForCssFile()
+    {
+        $html = Vite::asset('resources/css/app.css');
+
+        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.css">';
+
+        $this->assertSame($expected, (string) $html);
+    }
+
+    public function testAssetMethodDoesNotIncludeUnknownExtensions()
+    {
+        $html = Vite::asset('unknown.ext');
+
+        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script>';
+
+        $this->assertSame($expected, (string) $html);
+    }
+
     public static function cssFileExtensionsProvider(): array
     {
         return [
