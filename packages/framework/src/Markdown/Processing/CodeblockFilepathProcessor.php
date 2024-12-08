@@ -80,13 +80,13 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         /** @var int $index */
         foreach ($lines as $index => $line) {
             if (str_starts_with($line, '<!-- HYDE[Filepath]')) {
-                $torchlight = str_contains($html, static::$torchlightKey);
+                $highlightedByTorchlight = str_contains($html, static::$torchlightKey);
                 $path = static::trimHydeDirective($line);
                 unset($lines[$index]);
                 $codeBlockLine = $index + 1;
-                $label = static::resolveTemplate($path, $torchlight);
+                $label = static::resolveTemplate($path, $highlightedByTorchlight);
 
-                $lines[$codeBlockLine] = $torchlight
+                $lines[$codeBlockLine] = $highlightedByTorchlight
                     ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
                     : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
             }
