@@ -47,7 +47,7 @@ class ServeCommand extends Command
     protected ConsoleOutput $console;
 
     protected InvokedProcess $server;
-    protected InvokedProcess $vite;
+    protected ?InvokedProcess $vite = null;
 
     public function safeHandle(): int
     {
