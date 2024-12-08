@@ -27,7 +27,7 @@ class GeneratesTableOfContents
     }
 
     /**
-     * @return array<int, array{title: string, slug: string, children: array}>
+     * @return array<int, array{title: string, identifier: string, children: array}>
      */
     public function execute(): array
     {
@@ -35,7 +35,7 @@ class GeneratesTableOfContents
     }
 
     /**
-     * @return array<int, array{level: int, title: string, slug: string}>
+     * @return array<int, array{level: int, title: string, identifier: string}>
      */
     protected function parseHeadings(): array
     {
@@ -110,20 +110,20 @@ class GeneratesTableOfContents
 
     /**
      * @param  array{level: int, title: string}  $headingData
-     * @return array{level: int, title: string, slug: string}
+     * @return array{level: int, title: string, identifier: string}
      */
     protected function createHeadingEntry(array $headingData): array
     {
         return [
             'level' => $headingData['level'],
             'title' => $headingData['title'],
-            'slug' => HeadingRenderer::makeIdentifier($headingData['title']),
+            'identifier' => HeadingRenderer::makeIdentifier($headingData['title']),
         ];
     }
 
     /**
-     * @param  array<int, array{level: int, title: string, slug: string}>  $headings
-     * @return array<int, array{title: string, slug: string, children: array}>
+     * @param  array<int, array{level: int, title: string, identifier: string}>  $headings
+     * @return array<int, array{title: string, identifier: string, children: array}>
      */
     protected function buildTableOfContents(array $headings): array
     {
@@ -145,7 +145,7 @@ class GeneratesTableOfContents
     }
 
     /**
-     * @param  array{level: int, title: string, slug: string}  $heading
+     * @param  array{level: int, title: string, identifier: string}  $heading
      */
     protected function isHeadingWithinBounds(array $heading): bool
     {
@@ -154,20 +154,20 @@ class GeneratesTableOfContents
     }
 
     /**
-     * @param  array{level: int, title: string, slug: string}  $heading
-     * @return array{title: string, slug: string, children: array}
+     * @param  array{level: int, title: string, identifier: string}  $heading
+     * @return array{title: string, identifier: string, children: array}
      */
     protected function createTableItem(array $heading): array
     {
         return [
             'title' => $heading['title'],
-            'slug' => $heading['slug'],
+            'identifier' => $heading['identifier'],
             'children' => [],
         ];
     }
 
     /**
-     * @param  array<int, array<int, array{title: string, slug: string, children: array}>>  $stack
+     * @param  array<int, array<int, array{title: string, identifier: string, children: array}>>  $stack
      */
     protected function updateStackForHeadingLevel(array &$stack, int $currentLevel, int $previousLevel): void
     {
@@ -181,7 +181,7 @@ class GeneratesTableOfContents
     }
 
     /**
-     * @param  array<int, array<int, array{title: string, slug: string, children: array}>>  $stack
+     * @param  array<int, array<int, array{title: string, identifier: string, children: array}>>  $stack
      */
     protected function nestNewLevel(array &$stack): void
     {
@@ -192,7 +192,7 @@ class GeneratesTableOfContents
     }
 
     /**
-     * @param  array<int, array<int, array{title: string, slug: string, children: array}>>  $stack
+     * @param  array<int, array<int, array{title: string, identifier: string, children: array}>>  $stack
      */
     protected function unwindStack(array &$stack, int $currentLevel): void
     {

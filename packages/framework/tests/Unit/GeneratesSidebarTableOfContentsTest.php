@@ -26,16 +26,16 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [],
             ],
             [
                 'title' => 'Level 2B',
-                'slug' => 'level-2b',
+                'identifier' => 'level-2b',
                 'children' => [
                     [
                         'title' => 'Level 3',
-                        'slug' => 'level-3',
+                        'identifier' => 'level-3',
                         'children' => [],
                     ],
                 ],
@@ -56,11 +56,11 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [
                     [
                         'title' => 'Level 3',
-                        'slug' => 'level-3',
+                        'identifier' => 'level-3',
                         'children' => [],
                     ],
                 ],
@@ -94,12 +94,12 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             [
                 [
                     'title' => 'Level 2',
-                    'slug' => 'level-2',
+                    'identifier' => 'level-2',
                     'children' => [],
                 ],
                 [
                     'title' => 'Level 2B',
-                    'slug' => 'level-2b',
+                    'identifier' => 'level-2b',
                     'children' => [],
                 ],
             ],
@@ -133,11 +133,11 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             [
                 [
                     'title' => 'Level 2',
-                    'slug' => 'level-2',
+                    'identifier' => 'level-2',
                     'children' => [
                         [
                             'title' => 'Level 3',
-                            'slug' => 'level-3',
+                            'identifier' => 'level-3',
                             'children' => [],
                         ],
                     ],
@@ -159,11 +159,11 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [
                     [
                         'title' => 'Level 3',
-                        'slug' => 'level-3',
+                        'identifier' => 'level-3',
                         'children' => [],
                     ],
                 ],
@@ -193,15 +193,15 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [
                     [
                         'title' => 'Level 3',
-                        'slug' => 'level-3',
+                        'identifier' => 'level-3',
                         'children' => [
                             [
                                 'title' => 'Level 4',
-                                'slug' => 'level-4',
+                                'identifier' => 'level-4',
                                 'children' => [],
                             ],
                         ],
@@ -210,27 +210,27 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
             ],
             [
                 'title' => 'Level 2B',
-                'slug' => 'level-2b',
+                'identifier' => 'level-2b',
                 'children' => [
                     [
                         'title' => 'Level 3B',
-                        'slug' => 'level-3b',
+                        'identifier' => 'level-3b',
                         'children' => [],
                     ],
                     [
                         'title' => 'Level 3C',
-                        'slug' => 'level-3c',
+                        'identifier' => 'level-3c',
                         'children' => [],
                     ],
                 ],
             ],
             [
                 'title' => 'Level 2C',
-                'slug' => 'level-2c',
+                'identifier' => 'level-2c',
                 'children' => [
                     [
                         'title' => 'Level 3D',
-                        'slug' => 'level-3d',
+                        'identifier' => 'level-3d',
                         'children' => [],
                     ],
                 ],
@@ -254,22 +254,22 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [
                     [
                         'title' => 'Level 3',
-                        'slug' => 'level-3',
+                        'identifier' => 'level-3',
                         'children' => [],
                     ],
                 ],
             ],
             [
                 'title' => 'Level 2B',
-                'slug' => 'level-2b',
+                'identifier' => 'level-2b',
                 'children' => [
                     [
                         'title' => 'Level 3B',
-                        'slug' => 'level-3b',
+                        'identifier' => 'level-3b',
                         'children' => [],
                     ],
                 ],
@@ -305,11 +305,11 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 3',
-                'slug' => 'level-3',
+                'identifier' => 'level-3',
                 'children' => [
                     [
                         'title' => 'Level 4',
-                        'slug' => 'level-4',
+                        'identifier' => 'level-4',
                         'children' => [],
                     ],
                 ],
@@ -335,7 +335,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [],
             ],
         ], $result);
@@ -361,11 +361,11 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [
                     [
                         'title' => 'Level 3',
-                        'slug' => 'level-3',
+                        'identifier' => 'level-3',
                         'children' => [],
                     ],
                 ],
@@ -394,27 +394,27 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 1',
-                'slug' => 'level-1',
+                'identifier' => 'level-1',
                 'children' => [
                     [
                         'title' => 'Level 2',
-                        'slug' => 'level-2',
+                        'identifier' => 'level-2',
                         'children' => [
                             [
                                 'title' => 'Level 3',
-                                'slug' => 'level-3',
+                                'identifier' => 'level-3',
                                 'children' => [
                                     [
                                         'title' => 'Level 4',
-                                        'slug' => 'level-4',
+                                        'identifier' => 'level-4',
                                         'children' => [
                                             [
                                                 'title' => 'Level 5',
-                                                'slug' => 'level-5',
+                                                'identifier' => 'level-5',
                                                 'children' => [
                                                     [
                                                         'title' => 'Level 6',
-                                                        'slug' => 'level-6',
+                                                        'identifier' => 'level-6',
                                                         'children' => [],
                                                     ],
                                                 ],
@@ -478,11 +478,11 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 1',
-                'slug' => 'level-1',
+                'identifier' => 'level-1',
                 'children' => [
                     [
                         'title' => 'Level 2',
-                        'slug' => 'level-2',
+                        'identifier' => 'level-2',
                         'children' => [],
                     ],
                 ],
@@ -516,7 +516,7 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         $this->assertSame([
             [
                 'title' => 'Level 2',
-                'slug' => 'level-2',
+                'identifier' => 'level-2',
                 'children' => [],
             ],
         ], $result);
