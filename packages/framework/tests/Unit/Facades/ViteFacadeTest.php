@@ -100,19 +100,33 @@ class ViteFacadeTest extends UnitTestCase
     }
 
     /**
-     * @dataProvider cssFileExtensions
+     * @dataProvider cssFileExtensionsProvider
      */
-    public function testAssetsMethodSupportsAllCssFileExtensions(string $extension)
+    public function testAssetsMethodSupportsAllCssFileExtensions(string $extension, bool $shouldBeUsed)
     {
         $html = Vite::assets(["resources/css/app.$extension"]);
 
-        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.'.$extension.'">';
+        $expected = $shouldBeUsed
+            ? '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.'.$extension.'">'
+            : '<script src="http://localhost:5173/@vite/client" type="module"></script>';
 
         $this->assertSame($expected, (string) $html);
     }
 
-    public static function cssFileExtensions(): array
+    public static function cssFileExtensionsProvider(): array
     {
-        return array_map(fn (string $ext): array => [$ext], ['css', 'less', 'sass', 'scss', 'styl', 'stylus', 'pcss', 'postcss']);
+        return [
+            ['css', true],
+            ['less', true],
+            ['sass', true],
+            ['scss', true],
+            ['styl', true],
+            ['stylus', true],
+            ['pcss', true],
+            ['postcss', true],
+            ['foo', false],
+            ['txt', false],
+            ['html', false],
+        ];
     }
 }
