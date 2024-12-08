@@ -12,6 +12,8 @@ use InvalidArgumentException;
  */
 class Vite
 {
+    protected const CSS_EXTENSIONS = ['css', 'less', 'sass', 'scss', 'styl', 'stylus', 'pcss', 'postcss'];
+
     public static function running(): bool
     {
         return Filesystem::exists('app/storage/framework/cache/vite.hot');
@@ -51,7 +53,7 @@ class Vite
 
     protected static function isCssPath(string $path): bool
     {
-        return preg_match('/\.(css|less|sass|scss|styl|stylus|pcss|postcss)$/', $path) === 1;
+        return preg_match('/\.('.implode('|', static::CSS_EXTENSIONS).')$/', $path) === 1;
     }
 
     protected static function isJsPath(string $path): bool
