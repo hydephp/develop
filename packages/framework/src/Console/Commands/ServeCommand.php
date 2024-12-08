@@ -70,17 +70,7 @@ class ServeCommand extends Command
 
         $this->runServerProcess($command);
 
-        while ($this->server->running()) {
-            if (isset($this->vite) && $this->vite->running()) {
-                $output = $this->vite->latestOutput();
-
-                if ($output) {
-                    $this->output->write($output);
-                }
-            }
-
-            Sleep::usleep(100000); // 100ms
-        }
+        $this->handleRunningProcesses();
 
         return Command::SUCCESS;
     }
@@ -207,6 +197,26 @@ class ServeCommand extends Command
         Filesystem::touch('app/storage/framework/cache/vite.hot');
 
         $this->vite = Process::forever()->start('npm run dev');
+    }
+
+    protected function handleRunningProcesses(): void
+    {
+        while ($this->server->running()) {
+            $this->handleViteOutput();
+
+            Sleep::usleep(100000); // 100ms
+        }
+    }
+
+    protected function handleViteOutput(): void
+    {
+        if (isset($this->vite) && $this->vite->running()) {
+            $output = $this->vite->latestOutput();
+
+            if ($output) {
+                $this->output->write($output);
+            }
+        }
     }
 
     /** @experimental This feature may be removed before the final release. */
