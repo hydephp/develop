@@ -204,7 +204,7 @@ class ServeCommand extends Command
         while ($this->server->running()) {
             $this->handleViteOutput();
 
-            Sleep::usleep(100000); // 100ms
+            Sleep::for(100)->milliseconds();
         }
     }
 
