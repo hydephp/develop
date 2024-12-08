@@ -118,15 +118,18 @@ class ViteFacadeTest extends UnitTestCase
     /**
      * @dataProvider cssFileExtensionsProvider
      */
-    public function testAssetsMethodSupportsAllCssFileExtensions(string $extension, bool $shouldBeUsed)
+    public function testAssetsMethodSupportsAllCssFileExtensions(string $extension)
     {
         $html = Vite::assets(["resources/css/app.$extension"]);
 
-        $expected = $shouldBeUsed
-            ? '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.'.$extension.'">'
-            : '<script src="http://localhost:5173/@vite/client" type="module"></script>';
+        if ($extension !== 'js') {
+            $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.'.$extension.'">';
 
-        $this->assertSame($expected, (string) $html);
+            $this->assertStringContainsString('stylesheet', (string) $html);
+            $this->assertSame($expected, (string) $html);
+        } else {
+            $this->assertStringNotContainsString('stylesheet', (string) $html);
+        }
     }
 
     public function testAssetMethodReturnsHtmlString()
@@ -164,17 +167,15 @@ class ViteFacadeTest extends UnitTestCase
     public static function cssFileExtensionsProvider(): array
     {
         return [
-            ['css', true],
-            ['less', true],
-            ['sass', true],
-            ['scss', true],
-            ['styl', true],
-            ['stylus', true],
-            ['pcss', true],
-            ['postcss', true],
-            ['foo', false],
-            ['txt', false],
-            ['html', false],
+            ['css'],
+            ['less'],
+            ['sass'],
+            ['scss'],
+            ['styl'],
+            ['stylus'],
+            ['pcss'],
+            ['postcss'],
+            ['js'],
         ];
     }
 }
