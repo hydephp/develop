@@ -48,6 +48,11 @@ class DocumentationPage extends BaseMarkdownPage
         return sprintf('%s/%s.md', trim(Config::getString('docs.source_file_location_base'), '/'), $this->identifier);
     }
 
+    /**
+     * @todo Remove unused method?
+     *
+     * @deprecated This is unused anc could be replaced by using the config directly.
+     */
     public static function hasTableOfContents(): bool
     {
         return Config::getBool('docs.sidebar.table_of_contents.enabled', true);
