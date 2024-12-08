@@ -59,6 +59,15 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertFalse(Vite::running());
     }
 
+    public function testAssetsMethodReturnsHtmlString()
+    {
+        $this->assertInstanceOf(HtmlString::class, Vite::assets([]));
+        $this->assertInstanceOf(HtmlString::class, Vite::assets(['foo.js']));
+
+        $this->assertEquals(new HtmlString('<script src="http://localhost:5173/@vite/client" type="module"></script>'), Vite::assets([]));
+        $this->assertEquals(new HtmlString('<script src="http://localhost:5173/@vite/client" type="module"></script><script src="http://localhost:5173/foo.js" type="module"></script>'), Vite::assets(['foo.js']));
+    }
+
     public function testAssetsMethodGeneratesCorrectHtmlForJavaScriptFiles()
     {
         $html = Vite::assets(['resources/js/app.js']);
@@ -88,10 +97,5 @@ class ViteFacadeTest extends UnitTestCase
         $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><script src="http://localhost:5173/resources/js/app.js" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.css"><script src="http://localhost:5173/resources/js/other.js" type="module"></script>';
 
         $this->assertSame($expected, (string) $html);
-    }
-
-    public function testAssetsMethodReturnsHtmlString()
-    {
-        $this->assertInstanceOf(HtmlString::class, Vite::assets([]));
     }
 }
