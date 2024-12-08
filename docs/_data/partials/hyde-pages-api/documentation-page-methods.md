@@ -19,14 +19,6 @@ No description provided.
 DocumentationPage::homeRouteName(): string
 ```
 
-#### `hasTableOfContents()`
-
-No description provided.
-
-```php
-DocumentationPage::hasTableOfContents(): bool
-```
-
 #### `getOnlineSourcePath()`
 
 No description provided.

@@ -195,17 +195,6 @@ class DocumentationPageTest extends TestCase
         $this->assertSame('foo/bar/index', DocumentationPage::homeRouteName());
     }
 
-    public function testHasTableOfContents()
-    {
-        $this->assertIsBool(DocumentationPage::hasTableOfContents());
-
-        Config::set('docs.sidebar.table_of_contents.enabled', true);
-        $this->assertTrue(DocumentationPage::hasTableOfContents());
-
-        Config::set('docs.sidebar.table_of_contents.enabled', false);
-        $this->assertFalse(DocumentationPage::hasTableOfContents());
-    }
-
     public function testCompiledPagesOriginatingInSubdirectoriesGetOutputToRootDocsPath()
     {
         $page = DocumentationPage::make('foo/bar');

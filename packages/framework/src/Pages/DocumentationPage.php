@@ -49,16 +49,6 @@ class DocumentationPage extends BaseMarkdownPage
     }
 
     /**
-     * @todo Remove unused method?
-     *
-     * @deprecated This is unused anc could be replaced by using the config directly.
-     */
-    public static function hasTableOfContents(): bool
-    {
-        return Config::getBool('docs.sidebar.table_of_contents.enabled', true);
-    }
-
-    /**
      * Get the route key for the page.
      *
      * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.

@@ -118,6 +118,7 @@ This serves two purposes:
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
 - Breaking: Removed the `DocumentationPage::getTableOfContents()` method as we now use Blade to generate the table of contents in https://github.com/hydephp/develop/pull/2045
+- Breaking: Removed the `DocumentationPage::hasTableOfContents()` method as it is now unused by the framework in https://github.com/hydephp/develop/pull/2006
 - Removed the deprecated global `unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
 - Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now throwing `BadMethodCallException` if no base URL is set in https://github.com/hydephp/develop/pull/1760
 - Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
@@ -573,6 +574,7 @@ The likelihood of impact is low, but if any of the following are true, you may n
 - If you have used the `Hyde\Framework\Actions\GeneratesTableOfContents` class in custom code, you will likely need to update that code for the rewritten class.
 - If you have published the `resources/views/components/docs/sidebar-item.blade.php` component, you will need to update it to call the new component instead of the old generator rendering.
 - If you have called the now removed `getTableOfContents` method of the `DocumentationPage` class in custom code, you will need to update that usage as to possibly call the new Blade component directly, depending on your use case.
+- If you have called the now removed `hasTableOfContents` method of the `DocumentationPage` class in custom code you will need to replace the method call with `Config::getBool('docs.sidebar.table_of_contents.enabled', true)`
 
 #### Changes
 - Adds a new `resources/views/components/docs/table-of-contents.blade.php` component containing the structure and styles for the table of contents
