@@ -9,13 +9,11 @@ navigation:
 
 Managing and compiling assets is a very common task in web development. Unfortunately, it's rarely fun.
 
-With Hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is.
-But as always with Hyde, you can customize everything if you want to.
+With Hyde, **you don't have to do it**, in fact, you can skip this entire page if you are happy with how it is. But as always with Hyde, you can customize everything if you want to.
 
 Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions, all pre-installed and bundled in the pre-configured Tailwind and Vite setup.
 
-To get you started quickly, all the styles are already compiled and minified into `_media/app.css`,
-which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
+To get you started quickly, all the styles are already compiled and minified into `_media/app.css`, which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
 
 ## Vite
 
