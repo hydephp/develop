@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Closure;
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Illuminate\Contracts\Process\InvokedProcess;
@@ -112,7 +113,6 @@ class ServeCommand extends Command
             'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
             'HYDE_PLAY_CDN' => $this->parseEnvironmentOption('play-cdn'),
-            'HYDE_SERVER_VITE' => $this->option('vite') ? 'enabled' : null,
         ]);
     }
 
@@ -203,6 +203,8 @@ class ServeCommand extends Command
                 'Please stop any other Vite processes and try again.'
             );
         }
+
+        Filesystem::touch('app/storage/framework/cache/vite.hot');
 
         $this->vite = Process::forever()->start('npm run dev');
     }

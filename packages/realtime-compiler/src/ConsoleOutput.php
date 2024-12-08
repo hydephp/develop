@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler;
 
 use Closure;
+use Hyde\Facades\Vite;
 use Hyde\Hyde;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -35,7 +36,7 @@ class ConsoleOutput
             sprintf('<span class="text-white">Listening on:</span> <a href="%s" class="text-yellow-500">%s</a>', $url, $url),
             (config('hyde.server.dashboard.enabled') || Arr::has($environment, 'HYDE_SERVER_DASHBOARD')) && Arr::get($environment, 'HYDE_SERVER_DASHBOARD') === 'enabled' ?
                 sprintf('<span class="text-white">Live dashboard:</span> <a href="%s/dashboard" class="text-yellow-500">%s/dashboard</a>', $url, $url) : null,
-            Arr::get($environment, 'HYDE_SERVER_VITE') === 'enabled' ?
+            Vite::running() ?
                 sprintf('<span class="text-white">Vite HMR server:</span> <a href="http://%s:5173" class="text-yellow-500">http://%s:5173</a>', $host, $host) : null,
             '',
         ]);
