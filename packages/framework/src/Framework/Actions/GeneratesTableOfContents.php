@@ -54,6 +54,7 @@ class GeneratesTableOfContents
     {
         // Match both ATX-style (###) and Setext-style (===, ---) headers
         $pattern = '/^(?:#{1,6}\s+(.+)|(.+)\n([=\-])\3+)$/m';
+
         preg_match_all($pattern, $this->markdown, $matches);
 
         return $matches;
