@@ -47,8 +47,7 @@ class ViteFacadeTest extends UnitTestCase
     {
         $html = Vite::assets(['resources/js/app.js']);
 
-        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script>'
-            .'<script src="http://localhost:5173/resources/js/app.js" type="module"></script>';
+        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><script src="http://localhost:5173/resources/js/app.js" type="module"></script>';
 
         $this->assertSame($expected, (string) $html);
     }
@@ -57,8 +56,7 @@ class ViteFacadeTest extends UnitTestCase
     {
         $html = Vite::assets(['resources/css/app.css']);
 
-        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script>'
-            .'<link rel="stylesheet" href="http://localhost:5173/resources/css/app.css">';
+        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.css">';
 
         $this->assertSame($expected, (string) $html);
     }
@@ -71,10 +69,7 @@ class ViteFacadeTest extends UnitTestCase
             'resources/js/other.js',
         ]);
 
-        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script>'
-            .'<script src="http://localhost:5173/resources/js/app.js" type="module"></script>'
-            .'<link rel="stylesheet" href="http://localhost:5173/resources/css/app.css">'
-            .'<script src="http://localhost:5173/resources/js/other.js" type="module"></script>';
+        $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><script src="http://localhost:5173/resources/js/app.js" type="module"></script><link rel="stylesheet" href="http://localhost:5173/resources/css/app.css"><script src="http://localhost:5173/resources/js/other.js" type="module"></script>';
 
         $this->assertSame($expected, (string) $html);
     }
