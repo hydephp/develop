@@ -115,7 +115,7 @@ class ServeCommand extends Command
     {
         $this->useBasicOutput()
             ? $this->output->writeln('<info>Starting the HydeRC server...</info> Use Ctrl+C to stop')
-            : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection(), $this->getEnvironmentVariables());
+            : $this->console->printStartMessage($this->getHostSelection(), $this->getPortSelection(), $this->getEnvironmentVariables(), $this->option('vite'));
     }
 
     protected function getOutputHandler(): Closure
