@@ -97,7 +97,6 @@ class ServeCommand extends Command
     {
         return Arr::whereNotNull([
             'HYDE_SERVER_REQUEST_OUTPUT' => ! $this->option('no-ansi'),
-            'HYDE_SERVER_WILL_USE_VITE' => $this->option('vite') ? 'enabled' : null,
             'HYDE_SERVER_SAVE_PREVIEW' => $this->parseEnvironmentOption('save-preview'),
             'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
