@@ -62,13 +62,11 @@ class ServeCommand extends Command
             $this->runViteProcess();
         }
 
-        $command = sprintf('php -S %s:%d %s',
+        $this->runServerProcess(sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
             $this->getPortSelection(),
             $this->getExecutablePath()
-        );
-
-        $this->runServerProcess($command);
+        ));
 
         $this->handleRunningProcesses();
 
