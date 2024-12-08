@@ -23,7 +23,7 @@ class Vite
 
     public static function assets(array $paths): HtmlString
     {
-        $html = sprintf('<script src="http://localhost:5173/@vite/client" type="module"></script>');
+        $html = '<script src="http://localhost:5173/@vite/client" type="module"></script>';
 
         foreach ($paths as $path) {
             if (str_ends_with($path, '.css')) {
