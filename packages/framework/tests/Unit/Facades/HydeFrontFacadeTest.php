@@ -35,20 +35,8 @@ class HydeFrontFacadeTest extends UnitTestCase
 
     public function testCdnLinkReturnsCorrectUrl()
     {
-        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/styles.css';
-        $this->assertSame($expected, HydeFront::cdnLink('styles.css'));
-    }
-
-    public function testCdnLinkReturnsCorrectUrlForArbitraryCss()
-    {
-        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/arbitrary.css';
-        $this->assertSame($expected, HydeFront::cdnLink('arbitrary.css'));
-    }
-
-    public function testCdnLinkReturnsCorrectUrlForInvalidFile()
-    {
-        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/invalid';
-        $this->assertSame($expected, HydeFront::cdnLink('invalid'));
+        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/app.css';
+        $this->assertSame($expected, HydeFront::cdnLink());
     }
 
     public function testInjectTailwindConfigReturnsExtractedTailwindConfig()

@@ -33,9 +33,7 @@ class HydeFront
     }
 
     /**
-     * Get the CDN link for a specific file.
-     *
-     * @param  'app.css'  $file
+     * Get the CDN link for the HydeFront CSS file.
      *
      * @deprecated This method may be removed before the final v2.0 release as there is now currently only one file available.
      *
@@ -43,9 +41,9 @@ class HydeFront
      *
      * @link https://cdn.jsdelivr.net/npm/hydefront@latest/dist/ for the available files.
      */
-    public static function cdnLink(string $file): string
+    public static function cdnLink(): string
     {
-        return sprintf(static::HYDEFRONT_CDN_URL, static::version(), $file);
+        return sprintf(static::HYDEFRONT_CDN_URL, static::version(), 'app.css');
     }
 
     /** This method is used to inject the project's Tailwind CSS configuration into the Play CDN integration so it can match the styles. */
