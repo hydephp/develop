@@ -113,11 +113,11 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
         ));
     }
 
-    protected static function resolveTemplate(string $path, bool $torchlight): string
+    protected static function resolveTemplate(string $path, bool $highlightedByTorchlight): string
     {
         return View::make('hyde::components.filepath-label', [
             'path' => Config::getBool('markdown.allow_html', false) ? new HtmlString($path) : $path,
-            'torchlight' => $torchlight,
+            'highlightedByTorchlight' => $highlightedByTorchlight,
         ])->render();
     }
 
