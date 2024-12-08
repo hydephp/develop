@@ -13,12 +13,7 @@ class Vite
 {
     public static function running(): bool
     {
-        // Check if Vite was enabled via the serve command
-        if (env('HYDE_SERVER_VITE') === 'enabled') {
-            return true;
-        }
-
-        return Filesystem::exists('app/storage/framework/cache/vite.hot');
+        return self::checkIfViteWasEnabledViaTheServeCommand() || Filesystem::exists('app/storage/framework/cache/vite.hot');
     }
 
     public static function assets(array $paths): HtmlString
@@ -36,5 +31,10 @@ class Vite
         }
 
         return new HtmlString($html);
+    }
+
+    protected static function checkIfViteWasEnabledViaTheServeCommand(): bool
+    {
+        return env('HYDE_SERVER_VITE') === 'enabled';
     }
 }
