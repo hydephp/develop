@@ -335,18 +335,6 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertNull($this->getMock()->getOpenCommand('UnknownOS'));
     }
 
-    public function testViteOptionPropagatesToEnvironmentVariables()
-    {
-        $command = $this->getMock(['vite' => true]);
-        $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_SERVER_VITE']);
-
-        $command = $this->getMock(['vite' => false]);
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_VITE']));
-
-        $command = $this->getMock();
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_VITE']));
-    }
-
     public function testWithViteArgument()
     {
         HydeKernel::setInstance(new HydeKernel());

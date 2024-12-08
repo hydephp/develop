@@ -14,7 +14,7 @@ class Vite
 {
     public static function running(): bool
     {
-        return static::checkIfViteWasEnabledViaTheServeCommand() || Filesystem::exists('app/storage/framework/cache/vite.hot');
+        return Filesystem::exists('app/storage/framework/cache/vite.hot');
     }
 
     public static function asset(string $path): HtmlString
@@ -47,12 +47,6 @@ class Vite
 
         // We don't know how to handle other asset types, so we throw an exception to let the user know.
         throw new InvalidArgumentException("Unsupported asset type for path: '$path'");
-    }
-
-    protected static function checkIfViteWasEnabledViaTheServeCommand(): bool
-    {
-        // TODO: Do we actually need this? Hotfile should be enough.
-        return env('HYDE_SERVER_VITE') === 'enabled';
     }
 
     protected static function isCssPath(string $path): bool

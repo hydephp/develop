@@ -182,6 +182,8 @@ class ServeCommandTest extends TestCase
 
     public function testHydeServeCommandWithViteOption()
     {
+        $this->cleanUpWhenDone('app/storage/framework/cache/vite.hot');
+
         $mockViteProcess = mock(InvokedProcess::class);
         $mockViteProcess->shouldReceive('running')
             ->once()
@@ -202,7 +204,7 @@ class ServeCommandTest extends TestCase
 
         Process::shouldReceive('env')
             ->once()
-            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false, 'HYDE_SERVER_VITE' => 'enabled'])
+            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false])
             ->andReturnSelf();
 
         Process::shouldReceive('start')
@@ -224,10 +226,14 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('server output')
             ->expectsOutput('vite latest output')
             ->assertExitCode(0);
+
+        $this->assertFileExists('app/storage/framework/cache/vite.hot');
     }
 
     public function testHydeServeCommandWithViteOptionButViteNotRunning()
     {
+        $this->cleanUpWhenDone('app/storage/framework/cache/vite.hot');
+
         $mockViteProcess = mock(InvokedProcess::class);
         $mockViteProcess->shouldReceive('running')
             ->once()
@@ -245,7 +251,7 @@ class ServeCommandTest extends TestCase
 
         Process::shouldReceive('env')
             ->once()
-            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false, 'HYDE_SERVER_VITE' => 'enabled'])
+            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false])
             ->andReturnSelf();
 
         Process::shouldReceive('start')
@@ -263,6 +269,8 @@ class ServeCommandTest extends TestCase
         $this->artisan('serve --no-ansi --vite')
             ->expectsOutput('Starting the HydeRC server... Use Ctrl+C to stop')
             ->assertExitCode(0);
+
+        $this->assertFileExists('app/storage/framework/cache/vite.hot');
     }
 
     public function testHydeServeCommandWithViteOptionThrowsWhenPortIsInUse()
