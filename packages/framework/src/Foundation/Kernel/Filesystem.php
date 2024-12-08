@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
+use Hyde\Foundation\Concerns\HasMediaFiles;
 use Illuminate\Support\Collection;
 
 use function collect;
@@ -29,6 +30,8 @@ use function touch;
  */
 class Filesystem
 {
+    use HasMediaFiles;
+
     protected HydeKernel $kernel;
 
     public function __construct(HydeKernel $kernel)
@@ -92,18 +95,6 @@ class Filesystem
     }
 
     /**
-     * Get the absolute path to the media source directory, or a file within it.
-     */
-    public function mediaPath(string $path = ''): string
-    {
-        if (empty($path)) {
-            return $this->path(Hyde::getMediaDirectory());
-        }
-
-        return $this->path(path_join(Hyde::getMediaDirectory(), unslash($path)));
-    }
-
-    /**
      * Get the absolute path to the compiled site directory, or a file within it.
      */
     public function sitePath(string $path = ''): string
@@ -113,20 +104,6 @@ class Filesystem
         }
 
         return $this->path(path_join(Hyde::getOutputDirectory(), unslash($path)));
-    }
-
-    /**
-     * Get the absolute path to the compiled site's media directory, or a file within it.
-     */
-    public function siteMediaPath(string $path = ''): string
-    {
-        if (empty($path)) {
-            return $this->sitePath(Hyde::getMediaOutputDirectory());
-        }
-
-        $path = unslash($path);
-
-        return $this->sitePath(Hyde::getMediaOutputDirectory()."/$path");
     }
 
     /**
