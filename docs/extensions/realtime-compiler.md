@@ -30,6 +30,11 @@ This will start a local development server at `http://localhost:8080`
 - `--pretty-urls=`: Enable pretty URLs. (Overrides config setting)
 - `--play-cdn=`: Enable the Tailwind Play CDN. (Overrides config setting)
 - `--open=false`: Open the site preview in the browser.
+- `--vite`: Enable Vite for Hot Module Replacement (HMR).
+
+### Vite Integration
+
+By adding the `--vite` option, the serve command will initiate Vite's development server alongside the Hyde Realtime Compiler. This setup enables Hot Module Replacement (HMR), allowing for instant updates to your site as you make changes to your assets.
 
 ### Configuration
 

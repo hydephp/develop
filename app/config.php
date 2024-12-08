@@ -92,6 +92,7 @@ return [
         'Hyde' => Hyde\Hyde::class,
         'Site' => \Hyde\Facades\Site::class,
         'Meta' => \Hyde\Facades\Meta::class,
+        'Vite' => \Hyde\Facades\Vite::class,
         'Asset' => \Hyde\Facades\Asset::class,
         'Author' => \Hyde\Facades\Author::class,
         'HydeFront' => \Hyde\Facades\HydeFront::class,

@@ -25,10 +25,6 @@ trait SetsUpMarkdownConverter
 {
     protected function enableDynamicExtensions(): void
     {
-        if ($this->canEnablePermalinks()) {
-            $this->configurePermalinksExtension();
-        }
-
         if ($this->canEnableTorchlight()) {
             $this->addExtension(TorchlightExtension::class);
         }

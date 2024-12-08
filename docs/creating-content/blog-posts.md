@@ -228,9 +228,7 @@ image:
     authorName: "John Doe"
 ```
 
-> See [posts/introducing-images](https://hydephp.com/posts/introducing-images)
-> for a detailed blog post with examples and schema information!
-{ .info }
+>info See [posts/introducing-images](https://hydephp.com/posts/introducing-images) for a detailed blog post with examples and schema information!
 
 ## Using Images in Posts
 

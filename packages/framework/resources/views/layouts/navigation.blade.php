@@ -32,8 +32,9 @@
         </button>
     </div>
 
-    <div id="main-navigation-links" class="w-full x-uncloak-md md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700"
-         :class="navigationOpen ? '' : 'hidden'" x-cloak>
+    <div id="main-navigation-links" 
+         class="w-full hidden md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700"
+         :class="navigationOpen ? '!block' : ''">
         <ul aria-label="Navigation links" class="md:flex-grow md:flex justify-end">
             @foreach ($navigation->getItems() as $item)
                 <li class="md:mx-2">
