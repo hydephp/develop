@@ -59,6 +59,22 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertFalse(Vite::running());
     }
 
+    public function testItAlwaysImportsClientModule()
+    {
+        $html = Vite::assets([]);
+
+        $this->assertStringContainsString('<script src="http://localhost:5173/@vite/client" type="module"></script>', (string) $html);
+
+        $html = Vite::assets(['foo.js']);
+
+        $this->assertStringContainsString('<script src="http://localhost:5173/@vite/client" type="module"></script>', (string) $html);
+    }
+
+    public function testItDoesNotIncludeUnknownExtensions()
+    {
+        $this->assertSame((string) Vite::assets([]), (string) Vite::assets(['foo.txt']));
+    }
+
     public function testAssetsMethodReturnsHtmlString()
     {
         $this->assertInstanceOf(HtmlString::class, Vite::assets([]));
