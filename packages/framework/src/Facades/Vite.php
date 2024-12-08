@@ -35,6 +35,7 @@ class Vite
 
     protected static function checkIfViteWasEnabledViaTheServeCommand(): bool
     {
+        // TODO: Do we actually need this? Hotfile should be enough.
         return env('HYDE_SERVER_VITE') === 'enabled';
     }
 
