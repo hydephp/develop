@@ -32,15 +32,7 @@ class HydeFront
         return static::HYDEFRONT_VERSION;
     }
 
-    /**
-     * Get the CDN link for the HydeFront CSS file.
-     *
-     * @deprecated This method may be removed before the final v2.0 release as there is now currently only one file available.
-     *
-     * @todo Remove the method before the final v2.0 release. This is not a super breaking change as this entire class was added in 2.x, and was ported from the Asset facade.
-     *
-     * @link https://cdn.jsdelivr.net/npm/hydefront@latest/dist/ for the available files.
-     */
+    /** Get the CDN link for the HydeFront CSS file. This will return the default `app.css` file. */
     public static function cdnLink(): string
     {
         return sprintf(static::HYDEFRONT_CDN_URL, static::version(), 'app.css');
