@@ -24,7 +24,9 @@ class Vite
         foreach ($paths as $path) {
             if (self::isCssPath($path)) {
                 $html .= static::formatStylesheetLink($path);
-            } elseif (self::isJsPath($path)) {
+            }
+
+            if (self::isJsPath($path)) {
                 $html .= static::formatScriptInclude($path);
             }
         }
