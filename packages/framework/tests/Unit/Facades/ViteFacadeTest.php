@@ -54,6 +54,8 @@ class ViteFacadeTest extends UnitTestCase
 
     public function testRunningReturnsFalseWhenViteHotFileDoesNotExist()
     {
+        $this->assertFileDoesNotExist('app/storage/framework/cache/vite.hot');
+
         $this->assertFalse(Vite::running());
     }
 
