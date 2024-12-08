@@ -31,6 +31,19 @@ class ViteFacadeTest extends UnitTestCase
 
         putenv('HYDE_SERVER_VITE');
     }
+    
+    public function testRunningReturnsFalseWhenEnvironmentVariableIsNotSetOrDisabled()
+    {
+        $this->assertFalse(Vite::running());
+
+        putenv('HYDE_SERVER_VITE=disabled');
+
+        $this->assertFalse(Vite::running());
+
+        putenv('HYDE_SERVER_VITE');
+
+        $this->assertFalse(Vite::running());
+    }
 
     public function testRunningReturnsTrueWhenViteHotFileExists()
     {
