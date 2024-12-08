@@ -22,11 +22,11 @@ class Vite
         $html = '<script src="http://localhost:5173/@vite/client" type="module"></script>';
 
         foreach ($paths as $path) {
-            if (str_ends_with($path, '.css')) {
+            if (self::isCssPath($path)) {
                 $html .= static::formatStylesheetLink($path);
             }
 
-            if (str_ends_with($path, '.js')) {
+            if (self::isJsPath($path)) {
                 $html .= static::formatScriptInclude($path);
             }
         }
@@ -38,6 +38,16 @@ class Vite
     {
         // TODO: Do we actually need this? Hotfile should be enough.
         return env('HYDE_SERVER_VITE') === 'enabled';
+    }
+
+    protected static function isCssPath(string $path): bool
+    {
+        return str_ends_with($path, '.css');
+    }
+
+    protected static function isJsPath(string $path): bool
+    {
+        return str_ends_with($path, '.js');
     }
 
     protected static function formatStylesheetLink(string $path): string
