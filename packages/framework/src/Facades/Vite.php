@@ -22,16 +22,23 @@ class Vite
         $html = '<script src="http://localhost:5173/@vite/client" type="module"></script>';
 
         foreach ($paths as $path) {
-            if (self::isCssPath($path)) {
-                $html .= static::formatStylesheetLink($path);
-            }
-
-            if (self::isJsPath($path)) {
-                $html .= static::formatScriptInclude($path);
-            }
+            $html .= static::formatAssetPath($path);
         }
 
         return new HtmlString($html);
+    }
+
+    protected static function formatAssetPath(string $path): string
+    {
+        if (self::isCssPath($path)) {
+            return static::formatStylesheetLink($path);
+        }
+
+        if (self::isJsPath($path)) {
+            return static::formatScriptInclude($path);
+        }
+
+        return ''; // TODO: Throw an exception?
     }
 
     protected static function checkIfViteWasEnabledViaTheServeCommand(): bool
