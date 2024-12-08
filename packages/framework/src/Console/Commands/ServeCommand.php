@@ -210,7 +210,7 @@ class ServeCommand extends Command
 
     protected function handleViteOutput(): void
     {
-        if (isset($this->vite) && $this->vite->running()) {
+        if ($this->vite?->running()) {
             $output = $this->vite->latestOutput();
 
             if ($output) {
