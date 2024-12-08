@@ -91,11 +91,10 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     protected static function processFilepathLine(array $lines, int $index, bool $highlightedByTorchlight): array
     {
         $path = static::trimHydeDirective($lines[$index]);
+        $label = static::resolveTemplate($path, $highlightedByTorchlight);
+        $codeBlockLine = $index + 1;
 
         unset($lines[$index]);
-
-        $codeBlockLine = $index + 1;
-        $label = static::resolveTemplate($path, $highlightedByTorchlight);
 
         $lines[$codeBlockLine] = static::injectLabel($label, $lines[$codeBlockLine], $highlightedByTorchlight);
 
