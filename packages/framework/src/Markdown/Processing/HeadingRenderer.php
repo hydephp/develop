@@ -14,6 +14,8 @@ use League\CommonMark\Renderer\NodeRendererInterface;
 /**
  * Renders a heading node, and supports built-in permalink generation.
  *
+ * @internal This class is an internal implementation detail of our Markdown processing and is not indented for use outside of the framework.
+ *
  * @see \League\CommonMark\Extension\CommonMark\Renderer\Block\HeadingRenderer
  */
 class HeadingRenderer implements NodeRendererInterface
