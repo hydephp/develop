@@ -54,12 +54,17 @@ class Vite
 
     protected static function isCssPath(string $path): bool
     {
-        return preg_match('/\.('.implode('|', static::CSS_EXTENSIONS).')$/', $path) === 1;
+        return static::checkFileExtensionForPath($path, static::CSS_EXTENSIONS);
     }
 
     protected static function isJsPath(string $path): bool
     {
-        return preg_match('/\.('.implode('|', static::JS_EXTENSIONS).')$/', $path) === 1;
+        return static::checkFileExtensionForPath($path, static::JS_EXTENSIONS);
+    }
+
+    protected static function checkFileExtensionForPath(string $path, array $extensions): bool
+    {
+        return preg_match('/\.('.implode('|', $extensions).')$/', $path) === 1;
     }
 
     protected static function formatStylesheetLink(string $path): string
