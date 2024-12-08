@@ -245,6 +245,8 @@ class MarkdownService
 
     protected function configureCustomHeadingRenderer(): void
     {
-        $this->converter->getEnvironment()->addRenderer(Heading::class, new HeadingRenderer($this->pageClass, $this->headingRegistry));
+        $this->converter->getEnvironment()->addRenderer(Heading::class,
+            new HeadingRenderer($this->pageClass, $this->headingRegistry)
+        );
     }
 }
