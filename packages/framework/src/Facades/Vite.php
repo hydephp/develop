@@ -16,6 +16,7 @@ class Vite
         return self::checkIfViteWasEnabledViaTheServeCommand() || Filesystem::exists('app/storage/framework/cache/vite.hot');
     }
 
+    /** @param array<string> $paths */
     public static function assets(array $paths): HtmlString
     {
         $html = '<script src="http://localhost:5173/@vite/client" type="module"></script>';
