@@ -122,6 +122,23 @@ class ViteFacadeTest extends UnitTestCase
         }
     }
 
+    /**
+     * @dataProvider jsFileExtensionsProvider
+     */
+    public function testAssetsMethodSupportsAllJsFileExtensions(string $extension)
+    {
+        $html = Vite::assets(["resources/js/app.$extension"]);
+
+        if ($extension !== 'css') {
+            $expected = '<script src="http://localhost:5173/@vite/client" type="module"></script><script src="http://localhost:5173/resources/js/app.'.$extension.'" type="module"></script>';
+
+            $this->assertStringNotContainsString('stylesheet', (string) $html);
+            $this->assertSame($expected, (string) $html);
+        } else {
+            $this->assertStringContainsString('stylesheet', (string) $html);
+        }
+    }
+
     public function testAssetMethodReturnsHtmlString()
     {
         $this->assertInstanceOf(HtmlString::class, Vite::asset('foo.js'));
@@ -157,6 +174,17 @@ class ViteFacadeTest extends UnitTestCase
             ['pcss'],
             ['postcss'],
             ['js'],
+        ];
+    }
+
+    public static function jsFileExtensionsProvider(): array
+    {
+        return [
+            ['js'],
+            ['jsx'],
+            ['ts'],
+            ['tsx'],
+            ['css'],
         ];
     }
 }

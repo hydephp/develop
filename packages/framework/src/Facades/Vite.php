@@ -13,6 +13,7 @@ use InvalidArgumentException;
 class Vite
 {
     protected const CSS_EXTENSIONS = ['css', 'less', 'sass', 'scss', 'styl', 'stylus', 'pcss', 'postcss'];
+    protected const JS_EXTENSIONS = ['js', 'jsx', 'ts', 'tsx'];
 
     public static function running(): bool
     {
@@ -58,7 +59,7 @@ class Vite
 
     protected static function isJsPath(string $path): bool
     {
-        return str_ends_with($path, '.js');
+        return preg_match('/\.('.implode('|', static::JS_EXTENSIONS).')$/', $path) === 1;
     }
 
     protected static function formatStylesheetLink(string $path): string
