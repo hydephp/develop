@@ -1,6 +1,7 @@
 /*
  * This file contains the default styles for the Torchlight syntax highlighter.
- * You can easily include this file through your resources/assets/app.css file.
+ * This is already included in the bundled `resources/assets/app.css` file,
+ * and can be customized by replacing the import with your custom CSS.
  */
 
 pre code.torchlight .line-number, pre code.torchlight .summary-caret {
