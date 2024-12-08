@@ -58,15 +58,15 @@ class ServeCommand extends Command
             $this->openInBrowser((string) $this->option('open'));
         }
 
+        if ($this->option('vite')) {
+            $this->runViteProcess();
+        }
+
         $command = sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
             $this->getPortSelection(),
             $this->getExecutablePath()
         );
-
-        if ($this->option('vite')) {
-            $this->runViteProcess();
-        }
 
         $this->runServerProcess($command);
 
