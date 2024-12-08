@@ -22,11 +22,11 @@ class Vite
 
         foreach ($paths as $path) {
             if (str_ends_with($path, '.css')) {
-                $html .= sprintf('<link rel="stylesheet" href="http://localhost:5173/%s">', $path);
+                $html .= static::formatStylesheetLink($path);
             }
 
             if (str_ends_with($path, '.js')) {
-                $html .= sprintf('<script src="http://localhost:5173/%s" type="module"></script>', $path);
+                $html .= static::formatScriptInclude($path);
             }
         }
 
@@ -36,5 +36,15 @@ class Vite
     protected static function checkIfViteWasEnabledViaTheServeCommand(): bool
     {
         return env('HYDE_SERVER_VITE') === 'enabled';
+    }
+
+    protected static function formatStylesheetLink(string $path): string
+    {
+        return sprintf('<link rel="stylesheet" href="http://localhost:5173/%s">', $path);
+    }
+
+    protected static function formatScriptInclude(string $path): string
+    {
+        return sprintf('<script src="http://localhost:5173/%s" type="module"></script>', $path);
     }
 }
