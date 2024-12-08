@@ -76,23 +76,37 @@ class CodeblockFilepathProcessor implements MarkdownPreProcessorContract, Markdo
     public static function postprocess(string $html): string
     {
         $lines = explode("\n", $html);
+        $highlightedByTorchlight = str_contains($html, static::$torchlightKey);
 
         /** @var int $index */
         foreach ($lines as $index => $line) {
             if (str_starts_with($line, '<!-- HYDE[Filepath]')) {
-                $highlightedByTorchlight = str_contains($html, static::$torchlightKey);
-                $path = static::trimHydeDirective($line);
-                unset($lines[$index]);
-                $codeBlockLine = $index + 1;
-                $label = static::resolveTemplate($path, $highlightedByTorchlight);
-
-                $lines[$codeBlockLine] = $highlightedByTorchlight
-                    ? static::injectLabelToTorchlightCodeLine($label, $lines[$codeBlockLine])
-                    : static::injectLabelToCodeLine($label, $lines[$codeBlockLine]);
+                $lines = static::processFilepathLine($lines, $index, $highlightedByTorchlight);
             }
         }
 
         return implode("\n", $lines);
+    }
+
+    protected static function processFilepathLine(array $lines, int $index, bool $highlightedByTorchlight): array
+    {
+        $path = static::trimHydeDirective($lines[$index]);
+
+        unset($lines[$index]);
+
+        $codeBlockLine = $index + 1;
+        $label = static::resolveTemplate($path, $highlightedByTorchlight);
+
+        $lines[$codeBlockLine] = static::injectLabel($label, $lines[$codeBlockLine], $highlightedByTorchlight);
+
+        return $lines;
+    }
+
+    protected static function injectLabel(string $label, string $line, bool $highlightedByTorchlight): string
+    {
+        return $highlightedByTorchlight
+            ? static::injectLabelToTorchlightCodeLine($label, $line)
+            : static::injectLabelToCodeLine($label, $line);
     }
 
     protected static function lineMatchesPattern(string $line): bool
