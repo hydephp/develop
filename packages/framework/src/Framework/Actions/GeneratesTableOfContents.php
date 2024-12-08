@@ -26,17 +26,13 @@ class GeneratesTableOfContents
         $this->maxHeadingLevel = Config::getInt('docs.sidebar.table_of_contents.max_heading_level', 4);
     }
 
-    /**
-     * @return array<int, array{title: string, identifier: string, children: array}>
-     */
+    /** @return array<int, array{title: string, identifier: string, children: array}> */
     public function execute(): array
     {
         return $this->buildTableOfContents($this->parseHeadings());
     }
 
-    /**
-     * @return array<int, array{level: int, title: string, identifier: string}>
-     */
+    /** @return array<int, array{level: int, title: string, identifier: string}> */
     protected function parseHeadings(): array
     {
         $matches = $this->matchHeadingPatterns();
@@ -55,9 +51,7 @@ class GeneratesTableOfContents
         return $headings;
     }
 
-    /**
-     * @return array{0: array<int, string>, 1: array<int, string>, 2: array<int, string>, 3: array<int, string>}
-     */
+    /** @return array{0: array<int, string>, 1: array<int, string>, 2: array<int, string>, 3: array<int, string>} */
     protected function matchHeadingPatterns(): array
     {
         // Match both ATX-style (###) and Setext-style (===, ---) headers
@@ -80,9 +74,7 @@ class GeneratesTableOfContents
         return $this->parseSetextHeading($matches[2][$index], $matches[3][$index]);
     }
 
-    /**
-     * @return array{level: int, title: string}
-     */
+    /** @return array{level: int, title: string} */
     protected function parseAtxHeading(string $heading, string $title): array
     {
         return [
@@ -91,9 +83,7 @@ class GeneratesTableOfContents
         ];
     }
 
-    /**
-     * @return array{level: int, title: string}|null
-     */
+    /** @return array{level: int, title: string}|null */
     protected function parseSetextHeading(string $title, string $marker): ?array
     {
         $level = $marker === '=' ? 1 : 2;
@@ -144,9 +134,7 @@ class GeneratesTableOfContents
         return $items;
     }
 
-    /**
-     * @param  array{level: int, title: string, identifier: string}  $heading
-     */
+    /** @param array{level: int, title: string, identifier: string}  $heading */
     protected function isHeadingWithinBounds(array $heading): bool
     {
         return $heading['level'] >= $this->minHeadingLevel &&
@@ -166,9 +154,7 @@ class GeneratesTableOfContents
         ];
     }
 
-    /**
-     * @param  array<int, array<int, array{title: string, identifier: string, children: array}>>  $stack
-     */
+    /** @param  array<int, array<int, array{title: string, identifier: string, children: array}>> $stack */
     protected function updateStackForHeadingLevel(array &$stack, int $currentLevel, int $previousLevel): void
     {
         if ($currentLevel > $previousLevel) {
@@ -180,9 +166,7 @@ class GeneratesTableOfContents
         }
     }
 
-    /**
-     * @param  array<int, array<int, array{title: string, identifier: string, children: array}>>  $stack
-     */
+    /** @param array<int, array<int, array{title: string, identifier: string, children: array}>> $stack */
     protected function nestNewLevel(array &$stack): void
     {
         $lastStackIndex = count($stack) - 1;
@@ -191,9 +175,7 @@ class GeneratesTableOfContents
         $stack[] = &$stack[$lastStackIndex][$lastItemIndex]['children'];
     }
 
-    /**
-     * @param  array<int, array<int, array{title: string, identifier: string, children: array}>>  $stack
-     */
+    /** @param array<int, array<int, array{title: string, identifier: string, children: array}>> $stack */
     protected function unwindStack(array &$stack, int $currentLevel): void
     {
         array_splice($stack, $currentLevel - $this->minHeadingLevel + 1);
