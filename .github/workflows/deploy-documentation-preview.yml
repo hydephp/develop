@@ -46,6 +46,33 @@ jobs:
         run: |
           mkdir -p resources/views/vendor/hyde/layouts
           cp vendor/hyde/framework/resources/views/layouts/docs.blade.php resources/views/vendor/hyde/layouts/docs.blade.php
+          cat <<- HTML >> resources/views/vendor/hyde/layouts/docs.blade.php
+            <style>.font-bold{font-weight: 700;}.text-lg{font-size: 1.125rem; line-height: 1.75rem;}.mr-3{margin-right: 0.75rem rem ;}.mb-2{margin-bottom: 0.5rem;}.mr-3{margin-right: 0.75rem;}.text-gray-400{--tw-text-opacity: 1; color: rgb(156 163 175 / var(--tw-text-opacity));}.mx-0\.5{margin-left: 0.125rem; margin-right: 0.125rem;}</style>
+            <aside class="fixed bottom-4 right-4 z-50 hidden md:block">
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
+                <header class="flex flex-row nowrap items-center justify-between">
+                    <h3 class="text-lg font-bold mb-2 mr-3 flex">Documentation preview for&nbsp; <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">PR #${{ github.event.pull_request.number }}</a> &nbsp;
+                        <small class="opacity-75">(#<a href="https://github.com/hydephp/develop/commit/${{ github.event.pull_request.head.sha }}"><span style=" display: inline-flex; font-family: monospace; width: 7ch; white-space: nowrap; overflow: hidden; text-overflow: clip;">${{ github.event.pull_request.head.sha }}</span></a>)</small>
+                    </h3>
+                    <small class="mb-2">
+                        <a href="${{ github.event.pull_request.html_url }}" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">Back to PR</a>
+                        <span class="text-gray-400 mx-0.5">|</span>
+                        <a href="${{ github.event.pull_request.html_url }}/files?file-filters%5B%5D=.md" class="dark:text-indigo-400 text-indigo-500 hover:text-indigo-600">View Diff</a>
+                    </small>
+                </header>
+                <p class="prose dark:prose-invert">
+                  You are browsing the documentation for a user-contributed pull request.<br>
+                  <small>Contents may be inaccurate or incomplete, and not representative of the organization.</small><br>
+                 </p>
+              </div>
+            </aside>
+
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/dark.min.css">
+            <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+            <script>hljs.highlightAll();</script>
+            <style>.prose :where(pre):not(:where([class~=not-prose] *)) { background-color: #303030 } </style>
+            <style>pre code.hljs { padding: 0; }</style>
+          HTML
 
       - name: Configure environment variables
         run: |
