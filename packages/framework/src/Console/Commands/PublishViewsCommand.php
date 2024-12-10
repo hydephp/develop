@@ -117,10 +117,12 @@ class PublishViewsCommand extends Command
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
     }
 
-    protected function handleInteractivePublish(string $group): void
+    protected function handleInteractivePublish(string $selected): void
     {
+        $group = $this->options[$selected]['group'];
+
         // Get all files in the components tag
-        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->options[$group]['group']);
+        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $group);
         $source = key($paths);
         $target = $paths[$source];
 
