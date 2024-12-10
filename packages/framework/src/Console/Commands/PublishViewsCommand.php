@@ -10,6 +10,7 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Finder\SplFileInfo;
 
 use function Hyde\path_join;
 use function str_replace;
@@ -120,14 +121,11 @@ class PublishViewsCommand extends Command
         $source = key($paths);
         $target = $paths[$source];
 
-        $sourceBaseDir = basename($source);
-        $targetBaseDir = basename($target);
-
         // Now we need an array that maps all source files to their target paths retaining the directory structure
         $search = File::allFiles($source);
 
-        $files = collect($search)->mapWithKeys(function (\Symfony\Component\Finder\SplFileInfo $file) use ($source, $target, $sourceBaseDir, $targetBaseDir) {
-            $targetPath =  path_join($target, $file->getRelativePathname());
+        $files = collect($search)->mapWithKeys(/** @return array<string, string> */ function (SplFileInfo $file) use ($target): array {
+            $targetPath = path_join($target, $file->getRelativePathname());
 
             return [Hyde::pathToRelative(realpath($file->getPathname())) => Hyde::pathToRelative($targetPath)];
         });
