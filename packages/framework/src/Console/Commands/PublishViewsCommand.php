@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use Symfony\Component\Finder\SplFileInfo;
 
 use function Hyde\path_join;
+use function Laravel\Prompts\multiselect;
 use function str_replace;
 use function sprintf;
 use function strstr;
@@ -142,13 +143,7 @@ class PublishViewsCommand extends Command
             return [$source => Str::after($source, $baseDir.'/')];
         });
 
-        $selected = $this->choice(
-            'Which files do you want to publish?',
-            $choices->values()->toArray(),
-            null,
-            null,
-            true
-        );
+        $selected = multiselect('Select the files you want to publish', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
         $this->infoComment(sprintf("Selected files [%s]\n", implode(', ', $selected)));
 
