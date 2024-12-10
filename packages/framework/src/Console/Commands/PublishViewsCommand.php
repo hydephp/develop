@@ -73,6 +73,7 @@ class PublishViewsCommand extends Command
 
     protected function publishOption(string $selected): void
     {
+        // Todo: Don't trigger interactive if "all" is selected
         if ($this->isInteractive()) {
             $this->handleInteractivePublish($selected);
 
