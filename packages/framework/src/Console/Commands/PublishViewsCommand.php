@@ -60,12 +60,6 @@ class PublishViewsCommand extends Command
                 $this->publishOption($key);
             }
         } else {
-            if ($selected === 'components' && $this->isInteractive()) {
-                $this->handleInteractivePublish();
-
-                return Command::SUCCESS;
-            }
-
             $this->publishOption($selected);
         }
 
@@ -79,6 +73,12 @@ class PublishViewsCommand extends Command
 
     protected function publishOption(string $selected): void
     {
+        if ($this->isInteractive()) {
+            $this->handleInteractivePublish($selected);
+
+            return;
+        }
+
         Artisan::call('vendor:publish', [
             '--tag' => $this->options[$selected]['group'] ?? $selected,
             '--force' => true,
@@ -116,12 +116,10 @@ class PublishViewsCommand extends Command
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
     }
 
-    protected function handleInteractivePublish(): void
+    protected function handleInteractivePublish(string $group): void
     {
-        // Initially only works for components
-
         // Get all files in the components tag
-        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, 'hyde-components');
+        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->options[$group]['group']);
         $source = key($paths);
         $target = $paths[$source];
 
