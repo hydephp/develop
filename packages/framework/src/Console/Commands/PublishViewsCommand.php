@@ -17,7 +17,7 @@ use function strstr;
 class PublishViewsCommand extends Command
 {
     /** @var string */
-    protected $signature = 'publish:views {category? : The category to publish}';
+    protected $signature = 'publish:views {category? : The category to publish} {--interactive|-i : Interactively select the views to publish}';
 
     /** @var string */
     protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten';
