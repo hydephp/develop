@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Hyde;
@@ -119,6 +120,8 @@ class PublishViewsCommand extends Command
 
     protected function handleInteractivePublish(string $selected): void
     {
+        $publisher = new InteractivePublishCommandHelper();
+
         $group = $this->options[$selected]['group'];
 
         // Get all files in the components tag
