@@ -150,7 +150,9 @@ class PublishViewsCommand extends Command
             Filesystem::copy($source, $target);
         }
 
-        $this->infoComment(sprintf('Published files [%s]', collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($source).'/'))->implode(', ')));
+        $message = sprintf('Published files [%s]', collect($selectedFiles)->map(fn(string $file): string => Str::after($file, basename($source) . '/'))->implode(', '));
+
+        $this->infoComment($message);
     }
 
     protected function promptForFiles(Collection $files, string $baseDir): array
