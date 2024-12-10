@@ -139,7 +139,7 @@ class PublishViewsCommand extends Command
         });
 
         // Now we need to prompt the user for which files to publish
-        $selectedFiles = $publisher->promptForFiles($files, basename($target));
+        $selectedFiles = $this->promptForFiles($files, basename($target));
 
         // Now we filter the files to only include the selected ones
         $selectedFiles = $files->filter(fn (string $file): bool => in_array($file, $selectedFiles));
@@ -153,5 +153,14 @@ class PublishViewsCommand extends Command
         $message = sprintf('Published files [%s]', collect($selectedFiles)->map(fn(string $file): string => Str::after($file, basename($source) . '/'))->implode(', '));
 
         $this->infoComment($message);
+    }
+
+    protected function promptForFiles(Collection $files, string $baseDir): array
+    {
+        $choices = $files->mapWithKeys(/** @return array<string, string> */ function (string $source) use ($baseDir): array {
+            return [$source => Str::after($source, $baseDir.'/')];
+        });
+
+        return multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
     }
 }
