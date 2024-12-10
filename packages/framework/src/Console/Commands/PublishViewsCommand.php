@@ -155,6 +155,6 @@ class PublishViewsCommand extends Command
             return [$source => Str::after($source, $baseDir.'/')];
         });
 
-        return multiselect('Select the files you want to publish', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        return multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
     }
 }
