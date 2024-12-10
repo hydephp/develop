@@ -137,6 +137,9 @@ class PublishViewsCommand extends Command
         $selectedFiles = $this->promptForFiles($files, basename($target));
 
         $this->infoComment(sprintf("Selected files [%s]\n", collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($source).'/'))->implode(', ')));
+
+        // Now we filter the files to only include the selected ones
+        $selectedFiles = $files->filter(fn (string $file): bool => in_array($file, $selectedFiles));
     }
 
     protected function promptForFiles(Collection $files, string $baseDir): array
