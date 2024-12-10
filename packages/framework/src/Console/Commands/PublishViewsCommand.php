@@ -56,6 +56,11 @@ class PublishViewsCommand extends Command
         return Command::SUCCESS;
     }
 
+    protected function isInteractive(): bool
+    {
+        return $this->option('interactive');
+    }
+
     protected function publishOption(string $selected): void
     {
         Artisan::call('vendor:publish', [
