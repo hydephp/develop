@@ -22,6 +22,8 @@ use function Laravel\Prompts\multiselect;
 class InteractivePublishCommandHelper
 {
     protected readonly string $group;
+    protected readonly string $source;
+    protected readonly string $target;
 
     public function __construct(string $group)
     {
@@ -30,37 +32,34 @@ class InteractivePublishCommandHelper
 
     public function handle(): string
     {
-        $group = $this->group;
+        $filesInTag = $this->findAllFilesForTag();
+        $publishableFilesMap = $this->mapPublishableFiles($filesInTag);
 
-        // Get all files in the components tag
-        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $group);
-        $source = key($paths);
-        $target = $paths[$source];
+        $selectedFiles = $this->promptForFiles($publishableFilesMap, basename($this->target));
+        $filesToPublish = $publishableFilesMap->filter(fn (string $file): bool => in_array($file, $selectedFiles));
 
-        // Now we need an array that maps all source files to their target paths retaining the directory structure
-        $search = File::allFiles($source);
+        $this->publishFiles($filesToPublish);
 
-        $files = collect($search)->mapWithKeys(/** @return array<string, string> */ function (SplFileInfo $file) use ($target): array {
-            $targetPath = path_join($target, $file->getRelativePathname());
+        return sprintf('Published files [%s]', $this->getPublishedFilesForOutput($filesToPublish));
+    }
+
+    /** @return \Symfony\Component\Finder\SplFileInfo[] */
+    protected function findAllFilesForTag(): array
+    {
+        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->group);
+        $this->source = key($paths);
+        $this->target = $paths[$this->source];
+
+        return File::allFiles($this->source);
+    }
+
+    protected function mapPublishableFiles(array $search): Collection
+    {
+        return collect($search)->mapWithKeys(/** @return array<string, string> */ function (SplFileInfo $file): array {
+            $targetPath = path_join($this->target, $file->getRelativePathname());
 
             return [Hyde::pathToRelative(realpath($file->getPathname())) => Hyde::pathToRelative($targetPath)];
         });
-
-        // Now we need to prompt the user for which files to publish
-        $selectedFiles = $this->promptForFiles($files, basename($target));
-
-        // Now we filter the files to only include the selected ones
-        $selectedFiles = $files->filter(fn (string $file): bool => in_array($file, $selectedFiles));
-
-        // Now we need to publish the selected files
-        foreach ($selectedFiles as $source => $target) {
-            Filesystem::ensureDirectoryExists(dirname($target));
-            Filesystem::copy($source, $target);
-        }
-
-        $message = sprintf('Published files [%s]', collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($source).'/'))->implode(', '));
-
-        return $message;
     }
 
     protected function promptForFiles(Collection $files, string $baseDir): array
@@ -70,5 +69,18 @@ class InteractivePublishCommandHelper
         });
 
         return multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+    }
+
+    protected function publishFiles(Collection $selectedFiles): void
+    {
+        foreach ($selectedFiles as $source => $target) {
+            Filesystem::ensureDirectoryExists(dirname($target));
+            Filesystem::copy($source, $target); // Todo: See how we should handle existing files
+        }
+    }
+
+    protected function getPublishedFilesForOutput(Collection $selectedFiles): string
+    {
+        return collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($this->source).'/'))->implode(', ');
     }
 }
