@@ -130,7 +130,7 @@ class GeneratesTableOfContents
             }
         }
 
-        return $items;
+        return array_values($items);
     }
 
     /** @param array{level: int, title: string, identifier: string}  $heading */
