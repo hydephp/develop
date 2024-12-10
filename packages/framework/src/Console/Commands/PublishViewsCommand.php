@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
+use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
@@ -136,10 +137,16 @@ class PublishViewsCommand extends Command
         // Now we need to prompt the user for which files to publish
         $selectedFiles = $this->promptForFiles($files, basename($target));
 
-        $this->infoComment(sprintf("Selected files [%s]\n", collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($source).'/'))->implode(', ')));
-
         // Now we filter the files to only include the selected ones
         $selectedFiles = $files->filter(fn (string $file): bool => in_array($file, $selectedFiles));
+
+        // Now we need to publish the selected files
+        foreach ($selectedFiles as $source => $target) {
+            Filesystem::ensureDirectoryExists(dirname($target));
+            Filesystem::copy($source, $target);
+        }
+
+        $this->infoComment(sprintf('Published files [%s]', collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($source).'/'))->implode(', ')));
     }
 
     protected function promptForFiles(Collection $files, string $baseDir): array
