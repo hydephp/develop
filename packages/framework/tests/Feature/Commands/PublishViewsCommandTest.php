@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Console\Commands\PublishViewsCommand
+ *
+ * @see \Hyde\Framework\Testing\Unit\InteractivePublishCommandHelperTest
  */
 class PublishViewsCommandTest extends TestCase
 {
