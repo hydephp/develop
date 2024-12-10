@@ -7,9 +7,11 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Hyde;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Symfony\Component\Finder\SplFileInfo;
 
 use function Hyde\path_join;
@@ -129,5 +131,27 @@ class PublishViewsCommand extends Command
 
             return [Hyde::pathToRelative(realpath($file->getPathname())) => Hyde::pathToRelative($targetPath)];
         });
+
+        // Now we need to prompt the user for which files to publish
+        $selectedFiles = $this->promptForFiles($files, basename($target));
+    }
+
+    protected function promptForFiles(Collection $files, string $baseDir): array
+    {
+        $choices = $files->mapWithKeys(/** @return array<string, string> */ function (string $source, string $target) use ($baseDir, $files): array {
+            return [$source => Str::after($source, $baseDir.'/')];
+        });
+
+        $selected = $this->choice(
+            'Which files do you want to publish?',
+            $choices->values()->toArray(),
+            null,
+            null,
+            true
+        );
+
+        $this->infoComment(sprintf("Selected files [%s]\n", implode(', ', $selected)));
+
+        return $selected;
     }
 }
