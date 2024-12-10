@@ -107,6 +107,30 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
+    public function testCanGenerateTableOfContentsWithNonLogicalHeadingOrder()
+    {
+        $markdown = "# Level 1\n### Level 3\n#### Level 4\n";
+        $result = (new GeneratesTableOfContents($markdown))->execute();
+
+        $this->assertSame([
+            [
+                'children' => [
+                    [
+                        'title' => 'Level 3',
+                        'identifier' => 'level-3',
+                        'children' => [
+                            [
+                                'title' => 'Level 4',
+                                'identifier' => 'level-4',
+                                'children' => [],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ], $result);
+    }
+
     public function testNonHeadingMarkdownIsIgnored()
     {
         $expected = <<<'MARKDOWN'

@@ -90,6 +90,62 @@ class SidebarTableOfContentsViewTest extends TestCase
         );
     }
 
+    public function testCanGenerateTableOfContentsWithNonLogicalHeadingOrder()
+    {
+        $markdown = <<<'MARKDOWN'
+        # Level 1
+        ### Level 3
+        #### Level 4
+        ## Level 2
+        # Level 1B
+        ### Level 3B
+        MARKDOWN;
+
+        $result = $this->render($markdown);
+
+        $this->assertIsString($result);
+
+        $this->assertHtmlStructure(<<<'HTML'
+            <ul class="table-of-contents">
+              <li>
+                <ul>
+                  <li>
+                    <a href="#level-3">
+                      <span>#</span>
+                      Level 3
+                    </a>
+                    <ul>
+                      <li>
+                        <a href="#level-4">
+                          <span>#</span>
+                          Level 4
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#level-2">
+                  <span>#</span>
+                  Level 2
+                </a>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <a href="#level-3b">
+                      <span>#</span>
+                      Level 3B
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            HTML, $result
+        );
+    }
+
     public function testNonHeadingMarkdownIsRemoved()
     {
         $expected = <<<'MARKDOWN'
