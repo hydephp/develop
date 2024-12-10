@@ -50,6 +50,12 @@ class PublishViewsCommand extends Command
                 $this->publishOption($key);
             }
         } else {
+            if ($selected === 'components' && $this->isInteractive()) {
+                $this->handleInteractivePublish();
+
+                return Command::SUCCESS;
+            }
+
             $this->publishOption($selected);
         }
 
@@ -98,5 +104,10 @@ class PublishViewsCommand extends Command
     protected function parseChoiceIntoKey(string $choice): string
     {
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
+    }
+
+    protected function handleInteractivePublish(): void
+    {
+        //
     }
 }
