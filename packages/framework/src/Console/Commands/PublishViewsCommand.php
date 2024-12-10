@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
+use Hyde\Foundation\Providers\ViewServiceProvider;
+use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\ServiceProvider;
 
+use function Hyde\path_join;
 use function str_replace;
 use function sprintf;
 use function strstr;
@@ -108,6 +113,23 @@ class PublishViewsCommand extends Command
 
     protected function handleInteractivePublish(): void
     {
-        //
+        // Initially only works for components
+
+        // Get all files in the components tag
+        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, 'hyde-components');
+        $source = key($paths);
+        $target = $paths[$source];
+
+        $sourceBaseDir = basename($source);
+        $targetBaseDir = basename($target);
+
+        // Now we need an array that maps all source files to their target paths retaining the directory structure
+        $search = File::allFiles($source);
+
+        $files = collect($search)->mapWithKeys(function (\Symfony\Component\Finder\SplFileInfo $file) use ($source, $target, $sourceBaseDir, $targetBaseDir) {
+            $targetPath =  path_join($target, $file->getRelativePathname());
+
+            return [Hyde::pathToRelative(realpath($file->getPathname())) => Hyde::pathToRelative($targetPath)];
+        });
     }
 }
