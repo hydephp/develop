@@ -51,7 +51,7 @@ class InteractivePublishCommandHelper
 
         $this->publishFiles($filesToPublish);
 
-        return sprintf('Published files [%s]', $this->getPublishedFilesForOutput($filesToPublish));
+        return sprintf('Published files [%s]', $this->getPublishedFilesForOutput($selectedFiles));
     }
 
     /** @return array{string, string} */
