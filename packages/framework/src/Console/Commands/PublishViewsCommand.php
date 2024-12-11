@@ -116,7 +116,8 @@ class PublishViewsCommand extends Command
         $choices = $publisher->getFileChoices();
 
         $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        $publisher->handle($selectedFiles);
 
-        $this->infoComment($publisher->handle($selectedFiles));
+        $this->infoComment($publisher->formatOutput($selectedFiles));
     }
 }
