@@ -30,12 +30,11 @@ class InteractivePublishCommandHelper
     public function __construct(string $group)
     {
         $this->group = $group;
+        $this->publishableFilesMap = $this->mapPublishableFiles($this->findAllFilesForTag());
     }
 
     public function getFileChoices(): Collection
     {
-        $this->publishableFilesMap = $this->mapPublishableFiles($this->findAllFilesForTag());
-
         return $this->publishableFilesMap->mapWithKeys(/** @return array<string, string> */ function (string $source): array {
             return [$source => Str::after($source, basename($this->target).'/')];
         });
