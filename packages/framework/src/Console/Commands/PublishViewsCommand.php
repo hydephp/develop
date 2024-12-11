@@ -112,14 +112,12 @@ class PublishViewsCommand extends Command
 
     protected function handleInteractivePublish(string $selected): void
     {
-        $group = $this->options[$selected]['group'];
-        $publisher = new InteractivePublishCommandHelper($group);
+        $publisher = new InteractivePublishCommandHelper($this->options[$selected]['group']);
 
         $choices = $publisher->getFileChoices();
 
         $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
-        $message = $publisher->handle($selectedFiles);
-        $this->infoComment($message);
+        $this->infoComment($publisher->handle($selectedFiles));
     }
 }
