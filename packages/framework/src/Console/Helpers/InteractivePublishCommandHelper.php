@@ -99,11 +99,11 @@ class InteractivePublishCommandHelper
     }
 
     /**
-     * @param array<string> $selectedFiles
+     * @param  array<string>  $selectedFiles
      * @return array<string, string>
      */
-    public function filterPublishableFiles(array $selectedFiles): array
+    protected function filterPublishableFiles(array $selectedFiles): array
     {
-        return array_filter($this->publishableFilesMap, fn(string $file): bool => in_array($file, $selectedFiles));
+        return array_filter($this->publishableFilesMap, fn (string $file): bool => in_array($file, $selectedFiles));
     }
 }
