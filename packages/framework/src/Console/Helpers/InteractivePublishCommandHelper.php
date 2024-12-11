@@ -7,6 +7,7 @@ namespace Hyde\Console\Helpers;
 use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Hyde;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
@@ -24,8 +25,8 @@ class InteractivePublishCommandHelper
     protected readonly string $sourceDirectory;
     protected readonly string $targetDirectory;
 
-    /** @var \Illuminate\Support\Collection<string, string> Map of source files to target files */
-    protected readonly Collection $publishableFilesMap;
+    /** @var array<string, string> Map of source files to target files */
+    protected readonly array $publishableFilesMap;
 
     public function __construct(string $group)
     {
@@ -37,16 +38,16 @@ class InteractivePublishCommandHelper
         $this->publishableFilesMap = $this->mapPublishableFiles($filesForTag);
     }
 
-    public function getFileChoices(): Collection
+    public function getFileChoices(): array
     {
-        return $this->publishableFilesMap->mapWithKeys(/** @return array<string, string> */ function (string $source): array {
+        return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $source): array {
             return [$source => Str::after($source, basename($this->targetDirectory).'/')];
         });
     }
 
     public function handle(array $selectedFiles): string
     {
-        $filesToPublish = $this->publishableFilesMap->filter(fn (string $file): bool => in_array($file, $selectedFiles));
+        $filesToPublish = array_filter($this->publishableFilesMap, fn (string $file): bool => in_array($file, $selectedFiles));
 
         $this->publishFiles($filesToPublish);
 
@@ -70,16 +71,16 @@ class InteractivePublishCommandHelper
         return File::allFiles($this->sourceDirectory);
     }
 
-    protected function mapPublishableFiles(array $search): Collection
+    protected function mapPublishableFiles(array $search): array
     {
-        return collect($search)->mapWithKeys(/** @return array<string, string> */ function (SplFileInfo $file): array {
+        return Arr::mapWithKeys($search, /** @return array<string, string> */ function (SplFileInfo $file): array {
             $targetPath = path_join($this->targetDirectory, $file->getRelativePathname());
 
             return [Hyde::pathToRelative(realpath($file->getPathname())) => Hyde::pathToRelative($targetPath)];
         });
     }
 
-    protected function publishFiles(Collection $selectedFiles): void
+    protected function publishFiles(array $selectedFiles): void
     {
         foreach ($selectedFiles as $source => $target) {
             Filesystem::ensureDirectoryExists(dirname($target));
@@ -87,7 +88,7 @@ class InteractivePublishCommandHelper
         }
     }
 
-    protected function getPublishedFilesForOutput(Collection $selectedFiles): string
+    protected function getPublishedFilesForOutput(array $selectedFiles): string
     {
         return collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($this->sourceDirectory).'/'))->implode(', ');
     }
