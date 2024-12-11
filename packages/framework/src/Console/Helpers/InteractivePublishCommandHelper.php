@@ -36,6 +36,7 @@ class InteractivePublishCommandHelper
         $this->publishableFilesMap = $this->mapPublishableFiles($this->findAllFilesForTag());
     }
 
+    /** @return array<string, string> */
     public function getFileChoices(): array
     {
         return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $source): array {
@@ -43,9 +44,10 @@ class InteractivePublishCommandHelper
         });
     }
 
+    /** @param array<string> $selectedFiles */
     public function handle(array $selectedFiles): string
     {
-        $filesToPublish = array_filter($this->publishableFilesMap, fn (string $file): bool => in_array($file, $selectedFiles));
+        $filesToPublish = $this->filterPublishableFiles($selectedFiles);
 
         $this->publishFiles($filesToPublish);
 
@@ -94,5 +96,14 @@ class InteractivePublishCommandHelper
     protected function pathRelativeToDirectory(string $source, string $directory): string
     {
         return Str::after($source, basename($directory).'/');
+    }
+
+    /**
+     * @param array<string> $selectedFiles
+     * @return array<string, string>
+     */
+    public function filterPublishableFiles(array $selectedFiles): array
+    {
+        return array_filter($this->publishableFilesMap, fn(string $file): bool => in_array($file, $selectedFiles));
     }
 }
