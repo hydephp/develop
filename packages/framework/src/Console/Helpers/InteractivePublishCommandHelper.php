@@ -30,7 +30,14 @@ class InteractivePublishCommandHelper
     public function __construct(string $group)
     {
         $this->group = $group;
-        $this->publishableFilesMap = $this->mapPublishableFiles($this->findAllFilesForTag());
+
+        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->group);
+
+        $this->source = key($paths);
+        $this->target = $paths[$this->source];
+
+        $filesForTag = $this->findAllFilesForTag();
+        $this->publishableFilesMap = $this->mapPublishableFiles($filesForTag);
     }
 
     public function getFileChoices(): Collection
@@ -52,10 +59,6 @@ class InteractivePublishCommandHelper
     /** @return \Symfony\Component\Finder\SplFileInfo[] */
     protected function findAllFilesForTag(): array
     {
-        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->group);
-        $this->source = key($paths);
-        $this->target = $paths[$this->source];
-
         return File::allFiles($this->source);
     }
 
