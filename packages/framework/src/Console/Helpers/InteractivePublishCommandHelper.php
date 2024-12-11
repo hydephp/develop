@@ -8,7 +8,6 @@ use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Hyde;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -34,8 +33,7 @@ class InteractivePublishCommandHelper
 
         [$this->sourceDirectory, $this->targetDirectory] = $this->getPublishPaths();
 
-        $filesForTag = $this->findAllFilesForTag();
-        $this->publishableFilesMap = $this->mapPublishableFiles($filesForTag);
+        $this->publishableFilesMap = $this->mapPublishableFiles($this->findAllFilesForTag());
     }
 
     public function getFileChoices(): array

@@ -6,7 +6,6 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
-use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 
 use function Laravel\Prompts\multiselect;
