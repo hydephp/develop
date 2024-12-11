@@ -41,7 +41,7 @@ class InteractivePublishCommandHelper
     public function getFileChoices(): array
     {
         return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $source): array {
-            return [$source => Str::after($source, basename($this->targetDirectory).'/')];
+            return [$source => $this->pathRelativeToDirectory($source, $this->targetDirectory)];
         });
     }
 
@@ -90,6 +90,11 @@ class InteractivePublishCommandHelper
 
     protected function getPublishedFilesForOutput(array $selectedFiles): string
     {
-        return collect($selectedFiles)->map(fn (string $file): string => Str::after($file, basename($this->sourceDirectory).'/'))->implode(', ');
+        return collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory))->implode(', ');
+    }
+
+    protected function pathRelativeToDirectory(string $source, string $directory): string
+    {
+        return Str::after($source, basename($directory).'/');
     }
 }
