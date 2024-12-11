@@ -31,10 +31,7 @@ class InteractivePublishCommandHelper
     {
         $this->group = $group;
 
-        $paths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->group);
-
-        $this->source = key($paths);
-        $this->target = $paths[$this->source];
+        [$this->source, $this->target] = $this->getPublishPaths();
 
         $filesForTag = $this->findAllFilesForTag();
         $this->publishableFilesMap = $this->mapPublishableFiles($filesForTag);
@@ -54,6 +51,17 @@ class InteractivePublishCommandHelper
         $this->publishFiles($filesToPublish);
 
         return sprintf('Published files [%s]', $this->getPublishedFilesForOutput($filesToPublish));
+    }
+
+    /** @return array{string, string} */
+    protected function getPublishPaths(): array
+    {
+        $viewPaths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->group);
+
+        $source = array_key_first($viewPaths);
+        $target = $viewPaths[$source];
+
+        return [$source, $target];
     }
 
     /** @return \Symfony\Component\Finder\SplFileInfo[] */
