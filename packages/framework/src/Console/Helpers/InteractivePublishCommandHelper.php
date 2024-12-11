@@ -45,13 +45,11 @@ class InteractivePublishCommandHelper
     }
 
     /** @param array<string> $selectedFiles */
-    public function handle(array $selectedFiles): string
+    public function handle(array $selectedFiles): void
     {
         $filesToPublish = $this->filterPublishableFiles($selectedFiles);
 
         $this->publishFiles($filesToPublish);
-
-        return sprintf('Published files [%s]', $this->getPublishedFilesForOutput($selectedFiles));
     }
 
     /** @return array{string, string} */
@@ -88,9 +86,11 @@ class InteractivePublishCommandHelper
         }
     }
 
-    protected function getPublishedFilesForOutput(array $selectedFiles): string
+    public function formatOutput(array $selectedFiles): string
     {
-        return collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory))->implode(', ');
+        $publishedFiles = collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory))->implode(', ');
+
+        return sprintf('Published files [%s]', $publishedFiles);
     }
 
     protected function pathRelativeToDirectory(string $source, string $directory): string
