@@ -13,5 +13,16 @@ use Hyde\Testing\UnitTestCase;
  */
 class InteractivePublishCommandHelperTest extends UnitTestCase
 {
-    //
+    /** @var \Illuminate\Filesystem\Filesystem&\Mockery\MockInterface */
+    protected $filesystem;
+
+    protected function setUp(): void
+    {
+        $this->filesystem = $this->mockFilesystemStrict();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->verifyMockeryExpectations();
+    }
 }
