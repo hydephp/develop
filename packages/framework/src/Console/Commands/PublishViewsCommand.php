@@ -9,6 +9,7 @@ use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 
+use function Laravel\Prompts\multiselect;
 use function str_replace;
 use function sprintf;
 use function strstr;
@@ -114,7 +115,11 @@ class PublishViewsCommand extends Command
         $group = $this->options[$selected]['group'];
         $publisher = new InteractivePublishCommandHelper($group);
 
-        $message = $publisher->handle();
+        $choices = $publisher->getFileChoices();
+
+        $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+
+        $message = $publisher->handle($selectedFiles);
         $this->infoComment($message);
     }
 }

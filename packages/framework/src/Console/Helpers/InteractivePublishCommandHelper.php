@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 use Symfony\Component\Finder\SplFileInfo;
 
 use function Hyde\path_join;
-use function Laravel\Prompts\multiselect;
 
 /**
  * @internal This class offloads logic from the PublishViewsCommand class and should not be used elsewhere.
@@ -25,18 +24,26 @@ class InteractivePublishCommandHelper
     protected readonly string $source;
     protected readonly string $target;
 
+    /** @var \Illuminate\Support\Collection<string, string> Map of source files to target files */
+    protected readonly Collection $publishableFilesMap;
+
     public function __construct(string $group)
     {
         $this->group = $group;
     }
 
-    public function handle(): string
+    public function getFileChoices(): Collection
     {
-        $filesInTag = $this->findAllFilesForTag();
-        $publishableFilesMap = $this->mapPublishableFiles($filesInTag);
+        $this->publishableFilesMap = $this->mapPublishableFiles($this->findAllFilesForTag());
 
-        $selectedFiles = $this->promptForFiles($publishableFilesMap, basename($this->target));
-        $filesToPublish = $publishableFilesMap->filter(fn (string $file): bool => in_array($file, $selectedFiles));
+        return $this->publishableFilesMap->mapWithKeys(/** @return array<string, string> */ function (string $source): array {
+            return [$source => Str::after($source, basename($this->target).'/')];
+        });
+    }
+
+    public function handle(array $selectedFiles): string
+    {
+        $filesToPublish = $this->publishableFilesMap->filter(fn (string $file): bool => in_array($file, $selectedFiles));
 
         $this->publishFiles($filesToPublish);
 
@@ -60,15 +67,6 @@ class InteractivePublishCommandHelper
 
             return [Hyde::pathToRelative(realpath($file->getPathname())) => Hyde::pathToRelative($targetPath)];
         });
-    }
-
-    protected function promptForFiles(Collection $files, string $baseDir): array
-    {
-        $choices = $files->mapWithKeys(/** @return array<string, string> */ function (string $source) use ($baseDir): array {
-            return [$source => Str::after($source, $baseDir.'/')];
-        });
-
-        return multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
     }
 
     protected function publishFiles(Collection $selectedFiles): void
