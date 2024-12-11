@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Illuminate\Support\Facades\Artisan;
 
+use function Laravel\Prompts\multiselect;
 use function str_replace;
 use function sprintf;
 use function strstr;
@@ -17,7 +19,7 @@ use function strstr;
 class PublishViewsCommand extends Command
 {
     /** @var string */
-    protected $signature = 'publish:views {category? : The category to publish}';
+    protected $signature = 'publish:views {category? : The category to publish} {--i|interactive : Interactively select the views to publish}';
 
     /** @var string */
     protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten';
@@ -56,8 +58,20 @@ class PublishViewsCommand extends Command
         return Command::SUCCESS;
     }
 
+    protected function isInteractive(): bool
+    {
+        return $this->option('interactive');
+    }
+
     protected function publishOption(string $selected): void
     {
+        // Todo: Don't trigger interactive if "all" is selected
+        if ($this->isInteractive()) {
+            $this->handleInteractivePublish($selected);
+
+            return;
+        }
+
         Artisan::call('vendor:publish', [
             '--tag' => $this->options[$selected]['group'] ?? $selected,
             '--force' => true,
@@ -93,5 +107,17 @@ class PublishViewsCommand extends Command
     protected function parseChoiceIntoKey(string $choice): string
     {
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
+    }
+
+    protected function handleInteractivePublish(string $selected): void
+    {
+        $publisher = new InteractivePublishCommandHelper($this->options[$selected]['group']);
+
+        $choices = $publisher->getFileChoices();
+
+        $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        $publisher->handle($selectedFiles);
+
+        $this->infoComment($publisher->formatOutput($selectedFiles));
     }
 }
