@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Foundation\Kernel\Filesystem;
-use Illuminate\Support\Collection;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Filesystem::findFiles
@@ -74,7 +73,6 @@ class FilesystemFindFilesTest extends UnitTestCase
         $this->files(['directory/apple.md', 'directory/nested/banana.md', 'directory/nested/deeply/cherry.blade.php']);
         $this->assertSameArray(['apple.md', 'nested/banana.md'], 'directory', 'md', true);
     }
-
 
     protected function assertSameArray(array $expected, string $directory, string|false $matchExtension = false, bool $recursive = false): void
     {
