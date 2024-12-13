@@ -69,7 +69,7 @@ class Filesystem
         return self::kernel()->filesystem()->smartGlob($pattern, $flags);
     }
 
-    public static function findFiles(string $directory, bool $recursive = false, ?bool $matchExtension = null): Collection
+    public static function findFiles(string $directory, string|false $matchExtension = false, bool $recursive = false): Collection
     {
         return self::kernel()->filesystem()->findFiles($directory, $recursive, $matchExtension);
     }
