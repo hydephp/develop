@@ -36,6 +36,23 @@ trait CreatesTemporaryFiles
     }
 
     /**
+     * List of filenames, or map of filenames to contents, of temporary files to create in the project directory.
+     *
+     * The test case will automatically remove the files when the test is completed.
+     */
+    protected function files(array $files): void
+    {
+        foreach ($files as $path => $contents) {
+            if (is_int($path)) {
+                $path = $contents;
+                $contents = null;
+            }
+
+            $this->file($path, $contents);
+        }
+    }
+
+    /**
      * Create a temporary directory in the project directory.
      *
      * The test case will automatically remove the entire directory when the test is completed.
