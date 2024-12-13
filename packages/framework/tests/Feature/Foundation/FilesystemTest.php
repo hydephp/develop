@@ -13,16 +13,22 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Testing\UnitTestCase;
+use Illuminate\Support\Collection;
 
 use function Hyde\normalize_slashes;
 
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
+ *
+ * @see \Hyde\Framework\Testing\Unit\FilesystemFindFilesTest
  */
 class FilesystemTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
     protected string $originalBasePath;
 
     protected Filesystem $filesystem;
@@ -360,5 +366,43 @@ class FilesystemTest extends UnitTestCase
         foreach ($testStrings as $testString) {
             $this->assertSame(normalize_slashes($testString), Hyde::pathToRelative($testString));
         }
+    }
+
+    public function testFindFileMethodFindsFilesInDirectory()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md']);
+        $files = $this->filesystem->findFiles('directory');
+
+        $this->assertCount(3, $files);
+        $this->assertContains('apple.md', $files);
+        $this->assertContains('banana.md', $files);
+        $this->assertContains('cherry.md', $files);
+
+        $this->cleanUpFilesystem();
+    }
+
+    public function testFindFileMethodTypes()
+    {
+        $this->file('directory/apple.md');
+        $files = $this->filesystem->findFiles('directory');
+
+        $this->assertInstanceOf(Collection::class, $files);
+        $this->assertContainsOnly('int', $files->keys());
+        $this->assertContainsOnly('string', $files->all());
+        $this->assertSame('apple.md', $files->first());
+
+        $this->cleanUpFilesystem();
+    }
+
+    public function testFindFileMethodTypesWithArguments()
+    {
+        $this->file('directory/apple.md');
+
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', false, false));
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', 'md', false));
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', false, true));
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', 'md', true));
+
+        $this->cleanUpFilesystem();
     }
 }

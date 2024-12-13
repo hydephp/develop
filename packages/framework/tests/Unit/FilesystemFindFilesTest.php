@@ -75,28 +75,6 @@ class FilesystemFindFilesTest extends UnitTestCase
         $this->assertSameArray(['apple.md', 'nested/banana.md'], 'directory', 'md', true);
     }
 
-    public function testFindFileMethodTypes()
-    {
-        $this->file('directory/apple.md');
-        $filesystem = new Filesystem(Hyde::getInstance());
-        $files = $filesystem->findFiles('directory');
-
-        $this->assertInstanceOf(Collection::class, $files);
-        $this->assertContainsOnly('int', $files->keys());
-        $this->assertContainsOnly('string', $files->all());
-        $this->assertSame('apple.md', $files->first());
-    }
-
-    public function testFindFileMethodTypesWithArguments()
-    {
-        $this->file('directory/apple.md');
-        $filesystem = new Filesystem(Hyde::getInstance());
-
-        $this->assertInstanceOf(Collection::class, $filesystem->findFiles('directory', false, false));
-        $this->assertInstanceOf(Collection::class, $filesystem->findFiles('directory', 'md', false));
-        $this->assertInstanceOf(Collection::class, $filesystem->findFiles('directory', false, true));
-        $this->assertInstanceOf(Collection::class, $filesystem->findFiles('directory', 'md', true));
-    }
 
     protected function assertSameArray(array $expected, string $directory, string|false $matchExtension = false, bool $recursive = false): void
     {
