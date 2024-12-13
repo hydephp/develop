@@ -69,6 +69,11 @@ class Filesystem
         return self::kernel()->filesystem()->smartGlob($pattern, $flags);
     }
 
+    public static function findFiles(string $directory, bool $recursive = false, ?bool $matchExtension = null): Collection
+    {
+        return self::kernel()->filesystem()->findFiles($directory, $recursive, $matchExtension);
+    }
+
     /**
      * Touch one or more files in the project's directory.
      *

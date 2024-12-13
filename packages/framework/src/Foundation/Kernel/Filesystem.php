@@ -183,4 +183,10 @@ class Filesystem
 
         return $files->map(fn (string $path): string => $this->pathToRelative($path));
     }
+
+    /** @return \Illuminate\Support\Collection<int, string> */
+    public function findFiles(string $directory, bool $recursive = false, ?bool $matchExtension = null): Collection
+    {
+        // Todo: Implement this method
+    }
 }
