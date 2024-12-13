@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Foundation\Kernel\Filesystem;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Filesystem::findFiles
@@ -72,6 +73,72 @@ class FilesystemFindFilesTest extends UnitTestCase
     {
         $this->files(['directory/apple.md', 'directory/nested/banana.md', 'directory/nested/deeply/cherry.blade.php']);
         $this->assertSameArray(['apple.md', 'nested/banana.md'], 'directory', 'md', true);
+    }
+
+    public function testFindFilesWithFilesHavingNoExtensions()
+    {
+        $this->files(['directory/file', 'directory/another_file']);
+        $this->assertSameArray(['file', 'another_file'], 'directory');
+    }
+
+    public function testFindFilesWithSpecialCharactersInNames()
+    {
+        $this->files(['directory/file-with-dash.md', 'directory/another_file.txt', 'directory/special@char!.blade.php']);
+        $this->assertSameArray(['file-with-dash.md', 'another_file.txt', 'special@char!.blade.php'], 'directory');
+    }
+
+    public function testFindFilesWithSpecialPrefixes()
+    {
+        $this->files(['directory/_file.md', 'directory/-another_file.txt', 'directory/~special_file.blade.php']);
+        $this->assertSameArray(['_file.md', '-another_file.txt', '~special_file.blade.php'], 'directory');
+    }
+
+    public function testFindFilesWithHiddenFiles()
+    {
+        $this->files(['directory/.hidden_file', 'directory/.another_hidden.md', 'directory/visible_file.md']);
+        $this->assertSameArray(['visible_file.md'], 'directory');
+    }
+
+    public function testFindFilesWithRecursiveAndHiddenFiles()
+    {
+        $this->files(['directory/.hidden_file', 'directory/nested/.another_hidden.md', 'directory/nested/visible_file.md']);
+        $this->assertSameArray(['nested/visible_file.md'], 'directory', false, true);
+    }
+
+    public function testFindFilesWithEmptyExtensionFilter()
+    {
+        $this->files(['directory/file.md', 'directory/another_file.txt']);
+        $this->assertSameArray([], 'directory', '');
+    }
+
+    public function testFindFilesWithCaseInsensitiveExtensions()
+    {
+        $this->files(['directory/file.MD', 'directory/another_file.md', 'directory/ignored.TXT']);
+        $this->assertSameArray(['another_file.md'], 'directory', 'md');
+    }
+
+    public function testFindFilesWithCaseInsensitiveFilenames()
+    {
+        $this->files(['directory/file.md', 'directory/anotherFile.md', 'directory/ANOTHER_FILE.md']);
+        $this->assertSameArray(['file.md', 'anotherFile.md', 'ANOTHER_FILE.md'], 'directory');
+    }
+
+    public function testFindFilesHandlesLargeNumberOfFiles()
+    {
+        $this->files(array_map(fn ($i) => "directory/file$i.md", range(1, 100)));
+        $this->assertSameArray(array_map(fn ($i) => "file$i.md", range(1, 100)), 'directory');
+    }
+
+    public function testFindFilesWithEmptyDirectory()
+    {
+        $this->directory('directory');
+        $this->assertSameArray([], 'directory');
+    }
+
+    public function testFindFilesWithNonExistentDirectory()
+    {
+        $this->expectException(DirectoryNotFoundException::class);
+        $this->assertSameArray([], 'nonexistent-directory');
     }
 
     protected function assertSameArray(array $expected, string $directory, string|false $matchExtension = false, bool $recursive = false): void
