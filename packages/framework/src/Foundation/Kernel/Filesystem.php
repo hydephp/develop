@@ -211,7 +211,7 @@ class Filesystem
         $files = collect();
 
         foreach ($finder as $file) {
-            $files->push(str_replace($directory . DIRECTORY_SEPARATOR, '', $file->getRealPath()));
+            $files->push(str_replace($directory.DIRECTORY_SEPARATOR, '', $file->getRealPath()));
         }
 
         return $files;
