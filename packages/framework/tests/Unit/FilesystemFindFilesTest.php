@@ -12,6 +12,7 @@ use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Filesystem::findFiles
+ * @covers \Hyde\Facades\Filesystem::findFiles
  *
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
@@ -139,6 +140,25 @@ class FilesystemFindFilesTest extends UnitTestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
         $this->assertSameArray([], 'nonexistent-directory');
+    }
+
+    public function testFindFilesFromFilesystemFacade()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md']);
+        $files = \Hyde\Facades\Filesystem::findFiles('directory');
+
+        $this->assertSame(['apple.md', 'banana.md', 'cherry.md'], $files->sort()->values()->all());
+    }
+
+    public function testFindFilesFromFilesystemFacadeWithArguments()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md']);
+
+        $files = \Hyde\Facades\Filesystem::findFiles('directory', 'md');
+        $this->assertSame(['apple.md'], $files->all());
+
+        $files = \Hyde\Facades\Filesystem::findFiles('directory', false, true);
+        $this->assertSame(['apple.md', 'banana.txt', 'cherry.blade.php', 'nested/dates.md'], $files->sort()->values()->all());
     }
 
     protected function assertSameArray(array $expected, string $directory, string|false $matchExtension = false, bool $recursive = false): void

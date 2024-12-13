@@ -71,7 +71,7 @@ class Filesystem
 
     public static function findFiles(string $directory, string|false $matchExtension = false, bool $recursive = false): Collection
     {
-        return self::kernel()->filesystem()->findFiles($directory, $recursive, $matchExtension);
+        return self::kernel()->filesystem()->findFiles($directory, $matchExtension, $recursive);
     }
 
     /**
