@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Support\Collection;
+use Symfony\Component\Finder\Finder;
 
 use function collect;
 use function Hyde\normalize_slashes;
@@ -187,6 +188,32 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function findFiles(string $directory, string|false $matchExtension = false, bool $recursive = false): Collection
     {
-        // Todo: Implement this method
+        // Resolve the full directory path based on the project root
+        $directory = $this->path($directory);
+
+        // Create a Symfony Finder instance
+        $finder = new Finder();
+
+        // Configure Finder to look in the directory
+        $finder->files()->in($directory);
+
+        // Configure Finder for recursive or non-recursive search
+        if (! $recursive) {
+            $finder->depth('== 0');
+        }
+
+        // Optionally match file extensions
+        if ($matchExtension !== false) {
+            $finder->name('*.'.$matchExtension);
+        }
+
+        // Collect relative paths
+        $files = collect();
+
+        foreach ($finder as $file) {
+            $files->push(str_replace($directory . DIRECTORY_SEPARATOR, '', $file->getRealPath()));
+        }
+
+        return $files;
     }
 }
