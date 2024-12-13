@@ -185,7 +185,7 @@ class Filesystem
     }
 
     /** @return \Illuminate\Support\Collection<int, string> */
-    public function findFiles(string $directory, bool $recursive = false, ?bool $matchExtension = null): Collection
+    public function findFiles(string $directory, string|false $matchExtension = false, bool $recursive = false): Collection
     {
         // Todo: Implement this method
     }
