@@ -22,6 +22,7 @@ use function Hyde\normalize_slashes;
 /**
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
+ * @covers \Hyde\Facades\Filesystem
  *
  * @see \Hyde\Framework\Testing\Unit\FilesystemFindFilesTest
  */
@@ -404,5 +405,24 @@ class FilesystemTest extends UnitTestCase
         $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', 'md', true));
 
         $this->cleanUpFilesystem();
+    }
+
+    public function testFindFilesFromFilesystemFacade()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md']);
+        $files = \Hyde\Facades\Filesystem::findFiles('directory');
+
+        $this->assertSame(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md'], $files->sort()->values()->all());
+    }
+
+    public function testFindFilesFromFilesystemFacadeWithArguments()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md']);
+
+        $files = \Hyde\Facades\Filesystem::findFiles('directory', 'md');
+        $this->assertSame(['directory/apple.md'], $files->all());
+
+        $files = \Hyde\Facades\Filesystem::findFiles('directory', false, true);
+        $this->assertSame(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md'], $files->sort()->values()->all());
     }
 }
