@@ -200,9 +200,13 @@ class Filesystem
         }
 
         if ($matchExtensions !== false) {
+            if (is_string($matchExtensions)) {
+                $matchExtensions = array_map('trim', explode(',', $matchExtensions));
+            }
+
             $finder->name('/\.('.implode('|', array_map(function (string $extension): string {
                 return preg_quote(ltrim($extension, '.'), '/');
-            }, Arr::wrap($matchExtensions))).')$/i');
+            }, $matchExtensions)).')$/i');
         }
 
         return collect($finder)->map(function (string $file): string {
