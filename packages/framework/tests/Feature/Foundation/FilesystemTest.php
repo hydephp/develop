@@ -432,7 +432,8 @@ class FilesystemTest extends UnitTestCase
     public function testCanSwapOutFileFinder()
     {
         app()->bind(FileFinder::class, function () {
-            return new class {
+            return new class
+            {
                 public static function handle(): Collection
                 {
                     return collect(['mocked']);
