@@ -411,6 +411,8 @@ class FilesystemTest extends UnitTestCase
         $files = \Hyde\Facades\Filesystem::findFiles('directory');
 
         $this->assertSame(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md'], $files->sort()->values()->all());
+
+        $this->cleanUpFilesystem();
     }
 
     public function testFindFilesFromFilesystemFacadeWithArguments()
@@ -422,5 +424,7 @@ class FilesystemTest extends UnitTestCase
 
         $files = \Hyde\Facades\Filesystem::findFiles('directory', false, true);
         $this->assertSame(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md'], $files->sort()->values()->all());
+
+        $this->cleanUpFilesystem();
     }
 }
