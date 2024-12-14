@@ -188,37 +188,22 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function findFiles(string $directory, string|false $matchExtension = false, bool $recursive = false): Collection
     {
-        // Resolve the full directory path based on the project root
-        $directory = $this->path($directory);
+        $finder = Finder::create()->files()->in($this->path($directory));
 
-        // Create a Symfony Finder instance
-        $finder = new Finder();
-
-        // Configure Finder to look in the directory
-        $finder->files()->in($directory);
-
-        // Configure Finder for recursive or non-recursive search
-        if (! $recursive) {
+        if ($recursive === false) {
             $finder->depth('== 0');
         }
 
-        // Optionally match file extensions (case-insensitively)
         if ($matchExtension !== false) {
-            // Normalize input by removing a leading dot if present
-            $normalizedExtension = ltrim($matchExtension, '.');
-
-            // Use a case-insensitive regex to match file extensions
-            $finder->name('/\.' . preg_quote($normalizedExtension, '/') . '$/i');
+            $finder->name('/\.'.preg_quote(ltrim($matchExtension, '.'), '/').'$/i');
         }
 
-        // Collect relative paths
         $files = collect();
 
         foreach ($finder as $file) {
-            $files->push(str_replace($directory.DIRECTORY_SEPARATOR, '', $file->getRealPath()));
+            $files->push(str_replace($this->path($directory).DIRECTORY_SEPARATOR, '', $file->getRealPath()));
         }
 
-        // Sort files for consistent output
         return $files->sort()->values();
     }
 }
