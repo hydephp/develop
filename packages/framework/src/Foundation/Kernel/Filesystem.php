@@ -188,8 +188,6 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
     {
-        $finder = app(FileFinder::class);
-
-        return $finder::handle($directory, $matchExtensions, $recursive);
+        return app(FileFinder::class)->handle($directory, $matchExtensions, $recursive);
     }
 }
