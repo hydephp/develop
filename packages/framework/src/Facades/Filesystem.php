@@ -69,6 +69,16 @@ class Filesystem
         return self::kernel()->filesystem()->smartGlob($pattern, $flags);
     }
 
+    /**
+     * Find files in the project's directory, with optional filtering by extension and recursion.
+     *
+     * The returned collection will be a list of paths relative to the specified directory.
+     *
+     * @param  string  $directory
+     * @param  string|false  $matchExtension The file extension to match, or false to match all files.
+     * @param  bool  $recursive Whether to search recursively or not.
+     * @return \Illuminate\Support\Collection<int, string>
+     */
     public static function findFiles(string $directory, string|false $matchExtension = false, bool $recursive = false): Collection
     {
         return self::kernel()->filesystem()->findFiles($directory, $matchExtension, $recursive);
