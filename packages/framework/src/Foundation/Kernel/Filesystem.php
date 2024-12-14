@@ -9,7 +9,6 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 
 use function collect;
@@ -206,7 +205,7 @@ class Filesystem
             }, Arr::wrap($matchExtensions))).')$/i');
         }
 
-        return collect($finder)->map(function (string $file) use ($directory): string {
+        return collect($finder)->map(function (string $file): string {
             return $this->pathToRelative($file);
         })->sort()->values();
     }
