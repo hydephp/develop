@@ -15,12 +15,9 @@ use function file_exists;
 use function array_merge;
 use function array_keys;
 use function filesize;
-use function implode;
 use function pathinfo;
 use function collect;
 use function is_file;
-use function sprintf;
-use function glob;
 
 /**
  * File abstraction for a project media file.

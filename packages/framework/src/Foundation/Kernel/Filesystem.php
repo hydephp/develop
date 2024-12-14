@@ -7,7 +7,6 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 
