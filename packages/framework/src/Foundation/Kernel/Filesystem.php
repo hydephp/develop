@@ -190,6 +190,10 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
     {
+        if (! \Hyde\Facades\Filesystem::isDirectory($directory)) {
+            return collect();
+        }
+
         $finder = Finder::create()->files()->in($this->path($directory));
 
         if ($recursive === false) {
