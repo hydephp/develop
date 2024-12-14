@@ -10,12 +10,9 @@ use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Foundation\Kernel\Filesystem;
 
 /**
- * @covers \Hyde\Foundation\Kernel\Filesystem::findFiles
- * @covers \Hyde\Facades\Filesystem::findFiles
- *
- * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
+ * @covers \Hyde\Framework\Actions\Internal\FileFinder
  */
-class FilesystemFindFilesTest extends UnitTestCase
+class FileFinderTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;
 

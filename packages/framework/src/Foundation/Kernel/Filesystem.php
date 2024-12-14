@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Support\Collection;
-use Symfony\Component\Finder\Finder;
+use Hyde\Framework\Actions\Internal\FileFinder;
 
 use function collect;
 use function Hyde\normalize_slashes;
@@ -188,30 +188,6 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
     {
-        // TODO: Extract to internal class
-
-        if (! \Hyde\Facades\Filesystem::isDirectory($directory)) {
-            return collect();
-        }
-
-        $finder = Finder::create()->files()->in($this->path($directory));
-
-        if ($recursive === false) {
-            $finder->depth('== 0');
-        }
-
-        if ($matchExtensions !== false) {
-            if (is_string($matchExtensions)) {
-                $matchExtensions = array_map('trim', explode(',', $matchExtensions));
-            }
-
-            $finder->name('/\.('.implode('|', array_map(function (string $extension): string {
-                return preg_quote(ltrim($extension, '.'), '/');
-            }, $matchExtensions)).')$/i');
-        }
-
-        return collect($finder)->map(function (string $file): string {
-            return $this->pathToRelative($file);
-        })->sort()->values();
+        return FileFinder::handle($directory, $matchExtensions, $recursive);
     }
 }
