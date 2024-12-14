@@ -198,11 +198,9 @@ class Filesystem
             $finder->name('/\.'.preg_quote(ltrim($matchExtension, '.'), '/').'$/i');
         }
 
-        $files = collect();
-
-        foreach ($finder as $file) {
-            $files->push(str_replace($this->path($directory).DIRECTORY_SEPARATOR, '', $file->getRealPath()));
-        }
+        $files = collect($finder)->map(function (string $file) use ($directory): string {
+            return str_replace($this->path($directory) . DIRECTORY_SEPARATOR, '', $file);
+        });
 
         return $files->sort()->values();
     }
