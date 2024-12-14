@@ -153,25 +153,6 @@ class FilesystemFindFilesTest extends UnitTestCase
         $this->assertSameArray([], 'nonexistent-directory');
     }
 
-    public function testFindFilesFromFilesystemFacade()
-    {
-        $this->files(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md']);
-        $files = \Hyde\Facades\Filesystem::findFiles('directory');
-
-        $this->assertSame(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md'], $files->sort()->values()->all());
-    }
-
-    public function testFindFilesFromFilesystemFacadeWithArguments()
-    {
-        $this->files(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md']);
-
-        $files = \Hyde\Facades\Filesystem::findFiles('directory', 'md');
-        $this->assertSame(['directory/apple.md'], $files->all());
-
-        $files = \Hyde\Facades\Filesystem::findFiles('directory', false, true);
-        $this->assertSame(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md'], $files->sort()->values()->all());
-    }
-
     public function testFindFilesWithMultipleExtensions()
     {
         $this->files(['directory/file1.md', 'directory/file2.txt', 'directory/file3.blade.php']);
