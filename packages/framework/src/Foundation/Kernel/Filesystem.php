@@ -199,10 +199,8 @@ class Filesystem
             $finder->name('/\.'.preg_quote(ltrim($matchExtension, '.'), '/').'$/i');
         }
 
-        $files = collect($finder)->map(function (string $file) use ($directory): string {
+        return collect($finder)->map(function (string $file) use ($directory): string {
             return Str::after(normalize_slashes($file), $this->path($directory).'/');
-        });
-
-        return $files->sort()->values();
+        })->sort()->values();
     }
 }
