@@ -72,7 +72,7 @@ class Filesystem
     /**
      * Find files in the project's directory, with optional filtering by extension and recursion.
      *
-     * The returned collection will be a list of paths relative to the specified directory.
+     * The returned collection will be a list of paths relative to the project root.
      *
      * @param  string  $directory
      * @param  string|false  $matchExtension The file extension to match, or false to match all files.

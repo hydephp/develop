@@ -160,7 +160,7 @@ class FilesystemFindFilesTest extends UnitTestCase
         $this->files(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md']);
         $files = \Hyde\Facades\Filesystem::findFiles('directory');
 
-        $this->assertSame(['apple.md', 'banana.md', 'cherry.md'], $files->sort()->values()->all());
+        $this->assertSame(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md'], $files->sort()->values()->all());
     }
 
     public function testFindFilesFromFilesystemFacadeWithArguments()
@@ -168,10 +168,10 @@ class FilesystemFindFilesTest extends UnitTestCase
         $this->files(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md']);
 
         $files = \Hyde\Facades\Filesystem::findFiles('directory', 'md');
-        $this->assertSame(['apple.md'], $files->all());
+        $this->assertSame(['directory/apple.md'], $files->all());
 
         $files = \Hyde\Facades\Filesystem::findFiles('directory', false, true);
-        $this->assertSame(['apple.md', 'banana.txt', 'cherry.blade.php', 'nested/dates.md'], $files->sort()->values()->all());
+        $this->assertSame(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md'], $files->sort()->values()->all());
     }
 
     protected function assertSameArray(array $expected, string $directory, string|false $matchExtension = false, bool $recursive = false): void
@@ -179,7 +179,7 @@ class FilesystemFindFilesTest extends UnitTestCase
         $files = (new Filesystem(Hyde::getInstance()))->findFiles($directory, $matchExtension, $recursive);
 
         // Compare sorted arrays because some filesystems may return files in a different order.
-        $this->assertSame(collect($expected)->sort()->values()->all(), $files->all());
+        $this->assertSame(collect($expected)->map(fn (string $file): string => $directory.'/'.$file)->sort()->values()->all(), $files->all());
     }
 
     protected function tearDown(): void

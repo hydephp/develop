@@ -374,9 +374,9 @@ class FilesystemTest extends UnitTestCase
         $files = $this->filesystem->findFiles('directory');
 
         $this->assertCount(3, $files);
-        $this->assertContains('apple.md', $files);
-        $this->assertContains('banana.md', $files);
-        $this->assertContains('cherry.md', $files);
+        $this->assertContains('directory/apple.md', $files);
+        $this->assertContains('directory/banana.md', $files);
+        $this->assertContains('directory/cherry.md', $files);
 
         $this->cleanUpFilesystem();
     }
@@ -389,7 +389,7 @@ class FilesystemTest extends UnitTestCase
         $this->assertInstanceOf(Collection::class, $files);
         $this->assertContainsOnly('int', $files->keys());
         $this->assertContainsOnly('string', $files->all());
-        $this->assertSame('apple.md', $files->first());
+        $this->assertSame('directory/apple.md', $files->first());
 
         $this->cleanUpFilesystem();
     }
