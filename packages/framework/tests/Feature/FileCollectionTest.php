@@ -111,15 +111,15 @@ class FileCollectionTest extends TestCase
     {
         $this->file('_pages/foo.md');
         $this->file('_pages/foo/bar.md');
-        //$this->file('_pages/foo/bar/baz.md');
+        $this->file('_pages/foo/bar/baz.md');
         $collection = FileCollection::init(Hyde::getInstance())->boot();
 
         $this->assertArrayHasKey('_pages/foo.md', $collection->toArray());
         $this->assertArrayHasKey('_pages/foo/bar.md', $collection->toArray());
-        //$this->assertArrayHasKey('_pages/foo/bar/baz.md', $collection->toArray());
+        $this->assertArrayHasKey('_pages/foo/bar/baz.md', $collection->toArray());
 
         $this->assertEquals(new SourceFile('_pages/foo.md', MarkdownPage::class), $collection->get('_pages/foo.md'));
         $this->assertEquals(new SourceFile('_pages/foo/bar.md', MarkdownPage::class), $collection->get('_pages/foo/bar.md'));
-        //$this->assertEquals(new SourceFile('_pages/foo/bar/baz.md', MarkdownPage::class), $collection->get('_pages/foo/bar/baz.md'));
+        $this->assertEquals(new SourceFile('_pages/foo/bar/baz.md', MarkdownPage::class), $collection->get('_pages/foo/bar/baz.md'));
     }
 }
