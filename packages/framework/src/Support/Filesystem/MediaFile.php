@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -106,13 +107,11 @@ class MediaFile extends ProjectFile
 
     protected static function getMediaAssetFiles(): array
     {
-        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
+        return Filesystem::findFiles(Hyde::getMediaDirectory(), static::getMediaFileExtensions(), true)->all();
     }
 
-    protected static function getMediaGlobPattern(): string
+    protected static function getMediaFileExtensions(): array
     {
-        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
-            Config::getArray('hyde.media_extensions', self::EXTENSIONS)
-        ));
+        return Config::getArray('hyde.media_extensions', self::EXTENSIONS);
     }
 }
