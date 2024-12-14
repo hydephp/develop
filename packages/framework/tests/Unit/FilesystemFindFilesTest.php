@@ -179,7 +179,7 @@ class FilesystemFindFilesTest extends UnitTestCase
         $files = (new Filesystem(Hyde::getInstance()))->findFiles($directory, $matchExtension, $recursive);
 
         // Compare sorted arrays because some filesystems may return files in a different order.
-        $this->assertSame(collect($expected)->sort()->values()->all(), $files->sort()->values()->all());
+        $this->assertSame(collect($expected)->sort()->values()->all(), $files->all());
     }
 
     protected function tearDown(): void
