@@ -202,9 +202,9 @@ class Filesystem
             $finder->depth('== 0');
         }
 
-        // Optionally match file extensions
+        // Optionally match file extensions (case-insensitively)
         if ($matchExtension !== false) {
-            $finder->name('*.'.$matchExtension);
+            $finder->name('/\.' . preg_quote($matchExtension, '/') . '$/i');
         }
 
         // Collect relative paths

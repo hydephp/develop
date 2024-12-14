@@ -115,13 +115,19 @@ class FilesystemFindFilesTest extends UnitTestCase
     public function testFindFilesWithCaseInsensitiveExtensions()
     {
         $this->files(['directory/file.MD', 'directory/another_file.md', 'directory/ignored.TXT']);
-        $this->assertSameArray(['another_file.md'], 'directory', 'md');
+        $this->assertSameArray(['file.MD', 'another_file.md'], 'directory', 'md');
     }
 
     public function testFindFilesWithCaseInsensitiveFilenames()
     {
         $this->files(['directory/file.md', 'directory/anotherFile.md', 'directory/ANOTHER_FILE.md']);
         $this->assertSameArray(['file.md', 'anotherFile.md', 'ANOTHER_FILE.md'], 'directory');
+    }
+
+    public function testFindFilesWithCaseInsensitiveExtensionFilter()
+    {
+        $this->files(['directory/file.MD', 'directory/another_file.md', 'directory/ignored.TXT']);
+        $this->assertSameArray(['file.MD', 'another_file.md'], 'directory', 'MD');
     }
 
     public function testFindFilesHandlesLargeNumberOfFiles()
