@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Foundation\Kernel\Filesystem;
-use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Filesystem::findFiles
@@ -151,7 +150,6 @@ class FilesystemFindFilesTest extends UnitTestCase
 
     public function testFindFilesWithNonExistentDirectory()
     {
-        $this->expectException(DirectoryNotFoundException::class);
         $this->assertSameArray([], 'nonexistent-directory');
     }
 
