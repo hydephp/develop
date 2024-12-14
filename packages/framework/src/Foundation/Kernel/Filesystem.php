@@ -200,7 +200,7 @@ class Filesystem
         }
 
         return collect($finder)->map(function (string $file) use ($directory): string {
-            return Str::after(normalize_slashes($file), $this->path($directory).'/');
+            return $this->pathToRelative($file);
         })->sort()->values();
     }
 }
