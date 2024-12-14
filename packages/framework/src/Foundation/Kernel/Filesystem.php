@@ -218,6 +218,7 @@ class Filesystem
             $files->push(str_replace($directory.DIRECTORY_SEPARATOR, '', $file->getRealPath()));
         }
 
-        return $files;
+        // Sort files for consistent output
+        return $files->sort()->values();
     }
 }
