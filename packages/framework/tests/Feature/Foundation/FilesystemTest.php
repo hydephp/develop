@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Foundation;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PharSupport;
+use Hyde\Framework\Actions\Internal\FileFinder;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -426,5 +427,19 @@ class FilesystemTest extends UnitTestCase
         $this->assertSame(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md'], $files->sort()->values()->all());
 
         $this->cleanUpFilesystem();
+    }
+
+    public function testCanSwapOutFileFinder()
+    {
+        app()->bind(FileFinder::class, function () {
+            return new class {
+                public static function handle(): Collection
+                {
+                    return collect(['mocked']);
+                }
+            };
+        });
+
+        $this->assertSame(['mocked'], \Hyde\Facades\Filesystem::findFiles('directory')->toArray());
     }
 }
