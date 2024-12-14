@@ -110,8 +110,8 @@ class MediaFile extends ProjectFile
         return Filesystem::findFiles(Hyde::getMediaDirectory(), static::getMediaFileExtensions(), true)->all();
     }
 
-    protected static function getMediaFileExtensions(): array
+    protected static function getMediaFileExtensions(): array|string
     {
-        return Config::getArray('hyde.media_extensions', self::EXTENSIONS);
+        return Config::get('hyde.media_extensions', self::EXTENSIONS);
     }
 }
