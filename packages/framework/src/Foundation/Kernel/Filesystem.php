@@ -7,6 +7,7 @@ namespace Hyde\Foundation\Kernel;
 use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
@@ -187,7 +188,7 @@ class Filesystem
     }
 
     /** @return \Illuminate\Support\Collection<int, string> */
-    public function findFiles(string $directory, string|false $matchExtension = false, bool $recursive = false): Collection
+    public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
     {
         $finder = Finder::create()->files()->in($this->path($directory));
 
@@ -195,8 +196,10 @@ class Filesystem
             $finder->depth('== 0');
         }
 
-        if ($matchExtension !== false) {
-            $finder->name('/\.'.preg_quote(ltrim($matchExtension, '.'), '/').'$/i');
+        if ($matchExtensions !== false) {
+            $finder->name('/\.('.implode('|', array_map(function (string $extension): string {
+                return preg_quote(ltrim($extension, '.'), '/');
+            }, Arr::wrap($matchExtensions))).')$/i');
         }
 
         return collect($finder)->map(function (string $file) use ($directory): string {

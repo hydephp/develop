@@ -174,9 +174,90 @@ class FilesystemFindFilesTest extends UnitTestCase
         $this->assertSame(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md'], $files->sort()->values()->all());
     }
 
-    protected function assertSameArray(array $expected, string $directory, string|false $matchExtension = false, bool $recursive = false): void
+    public function testFindFilesWithMultipleExtensions()
     {
-        $files = (new Filesystem(Hyde::getInstance()))->findFiles($directory, $matchExtension, $recursive);
+        $this->files(['directory/file1.md', 'directory/file2.txt', 'directory/file3.blade.php']);
+        $this->assertSameArray(['file1.md', 'file2.txt'], 'directory', ['md', 'txt']);
+    }
+
+    public function testFindFilesWithMultipleExtensionsButOnlyOneMatches()
+    {
+        $this->files(['directory/file1.md', 'directory/file2.blade.php', 'directory/file3.blade.php']);
+        $this->assertSameArray(['file1.md'], 'directory', ['md', 'txt']);
+    }
+
+    public function testFindFilesWithMultipleExtensionsCaseInsensitive()
+    {
+        $this->files(['directory/file1.MD', 'directory/file2.TXT', 'directory/file3.blade.PHP']);
+        $this->assertSameArray(['file1.MD', 'file2.TXT'], 'directory', ['md', 'txt']);
+    }
+
+    public function testFindFilesWithEmptyArrayExtensions()
+    {
+        $this->files(['directory/file1.md', 'directory/file2.txt']);
+        $this->assertSameArray([], 'directory', []);
+    }
+
+    public function testFindFilesWithMixedExtensionsAndRecursion()
+    {
+        $this->files(['directory/file1.md', 'directory/nested/file2.txt', 'directory/nested/deep/file3.blade.php']);
+        $this->assertSameArray(['file1.md', 'nested/file2.txt'], 'directory', ['md', 'txt'], true);
+    }
+
+    public function testFindFilesWithMixedExtensionsNoRecursion()
+    {
+        $this->files(['directory/file1.md', 'directory/nested/file2.txt']);
+        $this->assertSameArray(['file1.md'], 'directory', ['md', 'txt'], false);
+    }
+
+    public function testFindFilesWithNoFilesMatchingAnyExtension()
+    {
+        $this->files(['directory/file1.md', 'directory/file2.txt']);
+        $this->assertSameArray([], 'directory', ['php', 'html']);
+    }
+
+    public function testFindFilesWithRecursiveAndNoFilesMatchingAnyExtension()
+    {
+        $this->files(['directory/file1.md', 'directory/nested/file2.txt']);
+        $this->assertSameArray([], 'directory', ['php', 'html'], true);
+    }
+
+    public function testFindFilesWithRecursiveAndSomeMatchingExtensions()
+    {
+        $this->files(['directory/file1.md', 'directory/nested/file2.txt', 'directory/nested/deep/file3.html']);
+        $this->assertSameArray(['file1.md', 'nested/file2.txt'], 'directory', ['md', 'txt'], true);
+    }
+
+    public function testFindFilesWithOnlyDotInExtensions()
+    {
+        $this->files(['directory/file.md', 'directory/file.txt']);
+        $this->assertSameArray(['file.md'], 'directory', '.md');
+        $this->assertSameArray(['file.txt'], 'directory', '.txt');
+    }
+
+    public function testFindFilesWithNoFilesWhenDirectoryContainsUnmatchedExtensions()
+    {
+        $this->files(['directory/file.md', 'directory/file.txt']);
+        $this->assertSameArray([], 'directory', 'php');
+        $this->assertSameArray([], 'directory', ['php']);
+    }
+
+    public function testFindFilesWithEmptyDirectoryAndMultipleExtensions()
+    {
+        $this->directory('directory');
+        $this->assertSameArray([], 'directory', ['md', 'txt']);
+    }
+
+    public function testFindFilesWithInvalidExtensionsThrowsNoError()
+    {
+        $this->files(['directory/file.md', 'directory/file.txt']);
+        $this->assertSameArray([], 'directory', '');
+        $this->assertSameArray([], 'directory', ['']);
+    }
+
+    protected function assertSameArray(array $expected, string $directory, string|array|false $matchExtensions = false, bool $recursive = false): void
+    {
+        $files = (new Filesystem(Hyde::getInstance()))->findFiles($directory, $matchExtensions, $recursive);
 
         // Compare sorted arrays because some filesystems may return files in a different order.
         $this->assertSame(collect($expected)->map(fn (string $file): string => $directory.'/'.$file)->sort()->values()->all(), $files->all());
