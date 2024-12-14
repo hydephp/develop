@@ -23,8 +23,6 @@ use function Hyde\normalize_slashes;
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
  * @covers \Hyde\Facades\Filesystem
- *
- * @see \Hyde\Framework\Testing\Unit\FilesystemFindFilesTest
  */
 class FilesystemTest extends UnitTestCase
 {
