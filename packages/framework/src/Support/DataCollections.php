@@ -103,13 +103,6 @@ class DataCollections extends Collection
 
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
-        if (! Filesystem::exists(path_join(static::$sourceDirectory, $name))) {
-            // To maintain compatability in the v1 branch, we return an empty collection if the directory does not exist.
-            // In v2.0, this will throw an exception by the findFiles method in the Filesystem class.
-
-            return new Collection();
-        }
-
         return Filesystem::findFiles(path_join(static::$sourceDirectory, $name), $extensions);
     }
 
