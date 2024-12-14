@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 
 use function collect;
@@ -199,7 +200,7 @@ class Filesystem
         }
 
         $files = collect($finder)->map(function (string $file) use ($directory): string {
-            return str_replace($this->path($directory) . DIRECTORY_SEPARATOR, '', $file);
+            return Str::after(normalize_slashes($file), $this->path($directory).'/');
         });
 
         return $files->sort()->values();
