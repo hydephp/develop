@@ -188,6 +188,8 @@ class Filesystem
     /** @return \Illuminate\Support\Collection<int, string> */
     public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
     {
+        // TODO: Extract to internal class
+
         if (! \Hyde\Facades\Filesystem::isDirectory($directory)) {
             return collect();
         }
