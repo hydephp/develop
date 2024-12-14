@@ -204,7 +204,11 @@ class Filesystem
 
         // Optionally match file extensions (case-insensitively)
         if ($matchExtension !== false) {
-            $finder->name('/\.' . preg_quote($matchExtension, '/') . '$/i');
+            // Normalize input by removing a leading dot if present
+            $normalizedExtension = ltrim($matchExtension, '.');
+
+            // Use a case-insensitive regex to match file extensions
+            $finder->name('/\.' . preg_quote($normalizedExtension, '/') . '$/i');
         }
 
         // Collect relative paths

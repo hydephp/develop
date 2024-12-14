@@ -130,6 +130,13 @@ class FilesystemFindFilesTest extends UnitTestCase
         $this->assertSameArray(['file.MD', 'another_file.md'], 'directory', 'MD');
     }
 
+    public function testFindFilesWithLeadingDotInFileExtension()
+    {
+        $this->files(['directory/file.md', 'directory/another_file.md', 'directory/ignored.txt']);
+        $this->assertSameArray(['file.md', 'another_file.md'], 'directory', 'md');
+        $this->assertSameArray(['file.md', 'another_file.md'], 'directory', '.md');
+    }
+
     public function testFindFilesHandlesLargeNumberOfFiles()
     {
         $this->files(array_map(fn ($i) => "directory/file$i.md", range(1, 100)));
