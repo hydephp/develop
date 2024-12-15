@@ -43,15 +43,12 @@ class FileFinder
     /** @param string|array<string> $extensions */
     protected static function buildFileExtensionPattern(string|array $extensions): string
     {
-        if (is_string($extensions)) {
-            // Convert single CSV string into an array
-            $extensions = array_map('trim', explode(',', $extensions));
-        } else {
-            // Normalize array by splitting any CSV strings within
-            $extensions = array_merge(...array_map(function ($item) {
-                return array_map('trim', explode(',', $item));
-            }, $extensions));
-        }
+        $extensions = (array) $extensions;
+
+        // Normalize array by splitting any CSV strings within
+        $extensions = array_merge(...array_map(function ($item) {
+            return array_map('trim', explode(',', $item));
+        }, $extensions));
 
         // Remove leading dots, escape extensions, and build the regex pattern
         return '/\.(' . implode('|', array_map(function (string $extension): string {
