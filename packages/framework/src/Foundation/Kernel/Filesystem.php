@@ -191,6 +191,9 @@ class Filesystem
      */
     public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
     {
-        return app(FileFinder::class)->handle($directory, $matchExtensions, $recursive);
+        /** @var \Hyde\Framework\Actions\Internal\FileFinder $finder */
+        $finder = app(FileFinder::class);
+
+        return $finder->handle($directory, $matchExtensions, $recursive);
     }
 }
