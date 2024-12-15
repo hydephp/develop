@@ -44,7 +44,7 @@ class FileFinder
     protected static function buildFileExtensionPattern(array $extensions): string
     {
         // Normalize array by splitting any CSV strings within
-        $extensions = array_merge(...array_map(function ($item) {
+        $extensions = array_merge(...array_map(function (string $item): array {
             return array_map('trim', explode(',', $item));
         }, $extensions));
 
