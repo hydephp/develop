@@ -7,6 +7,7 @@ namespace Hyde\Framework\Actions\Internal;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Illuminate\Support\Collection;
+use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -40,8 +41,8 @@ class FileFinder
             }, $matchExtensions)).')$/i');
         }
 
-        return collect($finder)->map(function (string $file): string {
-            return Hyde::pathToRelative($file);
+        return collect($finder)->map(function (SplFileInfo $file): string {
+            return Hyde::pathToRelative($file->getPathname());
         })->sort()->values();
     }
 }
