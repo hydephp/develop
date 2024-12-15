@@ -32,17 +32,23 @@ class FileFinder
         }
 
         if ($matchExtensions !== false) {
-            if (is_string($matchExtensions)) {
-                $matchExtensions = array_map('trim', explode(',', $matchExtensions));
-            }
-
-            $finder->name('/\.('.implode('|', array_map(function (string $extension): string {
-                return preg_quote(ltrim($extension, '.'), '/');
-            }, $matchExtensions)).')$/i');
+            $finder->name(static::buildFileExtensionPattern($matchExtensions));
         }
 
         return collect($finder)->map(function (SplFileInfo $file): string {
             return Hyde::pathToRelative($file->getPathname());
         })->sort()->values();
+    }
+
+    /** @param string|array<string> $extensions */
+    protected static function buildFileExtensionPattern(string|array $extensions): string
+    {
+        if (is_string($extensions)) {
+            $extensions = array_map('trim', explode(',', $extensions));
+        }
+
+        return '/\.(' . implode('|', array_map(function (string $extension): string {
+                return preg_quote(ltrim($extension, '.'), '/');
+            }, $extensions)) . ')$/i';
     }
 }
