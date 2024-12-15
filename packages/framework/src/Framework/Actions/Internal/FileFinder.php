@@ -45,7 +45,7 @@ class FileFinder
     {
         // Normalize array by splitting any CSV strings within
         $extensions = array_merge(...array_map(function (string $item): array {
-            return array_map('trim', explode(',', $item));
+            return array_map(fn (string $item): string => trim($item), explode(',', $item));
         }, $extensions));
 
         // Remove leading dots, escape extensions, and build the regex pattern
