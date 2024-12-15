@@ -185,7 +185,10 @@ class Filesystem
         return $files->map(fn (string $path): string => $this->pathToRelative($path));
     }
 
-    /** @return \Illuminate\Support\Collection<int, string> */
+    /**
+     * @param  string|array<string>|false  $matchExtensions
+     * @return \Illuminate\Support\Collection<int, string>
+     */
     public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
     {
         return app(FileFinder::class)->handle($directory, $matchExtensions, $recursive);
