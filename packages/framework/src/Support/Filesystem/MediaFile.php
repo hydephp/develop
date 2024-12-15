@@ -111,6 +111,9 @@ class MediaFile extends ProjectFile
     /** @return array<string>|string */
     protected static function getMediaFileExtensions(): array|string
     {
-        return Config::get('hyde.media_extensions', self::EXTENSIONS);
+        /** @var array<string>|string $config */
+        $config = Config::get('hyde.media_extensions', self::EXTENSIONS);
+
+        return $config;
     }
 }
