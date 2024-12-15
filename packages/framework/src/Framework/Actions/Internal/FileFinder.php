@@ -16,10 +16,10 @@ use Symfony\Component\Finder\Finder;
 class FileFinder
 {
     /**
-     * @param  string|array<string>|false  $matchExtensions
+     * @param  array<string>|string|false  $matchExtensions
      * @return \Illuminate\Support\Collection<int, string>
      */
-    public static function handle(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
+    public static function handle(string $directory, array|string|false $matchExtensions = false, bool $recursive = false): Collection
     {
         if (! Filesystem::isDirectory($directory)) {
             return collect();
@@ -43,14 +43,24 @@ class FileFinder
     /** @param array<string> $extensions */
     protected static function buildFileExtensionPattern(array $extensions): string
     {
-        // Normalize array by splitting any CSV strings within
-        $extensions = array_merge(...array_map(function (string $item): array {
+        $extensions = self::expandCommaSeparatedValues($extensions);
+
+        return '/\.('.self::normalizeExtensionForRegexPattern($extensions).')$/i';
+    }
+
+    /** @param array<string> $extensions */
+    private static function expandCommaSeparatedValues(array $extensions): array
+    {
+        return array_merge(...array_map(function (string $item): array {
             return array_map(fn (string $item): string => trim($item), explode(',', $item));
         }, $extensions));
+    }
 
-        // Remove leading dots, escape extensions, and build the regex pattern
-        return '/\.(' . implode('|', array_map(function (string $extension): string {
-                return preg_quote(ltrim($extension, '.'), '/');
-            }, $extensions)) . ')$/i';
+    /** @param array<string> $extensions */
+    private static function normalizeExtensionForRegexPattern(array $extensions): string
+    {
+        return implode('|', array_map(function (string $extension): string {
+            return preg_quote(ltrim($extension, '.'), '/');
+        }, $extensions));
     }
 }
