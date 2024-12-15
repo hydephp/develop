@@ -25,8 +25,6 @@ class FileFinder
             return collect();
         }
 
-        /** @var \Symfony\Component\Finder\Finder&\Traversable<int, \SplFileInfo> $finder
-         */
         $finder = Finder::create()->files()->in(Hyde::path($directory));
 
         if ($recursive === false) {
