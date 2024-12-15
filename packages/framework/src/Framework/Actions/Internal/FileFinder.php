@@ -11,7 +11,7 @@ use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 
 /**
- * @interal This class is used internally by the framework and is not part of the public API unless requested on GitHub.
+ * @interal This class is used internally by the framework and is not part of the public API, unless that is requested on GitHub with a valid use case.
  */
 class FileFinder
 {
