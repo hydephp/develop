@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Framework\Exceptions\FileNotFoundException;
@@ -14,12 +15,9 @@ use function file_exists;
 use function array_merge;
 use function array_keys;
 use function filesize;
-use function implode;
 use function pathinfo;
 use function collect;
 use function is_file;
-use function sprintf;
-use function glob;
 
 /**
  * File abstraction for a project media file.
@@ -104,15 +102,18 @@ class MediaFile extends ProjectFile
         })->all();
     }
 
+    /** @return array<string> */
     protected static function getMediaAssetFiles(): array
     {
-        return glob(Hyde::path(static::getMediaGlobPattern()), GLOB_BRACE) ?: [];
+        return Filesystem::findFiles(Hyde::getMediaDirectory(), static::getMediaFileExtensions(), true)->all();
     }
 
-    protected static function getMediaGlobPattern(): string
+    /** @return array<string>|string */
+    protected static function getMediaFileExtensions(): array|string
     {
-        return sprintf(Hyde::getMediaDirectory().'/{*,**/*,**/*/*}.{%s}', implode(',',
-            Config::getArray('hyde.media_extensions', self::EXTENSIONS)
-        ));
+        /** @var array<string>|string $config */
+        $config = Config::get('hyde.media_extensions', self::EXTENSIONS);
+
+        return $config;
     }
 }

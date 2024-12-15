@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Hyde;
+use Hyde\Framework\Actions\Internal\FileFinder;
 use Hyde\Support\DataCollections;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
@@ -45,18 +45,9 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertSame('[]', (new DataCollections())->toJson());
     }
 
-    public function testFindMarkdownFilesCallsProperGlobPattern()
-    {
-        $this->mockFilesystemFacade(['shouldReceiveGlob' => true]);
-
-        DataCollections::markdown('foo')->keys()->toArray();
-
-        $this->verifyMockeryExpectations();
-    }
-
     public function testFindMarkdownFilesWithNoFiles()
     {
-        $this->mockFilesystemFacade();
+        $this->mockFileFinder([]);
 
         $this->assertSame([], DataCollections::markdown('foo')->keys()->toArray());
 
@@ -65,7 +56,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testFindMarkdownFilesWithFiles()
     {
-        $this->mockFilesystemFacade(['glob' => ['bar.md']]);
+        $this->mockFileFinder(['bar.md']);
 
         $this->assertSame(['bar.md'], DataCollections::markdown('foo')->keys()->toArray());
 
@@ -77,25 +68,25 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertInstanceOf(DataCollections::class, DataCollections::markdown('foo'));
     }
 
-    protected function mockFilesystemFacade(array $config = []): void
+    protected function mockFileFinder(array $files): void
     {
-        $defaults = [
-            'exists' => true,
-            'glob' => [],
-            'get' => 'foo',
-        ];
-
-        $config = array_merge($defaults, $config);
-
-        $filesystem = Mockery::mock(Filesystem::class, $config);
-
-        if (isset($config['shouldReceiveGlob'])) {
-            $filesystem->shouldReceive('glob')
-                ->with(Hyde::path('resources/collections/foo/*.{md}'), GLOB_BRACE)
-                ->once()
-                ->andReturn($config['glob']);
-        }
+        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem->shouldReceive('exists')->andReturn(true);
+        $filesystem->shouldReceive('get')->andReturn('foo');
 
         app()->instance(Filesystem::class, $filesystem);
+
+        $finder = Mockery::mock(FileFinder::class);
+        $finder->shouldReceive('handle')->andReturn(collect($files));
+
+        app()->instance(FileFinder::class, $finder);
+    }
+
+    protected function verifyMockeryExpectations(): void
+    {
+        parent::verifyMockeryExpectations();
+
+        app()->forgetInstance(Filesystem::class);
+        app()->forgetInstance(FileFinder::class);
     }
 }
