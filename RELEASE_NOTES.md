@@ -14,6 +14,7 @@ This serves two purposes:
 - Registered the `cache:clear` command to make it easier to clear the cache in https://github.com/hydephp/develop/pull/1881
 - Added a new `Hyperlinks::isRemote()` helper method to check if a URL is remote in https://github.com/hydephp/develop/pull/1882
 - All page types now support the `description` front matter field (used in page metadata) in https://github.com/hydephp/develop/pull/1884
+- Added a new `Filesystem::findFiles()` method to find files in a directory in https://github.com/hydephp/develop/pull/2064
 
 ### Changed
 - Changed the `Hyde` facade to use a `@mixin` annotation instead of single method annotations in https://github.com/hydephp/develop/pull/1919
@@ -24,6 +25,7 @@ This serves two purposes:
 - The `torchlight:install` command is now hidden from the command list as it's already installed in https://github.com/hydephp/develop/pull/1879
 - Updated the home page fallback link in the 404 template to lead to the site root in https://github.com/hydephp/develop/pull/1880 (fixes https://github.com/hydephp/develop/issues/1781)
 - Normalized remote URL checks so that protocol relative URLs `//` are consistently considered to be remote in all places in https://github.com/hydephp/develop/pull/1882 (fixes https://github.com/hydephp/develop/issues/1788)
+- Replaced internal usages of glob functions with our improved file finder in https://github.com/hydephp/develop/pull/2064
 - Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
 - Realtime Compiler: Virtual routes are now managed through the service container in https://github.com/hydephp/develop/pull/1858
 - Realtime Compiler: Improved the dashboard layout in https://github.com/hydephp/develop/pull/1866
@@ -44,6 +46,8 @@ This serves two purposes:
 - Fixed routing issues with nested 404 pages where an index page does not exist https://github.com/hydephp/develop/issues/1781 in https://github.com/hydephp/develop/pull/1880
 - Fixed URL metadata for blog posts not using customized post output directories in https://github.com/hydephp/develop/pull/1889
 - Improved printed documentation views in https://github.com/hydephp/develop/pull/2005
+- Fixed "BuildService finding non-existent files to copy in Debian" https://github.com/hydephp/framework/issues/662 in https://github.com/hydephp/develop/pull/2064
+- Fixed "Undefined constant `Hyde\Foundation\Kernel\GLOB_BRACE`" https://github.com/hydephp/hyde/issues/270 in https://github.com/hydephp/develop/pull/2064
 - Realtime Compiler: Updated the exception handler to match HTTP exception codes when sending error responses in https://github.com/hydephp/develop/pull/1853
 - Realtime Compiler: Improved routing for nested index pages in https://github.com/hydephp/develop/pull/1852
 - Realtime Compiler: Improved the dashboard https://github.com/hydephp/develop/pull/1866 fixing https://github.com/hydephp/realtime-compiler/issues/22 and https://github.com/hydephp/realtime-compiler/issues/29
