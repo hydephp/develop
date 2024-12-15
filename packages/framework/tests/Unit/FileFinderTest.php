@@ -249,6 +249,18 @@ class FileFinderTest extends UnitTestCase
         $this->assertSameArray(['file1.MD', 'file2.TXT'], 'directory', 'md,TXT');
     }
 
+    public function testFindFilesWithCsvStringExtensionsInArray()
+    {
+        $this->files(['directory/file1.md', 'directory/file2.txt', 'directory/file3.jpg']);
+        $this->assertSameArray(['file1.md', 'file2.txt'], 'directory', ['md,txt']);
+    }
+
+    public function testFindFilesWithCsvStringExtensionsInMixedArray()
+    {
+        $this->files(['directory/file1.md', 'directory/file2.txt', 'directory/file3.jpg']);
+        $this->assertSameArray(['file1.md', 'file2.txt', 'file3.jpg'], 'directory', ['md,txt', 'jpg']);
+    }
+
     protected function assertSameArray(array $expected, string $directory, string|array|false $matchExtensions = false, bool $recursive = false): void
     {
         $files = (new Filesystem(Hyde::getInstance()))->findFiles($directory, $matchExtensions, $recursive);
