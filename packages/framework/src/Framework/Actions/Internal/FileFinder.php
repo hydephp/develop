@@ -32,7 +32,7 @@ class FileFinder
         }
 
         if ($matchExtensions !== false) {
-            $finder->name(static::buildFileExtensionPattern($matchExtensions));
+            $finder->name(static::buildFileExtensionPattern((array) $matchExtensions));
         }
 
         return collect($finder)->map(function (SplFileInfo $file): string {
@@ -40,11 +40,9 @@ class FileFinder
         })->sort()->values();
     }
 
-    /** @param string|array<string> $extensions */
-    protected static function buildFileExtensionPattern(string|array $extensions): string
+    /** @param array<string> $extensions */
+    protected static function buildFileExtensionPattern(array $extensions): string
     {
-        $extensions = (array) $extensions;
-
         // Normalize array by splitting any CSV strings within
         $extensions = array_merge(...array_map(function ($item) {
             return array_map('trim', explode(',', $item));
