@@ -931,6 +931,11 @@ Search.appendIndex(
             "summary": "A\u0020smarter\u0020glob\u0020function\u0020that\u0020will\u0020run\u0020the\u0020specified\u0020glob\u0020pattern\u0020a\u0020bit\u0020more\u0020intelligently.",
             "url": "classes/Hyde-Facades-Filesystem.html#method_smartGlob"
         },                {
+            "fqsen": "\\Hyde\\Facades\\Filesystem\u003A\u003AfindFiles\u0028\u0029",
+            "name": "findFiles",
+            "summary": "Find\u0020files\u0020in\u0020the\u0020project\u0027s\u0020directory,\u0020with\u0020optional\u0020filtering\u0020by\u0020extension\u0020and\u0020recursion.",
+            "url": "classes/Hyde-Facades-Filesystem.html#method_findFiles"
+        },                {
             "fqsen": "\\Hyde\\Facades\\Filesystem\u003A\u003Atouch\u0028\u0029",
             "name": "touch",
             "summary": "Touch\u0020one\u0020or\u0020more\u0020files\u0020in\u0020the\u0020project\u0027s\u0020directory.",
@@ -1375,6 +1380,11 @@ Search.appendIndex(
             "name": "smartGlob",
             "summary": "",
             "url": "classes/Hyde-Foundation-Kernel-Filesystem.html#method_smartGlob"
+        },                {
+            "fqsen": "\\Hyde\\Foundation\\Kernel\\Filesystem\u003A\u003AfindFiles\u0028\u0029",
+            "name": "findFiles",
+            "summary": "",
+            "url": "classes/Hyde-Foundation-Kernel-Filesystem.html#method_findFiles"
         },                {
             "fqsen": "\\Hyde\\Foundation\\Kernel\\Filesystem\u003A\u003A\u0024kernel",
             "name": "kernel",
@@ -1970,6 +1980,31 @@ Search.appendIndex(
             "name": "markdown",
             "summary": "",
             "url": "classes/Hyde-Framework-Actions-GeneratesTableOfContents.html#property_markdown"
+        },                {
+            "fqsen": "\\Hyde\\Framework\\Actions\\Internal\\FileFinder",
+            "name": "FileFinder",
+            "summary": "",
+            "url": "classes/Hyde-Framework-Actions-Internal-FileFinder.html"
+        },                {
+            "fqsen": "\\Hyde\\Framework\\Actions\\Internal\\FileFinder\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "",
+            "url": "classes/Hyde-Framework-Actions-Internal-FileFinder.html#method_handle"
+        },                {
+            "fqsen": "\\Hyde\\Framework\\Actions\\Internal\\FileFinder\u003A\u003AbuildFileExtensionPattern\u0028\u0029",
+            "name": "buildFileExtensionPattern",
+            "summary": "",
+            "url": "classes/Hyde-Framework-Actions-Internal-FileFinder.html#method_buildFileExtensionPattern"
+        },                {
+            "fqsen": "\\Hyde\\Framework\\Actions\\Internal\\FileFinder\u003A\u003AexpandCommaSeparatedValues\u0028\u0029",
+            "name": "expandCommaSeparatedValues",
+            "summary": "",
+            "url": "classes/Hyde-Framework-Actions-Internal-FileFinder.html#method_expandCommaSeparatedValues"
+        },                {
+            "fqsen": "\\Hyde\\Framework\\Actions\\Internal\\FileFinder\u003A\u003AnormalizeExtensionForRegexPattern\u0028\u0029",
+            "name": "normalizeExtensionForRegexPattern",
+            "summary": "",
+            "url": "classes/Hyde-Framework-Actions-Internal-FileFinder.html#method_normalizeExtensionForRegexPattern"
         },                {
             "fqsen": "\\Hyde\\Framework\\Actions\\MarkdownFileParser",
             "name": "MarkdownFileParser",
@@ -5831,10 +5866,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Hyde-Support-Filesystem-MediaFile.html#method_getMediaAssetFiles"
         },                {
-            "fqsen": "\\Hyde\\Support\\Filesystem\\MediaFile\u003A\u003AgetMediaGlobPattern\u0028\u0029",
-            "name": "getMediaGlobPattern",
+            "fqsen": "\\Hyde\\Support\\Filesystem\\MediaFile\u003A\u003AgetMediaFileExtensions\u0028\u0029",
+            "name": "getMediaFileExtensions",
             "summary": "",
-            "url": "classes/Hyde-Support-Filesystem-MediaFile.html#method_getMediaGlobPattern"
+            "url": "classes/Hyde-Support-Filesystem-MediaFile.html#method_getMediaFileExtensions"
         },                {
             "fqsen": "\\Hyde\\Support\\Filesystem\\MediaFile\u003A\u003AEXTENSIONS",
             "name": "EXTENSIONS",
@@ -6610,6 +6645,11 @@ Search.appendIndex(
             "name": "Actions",
             "summary": "",
             "url": "namespaces/hyde-framework-actions.html"
+        },                {
+            "fqsen": "\\Hyde\\Framework\\Actions\\Internal",
+            "name": "Internal",
+            "summary": "",
+            "url": "namespaces/hyde-framework-actions-internal.html"
         },                {
             "fqsen": "\\Hyde\\Framework\\Actions\\PostBuildTasks",
             "name": "PostBuildTasks",
