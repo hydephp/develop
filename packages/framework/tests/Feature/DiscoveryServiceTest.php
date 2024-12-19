@@ -130,7 +130,7 @@ class DiscoveryServiceTest extends UnitTestCase
 
         $this->assertSame([], MediaFile::files());
 
-        self::mockConfig(['hyde.media_extensions' => ['1,2,3']]);
+        self::mockConfig(['hyde.media_extensions' => '1,2,3']);
         $this->assertSame(['test.1', 'test.2', 'test.3'], MediaFile::files());
     }
 

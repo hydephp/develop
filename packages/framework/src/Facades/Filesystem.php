@@ -70,6 +70,21 @@ class Filesystem
     }
 
     /**
+     * Find files in the project's directory, with optional filtering by extension and recursion.
+     *
+     * The returned collection will be a list of paths relative to the project root.
+     *
+     * @param  string  $directory
+     * @param  string|array<string>|false  $matchExtensions  The file extension(s) to match, or false to match all files.
+     * @param  bool  $recursive  Whether to search recursively or not.
+     * @return \Illuminate\Support\Collection<int, string>
+     */
+    public static function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
+    {
+        return self::kernel()->filesystem()->findFiles($directory, $matchExtensions, $recursive);
+    }
+
+    /**
      * Touch one or more files in the project's directory.
      *
      * @param  string|array  $path

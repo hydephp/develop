@@ -15,6 +15,7 @@ final class HydeStan
     private const FILE_ANALYSERS = [
         NoFixMeAnalyser::class,
         UnImportedFunctionAnalyser::class,
+        NoGlobBraceAnalyser::class,
     ];
 
     private const TEST_FILE_ANALYSERS = [
@@ -365,6 +366,27 @@ class UnImportedFunctionAnalyser extends FileAnalyser
             AnalysisStatisticsContainer::analysedExpression();
             if (! in_array($calledFunction, $functionImports)) {
                 echo sprintf("Found unimported function '$calledFunction' in %s\n", realpath(__DIR__.'/../../packages/framework/'.$file));
+            }
+        }
+    }
+}
+
+class NoGlobBraceAnalyser extends FileAnalyser
+{
+    public function run(string $file, string $contents): void
+    {
+        $lines = explode("\n", $contents);
+
+        foreach ($lines as $lineNumber => $line) {
+            AnalysisStatisticsContainer::analysedExpression();
+
+            if (str_contains($line, 'GLOB_BRACE')) {
+                $this->fail(sprintf('Usage of `GLOB_BRACE` found in %s at line %d. This feature is not supported on all systems and should be avoided.',
+                    realpath(BASE_PATH.'/'.$file),
+                    $lineNumber + 1
+                ));
+
+                HydeStan::addActionsMessage('error', $file, $lineNumber + 1, 'HydeStan: NoGlobBraceError', '`GLOB_BRACE` is not supported on all systems. Consider refactoring to avoid it.');
             }
         }
     }

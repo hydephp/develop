@@ -12,9 +12,8 @@ use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-use function implode;
+use function Hyde\path_join;
 use function json_decode;
-use function sprintf;
 use function Hyde\unslash;
 use function str_starts_with;
 
@@ -102,9 +101,7 @@ class DataCollections extends Collection
 
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
-        return Filesystem::smartGlob(sprintf('%s/%s/*.{%s}',
-            static::$sourceDirectory, $name, implode(',', (array) $extensions)
-        ), GLOB_BRACE);
+        return Filesystem::findFiles(path_join(static::$sourceDirectory, $name), $extensions);
     }
 
     protected static function makeIdentifier(string $path): string
