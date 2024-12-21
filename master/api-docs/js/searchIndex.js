@@ -6626,11 +6626,6 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/hyde-foundation-facades.html"
         },                {
-            "fqsen": "\\Hyde\\Foundation\\Internal",
-            "name": "Internal",
-            "summary": "",
-            "url": "namespaces/hyde-foundation-internal.html"
-        },                {
             "fqsen": "\\Hyde\\Foundation\\Kernel",
             "name": "Kernel",
             "summary": "",
@@ -6820,11 +6815,6 @@ Search.appendIndex(
             "name": "Filesystem",
             "summary": "",
             "url": "namespaces/hyde-support-filesystem.html"
-        },                {
-            "fqsen": "\\Hyde\\Support\\Internal",
-            "name": "Internal",
-            "summary": "",
-            "url": "namespaces/hyde-support-internal.html"
         },                {
             "fqsen": "\\Hyde\\Support\\Models",
             "name": "Models",
