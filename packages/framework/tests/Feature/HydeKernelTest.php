@@ -32,6 +32,7 @@ use Illuminate\Support\HtmlString;
  * @covers \Hyde\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
+ * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeSlugTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */
 class HydeKernelTest extends TestCase
