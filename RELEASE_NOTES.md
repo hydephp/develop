@@ -15,6 +15,7 @@ This serves two purposes:
 - Added a new `Hyperlinks::isRemote()` helper method to check if a URL is remote in https://github.com/hydephp/develop/pull/1882
 - All page types now support the `description` front matter field (used in page metadata) in https://github.com/hydephp/develop/pull/1884
 - Added a new `Filesystem::findFiles()` method to find files in a directory in https://github.com/hydephp/develop/pull/2064
+- Added `webp` to the list of default media extensions in https://github.com/hydephp/framework/pull/663
 
 ### Changed
 - Changed the `Hyde` facade to use a `@mixin` annotation instead of single method annotations in https://github.com/hydephp/develop/pull/1919

@@ -25,7 +25,7 @@ use function is_file;
 class MediaFile extends ProjectFile
 {
     /** @var array<string> The default extensions for media types */
-    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'webp', 'gif', 'ico', 'css', 'js'];
 
     /** @return array<string, \Hyde\Support\Filesystem\MediaFile> The array keys are the filenames relative to the _media/ directory */
     public static function all(): array
