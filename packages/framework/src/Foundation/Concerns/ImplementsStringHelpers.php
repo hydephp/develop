@@ -38,6 +38,11 @@ trait ImplementsStringHelpers
         ));
     }
 
+    public static function makeSlug(string $value): string
+    {
+        return Str::slug($value);
+    }
+
     public static function normalizeNewlines(string $string): string
     {
         return str_replace("\r\n", "\n", $string);

@@ -108,6 +108,11 @@ class HydeKernelTest extends TestCase
         $this->assertSame('Foo Bar', Hyde::makeTitle('foo-bar'));
     }
 
+    public function testMakeSlugHelperReturnsSlugFromTitle()
+    {
+        $this->assertSame('foo-bar', Hyde::makeSlug('Foo Bar'));
+    }
+
     public function testNormalizeNewlinesReplacesCarriageReturnsWithUnixEndings()
     {
         $this->assertSame("foo\nbar\nbaz", Hyde::normalizeNewlines("foo\nbar\r\nbaz"));
