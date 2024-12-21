@@ -65,6 +65,8 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
         run: |
           cd hyde
           if ! [[ `git status --porcelain` ]]; then
@@ -72,8 +74,8 @@ jobs:
             exit 0;
           fi
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "$COMMIT_AUTHOR_NAME"
+          git config user.email "$COMMIT_AUTHOR_EMAIL"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hyde.git
 
           git add .
@@ -114,6 +116,8 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
         run: |
           cd framework
           if ! [[ `git status --porcelain` ]]; then
@@ -121,8 +125,8 @@ jobs:
             exit 0;
           fi
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "$COMMIT_AUTHOR_NAME"
+          git config user.email "$COMMIT_AUTHOR_EMAIL"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/framework.git
 
           git add .
@@ -163,6 +167,8 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
         run: |
           cd realtime-compiler
           if ! [[ `git status --porcelain` ]]; then
@@ -170,8 +176,8 @@ jobs:
             exit 0;
           fi
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "$COMMIT_AUTHOR_NAME"
+          git config user.email "$COMMIT_AUTHOR_EMAIL"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/realtime-compiler.git
 
           git add .
@@ -211,6 +217,8 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
         run: |
           cd hydefront
           if ! [[ `git status --porcelain` ]]; then
@@ -218,8 +226,8 @@ jobs:
             exit 0;
           fi
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "$COMMIT_AUTHOR_NAME"
+          git config user.email "$COMMIT_AUTHOR_EMAIL"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydefront.git
 
           git add .
@@ -263,6 +271,8 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
         run: |
           cd website
           if ! [[ `git status --porcelain` ]]; then
@@ -270,8 +280,8 @@ jobs:
             exit 0;
           fi
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "$COMMIT_AUTHOR_NAME"
+          git config user.email "$COMMIT_AUTHOR_EMAIL"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydephp.com.git
 
           git add .
@@ -312,6 +322,8 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
         run: |
           cd testing
           if ! [[ `git status --porcelain` ]]; then
@@ -319,8 +331,8 @@ jobs:
             exit 0;
           fi
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "$COMMIT_AUTHOR_NAME"
+          git config user.email "$COMMIT_AUTHOR_EMAIL"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/testing.git
 
           git add .
@@ -360,6 +372,8 @@ jobs:
       - name: Commit and push changes
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
         run: |
           cd ui-kit
 
@@ -368,8 +382,8 @@ jobs:
             exit 0;
           fi
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "$COMMIT_AUTHOR_NAME"
+          git config user.email "$COMMIT_AUTHOR_EMAIL"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/ui-kit.git
 
           git add .
