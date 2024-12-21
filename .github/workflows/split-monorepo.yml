@@ -74,12 +74,12 @@ jobs:
             exit 0;
           fi
 
-          git config user.name "$COMMIT_AUTHOR_NAME"
-          git config user.email "$COMMIT_AUTHOR_EMAIL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hyde.git
 
           git add .
-          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream develop
           echo "No changes to this package. Exiting gracefully."
@@ -125,12 +125,12 @@ jobs:
             exit 0;
           fi
 
-          git config user.name "$COMMIT_AUTHOR_NAME"
-          git config user.email "$COMMIT_AUTHOR_EMAIL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/framework.git
 
           git add .
-          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream develop
           echo "No changes to this package. Exiting gracefully."
@@ -176,12 +176,12 @@ jobs:
             exit 0;
           fi
 
-          git config user.name "$COMMIT_AUTHOR_NAME"
-          git config user.email "$COMMIT_AUTHOR_EMAIL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/realtime-compiler.git
 
           git add .
-          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
 
@@ -226,12 +226,12 @@ jobs:
             exit 0;
           fi
 
-          git config user.name "$COMMIT_AUTHOR_NAME"
-          git config user.email "$COMMIT_AUTHOR_EMAIL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydefront.git
 
           git add .
-          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
 
@@ -280,12 +280,12 @@ jobs:
             exit 0;
           fi
 
-          git config user.name "$COMMIT_AUTHOR_NAME"
-          git config user.email "$COMMIT_AUTHOR_EMAIL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/hydephp.com.git
 
           git add .
-          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream upcoming
           echo "No changes to this package. Exiting gracefully."
@@ -331,12 +331,12 @@ jobs:
             exit 0;
           fi
 
-          git config user.name "$COMMIT_AUTHOR_NAME"
-          git config user.email "$COMMIT_AUTHOR_EMAIL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/testing.git
 
           git add .
-          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
 
@@ -382,11 +382,11 @@ jobs:
             exit 0;
           fi
 
-          git config user.name "$COMMIT_AUTHOR_NAME"
-          git config user.email "$COMMIT_AUTHOR_EMAIL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/ui-kit.git
 
           git add .
-          git commit -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
