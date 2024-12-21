@@ -26,46 +26,41 @@ jobs:
 
       - name: Install Hyde
         shell: bash
-        run: |
-          if [ "${{ github.ref }}" == "refs/heads/master" ]; then
-            git clone -b master https://github.com/hydephp/hyde.git
-          else
-            git clone -b develop https://github.com/hydephp/hyde.git
-          fi
+        run: git clone -b master https://github.com/hydephp/develop.git --depth 1 runner
 
-      - name: Copy over framework source code
+      - name: Copy over framework code
         shell: bash
         run: |
-          mkdir -p ./hyde/packages/hyde/framework/src
+          rm -rf ./runner/packages/framework/src
+          rm -rf ./runner/packages/framework/tests
+          mkdir -p ./runner/packages/framework/src
+          mkdir -p ./runner/packages/framework/tests
 
-          # Since we can't use rsync on Windows, we need to copy the files to a temporary directory and then copy them back
           if [ "${{ matrix.os }}" == "windows-latest" ]; then
+              # For Windows, copy to temp then back to preserve structure
               mkdir ../temp
               cp -r ./ ../temp
-              rm -rf ../temp/hyde
-              cp -r ../temp/. ./hyde/packages/hyde/framework/src
+              rm -rf ../temp/runner
+              cp -r ../temp/src/. ./runner/packages/framework/src
+              cp -r ../temp/tests/. ./runner/packages/framework/tests
           else
-              rsync -a --exclude=hyde ./. ./hyde/packages/hyde/framework/src
+              # For Unix systems, use rsync
+              rsync -a --exclude=runner ./src/. ./runner/packages/framework/src
+              rsync -a --exclude=runner ./tests/. ./runner/packages/framework/tests
           fi
 
-      - name: Update composer.json to load framework from local source
-        run: |
-          cd hyde
-          composer config repositories.framework path ./packages/hyde/framework
-          composer require hyde/testing:dev-master hyde/framework:dev-develop
-
-      - name: Download test runner configuration
-        run: cd hyde && curl https://raw.githubusercontent.com/hydephp/develop/master/packages/hyde/phpunit.xml.dist -o phpunit.xml.dist
+      - name: Install dependencies
+        run: cd runner && composer install
 
       - name: Set environment to testing
-        run: cd hyde && echo "ENV=testing" > .env
+        run: cd runner && echo "ENV=testing" > .env
       - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-        run: cd hyde && vendor/bin/pest --log-junit report.xml
+        run: cd runner && vendor/bin/pest --log-junit report.xml
         env:
           ENV: testing
 
       - name: Ping statistics server with test results
         run: |
-          cd hyde
+          cd runner
           curl https://raw.githubusercontent.com/hydephp/develop/6e9d17f31879f4ccda13a3fec4029c9663bccec0/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Framework CI Matrix" ${{ secrets.OPENANALYTICS_TOKEN }}
