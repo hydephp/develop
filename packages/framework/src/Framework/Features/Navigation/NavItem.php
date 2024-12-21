@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\Navigation;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Models\Route;
-use Illuminate\Support\Str;
 use Stringable;
 
 /**
@@ -133,6 +132,6 @@ class NavItem implements Stringable
 
     protected static function normalizeGroupKey(?string $group): ?string
     {
-        return $group ? Str::slug($group) : null;
+        return $group ? Hyde::makeSlug($group) : null;
     }
 }

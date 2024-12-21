@@ -11,7 +11,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\Route;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 use function collect;
 
@@ -48,13 +47,13 @@ class DocumentationSidebar extends BaseNavigationMenu
     public function getItemsInGroup(?string $group): Collection
     {
         return $this->items->filter(function (NavItem $item) use ($group): bool {
-            return ($item->getGroup() === $group) || ($item->getGroup() === Str::slug($group));
+            return ($item->getGroup() === $group) || ($item->getGroup() === Hyde::makeSlug($group));
         })->sortBy('navigation.priority')->values();
     }
 
     public function isGroupActive(string $group): bool
     {
-        return Str::slug(Render::getPage()->navigationMenuGroup()) === $group
+        return Hyde::makeSlug(Render::getPage()->navigationMenuGroup()) === $group
             || $this->isPageIndexPage() && $this->shouldIndexPageBeActive($group);
     }
 
