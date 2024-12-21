@@ -28,13 +28,11 @@ class HydeHelperFacadeMakeSlugTest extends UnitTestCase
 
     public function testMakeSlugHelperConvertsCamelCaseToSlug()
     {
-        $this->markTestSkipped('Not supported yet.');
         $this->assertSame('hello-world', Hyde::makeSlug('helloWorld'));
     }
 
     public function testMakeSlugHelperConvertsPascalCaseToSlug()
     {
-        $this->markTestSkipped('Not supported yet.');
         $this->assertSame('hello-world', Hyde::makeSlug('HelloWorld'));
     }
 

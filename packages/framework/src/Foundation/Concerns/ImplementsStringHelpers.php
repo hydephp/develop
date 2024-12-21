@@ -40,6 +40,9 @@ trait ImplementsStringHelpers
 
     public static function makeSlug(string $value): string
     {
+        // Expand camelCase and PascalCase to separate words
+        $value = preg_replace('/([a-z])([A-Z])/', '$1 $2', $value);
+
         return Str::slug($value);
     }
 
