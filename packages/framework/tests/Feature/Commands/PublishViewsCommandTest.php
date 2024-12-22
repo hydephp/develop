@@ -79,7 +79,7 @@ class PublishViewsCommandTest extends TestCase
 
         $this->artisan('publish:views components --interactive')
             ->expectsOutput('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.')
-            ->assertExitCode(0);
+            ->assertExitCode(1);
 
         File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
     }

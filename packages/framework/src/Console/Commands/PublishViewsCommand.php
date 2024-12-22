@@ -45,6 +45,12 @@ class PublishViewsCommand extends Command
 
     public function handle(): int
     {
+        if ($this->isInteractive() && ConsoleHelper::usesWindowsOs()) {
+            $this->error('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.');
+
+            return Command::FAILURE;
+        }
+
         $selected = (string) ($this->argument('category') ?? $this->promptForCategory());
 
         if ($selected === 'all' || $selected === '') {
@@ -67,12 +73,6 @@ class PublishViewsCommand extends Command
     {
         // Todo: Don't trigger interactive if "all" is selected
         if ($this->isInteractive()) {
-            if (ConsoleHelper::usesWindowsOs()) {
-                // Laravel Prompts supports macOS, Linux, and Windows with WSL. Due to limitations in the Windows version of PHP, it is not currently possible to use Laravel Prompts on Windows outside of WSL.
-
-                $this->error('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.');
-            }
-
             $this->handleInteractivePublish($selected);
 
             return;
