@@ -43,6 +43,9 @@ trait ImplementsStringHelpers
         // Expand camelCase and PascalCase to separate words
         $value = preg_replace('/([a-z])([A-Z])/', '$1 $2', $value);
 
+        // Transliterate international characters to ASCII
+        $value = Str::transliterate($value);
+
         return Str::slug($value);
     }
 
