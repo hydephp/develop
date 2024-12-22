@@ -38,6 +38,19 @@ trait ImplementsStringHelpers
         ));
     }
 
+    public static function makeSlug(string $value): string
+    {
+        // Expand camelCase and PascalCase to separate words
+        $value = preg_replace('/([a-z])([A-Z])/', '$1 $2', $value);
+
+        // Transliterate international characters to ASCII
+        $value = Str::transliterate($value);
+
+        // Todo: In v2.0 we will use the following dictionary: ['@' => 'at', '&' => 'and']
+
+        return Str::slug($value);
+    }
+
     public static function normalizeNewlines(string $string): string
     {
         return str_replace("\r\n", "\n", $string);

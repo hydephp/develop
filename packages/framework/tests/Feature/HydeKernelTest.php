@@ -32,6 +32,7 @@ use Illuminate\Support\HtmlString;
  * @covers \Hyde\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
+ * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeSlugTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */
 class HydeKernelTest extends TestCase
@@ -106,6 +107,11 @@ class HydeKernelTest extends TestCase
     public function testMakeTitleHelperReturnsTitleFromPageSlug()
     {
         $this->assertSame('Foo Bar', Hyde::makeTitle('foo-bar'));
+    }
+
+    public function testMakeSlugHelperReturnsSlugFromTitle()
+    {
+        $this->assertSame('foo-bar', Hyde::makeSlug('Foo Bar'));
     }
 
     public function testNormalizeNewlinesReplacesCarriageReturnsWithUnixEndings()
