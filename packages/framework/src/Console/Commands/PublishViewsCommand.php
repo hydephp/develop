@@ -45,7 +45,7 @@ class PublishViewsCommand extends Command
 
     public function handle(): int
     {
-        if ($this->isInteractive() && (ConsoleHelper::usesWindowsOs() || ! stream_isatty(STDIN))) {
+        if ($this->isInteractive() && ConsoleHelper::usesWindowsOs()) {
             $this->error('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.');
 
             return Command::FAILURE;
