@@ -16,6 +16,7 @@ This serves two purposes:
 - All page types now support the `description` front matter field (used in page metadata) in https://github.com/hydephp/develop/pull/1884
 - Added a new `Filesystem::findFiles()` method to find files in a directory in https://github.com/hydephp/develop/pull/2064
 - Added `webp` to the list of default media extensions in https://github.com/hydephp/framework/pull/663
+- Added a new slug generation helper to improve internationalization support in https://github.com/hydephp/develop/pull/2070
 
 ### Changed
 - Changed the `Hyde` facade to use a `@mixin` annotation instead of single method annotations in https://github.com/hydephp/develop/pull/1919
@@ -26,6 +27,7 @@ This serves two purposes:
 - The `torchlight:install` command is now hidden from the command list as it's already installed in https://github.com/hydephp/develop/pull/1879
 - Updated the home page fallback link in the 404 template to lead to the site root in https://github.com/hydephp/develop/pull/1880 (fixes https://github.com/hydephp/develop/issues/1781)
 - Normalized remote URL checks so that protocol relative URLs `//` are consistently considered to be remote in all places in https://github.com/hydephp/develop/pull/1882 (fixes https://github.com/hydephp/develop/issues/1788)
+- Page slugs are now generated using our automatically internationalizing slug generator to transliterate input to ASCII in https://github.com/hydephp/develop/pull/2070
 - Replaced internal usages of glob functions with our improved file finder in https://github.com/hydephp/develop/pull/2064
 - Updated to HydeFront v3.4 in https://github.com/hydephp/develop/pull/1803
 - Realtime Compiler: Virtual routes are now managed through the service container in https://github.com/hydephp/develop/pull/1858
@@ -46,6 +48,7 @@ This serves two purposes:
 - Fixed heading permalinks button text showing in Google Search previews https://github.com/hydephp/develop/issues/1801 in https://github.com/hydephp/develop/pull/1803
 - Fixed routing issues with nested 404 pages where an index page does not exist https://github.com/hydephp/develop/issues/1781 in https://github.com/hydephp/develop/pull/1880
 - Fixed URL metadata for blog posts not using customized post output directories in https://github.com/hydephp/develop/pull/1889
+- Fixed lacking support for logographic slug generation https://github.com/hydephp/hyde/issues/269 in https://github.com/hydephp/develop/pull/2070 
 - Improved printed documentation views in https://github.com/hydephp/develop/pull/2005
 - Fixed "BuildService finding non-existent files to copy in Debian" https://github.com/hydephp/framework/issues/662 in https://github.com/hydephp/develop/pull/2064
 - Fixed "Undefined constant `Hyde\Foundation\Kernel\GLOB_BRACE`" https://github.com/hydephp/hyde/issues/270 in https://github.com/hydephp/develop/pull/2064
