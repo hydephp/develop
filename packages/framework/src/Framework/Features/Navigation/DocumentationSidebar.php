@@ -53,7 +53,7 @@ class DocumentationSidebar extends BaseNavigationMenu
 
     public function isGroupActive(string $group): bool
     {
-        $normalized = Hyde::makeSlug(Render::getPage()->navigationMenuGroup());
+        $normalized = Hyde::makeSlug(Render::getPage()->navigationMenuGroup() ?? 'other');
 
         return ($normalized === $group) || ($this->isPageIndexPage() && $this->shouldIndexPageBeActive($group));
     }
