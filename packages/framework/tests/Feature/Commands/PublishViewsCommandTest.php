@@ -54,9 +54,7 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionOnUnixSystems()
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Laravel Prompts does not support Windows OS');
-        }
+        ConsoleHelper::mockWindowsOs(false);
 
         ConsoleHelper::mockMultiselect(['resources/views/vendor/hyde/components/article-excerpt.blade.php'], function ($label, $options) {
             $this->assertEquals('Select the files you want to publish (CTRL+A to toggle all)', $label);
@@ -77,12 +75,12 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionOnWindowsSystems()
     {
-        if (! windows_os()) {
-            $this->markTestSkipped('This test is only for Windows OS');
-        }
+        ConsoleHelper::mockWindowsOs();
 
         $this->artisan('publish:views components --interactive')
             ->expectsOutput('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.')
-            ->assertExitCode(1);
+            ->assertExitCode(0);
+
+        File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
     }
 }
