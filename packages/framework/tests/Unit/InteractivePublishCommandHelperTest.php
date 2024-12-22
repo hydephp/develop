@@ -36,6 +36,7 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         Container::setInstance($app);
 
         $this->filesystem = $this->mockFilesystemStrict();
+        $this->filesystem->shouldReceive('allFiles')->andReturn([])->byDefault();
 
         File::swap($this->filesystem);
         Blade::partialMock()->shouldReceive('component');
@@ -103,8 +104,6 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
 
     public function testFormatOutput()
     {
-        $this->filesystem->shouldReceive('allFiles')->andReturn([]);
-
         $helper = new InteractivePublishCommandHelper('hyde-layouts');
 
         $output = $helper->formatOutput([
