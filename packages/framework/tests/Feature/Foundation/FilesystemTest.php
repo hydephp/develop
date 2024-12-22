@@ -8,6 +8,7 @@ use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Foundation\PharSupport;
+use Hyde\Framework\Actions\Internal\FileFinder;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -15,6 +16,7 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\MediaFile;
+use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Testing\UnitTestCase;
 
 use function Hyde\normalize_slashes;
@@ -23,9 +25,12 @@ use function Hyde\normalize_slashes;
  * @covers \Hyde\Foundation\HydeKernel
  * @covers \Hyde\Foundation\Kernel\Filesystem
  * @covers \Hyde\Foundation\Concerns\HasMediaFiles
+ * @covers \Hyde\Facades\Filesystem
  */
 class FilesystemTest extends UnitTestCase
 {
+    use CreatesTemporaryFiles;
+
     protected string $originalBasePath;
 
     protected Filesystem $filesystem;
@@ -381,5 +386,81 @@ class FilesystemTest extends UnitTestCase
     public function testAssetsMethodReturnsAssetCollectionSingleton()
     {
         $this->assertSame($this->filesystem->assets(), $this->filesystem->assets());
+    }
+
+    public function testFindFileMethodFindsFilesInDirectory()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md']);
+        $files = $this->filesystem->findFiles('directory');
+
+        $this->assertCount(3, $files);
+        $this->assertContains('directory/apple.md', $files);
+        $this->assertContains('directory/banana.md', $files);
+        $this->assertContains('directory/cherry.md', $files);
+
+        $this->cleanUpFilesystem();
+    }
+
+    public function testFindFileMethodTypes()
+    {
+        $this->file('directory/apple.md');
+        $files = $this->filesystem->findFiles('directory');
+
+        $this->assertInstanceOf(Collection::class, $files);
+        $this->assertContainsOnly('int', $files->keys());
+        $this->assertContainsOnly('string', $files->all());
+        $this->assertSame('directory/apple.md', $files->first());
+
+        $this->cleanUpFilesystem();
+    }
+
+    public function testFindFileMethodTypesWithArguments()
+    {
+        $this->file('directory/apple.md');
+
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', false, false));
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', 'md', false));
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', false, true));
+        $this->assertInstanceOf(Collection::class, $this->filesystem->findFiles('directory', 'md', true));
+
+        $this->cleanUpFilesystem();
+    }
+
+    public function testFindFilesFromFilesystemFacade()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md']);
+        $files = \Hyde\Facades\Filesystem::findFiles('directory');
+
+        $this->assertSame(['directory/apple.md', 'directory/banana.md', 'directory/cherry.md'], $files->sort()->values()->all());
+
+        $this->cleanUpFilesystem();
+    }
+
+    public function testFindFilesFromFilesystemFacadeWithArguments()
+    {
+        $this->files(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md']);
+
+        $files = \Hyde\Facades\Filesystem::findFiles('directory', 'md');
+        $this->assertSame(['directory/apple.md'], $files->all());
+
+        $files = \Hyde\Facades\Filesystem::findFiles('directory', false, true);
+        $this->assertSame(['directory/apple.md', 'directory/banana.txt', 'directory/cherry.blade.php', 'directory/nested/dates.md'], $files->sort()->values()->all());
+
+        $this->cleanUpFilesystem();
+    }
+
+    public function testCanSwapOutFileFinder()
+    {
+        app()->bind(FileFinder::class, function () {
+            return new class
+            {
+                public static function handle(): Collection
+                {
+                    return collect(['mocked']);
+                }
+            };
+        });
+
+        $this->assertSame(['mocked'], \Hyde\Facades\Filesystem::findFiles('directory')->toArray());
     }
 }

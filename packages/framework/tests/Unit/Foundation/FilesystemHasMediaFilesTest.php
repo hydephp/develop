@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Foundation;
 
+use Hyde\Framework\Actions\Internal\FileFinder;
 use Mockery;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Hyde;
@@ -11,6 +12,7 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
+use Mockery\MockInterface;
 
 /**
  * @covers \Hyde\Foundation\Kernel\Filesystem
@@ -32,6 +34,16 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $mock->shouldReceive('hash')->andReturn('hash')->byDefault();
 
         app()->instance(BaseFilesystem::class, $mock);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->verifyMockeryExpectations();
+
+        app()->forgetInstance(BaseFilesystem::class);
+        app()->forgetInstance(FileFinder::class);
+
+        Hyde::setMediaDirectory('_media');
     }
 
     public function testAssetsMethodReturnsSameInstanceOnSubsequentCalls()
@@ -66,24 +78,35 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->assertTrue($assets->has('documents/report.pdf'));
     }
 
-    public function testGetMediaGlobPatternWithCustomMediaDirectory()
+    public function testUsesRecursiveFinderSearch()
     {
-        Hyde::setMediaDirectory('custom_media');
+        $mock = $this->mockFileFinder();
 
-        $pattern = $this->filesystem->getTestMediaGlobPattern();
+        (new Filesystem(Hyde::getInstance()))->assets();
 
-        $this->assertStringContainsString('custom_media/', $pattern);
-
-        Hyde::setMediaDirectory('_media');
+        $mock->shouldHaveReceived('handle')->with('_media', MediaFile::EXTENSIONS, true);
     }
 
-    public function testGetMediaGlobPatternWithCustomExtensions()
+    public function testItSupportsCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('assets');
+
+        $mock = $this->mockFileFinder();
+
+        (new Filesystem(Hyde::getInstance()))->assets();
+
+        $mock->shouldHaveReceived('handle')->with('assets', MediaFile::EXTENSIONS, true);
+    }
+
+    public function testItSupportsCustomExtensions()
     {
         self::mockConfig(['hyde.media_extensions' => ['gif', 'svg']]);
 
-        $pattern = $this->filesystem->getTestMediaGlobPattern();
+        $mock = $this->mockFileFinder();
 
-        $this->assertStringContainsString('{gif,svg}', $pattern);
+        (new Filesystem(Hyde::getInstance()))->assets();
+
+        $mock->shouldHaveReceived('handle')->with('_media', ['gif', 'svg'], true);
     }
 
     public function testDiscoverMediaFilesWithEmptyResult()
@@ -109,6 +132,15 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->assertInstanceOf(MediaFile::class, $result->get('image.jpg'));
         $this->assertInstanceOf(MediaFile::class, $result->get('document.pdf'));
     }
+
+    protected function mockFileFinder(): MockInterface
+    {
+        $mock = Mockery::mock(FileFinder::class);
+        $mock->shouldReceive('handle')->andReturn(collect());
+        app()->instance(FileFinder::class, $mock);
+
+        return $mock;
+    }
 }
 
 class TestableFilesystem extends Filesystem
@@ -125,9 +157,9 @@ class TestableFilesystem extends Filesystem
         return self::$testMediaFiles;
     }
 
-    public function getTestMediaGlobPattern(): string
+    public function callGetMediaFiles(): array
     {
-        return static::getMediaGlobPattern();
+        return parent::getMediaFiles();
     }
 
     public function getTestDiscoverMediaFiles(): Collection

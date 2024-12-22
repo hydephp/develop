@@ -15,8 +15,7 @@ use Hyde\Framework\Actions\MarkdownFileParser;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 use function blank;
-use function implode;
-use function sprintf;
+use function Hyde\path_join;
 use function Hyde\unslash;
 use function json_decode;
 use function json_last_error_msg;
@@ -106,9 +105,7 @@ class DataCollection extends Collection
      */
     protected static function findFiles(string $name, array|string $extensions): Collection
     {
-        return Filesystem::smartGlob(sprintf('%s/%s/*.{%s}',
-            static::$sourceDirectory, $name, implode(',', (array) $extensions)
-        ), GLOB_BRACE);
+        return Filesystem::findFiles(path_join(static::$sourceDirectory, $name), $extensions);
     }
 
     protected static function makeIdentifier(string $path): string

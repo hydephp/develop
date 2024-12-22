@@ -11,7 +11,6 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 
 use function basename;
-use function glob;
 use function in_array;
 use function sprintf;
 
@@ -22,7 +21,7 @@ class CleanSiteDirectory extends PreBuildTask
     public function handle(): void
     {
         if ($this->isItSafeToCleanOutputDirectory()) {
-            Filesystem::unlink(glob(Hyde::sitePath('*.{html,json}'), GLOB_BRACE));
+            Filesystem::unlink(Filesystem::findFiles(Hyde::sitePath(), ['html', 'json'])->all());
             Filesystem::cleanDirectory(MediaFile::outputPath());
         }
     }

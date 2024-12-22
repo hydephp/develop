@@ -81,7 +81,7 @@ class CreatesNewPageSourceFile
         }
 
         // And return a slug made from just the title without the subdirectory
-        return Str::slug(basename($title));
+        return Hyde::makeSlug(basename($title));
     }
 
     protected function normalizeSubdirectory(string $title): string

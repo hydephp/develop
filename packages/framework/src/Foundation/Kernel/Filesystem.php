@@ -9,6 +9,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\PharSupport;
 use Hyde\Foundation\Concerns\HasMediaFiles;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Actions\Internal\FileFinder;
 
 use function collect;
 use function Hyde\normalize_slashes;
@@ -159,5 +160,17 @@ class Filesystem
         $files = collect(\Hyde\Facades\Filesystem::glob($pattern, $flags));
 
         return $files->map(fn (string $path): string => $this->pathToRelative($path));
+    }
+
+    /**
+     * @param  string|array<string>|false  $matchExtensions
+     * @return \Illuminate\Support\Collection<int, string>
+     */
+    public function findFiles(string $directory, string|array|false $matchExtensions = false, bool $recursive = false): Collection
+    {
+        /** @var \Hyde\Framework\Actions\Internal\FileFinder $finder */
+        $finder = app(FileFinder::class);
+
+        return $finder->handle($directory, $matchExtensions, $recursive);
     }
 }

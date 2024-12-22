@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Support\Filesystem;
 
+use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Stringable;
 use Hyde\Facades\Config;
-use Hyde\Facades\Filesystem;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Illuminate\Support\Str;
@@ -25,7 +25,7 @@ use function array_merge;
 class MediaFile extends ProjectFile implements Stringable
 {
     /** @var array<string> The default extensions for media types */
-    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'gif', 'ico', 'css', 'js'];
+    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'webp', 'gif', 'ico', 'css', 'js'];
 
     protected readonly int $length;
     protected readonly string $mimeType;

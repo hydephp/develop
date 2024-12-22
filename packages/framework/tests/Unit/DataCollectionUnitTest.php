@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Mockery;
-use Hyde\Hyde;
-use Illuminate\Support\Str;
+use Hyde\Framework\Actions\Internal\FileFinder;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Support\DataCollection;
-use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
+use Mockery;
+use Illuminate\Support\Str;
+use Hyde\Support\DataCollection;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Framework\Exceptions\ParseException;
@@ -54,18 +54,9 @@ class DataCollectionUnitTest extends UnitTestCase
         $this->assertSame('[]', (new DataCollection())->toJson());
     }
 
-    public function testFindMarkdownFilesCallsProperGlobPattern()
-    {
-        $this->mockFilesystemFacade(['shouldReceiveGlob' => true]);
-
-        DataCollection::markdown('foo')->keys()->toArray();
-
-        $this->verifyMockeryExpectations();
-    }
-
     public function testFindMarkdownFilesWithNoFiles()
     {
-        $this->mockFilesystemFacade();
+        $this->mockFileFinder([]);
 
         $this->assertSame([], DataCollection::markdown('foo')->keys()->toArray());
 
@@ -74,7 +65,7 @@ class DataCollectionUnitTest extends UnitTestCase
 
     public function testFindMarkdownFilesWithFiles()
     {
-        $this->mockFilesystemFacade(['glob' => ['bar.md']]);
+        $this->mockFileFinder(['bar.md']);
 
         $this->assertSame(['bar.md'], DataCollection::markdown('foo')->keys()->toArray());
 
@@ -486,26 +477,26 @@ class DataCollectionUnitTest extends UnitTestCase
         MockableDataCollection::json('foo');
     }
 
-    protected function mockFilesystemFacade(array $config = []): void
+    protected function mockFileFinder(array $files): void
     {
-        $defaults = [
-            'exists' => true,
-            'glob' => [],
-            'get' => 'foo',
-        ];
-
-        $config = array_merge($defaults, $config);
-
-        $filesystem = Mockery::mock(Filesystem::class, $config);
-
-        if (isset($config['shouldReceiveGlob'])) {
-            $filesystem->shouldReceive('glob')
-                ->with(Hyde::path('resources/collections/foo/*.{md}'), GLOB_BRACE)
-                ->once()
-                ->andReturn($config['glob']);
-        }
+        $filesystem = Mockery::mock(Filesystem::class);
+        $filesystem->shouldReceive('exists')->andReturn(true);
+        $filesystem->shouldReceive('get')->andReturn('foo');
 
         app()->instance(Filesystem::class, $filesystem);
+
+        $finder = Mockery::mock(FileFinder::class);
+        $finder->shouldReceive('handle')->andReturn(collect($files));
+
+        app()->instance(FileFinder::class, $finder);
+    }
+
+    protected function verifyMockeryExpectations(): void
+    {
+        parent::verifyMockeryExpectations();
+
+        app()->forgetInstance(Filesystem::class);
+        app()->forgetInstance(FileFinder::class);
     }
 
     protected function assertMarkdownCollectionStructure(array $expected, DataCollection $collection): void
