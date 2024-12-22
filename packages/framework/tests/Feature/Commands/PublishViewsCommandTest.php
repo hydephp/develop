@@ -56,8 +56,8 @@ class PublishViewsCommandTest extends TestCase
     {
         ConsoleHelper::mockWindowsOs(false);
 
-        ConsoleHelper::mockMultiselect(['resources/views/vendor/hyde/components/article-excerpt.blade.php'], function ($label, $options) {
-            $this->assertEquals('Select the files you want to publish (CTRL+A to toggle all)', $label);
+        ConsoleHelper::mockMultiselect(['resources/views/vendor/hyde/components/article-excerpt.blade.php'], function (string $label, array $options) {
+            $this->assertSame('Select the files you want to publish (CTRL+A to toggle all)', $label);
             $this->assertContainsOnly('string', array_keys($options));
             $this->assertContainsOnly('string', array_values($options));
             $this->assertContains('resources/views/vendor/hyde/components/article-excerpt.blade.php', array_keys($options));
@@ -87,7 +87,7 @@ class PublishViewsCommandTest extends TestCase
     protected function tearDown(): void
     {
         ConsoleHelper::clearMocks();
-        
+
         parent::tearDown();
     }
 }
