@@ -100,4 +100,19 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
             Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php')
         )->once();
     }
+
+    public function testFormatOutput()
+    {
+        $this->filesystem->shouldReceive('allFiles')->andReturn([]);
+
+        $helper = new InteractivePublishCommandHelper('hyde-layouts');
+
+        $output = $helper->formatOutput([
+            'resources/views/vendor/hyde/layouts/app.blade.php',
+            'resources/views/vendor/hyde/layouts/page.blade.php',
+            'resources/views/vendor/hyde/layouts/post.blade.php',
+        ]);
+
+        $this->assertSame('Published files [app.blade.php, page.blade.php, post.blade.php]', $output);
+    }
 }
