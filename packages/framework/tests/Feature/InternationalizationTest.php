@@ -16,22 +16,38 @@ use Hyde\Testing\TestCase;
  */
 class InternationalizationTest extends TestCase
 {
-    public function testCanCreateBlogPostFilesWithInternationalCharacterSets()
-    {
-        $creator = new CreatesNewMarkdownPostFile('你好世界', '简短描述', 'blog', 'default', '2024-12-22 10:45');
+    /**
+     * @dataProvider internationalCharacterSetsProvider
+     */
+    public function testCanCreateBlogPostFilesWithInternationalCharacterSets(
+        string $title,
+        string $description,
+        string $expectedSlug,
+        string $expectedTitle
+    ) {
+        $creator = new CreatesNewMarkdownPostFile($title, $description, 'blog', 'default', '2024-12-22 10:45');
         $path = $creator->save();
 
-        $this->assertSame('_posts/ni-hao-shi-jie.md', $path);
-        $this->assertSame('ni-hao-shi-jie', $creator->getIdentifier());
-        $this->assertSame($creator->getIdentifier(), Hyde::makeSlug('你好世界'));
+        $this->assertSame("_posts/$expectedSlug.md", $path);
+        $this->assertSame($expectedSlug, $creator->getIdentifier());
+        $this->assertSame($creator->getIdentifier(), Hyde::makeSlug($title));
         $this->assertFileExists($path);
 
         $contents = file_get_contents($path);
-        $this->assertStringContainsString('title: 你好世界', $contents);
-        $this->assertSame(<<<'EOF'
+
+        if (str_contains($title, ' ')) {
+            $expectedTitle = "'$expectedTitle'";
+        }
+
+        if (str_contains($description, ' ')) {
+            $description = "'$description'";
+        }
+
+        $this->assertStringContainsString("title: $expectedTitle", $contents);
+        $this->assertSame(<<<EOF
         ---
-        title: 你好世界
-        description: 简短描述
+        title: {$expectedTitle}
+        description: {$description}
         category: blog
         author: default
         date: '2024-12-22 10:45'
@@ -44,11 +60,18 @@ class InternationalizationTest extends TestCase
         Filesystem::unlink($path);
     }
 
-    public function testCanCompileBlogPostFilesWithInternationalCharacterSets()
-    {
-        $page = new MarkdownPost('ni-hao-shi-jie', [
-            'title' => '你好世界',
-            'description' => '简短描述',
+    /**
+     * @dataProvider internationalCharacterSetsProvider
+     */
+    public function testCanCompileBlogPostFilesWithInternationalCharacterSets(
+        string $title,
+        string $description,
+        string $expectedSlug,
+        string $expectedTitle
+    ) {
+        $page = new MarkdownPost($expectedSlug, [
+            'title' => $title,
+            'description' => $description,
             'category' => 'blog',
             'author' => 'default',
             'date' => '2024-12-22 10:45',
@@ -56,15 +79,39 @@ class InternationalizationTest extends TestCase
 
         $path = StaticPageBuilder::handle($page);
 
-        $this->assertSame(Hyde::path('_site/posts/ni-hao-shi-jie.html'), $path);
+        $this->assertSame(Hyde::path("_site/posts/$expectedSlug.html"), $path);
         $this->assertFileExists($path);
 
         $contents = file_get_contents($path);
 
-        $this->assertStringContainsString('<title>HydePHP - 你好世界</title>', $contents);
-        $this->assertStringContainsString('<h1 itemprop="headline" class="mb-4">你好世界</h1>', $contents);
-        $this->assertStringContainsString('<meta name="description" content="简短描述">', $contents);
+        $this->assertStringContainsString("<title>HydePHP - $expectedTitle</title>", $contents);
+        $this->assertStringContainsString("<h1 itemprop=\"headline\" class=\"mb-4\">$expectedTitle</h1>", $contents);
+        $this->assertStringContainsString("<meta name=\"description\" content=\"$description\">", $contents);
 
         Filesystem::unlink($path);
+    }
+
+    public static function internationalCharacterSetsProvider(): array
+    {
+        return [
+            'Chinese (Simplified)' => [
+                '你好世界',
+                '简短描述',
+                'ni-hao-shi-jie',
+                '你好世界',
+            ],
+            'Japanese' => [
+                'こんにちは世界',
+                '短い説明',
+                'konnichihashi-jie',
+                'こんにちは世界',
+            ],
+            'Korean' => [
+                '안녕하세요 세계',
+                '짧은 설명',
+                'annyeonghaseyo-segye',
+                '안녕하세요 세계',
+            ],
+        ];
     }
 }
