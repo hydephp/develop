@@ -11,5 +11,10 @@ namespace Hyde\Console\Helpers;
  */
 class ConsoleHelper
 {
-    //
+    protected static array $mocks = [];
+
+    public static function clearMocks(): void
+    {
+        static::$mocks = [];
+    }
 }
