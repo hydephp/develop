@@ -11,7 +11,6 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
-use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\File;
@@ -33,7 +32,6 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
     protected function setUp(): void
     {
         $app = $this->createApplication();
-        Container::setInstance($app);
 
         $this->filesystem = $this->mockFilesystemStrict();
         $this->filesystem->shouldReceive('allFiles')->andReturn([])->byDefault();
@@ -48,7 +46,6 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
     {
         $this->verifyMockeryExpectations();
 
-        Container::setInstance();
         Facade::clearResolvedInstances();
     }
 
