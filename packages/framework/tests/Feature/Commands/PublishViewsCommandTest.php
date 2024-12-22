@@ -83,4 +83,11 @@ class PublishViewsCommandTest extends TestCase
 
         File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
     }
+
+    protected function tearDown(): void
+    {
+        ConsoleHelper::clearMocks();
+        
+        parent::tearDown();
+    }
 }
