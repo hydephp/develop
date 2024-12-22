@@ -71,7 +71,7 @@ class InteractivePublishCommandHelper
     }
 
     /**
-     * @param \Symfony\Component\Finder\SplFileInfo[] $search
+     * @param  \Symfony\Component\Finder\SplFileInfo[]  $search
      * @return array<string, string>
      */
     protected function mapPublishableFiles(array $search): array

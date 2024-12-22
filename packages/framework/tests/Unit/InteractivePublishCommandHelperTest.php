@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
-use Hyde\Console\Helpers\InteractivePublishCommandHelper;
-use Hyde\Foundation\Providers\ViewServiceProvider;
+use Hyde\Testing\CreatesApplication;
+use Illuminate\Filesystem\Filesystem;
+use Mockery;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
+use Hyde\Foundation\Providers\ViewServiceProvider;
+use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\File;
-use Mockery;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -22,21 +24,21 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class InteractivePublishCommandHelperTest extends UnitTestCase
 {
+    use CreatesApplication;
+
     protected static bool $needsKernel = true;
 
-    /** @var \Illuminate\Filesystem\Filesystem&\Mockery\MockInterface */
-    protected $filesystem;
-
-    protected $originalApp;
+    protected Filesystem|Mockery\MockInterface $filesystem;
 
     protected function setUp(): void
     {
+        $app = $this->createApplication();
+        Container::setInstance($app);
+
         $this->filesystem = $this->mockFilesystemStrict();
 
         File::swap($this->filesystem);
         Blade::partialMock()->shouldReceive('component');
-
-        $app = $this->setupMockApplication();
 
         (new ViewServiceProvider($app))->boot();
     }
@@ -45,7 +47,7 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
     {
         $this->verifyMockeryExpectations();
 
-        Container::setInstance($this->originalApp);
+        Container::setInstance();
         Facade::clearResolvedInstances();
     }
 
@@ -80,8 +82,8 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         $this->filesystem->shouldReceive('copy')->twice();
 
         $helper->handle([
-            "resources/views/vendor/hyde/layouts/app.blade.php",
-            "resources/views/vendor/hyde/layouts/page.blade.php",
+            'resources/views/vendor/hyde/layouts/app.blade.php',
+            'resources/views/vendor/hyde/layouts/page.blade.php',
         ]);
 
         $this->filesystem->shouldHaveReceived('ensureDirectoryExists')
@@ -97,17 +99,5 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
             Hyde::path('packages/framework/resources/views/layouts/page.blade.php'),
             Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php')
         )->once();
-    }
-
-    protected function setupMockApplication(): Container
-    {
-        $this->originalApp = Container::getInstance();
-
-        $app = Mockery::mock(app())->makePartial();
-        $app->shouldReceive('resourcePath')->andReturnUsing(fn (string $path) => "resources/$path");
-
-        Container::setInstance($app);
-
-        return $app;
     }
 }
