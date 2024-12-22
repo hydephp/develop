@@ -67,6 +67,12 @@ class PublishViewsCommand extends Command
     {
         // Todo: Don't trigger interactive if "all" is selected
         if ($this->isInteractive()) {
+            if (windows_os() || (config('app.env') === 'testing') && config('internal.testing.os') === 'windows') {
+                // Laravel Prompts supports macOS, Linux, and Windows with WSL. Due to limitations in the Windows version of PHP, it is not currently possible to use Laravel Prompts on Windows outside of WSL.
+
+                $this->error('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.');
+            }
+
             $this->handleInteractivePublish($selected);
 
             return;
