@@ -70,6 +70,10 @@ class InteractivePublishCommandHelper
         return File::allFiles($this->sourceDirectory);
     }
 
+    /**
+     * @param \Symfony\Component\Finder\SplFileInfo[] $search
+     * @return array<string, string>
+     */
     protected function mapPublishableFiles(array $search): array
     {
         return Arr::mapWithKeys($search, /** @return array<string, string> */ function (SplFileInfo $file): array {
@@ -79,6 +83,7 @@ class InteractivePublishCommandHelper
         });
     }
 
+    /** @param array<string, string> $selectedFiles */
     protected function publishFiles(array $selectedFiles): void
     {
         foreach ($selectedFiles as $source => $target) {
@@ -87,6 +92,7 @@ class InteractivePublishCommandHelper
         }
     }
 
+    /** @param array<string> $selectedFiles */
     public function formatOutput(array $selectedFiles): string
     {
         $publishedFiles = collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory))->implode(', ');
