@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Illuminate\Support\Facades\Artisan;
 
@@ -67,7 +68,7 @@ class PublishViewsCommand extends Command
     {
         // Todo: Don't trigger interactive if "all" is selected
         if ($this->isInteractive()) {
-            if (windows_os() || (config('app.env') === 'testing') && config('internal.testing.os') === 'windows') {
+            if (ConsoleHelper::usesWindowsOs()) {
                 // Laravel Prompts supports macOS, Linux, and Windows with WSL. Due to limitations in the Windows version of PHP, it is not currently possible to use Laravel Prompts on Windows outside of WSL.
 
                 $this->error('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.');

@@ -17,4 +17,18 @@ class ConsoleHelper
     {
         static::$mocks = [];
     }
+
+    public static function usesWindowsOs()
+    {
+        if (isset(static::$mocks['usesWindowsOs'])) {
+            return static::$mocks['usesWindowsOs'];
+        }
+
+        return windows_os();
+    }
+
+    public static function mockWindowsOs(bool $isWindows = true): void
+    {
+        static::$mocks['usesWindowsOs'] = $isWindows;
+    }
 }
