@@ -27,6 +27,7 @@ class InteractivePublishCommandHelper
     /** @var array<string, string> Map of source files to target files */
     protected readonly array $publishableFilesMap;
 
+    /** @param "hyde-layouts"|"hyde-components"|"hyde-page-404" $group */
     public function __construct(string $group)
     {
         $this->group = $group;
