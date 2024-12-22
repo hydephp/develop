@@ -9,7 +9,6 @@ use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Illuminate\Support\Facades\Artisan;
 
-use function Laravel\Prompts\multiselect;
 use function str_replace;
 use function sprintf;
 use function strstr;

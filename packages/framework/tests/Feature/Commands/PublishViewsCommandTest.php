@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
@@ -49,5 +50,39 @@ class PublishViewsCommandTest extends TestCase
         $this->artisan('publish:views invalid')
             ->expectsOutputToContain('No publishable resources for tag [invalid].')
             ->assertExitCode(0);
+    }
+
+    public function testInteractiveSelectionOnUnixSystems()
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Laravel Prompts does not support Windows OS');
+        }
+
+        ConsoleHelper::mockMultiselect(['resources/views/vendor/hyde/components/article-excerpt.blade.php'], function ($label, $options) {
+            $this->assertEquals('Select the files you want to publish (CTRL+A to toggle all)', $label);
+            $this->assertContainsOnly('string', array_keys($options));
+            $this->assertContainsOnly('string', array_values($options));
+            $this->assertContains('resources/views/vendor/hyde/components/article-excerpt.blade.php', array_keys($options));
+            $this->assertContains('article-excerpt.blade.php', array_values($options));
+        });
+
+        $this->artisan('publish:views components --interactive')
+            ->expectsOutput('Published files [article-excerpt.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
+
+        File::deleteDirectory(Hyde::path('resources/views/vendor/hyde'));
+    }
+
+    public function testInteractiveSelectionOnWindowsSystems()
+    {
+        if (! windows_os()) {
+            $this->markTestSkipped('This test is only for Windows OS');
+        }
+
+        $this->artisan('publish:views components --interactive')
+            ->expectsOutput('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.')
+            ->assertExitCode(1);
     }
 }
