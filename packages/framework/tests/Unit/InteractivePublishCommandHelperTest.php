@@ -111,4 +111,22 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
 
         $this->assertSame('Published files [app.blade.php, page.blade.php, post.blade.php]', $output);
     }
+
+    protected function selectedFiles(int $take = 10): array
+    {
+        $files = [
+            "resources/views/vendor/hyde/layouts/app.blade.php",
+            "resources/views/vendor/hyde/layouts/docs.blade.php",
+            "resources/views/vendor/hyde/layouts/footer.blade.php",
+            "resources/views/vendor/hyde/layouts/head.blade.php",
+            "resources/views/vendor/hyde/layouts/meta.blade.php",
+            "resources/views/vendor/hyde/layouts/navigation.blade.php",
+            "resources/views/vendor/hyde/layouts/page.blade.php",
+            "resources/views/vendor/hyde/layouts/post.blade.php",
+            "resources/views/vendor/hyde/layouts/scripts.blade.php",
+            "resources/views/vendor/hyde/layouts/styles.blade.php",
+        ];
+
+        return array_slice($files, 0, $take);
+    }
 }
