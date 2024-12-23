@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use Symfony\Component\Finder\SplFileInfo;
 
 use function Hyde\path_join;
@@ -95,10 +96,22 @@ class InteractivePublishCommandHelper
     /** @param array<string> $selectedFiles */
     public function formatOutput(array $selectedFiles): string
     {
-        return sprintf('Published %s [%s]',
-            Str::plural('file', count($selectedFiles)),
-            $this->mapPathsToRelativeDirectoryString($selectedFiles)
-        );
+        $fileCount = count($selectedFiles);
+        $displayLimit = 3;
+
+        $fileNames = collect($selectedFiles)
+            ->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory));
+
+        $displayFiles = $fileNames->take($displayLimit)->implode(', ');
+
+        return Str::of('Published')
+            ->append(' ', Str::plural('file', $fileCount))
+            ->append(' [', $displayFiles, ']')
+            ->when(
+                $fileCount > $displayLimit,
+                fn (Stringable $str): Stringable => $str->append(' and ', $fileCount - $displayLimit, ' more')
+            )
+            ->toString();
     }
 
     protected function pathRelativeToDirectory(string $source, string $directory): string

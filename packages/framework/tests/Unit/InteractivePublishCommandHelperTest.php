@@ -119,6 +119,20 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         $this->assertSame('Published file [app.blade.php]', $output);
     }
 
+    public function testFormatOutputWithMultipleFiles()
+    {
+        $output = $this->getHelper()->formatOutput($this->selectedFiles(3));
+
+        $this->assertSame('Published files [app.blade.php, docs.blade.php, footer.blade.php]', $output);
+    }
+
+    public function testFormatOutputWithManyFiles()
+    {
+        $output = $this->getHelper()->formatOutput($this->selectedFiles(7));
+
+        $this->assertSame('Published files [app.blade.php, docs.blade.php, footer.blade.php] and 4 more', $output);
+    }
+
     protected function getHelper(): InteractivePublishCommandHelper
     {
         return new InteractivePublishCommandHelper('hyde-layouts');
