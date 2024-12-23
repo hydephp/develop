@@ -97,7 +97,9 @@ class InteractivePublishCommandHelper
     {
         $publishedFiles = collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory))->implode(', ');
 
-        return sprintf('Published files [%s]', $publishedFiles);
+        $files = count($selectedFiles) === 1 ? 'file' : 'files';
+
+        return sprintf('Published ' . $files . ' [%s]', $publishedFiles);
     }
 
     protected function pathRelativeToDirectory(string $source, string $directory): string
