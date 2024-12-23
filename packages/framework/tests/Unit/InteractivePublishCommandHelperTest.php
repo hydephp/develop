@@ -114,11 +114,16 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
 
     public function testFormatOutputWithSingleFile()
     {
-        $helper = new InteractivePublishCommandHelper('hyde-layouts');
+        $helper = $this->getHelper();
 
         $output = $helper->formatOutput($this->selectedFiles(1));
 
         $this->assertSame('Published file [app.blade.php]', $output);
+    }
+
+    protected function getHelper(): InteractivePublishCommandHelper
+    {
+        return new InteractivePublishCommandHelper('hyde-layouts');
     }
 
     protected function selectedFiles(int $take = 10): array
