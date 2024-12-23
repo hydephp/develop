@@ -127,12 +127,4 @@ class InteractivePublishCommandHelper
     {
         return array_filter($this->publishableFilesMap, fn (string $file): bool => in_array($file, $selectedFiles));
     }
-
-    /** @param array<string> $selectedFiles */
-    protected function mapPathsToRelativeDirectoryString(array $selectedFiles): string
-    {
-        return collect($selectedFiles)
-            ->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory))
-            ->implode(', ');
-    }
 }
