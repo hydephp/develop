@@ -65,7 +65,7 @@ class PublishViewsCommandTest extends TestCase
         });
 
         $this->artisan('publish:views components --interactive')
-            ->expectsOutput('Published files [article-excerpt.blade.php]')
+            ->expectsOutput('Published file [article-excerpt.blade.php]')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
