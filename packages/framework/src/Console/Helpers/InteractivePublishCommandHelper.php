@@ -95,7 +95,7 @@ class InteractivePublishCommandHelper
     /** @param array<string> $selectedFiles */
     public function formatOutput(array $selectedFiles): string
     {
-        $publishedFiles = $this->mapPathsToRelativeDirectories($selectedFiles);
+        $publishedFiles = $this->mapPathsToRelativeDirectoryString($selectedFiles);
 
         return sprintf('Published %s [%s]',
             Str::plural('file', count($selectedFiles)),
@@ -118,7 +118,7 @@ class InteractivePublishCommandHelper
     }
 
     /** @param array<string> $selectedFiles */
-    protected function mapPathsToRelativeDirectories(array $selectedFiles): string
+    protected function mapPathsToRelativeDirectoryString(array $selectedFiles): string
     {
         return collect($selectedFiles)
             ->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory))
