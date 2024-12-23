@@ -114,9 +114,7 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
 
     public function testFormatOutputWithSingleFile()
     {
-        $helper = $this->getHelper();
-
-        $output = $helper->formatOutput($this->selectedFiles(1));
+        $output = $this->getHelper()->formatOutput($this->selectedFiles(1));
 
         $this->assertSame('Published file [app.blade.php]', $output);
     }
