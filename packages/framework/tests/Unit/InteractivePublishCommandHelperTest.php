@@ -133,26 +133,50 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         $this->assertSame('Published files [app.blade.php, docs.blade.php, footer.blade.php] and 4 more', $output);
     }
 
-    protected function getHelper(): InteractivePublishCommandHelper
+    public function testFormatOutputWithAllFiles()
     {
-        return new InteractivePublishCommandHelper('hyde-layouts');
+        $output = $this->getHelper()->mockPublishableFileCount(10)->formatOutput($this->selectedFiles(10));
+
+        $this->assertSame('Published all files, including [app.blade.php, docs.blade.php, footer.blade.php] and 7 more', $output);
+    }
+
+    protected function getHelper(): MockableInteractivePublishCommandHelper
+    {
+        return new MockableInteractivePublishCommandHelper('hyde-layouts');
     }
 
     protected function selectedFiles(int $take = 10): array
     {
         $files = [
-            "resources/views/vendor/hyde/layouts/app.blade.php",
-            "resources/views/vendor/hyde/layouts/docs.blade.php",
-            "resources/views/vendor/hyde/layouts/footer.blade.php",
-            "resources/views/vendor/hyde/layouts/head.blade.php",
-            "resources/views/vendor/hyde/layouts/meta.blade.php",
-            "resources/views/vendor/hyde/layouts/navigation.blade.php",
-            "resources/views/vendor/hyde/layouts/page.blade.php",
-            "resources/views/vendor/hyde/layouts/post.blade.php",
-            "resources/views/vendor/hyde/layouts/scripts.blade.php",
-            "resources/views/vendor/hyde/layouts/styles.blade.php",
+            'resources/views/vendor/hyde/layouts/app.blade.php',
+            'resources/views/vendor/hyde/layouts/docs.blade.php',
+            'resources/views/vendor/hyde/layouts/footer.blade.php',
+            'resources/views/vendor/hyde/layouts/head.blade.php',
+            'resources/views/vendor/hyde/layouts/meta.blade.php',
+            'resources/views/vendor/hyde/layouts/navigation.blade.php',
+            'resources/views/vendor/hyde/layouts/page.blade.php',
+            'resources/views/vendor/hyde/layouts/post.blade.php',
+            'resources/views/vendor/hyde/layouts/scripts.blade.php',
+            'resources/views/vendor/hyde/layouts/styles.blade.php',
         ];
 
         return array_slice($files, 0, $take);
+    }
+}
+
+class MockableInteractivePublishCommandHelper extends InteractivePublishCommandHelper
+{
+    public ?int $mockedPublishableFilesMapCount = null;
+
+    public function mockPublishableFileCount(int $count): self
+    {
+        $this->mockedPublishableFilesMapCount = $count;
+
+        return $this;
+    }
+
+    protected function publishableFilesMapCount(): int
+    {
+        return $this->mockedPublishableFilesMapCount ?? parent::publishableFilesMapCount();
     }
 }

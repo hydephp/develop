@@ -93,7 +93,11 @@ class InteractivePublishCommandHelper
         }
     }
 
-    /** @param array<string> $selectedFiles */
+    /**
+     * @experimental This method may be toned down in the future.
+     *
+     * @param  array<string>  $selectedFiles
+     */
     public function formatOutput(array $selectedFiles): string
     {
         $fileCount = count($selectedFiles);
@@ -105,7 +109,11 @@ class InteractivePublishCommandHelper
         $displayFiles = $fileNames->take($displayLimit)->implode(', ');
 
         return Str::of('Published')
-            ->append(' ', Str::plural('file', $fileCount))
+            ->when(
+                $fileCount === $this->publishableFilesMapCount(),
+                fn (Stringable $str): Stringable => $str->append(' all files, including'),
+                fn (Stringable $str): Stringable => $str->append(' ', Str::plural('file', $fileCount))
+            )
             ->append(' [', $displayFiles, ']')
             ->when(
                 $fileCount > $displayLimit,
@@ -126,5 +134,10 @@ class InteractivePublishCommandHelper
     protected function filterPublishableFiles(array $selectedFiles): array
     {
         return array_filter($this->publishableFilesMap, fn (string $file): bool => in_array($file, $selectedFiles));
+    }
+
+    protected function publishableFilesMapCount(): int
+    {
+        return count($this->publishableFilesMap);
     }
 }
