@@ -103,20 +103,17 @@ class InteractivePublishCommandHelper
         $fileCount = count($selectedFiles);
         $displayLimit = 3;
 
-        $fileNames = collect($selectedFiles)
-            ->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory));
+        $fileNames = collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory));
 
         $displayFiles = $fileNames->take($displayLimit)->implode(', ');
 
         return Str::of('Published')
-            ->when(
-                $fileCount === $this->publishableFilesMapCount(),
+            ->when($fileCount === $this->publishableFilesMapCount(),
                 fn (Stringable $str): Stringable => $str->append(' all files, including'),
                 fn (Stringable $str): Stringable => $str->append(' ', Str::plural('file', $fileCount))
             )
             ->append(' [', $displayFiles, ']')
-            ->when(
-                $fileCount > $displayLimit,
+            ->when($fileCount > $displayLimit,
                 fn (Stringable $str): Stringable => $str->append(' and ', $fileCount - $displayLimit, ' more')
             )
             ->toString();
