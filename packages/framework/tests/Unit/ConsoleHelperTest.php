@@ -88,4 +88,59 @@ class ConsoleHelperTest extends UnitTestCase
         ConsoleHelper::multiselect($expectedLabel, $expectedOptions, $expectedDefault);
         $this->assertTrue($wasCalled);
     }
+
+    public function testMultiselectSignatureMatchesLaravelPrompts()
+    {
+        $reflectionLaravel = new \ReflectionFunction('\Laravel\Prompts\multiselect');
+        $reflectionHelper = new \ReflectionMethod(ConsoleHelper::class, 'multiselect');
+
+        $laravelParams = $reflectionLaravel->getParameters();
+        $helperParams = $reflectionHelper->getParameters();
+
+        // Test parameter count
+        $this->assertCount(count($laravelParams), $helperParams, 'Parameter count mismatch');
+
+        // Test each parameter
+        foreach ($laravelParams as $index => $laravelParam) {
+            $helperParam = $helperParams[$index];
+
+            $this->assertSame(
+                $laravelParam->getName(),
+                $helperParam->getName(),
+                "Parameter name mismatch at position {$index}"
+            );
+
+            $this->assertEquals(
+                $laravelParam->getType(),
+                $helperParam->getType(),
+                "Parameter type mismatch for '{$laravelParam->getName()}'"
+            );
+
+            $this->assertSame(
+                $laravelParam->isOptional(),
+                $helperParam->isOptional(),
+                "Parameter optionality mismatch for '{$laravelParam->getName()}'"
+            );
+
+            if ($laravelParam->isDefaultValueAvailable()) {
+                $this->assertTrue(
+                    $helperParam->isDefaultValueAvailable(),
+                    "Default value availability mismatch for '{$laravelParam->getName()}'"
+                );
+
+                $this->assertEquals(
+                    $laravelParam->getDefaultValue(),
+                    $helperParam->getDefaultValue(),
+                    "Default value mismatch for '{$laravelParam->getName()}'"
+                );
+            }
+        }
+
+        // Test return type
+        $this->assertEquals(
+            $reflectionLaravel->getReturnType(),
+            $reflectionHelper->getReturnType(),
+            'Return type mismatch'
+        );
+    }
 }
