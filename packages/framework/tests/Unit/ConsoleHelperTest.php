@@ -6,6 +6,8 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Testing\UnitTestCase;
+use ReflectionFunction;
+use ReflectionMethod;
 
 /**
  * @covers \Hyde\Console\Helpers\ConsoleHelper
@@ -91,8 +93,8 @@ class ConsoleHelperTest extends UnitTestCase
 
     public function testMultiselectSignatureMatchesLaravelPrompts()
     {
-        $reflectionLaravel = new \ReflectionFunction('\Laravel\Prompts\multiselect');
-        $reflectionHelper = new \ReflectionMethod(ConsoleHelper::class, 'multiselect');
+        $reflectionLaravel = new ReflectionFunction('\Laravel\Prompts\multiselect');
+        $reflectionHelper = new ReflectionMethod(ConsoleHelper::class, 'multiselect');
 
         $laravelParams = $reflectionLaravel->getParameters();
         $helperParams = $reflectionHelper->getParameters();
