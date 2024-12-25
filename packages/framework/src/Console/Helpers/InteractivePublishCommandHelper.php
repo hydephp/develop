@@ -35,7 +35,7 @@ class InteractivePublishCommandHelper
     {
         $mostCommonDirectoryNominator = $this->getBaseDirectory();
 
-        return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $source) use ($mostCommonDirectoryNominator): array {
+        return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $target, string $source) use ($mostCommonDirectoryNominator): array {
             return [$source => $this->pathRelativeToDirectory($source, $mostCommonDirectoryNominator)];
         });
     }
