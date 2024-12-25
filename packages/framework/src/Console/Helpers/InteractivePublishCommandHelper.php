@@ -62,11 +62,11 @@ class InteractivePublishCommandHelper
 
     /**
      * @experimental This method may be toned down in the future.
-     *
-     * @param  array<string>  $selectedFiles
      */
-    public function formatOutput(array $selectedFiles): string
+    public function formatOutput(): string
     {
+        $selectedFiles = array_keys($this->publishableFilesMap);
+
         $fileCount = count($selectedFiles);
         $displayLimit = 3;
 
