@@ -58,11 +58,6 @@ class PublishViewsCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function isInteractive(): bool
-    {
-        return $this->option('interactive');
-    }
-
     protected function publishOption(string $selected, bool $isPublishingAll = false): void
     {
         $publisher = new InteractivePublishCommandHelper($this->options[$selected]['group']);
