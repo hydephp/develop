@@ -36,29 +36,4 @@ class ConsoleHelper
     {
         static::$mocks['usesWindowsOs'] = $isWindows;
     }
-
-    /* @return array<int|string> */
-    public static function multiselect(string $label, array|Collection $options, array|Collection $default = [], int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?Closure $transform = null): array
-    {
-        if (isset(static::$mocks['multiselect'])) {
-            $returns = static::$mocks['multiselect'];
-            $assertionCallback = static::$mocks['multiselectAssertion'] ?? null;
-
-            if ($assertionCallback !== null) {
-                $assertionCallback(...func_get_args());
-            }
-
-            return $returns;
-        }
-
-        return multiselect(...func_get_args());
-    }
-
-    public static function mockMultiselect(array $returns, ?Closure $assertionCallback = null): void
-    {
-        assert(! isset(static::$mocks['multiselect']), 'Cannot mock multiselect twice.');
-
-        static::$mocks['multiselect'] = $returns;
-        static::$mocks['multiselectAssertion'] = $assertionCallback;
-    }
 }
