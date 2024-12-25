@@ -70,7 +70,8 @@ class InteractivePublishCommandHelper
         $fileCount = count($selectedFiles);
         $displayLimit = 3;
 
-        $fileNames = collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $this->sourceDirectory));
+        $baseDirectory = $this->getBaseDirectory();
+        $fileNames = collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $baseDirectory));
 
         $displayFiles = $fileNames->take($displayLimit)->implode(', ');
 
