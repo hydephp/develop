@@ -68,9 +68,9 @@ class PublishViewsCommand extends Command
             return $this->choice($prompt->label, $prompt->options, $prompt->default);
         });
 
-        $choice = select('Which category do you want to publish?', $this->formatPublishableChoices(), 0);
-
-        return $this->parseChoiceIntoKey($choice);
+        return $this->parseChoiceIntoKey(
+            select('Which category do you want to publish?', $this->formatPublishableChoices(), 0)
+        );
     }
 
     protected function formatPublishableChoices(): array
