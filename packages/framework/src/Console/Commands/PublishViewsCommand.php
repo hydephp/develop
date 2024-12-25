@@ -118,7 +118,7 @@ class PublishViewsCommand extends Command
     }
 
     /**
-     * @param array<string, string> $choices
+     * @param array<string, string> $files
      * @return array<string>
      */
     protected function promptUserForWhichFilesToPublish(array $files): array
