@@ -5,16 +5,10 @@ declare(strict_types=1);
 namespace Hyde\Console\Helpers;
 
 use Hyde\Facades\Filesystem;
-use Hyde\Foundation\Providers\ViewServiceProvider;
-use Hyde\Hyde;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use Symfony\Component\Finder\SplFileInfo;
-
-use function Hyde\path_join;
 
 /**
  * @internal This class offloads logic from the PublishViewsCommand class and should not be used elsewhere.
@@ -43,7 +37,7 @@ class InteractivePublishCommandHelper
     /**
      * Only publish the selected files.
      *
-     * @param array<string> $selectedFiles Array of selected file paths, matching the keys of the publishableFilesMap.
+     * @param  array<string>  $selectedFiles  Array of selected file paths, matching the keys of the publishableFilesMap.
      */
     public function only(array $selectedFiles): void
     {

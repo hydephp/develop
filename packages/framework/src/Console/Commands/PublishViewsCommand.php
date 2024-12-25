@@ -58,10 +58,7 @@ class PublishViewsCommand extends Command
 
         if ($selected !== 'all' && ! Prompt::shouldFallback()) {
             // If Laravel Prompts are supported, we interactively prompt the user for which files to publish
-            $choices = $publisher->getFileChoices();
-            $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
-
-            $publisher->only($selectedFiles);
+            $publisher->only(multiselect('Select the files you want to publish (CTRL+A to toggle all)', $publisher->getFileChoices(), [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.'));
         }
 
         $publisher->publishFiles();
@@ -104,7 +101,7 @@ class PublishViewsCommand extends Command
     protected function formatPublishableChoices(): array
     {
         return collect($this->options)
-            ->map(fn (ViewPublishGroup $option, string $key): string => sprintf("<comment>%s</comment>: %s", $key, $option->description))
+            ->map(fn (ViewPublishGroup $option, string $key): string => sprintf('<comment>%s</comment>: %s', $key, $option->description))
             ->prepend('Publish all categories listed below')
             ->values()
             ->all();
@@ -116,7 +113,7 @@ class PublishViewsCommand extends Command
     }
 
     /**
-     * @param array<string, \Hyde\Console\Helpers\ViewPublishGroup> $groups
+     * @param  array<string, \Hyde\Console\Helpers\ViewPublishGroup>  $groups
      * @return array<string, \Hyde\Console\Helpers\ViewPublishGroup>
      */
     protected static function mapToKeys(array $groups): array
