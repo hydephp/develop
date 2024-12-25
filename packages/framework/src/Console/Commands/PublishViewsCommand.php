@@ -90,11 +90,7 @@ class PublishViewsCommand extends Command
     {
         return collect($this->options)
             ->prepend('Publish all categories listed below')
-            ->map(fn ($option, $key) => 
-                $key === 0 
-                    ? $option 
-                    : sprintf("<comment>%s</comment>: %s", $key, $option->description)
-            )
+            ->map(fn (ViewPublishGroup $option, string $key): string => sprintf("<comment>%s</comment>: %s", $key, $option->description))
             ->values()
             ->all();
     }
