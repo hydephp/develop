@@ -48,9 +48,7 @@ class PublishViewsCommand extends Command
         }
 
         if ($selected === 'all') {
-            foreach ($this->options as $key => $_ignored) {
-                $this->publishOption($key, true);
-            }
+            $files = collect($this->options)->flatMap(fn (ViewPublishGroup $option): array => $option->publishableFilesMap())->all();
         } else {
             $this->publishOption($selected);
         }
