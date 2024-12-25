@@ -56,7 +56,7 @@ class InteractivePublishCommandHelper
     {
         foreach ($this->publishableFilesMap as $source => $target) {
             Filesystem::ensureDirectoryExists(dirname($target));
-            Filesystem::copy($source, $target); // Todo: See how we should handle existing files
+            Filesystem::copy($source, $target);
         }
     }
 
