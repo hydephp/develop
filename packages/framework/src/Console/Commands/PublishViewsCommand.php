@@ -140,14 +140,14 @@ class PublishViewsCommand extends Command
 
             if ($prompt->highlighted === 0) {
                 if ($key === Key::SPACE) {
-                    if (! $isToggled) {
-                        $prompt->emit('key', Key::CTRL_A);
-                        $isToggled = true;
-                    } else {
+                    $prompt->emit('key', Key::CTRL_A);
+
+                    if ($isToggled) {
                         // Laravel Prompts is crazy, but this apparently is how you deselect all items
                         $prompt->emit('key', Key::CTRL_A);
-                        $prompt->emit('key', Key::CTRL_A);
                         $isToggled = false;
+                    } else {
+                        $isToggled = true;
                     }
                 } elseif ($key === Key::ENTER) {
                     if (! $isToggled) {
