@@ -120,4 +120,41 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
             $helper->formatOutput()
         );
     }
+
+    public function testFormatOutputForSingleChosenFile(): void
+    {
+        $helper = new InteractivePublishCommandHelper([
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
+        ]);
+
+        $helper->only([
+            'packages/framework/resources/views/layouts/app.blade.php'
+        ]);
+
+        $this->assertSame(
+            'Published file to [resources/views/vendor/hyde/layouts/app.blade.php].',
+            $helper->formatOutput()
+        );
+    }
+
+    public function testFormatOutputForMultipleChosenFiles(): void
+    {
+        $helper = new InteractivePublishCommandHelper([
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
+        ]);
+
+        $helper->only([
+            'packages/framework/resources/views/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php',
+        ]);
+
+        $this->assertSame(
+            'Published 2 files to [resources/views/vendor/hyde/layouts].',
+            $helper->formatOutput()
+        );
+    }
 }
