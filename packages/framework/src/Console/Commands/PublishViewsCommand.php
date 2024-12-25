@@ -42,6 +42,10 @@ class PublishViewsCommand extends Command
 
         $selected = ($this->argument('category') ?? $this->promptForCategory()) ?: 'all';
 
+        if ($selected !== 'all') {
+            $this->infoComment(sprintf('Selected category [%s]', $selected));
+        }
+
         if (! in_array($selected, $allowed = array_merge(['all'], array_keys($this->options)), true)) {
             $this->error("Invalid selection: '$selected'");
             $this->infoComment('Allowed values are: ['.implode(', ', $allowed).']');
@@ -66,13 +70,7 @@ class PublishViewsCommand extends Command
 
         $choice = select('Which category do you want to publish?', $this->formatPublishableChoices(), 0);
 
-        $selection = $this->parseChoiceIntoKey($choice);
-
-        if ($selection) {
-            $this->infoComment(sprintf('Selected category [%s]', $selection));
-        }
-
-        return $selection;
+        return $this->parseChoiceIntoKey($choice);
     }
 
     protected function formatPublishableChoices(): array
