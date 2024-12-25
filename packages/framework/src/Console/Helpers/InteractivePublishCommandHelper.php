@@ -68,6 +68,10 @@ class InteractivePublishCommandHelper
     /** @return \Symfony\Component\Finder\SplFileInfo[] */
     protected function findAllFilesForTag(): array
     {
+        if (! File::isDirectory($this->sourceDirectory)) {
+            return [new SplFileInfo($this->sourceDirectory, '', basename($this->sourceDirectory))];
+        }
+
         return File::allFiles($this->sourceDirectory);
     }
 
@@ -88,7 +92,11 @@ class InteractivePublishCommandHelper
     protected function publishFiles(array $selectedFiles): void
     {
         foreach ($selectedFiles as $source => $target) {
-            Filesystem::ensureDirectoryExists(dirname($target));
+            if (! Filesystem::isFile(dirname($target))) {
+                Filesystem::ensureDirectoryExists(dirname($target));
+            } else {
+                $target = dirname($target);
+            }
             Filesystem::copy($source, $target); // Todo: See how we should handle existing files
         }
     }
