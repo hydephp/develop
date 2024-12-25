@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Closure;
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Console\Helpers\ViewPublishGroup;
 use Illuminate\Support\Str;
@@ -106,7 +107,7 @@ class PublishViewsCommand extends Command
     {
         $publisher = new InteractivePublishCommandHelper($files);
 
-        if (! $isPublishingAll && ! Prompt::shouldFallback()) {
+        if (! $isPublishingAll && ConsoleHelper::canUseLaravelPrompts($this->input)) {
             $publisher->only($this->promptUserForWhichFilesToPublish($publisher->getFileChoices()));
         }
 
