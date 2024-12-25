@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Closure;
 use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Console\Helpers\ViewPublishGroup;
@@ -127,8 +128,16 @@ class PublishViewsCommand extends Command
 
         $prompt = new MultiSelectPrompt('Select the files you want to publish', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
-        $prompt->on('key', function ($key) use ($prompt): void {
+        $prompt->on('key', static::supportTogglingAll($prompt));
+
+        return $prompt->prompt();
+    }
+
+    protected static function supportTogglingAll(MultiSelectPrompt $prompt): Closure
+    {
+        return function ($key) use ($prompt): void {
             static $isToggled = false;
+
             if ($prompt->highlighted === 0) {
                 if ($key === Key::SPACE) {
                     if (! $isToggled) {
@@ -144,11 +153,10 @@ class PublishViewsCommand extends Command
                     if (! $isToggled) {
                         $prompt->emit('key', Key::CTRL_A);
                     }
+
                     $prompt->state = 'submit';
                 }
             }
-        });
-
-        return $prompt->prompt();
+        };
     }
 }
