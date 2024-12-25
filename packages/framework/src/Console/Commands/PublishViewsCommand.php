@@ -27,13 +27,16 @@ class PublishViewsCommand extends Command
     /** @var string */
     protected $description = 'Publish the Hyde components for customization. Note that existing files will be overwritten';
 
+    /** @var array<string, \Hyde\Console\Helpers\ViewPublishGroup> */
+    protected array $options;
+
     public function handle(): int
     {
-        $options = [
+        $this->options = static::mapToKeys([
             ViewPublishGroup::fromGroup('hyde-layouts', 'Blade Layouts', 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates'),
             ViewPublishGroup::fromGroup('hyde-components', 'Blade Components', 'More or less self contained components, extracted for customizability and DRY code'),
             ViewPublishGroup::fromGroup('hyde-page-404', '404 Page', 'A beautiful 404 error page by the Laravel Collective'),
-        ];
+        ]);
 
         $selected = (string) ($this->argument('category') ?? $this->promptForCategory());
 
@@ -96,5 +99,14 @@ class PublishViewsCommand extends Command
     protected function parseChoiceIntoKey(string $choice): string
     {
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
+    }
+
+    /**
+     * @param array<string, ViewPublishGroup> $groups
+     * @return array<string, ViewPublishGroup>
+     */
+    protected static function mapToKeys(array $groups): array
+    {
+        return collect($groups)->mapWithKeys(fn (ViewPublishGroup $group): array => [$group->group => $group])->all();
     }
 }
