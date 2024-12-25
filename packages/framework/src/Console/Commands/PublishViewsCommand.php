@@ -56,6 +56,14 @@ class PublishViewsCommand extends Command
 
         $publisher = new InteractivePublishCommandHelper($files);
 
+        if ($selected !== 'all' && ! Prompt::shouldFallback()) {
+            // If Laravel Prompts are supported, we interactively prompt the user for which files to publish
+            $choices = $publisher->getFileChoices();
+            $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+
+            $publisher->only($selectedFiles);
+        }
+
         $publisher->publishFiles();
 
         $this->infoComment($publisher->formatOutput());
