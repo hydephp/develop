@@ -21,28 +21,22 @@ use function Hyde\path_join;
  */
 class InteractivePublishCommandHelper
 {
-    protected readonly string $group;
-    protected readonly string $sourceDirectory;
-    protected readonly string $targetDirectory;
-
     /** @var array<string, string> Map of source files to target files */
     protected readonly array $publishableFilesMap;
 
-    /** @param "hyde-layouts"|"hyde-components"|"hyde-page-404" $group */
-    public function __construct(string $group)
+    /** @param array<string, string> $publishableFilesMap */
+    public function __construct(array $publishableFilesMap)
     {
-        $this->group = $group;
-
-        [$this->sourceDirectory, $this->targetDirectory] = $this->getPublishPaths();
-
-        $this->publishableFilesMap = $this->mapPublishableFiles($this->findAllFilesForTag());
+        $this->publishableFilesMap = $publishableFilesMap;
     }
 
     /** @return array<string, string> */
     public function getFileChoices(): array
     {
-        return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $source): array {
-            return [$source => $this->pathRelativeToDirectory($source, $this->targetDirectory)];
+        $mostCommonDirectoryNominator = $this->getBaseDirectory();
+
+        return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $source) use ($mostCommonDirectoryNominator): array {
+            return [$source => $this->pathRelativeToDirectory($source, $mostCommonDirectoryNominator)];
         });
     }
 
@@ -77,31 +71,7 @@ class InteractivePublishCommandHelper
         return [$source, $target];
     }
 
-    /** @return \Symfony\Component\Finder\SplFileInfo[] */
-    protected function findAllFilesForTag(): array
-    {
-        if (! File::isDirectory($this->sourceDirectory)) {
-            return [new SplFileInfo($this->sourceDirectory, '', basename($this->sourceDirectory))];
-        }
-
-        return File::allFiles($this->sourceDirectory);
-    }
-
-    /**
-     * @param  \Symfony\Component\Finder\SplFileInfo[]  $search
-     * @return array<string, string>
-     */
-    protected function mapPublishableFiles(array $search): array
-    {
-        return Arr::mapWithKeys($search, /** @return array<string, string> */ function (SplFileInfo $file): array {
-            $targetPath = path_join($this->targetDirectory, $file->getRelativePathname());
-
-            return [Hyde::pathToRelative(realpath($file->getPathname())) => Hyde::pathToRelative($targetPath)];
-        });
-    }
-
-    /** @param array<string, string> $selectedFiles */
-    protected function publishFiles(array $selectedFiles): void
+    public function publishFiles(array $selectedFiles): void
     {
         foreach ($selectedFiles as $source => $target) {
             if (! Filesystem::isFile(dirname($target))) {
