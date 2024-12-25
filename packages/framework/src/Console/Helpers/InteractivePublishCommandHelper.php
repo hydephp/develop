@@ -43,10 +43,12 @@ class InteractivePublishCommandHelper
         $this->publishableFilesMap = Arr::only($this->publishableFilesMap, $selectedFiles);
     }
 
+    /**  Find the most specific common parent directory path for the files, trimming as much as possible whilst keeping specificity and uniqueness. */
     protected function getBaseDirectory(): string
     {
-        // Find the most specific common parent directory path for the files (in case they are in different directories, we want to trim as much as possible whilst keeping specificity and uniqueness)
-        $partsMap = collect($this->publishableFilesMap)->map(fn (string $file): array => explode('/', $file));
+        $partsMap = collect($this->publishableFilesMap)->map(function (string $file): array {
+            return explode('/', $file);
+        });
 
         $commonParts = $partsMap->reduce(function (array $carry, array $parts): array {
             return array_intersect($carry, $parts);
