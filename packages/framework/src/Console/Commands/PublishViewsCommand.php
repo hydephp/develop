@@ -39,7 +39,7 @@ class PublishViewsCommand extends Command
             ViewPublishGroup::fromGroup('hyde-page-404', '404 Page', 'A beautiful 404 error page by the Laravel Collective'),
         ]);
 
-        $selected = ($this->argument('category') ?? $this->promptForCategory());
+        $selected = ($this->argument('category') ?? $this->promptForCategory()) ?: 'all';
 
         if (! in_array($selected, $allowed = array_merge(['all'], array_keys($this->options)), true)) {
             $this->error("Invalid selection: '$selected'");
@@ -48,7 +48,7 @@ class PublishViewsCommand extends Command
             return Command::FAILURE;
         }
 
-        if ($selected === 'all' || $selected === '') {
+        if ($selected === 'all') {
             foreach ($this->options as $key => $_ignored) {
                 $this->publishOption($key, true);
             }
