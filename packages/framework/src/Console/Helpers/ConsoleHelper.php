@@ -37,7 +37,6 @@ class ConsoleHelper
         static::$mocks['usesWindowsOs'] = $isWindows;
     }
 
-    // Todo: Add test to ensure the signature is the same if Laravel updates it
     public static function multiselect(string $label, array|Collection $options, array|Collection $default = [], int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?Closure $transform = null): array
     {
         if (isset(static::$mocks['multiselect'])) {
