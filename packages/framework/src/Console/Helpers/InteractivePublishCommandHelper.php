@@ -46,7 +46,7 @@ class InteractivePublishCommandHelper
     }
 
     /** Find the most specific common parent directory path for the files, trimming as much as possible whilst keeping specificity and uniqueness. */
-    protected function getBaseDirectory(): string
+    public function getBaseDirectory(): string
     {
         $partsMap = collect($this->publishableFilesMap)->map(function (string $file): array {
             return explode('/', $file);
