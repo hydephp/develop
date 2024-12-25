@@ -69,9 +69,7 @@ class InteractivePublishCommandHelper
 
     public function formatOutput(): string
     {
-        $fileCount = count($this->publishableFilesMap);
-
-        return $fileCount === 1
+        return ($fileCount = count($this->publishableFilesMap)) === 1
             ? sprintf('Published file to [%s].', reset($this->publishableFilesMap))
             : sprintf('Published %s files to [%s].', $this->getCountDescription($fileCount), $this->getBaseDirectory());
     }
