@@ -139,7 +139,7 @@ class PublishViewsCommand extends Command
         return function ($key) use ($prompt): void {
             static $isToggled = false;
 
-            if ($prompt->highlighted === 0) {
+            if ($prompt->isHighlighted('all')) {
                 if ($key === Key::SPACE) {
                     $prompt->emit('key', Key::CTRL_A);
 
