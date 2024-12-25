@@ -89,8 +89,8 @@ class PublishViewsCommand extends Command
     protected function formatPublishableChoices(): array
     {
         return collect($this->options)
-            ->prepend('Publish all categories listed below')
             ->map(fn (ViewPublishGroup $option, string $key): string => sprintf("<comment>%s</comment>: %s", $key, $option->description))
+            ->prepend('Publish all categories listed below')
             ->values()
             ->all();
     }
