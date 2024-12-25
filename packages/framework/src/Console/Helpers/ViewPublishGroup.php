@@ -29,7 +29,6 @@ class ViewPublishGroup
     /** @var array<string> The filenames relative to the source, if the source is a directory. */
     readonly public array $files;
 
-
     /** @var class-string<\Hyde\Foundation\Providers\ViewServiceProvider> */
     protected static string $provider = ViewServiceProvider::class;
 
