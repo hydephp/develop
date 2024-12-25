@@ -60,6 +60,8 @@ class PublishViewsCommand extends Command
 
         $publisher->publishFiles();
 
+        $this->infoComment($publisher->formatOutput());
+
         return Command::SUCCESS;
     }
 
