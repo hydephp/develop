@@ -68,21 +68,6 @@ class PublishViewsCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function publishOption(string $selected, bool $isPublishingAll = false): void
-    {
-        $publisher = new InteractivePublishCommandHelper($this->options[$selected]['group']);
-
-        $choices = $publisher->getFileChoices();
-
-        MultiSelectPrompt::fallbackUsing(fn (): array => $choices);
-
-        $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
-
-        $publisher->handle($selectedFiles);
-
-        $this->infoComment($publisher->formatOutput($selectedFiles));
-    }
-
     protected function promptForCategory(): string
     {
         SelectPrompt::fallbackUsing(function (SelectPrompt $prompt): string {
