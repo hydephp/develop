@@ -40,6 +40,16 @@ class InteractivePublishCommandHelper
         });
     }
 
+    /**
+     * Only publish the selected files.
+     *
+     * @param array<string> $selectedFiles Array of selected file paths, matching the keys of the publishableFilesMap.
+     */
+    public function only(array $selectedFiles): void
+    {
+        $this->publishableFilesMap = Arr::only($this->publishableFilesMap, $selectedFiles);
+    }
+
     protected function getBaseDirectory(): string
     {
         // Find the most specific common parent directory path for the files (in case they are in different directories, we want to trim as much as possible whilst keeping specificity and uniqueness)
