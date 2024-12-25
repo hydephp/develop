@@ -73,16 +73,19 @@ class PublishViewsCommand extends Command
 
     protected function publishOption(string $selected, bool $isPublishingAll = false): void
     {
+        $publisher = new InteractivePublishCommandHelper($this->options[$selected]['group']);
+
+        $choices = $publisher->getFileChoices();
+
         if ($this->isInteractive() && ! $isPublishingAll) {
-            $this->handleInteractivePublish($selected);
-
-            return;
+            $selectedFiles = ConsoleHelper::multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        } else {
+            $selectedFiles = array_keys($choices);
         }
+        
+        $publisher->handle($selectedFiles);
 
-        Artisan::call('vendor:publish', [
-            '--tag' => $this->options[$selected]['group'] ?? $selected,
-            '--force' => true,
-        ], $this->output);
+        $this->infoComment($publisher->formatOutput($selectedFiles));
     }
 
     protected function promptForCategory(): string
@@ -113,17 +116,5 @@ class PublishViewsCommand extends Command
     protected function parseChoiceIntoKey(string $choice): string
     {
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
-    }
-
-    protected function handleInteractivePublish(string $selected): void
-    {
-        $publisher = new InteractivePublishCommandHelper($this->options[$selected]['group']);
-
-        $choices = $publisher->getFileChoices();
-
-        $selectedFiles = ConsoleHelper::multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
-        $publisher->handle($selectedFiles);
-
-        $this->infoComment($publisher->formatOutput($selectedFiles));
     }
 }
