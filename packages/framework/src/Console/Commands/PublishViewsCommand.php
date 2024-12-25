@@ -8,8 +8,10 @@ use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Illuminate\Support\Facades\Artisan;
+use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\SelectPrompt;
 
+use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\select;
 use function str_replace;
 use function sprintf;
@@ -21,7 +23,7 @@ use function strstr;
 class PublishViewsCommand extends Command
 {
     /** @var string */
-    protected $signature = 'publish:views {category? : The category to publish} {--i|interactive : Interactively select the views to publish}'; // TODO: Always use interactive publishing
+    protected $signature = 'publish:views {category? : The category to publish}';
 
     /** @var string */
     protected $description = 'Publish the Hyde components for customization. Note that existing files will be overwritten';
@@ -47,12 +49,6 @@ class PublishViewsCommand extends Command
 
     public function handle(): int
     {
-        if ($this->isInteractive() && ConsoleHelper::usesWindowsOs()) {
-            $this->error('Due to limitations in the Windows version of PHP, it is not currently possible to use interactive mode on Windows outside of WSL.');
-
-            return Command::FAILURE;
-        }
-
         $selected = (string) ($this->argument('category') ?? $this->promptForCategory());
 
         if ($selected === 'all' || $selected === '') {
