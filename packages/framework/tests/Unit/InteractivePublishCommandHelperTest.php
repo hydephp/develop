@@ -17,6 +17,7 @@ use Mockery;
 class InteractivePublishCommandHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
+
     protected Filesystem|Mockery\MockInterface $filesystem;
 
     protected function setUp(): void
