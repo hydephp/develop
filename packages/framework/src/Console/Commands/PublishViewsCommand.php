@@ -9,6 +9,7 @@ use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Console\Helpers\ViewPublishGroup;
 use Illuminate\Support\Str;
 use Laravel\Prompts\Key;
+use Laravel\Prompts\MultiSearchPrompt;
 use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\Prompt;
 use Laravel\Prompts\SelectPrompt;
@@ -123,9 +124,15 @@ class PublishViewsCommand extends Command
      */
     protected function promptUserForWhichFilesToPublish(array $files): array
     {
-        $choices = array_merge(['all' => '<comment>All files</comment>'], $files);
+        $choices = collect(array_merge(['all' => '<comment>All files</comment>'], $files));
 
-        $prompt = new MultiSelectPrompt('Select the files you want to publish', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        $prompt = new MultiSearchPrompt('Select the files you want to publish', function (string $search) use ($choices): array {
+            if (empty($search)) {
+                return $choices->all();
+            }
+
+            return $choices->filter(fn (string $label, string $value) => str_contains($value, $search))->all();
+        }, 'Type to filter', 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
         $prompt->on('key', function ($key) use ($prompt): void {
             static $isToggled = false;
