@@ -45,13 +45,13 @@ class ConsoleHelper
             $assertionCallback = static::$mocks['multiselectAssertion'] ?? null;
 
             if ($assertionCallback !== null) {
-                $assertionCallback($label, $options, $default, $scroll, $required, $validate, $hint, $transform);
+                $assertionCallback(...func_get_args());
             }
 
             return $returns;
         }
 
-        return multiselect($label, $options, $default, $scroll, $required, $validate, $hint, $transform);
+        return multiselect(...func_get_args());
     }
 
     public static function mockMultiselect(array $returns, ?Closure $assertionCallback = null): void
