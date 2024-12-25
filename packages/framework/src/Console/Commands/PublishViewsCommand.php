@@ -99,6 +99,24 @@ class PublishViewsCommand extends Command
         })->all();
     }
 
+
+    /**
+     * @param array<string, string> $files
+     * @param bool $isPublishingAll
+     */
+    protected function publishSelectedFiles(array $files, bool $isPublishingAll): void
+    {
+        $publisher = new InteractivePublishCommandHelper($files);
+
+        if (! $isPublishingAll && ! Prompt::shouldFallback()) {
+            $publisher->only($this->promptUserForWhichFilesToPublish($publisher->getFileChoices()));
+        }
+
+        $publisher->publishFiles();
+
+        $this->infoComment($publisher->formatOutput());
+    }
+
     /**
      * @param array<string, string> $choices
      * @return array<string>
@@ -132,22 +150,5 @@ class PublishViewsCommand extends Command
         });
 
         return $prompt->prompt();
-    }
-
-    /**
-     * @param array<string, string> $files
-     * @param bool $isPublishingAll
-     */
-    protected function publishSelectedFiles(array $files, bool $isPublishingAll): void
-    {
-        $publisher = new InteractivePublishCommandHelper($files);
-
-        if (! $isPublishingAll && ! Prompt::shouldFallback()) {
-            $publisher->only($this->promptUserForWhichFilesToPublish($publisher->getFileChoices()));
-        }
-
-        $publisher->publishFiles();
-
-        $this->infoComment($publisher->formatOutput());
     }
 }
