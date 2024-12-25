@@ -82,7 +82,7 @@ class PublishViewsCommand extends Command
         } else {
             $selectedFiles = array_keys($choices);
         }
-        
+
         $publisher->handle($selectedFiles);
 
         $this->infoComment($publisher->formatOutput($selectedFiles));
