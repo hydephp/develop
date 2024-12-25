@@ -37,6 +37,7 @@ class ViewPublishGroup
         $this->group = $group;
         $this->source = $source;
         $this->target = $target;
+        $this->isDirectory = $isDirectory;
         $this->files = $files;
         $this->name = $name ?? Hyde::makeTitle($group);
         $this->description = $description ?? "Publish the '$group' files for customization.";
