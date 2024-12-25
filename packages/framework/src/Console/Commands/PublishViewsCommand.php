@@ -73,11 +73,9 @@ class PublishViewsCommand extends Command
 
         $choices = $publisher->getFileChoices();
 
-        if ($this->isInteractive() && ! $isPublishingAll) {
-            $selectedFiles = ConsoleHelper::multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
-        } else {
-            $selectedFiles = array_keys($choices);
-        }
+        MultiSelectPrompt::fallbackUsing(fn (): array => $choices);
+
+        $selectedFiles = multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
         $publisher->handle($selectedFiles);
 
