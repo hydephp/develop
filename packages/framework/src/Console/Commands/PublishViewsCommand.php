@@ -50,8 +50,10 @@ class PublishViewsCommand extends Command
         if ($selected === 'all') {
             $files = collect($this->options)->flatMap(fn (ViewPublishGroup $option): array => $option->publishableFilesMap())->all();
         } else {
-            $this->publishOption($selected);
+            $files = $this->options[$selected]->files;
         }
+
+        $this->publishFiles($files);
 
         return Command::SUCCESS;
     }
