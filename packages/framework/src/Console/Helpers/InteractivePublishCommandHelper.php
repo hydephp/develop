@@ -6,7 +6,6 @@ namespace Hyde\Console\Helpers;
 
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
