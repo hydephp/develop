@@ -56,8 +56,6 @@ class PublishViewsCommand extends Command
 
         $publisher = new InteractivePublishCommandHelper($files);
 
-        $publisher->publishFiles($files);
-
         $publisher->publishFiles();
 
         $this->infoComment($publisher->formatOutput());
