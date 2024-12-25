@@ -7,6 +7,7 @@ namespace Hyde\Console\Commands;
 use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Console\Helpers\ViewPublishGroup;
+use Illuminate\Support\Str;
 use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\SelectPrompt;
 
@@ -113,6 +114,6 @@ class PublishViewsCommand extends Command
      */
     protected static function mapToKeys(array $groups): array
     {
-        return collect($groups)->mapWithKeys(fn (ViewPublishGroup $group): array => [$group->group => $group])->all();
+        return collect($groups)->mapWithKeys(fn (ViewPublishGroup $group): array => [Str::after($group->group, 'hyde-') => $group])->all();
     }
 }
