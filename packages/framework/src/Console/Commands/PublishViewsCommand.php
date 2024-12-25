@@ -109,8 +109,8 @@ class PublishViewsCommand extends Command
     }
 
     /**
-     * @param array<string, ViewPublishGroup> $groups
-     * @return array<string, ViewPublishGroup>
+     * @param array<string, \Hyde\Console\Helpers\ViewPublishGroup> $groups
+     * @return array<string, \Hyde\Console\Helpers\ViewPublishGroup>
      */
     protected static function mapToKeys(array $groups): array
     {
