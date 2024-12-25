@@ -10,6 +10,7 @@ use Hyde\Hyde;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
+use function Hyde\path_join;
 use function Hyde\unslash;
 
 /**
@@ -54,6 +55,18 @@ class ViewPublishGroup
         $files = $isDirectory ? self::findFiles($source) : [];
 
         return new static($group, $source, $target, $isDirectory, $files, $name, $description);
+    }
+
+    /**
+     * Get the map of all publishable file paths.
+     *
+     * @return array<string, string> The source file paths mapped to their target file paths.
+     */
+    public function publishableFilesMap(): array
+    {
+        return collect($this->files)->mapWithKeys(fn (string $file): array => [
+            path_join($this->source, $file) => path_join($this->target, $file),
+        ])->all();
     }
 
     protected static function keyedArrayToTuple(array $array): array
