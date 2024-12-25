@@ -125,7 +125,7 @@ class PublishViewsCommand extends Command
     {
         $choices = array_merge(['all' => '<comment>All files</comment>'], $files);
 
-        $prompt = new MultiSelectPrompt('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        $prompt = new MultiSelectPrompt('Select the files you want to publish', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
         $prompt->on('key', function ($key) use ($prompt): void {
             static $isToggled = false;
