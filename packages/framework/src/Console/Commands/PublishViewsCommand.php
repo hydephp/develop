@@ -8,7 +8,6 @@ use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Console\Helpers\ViewPublishGroup;
 use Illuminate\Support\Str;
-use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\Prompt;
 use Laravel\Prompts\SelectPrompt;
 
