@@ -17,10 +17,13 @@ class InteractivePublishCommandHelper
     /** @var array<string, string> Map of source files to target files */
     protected array $publishableFilesMap;
 
+    protected readonly int $originalFileCount;
+
     /** @param array<string, string> $publishableFilesMap */
     public function __construct(array $publishableFilesMap)
     {
         $this->publishableFilesMap = $publishableFilesMap;
+        $this->originalFileCount = count($publishableFilesMap);
     }
 
     /** @return array<string, string> */
@@ -70,35 +73,22 @@ class InteractivePublishCommandHelper
      */
     public function formatOutput(): string
     {
-        $selectedFiles = array_keys($this->publishableFilesMap);
+        $fileCount = count($this->publishableFilesMap);
 
-        $fileCount = count($selectedFiles);
-        $displayLimit = 3;
+        if ($fileCount === 1) {
+            $path = $this->publishableFilesMap[array_keys($this->publishableFilesMap)[0]];
 
+            return "Published file to [$path].";
+        }
+
+        $count = $fileCount === $this->originalFileCount ? 'all' : $fileCount;
         $baseDirectory = $this->getBaseDirectory();
-        $fileNames = collect($selectedFiles)->map(fn (string $file): string => $this->pathRelativeToDirectory($file, $baseDirectory));
 
-        $displayFiles = $fileNames->take($displayLimit)->implode(', ');
-
-        return Str::of('Published')
-            ->when($fileCount === $this->publishableFilesMapCount(),
-                fn (Stringable $str): Stringable => $str->append(' all files, including'),
-                fn (Stringable $str): Stringable => $str->append(' ', Str::plural('file', $fileCount))
-            )
-            ->append(' [', $displayFiles, ']')
-            ->when($fileCount > $displayLimit,
-                fn (Stringable $str): Stringable => $str->append(' and ', $fileCount - $displayLimit, ' more')
-            )
-            ->toString();
+        return "Published $count files to [$baseDirectory].";
     }
 
     protected function pathRelativeToDirectory(string $source, string $directory): string
     {
         return Str::after($source, basename($directory).'/');
-    }
-
-    protected function publishableFilesMapCount(): int
-    {
-        return count($this->publishableFilesMap);
     }
 }
