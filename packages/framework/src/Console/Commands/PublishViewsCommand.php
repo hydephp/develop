@@ -40,7 +40,7 @@ class PublishViewsCommand extends Command
 
         $selected = (string) ($this->argument('category') ?? $this->promptForCategory());
 
-        if (! in_array($selected, $allowed = array_merge(array_keys($this->options), ['all']), true)) {
+        if (! in_array($selected, $allowed = array_merge(['all'], array_keys($this->options)), true)) {
             $this->error("Invalid selection: '$selected'");
             $this->infoComment('Allowed values are: ['.implode(', ', $allowed).']');
 
