@@ -9,6 +9,7 @@ use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Illuminate\Support\Facades\Artisan;
 
+use function Laravel\Prompts\select;
 use function str_replace;
 use function sprintf;
 use function strstr;
@@ -85,12 +86,16 @@ class PublishViewsCommand extends Command
 
     protected function promptForCategory(): string
     {
-        /** @var string $choice */
-        $choice = $this->choice(
-            'Which category do you want to publish?',
-            $this->formatPublishableChoices(),
-            0
-        );
+        if ($this->isInteractive()) {
+            $choice = select('Which category do you want to publish?', $this->formatPublishableChoices(), 0);
+        } else {
+            /** @var string $choice */
+            $choice = $this->choice(
+                'Which category do you want to publish?',
+                $this->formatPublishableChoices(),
+                0
+            );
+        }
 
         $selection = $this->parseChoiceIntoKey($choice);
 
