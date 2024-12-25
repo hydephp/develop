@@ -67,9 +67,6 @@ class InteractivePublishCommandHelper
         }
     }
 
-    /**
-     * @experimental This method may be toned down in the future.
-     */
     public function formatOutput(): string
     {
         $fileCount = count($this->publishableFilesMap);
