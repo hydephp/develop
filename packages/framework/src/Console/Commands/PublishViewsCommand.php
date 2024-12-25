@@ -114,6 +114,8 @@ class PublishViewsCommand extends Command
      */
     protected static function mapToKeys(array $groups): array
     {
-        return collect($groups)->mapWithKeys(fn (ViewPublishGroup $group): array => [Str::after($group->group, 'hyde-') => $group])->all();
+        return collect($groups)->mapWithKeys(function (ViewPublishGroup $group): array {
+            return [Str::after($group->group, 'hyde-') => $group];
+        })->all();
     }
 }
