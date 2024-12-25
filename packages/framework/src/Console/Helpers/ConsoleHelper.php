@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Helpers;
 
 use Laravel\Prompts\Prompt;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * @internal This class contains internal helpers for interacting with the console, and for easier testing.
@@ -26,12 +27,12 @@ class ConsoleHelper
         self::$enableLaravelPrompts = ! $isWindowsOs;
     }
 
-    public static function canUseLaravelPrompts(): bool
+    public static function canUseLaravelPrompts(InputInterface $input): bool
     {
         if (self::$enableLaravelPrompts !== null) {
             return self::$enableLaravelPrompts;
         }
 
-        return windows_os() === false && Prompt::shouldFallback() === false;
+        return $input->isInteractive() && windows_os() === false && Prompt::shouldFallback() === false;
     }
 }
