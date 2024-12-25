@@ -90,11 +90,7 @@ class PublishViewsCommand extends Command
             $choice = select('Which category do you want to publish?', $this->formatPublishableChoices(), 0);
         } else {
             /** @var string $choice */
-            $choice = $this->choice(
-                'Which category do you want to publish?',
-                $this->formatPublishableChoices(),
-                0
-            );
+            $choice = $this->choice('Which category do you want to publish?', $this->formatPublishableChoices(), 0);
         }
 
         $selection = $this->parseChoiceIntoKey($choice);
