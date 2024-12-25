@@ -40,7 +40,9 @@ class PublishViewsCommand extends Command
 
         $selected = (string) ($this->argument('category') ?? $this->promptForCategory());
 
-        $this->validateSelection($selected);
+        if (! in_array($selected, array_merge(array_keys($this->options), ['all']), true)) {
+            throw new \InvalidArgumentException("Invalid selection: $selected");
+        }
 
         if ($selected === 'all' || $selected === '') {
             foreach ($this->options as $key => $_ignored) {
@@ -100,13 +102,6 @@ class PublishViewsCommand extends Command
     protected function parseChoiceIntoKey(string $choice): string
     {
         return strstr(str_replace(['<comment>', '</comment>'], '', $choice), ':', true) ?: '';
-    }
-
-    protected function validateSelection(string $selected): void
-    {
-        if (! in_array($selected, array_merge(array_keys($this->options), ['all']), true)) {
-            throw new \InvalidArgumentException("Invalid selection: $selected");
-        }
     }
 
     /**
