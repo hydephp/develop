@@ -157,4 +157,44 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
             $helper->formatOutput()
         );
     }
+
+    public function testGetBaseDirectoryWithOneSet(): void
+    {
+        $helper = new InteractivePublishCommandHelper([
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
+        ]);
+
+        $this->assertSame(
+            'resources/views/vendor/hyde/layouts',
+            $helper->getBaseDirectory()
+        );
+    }
+
+    public function testGetBaseDirectoryWithMultipleSets(): void
+    {
+        $helper = new InteractivePublishCommandHelper([
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
+            'packages/framework/resources/views/components/page.blade.php' => 'resources/views/vendor/hyde/components/page.blade.php',
+        ]);
+
+        $this->assertSame(
+            'resources/views/vendor/hyde',
+            $helper->getBaseDirectory()
+        );
+    }
+
+    public function testGetBaseDirectoryWithSinglePath(): void
+    {
+        $helper = new InteractivePublishCommandHelper([
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+        ]);
+
+        $this->assertSame(
+            'resources/views/vendor/hyde/layouts/app.blade.php',
+            $helper->getBaseDirectory()
+        );
+    }
 }
