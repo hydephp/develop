@@ -17,17 +17,17 @@ use function Hyde\unslash;
  */
 class ViewPublishGroup
 {
-    readonly public string $group;
+    public readonly string $group;
 
-    readonly public string $name;
-    readonly public string $description;
+    public readonly string $name;
+    public readonly string $description;
 
-    readonly public string $source;
-    readonly public string $target;
-    readonly public bool $isDirectory;
+    public readonly string $source;
+    public readonly string $target;
+    public readonly bool $isDirectory;
 
     /** @var array<string> The filenames relative to the source, if the source is a directory. */
-    readonly public array $files;
+    public readonly array $files;
 
     /** @var class-string<\Hyde\Foundation\Providers\ViewServiceProvider> */
     protected static string $provider = ViewServiceProvider::class;
@@ -37,8 +37,10 @@ class ViewPublishGroup
         $this->group = $group;
         $this->source = $source;
         $this->target = $target;
+
         $this->isDirectory = $isDirectory;
         $this->files = $files;
+
         $this->name = $name ?? Hyde::makeTitle($group);
         $this->description = $description ?? "Publish the '$group' files for customization.";
     }
