@@ -55,7 +55,7 @@ class PublishViewsCommand extends Command
 
         if ($selected === 'all' || $selected === '') {
             foreach ($this->options as $key => $_ignored) {
-                $this->publishOption($key);
+                $this->publishOption($key, true);
             }
         } else {
             $this->publishOption($selected);
@@ -69,10 +69,9 @@ class PublishViewsCommand extends Command
         return $this->option('interactive');
     }
 
-    protected function publishOption(string $selected): void
+    protected function publishOption(string $selected, bool $isPublishingAll = false): void
     {
-        // Todo: Don't trigger interactive if "all" is selected
-        if ($this->isInteractive()) {
+        if ($this->isInteractive() && ! $isPublishingAll) {
             $this->handleInteractivePublish($selected);
 
             return;
