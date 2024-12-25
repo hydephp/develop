@@ -22,7 +22,7 @@ use function Hyde\path_join;
 class InteractivePublishCommandHelper
 {
     /** @var array<string, string> Map of source files to target files */
-    protected readonly array $publishableFilesMap;
+    protected array $publishableFilesMap;
 
     /** @param array<string, string> $publishableFilesMap */
     public function __construct(array $publishableFilesMap)
