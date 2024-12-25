@@ -28,10 +28,8 @@ class InteractivePublishCommandHelper
     /** @return array<string, string> */
     public function getFileChoices(): array
     {
-        $mostCommonDirectoryNominator = $this->getBaseDirectory();
-
-        return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $target, string $source) use ($mostCommonDirectoryNominator): array {
-            return [$source => $this->pathRelativeToDirectory($source, $mostCommonDirectoryNominator)];
+        return Arr::mapWithKeys($this->publishableFilesMap, /** @return array<string, string> */ function (string $target, string $source): array {
+            return [$source => $this->pathRelativeToDirectory($source, $this->getBaseDirectory())];
         });
     }
 
