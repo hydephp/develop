@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
+use Hyde\Console\Helpers\ViewPublishGroup;
 use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\SelectPrompt;
 
@@ -26,27 +27,14 @@ class PublishViewsCommand extends Command
     /** @var string */
     protected $description = 'Publish the Hyde components for customization. Note that existing files will be overwritten';
 
-    /** @var array<string, array<string, string>> */
-    protected array $options = [
-        'layouts' => [
-            'name' => 'Blade Layouts',
-            'description' => 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates',
-            'group' => 'hyde-layouts',
-        ],
-        'components' => [
-            'name' => 'Blade Components',
-            'description' => 'More or less self contained components, extracted for customizability and DRY code',
-            'group' => 'hyde-components',
-        ],
-        'page-404' => [
-            'name' => '404 Page',
-            'description' => 'A beautiful 404 error page by the Laravel Collective',
-            'group' => 'hyde-page-404',
-        ],
-    ];
-
     public function handle(): int
     {
+        $options = [
+            ViewPublishGroup::fromGroup('hyde-layouts', 'Blade Layouts', 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates'),
+            ViewPublishGroup::fromGroup('hyde-components', 'Blade Components', 'More or less self contained components, extracted for customizability and DRY code'),
+            ViewPublishGroup::fromGroup('hyde-page-404', '404 Page', 'A beautiful 404 error page by the Laravel Collective'),
+        ];
+
         $selected = (string) ($this->argument('category') ?? $this->promptForCategory());
 
         if ($selected === 'all' || $selected === '') {
