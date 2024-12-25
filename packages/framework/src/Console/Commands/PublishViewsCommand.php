@@ -88,13 +88,15 @@ class PublishViewsCommand extends Command
 
     protected function formatPublishableChoices(): array
     {
-        $keys = ['Publish all categories listed below'];
-
-        foreach ($this->options as $key => $option) {
-            $keys[] = "<comment>$key</comment>: $option->description";
-        }
-
-        return $keys;
+        return collect($this->options)
+            ->prepend('Publish all categories listed below')
+            ->map(fn ($option, $key) => 
+                $key === 0 
+                    ? $option 
+                    : sprintf("<comment>%s</comment>: %s", $key, $option->description)
+            )
+            ->values()
+            ->all();
     }
 
     protected function parseChoiceIntoKey(string $choice): string
