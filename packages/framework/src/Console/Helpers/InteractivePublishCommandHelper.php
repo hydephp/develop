@@ -40,14 +40,6 @@ class InteractivePublishCommandHelper
         });
     }
 
-    /** @param array<string> $selectedFiles */
-    public function handle(array $selectedFiles): void
-    {
-        $filesToPublish = $this->filterPublishableFiles($selectedFiles);
-
-        $this->publishFiles($filesToPublish);
-    }
-
     protected function getBaseDirectory(): string
     {
         // Find the most specific common parent directory path for the files (in case they are in different directories, we want to trim as much as possible whilst keeping specificity and uniqueness)
@@ -58,17 +50,6 @@ class InteractivePublishCommandHelper
         }, $partsMap->first());
 
         return implode('/', $commonParts);
-    }
-
-    /** @return array{string, string} */
-    protected function getPublishPaths(): array
-    {
-        $viewPaths = ServiceProvider::pathsToPublish(ViewServiceProvider::class, $this->group);
-
-        $source = array_key_first($viewPaths);
-        $target = $viewPaths[$source];
-
-        return [$source, $target];
     }
 
     public function publishFiles(array $selectedFiles): void
@@ -112,15 +93,6 @@ class InteractivePublishCommandHelper
     protected function pathRelativeToDirectory(string $source, string $directory): string
     {
         return Str::after($source, basename($directory).'/');
-    }
-
-    /**
-     * @param  array<string>  $selectedFiles
-     * @return array<string, string>
-     */
-    protected function filterPublishableFiles(array $selectedFiles): array
-    {
-        return array_filter($this->publishableFilesMap, fn (string $file): bool => in_array($file, $selectedFiles));
     }
 
     protected function publishableFilesMapCount(): int
