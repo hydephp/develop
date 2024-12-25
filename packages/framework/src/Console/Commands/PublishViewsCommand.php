@@ -102,8 +102,8 @@ class PublishViewsCommand extends Command
 
 
     /**
-     * @param array<string, string> $files
-     * @param bool $isPublishingAll
+     * @param  array<string, string>  $files
+     * @param  bool  $isPublishingAll
      */
     protected function publishSelectedFiles(array $files, bool $isPublishingAll): void
     {
@@ -119,7 +119,7 @@ class PublishViewsCommand extends Command
     }
 
     /**
-     * @param array<string, string> $files
+     * @param  array<string, string>  $files
      * @return array<string>
      */
     protected function promptUserForWhichFilesToPublish(array $files): array
