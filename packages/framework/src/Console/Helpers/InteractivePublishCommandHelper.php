@@ -7,7 +7,6 @@ namespace Hyde\Console\Helpers;
 use Hyde\Facades\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Support\Stringable;
 
 /**
  * @internal This class offloads logic from the PublishViewsCommand class and should not be used elsewhere.

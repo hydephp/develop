@@ -69,7 +69,7 @@ class PublishViewsCommand extends Command
         $selection = $this->parseChoiceIntoKey($choice);
 
         if ($selection) {
-            $this->infoComment(sprintf("Selected category [%s]", $selection));
+            $this->infoComment(sprintf('Selected category [%s]', $selection));
         }
 
         return $selection;
@@ -99,7 +99,6 @@ class PublishViewsCommand extends Command
             return [Str::after($group->group, 'hyde-') => $group];
         })->all();
     }
-
 
     /**
      * @param  array<string, string>  $files
