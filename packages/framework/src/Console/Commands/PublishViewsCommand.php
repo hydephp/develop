@@ -52,15 +52,7 @@ class PublishViewsCommand extends Command
             ? collect($this->options)->flatMap(fn (ViewPublishGroup $option): array => $option->publishableFilesMap())->all()
             : $this->options[$selected]->publishableFilesMap();
 
-        $publisher = new InteractivePublishCommandHelper($files);
-
-        if ($selected !== 'all' && ! Prompt::shouldFallback()) {
-            $publisher->only($this->promptUserForWhichFilesToPublish($publisher->getFileChoices()));
-        }
-
-        $publisher->publishFiles();
-
-        $this->infoComment($publisher->formatOutput());
+        $this->publishSelectedFiles($files, $selected === 'all');
 
         return Command::SUCCESS;
     }
@@ -112,5 +104,22 @@ class PublishViewsCommand extends Command
     protected function promptUserForWhichFilesToPublish(array $choices): array
     {
         return multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+    }
+
+    /**
+     * @param array<string, string> $files
+     * @param bool $isPublishingAll
+     */
+    protected function publishSelectedFiles(array $files, bool $isPublishingAll): void
+    {
+        $publisher = new InteractivePublishCommandHelper($files);
+
+        if (! $isPublishingAll && ! Prompt::shouldFallback()) {
+            $publisher->only($this->promptUserForWhichFilesToPublish($publisher->getFileChoices()));
+        }
+
+        $publisher->publishFiles();
+
+        $this->infoComment($publisher->formatOutput());
     }
 }
