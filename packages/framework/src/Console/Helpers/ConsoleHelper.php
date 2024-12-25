@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Helpers;
 
-use Closure;
-use Illuminate\Support\Collection;
-
-use function Laravel\Prompts\multiselect;
+use Laravel\Prompts\Prompt;
 
 /**
  * @internal This class contains internal helpers for interacting with the console, and for easier testing.
@@ -16,24 +13,25 @@ use function Laravel\Prompts\multiselect;
  */
 class ConsoleHelper
 {
-    protected static array $mocks = [];
+    /** Allows for mocking the Windows OS check. Remember to clear the mock after the test. */
+    protected static ?bool $enableLaravelPrompts = null;
 
     public static function clearMocks(): void
     {
-        static::$mocks = [];
+        self::$enableLaravelPrompts = null;
     }
 
-    public static function usesWindowsOs()
+    public static function mockWindowsOs(bool $isWindowsOs): void
     {
-        if (isset(static::$mocks['usesWindowsOs'])) {
-            return static::$mocks['usesWindowsOs'];
+        self::$enableLaravelPrompts = $isWindowsOs;
+    }
+
+    public static function canUseLaravelPrompts(): bool
+    {
+        if (self::$enableLaravelPrompts !== null) {
+            return self::$enableLaravelPrompts;
         }
 
-        return windows_os();
-    }
-
-    public static function mockWindowsOs(bool $isWindows = true): void
-    {
-        static::$mocks['usesWindowsOs'] = $isWindows;
+        return windows_os() === false && Prompt::shouldFallback() === false;
     }
 }
