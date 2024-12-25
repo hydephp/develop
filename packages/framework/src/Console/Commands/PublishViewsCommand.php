@@ -104,9 +104,7 @@ class PublishViewsCommand extends Command
 
     protected function validateSelection(string $selected): void
     {
-        $allowed = array_merge(array_keys($this->options), ['all']);
-
-        if (! in_array($selected, $allowed, true)) {
+        if (! in_array($selected, array_merge(array_keys($this->options), ['all']), true)) {
             throw new \InvalidArgumentException("Invalid selection: $selected");
         }
     }
