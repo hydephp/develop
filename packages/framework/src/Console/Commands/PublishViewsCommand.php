@@ -124,7 +124,7 @@ class PublishViewsCommand extends Command
      */
     protected function promptUserForWhichFilesToPublish(array $files): array
     {
-        $choices = array_merge(['all' => '<comment>Select all files</comment>'], $files);
+        $choices = array_merge(['all' => '<comment>All files</comment>'], $files);
 
         $prompt = new MultiSelectPrompt('Select the files you want to publish', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
@@ -146,10 +146,8 @@ class PublishViewsCommand extends Command
                     if ($isToggled) {
                         // Laravel Prompts is crazy, but this apparently is how you deselect all items
                         $prompt->emit('key', Key::CTRL_A);
-                        $prompt->options['all'] = '<comment>Select all files</comment>';
                         $isToggled = false;
                     } else {
-                        $prompt->options['all'] = '<comment>Unselect all files</comment>';
                         $isToggled = true;
                     }
                 } elseif ($key === Key::ENTER) {
