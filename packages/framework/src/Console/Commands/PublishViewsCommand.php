@@ -8,10 +8,11 @@ use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Console\Helpers\ViewPublishGroup;
 use Illuminate\Support\Str;
+use Laravel\Prompts\Key;
+use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\Prompt;
 use Laravel\Prompts\SelectPrompt;
 
-use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\select;
 use function str_replace;
 use function sprintf;
@@ -100,9 +101,35 @@ class PublishViewsCommand extends Command
      * @param array<string, string> $choices
      * @return array<string>
      */
-    protected function promptUserForWhichFilesToPublish(array $choices): array
+    protected function promptUserForWhichFilesToPublish(array $files): array
     {
-        return multiselect('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        $choices = array_merge(['all' => '<comment>All files</comment>'], $files);
+
+        $prompt = new MultiSelectPrompt('Select the files you want to publish (CTRL+A to toggle all)', $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+
+        $prompt->on('key', function ($key) use ($prompt): void {
+            static $isToggled = false;
+            if ($prompt->highlighted === 0) {
+                if ($key === Key::SPACE) {
+                    if (! $isToggled) {
+                        $prompt->emit('key', Key::CTRL_A);
+                        $isToggled = true;
+                    } else {
+                        // Laravel Prompts is crazy, but this apparently is how you deselect all items
+                        $prompt->emit('key', Key::CTRL_A);
+                        $prompt->emit('key', Key::CTRL_A);
+                        $isToggled = false;
+                    }
+                } elseif ($key === Key::ENTER) {
+                    if (! $isToggled) {
+                        $prompt->emit('key', Key::CTRL_A);
+                    }
+                    $prompt->state = 'submit';
+                }
+            }
+        });
+
+        return $prompt->prompt();
     }
 
     /**
