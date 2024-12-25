@@ -24,7 +24,7 @@ class PublishViewsCommand extends Command
     protected $signature = 'publish:views {category? : The category to publish} {--i|interactive : Interactively select the views to publish}';
 
     /** @var string */
-    protected $description = 'Publish the hyde components for customization. Note that existing files will be overwritten';
+    protected $description = 'Publish the Hyde components for customization. Note that existing files will be overwritten';
 
     /** @var array<string, array<string, string>> */
     protected array $options = [
