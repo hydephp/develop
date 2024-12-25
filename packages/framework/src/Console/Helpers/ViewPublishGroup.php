@@ -46,9 +46,7 @@ class ViewPublishGroup
     public static function fromGroup(string $group, ?string $name = null, ?string $description = null): self
     {
         [$source, $target] = static::keyedArrayToTuple(ServiceProvider::pathsToPublish(static::$provider, $group));
-
-        $source = static::normalizePath($source);
-        $target = static::normalizePath($target);
+        [$source, $target] = [static::normalizePath($source), static::normalizePath($target)];
 
         $isDirectory = Filesystem::isDirectory($source);
         $files = $isDirectory ? self::findFiles($source) : [];
