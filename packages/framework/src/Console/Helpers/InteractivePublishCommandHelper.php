@@ -52,9 +52,9 @@ class InteractivePublishCommandHelper
         return implode('/', $commonParts);
     }
 
-    public function publishFiles(array $selectedFiles): void
+    public function publishFiles(): void
     {
-        foreach ($selectedFiles as $source => $target) {
+        foreach ($this->publishableFilesMap as $source => $target) {
             if (! Filesystem::isFile(dirname($target))) {
                 Filesystem::ensureDirectoryExists(dirname($target));
             } else {
