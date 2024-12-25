@@ -90,7 +90,7 @@ class PublishViewsCommand extends Command
     {
         $keys = ['Publish all categories listed below'];
         foreach ($this->options as $key => $option) {
-            $keys[] = "<comment>$key</comment>: {$option->description}";
+            $keys[] = "<comment>$key</comment>: $option->description";
         }
 
         return $keys;
