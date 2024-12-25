@@ -34,57 +34,76 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
     public function testGetFileChoices(): void
     {
         $helper = new InteractivePublishCommandHelper([
-            'source/path/file1.php' => 'target/path/file1.php',
-            'source/path/file2.php' => 'target/path/file2.php',
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
         ]);
 
         $this->assertSame([
-            'source/path/file1.php' => 'file1.php',
-            'source/path/file2.php' => 'file2.php',
+            'packages/framework/resources/views/layouts/app.blade.php' => 'app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'post.blade.php',
         ], $helper->getFileChoices());
     }
 
     public function testOnlyFiltersPublishableFiles(): void
     {
         $helper = new InteractivePublishCommandHelper([
-            'source/path/file1.php' => 'target/path/file1.php',
-            'source/path/file2.php' => 'target/path/file2.php',
-            'source/path/file3.php' => 'target/path/file3.php',
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
         ]);
 
-        $helper->only(['source/path/file1.php', 'source/path/file3.php']);
+        $helper->only([
+            'packages/framework/resources/views/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php'
+        ]);
 
         $this->assertSame([
-            'source/path/file1.php' => 'file1.php',
-            'source/path/file3.php' => 'file3.php',
+            'packages/framework/resources/views/layouts/app.blade.php' => 'app.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'post.blade.php',
         ], $helper->getFileChoices());
     }
 
     public function testPublishFiles(): void
     {
-        $this->filesystem->shouldReceive('ensureDirectoryExists')->twice();
-        $this->filesystem->shouldReceive('copy')->twice();
+        $this->filesystem->shouldReceive('ensureDirectoryExists')->times(3);
+        $this->filesystem->shouldReceive('copy')->times(3);
 
         $helper = new InteractivePublishCommandHelper([
-            'source/path/file1.php' => 'target/path/file1.php',
-            'source/path/file2.php' => 'target/path/file2.php',
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
         ]);
 
         $helper->publishFiles();
 
-        $this->filesystem->shouldHaveReceived('ensureDirectoryExists')->with(Hyde::path('target/path'))->twice();
-        $this->filesystem->shouldHaveReceived('copy')->with(Hyde::path('source/path/file1.php'), Hyde::path('target/path/file1.php'))->once();
-        $this->filesystem->shouldHaveReceived('copy')->with(Hyde::path('source/path/file2.php'), Hyde::path('target/path/file2.php'))->once();
+        $this->filesystem->shouldHaveReceived('ensureDirectoryExists')->with(Hyde::path('resources/views/vendor/hyde/layouts'))->times(3);
+
+        $this->filesystem->shouldHaveReceived('copy')->with(
+            Hyde::path('packages/framework/resources/views/layouts/app.blade.php'),
+            Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php')
+        )->once();
+
+        $this->filesystem->shouldHaveReceived('copy')->with(
+            Hyde::path('packages/framework/resources/views/layouts/page.blade.php'),
+            Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php')
+        )->once();
+
+        $this->filesystem->shouldHaveReceived('copy')->with(
+            Hyde::path('packages/framework/resources/views/layouts/post.blade.php'),
+            Hyde::path('resources/views/vendor/hyde/layouts/post.blade.php')
+        )->once();
     }
 
     public function testFormatOutputForSingleFile(): void
     {
         $helper = new InteractivePublishCommandHelper([
-            'source/path/file1.php' => 'target/path/file1.php',
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
         ]);
 
         $this->assertSame(
-            'Published file to [target/path/file1.php].',
+            'Published file to [resources/views/vendor/hyde/layouts/app.blade.php].',
             $helper->formatOutput()
         );
     }
@@ -92,12 +111,12 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
     public function testFormatOutputForMultipleFiles(): void
     {
         $helper = new InteractivePublishCommandHelper([
-            'source/path/file1.php' => 'target/path/file1.php',
-            'source/path/file2.php' => 'target/path/file2.php',
+            'packages/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
         ]);
 
         $this->assertSame(
-            'Published all files to [target/path].',
+            'Published all files to [resources/views/vendor/hyde/layouts].',
             $helper->formatOutput()
         );
     }
