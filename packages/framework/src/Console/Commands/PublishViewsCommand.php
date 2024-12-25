@@ -36,7 +36,6 @@ class PublishViewsCommand extends Command
         $this->options = static::mapToKeys([
             ViewPublishGroup::fromGroup('hyde-layouts', 'Blade Layouts', 'Shared layout views, such as the app layout, navigation menu, and Markdown page templates'),
             ViewPublishGroup::fromGroup('hyde-components', 'Blade Components', 'More or less self contained components, extracted for customizability and DRY code'),
-            ViewPublishGroup::fromGroup('hyde-page-404', '404 Page', 'A beautiful 404 error page by the Laravel Collective'),
         ]);
 
         $selected = ($this->argument('category') ?? $this->promptForCategory()) ?: 'all';

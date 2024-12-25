@@ -25,21 +25,18 @@ class ViewPublishGroup
 
     public readonly string $source;
     public readonly string $target;
-    public readonly bool $isDirectory;
 
-    /** @var array<string> The filenames relative to the source, if the source is a directory. */
+    /** @var array<string> The filenames relative to the source directory. */
     public readonly array $files;
 
     /** @var class-string<\Hyde\Foundation\Providers\ViewServiceProvider> */
     protected static string $provider = ViewServiceProvider::class;
 
-    protected function __construct(string $group, string $source, string $target, bool $isDirectory, array $files, ?string $name = null, ?string $description = null)
+    protected function __construct(string $group, string $source, string $target, array $files, ?string $name = null, ?string $description = null)
     {
         $this->group = $group;
         $this->source = $source;
         $this->target = $target;
-
-        $this->isDirectory = $isDirectory;
         $this->files = $files;
 
         $this->name = $name ?? Hyde::makeTitle($group);
@@ -51,10 +48,9 @@ class ViewPublishGroup
         [$source, $target] = static::keyedArrayToTuple(ServiceProvider::pathsToPublish(static::$provider, $group));
         [$source, $target] = [static::normalizePath($source), static::normalizePath($target)];
 
-        $isDirectory = Filesystem::isDirectory($source);
-        $files = $isDirectory ? self::findFiles($source) : [];
+        $files = self::findFiles($source);
 
-        return new static($group, $source, $target, $isDirectory, $files, $name, $description);
+        return new static($group, $source, $target, $files, $name, $description);
     }
 
     /**
