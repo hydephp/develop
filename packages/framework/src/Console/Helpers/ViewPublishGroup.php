@@ -42,12 +42,12 @@ class ViewPublishGroup
         $this->description = $description ?? "Publish the '$group' files for customization.";
     }
 
-    public static function fromGroup(string $group, ?string $name = null, ?string $description = null): self
+    public static function fromGroup(string $group, ?string $name = null, ?string $description = null): static
     {
         [$source, $target] = static::keyedArrayToTuple(static::$provider::pathsToPublish(static::$provider, $group));
         [$source, $target] = [static::normalizePath($source), static::normalizePath($target)];
 
-        $files = self::findFiles($source);
+        $files = static::findFiles($source);
 
         return new static($group, $source, $target, $files, $name, $description);
     }
