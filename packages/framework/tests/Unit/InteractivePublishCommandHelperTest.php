@@ -57,7 +57,7 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
 
         $helper->only([
             'packages/framework/resources/views/layouts/app.blade.php',
-            'packages/framework/resources/views/layouts/post.blade.php'
+            'packages/framework/resources/views/layouts/post.blade.php',
         ]);
 
         $this->assertSame([
@@ -131,7 +131,7 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         ]);
 
         $helper->only([
-            'packages/framework/resources/views/layouts/app.blade.php'
+            'packages/framework/resources/views/layouts/app.blade.php',
         ]);
 
         $this->assertSame(

@@ -18,7 +18,7 @@ class InteractivePublishCommandHelper
 
     protected readonly int $originalFileCount;
 
-    /** @param array<string, string> $publishableFilesMap */
+    /** @param  array<string, string>  $publishableFilesMap */
     public function __construct(array $publishableFilesMap)
     {
         $this->publishableFilesMap = $publishableFilesMap;

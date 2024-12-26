@@ -12,7 +12,6 @@ use Hyde\Console\Helpers\ViewPublishGroup;
 use Illuminate\Support\Str;
 use Laravel\Prompts\Key;
 use Laravel\Prompts\MultiSelectPrompt;
-use Laravel\Prompts\Prompt;
 use Laravel\Prompts\SelectPrompt;
 
 use function Laravel\Prompts\select;
