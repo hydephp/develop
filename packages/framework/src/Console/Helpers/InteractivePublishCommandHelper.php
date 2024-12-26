@@ -72,13 +72,13 @@ class InteractivePublishCommandHelper
         }
 
         return ($fileCount = count($this->publishableFilesMap)) === 1
-            ? sprintf('Published file to [%s].', reset($this->publishableFilesMap))
-            : sprintf('Published %s files to [%s].', $group ?? $this->getCountDescription($fileCount), $this->getBaseDirectory());
+            ? sprintf('Published selected file to [%s].', reset($this->publishableFilesMap))
+            : sprintf('Published selected %s files to [%s].', $group, $this->getBaseDirectory());
     }
 
     protected function getCountDescription(int $fileCount): string
     {
-        return $fileCount === $this->originalFileCount ? 'all' : (string) $fileCount;
+        return $fileCount === $this->originalFileCount ? '' : (string) $fileCount;
     }
 
     protected function pathRelativeToDirectory(string $source, string $directory): string
