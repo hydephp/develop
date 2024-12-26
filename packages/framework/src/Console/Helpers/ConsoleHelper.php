@@ -19,23 +19,23 @@ class ConsoleHelper
 
     public static function clearMocks(): void
     {
-        self::$enableLaravelPrompts = null;
+        static::$enableLaravelPrompts = null;
     }
 
     public static function disableLaravelPrompts(): void
     {
-        self::$enableLaravelPrompts = false;
+        static::$enableLaravelPrompts = false;
     }
 
     public static function mockWindowsOs(bool $isWindowsOs): void
     {
-        self::$enableLaravelPrompts = ! $isWindowsOs;
+        static::$enableLaravelPrompts = ! $isWindowsOs;
     }
 
     public static function canUseLaravelPrompts(InputInterface $input): bool
     {
-        if (self::$enableLaravelPrompts !== null) {
-            return self::$enableLaravelPrompts;
+        if (static::$enableLaravelPrompts !== null) {
+            return static::$enableLaravelPrompts;
         }
 
         return $input->isInteractive() && windows_os() === false && Prompt::shouldFallback() === false;
