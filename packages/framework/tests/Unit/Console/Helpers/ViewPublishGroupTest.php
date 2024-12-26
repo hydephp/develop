@@ -29,7 +29,12 @@ class ViewPublishGroupTest extends UnitTestCase
 
 class TestViewServiceProvider extends ViewServiceProvider
 {
-    //
+    public static function pathsToPublish($provider = null, $group = null): array
+    {
+        return [
+            Hyde::vendorPath('src/Foundation/Providers/../../../resources/views/layouts') => Hyde::path('resources/views/vendor/hyde/layouts'),
+        ];
+    }
 }
 
 class TestViewPublishGroup extends ViewPublishGroup
