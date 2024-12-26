@@ -99,10 +99,7 @@ class PublishViewsCommand extends Command
         })->all();
     }
 
-    /**
-     * @param  array<string, string>  $files
-     * @param  bool  $isPublishingAll
-     */
+    /** @param  array<string, string>  $files */
     protected function publishSelectedFiles(array $files, bool $isPublishingAll): void
     {
         $publisher = new InteractivePublishCommandHelper($files);
