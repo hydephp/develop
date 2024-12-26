@@ -58,7 +58,9 @@ class PublishViewsCommand extends Command
             ? collect($this->options)->flatMap(fn (ViewPublishGroup $option): array => $option->publishableFilesMap())->all()
             : $this->options[$selected]->publishableFilesMap();
 
-        $this->publishSelectedFiles($files, $selected === 'all');
+        $output = $this->publishSelectedFiles($files, $selected === 'all');
+
+        $this->infoComment($output);
 
         return Command::SUCCESS;
     }
@@ -100,7 +102,7 @@ class PublishViewsCommand extends Command
     }
 
     /** @param  array<string, string>  $files */
-    protected function publishSelectedFiles(array $files, bool $isPublishingAll): void
+    protected function publishSelectedFiles(array $files, bool $isPublishingAll): string
     {
         $publisher = new InteractivePublishCommandHelper($files);
 
@@ -110,7 +112,7 @@ class PublishViewsCommand extends Command
 
         $publisher->publishFiles();
 
-        $this->infoComment($publisher->formatOutput());
+        return $publisher->formatOutput();
     }
 
     /**
