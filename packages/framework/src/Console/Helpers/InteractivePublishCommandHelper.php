@@ -76,7 +76,7 @@ class InteractivePublishCommandHelper
         }
 
         $fileCount = count($this->publishableFilesMap);
-        $publishedOneFile = (count($this->publishableFilesMap)) === 1;
+        $publishedOneFile = $fileCount === 1;
         $publishedAllGroups = $group === null;
 
         return match (true) {
