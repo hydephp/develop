@@ -125,11 +125,21 @@ class PublishViewsCommandTest extends TestCase
     protected function tearDown(): void
     {
         ConsoleHelper::clearMocks();
+        PromptsReset::resetFallbacks();
 
         if (File::isDirectory(Hyde::path('resources/views/vendor'))) {
             File::deleteDirectory(Hyde::path('resources/views/vendor'));
         }
 
         parent::tearDown();
+    }
+}
+
+abstract class PromptsReset extends Prompt
+{
+    // Workaround for https://github.com/laravel/prompts/issues/158
+    public static function resetFallbacks(): void
+    {
+        static::$shouldFallback = false;
     }
 }
