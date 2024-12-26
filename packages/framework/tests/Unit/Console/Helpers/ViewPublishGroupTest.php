@@ -16,13 +16,9 @@ class ViewPublishGroupTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
-    public static self $test;
-
     protected function setUp(): void
     {
         TestViewPublishGroup::setProvider(TestViewServiceProvider::class);
-
-        self::$test = $this;
     }
 
     protected function tearDown(): void
@@ -44,7 +40,8 @@ class TestViewServiceProvider extends ViewServiceProvider
     public static function pathsToPublish($provider = null, $group = null): array
     {
         ViewPublishGroupTest::$test->assertSame($provider, TestViewServiceProvider::class);
-        ViewPublishGroupTest::$test->assertSame($group, 'layouts');
+        ViewPublishGroupTest::assertSame($provider, TestViewServiceProvider::class);
+        ViewPublishGroupTest::assertSame($group, 'layouts');
 
         return [
             Hyde::vendorPath('src/Foundation/Providers/../../../resources/views/layouts') => Hyde::path('resources/views/vendor/hyde/layouts'),
