@@ -67,10 +67,6 @@ class InteractivePublishCommandHelper
 
     public function formatOutput(string $group): string
     {
-        if ($group !== 'all') {
-            $group = '['.Str::singular($group).']';
-        }
-
         $fileCount = count($this->publishableFilesMap);
         $publishedOneFile = $fileCount === 1;
         $publishedAllGroups = $group === 'all';
@@ -78,7 +74,7 @@ class InteractivePublishCommandHelper
         return match (true) {
             $publishedAllGroups => sprintf('Published all %d files to [%s].', $fileCount, $this->getBaseDirectory()),
             $publishedOneFile => sprintf('Published selected file to [%s].', reset($this->publishableFilesMap)),
-            default => sprintf('Published selected %s files to [%s].', $group, $this->getBaseDirectory())
+            default => sprintf('Published selected [%s] files to [%s].', Str::singular($group), $this->getBaseDirectory())
         };
     }
 
