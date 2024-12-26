@@ -26,6 +26,13 @@ class ViewPublishGroupTest extends UnitTestCase
     {
         TestViewPublishGroup::setProvider(ViewServiceProvider::class);
     }
+
+    public function testCanCreateGroup()
+    {
+        $group = ViewPublishGroup::fromGroup('layouts');
+
+        $this->assertInstanceOf(ViewPublishGroup::class, $group);
+    }
 }
 
 class TestViewPublishGroup extends ViewPublishGroup
