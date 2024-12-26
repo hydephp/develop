@@ -79,6 +79,17 @@ class ViewPublishGroupTest extends UnitTestCase
         $this->assertSame($group->name, 'Custom Layouts');
         $this->assertSame($group->description, 'Custom description');
     }
+
+    public function testCanGetPublishableFilesMap()
+    {
+        $group = ViewPublishGroup::fromGroup('layouts');
+
+        $this->assertSame($group->publishableFilesMap(), [
+            ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts/app.blade.php' => 'resources/views/vendor/hyde/layouts/app.blade.php',
+            ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts/page.blade.php' => 'resources/views/vendor/hyde/layouts/page.blade.php',
+            ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts/post.blade.php' => 'resources/views/vendor/hyde/layouts/post.blade.php',
+        ]);
+    }
 }
 
 class TestViewPublishGroup extends ViewPublishGroup
