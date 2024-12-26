@@ -52,7 +52,9 @@ class PublishViewsCommandTest extends TestCase
 
     public function testCanSelectGroupWithArgument()
     {
-        $this->artisan('publish:views layouts --no-interaction')
+        ConsoleHelper::disableLaravelPrompts();
+
+        $this->artisan('publish:views layouts')
             ->expectsOutput('Published all [layout] files to [resources/views/vendor/hyde/layouts]')
             ->assertExitCode(0);
 
