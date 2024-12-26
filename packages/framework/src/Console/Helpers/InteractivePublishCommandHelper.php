@@ -67,7 +67,11 @@ class InteractivePublishCommandHelper
 
     public function formatOutput(?string $group = null): string
     {
-        if ($group && $group !== 'all') {
+        if ($group === 'all') {
+            $group = null;
+        }
+
+        if ($group) {
             $group = '['.Str::singular($group).']';
         }
 
