@@ -88,8 +88,6 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionOnUnixSystems()
     {
-        $this->withoutMockingConsoleOutput();
-
         ConsoleHelper::mockWindowsOs(false);
 
         Prompt::fake([
@@ -99,12 +97,7 @@ class PublishViewsCommandTest extends TestCase
             Key::ENTER,
         ]);
 
-        $command = (new PublishViewsCommand());
-        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
-        $output = new BufferedOutput();
-        $command->setInput($input);
-        $command->setOutput(new OutputStyle($input, $output));
-        $command->handle();
+        $output = $this->executePublishViewsCommand();
 
         Prompt::assertOutputContains('Select the files you want to publish');
         Prompt::assertOutputContains('All files');
@@ -124,20 +117,13 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionWithHittingEnterRightAway()
     {
-        $this->withoutMockingConsoleOutput();
-
         ConsoleHelper::mockWindowsOs(false);
 
         Prompt::fake([
             Key::ENTER,
         ]);
 
-        $command = (new PublishViewsCommand());
-        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
-        $output = new BufferedOutput();
-        $command->setInput($input);
-        $command->setOutput(new OutputStyle($input, $output));
-        $command->handle();
+        $output = $this->executePublishViewsCommand();
 
         Prompt::assertOutputContains('Select the files you want to publish');
         Prompt::assertOutputContains('All files');
@@ -156,8 +142,6 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionWithComplexToggles()
     {
-        $this->withoutMockingConsoleOutput();
-
         ConsoleHelper::mockWindowsOs(false);
 
         Prompt::fake([
@@ -175,12 +159,7 @@ class PublishViewsCommandTest extends TestCase
             Key::ENTER,
         ]);
 
-        $command = (new PublishViewsCommand());
-        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
-        $output = new BufferedOutput();
-        $command->setInput($input);
-        $command->setOutput(new OutputStyle($input, $output));
-        $command->handle();
+        $output = $this->executePublishViewsCommand();
 
         Prompt::assertOutputContains('Select the files you want to publish');
         Prompt::assertOutputContains('All files');
@@ -195,6 +174,18 @@ class PublishViewsCommandTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
+    }
+
+    protected function executePublishViewsCommand(): BufferedOutput
+    {
+        $command = (new PublishViewsCommand());
+        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+        $command->handle();
+
+        return $output;
     }
 
     protected function tearDown(): void
