@@ -71,6 +71,29 @@ class PublishViewsCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
     }
 
+    public function testCanSelectGroupWithQuestion()
+    {
+        ConsoleHelper::disableLaravelPrompts();
+
+        $this->artisan('publish:views')
+            ->expectsQuestion('Which category do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
+            ->expectsOutput('Selected category [layouts]')
+            ->expectsOutput('Published all [layout] files to [resources/views/vendor/hyde/layouts]')
+            ->assertExitCode(0);
+
+        // Assert selected group was published
+        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde'));
+        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde/layouts'));
+
+        // Assert files were published
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'));
+
+        // Assert not selected group was not published
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
+    }
+
     public function testWithInvalidSuppliedTag()
     {
         $this->artisan('publish:views invalid')
