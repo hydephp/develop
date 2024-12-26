@@ -44,7 +44,7 @@ class ViewPublishGroupTest extends UnitTestCase
         $this->assertSame($group->description, "Publish the 'layouts' files for customization.");
         $this->assertSame($group->source, 'packages/framework/resources/views/layouts');
         $this->assertSame($group->target, 'resources/views/vendor/hyde/layouts');
-        $this->assertSame($group->files, ["app.blade.php", "page.blade.php", "post.blade.php"]);
+        $this->assertSame($group->files, ['app.blade.php', 'page.blade.php', 'post.blade.php']);
     }
 
     public function testCanCreateGroupWithCustomName()
@@ -99,12 +99,12 @@ class TestFileFinder extends FileFinder
     {
         ViewPublishGroupTest::assertSame($directory, 'packages/framework/resources/views/layouts');
         ViewPublishGroupTest::assertSame($matchExtensions, false);
-        ViewPublishGroupTest::assertSame($recursive, true);    
+        ViewPublishGroupTest::assertSame($recursive, true);
 
         return collect([
-            "packages/framework/resources/views/layouts/app.blade.php",
-            "packages/framework/resources/views/layouts/page.blade.php",
-            "packages/framework/resources/views/layouts/post.blade.php",
+            'packages/framework/resources/views/layouts/app.blade.php',
+            'packages/framework/resources/views/layouts/page.blade.php',
+            'packages/framework/resources/views/layouts/post.blade.php',
         ]);
     }
 }

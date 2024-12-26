@@ -52,11 +52,7 @@ class ViewPublishGroup
         return new static($group, $source, $target, $files, $name, $description);
     }
 
-    /**
-     * Get the map of all publishable file paths.
-     *
-     * @return array<string, string> The source file paths mapped to their target file paths.
-     */
+    /** @return array<string, string> The source file paths mapped to their target file paths. */
     public function publishableFilesMap(): array
     {
         return collect($this->files)->mapWithKeys(fn (string $file): array => [
