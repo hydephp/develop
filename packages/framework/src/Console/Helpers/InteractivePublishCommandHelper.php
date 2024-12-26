@@ -80,11 +80,6 @@ class InteractivePublishCommandHelper
             : sprintf('Published selected %s files to [%s].', $group, $this->getBaseDirectory());
     }
 
-    protected function getCountDescription(int $fileCount): string
-    {
-        return $fileCount === $this->originalFileCount ? '' : (string) $fileCount;
-    }
-
     protected function pathRelativeToDirectory(string $source, string $directory): string
     {
         return Str::after($source, basename($directory).'/');
