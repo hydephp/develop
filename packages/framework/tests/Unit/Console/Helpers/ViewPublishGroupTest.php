@@ -38,6 +38,13 @@ class ViewPublishGroupTest extends UnitTestCase
         $group = ViewPublishGroup::fromGroup('layouts');
 
         $this->assertInstanceOf(ViewPublishGroup::class, $group);
+
+        $this->assertSame($group->group, 'layouts');
+        $this->assertSame($group->name, 'Layouts');
+        $this->assertSame($group->description, "Publish the 'layouts' files for customization.");
+        $this->assertSame($group->source, 'packages/framework/resources/views/layouts');
+        $this->assertSame($group->target, 'resources/views/vendor/hyde/layouts');
+        $this->assertSame($group->files, ["app.blade.php", "page.blade.php", "post.blade.php"]);
     }
 }
 
