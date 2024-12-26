@@ -7,7 +7,6 @@ namespace Hyde\Console\Helpers;
 use Hyde\Facades\Filesystem;
 use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Hyde;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
 use function Hyde\path_join;
@@ -45,7 +44,7 @@ class ViewPublishGroup
 
     public static function fromGroup(string $group, ?string $name = null, ?string $description = null): self
     {
-        [$source, $target] = static::keyedArrayToTuple(ServiceProvider::pathsToPublish(static::$provider, $group));
+        [$source, $target] = static::keyedArrayToTuple(static::$provider::pathsToPublish(static::$provider, $group));
         [$source, $target] = [static::normalizePath($source), static::normalizePath($target)];
 
         $files = self::findFiles($source);
