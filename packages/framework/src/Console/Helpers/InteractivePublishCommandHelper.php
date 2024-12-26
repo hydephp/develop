@@ -65,11 +65,15 @@ class InteractivePublishCommandHelper
         }
     }
 
-    public function formatOutput(): string
+    public function formatOutput(?string $group = null): string
     {
+        if ($group) {
+            $group = '['.Str::singular($group).']';
+        }
+
         return ($fileCount = count($this->publishableFilesMap)) === 1
             ? sprintf('Published file to [%s].', reset($this->publishableFilesMap))
-            : sprintf('Published %s files to [%s].', $this->getCountDescription($fileCount), $this->getBaseDirectory());
+            : sprintf('Published %s files to [%s].', $group ?? $this->getCountDescription($fileCount), $this->getBaseDirectory());
     }
 
     protected function getCountDescription(int $fileCount): string

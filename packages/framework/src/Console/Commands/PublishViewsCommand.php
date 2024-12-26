@@ -60,7 +60,7 @@ class PublishViewsCommand extends Command
 
         $publisher = $this->publishSelectedFiles($files, $selected === 'all');
 
-        $this->infoComment($publisher->formatOutput());
+        $this->infoComment($publisher->formatOutput($selected));
 
         return Command::SUCCESS;
     }
