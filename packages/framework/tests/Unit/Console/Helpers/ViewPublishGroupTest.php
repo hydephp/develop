@@ -46,6 +46,30 @@ class ViewPublishGroupTest extends UnitTestCase
         $this->assertSame($group->target, 'resources/views/vendor/hyde/layouts');
         $this->assertSame($group->files, ["app.blade.php", "page.blade.php", "post.blade.php"]);
     }
+
+    public function testCanCreateGroupWithCustomName()
+    {
+        $group = ViewPublishGroup::fromGroup('layouts', 'Custom Layouts');
+
+        $this->assertSame($group->name, 'Custom Layouts');
+        $this->assertSame($group->description, "Publish the 'layouts' files for customization.");
+    }
+
+    public function testCanCreateGroupWithCustomDescription()
+    {
+        $group = ViewPublishGroup::fromGroup('layouts', null, 'Custom description');
+
+        $this->assertSame($group->name, 'Layouts');
+        $this->assertSame($group->description, 'Custom description');
+    }
+
+    public function testCanCreateGroupWithCustomNameAndDescription()
+    {
+        $group = ViewPublishGroup::fromGroup('layouts', 'Custom Layouts', 'Custom description');
+
+        $this->assertSame($group->name, 'Custom Layouts');
+        $this->assertSame($group->description, 'Custom description');
+    }
 }
 
 class TestViewPublishGroup extends ViewPublishGroup
