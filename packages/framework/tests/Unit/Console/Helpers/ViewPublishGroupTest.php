@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Console\Helpers;
 
+use Hyde\Foundation\Providers\ViewServiceProvider;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Console\Helpers\ViewPublishGroup;
 
@@ -17,6 +18,24 @@ class ViewPublishGroupTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        //
+        TestViewPublishGroup::setProvider(TestViewServiceProvider::class);
+    }
+
+    protected function tearDown(): void
+    {
+        TestViewPublishGroup::setProvider(ViewServiceProvider::class);
+    }
+}
+
+class TestViewServiceProvider extends ViewServiceProvider
+{
+    //
+}
+
+class TestViewPublishGroup extends ViewPublishGroup
+{
+    public static function setProvider(string $provider): void
+    {
+        parent::$provider = $provider;
     }
 }
