@@ -22,6 +22,11 @@ class ConsoleHelper
         self::$enableLaravelPrompts = null;
     }
 
+    public static function disableLaravelPrompts(): void
+    {
+        self::$enableLaravelPrompts = false;
+    }
+
     public static function mockWindowsOs(bool $isWindowsOs): void
     {
         self::$enableLaravelPrompts = ! $isWindowsOs;
