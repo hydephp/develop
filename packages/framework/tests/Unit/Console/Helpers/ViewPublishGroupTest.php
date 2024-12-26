@@ -39,7 +39,6 @@ class TestViewServiceProvider extends ViewServiceProvider
 {
     public static function pathsToPublish($provider = null, $group = null): array
     {
-        ViewPublishGroupTest::$test->assertSame($provider, TestViewServiceProvider::class);
         ViewPublishGroupTest::assertSame($provider, TestViewServiceProvider::class);
         ViewPublishGroupTest::assertSame($group, 'layouts');
 
