@@ -17,7 +17,6 @@ use Illuminate\Support\Collection;
 class ViewPublishGroupTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
-    protected static bool $needsConfig = true;
 
     public static string $packageDirectory;
 
