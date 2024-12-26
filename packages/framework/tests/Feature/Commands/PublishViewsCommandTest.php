@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
+use Hyde\Console\Commands\PublishViewsCommand;
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
+use Laravel\Prompts\Key;
+use Laravel\Prompts\Prompt;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * @covers \Hyde\Console\Commands\PublishViewsCommand
@@ -69,6 +75,51 @@ class PublishViewsCommandTest extends TestCase
             ->expectsOutput("Invalid selection: 'invalid'")
             ->expectsOutput('Allowed values are: [all, layouts, components]')
             ->assertExitCode(1);
+    }
+
+    public function testInteractiveSelectionOnWindowsSystemsSkipsInteractiveness()
+    {
+        ConsoleHelper::mockWindowsOs(true);
+
+        $this->artisan('publish:views components')
+            ->expectsOutput("Published all [component] files to [resources/views/vendor/hyde/components]")
+            ->assertExitCode(0);
+    }
+
+    public function testInteractiveSelectionOnUnixSystems()
+    {
+        $this->withoutMockingConsoleOutput();
+
+        ConsoleHelper::mockWindowsOs(false);
+
+        Prompt::fake([
+            Key::DOWN, Key::SPACE,
+            Key::DOWN, Key::SPACE,
+            Key::DOWN, Key::SPACE,
+            Key::ENTER,
+        ]);
+
+        $command = (new PublishViewsCommand());
+        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+        $command->handle();
+
+        Prompt::assertOutputContains('Select the files you want to publish');
+        Prompt::assertOutputContains('All files');
+        Prompt::assertOutputContains('app.blade.php');
+        Prompt::assertOutputContains('docs.blade.php');
+        Prompt::assertOutputContains('footer.blade.php');
+
+        $this->assertSame("Published selected [layout] files to [resources/views/vendor/hyde/layouts]\n", $output->fetch());
+
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/docs.blade.php'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/footer.blade.php'));
+
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
     }
 
     protected function tearDown(): void
