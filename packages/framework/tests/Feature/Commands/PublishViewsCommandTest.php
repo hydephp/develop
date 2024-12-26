@@ -122,6 +122,81 @@ class PublishViewsCommandTest extends TestCase
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
     }
 
+    public function testInteractiveSelectionWithHittingEnterRightAway()
+    {
+        $this->withoutMockingConsoleOutput();
+
+        ConsoleHelper::mockWindowsOs(false);
+
+        Prompt::fake([
+            Key::ENTER,
+        ]);
+
+        $command = (new PublishViewsCommand());
+        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+        $command->handle();
+
+        Prompt::assertOutputContains('Select the files you want to publish');
+        Prompt::assertOutputContains('All files');
+        Prompt::assertOutputContains('app.blade.php');
+        Prompt::assertOutputContains('docs.blade.php');
+
+        $this->assertSame("Published all [layout] files to [resources/views/vendor/hyde/layouts]\n", $output->fetch());
+
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/docs.blade.php'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/footer.blade.php'));
+
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
+    }
+
+    public function testInteractiveSelectionWithComplexToggles()
+    {
+        $this->withoutMockingConsoleOutput();
+
+        ConsoleHelper::mockWindowsOs(false);
+
+        Prompt::fake([
+            // Select "all files"
+            Key::SPACE,
+            // Unselect next file
+            Key::DOWN, Key::SPACE,
+            // Go back up and deselect the all files option
+            Key::UP, Key::SPACE,
+            // Select the next three files
+            Key::DOWN, Key::SPACE, Key::DOWN, Key::SPACE, Key::DOWN, Key::SPACE,
+            // De-select the last file
+            Key::SPACE,
+            // Confirm selection
+            Key::ENTER,
+        ]);
+
+        $command = (new PublishViewsCommand());
+        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+        $command->handle();
+
+        Prompt::assertOutputContains('Select the files you want to publish');
+        Prompt::assertOutputContains('All files');
+        Prompt::assertOutputContains('app.blade.php');
+        Prompt::assertOutputContains('docs.blade.php');
+
+        $this->assertSame("Published selected [layout] files to [resources/views/vendor/hyde/layouts]\n", $output->fetch());
+
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/docs.blade.php'));
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/footer.blade.php'));
+
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
+    }
+
     protected function tearDown(): void
     {
         ConsoleHelper::clearMocks();
