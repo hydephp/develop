@@ -8,7 +8,6 @@ use Hyde\Console\Helpers\InteractivePublishCommandHelper;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\File;
 use Mockery;
 
 /**
@@ -23,13 +22,13 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->filesystem = $this->mockFilesystemStrict();
-        File::swap($this->filesystem);
+        app()->instance(Filesystem::class, $this->filesystem);
     }
 
     protected function tearDown(): void
     {
         $this->verifyMockeryExpectations();
-        File::swap(null);
+        app()->forgetInstance(Filesystem::class);
     }
 
     public function testGetFileChoices(): void
