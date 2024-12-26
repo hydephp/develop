@@ -19,6 +19,15 @@ class ViewPublishGroupTest extends UnitTestCase
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
 
+    public static string $packageDirectory;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        self::$packageDirectory = is_dir(Hyde::path('packages')) ? 'packages' : 'vendor/hyde';
+    }
+
     protected function setUp(): void
     {
         TestViewPublishGroup::setProvider(TestViewServiceProvider::class);
@@ -42,7 +51,7 @@ class ViewPublishGroupTest extends UnitTestCase
         $this->assertSame($group->group, 'layouts');
         $this->assertSame($group->name, 'Layouts');
         $this->assertSame($group->description, "Publish the 'layouts' files for customization.");
-        $this->assertSame($group->source, 'packages/framework/resources/views/layouts');
+        $this->assertSame($group->source, ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts');
         $this->assertSame($group->target, 'resources/views/vendor/hyde/layouts');
         $this->assertSame($group->files, ['app.blade.php', 'page.blade.php', 'post.blade.php']);
     }
@@ -88,7 +97,7 @@ class TestViewServiceProvider extends ViewServiceProvider
         ViewPublishGroupTest::assertSame($group, 'layouts');
 
         return [
-            Hyde::vendorPath('src/Foundation/Providers/../../../resources/views/layouts') => Hyde::path('resources/views/vendor/hyde/layouts'),
+            Hyde::path(ViewPublishGroupTest::$packageDirectory.'/framework/src/Foundation/Providers/../../../resources/views/layouts') => Hyde::path('resources/views/vendor/hyde/layouts'),
         ];
     }
 }
@@ -97,14 +106,14 @@ class TestFileFinder extends FileFinder
 {
     public static function handle(string $directory, array|string|false $matchExtensions = false, bool $recursive = false): Collection
     {
-        ViewPublishGroupTest::assertSame($directory, 'packages/framework/resources/views/layouts');
+        ViewPublishGroupTest::assertSame($directory, ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts');
         ViewPublishGroupTest::assertSame($matchExtensions, false);
         ViewPublishGroupTest::assertSame($recursive, true);
 
         return collect([
-            'packages/framework/resources/views/layouts/app.blade.php',
-            'packages/framework/resources/views/layouts/page.blade.php',
-            'packages/framework/resources/views/layouts/post.blade.php',
+            ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts/app.blade.php',
+            ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts/page.blade.php',
+            ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts/post.blade.php',
         ]);
     }
 }
