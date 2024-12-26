@@ -75,10 +75,9 @@ class InteractivePublishCommandHelper
             $group = '['.Str::singular($group).']';
         }
 
+        $fileCount = count($this->publishableFilesMap);
         $publishedOneFile = (count($this->publishableFilesMap)) === 1;
         $publishedAllGroups = $group === null;
-
-        $fileCount = count($this->publishableFilesMap);
 
         return match (true) {
             $publishedAllGroups => sprintf('Published all %d files to [%s].', $fileCount, $this->getBaseDirectory()),
