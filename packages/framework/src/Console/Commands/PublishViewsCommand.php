@@ -43,7 +43,7 @@ class PublishViewsCommand extends Command
 
         $selected = ($this->argument('category') ?? $this->promptForCategory()) ?: 'all';
 
-        if ($selected !== 'all') {
+        if ($selected !== 'all' && (bool) $this->argument('category') === false) {
             $this->infoComment(sprintf('Selected category [%s]', $selected));
         }
 
