@@ -53,7 +53,7 @@ class PublishViewsCommandTest extends TestCase
     public function testCanSelectGroupWithArgument()
     {
         $this->artisan('publish:views layouts --no-interaction')
-            ->expectsOutput("Published all [layout] files to [resources/views/vendor/hyde/layouts]")
+            ->expectsOutput('Published all [layout] files to [resources/views/vendor/hyde/layouts]')
             ->assertExitCode(0);
 
         // Assert selected group was published
@@ -82,7 +82,7 @@ class PublishViewsCommandTest extends TestCase
         ConsoleHelper::mockWindowsOs(true);
 
         $this->artisan('publish:views components')
-            ->expectsOutput("Published all [component] files to [resources/views/vendor/hyde/components]")
+            ->expectsOutput('Published all [component] files to [resources/views/vendor/hyde/components]')
             ->assertExitCode(0);
     }
 
