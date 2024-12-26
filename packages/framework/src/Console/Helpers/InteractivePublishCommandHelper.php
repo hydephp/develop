@@ -74,9 +74,9 @@ class InteractivePublishCommandHelper
         $selectedFilesModifier = $publishedAllFiles ? 'all' : 'selected';
 
         return match (true) {
-            $publishedAllGroups => sprintf('Published all %d files to [%s].', $fileCount, $this->getBaseDirectory()),
-            $publishedOneFile => sprintf('Published selected file to [%s].', reset($this->publishableFilesMap)),
-            default => sprintf('Published %s [%s] files to [%s].', $selectedFilesModifier, Str::singular($group), $this->getBaseDirectory())
+            $publishedAllGroups => sprintf('Published all %d files to [%s]', $fileCount, $this->getBaseDirectory()),
+            $publishedOneFile => sprintf('Published selected file to [%s]', reset($this->publishableFilesMap)),
+            default => sprintf('Published %s [%s] files to [%s]', $selectedFilesModifier, Str::singular($group), $this->getBaseDirectory())
         };
     }
 
