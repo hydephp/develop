@@ -104,8 +104,8 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         ]);
 
         $this->assertSame(
-            'Published file to [resources/views/vendor/hyde/layouts/app.blade.php].',
-            $helper->formatOutput()
+            'Published selected file to [resources/views/vendor/hyde/layouts/app.blade.php]',
+            $helper->formatOutput('layouts')
         );
     }
 
@@ -117,8 +117,8 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         ]);
 
         $this->assertSame(
-            'Published all files to [resources/views/vendor/hyde/layouts].',
-            $helper->formatOutput()
+            'Published all 2 files to [resources/views/vendor/hyde/layouts]',
+            $helper->formatOutput('all')
         );
     }
 
@@ -135,8 +135,8 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         ]);
 
         $this->assertSame(
-            'Published file to [resources/views/vendor/hyde/layouts/app.blade.php].',
-            $helper->formatOutput()
+            'Published selected file to [resources/views/vendor/hyde/layouts/app.blade.php]',
+            $helper->formatOutput('layouts')
         );
     }
 
@@ -154,8 +154,8 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         ]);
 
         $this->assertSame(
-            'Published 2 files to [resources/views/vendor/hyde/layouts].',
-            $helper->formatOutput()
+            'Published selected [layout] files to [resources/views/vendor/hyde/layouts]',
+            $helper->formatOutput('layouts')
         );
     }
 
