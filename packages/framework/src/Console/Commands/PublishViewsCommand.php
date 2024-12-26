@@ -129,7 +129,6 @@ class PublishViewsCommand extends Command
         return $prompt->prompt();
     }
 
-    /** @codeCoverageIgnore We can't easily test Laravel Prompts. */
     protected static function supportTogglingAll(MultiSelectPrompt $prompt): Closure
     {
         return function ($key) use ($prompt): void {
