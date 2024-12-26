@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @covers \Hyde\Console\Commands\PublishViewsCommand
+ * @covers \Hyde\Console\Helpers\InteractivePublishCommandHelper
  *
  * @see \Hyde\Framework\Testing\Unit\InteractivePublishCommandHelperTest
  */
