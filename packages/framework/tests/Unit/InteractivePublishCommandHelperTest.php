@@ -22,12 +22,14 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->filesystem = $this->mockFilesystemStrict();
+
         app()->instance(Filesystem::class, $this->filesystem);
     }
 
     protected function tearDown(): void
     {
         $this->verifyMockeryExpectations();
+
         app()->forgetInstance(Filesystem::class);
     }
 
