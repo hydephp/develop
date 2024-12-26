@@ -75,9 +75,14 @@ class InteractivePublishCommandHelper
             $group = '['.Str::singular($group).']';
         }
 
-        return (count($this->publishableFilesMap)) === 1
-            ? sprintf('Published selected file to [%s].', reset($this->publishableFilesMap))
-            : sprintf('Published selected %s files to [%s].', $group, $this->getBaseDirectory());
+        $publishedOneFile = (count($this->publishableFilesMap)) === 1;
+        $publishedAllGroups = $group === null;
+
+        return match (true) {
+            $publishedAllGroups => sprintf('Published all files to [%s].', $this->getBaseDirectory()),
+            $publishedOneFile => sprintf('Published selected file to [%s].', reset($this->publishableFilesMap)),
+            default => sprintf('Published selected %s files to [%s].', $group, $this->getBaseDirectory())
+        };
     }
 
     protected function pathRelativeToDirectory(string $source, string $directory): string
