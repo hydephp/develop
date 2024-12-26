@@ -31,14 +31,14 @@ class ViewPublishGroupTest extends UnitTestCase
     {
         TestViewPublishGroup::setProvider(TestViewServiceProvider::class);
 
-        app()->singleton(FileFinder::class, TestFileFinder::class);
+        app()->bind(FileFinder::class, TestFileFinder::class);
     }
 
     protected function tearDown(): void
     {
         TestViewPublishGroup::setProvider(ViewServiceProvider::class);
 
-        app()->forgetInstance(FileFinder::class);
+        app()->bind(FileFinder::class, FileFinder::class);
     }
 
     public function testCanCreateGroup()
