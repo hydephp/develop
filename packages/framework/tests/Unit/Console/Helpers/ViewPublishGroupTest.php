@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit\Console\Helpers;
 
 use Hyde\Foundation\Providers\ViewServiceProvider;
+use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Console\Helpers\ViewPublishGroup;
 
