@@ -139,7 +139,7 @@ class PublishViewsCommand extends Command
                     $prompt->emit('key', Key::CTRL_A);
 
                     if ($isToggled) {
-                        // Laravel Prompts is crazy, but this apparently is how you deselect all items
+                        // We need to emit CTRL+A twice to deselect all for some reason
                         $prompt->emit('key', Key::CTRL_A);
                         $isToggled = false;
                     } else {
