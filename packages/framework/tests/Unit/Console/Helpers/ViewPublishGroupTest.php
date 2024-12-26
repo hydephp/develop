@@ -27,6 +27,14 @@ class ViewPublishGroupTest extends UnitTestCase
     }
 }
 
+class TestViewPublishGroup extends ViewPublishGroup
+{
+    public static function setProvider(string $provider): void
+    {
+        parent::$provider = $provider;
+    }
+}
+
 class TestViewServiceProvider extends ViewServiceProvider
 {
     public static function pathsToPublish($provider = null, $group = null): array
@@ -34,13 +42,5 @@ class TestViewServiceProvider extends ViewServiceProvider
         return [
             Hyde::vendorPath('src/Foundation/Providers/../../../resources/views/layouts') => Hyde::path('resources/views/vendor/hyde/layouts'),
         ];
-    }
-}
-
-class TestViewPublishGroup extends ViewPublishGroup
-{
-    public static function setProvider(string $provider): void
-    {
-        parent::$provider = $provider;
     }
 }
