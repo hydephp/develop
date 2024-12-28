@@ -131,7 +131,7 @@ class PublishViewsCommand extends Command
 
     protected static function supportTogglingAll(MultiSelectPrompt $prompt): Closure
     {
-        return function ($key) use ($prompt): void {
+        return function (string $key) use ($prompt): void {
             static $isToggled = false;
 
             if ($prompt->isHighlighted('all')) {
