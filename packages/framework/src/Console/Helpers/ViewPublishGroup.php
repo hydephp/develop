@@ -60,6 +60,10 @@ class ViewPublishGroup
         ])->all();
     }
 
+    /**
+     * @param  array<string, string>  $array
+     * @return list<string>
+     */
     protected static function keyedArrayToTuple(array $array): array
     {
         return [key($array), current($array)];
