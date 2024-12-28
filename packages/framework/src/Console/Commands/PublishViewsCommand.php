@@ -126,7 +126,7 @@ class PublishViewsCommand extends Command
 
         $prompt->on('key', static::supportTogglingAll($prompt));
 
-        return $prompt->prompt();
+        return (array) $prompt->prompt();
     }
 
     protected static function supportTogglingAll(MultiSelectPrompt $prompt): Closure
