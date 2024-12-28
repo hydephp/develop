@@ -79,3 +79,25 @@ Hyde works amazing with GitHub Pages and GitHub Actions and the entire build and
 
 By the way, HydePHP.com is hosted on GitHub Pages, and the site is compiled in a GitHub Action workflow that compiles and
 deploys the site automatically when the source is updated using [this GitHub workflow](https://github.com/hydephp/hydephp.com/blob/master/.github/workflows/build.yml).
+
+## Next Steps
+
+So what's next? Well, keep creating amazing content, and share it with the world!
+
+We'd love to see your creations, so please share your site with us on Twitter, Facebook, or any other social media platform. Use the hashtag #HydePHP and #MadeWithHydePHP so we can find it!
+
+### SEO Tips
+
+While HydePHP takes most of the hard work out of setting up metadata tags for search engines, there are still a few things you can do to improve your site's SEO.
+
+#### Set a site URL
+
+This is the most important: Make sure you have set a `SITE_URL` either in the `.env` file or in the `hyde.php` configuration file. This is so that Hyde can generate absolute URLs, which are favored by search engines and required for sitemaps and RSS feeds.
+
+#### Sitemaps and RSS Feeds
+
+Next, since HydePHP automatically generates sitemaps and RSS feeds, you should take advantage of these by submitting them to search engines. For example, Google Search Console and Bing Webmaster Tools. This will jumpstart the indexing process, and make sure new pages are indexed quickly. You will also be able to see how your site is performing in search results.
+
+#### Social sharing
+
+Finally, keep sharing your content, so other people can find your site!
