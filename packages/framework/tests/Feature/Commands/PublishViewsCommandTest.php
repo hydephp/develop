@@ -113,7 +113,9 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionOnUnixSystems()
     {
-        ConsoleHelper::mockWindowsOs(false);
+        if (windows_os()) {
+            $this->markTestSkipped('Test is not applicable on Windows systems.');
+        }
 
         Prompt::fake([
             Key::DOWN, Key::SPACE,
@@ -142,7 +144,9 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionWithHittingEnterRightAway()
     {
-        ConsoleHelper::mockWindowsOs(false);
+        if (windows_os()) {
+            $this->markTestSkipped('Test is not applicable on Windows systems.');
+        }
 
         Prompt::fake([
             Key::ENTER,
@@ -167,7 +171,9 @@ class PublishViewsCommandTest extends TestCase
 
     public function testInteractiveSelectionWithComplexToggles()
     {
-        ConsoleHelper::mockWindowsOs(false);
+        if (windows_os()) {
+            $this->markTestSkipped('Test is not applicable on Windows systems.');
+        }
 
         Prompt::fake([
             // Select "all files"
