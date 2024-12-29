@@ -370,6 +370,8 @@ php hyde publish:views
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
+>info **Tip:** If you use Linux/macOS or Windows with WSL you will be able to interactively select individual files to publish.
+
 ## Frontend Styles
 
 Hyde is designed to not only serve as a framework but a whole starter kit and comes with a Tailwind starter template
