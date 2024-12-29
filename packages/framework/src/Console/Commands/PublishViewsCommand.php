@@ -71,7 +71,7 @@ class PublishViewsCommand extends Command
         });
 
         return $this->parseChoiceIntoKey(
-            select('Which category do you want to publish?', $this->formatPublishableChoices(), 0)
+            select('Which category do you want to publish?', $this->formatPublishableChoices(), 'all')
         );
     }
 
