@@ -36,6 +36,7 @@ This serves two purposes:
 - Added a Vite HMR support for the realtime compiler in https://github.com/hydephp/develop/pull/2016
 - Added Vite facade in https://github.com/hydephp/develop/pull/2016
 - Added a custom Blade-based heading renderer for Markdown conversions in https://github.com/hydephp/develop/pull/2047
+- The `publish:views` command is now interactive for Unix-like systems in https://github.com/hydephp/develop/pull/2062
 
 ### Changed
 
