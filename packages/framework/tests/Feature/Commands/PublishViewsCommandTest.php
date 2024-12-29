@@ -77,7 +77,6 @@ class PublishViewsCommandTest extends TestCase
 
         $this->artisan('publish:views')
             ->expectsQuestion('Which category do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
-            ->expectsOutput('Selected category [layouts]')
             ->expectsOutput('Published all [layout] files to [resources/views/vendor/hyde/layouts]')
             ->assertExitCode(0);
 
@@ -205,6 +204,26 @@ class PublishViewsCommandTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
+    }
+
+    public function testCanSelectGroupWithQuestionAndPrompts()
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Test is not applicable on Windows systems.');
+        }
+
+        $this->artisan('publish:views')
+            ->expectsQuestion('Which category do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
+            ->expectsOutput('Selected category [layouts]')
+            ->expectsQuestion('Select the files you want to publish', (is_dir(Hyde::path('packages')) ? 'packages' : 'vendor/hyde').'/framework/resources/views/layouts/app.blade.php')
+            ->expectsOutput('Published selected file to [resources/views/vendor/hyde/layouts/app.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
     }
 
     protected function executePublishViewsCommand(): BufferedOutput

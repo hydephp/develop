@@ -42,7 +42,7 @@ class PublishViewsCommand extends Command
 
         $selected = ($this->argument('category') ?? $this->promptForCategory()) ?: 'all';
 
-        if ($selected !== 'all' && (bool) $this->argument('category') === false) {
+        if ($selected !== 'all' && (bool) $this->argument('category') === false && ConsoleHelper::canUseLaravelPrompts($this->input)) {
             $this->infoComment(sprintf('Selected category [%s]', $selected));
         }
 
