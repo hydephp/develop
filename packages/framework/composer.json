@@ -28,7 +28,7 @@
         "symfony/yaml": "^7.0",
         "league/commonmark": "^2.2",
         "spatie/yaml-front-matter": "^2.0.9",
-        "torchlight/torchlight-commonmark": "^0.5.5"
+        "hydephp/torchlight-commonmark": "^1.0"
     },
     "suggest": {
         "hyde/hyde" : "The Framework package contains the Hyde Core. To create your site you should use the Hyde/Hyde project.",

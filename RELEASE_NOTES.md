@@ -53,6 +53,7 @@ This serves two purposes:
 - Dependency: Updated minimum PHP requirement to 8.2
 - Dependency: Updated Symfony/yaml to ^7.0
 - Dependency: Updated illuminate/support and illuminate/view to ^11.0
+- Dependency: Switched to forked version of the Torchlight client
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
