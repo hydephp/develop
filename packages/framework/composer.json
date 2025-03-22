@@ -23,8 +23,8 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/support": "^10.0",
-        "illuminate/view": "^10.0",
+        "illuminate/support": "^11.0",
+        "illuminate/view": "^11.0",
         "symfony/yaml": "^7.0",
         "league/commonmark": "^2.2",
         "spatie/yaml-front-matter": "^2.0.9",
