@@ -49,6 +49,10 @@ This serves two purposes:
 - **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format. For more information, see the upgrade guide below.
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display`.
 - **Breaking:** Renamed the `hyde.enable_cache_busting` configuration option to `hyde.cache_busting` in https://github.com/hydephp/develop/pull/1980
+- Dependency: Upgraded from Laravel 10 to Laravel 11
+- Dependency: Updated minimum PHP requirement to 8.2
+- Dependency: Updated Symfony/yaml to ^7.0
+- Dependency: Updated illuminate/support and illuminate/view to ^11.0
 - Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
 - Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
 - Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
