@@ -19,7 +19,7 @@
         "hyde/framework": "*",
         "hyde/publications": "*",
         "hyde/ui-kit": "*",
-        "laravel-zero/framework": "^10.0"
+        "laravel-zero/framework": "^11.0"
     },
     "require-dev": {
         "desilva/psalm-coverage": "dev-master",

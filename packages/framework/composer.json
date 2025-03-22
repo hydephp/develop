@@ -33,6 +33,6 @@
     "suggest": {
         "hyde/hyde" : "The Framework package contains the Hyde Core. To create your site you should use the Hyde/Hyde project.",
         "ext-simplexml": "Required to generate sitemaps and RSS feeds.",
-        "laravel-zero/framework": "^10.0"
+        "laravel-zero/framework": "^11.0"
     }
 }
