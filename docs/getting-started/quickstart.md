@@ -17,7 +17,7 @@ composer create-project hyde/hyde
 ### Requirements
 
 Hyde is based on [Laravel 11](https://laravel.com/docs/11.x/releases)
-which requires a minimum PHP version of 8.1.
+which requires a minimum PHP version of 8.2.
 You should also have [Composer](https://getcomposer.org/) installed.
 
 To use some features like [compiling your own assets](managing-assets)
