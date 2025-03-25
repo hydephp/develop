@@ -261,7 +261,7 @@ class CommandTest extends UnitTestCase
         return $expected === null;
     }
 
-    protected function testOutput(Closure $closure, Closure $expectations = null): void
+    protected function testOutput(Closure $closure, ?Closure $expectations = null): void
     {
         $command = new MockableTestCommand();
         $command->closure = $closure;

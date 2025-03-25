@@ -27,7 +27,7 @@ class Paginator
      */
     protected string $routeBasename;
 
-    public function __construct(Arrayable|array $items = [], int $pageSize = 25, int $currentPageNumber = null, string $paginationRouteBasename = null)
+    public function __construct(Arrayable|array $items = [], int $pageSize = 25, ?int $currentPageNumber = null, ?string $paginationRouteBasename = null)
     {
         $this->pageSize = $pageSize;
 

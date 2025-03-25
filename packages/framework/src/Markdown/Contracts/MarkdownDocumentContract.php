@@ -13,7 +13,7 @@ interface MarkdownDocumentContract
      *
      * @return \Hyde\Markdown\Models\FrontMatter|mixed
      */
-    public function matter(string $key = null, mixed $default = null): mixed;
+    public function matter(?string $key = null, mixed $default = null): mixed;
 
     /**
      * Return the document's Markdown object.
