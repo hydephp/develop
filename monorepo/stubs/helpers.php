@@ -6,7 +6,7 @@
  * @param  class-string<T>  $abstract
  * @return T
  */
-function app(string $abstract = null, array $parameters = [])
+function app(?string $abstract = null, array $parameters = [])
 {
 }
 

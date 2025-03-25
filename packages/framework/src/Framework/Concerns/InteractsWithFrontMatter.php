@@ -20,7 +20,7 @@ trait InteractsWithFrontMatter
      *
      * @return \Hyde\Markdown\Models\FrontMatter|mixed
      */
-    public function data(string $key = null, mixed $default = null): mixed
+    public function data(?string $key = null, mixed $default = null): mixed
     {
         return Arr::get(array_filter(array_merge(
             $this->matter->toArray(),
@@ -33,7 +33,7 @@ trait InteractsWithFrontMatter
      *
      * @return \Hyde\Markdown\Models\FrontMatter|mixed
      */
-    public function matter(string $key = null, mixed $default = null): mixed
+    public function matter(?string $key = null, mixed $default = null): mixed
     {
         if ($key) {
             return $this->matter->get($key, $default);

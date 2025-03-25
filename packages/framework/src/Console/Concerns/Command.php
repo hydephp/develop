@@ -82,7 +82,7 @@ abstract class Command extends BaseCommand
      *                              Note that not all terminals support this, and it may lead to only
      *                              the label being shown, and the path being lost to the void.
      */
-    public static function fileLink(string $path, string $label = null): string
+    public static function fileLink(string $path, ?string $label = null): string
     {
         $link = 'file://'.str_replace('\\', '/', realpath($path) ?: Hyde::path($path));
 

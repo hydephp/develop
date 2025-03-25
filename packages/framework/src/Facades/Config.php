@@ -19,33 +19,33 @@ use function call_user_func;
  */
 class Config extends \Illuminate\Support\Facades\Config
 {
-    public static function getArray(string $key, array $default = null): array
+    public static function getArray(string $key, ?array $default = null): array
     {
         return (array) self::validated(static::get($key, $default), 'array', $key);
     }
 
-    public static function getString(string $key, string $default = null): string
+    public static function getString(string $key, ?string $default = null): string
     {
         return (string) self::validated(static::get($key, $default), 'string', $key);
     }
 
-    public static function getInt(string $key, int $default = null): int
+    public static function getInt(string $key, ?int $default = null): int
     {
         return (int) self::validated(static::get($key, $default), 'int', $key);
     }
 
-    public static function getBool(string $key, bool $default = null): bool
+    public static function getBool(string $key, ?bool $default = null): bool
     {
         return (bool) self::validated(static::get($key, $default), 'bool', $key);
     }
 
-    public static function getFloat(string $key, float $default = null): float
+    public static function getFloat(string $key, ?float $default = null): float
     {
         return (float) self::validated(static::get($key, $default), 'float', $key);
     }
 
     /** @experimental Could possibly be merged by allowing null returns if default is null? Preferably with generics so the type is matched by IDE support. */
-    public static function getNullableString(string $key, string $default = null): ?string
+    public static function getNullableString(string $key, ?string $default = null): ?string
     {
         /** @var array|string|int|bool|float|null $value */
         $value = static::get($key, $default);
