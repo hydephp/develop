@@ -54,7 +54,7 @@ class ServeCommand extends Command
         $this->runServerProcess(sprintf('php -S %s:%d %s',
             $this->getHostSelection(),
             $this->getPortSelection(),
-            $this->getExecutablePath()
+            escapeshellarg($this->getExecutablePath()),
         ));
 
         return Command::SUCCESS;
