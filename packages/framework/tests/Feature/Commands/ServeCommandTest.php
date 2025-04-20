@@ -286,6 +286,6 @@ class ServeCommandTest extends TestCase
 
     protected function binaryPath(): string
     {
-        return Hyde::path('vendor/hyde/realtime-compiler/bin/server.php');
+        return escapeshellarg(Hyde::path('vendor/hyde/realtime-compiler/bin/server.php'));
     }
 }

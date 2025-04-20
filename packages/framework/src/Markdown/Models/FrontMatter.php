@@ -48,7 +48,7 @@ class FrontMatter implements Stringable, SerializableContract
     }
 
     /** @return mixed|array */
-    public function get(string $key = null, mixed $default = null): mixed
+    public function get(?string $key = null, mixed $default = null): mixed
     {
         if ($key) {
             return Arr::get($this->data, $key, $default);

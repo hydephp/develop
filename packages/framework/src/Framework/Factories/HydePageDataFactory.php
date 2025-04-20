@@ -93,7 +93,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         return null;
     }
 
-    protected function getMatter(string $key): string|null
+    protected function getMatter(string $key): ?string
     {
         /** @var ?string $value */
         $value = $this->matter->get($key);

@@ -60,7 +60,7 @@ class StaticSiteBuilderDocumentationModuleTest extends TestCase
         ], '_site/test-page.html');
     }
 
-    protected function inspectHtml(array $expectedStrings, string $path = null): void
+    protected function inspectHtml(array $expectedStrings, ?string $path = null): void
     {
         StaticPageBuilder::handle($this->page);
         $stream = file_get_contents(Hyde::path($path ?? '_site/docs/test-page.html'));
