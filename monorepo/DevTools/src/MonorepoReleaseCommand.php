@@ -99,7 +99,7 @@ class MonorepoReleaseCommand extends Command
 
         // $this->info('Checking that the working directory is clean...');
         if ($this->runUnlessDryRun('git status --porcelain', true)) {
-            $this->fail('Working directory is not clean, aborting.');
+            $this->failCommand('Working directory is not clean, aborting.');
         }
 
         $this->exitIfFailed();
@@ -163,14 +163,14 @@ class MonorepoReleaseCommand extends Command
 
         if ($allowSilent === false) {
             if ($state === false || ($state === null)) {
-                $this->fail("Command failed: $command");
+                $this->failCommand("Command failed: $command");
             }
         }
 
         return $state;
     }
 
-    protected function fail(string $message): void
+    protected function failCommand(string $message): void
     {
         $this->newLine();
         $this->error($message);
@@ -437,7 +437,7 @@ This serves two purposes:
         $state = $this->runUnlessDryRun('git branch --show-current');
 
         if ($this->dryRun !== true && trim($state ?? '') !== $name) {
-            $this->fail("Failed to checkout new branch $name, aborting.");
+            $this->failCommand("Failed to checkout new branch $name, aborting.");
         }
 
         $this->exitIfFailed();
@@ -446,7 +446,7 @@ This serves two purposes:
         $state = $this->runUnlessDryRun('git push origin '.$name, true);
 
         if ($this->dryRun !== true && $state === false) {
-            $this->fail("Failed to push new branch $name to origin, aborting.");
+            $this->failCommand("Failed to push new branch $name to origin, aborting.");
         }
 
         $this->exitIfFailed();
