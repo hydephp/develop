@@ -150,7 +150,7 @@ class Features implements SerializableContract
     }
 
     /** @internal This method is not covered by the backward compatibility promise. */
-    public static function mock(string $feature, bool $enabled = null): void
+    public static function mock(string $feature, ?bool $enabled = null): void
     {
         if ($enabled === true) {
             // Add the feature if it doesn't already exist.

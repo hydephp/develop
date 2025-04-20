@@ -27,7 +27,7 @@ class HeadingRenderer implements NodeRendererInterface
     protected array $headingRegistry = [];
 
     /** @param ?class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
-    public function __construct(string $pageClass = null, array &$headingRegistry = [])
+    public function __construct(?string $pageClass = null, array &$headingRegistry = [])
     {
         $this->pageClass = $pageClass;
         $this->headingRegistry = &$headingRegistry;

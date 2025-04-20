@@ -36,7 +36,7 @@ class NumericalPageOrderingHelper
     /**
      * Splits a numbered identifier into its numerical prefix and the rest of the identifier.
      *
-     * @return array{integer, string}
+     * @return array{int, string}
      */
     public static function splitNumericPrefix(string $identifier): array
     {
