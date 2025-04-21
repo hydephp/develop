@@ -131,7 +131,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         return PostAuthor::create($data);
     }
 
-    protected function getMatter(string $key): string|null|array
+    protected function getMatter(string $key): string|null|array|int|bool
     {
         /** @var string|null|array $value */
         $value = $this->matter->get($key);
