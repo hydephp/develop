@@ -3,7 +3,7 @@
 @endphp
 
 <nav aria-label="Main navigation" id="main-navigation" class="flex flex-wrap items-center justify-between p-4 shadow-lg sm:shadow-xl md:shadow-none dark:bg-gray-800">
-    <div id="main-navigation-brand" class="flex flex-grow items-center flex-shrink-0 text-gray-700 dark:text-gray-200">
+    <div id="main-navigation-brand" class="flex grow items-center shrink-0 text-gray-700 dark:text-gray-200">
         @include('hyde::components.navigation.navigation-brand')
 
         <div class="ml-auto">
@@ -33,9 +33,9 @@
     </div>
 
     <div id="main-navigation-links" 
-         class="w-full hidden md:flex flex-grow md:flex-grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700"
-         :class="navigationOpen ? '!block' : ''">
-        <ul aria-label="Navigation links" class="md:flex-grow md:flex justify-end">
+         class="w-full hidden md:flex grow md:grow-0 md:items-center md:w-auto px-6 -mx-4 border-t mt-3 pt-3 md:border-none md:mt-0 md:py-0 border-gray-200 dark:border-gray-700"
+         :class="navigationOpen ? 'block!' : ''">
+        <ul aria-label="Navigation links" class="md:grow md:flex justify-end">
             @foreach ($navigation->getItems() as $item)
                 <li class="md:mx-2">
                     @if($item instanceof \Hyde\Framework\Features\Navigation\NavigationGroup)

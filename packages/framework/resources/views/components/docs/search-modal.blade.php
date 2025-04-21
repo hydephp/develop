@@ -38,7 +38,7 @@
             </button>
         </header>
 
-        <div class="flex-grow">
+        <div class="grow">
             <x-hyde::docs.hyde-search />
         </div>
 
