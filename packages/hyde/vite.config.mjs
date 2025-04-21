@@ -4,7 +4,7 @@
 
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import tailwindcss from 'tailwindcss';
+import tailwindcss from "@tailwindcss/vite";
 import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path from 'path';
@@ -53,12 +53,11 @@ export default defineConfig({
         },
         middlewareMode: false,
     },
-    plugins: [hydeVitePlugin()],
+    plugins: [hydeVitePlugin(), tailwindcss()],
     css: {
         postcss: {
             plugins: [
-                tailwindcss,
-                autoprefixer
+                autoprefixer,
             ]
         }
     },

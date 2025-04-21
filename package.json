@@ -6,11 +6,12 @@
     },
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.15",
+        "@tailwindcss/vite": "^4.1.4",
         "autoprefixer": "^10.4.20",
         "hydefront": "^3.3.0",
         "postcss": "^8.4.49",
         "prettier": "3.3.3",
-        "tailwindcss": "^3.4.15",
+        "tailwindcss": "^4.1.4",
         "vite": "^5.0.0"
     }
 }

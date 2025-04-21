@@ -42,6 +42,7 @@ This serves two purposes:
 ### Changed
 
 - **Breaking:** We now support PHP [8.2, 8.3, 8.4] instead of [8.1, 8.2, 8.3] in https://github.com/hydephp/develop/pull/2141
+- **Breaking:** We upgraded from the TailwindCSS version from v3 v4. You may want to run `npx @tailwindcss/upgrade` in your project if you have custom Tailwind classes in your project. See the information below for details. Introduced in https://github.com/hydephp/develop/pull/2146.
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
 - **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
@@ -184,6 +185,14 @@ Please read through this section to ensure your site upgrades smoothly.
 ## Before you start
 
 Before you start, please upgrade your application to at least HydePHP v1.6 as that version contains helpers to make the upgrade process easier.
+
+## TailwindCSS v4
+
+We upgraded the TailwindCSS version from v3 to v4. If you have written custom markup with Tailwind classes you should read the Tailwind v4 [Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide#changes-from-v3) so you know which breaking changes were introduced. Thankfully, the team behind Tailwind provide an automated [Upgrade Tool](https://tailwindcss.com/docs/upgrade-guide#using-the-upgrade-tool). Run it with the following command:
+
+```bash
+$ npx @tailwindcss/upgrade
+```
 
 ## High impact
 
