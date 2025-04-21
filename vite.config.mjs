@@ -9,6 +9,7 @@ import autoprefixer from 'autoprefixer';
 import fs from 'fs';
 import path from 'path';
 
+// Todo: This will be moved to a package instead of having it here.
 const hydeVitePlugin = () => ({
     name: 'hyde-vite',
     configureServer(server) {
