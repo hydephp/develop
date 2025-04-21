@@ -50,14 +50,18 @@ module.exports = {
                                 content: 'unset',
                             },
                         },
-                        code: {
+                        'code:not(pre code)': {
                             font: 'unset',
                             backgroundColor: '#80808033',
                             paddingLeft: '4px',
                             paddingRight: '4px',
                             marginLeft: '-2px',
                             marginRight: '1px',
-                            borderRadius: '4px'
+                            borderRadius: '4px',
+                            maxWidth: '80vw',
+                            overflowX: 'auto',
+                            verticalAlign: 'top',
+                            wordBreak: 'break-all'
                         },
                         'code::before': {
                             content: 'unset',
@@ -66,10 +70,15 @@ module.exports = {
                             content: 'unset',
                         },
                         pre: {
+                            backgroundColor: '#292D3E',
+                            borderRadius: '0.25rem',
+                            marginTop: '1rem',
+                            marginBottom: '1rem',
+                            overflowX: 'auto',
                             code: {
                                 fontFamily: "'Fira Code Regular', Consolas, Monospace, 'Courier New'",
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 invert: {
@@ -90,6 +99,30 @@ module.exports = {
             },
         },
     },
+
+    safelist: [
+        'prose',
+        'dark:prose-invert',
+        'prose-img:inline',
+        'text-left',
+        'text-center',
+        'text-right',
+        'ml-auto',
+        'mx-auto',
+        'mr-auto',
+        'my-0',
+        'my-4',
+        'my-8',
+        'py-0',
+        'py-4',
+        'py-8',
+        'mx-0',
+        'mx-4',
+        'mx-8',
+        'px-0',
+        'px-4',
+        'px-8',
+    ],
 
     plugins: [
         require('@tailwindcss/typography')
