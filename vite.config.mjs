@@ -53,12 +53,11 @@ export default defineConfig({
         },
         middlewareMode: false,
     },
-    plugins: [hydeVitePlugin()],
+    plugins: [hydeVitePlugin(), tailwindcss()],
     css: {
         postcss: {
             plugins: [
-                tailwindcss(),
-                autoprefixer
+                autoprefixer,
             ]
         }
     },
