@@ -53,6 +53,16 @@ export default defineConfig({
             port: 5173,
         },
         middlewareMode: false,
+        watch: {
+            additionalPaths: (watcher) => {
+                watcher.add('_pages/**');
+                watcher.add('_posts/**');
+                watcher.add('_docs/**');
+                watcher.add('_pages/**/**');
+                watcher.add('_posts/**/**');
+                watcher.add('_docs/**/**');
+            }
+        }
     },
     plugins: [hydeVitePlugin(), tailwindcss()],
     css: {
