@@ -11,7 +11,7 @@ This serves two purposes:
 
 ### Added
 
-- Added support for PHP 8.4.
+- Added support for PHP 8.4 in https://github.com/hydephp/develop/pull/2141
 - You can now specify sidebar item priorities by adding a numeric prefix to doc umentation page source file names in https://github.com/hydephp/develop/pull/1709
 - Added support for resolving dynamic links to source files in Markdown documents in https://github.com/hydephp/develop/pull/1590
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
@@ -41,7 +41,7 @@ This serves two purposes:
 
 ### Changed
 
-- **Breaking:** The minimum PHP version is now 8.2 instead of 8.1, but we now support PHP 8.3.
+- **Breaking:** We now support PHP [8.2, 8.3, 8.4] instead of [8.1, 8.2, 8.3] in https://github.com/hydephp/develop/pull/2141
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
 - **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
@@ -123,7 +123,7 @@ This serves two purposes:
 
 ### Removed
 
-- Breaking: Removed support for PHP 8.1.
+- Breaking: Removed support for PHP 8.1 in https://github.com/hydephp/develop/pull/2141.
 - Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
 - Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
 - Breaking: Removed the `DocumentationPage::getTableOfContents()` method as we now use Blade to generate the table of contents in https://github.com/hydephp/develop/pull/2045
