@@ -93,12 +93,8 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
 
         $expected = <<<'HTML'
         <ul>
-        <li>
-        <a href="index.html">Home</a>
-        </li>
-        <li>
-        <img src="media/logo.png" alt="Logo" />
-        </li>
+        <li><a href="index.html">Home</a></li>
+        <li><img src="media/logo.png" alt="Logo" /></li>
         </ul>
 
         HTML;

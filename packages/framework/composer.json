@@ -22,17 +22,17 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "illuminate/support": "^10.0",
-        "illuminate/view": "^10.0",
-        "symfony/yaml": "^6.0",
+        "php": "^8.2",
+        "illuminate/support": "^11.0",
+        "illuminate/view": "^11.0",
+        "symfony/yaml": "^7.0",
         "league/commonmark": "^2.2",
         "spatie/yaml-front-matter": "^2.0.9",
-        "torchlight/torchlight-commonmark": "^0.5.5"
+        "hydephp/torchlight-commonmark": "^1.0"
     },
     "suggest": {
         "hyde/hyde" : "The Framework package contains the Hyde Core. To create your site you should use the Hyde/Hyde project.",
         "ext-simplexml": "Required to generate sitemaps and RSS feeds.",
-        "laravel-zero/framework": "^10.0"
+        "laravel-zero/framework": "^11.0"
     }
 }

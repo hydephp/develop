@@ -34,7 +34,7 @@ virtually no configuration out of the box as it favours convention over configur
 
 HydePHP is a command-line interface (CLI) application that is installed on a per-project basis.
 
-To use HydePHP, your system must have PHP version 8.1 or later installed, along with Composer, and access to a terminal.
+To use HydePHP, your system must have PHP version 8.2 or later installed, along with Composer, and access to a terminal.
 
 The recommended method of installation is using Composer.
 
