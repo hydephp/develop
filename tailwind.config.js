@@ -100,6 +100,7 @@ module.exports = {
         },
     },
 
+    // Safelist should NOT be copied to packages/hyde. It's purely for the monorepo.
     safelist: [
         'prose',
         'dark:prose-invert',
