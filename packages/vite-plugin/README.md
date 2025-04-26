@@ -39,7 +39,7 @@ export default defineConfig({
 
 ## Contributing
 
-Contributions to this package are made in the development monorepo [hydephp/develop](https://github.com/hydephp/develop) in the `packages/vite-plugin` directory.
+Contributions to this package are made in the development monorepo [hydephp/develop](https://github.com/hydephp/develop) in the `packages/vite-plugin` directory. Make sure to link your local NPM package!
 
 ## License
 

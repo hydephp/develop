@@ -4,11 +4,7 @@
 
 import { defineConfig } from 'vite';
 import tailwindcss from "@tailwindcss/vite";
-
-// Import the HydePHP Vite plugin
-// In a real-world scenario, this would be:
-// import hyde from 'hyde-vite-plugin';
-import hyde from './packages/vite-plugin/dist/index.js';
+import hyde from 'hyde-vite-plugin';
 
 export default defineConfig({
     plugins: [
