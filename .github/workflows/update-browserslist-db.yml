@@ -1,0 +1,44 @@
+name: Update Browserslist Database
+
+on:
+  schedule:
+    # Run every 3 months (first day of January, April, July, October)
+    - cron: '0 0 1 1,4,7,10 *'
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  update-browserslist:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Update Browserslist database
+        run: npx update-browserslist-db@latest
+        
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Update Browserslist database'
+          title: 'Update browserslist database'
+          body: |
+            This PR updates the Browserslist database to the latest version.
+            
+            This is an automated PR created by the scheduled workflow to keep the project's browserslist data up-to-date.
+          branch: ci/update-browserslist-db
+          base: master
+          labels: |
+            dependencies
+            automated
