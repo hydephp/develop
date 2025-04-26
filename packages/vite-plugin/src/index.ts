@@ -3,32 +3,34 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Define the hot file path as a constant
+// The interprocess communication signal file for the web server
 const HOT_FILE_PATH = 'app/storage/framework/runtime/vite.hot';
 
 export interface HydePluginOptions {
   /**
    * Asset entry points to process
+   *
    * @default ['resources/assets/app.css', 'resources/assets/app.js']
    */
   input?: string[];
 
   /**
    * Enable hot reloading for content files
+   *
    * @default true
    */
   refresh?: boolean;
 
   /**
    * Content directories to watch for changes
+   *
    * @default ['_pages', '_posts', '_docs']
    */
   watch?: string[];
 }
 
 /**
- * Resolve the path to a resource
- * This function ensures that the path works when used as an ESM package as well
+ * Resolve the path to a resource, ensuring that the path works when used as an ESM package.
  */
 function resolveResource(resource: string): string {
   // In ESM context, __dirname is not available, so we use fileURLToPath
@@ -44,7 +46,7 @@ function resolveResource(resource: string): string {
 }
 
 /**
- * Check if a file exists
+ * Check if a file exists and is a file
  */
 function fileExists(file: string): boolean {
   try {
@@ -55,8 +57,7 @@ function fileExists(file: string): boolean {
 }
 
 /**
- * Check if the JavaScript file has actual content
- * This prevents empty app.js files from being compiled
+ * Check if the JavaScript file has actual content to prevent empty app.js files from being compiled
  */
 function hasJavaScriptContent(filePath: string): boolean {
   try {
