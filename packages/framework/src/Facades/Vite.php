@@ -17,7 +17,7 @@ class Vite
 
     public static function running(): bool
     {
-        return Filesystem::exists('app/storage/framework/cache/vite.hot');
+        return Filesystem::exists('app/storage/framework/runtime/vite.hot');
     }
 
     public static function asset(string $path): HtmlString

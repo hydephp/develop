@@ -192,7 +192,7 @@ class ServeCommand extends Command
             );
         }
 
-        Filesystem::touch('app/storage/framework/cache/vite.hot');
+        Filesystem::touch('app/storage/framework/runtime/vite.hot');
 
         $this->vite = Process::forever()->start('npm run dev');
     }

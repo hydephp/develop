@@ -182,7 +182,7 @@ class ServeCommandTest extends TestCase
 
     public function testHydeServeCommandWithViteOption()
     {
-        $this->cleanUpWhenDone('app/storage/framework/cache/vite.hot');
+        $this->cleanUpWhenDone('app/storage/framework/runtime/vite.hot');
 
         $mockViteProcess = mock(InvokedProcess::class);
         $mockViteProcess->shouldReceive('running')
@@ -227,12 +227,12 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('vite latest output')
             ->assertExitCode(0);
 
-        $this->assertFileExists('app/storage/framework/cache/vite.hot');
+        $this->assertFileExists('app/storage/framework/runtime/vite.hot');
     }
 
     public function testHydeServeCommandWithViteOptionButViteNotRunning()
     {
-        $this->cleanUpWhenDone('app/storage/framework/cache/vite.hot');
+        $this->cleanUpWhenDone('app/storage/framework/runtime/vite.hot');
 
         $mockViteProcess = mock(InvokedProcess::class);
         $mockViteProcess->shouldReceive('running')
@@ -270,7 +270,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Use Ctrl+C to stop')
             ->assertExitCode(0);
 
-        $this->assertFileExists('app/storage/framework/cache/vite.hot');
+        $this->assertFileExists('app/storage/framework/runtime/vite.hot');
     }
 
     public function testHydeServeCommandWithViteOptionThrowsWhenPortIsInUse()
