@@ -1,6 +1,7 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+import defaultTheme from 'tailwindcss/defaultTheme';
+import typography from '@tailwindcss/typography';
 
-module.exports = {
+export default {
     darkMode: 'class',
     content: [
         './_pages/**/*.blade.php',
@@ -126,6 +127,6 @@ module.exports = {
     ],
 
     plugins: [
-        require('@tailwindcss/typography')
+        typography
     ],
 };
