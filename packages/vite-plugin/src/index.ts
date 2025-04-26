@@ -35,7 +35,7 @@ function resolveResource(resource: string): string {
   try {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    
+
     return path.resolve(__dirname, '../resources', resource);
   } catch (e) {
     // Fallback for CommonJS
@@ -90,10 +90,10 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
       if (command === 'build') {
         // Process input files - only include app.js if it has content
         const resolvedInput = [];
-        
+
         for (const entry of input) {
           const resolvedPath = path.resolve(process.cwd(), entry);
-          
+
           // Only include app.js if it has actual content
           if (entry.endsWith('app.js')) {
             if (hasJavaScriptContent(resolvedPath) && fileExists(resolvedPath)) {
@@ -170,4 +170,4 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
       }
     }
   };
-} 
+}
