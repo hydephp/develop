@@ -34,8 +34,8 @@ export default defineConfig({
 | Option    | Type       | Default                                                   | Description                              |
 |-----------|------------|-----------------------------------------------------------|------------------------------------------|
 | `input`   | `string[]` | `['resources/assets/app.css', 'resources/assets/app.js']` | Asset entry points to process            |
-| `refresh` | `boolean`  | `true`                                                    | Enable hot reloading for content files   |
 | `watch`   | `string[]` | `['_pages', '_posts', '_docs']`                           | Content directories to watch for changes |
+| `refresh` | `boolean`  | `true`                                                    | Enable hot reloading for content files   |
 
 ## Contributing
 
