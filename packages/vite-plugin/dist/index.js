@@ -1,11 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// Define the hot file path as a constant
+// The interprocess communication signal file for the web server
 const HOT_FILE_PATH = 'app/storage/framework/runtime/vite.hot';
 /**
- * Resolve the path to a resource
- * This function ensures that the path works when used as an ESM package as well
+ * Resolve the path to a resource, ensuring that the path works when used as an ESM package.
  */
 function resolveResource(resource) {
     // In ESM context, __dirname is not available, so we use fileURLToPath
@@ -14,13 +13,13 @@ function resolveResource(resource) {
         const __dirname = path.dirname(__filename);
         return path.resolve(__dirname, '../resources', resource);
     }
-    catch (e) {
+    catch (error) {
         // Fallback for CommonJS
         return path.resolve(__dirname, '../resources', resource);
     }
 }
 /**
- * Check if a file exists
+ * Check if a file exists and is a file
  */
 function fileExists(file) {
     try {
@@ -31,8 +30,7 @@ function fileExists(file) {
     }
 }
 /**
- * Check if the JavaScript file has actual content
- * This prevents empty app.js files from being compiled
+ * Check if the JavaScript file has actual content to prevent empty app.js files from being compiled
  */
 function hasJavaScriptContent(filePath) {
     try {
@@ -42,7 +40,7 @@ function hasJavaScriptContent(filePath) {
         // Remove comments and check if there's any actual code
         return content.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim().length > 0;
     }
-    catch (e) {
+    catch (error) {
         return false;
     }
 }
@@ -50,7 +48,7 @@ function hasJavaScriptContent(filePath) {
  * HydePHP Vite plugin for realtime compiler integration
  */
 export default function hydePlugin(options = {}) {
-    const { input = ['resources/assets/app.css', 'resources/assets/app.js'], refresh = true, } = options;
+    const { input = ['resources/assets/app.css', 'resources/assets/app.js'], watch = ['_pages', '_posts', '_docs'], refresh = true, } = options;
     let config;
     let hotFilePath;
     return {
@@ -102,7 +100,7 @@ export default function hydePlugin(options = {}) {
                     try {
                         fs.rmSync(hotFilePath);
                     }
-                    catch (e) {
+                    catch (error) {
                         // Ignore errors when removing hot file
                     }
                     process.exit();
@@ -116,7 +114,7 @@ export default function hydePlugin(options = {}) {
                         const content = fs.readFileSync(indexPath, 'utf-8');
                         res.end(content);
                     }
-                    catch (e) {
+                    catch (error) {
                         next();
                     }
                 }
@@ -126,8 +124,7 @@ export default function hydePlugin(options = {}) {
             });
             // Add additional watch paths for content files if refresh option is enabled
             if (refresh) {
-                const contentDirs = ['_pages', '_posts', '_docs'];
-                contentDirs.forEach(dir => {
+                watch.forEach(dir => {
                     const contentPath = path.resolve(process.cwd(), dir);
                     if (fs.existsSync(contentPath)) {
                         server.watcher.add(path.join(contentPath, '**'));
