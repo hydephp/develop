@@ -37,6 +37,10 @@ export default defineConfig({
 | `refresh` | `boolean`  | `true`                                                    | Enable hot reloading for content files   |
 | `watch`   | `string[]` | `['_pages', '_posts', '_docs']`                           | Content directories to watch for changes |
 
+## Contributing
+
+Contributions to this package are made in the development monorepo [hydephp/develop](https://github.com/hydephp/develop) in the `packages/vite-plugin` directory.
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
