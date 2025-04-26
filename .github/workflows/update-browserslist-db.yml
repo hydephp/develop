@@ -31,14 +31,14 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'chore: update browserslist database'
-          title: 'chore: update browserslist database'
+          commit-message: 'Update Browserslist database'
+          title: 'Update browserslist database'
           body: |
             This PR updates the Browserslist database to the latest version.
             
             This is an automated PR created by the scheduled workflow to keep the project's browserslist data up-to-date.
-          branch: automated/update-browserslist-db
-          base: main
+          branch: ci/update-browserslist-db
+          base: master
           labels: |
             dependencies
             automated
