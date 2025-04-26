@@ -55,12 +55,9 @@ export default defineConfig({
         middlewareMode: false,
         watch: {
             additionalPaths: (watcher) => {
-                watcher.add('_pages/**');
-                watcher.add('_posts/**');
-                watcher.add('_docs/**');
-                watcher.add('_pages/**/**');
-                watcher.add('_posts/**/**');
-                watcher.add('_docs/**/**');
+                ['_pages', '_posts', '_docs'].forEach(folder => {
+                    watcher.add(`${folder}/**`);
+                });
             }
         }
     },
