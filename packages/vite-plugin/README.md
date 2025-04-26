@@ -21,6 +21,7 @@ export default defineConfig({
         hyde({
             // Optional configuration
             input: ['resources/assets/app.css', 'resources/assets/app.js'],
+            // Files to watch for changes, in addition to input paths
             watch: ['_pages', '_posts', '_docs'],
         }),
         tailwindcss(),
