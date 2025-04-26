@@ -39,7 +39,7 @@ function resolveResource(resource: string): string {
     const __dirname = path.dirname(__filename);
 
     return path.resolve(__dirname, '../resources', resource);
-  } catch (e) {
+  } catch (error) {
     // Fallback for CommonJS
     return path.resolve(__dirname, '../resources', resource);
   }
@@ -65,7 +65,7 @@ function hasJavaScriptContent(filePath: string): boolean {
     const content = fs.readFileSync(filePath, 'utf-8');
     // Remove comments and check if there's any actual code
     return content.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').trim().length > 0;
-  } catch (e) {
+  } catch (error) {
     return false;
   }
 }
@@ -137,7 +137,7 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
         process.on(signal, () => {
           try {
             fs.rmSync(hotFilePath);
-          } catch (e) {
+          } catch (error) {
             // Ignore errors when removing hot file
           }
           process.exit();
@@ -151,7 +151,7 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
             const indexPath = resolveResource('vite-index-page.html');
             const content = fs.readFileSync(indexPath, 'utf-8');
             res.end(content);
-          } catch (e) {
+          } catch (error) {
             next();
           }
         } else {
