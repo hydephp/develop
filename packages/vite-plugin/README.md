@@ -21,6 +21,7 @@ export default defineConfig({
         hyde({
             // Optional configuration
             input: ['resources/assets/app.css', 'resources/assets/app.js'],
+            watch: ['_pages', '_posts', '_docs'],
         }),
         tailwindcss(),
     ],
@@ -33,6 +34,7 @@ export default defineConfig({
 |--------|------|---------|-------------|
 | `input` | `string[]` | `['resources/assets/app.css', 'resources/assets/app.js']` | Asset entry points to process |
 | `refresh` | `boolean` | `true` | Enable hot reloading for content files |
+| `watch` | `string[]` | `['_pages', '_posts', '_docs']` | Content directories to watch for changes |
 
 ## License
 

@@ -18,6 +18,12 @@ export interface HydePluginOptions {
    * @default true
    */
   refresh?: boolean;
+
+  /**
+   * Content directories to watch for changes
+   * @default ['_pages', '_posts', '_docs']
+   */
+  watch?: string[];
 }
 
 /**
@@ -69,6 +75,7 @@ function hasJavaScriptContent(filePath: string): boolean {
 export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
   const {
     input = ['resources/assets/app.css', 'resources/assets/app.js'],
+    watch = ['_pages', '_posts', '_docs'],
     refresh = true,
   } = options;
 
@@ -153,8 +160,7 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
 
       // Add additional watch paths for content files if refresh option is enabled
       if (refresh) {
-        const contentDirs = ['_pages', '_posts', '_docs'];
-        contentDirs.forEach(dir => {
+        watch.forEach(dir => {
           const contentPath = path.resolve(process.cwd(), dir);
           if (fs.existsSync(contentPath)) {
             server.watcher.add(path.join(contentPath, '**'));
