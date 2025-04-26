@@ -43,6 +43,7 @@ This serves two purposes:
 
 - **Breaking:** We now support PHP [8.2, 8.3, 8.4] instead of [8.1, 8.2, 8.3] in https://github.com/hydephp/develop/pull/2141
 - **Breaking:** We upgraded from the TailwindCSS version from v3 v4. You may want to run `npx @tailwindcss/upgrade` in your project if you have custom Tailwind classes in your project. See the information below for details. Introduced in https://github.com/hydephp/develop/pull/2146.
+- **Breaking:** We switched from using CJS to ESM in the frontend tool scaffolding. If you have custom script includes you need to migrate them. See below and in https://github.com/hydephp/develop/pull/2159 for details.
 - **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
 - **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
 - **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
@@ -195,6 +196,12 @@ $ npx @tailwindcss/upgrade
 ```
 
 ## High impact
+
+### Switch frontend tooling to full ESM support
+
+The frontend tooling has been switched from CommonJS to ESM. This means that all JavaScript files are now ESM modules, and you will need to update your custom scripts to use ESM syntax.
+
+If you only used the default HydePHP frontend (without custom JavaScript), no action is needed. Otherwise, please read the upgrade guide here: https://github.com/hydephp/develop/pull/2159
 
 ### Navigation system rewrite
 

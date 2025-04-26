@@ -34,24 +34,24 @@ class ScriptsComponentViewTest extends TestCase
     public function testComponentHasLinkToAppJsFileWhenItExists()
     {
         Filesystem::touch('_media/app.js');
-        $this->assertStringContainsString('<script defer src="media/app.js"', $this->renderTestView());
+        $this->assertStringContainsString('<script type="module" defer src="media/app.js"', $this->renderTestView());
         Filesystem::unlink('_media/app.js');
     }
 
     public function testComponentDoesNotRenderLinkToAppJsWhenItDoesNotExist()
     {
-        $this->assertStringNotContainsString('<script defer src="media/app.js"', $this->renderTestView());
+        $this->assertStringNotContainsString('<script type="module" defer src="media/app.js"', $this->renderTestView());
     }
 
     public function testComponentUsesRelativePathToAppJsFileForNestedPages()
     {
         Filesystem::touch('_media/app.js');
         $this->mockCurrentPage = 'foo';
-        $this->assertStringContainsString('<script defer src="media/app.js"', $this->renderTestView());
+        $this->assertStringContainsString('<script type="module" defer src="media/app.js"', $this->renderTestView());
         $this->mockCurrentPage = 'foo/bar';
-        $this->assertStringContainsString('<script defer src="../media/app.js"', $this->renderTestView());
+        $this->assertStringContainsString('<script type="module" defer src="../media/app.js"', $this->renderTestView());
         $this->mockCurrentPage = 'foo/bar/cat.html';
-        $this->assertStringContainsString('<script defer src="../../media/app.js"', $this->renderTestView());
+        $this->assertStringContainsString('<script type="module" defer src="../../media/app.js"', $this->renderTestView());
         $this->mockCurrentPage = null;
         Filesystem::unlink('_media/app.js');
     }

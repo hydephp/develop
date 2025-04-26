@@ -72,7 +72,7 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         );
 
         $this->assertStringContainsString(
-            '<script defer src="assets/app.js?v='.hash_file('crc32', Hyde::path('_assets/app.js')).'"></script>',
+            '<script type="module" defer src="assets/app.js?v='.hash_file('crc32', Hyde::path('_assets/app.js')).'"></script>',
             $contents
         );
 
