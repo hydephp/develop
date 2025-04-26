@@ -14,12 +14,12 @@ const hydeVitePlugin = () => ({
     name: 'hyde-vite',
     configureServer(server) {
         // Create hot file when Vite server starts
-        fs.writeFileSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'), '');
+        fs.writeFileSync(path.resolve(process.cwd(), 'app/storage/framework/runtime/vite.hot'), '');
 
         // Remove hot file when Vite server closes
         ['SIGINT', 'SIGTERM'].forEach(signal => {
             process.on(signal, () => {
-                fs.rmSync(path.resolve(process.cwd(), 'app/storage/framework/cache/vite.hot'));
+                fs.rmSync(path.resolve(process.cwd(), 'app/storage/framework/runtime/vite.hot'));
                 process.exit();
             });
         });
