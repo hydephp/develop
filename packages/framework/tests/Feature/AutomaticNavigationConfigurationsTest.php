@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Pages\Page;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Facades\Navigation;
 use Hyde\Foundation\HydeKernel;
 use JetBrains\PhpStorm\NoReturn;
 use Hyde\Pages\Concerns\HydePage;
@@ -1271,54 +1271,6 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
                 'subdirectory_display' => 'flat',
             ],
-        ];
-
-        config(['hyde' => $config]);
-
-        $this->assertMenuEquals([
-            ['label' => 'Baz Page', 'priority' => 1],
-            ['label' => 'Bar Page', 'priority' => 2],
-            ['label' => 'Foo Page', 'priority' => 3],
-            ['label' => 'Custom', 'priority' => 120, 'attributes' => ['target' => '_blank']],
-            ['label' => 'Dropdown Item Page', 'priority' => 999],
-        ], [
-            new MarkdownPage('foo'),
-            new MarkdownPage('bar'),
-            new MarkdownPage('baz'),
-            new MarkdownPage('qux'),
-            new MarkdownPage('dropdown/item'),
-        ]);
-    }
-
-    public function testCanConfigureMainMenuUsingBuilderSettings()
-    {
-        $config = [
-            'navigation' => Navigation::configure()
-                ->setPagePriorities([
-                    'foo' => 3,
-                    'bar' => 2,
-                    'baz' => 1,
-                ])
-                ->setPageLabels([
-                    'foo' => 'Foo Page',
-                    'bar' => 'Bar Page',
-                    'baz' => 'Baz Page',
-                    'dropdown/item' => 'Dropdown Item Page',
-                ])
-                ->excludePages([
-                    'qux',
-                ])
-                ->addNavigationItems([
-                    [
-                        'label' => 'Custom',
-                        'destination' => 'https://example.com',
-                        'priority' => 120,
-                        'attributes' => [
-                            'target' => '_blank',
-                        ],
-                    ],
-                ])
-                ->setSubdirectoryDisplayMode('flat'),
         ];
 
         config(['hyde' => $config]);

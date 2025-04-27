@@ -6,92 +6,57 @@ namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Facades\Navigation;
 use Hyde\Testing\UnitTestCase;
-use Hyde\Framework\Features\Navigation\NavigationMenuConfigurationBuilder;
 
 /**
  * @covers \Hyde\Facades\Navigation
  */
 class NavigationFacadeTest extends UnitTestCase
 {
-    public function testItem()
+    public function testItemWithoutLabel()
     {
-        $item = Navigation::item('home', 'Home', 100);
+        $item = Navigation::item('foo');
 
         $this->assertSame([
-            'destination' => 'home',
-            'label' => 'Home',
-            'priority' => 100,
-            'attributes' => [],
-        ], $item);
-    }
-
-    public function testItemWithOnlyDestination()
-    {
-        $item = Navigation::item('home');
-
-        $this->assertSame([
-            'destination' => 'home',
+            'destination' => 'foo',
             'label' => null,
             'priority' => null,
             'attributes' => [],
         ], $item);
     }
 
-    public function testItemWithUrl()
+    public function testItemWithLabel()
     {
-        $item = Navigation::item('https://example.com', 'External', 200);
+        $item = Navigation::item('foo', 'Foo');
 
         $this->assertSame([
-            'destination' => 'https://example.com',
-            'label' => 'External',
-            'priority' => 200,
+            'destination' => 'foo',
+            'label' => 'Foo',
+            'priority' => null,
             'attributes' => [],
         ], $item);
     }
 
-    public function testConfigure()
+    public function testItemWithPriority()
     {
-        $builder = Navigation::configure();
+        $item = Navigation::item('foo', 'Foo', 100);
 
-        $this->assertInstanceOf(NavigationMenuConfigurationBuilder::class, $builder);
+        $this->assertSame([
+            'destination' => 'foo',
+            'label' => 'Foo',
+            'priority' => 100,
+            'attributes' => [],
+        ], $item);
     }
 
-    public function testConfigureWithChainedMethods()
+    public function testItemWithUrl()
     {
-        $config = Navigation::configure()
-            ->setPagePriorities(['index' => 0, 'posts' => 10])
-            ->setPageLabels(['index' => 'Home'])
-            ->excludePages(['404'])
-            ->addNavigationItems([Navigation::item('https://github.com', 'GitHub', 200)])
-            ->setSubdirectoryDisplayMode('dropdown')
-            ->toArray();
+        $item = Navigation::item('https://example.com');
 
-        $this->assertIsArray($config);
-        $this->assertArrayHasKey('order', $config);
-        $this->assertArrayHasKey('labels', $config);
-        $this->assertArrayHasKey('exclude', $config);
-        $this->assertArrayHasKey('custom', $config);
-        $this->assertArrayHasKey('subdirectory_display', $config);
-
-        $this->assertSame(['index' => 0, 'posts' => 10], $config['order']);
-        $this->assertSame(['index' => 'Home'], $config['labels']);
-        $this->assertSame(['404'], $config['exclude']);
-        $this->assertSame([Navigation::item('https://github.com', 'GitHub', 200)], $config['custom']);
-        $this->assertSame('dropdown', $config['subdirectory_display']);
-    }
-
-    public function testConfigureWithSomeChainedMethods()
-    {
-        $config = Navigation::configure()
-            ->setPagePriorities(['about' => 1, 'contact' => 2])
-            ->setPageLabels(['about' => 'About Us'])
-            ->setSubdirectoryDisplayMode('flat')
-            ->toArray();
-
-        $this->assertSame(['about' => 1, 'contact' => 2], $config['order']);
-        $this->assertSame(['about' => 'About Us'], $config['labels']);
-        $this->assertSame('flat', $config['subdirectory_display']);
-        $this->assertArrayNotHasKey('exclude', $config);
-        $this->assertArrayNotHasKey('custom', $config);
+        $this->assertSame([
+            'destination' => 'https://example.com',
+            'label' => null,
+            'priority' => null,
+            'attributes' => [],
+        ], $item);
     }
 }
