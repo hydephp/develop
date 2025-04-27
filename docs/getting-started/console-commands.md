@@ -222,16 +222,16 @@ Publish one of the default homepages as `index.blade.php`.
 <a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-php hyde publish:views [<category>]
+php hyde publish:views [<group>]
 ```
 
 Publish the hyde components for customization. Note that existing files will be overwritten.
 
 #### Arguments
 
-|            |                         |
-|------------|-------------------------|
-| `category` | The category to publish |
+|          |                       |
+|----------|-------------------------|
+| `group`  | The group to publish |
 
 ## Display All Registered Routes.
 

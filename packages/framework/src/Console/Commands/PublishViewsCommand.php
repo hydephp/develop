@@ -25,7 +25,7 @@ use function strstr;
 class PublishViewsCommand extends Command
 {
     /** @var string */
-    protected $signature = 'publish:views {category? : The category to publish}';
+    protected $signature = 'publish:views {group? : The group to publish}';
 
     /** @var string */
     protected $description = 'Publish the Hyde components for customization. Note that existing files will be overwritten';
@@ -40,10 +40,10 @@ class PublishViewsCommand extends Command
             ViewPublishGroup::fromGroup('hyde-components', 'Blade Components', 'More or less self contained components, extracted for customizability and DRY code'),
         ]);
 
-        $selected = ($this->argument('category') ?? $this->promptForCategory()) ?: 'all';
+        $selected = ($this->argument('group') ?? $this->promptForGroup()) ?: 'all';
 
-        if ($selected !== 'all' && (bool) $this->argument('category') === false && ConsoleHelper::canUseLaravelPrompts($this->input)) {
-            $this->infoComment(sprintf('Selected category [%s]', $selected));
+        if ($selected !== 'all' && (bool) $this->argument('group') === false && ConsoleHelper::canUseLaravelPrompts($this->input)) {
+            $this->infoComment(sprintf('Selected group [%s]', $selected));
         }
 
         if (! in_array($selected, $allowed = array_merge(['all'], array_keys($this->options)), true)) {
@@ -64,14 +64,14 @@ class PublishViewsCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function promptForCategory(): string
+    protected function promptForGroup(): string
     {
         SelectPrompt::fallbackUsing(function (SelectPrompt $prompt): string {
             return $this->choice($prompt->label, $prompt->options, $prompt->default);
         });
 
         return $this->parseChoiceIntoKey(
-            select('Which category do you want to publish?', $this->formatPublishableChoices(), 0) ?: 'all'
+            select('Which group do you want to publish?', $this->formatPublishableChoices(), 0) ?: 'all'
         );
     }
 
@@ -79,7 +79,7 @@ class PublishViewsCommand extends Command
     {
         return collect($this->options)
             ->map(fn (ViewPublishGroup $option, string $key): string => sprintf('<comment>%s</comment>: %s', $key, $option->description))
-            ->prepend('Publish all categories listed below')
+            ->prepend('Publish all groups listed below')
             ->values()
             ->all();
     }
