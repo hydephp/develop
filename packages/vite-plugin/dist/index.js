@@ -110,7 +110,7 @@ export default function hydePlugin(options = {}) {
             server.middlewares.use((req, res, next) => {
                 if (req.url === '/') {
                     try {
-                        const indexPath = resolveResource('vite-index-page.html');
+                        const indexPath = resolveResource('index.html');
                         const content = fs.readFileSync(indexPath, 'utf-8');
                         res.end(content);
                     }
