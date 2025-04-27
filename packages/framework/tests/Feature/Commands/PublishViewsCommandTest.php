@@ -30,8 +30,8 @@ class PublishViewsCommandTest extends TestCase
             + Filesystem::findFiles('vendor/hyde/framework/resources/views/layouts', '.blade.php', true)->count();
 
         $this->artisan('publish:views')
-            ->expectsQuestion('Which category do you want to publish?', 'all')
-            ->doesntExpectOutputToContain('Selected category')
+            ->expectsQuestion('Which group do you want to publish?', 'all')
+            ->doesntExpectOutputToContain('Selected group')
             ->expectsOutput("Published all $count files to [resources/views/vendor/hyde]")
             ->assertExitCode(0);
 
@@ -76,7 +76,7 @@ class PublishViewsCommandTest extends TestCase
         ConsoleHelper::disableLaravelPrompts();
 
         $this->artisan('publish:views')
-            ->expectsQuestion('Which category do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
+            ->expectsQuestion('Which group do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
             ->expectsOutput('Published all [layout] files to [resources/views/vendor/hyde/layouts]')
             ->assertExitCode(0);
 
@@ -213,8 +213,8 @@ class PublishViewsCommandTest extends TestCase
         }
 
         $this->artisan('publish:views')
-            ->expectsQuestion('Which category do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
-            ->expectsOutput('Selected category [layouts]')
+            ->expectsQuestion('Which group do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
+            ->expectsOutput('Selected group [layouts]')
             ->expectsQuestion('Select the files you want to publish', [(is_dir(Hyde::path('packages')) ? 'packages' : 'vendor/hyde').'/framework/resources/views/layouts/app.blade.php'])
             ->expectsOutput('Published selected file to [resources/views/vendor/hyde/layouts/app.blade.php]')
             ->assertExitCode(0);
@@ -229,7 +229,7 @@ class PublishViewsCommandTest extends TestCase
     protected function executePublishViewsCommand(): BufferedOutput
     {
         $command = (new PublishViewsCommand());
-        $input = new ArrayInput(['category' => 'layouts'], $command->getDefinition());
+        $input = new ArrayInput(['group' => 'layouts'], $command->getDefinition());
         $output = new BufferedOutput();
         $command->setInput($input);
         $command->setOutput(new OutputStyle($input, $output));
