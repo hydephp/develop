@@ -1,6 +1,7 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+import defaultTheme from 'tailwindcss/defaultTheme';
+import typography from '@tailwindcss/typography';
 
-module.exports = {
+export default {
     darkMode: 'class',
     content: [
         './_pages/**/*.blade.php',
@@ -50,14 +51,18 @@ module.exports = {
                                 content: 'unset',
                             },
                         },
-                        code: {
+                        'code:not(pre code)': {
                             font: 'unset',
                             backgroundColor: '#80808033',
                             paddingLeft: '4px',
                             paddingRight: '4px',
                             marginLeft: '-2px',
                             marginRight: '1px',
-                            borderRadius: '4px'
+                            borderRadius: '4px',
+                            maxWidth: '80vw',
+                            overflowX: 'auto',
+                            verticalAlign: 'top',
+                            wordBreak: 'break-all'
                         },
                         'code::before': {
                             content: 'unset',
@@ -66,10 +71,15 @@ module.exports = {
                             content: 'unset',
                         },
                         pre: {
+                            backgroundColor: '#292D3E',
+                            borderRadius: '0.25rem',
+                            marginTop: '1rem',
+                            marginBottom: '1rem',
+                            overflowX: 'auto',
                             code: {
                                 fontFamily: "'Fira Code Regular', Consolas, Monospace, 'Courier New'",
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 invert: {
@@ -91,6 +101,7 @@ module.exports = {
         },
     },
 
+    // Safelist should NOT be copied to packages/hyde. It's purely for the monorepo.
     safelist: [
         'prose',
         'dark:prose-invert',
@@ -116,6 +127,6 @@ module.exports = {
     ],
 
     plugins: [
-        require('@tailwindcss/typography')
+        typography
     ],
 };
