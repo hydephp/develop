@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
-use Hyde\Framework\Features\Navigation\NavigationMenuConfigurationBuilder;
-
 use function compact;
 
 /**
@@ -29,17 +27,5 @@ class Navigation
     public static function item(string $destination, ?string $label = null, ?int $priority = null, array $attributes = []): array
     {
         return compact('destination', 'label', 'priority', 'attributes');
-    }
-
-    /**
-     * Configuration helper method to define the navigation menu configuration with better IDE support.
-     *
-     * The builder is an array object that will be used by the framework to set the navigation menu configuration.
-     *
-     * @experimental This method is experimental and may change or be removed before the final release.
-     */
-    public static function configure(): NavigationMenuConfigurationBuilder
-    {
-        return new NavigationMenuConfigurationBuilder();
     }
 }
