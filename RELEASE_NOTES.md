@@ -12,6 +12,7 @@ This serves two purposes:
 ### Added
 
 - Added support for PHP 8.4 in https://github.com/hydephp/develop/pull/2141
+- Added a new Hyde Vite plugin in https://github.com/hydephp/develop/pull/2160
 - You can now specify sidebar item priorities by adding a numeric prefix to doc umentation page source file names in https://github.com/hydephp/develop/pull/1709
 - Added support for resolving dynamic links to source files in Markdown documents in https://github.com/hydephp/develop/pull/1590
 - Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.

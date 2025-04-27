@@ -1,0 +1,48 @@
+name: Compile TypeScript
+
+on:
+  push:
+    paths:
+      - 'packages/**/src/**/*.ts'
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed for the git commit step
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd packages/vite-plugin && npm ci
+          cd ../..
+
+      - name: Compile TypeScript
+        run: |
+          cd packages/vite-plugin
+          npm run build
+          cd ../..
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --exit-code --quiet packages/vite-plugin/dist || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add packages/vite-plugin/dist
+          git commit -m "Compile TypeScript"
+          git push
