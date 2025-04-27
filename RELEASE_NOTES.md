@@ -54,6 +54,7 @@ This serves two purposes:
 - **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format. For more information, see the upgrade guide below.
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display`.
 - **Breaking:** Renamed the `hyde.enable_cache_busting` configuration option to `hyde.cache_busting` in https://github.com/hydephp/develop/pull/1980
+- Renamed the parameter `category` to `group` in the `publish:views` command in https://github.com/hydephp/develop/pull/2166
 - Dependency: Upgraded from Laravel 10 to Laravel 11
 - Dependency: Updated minimum PHP requirement to 8.2
 - Dependency: Updated Symfony/yaml to ^7.0
