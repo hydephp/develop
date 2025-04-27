@@ -22,8 +22,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = require('./.github/scripts/LabelInternal.js');
-            console.log(script({github, context}));
+            const { default: script } = await import('./.github/scripts/RemoveStateLabels.js');
+            await script({github, context});
 
       # Remove "run-visual-tests" labels and similar when the pull request is closed
       - name: Remove state control labels
@@ -32,5 +32,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const script = require('./.github/scripts/RemoveStateLabels.js');
+            const { default: script } = await import('./.github/scripts/RemoveStateLabels.js');
             await script({github, context});

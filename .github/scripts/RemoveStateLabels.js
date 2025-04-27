@@ -1,4 +1,4 @@
-module.exports = async ({github, context}) => {
+export default async function ({github, context}) {
     const { data: labels } = await github.rest.issues.listLabelsOnIssue({
         issue_number: context.issue.number,
         owner: context.repo.owner,
