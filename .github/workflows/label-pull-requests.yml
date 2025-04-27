@@ -22,8 +22,23 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { default: script } = await import('./.github/scripts/RemoveStateLabels.js');
-            await script({github, context});
+            // Check for the "Internal" label
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            // Add "Internal" label if not already present
+            const hasInternalLabel = labels.find(label => label.name === 'Internal');
+            if (!hasInternalLabel) {
+              await github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['Internal']
+              });
+            }
 
       # Remove "run-visual-tests" labels and similar when the pull request is closed
       - name: Remove state control labels
@@ -32,5 +47,38 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { default: script } = await import('./.github/scripts/RemoveStateLabels.js');
-            await script({github, context});
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo
+            });
+
+            const hasVisualTestsLabel = labels.find(label => label.name === 'run-visual-tests');
+            if (hasVisualTestsLabel) {
+                await github.rest.issues.removeLabel({
+                    issue_number: context.issue.number,
+                    name: 'run-visual-tests',
+                    owner: context.repo.owner,
+                    repo: context.repo.repo
+                });
+            }
+
+            const hasPausePagesLabel = labels.find(label => label.name === 'pause-pages');
+            if (hasPausePagesLabel) {
+                await github.rest.issues.removeLabel({
+                    issue_number: context.issue.number,
+                    name: 'pause-pages',
+                    owner: context.repo.owner,
+                    repo: context.repo.repo
+                });
+            }
+
+            const hasWTDLabel = labels.find(label => label.name === 'WTD');
+            if (hasWTDLabel) {
+                await github.rest.issues.removeLabel({
+                    issue_number: context.issue.number,
+                    name: 'WTD',
+                    owner: context.repo.owner,
+                    repo: context.repo.repo
+                });
+            }
