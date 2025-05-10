@@ -334,7 +334,7 @@ class FeaturedImageViewTest extends TestCase
     public function testCaptionWithSimplifiedSchemaSupportsMarkdown()
     {
         $this->file('_media/markdown.jpg', 'test content');
-        
+
         $image = new FeaturedImage(
             'markdown.jpg',
             null, // altText
@@ -346,9 +346,9 @@ class FeaturedImageViewTest extends TestCase
             null, // copyrightText
             'Caption with **bold** and *italic* text' // caption with markdown
         );
-        
+
         $component = $this->renderComponent($image);
-        
+
         $this->assertStringContainsString('<strong>bold</strong>', $component);
         $this->assertStringContainsString('<em>italic</em>', $component);
     }
@@ -364,14 +364,14 @@ class FeaturedImageViewTest extends TestCase
 
         // The caption should be present
         $this->assertStringContainsString('This custom caption should override the fluent caption', $component);
-        
+
         // The fluent caption elements should NOT be present
         $this->assertStringNotContainsString('Image by', $component);
         $this->assertStringNotContainsString('John Doe', $component);
         $this->assertStringNotContainsString('License', $component);
         $this->assertStringNotContainsString('MIT License', $component);
     }
-    
+
     public function testFluentCaptionUsedWhenNoCaptionIsSet()
     {
         $component = $this->renderComponent([
