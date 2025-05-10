@@ -50,6 +50,8 @@ final class RouteCollection extends BaseFoundationCollection
 
     public function getRoute(string $routeKey): Route
     {
+        $routeKey = str_replace('.', '/', $routeKey);
+
         return $this->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
     }
 
