@@ -318,6 +318,41 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('alt="Static website from GitHub Readme"', $component);
     }
 
+    public function testCaptionSupportsMarkdown()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This is a caption with **bold** and *italic* text and [a link](https://example.com)',
+        ]);
+
+        // Check that Markdown is rendered correctly
+        $this->assertStringContainsString('<strong>bold</strong>', $component);
+        $this->assertStringContainsString('<em>italic</em>', $component);
+        $this->assertStringContainsString('<a href="https://example.com">a link</a>', $component);
+    }
+
+    public function testCaptionWithSimplifiedSchemaSupportsMarkdown()
+    {
+        $this->file('_media/markdown.jpg', 'test content');
+        
+        $image = new FeaturedImage(
+            'markdown.jpg',
+            null, // altText
+            null, // titleText
+            null, // authorName
+            null, // authorUrl
+            null, // licenseName
+            null, // licenseUrl
+            null, // copyrightText
+            'Caption with **bold** and *italic* text' // caption with markdown
+        );
+        
+        $component = $this->renderComponent($image);
+        
+        $this->assertStringContainsString('<strong>bold</strong>', $component);
+        $this->assertStringContainsString('<em>italic</em>', $component);
+    }
+
     protected function stripHtml(string $string): string
     {
         return trim($this->stripWhitespace(strip_tags($string)), "\t ");

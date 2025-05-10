@@ -2,12 +2,14 @@
     /** @var \Hyde\Pages\MarkdownPost $page  */
     /** @var \Hyde\Framework\Features\Blogging\Models\FeaturedImage $image  */
     $image = $page->image;
+    
+    use Illuminate\Support\Str;
 @endphp
 <figure aria-label="Cover image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" role="doc-cover">
     <img src="{{ $image->getSource() }}" alt="{{ $image->getAltText() ?? '' }}" title="{{ $image->getTitleText() ?? '' }}" itemprop="image" class="mb-0">
     <figcaption aria-label="Image caption" itemprop="caption">
         @if($image->hasCaption())
-            <span>{{ $image->getCaption() }}</span>
+            <span>{!! Str::inlineMarkdown($image->getCaption()) !!}</span>
         @endif
 
         @if($image->hasAuthorName())
