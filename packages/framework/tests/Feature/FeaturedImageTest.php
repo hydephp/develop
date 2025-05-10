@@ -41,6 +41,15 @@ class FeaturedImageTest extends TestCase
             'contentUrl' => 'media/source',
         ], (new FilledImage)->getMetadataArray());
 
+        // Test with caption
+        $this->assertSame([
+            'text' => 'alt',
+            'name' => 'title',
+            'caption' => 'This is a caption',
+            'url' => 'media/source',
+            'contentUrl' => 'media/source',
+        ], (new FeaturedImage('source', 'alt', 'title', null, null, null, null, null, 'This is a caption'))->getMetadataArray());
+
         $this->assertSame([
             'url' => 'media/source',
             'contentUrl' => 'media/source',
