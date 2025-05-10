@@ -10,31 +10,31 @@
     <figcaption aria-label="Image caption" itemprop="caption">
         @if($image->hasCaption())
             <span>{!! Str::inlineMarkdown($image->getCaption()) !!}</span>
-        @endif
-
-        @if($image->hasAuthorName())
-            <span>Image by</span>
-            <span itemprop="creator" itemscope="" itemtype="https://schema.org/Person">
-                @if($image->hasAuthorUrl())
-                    <a href="{{ $image->getAuthorUrl() }}" rel="author noopener nofollow" itemprop="url">
+        @else
+            @if($image->hasAuthorName())
+                <span>Image by</span>
+                <span itemprop="creator" itemscope="" itemtype="https://schema.org/Person">
+                    @if($image->hasAuthorUrl())
+                        <a href="{{ $image->getAuthorUrl() }}" rel="author noopener nofollow" itemprop="url">
+                            <span itemprop="name">{{ $image->getAuthorName() }}</span>.
+                        </a>
+                    @else
                         <span itemprop="name">{{ $image->getAuthorName() }}</span>.
-                    </a>
+                    @endif
+                </span>
+            @endif
+
+            @if($image->hasCopyrightText())
+                <span itemprop="copyrightNotice">{{ $image->getCopyrightText() }}</span>.
+            @endif
+
+            @if($image->hasLicenseName())
+                <span>License</span>
+                @if($image->hasLicenseUrl())
+                    <a href="{{ $image->getLicenseUrl() }}" rel="license nofollow noopener" itemprop="license">{{ $image->getLicenseName() }}</a>.
                 @else
-                    <span itemprop="name">{{ $image->getAuthorName() }}</span>.
+                    <span itemprop="license">{{ $image->getLicenseName() }}</span>.
                 @endif
-            </span>
-        @endif
-
-        @if($image->hasCopyrightText())
-            <span itemprop="copyrightNotice">{{ $image->getCopyrightText() }}</span>.
-        @endif
-
-        @if($image->hasLicenseName())
-            <span>License</span>
-            @if($image->hasLicenseUrl())
-                <a href="{{ $image->getLicenseUrl() }}" rel="license nofollow noopener" itemprop="license">{{ $image->getLicenseName() }}</a>.
-            @else
-                <span itemprop="license">{{ $image->getLicenseName() }}</span>.
             @endif
         @endif
     </figcaption>

@@ -353,6 +353,40 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('<em>italic</em>', $component);
     }
 
+    public function testCaptionOverridesFeaturedImage()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This custom caption should override the fluent caption',
+            'image.authorName' => 'John Doe',
+            'image.licenseName' => 'MIT License',
+        ]);
+
+        // The caption should be present
+        $this->assertStringContainsString('This custom caption should override the fluent caption', $component);
+        
+        // The fluent caption elements should NOT be present
+        $this->assertStringNotContainsString('Image by', $component);
+        $this->assertStringNotContainsString('John Doe', $component);
+        $this->assertStringNotContainsString('License', $component);
+        $this->assertStringNotContainsString('MIT License', $component);
+    }
+    
+    public function testFluentCaptionUsedWhenNoCaptionIsSet()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.authorName' => 'John Doe',
+            'image.licenseName' => 'MIT License',
+        ]);
+
+        // The fluent caption elements should be present
+        $this->assertStringContainsString('Image by', $component);
+        $this->assertStringContainsString('John Doe', $component);
+        $this->assertStringContainsString('License', $component);
+        $this->assertStringContainsString('MIT License', $component);
+    }
+
     protected function stripHtml(string $string): string
     {
         return trim($this->stripWhitespace(strip_tags($string)), "\t ");
