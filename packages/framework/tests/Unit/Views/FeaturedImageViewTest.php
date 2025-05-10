@@ -273,6 +273,51 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('src="custom_media/bar.png"', $component);
     }
 
+    public function testCaptionIsRenderedWhenPresent()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This is a caption for the image',
+            'image.altText' => 'Alt text for the image',
+        ]);
+
+        $this->assertStringContainsString('This is a caption for the image', $component);
+        $this->assertStringContainsString('alt="Alt text for the image"', $component);
+    }
+
+    public function testAltTextFallsBackToCaptionWhenMissing()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This caption is used as alt text',
+        ]);
+
+        $this->assertStringContainsString('This caption is used as alt text', $component);
+        $this->assertStringContainsString('alt="This caption is used as alt text"', $component);
+    }
+
+    public function testSupportsSimplifiedImageSchema()
+    {
+        $this->file('_media/simple.jpg', 'test content');
+
+        $image = new FeaturedImage(
+            'simple.jpg',
+            null, // altText
+            null, // titleText
+            null, // authorName
+            null, // authorUrl
+            null, // licenseName
+            null, // licenseUrl
+            null, // copyrightText
+            'Static website from GitHub Readme' // caption
+        );
+
+        $component = $this->renderComponent($image);
+
+        $this->assertStringContainsString('Static website from GitHub Readme', $component);
+        $this->assertStringContainsString('alt="Static website from GitHub Readme"', $component);
+    }
+
     protected function stripHtml(string $string): string
     {
         return trim($this->stripWhitespace(strip_tags($string)), "\t ");
