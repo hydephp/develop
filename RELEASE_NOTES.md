@@ -52,6 +52,7 @@ This serves two purposes:
 - Improved printed documentation views in https://github.com/hydephp/develop/pull/2005
 - Fixed "BuildService finding non-existent files to copy in Debian" https://github.com/hydephp/framework/issues/662 in https://github.com/hydephp/develop/pull/2064
 - Fixed "Undefined constant `Hyde\Foundation\Kernel\GLOB_BRACE`" https://github.com/hydephp/hyde/issues/270 in https://github.com/hydephp/develop/pull/2064
+- Fixed support for dot notation in routes not working in https://github.com/hydephp/develop/pull/2177
 - Realtime Compiler: Updated the exception handler to match HTTP exception codes when sending error responses in https://github.com/hydephp/develop/pull/1853
 - Realtime Compiler: Improved routing for nested index pages in https://github.com/hydephp/develop/pull/1852
 - Realtime Compiler: Improved the dashboard https://github.com/hydephp/develop/pull/1866 fixing https://github.com/hydephp/realtime-compiler/issues/22 and https://github.com/hydephp/realtime-compiler/issues/29
