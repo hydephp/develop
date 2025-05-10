@@ -212,7 +212,7 @@ The image source will be used as-is, and no additional processing is done.
 image: https://cdn.example.com/image.jpg
 ```
 
-#### Data-rich image
+#### Data-rich image and captions
 
 You can also supply an array of data to construct a rich image with a fluent caption.
 
@@ -226,9 +226,20 @@ image:
     licenseUrl: https://example.com/license/
     authorUrl: https://photographer.example.com/
     authorName: "John Doe"
+    caption: "Overrides the fluent caption feature"
 ```
 
->info See [posts/introducing-images](https://hydephp.com/posts/introducing-images) for a detailed blog post with examples and schema information!
+The data will then be used for metadata and to render a fluently worded caption. If you just want to add a quick caption, you can instead simply set the "caption field" to override the caption; or if you simply want a caption and no metadata this is a quick option as well.
+```yaml
+image:
+    source: how-to-turn-your-github-readme-into-a-static-website-cropped.png
+    alt: Example of a static website created from a GitHub Readme
+    caption: Static website from GitHub Readme with **Markdown** support!
+```
+
+The caption field supports inline Markdown formatting like **bold**, *italic*, and [links](https://example.com). This makes it easy to add rich text formatting to your image captions.
+
+If the `alt` field is missing, the caption will be used as the alt text as well.
 
 ## Using Images in Posts
 
