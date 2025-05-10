@@ -58,7 +58,8 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         protected readonly ?string $authorUrl = null,
         protected readonly ?string $licenseName = null,
         protected readonly ?string $licenseUrl = null,
-        protected readonly ?string $copyrightText = null
+        protected readonly ?string $copyrightText = null,
+        protected readonly ?string $caption = null
     ) {
         $this->type = Hyperlinks::isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
@@ -127,6 +128,10 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
             $metadata['name'] = $this->getTitleText();
         }
 
+        if ($this->hasCaption()) {
+            $metadata['caption'] = $this->getCaption();
+        }
+
         $metadata['url'] = $this->getSource();
         $metadata['contentUrl'] = $this->getSource();
 
@@ -135,7 +140,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     public function getAltText(): ?string
     {
-        return $this->altText;
+        return $this->altText ?? $this->caption;
     }
 
     public function getTitleText(): ?string
@@ -166,6 +171,11 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     public function getLicenseUrl(): ?string
     {
         return $this->licenseUrl;
+    }
+
+    public function getCaption(): ?string
+    {
+        return $this->caption;
     }
 
     public function hasAltText(): bool
@@ -201,6 +211,11 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     public function hasLicenseUrl(): bool
     {
         return $this->has('licenseUrl');
+    }
+
+    public function hasCaption(): bool
+    {
+        return $this->has('caption');
     }
 
     protected function has(string $property): bool

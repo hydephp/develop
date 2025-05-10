@@ -39,6 +39,7 @@ This serves two purposes:
 - Added Vite facade in https://github.com/hydephp/develop/pull/2016
 - Added a custom Blade-based heading renderer for Markdown conversions in https://github.com/hydephp/develop/pull/2047
 - The `publish:views` command is now interactive for Unix-like systems in https://github.com/hydephp/develop/pull/2062
+- Added a new simplified blog post image front matter schema using a new "caption" field in https://github.com/hydephp/develop/pull/2175
 
 ### Changed
 

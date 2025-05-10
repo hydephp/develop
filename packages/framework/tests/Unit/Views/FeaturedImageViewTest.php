@@ -273,6 +273,120 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('src="custom_media/bar.png"', $component);
     }
 
+    public function testCaptionIsRenderedWhenPresent()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This is a caption for the image',
+            'image.altText' => 'Alt text for the image',
+        ]);
+
+        $this->assertStringContainsString('This is a caption for the image', $component);
+        $this->assertStringContainsString('alt="Alt text for the image"', $component);
+    }
+
+    public function testAltTextFallsBackToCaptionWhenMissing()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This caption is used as alt text',
+        ]);
+
+        $this->assertStringContainsString('This caption is used as alt text', $component);
+        $this->assertStringContainsString('alt="This caption is used as alt text"', $component);
+    }
+
+    public function testSupportsSimplifiedImageSchema()
+    {
+        $this->file('_media/simple.jpg', 'test content');
+
+        $image = new FeaturedImage(
+            'simple.jpg',
+            null, // altText
+            null, // titleText
+            null, // authorName
+            null, // authorUrl
+            null, // licenseName
+            null, // licenseUrl
+            null, // copyrightText
+            'Static website from GitHub Readme' // caption
+        );
+
+        $component = $this->renderComponent($image);
+
+        $this->assertStringContainsString('Static website from GitHub Readme', $component);
+        $this->assertStringContainsString('alt="Static website from GitHub Readme"', $component);
+    }
+
+    public function testCaptionSupportsMarkdown()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This is a caption with **bold** and *italic* text and [a link](https://example.com)',
+        ]);
+
+        // Check that Markdown is rendered correctly
+        $this->assertStringContainsString('<strong>bold</strong>', $component);
+        $this->assertStringContainsString('<em>italic</em>', $component);
+        $this->assertStringContainsString('<a href="https://example.com">a link</a>', $component);
+    }
+
+    public function testCaptionWithSimplifiedSchemaSupportsMarkdown()
+    {
+        $this->file('_media/markdown.jpg', 'test content');
+
+        $image = new FeaturedImage(
+            'markdown.jpg',
+            null, // altText
+            null, // titleText
+            null, // authorName
+            null, // authorUrl
+            null, // licenseName
+            null, // licenseUrl
+            null, // copyrightText
+            'Caption with **bold** and *italic* text' // caption with markdown
+        );
+
+        $component = $this->renderComponent($image);
+
+        $this->assertStringContainsString('<strong>bold</strong>', $component);
+        $this->assertStringContainsString('<em>italic</em>', $component);
+    }
+
+    public function testCaptionOverridesFeaturedImage()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.caption' => 'This custom caption should override the fluent caption',
+            'image.authorName' => 'John Doe',
+            'image.licenseName' => 'MIT License',
+        ]);
+
+        // The caption should be present
+        $this->assertStringContainsString('This custom caption should override the fluent caption', $component);
+
+        // The fluent caption elements should NOT be present
+        $this->assertStringNotContainsString('Image by', $component);
+        $this->assertStringNotContainsString('John Doe', $component);
+        $this->assertStringNotContainsString('License', $component);
+        $this->assertStringNotContainsString('MIT License', $component);
+    }
+
+    public function testFluentCaptionUsedWhenNoCaptionIsSet()
+    {
+        $component = $this->renderComponent([
+            'image.source' => 'foo.jpg',
+            'image.authorName' => 'John Doe',
+            'image.licenseName' => 'MIT License',
+        ]);
+
+        // The fluent caption elements should be present
+        $this->assertStringContainsString('Image by', $component);
+        $this->assertStringContainsString('John Doe', $component);
+        $this->assertStringContainsString('License', $component);
+        $this->assertStringContainsString('MIT License', $component);
+    }
+
     protected function stripHtml(string $string): string
     {
         return trim($this->stripWhitespace(strip_tags($string)), "\t ");

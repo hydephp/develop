@@ -28,23 +28,25 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
     protected readonly ?string $copyrightText;
     protected readonly ?string $licenseName;
     protected readonly ?string $licenseUrl;
+    protected readonly ?string $caption;
 
     public function __construct(
         private readonly FrontMatter $matter,
         private readonly ?string $filePath = null,
     ) {
         $this->source = $this->makeSource();
-        $this->altText = $this->getStringMatter('image.altText');
+        $this->altText = $this->getStringMatter('image.altText') ?? $this->getStringMatter('image.alt');
         $this->titleText = $this->getStringMatter('image.titleText');
         $this->authorName = $this->getStringMatter('image.authorName');
         $this->authorUrl = $this->getStringMatter('image.authorUrl');
         $this->copyrightText = $this->getStringMatter('image.copyright');
         $this->licenseName = $this->getStringMatter('image.licenseName');
         $this->licenseUrl = $this->getStringMatter('image.licenseUrl');
+        $this->caption = $this->getStringMatter('image.caption');
     }
 
     /**
-     * @return array{source: string, altText: string|null, titleText: string|null, authorName: string|null, authorUrl: string|null, copyrightText: string|null, licenseName: string|null, licenseUrl: string|null}
+     * @return array{source: string, altText: string|null, titleText: string|null, authorName: string|null, authorUrl: string|null, copyrightText: string|null, licenseName: string|null, licenseUrl: string|null, caption: string|null}
      */
     public function toArray(): array
     {
@@ -57,6 +59,7 @@ class FeaturedImageFactory extends Concerns\PageDataFactory implements FeaturedI
             'copyrightText' => $this->copyrightText,
             'licenseName' => $this->licenseName,
             'licenseUrl' => $this->licenseUrl,
+            'caption' => $this->caption,
         ];
     }
 
