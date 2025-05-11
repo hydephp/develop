@@ -175,61 +175,36 @@
 
                     <span class="sr-only">Table of contents</span>
             <ul class="table-of-contents">
-<li>
-<a href="#introduction">Introduction</a>
+<li><a href="#introduction">Introduction</a>
 <ul>
-<li>
-<a href="#prerequisites-for-customizing-directories">Prerequisites for customizing directories</a>
-</li>
+<li><a href="#prerequisites-for-customizing-directories">Prerequisites for customizing directories</a></li>
 </ul>
 </li>
-<li>
-<a href="#customizing-source-directories">Customizing Source Directories</a>
+<li><a href="#customizing-source-directories">Customizing Source Directories</a>
 <ul>
-<li>
-<a href="#in-the-config-file">In the config file</a>
-</li>
-<li>
-<a href="#in-a-service-provider">In a service provider</a>
-</li>
+<li><a href="#in-the-config-file">In the config file</a></li>
+<li><a href="#in-a-service-provider">In a service provider</a></li>
 </ul>
 </li>
-<li>
-<a href="#customizing-output-directories">Customizing Output Directories</a>
+<li><a href="#customizing-output-directories">Customizing Output Directories</a>
 <ul>
-<li>
-<a href="#in-the-config-file-1">In the config file</a>
-</li>
-<li>
-<a href="#in-a-service-provider-1">In a service provider</a>
-</li>
-<li>
-<a href="#route-key-impact">Route key impact</a>
-</li>
+<li><a href="#in-the-config-file-1">In the config file</a></li>
+<li><a href="#in-a-service-provider-1">In a service provider</a></li>
+<li><a href="#route-key-impact">Route key impact</a></li>
 </ul>
 </li>
-<li>
-<a href="#custom-source-root">Custom Source Root</a>
+<li><a href="#custom-source-root">Custom Source Root</a>
 <ul>
-<li>
-<a href="#automatic-change">Automatic change</a>
-</li>
+<li><a href="#automatic-change">Automatic change</a></li>
 </ul>
 </li>
-<li>
-<a href="#custom-media-directory">Custom Media Directory</a>
+<li><a href="#custom-media-directory">Custom Media Directory</a>
 <ul>
-<li>
-<a href="#next-steps">Next steps</a>
-</li>
-<li>
-<a href="#note-that-this-setting-affects-both-source-and-output-directories">Note that this setting affects both source and output directories</a>
-</li>
+<li><a href="#next-steps">Next steps</a></li>
+<li><a href="#note-that-this-setting-affects-both-source-and-output-directories">Note that this setting affects both source and output directories</a></li>
 </ul>
 </li>
-<li>
-<a href="#custom-output-directory">Custom Output Directory</a>
-</li>
+<li><a href="#custom-output-directory">Custom Output Directory</a></li>
 </ul>
 
             </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
@@ -459,10 +434,8 @@ These properties are set when the <a href="https://github.com/hydephp/framework/
 is registered, at which point the provider will search for any overrides in the config file.</p>
 <p><strong>This means that there are two options to change the source and output directories:</strong></p>
 <ol>
-<li>
-<strong>Recommended:</strong> You can change the values in the config file, to let the <code>HydeServiceProvider</code> handle it for you.</li>
-<li>
-<strong>Advanced/Overkill:</strong> You can also set the static properties directly in the page model classes if you prefer.
+<li><strong>Recommended:</strong> You can change the values in the config file, to let the <code>HydeServiceProvider</code> handle it for you.</li>
+<li><strong>Advanced/Overkill:</strong> You can also set the static properties directly in the page model classes if you prefer.
 <ul>
 <li>You'd probably want to do this in a service provider, as it must be done before the Kernel is booted.</li>
 <li>You can use the <a href="https://github.com/hydephp/framework/blob/master/src/Framework/Concerns/RegistersFileLocations.php"><code>RegistersFileLocations</code></a>

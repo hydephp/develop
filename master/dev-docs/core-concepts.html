@@ -107,118 +107,49 @@
 
                     <span class="sr-only">Table of contents</span>
             <ul class="table-of-contents">
-<li>
-<a href="#introduction-to-the-hyde-framework">Introduction to the Hyde Framework</a>
-</li>
-<li>
-<a href="#the-hydecli">The HydeCLI</a>
-</li>
-<li>
-<a href="#directory-structure">Directory Structure</a>
-</li>
-<li>
-<a href="#page-models">Page Models</a>
-</li>
-<li>
-<a href="#file-autodiscovery">File Autodiscovery</a>
-</li>
-<li>
-<a href="#paths-identifiers-and-route-keys">Paths, Identifiers, and Route Keys</a>
-</li>
-<li>
-<a href="#convention-over-configuration">Convention Over Configuration</a>
-</li>
-<li>
-<a href="#front-matter">Front Matter</a>
+<li><a href="#introduction-to-the-hyde-framework">Introduction to the Hyde Framework</a></li>
+<li><a href="#the-hydecli">The HydeCLI</a></li>
+<li><a href="#directory-structure">Directory Structure</a></li>
+<li><a href="#page-models">Page Models</a></li>
+<li><a href="#file-autodiscovery">File Autodiscovery</a></li>
+<li><a href="#paths-identifiers-and-route-keys">Paths, Identifiers, and Route Keys</a></li>
+<li><a href="#convention-over-configuration">Convention Over Configuration</a></li>
+<li><a href="#front-matter">Front Matter</a>
 <ul>
-<li>
-<a href="#front-matter-in-markdown">Front Matter in Markdown</a>
-</li>
-<li>
-<a href="#front-matter-in-blade">Front Matter in Blade</a>
-</li>
+<li><a href="#front-matter-in-markdown">Front Matter in Markdown</a></li>
+<li><a href="#front-matter-in-blade">Front Matter in Blade</a></li>
 </ul>
 </li>
-<li>
-<a href="#automatic-routing">Automatic Routing</a>
-</li>
-<li>
-<a href="#global-page-data">Global Page Data</a>
-</li>
-<li>
-<a href="#terminology">Terminology</a>
+<li><a href="#automatic-routing">Automatic Routing</a></li>
+<li><a href="#global-page-data">Global Page Data</a></li>
+<li><a href="#terminology">Terminology</a>
 <ul>
-<li>
-<a href="#table-of-contents">Table of contents</a>
+<li><a href="#table-of-contents">Table of contents</a>
 <ul>
-<li>
-<a href="#tools">Tools</a>
-</li>
-<li>
-<a href="#languages">Languages</a>
-</li>
-<li>
-<a href="#general-concepts">General Concepts</a>
-</li>
-<li>
-<a href="#hydephp-features">HydePHP Features</a>
-</li>
+<li><a href="#tools">Tools</a></li>
+<li><a href="#languages">Languages</a></li>
+<li><a href="#general-concepts">General Concepts</a></li>
+<li><a href="#hydephp-features">HydePHP Features</a></li>
 </ul>
 </li>
-<li>
-<a href="#hydephp">HydePHP</a>
-</li>
-<li>
-<a href="#laravel">Laravel</a>
-</li>
-<li>
-<a href="#front-matter-1">Front Matter</a>
-</li>
-<li>
-<a href="#markdown">Markdown</a>
-</li>
-<li>
-<a href="#blade">Blade</a>
-</li>
-<li>
-<a href="#yaml">YAML</a>
-</li>
-<li>
-<a href="#php">PHP</a>
-</li>
-<li>
-<a href="#html">HTML</a>
-</li>
-<li>
-<a href="#tailwind-css">Tailwind CSS</a>
-</li>
-<li>
-<a href="#composer">Composer</a>
-</li>
-<li>
-<a href="#static-sites">Static Sites</a>
-</li>
-<li>
-<a href="#version-control">Version Control</a>
-</li>
-<li>
-<a href="#git">Git</a>
-</li>
-<li>
-<a href="#autodiscovery">Autodiscovery</a>
-</li>
-<li>
-<a href="#page-types">Page Types</a>
-</li>
-<li>
-<a href="#page-identifiers">Page Identifiers</a>
-</li>
-<li>
-<a href="#routes">Routes</a>
-</li>
-<li>
-<a href="#route-keys">Route Keys</a>
-</li>
+<li><a href="#hydephp">HydePHP</a></li>
+<li><a href="#laravel">Laravel</a></li>
+<li><a href="#front-matter-1">Front Matter</a></li>
+<li><a href="#markdown">Markdown</a></li>
+<li><a href="#blade">Blade</a></li>
+<li><a href="#yaml">YAML</a></li>
+<li><a href="#php">PHP</a></li>
+<li><a href="#html">HTML</a></li>
+<li><a href="#tailwind-css">Tailwind CSS</a></li>
+<li><a href="#composer">Composer</a></li>
+<li><a href="#static-sites">Static Sites</a></li>
+<li><a href="#version-control">Version Control</a></li>
+<li><a href="#git">Git</a></li>
+<li><a href="#autodiscovery">Autodiscovery</a></li>
+<li><a href="#page-types">Page Types</a></li>
+<li><a href="#page-identifiers">Page Identifiers</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#route-keys">Route Keys</a></li>
 </ul>
 </li>
 </ul>
@@ -625,12 +556,9 @@ building the site. This means that you don't need to worry about routing and con
 as the file names and directories they are in will directly influence how the page will be compiled.</p>
 <p>As such, it will be helpful for you to know about the following terms:</p>
 <ul>
-<li>
-<strong>Path:</strong> The full path to a file, including the file name, directory, and extension.</li>
-<li>
-<strong>Identifier:</strong> The unique identifier for a page. Unique only within the same page type.</li>
-<li>
-<strong>Route key:</strong> The key used to access the page in the routing system. Unique across all site pages.</li>
+<li><strong>Path:</strong> The full path to a file, including the file name, directory, and extension.</li>
+<li><strong>Identifier:</strong> The unique identifier for a page. Unique only within the same page type.</li>
+<li><strong>Route key:</strong> The key used to access the page in the routing system. Unique across all site pages.</li>
 </ul>
 <p>Both the identifier and route key are derived from the path of the page. The identifier is the path without the file
 extension, and relative to the page type source directory. The route key is the output directory plus the identifier.</p>
@@ -684,12 +612,9 @@ and create routes for all of them, and store them in an index which works as a t
 <p>During the build of each page, Hyde will inject some data available to all Blade views. If you are not planning to write
 any custom Blade templates, you can safely ignore this section. If you are, here are the three global variables you can use:</p>
 <ul>
-<li>
-<code>$page</code>: The <a href="#page-models">Page Object</a> for the current page.</li>
-<li>
-<code>$route</code>: The <a href="#automatic-routing">Route Object</a> for the current page.</li>
-<li>
-<code>$routeKey</code>: The <a href="#paths-identifiers-and-route-keys">Route Key</a> for the current page.</li>
+<li><code>$page</code>: The <a href="#page-models">Page Object</a> for the current page.</li>
+<li><code>$route</code>: The <a href="#automatic-routing">Route Object</a> for the current page.</li>
+<li><code>$routeKey</code>: The <a href="#paths-identifiers-and-route-keys">Route Key</a> for the current page.</li>
 </ul>
 <p>The <code>$page</code> variable is likely to the most important one, as it contains all the data for the current page.
 Depending on the page type, you will have different helpers available. But <code>$page-&gt;matter()</code> is likely to be very helpful.</p>
@@ -702,75 +627,39 @@ This will help you understand the documentation and codebase better, as well as 
 <div style="margin-right: 2rem;">
 <h4>Tools<a id="tools" href="#tools" class="heading-permalink" title="Permalink"></a></h4>
 <ul>
-<li>
-<a href="#hydephp">HydePHP</a>
-</li>
-<li>
-<a href="#laravel">Laravel</a>
-</li>
-<li>
-<a href="#composer">Composer</a>
-</li>
-<li>
-<a href="#tailwind-css">Tailwind CSS</a>
-</li>
+<li><a href="#hydephp">HydePHP</a></li>
+<li><a href="#laravel">Laravel</a></li>
+<li><a href="#composer">Composer</a></li>
+<li><a href="#tailwind-css">Tailwind CSS</a></li>
 </ul>
 </div>
 <div style="margin-right: 2rem;">
 <h4>Languages<a id="languages" href="#languages" class="heading-permalink" title="Permalink"></a></h4>
 <ul>
-<li>
-<a href="#front-matter">Front Matter</a>
-</li>
-<li>
-<a href="#markdown">Markdown</a>
-</li>
-<li>
-<a href="#blade">Blade</a>
-</li>
-<li>
-<a href="#yaml">YAML</a>
-</li>
-<li>
-<a href="#php">PHP</a>
-</li>
-<li>
-<a href="#html">HTML</a>
-</li>
+<li><a href="#front-matter">Front Matter</a></li>
+<li><a href="#markdown">Markdown</a></li>
+<li><a href="#blade">Blade</a></li>
+<li><a href="#yaml">YAML</a></li>
+<li><a href="#php">PHP</a></li>
+<li><a href="#html">HTML</a></li>
 </ul>
 </div>
 <div style="margin-right: 2rem;">
 <h4>General Concepts<a id="general-concepts" href="#general-concepts" class="heading-permalink" title="Permalink"></a></h4>
 <ul>
-<li>
-<a href="#static-sites">Static Sites</a>
-</li>
-<li>
-<a href="#version-control">Version Control</a>
-</li>
-<li>
-<a href="#git">Git</a>
-</li>
+<li><a href="#static-sites">Static Sites</a></li>
+<li><a href="#version-control">Version Control</a></li>
+<li><a href="#git">Git</a></li>
 </ul>
 </div>
 <div style="margin-right: 2rem;">
 <h4>HydePHP Features<a id="hydephp-features" href="#hydephp-features" class="heading-permalink" title="Permalink"></a></h4>
 <ul>
-<li>
-<a href="#autodiscovery">Autodiscovery</a>
-</li>
-<li>
-<a href="#page-types">Page Types</a>
-</li>
-<li>
-<a href="#page-identifiers">Page Identifiers</a>
-</li>
-<li>
-<a href="#routes">Routes</a>
-</li>
-<li>
-<a href="#route-keys">Route Keys</a>
-</li>
+<li><a href="#autodiscovery">Autodiscovery</a></li>
+<li><a href="#page-types">Page Types</a></li>
+<li><a href="#page-identifiers">Page Identifiers</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#route-keys">Route Keys</a></li>
 </ul>
 </div>
 </div>

@@ -404,10 +404,8 @@
 <p>Note that $contents take precedence over $view, so if you pass both, only $contents will be used. You can also register a macro with the name 'compile' to overload the default compile method.</p>
 <p>If the identifier for an in-memory page is &quot;foo/bar&quot; the page will be saved to &quot;_site/foo/bar.html&quot;. You can then also use the route helper to get a link to it by using the route key &quot;foo/bar&quot;. Take note that the identifier must be unique to prevent overwriting other pages. all this data will be passed to the view rendering engine.</p>
 <ul>
-<li>
-<strong>Parameter $view:</strong> The view key or Blade file for the view to use to render the page contents.</li>
-<li>
-<strong>Parameter $matter:</strong> The front matter of the page. When using the Blade view rendering option,</li>
+<li><strong>Parameter $view:</strong> The view key or Blade file for the view to use to render the page contents.</li>
+<li><strong>Parameter $matter:</strong> The front matter of the page. When using the Blade view rendering option,</li>
 </ul>
 <pre><code class="language-php">$page = new InMemoryPage(string $identifier, \Hyde\Markdown\Models\FrontMatter|array $matter, string $contents, string $view): void
 </code></pre>

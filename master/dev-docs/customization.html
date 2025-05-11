@@ -163,133 +163,68 @@
 
                     <span class="sr-only">Table of contents</span>
             <ul class="table-of-contents">
-<li>
-<a href="#introduction">Introduction</a>
-</li>
-<li>
-<a href="#accessing-configuration-values">Accessing Configuration Values</a>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#accessing-configuration-values">Accessing Configuration Values</a>
 <ul>
-<li>
-<a href="#configuration-api-recap">Configuration API Recap</a>
-</li>
-<li>
-<a href="#dot-notation">Dot Notation</a>
-</li>
-<li>
-<a href="#front-matter-or-configuration-files">Front Matter or Configuration Files?</a>
-</li>
-<li>
-<a href="#a-note-on-file-paths">A note on file paths</a>
-</li>
+<li><a href="#configuration-api-recap">Configuration API Recap</a></li>
+<li><a href="#dot-notation">Dot Notation</a></li>
+<li><a href="#front-matter-or-configuration-files">Front Matter or Configuration Files?</a></li>
+<li><a href="#a-note-on-file-paths">A note on file paths</a></li>
 </ul>
 </li>
-<li>
-<a href="#configuration-files-overview">Configuration Files Overview</a>
+<li><a href="#configuration-files-overview">Configuration Files Overview</a>
 <ul>
-<li>
-<a href="#hydephp-configuration-files">HydePHP Configuration Files</a>
-</li>
-<li>
-<a href="#publishable-laravel--package-configuration-files">Publishable Laravel &amp; Package Configuration Files</a>
-</li>
+<li><a href="#hydephp-configuration-files">HydePHP Configuration Files</a></li>
+<li><a href="#publishable-laravel--package-configuration-files">Publishable Laravel &amp; Package Configuration Files</a></li>
 </ul>
 </li>
-<li>
-<a href="#configuration-options">Configuration Options</a>
+<li><a href="#configuration-options">Configuration Options</a>
 <ul>
-<li>
-<a href="#rss-feed-generation">RSS feed generation</a>
-</li>
-<li>
-<a href="#authors">Authors</a>
+<li><a href="#rss-feed-generation">RSS feed generation</a></li>
+<li><a href="#authors">Authors</a>
 <ul>
-<li>
-<a href="#example">Example</a>
-</li>
+<li><a href="#example">Example</a></li>
 </ul>
 </li>
-<li>
-<a href="#footer">Footer</a>
+<li><a href="#footer">Footer</a>
 <ul>
-<li>
-<a href="#customizing-the-markdown-text">Customizing the Markdown text</a>
-</li>
-<li>
-<a href="#customizing-the-blade-component">Customizing the Blade component</a>
-</li>
-<li>
-<a href="#disabling-the-footer-entirely">Disabling the footer entirely</a>
-</li>
+<li><a href="#customizing-the-markdown-text">Customizing the Markdown text</a></li>
+<li><a href="#customizing-the-blade-component">Customizing the Blade component</a></li>
+<li><a href="#disabling-the-footer-entirely">Disabling the footer entirely</a></li>
 </ul>
 </li>
-<li>
-<a href="#head-and-script-html-hooks">Head and script HTML hooks</a>
-</li>
-<li>
-<a href="#navigation-menu--sidebar">Navigation Menu &amp; Sidebar</a>
+<li><a href="#head-and-script-html-hooks">Head and script HTML hooks</a></li>
+<li><a href="#navigation-menu--sidebar">Navigation Menu &amp; Sidebar</a>
 <ul>
-<li>
-<a href="#customizing-the-navigation-menu">Customizing the navigation menu</a>
-</li>
-<li>
-<a href="#customizing-the-documentation-sidebar">Customizing the documentation sidebar</a>
-</li>
+<li><a href="#customizing-the-navigation-menu">Customizing the navigation menu</a></li>
+<li><a href="#customizing-the-documentation-sidebar">Customizing the documentation sidebar</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<a href="#additional-advanced-options">Additional Advanced Options</a>
+<li><a href="#additional-advanced-options">Additional Advanced Options</a>
 <ul>
-<li>
-<a href="#mediaextensions">media_extensions</a>
-</li>
-<li>
-<a href="#safeoutputdirectories">safe_output_directories</a>
-</li>
-<li>
-<a href="#generatebuildmanifest">generate_build_manifest</a>
-</li>
-<li>
-<a href="#buildmanifestpath">build_manifest_path</a>
-</li>
-<li>
-<a href="#hydefrontversion-and-hydefrontcdnurl">hydefront_version and hydefront_cdn_url</a>
-</li>
-<li>
-<a href="#themetogglebuttons">theme_toggle_buttons</a>
-</li>
+<li><a href="#mediaextensions">media_extensions</a></li>
+<li><a href="#safeoutputdirectories">safe_output_directories</a></li>
+<li><a href="#generatebuildmanifest">generate_build_manifest</a></li>
+<li><a href="#buildmanifestpath">build_manifest_path</a></li>
+<li><a href="#hydefrontversion-and-hydefrontcdnurl">hydefront_version and hydefront_cdn_url</a></li>
+<li><a href="#themetogglebuttons">theme_toggle_buttons</a></li>
 </ul>
 </li>
-<li>
-<a href="#blade-views">Blade Views</a>
-</li>
-<li>
-<a href="#frontend-styles">Frontend Styles</a>
-</li>
-<li>
-<a href="#markdown-configuration">Markdown Configuration</a>
+<li><a href="#blade-views">Blade Views</a></li>
+<li><a href="#frontend-styles">Frontend Styles</a></li>
+<li><a href="#markdown-configuration">Markdown Configuration</a>
 <ul>
-<li>
-<a href="#commonmark-extensions">CommonMark Extensions</a>
-</li>
-<li>
-<a href="#commonmark-configuration">CommonMark Configuration</a>
-</li>
-<li>
-<a href="#allow-raw-html">Allow Raw HTML</a>
-</li>
-<li>
-<a href="#allow-blade-code">Allow Blade Code</a>
-</li>
+<li><a href="#commonmark-extensions">CommonMark Extensions</a></li>
+<li><a href="#commonmark-configuration">CommonMark Configuration</a></li>
+<li><a href="#allow-raw-html">Allow Raw HTML</a></li>
+<li><a href="#allow-blade-code">Allow Blade Code</a></li>
 </ul>
 </li>
-<li>
-<a href="#yaml-configuration">YAML Configuration</a>
+<li><a href="#yaml-configuration">YAML Configuration</a>
 <ul>
-<li>
-<a href="#namespaced-yaml-configuration">Namespaced YAML Configuration</a>
-</li>
+<li><a href="#namespaced-yaml-configuration">Namespaced YAML Configuration</a></li>
 </ul>
 </li>
 </ul>

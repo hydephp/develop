@@ -133,57 +133,37 @@
 
                     <span class="sr-only">Table of contents</span>
             <ul class="table-of-contents">
-<li>
-<a href="#introduction-to-hyde-pages">Introduction to Hyde Pages</a>
+<li><a href="#introduction-to-hyde-pages">Introduction to Hyde Pages</a>
 <ul>
-<li>
-<a href="#best-practices-and-hyde-expectations">Best Practices and Hyde Expectations</a>
+<li><a href="#best-practices-and-hyde-expectations">Best Practices and Hyde Expectations</a>
 <ul>
-<li>
-<a href="#filenames">Filenames</a>
-</li>
+<li><a href="#filenames">Filenames</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<a href="#creating-markdown-pages">Creating Markdown Pages</a>
+<li><a href="#creating-markdown-pages">Creating Markdown Pages</a>
 <ul>
-<li>
-<a href="#scaffolding-markdown-pages">Scaffolding Markdown Pages</a>
-</li>
-<li>
-<a href="#front-matter-is-optional">Front Matter is optional</a>
+<li><a href="#scaffolding-markdown-pages">Scaffolding Markdown Pages</a></li>
+<li><a href="#front-matter-is-optional">Front Matter is optional</a>
 <ul>
-<li>
-<a href="#navigation-front-matter">Navigation Front Matter</a>
-</li>
+<li><a href="#navigation-front-matter">Navigation Front Matter</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<a href="#creating-blade-pages">Creating Blade Pages</a>
+<li><a href="#creating-blade-pages">Creating Blade Pages</a>
 <ul>
-<li>
-<a href="#scaffolding-blade-pages">Scaffolding Blade Pages</a>
-</li>
+<li><a href="#scaffolding-blade-pages">Scaffolding Blade Pages</a></li>
 </ul>
 </li>
-<li>
-<a href="#when-to-use-which">When to Use Which?</a>
+<li><a href="#when-to-use-which">When to Use Which?</a>
 <ul>
-<li>
-<a href="#comparison">Comparison</a>
-</li>
-<li>
-<a href="#live-demos">Live Demos</a>
-</li>
+<li><a href="#comparison">Comparison</a></li>
+<li><a href="#live-demos">Live Demos</a></li>
 </ul>
 </li>
-<li>
-<a href="#bonus-creating-html-pages">Bonus: Creating HTML Pages</a>
-</li>
+<li><a href="#bonus-creating-html-pages">Bonus: Creating HTML Pages</a></li>
 </ul>
 
             </li>                                            <li class="sidebar-item -ml-4 pl-4" role="listitem">
@@ -459,8 +439,7 @@ to keep in mind when creating pages so that you don't get unexpected results.</p
 <li>The filename is used as the filename for the compiled HTML</li>
 <li>Filenames should use <code>kebab-case-identifier</code> format, followed by the appropriate extension</li>
 <li>Files prefixed with <code>_underscores</code> are ignored by Hyde</li>
-<li>Your page will be stored in <code>_site/&lt;identifier&gt;.html</code>
-</li>
+<li>Your page will be stored in <code>_site/&lt;identifier&gt;.html</code></li>
 <li>Blade pages will override any Markdown pages with the same filename when compiled</li>
 </ul>
 <h2>Creating Markdown Pages<a id="creating-markdown-pages" href="#creating-markdown-pages" class="heading-permalink" title="Permalink"></a></h2>
@@ -494,14 +473,10 @@ You can set just one or all of them, as Hyde will fill in the gaps for the rest.
     group: 'string',
 </code></pre>
 <ul>
-<li>
-<code>label</code> is the text that will be displayed in the navigation menu</li>
-<li>
-<code>priority</code> is the order in which the page will appear in the navigation menu (<code>order</code> is also supported)</li>
-<li>
-<code>hidden</code> will hide the page from the navigation menu (<code>visible</code>) is also supported, but obviously invert the value)</li>
-<li>
-<code>group</code> will put the page in a dropdown menu with the specified group name (<code>category</code>) is also supported)</li>
+<li><code>label</code> is the text that will be displayed in the navigation menu</li>
+<li><code>priority</code> is the order in which the page will appear in the navigation menu (<code>order</code> is also supported)</li>
+<li><code>hidden</code> will hide the page from the navigation menu (<code>visible</code>) is also supported, but obviously invert the value)</li>
+<li><code>group</code> will put the page in a dropdown menu with the specified group name (<code>category</code>) is also supported)</li>
 </ul>
 <h2>Creating Blade Pages<a id="creating-blade-pages" href="#creating-blade-pages" class="heading-permalink" title="Permalink"></a></h2>
 <p>Since Hyde is based on Laravel and uses the powerful Blade templating engine, you can use Blade pages to create more

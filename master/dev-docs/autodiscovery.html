@@ -243,37 +243,23 @@
 
                     <span class="sr-only">Table of contents</span>
             <ul class="table-of-contents">
-<li>
-<a href="#introduction">Introduction</a>
+<li><a href="#introduction">Introduction</a>
 <ul>
-<li>
-<a href="#the-short-version">The short version</a>
-</li>
-<li>
-<a href="#prerequisites">Prerequisites</a>
-</li>
+<li><a href="#the-short-version">The short version</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
 </ul>
 </li>
-<li>
-<a href="#booting-pipeline">Booting Pipeline</a>
+<li><a href="#booting-pipeline">Booting Pipeline</a>
 <ul>
-<li>
-<a href="#the-steps-are-as-follows">The steps are as follows:</a>
-</li>
-<li>
-<a href="#interacting-with-the-collections">Interacting with the collections</a>
-</li>
+<li><a href="#the-steps-are-as-follows">The steps are as follows:</a></li>
+<li><a href="#interacting-with-the-collections">Interacting with the collections</a></li>
 </ul>
 </li>
-<li>
-<a href="#the-hydekernel">The HydeKernel</a>
+<li><a href="#the-hydekernel">The HydeKernel</a>
 <ul>
-<li>
-<a href="#the-kernel-lifecycle">The kernel lifecycle</a>
+<li><a href="#the-kernel-lifecycle">The kernel lifecycle</a>
 <ul>
-<li>
-<a href="#deep-dive-into-lazy-booting">Deep dive into lazy-booting</a>
-</li>
+<li><a href="#deep-dive-into-lazy-booting">Deep dive into lazy-booting</a></li>
 </ul>
 </li>
 </ul>
@@ -438,12 +424,8 @@ parsed using instructions from the model's class, resulting in data used to cons
 <h3>Prerequisites<a id="prerequisites" href="#prerequisites" class="heading-permalink" title="Permalink"></a></h3>
 <p>Before reading this article, you should be familiar with the following concepts:</p>
 <ul>
-<li>
-<a href="page-models">Page Models</a>
-</li>
-<li>
-<a href="the-hydekernel">The HydeKernel</a>
-</li>
+<li><a href="page-models">Page Models</a></li>
+<li><a href="the-hydekernel">The HydeKernel</a></li>
 </ul>
 <h2>Booting Pipeline<a id="booting-pipeline" href="#booting-pipeline" class="heading-permalink" title="Permalink"></a></h2>
 <p>The autodiscovery is run when the HydeKernel boots. It does so in three distinct steps, which run in sequence as each
@@ -451,12 +433,9 @@ step depends on the previous one. Each discovery step runs in a <code>Foundation
 discovery process and stores the discovered data in memory.</p>
 <h4>The steps are as follows:<a id="the-steps-are-as-follows" href="#the-steps-are-as-follows" class="heading-permalink" title="Permalink"></a></h4>
 <ol>
-<li>
-<strong>Step one:</strong> The file collection discovers all the source files and stores them in memory</li>
-<li>
-<strong>Step two:</strong> The page collection parses all the source files into page model objects</li>
-<li>
-<strong>Step three:</strong> The route collection generates route objects for all the pages</li>
+<li><strong>Step one:</strong> The file collection discovers all the source files and stores them in memory</li>
+<li><strong>Step two:</strong> The page collection parses all the source files into page model objects</li>
+<li><strong>Step three:</strong> The route collection generates route objects for all the pages</li>
 </ol>
 <h4>Interacting with the collections<a id="interacting-with-the-collections" href="#interacting-with-the-collections" class="heading-permalink" title="Permalink"></a></h4>
 <p>Usually, you will interact with the collection data through intermediaries.</p>

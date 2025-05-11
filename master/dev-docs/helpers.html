@@ -183,111 +183,57 @@
 
                     <span class="sr-only">Table of contents</span>
             <ul class="table-of-contents">
-<li>
-<a href="#introduction">Introduction</a>
-</li>
-<li>
-<a href="#file-based-collections">File-based Collections</a>
-</li>
-<li>
-<a href="#file-includes">File Includes</a>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#file-based-collections">File-based Collections</a></li>
+<li><a href="#file-includes">File Includes</a>
 <ul>
-<li>
-<a href="#using-includes">Using Includes</a>
-</li>
-<li>
-<a href="#stock-includes">Stock Includes</a>
+<li><a href="#using-includes">Using Includes</a></li>
+<li><a href="#stock-includes">Stock Includes</a>
 <ul>
-<li>
-<a href="#footer">Footer</a>
-</li>
-<li>
-<a href="#head">Head</a>
-</li>
-<li>
-<a href="#scripts">Scripts</a>
-</li>
+<li><a href="#footer">Footer</a></li>
+<li><a href="#head">Head</a></li>
+<li><a href="#scripts">Scripts</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<a href="#reading-time-helper">Reading-Time Helper</a>
+<li><a href="#reading-time-helper">Reading-Time Helper</a>
 <ul>
-<li>
-<a href="#create-a-new-readingtime-instance">Create a new ReadingTime instance</a>
-</li>
-<li>
-<a href="#get-the-reading-time-string">Get the reading time string</a>
-</li>
-<li>
-<a href="#get-the-reading-time-data">Get the reading time data</a>
-</li>
-<li>
-<a href="#custom-formatting">Custom formatting</a>
+<li><a href="#create-a-new-readingtime-instance">Create a new ReadingTime instance</a></li>
+<li><a href="#get-the-reading-time-string">Get the reading time string</a></li>
+<li><a href="#get-the-reading-time-data">Get the reading time data</a></li>
+<li><a href="#custom-formatting">Custom formatting</a>
 <ul>
-<li>
-<a href="#specify-sprintf-format">Specify sprintf format</a>
-</li>
-<li>
-<a href="#format-using-a-custom-callback">Format using a custom callback</a>
-</li>
+<li><a href="#specify-sprintf-format">Specify sprintf format</a></li>
+<li><a href="#format-using-a-custom-callback">Format using a custom callback</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<a href="#helper-functions">Helper Functions</a>
+<li><a href="#helper-functions">Helper Functions</a>
 <ul>
-<li>
-<a href="#hyde">hyde</a>
-</li>
-<li>
-<a href="#asset">asset</a>
-</li>
-<li>
-<a href="#route">route</a>
-</li>
-<li>
-<a href="#url">url</a>
-</li>
+<li><a href="#hyde">hyde</a></li>
+<li><a href="#asset">asset</a></li>
+<li><a href="#route">route</a></li>
+<li><a href="#url">url</a></li>
 </ul>
 </li>
-<li>
-<a href="#pagination-utility">Pagination Utility</a>
+<li><a href="#pagination-utility">Pagination Utility</a>
 <ul>
-<li>
-<a href="#base-usage">Base usage</a>
-</li>
-<li>
-<a href="#constructor-options-breakdown">Constructor options breakdown</a>
+<li><a href="#base-usage">Base usage</a></li>
+<li><a href="#constructor-options-breakdown">Constructor options breakdown</a>
 <ul>
-<li>
-<a href="#currentpagenumber">currentPageNumber</a>
-</li>
-<li>
-<a href="#paginationroutebasename">paginationRouteBasename</a>
-</li>
+<li><a href="#currentpagenumber">currentPageNumber</a></li>
+<li><a href="#paginationroutebasename">paginationRouteBasename</a></li>
 </ul>
 </li>
-<li>
-<a href="#practical-example">Practical example</a>
+<li><a href="#practical-example">Practical example</a>
 <ul>
-<li>
-<a href="#creating-our-posts-page">Creating our posts page</a>
-</li>
-<li>
-<a href="#setting-up-the-new-blade-components">Setting up the new Blade components</a>
-</li>
-<li>
-<a href="#creating-the-pagination-pages">Creating the pagination pages</a>
-</li>
-<li>
-<a href="#updating-the-listing-page-view">Updating the listing page view</a>
-</li>
-<li>
-<a href="#conclusion">Conclusion</a>
-</li>
+<li><a href="#creating-our-posts-page">Creating our posts page</a></li>
+<li><a href="#setting-up-the-new-blade-components">Setting up the new Blade components</a></li>
+<li><a href="#creating-the-pagination-pages">Creating the pagination pages</a></li>
+<li><a href="#updating-the-listing-page-view">Updating the listing page view</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -687,10 +633,8 @@ $paginator = new Paginator(
 <h3>Constructor options breakdown<a id="constructor-options-breakdown" href="#constructor-options-breakdown" class="heading-permalink" title="Permalink"></a></h3>
 <p>The first two are self-explanatory:</p>
 <ul>
-<li>
-<code>items</code> - The items to paginate. This can be a collection or an array.</li>
-<li>
-<code>pageSize</code> - How many items to show on each page.</li>
+<li><code>items</code> - The items to paginate. This can be a collection or an array.</li>
+<li><code>pageSize</code> - How many items to show on each page.</li>
 </ul>
 <p>The next may need some explanation:</p>
 <h4><code>currentPageNumber</code><a id="currentpagenumber" href="#currentpagenumber" class="heading-permalink" title="Permalink"></a></h4>

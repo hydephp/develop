@@ -141,69 +141,42 @@
 
                     <span class="sr-only">Table of contents</span>
             <ul class="table-of-contents">
-<li>
-<a href="#introduction">Introduction</a>
-</li>
-<li>
-<a href="#additional-information-and-answers-to-common-questions">Additional Information and Answers to Common Questions</a>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#additional-information-and-answers-to-common-questions">Additional Information and Answers to Common Questions</a>
 <ul>
-<li>
-<a href="#is-nodejsnpm-required-for-using-hyde">Is NodeJS/NPM Required for Using Hyde?</a>
-</li>
-<li>
-<a href="#when-should-assets-be-compiled">When Should Assets be Compiled?</a>
-</li>
+<li><a href="#is-nodejsnpm-required-for-using-hyde">Is NodeJS/NPM Required for Using Hyde?</a></li>
+<li><a href="#when-should-assets-be-compiled">When Should Assets be Compiled?</a></li>
 </ul>
 </li>
-<li>
-<a href="#how-are-assets-stored-and-managed">How are assets stored and managed?</a>
+<li><a href="#how-are-assets-stored-and-managed">How are assets stored and managed?</a>
 <ul>
-<li>
-<a href="#what-is-the-difference-between-media-and-sitemedia">What is the difference between _media and _site/media?</a>
-</li>
+<li><a href="#what-is-the-difference-between-media-and-sitemedia">What is the difference between _media and _site/media?</a></li>
 </ul>
 </li>
-<li>
-<a href="#how-do-i-compile-assets">How Do I Compile Assets?</a>
+<li><a href="#how-do-i-compile-assets">How Do I Compile Assets?</a>
 <ul>
-<li>
-<a href="#how-does-it-work">How does it work?</a>
-</li>
+<li><a href="#how-does-it-work">How does it work?</a></li>
 </ul>
 </li>
-<li>
-<a href="#telling-hyde-where-to-find-assets">Telling Hyde where to find assets</a>
+<li><a href="#telling-hyde-where-to-find-assets">Telling Hyde where to find assets</a>
 <ul>
-<li>
-<a href="#customizing-the-blade-templates">Customizing the Blade templates</a>
-</li>
-<li>
-<a href="#you-might-not-even-need-to-do-anything">You might not even need to do anything!</a>
+<li><a href="#customizing-the-blade-templates">Customizing the Blade templates</a></li>
+<li><a href="#you-might-not-even-need-to-do-anything">You might not even need to do anything!</a>
 <ul>
-<li>
-<a href="#loading-from-cdn">Loading from CDN</a>
-</li>
+<li><a href="#loading-from-cdn">Loading from CDN</a></li>
 </ul>
 </li>
-<li>
-<a href="#using-the-tailwindcss-play-cdn">Using the TailwindCSS Play CDN</a>
-</li>
+<li><a href="#using-the-tailwindcss-play-cdn">Using the TailwindCSS Play CDN</a></li>
 </ul>
 </li>
-<li>
-<a href="#managing-images">Managing Images</a>
+<li><a href="#managing-images">Managing Images</a>
 <ul>
-<li>
-<a href="#referencing-images">Referencing images</a>
+<li><a href="#referencing-images">Referencing images</a>
 <ul>
-<li>
-<a href="#making-images-accessible">Making images accessible</a>
-</li>
+<li><a href="#making-images-accessible">Making images accessible</a></li>
 </ul>
 </li>
-<li>
-<a href="#setting-a-featured-image-for-blog-posts">Setting a featured image for blog posts</a>
-</li>
+<li><a href="#setting-a-featured-image-for-blog-posts">Setting a featured image for blog posts</a></li>
 </ul>
 </li>
 </ul>
@@ -510,10 +483,8 @@ You can also run <code>npm run watch</code> to watch for changes in the source f
 <h3>Customizing the Blade templates<a id="customizing-the-blade-templates" href="#customizing-the-blade-templates" class="heading-permalink" title="Permalink"></a></h3>
 <p>To make it really easy to customize asset loading, the styles and scripts are loaded in dedicated Blade components.</p>
 <ul>
-<li>Styles are loaded in <code>hyde::layouts.styles</code>
-</li>
-<li>Scripts are loaded in <code>hyde::layouts.scripts</code>
-</li>
+<li>Styles are loaded in <code>hyde::layouts.styles</code></li>
+<li>Scripts are loaded in <code>hyde::layouts.scripts</code></li>
 </ul>
 <p>To customize them, run the following command:</p>
 <pre><code class="language-bash">php hyde publish:views layouts
@@ -540,12 +511,9 @@ allowing you to browse the site both locally on your filesystem and on the web w
 <blockquote class="warning"><p>Note: The path is relative to the <b>compiled</b> file in the site output</p></blockquote>
 <p>The path to use depends on the location of the page. Note the subtle difference in the path prefix.</p>
 <ul>
-<li>If you are in a <strong>Blog Post or Documentation Page</strong>, use <code>../media/image.png</code>
-</li>
-<li>If in a <strong>Markdown Page or Blade Page</strong>, use <code>media/image.png</code>
-</li>
-<li>While not recommended, you can also use absolute paths: <code>/media/image.png</code>
-</li>
+<li>If you are in a <strong>Blog Post or Documentation Page</strong>, use <code>../media/image.png</code></li>
+<li>If in a <strong>Markdown Page or Blade Page</strong>, use <code>media/image.png</code></li>
+<li>While not recommended, you can also use absolute paths: <code>/media/image.png</code></li>
 <li>You can of course also use full URLs, for example when using a CDN.</li>
 </ul>
 <h4>Making images accessible<a id="making-images-accessible" href="#making-images-accessible" class="heading-permalink" title="Permalink"></a></h4>
