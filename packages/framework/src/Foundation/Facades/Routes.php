@@ -24,28 +24,46 @@ class Routes extends Facade
         return HydeKernel::getInstance()->routes();
     }
 
+    /**
+     * Check if a route exists by its route key.
+     */
     public static function exists(string $routeKey): bool
     {
         return static::getFacadeRoot()->has($routeKey);
     }
 
-    public static function get(string $routeKey): ?Route
+    /**
+     * Try to get a route by its route key. If it doesn't exist, null is returned.
+     */
+    public static function find(string $routeKey): ?Route
     {
         return static::getFacadeRoot()->get($routeKey);
     }
 
-    /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
-    public static function getOrFail(string $routeKey): Route
+    /**
+     * Get a route by its route key. If it doesn't exist, an exception is thrown.
+     *
+     * @throws \Hyde\Framework\Exceptions\RouteNotFoundException
+     */
+    public static function get(string $routeKey): Route
     {
         return static::getFacadeRoot()->getRoute($routeKey);
     }
 
+    /**
+     * Get all the routes for the site as a collection of route instances, keyed by route key.
+     *
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     */
     public static function all(): RouteCollection
     {
         return static::getFacadeRoot()->getRoutes();
     }
 
-    /** Get the current route for the page being rendered. */
+    /**
+     * Get the route instance for the page currently being rendered.
+     * If a render is not in progress, this will return null.
+     */
     public static function current(): ?Route
     {
         return Hyde::currentRoute();

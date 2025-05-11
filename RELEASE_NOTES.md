@@ -121,6 +121,10 @@ This serves two purposes:
 - Markdown headings are now compiled using our custom Blade-based heading renderer in https://github.com/hydephp/develop/pull/2047
     - The `id` attributes for heading permalinks have been moved from the anchor to the heading element in https://github.com/hydephp/develop/pull/2052
 - Colored Markdown blockquotes are now rendered using Blade and TailwindCSS, this change is not visible in the rendered result, but the HTML output has changed in https://github.com/hydephp/develop/pull/2056
+- **Improved Routes facade API with more intuitive method names** in https://github.com/hydephp/develop/pull/2179
+    - **Breaking:** Renamed `Routes::get()` to `Routes::find()` to better indicate it may return null
+    - **Breaking:** Renamed `Routes::getOrFail()` to `Routes::get()` to make the exception-throwing behavior the default and match Laravel conventions
+    - This change requires code updates if you were using these methods - see upgrade guide below
 
 ### Deprecated
 
@@ -535,6 +539,33 @@ Hyperlinks::isRemote($source);
 ```
 
 This change was implemented in https://github.com/hydephp/develop/pull/1883. Make sure to update any instances of `FeaturedImage::isRemote()` in your codebase to ensure compatibility with HydePHP v2.0.
+
+### Routes facade API changes
+
+The Routes facade API has been improved to better follow Laravel naming conventions and make the API more intuitive. This change affects code that directly uses the Routes facade methods.
+
+#### Changes
+
+- The `Routes::get()` method has been renamed to `Routes::find()` to better indicate that it may return null if a route is not found
+- The `Routes::getOrFail()` method has been renamed to `Routes::get()` to make the exception-throwing behavior the default, matching Laravel conventions
+
+#### Upgrade guide
+
+If you have used the Routes facade in your custom code, update it as follows:
+
+```php
+// Old code:
+$route = Routes::get('some-route'); // Returns null if not found
+$route = Routes::getOrFail('some-route'); // Throws exception if not found
+
+// New code:
+$route = Routes::find('some-route'); // Returns null if not found
+$route = Routes::get('some-route'); // Throws exception if not found
+```
+
+This change provides more intuitive method names and better type safety, with `find()` returning `?Route` and `get()` returning `Route`.
+
+This change was implemented in https://github.com/hydephp/develop/pull/2179.
 
 ## New Asset System
 

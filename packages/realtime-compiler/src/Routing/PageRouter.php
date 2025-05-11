@@ -82,9 +82,9 @@ class PageRouter
     protected function getPageFromRoute(): HydePage
     {
         try {
-            return Routes::getOrFail($this->normalizePath($this->request->path))->getPage();
+            return Routes::get($this->normalizePath($this->request->path))->getPage();
         } catch (RouteNotFoundException $exception) {
-            $index = Routes::get($this->normalizePath($this->request->path).'/index');
+            $index = Routes::find($this->normalizePath($this->request->path).'/index');
 
             if ($index) {
                 return $index->getPage();
