@@ -391,4 +391,60 @@ class StaticSiteServiceTest extends TestCase
 
         File::deleteDirectory(Hyde::path('_site/build'));
     }
+
+    public function testAppCssIsTransferredWhenLoadAppStylesFromCdnIsFalse()
+    {
+        config(['hyde.load_app_styles_from_cdn' => false]);
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/media/app.css'));
+        $this->assertFileEquals(Hyde::path('_media/app.css'), Hyde::path('_site/media/app.css'));
+    }
+
+    public function testAppCssIsNotTransferredWhenLoadAppStylesFromCdnIsTrue()
+    {
+        config(['hyde.load_app_styles_from_cdn' => true]);
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/app.css'));
+    }
+
+    public function testOtherAssetsAreTransferredWhenLoadAppStylesFromCdnIsTrue()
+    {
+        config(['hyde.load_app_styles_from_cdn' => true]);
+        $this->file('_media/image.png', 'fake image data');
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/app.css'));
+        $this->assertFileExists(Hyde::path('_site/media/image.png'));
+        $this->assertFileEquals(Hyde::path('_media/image.png'), Hyde::path('_site/media/image.png'));
+    }
+
+    public function testSkipMessageWhenOnlyAppCssExistsAndLoadAppStylesFromCdnIsTrue()
+    {
+        config(['hyde.load_app_styles_from_cdn' => true]);
+
+        $this->artisan('build')
+            ->expectsOutputToContain('Transferring Media Assets... ')
+            ->expectsOutputToContain('Skipped')
+            ->expectsOutputToContain('> No media files to transfer.')
+            ->assertExitCode(0);
+    }
+
+    public function testNormalTransferWhenMultipleAssetsExistAndLoadAppStylesFromCdnIsTrue()
+    {
+        config(['hyde.load_app_styles_from_cdn' => true]);
+        $this->file('_media/image.png', 'fake image data');
+
+        $this->artisan('build')
+            ->expectsOutputToContain('Transferring Media Assets...')
+            ->doesntExpectOutputToContain('Skipped')
+            ->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/app.css'));
+        $this->assertFileExists(Hyde::path('_site/media/image.png'));
+    }
 }

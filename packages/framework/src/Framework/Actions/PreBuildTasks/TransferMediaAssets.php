@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PreBuildTasks;
 
+use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
@@ -19,11 +20,17 @@ class TransferMediaAssets extends PreBuildTask
     {
         $this->newLine();
 
-        if (MediaFile::all()->isEmpty()) {
+        $files = MediaFile::all();
+
+        if (Config::getBool('hyde.load_app_styles_from_cdn', false)) {
+            $files->forget('app.css');
+        }
+
+        if ($files->isEmpty()) {
             $this->skip("No media files to transfer.\n");
         }
 
-        $this->withProgressBar(MediaFile::all(), function (MediaFile $file): void {
+        $this->withProgressBar($files, function (MediaFile $file): void {
             $sitePath = $file->getOutputPath();
             $this->needsParentDirectory($sitePath);
             Filesystem::putContents($sitePath, $file->getContents());
