@@ -35,7 +35,7 @@ class Routes extends Facade
     }
 
     /** @throws \Hyde\Framework\Exceptions\RouteNotFoundException */
-    public static function getOrFail(string $routeKey): Route
+    public static function get(string $routeKey): Route
     {
         return static::getFacadeRoot()->getRoute($routeKey);
     }

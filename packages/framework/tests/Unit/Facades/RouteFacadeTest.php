@@ -29,7 +29,7 @@ class RouteFacadeTest extends UnitTestCase
     {
         $this->expectException(RouteNotFoundException::class);
 
-        Routes::getOrFail('not-found');
+        Routes::get('not-found');
     }
 
     public function testGetReturnsRouteFromRouterIndex()

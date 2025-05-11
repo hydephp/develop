@@ -296,7 +296,7 @@ class DashboardController extends BaseController
     protected function openPageInEditor(): void
     {
         $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
-        $page = Routes::getOrFail($routeKey)->getPage();
+        $page = Routes::get($routeKey)->getPage();
 
         $binary = $this->findGeneralOpenBinary();
         $path = Hyde::path($page->getSourcePath());
