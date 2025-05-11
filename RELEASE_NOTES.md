@@ -162,6 +162,7 @@ This serves two purposes:
 
 - Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
 - The `app.js` file will now only be compiled if it has scripts in https://github.com/hydephp/develop/pull/2028
+- The `app.css` file will no longer be copied to the media output directory when app styles are configured to be loaded from a CDN in https://github.com/hydephp/develop/pull/2180
 
 ### Security
 
