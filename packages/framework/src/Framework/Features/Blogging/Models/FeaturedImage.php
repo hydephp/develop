@@ -9,17 +9,13 @@ use Stringable;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\BuildWarnings;
-use JetBrains\PhpStorm\Deprecated;
 use Illuminate\Support\Facades\Http;
 use Hyde\Foundation\Kernel\Hyperlinks;
-use Hyde\Framework\Exceptions\FileNotFoundException;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\FeaturedImageSchema;
 
 use function array_key_exists;
 use function array_flip;
-use function file_exists;
-use function filesize;
-use function sprintf;
 use function key;
 
 /**
@@ -62,7 +58,8 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         protected readonly ?string $authorUrl = null,
         protected readonly ?string $licenseName = null,
         protected readonly ?string $licenseUrl = null,
-        protected readonly ?string $copyrightText = null
+        protected readonly ?string $copyrightText = null,
+        protected readonly ?string $caption = null
     ) {
         $this->type = Hyperlinks::isRemote($source) ? self::TYPE_REMOTE : self::TYPE_LOCAL;
         $this->source = $this->setSource($source);
@@ -83,7 +80,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     {
         if ($this->type === self::TYPE_LOCAL) {
             // Return value is always resolvable from a compiled page in the _site directory.
-            return Hyde::mediaLink($this->source);
+            return (string) Hyde::asset($this->source);
         }
 
         return $this->source;
@@ -131,6 +128,10 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
             $metadata['name'] = $this->getTitleText();
         }
 
+        if ($this->hasCaption()) {
+            $metadata['caption'] = $this->getCaption();
+        }
+
         $metadata['url'] = $this->getSource();
         $metadata['contentUrl'] = $this->getSource();
 
@@ -139,7 +140,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     public function getAltText(): ?string
     {
-        return $this->altText;
+        return $this->altText ?? $this->caption;
     }
 
     public function getTitleText(): ?string
@@ -170,6 +171,11 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
     public function getLicenseUrl(): ?string
     {
         return $this->licenseUrl;
+    }
+
+    public function getCaption(): ?string
+    {
+        return $this->caption;
     }
 
     public function hasAltText(): bool
@@ -207,6 +213,11 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         return $this->has('licenseUrl');
     }
 
+    public function hasCaption(): bool
+    {
+        return $this->has('caption');
+    }
+
     protected function has(string $property): bool
     {
         return $this->$property !== null;
@@ -214,13 +225,7 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
 
     protected function getContentLengthForLocalImage(): int
     {
-        $storagePath = Hyde::mediaPath($this->source);
-
-        if (! file_exists($storagePath)) {
-            throw new FileNotFoundException(customMessage: sprintf('Featured image [%s] not found.', Hyde::pathToRelative($storagePath)));
-        }
-
-        return filesize($storagePath);
+        return MediaFile::get($this->source)->getLength();
     }
 
     protected function getContentLengthForRemoteImage(): int
@@ -240,16 +245,5 @@ class FeaturedImage implements Stringable, FeaturedImageSchema
         }
 
         return 0;
-    }
-
-    /**
-     * @codeCoverageIgnore Deprecated method.
-     *
-     * @deprecated This method will be removed in v2.0. Please use `Hyperlinks::isRemote` instead.
-     */
-    #[Deprecated(reason: 'Replaced by the \Hyde\Foundation\Kernel\Hyperlinks::isRemote method', replacement: '\Hyde\Foundation\Kernel\Hyperlinks::isRemote(%parametersList%)', since: '1.8.0')]
-    public static function isRemote(string $source): bool
-    {
-        return Hyperlinks::isRemote($source);
     }
 }

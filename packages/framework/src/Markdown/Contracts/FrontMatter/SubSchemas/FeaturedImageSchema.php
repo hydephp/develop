@@ -14,8 +14,10 @@ interface FeaturedImageSchema extends BlogPostSchema
 {
     public const FEATURED_IMAGE_SCHEMA = [
         'source' => 'string', // Name of a file in _media/ or a remote URL (required)
-        'altText' => 'string', // The alt text (important for accessibility) // todo: Support alt, description
-        'titleText' => 'string', // The title text (hover tooltip & metadata) // todo: Support title, caption
+        'altText' => 'string', // The alt text (important for accessibility)
+        'alt' => 'string',     // Alternative to altText (simplified schema)
+        'titleText' => 'string', // The title text (hover tooltip & metadata)
+        'caption' => 'string', // The caption text (simplified schema)
         'licenseName' => 'string', // The name of the license (e.g. "CC BY 4.0")
         'licenseUrl' => 'string', // The URL of the license (e.g. "https://creativecommons.org/licenses/by/4.0/")
         'authorName' => 'string', // The name of the author/photographer of the image (e.g. "John Doe", Wikimedia Commons)

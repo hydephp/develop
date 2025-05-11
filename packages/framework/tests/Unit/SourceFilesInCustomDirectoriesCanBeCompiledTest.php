@@ -78,7 +78,9 @@ class SourceFilesInCustomDirectoriesCanBeCompiledTest extends TestCase
         Filesystem::touch('testSourceDir/blade/test.blade.php');
 
         BladePage::setSourceDirectory('testSourceDir/blade');
-        Config::set('view.paths', ['testSourceDir/blade']);
+
+        Config::set('view.paths', [Hyde::path('testSourceDir/blade')]);
+        app('view')->addLocation(Hyde::path('testSourceDir/blade'));
 
         StaticPageBuilder::handle(BladePage::parse('test'));
 

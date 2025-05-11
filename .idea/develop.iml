@@ -13,6 +13,10 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/hyde/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/testing/src" isTestSource="false" packagePrefix="Hyde\Testing\" />
       <sourceFolder url="file://$MODULE_DIR$/packages/ui-kit/src" isTestSource="false" packagePrefix="Hyde\UIKit\" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/framework/tests/Unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/hyde/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/publications/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hyde/framework" />
       <excludeFolder url="file://$MODULE_DIR$/packages/realtime-compiler/vendor/hyde" />
@@ -63,6 +67,25 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psalm/plugin-laravel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/routing" />
       <excludeFolder url="file://$MODULE_DIR$/monorepo/scripts/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/dns" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/parallel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/pipeline" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/process" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/serialization" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/socket" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/sync" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/daverandom/libdns" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/hydephp/torchlight-commonmark" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kelunik/certificate" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/serializable-closure" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/uri" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/uri-interfaces" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/orchestra/sidekick" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/revolt/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php84" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

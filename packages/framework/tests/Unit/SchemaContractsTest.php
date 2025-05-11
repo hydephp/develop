@@ -61,12 +61,17 @@ class SchemaContractsTest extends UnitTestCase
             'name' => 'string',
             'username' => 'string',
             'website' => 'string',
+            'bio' => 'string',
+            'avatar' => 'string',
+            'socials' => 'array<string, string>',
         ], AuthorSchema::AUTHOR_SCHEMA);
 
         $this->assertSame([
             'source' => 'string',
             'altText' => 'string',
+            'alt' => 'string',
             'titleText' => 'string',
+            'caption' => 'string',
             'licenseName' => 'string',
             'licenseUrl' => 'string',
             'authorName' => 'string',

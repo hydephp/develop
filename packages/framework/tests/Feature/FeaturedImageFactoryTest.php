@@ -16,6 +16,15 @@ use RuntimeException;
  */
 class FeaturedImageFactoryTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.cache_busting' => false]);
+
+        $this->file('_media/foo');
+    }
+
     public function testWithDataFromSchema()
     {
         $array = [
@@ -38,6 +47,7 @@ class FeaturedImageFactoryTest extends TestCase
             'copyrightText' => 'copyright',
             'licenseName' => 'license',
             'licenseUrl' => 'licenseUrl',
+            'caption' => null,
         ];
 
         $factory = new FeaturedImageFactory(new FrontMatter($array));
@@ -98,6 +108,8 @@ class FeaturedImageFactoryTest extends TestCase
     {
         Hyde::setMediaDirectory('_assets');
 
+        $this->file('_assets/foo');
+
         $this->assertSourceIsSame('assets/foo', ['image' => 'foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => '_assets/foo']);
@@ -111,6 +123,8 @@ class FeaturedImageFactoryTest extends TestCase
     {
         Hyde::setMediaDirectory('assets');
 
+        $this->file('assets/foo');
+
         $this->assertSourceIsSame('assets/foo', ['image' => 'foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
         $this->assertSourceIsSame('assets/foo', ['image' => 'assets/foo']);
@@ -118,6 +132,56 @@ class FeaturedImageFactoryTest extends TestCase
         $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'foo']]);
         $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
         $this->assertSourceIsSame('assets/foo', ['image' => ['source' => 'assets/foo']]);
+    }
+
+    public function testImagePathsWithCacheBusting()
+    {
+        config(['hyde.cache_busting' => true]);
+
+        $this->assertSourceIsSame('media/foo?v=00000000', ['image' => 'foo']);
+        $this->assertSourceIsSame('media/foo?v=00000000', ['image' => 'media/foo']);
+        $this->assertSourceIsSame('media/foo?v=00000000', ['image' => '_media/foo']);
+
+        $this->assertSourceIsSame('media/foo?v=00000000', ['image' => ['source' => 'foo']]);
+        $this->assertSourceIsSame('media/foo?v=00000000', ['image' => ['source' => 'media/foo']]);
+        $this->assertSourceIsSame('media/foo?v=00000000', ['image' => ['source' => '_media/foo']]);
+    }
+
+    public function testSupportsSimplifiedImageSchema()
+    {
+        $array = [
+            'image' => [
+                'source' => 'source',
+                'alt' => 'Alternative text',
+                'caption' => 'Static website from GitHub Readme',
+            ],
+        ];
+
+        $factory = new FeaturedImageFactory(new FrontMatter($array));
+        $image = FeaturedImageFactory::make(new FrontMatter($array));
+
+        $this->assertSame('source', $factory->toArray()['source']);
+        $this->assertSame('Alternative text', $factory->toArray()['altText']);
+        $this->assertSame('Static website from GitHub Readme', $factory->toArray()['caption']);
+
+        $this->assertSame('Alternative text', $image->getAltText());
+        $this->assertSame('Static website from GitHub Readme', $image->getCaption());
+    }
+
+    public function testFallsBackToCaptionWhenAltIsMissing()
+    {
+        $array = [
+            'image' => [
+                'source' => 'source',
+                'caption' => 'This caption should be used as alt text',
+            ],
+        ];
+
+        $image = FeaturedImageFactory::make(new FrontMatter($array));
+
+        $this->assertFalse($image->hasAltText());
+        $this->assertSame('This caption should be used as alt text', $image->getAltText());
+        $this->assertSame('This caption should be used as alt text', $image->getCaption());
     }
 
     protected function makeFromArray(array $matter): FeaturedImage
