@@ -25,7 +25,9 @@ php hyde route:list
 
 Each route in your site is represented by a Route object. It's very easy to get a Route object instance from the Router's index.
 There are a few ways to do this, but most commonly you'll use the Routes facade's `get()` method where you provide a route key,
-and it will return the Route object. The route key is generally `<page-output-directory/page-identifier>`. Here are some examples:
+and it will return the Route object. If the route doesn't exist, an exception will be thrown. You can use `Routes::exists()` to check if a route exists before trying to retrieve it. 
+
+The route key is generally `<page-output-directory/page-identifier>`. Here are some examples:
 
 ```php
 // Source file: _pages/index.md/index.blade.php
@@ -54,11 +56,11 @@ You can of course use it just like a normal anchor tag like so:
 But where it really shines is when you supply a route. This will then resolve the proper relative link, and format it to use pretty URLs if your site is configured to use them.
 
 ```blade
-<x-link :href="Routes::get('index')">Home</x-link>
+<x-link :href="Routes::exists('index') ? Routes::get('index') : '/'">Home</x-link>
 ```
 
 You can of course, also supply extra attributes like classes:
 
 ```blade
-<x-link :href="Routes::get('index')" class="btn btn-primary">Home</x-link>
+<x-link :href="Routes::exists('index') ? Routes::get('index') : '/'" class="btn btn-primary">Home</x-link>
 ```

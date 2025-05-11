@@ -34,7 +34,7 @@ discovery process and stores the discovered data in memory.
 
 Usually, you will interact with the collection data through intermediaries.
 * For example, if you call `MarkdownPost::get('my-post')`, Hyde will retrieve that page from the page collection.
-* If you call `Routes::get('index')`, Hyde will retrieve that route from the route collection.
+* If you call `Routes::get('index')`, Hyde will retrieve that route from the route collection. If the route doesn't exist, an exception will be thrown. You can use `Routes::exists('index')` to check if a route exists before trying to retrieve it.
 
 ## The HydeKernel
 

@@ -309,7 +309,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRoute(): Route
     {
-        return Routes::get($this->getRouteKey()) ?? new Route($this);
+        return Routes::exists($this->getRouteKey()) ? Routes::get($this->getRouteKey()) : new Route($this);
     }
 
     /**

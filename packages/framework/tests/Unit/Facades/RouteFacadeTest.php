@@ -9,7 +9,6 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
@@ -26,11 +25,11 @@ class RouteFacadeTest extends UnitTestCase
         $this->assertSame(Hyde::routes(), Routes::all());
     }
 
-    public function testGetOrFailThrowsExceptionIfRouteIsNotFound()
+    public function testGetThrowsExceptionIfRouteIsNotFound()
     {
         $this->expectException(RouteNotFoundException::class);
 
-        Routes::getOrFail('not-found');
+        Routes::get('not-found');
     }
 
     public function testGetReturnsRouteFromRouterIndex()
@@ -41,11 +40,6 @@ class RouteFacadeTest extends UnitTestCase
     public function testGetReturnsRouteFromRouterIndexForTheRightPage()
     {
         $this->assertEquals(new Route(BladePage::parse('index')), Routes::get('index'));
-    }
-
-    public function testGetFromReturnsNullIfRouteIsNotFound()
-    {
-        $this->assertNull(Routes::get('not-found'));
     }
 
     public function testCurrentReturnsCurrentRoute()

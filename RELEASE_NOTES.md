@@ -121,6 +121,7 @@ This serves two purposes:
 - Markdown headings are now compiled using our custom Blade-based heading renderer in https://github.com/hydephp/develop/pull/2047
     - The `id` attributes for heading permalinks have been moved from the anchor to the heading element in https://github.com/hydephp/develop/pull/2052
 - Colored Markdown blockquotes are now rendered using Blade and TailwindCSS, this change is not visible in the rendered result, but the HTML output has changed in https://github.com/hydephp/develop/pull/2056
+- **Breaking:** The Routes facade's API has been simplified by merging the `get()` and `getOrFail()` methods into a single `get()` method that always throws a `RouteNotFoundException` when a route doesn't exist in https://github.com/hydephp/develop/pull/1743.
 
 ### Deprecated
 
@@ -686,3 +687,37 @@ navigation:
 ```
 
 These changes provide more flexibility and control over your site's navigation structure. Make sure to update your configuration files and any custom code that interacts with navigation items to align with these new formats and features.
+
+### Routes facade API changes
+
+The Routes facade's API has been simplified by merging the `get()` and `getOrFail()` methods into a single `get()` method that always throws a `RouteNotFoundException` when a route doesn't exist.
+
+#### Instead of:
+```php
+// Try to get a route, returns null if not found
+$route = Routes::get('some-route');
+if ($route !== null) {
+    // Use the route
+}
+
+// Get a route or throw an exception
+$route = Routes::getOrFail('some-route');
+```
+
+#### Use instead:
+```php
+// Check if a route exists first
+if (Routes::exists('some-route')) {
+    // Get the route (will never be null)
+    $route = Routes::get('some-route');
+}
+
+// Or handle the exception
+try {
+    $route = Routes::get('some-route');
+} catch (RouteNotFoundException $e) {
+    // Handle the exception
+}
+```
+
+This change makes the API more predictable and better aligned with Laravel's conventions.

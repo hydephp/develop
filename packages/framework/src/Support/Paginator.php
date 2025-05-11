@@ -85,7 +85,10 @@ class Paginator
 
         if (isset($this->routeBasename)) {
             foreach ($pageRange as $number) {
-                $array[$number] = Routes::get("$this->routeBasename/page-$number") ?? Hyde::formatLink("$this->routeBasename/page-$number");
+                $routeKey = "$this->routeBasename/page-$number";
+                $array[$number] = Routes::exists($routeKey)
+                    ? Routes::get($routeKey)
+                    : Hyde::formatLink("$this->routeBasename/page-$number");
             }
         } else {
             foreach ($pageRange as $number) {
@@ -204,7 +207,11 @@ class Paginator
 
     protected function getRoute(int $offset): Route|string
     {
-        return Routes::get("$this->routeBasename/{$this->formatPageName($offset)}") ?? Hyde::formatLink("$this->routeBasename/{$this->formatPageName($offset)}");
+        $routeKey = "$this->routeBasename/{$this->formatPageName($offset)}";
+
+        return Routes::exists($routeKey)
+            ? Routes::get($routeKey)
+            : Hyde::formatLink("$this->routeBasename/{$this->formatPageName($offset)}");
     }
 
     protected function firstPage(): int

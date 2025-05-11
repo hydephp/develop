@@ -257,6 +257,30 @@ class PaginatorTest extends TestCase
         ], $paginator->getPageLinks());
     }
 
+    public function testGetPageLinksWithBaseRouteWithMixedExistentAndNonExistentRoutes()
+    {
+        // Register only the first two pages in the Routes
+        $pages[1] = new InMemoryPage('articles/page-1');
+        $pages[2] = new InMemoryPage('articles/page-2');
+
+        foreach ($pages as $page) {
+            Hyde::routes()->put($page->getRouteKey(), $page->getRoute());
+        }
+
+        // Create a paginator with 5 items, using 'articles' as the route basename
+        $paginator = new Paginator(range(1, 50), 10, paginationRouteBasename: 'articles');
+
+        $expected = [
+            1 => $pages[1]->getRoute(),
+            2 => $pages[2]->getRoute(),
+            3 => Hyde::formatLink('articles/page-3'),
+            4 => Hyde::formatLink('articles/page-4'),
+            5 => Hyde::formatLink('articles/page-5'),
+        ];
+
+        $this->assertSame($expected, $paginator->getPageLinks());
+    }
+
     public function testFirstItemNumberOnPage()
     {
         $paginator = $this->makePaginator();

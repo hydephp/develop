@@ -31,7 +31,7 @@ class BreadcrumbsComponent extends Component
     protected function makeBreadcrumbs(): array
     {
         $identifier = Hyde::currentRoute()->getPage()->getIdentifier();
-        $breadcrumbs = [(Routes::get('index')?->getLink() ?? '/') => 'Home'];
+        $breadcrumbs = [(Routes::exists('index') ? Routes::get('index')->getLink() : '/') => 'Home'];
 
         if ($identifier === 'index') {
             return $breadcrumbs;

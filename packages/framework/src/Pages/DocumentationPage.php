@@ -30,7 +30,9 @@ class DocumentationPage extends BaseMarkdownPage
 
     public static function home(): ?Route
     {
-        return Routes::get(static::homeRouteName());
+        return Routes::exists(static::homeRouteName())
+            ? Routes::get(static::homeRouteName())
+            : null;
     }
 
     public static function homeRouteName(): string
