@@ -240,6 +240,9 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 
     protected function removeIndentation(string $actual): string
     {
-        return implode("\n", array_map('trim', explode("\n", $actual)));
+        $normalized = implode("\n", array_map('trim', explode("\n", $actual)));
+        $normalized = preg_replace('/>\s*</', '><', $normalized);
+
+        return $normalized;
     }
 }
