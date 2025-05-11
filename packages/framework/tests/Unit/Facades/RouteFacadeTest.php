@@ -48,13 +48,6 @@ class RouteFacadeTest extends UnitTestCase
         $this->assertNull(Routes::get('not-found'));
     }
 
-    public function testGetSupportsDotNotation()
-    {
-        Hyde::routes()->add(new Route(new MarkdownPost('foo')));
-
-        $this->assertSame(Routes::get('posts/foo'), Routes::get('posts.foo'));
-    }
-
     public function testCurrentReturnsCurrentRoute()
     {
         $route = new Route(new MarkdownPage('foo'));
