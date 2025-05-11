@@ -22,7 +22,7 @@ class TransferMediaAssets extends PreBuildTask
 
         $files = MediaFile::all();
 
-        if (Config::getBool('hyde.load_app_styles_from_cdn')) {
+        if (Config::getBool('hyde.load_app_styles_from_cdn', false)) {
             $files->forget('app.css');
         }
 
