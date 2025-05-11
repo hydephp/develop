@@ -90,6 +90,11 @@ abstract class BuildTask
         $this->output?->writeln($message);
     }
 
+    public function newLine(int $count = 1): void
+    {
+        $this->output?->newLine($count);
+    }
+
     /**
      * Write a fluent message to the output that the task is skipping and halt the execution.
      *
