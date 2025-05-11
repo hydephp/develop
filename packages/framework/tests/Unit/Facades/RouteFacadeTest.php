@@ -9,7 +9,6 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
