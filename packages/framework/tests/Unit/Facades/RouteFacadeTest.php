@@ -44,7 +44,7 @@ class RouteFacadeTest extends UnitTestCase
 
     public function testGetFromReturnsNullIfRouteIsNotFound()
     {
-        $this->assertNull(Routes::get('not-found'));
+        $this->assertNull(Routes::find('not-found'));
     }
 
     public function testCurrentReturnsCurrentRoute()

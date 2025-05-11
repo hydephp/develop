@@ -29,7 +29,7 @@ class Routes extends Facade
         return static::getFacadeRoot()->has($routeKey);
     }
 
-    public static function get(string $routeKey): ?Route
+    public static function find(string $routeKey): ?Route
     {
         return static::getFacadeRoot()->get($routeKey);
     }
