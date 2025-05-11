@@ -20,15 +20,17 @@ class TransferMediaAssets extends PreBuildTask
     {
         $this->newLine();
 
-        if (MediaFile::all()->isEmpty()) {
+        $files = MediaFile::all();
+
+        if (Config::getBool('hyde.load_app_styles_from_cdn')) {
+            $files->forget('app.css');
+        }
+
+        if ($files->isEmpty()) {
             $this->skip("No media files to transfer.\n");
         }
 
-        if (Config::getBool('hyde.load_app_styles_from_cdn') && MediaFile::files() === ['app.css']) {
-            $this->skip("No media files to transfer, using CDN.\n");
-        }
-
-        $this->withProgressBar(MediaFile::all(), function (MediaFile $file): void {
+        $this->withProgressBar($files, function (MediaFile $file): void {
             $sitePath = $file->getOutputPath();
             $this->needsParentDirectory($sitePath);
             Filesystem::putContents($sitePath, $file->getContents());
