@@ -38,6 +38,13 @@ You may also want to make sure that your feature abides by the goals of HydePHP 
 
 When thinking about a new feature, make sure it's intuitive and easy to understand without having to refer to the docs all the time. The most intuitive workflow is often the best one. If a feature requires much explanation to be used and understood, it might need to be simplified.
 
+## Which Branch?
+
+All bug fixes should be sent to the latest version that supports bug fixes (currently 1.x). Bug fixes should never be sent to the master branch unless they fix features that exist only in the upcoming release.
+
+Minor features that are fully backward compatible with the current release may be sent to the latest stable branch (currently 1.x).
+
+Major new features or features with breaking changes should always be sent to the master branch, which contains the upcoming release.
 
 ## Procedure
 
