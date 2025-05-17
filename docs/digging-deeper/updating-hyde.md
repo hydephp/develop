@@ -47,7 +47,7 @@ following the upgrade guide for each version. After following the upgrade guide,
 Updating a minor or patch version is easy using Composer. Just run the following command:
 
 ```bash
-composer update hyde/* --with-dependencies
+composer update "hyde/*" --with-dependencies
 ```
 
 Note that if you have hardcoded a version constraint in your `composer.json` file, you may need to update it manually.
