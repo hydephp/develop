@@ -11,162 +11,131 @@ This serves two purposes:
 
 ### Added
 
-- Added support for PHP 8.4 in https://github.com/hydephp/develop/pull/2141
-- Added a new Hyde Vite plugin in https://github.com/hydephp/develop/pull/2160
-- You can now specify sidebar item priorities by adding a numeric prefix to doc umentation page source file names in https://github.com/hydephp/develop/pull/1709
-- Added support for resolving dynamic links to source files in Markdown documents in https://github.com/hydephp/develop/pull/1590
-- Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task handle media assets transfers for site builds.
-- Added a new `\Hyde\Framework\Exceptions\ParseException` exception class to handle parsing exceptions in data collection files in https://github.com/hydephp/develop/pull/1732
-- Added a new `\Hyde\Framework\Exceptions\InvalidConfigurationException` exception class to handle invalid configuration exceptions in https://github.com/hydephp/develop/pull/1799
-- The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API.
-- Added support for setting `booting()` and `booted()` callbacks in `HydeExtension` classes, allowing extension developers to hook into the kernel boot process more easily in https://github.com/hydephp/develop/pull/1847
-- Added support for setting custom navigation items in the YAML configuration in https://github.com/hydephp/develop/pull/1818
-- Added support for setting extra attributes for navigation items in https://github.com/hydephp/develop/pull/1824
-- Added support for setting the blog post publishing date as a prefix in the source file name in https://github.com/hydephp/develop/pull/2000
-- Introduced a new navigation config builder class to simplify navigation configuration in https://github.com/hydephp/develop/pull/1827
-- You can now add custom posts to the blog post feed component when including it directly in https://github.com/hydephp/develop/pull/1893
-- Added a `Feature::fromName()` enum helper in https://github.com/hydephp/develop/pull/1895
-- Added environment variable support for saving previews in https://github.com/hydephp/develop/pull/1996
-- Added support for specifying features in the YAML configuration in https://github.com/hydephp/develop/pull/1896
-- Added Vite as a build tool in https://github.com/hydephp/develop/pull/2010
-- **Added a new consolidated Asset API to better handle media files.**
-    - Added several new fluent methods to the `MediaFile` class, like `getLink()`, `getLength()`, `getMimeType()`, etc.
-    - Added new `HydeFront` facade to handle CDN links and Tailwind config injection.
-    - Added method `Asset::exists()` has to check if a media file exists.
-    - Added a `Hyde::assets()` method to get all media file instances in the site.
-- Added new `npm run build` command for compiling frontend assets with Vite
-- Added a Vite HMR support for the realtime compiler in https://github.com/hydephp/develop/pull/2016
-- Added Vite facade in https://github.com/hydephp/develop/pull/2016
-- Added a custom Blade-based heading renderer for Markdown conversions in https://github.com/hydephp/develop/pull/2047
-- The `publish:views` command is now interactive for Unix-like systems in https://github.com/hydephp/develop/pull/2062
-- Added a new simplified blog post image front matter schema using a new "caption" field in https://github.com/hydephp/develop/pull/2175
+- **Added a new consolidated Asset API to better handle media files.** in [#2006](https://github.com/hydephp/develop/pull/2006)
+  - Added several new fluent methods to the `MediaFile` class, like `getLink()`, `getLength()`, `getMimeType()`, etc
+  - Added new `HydeFront` facade to handle CDN links and Tailwind config injection
+  - Added method `Asset::exists()` to check if a media file exists
+  - Added a `Hyde::assets()` method to get all media file instances in the site
+- **Improved Routes facade API with more intuitive method names** in [#2179](https://github.com/hydephp/develop/pull/2179)
+  - **Breaking:** Renamed `Routes::get()` to `Routes::find()` to better indicate it may return null
+  - **Breaking:** Renamed `Routes::getOrFail()` to `Routes::get()` to make the exception-throwing behavior the default and match Laravel conventions
+  - This change requires code updates if you were using these methods - see upgrade guide below
+- **Many MediaFile related helpers have been changed or completely rewritten** to provide a simplified API for interacting with media files
+  - **Note:** For most end users, the changes will have minimal direct impact, but if you have custom code that interacts with media files, you may need to update it
+  - The `Asset` facade has been restructured to be more scoped and easier to use, splitting out a separate `HydeFront` facade and inlining the `AssetService` class
+  - All asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior)
+  - The `Hyde::asset()` method and `asset()` function now return `MediaFile` instances instead of strings, and will throw an exception if the asset does not exist
+  - Renamed method `Asset::hasMediaFile` to `Asset::exists` in [#1957](https://github.com/hydephp/develop/pull/1957)
+  - Renamed method `MediaFile::getContentLength` to `MediaFile::getLength` in [#1904](https://github.com/hydephp/develop/pull/1904)
+  - Replaced method `Hyde::mediaPath` with `MediaFile::sourcePath` in [#1911](https://github.com/hydephp/develop/pull/1911)
+  - Replaced method `Hyde::siteMediaPath` with `MediaFile::outputPath` in [#1911](https://github.com/hydephp/develop/pull/1911)
+  - An exception will now be thrown if you try to get a media file that does not exist in order to prevent missing assets from going unnoticed in [#1932](https://github.com/hydephp/develop/pull/1932)
+- **MediaFile performance improvements:**
+  - Media assets are now cached in the HydeKernel, giving a massive performance boost and making it easier to access the instances in [#1917](https://github.com/hydephp/develop/pull/1917)
+  - Media file metadata is now lazy loaded and then cached in memory, providing performance improvements for files that may not be used in a build in [#1933](https://github.com/hydephp/develop/pull/1933)
+  - We now use the much faster `CRC32` hashing algorithm instead of `MD5` for cache busting keys in [#1918](https://github.com/hydephp/develop/pull/1918)
+- **Ported the HydeSearch plugin used for the documentation search to be an Alpine.js implementation** in [#2029](https://github.com/hydephp/develop/pull/2029)
+  - Renamed Blade component `hyde::components.docs.search-widget` to `hyde::components.docs.search-modal` in [#2029](https://github.com/hydephp/develop/pull/2029)
+  - Added support for customizing the search implementation by creating a `resources/js/HydeSearch.js` file in [#2031](https://github.com/hydephp/develop/pull/2031)
+- **Replaced Laravel Mix with Vite for frontend asset compilation** in [#2010](https://github.com/hydephp/develop/pull/2010)
+  - **Breaking:** You must now use `npm run build` to compile your assets, instead of `npm run prod`
+  - Bundled assets are now compiled directly into the `_media` folder, and will not be copied to the `_site/media` folder by the NPM command in [#2011](https://github.com/hydephp/develop/pull/2011)
+- Added Vite as a build tool in [#2010](https://github.com/hydephp/develop/pull/2010)
+- Added Vite facade in [#2016](https://github.com/hydephp/develop/pull/2016)
+- Added a Vite HMR support for the realtime compiler in [#2016](https://github.com/hydephp/develop/pull/2016)
+- Added a `Feature::fromName()` enum helper in [#1895](https://github.com/hydephp/develop/pull/1895)
+- Added a custom Blade-based heading renderer for Markdown conversions in [#2047](https://github.com/hydephp/develop/pull/2047)
+- Added a new Hyde Vite plugin in [#2160](https://github.com/hydephp/develop/pull/2160)
+- Added a new `\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets` build task to handle media assets transfers for site builds in [#1536](https://github.com/hydephp/develop/pull/1536)
+- Added a new `\Hyde\Framework\Exceptions\InvalidConfigurationException` exception class to handle invalid configuration exceptions in [#1799](https://github.com/hydephp/develop/pull/1799)
+- Added a new `\Hyde\Framework\Exceptions\ParseException` exception class to handle parsing exceptions in data collection files in [#1732](https://github.com/hydephp/develop/pull/1732)
+- Added a new simplified blog post image front matter schema using a new "caption" field in [#2175](https://github.com/hydephp/develop/pull/2175)
+- Added environment variable support for saving previews in [#1996](https://github.com/hydephp/develop/pull/1996)
+- Added new `npm run build` command for compiling frontend assets with Vite in [#2010](https://github.com/hydephp/develop/pull/2010)
+- Added support for PHP 8.4 in [#2141](https://github.com/hydephp/develop/pull/2141)
+- Added support for resolving dynamic links to source files in Markdown documents in [#1590](https://github.com/hydephp/develop/pull/1590)
+- Added support for setting `booting()` and `booted()` callbacks in `HydeExtension` classes, allowing extension developers to hook into the kernel boot process more easily in [#1847](https://github.com/hydephp/develop/pull/1847)
+- Added support for setting custom navigation items in the YAML configuration in [#1818](https://github.com/hydephp/develop/pull/1818)
+- Added support for setting extra attributes for navigation items in [#1824](https://github.com/hydephp/develop/pull/1824)
+- Added support for setting the blog post publishing date as a prefix in the source file name in [#2000](https://github.com/hydephp/develop/pull/2000)
+- Added support for specifying features in the YAML configuration in [#1896](https://github.com/hydephp/develop/pull/1896)
+- Introduced a new navigation config builder class to simplify navigation configuration in [#1827](https://github.com/hydephp/develop/pull/1827)
+- Markdown headings are now compiled using our custom Blade-based heading renderer in [#2047](https://github.com/hydephp/develop/pull/2047) - The `id` attributes for heading permalinks have been moved from the anchor to the heading element in [#2052](https://github.com/hydephp/develop/pull/2052)
+- The `\Hyde\Facades\Features` class is no longer marked as internal, and is now thus part of the public API in [#1647](https://github.com/hydephp/develop/pull/1647)
+- The `publish:views` command is now interactive on Unix-like systems in [#2062](https://github.com/hydephp/develop/pull/2062)
+- You can now add custom posts to the blog post feed component when including it directly in [#1893](https://github.com/hydephp/develop/pull/1893)
+- You can now specify sidebar item priorities by adding a numeric prefix to documentation page source file names in [#1709](https://github.com/hydephp/develop/pull/1709)
 
 ### Changed
 
-- **Breaking:** We now support PHP [8.2, 8.3, 8.4] instead of [8.1, 8.2, 8.3] in https://github.com/hydephp/develop/pull/2141
-- **Breaking:** We upgraded from the TailwindCSS version from v3 v4. You may want to run `npx @tailwindcss/upgrade` in your project if you have custom Tailwind classes in your project. See the information below for details. Introduced in https://github.com/hydephp/develop/pull/2146.
-- **Breaking:** We switched from using CJS to ESM in the frontend tool scaffolding. If you have custom script includes you need to migrate them. See below and in https://github.com/hydephp/develop/pull/2159 for details.
-- **Breaking:** The internals of the navigation system has been rewritten into a new Navigation API. This change is breaking for custom navigation implementations. For more information, see below.
-- **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls. For more information, see below.
-- **Breaking:** Renamed class `DataCollections` to `DataCollection`. For more information, see below.
-- **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames. For more information, see below.
-- **Breaking:** The `Author::create()` method now returns an array instead of a `PostAuthor` instance. For more information, see below.
-- **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance. For more information, see below.
-- **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format. For more information, see the upgrade guide below.
-- **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display`.
-- **Breaking:** Renamed the `hyde.enable_cache_busting` configuration option to `hyde.cache_busting` in https://github.com/hydephp/develop/pull/1980
-- Renamed the parameter `category` to `group` in the `publish:views` command in https://github.com/hydephp/develop/pull/2166
-- Dependency: Upgraded from Laravel 10 to Laravel 11
-- Dependency: Updated minimum PHP requirement to 8.2
-- Dependency: Updated Symfony/yaml to ^7.0
-- Dependency: Updated illuminate/support and illuminate/view to ^11.0
-- Dependency: Switched to forked version of the Torchlight client
-- Medium: The `route` function will now throw a `RouteNotFoundException` if the route does not exist in https://github.com/hydephp/develop/pull/1741
-- Minor: Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in https://github.com/hydephp/develop/pull/1573
-- Minor: Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
-- Minor: The documentation article component now supports disabling the semantic rendering using a falsy value in https://github.com/hydephp/develop/pull/1566
-- Minor: Changed the default build task message to make it more concise in https://github.com/hydephp/develop/pull/1659
-- Minor: Data collection files are now validated for syntax errors during discovery in https://github.com/hydephp/develop/pull/1732
-- Minor: Methods in the `Includes` facade now return `HtmlString` objects instead of `string` in https://github.com/hydephp/develop/pull/1738. For more information, see below.
-- Minor: `Includes::path()` and `Includes::get()` methods now normalize paths to be basenames to match the behavior of the other include methods in https://github.com/hydephp/develop/pull/1738. This means that nested directories are no longer supported, as you should use a data collection for that.
-- Minor: The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in https://github.com/hydephp/develop/pull/1744
-- Minor: Updated the `Hyde::url()` helper throw a `BadMethodCallException` instead `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in https://github.com/hydephp/develop/pull/1760 and https://github.com/hydephp/develop/pull/1890
-- Minor: Updated the blog post layout and post feed component to use the `BlogPosting` Schema.org type instead of `Article` in https://github.com/hydephp/develop/pull/1887
-- Updated default configuration to no longer save previewed pages in https://github.com/hydephp/develop/pull/1995
-- Added more rich markup data to blog post components in https://github.com/hydephp/develop/pull/1888 (Note that this inevitably changes the HTML output of the blog post components, and that any customized templates will need to be republished to reflect these changes)
-- Overhauled the blog post author feature in https://github.com/hydephp/develop/pull/1782
-- Improved the sitemap data generation to be smarter and more dynamic in https://github.com/hydephp/develop/pull/1744
-- Skipped build tasks will now exit with an exit code of 3 instead of 0 in https://github.com/hydephp/develop/pull/1749
-- The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter.
-- Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task.
-- Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method.
-- Calling the `Include::path()` method will no longer create the includes directory in https://github.com/hydephp/develop/pull/1707
-- Calling the `DataCollection` methods will no longer create the data collections directory in https://github.com/hydephp/develop/pull/1732
-- Markdown includes are now converted to HTML using the custom HydePHP Markdown service, meaning they now support full GFM spec and custom Hyde features like colored blockquotes and code block filepath labels in https://github.com/hydephp/develop/pull/1738
-- Markdown returned from includes are now trimmed of trailing whitespace and newlines in https://github.com/hydephp/develop/pull/1738
-- Reorganized and cleaned up the navigation and sidebar documentation for improved clarity.
-- Moved the sidebar documentation to the documentation pages section for better organization.
-- The build command now groups together all `InMemoryPage` instances under one progress bar group in https://github.com/hydephp/develop/pull/1897
-- The `Markdown::render()` method will now always render Markdown using the custom HydePHP Markdown service (thus getting smart features like our Markdown processors) in https://github.com/hydephp/develop/pull/1900
-- Improved how the `MarkdownService` class is accessed, by binding it into the service container, in https://github.com/hydephp/develop/pull/1922
-- Improved the media asset transfer build task to have better output in https://github.com/hydephp/develop/pull/1904
-- The full page documentation search now generates it's heading using smarter natural language processing based on the configured sidebar header in https://github.com/hydephp/develop/pull/2032
-- Moved Blade view `hyde::pages.documentation-search` to `hyde::pages.docs.search` in https://github.com/hydephp/develop/pull/2033
-- **Many MediaFile related helpers have been changed or completely rewritten** to provide a simplified API for interacting with media files.
-    - **Note:** For most end users, the changes will have minimal direct impact, but if you have custom code that interacts with media files, you may need to update it.
-    - The `Asset` facade has been restructured to be more scoped and easier to use, splitting out a separate `HydeFront` facade and inlining the `AssetService` class.
-    - All asset retrieval methods now return a `MediaFile` instance, which can be fluently interacted with, or cast to a string to get the link (which was the previous behavior).
-    - The `Hyde::asset()` method and `asset()` function now return `MediaFile` instances instead of strings, and will throw an exception if the asset does not exist.
-    - Renamed method `Asset::hasMediaFile` to `Asset::exists` in https://github.com/hydephp/develop/pull/1957
-    - Renamed method `MediaFile::getContentLength` to `MediaFile::getLength` in https://github.com/hydephp/develop/pull/1904
-    - Replaced method `Hyde::mediaPath` with `MediaFile::sourcePath` in https://github.com/hydephp/develop/pull/1911
-    - Replaced method `Hyde::siteMediaPath` with `MediaFile::outputPath` in https://github.com/hydephp/develop/pull/1911
-    - We will now throw an exception if you try to get a media file that does not exist in order to prevent missing assets from going unnoticed in https://github.com/hydephp/develop/pull/1932
-- **MediaFile performance improvements:**
-    - Media assets are now cached in the HydeKernel, giving a massive performance boost and making it easier to access the instances in https://github.com/hydephp/develop/pull/1917
-    - Media file metadata is now lazy loaded and then cached in memory, providing performance improvements for files that may not be used in a build in https://github.com/hydephp/develop/pull/1933
-    - We now use the much faster `CRC32` hashing algorithm instead of `MD5` for cache busting keys in https://github.com/hydephp/develop/pull/1918
-- **Replaced Laravel Mix with Vite for frontend asset compilation** in https://github.com/hydephp/develop/pull/2010
-    - **Breaking:** You must now use `npm run build` to compile your assets, instead of `npm run prod`
-    - Bundled assets are now compiled directly into the `_media` folder, and will not be copied to the `_site/media` folder by the NPM command in https://github.com/hydephp/develop/pull/2011
-- The realtime compiler now only serves assets from the media source directory (`_media`), and no longer checks the site output directory (`_site/media`) in https://github.com/hydephp/develop/pull/2012
-- **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--run-vite` flag that uses Vite to build assets in https://github.com/hydephp/develop/pull/2013
-- Moved the Vite build step to run before the site build to prevent duplicate media asset transfers in https://github.com/hydephp/develop/pull/2013
-- Ported the HydeSearch plugin used for the documentation search to be an Alpine.js implementation in https://github.com/hydephp/develop/pull/2029
-    - Renamed Blade component `hyde::components.docs.search-widget` to `hyde::components.docs.search-modal` in https://github.com/hydephp/develop/pull/2029
-    - Added support for customizing the search implementation by creating a `resources/js/HydeSearch.js` file in https://github.com/hydephp/develop/pull/2031
-- Normalized default Tailwind Typography Prose code block styles to match Torchlight's theme, ensuring consistent styling across Markdown and Torchlight code blocks in https://github.com/hydephp/develop/pull/2036.
-- Extracted CSS component partials in HydeFront in https://github.com/hydephp/develop/pull/2038
-- Replaced HydeFront styles with Tailwind in https://github.com/hydephp/develop/pull/2024
-- Markdown headings are now compiled using our custom Blade-based heading renderer in https://github.com/hydephp/develop/pull/2047
-    - The `id` attributes for heading permalinks have been moved from the anchor to the heading element in https://github.com/hydephp/develop/pull/2052
-- Colored Markdown blockquotes are now rendered using Blade and TailwindCSS, this change is not visible in the rendered result, but the HTML output has changed in https://github.com/hydephp/develop/pull/2056
-- **Improved Routes facade API with more intuitive method names** in https://github.com/hydephp/develop/pull/2179
-    - **Breaking:** Renamed `Routes::get()` to `Routes::find()` to better indicate it may return null
-    - **Breaking:** Renamed `Routes::getOrFail()` to `Routes::get()` to make the exception-throwing behavior the default and match Laravel conventions
-    - This change requires code updates if you were using these methods - see upgrade guide below
-
-### Deprecated
-
-- for soon-to-be removed features.
-
-### Removed
-
-- Breaking: Removed support for PHP 8.1 in https://github.com/hydephp/develop/pull/2141.
-- Breaking: Removed the build task `\Hyde\Framework\Actions\PostBuildTasks\GenerateSearch` (see upgrade guide below)
-- Breaking: Removed the deprecated `\Hyde\Framework\Services\BuildService::transferMediaAssets()` method (see upgrade guide below)
-- Breaking: Removed the `DocumentationPage::getTableOfContents()` method as we now use Blade to generate the table of contents in https://github.com/hydephp/develop/pull/2045
-- Breaking: Removed the `DocumentationPage::hasTableOfContents()` method as it is now unused by the framework in https://github.com/hydephp/develop/pull/2006
-- Removed the deprecated global `unslash()` function, replaced with the namespaced `\Hyde\unslash()` function in https://github.com/hydephp/develop/pull/1754
-- Removed the deprecated `BaseUrlNotSetException` class, with the `Hyde::url()` helper now throwing `BadMethodCallException` if no base URL is set in https://github.com/hydephp/develop/pull/1760
-- Removed: The deprecated `PostAuthor::getName()` method is now removed (use `$author->name`) in https://github.com/hydephp/develop/pull/1782
-- Internal: Removed the internal `DocumentationSearchPage::generate()` method as it was unused in https://github.com/hydephp/develop/pull/1569
-- Removed the deprecated `FeaturedImage::isRemote()` method in https://github.com/hydephp/develop/pull/1883. Use `Hyperlinks::isRemote()` instead.
-- **With the new Asset API, a few features had to be moved/removed:**
-    - `AssetService` class has been removed (was merged into the `Asset` facade) in https://github.com/hydephp/develop/pull/1908
-    - Removed HydeFront methods from the `Asset` facade (moved to the new HydeFront facade) in https://github.com/hydephp/develop/pull/1907
-    - The config options `hyde.hydefront_version` and `hyde.hydefront_cdn_url` have been removed in https://github.com/hydephp/develop/pull/1909 (as changing these could lead to incompatible asset versions, defeating the feature's purpose)
-    - Removed `Hyde::mediaLink()` method replaced by `Hyde::asset()` in https://github.com/hydephp/develop/pull/1932
-    - Removed `Hyde::mediaPath()` method replaced by `MediaFile::sourcePath()` in https://github.com/hydephp/develop/pull/1911
-    - Removed `Hyde::siteMediaPath()` method replaced by `MediaFile::outputPath()` in https://github.com/hydephp/develop/pull/1911
-- Removed Laravel Mix as a dependency in https://github.com/hydephp/develop/pull/2010 (replaced with Vite)
-- **Breaking:** Removed `npm run prod` command (replaced with `npm run build`)
-- Removed CDN include for the HydeSearch plugin replaced by Alpine.js implementation in https://github.com/hydephp/develop/pull/2029
-    - This also removes the `<x-hyde::docs.search-input />` and `<x-hyde::docs.search-scripts />` Blade components, replaced by the new `<x-hyde::docs.hyde-search />` component.
-- Removed the `.torchlight-enabled` CSS class in https://github.com/hydephp/develop/pull/2036.
-- Removed The `hyde.css` file from HydeFront in https://github.com/hydephp/develop/pull/2037 as all styles were refactored to Tailwind in https://github.com/hydephp/develop/pull/2024.
-- Removed the `MarkdownService::withPermalinks` method in https://github.com/hydephp/develop/pull/2047
-- Removed the `MarkdownService::canEnablePermalinks` method in https://github.com/hydephp/develop/pull/2047
+- **Breaking:** Renamed class `DataCollections` to `DataCollection` in [#1732](https://github.com/hydephp/develop/pull/1732)  For more information, see below.
+- **Breaking:** Renamed the `hyde.enable_cache_busting` configuration option to `hyde.cache_busting` in [#1980](https://github.com/hydephp/develop/pull/1980)
+- **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display` in [#1818](https://github.com/hydephp/develop/pull/1818)
+- **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--run-vite` flag that uses Vite to build assets in [#2013](https://github.com/hydephp/develop/pull/2013)
+- **Breaking:** The `Author::create()` method now returns an array instead of a `PostAuthor` instance in [#1798](https://github.com/hydephp/develop/pull/1798) For more information, see below.
+- **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance in [#1798](https://github.com/hydephp/develop/pull/1798)  For more information, see below.
+- **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames in [#1782](https://github.com/hydephp/develop/pull/1782) For more information, see below.
+- **Breaking:** The `hyde.features` configuration format has changed to use Enums instead of static method calls in [#1649](https://github.com/hydephp/develop/pull/1649)  For more information, see below.
+- **Breaking:** The custom navigation item configuration now uses array inputs instead of the previous format in [#1818](https://github.com/hydephp/develop/pull/1818)  For more information, see the upgrade guide below.
+- **Breaking:** The navigation system internals have been rewritten into a new Navigation API in [#1568](https://github.com/hydephp/develop/pull/1568) This change is breaking for custom navigation implementations. For more information, see below.
+- **Breaking:** We now support PHP 8.2–8.4 instead of 8.1–8.3 in [#2141](https://github.com/hydephp/develop/pull/2141)
+- **Breaking:** We switched from using CJS to ESM in the frontend tool scaffolding. If you have custom script includes you need to migrate them. See below and the pull request for details in [#2159](https://github.com/hydephp/develop/pull/2159)
+- **Breaking:** We upgraded from the TailwindCSS version from v3 to v4 in [#2146](https://github.com/hydephp/develop/pull/2146) You may want to run `npx @tailwindcss/upgrade` in your project if you have custom Tailwind classes in your project. See the information below for details.
+- **Dependency:** Switched to forked version of the Torchlight client in [#2141](https://github.com/hydephp/develop/pull/2141)
+- **Dependency:** Updated Symfony/yaml to ^7.0 in [#2141](https://github.com/hydephp/develop/pull/2141)
+- **Dependency:** Updated illuminate/support and illuminate/view to ^11.0 in [#2141](https://github.com/hydephp/develop/pull/2141)
+- **Dependency:** Updated minimum PHP requirement to 8.2 in [#2141](https://github.com/hydephp/develop/pull/2141)
+- **Dependency:** Upgraded from Laravel 10 to Laravel 11 in [#2141](https://github.com/hydephp/develop/pull/2141)
+- **Medium:** The `route` function will now throw a `RouteNotFoundException` if the route does not exist in [#1741](https://github.com/hydephp/develop/pull/1741)
+- **Minor:** Changed the default build task message to make it more concise in [#1659](https://github.com/hydephp/develop/pull/1659)
+- **Minor:** Data collection files are now validated for syntax errors during discovery in [#1732](https://github.com/hydephp/develop/pull/1732)
+- **Minor:** Due to changes in the navigation system, it is possible that existing configuration files will need to be adjusted in order for menus to look the same (in terms of ordering etc.)
+- **Minor:** Methods in the `Includes` facade now return `HtmlString` objects instead of `string` in [#1738](https://github.com/hydephp/develop/pull/1738) For more information, see below.
+- **Minor:** Navigation menu items are now no longer filtered by duplicates (meaning two items with the same label can now exist in the same menu) in [#1573](https://github.com/hydephp/develop/pull/1573)
+- **Minor:** The `processing_time_ms` attribute in the `sitemap.xml` file has now been removed in [#1744](https://github.com/hydephp/develop/pull/1744)
+- **Minor:** The documentation article component now supports disabling the semantic rendering using a falsy value in [#1566](https://github.com/hydephp/develop/pull/1566)
+- **Minor:** Updated the `Hyde::url()` helper throw a `BadMethodCallException` instead `BaseUrlNotSetException` when no site URL is set and no path was provided to the method in [#1890](https://github.com/hydephp/develop/pull/1890)
+- **Minor:** Updated the blog post layout and post feed component to use the `BlogPosting` Schema.org type instead of `Article` in [#1887](https://github.com/hydephp/develop/pull/1887)
+- **Minor:** `Includes::path()` and `Includes::get()` methods now normalize paths to be basenames to match the behavior of the other include methods in [#1738](https://github.com/hydephp/develop/pull/1738) This means that nested directories are no longer supported, as you should use a data collection for these
+- Added more rich markup data to blog post components in [#1888](https://github.com/hydephp/develop/pull/1888) (Note that this inevitably changes the HTML output of the blog post components, and that any customized templates will need to be republished to reflect these changes)
+- Calling the `DataCollection` methods will no longer create the data collections directory in [#1732](https://github.com/hydephp/develop/pull/1732)
+- Calling the `Include::path()` method will no longer create the includes directory in [#1707](https://github.com/hydephp/develop/pull/1707)
+- Changed how the documentation search is generated, to be an `InMemoryPage` instead of a post-build task in [#1498](https://github.com/hydephp/develop/pull/1498)
+- Colored Markdown blockquotes are now rendered using Blade and TailwindCSS in [#2056](https://github.com/hydephp/develop/pull/2056) This change is not visible in the rendered result, but the HTML output has changed
+- Extracted CSS component partials in HydeFront in [#2038](https://github.com/hydephp/develop/pull/2038)
+- Improved how the `MarkdownService` class is accessed by binding it into the service container in [#1922](https://github.com/hydephp/develop/pull/1922)
+- Improved the media asset transfer build task to have better output in [#1904](https://github.com/hydephp/develop/pull/1904)
+- Improved the sitemap data generation to be smarter and more dynamic in [#1744](https://github.com/hydephp/develop/pull/1744)
+- Markdown includes are now converted to HTML using the custom HydePHP Markdown service, meaning they now support full GFM spec and custom Hyde features like colored blockquotes and code block filepath labels in [#1738](https://github.com/hydephp/develop/pull/1738)
+- Markdown returned from includes are now trimmed of trailing whitespace and newlines in [#1738](https://github.com/hydephp/develop/pull/1738)
+- Media asset files are now copied using the new build task instead of the deprecated `BuildService::transferMediaAssets()` method in [#2024](https://github.com/hydephp/develop/pull/2024)
+- Moved Blade view `hyde::pages.documentation-search` to `hyde::pages.docs.search` in [#2033](https://github.com/hydephp/develop/pull/2033)
+- Moved the Vite build step to run before the site build to prevent duplicate media asset transfers in [#2013](https://github.com/hydephp/develop/pull/2013)
+- Moved the sidebar documentation to the documentation pages section for better organization
+- Normalized default Tailwind Typography Prose code block styles to match Torchlight's theme, ensuring consistent styling across Markdown and Torchlight code blocks in [#2036](https://github.com/hydephp/develop/pull/2036)
+- Overhauled the blog post author feature in [#1782](https://github.com/hydephp/develop/pull/1782)
+- Renamed the parameter `category` to `group` in the `publish:views` command in [#2166](https://github.com/hydephp/develop/pull/2166)
+- Reorganized and cleaned up the navigation and sidebar documentation for improved clarity
+- Replaced HydeFront styles with Tailwind in [#2024](https://github.com/hydephp/develop/pull/2024)
+- Skipped build tasks will now exit with an exit code of 3 instead of 0 in [#1749](https://github.com/hydephp/develop/pull/1749)
+- The `Markdown::render()` method will now always render Markdown using the custom HydePHP Markdown service (thus getting smart features like our Markdown processors) in [#1900](https://github.com/hydephp/develop/pull/1900)
+- The `hasFeature` method on the Hyde facade and HydeKernel now only accepts a Feature enum value instead of a string for its parameter in [#1650](https://github.com/hydephp/develop/pull/1650)
+- The build command now groups together all `InMemoryPage` instances under one progress bar group in [#1897](https://github.com/hydephp/develop/pull/1897)
+- The full page documentation search now generates its heading using smarter natural language processing based on the configured sidebar header in [#2032](https://github.com/hydephp/develop/pull/2032)
+- The realtime compiler now only serves assets from the media source directory (`_media`), and no longer checks the site output directory (`_site/media`) in [#2012](https://github.com/hydephp/develop/pull/2012)
+- Updated default configuration to no longer save previewed pages in [#1995](https://github.com/hydephp/develop/pull/1995)
 
 ### Fixed
 
-- Added missing collection key types in Hyde facade method annotations in https://github.com/hydephp/develop/pull/1784
-- The `app.js` file will now only be compiled if it has scripts in https://github.com/hydephp/develop/pull/2028
-- The `app.css` file will no longer be copied to the media output directory when app styles are configured to be loaded from a CDN in https://github.com/hydephp/develop/pull/2180
+- Added missing collection key types in Hyde facade method annotations in [#1784](https://github.com/hydephp/develop/pull/1784)
+- The `app.css` file will no longer be copied to the media output directory when app styles are configured to be loaded from a CDN in [#2180](https://github.com/hydephp/develop/pull/2180)
+- The `app.js` file will now only be compiled if it has scripts in [#2028](https://github.com/hydephp/develop/pull/2028)
 
-### Security
+### Removed
 
-- in case of vulnerabilities.
+- Added missing collection key types in Hyde facade method annotations in [#1784](https://github.com/hydephp/develop/pull/1784)
+- The `app.css` file will no longer be copied to the media output directory when app styles are configured to be loaded from a CDN in [#2180](https://github.com/hydephp/develop/pull/2180)
+- The `app.js` file will now only be compiled if it has scripts in [#2028](https://github.com/hydephp/develop/pull/2028)
 
 ### Package updates
 
