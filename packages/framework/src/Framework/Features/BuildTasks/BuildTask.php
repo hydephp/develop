@@ -20,7 +20,7 @@ abstract class BuildTask
     use TracksExecutionTime;
 
     /** @var string The message that will be displayed when the task is run. */
-    protected static string $message = 'Running generic build task';
+    protected static string $message = 'Running build task';
 
     protected int $exitCode = Command::SUCCESS;
 
@@ -88,6 +88,11 @@ abstract class BuildTask
     public function writeln(string $message): void
     {
         $this->output?->writeln($message);
+    }
+
+    public function newLine(int $count = 1): void
+    {
+        $this->output?->newLine($count);
     }
 
     /**

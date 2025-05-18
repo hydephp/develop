@@ -29,7 +29,7 @@ class RouteFacadeTest extends UnitTestCase
     {
         $this->expectException(RouteNotFoundException::class);
 
-        Routes::getOrFail('not-found');
+        Routes::get('not-found');
     }
 
     public function testGetReturnsRouteFromRouterIndex()
@@ -44,7 +44,7 @@ class RouteFacadeTest extends UnitTestCase
 
     public function testGetFromReturnsNullIfRouteIsNotFound()
     {
-        $this->assertNull(Routes::get('not-found'));
+        $this->assertNull(Routes::find('not-found'));
     }
 
     public function testCurrentReturnsCurrentRoute()

@@ -390,3 +390,53 @@ jobs:
           git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
           git push upstream master
+
+  vite-plugin:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    environment:
+      name: hydephp/vite-plugin
+      url: https://github.com/hydephp/vite-plugin/tree/master
+
+    steps:
+      - name: Checkout hydephp/develop
+        uses: actions/checkout@v4
+        with:
+          path: develop
+          persist-credentials: false
+
+      - name: Checkout hydephp/vite-plugin
+        uses: actions/checkout@v4
+        with:
+          repository: hydephp/vite-plugin
+          path: vite-plugin
+          ref: master
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Empty the destination directory
+        run: rm -rf vite-plugin/*
+
+      - name: Copy over files
+        run: cp -rf develop/packages/vite-plugin/. vite-plugin -v
+
+      - name: Commit and push changes
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
+        run: |
+          cd vite-plugin
+          if ! [[ `git status --porcelain` ]]; then
+            echo "No changes to this package. Exiting gracefully.";
+            exit 0;
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://oauth2:${{ secrets.SPLIT_MONOREPO_TOKEN }}@github.com/hydephp/vite-plugin.git
+
+          git add .
+          git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
+
+          git push upstream master

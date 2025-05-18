@@ -51,7 +51,7 @@ class HighLevelYamlConfigurationFeatureTest extends TestCase
         YAML);
 
         file_put_contents('config/custom.php', <<<'PHP'
-        <?php   
+        <?php
         return [
             'setting_one' => 'Default',
             'setting_three' => 'Inherited'
