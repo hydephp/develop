@@ -35,7 +35,7 @@ class HydeFrontFacadeTest extends UnitTestCase
 
     public function testCdnLinkReturnsCorrectUrl()
     {
-        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v3.4/dist/app.css';
+        $expected = 'https://cdn.jsdelivr.net/npm/hydefront@v4.0/dist/app.css';
         $this->assertSame($expected, HydeFront::cdnLink());
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "hydefront",
-  "version": "3.4.1",
+  "version": "4.0.0-RC.1",
   "description": "Frontend assets for HydePHP",
   "repository": {
     "type": "git",

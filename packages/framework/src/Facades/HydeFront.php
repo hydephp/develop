@@ -17,7 +17,7 @@ use function sprintf;
 class HydeFront
 {
     /** @var string The HydeFront SemVer tag to load. This constant is set to match the styles used for the installed framework version. */
-    protected const HYDEFRONT_VERSION = 'v3.4';
+    protected const HYDEFRONT_VERSION = 'v4.0';
 
     /** @var string The HydeFront CDN path pattern used to assemble CDN links. */
     protected const HYDEFRONT_CDN_URL = 'https://cdn.jsdelivr.net/npm/hydefront@%s/dist/%s';

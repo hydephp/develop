@@ -86,6 +86,7 @@ This serves two purposes:
 - **Dependency:** Updated illuminate/support and illuminate/view to ^11.0 in [#2141](https://github.com/hydephp/develop/pull/2141)
 - **Dependency:** Updated minimum PHP requirement to 8.2 in [#2141](https://github.com/hydephp/develop/pull/2141)
 - **Dependency:** Upgraded from Laravel 10 to Laravel 11 in [#2141](https://github.com/hydephp/develop/pull/2141)
+- **Dependency:** Upgraded to HydeFront v4 in [#2214](https://github.com/hydephp/develop/pull/2214)
 - **Medium:** The `route` function will now throw a `RouteNotFoundException` if the route does not exist in [#1741](https://github.com/hydephp/develop/pull/1741)
 - **Minor:** Changed the default build task message to make it more concise in [#1659](https://github.com/hydephp/develop/pull/1659)
 - **Minor:** Data collection files are now validated for syntax errors during discovery in [#1732](https://github.com/hydephp/develop/pull/1732)
