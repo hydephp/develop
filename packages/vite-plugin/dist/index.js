@@ -56,18 +56,22 @@ export default function hydePlugin(options = {}) {
         config(config, { command }) {
             // Only modify build configuration
             if (command === 'build') {
-                // Process input files - only include app.js if it has content
-                const resolvedInput = [];
+                // Process input files - use named keys to prevent filename collisions
+                const resolvedInput = {};
                 for (const entry of input) {
                     const resolvedPath = path.resolve(process.cwd(), entry);
                     // Only include app.js if it has actual content
                     if (entry.endsWith('app.js')) {
                         if (hasJavaScriptContent(resolvedPath) && fileExists(resolvedPath)) {
-                            resolvedInput.push(resolvedPath);
+                            resolvedInput.js = resolvedPath;
                         }
                     }
+                    else if (entry.endsWith('app.css') && fileExists(resolvedPath)) {
+                        resolvedInput.css = resolvedPath;
+                    }
                     else if (fileExists(resolvedPath)) {
-                        resolvedInput.push(resolvedPath);
+                        const basename = path.basename(entry, path.extname(entry));
+                        resolvedInput[basename] = resolvedPath;
                     }
                 }
                 return {
@@ -77,9 +81,21 @@ export default function hydePlugin(options = {}) {
                         rollupOptions: {
                             input: resolvedInput,
                             output: {
-                                entryFileNames: '[name].js',
+                                entryFileNames: (chunkInfo) => {
+                                    // Use app.js for the JS entry point 
+                                    if (chunkInfo.name === 'js') {
+                                        return 'app.js';
+                                    }
+                                    return '[name].js';
+                                },
                                 chunkFileNames: '[name].js',
-                                assetFileNames: '[name].[ext]'
+                                assetFileNames: (assetInfo) => {
+                                    // Use app.css for CSS assets
+                                    if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+                                        return 'app.css';
+                                    }
+                                    return '[name].[ext]';
+                                }
                             }
                         }
                     }
