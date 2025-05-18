@@ -1,6 +1,6 @@
 {
   "name": "hyde-vite-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0-RC.1",
   "description": "HydePHP Vite plugin for realtime compiler integration",
   "type": "module",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hydephp/framework.git"
+    "url": "git+https://github.com/hydephp/vite-plugin.git"
   },
   "keywords": [
     "hydephp",
@@ -23,9 +23,9 @@
   "author": "Caen De Silva",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hydephp/framework/issues"
+    "url": "https://github.com/hydephp/vite-plugin/issues"
   },
-  "homepage": "https://github.com/hydephp/framework/tree/master/packages/vite-plugin",
+  "homepage": "https://github.com/hydephp/vite-plugin",
   "peerDependencies": {
     "vite": "^6.0.0"
   },
