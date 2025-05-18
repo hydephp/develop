@@ -112,7 +112,7 @@ class JsonPageExtension extends HydeExtension {
 
 The `booting` callback can be used to set up the system with information needed to discover pages, while the `booted` callback can can be used to perform operations requiring knowledge of discovered data, even modifying them if needed.
 
-These callbacks provide powerful hooks into the Hyde system, allowing your extensions to integrate deeply and modify Hyde's behavior as needed. 
+These callbacks provide powerful hooks into the Hyde system, allowing your extensions to integrate deeply and modify Hyde's behavior as needed.
 
 #### Discovery handler example
 

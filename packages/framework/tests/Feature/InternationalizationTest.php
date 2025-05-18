@@ -52,9 +52,9 @@ class InternationalizationTest extends TestCase
         author: default
         date: '2024-12-22 10:45'
         ---
-        
+
         ## Write something awesome.
-        
+
         EOF, $contents);
 
         Filesystem::unlink($path);

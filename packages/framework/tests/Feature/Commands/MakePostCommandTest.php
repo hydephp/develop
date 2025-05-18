@@ -47,9 +47,9 @@ class MakePostCommandTest extends TestCase
             author: 'Mr Hyde'
             date: '2024-01-01 12:00'
             ---
-            
+
             ## Write something awesome.
-            
+
             MARKDOWN,
             Hyde::path('_posts/test-post.md')
         );

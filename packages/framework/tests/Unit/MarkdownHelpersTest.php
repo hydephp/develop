@@ -121,9 +121,9 @@ class MarkdownHelpersTest extends TestCase
     {
         $html = Markdown::render(<<<'MARKDOWN'
         # Hello World
-        
+
         >info Colored blockquote
-        
+
         [Home](/_pages/index.blade.php)
         MARKDOWN);
 

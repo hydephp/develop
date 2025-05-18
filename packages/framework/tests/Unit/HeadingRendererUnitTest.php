@@ -183,7 +183,7 @@ class HeadingRendererUnitTest extends UnitTestCase
         <h2 >
             Test Heading
                     <a id="test-heading" href="#test-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a>
-            </h2> 
+            </h2>
         HTML;
 
         // What CommonMark would generate from the same input Markdown

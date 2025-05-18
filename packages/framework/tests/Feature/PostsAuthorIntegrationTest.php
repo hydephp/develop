@@ -106,7 +106,7 @@ class PostsAuthorIntegrationTest extends TestCase
                     twitter: "@HydeFramework"
                     github: hydephp
             ---
-            
+
             # Post with all author fields
             MD
         );
@@ -151,7 +151,7 @@ class PostsAuthorIntegrationTest extends TestCase
             ---
             author: mr_hyde
             ---
-            
+
             # Using the configured author
             MD
         );
@@ -162,7 +162,7 @@ class PostsAuthorIntegrationTest extends TestCase
                 username: mr_hyde
                 name: Dr. Jekyll
             ---
-            
+
             # Modifying the configured author
             MD
         );

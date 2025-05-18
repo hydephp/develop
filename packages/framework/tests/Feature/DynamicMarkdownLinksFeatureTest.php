@@ -270,7 +270,7 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         [Contact](/_pages/about/contact.md)
         [About](/_pages/about/index.md)
         [Post](/_posts/hello-world.md)
-        
+
         ![Logo](/_media/logo.png)
         MARKDOWN);
 
@@ -313,7 +313,7 @@ class DynamicMarkdownLinksFeatureTest extends TestCase
         [Contact](/_pages/about/contact.md)
         [About](/_pages/about/index.md)
         [Post](/_posts/hello-world.md)
-        
+
         ![Logo](/_media/logo.png)
         MARKDOWN);
 

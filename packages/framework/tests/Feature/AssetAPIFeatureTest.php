@@ -76,7 +76,7 @@ class AssetAPIFeatureTest extends TestCase
             <link rel="stylesheet" href="{{ Hyde::asset('app.css') }}">
             <link rel="stylesheet" href="{{ asset('app.css') }}">
         @endif
-        
+
         @if(Asset::exists('missing.png'))
             Found missing.png
         @else
@@ -90,7 +90,7 @@ class AssetAPIFeatureTest extends TestCase
         <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
             <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
             <link rel="stylesheet" href="media/app.css?v={$this->getAppStylesVersion()}">
-        
+
             Missing missing.png
 
         HTML, $html);

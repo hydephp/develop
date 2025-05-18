@@ -420,14 +420,14 @@ class YamlConfigurationFeatureTest extends TestCase
             socials:
               twitter: '@user1'
               github: 'user1'
-        
+
           username2:
             name: 'User 2'
             bio: 'Bio of user 2'
             socials:
               twitter: '@user2'
               github: 'user2'
-        
+
           test:
             name: 'Test user'
             bio: 'Bio of test user' # TODO: support 'biography'

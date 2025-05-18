@@ -4,7 +4,7 @@ description: Wondering what this site is for? Read this!
 category: information
 author: Mr Hyde
 date: 2022-06-08 18:34
-image: 
+image:
   source: cover.png
   author: Pixabay
   credit: https://pixabay.com/illustrations/banner-background-bright-design-1989514/

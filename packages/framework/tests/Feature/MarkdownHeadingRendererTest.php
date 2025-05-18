@@ -77,7 +77,7 @@ class MarkdownHeadingRendererTest extends TestCase
         $markdown = <<<'MARKDOWN'
         Heading 1
         =========
-        
+
         Heading 2
         ---------
         MARKDOWN;
@@ -104,7 +104,7 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertSame(<<<'HTML'
         <h2 class="custom-class" id="custom-id">Heading</h2>
         <h3 data-test="value" >Another Heading</h3>
-        
+
         HTML, $html);
     }
 
@@ -123,7 +123,7 @@ class MarkdownHeadingRendererTest extends TestCase
         $this->assertSame(<<<'HTML'
         <h2 class="custom-class group w-fit scroll-mt-2" id="heading">Heading<a href="#heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
         <h3 data-test="value" id="another-heading" class="group w-fit scroll-mt-2">Another Heading<a href="#another-heading" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
-        
+
         HTML, $html);
     }
 
@@ -157,7 +157,7 @@ class MarkdownHeadingRendererTest extends TestCase
         <h4 id="h4-has-permalink" class="group w-fit scroll-mt-2">H4 Has Permalink<a href="#h4-has-permalink" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h4>
         <h5>H5 No Permalink</h5>
         <h6>H6 No Permalink</h6>
-        
+
         HTML, $html);
     }
 
@@ -270,7 +270,7 @@ class MarkdownHeadingRendererTest extends TestCase
         <h2 id="heading-3" class="group w-fit scroll-mt-2">Heading<a href="#heading-3" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h2>
         <h3 id="heading-4" class="group w-fit scroll-mt-2">Heading<a href="#heading-4" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h3>
         <h4 id="heading-5" class="group w-fit scroll-mt-2">Heading<a href="#heading-5" class="heading-permalink opacity-0 ml-1 transition-opacity duration-300 ease-linear px-1 group-hover:opacity-100 focus:opacity-100 group-hover:grayscale-0 focus:grayscale-0" title="Permalink">#</a></h4>
-        
+
         HTML, $html);
     }
 

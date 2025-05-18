@@ -135,29 +135,29 @@ class IncludesFacadeTest extends TestCase
     {
         $markdown = <<<'MARKDOWN'
         # Heading
-        
+
         This is a paragraph. It has some **bold** and *italic* text.
-        
+
         >info Info Blockquote
-        
+
         ```php
         // filepath: hello.php
         echo 'Hello, World!';
         ```
-        
+
         ## Subheading
-        
-        
+
+
         - [x] Checked task list
         - [ ] Unchecked task list
-        
+
         ### Table
-        
+
         | Syntax | Description |
         | ----------- | ----------- |
         | Header | Title |
         | Paragraph | Text |
-        
+
         MARKDOWN;
 
         $expected = <<<'HTML'
@@ -215,7 +215,7 @@ class IncludesFacadeTest extends TestCase
             <p>Paragraph 1</p>
             <p>Paragraph 2</p>
             <p>Paragraph 3</p>
-        
+
         foo bar
         HTML;
 
@@ -236,12 +236,12 @@ class IncludesFacadeTest extends TestCase
         {!! Includes::html('foo.html') !!}
         {!! Includes::blade('foo.blade.php') !!}
         {!! Includes::markdown('foo.md') !!}
-        
+
         // Without extension
         {!! Includes::html('foo') !!}
         {!! Includes::blade('foo') !!}
         {!! Includes::markdown('foo') !!}
-        
+
         // With escaped
         {{ Includes::html('foo.html') }}
         {{ Includes::blade('foo.blade.php') }}

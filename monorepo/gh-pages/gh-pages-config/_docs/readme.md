@@ -40,4 +40,3 @@ Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt unde, eum lab
 And they have smooth scrolling and support up to 4 levels of nesting by default
 
 Try it out on the [headings](headings.html) page.
-
