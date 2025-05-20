@@ -6,8 +6,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && terser dist/index.js -c -m -o dist/index.js",
     "dev": "tsc --watch",
+    "build": "tsc && terser dist/index.js -c -m -o dist/index.js",
     "prepublishOnly": "npm run build"
   },
   "repository": {
