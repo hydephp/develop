@@ -2,7 +2,6 @@ import { Plugin } from 'vite';
 export interface HydePluginOptions {
     /**
      * Asset entry points to process
-     * Supports glob patterns like 'resources/assets/*.js'
      *
      * @default ['resources/assets/app.css', 'resources/assets/app.js']
      */
