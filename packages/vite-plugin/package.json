@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && terser dist/index.js -c -m -o dist/index.js",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
@@ -32,6 +32,7 @@
   "devDependencies": {
     "typescript": "^5.0.0",
     "@types/node": "^20.0.0",
-    "vite": "^6.0.0"
+    "vite": "^6.0.0",
+    "terser": "^5.29.2"
   }
 }
