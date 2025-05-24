@@ -1,6 +1,6 @@
 {
   "name": "hyde-vite-plugin",
-  "version": "1.0.0-RC.2",
+  "version": "1.0.0-RC.3",
   "description": "HydePHP Vite plugin for realtime compiler integration",
   "type": "module",
   "main": "dist/index.js",
