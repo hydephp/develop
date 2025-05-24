@@ -121,6 +121,33 @@ The live editor plugin code will not be saved to your static site.
 ],
 ```
 
+### Herd Integration
+
+#### Usage
+
+Since HydePHP v2 (Realtime Compiler v4), HydePHP has an experimental integration with [Herd](https://herd.laravel.com/) to provide a seamless development experience. The realtime compiler includes a custom Valet driver that allows Herd to serve your HydePHP site.
+
+To install the Valet driver for Herd, run the following command:
+
+```bash
+php hyde herd:install
+```
+
+This will copy the HydeValetDriver to your Herd configuration directory, allowing Herd to automatically serve your HydePHP site.
+
+#### Features
+
+When using the Herd integration, you get the following benefits:
+
+- Automatic site detection for HydePHP projects
+- The realtime compiler is used to serve your site
+- Proper handling of static files and dynamic routes
+- Site information displayed in the Herd UI
+
+> The Herd integration requires Herd to be installed on your system.
+
+>warning The Herd integration is experimental and may be unstable. [Report issues at GitHub](https://github.com/hydephp/realtime-compiler/pull/30)!
+
 ### Source code
 
 - **GitHub**: [hydephp/realtime-compiler](https://github.com/hydephp/realtime-compiler)

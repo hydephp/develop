@@ -1,8 +1,12 @@
 <?php
 
 try {
-    define('BASE_PATH', realpath(getcwd()));
+    define('BASE_PATH', isset($_SERVER['HERD_SITE_PATH']) ? realpath($_SERVER['HERD_SITE_PATH']) : realpath(getcwd()));
     define('HYDE_START', microtime(true));
+
+    if (isset($_SERVER['HERD_SITE_PATH'])) {
+        chdir($_SERVER['HERD_SITE_PATH']);
+    }
 
     require getenv('HYDE_AUTOLOAD_PATH') ?: BASE_PATH.'/vendor/autoload.php';
 
