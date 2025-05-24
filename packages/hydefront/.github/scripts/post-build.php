@@ -13,11 +13,11 @@ exit(main(function (): int {
         $this->info('Verifying root package lock...');
 
         $rootPackageLock = json_decode(file_get_contents($baseDir.'../../package-lock.json'), true);
-        
+
         // Support for package-lock.json v3 format
         $hydeFrontPackageLock = null;
         $lockfileVersion = $rootPackageLock['lockfileVersion'] ?? 1;
-        
+
         if ($lockfileVersion >= 3) {
             // v3+ uses 'packages' with node_modules paths as keys
             $hydeFrontPackageLock = $rootPackageLock['packages']['node_modules/hydefront'] ?? null;
@@ -25,7 +25,7 @@ exit(main(function (): int {
             // v1 and v2 use 'dependencies' at root level
             $hydeFrontPackageLock = $rootPackageLock['dependencies']['hydefront'] ?? null;
         }
-        
+
         $hydeFrontPackage = json_decode(file_get_contents($baseDir.'../../packages/hydefront/package.json'), true);
         $hydeFrontVersion = $hydeFrontPackage['version'];
 
