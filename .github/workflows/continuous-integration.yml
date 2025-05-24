@@ -129,7 +129,7 @@ jobs:
         run: rm -f package-lock.json
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: npm install
 
       - name: Update Tailwind content path
         run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
