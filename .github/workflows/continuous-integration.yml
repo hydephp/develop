@@ -105,6 +105,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Remove package-lock.json
+        run: rm -f package-lock.json
+
       - name: Run system tests (${{ matrix.script }})
         run: php monorepo/scripts/tests/${{ matrix.script }}.php
 
@@ -121,6 +124,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: 'npm'
+
+      - name: Remove package-lock.json
+        run: rm -f package-lock.json
 
       - name: Install Node.js dependencies
         run: npm ci
