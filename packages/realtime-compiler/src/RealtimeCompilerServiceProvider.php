@@ -5,15 +5,22 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler;
 
 use Illuminate\Support\ServiceProvider;
-use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\DashboardController;
+use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
+use Hyde\RealtimeCompiler\Console\Commands\HerdInstallCommand;
 
 class RealtimeCompilerServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
         $this->app->singleton(RealtimeCompiler::class);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                HerdInstallCommand::class,
+            ]);
+        }
     }
 
     public function boot(): void

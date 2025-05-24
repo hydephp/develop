@@ -144,6 +144,7 @@ This serves two purposes:
 
 - Simplified the asset file locator to only serve files from the media source directory in https://github.com/hydephp/develop/pull/2012
 - Added Vite HMR support in https://github.com/hydephp/develop/pull/2016
+- Added experimental Laravel Herd support in https://github.com/hydephp/develop/pull/2227
 
 #### HydeFront
 
