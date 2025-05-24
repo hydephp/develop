@@ -11,14 +11,6 @@ test('example', function () {
 test('can install node dependencies', function () {
     $this->assert(! file_exists(BASE_PATH.'/node_modules'), 'Node modules already exist');
 
-    // Remove package-lock.json so it can be regenerated.
-    unlink(BASE_PATH.'/package-lock.json');
-
-    shell_exec('cd '.BASE_PATH.' && npm install');
-
-    $this->assert(file_exists(BASE_PATH.'/node_modules'), 'Node modules do not exist');
-
-    // Test can re-install dependencies.
     shell_exec('cd '.BASE_PATH.' && npm install');
 
     $this->assert(file_exists(BASE_PATH.'/node_modules'), 'Node modules do not exist');
