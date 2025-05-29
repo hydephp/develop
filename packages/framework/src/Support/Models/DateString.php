@@ -46,4 +46,13 @@ class DateString implements Stringable
     {
         return $this->short;
     }
+
+    public function __call(string $method, array $arguments): mixed
+    {
+        if (method_exists($this->dateTimeObject, $method)) {
+            return $this->dateTimeObject->$method(...$arguments);
+        }
+
+        throw new \BadMethodCallException("Method {$method} does not exist on DateTime.");
+    } 
 }
