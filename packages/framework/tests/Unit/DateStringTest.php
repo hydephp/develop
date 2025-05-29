@@ -75,7 +75,7 @@ class DateStringTest extends UnitTestCase
     public function testCallingUndefinedMethodThrowsException()
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('Method nonExistentMethod does not exist on DateTime');
+        $this->expectExceptionMessage('Method nonExistentMethod does not exist on the DateTime object.');
 
         $dateString = new DateString('2020-01-01 UTC');
         $dateString->nonExistentMethod();
