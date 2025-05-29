@@ -6,6 +6,7 @@ namespace Hyde\Support\Models;
 
 use DateTime;
 use Stringable;
+use BadMethodCallException;
 
 /**
  * Parse a date string and create normalized formats.
@@ -45,5 +46,14 @@ class DateString implements Stringable
     public function __toString(): string
     {
         return $this->short;
+    }
+
+    public function __call(string $method, array $arguments): mixed
+    {
+        if (method_exists($this->dateTimeObject, $method)) {
+            return $this->dateTimeObject->$method(...$arguments);
+        }
+
+        throw new BadMethodCallException("Method {$method} does not exist on the DateTime object.");
     }
 }

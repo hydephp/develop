@@ -65,6 +65,7 @@ This serves two purposes:
 - The `publish:views` command is now interactive on Unix-like systems in [#2062](https://github.com/hydephp/develop/pull/2062)
 - You can now add custom posts to the blog post feed component when including it directly in [#1893](https://github.com/hydephp/develop/pull/1893)
 - You can now specify sidebar item priorities by adding a numeric prefix to documentation page source file names in [#1709](https://github.com/hydephp/develop/pull/1709)
+- You can now forward method calls to the underlying `DateTime` instance in `DateString` instances in [#2235](https://github.com/hydephp/develop/pull/2235)
 
 ### Changed
 
