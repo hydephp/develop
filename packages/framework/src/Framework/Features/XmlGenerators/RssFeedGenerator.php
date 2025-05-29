@@ -65,7 +65,7 @@ class RssFeedGenerator extends BaseXmlGenerator
         }
 
         if (isset($post->date)) {
-            $this->addChild($item, 'pubDate', $post->date->dateTimeObject->format(DATE_RSS));
+            $this->addChild($item, 'pubDate', $post->date->format(DATE_RSS));
         }
 
         if (isset($post->author)) {
