@@ -54,5 +54,5 @@ class DateString implements Stringable
         }
 
         throw new \BadMethodCallException("Method {$method} does not exist on DateTime.");
-    } 
+    }
 }
