@@ -76,7 +76,7 @@ class RebuildPageCommand extends Command
             public function printFinishMessage(): void
             {
                 $this->createdSiteFile(Command::fileLink(
-                    Pages::getPage($this->path)->getOutputPath()
+                    Hyde::sitePath(Pages::getPage($this->path)->getOutputPath())
                 ))->withExecutionTime();
             }
 
