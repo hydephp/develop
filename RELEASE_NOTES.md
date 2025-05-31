@@ -22,7 +22,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Fixed rebuild command showing the wrong console output in https://github.com/hydephp/develop/pull/2239
 
 ### Security
 - in case of vulnerabilities.
