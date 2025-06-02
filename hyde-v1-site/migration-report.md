@@ -1,6 +1,6 @@
 # HydePHP Migration Report (v1.x ➜ v2.0)
 
-**Project Name:** MyHydeSite  
+**Project Name:** hyde_v1_site
 **Date:** May 29, 2025  
 **PHP Version:** 8.2  
 **Node Version:** v22.16.0 
@@ -72,13 +72,13 @@ ModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/c
 - ✅ All pages render properly
 - ❌ Some spacing changed due to Tailwind v3
 - ✅ Navigation works fine
-- Screenshot: `screenshots/home-after.png`
+- Screenshot: ![post page after migration](<Screenshot 2025-06-02 064531.png>)  ![homepage after migration](<Screenshot 2025-06-02 064456.png>)
 
 ---
 
 ## ⭐ Overall Experience
 
-- Difficulty: ⚫⚫⚪⚪⚪ (2/5)
+- Difficulty: 4/5
 - Suggestions:
 - Add more logging for failed `composer install`
 - Better error messaging for missing PHP extensions
@@ -86,7 +86,9 @@ ModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/c
 ---
 
 ## 📸 Attachments
-
-- `screenshots/home-before.png`
-- `screenshots/home-after.png`
-- `config/hyde.php`
+- `(<Screenshot 2025-06-02 064531.png>)`
+- `(<Screenshot 2025-06-02 064456.png>)`
+- `(<Screenshot 2025-06-02 060946.png>)`
+- `(<Screenshot 2025-06-02 043836.png>)`
+- `(<Screenshot 2025-06-02 043810.png>)`
+ 
