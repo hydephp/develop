@@ -16,7 +16,7 @@
 - Custom CSS/JS added in:
   - `resources/css/app.css`
   - `resources/js/app.js`
-- Screenshot of homepage: `screenshots/home-before.png`
+- Screenshot of homepage:![homepage before migration](<Screenshot 2025-06-02 043810.png>) ![post page before migration](<Screenshot 2025-06-02 043836.png>)
 - Tree structure:
 resources/
 ├── css/
@@ -42,8 +42,11 @@ Edit
 
 3. Installed Node modules and built assets:  
  `npm install`  
- `npm run build`  
+ `npm run build` 
+ - Screenshot of build: ![build sucessfully](<Screenshot 2025-06-02 060946.png>)
  ⏱ Time: 2 minutes
+
+
 
 4. Updated config files manually (navigation, authors)
 
@@ -58,6 +61,9 @@ Edit
 - `npx @tailwindcss/upgrade` failed → due to poor network
 - Custom Blade layouts had deprecated APIs → Updated `@includeIf` usages
 - git directory is not clean -> solved by git log
+- ERROR in ./resources/assets/app.css
+Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):
+ModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/cjs.js): -> solved by npm install @tailwindcss/postcss postcss autoprefixer,Replace your current webpack.mix.js and the plugins in tailwind.config.js
 ---
 
 ## ✅ Post-Migration State
