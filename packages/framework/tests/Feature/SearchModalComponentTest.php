@@ -120,7 +120,7 @@ class SearchModalComponentTest extends TestCase
         $this->assertStringContainsString('x-on:click="searchWindowOpen = ! searchWindowOpen"', $html);
         $this->assertStringContainsString('aria-label="Toggle search window"', $html);
 
-        // Mobile search button  
+        // Mobile search button
         $this->assertStringContainsString('aria-label="Toggle search menu"', $html);
     }
 
