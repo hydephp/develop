@@ -15,136 +15,136 @@ use Hyde\Testing\TestCase;
  */
 class SearchModalComponentTest extends TestCase
 {
-  public function testSearchModalContainerHasXCloak()
-  {
-    $this->file('_docs/index.md');
+    public function testSearchModalContainerHasXCloak()
+    {
+        $this->file('_docs/index.md');
 
-    $page = DocumentationPage::make('index');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('index');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    $this->assertStringContainsString('x-cloak', $html);
-    $this->assertStringContainsString('id="search-window-container"', $html);
-    $this->assertStringContainsString('x-show="searchWindowOpen"', $html);
-  }
+        $this->assertStringContainsString('x-cloak', $html);
+        $this->assertStringContainsString('id="search-window-container"', $html);
+        $this->assertStringContainsString('x-show="searchWindowOpen"', $html);
+    }
 
-  public function testDocumentationLayoutHasXDataWithSearchWindowOpen()
-  {
-    $this->file('_docs/foo.md');
+    public function testDocumentationLayoutHasXDataWithSearchWindowOpen()
+    {
+        $this->file('_docs/foo.md');
 
-    $page = DocumentationPage::make('foo');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('foo');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    $this->assertStringContainsString('x-data="{ sidebarOpen: false, searchWindowOpen: false }"', $html);
-    $this->assertStringContainsString('x-cloak', $html);
-  }
+        $this->assertStringContainsString('x-data="{ sidebarOpen: false, searchWindowOpen: false }"', $html);
+        $this->assertStringContainsString('x-cloak', $html);
+    }
 
-  public function testDocumentationLayoutHasEscapeKeyHandler()
-  {
-    $this->file('_docs/foo.md');
+    public function testDocumentationLayoutHasEscapeKeyHandler()
+    {
+        $this->file('_docs/foo.md');
 
-    $page = DocumentationPage::make('foo');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('foo');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    $this->assertStringContainsString('x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false"', $html);
-  }
+        $this->assertStringContainsString('x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false"', $html);
+    }
 
-  public function testSearchModalComponentRendersInDocumentationPages()
-  {
-    $this->file('_docs/test.md');
+    public function testSearchModalComponentRendersInDocumentationPages()
+    {
+        $this->file('_docs/test.md');
 
-    $page = DocumentationPage::make('test');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('test');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    // Test search window container structure
-    $this->assertStringContainsString('<div id="search-window-container"', $html);
-    $this->assertStringContainsString('x-show="searchWindowOpen"', $html);
-    $this->assertStringContainsString('x-cloak', $html);
-    $this->assertStringContainsString('role="dialog"', $html);
+        // Test search window container structure
+        $this->assertStringContainsString('<div id="search-window-container"', $html);
+        $this->assertStringContainsString('x-show="searchWindowOpen"', $html);
+        $this->assertStringContainsString('x-cloak', $html);
+        $this->assertStringContainsString('role="dialog"', $html);
 
-    // Test search window backdrop
-    $this->assertStringContainsString('id="search-window-backdrop"', $html);
+        // Test search window backdrop
+        $this->assertStringContainsString('id="search-window-backdrop"', $html);
 
-    $this->assertStringContainsString('id="searchMenuButton"', $html);
-    $this->assertStringContainsString('id="searchMenuButtonMobile"', $html);
-  }
+        $this->assertStringContainsString('id="searchMenuButton"', $html);
+        $this->assertStringContainsString('id="searchMenuButtonMobile"', $html);
+    }
 
-  public function testXCloakStylesAreIncluded()
-  {
-    $this->file('_docs/foo.md');
+    public function testXCloakStylesAreIncluded()
+    {
+        $this->file('_docs/foo.md');
 
-    $page = DocumentationPage::make('foo');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('foo');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    $this->assertStringContainsString('[x-cloak] {display: none!important}', $html);
-  }
+        $this->assertStringContainsString('[x-cloak] {display: none!important}', $html);
+    }
 
-  public function testSidebarBackdropHasXCloak()
-  {
-    $this->file('_docs/foo.md');
+    public function testSidebarBackdropHasXCloak()
+    {
+        $this->file('_docs/foo.md');
 
-    $page = DocumentationPage::make('foo');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('foo');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    $this->assertStringContainsString('id="sidebar-backdrop"', $html);
-    $this->assertStringContainsString('x-cloak=""', $html);
-    $this->assertStringContainsString('x-show="sidebarOpen"', $html);
-  }
+        $this->assertStringContainsString('id="sidebar-backdrop"', $html);
+        $this->assertStringContainsString('x-cloak=""', $html);
+        $this->assertStringContainsString('x-show="sidebarOpen"', $html);
+    }
 
-  public function testSidebarHasXCloak()
-  {
-    $this->file('_docs/foo.md');
+    public function testSidebarHasXCloak()
+    {
+        $this->file('_docs/foo.md');
 
-    $page = DocumentationPage::make('foo');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('foo');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    $this->assertStringContainsString('id="sidebar"', $html);
-    $this->assertStringContainsString('x-cloak', $html);
-  }
+        $this->assertStringContainsString('id="sidebar"', $html);
+        $this->assertStringContainsString('x-cloak', $html);
+    }
 
-  public function testSearchModalButtonsHaveCorrectAttributes()
-  {
-    $this->file('_docs/test.md');
+    public function testSearchModalButtonsHaveCorrectAttributes()
+    {
+        $this->file('_docs/test.md');
 
-    $page = DocumentationPage::make('test');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('test');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    // Desktop search button
-    $this->assertStringContainsString('x-on:click="searchWindowOpen = ! searchWindowOpen"', $html);
-    $this->assertStringContainsString('aria-label="Toggle search window"', $html);
+        // Desktop search button
+        $this->assertStringContainsString('x-on:click="searchWindowOpen = ! searchWindowOpen"', $html);
+        $this->assertStringContainsString('aria-label="Toggle search window"', $html);
 
-    // Mobile search button  
-    $this->assertStringContainsString('aria-label="Toggle search menu"', $html);
-  }
+        // Mobile search button  
+        $this->assertStringContainsString('aria-label="Toggle search menu"', $html);
+    }
 
-  public function testSearchPageHidesSearchButtonProperly()
-  {
-    $page = new DocumentationSearchPage();
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+    public function testSearchPageHidesSearchButtonProperly()
+    {
+        $page = new DocumentationSearchPage();
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    // The search page should hide the search button to prevent recursion
-    $this->assertStringContainsString('#searchMenuButton', $html);
-    $this->assertStringContainsString('.edit-page-link', $html);
-    $this->assertStringContainsString('display: none !important;', $html);
-  }
+        // The search page should hide the search button to prevent recursion
+        $this->assertStringContainsString('#searchMenuButton', $html);
+        $this->assertStringContainsString('.edit-page-link', $html);
+        $this->assertStringContainsString('display: none !important;', $html);
+    }
 
-  public function testSearchWindowBackdropClickToClose()
-  {
-    $this->file('_docs/test.md');
+    public function testSearchWindowBackdropClickToClose()
+    {
+        $this->file('_docs/test.md');
 
-    $page = DocumentationPage::make('test');
-    Hyde::shareViewData($page);
-    $html = $page->compile();
+        $page = DocumentationPage::make('test');
+        Hyde::shareViewData($page);
+        $html = $page->compile();
 
-    $this->assertStringContainsString('title="Click to close search window"', $html);
-    $this->assertStringContainsString('id="search-window-backdrop"', $html);
-  }
+        $this->assertStringContainsString('title="Click to close search window"', $html);
+        $this->assertStringContainsString('id="search-window-backdrop"', $html);
+    }
 }
