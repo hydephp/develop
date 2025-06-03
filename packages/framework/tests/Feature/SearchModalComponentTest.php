@@ -68,9 +68,8 @@ class SearchModalComponentTest extends TestCase
     // Test search window backdrop
     $this->assertStringContainsString('id="search-window-backdrop"', $html);
 
-    // Test search buttons
-    $this->assertStringContainsString('id="search-menu-button"', $html);
-    $this->assertStringContainsString('id="search-menu-button-mobile"', $html);
+    $this->assertStringContainsString('id="searchMenuButton"', $html);
+    $this->assertStringContainsString('id="searchMenuButtonMobile"', $html);
   }
 
   public function testXCloakStylesAreIncluded()
@@ -132,7 +131,9 @@ class SearchModalComponentTest extends TestCase
     $html = $page->compile();
 
     // The search page should hide the search button to prevent recursion
-    $this->assertStringContainsString('#search-menu-button, .edit-page-link { display: none !important; }', $html);
+    $this->assertStringContainsString('#searchMenuButton', $html);
+    $this->assertStringContainsString('.edit-page-link', $html);
+    $this->assertStringContainsString('display: none !important;', $html);
   }
 
   public function testSearchWindowBackdropClickToClose()
