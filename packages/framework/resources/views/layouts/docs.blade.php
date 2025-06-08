@@ -4,7 +4,7 @@
     @include('hyde::layouts.head')
 </head>
 <body id="hyde-docs" class="bg-white dark:bg-gray-900 dark:text-white min-h-screen w-screen relative overflow-x-hidden overflow-y-auto"
-      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
+      x-data="{ sidebarOpen: false, searchWindowOpen: false }" x-cloak x-on:keydown.escape="searchWindowOpen = false; sidebarOpen = false" x-on:keydown.slash="searchWindowOpen = true">
 
     @include('hyde::components.skip-to-content-button')
     @include('hyde::components.docs.mobile-navigation')
