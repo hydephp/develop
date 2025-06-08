@@ -22,7 +22,8 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- Fixed rebuild command showing the wrong console output in https://github.com/hydephp/develop/pull/2239
+- Fixed rebuild command showing the wrong console output in https://github.com/hydephp/develop/pull/2239 by @nats-afs
+- Fixed search input flicker in https://github.com/hydephp/develop/pull/2236 by @laryhills
 
 ### Security
 - in case of vulnerabilities.
