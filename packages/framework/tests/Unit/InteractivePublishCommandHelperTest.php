@@ -67,7 +67,7 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
 
     public function testPublishFiles(): void
     {
-        $this->filesystem->shouldReceive('ensureDirectoryExists')->times(3);
+        $this->filesystem->shouldReceive('ensureParentDirectoryExists')->times(3);
         $this->filesystem->shouldReceive('copy')->times(3);
 
         $helper = new InteractivePublishCommandHelper([
@@ -78,7 +78,17 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
 
         $helper->publishFiles();
 
-        $this->filesystem->shouldHaveReceived('ensureDirectoryExists')->with(Hyde::path('resources/views/vendor/hyde/layouts'))->times(3);
+        $this->filesystem->shouldHaveReceived('ensureParentDirectoryExists')
+        ->with(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'))
+        ->once();
+        
+        $this->filesystem->shouldHaveReceived('ensureParentDirectoryExists')
+            ->with(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'))
+            ->once();
+            
+        $this->filesystem->shouldHaveReceived('ensureParentDirectoryExists')
+            ->with(Hyde::path('resources/views/vendor/hyde/layouts/post.blade.php'))
+            ->once();
 
         $this->filesystem->shouldHaveReceived('copy')->with(
             Hyde::path('packages/framework/resources/views/layouts/app.blade.php'),
