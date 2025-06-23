@@ -60,7 +60,7 @@ class InteractivePublishCommandHelper
     public function publishFiles(): void
     {
         foreach ($this->publishableFilesMap as $source => $target) {
-            Filesystem::ensureDirectoryExists(dirname($target));
+            Filesystem::ensureParentDirectoryExists($target);
             Filesystem::copy($source, $target);
         }
     }
