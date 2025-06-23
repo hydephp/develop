@@ -10,7 +10,6 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
 use Illuminate\Support\Facades\View;
 
-use function dirname;
 use function ltrim;
 use function trim;
 

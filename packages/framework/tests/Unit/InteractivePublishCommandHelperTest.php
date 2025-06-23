@@ -81,11 +81,11 @@ class InteractivePublishCommandHelperTest extends UnitTestCase
         $this->filesystem->shouldHaveReceived('ensureParentDirectoryExists')
         ->with(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'))
         ->once();
-        
+
         $this->filesystem->shouldHaveReceived('ensureParentDirectoryExists')
             ->with(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'))
             ->once();
-            
+
         $this->filesystem->shouldHaveReceived('ensureParentDirectoryExists')
             ->with(Hyde::path('resources/views/vendor/hyde/layouts/post.blade.php'))
             ->once();
