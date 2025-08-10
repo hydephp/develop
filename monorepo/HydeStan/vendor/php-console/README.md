@@ -2,4 +2,4 @@
 
 ## Forked version that is simplified to work without Composer
 
-Original package: https://github.com/caendesilva/php-console
+Original package: https://github.com/emmadesilva/php-console

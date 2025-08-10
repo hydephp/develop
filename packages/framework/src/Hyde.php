@@ -13,8 +13,8 @@ use JetBrains\PhpStorm\Pure;
  *
  * @see \Hyde\Foundation\HydeKernel
  *
- * @author  Caen De Silva <caen@desilva.se>
- * @copyright 2022 Caen De Silva
+ * @author  Emma De Silva <emma@desilva.se>
+ * @copyright 2022 Emma De Silva
  * @license MIT License
  *
  * @mixin \Hyde\Foundation\HydeKernel
