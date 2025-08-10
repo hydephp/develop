@@ -34,7 +34,7 @@ Contributions are welcome. Please see the [hydephp/develop](https://github.com/h
 
 ### Security
 
-If you discover any security related issues, please email caen@desilva.se instead of using the issue tracker.
+If you discover any security related issues, please email emma@desilva.se instead of using the issue tracker.
 
 
 ## License

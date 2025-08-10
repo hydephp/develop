@@ -184,7 +184,7 @@ return [
     'navigation_menu_links' => [
         [
             'title' => 'GitHub 🡕',
-            'destination' => 'https://github.com/caendesilva/hyde-monorepo',
+            'destination' => 'https://github.com/emmadesilva/hyde-monorepo',
             'priority' => 1200,
         ],
         // [

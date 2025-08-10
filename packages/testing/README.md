@@ -32,7 +32,7 @@ Please see the [hydephp/develop](https://github.com/hydephp/develop/issues) mono
 
 ### Security
 
-If you discover any security related issues, please email caen@desilva.se instead of using the issue tracker.
+If you discover any security related issues, please email emma@desilva.se instead of using the issue tracker.
 
 There are no backwards compatibility guarantees other than what is implicitly offered through the HydePHP packages requiring this package.
 

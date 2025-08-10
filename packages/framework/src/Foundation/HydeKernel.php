@@ -29,8 +29,8 @@ use function trigger_deprecation;
  *
  * @see \Hyde\Hyde for the facade commonly used to access this class.
  *
- * @author  Caen De Silva <caen@desilva.se>
- * @copyright 2022 Caen De Silva
+ * @author  Emma De Silva <emma@desilva.se>
+ * @copyright 2022 Emma De Silva
  * @license MIT License
  *
  * @link https://hydephp.com/

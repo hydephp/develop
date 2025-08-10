@@ -10,8 +10,8 @@
     },
     "authors": [
         {
-            "name": "Caen De Silva",
-            "email": "caen@desilva.se"
+            "name": "Emma De Silva",
+            "email": "emma@desilva.se"
         }
     ],
     "require": {
@@ -77,7 +77,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/caendesilva/psalm-coverage",
+            "url": "https://github.com/emmadesilva/psalm-coverage",
             "no-api": true
         }
     ]

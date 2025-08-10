@@ -7,7 +7,7 @@ namespace Desilva\Console;
 /**
  * Forked version that is simplified to work without Composer.
  *
- * @link https://github.com/caendesilva/php-console
+ * @link https://github.com/emmadesilva/php-console
  * @license MIT
  * @internal
  */

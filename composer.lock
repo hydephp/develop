@@ -1166,8 +1166,8 @@
             ],
             "authors": [
                 {
-                    "name": "Caen De Silva",
-                    "email": "caen@desilva.se"
+                    "name": "Emma De Silva",
+                    "email": "emma@desilva.se"
                 }
             ],
             "description": "The HydePHP Framework",
@@ -1206,8 +1206,8 @@
             ],
             "authors": [
                 {
-                    "name": "Caen De Silva",
-                    "email": "caen@desilva.se",
+                    "name": "Emma De Silva",
+                    "email": "emma@desilva.se",
                     "role": "Developer"
                 }
             ],
@@ -1252,8 +1252,8 @@
             ],
             "authors": [
                 {
-                    "name": "Caen De Silva",
-                    "email": "caen@desilva.se",
+                    "name": "Emma De Silva",
+                    "email": "emma@desilva.se",
                     "role": "Developer"
                 }
             ],
@@ -7371,12 +7371,12 @@
             "version": "v2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/caendesilva/microserve.git",
+                "url": "https://github.com/emmadesilva/microserve.git",
                 "reference": "a1fca6567267996797498ba5f0e5d763d5d4f714"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/microserve/zipball/a1fca6567267996797498ba5f0e5d763d5d4f714",
+                "url": "https://api.github.com/repos/emmadesilva/microserve/zipball/a1fca6567267996797498ba5f0e5d763d5d4f714",
                 "reference": "a1fca6567267996797498ba5f0e5d763d5d4f714",
                 "shasum": ""
             },
@@ -7399,20 +7399,20 @@
             ],
             "authors": [
                 {
-                    "name": "Caen De Silva",
-                    "email": "caen@desilva.se",
+                    "name": "Emma De Silva",
+                    "email": "emma@desilva.se",
                     "role": "Developer"
                 }
             ],
             "description": "Lightweight API for creating PHP application servers",
-            "homepage": "https://github.com/caendesilva/microserve",
+            "homepage": "https://github.com/emmadesilva/microserve",
             "keywords": [
                 "desilva",
                 "microserve"
             ],
             "support": {
-                "issues": "https://github.com/caendesilva/microserve/issues",
-                "source": "https://github.com/caendesilva/microserve/tree/v2.0.0"
+                "issues": "https://github.com/emmadesilva/microserve/issues",
+                "source": "https://github.com/emmadesilva/microserve/tree/v2.0.0"
             },
             "funding": [
                 {
@@ -7427,12 +7427,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/caendesilva/psalm-coverage",
+                "url": "https://github.com/emmadesilva/psalm-coverage",
                 "reference": "fb464f51528fe6b2813aaedca6196301ce0b2087"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caendesilva/psalm-coverage/zipball/fb464f51528fe6b2813aaedca6196301ce0b2087",
+                "url": "https://api.github.com/repos/emmadesilva/psalm-coverage/zipball/fb464f51528fe6b2813aaedca6196301ce0b2087",
                 "reference": "fb464f51528fe6b2813aaedca6196301ce0b2087",
                 "shasum": ""
             },
@@ -7931,8 +7931,8 @@
             ],
             "authors": [
                 {
-                    "name": "Caen De Silva",
-                    "email": "caen@desilva.se"
+                    "name": "Emma De Silva",
+                    "email": "emma@desilva.se"
                 }
             ],
             "description": "HydePHP Realtime Compiler Server",
@@ -7975,8 +7975,8 @@
             ],
             "authors": [
                 {
-                    "name": "Caen De Silva",
-                    "email": "caen@desilva.se",
+                    "name": "Emma De Silva",
+                    "email": "emma@desilva.se",
                     "role": "Developer"
                 }
             ],

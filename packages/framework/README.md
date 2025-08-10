@@ -45,12 +45,12 @@ Development is made in the HydePHP Monorepo, which you can find here https://git
 
 ### Security
 
-If you discover any security-related issues, please email caen@desilva.se instead of using the issue tracker.
+If you discover any security-related issues, please email emma@desilva.se instead of using the issue tracker.
 All vulnerabilities will be promptly addressed.
 
 ### Credits
 
--   [Caen De Silva](https://github.com/caendesilva)
+-   [Emma De Silva](https://github.com/emmadesilva)
 -   [All Contributors](../../contributors)
 
 ### License
