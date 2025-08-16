@@ -10,10 +10,9 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 
 /**
- * @covers \Hyde\Markdown\Processing\HeadingRenderer
- *
  * @see \Hyde\Framework\Testing\Unit\HeadingRendererUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\HeadingRenderer::class)]
 class MarkdownHeadingRendererTest extends TestCase
 {
     public function testBasicHeadingRendering()

@@ -12,9 +12,7 @@ use Symfony\Component\Yaml\Yaml;
 use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 
-/**
- * @covers \Hyde\Publications\Models\PublicationFieldValue
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Models\PublicationFieldValue::class)]
 class PublicationFieldValueTest extends TestCase
 {
     // Base tests
@@ -123,7 +121,7 @@ class PublicationFieldValueTest extends TestCase
 
     public function testBooleanFieldGetValue()
     {
-        $this->assertSame(true, $this->makeFieldType('boolean', 'true')->getValue());
+        $this->assertTrue($this->makeFieldType('boolean', 'true')->getValue());
     }
 
     public function testBooleanFieldToYaml()
@@ -140,10 +138,10 @@ class PublicationFieldValueTest extends TestCase
 
     public function testBooleanFieldParsingOptions()
     {
-        $this->assertSame(true, $this->makeFieldType('boolean', 'true')->getValue());
-        $this->assertSame(true, $this->makeFieldType('boolean', '1')->getValue());
-        $this->assertSame(false, $this->makeFieldType('boolean', 'false')->getValue());
-        $this->assertSame(false, $this->makeFieldType('boolean', '0')->getValue());
+        $this->assertTrue($this->makeFieldType('boolean', 'true')->getValue());
+        $this->assertTrue($this->makeFieldType('boolean', '1')->getValue());
+        $this->assertFalse($this->makeFieldType('boolean', 'false')->getValue());
+        $this->assertFalse($this->makeFieldType('boolean', '0')->getValue());
     }
 
     // IntegerField tests

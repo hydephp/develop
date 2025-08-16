@@ -14,12 +14,10 @@ use Illuminate\Support\Facades\Process;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Actions\StaticPageBuilder;
 
-/**
- * @covers \Hyde\Console\Commands\BuildSiteCommand
- * @covers \Hyde\Framework\Services\BuildService
- * @covers \Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory
- * @covers \Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSiteCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\BuildService::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets::class)]
 class StaticSiteServiceTest extends TestCase
 {
     protected function setUp(): void

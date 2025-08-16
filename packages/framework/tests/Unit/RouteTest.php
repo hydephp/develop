@@ -10,9 +10,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Support\Models\Route
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\Route::class)]
 class RouteTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

@@ -12,9 +12,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Foundation\Facades\Routes
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Routes::class)]
 class RouteFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

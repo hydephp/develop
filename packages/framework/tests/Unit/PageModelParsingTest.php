@@ -11,13 +11,12 @@ use Hyde\Testing\CreatesTemporaryFiles;
 
 /**
  * Test the constructor actions and schema constructors for page models.
- *
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Factories\FeaturedImageFactory
- * @covers \Hyde\Framework\Factories\HydePageDataFactory
- * @covers \Hyde\Framework\Factories\BlogPostDataFactory
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\Concerns\HasFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\NavigationDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\FeaturedImageFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\HydePageDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\BlogPostDataFactory::class)]
 class PageModelParsingTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

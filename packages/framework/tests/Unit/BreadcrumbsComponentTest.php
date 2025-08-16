@@ -15,10 +15,9 @@ use Illuminate\Support\Facades\Facade;
 use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 
 /**
- * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
- *
  * @see \Hyde\Framework\Testing\Unit\Views\BreadcrumbsComponentViewTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Views\Components\BreadcrumbsComponent::class)]
 class BreadcrumbsComponentTest extends UnitTestCase
 {
     protected function setUp(): void

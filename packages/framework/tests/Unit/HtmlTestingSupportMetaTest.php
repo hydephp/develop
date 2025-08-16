@@ -20,9 +20,8 @@ use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
  *
  * @see \Hyde\Testing\Support\TestView
  * @see \Hyde\Testing\Support\HtmlTesting
- *
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class HtmlTestingSupportMetaTest extends UnitTestCase
 {
     use TestsBladeViews;

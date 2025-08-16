@@ -16,11 +16,9 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
-/**
- * @covers \Hyde\Foundation\Kernel\FileCollection
- * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
- * @covers \Hyde\Foundation\Facades\Files
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\FileCollection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\BaseFoundationCollection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Files::class)]
 class FileCollectionTest extends TestCase
 {
     public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()

@@ -8,9 +8,7 @@ use Hyde\Framework\Actions\BladeMatterParser;
 use Hyde\Testing\TestCase;
 use RuntimeException;
 
-/**
- * @covers \Hyde\Framework\Actions\BladeMatterParser
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\BladeMatterParser::class)]
 class BladeMatterParserTest extends TestCase
 {
     public function testCanParseFrontMatter()

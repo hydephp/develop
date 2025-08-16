@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Console\Commands\RebuildPageCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\RebuildPageCommand::class)]
 class RebuildPageCommandTest extends TestCase
 {
     public function testHandleIsSuccessfulWithValidPath()

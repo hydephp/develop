@@ -17,11 +17,9 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
-/**
- * @covers \Hyde\Foundation\Kernel\PageCollection
- * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
- * @covers \Hyde\Foundation\Facades\Pages
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\PageCollection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\BaseFoundationCollection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Pages::class)]
 class PageCollectionTest extends TestCase
 {
     public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()

@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Console\ConsoleServiceProvider
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\ConsoleServiceProvider::class)]
 class ConsoleServiceProviderUnitTest extends UnitTestCase
 {
     public function testProviderRegistersLogo()

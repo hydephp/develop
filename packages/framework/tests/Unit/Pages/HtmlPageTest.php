@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 use Hyde\Pages\HtmlPage;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Pages\HtmlPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\HtmlPage::class)]
 class HtmlPageTest extends TestCase
 {
     public function testHtmlPageCanBeCompiled()

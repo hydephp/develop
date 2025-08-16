@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\ConvertsArrayToFrontMatter
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\ConvertsArrayToFrontMatter::class)]
 class ConvertsArrayToFrontMatterTest extends TestCase
 {
     public function testActionConvertsAnArrayToFrontMatter()

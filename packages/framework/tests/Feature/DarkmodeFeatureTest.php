@@ -11,9 +11,7 @@ use Hyde\Enums\Feature;
 use Illuminate\Support\Facades\Config;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 
-/**
- * @covers \Hyde\Facades\Features::hasDarkmode
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Features::class)]
 class DarkmodeFeatureTest extends TestCase
 {
     protected function setUp(): void

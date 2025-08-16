@@ -12,10 +12,9 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
 
 /**
- * @covers \Hyde\Support\Includes
- *
  * @see \Hyde\Framework\Testing\Unit\IncludesFacadeUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Includes::class)]
 class IncludesFacadeTest extends TestCase
 {
     protected function setUp(): void

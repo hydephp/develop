@@ -8,9 +8,7 @@ use Hyde\Markdown\Processing\ColoredBlockquotes;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\UsesRealBladeInUnitTests;
 
-/**
- * @covers \Hyde\Markdown\Processing\ColoredBlockquotes
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\ColoredBlockquotes::class)]
 class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
     use UsesRealBladeInUnitTests;
@@ -66,49 +64,45 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
         );
     }
 
-    /**
-     * @dataProvider blockquoteProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('blockquoteProvider')]
     public function testItResolvesAllShortcodes(string $input, string $expectedOutput)
     {
         $this->assertSame($expectedOutput, ColoredBlockquotes::resolve($input));
     }
 
-    public static function blockquoteProvider(): array
+    public static function blockquoteProvider(): \Iterator
     {
-        return [
-            [
-                '>danger This is a danger blockquote',
-                <<<'HTML'
+        yield [
+            '>danger This is a danger blockquote',
+            <<<'HTML'
                 <blockquote class="border-red-600">
                     <p>This is a danger blockquote</p>
                 </blockquote>
                 HTML,
-            ],
-            [
-                '>info This is an info blockquote',
-                <<<'HTML'
+        ];
+        yield [
+            '>info This is an info blockquote',
+            <<<'HTML'
                 <blockquote class="border-blue-500">
                     <p>This is an info blockquote</p>
                 </blockquote>
                 HTML,
-            ],
-            [
-                '>success This is a success blockquote',
-                <<<'HTML'
+        ];
+        yield [
+            '>success This is a success blockquote',
+            <<<'HTML'
                 <blockquote class="border-green-500">
                     <p>This is a success blockquote</p>
                 </blockquote>
                 HTML,
-            ],
-            [
-                '>warning This is a warning blockquote',
-                <<<'HTML'
+        ];
+        yield [
+            '>warning This is a warning blockquote',
+            <<<'HTML'
                 <blockquote class="border-amber-500">
                     <p>This is a warning blockquote</p>
                 </blockquote>
                 HTML,
-            ],
         ];
     }
 }

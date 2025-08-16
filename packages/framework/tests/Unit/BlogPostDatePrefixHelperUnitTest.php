@@ -6,10 +6,9 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 
 /**
- * @covers \Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper
- *
  * @see \Hyde\Framework\Testing\Feature\BlogPostDatePrefixHelperTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper::class)]
 class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
 {
     public function testHasDatePrefixWithValidDateOnly()

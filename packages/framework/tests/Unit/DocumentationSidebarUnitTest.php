@@ -11,13 +11,12 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\DocumentationSidebar::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenu::class)]
 class DocumentationSidebarUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

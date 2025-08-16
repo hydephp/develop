@@ -19,10 +19,10 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
  * This unit test covers the basics of the NavigationItem class.
  * For the full feature test, see the MainNavigationMenuTest class.
  *
- * @covers \Hyde\Framework\Features\Navigation\NavigationItem
  *
  * @see \Hyde\Framework\Testing\Unit\NavigationItemIsActiveHelperTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationItem::class)]
 class NavigationItemTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

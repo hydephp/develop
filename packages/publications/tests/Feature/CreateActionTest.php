@@ -10,9 +10,7 @@ use Hyde\Hyde;
 use Hyde\Publications\Actions\CreateAction;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Actions\CreateAction
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\CreateAction::class)]
 class CreateActionTest extends TestCase
 {
     public function testCreate()
@@ -20,7 +18,7 @@ class CreateActionTest extends TestCase
         $action = new CreateActionTestClass;
         $action->create();
 
-        $this->assertTrue(file_exists(Hyde::path('foo')));
+        $this->assertFileExists(Hyde::path('foo'));
         $this->assertSame('bar', file_get_contents(Hyde::path('foo')));
 
         Filesystem::unlink('foo');
@@ -85,7 +83,7 @@ class CreateActionTest extends TestCase
         $action->setOutputPath('foo/bar');
         $action->create();
 
-        $this->assertTrue(file_exists(Hyde::path('foo/bar')));
+        $this->assertFileExists(Hyde::path('foo/bar'));
         $this->assertSame('bar', file_get_contents(Hyde::path('foo/bar')));
         unlink(Hyde::path('foo/bar'));
         rmdir(Hyde::path('foo'));

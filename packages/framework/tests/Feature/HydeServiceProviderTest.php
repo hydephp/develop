@@ -21,13 +21,11 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
 
-/**
- * @covers \Hyde\Framework\HydeServiceProvider
- * @covers \Hyde\Framework\Concerns\RegistersFileLocations
- * @covers \Hyde\Foundation\Providers\ConfigurationServiceProvider
- * @covers \Hyde\Foundation\Providers\NavigationServiceProvider
- * @covers \Hyde\Foundation\Providers\ViewServiceProvider
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\HydeServiceProvider::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\RegistersFileLocations::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Providers\ConfigurationServiceProvider::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Providers\NavigationServiceProvider::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Providers\ViewServiceProvider::class)]
 class HydeServiceProviderTest extends TestCase
 {
     protected HydeServiceProvider $provider;
@@ -236,7 +234,7 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
 
         foreach ($pages as $page) {
-            $this->assertNotEquals('foo', $page::sourceDirectory(), "Source directory for $page was not set");
+            $this->assertNotSame('foo', $page::sourceDirectory(), "Source directory for $page was not set");
         }
     }
 
@@ -252,7 +250,7 @@ class HydeServiceProviderTest extends TestCase
         $this->provider->register();
 
         foreach ($pages as $page) {
-            $this->assertNotEquals('foo', $page::outputDirectory(), "Output directory for $page was not set");
+            $this->assertNotSame('foo', $page::outputDirectory(), "Output directory for $page was not set");
         }
     }
 

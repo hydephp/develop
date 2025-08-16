@@ -12,9 +12,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\SourceFileParser
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\SourceFileParser::class)]
 class SourceFileParserTest extends TestCase
 {
     public function testBladePageParser()

@@ -8,10 +8,8 @@ use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Commands\SeedPublicationCommand
- * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Commands\SeedPublicationCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\SeedsPublicationFiles::class)]
 class SeedPublicationCommandTest extends TestCase
 {
     protected function setUp(): void

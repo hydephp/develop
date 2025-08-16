@@ -10,9 +10,7 @@ use Hyde\Hyde;
 use Hyde\Support\Models\Redirect;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Support\Models\Redirect
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\Redirect::class)]
 class RedirectTest extends TestCase
 {
     public function testCanCreateARedirect()

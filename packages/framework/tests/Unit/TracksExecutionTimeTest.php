@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Framework\Concerns\TracksExecutionTime
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\TracksExecutionTime::class)]
 class TracksExecutionTimeTest extends UnitTestCase
 {
     public function testStartClock()

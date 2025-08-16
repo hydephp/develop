@@ -16,10 +16,9 @@ use Hyde\Support\Models\RenderData;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
- * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
- *
  * @see \Hyde\Framework\Testing\Feature\DynamicMarkdownLinksFeatureTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor::class)]
 class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;

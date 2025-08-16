@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\View\Factory;
 use Mockery;
 
-/**
- * @covers \Hyde\Foundation\Kernel\Hyperlinks::relativeLink
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Hyperlinks::class)]
 class HyperlinkFileHelperRelativeLinkTest extends UnitTestCase
 {
     use InteractsWithPages;

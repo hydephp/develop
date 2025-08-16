@@ -21,20 +21,19 @@ use Hyde\Pages\DocumentationPage;
  * as their schemas generally do not allow relative URLs. In those cases, we
  * don't generate files at all, and we don't add any links to them either.
  *
- * @coversNothing This test is not testing a specific class, but a general feature of the framework.
+ * This test is not testing a specific class, but a general feature of the framework.
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
 {
-    public static function pageClassProvider(): array
+    public static function pageClassProvider(): \Iterator
     {
-        return [
-            [MarkdownPage::class],
-            [MarkdownPost::class],
-            [DocumentationPage::class],
-        ];
+        yield [MarkdownPage::class];
+        yield [MarkdownPost::class];
+        yield [DocumentationPage::class];
     }
 
-    /** @dataProvider pageClassProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageClassProvider')]
     public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNull(string $class)
     {
         $this->withoutSiteUrl();
@@ -42,7 +41,7 @@ class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
         $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
     }
 
-    /** @dataProvider pageClassProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageClassProvider')]
     public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsNotSet(string $class)
     {
         $this->withoutSiteUrl();
@@ -50,7 +49,7 @@ class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
         $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
     }
 
-    /** @dataProvider pageClassProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageClassProvider')]
     public function testLocalhostLinksAreNotAddedToCompiledHtmlWhenBaseUrlIsSetToLocalhost(string $class)
     {
         config(['hyde.url' => 'http://localhost']);
@@ -58,7 +57,7 @@ class SitesWithoutBaseUrlAreHandledGracefullyTest extends TestCase
         $this->assertStringNotContainsString('http://localhost', $this->getHtml($class));
     }
 
-    /** @dataProvider pageClassProvider */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageClassProvider')]
     public function testSiteUrlLinksAreAddedToCompiledHtmlWhenBaseUrlIsSetToValidUrl(string $class)
     {
         $this->withSiteUrl();

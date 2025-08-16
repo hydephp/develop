@@ -9,9 +9,7 @@ use Hyde\Testing\TestCase;
 use TypeError;
 use stdClass;
 
-/**
- * @covers \Hyde\Facades\Config
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Config::class)]
 class TypedConfigFacadeTest extends TestCase
 {
     public function testGetArray()

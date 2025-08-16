@@ -7,9 +7,7 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Commands\ValidatePublicationTypesCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Commands\ValidatePublicationTypesCommand::class)]
 class ValidatePublicationTypesCommandTest extends TestCase
 {
     protected function setUp(): void

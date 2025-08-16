@@ -10,8 +10,9 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestsBladeViews;
 
 /**
- * @coversNothing Test to ensure the blog post feed component can be rendered
+ * Test to ensure the blog post feed component can be rendered.
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class BlogPostFeedComponentViewTest extends TestCase
 {
     use TestsBladeViews;

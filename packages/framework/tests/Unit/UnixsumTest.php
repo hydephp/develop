@@ -35,17 +35,17 @@ class UnixsumTest extends UnitTestCase
 
     public function testMethodReturnsDifferentValueForDifferentString()
     {
-        $this->assertNotEquals(unixsum('foo'), unixsum('bar'));
+        $this->assertNotSame(unixsum('foo'), unixsum('bar'));
     }
 
     public function testFunctionIsCaseSensitive()
     {
-        $this->assertNotEquals(unixsum('foo'), unixsum('FOO'));
+        $this->assertNotSame(unixsum('foo'), unixsum('FOO'));
     }
 
     public function testFunctionIsSpaceSensitive()
     {
-        $this->assertNotEquals(unixsum(' foo '), unixsum('foo'));
+        $this->assertNotSame(unixsum(' foo '), unixsum('foo'));
     }
 
     public function testMethodReturnsSameValueRegardlessOfEndOfLineSequence()

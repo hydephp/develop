@@ -10,10 +10,8 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Console\Commands\MakePageCommand
- * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\MakePageCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\CreatesNewPageSourceFile::class)]
 class MakePageCommandTest extends TestCase
 {
     protected string $markdownPath;
@@ -116,7 +114,7 @@ class MakePageCommandTest extends TestCase
 
         $this->artisan('make:page "foo test page" --force')->assertExitCode(0);
 
-        $this->assertNotEquals('This should be overwritten', file_get_contents($this->markdownPath));
+        $this->assertNotSame('This should be overwritten', file_get_contents($this->markdownPath));
     }
 
     public function testCommandPromptsForTitleIfItWasNotSpecified()

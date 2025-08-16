@@ -11,9 +11,7 @@ use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- * @covers \Hyde\Publications\Actions\PublicationFieldValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\PublicationFieldValidator::class)]
 class PublicationFieldValidatorTest extends TestCase
 {
     public function testConstruct()

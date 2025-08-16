@@ -11,12 +11,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 
 /**
- * @covers \Hyde\Facades\Filesystem
- * @covers \Hyde\Foundation\Kernel\Filesystem
- * @covers \Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem
- *
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Filesystem::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Filesystem::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem::class)]
 class FilesystemFacadeUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

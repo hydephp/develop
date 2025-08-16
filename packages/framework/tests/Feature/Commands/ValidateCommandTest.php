@@ -7,12 +7,11 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Console\Commands\ValidateCommand
- * @covers \Hyde\Framework\Services\ValidationService
- * @covers \Hyde\Support\Models\ValidationResult
- *
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\ValidateCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\ValidationService::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\ValidationResult::class)]
 class ValidateCommandTest extends TestCase
 {
     public function testValidateCommandCanRun()

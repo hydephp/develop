@@ -18,9 +18,7 @@ use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Pages\PublicationPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Pages\PublicationPage::class)]
 class PublicationPageUnitTest extends TestCase
 {
     public function testSourceDirectory()

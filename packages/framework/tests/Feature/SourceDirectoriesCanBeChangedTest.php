@@ -15,11 +15,11 @@ use Hyde\Testing\TestCase;
 
 class SourceDirectoriesCanBeChangedTest extends TestCase
 {
-    public static function tearDownAfterClass(): void
+    protected function tearDown(): void
     {
-        parent::tearDownAfterClass();
-
         File::deleteDirectory('_source');
+
+        parent::tearDown();
     }
 
     public function testBaselines()

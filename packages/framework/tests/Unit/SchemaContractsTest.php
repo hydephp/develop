@@ -34,39 +34,39 @@ class SchemaContractsTest extends UnitTestCase
 
     public function testSchemasAreNotAccidentallyChanged()
     {
-        $this->assertSame([
+        $this->assertSame(PageSchema::PAGE_SCHEMA, [
             'title' => 'string',
             'description' => 'string',
             'canonicalUrl' => 'string',
             'navigation' => NavigationSchema::NAVIGATION_SCHEMA,
-        ], PageSchema::PAGE_SCHEMA);
+        ]);
 
-        $this->assertSame([
+        $this->assertSame(NavigationSchema::NAVIGATION_SCHEMA, [
             'label' => 'string',
             'priority' => 'int',
             'hidden' => 'bool',
             'group' => 'string',
-        ], NavigationSchema::NAVIGATION_SCHEMA);
+        ]);
 
-        $this->assertSame([
+        $this->assertSame(BlogPostSchema::BLOG_POST_SCHEMA, [
             'title' => 'string',
             'description' => 'string',
             'category' => 'string',
             'date' => 'string',
             'author' => ['string', AuthorSchema::AUTHOR_SCHEMA],
             'image' => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
-        ], BlogPostSchema::BLOG_POST_SCHEMA);
+        ]);
 
-        $this->assertSame([
+        $this->assertSame(AuthorSchema::AUTHOR_SCHEMA, [
             'name' => 'string',
             'username' => 'string',
             'website' => 'string',
             'bio' => 'string',
             'avatar' => 'string',
             'socials' => 'array<string, string>',
-        ], AuthorSchema::AUTHOR_SCHEMA);
+        ]);
 
-        $this->assertSame([
+        $this->assertSame(FeaturedImageSchema::FEATURED_IMAGE_SCHEMA, [
             'source' => 'string',
             'altText' => 'string',
             'alt' => 'string',
@@ -77,7 +77,7 @@ class SchemaContractsTest extends UnitTestCase
             'authorName' => 'string',
             'authorUrl' => 'string',
             'copyright' => 'string',
-        ], FeaturedImageSchema::FEATURED_IMAGE_SCHEMA);
+        ]);
     }
 
     public function testAllSchemasAreTested()

@@ -6,9 +6,7 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Hyde
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Hyde::class)]
 class ExampleUnitTest extends UnitTestCase
 {
     public function testExample()

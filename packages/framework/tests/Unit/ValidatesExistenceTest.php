@@ -9,10 +9,8 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Framework\Concerns\ValidatesExistence
- * @covers \Hyde\Framework\Exceptions\FileNotFoundException
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\ValidatesExistence::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Exceptions\FileNotFoundException::class)]
 class ValidatesExistenceTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

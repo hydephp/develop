@@ -13,9 +13,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Support\Models\RouteKey
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\RouteKey::class)]
 class RouteKeyTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;

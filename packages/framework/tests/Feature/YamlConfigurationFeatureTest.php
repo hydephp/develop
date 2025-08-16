@@ -21,11 +21,10 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * Test the Yaml configuration feature.
  *
  * @see \Hyde\Framework\Testing\Feature\HighLevelYamlConfigurationFeatureTest
- *
- * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
- * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
- * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\LoadYamlConfiguration::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\LoadYamlEnvironmentVariables::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\YamlConfigurationRepository::class)]
 class YamlConfigurationFeatureTest extends TestCase
 {
     public static function setUpBeforeClass(): void

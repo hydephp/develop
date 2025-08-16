@@ -16,11 +16,10 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\DocumentationSidebar::class)]
 class DocumentationSidebarGetActiveGroupUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
