@@ -11,10 +11,9 @@ use InvalidArgumentException;
 use Symfony\Component\Yaml\Yaml;
 use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Publications\Models\PublicationFieldValue
- */
+#[CoversClass('\\Hyde\\Publications\\Models\\PublicationFieldValue')]
 class PublicationFieldValueTest extends TestCase
 {
     // Base tests

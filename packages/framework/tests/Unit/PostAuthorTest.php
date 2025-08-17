@@ -12,11 +12,10 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Features\Blogging\Models\PostAuthor
- * @covers \Hyde\Foundation\Concerns\HasKernelData
- */
+#[CoversClass('\\Hyde\\Framework\\Features\\Blogging\\Models\\PostAuthor')]
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\HasKernelData')]
 class PostAuthorTest extends UnitTestCase
 {
     use FluentTestingHelpers;

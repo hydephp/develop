@@ -9,12 +9,12 @@ use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchPage
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
  */
+#[CoversClass('\\Hyde\\Framework\\Features\\Documentation\\DocumentationSearchPage')]
 class DocumentationSearchPageTest extends TestCase
 {
     public function testCanCreateDocumentationSearchPageInstance()

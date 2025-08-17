@@ -16,11 +16,7 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 
-/**
- * Covers the helpers in helpers.php.
- *
- * @see \Hyde\Framework\Testing\Unit\UnixsumTest for additional tests of the unixsum function
- */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 class HelpersTest extends TestCase
 {
     protected function setUp(): void
@@ -30,31 +26,29 @@ class HelpersTest extends TestCase
         config(['hyde.cache_busting' => false]);
     }
 
-    /** @covers ::hyde */
+    /** @noinspection PhpFullyQualifiedNameUsageInspection */
     public function testHydeFunctionExists()
     {
         $this->assertTrue(function_exists('hyde'));
     }
 
-    /** @covers ::hyde */
     public function testHydeFunctionReturnsHydeKernelClass()
     {
         $this->assertInstanceOf(HydeKernel::class, hyde());
     }
 
-    /** @covers ::hyde */
     public function testCanCallMethodsOnReturnedHydeClass()
     {
         $this->assertSame(Hyde::path(), hyde()->path());
     }
 
-    /** @covers ::\Hyde\unslash */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\unslash')]
     public function testUnslashFunctionExists()
     {
         $this->assertTrue(function_exists('Hyde\unslash'));
     }
 
-    /** @covers ::\Hyde\unslash */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\unslash')]
     public function testUnslashFunctionTrimsTrailingSlashes()
     {
         $tests = ['foo',  '/foo',  'foo/',  '/foo/',  '\foo\\',  '\\/foo/\\'];
@@ -76,7 +70,7 @@ class HelpersTest extends TestCase
         }
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunction()
     {
         $this->assertInstanceOf(MediaFile::class, asset('app.css'));
@@ -86,7 +80,7 @@ class HelpersTest extends TestCase
         $this->assertSame('media/app.css', (string) asset('app.css'));
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionWithCacheBusting()
     {
         config(['hyde.cache_busting' => true]);
@@ -101,7 +95,7 @@ class HelpersTest extends TestCase
         );
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionWithExternalUrl()
     {
         $this->expectException(FileNotFoundException::class);
@@ -109,7 +103,7 @@ class HelpersTest extends TestCase
         $this->assertSame('https://example.com/foo', asset('https://example.com/foo'));
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionWithSetBaseUrl()
     {
         $this->assertInstanceOf(MediaFile::class, asset('app.css'));
@@ -119,7 +113,7 @@ class HelpersTest extends TestCase
         $this->assertSame('https://example.com/media/app.css', (string) asset('app.css'));
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionWithNoBaseUrl()
     {
         $this->assertInstanceOf(MediaFile::class, asset('app.css'));
@@ -129,7 +123,7 @@ class HelpersTest extends TestCase
         $this->assertSame('media/app.css', (string) asset('app.css'));
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionWithLocalhostBaseUrl()
     {
         $this->assertInstanceOf(MediaFile::class, asset('app.css'));
@@ -139,7 +133,7 @@ class HelpersTest extends TestCase
         $this->assertSame('media/app.css', (string) asset('app.css'));
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionFromNestedPage()
     {
         $this->assertInstanceOf(MediaFile::class, asset('app.css'));
@@ -150,7 +144,7 @@ class HelpersTest extends TestCase
         $this->assertSame('../media/app.css', (string) asset('app.css'));
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionFromDeeplyNestedPage()
     {
         $this->assertInstanceOf(MediaFile::class, asset('app.css'));
@@ -161,7 +155,7 @@ class HelpersTest extends TestCase
         $this->assertSame('../../media/app.css', (string) asset('app.css'));
     }
 
-    /** @covers ::asset */
+    // Function coverage removed: #[CoversFunction('asset')]
     public function testAssetFunctionWithCustomMediaDirectory()
     {
         $this->file('custom/app.css');
@@ -173,14 +167,14 @@ class HelpersTest extends TestCase
         $this->assertSame('custom/app.css', (string) asset('app.css'));
     }
 
-    /** @covers ::route */
+    // Function coverage removed: #[CoversFunction('route')]
     public function testRouteFunction()
     {
         $this->assertNotNull(Hyde::route('index'));
         $this->assertSame(Routes::get('index'), route('index'));
     }
 
-    /** @covers ::route */
+    // Function coverage removed: #[CoversFunction('route')]
     public function testRouteFunctionWithInvalidRoute()
     {
         $this->expectException(\Hyde\Framework\Exceptions\RouteNotFoundException::class);
@@ -188,34 +182,34 @@ class HelpersTest extends TestCase
         route('invalid');
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunction()
     {
         $this->assertSame(Hyde::url('foo'), url('foo'));
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => 'https://example.com']);
         $this->assertSame('https://example.com/foo', url('foo'));
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithLocalhostBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
         $this->assertSame('foo', url('foo'));
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithoutBaseUrl()
     {
         $this->app['config']->set(['hyde.url' => null]);
         $this->assertSame('foo', url('foo'));
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithoutBaseUrlOrPath()
     {
         $this->app['config']->set(['hyde.url' => null]);
@@ -223,7 +217,7 @@ class HelpersTest extends TestCase
         $this->assertNull(url());
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithLocalhostBaseUrlButNoPath()
     {
         $this->app['config']->set(['hyde.url' => 'http://localhost']);
@@ -231,14 +225,14 @@ class HelpersTest extends TestCase
         $this->assertNull(url());
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithAlreadyQualifiedUrl()
     {
         $this->assertSame('https://example.com/foo', url('https://example.com/foo'));
         $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithAlreadyQualifiedUrlWhenSiteUrlIsSet()
     {
         $this->app['config']->set(['hyde.url' => 'https://example.com']);
@@ -247,7 +241,7 @@ class HelpersTest extends TestCase
         $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
     }
 
-    /** @covers ::url */
+    // Function coverage removed: #[CoversFunction('url')]
     public function testUrlFunctionWithAlreadyQualifiedUrlWhenSiteUrlIsSetToSomethingElse()
     {
         $this->app['config']->set(['hyde.url' => 'my-site.com']);
@@ -256,38 +250,38 @@ class HelpersTest extends TestCase
         $this->assertSame('http://localhost/foo', url('http://localhost/foo'));
     }
 
-    /** @covers ::\Hyde\hyde */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\hyde')]
     public function testHydeFunctionExistsInHydeNamespace()
     {
         $this->assertTrue(function_exists('Hyde\hyde'));
     }
 
-    /** @covers ::\Hyde\hyde */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\hyde')]
     public function testNamespacedHydeFunction()
     {
         $this->assertSame(hyde(), \Hyde\hyde());
     }
 
-    /** @covers ::\Hyde\unslash */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\unslash')]
     public function testUnslashFunctionExistsInHydeNamespace()
     {
         $this->assertTrue(function_exists('Hyde\unslash'));
     }
 
-    /** @covers ::\Hyde\unslash */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\unslash')]
     public function testNamespacedUnslashFunction()
     {
         $this->assertSame(\Hyde\unslash('foo'), \Hyde\unslash('foo'));
     }
 
-    /** @covers ::\Hyde\unixsum */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\unixsum')]
     public function testUnixsumFunction()
     {
         $this->assertSame(md5("foo\n"), \Hyde\unixsum("foo\n"));
         $this->assertSame(md5("foo\n"), \Hyde\unixsum("foo\r\n"));
     }
 
-    /** @covers ::\Hyde\unixsum_file */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\unixsum_file')]
     public function testUnixsumFileFunction()
     {
         $this->file('unix.txt', "foo\n");
@@ -297,50 +291,50 @@ class HelpersTest extends TestCase
         $this->assertSame(md5("foo\n"), \Hyde\unixsum_file('windows.txt'));
     }
 
-    /** @covers ::\Hyde\make_title */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\make_title')]
     public function testHydeMakeTitleFunction()
     {
         $this->assertSame(Hyde::makeTitle('foo'), \Hyde\make_title('foo'));
     }
 
-    /** @covers ::\Hyde\normalize_newlines */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\normalize_newlines')]
     public function testHydeNormalizeNewlinesFunction()
     {
         $this->assertSame(Hyde::normalizeNewlines('foo'), \Hyde\normalize_newlines('foo'));
     }
 
-    /** @covers ::\Hyde\strip_newlines */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\strip_newlines')]
     public function testHydeStripNewlinesFunction()
     {
         $this->assertSame(Hyde::stripNewlines('foo'), \Hyde\strip_newlines('foo'));
     }
 
-    /** @covers ::\Hyde\trim_slashes */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\trim_slashes')]
     public function testHydeTrimSlashesFunction()
     {
         $this->assertSame(Hyde::trimSlashes('foo'), \Hyde\trim_slashes('foo'));
     }
 
-    /** @covers ::\Hyde\evaluate_arrayable */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\evaluate_arrayable')]
     public function testHydeEvaluateArrayableFunction()
     {
         $this->assertSame(['foo'], \Hyde\evaluate_arrayable(['foo']));
         $this->assertSame(['foo'], \Hyde\evaluate_arrayable(collect(['foo'])));
     }
 
-    /** @covers ::\Hyde\yaml_encode */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\yaml_encode')]
     public function testHydeYamlEncodeFunction()
     {
         $this->assertSame("foo: bar\n", \Hyde\yaml_encode(['foo' => 'bar']));
     }
 
-    /** @covers ::\Hyde\yaml_encode */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\yaml_encode')]
     public function testHydeYamlEncodeFunctionEncodesArrayables()
     {
         $this->assertSame("foo: bar\n", \Hyde\yaml_encode(collect(['foo' => 'bar'])));
     }
 
-    /** @covers ::\Hyde\yaml_encode */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\yaml_encode')]
     public function testHydeYamlEncodeFunctionAcceptsParameters()
     {
         $this->assertSame(
@@ -349,13 +343,13 @@ class HelpersTest extends TestCase
         );
     }
 
-    /** @covers ::\Hyde\yaml_decode */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\yaml_decode')]
     public function testHydeYamlDecodeFunction()
     {
         $this->assertSame(['foo' => 'bar'], \Hyde\yaml_decode("foo: bar\n"));
     }
 
-    /** @covers ::\Hyde\yaml_decode */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\yaml_decode')]
     public function testHydeYamlDecodeFunctionAcceptsParameters()
     {
         $this->assertSame(
@@ -364,19 +358,19 @@ class HelpersTest extends TestCase
         );
     }
 
-    /** @covers ::\Hyde\path_join */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\path_join')]
     public function testHydePathJoinFunction()
     {
         $this->assertSame('foo/bar', \Hyde\path_join('foo', 'bar'));
     }
 
-    /** @covers ::\Hyde\path_join */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\path_join')]
     public function testHydePathJoinFunctionWithMultiplePaths()
     {
         $this->assertSame('foo/bar/baz', \Hyde\path_join('foo', 'bar', 'baz'));
     }
 
-    /** @covers ::\Hyde\normalize_slashes */
+    // Function coverage removed: #[CoversFunction('\\Hyde\\normalize_slashes')]
     public function testHydeNormalizeSlashesFunction()
     {
         $this->assertSame('foo/bar', \Hyde\normalize_slashes('foo\\bar'));

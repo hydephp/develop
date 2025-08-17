@@ -14,12 +14,12 @@ use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\RenderData;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
- *
  * @see \Hyde\Framework\Testing\Feature\DynamicMarkdownLinksFeatureTest
  */
+#[CoversClass('\\Hyde\\Markdown\\Processing\\DynamicMarkdownLinkProcessor')]
 class DynamicMarkdownLinkProcessorTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;

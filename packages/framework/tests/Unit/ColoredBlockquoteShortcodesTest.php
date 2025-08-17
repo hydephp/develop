@@ -7,10 +7,10 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Markdown\Processing\ColoredBlockquotes;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\UsesRealBladeInUnitTests;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * @covers \Hyde\Markdown\Processing\ColoredBlockquotes
- */
+#[CoversClass('\\Hyde\\Markdown\\Processing\\ColoredBlockquotes')]
 class ColoredBlockquoteShortcodesTest extends UnitTestCase
 {
     use UsesRealBladeInUnitTests;
@@ -66,9 +66,7 @@ class ColoredBlockquoteShortcodesTest extends UnitTestCase
         );
     }
 
-    /**
-     * @dataProvider blockquoteProvider
-     */
+    #[DataProvider('blockquoteProvider')]
     public function testItResolvesAllShortcodes(string $input, string $expectedOutput)
     {
         $this->assertSame($expectedOutput, ColoredBlockquotes::resolve($input));

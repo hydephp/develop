@@ -17,18 +17,18 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Features\Navigation\NavigationItem
- *
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  */
+#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\DocumentationSidebar')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenuGenerator')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenu')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\Concerns\\HasFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\NavigationDataFactory')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationItem')]
 class DocumentationSidebarTest extends TestCase
 {
     protected function setUp(): void

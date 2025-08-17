@@ -10,10 +10,9 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Factories\HydePageDataFactory
- */
+#[CoversClass('\\Hyde\\Framework\\Factories\\HydePageDataFactory')]
 class HydePageDataFactoryTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

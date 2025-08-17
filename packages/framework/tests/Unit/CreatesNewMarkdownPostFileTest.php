@@ -8,12 +8,12 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Carbon;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Actions\CreatesNewMarkdownPostFile
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePostCommandTest
  */
+#[CoversClass('\\Hyde\\Framework\\Actions\\CreatesNewMarkdownPostFile')]
 class CreatesNewMarkdownPostFileTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

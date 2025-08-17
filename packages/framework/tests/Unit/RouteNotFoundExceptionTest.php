@@ -6,10 +6,9 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
- */
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\RouteNotFoundException')]
 class RouteNotFoundExceptionTest extends UnitTestCase
 {
     public function testItCanBeInstantiated()

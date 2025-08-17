@@ -7,12 +7,12 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchIndex
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
  */
+#[CoversClass('\\Hyde\\Framework\\Features\\Documentation\\DocumentationSearchIndex')]
 class DocumentationSearchIndexTest extends TestCase
 {
     public function testCanCreateDocumentationSearchIndexInstance()

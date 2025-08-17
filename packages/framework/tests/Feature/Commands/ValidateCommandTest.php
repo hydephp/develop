@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Console\Commands\ValidateCommand
- * @covers \Hyde\Framework\Services\ValidationService
- * @covers \Hyde\Support\Models\ValidationResult
- *
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
  */
+#[CoversClass('\\Hyde\\Console\\Commands\\ValidateCommand')]
+#[CoversClass('\\Hyde\\Framework\\Services\\ValidationService')]
+#[CoversClass('\\Hyde\\Support\\Models\\ValidationResult')]
 class ValidateCommandTest extends TestCase
 {
     public function testValidateCommandCanRun()

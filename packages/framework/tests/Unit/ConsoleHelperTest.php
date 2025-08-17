@@ -7,10 +7,9 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Testing\UnitTestCase;
 use Symfony\Component\Console\Input\InputInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Helpers\ConsoleHelper
- */
+#[CoversClass('\\Hyde\\Console\\Helpers\\ConsoleHelper')]
 class ConsoleHelperTest extends UnitTestCase
 {
     protected function tearDown(): void

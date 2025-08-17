@@ -8,10 +8,9 @@ use Hyde\Enums\Feature;
 use Hyde\Facades\Features;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\HydeKernel
- */
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel')]
 class HydeHelperFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

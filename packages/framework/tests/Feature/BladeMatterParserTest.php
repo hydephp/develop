@@ -7,10 +7,9 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Actions\BladeMatterParser;
 use Hyde\Testing\TestCase;
 use RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Actions\BladeMatterParser
- */
+#[CoversClass('\\Hyde\\Framework\\Actions\\BladeMatterParser')]
 class BladeMatterParserTest extends TestCase
 {
     public function testCanParseFrontMatter()

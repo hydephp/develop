@@ -9,14 +9,11 @@ use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\Blade;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * High level test for the Asset API.
- *
- * @covers \Hyde\Facades\Asset
- * @covers \Hyde\Support\Filesystem\MediaFile
- * @covers \Hyde\Foundation\Kernel\Hyperlinks
- */
+#[CoversClass('\\Hyde\\Facades\\Asset')]
+#[CoversClass('\\Hyde\\Support\\Filesystem\\MediaFile')]
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\Hyperlinks')]
 class AssetAPIFeatureTest extends TestCase
 {
     public function testAssetAPIExamples()

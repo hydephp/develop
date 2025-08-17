@@ -11,10 +11,9 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\Facades\Routes
- */
+#[CoversClass('\\Hyde\\Foundation\\Facades\\Routes')]
 class RouteFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

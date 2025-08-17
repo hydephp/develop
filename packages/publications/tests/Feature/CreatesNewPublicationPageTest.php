@@ -16,10 +16,9 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Actions\CreatesNewPublicationPage;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage
- */
+#[CoversClass('\\Hyde\\Publications\\Actions\\CreatesNewPublicationPage')]
 class CreatesNewPublicationPageTest extends TestCase
 {
     protected function setUp(): void

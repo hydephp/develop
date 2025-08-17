@@ -11,15 +11,14 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Pages\Concerns\HydePage
- * @covers \Hyde\Pages\HtmlPage
- * @covers \Hyde\Pages\BladePage
- * @covers \Hyde\Pages\MarkdownPage
- * @covers \Hyde\Pages\MarkdownPost
- * @covers \Hyde\Pages\DocumentationPage
- */
+#[CoversClass('\\Hyde\\Pages\\Concerns\\HydePage')]
+#[CoversClass('\\Hyde\\Pages\\HtmlPage')]
+#[CoversClass('\\Hyde\\Pages\\BladePage')]
+#[CoversClass('\\Hyde\\Pages\\MarkdownPage')]
+#[CoversClass('\\Hyde\\Pages\\MarkdownPost')]
+#[CoversClass('\\Hyde\\Pages\\DocumentationPage')]
 class HydePageSerializableUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

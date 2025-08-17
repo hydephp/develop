@@ -9,10 +9,9 @@ use Hyde\Testing\TestCase;
 use Hyde\Foundation\PharSupport;
 use Illuminate\Console\OutputStyle;
 use Hyde\Console\Commands\DebugCommand;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Commands\DebugCommand
- */
+#[CoversClass('\\Hyde\\Console\\Commands\\DebugCommand')]
 class DebugCommandTest extends TestCase
 {
     public function testDebugCommandCanRun()

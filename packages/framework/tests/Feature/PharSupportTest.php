@@ -7,10 +7,9 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\PharSupport
- */
+#[CoversClass('\\Hyde\\Foundation\\PharSupport')]
 class PharSupportTest extends TestCase
 {
     public function tearDown(): void

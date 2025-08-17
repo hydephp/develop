@@ -11,10 +11,9 @@ use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Factories\NavigationDataFactory;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- */
+#[CoversClass('\\Hyde\\Framework\\Factories\\NavigationDataFactory')]
 class NavigationDataFactoryUnitTest extends UnitTestCase
 {
     protected function setUp(): void

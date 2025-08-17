@@ -9,10 +9,9 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\UnitTestCase;
 use RuntimeException;
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
- */
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\BaseFoundationCollection')]
 class BaseFoundationCollectionTest extends UnitTestCase
 {
     public function testBaseFoundationCollectionInitialization()

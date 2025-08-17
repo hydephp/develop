@@ -11,10 +11,9 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\Kernel\Hyperlinks
- */
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\Hyperlinks')]
 class HyperlinksTest extends TestCase
 {
     protected Hyperlinks $class;

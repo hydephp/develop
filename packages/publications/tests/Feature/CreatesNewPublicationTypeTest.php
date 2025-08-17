@@ -9,12 +9,12 @@ use Hyde\Hyde;
 use Hyde\Publications\Actions\CreatesNewPublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Publications\Actions\CreatesNewPublicationType
- *
  * @see \Hyde\Publications\Commands\MakePublicationTypeCommand
  */
+#[CoversClass('\\Hyde\\Publications\\Actions\\CreatesNewPublicationType')]
 class CreatesNewPublicationTypeTest extends TestCase
 {
     protected function tearDown(): void

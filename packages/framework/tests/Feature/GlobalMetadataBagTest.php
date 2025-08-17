@@ -9,10 +9,9 @@ use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
- */
+#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\GlobalMetadataBag')]
 class GlobalMetadataBagTest extends TestCase
 {
     protected function setUp(): void

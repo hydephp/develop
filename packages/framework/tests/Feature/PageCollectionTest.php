@@ -16,12 +16,11 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\Kernel\PageCollection
- * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
- * @covers \Hyde\Foundation\Facades\Pages
- */
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\PageCollection')]
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\BaseFoundationCollection')]
+#[CoversClass('\\Hyde\\Foundation\\Facades\\Pages')]
 class PageCollectionTest extends TestCase
 {
     public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()

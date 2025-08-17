@@ -9,12 +9,12 @@ use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
- *
  * @see \Hyde\Framework\Testing\Feature\FeaturedImageTest
  */
+#[CoversClass('\\Hyde\\Framework\\Features\\Blogging\\Models\\FeaturedImage')]
 class FeaturedImageUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

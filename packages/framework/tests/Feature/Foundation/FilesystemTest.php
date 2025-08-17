@@ -21,12 +21,12 @@ use Hyde\Testing\UnitTestCase;
 
 use function Hyde\normalize_slashes;
 
-/**
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Kernel\Filesystem
- * @covers \Hyde\Foundation\Concerns\HasMediaFiles
- * @covers \Hyde\Facades\Filesystem
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel')]
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\Filesystem')]
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\HasMediaFiles')]
+#[CoversClass('\\Hyde\\Facades\\Filesystem')]
 class FilesystemTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

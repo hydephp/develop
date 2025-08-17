@@ -19,19 +19,19 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 use stdClass;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests the Extensions API Feature on a higher level to ensure the components work together.
  *
- * @covers \Hyde\Foundation\Concerns\HydeExtension
- * @covers \Hyde\Foundation\Concerns\ManagesExtensions
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Kernel\FileCollection
- * @covers \Hyde\Foundation\Kernel\PageCollection
- * @covers \Hyde\Foundation\Kernel\RouteCollection
- *
  * @see \Hyde\Framework\Testing\Unit\ExtensionsUnitTest
  */
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\HydeExtension')]
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\ManagesExtensions')]
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel')]
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\FileCollection')]
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\PageCollection')]
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\RouteCollection')]
 class HydeExtensionFeatureTest extends TestCase
 {
     protected HydeKernel $kernel;

@@ -12,10 +12,9 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Testing\Common\BaseHydePageUnitTest;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Pages\HtmlPage
- */
+#[CoversClass('\\Hyde\\Pages\\HtmlPage')]
 class HtmlPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()

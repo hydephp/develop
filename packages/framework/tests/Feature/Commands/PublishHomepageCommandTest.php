@@ -7,11 +7,10 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Commands\PublishHomepageCommand
- * @covers \Hyde\Console\Concerns\AsksToRebuildSite
- */
+#[CoversClass('\\Hyde\\Console\\Commands\\PublishHomepageCommand')]
+#[CoversClass('\\Hyde\\Console\\Concerns\\AsksToRebuildSite')]
 class PublishHomepageCommandTest extends TestCase
 {
     protected function setUp(): void

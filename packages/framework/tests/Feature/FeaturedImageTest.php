@@ -9,12 +9,12 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
- *
  * @see \Hyde\Framework\Testing\Unit\FeaturedImageUnitTest
  */
+#[CoversClass('\\Hyde\\Framework\\Features\\Blogging\\Models\\FeaturedImage')]
 class FeaturedImageTest extends TestCase
 {
     protected function setUp(): void

@@ -8,10 +8,9 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Support\Concerns\Serializable
- */
+#[CoversClass('\\Hyde\\Support\\Concerns\\Serializable')]
 class SerializableTest extends UnitTestCase
 {
     public function testToArray()

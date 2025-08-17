@@ -6,10 +6,9 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Commands\RebuildPageCommand
- */
+#[CoversClass('\\Hyde\\Console\\Commands\\RebuildPageCommand')]
 class RebuildPageCommandTest extends TestCase
 {
     public function testHandleIsSuccessfulWithValidPath()

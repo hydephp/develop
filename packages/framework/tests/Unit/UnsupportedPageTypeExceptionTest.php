@@ -6,10 +6,9 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Exceptions\UnsupportedPageTypeException;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
- */
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\UnsupportedPageTypeException')]
 class UnsupportedPageTypeExceptionTest extends UnitTestCase
 {
     public function testItCanBeInstantiated()

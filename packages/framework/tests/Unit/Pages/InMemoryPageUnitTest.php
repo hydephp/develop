@@ -13,12 +13,12 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Testing\Common\BaseHydePageUnitTest;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Pages\InMemoryPage
- *
  * @see \Hyde\Framework\Testing\Unit\Pages\InMemoryPageTest
  */
+#[CoversClass('\\Hyde\\Pages\\InMemoryPage')]
 class InMemoryPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()

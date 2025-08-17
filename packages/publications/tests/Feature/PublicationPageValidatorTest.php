@@ -8,10 +8,9 @@ use Hyde\Publications\Actions\PublicationPageValidator;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Publications\Actions\PublicationPageValidator
- */
+#[CoversClass('\\Hyde\\Publications\\Actions\\PublicationPageValidator')]
 class PublicationPageValidatorTest extends TestCase
 {
     public function testValidatePageFile()

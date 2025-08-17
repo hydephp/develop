@@ -20,14 +20,13 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\HydeServiceProvider
- * @covers \Hyde\Framework\Concerns\RegistersFileLocations
- * @covers \Hyde\Foundation\Providers\ConfigurationServiceProvider
- * @covers \Hyde\Foundation\Providers\NavigationServiceProvider
- * @covers \Hyde\Foundation\Providers\ViewServiceProvider
- */
+#[CoversClass('\\Hyde\\Framework\\HydeServiceProvider')]
+#[CoversClass('\\Hyde\\Framework\\Concerns\\RegistersFileLocations')]
+#[CoversClass('\\Hyde\\Foundation\\Providers\\ConfigurationServiceProvider')]
+#[CoversClass('\\Hyde\\Foundation\\Providers\\NavigationServiceProvider')]
+#[CoversClass('\\Hyde\\Foundation\\Providers\\ViewServiceProvider')]
 class HydeServiceProviderTest extends TestCase
 {
     protected HydeServiceProvider $provider;

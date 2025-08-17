@@ -16,12 +16,11 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\Kernel\RouteCollection
- * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
- * @covers \Hyde\Foundation\Facades\Routes
- */
+#[CoversClass('\\Hyde\\Foundation\\Kernel\\RouteCollection')]
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\BaseFoundationCollection')]
+#[CoversClass('\\Hyde\\Foundation\\Facades\\Routes')]
 class RouteCollectionTest extends TestCase
 {
     public function testBootMethodDiscoversAllPages()

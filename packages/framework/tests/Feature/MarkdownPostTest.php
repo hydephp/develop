@@ -15,11 +15,10 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\DateString;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Pages\MarkdownPost
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- */
+#[CoversClass('\\Hyde\\Pages\\MarkdownPost')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\Concerns\\HasFactory')]
 class MarkdownPostTest extends TestCase
 {
     public function testConstructorCanCreateANewAuthorInstanceFromUsernameString()

@@ -12,11 +12,10 @@ use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
- * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
- */
+#[CoversClass('\\Hyde\\Framework\\Features\\XmlGenerators\\SitemapGenerator')]
+#[CoversClass('\\Hyde\\Framework\\Features\\XmlGenerators\\BaseXmlGenerator')]
 class SitemapServiceTest extends TestCase
 {
     protected function setUp(): void

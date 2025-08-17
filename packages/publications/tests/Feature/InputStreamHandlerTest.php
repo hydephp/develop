@@ -9,10 +9,9 @@ use Hyde\Testing\TestCase;
 use Illuminate\Console\Command;
 use Illuminate\Console\OutputStyle;
 use Mockery;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Publications\Commands\Helpers\InputStreamHandler
- */
+#[CoversClass('\\Hyde\\Publications\\Commands\\Helpers\\InputStreamHandler')]
 class InputStreamHandlerTest extends TestCase
 {
     public function testCanCollectInput()

@@ -8,10 +8,9 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Commands\PublishConfigsCommand
- */
+#[CoversClass('\\Hyde\\Console\\Commands\\PublishConfigsCommand')]
 class PublishConfigsCommandTest extends TestCase
 {
     public function setUp(): void

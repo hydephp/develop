@@ -8,12 +8,12 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Actions\GeneratesTableOfContents
- *
  * @see \Hyde\Framework\Testing\Feature\Views\SidebarTableOfContentsViewTest
  */
+#[CoversClass(GeneratesTableOfContents::class)]
 class GeneratesSidebarTableOfContentsTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;

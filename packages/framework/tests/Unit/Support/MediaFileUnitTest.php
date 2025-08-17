@@ -14,12 +14,12 @@ use Hyde\Hyde;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Support\Filesystem\MediaFile
- *
  * @see \Hyde\Framework\Testing\Feature\Support\MediaFileTest
  */
+#[CoversClass('\\Hyde\\Support\\Filesystem\\MediaFile')]
 class MediaFileUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
@@ -327,7 +327,10 @@ class MediaFileUnitTest extends UnitTestCase
         $this->assertSame('text/plain', MediaFile::make('nonexistent.xyz')->getMimeType());
     }
 
-    /** @dataProvider bootableMethodsProvider */
+    /**
+     * @see \Hyde\Framework\Testing\Feature\Support\MediaFileTest
+     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('bootableMethodsProvider')]
     public function testExceptionIsThrownWhenBootingFileThatDoesNotExist(string $bootableMethod)
     {
         $this->mockFilesystem->shouldReceive('missing')

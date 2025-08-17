@@ -11,21 +11,21 @@ use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Services\BuildTaskService
- * @covers \Hyde\Framework\Features\BuildTasks\BuildTask
- * @covers \Hyde\Framework\Features\BuildTasks\PreBuildTask
- * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTask
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
- *
  * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
  */
+#[CoversClass('\\Hyde\\Framework\\Services\\BuildTaskService')]
+#[CoversClass('\\Hyde\\Framework\\Features\\BuildTasks\\BuildTask')]
+#[CoversClass('\\Hyde\\Framework\\Features\\BuildTasks\\PreBuildTask')]
+#[CoversClass('\\Hyde\\Framework\\Features\\BuildTasks\\PostBuildTask')]
+#[CoversClass('\\Hyde\\Framework\\Actions\\PostBuildTasks\\GenerateSitemap')]
+#[CoversClass('\\Hyde\\Framework\\Actions\\PostBuildTasks\\GenerateRssFeed')]
 class BuildTaskServiceTest extends TestCase
 {
     /**
-     * @covers \Hyde\Console\Commands\BuildSiteCommand::runPostBuildActions
+     * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
      */
     public function testBuildCommandCanRunBuildTasks()
     {

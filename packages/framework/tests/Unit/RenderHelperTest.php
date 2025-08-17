@@ -14,11 +14,10 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\View;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Support\Models\RenderData
- * @covers \Hyde\Support\Facades\Render
- */
+#[CoversClass('\\Hyde\\Support\\Models\\RenderData')]
+#[CoversClass('\\Hyde\\Support\\Facades\\Render')]
 class RenderHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

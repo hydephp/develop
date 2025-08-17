@@ -6,10 +6,9 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\HydeKernel::getBasePath
- */
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel::getBasePath')]
 class HydeGetBasePathHasFallbackTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

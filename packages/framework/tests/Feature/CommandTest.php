@@ -11,10 +11,9 @@ use Hyde\Testing\UnitTestCase;
 use Mockery;
 use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Concerns\Command
- */
+#[CoversClass('\\Hyde\\Console\\Concerns\\Command')]
 class CommandTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

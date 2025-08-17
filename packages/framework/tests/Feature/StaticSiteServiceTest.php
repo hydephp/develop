@@ -13,13 +13,12 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Commands\BuildSiteCommand
- * @covers \Hyde\Framework\Services\BuildService
- * @covers \Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory
- * @covers \Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets
- */
+#[CoversClass('\\Hyde\\Console\\Commands\\BuildSiteCommand')]
+#[CoversClass('\\Hyde\\Framework\\Services\\BuildService')]
+#[CoversClass('\\Hyde\\Framework\\Actions\\PreBuildTasks\\CleanSiteDirectory')]
+#[CoversClass('\\Hyde\\Framework\\Actions\\PreBuildTasks\\TransferMediaAssets')]
 class StaticSiteServiceTest extends TestCase
 {
     protected function setUp(): void

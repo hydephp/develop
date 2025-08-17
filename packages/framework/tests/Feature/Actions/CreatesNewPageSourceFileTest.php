@@ -12,10 +12,9 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
- */
+#[CoversClass('\\Hyde\\Framework\\Actions\\CreatesNewPageSourceFile')]
 class CreatesNewPageSourceFileTest extends TestCase
 {
     public function testClassCanBeInstantiated()

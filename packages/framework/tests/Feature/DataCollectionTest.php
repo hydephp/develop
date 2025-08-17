@@ -8,12 +8,12 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Support\DataCollection;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Support\DataCollection
- *
  * @see \Hyde\Framework\Testing\Unit\DataCollectionUnitTest
  */
+#[CoversClass('\\Hyde\\Support\\DataCollection')]
 class DataCollectionTest extends TestCase
 {
     public function testMarkdownCollections()

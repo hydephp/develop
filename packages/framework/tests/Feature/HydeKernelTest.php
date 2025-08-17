@@ -28,18 +28,18 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\HtmlString;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * This test class runs high-level tests on the HydeKernel class,
  * as most of the logic actually resides in linked service classes.
  *
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Hyde
- *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeSlugTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel')]
+#[CoversClass('\\Hyde\\Hyde')]
 class HydeKernelTest extends TestCase
 {
     public function testKernelSingletonCanBeAccessedByServiceContainer()

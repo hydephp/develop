@@ -9,10 +9,9 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Support\Models\Route
- */
+#[CoversClass('\\Hyde\\Support\\Models\\Route')]
 class RouteTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

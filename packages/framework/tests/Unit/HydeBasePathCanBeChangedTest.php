@@ -6,12 +6,11 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Foundation\HydeKernel::getBasePath
- * @covers \Hyde\Foundation\HydeKernel::setBasePath
- * @covers \Hyde\Foundation\HydeKernel::path
- */
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel::getBasePath')]
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel::setBasePath')]
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel::path')]
 class HydeBasePathCanBeChangedTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

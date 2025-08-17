@@ -10,11 +10,10 @@ use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Markdown\Models\MarkdownDocument
- * @covers \Hyde\Markdown\Models\Markdown
- */
+#[CoversClass('\\Hyde\\Markdown\\Models\\MarkdownDocument')]
+#[CoversClass('\\Hyde\\Markdown\\Models\\Markdown')]
 class MarkdownHelpersTest extends TestCase
 {
     public function testConstructorCreatesNewMarkdownDocument()

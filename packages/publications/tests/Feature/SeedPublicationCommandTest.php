@@ -7,11 +7,10 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Publications\Commands\SeedPublicationCommand
- * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
- */
+#[CoversClass('\\Hyde\\Publications\\Commands\\SeedPublicationCommand')]
+#[CoversClass('\\Hyde\\Publications\\Actions\\SeedsPublicationFiles')]
 class SeedPublicationCommandTest extends TestCase
 {
     protected function setUp(): void

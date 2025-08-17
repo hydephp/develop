@@ -14,12 +14,12 @@ use Hyde\Support\DataCollection;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Framework\Exceptions\ParseException;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Support\DataCollection
- *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
+#[CoversClass('\\Hyde\\Support\\DataCollection')]
 class DataCollectionUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
@@ -552,7 +552,7 @@ class MockableDataCollection extends DataCollection
     }
 
     /**
-     * @param  array<string, string>  $files  Filename as key, file contents as value.
+     * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
      */
     public static function mockFiles(array $files): void
     {

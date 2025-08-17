@@ -12,11 +12,10 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
- * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
- */
+#[CoversClass('\\Hyde\\Framework\\Features\\XmlGenerators\\RssFeedGenerator')]
+#[CoversClass('\\Hyde\\Framework\\Features\\XmlGenerators\\BaseXmlGenerator')]
 class RssFeedServiceTest extends TestCase
 {
     public function testServiceInstantiatesXmlElement()

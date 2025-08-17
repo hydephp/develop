@@ -6,10 +6,9 @@ namespace Hyde\Framework\Testing\Unit\Facades;
 
 use Hyde\Facades\Navigation;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Facades\Navigation
- */
+#[CoversClass('\\Hyde\\Facades\\Navigation')]
 class NavigationFacadeTest extends UnitTestCase
 {
     public function testItemWithoutLabel()

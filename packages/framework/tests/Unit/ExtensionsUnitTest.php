@@ -21,15 +21,15 @@ use Hyde\Testing\UnitTestCase;
 use InvalidArgumentException;
 use BadMethodCallException;
 use stdClass;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Concerns\HydeExtension
- * @covers \Hyde\Foundation\Concerns\ManagesExtensions
- *
  * @see \Hyde\Framework\Testing\Feature\HydeKernelTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */
+#[CoversClass('\\Hyde\\Foundation\\HydeKernel')]
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\HydeExtension')]
+#[CoversClass('\\Hyde\\Foundation\\Concerns\\ManagesExtensions')]
 class ExtensionsUnitTest extends UnitTestCase
 {
     protected HydeKernel $kernel;

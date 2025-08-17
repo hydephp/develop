@@ -8,10 +8,9 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Foundation\Kernel\Filesystem;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Actions\Internal\FileFinder
- */
+#[CoversClass('\\Hyde\\Framework\\Actions\\Internal\\FileFinder')]
 class FileFinderTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

@@ -7,10 +7,9 @@ namespace Hyde\Framework\Testing\Unit;
 use DateTime;
 use Hyde\Support\Models\DateString;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Support\Models\DateString
- */
+#[CoversClass('\\Hyde\\Support\\Models\\DateString')]
 class DateStringTest extends UnitTestCase
 {
     public function testItCanParseDateString()

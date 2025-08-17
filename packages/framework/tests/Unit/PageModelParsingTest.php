@@ -8,16 +8,13 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\CreatesTemporaryFiles;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Test the constructor actions and schema constructors for page models.
- *
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Factories\FeaturedImageFactory
- * @covers \Hyde\Framework\Factories\HydePageDataFactory
- * @covers \Hyde\Framework\Factories\BlogPostDataFactory
- */
+#[CoversClass('\\Hyde\\Framework\\Factories\\Concerns\\HasFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\NavigationDataFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\FeaturedImageFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\HydePageDataFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\BlogPostDataFactory')]
 class PageModelParsingTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

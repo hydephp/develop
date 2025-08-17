@@ -7,12 +7,13 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper
- *
  * @see \Hyde\Framework\Testing\Feature\NumericalPageOrderingHelperTest
  */
+#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NumericalPageOrderingHelper')]
 class NumericalPageOrderingHelperUnitTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;
@@ -123,10 +124,9 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
     }
 
     /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
-     *
-     * @dataProvider pageTypeProvider
+     * @see \Hyde\Framework\Testing\Feature\NumericalPageOrderingHelperTest
      */
+    #[DataProvider('pageTypeProvider')]
     public function testIdentifiersWithNumericalPrefixesAreDetectedForPageType(string $type)
     {
         $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01-home.'.$type::$fileExtension));
@@ -136,9 +136,8 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
-     *
-     * @dataProvider pageTypeProvider
      */
+    #[DataProvider('pageTypeProvider')]
     public function testIdentifiersWithoutNumericalPrefixesAreNotDetectedForPageType(string $type)
     {
         $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('home.'.$type::$fileExtension));
@@ -148,9 +147,8 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
-     *
-     * @dataProvider pageTypeProvider
      */
+    #[DataProvider('pageTypeProvider')]
     public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDelimitersForPageType(string $type)
     {
         $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01_home.'.$type::$fileExtension));
@@ -160,9 +158,8 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $type
-     *
-     * @dataProvider pageTypeProvider
      */
+    #[DataProvider('pageTypeProvider')]
     public function testSplitNumericPrefixForDeeplyNestedPagesForPageType(string $type)
     {
         $this->assertSame([1, 'foo/bar/home.'.$type::$fileExtension], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/01-home.'.$type::$fileExtension));

@@ -6,10 +6,9 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Testing\UnitTestCase;
 use Hyde\Enums\Feature;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Enums\Feature
- */
+#[CoversClass('\\Hyde\\Enums\\Feature')]
 class FeatureEnumTest extends UnitTestCase
 {
     public function testEnumCases()

@@ -14,15 +14,14 @@ use Hyde\Framework\Exceptions\ParseException;
 use RuntimeException;
 use Exception;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Exceptions\FileConflictException
- * @covers \Hyde\Framework\Exceptions\FileNotFoundException
- * @covers \Hyde\Framework\Exceptions\RouteNotFoundException
- * @covers \Hyde\Framework\Exceptions\UnsupportedPageTypeException
- * @covers \Hyde\Framework\Exceptions\InvalidConfigurationException
- * @covers \Hyde\Framework\Exceptions\ParseException
- */
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\FileConflictException')]
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\FileNotFoundException')]
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\RouteNotFoundException')]
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\UnsupportedPageTypeException')]
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\InvalidConfigurationException')]
+#[CoversClass('\\Hyde\\Framework\\Exceptions\\ParseException')]
 class CustomExceptionsTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

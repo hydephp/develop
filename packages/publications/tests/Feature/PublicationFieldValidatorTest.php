@@ -10,10 +10,9 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Publications\Actions\PublicationFieldValidator
- */
+#[CoversClass('\\Hyde\\Publications\\Actions\\PublicationFieldValidator')]
 class PublicationFieldValidatorTest extends TestCase
 {
     public function testConstruct()

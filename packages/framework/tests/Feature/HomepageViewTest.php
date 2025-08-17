@@ -9,10 +9,9 @@ use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestsBladeViews;
+use PHPUnit\Framework\Attributes\CoversNothing;
 
-/**
- * @coversNothing Test to ensure all homepages can be rendered
- */
+#[CoversNothing]
 class HomepageViewTest extends TestCase
 {
     use TestsBladeViews;

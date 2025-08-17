@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @covers \Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper
- *
  * @see \Hyde\Framework\Testing\Feature\BlogPostDatePrefixHelperTest
  */
+#[CoversClass('\\Hyde\\Framework\\Features\\Blogging\\BlogPostDatePrefixHelper')]
 class BlogPostDatePrefixHelperUnitTest extends UnitTestCase
 {
     public function testHasDatePrefixWithValidDateOnly()

@@ -16,15 +16,14 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Features\Metadata\MetadataBag
- * @covers \Hyde\Framework\Features\Metadata\PageMetadataBag
- * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
- * @covers \Hyde\Framework\Features\Metadata\Elements\LinkElement
- * @covers \Hyde\Framework\Features\Metadata\Elements\MetadataElement
- * @covers \Hyde\Framework\Features\Metadata\Elements\OpenGraphElement
- */
+#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\MetadataBag')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\PageMetadataBag')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\GlobalMetadataBag')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\Elements\\LinkElement')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\Elements\\MetadataElement')]
+#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\Elements\\OpenGraphElement')]
 class MetadataTest extends TestCase
 {
     protected function setUp(): void

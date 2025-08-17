@@ -20,19 +20,16 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Test the base HydePage class.
- *
- * @covers \Hyde\Pages\Concerns\HydePage
- * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Factories\FeaturedImageFactory
- * @covers \Hyde\Framework\Factories\HydePageDataFactory
- * @covers \Hyde\Framework\Factories\BlogPostDataFactory
- * @covers \Hyde\Framework\Concerns\InteractsWithFrontMatter
- */
+#[CoversClass('\\Hyde\\Pages\\Concerns\\HydePage')]
+#[CoversClass('\\Hyde\\Pages\\Concerns\\BaseMarkdownPage')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\Concerns\\HasFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\NavigationDataFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\FeaturedImageFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\HydePageDataFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\BlogPostDataFactory')]
+#[CoversClass('\\Hyde\\Framework\\Concerns\\InteractsWithFrontMatter')]
 class HydePageTest extends TestCase
 {
     // Section: Baseline tests (Abstract class)

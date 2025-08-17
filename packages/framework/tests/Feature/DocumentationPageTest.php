@@ -14,12 +14,11 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Pages\DocumentationPage
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- */
+#[CoversClass('\\Hyde\\Pages\\DocumentationPage')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\Concerns\\HasFactory')]
+#[CoversClass('\\Hyde\\Framework\\Factories\\NavigationDataFactory')]
 class DocumentationPageTest extends TestCase
 {
     public function testCanGetCurrentPagePath()

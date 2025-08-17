@@ -10,10 +10,9 @@ use Hyde\Hyde;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Factories\FeaturedImageFactory
- */
+#[CoversClass('\\Hyde\\Framework\\Factories\\FeaturedImageFactory')]
 class FeaturedImageFactoryTest extends TestCase
 {
     protected function setUp(): void

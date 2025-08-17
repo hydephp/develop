@@ -10,10 +10,9 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Publications\Actions\GeneratesPublicationTagPages
- */
+#[CoversClass('\\Hyde\\Publications\\Actions\\GeneratesPublicationTagPages')]
 class GeneratesPublicationTagPagesTest extends TestCase
 {
     public function testTagsIndexPageIsGeneratedWhenTagsAreUsed()

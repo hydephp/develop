@@ -11,9 +11,9 @@ use Hyde\Framework\Services\ViewDiffService;
 use function Hyde\unixsum;
 use function Hyde\unixsum_file;
 
-/**
- * @covers \Hyde\Framework\Services\ViewDiffService
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass('\\Hyde\\Framework\\Services\\ViewDiffService')]
 class ViewDiffServiceTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

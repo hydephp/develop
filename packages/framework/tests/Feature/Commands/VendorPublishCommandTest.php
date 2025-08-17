@@ -11,10 +11,9 @@ use Illuminate\Console\View\Components\Factory;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Console\Commands\VendorPublishCommand
- */
+#[CoversClass('\\Hyde\\Console\\Commands\\VendorPublishCommand')]
 class VendorPublishCommandTest extends TestCase
 {
     protected function setUp(): void

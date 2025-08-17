@@ -12,10 +12,9 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Support\Models\RouteKey
- */
+#[CoversClass('\\Hyde\\Support\\Models\\RouteKey')]
 class RouteKeyTest extends UnitTestCase
 {
     protected static bool $needsConfig = true;

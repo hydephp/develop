@@ -9,11 +9,10 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Services\MarkdownService
- * @covers \Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter
- */
+#[CoversClass('\\Hyde\\Framework\\Services\\MarkdownService')]
+#[CoversClass('\\Hyde\\Framework\\Concerns\\Internal\\SetsUpMarkdownConverter')]
 class MarkdownServiceTest extends TestCase
 {
     public function testServiceCanParseMarkdownToHtml()

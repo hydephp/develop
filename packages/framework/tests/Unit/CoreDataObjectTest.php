@@ -8,10 +8,9 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hyde\Framework\Factories\Concerns\CoreDataObject
- */
+#[CoversClass('\\Hyde\\Framework\\Factories\\Concerns\\CoreDataObject')]
 class CoreDataObjectTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
