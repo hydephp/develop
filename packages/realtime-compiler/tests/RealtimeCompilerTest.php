@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Hyde\Testing\UnitTestCase;
+use Hyde\Testing\TestCase;
 use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
@@ -12,7 +12,7 @@ use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
 
-class RealtimeCompilerTest extends UnitTestCase
+class RealtimeCompilerTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
@@ -40,7 +40,7 @@ class RealtimeCompilerTest extends UnitTestCase
     public function testHandlesRoutesIndexPage()
     {
         putenv('SERVER_DASHBOARD=false');
-        $this->mockRoute('');
+        $this->mockCompilerRoute('');
 
         $kernel = new HttpKernel();
         $response = $kernel->handle(new Request());
@@ -53,7 +53,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testHandlesRoutesCustomPages()
     {
-        $this->mockRoute('foo');
+        $this->mockCompilerRoute('foo');
 
         Filesystem::put('_pages/foo.md', '# Hello World!');
 
@@ -85,7 +85,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testHandlesRoutesStaticAssets()
     {
-        $this->mockRoute('media/test.css');
+        $this->mockCompilerRoute('media/test.css');
         Filesystem::put('_media/test.css', 'test');
 
         $kernel = new HttpKernel();
@@ -101,7 +101,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testNormalizesMediaPath()
     {
-        $this->mockRoute('media/test.css');
+        $this->mockCompilerRoute('media/test.css');
         Filesystem::put('_media/test.css', 'test');
 
         $kernel = new HttpKernel();
@@ -117,7 +117,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testThrowsRouteNotFoundExceptionForMissingRoute()
     {
-        $this->mockRoute('missing');
+        $this->mockCompilerRoute('missing');
 
         $kernel = new HttpKernel();
 
@@ -129,7 +129,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testSends404ErrorResponseForMissingAsset()
     {
-        $this->mockRoute('missing.css');
+        $this->mockCompilerRoute('missing.css');
 
         $kernel = new HttpKernel();
         $response = $kernel->handle(new Request());
@@ -141,7 +141,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testTrailingSlashesAreNormalizedFromRoute()
     {
-        $this->mockRoute('foo/');
+        $this->mockCompilerRoute('foo/');
 
         Filesystem::put('_pages/foo.md', '# Hello World!');
 
@@ -158,7 +158,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testDocsUriPathIsReroutedToDocsIndex()
     {
-        $this->mockRoute('docs');
+        $this->mockCompilerRoute('docs');
 
         Filesystem::put('_docs/index.md', '# Hello World!');
 
@@ -175,7 +175,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testDocsSearchRendersSearchPage()
     {
-        $this->mockRoute('docs/search');
+        $this->mockCompilerRoute('docs/search');
         Filesystem::put('_docs/index.md', '# Hello World!');
 
         $kernel = new HttpKernel();
@@ -191,7 +191,7 @@ class RealtimeCompilerTest extends UnitTestCase
 
     public function testPingRouteReturnsPingResponse()
     {
-        $this->mockRoute('ping');
+        $this->mockCompilerRoute('ping');
 
         $kernel = new HttpKernel();
         $response = $kernel->handle(new Request());
@@ -211,7 +211,7 @@ class RealtimeCompilerTest extends UnitTestCase
         $this->assertEquals('Internal Server Error', $response->statusMessage);
     }
 
-    protected function mockRoute(string $route, $method = 'GET'): void
+    protected function mockCompilerRoute(string $route, $method = 'GET'): void
     {
         $_SERVER['REQUEST_METHOD'] = $method;
         $_SERVER['REQUEST_URI'] = "/$route";
