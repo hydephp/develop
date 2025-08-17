@@ -70,5 +70,12 @@
             "type": "path",
             "url": "./monorepo/DevTools"
         }
-    ]
+    ],
+    "extra": {
+    "laravel": {
+        "dont-discover": [
+            "laravel/dusk"
+            ]
+        }
+    }
 }
