@@ -6,9 +6,10 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Actions\ConvertsArrayToFrontMatter;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Actions\\ConvertsArrayToFrontMatter')]
+/**
+ * @covers \Hyde\Framework\Actions\ConvertsArrayToFrontMatter
+ */
 class ConvertsArrayToFrontMatterTest extends TestCase
 {
     public function testActionConvertsAnArrayToFrontMatter()

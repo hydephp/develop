@@ -8,16 +8,16 @@ use Hyde\Support\Models\DateString;
 use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * High level test for the feature that allows dates to be set using prefixes in blog post filenames.
  *
+ * @covers \Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper
+ * @covers \Hyde\Framework\Factories\BlogPostDataFactory
+ * @covers \Hyde\Support\Models\RouteKey
+ *
  * @see \Hyde\Framework\Testing\Unit\BlogPostDatePrefixHelperUnitTest
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Blogging\\BlogPostDatePrefixHelper')]
-#[CoversClass('\\Hyde\\Framework\\Factories\\BlogPostDataFactory')]
-#[CoversClass('\\Hyde\\Support\\Models\\RouteKey')]
 class BlogPostDatePrefixHelperTest extends TestCase
 {
     public function testCanDetectDatePrefix()

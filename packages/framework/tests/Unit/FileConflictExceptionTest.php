@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Exceptions\\FileConflictException')]
+/**
+ * @covers \Hyde\Framework\Exceptions\FileConflictException
+ */
 class FileConflictExceptionTest extends UnitTestCase
 {
     public function testItCanBeInstantiated()

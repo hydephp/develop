@@ -14,15 +14,15 @@ use Illuminate\Support\Collection;
 use PHPUnit\Framework\ExpectationFailedException;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlElement;
 use Hyde\Testing\Support\HtmlTesting\TestableHtmlDocument;
-use PHPUnit\Framework\Attributes\CoversNothing;
 
 /**
  * Meta test for the HTML testing support.
  *
  * @see \Hyde\Testing\Support\TestView
  * @see \Hyde\Testing\Support\HtmlTesting
+ *
+ * @coversNothing
  */
-#[CoversNothing]
 class HtmlTestingSupportMetaTest extends UnitTestCase
 {
     use TestsBladeViews;

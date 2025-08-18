@@ -10,13 +10,15 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversNothing;
-use PHPUnit\Framework\Attributes\DataProvider;
 
-#[CoversNothing]
+/**
+ * @coversNothing High level test to ensure the internationalization features are working.
+ */
 class InternationalizationTest extends TestCase
 {
-    #[DataProvider('internationalCharacterSetsProvider')]
+    /**
+     * @dataProvider internationalCharacterSetsProvider
+     */
     public function testCanCreateBlogPostFilesWithInternationalCharacterSets(
         string $title,
         string $description,
@@ -58,7 +60,9 @@ class InternationalizationTest extends TestCase
         Filesystem::unlink($path);
     }
 
-    #[DataProvider('internationalCharacterSetsProvider')]
+    /**
+     * @dataProvider internationalCharacterSetsProvider
+     */
     public function testCanCompileBlogPostFilesWithInternationalCharacterSets(
         string $title,
         string $description,

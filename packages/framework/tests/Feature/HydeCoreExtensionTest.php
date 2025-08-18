@@ -13,9 +13,10 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\HydeCoreExtension')]
+/**
+ * @covers \Hyde\Foundation\HydeCoreExtension
+ */
 class HydeCoreExtensionTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

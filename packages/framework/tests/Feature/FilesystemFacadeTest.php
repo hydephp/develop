@@ -7,15 +7,15 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Facades\Filesystem
+ * @covers \Hyde\Foundation\Kernel\Filesystem
+ * @covers \Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem
+ *
  * @see \FilesystemFacadeMimeTypeHelperUnitTest
  * @see \Hyde\Framework\Testing\Unit\FilesystemFacadeUnitTest
  */
-#[CoversClass('\\Hyde\\Facades\\Filesystem')]
-#[CoversClass('\\Hyde\\Foundation\\Kernel\\Filesystem')]
-#[CoversClass('\\Hyde\\Framework\\Concerns\\Internal\\ForwardsIlluminateFilesystem')]
 class FilesystemFacadeTest extends TestCase
 {
     public function testBasePath()

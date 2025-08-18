@@ -6,9 +6,10 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Features\\BuildTasks\\BuildTaskSkippedException')]
+/**
+ * @covers \Hyde\Framework\Features\BuildTasks\BuildTaskSkippedException
+ */
 class BuildTaskSkippedExceptionTest extends UnitTestCase
 {
     public function testItCanBeInstantiated()

@@ -13,12 +13,12 @@ use Hyde\Console\Commands\ServeCommand;
 use Illuminate\Support\Facades\Process;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Console\Commands\ServeCommand
+ *
  * @see \Hyde\Framework\Testing\Feature\Commands\ServeCommandTest
  */
-#[CoversClass('\\Hyde\\Console\\Commands\\ServeCommand')]
 class ServeCommandOptionsUnitTest extends UnitTestCase
 {
     protected function setUp(): void

@@ -8,9 +8,10 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Support\\Filesystem\\ProjectFile')]
+/**
+ * @covers \Hyde\Support\Filesystem\ProjectFile
+ */
 class ProjectFileTest extends TestCase
 {
     public function testCanConstruct()

@@ -8,9 +8,10 @@ use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\UsesRealBladeInUnitTests;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Markdown\\Processing\\ShortcodeProcessor')]
+/**
+ * @covers \Hyde\Markdown\Processing\ShortcodeProcessor
+ */
 class ShortcodeProcessorTest extends UnitTestCase
 {
     use UsesRealBladeInUnitTests;

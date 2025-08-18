@@ -6,9 +6,10 @@ namespace Hyde\Framework\Testing\Unit\Foundation;
 
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\Kernel\\Hyperlinks::formatLink')]
+/**
+ * @covers \Hyde\Foundation\Kernel\Hyperlinks::formatLink
+ */
 class HyperlinkFormatHtmlPathTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

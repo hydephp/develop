@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Foundation\PackageManifest;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Commands\\PackageDiscoverCommand')]
+/**
+ * @covers \Hyde\Console\Commands\PackageDiscoverCommand
+ */
 class PackageDiscoverCommandTest extends TestCase
 {
     public function testPackageDiscoverCommandRegistersManifestPath()

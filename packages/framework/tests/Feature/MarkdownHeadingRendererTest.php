@@ -8,12 +8,12 @@ use Hyde\Testing\TestCase;
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Markdown\Processing\HeadingRenderer
+ *
  * @see \Hyde\Framework\Testing\Unit\HeadingRendererUnitTest
  */
-#[CoversClass('\\Hyde\\Markdown\\Processing\\HeadingRenderer')]
 class MarkdownHeadingRendererTest extends TestCase
 {
     public function testBasicHeadingRendering()

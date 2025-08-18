@@ -9,9 +9,10 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Pages\\PublicationPage')]
+/**
+ * @covers \Hyde\Publications\Pages\PublicationPage
+ */
 class PublicationPageTest extends TestCase
 {
     public function testSourcePathMappings()

@@ -10,9 +10,10 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\Factory;
 use Mockery;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\Kernel\\Hyperlinks::relativeLink')]
+/**
+ * @covers \Hyde\Foundation\Kernel\Hyperlinks::relativeLink
+ */
 class HyperlinkFileHelperRelativeLinkTest extends UnitTestCase
 {
     use InteractsWithPages;

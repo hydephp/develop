@@ -8,9 +8,10 @@ use Hyde\Testing\TestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Facades\Blade;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Views\\Components\\LinkComponent')]
+/**
+ * @covers \Hyde\Framework\Views\Components\LinkComponent
+ */
 class LinkComponentViewTest extends TestCase
 {
     public function testLinkComponentCanBeRendered()

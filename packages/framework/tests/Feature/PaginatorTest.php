@@ -9,9 +9,10 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Support\\Paginator')]
+/**
+ * @covers \Hyde\Support\Paginator
+ */
 class PaginatorTest extends TestCase
 {
     public function testItCanBeInstantiated(): void

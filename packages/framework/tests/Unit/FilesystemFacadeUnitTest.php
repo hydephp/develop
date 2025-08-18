@@ -9,14 +9,14 @@ use Hyde\Facades\Filesystem;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Facades\Filesystem
+ * @covers \Hyde\Foundation\Kernel\Filesystem
+ * @covers \Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem
+ *
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
-#[CoversClass('\\Hyde\\Facades\\Filesystem')]
-#[CoversClass('\\Hyde\\Foundation\\Kernel\\Filesystem')]
-#[CoversClass('\\Hyde\\Framework\\Concerns\\Internal\\ForwardsIlluminateFilesystem')]
 class FilesystemFacadeUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

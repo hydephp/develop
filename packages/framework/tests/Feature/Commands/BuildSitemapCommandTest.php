@@ -6,10 +6,11 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Commands\\BuildSitemapCommand')]
-#[CoversClass('\\Hyde\\Framework\\Actions\\PostBuildTasks\\GenerateSitemap')]
+/**
+ * @covers \Hyde\Console\Commands\BuildSitemapCommand
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
+ */
 class BuildSitemapCommandTest extends TestCase
 {
     public function testSitemapIsGeneratedWhenConditionsAreMet()

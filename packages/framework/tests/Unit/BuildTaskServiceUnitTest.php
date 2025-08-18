@@ -20,12 +20,12 @@ use Mockery;
 use ReflectionClass;
 use stdClass;
 use TypeError;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Framework\Services\BuildTaskService
+ *
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  */
-#[CoversClass('\\Hyde\\Framework\\Services\\BuildTaskService')]
 class BuildTaskServiceUnitTest extends UnitTestCase
 {
     protected BuildTaskService $service;
@@ -298,6 +298,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->resetKernelInstance();
     }
 
+    /** Assert that the given closure can be executed */
     protected function can(Closure $ability): void
     {
         $ability();
@@ -361,6 +362,7 @@ class TestBuildTaskNotExtendingChildren extends BuildTask
     use VoidHandleMethod;
 }
 
+/** Test class to test overloading */
 class GenerateSitemap extends FrameworkGenerateSitemap
 {
     use VoidHandleMethod;

@@ -13,9 +13,10 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 use Mockery\MockInterface;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\Kernel\\Filesystem')]
+/**
+ * @covers \Hyde\Foundation\Kernel\Filesystem
+ */
 class FilesystemHasMediaFilesTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

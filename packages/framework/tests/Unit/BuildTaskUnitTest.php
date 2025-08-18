@@ -11,9 +11,10 @@ use Exception;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Features\\BuildTasks\\BuildTask')]
+/**
+ * @covers \Hyde\Framework\Features\BuildTasks\BuildTask
+ */
 class BuildTaskUnitTest extends UnitTestCase
 {
     public function testCanCreateBuildTask()

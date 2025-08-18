@@ -8,9 +8,10 @@ use Mockery;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Framework\Services\MarkdownService;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Markdown\\Models\\Markdown')]
+/**
+ * @covers \Hyde\Markdown\Models\Markdown
+ */
 class MarkdownFacadeTest extends UnitTestCase
 {
     public function testRender(): void

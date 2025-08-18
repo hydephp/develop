@@ -9,9 +9,10 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Filesystem\Filesystem;
 use Mockery;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Helpers\\InteractivePublishCommandHelper')]
+/**
+ * @covers \Hyde\Console\Helpers\InteractivePublishCommandHelper
+ */
 class InteractivePublishCommandHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

@@ -10,9 +10,10 @@ use Hyde\Testing\TestCase;
 use Hyde\Enums\Feature;
 use Illuminate\Support\Facades\Config;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Facades\\Features::hasDarkmode')]
+/**
+ * @covers \Hyde\Facades\Features::hasDarkmode
+ */
 class DarkmodeFeatureTest extends TestCase
 {
     protected function setUp(): void

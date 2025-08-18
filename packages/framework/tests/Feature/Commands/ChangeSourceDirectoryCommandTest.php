@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Commands\\ChangeSourceDirectoryCommand')]
+/**
+ * @covers \Hyde\Console\Commands\ChangeSourceDirectoryCommand
+ */
 class ChangeSourceDirectoryCommandTest extends TestCase
 {
     public function testCommandMovesSourceDirectoriesToNewSuppliedDirectoryAndUpdatesTheConfigurationFile()

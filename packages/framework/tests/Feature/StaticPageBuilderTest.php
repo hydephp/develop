@@ -17,9 +17,12 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Actions\\StaticPageBuilder')]
+/**
+ * Feature tests for the StaticPageBuilder class.
+ *
+ * @covers \Hyde\Framework\Actions\StaticPageBuilder
+ */
 class StaticPageBuilderTest extends TestCase
 {
     protected function setUp(): void

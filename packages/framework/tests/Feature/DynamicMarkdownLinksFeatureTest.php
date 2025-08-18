@@ -15,13 +15,13 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
+ * @covers \Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter
+ *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\DynamicMarkdownLinkProcessorTest
  */
-#[CoversClass('\\Hyde\\Markdown\\Processing\\DynamicMarkdownLinkProcessor')]
-#[CoversClass('\\Hyde\\Framework\\Concerns\\Internal\\SetsUpMarkdownConverter')]
 class DynamicMarkdownLinksFeatureTest extends TestCase
 {
     public static function setUpBeforeClass(): void

@@ -10,9 +10,10 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Support\\Filesystem\\SourceFile')]
+/**
+ * @covers \Hyde\Support\Filesystem\SourceFile
+ */
 class SourceFileTest extends TestCase
 {
     public function testCanConstruct()

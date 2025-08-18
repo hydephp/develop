@@ -12,12 +12,12 @@ use Hyde\Support\Models\RenderData;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationItem
+ *
  * @see \Hyde\Framework\Testing\Unit\NavigationItemTest
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationItem')]
 class NavigationItemIsActiveHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

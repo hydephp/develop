@@ -10,12 +10,12 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Support\Includes
+ *
  * @see \Hyde\Framework\Testing\Unit\IncludesFacadeUnitTest
  */
-#[CoversClass('\\Hyde\\Support\\Includes')]
 class IncludesFacadeTest extends TestCase
 {
     protected function setUp(): void

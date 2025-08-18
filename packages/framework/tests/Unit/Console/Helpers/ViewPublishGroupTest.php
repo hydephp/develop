@@ -10,9 +10,10 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Console\Helpers\ViewPublishGroup;
 use Illuminate\Support\Collection;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Helpers\\ViewPublishGroup')]
+/**
+ * @covers \Hyde\Console\Helpers\ViewPublishGroup
+ */
 class ViewPublishGroupTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

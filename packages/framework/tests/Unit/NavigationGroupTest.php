@@ -12,9 +12,10 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationGroup')]
+/**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationGroup
+ */
 class NavigationGroupTest extends UnitTestCase
 {
     public static function setUpBeforeClass(): void

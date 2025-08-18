@@ -6,9 +6,10 @@ namespace Hyde\Framework\Testing\Feature\Services;
 
 use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Markdown\\Processing\\BladeDownProcessor')]
+/**
+ * @covers \Hyde\Markdown\Processing\BladeDownProcessor
+ */
 class BladeDownProcessorTest extends TestCase
 {
     public function testItRendersBladeEchoSyntax()

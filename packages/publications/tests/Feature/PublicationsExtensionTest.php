@@ -17,9 +17,10 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\PublicationsExtension')]
+/**
+ * @covers \Hyde\Publications\PublicationsExtension
+ */
 class PublicationsExtensionTest extends TestCase
 {
     protected function setUp(): void

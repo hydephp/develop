@@ -7,12 +7,12 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 use BadMethodCallException;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Pages\InMemoryPage
+ *
  * @see \Hyde\Framework\Testing\Unit\Pages\InMemoryPageUnitTest
  */
-#[CoversClass('\\Hyde\\Pages\\InMemoryPage')]
 class InMemoryPageTest extends TestCase
 {
     public function testConstructWithContentsString()

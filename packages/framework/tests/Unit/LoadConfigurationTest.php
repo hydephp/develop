@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Foundation\Application;
 use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\Internal\\LoadConfiguration')]
+/**
+ * @covers \Hyde\Foundation\Internal\LoadConfiguration
+ */
 class LoadConfigurationTest extends UnitTestCase
 {
     public function testItLoadsRuntimeConfiguration()

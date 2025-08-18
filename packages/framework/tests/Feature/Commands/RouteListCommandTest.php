@@ -8,13 +8,13 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Console\Commands\RouteListCommand
+ * @covers \Hyde\Support\Internal\RouteListItem
+ *
  * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
-#[CoversClass('\\Hyde\\Console\\Commands\\RouteListCommand')]
-#[CoversClass('\\Hyde\\Support\\Internal\\RouteListItem')]
 class RouteListCommandTest extends TestCase
 {
     public function testRouteListCommand()

@@ -12,11 +12,12 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\Facades\\Files')]
-#[CoversClass('\\Hyde\\Foundation\\Facades\\Pages')]
-#[CoversClass('\\Hyde\\Foundation\\Facades\\Routes')]
+/**
+ * @covers \Hyde\Foundation\Facades\Files
+ * @covers \Hyde\Foundation\Facades\Pages
+ * @covers \Hyde\Foundation\Facades\Routes
+ */
 class FoundationFacadesTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

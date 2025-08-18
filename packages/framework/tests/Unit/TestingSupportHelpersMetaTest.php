@@ -9,16 +9,16 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\MocksKernelFeatures;
 use Hyde\Testing\FluentTestingHelpers;
-use PHPUnit\Framework\Attributes\CoversNothing;
 
 /**
  * Meta test for internal testing helpers.
  *
  * @see \Hyde\Testing\Support
  * @see \Hyde\Testing\MocksKernelFeatures
+ *
+ * @coversNothing
  */
 #[AllowDynamicProperties]
-#[CoversNothing]
 class TestingSupportHelpersMetaTest extends UnitTestCase
 {
     use MocksKernelFeatures;

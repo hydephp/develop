@@ -6,9 +6,10 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Markdown\\Models\\FrontMatter')]
+/**
+ * @covers \Hyde\Markdown\Models\FrontMatter
+ */
 class FrontMatterModelTest extends UnitTestCase
 {
     public function testConstructorCreatesNewFrontMatterModel()

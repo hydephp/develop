@@ -17,19 +17,19 @@ use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * High level tests for the Navigation API to go along with the code-driven documentation.
  *
  * @see \Hyde\Framework\Features\Navigation\
+ *
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationItem
+ * @covers \Hyde\Framework\Features\Navigation\NavigationGroup
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  */
 #[AllowDynamicProperties]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenu')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationItem')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationGroup')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\MainNavigationMenu')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\DocumentationSidebar')]
 class NavigationAPITest extends TestCase
 {
     use MocksKernelFeatures;

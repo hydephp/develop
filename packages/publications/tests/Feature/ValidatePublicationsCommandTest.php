@@ -7,10 +7,11 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Commands\\ValidatePublicationsCommand')]
-#[CoversClass('\\Hyde\\Publications\\Actions\\PublicationPageValidator')]
+/**
+ * @covers \Hyde\Publications\Commands\ValidatePublicationsCommand
+ * @covers \Hyde\Publications\Actions\PublicationPageValidator
+ */
 class ValidatePublicationsCommandTest extends TestCase
 {
     protected function setUp(): void

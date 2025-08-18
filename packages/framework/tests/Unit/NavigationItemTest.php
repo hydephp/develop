@@ -14,15 +14,15 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * This unit test covers the basics of the NavigationItem class.
  * For the full feature test, see the MainNavigationMenuTest class.
  *
+ * @covers \Hyde\Framework\Features\Navigation\NavigationItem
+ *
  * @see \Hyde\Framework\Testing\Unit\NavigationItemIsActiveHelperTest
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationItem')]
 class NavigationItemTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

@@ -10,18 +10,19 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\Filesystem;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * High level test of the sitemap generation feature.
+ *
  * It contains a setup that covers all code paths, proving 100% coverage in actual usage.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSitemapCommandTest
+ *
+ * @covers \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
+ * @covers \Hyde\Console\Commands\BuildSitemapCommand
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\XmlGenerators\\SitemapGenerator')]
-#[CoversClass('\\Hyde\\Framework\\Actions\\PostBuildTasks\\GenerateSitemap')]
-#[CoversClass('\\Hyde\\Console\\Commands\\BuildSitemapCommand')]
 class SitemapFeatureTest extends TestCase
 {
     public function testTheSitemapFeature()

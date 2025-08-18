@@ -9,9 +9,10 @@ use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Hyde\Publications\Actions\CreateAction;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Actions\\CreateAction')]
+/**
+ * @covers \Hyde\Publications\Actions\CreateAction
+ */
 class CreateActionTest extends TestCase
 {
     public function testCreate()

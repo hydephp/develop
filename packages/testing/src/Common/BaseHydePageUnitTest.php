@@ -10,9 +10,14 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Facades\View;
 use Hyde\Testing\CreatesTemporaryFiles;
-use PHPUnit\Framework\Attributes\CoversNothing;
 
-#[CoversNothing]
+/**
+ * Providers helpers and a contract for unit testing for the specified page class.
+ *
+ * These unit tests ensure all inherited methods are callable, and that they return the expected value.
+ *
+ * @coversNothing
+ */
 abstract class BaseHydePageUnitTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

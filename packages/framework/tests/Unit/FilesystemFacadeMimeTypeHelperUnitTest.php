@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 use Hyde\Facades\Filesystem;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
+ * @covers \Hyde\Facades\Filesystem
+ *
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
-#[CoversClass('\\Hyde\\Facades\\Filesystem')]
 class FilesystemFacadeMimeTypeHelperUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
     /**
-     * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
+     * @dataProvider mimeTypeProvider
      */
-    #[DataProvider('mimeTypeProvider')]
     public function testFindMimeTypeWithKnownExtensions(string $extension, string $expectedMimeType)
     {
         $this->assertSame($expectedMimeType, Filesystem::findMimeType("file.$extension"));
     }
 
-    #[DataProvider('mimeTypeProvider')]
+    /**
+     * @dataProvider mimeTypeProvider
+     */
     public function testFindMimeTypeWithRemoteUrls(string $extension, string $expectedMimeType)
     {
         $this->assertSame($expectedMimeType, Filesystem::findMimeType("https://example.com/file.$extension"));

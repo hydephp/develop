@@ -9,9 +9,10 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationListPage;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Pages\\PublicationListPage')]
+/**
+ * @covers \Hyde\Publications\Pages\PublicationListPage
+ */
 class PublicationListPageTest extends TestCase
 {
     public function testSourcePathMappings()

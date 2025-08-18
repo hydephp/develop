@@ -8,9 +8,10 @@ use Hyde\Hyde;
 use Hyde\Facades\Author;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Facades\\Author')]
+/**
+ * @covers \Hyde\Facades\Author
+ */
 class AuthorFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

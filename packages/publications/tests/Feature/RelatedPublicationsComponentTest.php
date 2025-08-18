@@ -14,9 +14,10 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\ComponentAttributeBag;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Views\\Components\\RelatedPublicationsComponent')]
+/**
+ * @covers \Hyde\Publications\Views\Components\RelatedPublicationsComponent
+ */
 class RelatedPublicationsComponentTest extends TestCase
 {
     public function testWithStandardPage()

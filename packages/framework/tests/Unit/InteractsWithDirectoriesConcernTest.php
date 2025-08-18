@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Concerns\\InteractsWithDirectories')]
+/**
+ * @covers \Hyde\Framework\Concerns\InteractsWithDirectories
+ */
 class InteractsWithDirectoriesConcernTest extends UnitTestCase
 {
     use InteractsWithDirectories;

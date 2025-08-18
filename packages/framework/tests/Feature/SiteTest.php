@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Site;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Facades\\Site')]
+/**
+ * @covers \Hyde\Facades\Site
+ */
 class SiteTest extends TestCase
 {
     public function testUrl()

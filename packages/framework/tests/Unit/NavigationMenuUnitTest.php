@@ -8,14 +8,14 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
+ *
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenu')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\MainNavigationMenu')]
 class NavigationMenuUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

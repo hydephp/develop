@@ -6,9 +6,10 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Console\ConsoleServiceProvider;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\ConsoleServiceProvider')]
+/**
+ * @covers \Hyde\Console\ConsoleServiceProvider
+ */
 class ConsoleServiceProviderUnitTest extends UnitTestCase
 {
     public function testProviderRegistersLogo()

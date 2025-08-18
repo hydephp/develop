@@ -9,15 +9,15 @@ use Illuminate\Support\Collection;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\DocumentationSidebar')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenu')]
 class DocumentationSidebarUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

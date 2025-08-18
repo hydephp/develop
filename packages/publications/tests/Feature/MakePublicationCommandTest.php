@@ -9,10 +9,11 @@ use Hyde\Hyde;
 use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Commands\\MakePublicationCommand')]
-#[CoversClass('\\Hyde\\Publications\\Actions\\CreatesNewPublicationPage')]
+/**
+ * @covers \Hyde\Publications\Commands\MakePublicationCommand
+ * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage
+ */
 class MakePublicationCommandTest extends TestCase
 {
     protected function setUp(): void

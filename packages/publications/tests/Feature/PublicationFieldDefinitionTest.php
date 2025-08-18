@@ -8,9 +8,10 @@ use ValueError;
 use Hyde\Testing\TestCase;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Models\PublicationFieldDefinition;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Models\\PublicationFieldDefinition')]
+/**
+ * @covers \Hyde\Publications\Models\PublicationFieldDefinition
+ */
 class PublicationFieldDefinitionTest extends TestCase
 {
     public function testCanInstantiateClass()

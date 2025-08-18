@@ -15,11 +15,12 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\Kernel\\FileCollection')]
-#[CoversClass('\\Hyde\\Foundation\\Concerns\\BaseFoundationCollection')]
-#[CoversClass('\\Hyde\\Foundation\\Facades\\Files')]
+/**
+ * @covers \Hyde\Foundation\Kernel\FileCollection
+ * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
+ * @covers \Hyde\Foundation\Facades\Files
+ */
 class FileCollectionTest extends TestCase
 {
     public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()

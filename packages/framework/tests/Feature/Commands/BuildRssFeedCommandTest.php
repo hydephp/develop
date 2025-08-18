@@ -7,10 +7,11 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Commands\\BuildRssFeedCommand')]
-#[CoversClass('\\Hyde\\Framework\\Actions\\PostBuildTasks\\GenerateRssFeed')]
+/**
+ * @covers \Hyde\Console\Commands\BuildRssFeedCommand
+ * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
+ */
 class BuildRssFeedCommandTest extends TestCase
 {
     public function testRssFeedIsGeneratedWhenConditionsAreMet()

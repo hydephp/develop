@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Unit\Facades;
 use Hyde\Hyde;
 use Hyde\Facades\HydeFront;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Facades\\HydeFront')]
+/**
+ * @covers \Hyde\Facades\HydeFront
+ */
 class HydeFrontFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

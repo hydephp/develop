@@ -11,9 +11,10 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Facades\View;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\HydeKernel')]
+/**
+ * @covers \Hyde\Foundation\HydeKernel
+ */
 class HydeFileHelpersTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

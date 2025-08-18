@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Actions\\AnonymousViewCompiler')]
+/**
+ * @covers \Hyde\Framework\Actions\AnonymousViewCompiler
+ */
 class AnonymousViewCompilerTest extends TestCase
 {
     public function testCanCompileBladeFile()

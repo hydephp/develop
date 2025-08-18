@@ -16,16 +16,16 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Test the Yaml configuration feature.
  *
  * @see \Hyde\Framework\Testing\Feature\HighLevelYamlConfigurationFeatureTest
+ *
+ * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
+ * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
+ * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
  */
-#[CoversClass('\\Hyde\\Foundation\\Internal\\LoadYamlConfiguration')]
-#[CoversClass('\\Hyde\\Foundation\\Internal\\LoadYamlEnvironmentVariables')]
-#[CoversClass('\\Hyde\\Foundation\\Internal\\YamlConfigurationRepository')]
 class YamlConfigurationFeatureTest extends TestCase
 {
     public static function setUpBeforeClass(): void

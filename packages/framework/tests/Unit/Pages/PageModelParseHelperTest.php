@@ -10,9 +10,10 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Pages\\Concerns\\HydePage::parse')]
+/**
+ * @covers \Hyde\Pages\Concerns\HydePage::parse
+ */
 class PageModelParseHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

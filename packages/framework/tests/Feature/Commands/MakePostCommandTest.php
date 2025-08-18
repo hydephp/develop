@@ -7,10 +7,11 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Commands\\MakePostCommand')]
-#[CoversClass('\\Hyde\\Framework\\Actions\\CreatesNewMarkdownPostFile')]
+/**
+ * @covers \Hyde\Console\Commands\MakePostCommand
+ * @covers \Hyde\Framework\Actions\CreatesNewMarkdownPostFile
+ */
 class MakePostCommandTest extends TestCase
 {
     public function testCommandHasExpectedOutputAndCreatesValidFile()

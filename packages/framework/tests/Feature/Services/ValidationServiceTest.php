@@ -9,13 +9,13 @@ use Hyde\Framework\Services\ValidationService;
 use Hyde\Hyde;
 use Hyde\Support\Models\ValidationResult;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Framework\Services\ValidationService
+ * @covers \Hyde\Support\Models\ValidationResult
+ *
  * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
-#[CoversClass('\\Hyde\\Framework\\Services\\ValidationService')]
-#[CoversClass('\\Hyde\\Support\\Models\\ValidationResult')]
 class ValidationServiceTest extends TestCase
 {
     protected ValidationService $service;

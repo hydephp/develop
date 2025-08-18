@@ -14,13 +14,12 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use Mockery;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
+ * @covers \Hyde\Markdown\Processing\HeadingRenderer
+ *
  * @see \Hyde\Framework\Testing\Feature\MarkdownHeadingRendererTest
  */
-#[CoversClass('\\Hyde\\Markdown\\Processing\\HeadingRenderer')]
 class HeadingRendererUnitTest extends UnitTestCase
 {
     use UsesRealBladeInUnitTests;
@@ -236,15 +235,16 @@ class HeadingRendererUnitTest extends UnitTestCase
     }
 
     /**
-     * @see \Hyde\Framework\Testing\Feature\MarkdownHeadingRendererTest
+     * @dataProvider headingIdentifierProvider
      */
-    #[DataProvider('headingIdentifierProvider')]
     public function testHeadingIdentifierGeneration($input, $expected)
     {
         $this->assertSame($expected, HeadingRenderer::makeIdentifier($input));
     }
 
-    #[DataProvider('headingIdentifierProvider')]
+    /**
+     * @dataProvider headingIdentifierProvider
+     */
     public function testHeadingIdentifierGenerationWithEscapedInput($input, $expected)
     {
         $this->assertSame(HeadingRenderer::makeIdentifier($input), HeadingRenderer::makeIdentifier(e($input)));

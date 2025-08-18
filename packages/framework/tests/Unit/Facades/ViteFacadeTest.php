@@ -9,10 +9,10 @@ use Hyde\Facades\Vite;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Illuminate\Support\HtmlString;
 use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 
-#[CoversClass('\\Hyde\\Facades\\Vite')]
+/**
+ * @covers \Hyde\Facades\Vite
+ */
 class ViteFacadeTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;
@@ -105,7 +105,9 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertSame($expected, (string) $html);
     }
 
-    #[DataProvider('cssFileExtensionsProvider')]
+    /**
+     * @dataProvider cssFileExtensionsProvider
+     */
     public function testAssetsMethodSupportsAllCssFileExtensions(string $extension)
     {
         $html = Vite::assets(["resources/css/app.$extension"]);
@@ -120,7 +122,9 @@ class ViteFacadeTest extends UnitTestCase
         }
     }
 
-    #[DataProvider('jsFileExtensionsProvider')]
+    /**
+     * @dataProvider jsFileExtensionsProvider
+     */
     public function testAssetsMethodSupportsAllJsFileExtensions(string $extension)
     {
         $html = Vite::assets(["resources/js/app.$extension"]);

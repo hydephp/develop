@@ -16,13 +16,13 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Filesystem\Filesystem;
 use Hyde\Testing\MocksKernelFeatures;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Support\Includes
+ *
  * @see \Hyde\Framework\Testing\Feature\IncludesFacadeTest
  */
 #[AllowDynamicProperties]
-#[CoversClass('\\Hyde\\Support\\Includes')]
 class IncludesFacadeUnitTest extends UnitTestCase
 {
     use MocksKernelFeatures;

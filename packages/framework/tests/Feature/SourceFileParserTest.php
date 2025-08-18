@@ -11,9 +11,10 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Actions\\SourceFileParser')]
+/**
+ * @covers \Hyde\Framework\Actions\SourceFileParser
+ */
 class SourceFileParserTest extends TestCase
 {
     public function testBladePageParser()

@@ -10,12 +10,12 @@ use Hyde\Testing\TestCase;
 use Illuminate\Contracts\Process\InvokedProcess;
 use Illuminate\Support\Facades\Process;
 use TypeError;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Console\Commands\ServeCommand
+ *
  * @see \Hyde\Framework\Testing\Unit\ServeCommandOptionsUnitTest
  */
-#[CoversClass('\\Hyde\\Console\\Commands\\ServeCommand')]
 class ServeCommandTest extends TestCase
 {
     protected function setUp(): void

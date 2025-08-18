@@ -11,9 +11,10 @@ use Hyde\Publications\Models\PublicationFieldDefinition;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Actions\\SeedsPublicationFiles')]
+/**
+ * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
+ */
 class SeedsPublicationFilesTest extends TestCase
 {
     protected PublicationType $pubType;

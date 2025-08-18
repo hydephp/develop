@@ -9,9 +9,10 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Testing\FluentTestingHelpers;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Foundation\\Kernel\\Hyperlinks')]
+/**
+ * @covers \Hyde\Foundation\Kernel\Hyperlinks
+ */
 class HyperlinksUrlPathHelpersTest extends UnitTestCase
 {
     use FluentTestingHelpers;

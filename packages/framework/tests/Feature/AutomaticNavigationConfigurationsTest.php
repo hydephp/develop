@@ -23,20 +23,20 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * High-level broad-spectrum tests for the automatic navigation configurations, testing various setups.
  *
  * @see \Hyde\Framework\Testing\Unit\Views\NavigationHtmlLayoutsTest
+ *
+ * @covers \Hyde\Facades\Navigation
+ * @covers \Hyde\Framework\Factories\NavigationDataFactory
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
+ * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationItem
  */
-#[CoversClass('\\Hyde\\Facades\\Navigation')]
-#[CoversClass('\\Hyde\\Framework\\Factories\\NavigationDataFactory')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenuGenerator')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\DocumentationSidebar')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\MainNavigationMenu')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenu')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationItem')]
 class AutomaticNavigationConfigurationsTest extends TestCase
 {
     protected function setUp(): void
@@ -1371,6 +1371,7 @@ class AssertableNavigationMenu
         $this->test = $test;
     }
 
+    /** A simplified serialized format for comparisons */
     public function state(): array
     {
         return $this->items->map(function (NavigationItem|NavigationGroup $item): TestNavigationItem {

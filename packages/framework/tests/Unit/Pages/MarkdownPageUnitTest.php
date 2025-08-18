@@ -14,9 +14,10 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Testing\Common\BaseMarkdownPageUnitTest;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Pages\\MarkdownPage')]
+/**
+ * @covers \Hyde\Pages\MarkdownPage
+ */
 class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
 {
     public function testSourceDirectory()

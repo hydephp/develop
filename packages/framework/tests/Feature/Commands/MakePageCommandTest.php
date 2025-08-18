@@ -9,10 +9,11 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Commands\\MakePageCommand')]
-#[CoversClass('\\Hyde\\Framework\\Actions\\CreatesNewPageSourceFile')]
+/**
+ * @covers \Hyde\Console\Commands\MakePageCommand
+ * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
+ */
 class MakePageCommandTest extends TestCase
 {
     protected string $markdownPath;

@@ -7,17 +7,18 @@ namespace Hyde\Framework\Testing\Feature\Views;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * This tests ensures all metadata is rendered correctly in the compiled pages.
  * Please see the MetadataBagTest class which tests the construction of the data,
  * as this test does not cover all configuration cases and possible formatting options.
+ *
  * This test is useful both as a regression test, and also to ensure all tags are covered.
+ *
+ * @covers \Hyde\Framework\Features\Metadata\MetadataBag
+ * @covers \Hyde\Framework\Features\Metadata\PageMetadataBag
+ * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\MetadataBag')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\PageMetadataBag')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Metadata\\GlobalMetadataBag')]
 class MetadataViewTest extends TestCase
 {
     protected function setUp(): void

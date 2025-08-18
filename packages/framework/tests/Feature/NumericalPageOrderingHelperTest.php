@@ -13,18 +13,19 @@ use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * High level test for the feature that allows sidebar items to be sorted by filename prefix.
+ *
  * It also works within sidebar groups, so that multiple groups can have the same prefix independent of other groups.
+ *
+ * @covers \Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper
+ * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
+ * @covers \Hyde\Framework\Factories\NavigationDataFactory
+ * @covers \Hyde\Support\Models\RouteKey
  *
  * @see \Hyde\Framework\Testing\Unit\NumericalPageOrderingHelperUnitTest
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NumericalPageOrderingHelper')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\DocumentationSidebar')]
-#[CoversClass('\\Hyde\\Framework\\Factories\\NavigationDataFactory')]
-#[CoversClass('\\Hyde\\Support\\Models\\RouteKey')]
 class NumericalPageOrderingHelperTest extends TestCase
 {
     protected function setUp(): void

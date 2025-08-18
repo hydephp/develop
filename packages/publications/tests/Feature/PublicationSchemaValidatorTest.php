@@ -7,9 +7,10 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Actions\\PublicationSchemaValidator')]
+/**
+ * @covers \Hyde\Publications\Actions\PublicationSchemaValidator
+ */
 class PublicationSchemaValidatorTest extends TestCase
 {
     public function testValidateSchemaFile()

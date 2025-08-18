@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Support\ReadingTime;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Support\\ReadingTime')]
+/**
+ * @covers \Hyde\Support\ReadingTime
+ */
 class ReadingTimeTest extends UnitTestCase
 {
     public static function setUpBeforeClass(): void

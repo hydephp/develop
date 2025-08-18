@@ -9,9 +9,10 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Support\Models\Redirect;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Support\\Models\\Redirect')]
+/**
+ * @covers \Hyde\Support\Models\Redirect
+ */
 class RedirectTest extends TestCase
 {
     public function testCanCreateARedirect()

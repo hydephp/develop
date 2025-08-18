@@ -13,9 +13,10 @@ use Mockery;
 use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Commands\\ValidatingCommand')]
+/**
+ * @covers \Hyde\Publications\Commands\ValidatingCommand
+ */
 class ValidatingCommandTest extends TestCase
 {
     public function testAskWithValidationCapturesInput()

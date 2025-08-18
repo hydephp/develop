@@ -10,11 +10,12 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Console\\Commands\\BuildSearchCommand')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Documentation\\DocumentationSearchPage')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Documentation\\DocumentationSearchIndex')]
+/**
+ * @covers \Hyde\Console\Commands\BuildSearchCommand
+ * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchPage
+ * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchIndex
+ */
 class BuildSearchCommandTest extends TestCase
 {
     public function testItCreatesTheSearchJsonFile()

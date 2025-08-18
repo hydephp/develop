@@ -15,13 +15,13 @@ use Laravel\Prompts\Key;
 use Laravel\Prompts\Prompt;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Console\Commands\PublishViewsCommand
+ * @covers \Hyde\Console\Helpers\InteractivePublishCommandHelper
+ *
  * @see \Hyde\Framework\Testing\Unit\InteractivePublishCommandHelperTest
  */
-#[CoversClass('\\Hyde\\Console\\Commands\\PublishViewsCommand')]
-#[CoversClass('\\Hyde\\Console\\Helpers\\InteractivePublishCommandHelper')]
 class PublishViewsCommandTest extends TestCase
 {
     public function testCommandPublishesViews()

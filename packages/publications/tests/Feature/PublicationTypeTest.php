@@ -16,9 +16,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Models\\PublicationType')]
+/**
+ * @covers \Hyde\Publications\Models\PublicationType
+ */
 class PublicationTypeTest extends TestCase
 {
     public function testCanConstructNewPublicationType()

@@ -11,10 +11,11 @@ use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Publications\Publications;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Publications')]
-#[CoversClass('\\Hyde\\Publications\\PublicationsExtension')]
+/**
+ * @covers \Hyde\Publications\Publications
+ * @covers \Hyde\Publications\PublicationsExtension
+ */
 class PublicationServiceTest extends TestCase
 {
     protected function setUp(): void

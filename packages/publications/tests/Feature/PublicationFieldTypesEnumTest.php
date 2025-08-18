@@ -6,9 +6,10 @@ namespace Hyde\Publications\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Concerns\\PublicationFieldTypes')]
+/**
+ * @covers \Hyde\Publications\Concerns\PublicationFieldTypes
+ */
 class PublicationFieldTypesEnumTest extends TestCase
 {
     public function testCases()

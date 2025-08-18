@@ -8,9 +8,10 @@ use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Hyde;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Actions\\GeneratesDocumentationSearchIndex')]
+/**
+ * @covers \Hyde\Framework\Actions\GeneratesDocumentationSearchIndex
+ */
 class DocumentationSearchServiceTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

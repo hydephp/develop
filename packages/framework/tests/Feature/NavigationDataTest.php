@@ -8,9 +8,10 @@ use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Testing\UnitTestCase;
 use ReflectionClass;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationData')]
+/**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationData
+ */
 class NavigationDataTest extends UnitTestCase
 {
     protected array $array = [

@@ -8,10 +8,11 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Facades\Filesystem;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Commands\\MakePublicationTypeCommand')]
-#[CoversClass('\\Hyde\\Publications\\Actions\\CreatesNewPublicationType')]
+/**
+ * @covers \Hyde\Publications\Commands\MakePublicationTypeCommand
+ * @covers \Hyde\Publications\Actions\CreatesNewPublicationType
+ */
 class MakePublicationTypeCommandTest extends TestCase
 {
     protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>';

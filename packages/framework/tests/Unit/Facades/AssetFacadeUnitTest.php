@@ -10,9 +10,10 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Facades\\Asset')]
+/**
+ * @covers \Hyde\Facades\Asset
+ */
 class AssetFacadeUnitTest extends UnitTestCase
 {
     protected function setUp(): void

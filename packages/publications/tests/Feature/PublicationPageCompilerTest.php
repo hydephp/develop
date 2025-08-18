@@ -11,9 +11,10 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Publications\\Actions\\PublicationPageCompiler')]
+/**
+ * @covers \Hyde\Publications\Actions\PublicationPageCompiler
+ */
 class PublicationPageCompilerTest extends TestCase
 {
     public function testCanCompilePublicationPages()

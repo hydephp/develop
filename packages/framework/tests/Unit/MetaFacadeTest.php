@@ -7,9 +7,10 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Facades\Meta;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Testing\UnitTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass('\\Hyde\\Facades\\Meta')]
+/**
+ * @covers \Hyde\Facades\Meta
+ */
 class MetaFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

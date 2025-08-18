@@ -16,14 +16,14 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
+ * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
+ *
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
  */
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenu')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\MainNavigationMenu')]
-#[CoversClass('\\Hyde\\Framework\\Features\\Navigation\\NavigationMenuGenerator')]
 class NavigationMenuTest extends TestCase
 {
     public function testConstructor()

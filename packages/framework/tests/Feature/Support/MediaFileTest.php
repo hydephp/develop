@@ -9,12 +9,12 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Str;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
-use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
+ * @covers \Hyde\Support\Filesystem\MediaFile
+ *
  * @see \Hyde\Framework\Testing\Unit\Support\MediaFileUnitTest
  */
-#[CoversClass('\\Hyde\\Support\\Filesystem\\MediaFile')]
 class MediaFileTest extends TestCase
 {
     public function testMediaFileCreationAndBasicProperties()

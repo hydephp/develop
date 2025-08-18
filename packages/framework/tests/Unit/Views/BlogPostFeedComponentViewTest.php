@@ -8,9 +8,10 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestsBladeViews;
-use PHPUnit\Framework\Attributes\CoversNothing;
 
-#[CoversNothing]
+/**
+ * @coversNothing Test to ensure the blog post feed component can be rendered
+ */
 class BlogPostFeedComponentViewTest extends TestCase
 {
     use TestsBladeViews;
