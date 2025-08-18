@@ -15,10 +15,9 @@ use Hyde\Testing\FluentTestingHelpers;
  *
  * @see \Hyde\Testing\Support
  * @see \Hyde\Testing\MocksKernelFeatures
- *
- * @coversNothing
  */
 #[AllowDynamicProperties]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class TestingSupportHelpersMetaTest extends UnitTestCase
 {
     use MocksKernelFeatures;

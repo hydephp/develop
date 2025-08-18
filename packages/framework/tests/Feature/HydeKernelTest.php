@@ -33,13 +33,13 @@ use Hyde\Framework\Features\Blogging\Models\PostAuthor;
  * This test class runs high-level tests on the HydeKernel class,
  * as most of the logic actually resides in linked service classes.
  *
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Hyde
  *
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeTitleTest
  * @see \Hyde\Framework\Testing\Unit\HydeHelperFacadeMakeSlugTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeKernel::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Hyde::class)]
 class HydeKernelTest extends TestCase
 {
     public function testKernelSingletonCanBeAccessedByServiceContainer()

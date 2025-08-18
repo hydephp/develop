@@ -13,9 +13,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\CreatesNewPageSourceFile::class)]
 class CreatesNewPageSourceFileTest extends TestCase
 {
     public function testClassCanBeInstantiated()
@@ -101,7 +99,7 @@ class CreatesNewPageSourceFileTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_pages/test-page.blade.php'));
 
-        $this->assertEquals(
+        $this->assertSame(
             <<<'BLADE'
             @extends('hyde::layouts.app')
             @section('content')
@@ -162,7 +160,7 @@ class CreatesNewPageSourceFileTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_pages/test-page.blade.php'));
 
-        $this->assertEquals(
+        $this->assertSame(
             <<<'BLADE'
             @extends('hyde::layouts.app')
             @section('content')

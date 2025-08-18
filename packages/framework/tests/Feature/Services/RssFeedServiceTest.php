@@ -13,10 +13,8 @@ use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
- * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\RssFeedGenerator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator::class)]
 class RssFeedServiceTest extends TestCase
 {
     public function testServiceInstantiatesXmlElement()
@@ -29,7 +27,7 @@ class RssFeedServiceTest extends TestCase
     {
         $service = new RssFeedGenerator();
         $this->assertSame('rss', $service->getXmlElement()->getName());
-        $this->assertEquals('2.0', $service->getXmlElement()->attributes()->version);
+        $this->assertSame('2.0', $service->getXmlElement()->attributes()->version);
     }
 
     public function testXmlElementHasChannelElement()
@@ -50,9 +48,9 @@ class RssFeedServiceTest extends TestCase
         $this->assertObjectHasProperty('link', $service->getXmlElement()->channel);
         $this->assertObjectHasProperty('description', $service->getXmlElement()->channel);
 
-        $this->assertEquals('Test Blog', $service->getXmlElement()->channel->title);
-        $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
-        $this->assertEquals('Test Blog RSS Feed', $service->getXmlElement()->channel->description);
+        $this->assertSame('Test Blog', $service->getXmlElement()->channel->title);
+        $this->assertSame('https://example.com', $service->getXmlElement()->channel->link);
+        $this->assertSame('Test Blog RSS Feed', $service->getXmlElement()->channel->description);
     }
 
     public function testXmlChannelElementHasAdditionalElements()
@@ -62,8 +60,8 @@ class RssFeedServiceTest extends TestCase
         $service = new RssFeedGenerator();
 
         $this->assertObjectHasProperty('link', $service->getXmlElement()->channel);
-        $this->assertEquals('https://example.com', $service->getXmlElement()->channel->link);
-        $this->assertEquals('https://example.com/feed.xml',
+        $this->assertSame('https://example.com', $service->getXmlElement()->channel->link);
+        $this->assertSame('https://example.com/feed.xml',
             $service->getXmlElement()->channel->children('atom', true)->link->attributes()->href
         );
 
@@ -79,9 +77,9 @@ class RssFeedServiceTest extends TestCase
         config(['hyde.rss.description' => 'Foo is a web log about stuff']);
 
         $service = new RssFeedGenerator();
-        $this->assertEquals('Foo', $service->getXmlElement()->channel->title);
-        $this->assertEquals('https://blog.foo.com/bar', $service->getXmlElement()->channel->link);
-        $this->assertEquals('Foo is a web log about stuff', $service->getXmlElement()->channel->description);
+        $this->assertSame('Foo', $service->getXmlElement()->channel->title);
+        $this->assertSame('https://blog.foo.com/bar', $service->getXmlElement()->channel->link);
+        $this->assertSame('Foo is a web log about stuff', $service->getXmlElement()->channel->description);
     }
 
     public function testMarkdownBlogPostsAreAddedToRssFeedThroughAutodiscovery()
@@ -114,18 +112,18 @@ class RssFeedServiceTest extends TestCase
 
         $item = $service->getXmlElement()->channel->item[0];
 
-        $this->assertEquals('RSS', $item->title);
-        $this->assertEquals('RSS description', $item->description);
-        $this->assertEquals('https://example.com/posts/rss.html', $item->link);
+        $this->assertSame('RSS', $item->title);
+        $this->assertSame('RSS description', $item->description);
+        $this->assertSame('https://example.com/posts/rss.html', $item->link);
 
-        $this->assertEquals(date(DATE_RSS, strtotime('2022-05-19T10:15:30+00:00')), $item->pubDate);
-        $this->assertEquals('Hyde', $item->children('dc', true)->creator);
-        $this->assertEquals('test', $item->category);
+        $this->assertSame(date(DATE_RSS, strtotime('2022-05-19T10:15:30+00:00')), $item->pubDate);
+        $this->assertSame('Hyde', $item->children('dc', true)->creator);
+        $this->assertSame('test', $item->category);
 
         $this->assertObjectHasProperty('enclosure', $item);
-        $this->assertEquals('https://example.com/media/rss-test.jpg', $item->enclosure->attributes()->url);
-        $this->assertEquals('image/jpeg', $item->enclosure->attributes()->type);
-        $this->assertEquals('8', $item->enclosure->attributes()->length);
+        $this->assertSame('https://example.com/media/rss-test.jpg', $item->enclosure->attributes()->url);
+        $this->assertSame('image/jpeg', $item->enclosure->attributes()->type);
+        $this->assertSame('8', $item->enclosure->attributes()->length);
 
         Filesystem::unlink('_posts/rss.md');
         Filesystem::unlink('_media/rss-test.jpg');

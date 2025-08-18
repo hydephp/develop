@@ -6,9 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Hyde
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Hyde::class)]
 class ExampleTest extends TestCase
 {
     public function testExample()

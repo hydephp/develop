@@ -11,9 +11,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Support\Filesystem\SourceFile
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Filesystem\SourceFile::class)]
 class SourceFileTest extends TestCase
 {
     public function testCanConstruct()

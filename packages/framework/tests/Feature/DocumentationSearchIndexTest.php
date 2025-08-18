@@ -9,10 +9,9 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
 /**
- * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchIndex
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Documentation\DocumentationSearchIndex::class)]
 class DocumentationSearchIndexTest extends TestCase
 {
     public function testCanCreateDocumentationSearchIndexInstance()

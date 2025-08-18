@@ -9,9 +9,7 @@ use Hyde\Testing\TestCase;
 use TypeError;
 use stdClass;
 
-/**
- * @covers \Hyde\Facades\Config
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Config::class)]
 class TypedConfigFacadeTest extends TestCase
 {
     public function testGetArray()
@@ -70,7 +68,7 @@ class TypedConfigFacadeTest extends TestCase
 
     public function testGetFloatWithDefaultValue()
     {
-        $this->assertSame(10.0, Config::getFloat('foo', 10.0));
+        $this->assertEqualsWithDelta(10.0, Config::getFloat('foo', 10.0), PHP_FLOAT_EPSILON);
     }
 
     public function testGetArrayWithStrictMode()

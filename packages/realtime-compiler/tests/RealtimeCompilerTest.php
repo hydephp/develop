@@ -46,8 +46,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
         $this->assertStringContainsString('<title>Welcome to HydePHP!</title>', $response->body);
     }
 
@@ -61,8 +61,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
         $this->assertStringContainsString('<h1>Hello World!</h1>', $response->body);
 
         Filesystem::unlink('_pages/foo.md');
@@ -76,8 +76,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
         $this->assertStringContainsString('<h1>Hello World!</h1>', $response->body);
 
         Filesystem::unlink('_pages/foo.md');
@@ -92,9 +92,9 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
-        $this->assertEquals('test', $response->body);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+        $this->assertSame('test', $response->body);
 
         Filesystem::unlink('_media/test.css');
     }
@@ -108,9 +108,9 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
-        $this->assertEquals('test', $response->body);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+        $this->assertSame('test', $response->body);
 
         Filesystem::unlink('_media/test.css');
     }
@@ -135,8 +135,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(404, $response->statusCode);
-        $this->assertEquals('Not Found', $response->statusMessage);
+        $this->assertSame(404, $response->statusCode);
+        $this->assertSame('Not Found', $response->statusMessage);
     }
 
     public function testTrailingSlashesAreNormalizedFromRoute()
@@ -149,8 +149,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
         $this->assertStringContainsString('<h1>Hello World!</h1>', $response->body);
 
         Filesystem::unlink('_pages/foo.md');
@@ -166,8 +166,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
         $this->assertStringContainsString('HydePHP Docs', $response->body);
 
         Filesystem::unlink('_docs/index.md');
@@ -182,8 +182,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(HtmlResponse::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
         $this->assertStringContainsString('Search the documentation site', $response->body);
 
         Filesystem::unlink('_docs/index.md');
@@ -197,8 +197,8 @@ class RealtimeCompilerTest extends TestCase
         $response = $kernel->handle(new Request());
 
         $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->statusMessage);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
     }
 
     public function testExceptionHandling()
@@ -207,8 +207,8 @@ class RealtimeCompilerTest extends TestCase
         $response = ExceptionHandler::handle($exception);
 
         $this->assertInstanceOf(Response::class, $response);
-        $this->assertEquals(500, $response->statusCode);
-        $this->assertEquals('Internal Server Error', $response->statusMessage);
+        $this->assertSame(500, $response->statusCode);
+        $this->assertSame('Internal Server Error', $response->statusMessage);
     }
 
     protected function mockCompilerRoute(string $route, $method = 'GET'): void

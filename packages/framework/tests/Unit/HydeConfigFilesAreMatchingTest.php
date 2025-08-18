@@ -49,8 +49,8 @@ class HydeConfigFilesAreMatchingTest extends TestCase
 
     protected function assertFileEqualsIgnoringNewlineType(string $expected, string $actual): void
     {
-        static::assertFileExists($expected);
-        static::assertFileExists($actual);
+        $this->assertFileExists($expected);
+        $this->assertFileExists($actual);
 
         $this->assertSame(file_get_contents($expected), file_get_contents($actual));
     }

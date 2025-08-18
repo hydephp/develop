@@ -43,7 +43,7 @@ class FeaturedImageViewTest extends TestCase
         $this->assertStringContainsString('Creative Commons', $component);
         $this->assertStringContainsString('href="https://licence.example.com" rel="license nofollow noopener"', $component);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->stripWhitespace('Image by John Doe. License Creative Commons.'),
             $this->stripWhitespace($this->stripHtml($component))
         );

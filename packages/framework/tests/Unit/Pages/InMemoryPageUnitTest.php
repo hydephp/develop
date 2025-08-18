@@ -15,10 +15,9 @@ use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 
 /**
- * @covers \Hyde\Pages\InMemoryPage
- *
  * @see \Hyde\Framework\Testing\Unit\Pages\InMemoryPageTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\InMemoryPage::class)]
 class InMemoryPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()

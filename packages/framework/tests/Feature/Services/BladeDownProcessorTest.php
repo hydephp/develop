@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Services;
 use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Markdown\Processing\BladeDownProcessor
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeDownProcessor::class)]
 class BladeDownProcessorTest extends TestCase
 {
     public function testItRendersBladeEchoSyntax()

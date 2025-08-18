@@ -18,9 +18,7 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\PublicationsExtension
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\PublicationsExtension::class)]
 class PublicationsExtensionTest extends TestCase
 {
     protected function setUp(): void

@@ -20,7 +20,7 @@ class MarkdownFileParserTest extends UnitTestCase
         $document = MarkdownFileParser::parse('_posts/test-post.md');
 
         $this->assertInstanceOf(MarkdownDocument::class, $document);
-        $this->assertEquals('Foo bar', $document->markdown);
+        $this->assertSame('Foo bar', $document->markdown);
         $this->assertSame('Foo bar', $document->markdown->body());
     }
 
@@ -86,7 +86,7 @@ class MarkdownFileParserTest extends UnitTestCase
         $document = MarkdownFileParser::parse('_posts/test-post.md');
 
         $this->assertInstanceOf(MarkdownDocument::class, $document);
-        $this->assertEquals('', $document->markdown);
+        $this->assertSame('', $document->markdown);
         $this->assertSame('', $document->markdown->body());
 
         $this->assertEquals(FrontMatter::fromArray([

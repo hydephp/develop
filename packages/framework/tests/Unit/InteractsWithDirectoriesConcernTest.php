@@ -8,9 +8,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Hyde;
 
-/**
- * @covers \Hyde\Framework\Concerns\InteractsWithDirectories
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\InteractsWithDirectories::class)]
 class InteractsWithDirectoriesConcernTest extends UnitTestCase
 {
     use InteractsWithDirectories;

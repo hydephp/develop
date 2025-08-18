@@ -9,9 +9,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
 
-/**
- * @covers \Hyde\Framework\Features\Documentation\SemanticDocumentationArticle
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Documentation\SemanticDocumentationArticle::class)]
 class HydeSmartDocsTest extends TestCase
 {
     public function testClassTokenizesDocument()

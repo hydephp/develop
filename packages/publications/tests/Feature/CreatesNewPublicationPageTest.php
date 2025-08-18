@@ -17,9 +17,7 @@ use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Actions\CreatesNewPublicationPage;
 
-/**
- * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\CreatesNewPublicationPage::class)]
 class CreatesNewPublicationPageTest extends TestCase
 {
     protected function setUp(): void
@@ -51,7 +49,7 @@ class CreatesNewPublicationPageTest extends TestCase
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertFileExists(Hyde::path('test-publication/hello-world.md'));
-        $this->assertEquals(<<<'MARKDOWN'
+        $this->assertSame(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             title: 'Hello World'
@@ -79,7 +77,7 @@ class CreatesNewPublicationPageTest extends TestCase
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
-        $this->assertEquals(<<<'MARKDOWN'
+        $this->assertSame(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             description: |
@@ -107,7 +105,7 @@ class CreatesNewPublicationPageTest extends TestCase
         (new CreatesNewPublicationPage($pubType, $fieldData))->create();
 
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
-        $this->assertEquals(<<<'MARKDOWN'
+        $this->assertSame(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             tags:
@@ -149,7 +147,7 @@ class CreatesNewPublicationPageTest extends TestCase
         // If a developer is using the action directly, it's their responsibility to ensure the data is valid.
 
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
-        $this->assertEquals(<<<'MARKDOWN'
+        $this->assertSame(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             ---
@@ -178,7 +176,7 @@ class CreatesNewPublicationPageTest extends TestCase
 
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
         $contents = file_get_contents(Hyde::path('test-publication/2022-01-01-000000.md'));
-        $this->assertEquals(<<<'MARKDOWN'
+        $this->assertSame(<<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
             title: 'Hello World'

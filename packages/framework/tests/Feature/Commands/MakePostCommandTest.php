@@ -8,10 +8,8 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 
-/**
- * @covers \Hyde\Console\Commands\MakePostCommand
- * @covers \Hyde\Framework\Actions\CreatesNewMarkdownPostFile
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\MakePostCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\CreatesNewMarkdownPostFile::class)]
 class MakePostCommandTest extends TestCase
 {
     public function testCommandHasExpectedOutputAndCreatesValidFile()

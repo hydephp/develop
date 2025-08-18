@@ -11,9 +11,7 @@ use Hyde\Framework\Services\ViewDiffService;
 use function Hyde\unixsum;
 use function Hyde\unixsum_file;
 
-/**
- * @covers \Hyde\Framework\Services\ViewDiffService
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\ViewDiffService::class)]
 class ViewDiffServiceTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
@@ -25,7 +23,7 @@ class ViewDiffServiceTest extends UnitTestCase
         $this->assertIsArray($fileCache);
         $this->assertArrayHasKey('resources/views/layouts/app.blade.php', $fileCache);
         $this->assertArrayHasKey('unixsum', $fileCache['resources/views/layouts/app.blade.php']);
-        $this->assertEquals(32, strlen($fileCache['resources/views/layouts/app.blade.php']['unixsum']));
+        $this->assertSame(32, strlen($fileCache['resources/views/layouts/app.blade.php']['unixsum']));
     }
 
     public function testGetChecksums()

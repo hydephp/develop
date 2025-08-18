@@ -23,16 +23,15 @@ use Hyde\Testing\TestCase;
 
 /**
  * Test the base HydePage class.
- *
- * @covers \Hyde\Pages\Concerns\HydePage
- * @covers \Hyde\Pages\Concerns\BaseMarkdownPage
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Factories\FeaturedImageFactory
- * @covers \Hyde\Framework\Factories\HydePageDataFactory
- * @covers \Hyde\Framework\Factories\BlogPostDataFactory
- * @covers \Hyde\Framework\Concerns\InteractsWithFrontMatter
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\Concerns\HydePage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\Concerns\BaseMarkdownPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\Concerns\HasFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\NavigationDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\FeaturedImageFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\HydePageDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\BlogPostDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\InteractsWithFrontMatter::class)]
 class HydePageTest extends TestCase
 {
     // Section: Baseline tests (Abstract class)

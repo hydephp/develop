@@ -59,7 +59,8 @@ class EnsureCodeFollowsNamingConventionTest extends UnitTestCase
             $this->assertIsString($description);
             $this->assertNotEmpty($description);
 
-            $this->assertTrue($description[0] === strtoupper($description[0]),
+            $this->assertSame(strtoupper($description[0]),
+                $description[0],
                 "Command class $class description does not start with an uppercase letter.\n ".realpath($filepath)
             );
 

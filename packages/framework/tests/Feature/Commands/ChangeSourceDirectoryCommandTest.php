@@ -8,9 +8,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Console\Commands\ChangeSourceDirectoryCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\ChangeSourceDirectoryCommand::class)]
 class ChangeSourceDirectoryCommandTest extends TestCase
 {
     public function testCommandMovesSourceDirectoriesToNewSuppliedDirectoryAndUpdatesTheConfigurationFile()

@@ -12,9 +12,7 @@ use Symfony\Component\Yaml\Yaml;
 use Hyde\Publications\Models\PublicationFieldValue;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 
-/**
- * @covers \Hyde\Publications\Models\PublicationFieldValue
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Models\PublicationFieldValue::class)]
 class PublicationFieldValueTest extends TestCase
 {
     // Base tests
@@ -123,7 +121,7 @@ class PublicationFieldValueTest extends TestCase
 
     public function testBooleanFieldGetValue()
     {
-        $this->assertSame(true, $this->makeFieldType('boolean', 'true')->getValue());
+        $this->assertTrue($this->makeFieldType('boolean', 'true')->getValue());
     }
 
     public function testBooleanFieldToYaml()
@@ -140,10 +138,10 @@ class PublicationFieldValueTest extends TestCase
 
     public function testBooleanFieldParsingOptions()
     {
-        $this->assertSame(true, $this->makeFieldType('boolean', 'true')->getValue());
-        $this->assertSame(true, $this->makeFieldType('boolean', '1')->getValue());
-        $this->assertSame(false, $this->makeFieldType('boolean', 'false')->getValue());
-        $this->assertSame(false, $this->makeFieldType('boolean', '0')->getValue());
+        $this->assertTrue($this->makeFieldType('boolean', 'true')->getValue());
+        $this->assertTrue($this->makeFieldType('boolean', '1')->getValue());
+        $this->assertFalse($this->makeFieldType('boolean', 'false')->getValue());
+        $this->assertFalse($this->makeFieldType('boolean', '0')->getValue());
     }
 
     // IntegerField tests
@@ -197,7 +195,7 @@ class PublicationFieldValueTest extends TestCase
 
     public function testFloatFieldGetValue()
     {
-        $this->assertSame(10.0, $this->makeFieldType('float', '10')->getValue());
+        $this->assertEqualsWithDelta(10.0, $this->makeFieldType('float', '10')->getValue(), PHP_FLOAT_EPSILON);
     }
 
     public function testFloatFieldToYaml()
@@ -214,13 +212,13 @@ class PublicationFieldValueTest extends TestCase
 
     public function testFloatFieldParsingOptions()
     {
-        $this->assertSame(0.0, $this->makeFieldType('float', '0')->getValue());
-        $this->assertSame(1.0, $this->makeFieldType('float', '1')->getValue());
-        $this->assertSame(10.0, $this->makeFieldType('float', '10')->getValue());
-        $this->assertSame(10.0, $this->makeFieldType('float', '10.0')->getValue());
-        $this->assertSame(10.5, $this->makeFieldType('float', '10.5')->getValue());
-        $this->assertSame(10.9, $this->makeFieldType('float', '10.9')->getValue());
-        $this->assertSame(100.0, $this->makeFieldType('float', '1E2')->getValue());
+        $this->assertEqualsWithDelta(0.0, $this->makeFieldType('float', '0')->getValue(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(1.0, $this->makeFieldType('float', '1')->getValue(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(10.0, $this->makeFieldType('float', '10')->getValue(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(10.0, $this->makeFieldType('float', '10.0')->getValue(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(10.5, $this->makeFieldType('float', '10.5')->getValue(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(10.9, $this->makeFieldType('float', '10.9')->getValue(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(100.0, $this->makeFieldType('float', '1E2')->getValue(), PHP_FLOAT_EPSILON);
         $this->assertSame(-10.0, $this->makeFieldType('float', '-10')->getValue());
     }
 

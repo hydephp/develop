@@ -11,11 +11,9 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 
-/**
- * @covers \Hyde\Console\Commands\BuildSearchCommand
- * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchPage
- * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchIndex
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSearchCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Documentation\DocumentationSearchPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Documentation\DocumentationSearchIndex::class)]
 class BuildSearchCommandTest extends TestCase
 {
     public function testItCreatesTheSearchJsonFile()

@@ -8,9 +8,7 @@ use Hyde\Facades\Site;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Facades\Site
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Site::class)]
 class SiteTest extends TestCase
 {
     public function testUrl()

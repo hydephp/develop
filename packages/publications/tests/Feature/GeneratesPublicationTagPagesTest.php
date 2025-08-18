@@ -11,9 +11,7 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Actions\GeneratesPublicationTagPages
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\GeneratesPublicationTagPages::class)]
 class GeneratesPublicationTagPagesTest extends TestCase
 {
     public function testTagsIndexPageIsGeneratedWhenTagsAreUsed()

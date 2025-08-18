@@ -13,10 +13,8 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
-/**
- * @covers \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
- * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapGenerator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator::class)]
 class SitemapServiceTest extends TestCase
 {
     protected function setUp(): void
@@ -126,9 +124,9 @@ class SitemapServiceTest extends TestCase
 
         $url = $service->getXmlElement()->url[0];
 
-        $this->assertEquals('https://example.com/0-test.html', $url->loc);
-        $this->assertEquals('daily', $url->changefreq);
-        $this->assertTrue(isset($url->lastmod));
+        $this->assertSame('https://example.com/0-test.html', $url->loc);
+        $this->assertSame('daily', $url->changefreq);
+        $this->assertObjectHasProperty('lastmod', $url);
 
         Filesystem::unlink('_pages/0-test.blade.php');
     }
@@ -144,7 +142,7 @@ class SitemapServiceTest extends TestCase
         $service->generate();
 
         $url = $service->getXmlElement()->url[0];
-        $this->assertEquals('https://example.com/0-test', $url->loc);
+        $this->assertSame('https://example.com/0-test', $url->loc);
 
         Filesystem::unlink('_pages/0-test.blade.php');
     }
@@ -171,11 +169,11 @@ class SitemapServiceTest extends TestCase
 
         $this->assertCount(5, $service->getXmlElement()->url);
 
-        $this->assertEquals('foo/html.html', $service->getXmlElement()->url[0]->loc);
-        $this->assertEquals('foo/blade.html', $service->getXmlElement()->url[1]->loc);
-        $this->assertEquals('foo/markdown.html', $service->getXmlElement()->url[2]->loc);
-        $this->assertEquals('foo/posts/post.html', $service->getXmlElement()->url[3]->loc);
-        $this->assertEquals('foo/docs/doc.html', $service->getXmlElement()->url[4]->loc);
+        $this->assertSame('foo/html.html', $service->getXmlElement()->url[0]->loc);
+        $this->assertSame('foo/blade.html', $service->getXmlElement()->url[1]->loc);
+        $this->assertSame('foo/markdown.html', $service->getXmlElement()->url[2]->loc);
+        $this->assertSame('foo/posts/post.html', $service->getXmlElement()->url[3]->loc);
+        $this->assertSame('foo/docs/doc.html', $service->getXmlElement()->url[4]->loc);
 
         Filesystem::unlink($files);
 
@@ -192,8 +190,8 @@ class SitemapServiceTest extends TestCase
         $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertEquals('404.html', $service->getXmlElement()->url[0]->loc);
-        $this->assertEquals('index.html', $service->getXmlElement()->url[1]->loc);
+        $this->assertSame('404.html', $service->getXmlElement()->url[0]->loc);
+        $this->assertSame('index.html', $service->getXmlElement()->url[1]->loc);
     }
 
     public function testLinksFallbackToRelativeLinksWhenSiteUrlIsLocalhost()
@@ -203,7 +201,7 @@ class SitemapServiceTest extends TestCase
         $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertEquals('404.html', $service->getXmlElement()->url[0]->loc);
-        $this->assertEquals('index.html', $service->getXmlElement()->url[1]->loc);
+        $this->assertSame('404.html', $service->getXmlElement()->url[0]->loc);
+        $this->assertSame('index.html', $service->getXmlElement()->url[1]->loc);
     }
 }

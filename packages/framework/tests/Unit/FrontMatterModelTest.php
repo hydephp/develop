@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Markdown\Models\FrontMatter
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Models\FrontMatter::class)]
 class FrontMatterModelTest extends UnitTestCase
 {
     public function testConstructorCreatesNewFrontMatterModel()

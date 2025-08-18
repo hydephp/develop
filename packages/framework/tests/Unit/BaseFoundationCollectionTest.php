@@ -10,9 +10,7 @@ use Hyde\Testing\UnitTestCase;
 use RuntimeException;
 use Exception;
 
-/**
- * @covers \Hyde\Foundation\Concerns\BaseFoundationCollection
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\BaseFoundationCollection::class)]
 class BaseFoundationCollectionTest extends UnitTestCase
 {
     public function testBaseFoundationCollectionInitialization()

@@ -9,10 +9,9 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Pages\InMemoryPage
- *
  * @see \Hyde\Framework\Testing\Unit\Pages\InMemoryPageUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\InMemoryPage::class)]
 class InMemoryPageTest extends TestCase
 {
     public function testConstructWithContentsString()

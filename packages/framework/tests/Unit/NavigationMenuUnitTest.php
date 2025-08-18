@@ -10,12 +10,11 @@ use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
- *
  * @see \Hyde\Framework\Testing\Feature\NavigationMenuTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\MainNavigationMenu::class)]
 class NavigationMenuUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

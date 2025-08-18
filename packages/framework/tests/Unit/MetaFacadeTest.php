@@ -8,9 +8,7 @@ use Hyde\Facades\Meta;
 use Hyde\Framework\Features\Metadata\GlobalMetadataBag;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Facades\Meta
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Meta::class)]
 class MetaFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

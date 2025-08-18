@@ -28,15 +28,14 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  * High-level broad-spectrum tests for the automatic navigation configurations, testing various setups.
  *
  * @see \Hyde\Framework\Testing\Unit\Views\NavigationHtmlLayoutsTest
- *
- * @covers \Hyde\Facades\Navigation
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
- * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\NavigationItem
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Navigation::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\NavigationDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenuGenerator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\DocumentationSidebar::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\MainNavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationItem::class)]
 class AutomaticNavigationConfigurationsTest extends TestCase
 {
     protected function setUp(): void
@@ -51,12 +50,12 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testMainNavigationMenu()
     {
-        $this->menu()->assertEquals(['Home']);
+        $this->menu()->assertSame(['Home']);
     }
 
     public function testDocumentationSidebarMenu()
     {
-        $this->sidebar()->assertEquals([]);
+        $this->sidebar()->assertSame([]);
     }
 
     // Main navigation menu tests
@@ -66,7 +65,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->withPages([
             new MarkdownPage('about'),
             new MarkdownPage('contact'),
-        ])->menu()->assertEquals([
+        ])->menu()->assertSame([
             'About',
             'Contact',
         ]);

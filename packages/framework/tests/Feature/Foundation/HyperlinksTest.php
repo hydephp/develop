@@ -12,9 +12,7 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Foundation\Kernel\Hyperlinks
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Hyperlinks::class)]
 class HyperlinksTest extends TestCase
 {
     protected Hyperlinks $class;

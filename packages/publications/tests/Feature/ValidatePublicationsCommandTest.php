@@ -8,10 +8,8 @@ use Hyde\Hyde;
 use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Commands\ValidatePublicationsCommand
- * @covers \Hyde\Publications\Actions\PublicationPageValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Commands\ValidatePublicationsCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\PublicationPageValidator::class)]
 class ValidatePublicationsCommandTest extends TestCase
 {
     protected function setUp(): void

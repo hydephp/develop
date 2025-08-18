@@ -6,25 +6,20 @@ use Hyde\Facades\Filesystem;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Facades\Filesystem
- *
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Filesystem::class)]
 class FilesystemFacadeMimeTypeHelperUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
 
-    /**
-     * @dataProvider mimeTypeProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('mimeTypeProvider')]
     public function testFindMimeTypeWithKnownExtensions(string $extension, string $expectedMimeType)
     {
         $this->assertSame($expectedMimeType, Filesystem::findMimeType("file.$extension"));
     }
 
-    /**
-     * @dataProvider mimeTypeProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('mimeTypeProvider')]
     public function testFindMimeTypeWithRemoteUrls(string $extension, string $expectedMimeType)
     {
         $this->assertSame($expectedMimeType, Filesystem::findMimeType("https://example.com/file.$extension"));
@@ -60,21 +55,19 @@ class FilesystemFacadeMimeTypeHelperUnitTest extends UnitTestCase
         $this->assertSame('text/plain', Filesystem::findMimeType('file.TXT'));
     }
 
-    public static function mimeTypeProvider(): array
+    public static function mimeTypeProvider(): \Iterator
     {
-        return [
-            ['txt', 'text/plain'],
-            ['md', 'text/markdown'],
-            ['html', 'text/html'],
-            ['css', 'text/css'],
-            ['svg', 'image/svg+xml'],
-            ['png', 'image/png'],
-            ['jpg', 'image/jpeg'],
-            ['jpeg', 'image/jpeg'],
-            ['gif', 'image/gif'],
-            ['json', 'application/json'],
-            ['js', 'application/javascript'],
-            ['xml', 'application/xml'],
-        ];
+        yield ['txt', 'text/plain'];
+        yield ['md', 'text/markdown'];
+        yield ['html', 'text/html'];
+        yield ['css', 'text/css'];
+        yield ['svg', 'image/svg+xml'];
+        yield ['png', 'image/png'];
+        yield ['jpg', 'image/jpeg'];
+        yield ['jpeg', 'image/jpeg'];
+        yield ['gif', 'image/gif'];
+        yield ['json', 'application/json'];
+        yield ['js', 'application/javascript'];
+        yield ['xml', 'application/xml'];
     }
 }

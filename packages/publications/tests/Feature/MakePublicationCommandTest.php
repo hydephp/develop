@@ -10,10 +10,8 @@ use Hyde\Publications\Commands\Helpers\InputStreamHandler;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Carbon;
 
-/**
- * @covers \Hyde\Publications\Commands\MakePublicationCommand
- * @covers \Hyde\Publications\Actions\CreatesNewPublicationPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Commands\MakePublicationCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\CreatesNewPublicationPage::class)]
 class MakePublicationCommandTest extends TestCase
 {
     protected function setUp(): void
@@ -129,7 +127,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsConfirmation('Do you wish to overwrite the existing file?', 'yes')
             ->assertExitCode(0);
 
-        $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+        $this->assertNotSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     public function testCanOverwriteExistingPublicationByPassingForceFlag()
@@ -143,7 +141,7 @@ class MakePublicationCommandTest extends TestCase
             ->expectsQuestion('Enter data for field </>[<comment>title</comment>]', 'Hello World')
             ->assertExitCode(0);
 
-        $this->assertNotEquals('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
+        $this->assertNotSame('foo', file_get_contents(Hyde::path('test-publication/hello-world.md')));
     }
 
     public function testCommandWithPublicationTypePassedAsArgument()
@@ -181,7 +179,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/2022-01-01-000000.md'));
-        $this->assertEquals(
+        $this->assertSame(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -408,7 +406,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals(
+        $this->assertSame(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -499,7 +497,7 @@ class MakePublicationCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertDatedPublicationExists();
-        $this->assertEquals(
+        $this->assertSame(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -535,7 +533,7 @@ class MakePublicationCommandTest extends TestCase
 
     protected function assertPublicationFileWasCreatedCorrectly(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             <<<'MARKDOWN'
             ---
             __createdAt: 2022-01-01T00:00:00+00:00
@@ -556,12 +554,12 @@ class MakePublicationCommandTest extends TestCase
 
     protected function assertCreatedPublicationEquals(string $expected): void
     {
-        $this->assertEquals($expected, $this->getDatedPublicationContents());
+        $this->assertSame($expected, $this->getDatedPublicationContents());
     }
 
     protected function assertCreatedPublicationMatterEquals(string $expected): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             <<<MARKDOWN
             ---
             __createdAt: 2022-01-01T00:00:00+00:00

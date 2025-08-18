@@ -23,15 +23,15 @@ use stdClass;
 /**
  * Tests the Extensions API Feature on a higher level to ensure the components work together.
  *
- * @covers \Hyde\Foundation\Concerns\HydeExtension
- * @covers \Hyde\Foundation\Concerns\ManagesExtensions
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Kernel\FileCollection
- * @covers \Hyde\Foundation\Kernel\PageCollection
- * @covers \Hyde\Foundation\Kernel\RouteCollection
  *
  * @see \Hyde\Framework\Testing\Unit\ExtensionsUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\HydeExtension::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\ManagesExtensions::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeKernel::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\FileCollection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\PageCollection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\RouteCollection::class)]
 class HydeExtensionFeatureTest extends TestCase
 {
     protected HydeKernel $kernel;

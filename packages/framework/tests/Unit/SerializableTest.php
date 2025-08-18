@@ -9,9 +9,7 @@ use Hyde\Support\Concerns\Serializable;
 use Hyde\Support\Contracts\SerializableContract;
 use Illuminate\Contracts\Support\Arrayable;
 
-/**
- * @covers \Hyde\Support\Concerns\Serializable
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Concerns\Serializable::class)]
 class SerializableTest extends UnitTestCase
 {
     public function testToArray()

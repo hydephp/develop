@@ -15,11 +15,9 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
-/**
- * @covers \Hyde\Pages\DocumentationPage
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\DocumentationPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\Concerns\HasFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\NavigationDataFactory::class)]
 class DocumentationPageTest extends TestCase
 {
     public function testCanGetCurrentPagePath()
