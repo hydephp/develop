@@ -14,9 +14,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
-/**
- * @covers \Hyde\Publications\Commands\ValidatingCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Commands\ValidatingCommand::class)]
 class ValidatingCommandTest extends TestCase
 {
     public function testAskWithValidationCapturesInput()

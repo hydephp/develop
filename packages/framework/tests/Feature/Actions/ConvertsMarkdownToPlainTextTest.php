@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Actions;
 use Hyde\Framework\Actions\ConvertsMarkdownToPlainText;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\ConvertsMarkdownToPlainText
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\ConvertsMarkdownToPlainText::class)]
 class ConvertsMarkdownToPlainTextTest extends TestCase
 {
     public function testItRemovesHeadings()

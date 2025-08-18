@@ -21,7 +21,7 @@
         "illuminate/support": "^11.0",
         "laravel/dusk": "^8.2.2",
         "mockery/mockery": "^1.4.4",
-        "pestphp/pest": "^v2.1.0",
+        "pestphp/pest": "^3.8",
         "ext-dom": "*",
         "ext-libxml": "*"
     },

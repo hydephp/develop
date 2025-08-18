@@ -9,13 +9,12 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Facades\Filesystem
- * @covers \Hyde\Foundation\Kernel\Filesystem
- * @covers \Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem
- *
  * @see \FilesystemFacadeMimeTypeHelperUnitTest
  * @see \Hyde\Framework\Testing\Unit\FilesystemFacadeUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Filesystem::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Filesystem::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\Internal\ForwardsIlluminateFilesystem::class)]
 class FilesystemFacadeTest extends TestCase
 {
     public function testBasePath()

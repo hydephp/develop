@@ -10,9 +10,7 @@ use Hyde\Testing\CreatesTemporaryFiles;
 use Illuminate\Support\HtmlString;
 use InvalidArgumentException;
 
-/**
- * @covers \Hyde\Facades\Vite
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Vite::class)]
 class ViteFacadeTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;
@@ -105,9 +103,7 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertSame($expected, (string) $html);
     }
 
-    /**
-     * @dataProvider cssFileExtensionsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cssFileExtensionsProvider')]
     public function testAssetsMethodSupportsAllCssFileExtensions(string $extension)
     {
         $html = Vite::assets(["resources/css/app.$extension"]);
@@ -122,9 +118,7 @@ class ViteFacadeTest extends UnitTestCase
         }
     }
 
-    /**
-     * @dataProvider jsFileExtensionsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('jsFileExtensionsProvider')]
     public function testAssetsMethodSupportsAllJsFileExtensions(string $extension)
     {
         $html = Vite::assets(["resources/js/app.$extension"]);
@@ -162,29 +156,25 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertSame($expected, (string) $html);
     }
 
-    public static function cssFileExtensionsProvider(): array
+    public static function cssFileExtensionsProvider(): \Iterator
     {
-        return [
-            ['css'],
-            ['less'],
-            ['sass'],
-            ['scss'],
-            ['styl'],
-            ['stylus'],
-            ['pcss'],
-            ['postcss'],
-            ['js'],
-        ];
+        yield ['css'];
+        yield ['less'];
+        yield ['sass'];
+        yield ['scss'];
+        yield ['styl'];
+        yield ['stylus'];
+        yield ['pcss'];
+        yield ['postcss'];
+        yield ['js'];
     }
 
-    public static function jsFileExtensionsProvider(): array
+    public static function jsFileExtensionsProvider(): \Iterator
     {
-        return [
-            ['js'],
-            ['jsx'],
-            ['ts'],
-            ['tsx'],
-            ['css'],
-        ];
+        yield ['js'];
+        yield ['jsx'];
+        yield ['ts'];
+        yield ['tsx'];
+        yield ['css'];
     }
 }

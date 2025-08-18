@@ -9,9 +9,7 @@ use Hyde\Facades\Features;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Foundation\HydeKernel
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeKernel::class)]
 class HydeHelperFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

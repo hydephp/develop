@@ -12,12 +12,12 @@ use Hyde\Testing\TestCase;
 /**
  * High level test for the feature that allows dates to be set using prefixes in blog post filenames.
  *
- * @covers \Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper
- * @covers \Hyde\Framework\Factories\BlogPostDataFactory
- * @covers \Hyde\Support\Models\RouteKey
  *
  * @see \Hyde\Framework\Testing\Unit\BlogPostDatePrefixHelperUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\BlogPostDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\RouteKey::class)]
 class BlogPostDatePrefixHelperTest extends TestCase
 {
     public function testCanDetectDatePrefix()

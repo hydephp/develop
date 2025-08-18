@@ -8,9 +8,7 @@ use Hyde\Framework\Actions\BladeMatterParser;
 use Hyde\Testing\TestCase;
 use RuntimeException;
 
-/**
- * @covers \Hyde\Framework\Actions\BladeMatterParser
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\BladeMatterParser::class)]
 class BladeMatterParserTest extends TestCase
 {
     public function testCanParseFrontMatter()
@@ -106,8 +104,8 @@ class BladeMatterParserTest extends TestCase
 
         $this->assertSame(1, ParserTestClass::getValueWithType('1'));
         $this->assertSame(0, ParserTestClass::getValueWithType('0'));
-        $this->assertSame(1.0, ParserTestClass::getValueWithType('1.0'));
-        $this->assertSame(0.0, ParserTestClass::getValueWithType('0.0'));
+        $this->assertEqualsWithDelta(1.0, ParserTestClass::getValueWithType('1.0'), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(0.0, ParserTestClass::getValueWithType('0.0'), PHP_FLOAT_EPSILON);
         $this->assertSame(['foo' => 'bar'], ParserTestClass::getValueWithType('["foo" => "bar"]'));
         $this->assertSame(['foo' => 'bar'], ParserTestClass::getValueWithType("['foo' => 'bar']"));
 

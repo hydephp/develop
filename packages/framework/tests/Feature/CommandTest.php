@@ -12,9 +12,7 @@ use Mockery;
 use RuntimeException;
 use Symfony\Component\Console\Style\OutputStyle;
 
-/**
- * @covers \Hyde\Console\Concerns\Command
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Concerns\Command::class)]
 class CommandTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

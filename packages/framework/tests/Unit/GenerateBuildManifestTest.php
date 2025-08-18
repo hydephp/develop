@@ -10,9 +10,7 @@ use Hyde\Testing\UnitTestCase;
 
 use function Hyde\unixsum_file;
 
-/**
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest::class)]
 class GenerateBuildManifestTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

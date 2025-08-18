@@ -13,9 +13,7 @@ use Hyde\Testing\Common\BaseHydePageUnitTest;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 
-/**
- * @covers \Hyde\Pages\HtmlPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\HtmlPage::class)]
 class HtmlPageUnitTest extends BaseHydePageUnitTest
 {
     public function testSourceDirectory()

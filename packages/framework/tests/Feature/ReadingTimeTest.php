@@ -8,9 +8,7 @@ use Hyde\Hyde;
 use Hyde\Support\ReadingTime;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Support\ReadingTime
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\ReadingTime::class)]
 class ReadingTimeTest extends UnitTestCase
 {
     public static function setUpBeforeClass(): void

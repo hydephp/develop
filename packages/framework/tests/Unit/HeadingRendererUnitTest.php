@@ -16,10 +16,9 @@ use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use Mockery;
 
 /**
- * @covers \Hyde\Markdown\Processing\HeadingRenderer
- *
  * @see \Hyde\Framework\Testing\Feature\MarkdownHeadingRendererTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\HeadingRenderer::class)]
 class HeadingRendererUnitTest extends UnitTestCase
 {
     use UsesRealBladeInUnitTests;
@@ -234,17 +233,13 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertSame('<p>Paragraph</p>', (new HeadingRenderer())->postProcess($html));
     }
 
-    /**
-     * @dataProvider headingIdentifierProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('headingIdentifierProvider')]
     public function testHeadingIdentifierGeneration($input, $expected)
     {
         $this->assertSame($expected, HeadingRenderer::makeIdentifier($input));
     }
 
-    /**
-     * @dataProvider headingIdentifierProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('headingIdentifierProvider')]
     public function testHeadingIdentifierGenerationWithEscapedInput($input, $expected)
     {
         $this->assertSame(HeadingRenderer::makeIdentifier($input), HeadingRenderer::makeIdentifier(e($input)));
@@ -274,43 +269,37 @@ class HeadingRendererUnitTest extends UnitTestCase
         }
     }
 
-    public static function headingIdentifierProvider(): array
+    public static function headingIdentifierProvider(): \Iterator
     {
-        return [
-            // Basic cases
-            ['Hello World', 'hello-world'],
-            ['Simple Heading', 'simple-heading'],
-            ['Heading With Numbers 123', 'heading-with-numbers-123'],
-
-            // Special characters
-            ['Heading with & symbol', 'heading-with-and-symbol'],
-            ['Heading with < > symbols', 'heading-with-symbols'],
-            ['Heading with "quotes"', 'heading-with-quotes'],
-            ['Heading with / and \\', 'heading-with-and'],
-            ['Heading with punctuation!?!', 'heading-with-punctuation'],
-            ['Hyphenated-heading-name', 'hyphenated-heading-name'],
-
-            // Emojis
-            ['Heading with emoji 🎉', 'heading-with-emoji'],
-            ['Another emoji 🤔 test', 'another-emoji-test'],
-            ['Multiple emojis 🎉🤔✨', 'multiple-emojis'],
-
-            // Accented and non-ASCII characters
-            ['Accented é character', 'accented-e-character'],
-            ['Café Crème', 'cafe-creme'],
-            ['Łódź and święto', 'lodz-and-swieto'],
-            ['中文标题', 'zhong-wen-biao-ti'],
-            ['日本語の見出し', 'ri-ben-yu-nojian-chu-shi'],
-            ['한국어 제목', 'hangugeo-jemog'],
-
-            // Edge cases
-            ['    Leading spaces', 'leading-spaces'],
-            ['Trailing spaces    ', 'trailing-spaces'],
-            ['  Surrounded by spaces  ', 'surrounded-by-spaces'],
-            ['----', ''],
-            ['%%%%%%%', ''],
-            ['    ', ''],
-            ['1234567890', '1234567890'],
-        ];
+        // Basic cases
+        yield ['Hello World', 'hello-world'];
+        yield ['Simple Heading', 'simple-heading'];
+        yield ['Heading With Numbers 123', 'heading-with-numbers-123'];
+        // Special characters
+        yield ['Heading with & symbol', 'heading-with-and-symbol'];
+        yield ['Heading with < > symbols', 'heading-with-symbols'];
+        yield ['Heading with "quotes"', 'heading-with-quotes'];
+        yield ['Heading with / and \\', 'heading-with-and'];
+        yield ['Heading with punctuation!?!', 'heading-with-punctuation'];
+        yield ['Hyphenated-heading-name', 'hyphenated-heading-name'];
+        // Emojis
+        yield ['Heading with emoji 🎉', 'heading-with-emoji'];
+        yield ['Another emoji 🤔 test', 'another-emoji-test'];
+        yield ['Multiple emojis 🎉🤔✨', 'multiple-emojis'];
+        // Accented and non-ASCII characters
+        yield ['Accented é character', 'accented-e-character'];
+        yield ['Café Crème', 'cafe-creme'];
+        yield ['Łódź and święto', 'lodz-and-swieto'];
+        yield ['中文标题', 'zhong-wen-biao-ti'];
+        yield ['日本語の見出し', 'ri-ben-yu-nojian-chu-shi'];
+        yield ['한국어 제목', 'hangugeo-jemog'];
+        // Edge cases
+        yield ['    Leading spaces', 'leading-spaces'];
+        yield ['Trailing spaces    ', 'trailing-spaces'];
+        yield ['  Surrounded by spaces  ', 'surrounded-by-spaces'];
+        yield ['----', ''];
+        yield ['%%%%%%%', ''];
+        yield ['    ', ''];
+        yield ['1234567890', '1234567890'];
     }
 }

@@ -8,9 +8,7 @@ use Hyde\Foundation\Application;
 use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Foundation\Internal\LoadConfiguration
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\LoadConfiguration::class)]
 class LoadConfigurationTest extends UnitTestCase
 {
     public function testItLoadsRuntimeConfiguration()

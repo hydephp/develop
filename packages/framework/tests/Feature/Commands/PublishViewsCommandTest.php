@@ -17,11 +17,10 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
- * @covers \Hyde\Console\Commands\PublishViewsCommand
- * @covers \Hyde\Console\Helpers\InteractivePublishCommandHelper
- *
  * @see \Hyde\Framework\Testing\Unit\InteractivePublishCommandHelperTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\PublishViewsCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Helpers\InteractivePublishCommandHelper::class)]
 class PublishViewsCommandTest extends TestCase
 {
     public function testCommandPublishesViews()

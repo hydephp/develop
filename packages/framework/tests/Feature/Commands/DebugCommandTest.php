@@ -10,9 +10,7 @@ use Hyde\Foundation\PharSupport;
 use Illuminate\Console\OutputStyle;
 use Hyde\Console\Commands\DebugCommand;
 
-/**
- * @covers \Hyde\Console\Commands\DebugCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\DebugCommand::class)]
 class DebugCommandTest extends TestCase
 {
     public function testDebugCommandCanRun()

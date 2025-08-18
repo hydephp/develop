@@ -12,10 +12,9 @@ use Illuminate\Support\Facades\Process;
 use TypeError;
 
 /**
- * @covers \Hyde\Console\Commands\ServeCommand
- *
  * @see \Hyde\Framework\Testing\Unit\ServeCommandOptionsUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\ServeCommand::class)]
 class ServeCommandTest extends TestCase
 {
     protected function setUp(): void

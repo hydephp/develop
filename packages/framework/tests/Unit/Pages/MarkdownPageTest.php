@@ -30,7 +30,7 @@ class MarkdownPageTest extends TestCase
         $this->assertSame('Test Page', $page->title);
         $this->assertSame('test-page', $page->identifier);
         $this->assertSame("# Test Page \n Hello World!", $page->markdown->body());
-        $this->assertEquals("# Test Page \n Hello World!", $page->markdown);
+        $this->assertSame("# Test Page \n Hello World!", $page->markdown);
     }
 
     public function testCanRenderMarkdownPage()

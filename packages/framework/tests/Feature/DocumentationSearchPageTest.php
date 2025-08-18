@@ -11,10 +11,9 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Features\Documentation\DocumentationSearchPage
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Documentation\DocumentationSearchPage::class)]
 class DocumentationSearchPageTest extends TestCase
 {
     public function testCanCreateDocumentationSearchPageInstance()

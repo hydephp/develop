@@ -8,9 +8,7 @@ use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Testing\UnitTestCase;
 use Symfony\Component\Console\Input\InputInterface;
 
-/**
- * @covers \Hyde\Console\Helpers\ConsoleHelper
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Helpers\ConsoleHelper::class)]
 class ConsoleHelperTest extends UnitTestCase
 {
     protected function tearDown(): void

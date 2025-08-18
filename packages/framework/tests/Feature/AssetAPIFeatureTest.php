@@ -12,11 +12,10 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
  * High level test for the Asset API.
- *
- * @covers \Hyde\Facades\Asset
- * @covers \Hyde\Support\Filesystem\MediaFile
- * @covers \Hyde\Foundation\Kernel\Hyperlinks
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Asset::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Filesystem\MediaFile::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Hyperlinks::class)]
 class AssetAPIFeatureTest extends TestCase
 {
     public function testAssetAPIExamples()

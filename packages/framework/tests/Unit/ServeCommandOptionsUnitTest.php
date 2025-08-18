@@ -15,10 +15,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 
 /**
- * @covers \Hyde\Console\Commands\ServeCommand
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\ServeCommandTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\ServeCommand::class)]
 class ServeCommandOptionsUnitTest extends UnitTestCase
 {
     protected function setUp(): void
@@ -111,10 +110,10 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']);
 
         $command = $this->getMock(['save-preview' => null]);
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']));
+        $this->assertArrayNotHasKey('HYDE_SERVER_SAVE_PREVIEW', $command->getEnvironmentVariables());
 
         $command = $this->getMock();
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_SAVE_PREVIEW']));
+        $this->assertArrayNotHasKey('HYDE_SERVER_SAVE_PREVIEW', $command->getEnvironmentVariables());
     }
 
     public function testDashboardOptionPropagatesToEnvironmentVariables()
@@ -129,10 +128,10 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']);
 
         $command = $this->getMock(['dashboard' => null]);
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']));
+        $this->assertArrayNotHasKey('HYDE_SERVER_DASHBOARD', $command->getEnvironmentVariables());
 
         $command = $this->getMock();
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_SERVER_DASHBOARD']));
+        $this->assertArrayNotHasKey('HYDE_SERVER_DASHBOARD', $command->getEnvironmentVariables());
     }
 
     public function testPrettyUrlsOptionPropagatesToEnvironmentVariables()
@@ -147,10 +146,10 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_PRETTY_URLS']);
 
         $command = $this->getMock(['pretty-urls' => null]);
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PRETTY_URLS']));
+        $this->assertArrayNotHasKey('HYDE_PRETTY_URLS', $command->getEnvironmentVariables());
 
         $command = $this->getMock();
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PRETTY_URLS']));
+        $this->assertArrayNotHasKey('HYDE_PRETTY_URLS', $command->getEnvironmentVariables());
     }
 
     public function testPlayCdnOptionPropagatesToEnvironmentVariables()
@@ -165,10 +164,10 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertSame('enabled', $command->getEnvironmentVariables()['HYDE_PLAY_CDN']);
 
         $command = $this->getMock(['play-cdn' => null]);
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PLAY_CDN']));
+        $this->assertArrayNotHasKey('HYDE_PLAY_CDN', $command->getEnvironmentVariables());
 
         $command = $this->getMock();
-        $this->assertFalse(isset($command->getEnvironmentVariables()['HYDE_PLAY_CDN']));
+        $this->assertArrayNotHasKey('HYDE_PLAY_CDN', $command->getEnvironmentVariables());
     }
 
     public function testParseEnvironmentOption()

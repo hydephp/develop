@@ -9,9 +9,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Foundation\Kernel\Filesystem;
 
-/**
- * @covers \Hyde\Framework\Actions\Internal\FileFinder
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\Internal\FileFinder::class)]
 class FileFinderTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

@@ -9,9 +9,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Framework\Services\MarkdownService;
 
-/**
- * @covers \Hyde\Markdown\Models\Markdown
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Models\Markdown::class)]
 class MarkdownFacadeTest extends UnitTestCase
 {
     public function testRender(): void

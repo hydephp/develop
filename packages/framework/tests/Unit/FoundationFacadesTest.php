@@ -13,11 +13,9 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Foundation\Facades\Files
- * @covers \Hyde\Foundation\Facades\Pages
- * @covers \Hyde\Foundation\Facades\Routes
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Files::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Pages::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Routes::class)]
 class FoundationFacadesTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

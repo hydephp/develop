@@ -22,14 +22,13 @@ use Hyde\Framework\Features\Navigation\DocumentationSidebar;
  * High level tests for the Navigation API to go along with the code-driven documentation.
  *
  * @see \Hyde\Framework\Features\Navigation\
- *
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\NavigationItem
- * @covers \Hyde\Framework\Features\Navigation\NavigationGroup
- * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
  */
 #[AllowDynamicProperties]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationItem::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationGroup::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\MainNavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\DocumentationSidebar::class)]
 class NavigationAPITest extends TestCase
 {
     use MocksKernelFeatures;

@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\ItemNotFoundException;
 use RuntimeException;
 
-/**
- * @covers \Hyde\Publications\Models\PublicationType
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Models\PublicationType::class)]
 class PublicationTypeTest extends TestCase
 {
     public function testCanConstructNewPublicationType()
@@ -43,16 +41,16 @@ class PublicationTypeTest extends TestCase
     {
         $publicationType = new PublicationType('Test Publication');
 
-        $this->assertEquals('Test Publication', $publicationType->name);
-        $this->assertEquals('__createdAt', $publicationType->canonicalField);
-        $this->assertEquals('detail.blade.php', $publicationType->detailTemplate);
-        $this->assertEquals('list.blade.php', $publicationType->listTemplate);
+        $this->assertSame('Test Publication', $publicationType->name);
+        $this->assertSame('__createdAt', $publicationType->canonicalField);
+        $this->assertSame('detail.blade.php', $publicationType->detailTemplate);
+        $this->assertSame('list.blade.php', $publicationType->listTemplate);
         $this->assertEquals(collect([]), $publicationType->fields);
-        $this->assertEquals('__createdAt', $publicationType->sortField);
+        $this->assertSame('__createdAt', $publicationType->sortField);
         $this->assertEquals(true, $publicationType->sortAscending);
-        $this->assertEquals(0, $publicationType->pageSize);
+        $this->assertSame(0, $publicationType->pageSize);
 
-        $this->assertEquals('test-publication', $publicationType->getDirectory());
+        $this->assertSame('test-publication', $publicationType->getDirectory());
     }
 
     public function testConstructWithPaginationSettings()
@@ -65,7 +63,7 @@ class PublicationTypeTest extends TestCase
         $publicationType = new PublicationType('Test Publication', ...$paginationSettings);
 
         $this->assertSame('title', $publicationType->sortField);
-        $this->assertSame(false, $publicationType->sortAscending);
+        $this->assertFalse($publicationType->sortAscending);
         $this->assertSame(10, $publicationType->pageSize);
     }
 

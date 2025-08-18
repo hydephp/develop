@@ -16,10 +16,8 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\DateString;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Pages\MarkdownPost
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\MarkdownPost::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\Concerns\HasFactory::class)]
 class MarkdownPostTest extends TestCase
 {
     public function testConstructorCanCreateANewAuthorInstanceFromUsernameString()

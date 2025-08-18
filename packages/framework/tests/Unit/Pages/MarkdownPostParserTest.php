@@ -44,8 +44,8 @@ class MarkdownPostParserTest extends TestCase
         $this->assertInstanceOf(Markdown::class, $post->markdown);
         $this->assertIsString($post->markdown->body());
         $this->assertIsString($post->identifier);
-        $this->assertTrue(strlen((string) $post->markdown) > 32);
-        $this->assertTrue(strlen($post->identifier) > 8);
+        $this->assertGreaterThan(32, strlen((string) $post->markdown));
+        $this->assertGreaterThan(8, strlen($post->identifier));
     }
 
     public function testParsedMarkdownPostContainsValidFrontMatter()
@@ -54,7 +54,7 @@ class MarkdownPostParserTest extends TestCase
 
         $this->assertSame('My New Post', $post->data('title'));
         $this->assertSame('blog', $post->data('category'));
-        $this->assertEquals('Mr. Hyde', $post->data('author'));
+        $this->assertSame('Mr. Hyde', $post->data('author'));
         $this->assertInstanceOf(PostAuthor::class, $post->data('author'));
     }
 }

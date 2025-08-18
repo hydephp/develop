@@ -12,9 +12,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Framework\Factories\NavigationDataFactory;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 
-/**
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\NavigationDataFactory::class)]
 class NavigationDataFactoryUnitTest extends UnitTestCase
 {
     protected function setUp(): void

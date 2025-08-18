@@ -18,12 +18,11 @@ use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\MainNavigationMenu
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
- *
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\MainNavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenuGenerator::class)]
 class NavigationMenuTest extends TestCase
 {
     public function testConstructor()

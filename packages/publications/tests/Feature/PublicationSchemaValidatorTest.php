@@ -8,9 +8,7 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Testing\TestCase;
 use Illuminate\Validation\ValidationException;
 
-/**
- * @covers \Hyde\Publications\Actions\PublicationSchemaValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\PublicationSchemaValidator::class)]
 class PublicationSchemaValidatorTest extends TestCase
 {
     public function testValidateSchemaFile()

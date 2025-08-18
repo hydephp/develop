@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Unit;
 use Hyde\Framework\Concerns\TracksExecutionTime;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Framework\Concerns\TracksExecutionTime
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\TracksExecutionTime::class)]
 class TracksExecutionTimeTest extends UnitTestCase
 {
     public function testStartClock()
@@ -39,7 +37,7 @@ class TracksExecutionTimeTest extends UnitTestCase
         $class = new FixedStopClockTestClass();
 
         $this->assertIsFloat($class->getExecutionTimeInMs());
-        $this->assertSame(3.14, $class->getExecutionTimeInMs());
+        $this->assertEqualsWithDelta(3.14, $class->getExecutionTimeInMs(), PHP_FLOAT_EPSILON);
     }
 
     public function testGetExecutionTimeString()

@@ -11,10 +11,9 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
 
 /**
- * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
- *
  * @see \Hyde\Framework\Testing\Unit\FeaturedImageUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Blogging\Models\FeaturedImage::class)]
 class FeaturedImageTest extends TestCase
 {
     protected function setUp(): void

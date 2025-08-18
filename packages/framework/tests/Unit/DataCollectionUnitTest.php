@@ -16,10 +16,9 @@ use Hyde\Markdown\Models\MarkdownDocument;
 use Hyde\Framework\Exceptions\ParseException;
 
 /**
- * @covers \Hyde\Support\DataCollection
- *
  * @see \Hyde\Framework\Testing\Feature\DataCollectionTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\DataCollection::class)]
 class DataCollectionUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

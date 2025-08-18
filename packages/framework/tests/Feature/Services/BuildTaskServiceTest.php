@@ -13,20 +13,17 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- * @covers \Hyde\Framework\Services\BuildTaskService
- * @covers \Hyde\Framework\Features\BuildTasks\BuildTask
- * @covers \Hyde\Framework\Features\BuildTasks\PreBuildTask
- * @covers \Hyde\Framework\Features\BuildTasks\PostBuildTask
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap
- * @covers \Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed
- *
  * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\BuildTaskService::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\BuildTasks\BuildTask::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\BuildTasks\PreBuildTask::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\BuildTasks\PostBuildTask::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSiteCommand::class)]
 class BuildTaskServiceTest extends TestCase
 {
-    /**
-     * @covers \Hyde\Console\Commands\BuildSiteCommand::runPostBuildActions
-     */
     public function testBuildCommandCanRunBuildTasks()
     {
         $this->withSiteUrl();
@@ -55,7 +52,7 @@ class BuildTaskServiceTest extends TestCase
         $service = $this->makeService();
         $tasks = $service->getRegisteredTasks();
 
-        $this->assertSame(1, count(array_keys($tasks, SecondBuildTask::class)));
+        $this->assertCount(1, array_keys($tasks, SecondBuildTask::class));
     }
 
     public function testGetPostBuildTasksMergesDuplicateKeys()
@@ -66,7 +63,7 @@ class BuildTaskServiceTest extends TestCase
         $service = $this->makeService();
         $tasks = $service->getRegisteredTasks();
 
-        $this->assertSame(1, count(array_keys($tasks, TestBuildTask::class)));
+        $this->assertCount(1, array_keys($tasks, TestBuildTask::class));
     }
 
     public function testRunPostBuildTasksRunsConfiguredTasks()

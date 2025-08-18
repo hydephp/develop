@@ -19,16 +19,15 @@ use Illuminate\Support\Facades\File;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenuGenerator
- * @covers \Hyde\Framework\Features\Navigation\NavigationMenu
- * @covers \Hyde\Framework\Factories\Concerns\HasFactory
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Framework\Features\Navigation\NavigationItem
- *
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\DocumentationSidebar::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenuGenerator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenu::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\Concerns\HasFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\NavigationDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationItem::class)]
 class DocumentationSidebarTest extends TestCase
 {
     protected function setUp(): void
@@ -227,7 +226,7 @@ class DocumentationSidebarTest extends TestCase
     {
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('bar' === $this->getGroupKey($mainNavigationMenu));
+        $this->assertNotSame('bar', $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueWhenSuppliedGroupIsActive()
@@ -235,7 +234,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('foo', ['navigation.group' => 'foo']);
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'foo']));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('foo' === $this->getGroupKey($mainNavigationMenu));
+        $this->assertSame('foo', $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueForDifferingCasing()
@@ -243,7 +242,7 @@ class DocumentationSidebarTest extends TestCase
         $this->makePage('foo', ['navigation.group' => 'Foo Bar']);
         Render::setPage(new DocumentationPage(matter: ['navigation.group' => 'Foo Bar']));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('foo-bar' === $this->getGroupKey($mainNavigationMenu));
+        $this->assertSame('foo-bar', $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueFirstGroupOfIndexPage()
@@ -255,11 +254,11 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu2 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('bar' === $this->getGroupKey($mainNavigationMenu2));
+        $this->assertSame('bar', $this->getGroupKey($mainNavigationMenu2));
         $mainNavigationMenu1 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('foo' === $this->getGroupKey($mainNavigationMenu1));
+        $this->assertNotSame('foo', $this->getGroupKey($mainNavigationMenu1));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('baz' === $this->getGroupKey($mainNavigationMenu));
+        $this->assertNotSame('baz', $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIsGroupActiveReturnsTrueFirstSortedGroupOfIndexPage()
@@ -271,11 +270,11 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu2 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('foo' === $this->getGroupKey($mainNavigationMenu2));
+        $this->assertSame('foo', $this->getGroupKey($mainNavigationMenu2));
         $mainNavigationMenu1 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('bar' === $this->getGroupKey($mainNavigationMenu1));
+        $this->assertNotSame('bar', $this->getGroupKey($mainNavigationMenu1));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('baz' === $this->getGroupKey($mainNavigationMenu));
+        $this->assertNotSame('baz', $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testAutomaticIndexPageGroupExpansionRespectsCustomNavigationMenuSettings()
@@ -287,11 +286,11 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu2 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('foo' === $this->getGroupKey($mainNavigationMenu2));
+        $this->assertNotSame('foo', $this->getGroupKey($mainNavigationMenu2));
         $mainNavigationMenu1 = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('bar' === $this->getGroupKey($mainNavigationMenu1));
+        $this->assertNotSame('bar', $this->getGroupKey($mainNavigationMenu1));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertTrue('baz' === $this->getGroupKey($mainNavigationMenu));
+        $this->assertSame('baz', $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testCanHaveMultipleGroupedPagesWithTheSameNameLabels()
@@ -340,7 +339,7 @@ class DocumentationSidebarTest extends TestCase
 
         Render::setPage(DocumentationPage::get('index'));
         $mainNavigationMenu = NavigationMenuGenerator::handle(DocumentationSidebar::class);
-        $this->assertFalse('foo' === $this->getGroupKey($mainNavigationMenu));
+        $this->assertNotSame('foo', $this->getGroupKey($mainNavigationMenu));
     }
 
     public function testIndexPageAddedToSidebarWhenItIsTheOnlyPage()

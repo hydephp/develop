@@ -20,9 +20,8 @@ use Illuminate\Support\Facades\File;
 
 /**
  * Feature tests for the StaticPageBuilder class.
- *
- * @covers \Hyde\Framework\Actions\StaticPageBuilder
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\StaticPageBuilder::class)]
 class StaticPageBuilderTest extends TestCase
 {
     protected function setUp(): void

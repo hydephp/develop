@@ -10,11 +10,10 @@ use Hyde\Testing\TestCase;
  * High level test for the Yaml configuration feature.
  *
  * @see \Hyde\Framework\Testing\Feature\YamlConfigurationFeatureTest
- *
- * @covers \Hyde\Foundation\Internal\LoadYamlConfiguration
- * @covers \Hyde\Foundation\Internal\LoadYamlEnvironmentVariables
- * @covers \Hyde\Foundation\Internal\YamlConfigurationRepository
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\LoadYamlConfiguration::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\LoadYamlEnvironmentVariables::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\YamlConfigurationRepository::class)]
 class HighLevelYamlConfigurationFeatureTest extends TestCase
 {
     protected function setUp(): void

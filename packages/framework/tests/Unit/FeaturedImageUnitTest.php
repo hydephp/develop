@@ -11,10 +11,9 @@ use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Testing\UnitTestCase;
 
 /**
- * @covers \Hyde\Framework\Features\Blogging\Models\FeaturedImage
- *
  * @see \Hyde\Framework\Testing\Feature\FeaturedImageTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Blogging\Models\FeaturedImage::class)]
 class FeaturedImageUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

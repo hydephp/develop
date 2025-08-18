@@ -15,9 +15,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\ComponentAttributeBag;
 
-/**
- * @covers \Hyde\Publications\Views\Components\RelatedPublicationsComponent
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Views\Components\RelatedPublicationsComponent::class)]
 class RelatedPublicationsComponentTest extends TestCase
 {
     public function testWithStandardPage()

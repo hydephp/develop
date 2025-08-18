@@ -10,10 +10,9 @@ use Hyde\Support\DataCollection;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Support\DataCollection
- *
  * @see \Hyde\Framework\Testing\Unit\DataCollectionUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\DataCollection::class)]
 class DataCollectionTest extends TestCase
 {
     public function testMarkdownCollections()

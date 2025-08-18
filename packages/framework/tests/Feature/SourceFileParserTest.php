@@ -12,9 +12,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\SourceFileParser
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\SourceFileParser::class)]
 class SourceFileParserTest extends TestCase
 {
     public function testBladePageParser()
@@ -39,7 +37,7 @@ class SourceFileParserTest extends TestCase
         $this->assertSame('foo', $page->identifier);
         $this->assertSame('Foo Bar Baz', $page->title);
         $this->assertSame('# Foo Bar', $page->markdown->body());
-        $this->assertEquals('# Foo Bar', $page->markdown);
+        $this->assertSame('# Foo Bar', $page->markdown);
     }
 
     public function testMarkdownPostParser()
@@ -53,7 +51,7 @@ class SourceFileParserTest extends TestCase
         $this->assertSame('foo', $page->identifier);
         $this->assertSame('Foo Bar Baz', $page->title);
         $this->assertSame('# Foo Bar', $page->markdown->body());
-        $this->assertEquals('# Foo Bar', $page->markdown);
+        $this->assertSame('# Foo Bar', $page->markdown);
     }
 
     public function testDocumentationPageParser()
@@ -67,7 +65,7 @@ class SourceFileParserTest extends TestCase
         $this->assertSame('foo', $page->identifier);
         $this->assertSame('Foo Bar Baz', $page->title);
         $this->assertSame('# Foo Bar', $page->markdown->body());
-        $this->assertEquals('# Foo Bar', $page->markdown);
+        $this->assertSame('# Foo Bar', $page->markdown);
     }
 
     public function testHtmlPageParser()

@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Blade;
 use Hyde\Framework\Views\Components\BreadcrumbsComponent;
 
 /**
- * @covers \Hyde\Framework\Views\Components\BreadcrumbsComponent
- *
  * @see \Hyde\Framework\Testing\Unit\BreadcrumbsComponentTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Views\Components\BreadcrumbsComponent::class)]
 class BreadcrumbsComponentViewTest extends TestCase
 {
     public function testRenderedBladeView()

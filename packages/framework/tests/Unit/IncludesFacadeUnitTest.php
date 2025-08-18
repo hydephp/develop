@@ -18,11 +18,10 @@ use Illuminate\Filesystem\Filesystem;
 use Hyde\Testing\MocksKernelFeatures;
 
 /**
- * @covers \Hyde\Support\Includes
- *
  * @see \Hyde\Framework\Testing\Feature\IncludesFacadeTest
  */
 #[AllowDynamicProperties]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Includes::class)]
 class IncludesFacadeUnitTest extends UnitTestCase
 {
     use MocksKernelFeatures;

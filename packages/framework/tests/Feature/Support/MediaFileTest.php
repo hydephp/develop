@@ -11,10 +11,9 @@ use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 
 /**
- * @covers \Hyde\Support\Filesystem\MediaFile
- *
  * @see \Hyde\Framework\Testing\Unit\Support\MediaFileUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Filesystem\MediaFile::class)]
 class MediaFileTest extends TestCase
 {
     public function testMediaFileCreationAndBasicProperties()

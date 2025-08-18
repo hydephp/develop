@@ -8,9 +8,7 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\AnonymousViewCompiler
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\AnonymousViewCompiler::class)]
 class AnonymousViewCompilerTest extends TestCase
 {
     public function testCanCompileBladeFile()

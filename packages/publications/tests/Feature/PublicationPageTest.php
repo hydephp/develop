@@ -10,9 +10,7 @@ use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Pages\PublicationPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Pages\PublicationPage::class)]
 class PublicationPageTest extends TestCase
 {
     public function testSourcePathMappings()
@@ -53,12 +51,12 @@ class PublicationPageTest extends TestCase
 
         $page = Hyde::pages()->getPages()->get('test-publication/foo.md');
         $this->assertInstanceOf(PublicationPage::class, $page);
-        $this->assertEquals('test-publication/foo', $page->getIdentifier());
-        $this->assertEquals('Foo', $page->title);
+        $this->assertSame('test-publication/foo', $page->getIdentifier());
+        $this->assertSame('Foo', $page->title);
 
-        $this->assertEquals('bar', $page->matter('foo'));
-        $this->assertEquals('canonical', $page->matter('__canonical'));
-        $this->assertEquals('Hello World!', $page->markdown()->body());
+        $this->assertSame('bar', $page->matter('foo'));
+        $this->assertSame('canonical', $page->matter('__canonical'));
+        $this->assertSame('Hello World!', $page->markdown()->body());
     }
 
     public function testPublicationPagesAreParsable()
@@ -81,10 +79,10 @@ class PublicationPageTest extends TestCase
 
         $page = PublicationPage::parse('test-publication/foo');
         $this->assertInstanceOf(PublicationPage::class, $page);
-        $this->assertEquals('test-publication/foo', $page->identifier);
-        $this->assertEquals('## Write something awesome.', $page->markdown);
-        $this->assertEquals('My Title', $page->title);
-        $this->assertEquals('My Title', $page->matter->get('title'));
+        $this->assertSame('test-publication/foo', $page->identifier);
+        $this->assertSame('## Write something awesome.', $page->markdown()->body());
+        $this->assertSame('My Title', $page->title);
+        $this->assertSame('My Title', $page->matter->get('title'));
         $this->assertTrue($page->matter->has('__createdAt'));
     }
 

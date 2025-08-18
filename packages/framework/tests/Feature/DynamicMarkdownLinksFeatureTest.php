@@ -17,11 +17,10 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
- * @covers \Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor
- * @covers \Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter
- *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\DynamicMarkdownLinkProcessorTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\Internal\SetsUpMarkdownConverter::class)]
 class DynamicMarkdownLinksFeatureTest extends TestCase
 {
     public static function setUpBeforeClass(): void
