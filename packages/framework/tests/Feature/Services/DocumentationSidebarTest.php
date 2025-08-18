@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\File;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarUnitTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  */

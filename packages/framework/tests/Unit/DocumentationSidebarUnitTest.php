@@ -11,7 +11,6 @@ use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
  * @see \Hyde\Framework\Testing\Unit\DocumentationSidebarGetActiveGroupUnitTest
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest

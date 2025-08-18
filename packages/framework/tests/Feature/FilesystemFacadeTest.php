@@ -9,7 +9,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 /**
- *
  * @see \FilesystemFacadeMimeTypeHelperUnitTest
  * @see \Hyde\Framework\Testing\Unit\FilesystemFacadeUnitTest
  */

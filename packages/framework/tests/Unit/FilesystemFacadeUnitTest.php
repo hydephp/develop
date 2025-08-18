@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Feature\FilesystemFacadeTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Filesystem::class)]

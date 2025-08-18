@@ -13,7 +13,6 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Unit\BuildTaskServiceUnitTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\BuildTaskService::class)]

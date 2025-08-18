@@ -18,7 +18,6 @@ use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Unit\NavigationMenuUnitTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationMenu::class)]

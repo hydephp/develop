@@ -17,7 +17,6 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Unit\InteractivePublishCommandHelperTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\PublishViewsCommand::class)]

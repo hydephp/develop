@@ -17,7 +17,6 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Feature\Services\Markdown\DynamicMarkdownLinkProcessorTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor::class)]

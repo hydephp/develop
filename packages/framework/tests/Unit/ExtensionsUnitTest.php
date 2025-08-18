@@ -23,7 +23,6 @@ use BadMethodCallException;
 use stdClass;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Feature\HydeKernelTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */

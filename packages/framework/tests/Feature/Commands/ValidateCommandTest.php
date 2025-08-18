@@ -7,7 +7,6 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Testing\TestCase;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Feature\Services\ValidationServiceTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\ValidateCommand::class)]

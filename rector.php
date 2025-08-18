@@ -7,11 +7,11 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 return static function (RectorConfig $rectorConfig): void {
     // Limit Rector to existing test directories
     $potentialTestPaths = [
-        __DIR__ . '/tests',
-        __DIR__ . '/packages/framework/tests',
-        __DIR__ . '/packages/publications/tests',
-        __DIR__ . '/packages/hyde/tests',
-        __DIR__ . '/packages/realtime-compiler/tests',
+        __DIR__.'/tests',
+        __DIR__.'/packages/framework/tests',
+        __DIR__.'/packages/publications/tests',
+        __DIR__.'/packages/hyde/tests',
+        __DIR__.'/packages/realtime-compiler/tests',
     ];
     $rectorConfig->paths(array_values(array_filter($potentialTestPaths, 'is_dir')));
 
@@ -25,10 +25,10 @@ return static function (RectorConfig $rectorConfig): void {
     // Skip unstable rules for specific files that error out
     $rectorConfig->skip([
         \Rector\Renaming\Rector\MethodCall\RenameMethodRector::class => [
-            __DIR__ . '/packages/framework/tests/Unit/BuildTaskServiceUnitTest.php',
+            __DIR__.'/packages/framework/tests/Unit/BuildTaskServiceUnitTest.php',
         ],
         \Rector\PHPUnit\CodeQuality\Rector\MethodCall\FlipAssertRector::class => [
-            __DIR__ . '/packages/framework/tests/Feature/AutomaticNavigationConfigurationsTest.php',
+            __DIR__.'/packages/framework/tests/Feature/AutomaticNavigationConfigurationsTest.php',
         ],
     ]);
 
@@ -76,8 +76,8 @@ return static function (RectorConfig $rectorConfig): void {
     $openApiAnnotations = [];
     foreach ($openApiAnnotationsRaw as $className) {
         $openApiAnnotations[] = new \Rector\Php80\ValueObject\AnnotationToAttribute(
-            'OpenApi\\Annotations\\' . $className,
-            'OpenApi\\Attributes\\' . $className
+            'OpenApi\\Annotations\\'.$className,
+            'OpenApi\\Attributes\\'.$className
         );
     }
 

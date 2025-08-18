@@ -10,7 +10,6 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\RouteListCommand::class)]

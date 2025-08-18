@@ -11,7 +11,6 @@ use Hyde\Support\Models\ValidationResult;
 use Hyde\Testing\TestCase;
 
 /**
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\ValidationService::class)]
