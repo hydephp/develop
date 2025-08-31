@@ -435,37 +435,37 @@ jobs:
           rm -rf master/git && mkdir master/git
 
       - name: Download coverage report artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: html-coverage
           path: master/coverage
 
       - name: Download upcoming documentation artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: dev-docs
           path: master/dev-docs
 
       - name: Download API documentation artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: api-documentation
           path: master/api-docs
 
       - name: Download preview site artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: site-preview
           path: master/preview
 
       - name: Download test fixture docs artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: test-fixture-docs
           path: master/test-fixtures/docs
 
       - name: Download Git history graph artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: git-history-graph
           path: master/git
