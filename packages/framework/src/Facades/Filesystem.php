@@ -118,6 +118,19 @@ class Filesystem
     }
 
     /**
+     * Ensure the parent directory of the given file exists.
+     *
+     * @param  string  $path  The path to the file
+     * @param  int  $mode  The directory permissions
+     * @param  bool  $recursive  Whether to create directories recursively
+     * @return void
+     */
+    public static function ensureParentDirectoryExists(string $path, int $mode = 0755, bool $recursive = true): void
+    {
+        self::ensureDirectoryExists(self::dirname($path), $mode, $recursive);
+    }
+
+    /**
      * Get the contents of a file.
      *
      * @param  string  $path
