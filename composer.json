@@ -26,8 +26,7 @@
         "hyde/realtime-compiler": "*",
         "hyde/testing": "*",
         "jetbrains/phpstorm-attributes": "^1.0",
-        "laravel/tinker": "^2.7",
-        "pestphp/pest-plugin-type-coverage": "^3.5"
+        "laravel/tinker": "^2.7"
     },
     "replace": {
         "symfony/polyfill-php72": "*",
