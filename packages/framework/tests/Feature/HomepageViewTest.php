@@ -11,8 +11,9 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestsBladeViews;
 
 /**
- * @coversNothing Test to ensure all homepages can be rendered
+ * Test to ensure all homepages can be rendered.
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class HomepageViewTest extends TestCase
 {
     use TestsBladeViews;

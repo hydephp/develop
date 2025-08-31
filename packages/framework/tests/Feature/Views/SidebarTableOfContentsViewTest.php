@@ -10,10 +10,9 @@ use Hyde\Framework\Actions\GeneratesTableOfContents;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Actions\GeneratesTableOfContents
- *
  * @see \Hyde\Framework\Testing\Unit\GeneratesSidebarTableOfContentsTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\GeneratesTableOfContents::class)]
 class SidebarTableOfContentsViewTest extends TestCase
 {
     public function testCanGenerateTableOfContents()

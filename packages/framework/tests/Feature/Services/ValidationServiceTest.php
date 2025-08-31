@@ -11,11 +11,10 @@ use Hyde\Support\Models\ValidationResult;
 use Hyde\Testing\TestCase;
 
 /**
- * @covers \Hyde\Framework\Services\ValidationService
- * @covers \Hyde\Support\Models\ValidationResult
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\ValidateCommandTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\ValidationService::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\ValidationResult::class)]
 class ValidationServiceTest extends TestCase
 {
     protected ValidationService $service;

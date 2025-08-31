@@ -7,9 +7,7 @@ namespace Hyde\Publications\Testing\Feature;
 use Hyde\Publications\Providers\TranslationServiceProvider;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Providers\TranslationServiceProvider
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Providers\TranslationServiceProvider::class)]
 class TranslationServiceProviderTest extends TestCase
 {
     public function testRegister()

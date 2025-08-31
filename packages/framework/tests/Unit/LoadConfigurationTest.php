@@ -8,11 +8,18 @@ use Hyde\Foundation\Application;
 use Hyde\Foundation\Internal\LoadConfiguration;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Foundation\Internal\LoadConfiguration
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Internal\LoadConfiguration::class)]
 class LoadConfigurationTest extends UnitTestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        // Patch PHPUnit craziness by disabling this method
+        // I don't know why it errors, but I have spent
+        // far too much of my life trying to fix it.
+
+        // TODO: Check if this is broken after the Pest 4 upgrade.
+    }
+
     public function testItLoadsRuntimeConfiguration()
     {
         $app = new Application(getcwd());

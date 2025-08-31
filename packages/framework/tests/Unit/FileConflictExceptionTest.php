@@ -8,9 +8,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Framework\Exceptions\FileConflictException
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Exceptions\FileConflictException::class)]
 class FileConflictExceptionTest extends UnitTestCase
 {
     public function testItCanBeInstantiated()

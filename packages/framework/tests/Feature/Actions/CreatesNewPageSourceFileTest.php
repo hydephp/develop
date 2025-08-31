@@ -13,9 +13,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\CreatesNewPageSourceFile
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\CreatesNewPageSourceFile::class)]
 class CreatesNewPageSourceFileTest extends TestCase
 {
     public function testClassCanBeInstantiated()

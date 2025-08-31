@@ -11,9 +11,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Pages\Concerns\HydePage::parse
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\Concerns\HydePage::class)]
 class PageModelParseHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

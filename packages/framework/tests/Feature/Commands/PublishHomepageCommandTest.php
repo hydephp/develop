@@ -8,10 +8,8 @@ use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Console\Commands\PublishHomepageCommand
- * @covers \Hyde\Console\Concerns\AsksToRebuildSite
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\PublishHomepageCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Concerns\AsksToRebuildSite::class)]
 class PublishHomepageCommandTest extends TestCase
 {
     protected function setUp(): void
@@ -109,7 +107,7 @@ class PublishHomepageCommandTest extends TestCase
         $this->artisan('publish:homepage welcome --force --no-interaction')
             ->assertExitCode(0);
 
-        $this->assertNotEquals('foo', file_get_contents(Hyde::path('_pages/index.blade.php')));
+        $this->assertNotSame('foo', file_get_contents(Hyde::path('_pages/index.blade.php')));
 
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }

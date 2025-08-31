@@ -12,13 +12,12 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
 /**
- * @coversNothing High level test to ensure the internationalization features are working.
+ * High level test to ensure the internationalization features are working.
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class InternationalizationTest extends TestCase
 {
-    /**
-     * @dataProvider internationalCharacterSetsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('internationalCharacterSetsProvider')]
     public function testCanCreateBlogPostFilesWithInternationalCharacterSets(
         string $title,
         string $description,
@@ -60,9 +59,7 @@ class InternationalizationTest extends TestCase
         Filesystem::unlink($path);
     }
 
-    /**
-     * @dataProvider internationalCharacterSetsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('internationalCharacterSetsProvider')]
     public function testCanCompileBlogPostFilesWithInternationalCharacterSets(
         string $title,
         string $description,
@@ -91,27 +88,25 @@ class InternationalizationTest extends TestCase
         Filesystem::unlink($path);
     }
 
-    public static function internationalCharacterSetsProvider(): array
+    public static function internationalCharacterSetsProvider(): \Iterator
     {
-        return [
-            'Chinese (Simplified)' => [
-                '你好世界',
-                '简短描述',
-                'ni-hao-shi-jie',
-                '你好世界',
-            ],
-            'Japanese' => [
-                'こんにちは世界',
-                '短い説明',
-                'konnichihashi-jie',
-                'こんにちは世界',
-            ],
-            'Korean' => [
-                '안녕하세요 세계',
-                '짧은 설명',
-                'annyeonghaseyo-segye',
-                '안녕하세요 세계',
-            ],
+        yield 'Chinese (Simplified)' => [
+            '你好世界',
+            '简短描述',
+            'ni-hao-shi-jie',
+            '你好世界',
+        ];
+        yield 'Japanese' => [
+            'こんにちは世界',
+            '短い説明',
+            'konnichihashi-jie',
+            'こんにちは世界',
+        ];
+        yield 'Korean' => [
+            '안녕하세요 세계',
+            '짧은 설명',
+            'annyeonghaseyo-segye',
+            '안녕하세요 세계',
         ];
     }
 }

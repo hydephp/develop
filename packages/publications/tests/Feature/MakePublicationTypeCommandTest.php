@@ -9,10 +9,8 @@ use Hyde\Testing\TestCase;
 use Hyde\Facades\Filesystem;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 
-/**
- * @covers \Hyde\Publications\Commands\MakePublicationTypeCommand
- * @covers \Hyde\Publications\Actions\CreatesNewPublicationType
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Commands\MakePublicationTypeCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\CreatesNewPublicationType::class)]
 class MakePublicationTypeCommandTest extends TestCase
 {
     protected const selectPageSizeQuestion = 'How many links should be shown on the listing page? <fg=gray>(any value above 0 will enable <href=https://docs.hydephp.com/search?query=pagination>pagination</>)</>';
@@ -73,7 +71,7 @@ class MakePublicationTypeCommandTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-        $this->assertEquals(
+        $this->assertSame(
             <<<'JSON'
             {
                 "name": "Test Publication",
@@ -110,7 +108,7 @@ class MakePublicationTypeCommandTest extends TestCase
         $this->assertSame(0, $this->artisan('make:publicationType "Test Publication" --no-interaction'));
 
         $this->assertFileExists(Hyde::path('test-publication/schema.json'));
-        $this->assertEquals(
+        $this->assertSame(
             <<<'JSON'
             {
                 "name": "Test Publication",

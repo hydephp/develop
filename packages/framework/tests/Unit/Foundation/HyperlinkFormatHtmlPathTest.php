@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Unit\Foundation;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Foundation\Kernel\Hyperlinks::formatLink
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Hyperlinks::class)]
 class HyperlinkFormatHtmlPathTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

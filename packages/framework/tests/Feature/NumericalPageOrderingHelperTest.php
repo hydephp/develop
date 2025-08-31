@@ -19,13 +19,13 @@ use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
  *
  * It also works within sidebar groups, so that multiple groups can have the same prefix independent of other groups.
  *
- * @covers \Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper
- * @covers \Hyde\Framework\Features\Navigation\DocumentationSidebar
- * @covers \Hyde\Framework\Factories\NavigationDataFactory
- * @covers \Hyde\Support\Models\RouteKey
  *
  * @see \Hyde\Framework\Testing\Unit\NumericalPageOrderingHelperUnitTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\DocumentationSidebar::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\NavigationDataFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\RouteKey::class)]
 class NumericalPageOrderingHelperTest extends TestCase
 {
     protected function setUp(): void

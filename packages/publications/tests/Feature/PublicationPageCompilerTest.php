@@ -12,9 +12,7 @@ use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Actions\PublicationPageCompiler
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\PublicationPageCompiler::class)]
 class PublicationPageCompilerTest extends TestCase
 {
     public function testCanCompilePublicationPages()
@@ -25,7 +23,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $string = PublicationPageCompiler::call(new PublicationPage('my-publication', type: PublicationType::get('test-publication')));
 
-        $this->assertEquals('Detail: My Publication', $string);
+        $this->assertSame('Detail: My Publication', $string);
     }
 
     public function testCanCompileListPages()
@@ -37,7 +35,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $string = PublicationPageCompiler::call(PublicationType::get('test-publication')->getListPage());
 
-        $this->assertEquals('List: My Publication', $string);
+        $this->assertSame('List: My Publication', $string);
     }
 
     public function testCanCompilePublicationPagesWithRegisteredView()
@@ -51,7 +49,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $publicationPage = new PublicationPage('my-publication', type: PublicationType::get('test-publication'));
         Render::setPage($publicationPage);
-        $this->assertEquals('Registered detail view', PublicationPageCompiler::call($publicationPage));
+        $this->assertSame('Registered detail view', PublicationPageCompiler::call($publicationPage));
     }
 
     public function testCanCompileListPagesWithRegisteredView()
@@ -65,7 +63,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $publicationType = PublicationType::get('test-publication');
         $publicationPage = $publicationType->getListPage();
-        $this->assertEquals('Registered list view', PublicationPageCompiler::call($publicationPage));
+        $this->assertSame('Registered list view', PublicationPageCompiler::call($publicationPage));
     }
 
     public function testCanCompilePublicationPagesWithRegisteredNamespacedView()
@@ -93,7 +91,7 @@ class PublicationPageCompilerTest extends TestCase
 
         $publicationType = PublicationType::get('test-publication');
         $publicationPage = $publicationType->getListPage();
-        $this->assertEquals('Registered list view', PublicationPageCompiler::call($publicationPage));
+        $this->assertSame('Registered list view', PublicationPageCompiler::call($publicationPage));
     }
 
     public function testWithMissingDetailBladeView()

@@ -9,9 +9,7 @@ use Hyde\Support\Facades\Render;
 use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Facades\Blade;
 
-/**
- * @covers \Hyde\Framework\Views\Components\LinkComponent
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Views\Components\LinkComponent::class)]
 class LinkComponentViewTest extends TestCase
 {
     public function testLinkComponentCanBeRendered()

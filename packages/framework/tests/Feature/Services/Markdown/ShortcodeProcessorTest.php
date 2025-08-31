@@ -9,9 +9,7 @@ use Hyde\Markdown\Processing\ShortcodeProcessor;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Testing\UsesRealBladeInUnitTests;
 
-/**
- * @covers \Hyde\Markdown\Processing\ShortcodeProcessor
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\ShortcodeProcessor::class)]
 class ShortcodeProcessorTest extends UnitTestCase
 {
     use UsesRealBladeInUnitTests;

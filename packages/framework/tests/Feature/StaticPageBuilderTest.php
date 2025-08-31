@@ -16,13 +16,11 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
 
 /**
  * Feature tests for the StaticPageBuilder class.
- *
- * @covers \Hyde\Framework\Actions\StaticPageBuilder
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\StaticPageBuilder::class)]
 class StaticPageBuilderTest extends TestCase
 {
     protected function setUp(): void
@@ -63,7 +61,7 @@ class StaticPageBuilderTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertStringEqualsFile(Hyde::path('_site/foo.html'), 'bar');
 
-        unlink(BladePage::sourceDirectory().'/foo.blade.php');
+        Filesystem::unlink(BladePage::sourceDirectory().'/foo.blade.php');
         Filesystem::unlink('_site/foo.html');
     }
 
@@ -152,7 +150,7 @@ class StaticPageBuilderTest extends TestCase
         $this->assertFileExists(Hyde::path('foo/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('foo/foo.html')));
 
-        File::deleteDirectory(Hyde::path('foo'));
+        Filesystem::deleteDirectory('foo');
     }
 
     public function testSiteDirectoryCanBeCustomizedWithNestedPages()
@@ -164,7 +162,7 @@ class StaticPageBuilderTest extends TestCase
         $this->assertFileExists(Hyde::path('foo/posts/foo.html'));
         $this->validateBasicHtml(file_get_contents(Hyde::path('foo/posts/foo.html')));
 
-        File::deleteDirectory(Hyde::path('foo'));
+        Filesystem::deleteDirectory('foo');
     }
 
     public function testCanRebuildBladePage()
@@ -173,7 +171,7 @@ class StaticPageBuilderTest extends TestCase
         StaticPageBuilder::handle(Pages::getPage('_pages/foo.blade.php'));
 
         $this->assertFileExists('_site/foo.html');
-        unlink(Hyde::path('_site/foo.html'));
+        Filesystem::unlink('_site/foo.html');
     }
 
     public function testCanRebuildMarkdownPage()
@@ -182,7 +180,7 @@ class StaticPageBuilderTest extends TestCase
         StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));
 
         $this->assertFileExists('_site/foo.html');
-        unlink(Hyde::path('_site/foo.html'));
+        Filesystem::unlink('_site/foo.html');
     }
 
     public function testCanRebuildMarkdownPost()
@@ -191,7 +189,7 @@ class StaticPageBuilderTest extends TestCase
         StaticPageBuilder::handle(Pages::getPage('_posts/foo.md'));
 
         $this->assertFileExists('_site/posts/foo.html');
-        unlink(Hyde::path('_site/posts/foo.html'));
+        Filesystem::unlink('_site/posts/foo.html');
     }
 
     public function testCanRebuildDocumentationPage()
@@ -200,6 +198,6 @@ class StaticPageBuilderTest extends TestCase
         StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));
 
         $this->assertFileExists('_site/foo.html');
-        unlink(Hyde::path('_site/foo.html'));
+        Filesystem::unlink('_site/foo.html');
     }
 }

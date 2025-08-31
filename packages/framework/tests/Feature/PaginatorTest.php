@@ -10,9 +10,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 
-/**
- * @covers \Hyde\Support\Paginator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Paginator::class)]
 class PaginatorTest extends TestCase
 {
     public function testItCanBeInstantiated(): void

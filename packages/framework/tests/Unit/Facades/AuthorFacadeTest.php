@@ -9,9 +9,7 @@ use Hyde\Facades\Author;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Facades\Author
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Author::class)]
 class AuthorFacadeTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
@@ -32,7 +30,7 @@ class AuthorFacadeTest extends UnitTestCase
         $author = Author::create('John Doe', 'https://johndoe.com');
 
         $this->assertIsArray($author);
-        $this->assertFalse(isset($author['username']));
+        $this->assertArrayNotHasKey('username', $author);
         $this->assertSame('John Doe', $author['name']);
         $this->assertSame('https://johndoe.com', $author['website']);
 

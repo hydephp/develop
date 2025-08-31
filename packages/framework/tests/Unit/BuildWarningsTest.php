@@ -12,10 +12,8 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
 use Symfony\Component\Console\Style\OutputStyle;
 
-/**
- * @covers \Hyde\Support\BuildWarnings
- * @covers \Hyde\Framework\Exceptions\BuildWarning
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\BuildWarnings::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Exceptions\BuildWarning::class)]
 class BuildWarningsTest extends UnitTestCase
 {
     protected function tearDown(): void

@@ -9,9 +9,7 @@ use Hyde\Hyde;
 use Hyde\Support\Filesystem\ProjectFile;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Support\Filesystem\ProjectFile
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Filesystem\ProjectFile::class)]
 class ProjectFileTest extends TestCase
 {
     public function testCanConstruct()

@@ -13,9 +13,7 @@ use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 
-/**
- * @covers \Hyde\Framework\Features\Navigation\NavigationGroup
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationGroup::class)]
 class NavigationGroupTest extends UnitTestCase
 {
     public static function setUpBeforeClass(): void

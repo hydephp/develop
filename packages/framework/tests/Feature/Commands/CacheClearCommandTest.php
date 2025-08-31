@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Cache;
 
-/**
- * @coversNothing
- */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class CacheClearCommandTest extends TestCase
 {
     public function testCacheClearCommand()

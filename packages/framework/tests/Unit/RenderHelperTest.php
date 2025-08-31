@@ -15,10 +15,8 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Illuminate\Support\Facades\View;
 
-/**
- * @covers \Hyde\Support\Models\RenderData
- * @covers \Hyde\Support\Facades\Render
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\RenderData::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Facades\Render::class)]
 class RenderHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

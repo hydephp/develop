@@ -10,9 +10,7 @@ use Illuminate\Console\Command;
 use Illuminate\Console\OutputStyle;
 use Mockery;
 
-/**
- * @covers \Hyde\Publications\Commands\Helpers\InputStreamHandler
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Commands\Helpers\InputStreamHandler::class)]
 class InputStreamHandlerTest extends TestCase
 {
     public function testCanCollectInput()

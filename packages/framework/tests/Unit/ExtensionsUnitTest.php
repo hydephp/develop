@@ -23,13 +23,12 @@ use BadMethodCallException;
 use stdClass;
 
 /**
- * @covers \Hyde\Foundation\HydeKernel
- * @covers \Hyde\Foundation\Concerns\HydeExtension
- * @covers \Hyde\Foundation\Concerns\ManagesExtensions
- *
  * @see \Hyde\Framework\Testing\Feature\HydeKernelTest
  * @see \Hyde\Framework\Testing\Feature\HydeExtensionFeatureTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeKernel::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\HydeExtension::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\ManagesExtensions::class)]
 class ExtensionsUnitTest extends UnitTestCase
 {
     protected HydeKernel $kernel;

@@ -13,10 +13,8 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
-/**
- * @covers \Hyde\Framework\Features\Blogging\Models\PostAuthor
- * @covers \Hyde\Foundation\Concerns\HasKernelData
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Blogging\Models\PostAuthor::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Concerns\HasKernelData::class)]
 class PostAuthorTest extends UnitTestCase
 {
     use FluentTestingHelpers;
@@ -160,7 +158,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = Author::create('foo', 'https://example.com');
 
-        $this->assertFalse(isset($author['username']));
+        $this->assertArrayNotHasKey('username', $author);
         $this->assertSame('foo', $author['name']);
         $this->assertSame('https://example.com', $author['website']);
     }
@@ -169,7 +167,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = Author::create(...$this->exampleData());
 
-        $this->assertFalse(isset($author['username']));
+        $this->assertArrayNotHasKey('username', $author);
         $this->assertSame('Mr. Hyde', $author['name']);
         $this->assertSame('https://HydePHP.com', $author['website']);
         $this->assertSame('A mysterious figure. Is he as evil as he seems? And what did he do with Dr. Jekyll?', $author['bio']);
@@ -398,7 +396,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username', 'John Doe', 'https://example.com');
 
-        $this->assertEquals([
+        $this->assertSame([
             'username' => 'username',
             'name' => 'John Doe',
             'website' => 'https://example.com',
@@ -409,7 +407,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username', 'John Doe', 'https://example.com');
 
-        $this->assertEquals([
+        $this->assertSame([
             'username' => 'username',
             'name' => 'John Doe',
             'website' => 'https://example.com',
@@ -420,7 +418,7 @@ class PostAuthorTest extends UnitTestCase
     {
         $author = new PostAuthor('username', 'John Doe', 'https://example.com');
 
-        $this->assertEquals([
+        $this->assertSame([
             'username' => 'username',
             'name' => 'John Doe',
             'website' => 'https://example.com',

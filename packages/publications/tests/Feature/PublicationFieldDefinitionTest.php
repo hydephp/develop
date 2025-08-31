@@ -9,9 +9,7 @@ use Hyde\Testing\TestCase;
 use Hyde\Publications\Concerns\PublicationFieldTypes;
 use Hyde\Publications\Models\PublicationFieldDefinition;
 
-/**
- * @covers \Hyde\Publications\Models\PublicationFieldDefinition
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Models\PublicationFieldDefinition::class)]
 class PublicationFieldDefinitionTest extends TestCase
 {
     public function testCanInstantiateClass()

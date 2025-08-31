@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Config;
 
 use function config;
 
-/**
- * @covers \Hyde\Facades\Features
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Features::class)]
 class ConfigurableFeaturesTest extends TestCase
 {
     public function testHasDocumentationSearchReturnsFalseWhenFeatureIsNotEnabled()

@@ -12,9 +12,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 
-/**
- * @covers \Hyde\Console\Commands\VendorPublishCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\VendorPublishCommand::class)]
 class VendorPublishCommandTest extends TestCase
 {
     protected function setUp(): void

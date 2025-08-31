@@ -22,10 +22,9 @@ use stdClass;
 use TypeError;
 
 /**
- * @covers \Hyde\Framework\Services\BuildTaskService
- *
  * @see \Hyde\Framework\Testing\Feature\Services\BuildTaskServiceTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\BuildTaskService::class)]
 class BuildTaskServiceUnitTest extends UnitTestCase
 {
     protected BuildTaskService $service;

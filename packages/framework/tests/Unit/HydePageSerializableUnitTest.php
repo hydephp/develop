@@ -12,14 +12,12 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 
-/**
- * @covers \Hyde\Pages\Concerns\HydePage
- * @covers \Hyde\Pages\HtmlPage
- * @covers \Hyde\Pages\BladePage
- * @covers \Hyde\Pages\MarkdownPage
- * @covers \Hyde\Pages\MarkdownPost
- * @covers \Hyde\Pages\DocumentationPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\Concerns\HydePage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\HtmlPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\BladePage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\MarkdownPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\MarkdownPost::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\DocumentationPage::class)]
 class HydePageSerializableUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

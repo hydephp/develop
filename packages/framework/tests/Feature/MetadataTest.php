@@ -17,14 +17,12 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Features\Metadata\MetadataBag
- * @covers \Hyde\Framework\Features\Metadata\PageMetadataBag
- * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
- * @covers \Hyde\Framework\Features\Metadata\Elements\LinkElement
- * @covers \Hyde\Framework\Features\Metadata\Elements\MetadataElement
- * @covers \Hyde\Framework\Features\Metadata\Elements\OpenGraphElement
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\MetadataBag::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\PageMetadataBag::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\GlobalMetadataBag::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\Elements\LinkElement::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\Elements\MetadataElement::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\Elements\OpenGraphElement::class)]
 class MetadataTest extends TestCase
 {
     protected function setUp(): void

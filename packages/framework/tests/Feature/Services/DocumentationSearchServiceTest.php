@@ -9,9 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\CreatesTemporaryFiles;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Framework\Actions\GeneratesDocumentationSearchIndex
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\GeneratesDocumentationSearchIndex::class)]
 class DocumentationSearchServiceTest extends UnitTestCase
 {
     use CreatesTemporaryFiles;

@@ -8,9 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Foundation\PackageManifest;
 
-/**
- * @covers \Hyde\Console\Commands\PackageDiscoverCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\PackageDiscoverCommand::class)]
 class PackageDiscoverCommandTest extends TestCase
 {
     public function testPackageDiscoverCommandRegistersManifestPath()

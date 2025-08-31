@@ -8,9 +8,7 @@ use DateTime;
 use Hyde\Support\Models\DateString;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Support\Models\DateString
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\DateString::class)]
 class DateStringTest extends UnitTestCase
 {
     public function testItCanParseDateString()

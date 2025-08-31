@@ -12,9 +12,7 @@ use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Facades\View;
 
-/**
- * @covers \Hyde\Foundation\HydeKernel
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeKernel::class)]
 class HydeFileHelpersTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

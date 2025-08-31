@@ -13,10 +13,8 @@ use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
- * @covers \Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\RssFeedGenerator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\BaseXmlGenerator::class)]
 class RssFeedServiceTest extends TestCase
 {
     public function testServiceInstantiatesXmlElement()

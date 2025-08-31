@@ -11,9 +11,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Testing\TestCase;
 use RuntimeException;
 
-/**
- * @covers \Hyde\Framework\Factories\FeaturedImageFactory
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\FeaturedImageFactory::class)]
 class FeaturedImageFactoryTest extends TestCase
 {
     protected function setUp(): void

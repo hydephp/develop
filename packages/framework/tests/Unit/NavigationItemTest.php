@@ -14,20 +14,34 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\UnitTestCase;
 use Mockery;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
+use Illuminate\Support\Facades\Facade;
 
 /**
  * This unit test covers the basics of the NavigationItem class.
  * For the full feature test, see the MainNavigationMenuTest class.
  *
- * @covers \Hyde\Framework\Features\Navigation\NavigationItem
  *
  * @see \Hyde\Framework\Testing\Unit\NavigationItemIsActiveHelperTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationItem::class)]
 class NavigationItemTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
     protected static bool $needsRender = true;
+
+    protected function setUp(): void
+    {
+        // Clear any previous render facade instances
+        Facade::clearResolvedInstance('render');
+    }
+
+    protected function tearDown(): void
+    {
+        // Clean up mocks after each test
+        Mockery::close();
+        Facade::clearResolvedInstance('render');
+    }
 
     public function testConstruct()
     {
@@ -110,7 +124,10 @@ class NavigationItemTest extends UnitTestCase
 
     public function testToString()
     {
-        Render::shouldReceive('getRouteKey')->once()->andReturn('index');
+        // Create a fresh mock for this specific test to avoid interference
+        $mock = Mockery::mock(RenderData::class);
+        $mock->shouldReceive('getRouteKey')->andReturn('index');
+        Render::swap($mock);
 
         $this->assertSame('index.html', (string) NavigationItem::create(Routes::get('index')));
     }

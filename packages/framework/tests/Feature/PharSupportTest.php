@@ -8,9 +8,7 @@ use Hyde\Foundation\PharSupport;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Foundation\PharSupport
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\PharSupport::class)]
 class PharSupportTest extends TestCase
 {
     public function tearDown(): void
@@ -53,7 +51,7 @@ class PharSupportTest extends TestCase
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework")), Hyde::vendorPath());
+        $this->assertSame($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework")), Hyde::vendorPath());
     }
 
     public function testVendorPathCanRunInPharWithPathArgument()
@@ -61,7 +59,7 @@ class PharSupportTest extends TestCase
         PharSupport::mock('running', true);
         PharSupport::mock('hasVendorDirectory', false);
 
-        $this->assertEquals($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework/file.php")), Hyde::vendorPath('file.php'));
+        $this->assertSame($this->replaceSlashes(Hyde::path("{$this->getBaseVendorPath()}/framework/file.php")), Hyde::vendorPath('file.php'));
     }
 
     protected function getBaseVendorPath(): string

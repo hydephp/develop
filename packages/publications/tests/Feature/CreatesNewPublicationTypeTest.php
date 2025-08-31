@@ -11,10 +11,9 @@ use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
 /**
- * @covers \Hyde\Publications\Actions\CreatesNewPublicationType
- *
  * @see \Hyde\Publications\Commands\MakePublicationTypeCommand
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\CreatesNewPublicationType::class)]
 class CreatesNewPublicationTypeTest extends TestCase
 {
     protected function tearDown(): void

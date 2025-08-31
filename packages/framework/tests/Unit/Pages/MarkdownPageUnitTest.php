@@ -15,9 +15,7 @@ use Hyde\Testing\Common\BaseMarkdownPageUnitTest;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Metadata\PageMetadataBag;
 
-/**
- * @covers \Hyde\Pages\MarkdownPage
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Pages\MarkdownPage::class)]
 class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
 {
     public function testSourceDirectory()

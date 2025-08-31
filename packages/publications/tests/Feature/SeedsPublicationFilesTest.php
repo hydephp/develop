@@ -12,9 +12,7 @@ use Hyde\Publications\Models\PublicationType;
 use Hyde\Publications\Pages\PublicationPage;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Publications\Actions\SeedsPublicationFiles
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Actions\SeedsPublicationFiles::class)]
 class SeedsPublicationFilesTest extends TestCase
 {
     protected PublicationType $pubType;
@@ -137,7 +135,7 @@ class SeedsPublicationFilesTest extends TestCase
 
         $this->assertNotEmpty($publication->matter('tag'));
         $this->assertIsString($publication->matter('tag'));
-        $this->assertTrue(in_array($publication->matter('tag'), $tags));
+        $this->assertContains($publication->matter('tag'), $tags);
     }
 
     public function testWithTextType()
@@ -149,7 +147,7 @@ class SeedsPublicationFilesTest extends TestCase
 
         $this->assertNotEmpty($publication->matter('description'));
         $this->assertIsString($publication->matter('description'));
-        $this->assertTrue(substr_count($publication->matter('description'), "\n") >= 1);
+        $this->assertGreaterThanOrEqual(1, substr_count($publication->matter('description'), "\n"));
     }
 
     public function testWithUrlType()

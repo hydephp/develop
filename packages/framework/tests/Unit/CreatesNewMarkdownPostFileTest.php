@@ -10,10 +10,9 @@ use Illuminate\Support\Carbon;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 
 /**
- * @covers \Hyde\Framework\Actions\CreatesNewMarkdownPostFile
- *
  * @see \Hyde\Framework\Testing\Feature\Commands\MakePostCommandTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\CreatesNewMarkdownPostFile::class)]
 class CreatesNewMarkdownPostFileTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

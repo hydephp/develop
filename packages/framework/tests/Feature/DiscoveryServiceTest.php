@@ -32,7 +32,7 @@ class DiscoveryServiceTest extends UnitTestCase
             if (is_dir($file)) {
                 Filesystem::deleteDirectory($file);
             } else {
-                @unlink($file);
+                Filesystem::unlinkIfExists($file);
             }
         }
         $this->filesToDelete = [];
@@ -47,7 +47,9 @@ class DiscoveryServiceTest extends UnitTestCase
     protected function directory(string $path, bool $recursive = false): void
     {
         $this->filesToDelete[] = Hyde::path($path);
-        @mkdir(Hyde::path($path), recursive: $recursive);
+        if (! is_dir(Hyde::path($path))) {
+            mkdir(Hyde::path($path), recursive: $recursive);
+        }
     }
 
     public function testGetSourceFileListForModelMethodFindsDefaultModelProperties()

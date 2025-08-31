@@ -14,10 +14,9 @@ use Hyde\Testing\UnitTestCase;
 use Mockery;
 
 /**
- * @covers \Hyde\Framework\Features\Navigation\NavigationItem
- *
  * @see \Hyde\Framework\Testing\Unit\NavigationItemTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Navigation\NavigationItem::class)]
 class NavigationItemIsActiveHelperTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

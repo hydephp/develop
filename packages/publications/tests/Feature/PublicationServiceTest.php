@@ -12,10 +12,8 @@ use Hyde\Publications\Publications;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Collection;
 
-/**
- * @covers \Hyde\Publications\Publications
- * @covers \Hyde\Publications\PublicationsExtension
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\Publications::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Publications\PublicationsExtension::class)]
 class PublicationServiceTest extends TestCase
 {
     protected function setUp(): void
@@ -217,7 +215,7 @@ class PublicationServiceTest extends TestCase
 
         $file = PublicationPage::parse('test-publication/foo');
         $this->assertInstanceOf(PublicationPage::class, $file);
-        $this->assertEquals('test-publication/foo', $file->getIdentifier());
+        $this->assertSame('test-publication/foo', $file->getIdentifier());
     }
 
     public function testParsePublicationFileWithNonExistentFile()

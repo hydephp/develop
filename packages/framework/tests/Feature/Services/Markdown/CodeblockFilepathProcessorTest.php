@@ -7,9 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Services\Markdown;
 use Hyde\Markdown\Processing\CodeblockFilepathProcessor;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Markdown\Processing\CodeblockFilepathProcessor
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\CodeblockFilepathProcessor::class)]
 class CodeblockFilepathProcessorTest extends TestCase
 {
     public function testPreprocessExpandsFilepath()

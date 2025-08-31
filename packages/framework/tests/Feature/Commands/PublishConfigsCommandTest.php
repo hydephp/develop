@@ -9,9 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 
-/**
- * @covers \Hyde\Console\Commands\PublishConfigsCommand
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\PublishConfigsCommand::class)]
 class PublishConfigsCommandTest extends TestCase
 {
     public function setUp(): void
@@ -60,7 +58,7 @@ class PublishConfigsCommandTest extends TestCase
             ->expectsChoice('Which configuration files do you want to publish?', 'All configs', $this->expectedOptions())
             ->assertExitCode(0);
 
-        $this->assertNotEquals('foo', File::get(Hyde::path('config/hyde.php')));
+        $this->assertNotSame('foo', File::get(Hyde::path('config/hyde.php')));
     }
 
     protected function expectedOptions(): array

@@ -11,9 +11,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Framework\Factories\HydePageDataFactory
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Factories\HydePageDataFactory::class)]
 class HydePageDataFactoryTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

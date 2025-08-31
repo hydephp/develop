@@ -9,9 +9,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Framework\Services\MarkdownService;
 
-/**
- * @covers \Hyde\Markdown\Models\Markdown
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Models\Markdown::class)]
 class MarkdownFacadeTest extends UnitTestCase
 {
     public function testRender(): void
@@ -26,5 +24,14 @@ class MarkdownFacadeTest extends UnitTestCase
         $this->assertSame("<h1>Hello World!</h1>\n", $html);
 
         $this->verifyMockeryExpectations();
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        // Patch PHPUnit craziness by disabling this method
+        // I don't know why it errors, but I have spent
+        // far too much of my life trying to fix it.
+
+        // TODO: Check if this is broken after the Pest 4 upgrade.
     }
 }

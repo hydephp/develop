@@ -14,9 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 use Mockery\MockInterface;
 
-/**
- * @covers \Hyde\Foundation\Kernel\Filesystem
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Filesystem::class)]
 class FilesystemHasMediaFilesTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;

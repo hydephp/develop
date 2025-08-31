@@ -12,9 +12,7 @@ use Hyde\Testing\UnitTestCase;
 use Illuminate\Console\OutputStyle;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 
-/**
- * @covers \Hyde\Framework\Features\BuildTasks\BuildTask
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\BuildTasks\BuildTask::class)]
 class BuildTaskUnitTest extends UnitTestCase
 {
     public function testCanCreateBuildTask()

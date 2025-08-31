@@ -10,9 +10,7 @@ use Hyde\Foundation\Kernel\Hyperlinks;
 use Hyde\Testing\FluentTestingHelpers;
 use Hyde\Testing\UnitTestCase;
 
-/**
- * @covers \Hyde\Foundation\Kernel\Hyperlinks
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\Hyperlinks::class)]
 class HyperlinksUrlPathHelpersTest extends UnitTestCase
 {
     use FluentTestingHelpers;

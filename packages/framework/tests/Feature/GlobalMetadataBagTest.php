@@ -10,9 +10,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Testing\TestCase;
 
-/**
- * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\GlobalMetadataBag::class)]
 class GlobalMetadataBagTest extends TestCase
 {
     protected function setUp(): void

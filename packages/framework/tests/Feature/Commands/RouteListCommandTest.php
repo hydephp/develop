@@ -10,11 +10,10 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
 
 /**
- * @covers \Hyde\Console\Commands\RouteListCommand
- * @covers \Hyde\Support\Internal\RouteListItem
- *
  * @see \Hyde\Framework\Testing\Feature\RouteListTest
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\RouteListCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Internal\RouteListItem::class)]
 class RouteListCommandTest extends TestCase
 {
     public function testRouteListCommand()

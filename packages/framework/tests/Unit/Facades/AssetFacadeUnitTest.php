@@ -11,9 +11,7 @@ use Hyde\Support\Facades\Render;
 use Hyde\Support\Models\RenderData;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 
-/**
- * @covers \Hyde\Facades\Asset
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Asset::class)]
 class AssetFacadeUnitTest extends UnitTestCase
 {
     protected function setUp(): void

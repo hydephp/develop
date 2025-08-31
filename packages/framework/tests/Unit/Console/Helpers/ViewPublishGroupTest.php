@@ -11,9 +11,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Console\Helpers\ViewPublishGroup;
 use Illuminate\Support\Collection;
 
-/**
- * @covers \Hyde\Console\Helpers\ViewPublishGroup
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Helpers\ViewPublishGroup::class)]
 class ViewPublishGroupTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
@@ -47,11 +45,11 @@ class ViewPublishGroupTest extends UnitTestCase
 
         $this->assertInstanceOf(ViewPublishGroup::class, $group);
 
-        $this->assertSame($group->group, 'layouts');
-        $this->assertSame($group->name, 'Layouts');
-        $this->assertSame($group->description, "Publish the 'layouts' files for customization.");
+        $this->assertSame('layouts', $group->group);
+        $this->assertSame('Layouts', $group->name);
+        $this->assertSame("Publish the 'layouts' files for customization.", $group->description);
         $this->assertSame($group->source, ViewPublishGroupTest::$packageDirectory.'/framework/resources/views/layouts');
-        $this->assertSame($group->target, 'resources/views/vendor/hyde/layouts');
+        $this->assertSame('resources/views/vendor/hyde/layouts', $group->target);
         $this->assertSame($group->files, ['app.blade.php', 'page.blade.php', 'post.blade.php']);
     }
 
@@ -59,24 +57,24 @@ class ViewPublishGroupTest extends UnitTestCase
     {
         $group = ViewPublishGroup::fromGroup('layouts', 'Custom Layouts');
 
-        $this->assertSame($group->name, 'Custom Layouts');
-        $this->assertSame($group->description, "Publish the 'layouts' files for customization.");
+        $this->assertSame('Custom Layouts', $group->name);
+        $this->assertSame("Publish the 'layouts' files for customization.", $group->description);
     }
 
     public function testCanCreateGroupWithCustomDescription()
     {
         $group = ViewPublishGroup::fromGroup('layouts', null, 'Custom description');
 
-        $this->assertSame($group->name, 'Layouts');
-        $this->assertSame($group->description, 'Custom description');
+        $this->assertSame('Layouts', $group->name);
+        $this->assertSame('Custom description', $group->description);
     }
 
     public function testCanCreateGroupWithCustomNameAndDescription()
     {
         $group = ViewPublishGroup::fromGroup('layouts', 'Custom Layouts', 'Custom description');
 
-        $this->assertSame($group->name, 'Custom Layouts');
-        $this->assertSame($group->description, 'Custom description');
+        $this->assertSame('Custom Layouts', $group->name);
+        $this->assertSame('Custom description', $group->description);
     }
 
     public function testCanGetPublishableFilesMap()

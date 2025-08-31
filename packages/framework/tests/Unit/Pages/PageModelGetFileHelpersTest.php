@@ -27,7 +27,7 @@ class PageModelGetFileHelpersTest extends UnitTestCase
         $array = BladePage::files();
         $this->assertCount(3, $array);
         $this->assertIsArray($array);
-        $this->assertEquals(['404', 'index', 'test-page'], $array);
+        $this->assertSame(['404', 'index', 'test-page'], $array);
     }
 
     public function testMarkdownPageFilesHelperReturnsMarkdownPageArray()
@@ -37,7 +37,7 @@ class PageModelGetFileHelpersTest extends UnitTestCase
         $array = MarkdownPage::files();
         $this->assertCount(1, $array);
         $this->assertIsArray($array);
-        $this->assertEquals(['test-page'], $array);
+        $this->assertSame(['test-page'], $array);
     }
 
     public function testMarkdownPostFilesHelperReturnsMarkdownPostArray()
@@ -47,7 +47,7 @@ class PageModelGetFileHelpersTest extends UnitTestCase
         $array = MarkdownPost::files();
         $this->assertCount(1, $array);
         $this->assertIsArray($array);
-        $this->assertEquals(['test-post'], $array);
+        $this->assertSame(['test-post'], $array);
     }
 
     public function testDocumentationPageFilesHelperReturnsDocumentationPageArray()
@@ -57,7 +57,7 @@ class PageModelGetFileHelpersTest extends UnitTestCase
         $array = DocumentationPage::files();
         $this->assertCount(1, $array);
         $this->assertIsArray($array);
-        $this->assertEquals(['test-page'], $array);
+        $this->assertSame(['test-page'], $array);
     }
 
     public function testBladePageAllHelperReturnsBladePageCollection()

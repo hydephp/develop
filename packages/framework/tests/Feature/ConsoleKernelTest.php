@@ -14,12 +14,11 @@ use ReflectionMethod;
 /**
  * This test covers our custom console kernel, which is responsible for registering our custom bootstrappers.
  *
- * @covers \Hyde\Foundation\ConsoleKernel
- *
  * Our custom bootstrapping system depends on code from Laravel Zero which is marked as internal.
  * Sadly, there is no way around working with this private API. Since they may change the API
  * at any time, we have tests here to detect if their code changes, so we can catch it early.
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\ConsoleKernel::class)]
 class ConsoleKernelTest extends TestCase
 {
     public function testIsInstantiable()

@@ -14,11 +14,10 @@ use Hyde\Foundation\HydeKernel;
  * as this test does not cover all configuration cases and possible formatting options.
  *
  * This test is useful both as a regression test, and also to ensure all tags are covered.
- *
- * @covers \Hyde\Framework\Features\Metadata\MetadataBag
- * @covers \Hyde\Framework\Features\Metadata\PageMetadataBag
- * @covers \Hyde\Framework\Features\Metadata\GlobalMetadataBag
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\MetadataBag::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\PageMetadataBag::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\GlobalMetadataBag::class)]
 class MetadataViewTest extends TestCase
 {
     protected function setUp(): void
@@ -60,13 +59,13 @@ class MetadataViewTest extends TestCase
         $expected = file_get_contents(Hyde::path("_site/$page.html"));
         $actual = json_encode($tags);
 
-        $this->assertEquals(
+        $this->assertSame(
             substr_count($expected, '<meta'),
             substr_count($actual, '<meta'),
             "Failed asserting that all meta tags were covered in the page '$page'"
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             substr_count($expected, '<link'),
             substr_count($actual, '<link'),
             "Failed asserting that all link tags were covered in the page '$page'"
