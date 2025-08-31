@@ -333,6 +333,20 @@ class FilesystemFacadeUnitTest extends UnitTestCase
         Filesystem::ensureDirectoryExists('path');
     }
 
+    public function testEnsureParentDirectoryExists()
+    {
+        $this->createExpectation('ensureDirectoryExists', null, Hyde::path('path'), 0755, true);
+
+        Filesystem::ensureParentDirectoryExists('path/file.txt');
+    }
+
+    public function testEnsureParentDirectoryExistsWithParams()
+    {
+        $this->createExpectation('ensureDirectoryExists', null, Hyde::path('custom/path'), 0644, false);
+
+        Filesystem::ensureParentDirectoryExists('custom/path/file.txt', 0644, false);
+    }
+
     public function testMakeDirectory()
     {
         $this->createExpectation('makeDirectory', true, Hyde::path('path'));
