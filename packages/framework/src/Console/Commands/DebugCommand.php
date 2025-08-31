@@ -16,6 +16,7 @@ use function app;
 use function get_included_files;
 
 /**
+ * @deprecated Use 'about' command instead.
  * Print debug information.
  */
 class DebugCommand extends Command

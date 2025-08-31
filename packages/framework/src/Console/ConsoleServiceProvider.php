@@ -36,6 +36,7 @@ class ConsoleServiceProvider extends ServiceProvider
             Commands\ValidateCommand::class,
             Commands\ServeCommand::class,
             Commands\DebugCommand::class,
+            Commands\AboutCommand::class,
 
             Commands\ChangeSourceDirectoryCommand::class,
         ]);
