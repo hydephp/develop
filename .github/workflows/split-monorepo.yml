@@ -23,13 +23,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/hyde
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/hyde
           path: hyde
@@ -93,13 +93,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/framework
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/framework
           path: framework
@@ -144,13 +144,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/realtime-compiler
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/realtime-compiler
           path: realtime-compiler
@@ -194,13 +194,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/hydefront
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/hydefront
           path: hydefront
@@ -244,13 +244,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/hydephp.com
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/hydephp.com
           path: website
@@ -299,13 +299,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/testing
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/testing
           path: testing
@@ -349,13 +349,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/ui-kit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/ui-kit
           path: ui-kit
@@ -400,13 +400,13 @@ jobs:
 
     steps:
       - name: Checkout hydephp/develop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: develop
           persist-credentials: false
 
       - name: Checkout hydephp/vite-plugin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: hydephp/vite-plugin
           path: vite-plugin
