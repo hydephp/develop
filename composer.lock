@@ -8415,20 +8415,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.28",
+            "version": "2.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "fcf8b71aeab4e1a1131d1783cef97b23a51b87a9"
+                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/fcf8b71aeab4e1a1131d1783cef97b23a51b87a9",
-                "reference": "fcf8b71aeab4e1a1131d1783cef97b23a51b87a9",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/41600c8379eb5aee63e9413fe9e97273e25d57e4",
+                "reference": "41600c8379eb5aee63e9413fe9e97273e25d57e4",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0"
+                "php": "^7.4|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -8469,7 +8469,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-17T17:15:39+00:00"
+            "time": "2025-08-04T19:17:37+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -10122,22 +10122,22 @@
         },
         {
             "name": "tomasvotruba/type-coverage",
-            "version": "1.0.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TomasVotruba/type-coverage.git",
-                "reference": "01498b5cef67fa433e2f9f38b696d0ecd5131dca"
+                "reference": "d033429580f2c18bda538fa44f2939236a990e0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TomasVotruba/type-coverage/zipball/01498b5cef67fa433e2f9f38b696d0ecd5131dca",
-                "reference": "01498b5cef67fa433e2f9f38b696d0ecd5131dca",
+                "url": "https://api.github.com/repos/TomasVotruba/type-coverage/zipball/d033429580f2c18bda538fa44f2939236a990e0c",
+                "reference": "d033429580f2c18bda538fa44f2939236a990e0c",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "^3.2 || ^4.0",
-                "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.9.3"
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^2.0"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -10163,7 +10163,7 @@
             ],
             "support": {
                 "issues": "https://github.com/TomasVotruba/type-coverage/issues",
-                "source": "https://github.com/TomasVotruba/type-coverage/tree/1.0.0"
+                "source": "https://github.com/TomasVotruba/type-coverage/tree/2.0.2"
             },
             "funding": [
                 {
@@ -10175,7 +10175,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-01T15:41:12+00:00"
+            "time": "2025-01-07T00:10:26+00:00"
         }
     ],
     "aliases": [],
