@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b76e1021a6f4634eadc570b8b09843f5",
+    "content-hash": "a19dc0835301dc8f20e3c4d0c9fe2b78",
     "packages": [
         {
             "name": "brick/math",
@@ -1176,7 +1176,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-master",
+            "version": "dev-update-composer-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1223,7 +1223,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-master",
+            "version": "dev-update-composer-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -7041,7 +7041,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-master",
+            "version": "dev-update-composer-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -7123,7 +7123,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-master",
+            "version": "dev-update-composer-dependencies",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",

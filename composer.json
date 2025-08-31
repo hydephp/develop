@@ -27,8 +27,7 @@
         "hyde/testing": "*",
         "jetbrains/phpstorm-attributes": "^1.0",
         "laravel/tinker": "^2.7",
-        "pestphp/pest-plugin-type-coverage": "^3.5",
-        "phpstan/phpstan": "^1.8"
+        "pestphp/pest-plugin-type-coverage": "^3.5"
     },
     "replace": {
         "symfony/polyfill-php72": "*",
