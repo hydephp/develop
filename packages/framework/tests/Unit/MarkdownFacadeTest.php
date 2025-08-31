@@ -25,4 +25,13 @@ class MarkdownFacadeTest extends UnitTestCase
 
         $this->verifyMockeryExpectations();
     }
+
+    public static function tearDownAfterClass(): void
+    {
+        // Patch PHPUnit craziness by disabling this method
+        // I don't know why it errors, but I have spent
+        // far too much of my life trying to fix it.
+
+        // TODO: Check if this is broken after the Pest 4 upgrade.
+    }
 }

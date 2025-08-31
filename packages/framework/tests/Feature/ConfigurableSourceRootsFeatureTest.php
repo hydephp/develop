@@ -20,6 +20,33 @@ use Illuminate\Support\Facades\File;
  */
 class ConfigurableSourceRootsFeatureTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Clean up any existing test directories
+        $this->cleanupTestDirectories();
+    }
+
+    protected function tearDown(): void
+    {
+        // Clean up test directories after each test
+        $this->cleanupTestDirectories();
+
+        parent::tearDown();
+    }
+
+    protected function cleanupTestDirectories(): void
+    {
+        if (is_dir(Hyde::path('custom'))) {
+            File::deleteDirectory(Hyde::path('custom'));
+        }
+
+        if (is_dir(Hyde::path('_site'))) {
+            File::deleteDirectory(Hyde::path('_site'));
+        }
+    }
+
     public function testDefaultConfigValueIsEmptyString()
     {
         $this->assertSame('', config('hyde.source_root'));
@@ -31,8 +58,6 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
 
         $this->assertCount(1, MarkdownPage::files());
         $this->assertCount(1, MarkdownPage::all());
-
-        File::deleteDirectory(Hyde::path('custom'));
     }
 
     public function testFilesInCustomSourceRootCanBeCompiled()
@@ -42,9 +67,6 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
         $this->artisan('build');
 
         $this->assertFileExists(Hyde::path('_site/markdown.html'));
-
-        File::deleteDirectory(Hyde::path('custom'));
-        File::deleteDirectory(Hyde::path('_site'));
     }
 
     public function testHydePagePathMethodSupportsCustomSourceRoots()
@@ -59,8 +81,13 @@ class ConfigurableSourceRootsFeatureTest extends TestCase
 
     protected function setupCustomSourceRoot(): void
     {
-        mkdir(Hyde::path('custom'));
-        mkdir(Hyde::path('custom/_pages'));
+        // Ensure directories exist without throwing error if they already exist
+        if (! is_dir(Hyde::path('custom'))) {
+            mkdir(Hyde::path('custom'));
+        }
+        if (! is_dir(Hyde::path('custom/_pages'))) {
+            mkdir(Hyde::path('custom/_pages'));
+        }
 
         config(['hyde.source_root' => 'custom']);
         (new HydeServiceProvider(app()))->register();
