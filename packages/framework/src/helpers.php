@@ -119,6 +119,13 @@ namespace Hyde {
         }
     }
 
+    if (! function_exists('\Hyde\title')) {
+        function title(string $value): string
+        {
+            return hyde()->makeTitle($value);
+        }
+    }
+
     if (! function_exists('\Hyde\normalize_newlines')) {
         function normalize_newlines(string $string): string
         {
