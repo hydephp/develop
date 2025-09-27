@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Console\Commands;
+namespace Hyde\RealtimeCompiler\Console\Commands;
 
 use Closure;
 use Hyde\Facades\Filesystem;
