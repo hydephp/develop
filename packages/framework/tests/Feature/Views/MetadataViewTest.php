@@ -26,6 +26,8 @@ class MetadataViewTest extends TestCase
 
         $this->withSiteUrl();
         config(['hyde.cache_busting' => false]);
+
+        @unlink('app/storage/framework/runtime/vite.hot');
     }
 
     protected function build(?string $page = null): void

@@ -226,7 +226,7 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('vite latest output')
             ->assertExitCode(0);
 
-        $this->assertFileExists('app/storage/framework/runtime/vite.hot');
+        $this->assertFileDoesNotExist('app/storage/framework/runtime/vite.hot');
     }
 
     public function testHydeServeCommandWithViteOptionButViteNotRunning()
@@ -269,18 +269,24 @@ class ServeCommandTest extends TestCase
             ->expectsOutput('Starting the HydeRC server... Use Ctrl+C to stop')
             ->assertExitCode(0);
 
-        $this->assertFileExists('app/storage/framework/runtime/vite.hot');
+        $this->assertFileDoesNotExist('app/storage/framework/runtime/vite.hot');
     }
 
     public function testHydeServeCommandWithViteOptionThrowsWhenPortIsInUse()
     {
-        $socket = stream_socket_server('tcp://127.0.0.1:5173');
+        $socket = stream_socket_server('tcp://127.0.0.1:5173', $errno, $errstr);
 
-        $this->artisan('serve --vite')
-            ->expectsOutputToContain('Unable to start Vite server: Port 5173 is already in use')
-            ->assertExitCode(1);
+        if ($socket === false) {
+            $this->markTestSkipped("Unable to create test socket server: $errstr (errno: $errno)");
+        }
 
-        stream_socket_shutdown($socket, STREAM_SHUT_RDWR);
+        try {
+            $this->artisan('serve --vite')
+                ->expectsOutputToContain('Unable to start Vite server: Port 5173 is already in use')
+                ->assertExitCode(1);
+        } finally {
+            stream_socket_shutdown($socket, STREAM_SHUT_RDWR);
+        }
     }
 
     protected function binaryPath(): string
