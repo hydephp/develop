@@ -74,7 +74,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function makeDescription(): string
     {
-        return $this->getMatter('description') ?? $this->makeDescriptionFromMarkdownBody();
+        return $this->getMatter('description') ?? $this->getMatter('excerpt') ?? $this->makeDescriptionFromMarkdownBody();
     }
 
     protected function makeCategory(): ?string

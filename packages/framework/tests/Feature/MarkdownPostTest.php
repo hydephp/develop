@@ -190,6 +190,25 @@ class MarkdownPostTest extends TestCase
         Filesystem::unlink('_site/feed-test.html');
     }
 
+    public function testConstructorCanUseExcerptAsAliasForDescription()
+    {
+        $post = new MarkdownPost(matter: FrontMatter::fromArray([
+            'excerpt' => 'This is the excerpt content',
+        ]));
+
+        $this->assertSame('This is the excerpt content', $post->description);
+    }
+
+    public function testConstructorPrioritizesDescriptionOverExcerptWhenBothAreSet()
+    {
+        $post = new MarkdownPost(matter: FrontMatter::fromArray([
+            'description' => 'This is the description',
+            'excerpt' => 'This is the excerpt',
+        ]));
+
+        $this->assertSame('This is the description', $post->description);
+    }
+
     protected function setupMediaFileAndCacheBusting(bool $enableCacheBusting = false): void
     {
         $this->file('_media/foo.png', 'test content');
