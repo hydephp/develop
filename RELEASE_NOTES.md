@@ -66,6 +66,7 @@ This serves two purposes:
 - You can now add custom posts to the blog post feed component when including it directly in [#1893](https://github.com/hydephp/develop/pull/1893)
 - You can now specify sidebar item priorities by adding a numeric prefix to documentation page source file names in [#1709](https://github.com/hydephp/develop/pull/1709)
 - You can now forward method calls to the underlying `DateTime` instance in `DateString` instances in [#2235](https://github.com/hydephp/develop/pull/2235)
+- Added `Filesystem::ensureParentDirectoryExists()` method to reduce repetitive code when ensuring parent directories exist in [#2293](https://github.com/hydephp/develop/pull/2293)
 
 ### Changed
 
