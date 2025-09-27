@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/hydephp/vite-plugin",
   "peerDependencies": {
-    "vite": "^6.3.5"
+    "vite": ">=6.3.5 <8.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "terser": "^5.29.2",
     "typescript": "^5.0.0",
-    "vite": "^6.3.5"
+    "vite": "^7.1.3"
   }
 }
