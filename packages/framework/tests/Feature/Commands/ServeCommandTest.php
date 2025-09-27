@@ -14,7 +14,7 @@ use TypeError;
 /**
  * @see \Hyde\Framework\Testing\Unit\ServeCommandOptionsUnitTest
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\ServeCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\RealtimeCompiler\Console\Commands\ServeCommand::class)]
 class ServeCommandTest extends TestCase
 {
     protected function setUp(): void
