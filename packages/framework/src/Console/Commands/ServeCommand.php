@@ -70,6 +70,10 @@ class ServeCommand extends Command
 
         $this->handleRunningProcesses();
 
+        if ($this->option('vite')) {
+            $this->cleanupViteHotFile();
+        }
+
         return Command::SUCCESS;
     }
 
@@ -220,13 +224,26 @@ class ServeCommand extends Command
     /** @experimental This feature may be removed before the final release. */
     protected function isPortAvailable(int $port): bool
     {
-        $socket = @fsockopen('localhost', $port, $errno, $errstr, 1);
-        if ($socket !== false) {
-            fclose($socket);
+        $addresses = ['localhost', '127.0.0.1'];
 
-            return false;
+        foreach ($addresses as $address) {
+            $socket = @fsockopen($address, $port, $errno, $errstr, 1);
+            if ($socket !== false) {
+                fclose($socket);
+
+                return false;
+            }
         }
 
         return true;
+    }
+
+    protected function cleanupViteHotFile(): void
+    {
+        $hotFile = 'app/storage/framework/runtime/vite.hot';
+
+        if (Filesystem::exists($hotFile)) {
+            Filesystem::unlinkIfExists($hotFile);
+        }
     }
 }
