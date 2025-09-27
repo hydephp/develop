@@ -333,6 +333,23 @@ class FilesystemFacadeUnitTest extends UnitTestCase
         Filesystem::ensureDirectoryExists('path');
     }
 
+    public function testEnsureParentDirectoryExists()
+    {
+        $mock = $this->mockFilesystem();
+
+        $mock->shouldReceive('dirname')
+            ->with(Hyde::path('file.txt'))
+            ->once()
+            ->andReturn(Hyde::path('parent'));
+
+        $mock->shouldReceive('ensureDirectoryExists')
+            ->with(Hyde::path('parent'), 0755, true)
+            ->once()
+            ->andReturnNull();
+
+        Filesystem::ensureParentDirectoryExists('file.txt');
+    }
+
     public function testMakeDirectory()
     {
         $this->createExpectation('makeDirectory', true, Hyde::path('path'));
