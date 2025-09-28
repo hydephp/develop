@@ -35,6 +35,7 @@ class ConsoleServiceProvider extends ServiceProvider
             Commands\RouteListCommand::class,
             Commands\ValidateCommand::class,
             Commands\DebugCommand::class,
+            Commands\AboutCommand::class,
 
             Commands\ChangeSourceDirectoryCommand::class,
         ]);
