@@ -66,6 +66,10 @@ You can check if the Vite HMR server is running with `Vite::running()`, and you 
 @endif
 ```
 
+### Laravel Herd
+
+If using Laravel Herd for HydePHP, you can still use Vite by running `npm run dev`. The Herd integration is in public beta, please report any issues to https://github.com/hydephp/realtime-compiler.
+
 ## Additional Information and Answers to Common Questions
 
 ### Is NodeJS/NPM Required for Using Hyde?
