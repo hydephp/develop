@@ -17,7 +17,7 @@ To get you started quickly, all the styles are already compiled and minified int
 
 ## Vite
 
-Hyde uses [Vite](https://vitejs.dev/) to compile assets. Vite is a build tool that aims to provide a faster and more efficient development experience for modern web projects.
+Hyde uses [Vite](https://vite.dev/) to compile assets. Vite is a build tool that aims to provide a faster and more efficient development experience for modern web projects.
 
 ### Why Vite?
 
