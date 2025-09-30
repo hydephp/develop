@@ -332,9 +332,9 @@ Documentation sidebar configuration has been reorganized:
 
 - **Documentation**: [https://hydephp.com/docs/2.x](https://hydephp.com/docs/2.x)
 - **Upgrade Guide**: [https://hydephp.com/docs/2.x/upgrade-guide](https://hydephp.com/docs/2.x/upgrade-guide)
-- **GitHub Issues**: [https://github.com/hydephp/develop/issues](https://github.com/hydephp/develop/issues)
+- **GitHub Issues**: [https://github.com/hydephp/hyde/issues](https://github.com/hydephp/hyde/issues)
 - **Community Discord**: [https://discord.gg/hydephp](https://discord.gg/hydephp)
 
 ---
 
-For the complete changelog with all pull request references, see the [full changelog](https://github.com/hydephp/develop/releases/tag/v2.0.0).
+For the complete changelog with all pull request references, see the [full changelog](https://github.com/hydephp/hyde/releases/tag/v2.0.0).
