@@ -14,6 +14,7 @@ We've replaced Laravel Mix with Vite for a faster, more modern development exper
 - **Simplified build command**: Use `npm run build` instead of `npm run prod`
 - **Vite facade** for seamless Blade template integration
 - **Optimized asset serving** through the realtime compiler
+- **Hyde Vite plugin** for enhanced integration
 
 ### 🎨 Enhanced Asset Management System
 
@@ -32,6 +33,7 @@ The navigation system has been completely rewritten for maximum flexibility:
 - **Improved Routes facade** with Laravel-consistent naming conventions
 - **Natural priority ordering** using numeric prefixes in filenames
 - **Enhanced sidebar management** with better organization options
+- **Navigation config builder class** for simplified configuration
 
 ### 📝 Improved Documentation Features
 
@@ -41,6 +43,7 @@ Documentation pages now benefit from several enhancements:
 - **Custom heading renderer** with improved permalink handling
 - **Colored blockquotes** using Tailwind CSS classes
 - **Smart natural language processing** for search headings
+- **Dynamic source file links** in Markdown documents
 
 ### 🎯 Better Developer Experience
 
@@ -50,6 +53,8 @@ Numerous quality-of-life improvements for developers:
 - **Tailwind CSS v4** with automated upgrade tools
 - **Enhanced data collections** with syntax validation
 - **Improved error messages** with clearer exception handling
+- **Interactive publish:views command** on Unix systems
+- **Extension callbacks** with `booting()` and `booted()` methods
 
 ## Breaking Changes & Upgrade Guide
 
@@ -158,6 +163,8 @@ Key changes:
 - `Author::get()` returns `null` if not found (previously created new instance)
 - Usernames are automatically normalized (lowercase, underscores for spaces)
 - Authors support biographies, avatars, and social media links
+- A new `Hyde::authors()` method provides access to all site authors
+- Authors can be configured via YAML
 
 ### Medium Impact Changes
 
@@ -191,6 +198,14 @@ $route = Routes::find('route-name');       // Returns null if not found
 $route = Routes::get('route-name');        // Throws exception
 ```
 
+#### DataCollection API
+
+- Class renamed from `DataCollections` to `DataCollection`
+- Syntax validation now throws `ParseException` for malformed files
+- Empty data files are no longer allowed
+- Directory creation is no longer automatic
+- The `route` function now throws `RouteNotFoundException` if route not found
+
 ### Low Impact Changes
 
 #### Includes Facade Return Types
@@ -207,12 +222,16 @@ Methods now return `HtmlString` objects:
 
 ⚠️ **Security Note:** Output is no longer escaped by default. Use `{{ e(Includes::html('foo')) }}` for user-generated content.
 
-#### DataCollection API
+#### Documentation Search Generation
 
-- Class renamed from `DataCollections` to `DataCollection`
-- Syntax validation now throws `ParseException` for malformed files
-- Empty data files are no longer allowed
-- Directory creation is no longer automatic
+The documentation search page is now generated as an `InMemoryPage` instead of a post-build task, meaning it appears in the dashboard and route list.
+
+#### Sidebar Configuration
+
+Documentation sidebar configuration has been reorganized:
+- `docs.sidebar_order` → `docs.sidebar.order`
+- `docs.table_of_contents` → `docs.sidebar.table_of_contents`
+- `docs.sidebar_group_labels` → `docs.sidebar.labels`
 
 ## New Features
 
@@ -222,6 +241,7 @@ Methods now return `HtmlString` objects:
 - **Date prefixes in filenames** for automatic publishing dates
 - **Rich markup data** with BlogPosting Schema.org type
 - **Author collections** accessible via `Hyde::authors()`
+- **Custom posts support** in blog feed component
 
 ### Improved Build System
 
@@ -229,6 +249,7 @@ Methods now return `HtmlString` objects:
 - **Smart asset compilation** - app.js only compiles when needed
 - **Environment variable support** for saving previews
 - **Grouped progress bars** for InMemoryPage instances
+- **Media asset transfers** via dedicated build task
 
 ### Developer Tools
 
@@ -236,6 +257,8 @@ Methods now return `HtmlString` objects:
 - **Custom HydeSearch.js** support for search customization
 - **Extension callbacks** with `booting()` and `booted()` methods
 - **Dynamic source file links** in Markdown documents
+- **Feature::fromName()** enum helper
+- **Filesystem::ensureParentDirectoryExists()** helper method
 
 ## Package Updates
 
@@ -278,6 +301,8 @@ Methods now return `HtmlString` objects:
 - [ ] Test site menus for correct ordering and appearance
 - [ ] Verify media assets are loading correctly
 - [ ] Check that all DataCollection files have valid syntax
+- [ ] Update sidebar configuration structure in `config/docs.php`
+- [ ] Review Includes facade usage for security implications
 
 ## Removed Features
 
@@ -289,12 +314,19 @@ Methods now return `HtmlString` objects:
 
 ### Build Commands
 - `npm run prod` - replaced by `npm run build`
-- `--run-dev` and `--run-prod` flags - replaced by `--run-vite`
+- `--run-dev` and `--run-prod` flags - replaced by `--vite`
+- `--run-prettier` flag - Prettier dependency removed
 
 ### Configuration Options
 - `hyde.hydefront_version` and `hyde.hydefront_cdn_url` - now handled automatically
 - `hyde.enable_cache_busting` - renamed to `hyde.cache_busting`
 - `hyde.navigation.subdirectories` - renamed to `hyde.navigation.subdirectory_display`
+
+### Components and Files
+- `hyde.css` from HydeFront - all styles now in `app.css`
+- `table-of-contents.css`, `heading-permalinks.css`, `blockquotes.css` - styles now use Tailwind
+- `.torchlight-enabled` CSS class
+- `<x-hyde::docs.search-input />` and `<x-hyde::docs.search-scripts />` components - replaced by `<x-hyde::docs.hyde-search />`
 
 ## Support & Resources
 
