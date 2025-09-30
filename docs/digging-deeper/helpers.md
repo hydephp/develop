@@ -208,7 +208,7 @@ From this, you can access the same methods as you would from the `Hyde` facade.
 ```php
 hyde(); // Returns the HydeKernel instance
 
-hyde()->routes()) === Hyde::routes(); // true
+hyde()->routes() === Hyde::routes(); // true
 ```
 
 It's up to you if you want to use the facade or the global function, or a mix of both.

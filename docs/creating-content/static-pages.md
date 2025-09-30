@@ -79,7 +79,7 @@ navigation:
 - `label` is the text that will be displayed in the navigation menu
 - `priority` is the order in which the page will appear in the navigation menu (`order` is also supported)
 - `hidden` will hide the page from the navigation menu (`visible` is also supported, but obviously invert the value)
-- `group` will put the page in a dropdown menu with the specified group name (`category`) is also supported)
+- `group` will put the page in a dropdown menu with the specified group name (`category` is also supported)
 
 ## Creating Blade Pages
 
