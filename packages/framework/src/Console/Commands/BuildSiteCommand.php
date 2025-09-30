@@ -18,6 +18,7 @@ use function array_search;
 use function microtime;
 use function sprintf;
 use function app;
+use function Termwind\render;
 
 /**
  * Run the static site build process.
@@ -44,7 +45,7 @@ class BuildSiteCommand extends Command
 
         $timeStart = microtime(true);
 
-        $this->title('Building your static site!');
+        $this->printStartBanner();
 
         $this->service = new BuildService($this->output);
 
@@ -61,6 +62,31 @@ class BuildSiteCommand extends Command
         return $this->getExitCode();
     }
 
+    protected function printStartBanner(): void
+    {
+        $lines = [
+            '',
+            '<span class="text-blue-500">HydePHP Static Site Builder</span>',
+            '<span class="text-gray">Building your static site...</span>',
+            '',
+        ];
+
+        $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
+
+        $lines = array_map(function (string $line) use ($lineLength): string {
+            return sprintf('&nbsp;│&nbsp;<span class="text-white">%s</span>%s│',
+                $line, str_repeat('&nbsp;', ($lineLength - strlen(strip_tags($line))) + 1)
+            );
+        }, $lines);
+
+        $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
+        $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
+
+        $body = implode('<br>', array_merge([''], [$topLine], $lines, [$bottomLine], ['']));
+
+        render("<div class=\"text-green-500\">$body</div>");
+    }
+
     protected function configureBuildTaskService(): void
     {
         /** @var BuildTaskService $taskService */
@@ -73,7 +99,7 @@ class BuildSiteCommand extends Command
     protected function runPreBuildActions(): void
     {
         if ($this->option('no-api')) {
-            $this->info('Disabling external API calls');
+            render('<div class="mx-2"><span class="text-blue-500">ℹ</span> <span class="text-white">Disabling external API calls</span></div>');
             $this->newLine();
             /** @var array<string, string> $config */
             $config = Config::getArray('hyde.features', []);
@@ -82,12 +108,13 @@ class BuildSiteCommand extends Command
         }
 
         if ($this->option('pretty-urls')) {
-            $this->info('Generating site with pretty URLs');
+            render('<div class="mx-2"><span class="text-blue-500">ℹ</span> <span class="text-white">Generating site with pretty URLs</span></div>');
             $this->newLine();
             Config::set(['hyde.pretty_urls' => true]);
         }
 
         if ($this->option('vite')) {
+            render('<div class="mx-2"><span class="text-blue-500">ℹ</span> <span class="text-white">Building frontend assets</span></div>');
             $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
         }
 
@@ -103,24 +130,43 @@ class BuildSiteCommand extends Command
     {
         if ($this->hasWarnings()) {
             $this->newLine();
-            $this->error('There were some warnings during the build process:');
+            render('<div class="mx-2"><span class="text-yellow-500">⚠</span> <span class="text-yellow-500">Build completed with warnings</span></div>');
             $this->newLine();
             BuildWarnings::writeWarningsToOutput($this->output, $this->output->isVerbose());
+            $this->newLine();
         }
 
         $executionTime = (microtime(true) - $timeStart);
-        $this->info(sprintf(
-            "\nAll done! Finished in %s seconds (%sms) with %sMB peak memory usage",
-            number_format($executionTime, 2),
-            number_format($executionTime * 1000, 2),
-            number_format(memory_get_peak_usage() / 1024 / 1024, 2)
-        ));
+        $executionTimeSeconds = number_format($executionTime, 2);
+        $executionTimeMs = number_format($executionTime * 1000, 2);
+        $memoryPeak = number_format(memory_get_peak_usage() / 1024 / 1024, 2);
+        $outputPath = Hyde::sitePath('index.html');
 
-        $this->info('Congratulations! 🎉 Your static site has been built!');
-        $this->line(
-            'Your new homepage is stored here -> '.
-            static::fileLink(Hyde::sitePath('index.html'))
-        );
+        $lines = [
+            '',
+            '<span class="text-green-500">✓</span> <span class="text-white">Build completed successfully!</span>',
+            '',
+            sprintf('<span class="text-white">Time:</span> <span class="text-yellow-500">%ss</span> <span class="text-gray">(%sms)</span>', $executionTimeSeconds, $executionTimeMs),
+            sprintf('<span class="text-white">Memory:</span> <span class="text-yellow-500">%sMB</span> <span class="text-gray">peak</span>', $memoryPeak),
+            '',
+            sprintf('<span class="text-white">Output:</span> <a href="file://%s" class="text-blue-500">%s</a>', $outputPath, $outputPath),
+            '',
+        ];
+
+        $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
+
+        $lines = array_map(function (string $line) use ($lineLength): string {
+            return sprintf('&nbsp;│&nbsp;<span class="text-white">%s</span>%s│',
+                $line, str_repeat('&nbsp;', ($lineLength - strlen(strip_tags($line))) + 1)
+            );
+        }, $lines);
+
+        $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
+        $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
+
+        $body = implode('<br>', array_merge([''], [$topLine], $lines, [$bottomLine], ['']));
+
+        render("<div class=\"text-green-500\">$body</div>");
     }
 
     protected function runNodeCommand(string $command, string $message, ?string $actionMessage = null): void
