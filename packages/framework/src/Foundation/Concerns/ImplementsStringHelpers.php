@@ -46,7 +46,11 @@ trait ImplementsStringHelpers
         // Transliterate international characters to ASCII
         $value = Str::transliterate($value);
 
-        // Todo: In v2.0 we will use the following dictionary: ['@' => 'at', '&' => 'and']
+        // Normalize a couple of common symbols before slugging (since v2)
+        $value = strtr($value, [
+            '@' => ' at ',
+            '&' => ' and ',
+        ]);
 
         return Str::slug($value);
     }

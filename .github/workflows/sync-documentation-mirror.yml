@@ -1,0 +1,75 @@
+name: Sync documentation mirror
+
+on:
+  push:
+    branches: [ master, '1.x' ]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/sync-documentation-mirror.yml'
+
+# Avoid overlapping runs trying to push at once
+concurrency:
+  group: sync-docs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'hydephp/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Determine target subdirectory (1.x vs 2.x)
+        id: vars
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "master" ]; then
+            echo "TARGET_SUBDIR=2.x" >> "$GITHUB_OUTPUT"
+          elif [ "${GITHUB_REF_NAME}" = "1.x" ]; then
+            echo "TARGET_SUBDIR=1.x" >> "$GITHUB_OUTPUT"
+          else
+            echo "Unsupported branch: ${GITHUB_REF_NAME}"
+            exit 78
+          fi
+
+      - name: Clone target repo (hydephp/docs)
+        env:
+          TOKEN: ${{ secrets.DOCS_SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TOKEN}" ]; then
+            echo "❌ Missing DOCS_SYNC_TOKEN secret with repo access to hydephp/docs."
+            exit 1
+          fi
+          git clone --depth 1 "https://x-access-token:${TOKEN}@github.com/hydephp/docs.git" target-docs
+
+      - name: Replace target directory with monorepo /docs
+        run: |
+          set -euo pipefail
+          DEST="target-docs/${{ steps.vars.outputs.TARGET_SUBDIR }}"
+          # Remove and recreate the target subdir to ensure a full replacement
+          rm -rf "$DEST"
+          mkdir -p "$DEST"
+          # Mirror monorepo docs into the dest (delete removed files)
+          rsync -a --delete --exclude='.git' ./docs/ "$DEST/"
+
+      - name: Commit & push if there are changes
+        env:
+          GIT_AUTHOR_NAME: hydephp-bot
+          GIT_AUTHOR_EMAIL: bot@hydephp.com
+          GIT_COMMITTER_NAME: hydephp-bot
+          GIT_COMMITTER_EMAIL: bot@hydephp.com
+          TOKEN: ${{ secrets.DOCS_SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd target-docs
+          git add -A
+          if git diff --cached --quiet; then
+            echo "✅ No changes to sync."
+            exit 0
+          fi
+          git commit -m "Sync docs from ${GITHUB_REPOSITORY}@${GITHUB_SHA} (${GITHUB_REF_NAME}) → ${{ steps.vars.outputs.TARGET_SUBDIR }}"
+          # Push to main on hydephp/docs
+          git push origin HEAD:main

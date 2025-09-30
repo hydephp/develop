@@ -19,7 +19,7 @@ mainly example driven, as it is assumed you have somewhat of an understanding of
 
 Each page type is represented by a page model class. Each of those classes have static properties that store the source and output directories.
 These properties are set when the [`HydeServiceProvider`](https://github.com/hydephp/framework/blob/master/src/Framework/HydeServiceProvider.php)
-is registered, at which point the provider will search for any overrides in the config file.
+is registered. At this point, the provider will search for any overrides in the config file.
 
 **This means that there are two options to change the source and output directories:**
 1. **Recommended:** You can change the values in the config file, to let the `HydeServiceProvider` handle it for you.
@@ -110,8 +110,8 @@ public function register(): void
 ### Route key impact
 
 For example, changing the output directory of Markdown posts to `blog` instead of `posts` will change the route key base from `posts` to `blog`.
-This means that a file stored as `_posts/hello-world.md` will have the route key `blog/hello-world` instead of `posts/hello-world`,
-this may break your site's configuration and links, so you should always verify your site works properly after such a change.
+This means that a file stored as `_posts/hello-world.md` will have the route key `blog/hello-world` instead of `posts/hello-world`.
+Note that this may break your site's configuration and links, so you should always verify your site works properly after such a change.
 You can learn more about this in the [route key documentation](core-concepts#paths-identifiers-and-route-keys).
 
 ## Custom Source Root

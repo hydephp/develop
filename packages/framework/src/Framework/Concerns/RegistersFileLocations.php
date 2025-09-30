@@ -104,7 +104,7 @@ trait RegistersFileLocations
 
     private function getPageConfiguration(string $option, string $class, string $default): string
     {
-        return Config::getNullableString("hyde.$option.".Str::kebab(class_basename($class))) /** @experimental Support for using kebab-case class names */
+        return Config::getNullableString("hyde.$option.".Str::kebab(class_basename($class)))
             ?? Config::getNullableString("hyde.$option.$class")
             ?? $default;
     }

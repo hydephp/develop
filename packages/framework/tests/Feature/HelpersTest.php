@@ -30,6 +30,7 @@ use Hyde\Framework\Exceptions\FileNotFoundException;
 #[\PHPUnit\Framework\Attributes\CoversFunction('\Hyde\unixsum')]
 #[\PHPUnit\Framework\Attributes\CoversFunction('\Hyde\unixsum_file')]
 #[\PHPUnit\Framework\Attributes\CoversFunction('\Hyde\make_title')]
+#[\PHPUnit\Framework\Attributes\CoversFunction('\Hyde\title')]
 #[\PHPUnit\Framework\Attributes\CoversFunction('\Hyde\normalize_newlines')]
 #[\PHPUnit\Framework\Attributes\CoversFunction('\Hyde\strip_newlines')]
 #[\PHPUnit\Framework\Attributes\CoversFunction('\Hyde\trim_slashes')]
@@ -286,6 +287,11 @@ class HelpersTest extends TestCase
     public function testHydeMakeTitleFunction()
     {
         $this->assertSame(Hyde::makeTitle('foo'), \Hyde\make_title('foo'));
+    }
+
+    public function testHydeTitleFunction()
+    {
+        $this->assertSame(Hyde::makeTitle('foo'), \Hyde\title('foo'));
     }
 
     public function testHydeNormalizeNewlinesFunction()

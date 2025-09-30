@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Console\Commands;
+namespace Hyde\RealtimeCompiler\Console\Commands;
 
 use Closure;
 use Hyde\Facades\Filesystem;
@@ -12,6 +12,7 @@ use Illuminate\Contracts\Process\InvokedProcess;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Sleep;
 use InvalidArgumentException;
+use Exception;
 use Hyde\Console\Concerns\Command;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
@@ -196,9 +197,17 @@ class ServeCommand extends Command
             );
         }
 
+        $this->ensureNodeModulesAvailable();
+
         Filesystem::touch('app/storage/framework/runtime/vite.hot');
 
-        $this->vite = Process::forever()->start('npm run dev');
+        try {
+            $this->vite = Process::forever()->start('npm run dev');
+        } catch (Exception $exception) {
+            throw new InvalidArgumentException(
+                'Unable to start Vite server: '.$exception->getMessage()
+            );
+        }
     }
 
     protected function handleRunningProcesses(): void
@@ -221,7 +230,6 @@ class ServeCommand extends Command
         }
     }
 
-    /** @experimental This feature may be removed before the final release. */
     protected function isPortAvailable(int $port): bool
     {
         $addresses = ['localhost', '127.0.0.1'];
@@ -244,6 +252,54 @@ class ServeCommand extends Command
 
         if (Filesystem::exists($hotFile)) {
             Filesystem::unlinkIfExists($hotFile);
+        }
+    }
+
+    protected function ensureNodeModulesAvailable(): void
+    {
+        if (! $this->nodeModulesInstalled()) {
+            if ($this->input->isInteractive()) {
+                $this->warn('Node modules are not installed. Vite requires Node dependencies to function.');
+
+                if ($this->confirm('Would you like to install them now?', true)) {
+                    $this->installNodeModules();
+                } else {
+                    throw new InvalidArgumentException(
+                        'The --vite flag cannot be used if Vite is not installed. Please run "npm install" first.'
+                    );
+                }
+            } else {
+                throw new InvalidArgumentException(
+                    'Node modules are not installed. The --vite flag cannot be used if Vite is not installed. Please run "npm install" first.'
+                );
+            }
+        }
+    }
+
+    protected function nodeModulesInstalled(): bool
+    {
+        return Filesystem::exists(Hyde::path('node_modules'))
+            && Filesystem::exists(Hyde::path('package.json'));
+    }
+
+    protected function installNodeModules(): void
+    {
+        $this->info('Installing Node modules...');
+
+        $process = Process::run('npm install');
+
+        if ($process->failed()) {
+            throw new InvalidArgumentException(
+                'Failed to install Node modules: '.$process->errorOutput()
+            );
+        }
+
+        $this->info('Node modules installed successfully.');
+
+        if (! $this->nodeModulesInstalled()) {
+            throw new InvalidArgumentException(
+                'Node modules installation completed but dependencies are still not available.'
+            );
         }
     }
 }

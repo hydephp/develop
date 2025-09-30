@@ -14,7 +14,7 @@ interface BlogPostSchema extends PageSchema
 {
     public const BLOG_POST_SCHEMA = [
         'title' => 'string',
-        'description' => 'string',
+        'description' => 'string',  // Excerpt is also supported
         'category' => 'string',
         'date' => 'string',
         'author' => ['string', AuthorSchema::AUTHOR_SCHEMA],

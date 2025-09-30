@@ -12,7 +12,6 @@ use function rtrim;
 use function sprintf;
 use function explode;
 
-/** @experimental This class may change significantly before its release. */
 class ParseException extends RuntimeException
 {
     /** @var int */

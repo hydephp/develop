@@ -41,7 +41,7 @@ The specific usage and schemas used for pages are documented in their respective
 - The front matter should be the very first thing in the Markdown file.
 - Each key-pair value should be on its own line.
 
-**To use Front Matter, add Yaml to the top of your Markdown file:**
+**To use Front Matter, add YAML to the top of your Markdown file:**
 
 ```markdown
 ---
@@ -58,7 +58,7 @@ Lorem ipsum dolor sit amet, etc.
 
 ### Front Matter in Blade
 
-HydePHP has experimental support for creating front-matter in Blade templates, called BladeMatter.
+HydePHP has basic support for creating front-matter in Blade templates, called BladeMatter.
 
 The actual syntax does not use YAML; but instead PHP. However, the parsed end result is the same. Please note that
 BladeMatter currently does not support multidimensional arrays or multi-line directives as the data is statically parsed.

@@ -19,9 +19,6 @@ use function collect;
 use function in_array;
 use function strtolower;
 
-/**
- * @experimental This class may change significantly before its release.
- */
 class NavigationMenuGenerator
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */
@@ -194,8 +191,7 @@ class NavigationMenuGenerator
 
     protected function searchForGroupLabelInConfig(string $groupKey): ?string
     {
-        // TODO: Normalize this: sidebar_group_labels -> docs.sidebar.labels
-        return $this->getConfigArray($this->generatesSidebar ? 'docs.sidebar_group_labels' : 'hyde.navigation.labels')[$groupKey] ?? null;
+        return $this->getConfigArray($this->generatesSidebar ? 'docs.sidebar.labels' : 'hyde.navigation.labels')[$groupKey] ?? null;
     }
 
     protected function searchForGroupPriorityInConfig(string $groupKey): ?int

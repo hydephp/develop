@@ -17,7 +17,7 @@ To get you started quickly, all the styles are already compiled and minified int
 
 ## Vite
 
-Hyde uses [Vite](https://vitejs.dev/) to compile assets. Vite is a build tool that aims to provide a faster and more efficient development experience for modern web projects.
+Hyde uses [Vite](https://vite.dev/) to compile assets. Vite is a build tool that aims to provide a faster and more efficient development experience for modern web projects.
 
 ### Why Vite?
 
@@ -65,6 +65,10 @@ You can check if the Vite HMR server is running with `Vite::running()`, and you 
     <link rel="stylesheet" href="{{ asset('media/app.css') }}">
 @endif
 ```
+
+### Laravel Herd
+
+If using Laravel Herd for HydePHP, you can still use Vite by running `npm run dev`. The Herd integration is in public beta, please report any issues to https://github.com/hydephp/realtime-compiler.
 
 ## Additional Information and Answers to Common Questions
 

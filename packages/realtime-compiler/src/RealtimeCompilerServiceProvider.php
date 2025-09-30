@@ -9,6 +9,7 @@ use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 use Hyde\RealtimeCompiler\Console\Commands\HerdInstallCommand;
+use Hyde\RealtimeCompiler\Console\Commands\ServeCommand;
 
 class RealtimeCompilerServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,7 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 HerdInstallCommand::class,
+                ServeCommand::class,
             ]);
         }
     }

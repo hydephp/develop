@@ -9,7 +9,7 @@ use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Process\Factory;
 use Illuminate\Console\OutputStyle;
-use Hyde\Console\Commands\ServeCommand;
+use Hyde\RealtimeCompiler\Console\Commands\ServeCommand;
 use Illuminate\Support\Facades\Process;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\ServeCommandTest
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\ServeCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\RealtimeCompiler\Console\Commands\ServeCommand::class)]
 class ServeCommandOptionsUnitTest extends UnitTestCase
 {
     protected function setUp(): void

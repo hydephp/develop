@@ -64,7 +64,6 @@ class ConsoleOutput
         };
     }
 
-    /** @experimental */
     public function printMessage(string $message, string $context): void
     {
         $this->output->writeln(sprintf('%s ::context=[%s]', $message, $context));
