@@ -414,6 +414,10 @@ If you have used any of the following selectors in custom code you wrote yoursel
 - Rename HTML ID `#searchMenuButton` to `#search-menu-button`
 - Rename HTML ID `#searchMenuButtonMobile` to `#search-menu-button-mobile`
 
+### Edge case changes to slug generation
+
+Slug generation now normalizes two symbols before slugging (@ → at, & → and). This may change permalinks for titles containing these symbols. (https://github.com/hydephp/develop/pull/2314)
+
 ### New documentation search implementation
 
 As the new documentation search implementation brings changes to their code API you may need to adapt your code
