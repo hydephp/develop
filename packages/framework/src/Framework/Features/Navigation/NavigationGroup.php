@@ -57,7 +57,6 @@ class NavigationGroup extends NavigationMenu
         });
     }
 
-    /** @experimental This method is subject to change before its release. */
     public static function normalizeGroupKey(string $group): string
     {
         return Str::slug($group);

@@ -134,7 +134,7 @@ Lorem ipsum dolor sit amet, etc.
 
 ### Front Matter in Blade
 
-HydePHP has experimental support for creating front-matter in Blade templates, called [BladeMatter](front-matter#front-matter-in-blade),
+HydePHP has basic support for creating front-matter in Blade templates, called [BladeMatter](front-matter#front-matter-in-blade),
 where code in `@php` directives are statically parsed into page object's front matter data where it can be accessed in your templates.
 
 ```blade

@@ -19,9 +19,6 @@ use function collect;
 use function in_array;
 use function strtolower;
 
-/**
- * @experimental This class may change significantly before its release.
- */
 class NavigationMenuGenerator
 {
     /** @var \Illuminate\Support\Collection<string, \Hyde\Framework\Features\Navigation\NavigationItem|\Hyde\Framework\Features\Navigation\NavigationGroup> */

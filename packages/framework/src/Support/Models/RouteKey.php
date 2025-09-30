@@ -57,8 +57,6 @@ final class RouteKey implements Stringable
     }
 
     /**
-     * @experimental
-     *
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      * */
     protected static function stripPrefixIfNeeded(string $pageClass, string $identifier): string
