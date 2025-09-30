@@ -63,9 +63,6 @@ trait FluentTestingHelpers
         }
     }
 
-    /**
-     * @experimental Helper to print and die.
-     */
     protected function dd($var): void
     {
         if (is_string($var)) {
@@ -83,9 +80,6 @@ trait FluentTestingHelpers
         exit;
     }
 
-    /**
-     * @experimental Helper function to format an array as a plain PHP array with [] syntax.
-     */
     private function formatArray(array $array): string
     {
         $json = json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);

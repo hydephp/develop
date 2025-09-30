@@ -58,7 +58,7 @@ Lorem ipsum dolor sit amet, etc.
 
 ### Front Matter in Blade
 
-HydePHP has experimental support for creating front-matter in Blade templates, called BladeMatter.
+HydePHP has basic support for creating front-matter in Blade templates, called BladeMatter.
 
 The actual syntax does not use YAML; but instead PHP. However, the parsed end result is the same. Please note that
 BladeMatter currently does not support multidimensional arrays or multi-line directives as the data is statically parsed.

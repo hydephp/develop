@@ -48,8 +48,6 @@ class InvalidConfigurationException extends InvalidArgumentException
 
     /**
      * @internal
-     *
-     * @experimental
      */
     public static function try(callable $callback, ?string $message = null): mixed
     {

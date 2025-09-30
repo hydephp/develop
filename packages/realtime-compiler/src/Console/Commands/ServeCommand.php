@@ -230,7 +230,6 @@ class ServeCommand extends Command
         }
     }
 
-    /** @experimental This feature may be removed before the final release. */
     protected function isPortAvailable(int $port): bool
     {
         $addresses = ['localhost', '127.0.0.1'];
