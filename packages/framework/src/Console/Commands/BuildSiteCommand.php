@@ -48,13 +48,21 @@ class BuildSiteCommand extends Command
 
         $this->printStartBanner();
 
-        $this->service = new BuildService($this->output);
+        // Initialize unified progress bar for all build stages
+        $this->progressBar = new \Hyde\Framework\Services\StyledProgressBar($this->output);
+
+        $this->service = new BuildService($this->output, $this->progressBar);
 
         $this->configureBuildTaskService();
 
         $this->runPreBuildActions();
 
         $this->service->compileStaticPages();
+
+        // Finish unified progress bar
+        if ($this->progressBar) {
+            $this->progressBar->finish();
+        }
 
         $this->runPostBuildActions();
 
@@ -64,14 +72,10 @@ class BuildSiteCommand extends Command
     }
 
     /**
-     * Get or create the shared styled progress bar instance.
+     * Get the shared styled progress bar instance.
      */
-    public function getProgressBar(): \Hyde\Framework\Services\StyledProgressBar
+    public function getProgressBar(): ?\Hyde\Framework\Services\StyledProgressBar
     {
-        if (! $this->progressBar) {
-            $this->progressBar = new \Hyde\Framework\Services\StyledProgressBar($this->output);
-        }
-
         return $this->progressBar;
     }
 
@@ -95,6 +99,7 @@ class BuildSiteCommand extends Command
 
         $this->taskService = $taskService;
         $this->taskService->setOutput($this->output);
+        $this->taskService->setProgressBar($this->progressBar);
     }
 
     protected function runPreBuildActions(): void

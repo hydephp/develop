@@ -32,9 +32,10 @@ class BuildService
     protected RouteCollection $router;
     protected ?StyledProgressBar $progressBar = null;
 
-    public function __construct(OutputStyle $output)
+    public function __construct(OutputStyle $output, ?StyledProgressBar $progressBar = null)
     {
         $this->output = $output;
+        $this->progressBar = $progressBar;
 
         $this->router = Hyde::routes();
     }
@@ -43,24 +44,21 @@ class BuildService
     {
         $pageTypes = $this->getPageTypes();
 
-        // Initialize styled progress bar with all stages
-        $this->progressBar = new StyledProgressBar($this->output);
+        // Register all page compilation stages with the progress bar
+        if ($this->progressBar) {
+            foreach ($pageTypes as $pageClass) {
+                $className = $this->getClassPluralName($pageClass);
+                $icon = $this->getIconForPageClass($pageClass);
+                $total = Routes::getRoutes($pageClass)->count();
 
-        foreach ($pageTypes as $pageClass) {
-            $className = $this->getClassPluralName($pageClass);
-            $icon = $this->getIconForPageClass($pageClass);
-            $total = Routes::getRoutes($pageClass)->count();
-
-            $this->progressBar->addStage($pageClass, "Creating {$className}", $icon, $total);
+                $this->progressBar->addStage($pageClass, "Creating {$className}", $icon, $total);
+            }
         }
 
         // Process each page type
         collect($pageTypes)->each(function (string $pageClass): void {
             $this->compilePagesForClass($pageClass);
         });
-
-        // Finish and show summary
-        $this->progressBar->finish();
     }
 
     /**

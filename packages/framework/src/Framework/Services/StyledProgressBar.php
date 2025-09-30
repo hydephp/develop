@@ -26,11 +26,14 @@ class StyledProgressBar
     protected bool $started = false;
     protected int $linesRendered = 0;
     protected float $startTime = 0;
+    protected float $lastRenderTime = 0;
+    protected float $minRenderInterval = 0.1; // Minimum 100ms between renders
 
     public function __construct(OutputStyle $output)
     {
         $this->output = $output;
         $this->startTime = microtime(true);
+        $this->lastRenderTime = microtime(true);
     }
 
     /**
@@ -72,7 +75,15 @@ class StyledProgressBar
     {
         if ($this->currentStage && isset($this->stages[$this->currentStage])) {
             $this->stages[$this->currentStage]['current'] += $step;
-            $this->render();
+
+            // Only render if enough time has passed or if this completes the stage
+            $now = microtime(true);
+            $isComplete = $this->stages[$this->currentStage]['current'] >= $this->stages[$this->currentStage]['total'];
+
+            if ($isComplete || ($now - $this->lastRenderTime) >= $this->minRenderInterval) {
+                $this->render();
+                $this->lastRenderTime = $now;
+            }
         }
     }
 
@@ -111,20 +122,25 @@ class StyledProgressBar
         }
 
         $lines = [];
-        $lines[] = ''; // Top padding
 
         // Title
         $titleLine = sprintf('<span class="text-blue-500">⚡ Build Pipeline</span>');
         $lines[] = $titleLine;
-        $lines[] = ''; // Spacing
+        $lines[] = ''; // Spacing after title
 
         // Render each stage
         foreach ($this->stages as $key => $stage) {
             $lines = array_merge($lines, $this->renderStage($stage, $final));
         }
 
+        // Remove the last empty spacing line before adding summary or bottom padding
+        if (!empty($lines) && $lines[count($lines) - 1] === '') {
+            array_pop($lines);
+        }
+
         // Summary line on final render
         if ($final) {
+            $lines[] = ''; // Spacing before summary
             $executionTime = number_format(microtime(true) - $this->startTime, 2);
             $totalFiles = array_sum(array_column($this->stages, 'total'));
             $speed = $totalFiles > 0 && $executionTime > 0
@@ -139,8 +155,6 @@ class StyledProgressBar
             );
             $lines[] = $summaryLine;
         }
-
-        $lines[] = ''; // Bottom padding
 
         $this->renderBox($lines);
 
@@ -212,7 +226,8 @@ class StyledProgressBar
     protected function renderBox(array $lines): void
     {
         $formattedLines = array_map(function (string $line): string {
-            $strippedLength = mb_strlen(strip_tags($line));
+            // Calculate visual width accounting for emojis and special characters
+            $strippedLength = $this->getVisualLength($line);
             $padding = $this->boxWidth - $strippedLength;
 
             return sprintf('&nbsp;│&nbsp;%s%s&nbsp;│',
@@ -227,5 +242,43 @@ class StyledProgressBar
         $body = implode('<br>', array_merge([$topLine], $formattedLines, [$bottomLine]));
 
         render("<div class=\"text-green-500\">$body</div>");
+    }
+
+    /**
+     * Calculate the visual length of a string, accounting for HTML tags and emojis.
+     */
+    protected function getVisualLength(string $string): int
+    {
+        // Strip HTML tags
+        $stripped = strip_tags($string);
+
+        // Count different character types
+        $length = 0;
+
+        // Split into characters for precise counting
+        $chars = preg_split('//u', $stripped, -1, PREG_SPLIT_NO_EMPTY);
+
+        foreach ($chars as $char) {
+            $ord = mb_ord($char);
+
+            // Block characters (█ = U+2588, ░ = U+2591) - count as 1 each
+            if ($ord >= 0x2580 && $ord <= 0x259F) {
+                $length += 1;
+            }
+            // Emoji ranges - count as 2 (they render wider)
+            elseif (
+                ($ord >= 0x1F300 && $ord <= 0x1F9FF) || // Misc symbols and pictographs
+                ($ord >= 0x2600 && $ord <= 0x26FF) ||   // Misc symbols
+                ($ord >= 0x2700 && $ord <= 0x27BF)      // Dingbats
+            ) {
+                $length += 2;
+            }
+            // Regular characters
+            else {
+                $length += 1;
+            }
+        }
+
+        return $length;
     }
 }

@@ -37,6 +37,7 @@ class BuildTaskService
     protected array $buildTasks = [];
 
     protected ?OutputStyle $output = null;
+    protected ?\Hyde\Framework\Services\StyledProgressBar $progressBar = null;
 
     public function __construct()
     {
@@ -50,6 +51,16 @@ class BuildTaskService
     public function setOutput(?OutputStyle $output): void
     {
         $this->output = $output;
+    }
+
+    public function setProgressBar(?\Hyde\Framework\Services\StyledProgressBar $progressBar): void
+    {
+        $this->progressBar = $progressBar;
+    }
+
+    public function getProgressBar(): ?\Hyde\Framework\Services\StyledProgressBar
+    {
+        return $this->progressBar;
     }
 
     /** @return array<class-string<\Hyde\Framework\Features\BuildTasks\PreBuildTask>|class-string<\Hyde\Framework\Features\BuildTasks\PostBuildTask>> */
