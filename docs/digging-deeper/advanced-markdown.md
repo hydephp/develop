@@ -95,9 +95,9 @@ These are also created by using a custom Hyde feature that turns code comments i
 Simply add a code comment with the path in the **first line** of a fenced code block like so:
 
 ````markdown
-// Filepath: _docs/advanced-markdown.md
+// filepath: _docs/advanced-markdown.md
 ```php
-‎// Filepath: hello-world.php
+‎// filepath: hello-world.php
 
 echo 'Hello World!';
 ```
@@ -106,7 +106,7 @@ echo 'Hello World!';
 Which becomes:
 
 ```php
-// Filepath: hello-world.php
+// filepath: hello-world.php
 
 echo 'Hello World!';
 ```
@@ -131,9 +131,9 @@ If you have enabled HTML in Markdown by setting the `allow_html` option to true 
 anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
 
 ````markdown
-// Filepath: <a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>
+// filepath: <a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>
 ```markdown
-‎// Filepath: <a href="https://github.com">View file on Github</a>
+‎// filepath: <a href="https://github.com">View file on Github</a>
 ```
 ````
 
