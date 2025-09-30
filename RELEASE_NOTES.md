@@ -74,7 +74,7 @@ This serves two purposes:
 - **Breaking:** Renamed the `hyde.enable_cache_busting` configuration option to `hyde.cache_busting` in [#1980](https://github.com/hydephp/develop/pull/1980)
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display` in [#1818](https://github.com/hydephp/develop/pull/1818)
 - **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--vite` flag that uses Vite to build assets in [#2013](https://github.com/hydephp/develop/pull/2013)
-- **Breaking:** Removed `--run-prettier` build command flag in [#2312](https://github.com/hydephp/develop/pull/2312)
+- **Breaking:** Removed `--run-prettier` build command flag and Prettier dependency in [#2312](https://github.com/hydephp/develop/pull/2312)
 - **Breaking:** The `Author::create()` method now returns an array instead of a `PostAuthor` instance in [#1798](https://github.com/hydephp/develop/pull/1798) For more information, see below.
 - **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance in [#1798](https://github.com/hydephp/develop/pull/1798)  For more information, see below.
 - **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames in [#1782](https://github.com/hydephp/develop/pull/1782) For more information, see below.
