@@ -73,7 +73,7 @@ This serves two purposes:
 - **Breaking:** Renamed class `DataCollections` to `DataCollection` in [#1732](https://github.com/hydephp/develop/pull/1732)  For more information, see below.
 - **Breaking:** Renamed the `hyde.enable_cache_busting` configuration option to `hyde.cache_busting` in [#1980](https://github.com/hydephp/develop/pull/1980)
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display` in [#1818](https://github.com/hydephp/develop/pull/1818)
-- **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--run-vite` flag that uses Vite to build assets in [#2013](https://github.com/hydephp/develop/pull/2013)
+- **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--vite` flag that uses Vite to build assets in [#2013](https://github.com/hydephp/develop/pull/2013)
 - **Breaking:** The `Author::create()` method now returns an array instead of a `PostAuthor` instance in [#1798](https://github.com/hydephp/develop/pull/1798) For more information, see below.
 - **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance in [#1798](https://github.com/hydephp/develop/pull/1798)  For more information, see below.
 - **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames in [#1782](https://github.com/hydephp/develop/pull/1782) For more information, see below.
@@ -555,7 +555,7 @@ The new asset system is a complete rewrite of the HydeFront asset handling syste
     - Added a new `npm run build` command for compiling frontend assets with Vite.
     - Added Vite facade for Blade templates.
     - Added Vite Hot Module Replacement (HMR) support to the realtime compiler.
-    - Build command now uses Vite to compile assets when the `--run-vite` flag is passed.
+    - Build command now uses Vite to compile assets when the `--vite` flag is passed.
 
 - **Improved HydeFront integration.** ([#2024], [#2029], [#2031], [#2036], [#2037], [#2038], [#2039])
     - HydeFront styles are now refactored into Tailwind.
@@ -576,7 +576,7 @@ The new asset system is a complete rewrite of the HydeFront asset handling syste
 
 - Replaced Laravel Mix with Vite. ([#2010])
     - You must now use `npm run build` to compile your assets, instead of `npm run prod`.
-- Removed `--run-dev` and `--run-prod` build command flags, replaced by `--run-vite`. ([#2013])
+- Removed `--run-dev` and `--run-prod` build command flags, replaced by `--vite`. ([#2013])
 - Removed `DocumentationPage::getTableOfContents()` method. Table of contents are now generated using a Blade component. ([#2045])
 - Removed `hyde.css` from HydeFront, requiring recompilation of assets if you were extending it. ([#2037])
 - Changed how HydeFront is included in projects.  Instead of separate `hyde.css` and `app.css`, all styles are now in `app.css`. ([#2024])

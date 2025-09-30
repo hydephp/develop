@@ -66,7 +66,7 @@ Here is a quick reference of all the available commands. You can also run `php h
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-php hyde build [--run-vite] [--run-prettier] [--pretty-urls] [--no-api]
+php hyde build [--vite] [--run-prettier] [--pretty-urls] [--no-api]
 ```
 
 Build the static site
@@ -75,7 +75,7 @@ Build the static site
 
 |                  |                                            |
 |------------------|--------------------------------------------|
-| `--run-vite`     | Build frontend assets using Vite           |
+| `--vite`         | Build frontend assets using Vite           |
 | `--run-prettier` | Format the output using NPM Prettier       |
 | `--pretty-urls`  | Should links in output use pretty URLs?    |
 | `--no-api`       | Disable API calls, for example, Torchlight |
