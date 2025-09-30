@@ -444,8 +444,6 @@ just apply these changes to that new view, but for this example I'm going to upd
 <h1>{{ $page->matter('title') ?? $title }}</h1> {{-- [tl! add] --}}
 ```
 
-to that new view, but for this example I'm going to update the `posts` view.
-
 ```blade
 // filepath _pages/posts.blade.php
 @php

@@ -205,7 +205,7 @@ image: image.jpg
 
 #### Full URL
 
-Full URL starting with `http(s)://`) or `//` (protocol-relative).
+Full URL starting with `http(s)://` or `//` (protocol-relative).
 The image source will be used as-is, and no additional processing is done.
 
 ```yaml
