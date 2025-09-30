@@ -49,7 +49,7 @@ class DashboardController extends BaseController
         'Got stuck? Ask for help on [GitHub](https://github.com/hydephp/hyde)!',
         'Found a bug? Please report it on [GitHub](https://github.com/hydephp/hyde)!',
         'You can disable tips using by setting `server.dashboard.tips` to `false` in `config/hyde.php`.',
-        'The dashboard update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
+        'The dashboard can update your project files. You can disable this by setting `server.dashboard.interactive` to `false` in `config/hyde.php`.',
     ];
 
     public function __construct(?Request $request = null)
