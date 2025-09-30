@@ -1,6 +1,6 @@
 ---
 navigation:
-    label: v2 Upgrade Guide
+    label: v2 Release Notes
     priority: 15
 ---
 
@@ -61,11 +61,16 @@ Numerous quality-of-life improvements for developers:
 - **Interactive publish:views command** on Unix systems
 - **Extension callbacks** with `booting()` and `booted()` methods
 
-## Breaking Changes & Upgrade Guide
 
-### Prerequisites
+## Upgrading to v2.0
 
-Before upgrading, ensure your application is running HydePHP v1.6 or later, as this version includes helpers to ease the migration process. It's ideal to use v1.8, if possible.
+**📖 For complete step-by-step upgrade instructions, see the [Upgrade Guide](https://hydephp.com/docs/2.x/upgrade-guide).**
+
+**Important:** PHP 8.2+ is now required. Laravel Mix has been replaced with Vite, and Tailwind CSS has been upgraded to v4.
+
+---
+
+## Breaking Changes
 
 ### High Impact Changes
 
@@ -293,23 +298,6 @@ Documentation sidebar configuration has been reorganized:
 - **Symfony/Yaml**: Updated to version 7
 - **Torchlight**: Switched to forked version for compatibility
 
-## Migration Checklist
-
-- [ ] Upgrade to HydePHP v1.6 (preferably v1.8) before migrating to v2.0
-- [ ] Run `npx @tailwindcss/upgrade` for Tailwind v4 migration
-- [ ] Update `config/hyde.php` features to use enum values
-- [ ] Update navigation configuration to array format
-- [ ] Migrate custom JavaScript to ESM modules
-- [ ] Update author configuration format if using blog
-- [ ] Replace `npm run prod` with `npm run build` in CI/CD
-- [ ] Review and update any custom navigation implementations
-- [ ] Update Routes facade method calls if used in custom code
-- [ ] Test site menus for correct ordering and appearance
-- [ ] Verify media assets are loading correctly
-- [ ] Check that all DataCollection files have valid syntax
-- [ ] Update sidebar configuration structure in `config/docs.php`
-- [ ] Review Includes facade usage for security implications
-
 ## Removed Features
 
 ### Deprecated Methods
@@ -338,8 +326,8 @@ Documentation sidebar configuration has been reorganized:
 
 - **Documentation**: [https://hydephp.com/docs/2.x](https://hydephp.com/docs/2.x)
 - **Upgrade Guide**: [https://hydephp.com/docs/2.x/upgrade-guide](https://hydephp.com/docs/2.x/upgrade-guide)
-- **GitHub Issues**: [https://github.com/hydephp/develop/issues](https://github.com/hydephp/develop/issues)
-- **Community Discord**: [https://discord.gg/hydephp](https://discord.gg/hydephp)
+- **GitHub Issues**: [https://github.com/hydephp/hyde/issues](https://github.com/hydephp/hyde/issues)
+- **Community Discord**: [https://discord.hydephp.com](https://discord.hydephp.com)
 
 ---
 
