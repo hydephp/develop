@@ -14,7 +14,7 @@ Hyde compiles your Markdown content into beautiful static HTML pages using a Tai
 
 Additionally, if you have an `_docs/index.md` file, the sidebar header will link to it, and an automatically generated "Docs" link will be added to your site's main navigation menu, pointing to your documentation page.
 
-If you have a Torchlight API token in your `.env` file, Hyde will even enable syntax highlighting automatically, saving you time and effort. For more information about this feature, see the [extensions page](extensions#torchlight).
+If you have a Torchlight API token in your `.env` file, Hyde will even enable syntax highlighting automatically, saving you time and effort. For more information about this feature, see the [extensions page](third-party-integrations#torchlight).
 
 ### Best Practices and Hyde Expectations
 

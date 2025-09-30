@@ -103,7 +103,7 @@ As you can see, the route key is simply put the relative page URL, without the .
 ## Convention Over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
-However, Hyde also strives to be modular and endlessly customizable hackable if you need it.
+However, Hyde also strives to be modular and endlessly customizable and hackable if you need it.
 Take a look at the [customization and configuration guide](customization) to see the endless options available!
 
 ## Front Matter
