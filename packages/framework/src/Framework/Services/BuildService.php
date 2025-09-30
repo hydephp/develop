@@ -11,7 +11,6 @@ use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
-use Hyde\Console\StyledProgressOutput;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
 
@@ -31,7 +30,6 @@ class BuildService
     use InteractsWithIO;
 
     protected RouteCollection $router;
-    protected ?StyledProgressOutput $progressOutput = null;
 
     public function __construct(OutputStyle $output)
     {
@@ -42,48 +40,25 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        $pageTypes = $this->getPageTypes();
-
-        // Initialize styled progress output
-        $this->progressOutput = new StyledProgressOutput();
-
-        // Add all stages
-        foreach ($pageTypes as $index => $pageClass) {
-            $collection = Routes::getRoutes($pageClass);
-            $icon = $this->getClassIcon($pageClass);
-            $this->progressOutput->addStage(
-                "Creating {$this->getClassPluralName($pageClass)}",
-                $icon,
-                $collection->count()
-            );
-        }
-
-        // Process each page type
-        collect($pageTypes)->each(function (string $pageClass, int $index): void {
-            $this->compilePagesForClass($pageClass, $index);
+        collect($this->getPageTypes())->each(function (string $pageClass): void {
+            $this->compilePagesForClass($pageClass);
         });
-
-        // Show summary
-        $totalFiles = Hyde::routes()->count();
-        $this->newLine();
-        $this->progressOutput->renderSummary($totalFiles);
     }
 
     /**
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
-    protected function compilePagesForClass(string $pageClass, int $stageIndex): void
+    protected function compilePagesForClass(string $pageClass): void
     {
+        $this->comment("Creating {$this->getClassPluralName($pageClass)}...");
+
         $collection = Routes::getRoutes($pageClass);
 
-        $this->progressOutput->startStage($stageIndex);
-
-        foreach ($collection as $route) {
+        $this->withProgressBar($collection, function (Route $route): void {
             StaticPageBuilder::handle($route->getPage());
-            $this->progressOutput->advanceStage();
-        }
+        });
 
-        $this->progressOutput->completeStage();
+        $this->newLine(2);
     }
 
     protected function getClassPluralName(string $pageClass): string
@@ -93,20 +68,6 @@ class BuildService
         }
 
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
-    }
-
-    protected function getClassIcon(string $pageClass): string
-    {
-        $className = class_basename($pageClass);
-
-        return match ($className) {
-            'BladePage' => '<span class="text-blue-500">📄</span>',
-            'MarkdownPage' => '<span class="text-blue-500">📝</span>',
-            'MarkdownPost' => '<span class="text-blue-500">📰</span>',
-            'DocumentationPage' => '<span class="text-blue-500">📚</span>',
-            'InMemoryPage' => '<span class="text-blue-500">⚡</span>',
-            default => '<span class="text-blue-500">📄</span>',
-        };
     }
 
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
