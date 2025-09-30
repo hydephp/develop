@@ -71,20 +71,7 @@ class BuildSiteCommand extends Command
             '',
         ];
 
-        $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
-
-        $lines = array_map(function (string $line) use ($lineLength): string {
-            return sprintf('&nbsp;│&nbsp;<span class="text-white">%s</span>%s│',
-                $line, str_repeat('&nbsp;', ($lineLength - strlen(strip_tags($line))) + 1)
-            );
-        }, $lines);
-
-        $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
-        $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
-
-        $body = implode('<br>', array_merge([''], [$topLine], $lines, [$bottomLine], ['']));
-
-        render("<div class=\"text-green-500\">$body</div>");
+        $this->renderBox($lines);
     }
 
     protected function configureBuildTaskService(): void
@@ -153,18 +140,31 @@ class BuildSiteCommand extends Command
             '',
         ];
 
-        $lineLength = max(array_map('strlen', array_map('strip_tags', $lines)));
+        $this->renderBox($lines);
+    }
 
-        $lines = array_map(function (string $line) use ($lineLength): string {
-            return sprintf('&nbsp;│&nbsp;<span class="text-white">%s</span>%s│',
-                $line, str_repeat('&nbsp;', ($lineLength - strlen(strip_tags($line))) + 1)
+    protected function renderBox(array $lines): void
+    {
+        // Calculate the actual visual width of each line (stripping HTML tags)
+        $lineLength = max(array_map(function ($line) {
+            return mb_strlen(strip_tags($line));
+        }, $lines));
+
+        // Format each line with proper padding
+        $formattedLines = array_map(function (string $line) use ($lineLength): string {
+            $strippedLength = mb_strlen(strip_tags($line));
+            $padding = $lineLength - $strippedLength;
+
+            return sprintf('&nbsp;│&nbsp;%s%s&nbsp;│',
+                $line,
+                str_repeat('&nbsp;', $padding)
             );
         }, $lines);
 
         $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
         $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
 
-        $body = implode('<br>', array_merge([''], [$topLine], $lines, [$bottomLine], ['']));
+        $body = implode('<br>', array_merge([''], [$topLine], $formattedLines, [$bottomLine], ['']));
 
         render("<div class=\"text-green-500\">$body</div>");
     }
