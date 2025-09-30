@@ -67,6 +67,11 @@ abstract class BuildTask
 
     public function printStartMessage(): void
     {
+        // Skip the start message for TransferMediaAssets as it uses styled output
+        if (static::class === 'Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets') {
+            return;
+        }
+
         $this->write("<comment>{$this->getMessage()}...</comment> ");
     }
 
