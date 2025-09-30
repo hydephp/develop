@@ -98,11 +98,11 @@ If a `footer.md` file exists in the includes directory, Hyde will use that as th
 
 #### Head
 
-If a `head.html` file exists in the includes directory, Hyde include that within the `<head>` tag of the generated HTML, in addition to the one set in the `hyde.head` config option.
+If a `head.html` file exists in the includes directory, Hyde will include that within the `<head>` tag of the generated HTML, in addition to the one set in the `hyde.head` config option.
 
 #### Scripts
 
-If a `scripts.html` file exists in the includes directory, Hyde include that at the end of the `<body>` tag of the generated HTML, in addition to the one set in the `hyde.scripts` config option.
+If a `scripts.html` file exists in the includes directory, Hyde will include that at the end of the `<body>` tag of the generated HTML, in addition to the one set in the `hyde.scripts` config option.
 
 ## Reading-Time Helper
 
@@ -208,7 +208,7 @@ From this, you can access the same methods as you would from the `Hyde` facade.
 ```php
 hyde(); // Returns the HydeKernel instance
 
-hyde()->routes()) === Hyde::routes(); // true
+hyde()->routes() === Hyde::routes(); // true
 ```
 
 It's up to you if you want to use the facade or the global function, or a mix of both.
@@ -443,8 +443,6 @@ just apply these changes to that new view, but for this example I'm going to upd
 <h1>Latest Posts</h1>{{-- [tl! remove] --}}
 <h1>{{ $page->matter('title') ?? $title }}</h1> {{-- [tl! add] --}}
 ```
-
-to that new view, but for this example I'm going to update the `posts` view.
 
 ```blade
 // filepath _pages/posts.blade.php

@@ -103,7 +103,7 @@ As you can see, the route key is simply put the relative page URL, without the .
 ## Convention Over Configuration
 
 Hyde favours the "Convention over Configuration" paradigm and thus comes preconfigured with sensible defaults.
-However, Hyde also strives to be modular and endlessly customizable hackable if you need it.
+However, Hyde also strives to be modular and endlessly customizable and hackable if you need it.
 Take a look at the [customization and configuration guide](customization) to see the endless options available!
 
 ## Front Matter
@@ -174,7 +174,7 @@ any custom Blade templates, you can safely ignore this section. If you are, here
 - `$route`: The [Route Object](#automatic-routing) for the current page.
 - `$routeKey`: The [Route Key](#paths-identifiers-and-route-keys) for the current page.
 
-The `$page` variable is likely to the most important one, as it contains all the data for the current page.
+The `$page` variable is likely to be the most important one, as it contains all the data for the current page.
 Depending on the page type, you will have different helpers available. But `$page->matter()` is likely to be very helpful.
 
 You can see all the helpers in the [Page API](hyde-pages) reference page.

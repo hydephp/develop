@@ -18,7 +18,7 @@ Here are some custom Markdown features Hyde provides!
 ### Automatic file path labels for code blocks
 
 ```php
-// Filepath: Hello.php
+// filepath: Hello.php
 echo 'A file path label has been added to the top right corner.';
 ```
 

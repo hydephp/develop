@@ -1,4 +1,4 @@
-## Automatic Routing
+# Automatic Routing
 
 >info This covers an intermediate topic which is not required for basic usage, but is useful if you want to use the framework to design custom Blade templates.
 
@@ -57,7 +57,7 @@ But where it really shines is when you supply a route. This will then resolve th
 <x-link :href="Routes::get('index')">Home</x-link>
 ```
 
-You can of course, also supply extra attributes like classes:
+You can also supply extra attributes like classes:
 
 ```blade
 <x-link :href="Routes::get('index')" class="btn btn-primary">Home</x-link>

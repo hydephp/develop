@@ -14,7 +14,7 @@ Hyde compiles your Markdown content into beautiful static HTML pages using a Tai
 
 Additionally, if you have an `_docs/index.md` file, the sidebar header will link to it, and an automatically generated "Docs" link will be added to your site's main navigation menu, pointing to your documentation page.
 
-If you have a Torchlight API token in your `.env` file, Hyde will even enable syntax highlighting automatically, saving you time and effort. For more information about this feature, see the [extensions page](extensions#torchlight).
+If you have a Torchlight API token in your `.env` file, Hyde will even enable syntax highlighting automatically, saving you time and effort. For more information about this feature, see the [extensions page](third-party-integrations#torchlight).
 
 ### Best Practices and Hyde Expectations
 
@@ -241,14 +241,14 @@ To quickly arrange the order of items in the sidebar, you can reorder the page i
 ]
 ```
 
-See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
+See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details.
 
 ### Setting Sidebar Group Labels
 
 When using the automatic sidebar grouping feature the titles of the groups are generated from the subdirectory names. If these are not to your liking, for example if you need to use special characters, you can override them in the configuration file. The array key is the directory name, and the value is the label.
 
 ```php
-// Filepath: config/docs.php
+// filepath: config/docs.php
 
 'sidebar' => [
     'labels' => [
@@ -266,7 +266,7 @@ By default, each group will be assigned the lowest priority found inside the gro
 Just use the sidebar group key as instead of the page identifier/route key:
 
 ```php
-// Filepath: config/docs.php
+// filepath: config/docs.php
 'sidebar' => [
     'order' => [
         'readme',
@@ -347,7 +347,7 @@ If this setting is set to true, Hyde will output all documentation pages into th
 If you set this to false, Hyde will match the directory structure of the source files (just like all other pages).
 
 ```php
-// Filepath: config/docs.php
+// filepath: config/docs.php
 'flattened_output_paths' => true,
 ```
 
@@ -422,7 +422,7 @@ The feature is automatically enabled when you specify a base URL in the Docs con
 Here's an example configuration from the official HydePHP.com documentation:
 
 ```php
-// Filepath: config/docs.php
+// filepath: config/docs.php
 
 'source_file_location_base' => 'https://github.com/hydephp/docs/blob/master/',
 ```
@@ -432,7 +432,7 @@ Here's an example configuration from the official HydePHP.com documentation:
 Changing the label is easy, just change the following config setting:
 
 ```php
-// Filepath: config/docs.php
+// filepath: config/docs.php
 'edit_source_link_text' => 'Edit Source on GitHub',
 ```
 
@@ -441,7 +441,7 @@ Changing the label is easy, just change the following config setting:
 By default, the button will be shown in the documentation page footer. You can change this by setting the following config setting to `'header'`, `'footer'`, or `'both'`
 
 ```php
-// Filepath: config/docs.php
+// filepath: config/docs.php
 'edit_source_link_position' => 'header',
 ```
 

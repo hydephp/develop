@@ -41,7 +41,7 @@ The specific usage and schemas used for pages are documented in their respective
 - The front matter should be the very first thing in the Markdown file.
 - Each key-pair value should be on its own line.
 
-**To use Front Matter, add Yaml to the top of your Markdown file:**
+**To use Front Matter, add YAML to the top of your Markdown file:**
 
 ```markdown
 ---
