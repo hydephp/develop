@@ -241,7 +241,7 @@ To quickly arrange the order of items in the sidebar, you can reorder the page i
 ]
 ```
 
-See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details. <br>
+See [the chapter in the customization page](customization#navigation-menu--sidebar) for more details.
 
 ### Setting Sidebar Group Labels
 
