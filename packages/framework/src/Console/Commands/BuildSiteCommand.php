@@ -26,12 +26,12 @@ class BuildSiteCommand extends Command
 {
     /** @var string */
     protected $signature = 'build
-        {--run-vite : Build frontend assets using Vite}
+        {--vite : Build frontend assets using Vite}
         {--run-prettier : Format the output using NPM Prettier}
         {--pretty-urls : Should links in output use pretty URLs?}
         {--no-api : Disable API calls, for example, Torchlight}
-        {--run-dev : [Removed] Use --run-vite instead}
-        {--run-prod : [Removed] Use --run-vite instead}';
+        {--run-dev : [Removed] Use --vite instead}
+        {--run-prod : [Removed] Use --vite instead}';
 
     /** @var string */
     protected $description = 'Build the static site';
@@ -88,7 +88,7 @@ class BuildSiteCommand extends Command
             Config::set(['hyde.pretty_urls' => true]);
         }
 
-        if ($this->option('run-vite')) {
+        if ($this->option('vite')) {
             $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
         }
 
@@ -161,7 +161,7 @@ class BuildSiteCommand extends Command
     /**
      * This method is called when the removed --run-dev or --run-prod options are used.
      *
-     * @deprecated Use --run-vite instead
+     * @deprecated Use --vite instead
      * @since v2.0 - This will be removed after 2-3 minor releases depending on the timeframe between them. (~v2.3)
      *
      * @codeCoverageIgnore
@@ -170,7 +170,7 @@ class BuildSiteCommand extends Command
     {
         if ($this->option('run-dev') || $this->option('run-prod')) {
             $this->error('The --run-dev and --run-prod options have been removed in HydePHP v2.0.');
-            $this->info('Please use --run-vite instead to build assets for production with Vite.');
+            $this->info('Please use --vite instead to build assets for production with Vite.');
             $this->line('See https://github.com/hydephp/develop/pull/2013 for more information.');
 
             exit(Command::INVALID);

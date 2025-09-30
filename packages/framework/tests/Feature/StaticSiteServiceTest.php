@@ -158,7 +158,7 @@ class StaticSiteServiceTest extends TestCase
     {
         Process::fake();
 
-        $this->artisan('build --run-prettier --run-vite')
+        $this->artisan('build --run-prettier --vite')
             ->expectsOutput('Building frontend assets for production! This may take a second.')
             ->expectsOutput('Prettifying code! This may take a second.')
             ->assertExitCode(0);
