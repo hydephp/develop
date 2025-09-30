@@ -11,7 +11,7 @@ HydePHP v2.0 represents a major evolution of the framework, introducing signific
 We've replaced Laravel Mix with Vite for a faster, more modern development experience:
 - **Instant Hot Module Replacement (HMR)** for real-time updates during development
 - **Direct asset compilation** into the `_media` folder for cleaner builds
-- **Simplified build command**: Use `npm run build` instead of `npm run prod`
+- **Updated build command**: Use `npm run build` instead of `npm run prod` (or `--vite` during the sit build)
 - **Vite facade** for seamless Blade template integration
 - **Optimized asset serving** through the realtime compiler
 - **Hyde Vite plugin** for enhanced integration
@@ -33,7 +33,6 @@ The navigation system has been completely rewritten for maximum flexibility:
 - **Improved Routes facade** with Laravel-consistent naming conventions
 - **Natural priority ordering** using numeric prefixes in filenames
 - **Enhanced sidebar management** with better organization options
-- **Navigation config builder class** for simplified configuration
 
 ### 📝 Improved Documentation Features
 
@@ -41,7 +40,7 @@ Documentation pages now benefit from several enhancements:
 - **Alpine.js-powered search** with customizable implementation
 - **Blade-based table of contents** that's 40x faster than before
 - **Custom heading renderer** with improved permalink handling
-- **Colored blockquotes** using Tailwind CSS classes
+- **Colored blockquotes** now using Tailwind CSS classes
 - **Smart natural language processing** for search headings
 - **Dynamic source file links** in Markdown documents
 
@@ -60,7 +59,7 @@ Numerous quality-of-life improvements for developers:
 
 ### Prerequisites
 
-Before upgrading, ensure your application is running HydePHP v1.6 or later, as this version includes helpers to ease the migration process.
+Before upgrading, ensure your application is running HydePHP v1.6 or later, as this version includes helpers to ease the migration process. It's ideal to use v1.8, if possible.
 
 ### High Impact Changes
 
@@ -166,11 +165,13 @@ Key changes:
 - A new `Hyde::authors()` method provides access to all site authors
 - Authors can be configured via YAML
 
+The way this system now works is that you first define authors in the config, Hyde the loads this during the booting process, and you can then access them using the get method.
+
 ### Medium Impact Changes
 
 #### Asset API Updates
 
-All asset methods now return `MediaFile` instances instead of strings:
+All asset methods now return `MediaFile` instances instead of strings. This instance can be cast to a string which will automatically resolve to a relative link at that time. You can also call helper methods on it. When using Blade templates, thanks to the Stringable implementation no change will happen.
 
 ```php
 // Methods renamed for clarity
@@ -256,8 +257,7 @@ Documentation sidebar configuration has been reorganized:
 - **Interactive publish:views command** on Unix systems
 - **Custom HydeSearch.js** support for search customization
 - **Extension callbacks** with `booting()` and `booted()` methods
-- **Dynamic source file links** in Markdown documents
-- **Feature::fromName()** enum helper
+- **Dynamic source file links** in Markdown documents (for example `[Home](/_pages/index.blade.php)`)
 - **Filesystem::ensureParentDirectoryExists()** helper method
 
 ## Package Updates
@@ -289,7 +289,7 @@ Documentation sidebar configuration has been reorganized:
 
 ## Migration Checklist
 
-- [ ] Upgrade to HydePHP v1.6 before migrating to v2.0
+- [ ] Upgrade to HydePHP v1.6 (preferably v1.8) before migrating to v2.0
 - [ ] Run `npx @tailwindcss/upgrade` for Tailwind v4 migration
 - [ ] Update `config/hyde.php` features to use enum values
 - [ ] Update navigation configuration to array format
@@ -315,7 +315,7 @@ Documentation sidebar configuration has been reorganized:
 ### Build Commands
 - `npm run prod` - replaced by `npm run build`
 - `--run-dev` and `--run-prod` flags - replaced by `--vite`
-- `--run-prettier` flag - Prettier dependency removed
+- `--run-prettier` flag and Prettier dependency removed
 
 ### Configuration Options
 - `hyde.hydefront_version` and `hyde.hydefront_cdn_url` - now handled automatically
