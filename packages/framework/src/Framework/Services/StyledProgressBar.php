@@ -11,7 +11,6 @@ use function sprintf;
 use function microtime;
 use function number_format;
 use function Termwind\render;
-use function mb_strlen;
 use function strip_tags;
 
 /**
@@ -134,7 +133,7 @@ class StyledProgressBar
         }
 
         // Remove the last empty spacing line before adding summary or bottom padding
-        if (!empty($lines) && $lines[count($lines) - 1] === '') {
+        if (! empty($lines) && $lines[count($lines) - 1] === '') {
             array_pop($lines);
         }
 
@@ -159,7 +158,7 @@ class StyledProgressBar
         $this->renderBox($lines);
 
         // Track how many lines we rendered (for next update)
-        if (!$final) {
+        if (! $final) {
             $this->linesRendered = count($lines) + 2; // +2 for top and bottom borders
         }
     }

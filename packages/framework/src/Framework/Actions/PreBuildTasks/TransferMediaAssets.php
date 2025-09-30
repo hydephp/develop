@@ -9,7 +9,6 @@ use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
-use Hyde\Framework\Services\StyledProgressBar;
 
 use function app;
 
