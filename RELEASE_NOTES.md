@@ -75,6 +75,7 @@ This serves two purposes:
 - **Breaking:** Renamed the `hyde.navigation.subdirectories` configuration option to `hyde.navigation.subdirectory_display` in [#1818](https://github.com/hydephp/develop/pull/1818)
 - **Breaking:** Replaced `--run-dev` and `--run-prod` build command flags with a single `--vite` flag that uses Vite to build assets in [#2013](https://github.com/hydephp/develop/pull/2013)
 - **Breaking:** Removed `--run-prettier` build command flag and Prettier dependency in [#2312](https://github.com/hydephp/develop/pull/2312)
+- **Breaking:** Renamed configuration option `docs.sidebar_group_labels` to `docs.sidebar.labels` in [#2315](https://github.com/hydephp/develop/pull/2315)
 - **Breaking:** The `Author::create()` method now returns an array instead of a `PostAuthor` instance in [#1798](https://github.com/hydephp/develop/pull/1798) For more information, see below.
 - **Breaking:** The `Author::get()` method now returns `null` if an author is not found, rather than creating a new instance in [#1798](https://github.com/hydephp/develop/pull/1798)  For more information, see below.
 - **Breaking:** The `hyde.authors` config setting should now be keyed by the usernames in [#1782](https://github.com/hydephp/develop/pull/1782) For more information, see below.
@@ -207,6 +208,25 @@ The following configuration entries have been updated:
 
 - Changed configuration option `docs.table_of_contents` to `docs.sidebar.table_of_contents` in https://github.com/hydephp/develop/pull/1584
 - Upgrade path: Move the `table_of_contents` option's array in the `config/docs.php` file into the `sidebar` array in the same file.
+
+- Changed configuration option `docs.sidebar_group_labels` to `docs.sidebar.labels` in https://github.com/hydephp/develop/pull/2315
+- Upgrade path: Move the `sidebar_group_labels` option into the nested `sidebar.labels` structure in `config/docs.php`
+
+**Before:**
+```php
+'sidebar_group_labels' => [
+    'getting-started' => 'Getting Started',
+],
+```
+
+**After:**
+```php
+'sidebar' => [
+    'labels' => [
+        'getting-started' => 'Getting Started',
+    ],
+],
+```
 
 ### Features configuration changes
 

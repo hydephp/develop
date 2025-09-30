@@ -250,8 +250,10 @@ When using the automatic sidebar grouping feature the titles of the groups are g
 ```php
 // Filepath: config/docs.php
 
-'sidebar_group_labels' => [
-    'questions-and-answers' => 'Questions & Answers',
+'sidebar' => [
+    'labels' => [
+        'questions-and-answers' => 'Questions & Answers',
+    ],
 ],
 ```
 

@@ -866,7 +866,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarGroupLabelsCanBeSetInConfig()
     {
-        config(['docs.sidebar_group_labels' => ['foo' => 'Bar']]);
+        config(['docs.sidebar.labels' => ['foo' => 'Bar']]);
 
         $this->assertSidebarEquals([
             ['label' => 'Bar', 'children' => ['Bar']],
@@ -1021,7 +1021,7 @@ class AutomaticNavigationConfigurationsTest extends TestCase
 
     public function testSidebarLabelsCanBeSetInConfig()
     {
-        config(['docs.sidebar_group_labels' => ['foo' => 'Hello world!']]);
+        config(['docs.sidebar.labels' => ['foo' => 'Hello world!']]);
 
         $this->assertSidebarEquals(['Hello world!'], [
             new DocumentationPage('foo', ['navigation.group' => 'foo']),
