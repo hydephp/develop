@@ -43,7 +43,7 @@ class HydeHelperFacadeMakeSlugTest extends UnitTestCase
 
     public function testMakeSlugHelperHandlesSpecialCharacters()
     {
-        $this->assertSame('hello-world', Hyde::makeSlug('Hello & World!'));
+        $this->assertSame('hello-and-world', Hyde::makeSlug('Hello & World!'));
     }
 
     public function testMakeSlugHelperConvertsUppercaseToLowercase()
@@ -111,7 +111,7 @@ class HydeHelperFacadeMakeSlugTest extends UnitTestCase
     public function testMakeSlugHelperHandlesEdgeCases()
     {
         $this->assertSame('', Hyde::makeSlug(''));
-        $this->assertSame('at', Hyde::makeSlug('!@#$%^&*()'));
+        $this->assertSame('at-and', Hyde::makeSlug('!@#$%^&*()'));
         $this->assertSame('', Hyde::makeSlug('...   ...'));
         $this->assertSame('multiple-dashes', Hyde::makeSlug('multiple---dashes'));
     }
