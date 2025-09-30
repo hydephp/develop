@@ -64,14 +64,15 @@ class BuildSiteCommand extends Command
 
     protected function printStartBanner(): void
     {
+        $version = Hyde::getInstance()->version();
         $lines = [
             '',
-            '<span class="text-blue-500">HydePHP Static Site Builder</span>',
+            sprintf('<span class="text-blue-500">HydePHP Static Site Builder</span> <span class="text-gray">v%s</span>', $version),
             '<span class="text-gray">Building your static site...</span>',
             '',
         ];
 
-        $this->renderBox($lines);
+        $this->renderBox($lines, true);
     }
 
     protected function configureBuildTaskService(): void
@@ -143,17 +144,28 @@ class BuildSiteCommand extends Command
         $this->renderBox($lines);
     }
 
-    protected function renderBox(array $lines): void
+    protected function renderBox(array $lines, bool $center = false): void
     {
-        // Calculate the actual visual width of each line (stripping HTML tags)
-        $lineLength = max(array_map(function ($line) {
-            return mb_strlen(strip_tags($line));
-        }, $lines));
+        // Use a fixed width for consistency across all boxes
+        $boxWidth = 60;
 
         // Format each line with proper padding
-        $formattedLines = array_map(function (string $line) use ($lineLength): string {
+        $formattedLines = array_map(function (string $line) use ($boxWidth, $center): string {
             $strippedLength = mb_strlen(strip_tags($line));
-            $padding = $lineLength - $strippedLength;
+
+            if ($center && $strippedLength > 0) {
+                $totalPadding = $boxWidth - $strippedLength;
+                $leftPadding = (int) floor($totalPadding / 2);
+                $rightPadding = (int) ceil($totalPadding / 2);
+
+                return sprintf('&nbsp;│&nbsp;%s%s%s&nbsp;│',
+                    str_repeat('&nbsp;', $leftPadding),
+                    $line,
+                    str_repeat('&nbsp;', $rightPadding)
+                );
+            }
+
+            $padding = $boxWidth - $strippedLength;
 
             return sprintf('&nbsp;│&nbsp;%s%s&nbsp;│',
                 $line,
@@ -161,8 +173,8 @@ class BuildSiteCommand extends Command
             );
         }, $lines);
 
-        $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $lineLength + 2));
-        $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $lineLength + 2));
+        $topLine = sprintf('&nbsp;╭%s╮', str_repeat('─', $boxWidth + 2));
+        $bottomLine = sprintf('&nbsp;╰%s╯', str_repeat('─', $boxWidth + 2));
 
         $body = implode('<br>', array_merge([''], [$topLine], $formattedLines, [$bottomLine], ['']));
 
