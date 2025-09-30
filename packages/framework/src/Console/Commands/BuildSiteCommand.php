@@ -27,7 +27,6 @@ class BuildSiteCommand extends Command
     /** @var string */
     protected $signature = 'build
         {--vite : Build frontend assets using Vite}
-        {--run-prettier : Format the output using NPM Prettier}
         {--pretty-urls : Should links in output use pretty URLs?}
         {--no-api : Disable API calls, for example, Torchlight}
         {--run-dev : [Removed] Use --vite instead}
@@ -98,14 +97,6 @@ class BuildSiteCommand extends Command
     public function runPostBuildActions(): void
     {
         $this->taskService->runPostBuildTasks();
-
-        if ($this->option('run-prettier')) {
-            $this->runNodeCommand(
-                'npx prettier '.Hyde::pathToRelative(Hyde::sitePath()).'/**/*.html --write --bracket-same-line',
-                'Prettifying code!',
-                'prettify code'
-            );
-        }
     }
 
     protected function printFinishMessage(float $timeStart): void
