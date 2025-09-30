@@ -9,6 +9,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Services\StyledProgressBar;
 
 class TransferMediaAssets extends PreBuildTask
 {
@@ -30,11 +31,20 @@ class TransferMediaAssets extends PreBuildTask
             $this->skip("No media files to transfer.\n");
         }
 
-        $this->withProgressBar($files, function (MediaFile $file): void {
+        // Use styled progress bar
+        $progressBar = new StyledProgressBar($this->output);
+        $progressBar->addStage('media', 'Transferring Media Assets', '📦', $files->count());
+        $progressBar->startStage('media');
+
+        foreach ($files as $file) {
             $sitePath = $file->getOutputPath();
             $this->needsParentDirectory($sitePath);
             Filesystem::putContents($sitePath, $file->getContents());
-        });
+            $progressBar->advance();
+        }
+
+        $progressBar->completeStage('media');
+        $progressBar->finish();
 
         $this->newLine();
     }

@@ -30,6 +30,7 @@ class BuildService
     use InteractsWithIO;
 
     protected RouteCollection $router;
+    protected ?StyledProgressBar $progressBar = null;
 
     public function __construct(OutputStyle $output)
     {
@@ -40,9 +41,26 @@ class BuildService
 
     public function compileStaticPages(): void
     {
-        collect($this->getPageTypes())->each(function (string $pageClass): void {
+        $pageTypes = $this->getPageTypes();
+
+        // Initialize styled progress bar with all stages
+        $this->progressBar = new StyledProgressBar($this->output);
+
+        foreach ($pageTypes as $pageClass) {
+            $className = $this->getClassPluralName($pageClass);
+            $icon = $this->getIconForPageClass($pageClass);
+            $total = Routes::getRoutes($pageClass)->count();
+
+            $this->progressBar->addStage($pageClass, "Creating {$className}", $icon, $total);
+        }
+
+        // Process each page type
+        collect($pageTypes)->each(function (string $pageClass): void {
             $this->compilePagesForClass($pageClass);
         });
+
+        // Finish and show summary
+        $this->progressBar->finish();
     }
 
     /**
@@ -50,15 +68,44 @@ class BuildService
      */
     protected function compilePagesForClass(string $pageClass): void
     {
-        $this->comment("Creating {$this->getClassPluralName($pageClass)}...");
-
         $collection = Routes::getRoutes($pageClass);
 
-        $this->withProgressBar($collection, function (Route $route): void {
-            StaticPageBuilder::handle($route->getPage());
-        });
+        if ($this->progressBar) {
+            $this->progressBar->startStage($pageClass);
 
-        $this->newLine(2);
+            foreach ($collection as $route) {
+                StaticPageBuilder::handle($route->getPage());
+                $this->progressBar->advance();
+            }
+
+            $this->progressBar->completeStage($pageClass);
+        } else {
+            // Fallback to old style if progress bar not initialized
+            $this->comment("Creating {$this->getClassPluralName($pageClass)}...");
+
+            $this->withProgressBar($collection, function (Route $route): void {
+                StaticPageBuilder::handle($route->getPage());
+            });
+
+            $this->newLine(2);
+        }
+    }
+
+    /**
+     * Get an appropriate icon for a page class.
+     */
+    protected function getIconForPageClass(string $pageClass): string
+    {
+        $className = class_basename($pageClass);
+
+        return match ($className) {
+            'BladePage' => '📄',
+            'MarkdownPage' => '📝',
+            'MarkdownPost' => '📰',
+            'DocumentationPage' => '📚',
+            'InMemoryPage' => '⚡',
+            default => '📄',
+        };
     }
 
     protected function getClassPluralName(string $pageClass): string

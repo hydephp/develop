@@ -38,6 +38,7 @@ class BuildSiteCommand extends Command
 
     protected BuildService $service;
     protected BuildTaskService $taskService;
+    protected ?\Hyde\Framework\Services\StyledProgressBar $progressBar = null;
 
     public function handle(): int
     {
@@ -60,6 +61,18 @@ class BuildSiteCommand extends Command
         $this->printFinishMessage($timeStart);
 
         return $this->getExitCode();
+    }
+
+    /**
+     * Get or create the shared styled progress bar instance.
+     */
+    public function getProgressBar(): \Hyde\Framework\Services\StyledProgressBar
+    {
+        if (! $this->progressBar) {
+            $this->progressBar = new \Hyde\Framework\Services\StyledProgressBar($this->output);
+        }
+
+        return $this->progressBar;
     }
 
     protected function printStartBanner(): void
