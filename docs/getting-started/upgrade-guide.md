@@ -388,36 +388,6 @@ use Hyde\Support\DataCollections;
 use Hyde\Support\DataCollection;
 ```
 
-### Features now use enums
-
-If you in custom code call `hasFeature` with a string, that must now be changed to an enum:
-
-**Before:**
-```php
-Hyde::hasFeature('darkmode)
-```
-
-**After:**
-```php
-Hyde::hasFeature(Feature::Darkmode)
-```
-
-### Update navigation menu creation
-
-If you in custom code call `NavigationMenu` code, do the following replacements:
-
-**before:**
-```php
-$navigation = NavigationMenu::create();
-$navigation->items`
-```
-
-**After:**
-```php
-$navigation = app('navigation.main');
-$navigation->getItems()
-```
-
 ## Step 7: Update Build Commands
 
 Update any CI/CD pipelines or build scripts:
