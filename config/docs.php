@@ -67,7 +67,7 @@ return [
         */
 
         'labels' => [
-            // 'page-identifier' => 'Display Label',
+            \Hyde\Pages\DocumentationPage::homeRouteName() => 'Docs',
         ],
 
         /*
