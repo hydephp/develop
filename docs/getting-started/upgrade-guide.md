@@ -35,6 +35,8 @@ Then run:
 composer update
 ```
 
+The dump-autoload script will likely fail, but that is okay for now as we will fix it shortly.
+
 ### Update Node Dependencies
 
 Open your `package.json` file and replace the entire `devDependencies` section:
@@ -58,19 +60,19 @@ Open your `package.json` file and replace the entire `devDependencies` section:
 {
     "type": "module",
     "devDependencies": {
-        "@tailwindcss/typography": "^0.5.19",
-        "@tailwindcss/vite": "^4.1.13",
-        "autoprefixer": "^10.4.21",
-        "hyde-vite-plugin": "^1.0.0-RC.5",
-        "hydefront": "^4.0.0-RC.1",
-        "postcss": "^8.5.6",
-        "tailwindcss": "^4.1.13",
-        "vite": "^7.1.7"
+        "@tailwindcss/typography": "^0.5.0",
+        "@tailwindcss/vite": "^4.1.0",
+        "autoprefixer": "^10.4.0",
+        "hyde-vite-plugin": "^1.1.0",
+        "hydefront": "^4.0.0",
+        "postcss": "^8.5.0",
+        "tailwindcss": "^4.1.0",
+        "vite": "^7.1.0"
     }
 }
 ```
 
-Update the npm scripts in your `package.json`:
+Update the NPM scripts in your `package.json`:
 
 ```json
 {
@@ -85,7 +87,6 @@ Then run:
 
 ```bash
 npm install
-npm run build
 ```
 
 ## Step 2: Migrate from Laravel Mix to Vite
@@ -149,6 +150,14 @@ npx @tailwindcss/upgrade
 
 Review the [Tailwind v4 Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide) for detailed information about breaking changes in custom configurations.
 
+## Step 5: Veriy Vite Works
+
+Now you can run Vite build:
+
+```bash
+npm run build
+```
+
 ## Step 4: Update Configuration Files
 
 ### Update `config/hyde.php`
@@ -194,32 +203,13 @@ Review the [Tailwind v4 Upgrade Guide](https://tailwindcss.com/docs/upgrade-guid
 Or use the Navigation facade:
 
 ```php
+use Hyde\Facades\Navigation;
+
 'navigation' => [
     'custom' => [
         Navigation::item('https://github.com/hydephp/hyde', 'GitHub', 200),
     ],
 ],
-```
-
-#### Rename Cache Busting Setting
-
-**Before:**
-```php
-'enable_cache_busting' => true,
-```
-
-**After:**
-```php
-'cache_busting' => true,
-```
-
-#### Remove Deprecated HydeFront Settings
-
-Remove these configuration options (they're now handled automatically):
-
-```php
-'hydefront_version' => ...,
-'hydefront_cdn_url' => ...,
 ```
 
 #### Update Subdirectory Display Setting
@@ -237,6 +227,7 @@ Remove these configuration options (they're now handled automatically):
     'subdirectory_display' => 'hidden',
 ],
 ```
+
 
 ### Update Author Configuration
 
@@ -260,6 +251,27 @@ If you're using blog post authors, update the configuration format:
         socials: ['twitter' => '@username']
     ),
 ],
+```
+
+#### Rename Cache Busting Setting
+
+**Before:**
+```php
+'enable_cache_busting' => true,
+```
+
+**After:**
+```php
+'cache_busting' => true,
+```
+
+#### Remove Deprecated HydeFront Settings
+
+Remove these configuration options (they're now handled automatically):
+
+```php
+'hydefront_version' => ...,
+'hydefront_cdn_url' => ...,
 ```
 
 ### Update `config/docs.php`
@@ -290,17 +302,34 @@ Reorganize the sidebar configuration:
         'installation',
     ],
     
-    'table_of_contents' => [
-        'enabled' => true,
-    ],
-    
     'labels' => [
         // ...
+    ],
+
+    'table_of_contents' => [
+        'enabled' => true,
+        'min_heading_level' => 2,
+        'max_heading_level' => 4,
     ],
 ],
 ```
 
-## Step 5: Update Code References
+### Update `app/config.php`
+
+Add the new navigation service provider under the `'providers'` array:
+
+```php
+Hyde\Foundation\Providers\NavigationServiceProvider::class,
+```
+
+And add the following classes to the `'aliases'` array:
+
+```php
+'Vite' => \Hyde\Facades\Vite::class,
+'MediaFile' => \Hyde\Support\Filesystem\MediaFile::class,
+```
+
+## Step 6: Update Code References
 
 ### Routes Facade API Changes
 
@@ -322,10 +351,11 @@ If you're using asset methods in custom code, note that they now return `MediaFi
 
 ```php
 // Methods renamed for clarity
-Hyde::asset('image.png');        // Previously: Hyde::mediaLink()
-Asset::get('image.png');         // Previously: Asset::mediaLink()
-Asset::exists('image.png');      // Previously: Asset::hasMediaFile()
-HydeFront::cdnLink('app.css');   // Previously: Asset::cdnLink()
+Hyde::asset('image.png');          // Previously: Hyde::mediaLink()
+Asset::get('image.png');           // Previously: Asset::mediaLink()
+Asset::exists('image.png');        // Previously: Asset::hasMediaFile()
+HydeFront::cdnLink('app.css');     // Previously: Asset::cdnLink()
+MediaFile::sourcePath('image.png') // Previously: Hyde::mediaPath()
 ```
 
 The `MediaFile` instances are Stringable and will automatically resolve to relative links, so in most cases (especially in Blade templates), no code changes are needed.
@@ -358,7 +388,37 @@ use Hyde\Support\DataCollections;
 use Hyde\Support\DataCollection;
 ```
 
-## Step 6: Update Build Commands
+### Features now use enums
+
+If you in custom code call `hasFeature` with a string, that must now be changed to an enum:
+
+**Before:**
+```php
+Hyde::hasFeature('darkmode)
+```
+
+**After:**
+```php
+Hyde::hasFeature(Feature::Darkmode)
+```
+
+### Update navigation menu creation
+
+If you in custom code call `NavigationMenu` code, do the following replacements:
+
+**before:**
+```php
+$navigation = NavigationMenu::create();
+$navigation->items`
+```
+
+**After:**
+```php
+$navigation = app('navigation.main');
+$navigation->getItems()
+```
+
+## Step 7: Update Build Commands
 
 Update any CI/CD pipelines or build scripts:
 
@@ -376,12 +436,23 @@ php hyde build --vite
 
 The `--run-dev`, `--run-prod`, and `--run-prettier` flags have been removed. Use `--vite` instead.
 
-## Step 7: Rebuild Your Site
+## Step 8: Clear caches
+
+Next to ensure we have a clean slate, run the following commands:
+
+```bash
+composer dump-autoload
+php hyde cache:clear
+rm app/storage/framework/views/*.php
+```
+
+You may also want to republish any views you have published.
+
+## Step 9: Rebuild Your Site
 
 After completing all the configuration updates:
 
 ```bash
-# Compile assets
 npm run build
 
 # Build your site
@@ -391,7 +462,7 @@ php hyde build
 php hyde serve
 ```
 
-## Step 8: Test Your Site
+## Step 10: Test Your Site
 
 1. Test all navigation menus for correct ordering and appearance
 2. Verify media assets are loading correctly
