@@ -300,7 +300,7 @@ Documentation sidebar configuration has been reorganized:
 
 ## Removed Features
 
-### Deprecated Methods
+### Deprecated Method Removals
 - `PostAuthor::getName()` - use `$author->name` property
 - `FeaturedImage::isRemote()` - use `Hyperlinks::isRemote()`
 - `DocumentationPage::getTableOfContents()` - use Blade component
