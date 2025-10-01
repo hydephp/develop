@@ -162,7 +162,7 @@ npm run build
 
 ### Update `config/hyde.php`
 
-#### Replace Features with Enum Values
+#### Replace Features With Enum Values
 
 **Before:**
 ```php
@@ -408,7 +408,7 @@ The `--run-dev`, `--run-prod`, and `--run-prettier` flags have been removed. Use
 
 ## Step 8: Clear caches
 
-Next to ensure we have a clean slate, run the following commands:
+Next, to ensure we have a clean slate, run the following commands:
 
 ```bash
 composer dump-autoload
