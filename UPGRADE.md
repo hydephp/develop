@@ -144,7 +144,7 @@ npx @tailwindcss/upgrade
 
 Review the [Tailwind v4 Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide) for detailed information about breaking changes in custom configurations.
 
-## Step 5: Veriy Vite Works
+## Step 4: Verify Vite Works
 
 Now you can run Vite build:
 
@@ -152,11 +152,11 @@ Now you can run Vite build:
 npm run build
 ```
 
-## Step 4: Update Configuration Files
+## Step 5: Update Configuration Files
 
 ### Update `config/hyde.php`
 
-#### Replace Features with Enum Values
+#### Replace Features With Enum Values
 
 **Before:**
 ```php
@@ -382,36 +382,6 @@ use Hyde\Support\DataCollections;
 use Hyde\Support\DataCollection;
 ```
 
-### Features now use enums
-
-If you in custom code call `hasFeature` with a string, that must now be changed to an enum:
-
-**Before:**
-```php
-Hyde::hasFeature('darkmode)
-```
-
-**After:**
-```php
-Hyde::hasFeature(Feature::Darkmode)
-```
-
-### Update navigation menu creation
-
-If you in custom code call `NavigationMenu` code, do the following replacements:
-
-**before:**
-```php
-$navigation = NavigationMenu::create();
-$navigation->items`
-```
-
-**After:**
-```php
-$navigation = app('navigation.main');
-$navigation->getItems()
-```
-
 ## Step 7: Update Build Commands
 
 Update any CI/CD pipelines or build scripts:
@@ -432,7 +402,7 @@ The `--run-dev`, `--run-prod`, and `--run-prettier` flags have been removed. Use
 
 ## Step 8: Clear caches
 
-Next to ensure we have a clean slate, run the following commands:
+Next, to ensure we have a clean slate, run the following commands:
 
 ```bash
 composer dump-autoload
