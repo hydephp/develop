@@ -10,6 +10,8 @@ navigation:
 
 HydePHP v2.0 represents a major evolution of the framework, introducing significant improvements to the asset system, navigation API, and overall developer experience. This release modernizes the frontend tooling by replacing Laravel Mix with Vite, completely rewrites the navigation system for better flexibility, and introduces numerous performance optimizations throughout the framework.
 
+This document will give you an overview of the changes. When you're ready to upgrade your site, take a look at the [Upgrade Guide](https://hydephp.com/docs/2.x/upgrade-guide).
+
 ## Major Features
 
 ### 🚀 Modern Frontend Tooling with Vite
@@ -17,7 +19,7 @@ HydePHP v2.0 represents a major evolution of the framework, introducing signific
 We've replaced Laravel Mix with Vite for a faster, more modern development experience:
 - **Instant Hot Module Replacement (HMR)** for real-time updates during development
 - **Direct asset compilation** into the `_media` folder for cleaner builds
-- **Updated build command**: Use `npm run build` instead of `npm run prod` (or `--vite` during the sit build)
+- **Updated build command**: Use `npm run build` instead of `npm run prod` (or `--vite` during the site build)
 - **Vite facade** for seamless Blade template integration
 - **Optimized asset serving** through the realtime compiler
 - **Hyde Vite plugin** for enhanced integration
@@ -176,7 +178,7 @@ Key changes:
 - A new `Hyde::authors()` method provides access to all site authors
 - Authors can be configured via YAML
 
-The way this system now works is that you first define authors in the config, Hyde the loads this during the booting process, and you can then access them using the get method.
+The way this system now works is that you first define authors in the config, Hyde then loads this during the booting process, and you can then access them using the get method.
 
 ### Medium Impact Changes
 
@@ -300,7 +302,7 @@ Documentation sidebar configuration has been reorganized:
 
 ## Removed Features
 
-### Deprecated Methods
+### Deprecated Method Removals
 - `PostAuthor::getName()` - use `$author->name` property
 - `FeaturedImage::isRemote()` - use `Hyperlinks::isRemote()`
 - `DocumentationPage::getTableOfContents()` - use Blade component
