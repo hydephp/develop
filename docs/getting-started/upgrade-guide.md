@@ -6,9 +6,41 @@ navigation:
 
 # HydePHP v2.0 Upgrade Guide
 
-## Prerequisites
+## Overview
+
+HydePHP v2.0 represents a major evolution of the framework, introducing significant improvements to the asset system, navigation API, and overall developer experience. This release modernizes the frontend tooling by replacing Laravel Mix with Vite, completely rewrites the navigation system for better flexibility, and introduces numerous performance optimizations throughout the framework.
+
+This document will guide you through the upgrade process. If you want to learn more about the new features, take a look at the [Release Notes](https://hydephp.com/docs/2.x/release-notes).
+
+## Before You Begin
+
+### Prerequisites
 
 Before upgrading to HydePHP v2.0, ensure your application is running **HydePHP v1.6 or later** (ideally v1.8). These versions include transition helpers that will make the migration process smoother.
+
+### Backup Your Project
+
+Before starting the upgrade process, it's **strongly recommended** to:
+
+- **Commit all changes to Git** - This allows you to easily revert if needed
+- **Create a backup** of your entire project directory
+- **Have a previous site build** so you can compare output
+
+If you're not already using Git for version control, now is an excellent time to initialize a repository:
+
+```bash
+git init
+git add .
+git commit -m "Pre-upgrade backup before HydePHP v2.0"
+```
+
+### Estimated Time
+
+The upgrade process typically takes **30-60 minutes** for most projects. Complex sites with extensive customizations may take up to 90 minutes. The majority of this time involves:
+
+- Updating and installing dependencies (~15 minutes)
+- Migrating configuration files (~20 minutes)
+- Testing and verifying the site (~15-30 minutes)
 
 ## Step 1: Update Dependencies
 
@@ -35,7 +67,7 @@ Then run:
 composer update
 ```
 
-The dump-autoload script will likely fail, but that is okay for now as we will fix it shortly.
+The dump-autoload script will likely fail, but this is expected and will be resolved in subsequent steps.
 
 ### Update Node Dependencies
 
@@ -91,11 +123,11 @@ npm install
 
 ## Step 2: Migrate from Laravel Mix to Vite
 
-### Delete the old Mix configuration
+### Delete the Old Mix Configuration
 
 Remove the `webpack.mix.js` file from your project root.
 
-### Create the new Vite configuration
+### Create the New Vite Configuration
 
 Create a new `vite.config.js` file in your project root:
 
@@ -116,7 +148,7 @@ export default defineConfig({
 });
 ```
 
-### Update your CSS imports
+### Update Your CSS imports
 
 Update `resources/assets/app.css`:
 
@@ -406,7 +438,7 @@ php hyde build --vite
 
 The `--run-dev`, `--run-prod`, and `--run-prettier` flags have been removed. Use `--vite` instead.
 
-## Step 8: Clear caches
+## Step 8: Clear Caches
 
 Next, to ensure we have a clean slate, run the following commands:
 
@@ -496,6 +528,10 @@ If you get syntax validation errors from DataCollection:
 
 - Ensure all your YAML/JSON data files have valid syntax
 - Empty data files are no longer allowed in v2.0
+
+### Errors During build
+
+If you have published Blade views, those may need to be republished if they use old syntax. If you use custom code you may need to look closer at the full release diff.
 
 ## Getting Help
 
