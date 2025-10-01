@@ -150,7 +150,7 @@ npx @tailwindcss/upgrade
 
 Review the [Tailwind v4 Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide) for detailed information about breaking changes in custom configurations.
 
-## Step 5: Veriy Vite Works
+## Step 4: Verify Vite Works
 
 Now you can run Vite build:
 
@@ -158,7 +158,7 @@ Now you can run Vite build:
 npm run build
 ```
 
-## Step 4: Update Configuration Files
+## Step 5: Update Configuration Files
 
 ### Update `config/hyde.php`
 
