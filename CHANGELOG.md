@@ -29,7 +29,7 @@ This serves two purposes:
 - for now removed features.
 
 ### Fixed
-- for any bug fixes.
+- Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332
 
 ### Security
 - in case of vulnerabilities.
