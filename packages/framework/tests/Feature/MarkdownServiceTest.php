@@ -89,6 +89,57 @@ class MarkdownServiceTest extends TestCase
                 .'rel="noopener nofollow">Torchlight.dev</a>', $html);
     }
 
+    public function testTorchlightAttributionIsNotInjectedForDocumentationPages()
+    {
+        $markdown = '# Hello World! <!-- Syntax highlighted by torchlight.dev -->';
+
+        $service = new MarkdownService($markdown, DocumentationPage::class);
+
+        $html = $service->parse();
+
+        $this->assertStringNotContainsString('Syntax highlighting by <a href="https://torchlight.dev/" '
+                .'rel="noopener nofollow">Torchlight.dev</a>', $html,
+            'Torchlight attribution should not be injected for documentation pages as it is handled by SemanticDocumentationArticle');
+    }
+
+    public function testTorchlightAttributionIsNotInjectedForDocumentationPageSubclasses()
+    {
+        $markdown = '# Hello World! <!-- Syntax highlighted by torchlight.dev -->';
+
+        $service = new MarkdownService($markdown, TestDocumentationPageSubclass::class);
+
+        $html = $service->parse();
+
+        $this->assertStringNotContainsString('Syntax highlighting by <a href="https://torchlight.dev/" '
+                .'rel="noopener nofollow">Torchlight.dev</a>', $html,
+            'Torchlight attribution should not be injected for documentation page subclasses as it is handled by SemanticDocumentationArticle');
+    }
+
+    public function testIsDocumentationPageReturnsTrueForDocumentationPageClass()
+    {
+        $service = new MarkdownService('', DocumentationPage::class);
+        $this->assertTrue($service->isDocumentationPage());
+    }
+
+    public function testIsDocumentationPageReturnsTrueForDocumentationPageSubclass()
+    {
+        $service = new MarkdownService('', TestDocumentationPageSubclass::class);
+        $this->assertTrue($service->isDocumentationPage(),
+            'isDocumentationPage should return true for subclasses of DocumentationPage using instanceof check');
+    }
+
+    public function testIsDocumentationPageReturnsFalseForOtherPageClasses()
+    {
+        $service = new MarkdownService('', MarkdownPage::class);
+        $this->assertFalse($service->isDocumentationPage());
+    }
+
+    public function testIsDocumentationPageReturnsFalseWhenNoPageClassIsSet()
+    {
+        $service = new MarkdownService('');
+        $this->assertFalse($service->isDocumentationPage());
+    }
+
     public function testBladedownIsNotEnabledByDefault()
     {
         $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
@@ -286,4 +337,12 @@ class MarkdownServiceTestClass extends MarkdownService
     {
         parent::__construct($markdown, $pageClass);
     }
+}
+
+/**
+ * Mock subclass of DocumentationPage for testing instanceof checks.
+ */
+class TestDocumentationPageSubclass extends DocumentationPage
+{
+    //
 }

@@ -149,7 +149,7 @@ class MarkdownService
 
     public function isDocumentationPage(): bool
     {
-        return isset($this->pageClass) && $this->pageClass === DocumentationPage::class;
+        return isset($this->pageClass) && is_a($this->pageClass, DocumentationPage::class, true);
     }
 
     public function withTableOfContents(): static
