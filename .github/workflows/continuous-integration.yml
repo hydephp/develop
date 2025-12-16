@@ -15,7 +15,7 @@ jobs:
           php-version: "8.2"
           extensions: fileinfo
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict --no-check-all
@@ -82,7 +82,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: fileinfo, zip
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Remove package-lock.json
         run: rm -f package-lock.json
@@ -118,7 +118,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -170,7 +170,7 @@ jobs:
           php-version: "8.2"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Cache Composer packages
         id: composer-cache
@@ -232,7 +232,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Download phpDocumentor
         run: |
@@ -258,7 +258,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
@@ -302,7 +302,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
@@ -349,7 +349,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
@@ -390,7 +390,7 @@ jobs:
     needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           # We need to fetch all history to generate the graph
           fetch-depth: 0
@@ -421,7 +421,7 @@ jobs:
       - build-git-history-graph
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: 'gh-pages'
 
@@ -520,7 +520,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Download static analysis tools
         run: |
@@ -540,7 +540,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -558,7 +558,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -575,7 +575,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Run DevSkim scanner
         uses: microsoft/DevSkim-Action@v1
@@ -604,7 +604,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -643,7 +643,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Run linter
         run: php packages/hydefront/.github/scripts/post-build.php
@@ -653,7 +653,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test monorepo tools can run
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - run: php monorepo/CodeIntelligence/CodeIntelligence.php
       - run: php monorepo/scripts/FileFormatter.php
