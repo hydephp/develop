@@ -50,27 +50,27 @@ jobs:
 
       - name: Upload Screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: screenshots
           path: tests/Browser/screenshots
 
       - name: Upload Compiled Source
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dusk-source
           path: tests/Browser/source
 
       - name: Upload Console Logs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dusk-console
           path: tests/Browser/console
 
       - name: Upload app.css
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: 'app.css'
           path: '_media/app.css'
