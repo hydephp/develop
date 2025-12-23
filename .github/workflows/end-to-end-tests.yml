@@ -82,13 +82,13 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'run-visual-tests') || github.event_name == 'push'
     steps:
       - name: Download Dusk generated pages
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: dusk-source
           path: _site
 
       - name: Download app.css
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: app.css
           path: _site/media
