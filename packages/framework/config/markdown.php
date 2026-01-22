@@ -83,6 +83,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom Markdown Processors
+    |--------------------------------------------------------------------------
+    |
+    | Here you can register your own custom Markdown processors to extend
+    | the Markdown processing pipeline. Pre-processors run on the Markdown
+    | before it is converted to HTML, while post-processors run on the
+    | resulting HTML after conversion.
+    |
+    | Each processor class must implement the appropriate contract:
+    | - Pre-processors: Hyde\Markdown\Contracts\MarkdownPreProcessorContract
+    | - Post-processors: Hyde\Markdown\Contracts\MarkdownPostProcessorContract
+    |
+    | @see https://hydephp.com/docs/1.x/advanced-markdown#custom-processors
+    |
+    */
+
+    'preprocessors' => [
+        // \App\Markdown\MyPreProcessor::class,
+    ],
+
+    'postprocessors' => [
+        // \App\Markdown\MyPostProcessor::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Tailwind Typography Prose Classes
     |--------------------------------------------------------------------------
     |
