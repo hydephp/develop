@@ -252,3 +252,166 @@ You can easily edit these classes, for example if you want to customize the pros
 ```
 
 Please note that if you add any new classes, you may need to recompile your CSS file.
+
+## Custom Markdown Processors
+
+HydePHP allows you to register your own custom Markdown processors to extend the Markdown processing pipeline. This is useful for adding custom syntax, transforming content, or modifying the rendered HTML output.
+
+### Understanding the Pipeline
+
+The Markdown processing pipeline has two stages:
+
+1. **Pre-processors** - Run on the raw Markdown **before** it's converted to HTML
+2. **Post-processors** - Run on the HTML **after** the Markdown has been converted
+
+This two-stage approach gives you flexibility to:
+- Transform Markdown syntax (pre-processing)
+- Modify the final HTML output (post-processing)
+
+### Creating a Pre-Processor
+
+Pre-processors implement the `MarkdownPreProcessorContract` interface and receive the raw Markdown string:
+
+```php
+// filepath: app/Markdown/EmojiPreProcessor.php
+<?php
+
+namespace App\Markdown;
+
+use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
+
+class EmojiPreProcessor implements MarkdownPreProcessorContract
+{
+    public static function preprocess(string $markdown): string
+    {
+        $emojis = [
+            ':wave:' => "\u{1F44B}",
+            ':heart:' => "\u{2764}\u{FE0F}",
+            ':smile:' => "\u{1F604}",
+        ];
+
+        return str_replace(array_keys($emojis), array_values($emojis), $markdown);
+    }
+}
+```
+
+### Creating a Post-Processor
+
+Post-processors implement the `MarkdownPostProcessorContract` interface and receive the rendered HTML:
+
+```php
+// filepath: app/Markdown/ExternalLinkPostProcessor.php
+<?php
+
+namespace App\Markdown;
+
+use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
+
+class ExternalLinkPostProcessor implements MarkdownPostProcessorContract
+{
+    public static function postprocess(string $html): string
+    {
+        // Add target="_blank" and rel attributes to external links
+        return preg_replace(
+            '/<a href="(https?:\/\/[^"]+)"/',
+            '<a href="$1" target="_blank" rel="noopener noreferrer"',
+            $html
+        ) ?? $html;
+    }
+}
+```
+
+### Registering Processors
+
+Register your custom processors in the `config/markdown.php` configuration file:
+
+```php
+// filepath: config/markdown.php
+'preprocessors' => [
+    \App\Markdown\EmojiPreProcessor::class,
+],
+
+'postprocessors' => [
+    \App\Markdown\ExternalLinkPostProcessor::class,
+],
+```
+
+### Processor Execution Order
+
+Processors are executed in the order they are registered:
+
+1. Built-in pre-processors run first (Blade, Shortcodes, etc.)
+2. Your custom pre-processors run next, in array order
+3. Markdown is converted to HTML
+4. Built-in post-processors run (Code block filepaths, Dynamic links)
+5. Your custom post-processors run last, in array order
+
+This means your custom processors can work alongside and build upon the built-in processors.
+
+### Use Cases
+
+Here are some practical examples of what you can build with custom processors:
+
+**Container syntax (like VuePress/Docusaurus):**
+
+```php
+// filepath: app/Markdown/ContainerPreProcessor.php
+class ContainerPreProcessor implements MarkdownPreProcessorContract
+{
+    public static function preprocess(string $markdown): string
+    {
+        // Convert :::note ... ::: syntax to custom HTML
+        return preg_replace(
+            '/:::(\w+)\n(.*?)\n:::/s',
+            '<div class="custom-$1">$2</div>',
+            $markdown
+        ) ?? $markdown;
+    }
+}
+```
+
+**Custom heading IDs:**
+
+```php
+// filepath: app/Markdown/CustomHeadingIdPostProcessor.php
+class CustomHeadingIdPostProcessor implements MarkdownPostProcessorContract
+{
+    public static function postprocess(string $html): string
+    {
+        return preg_replace_callback(
+            '/<h([1-6])>(.+?)<\/h\1>/',
+            function ($matches) {
+                $level = $matches[1];
+                $text = $matches[2];
+                $id = 'section-'.strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', strip_tags($text)));
+                return "<h{$level} id=\"{$id}\">{$text}</h{$level}>";
+            },
+            $html
+        ) ?? $html;
+    }
+}
+```
+
+**Variable substitution:**
+
+```php
+// filepath: app/Markdown/VariablePreProcessor.php
+class VariablePreProcessor implements MarkdownPreProcessorContract
+{
+    public static function preprocess(string $markdown): string
+    {
+        return str_replace(
+            ['{{site_name}}', '{{year}}'],
+            [config('hyde.name'), date('Y')],
+            $markdown
+        );
+    }
+}
+```
+
+### Tips and Best Practices
+
+1. **Keep processors focused** - Each processor should do one thing well
+2. **Order matters** - Consider the execution order when multiple processors interact
+3. **Handle edge cases** - Use null coalescing operators with regex to handle failures gracefully
+4. **Test thoroughly** - Write tests for your processors to ensure they work correctly
