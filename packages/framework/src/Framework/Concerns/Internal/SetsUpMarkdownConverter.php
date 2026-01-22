@@ -57,6 +57,8 @@ trait SetsUpMarkdownConverter
 
         $this->registerPreProcessor(ShortcodeProcessor::class);
         $this->registerPreProcessor(CodeblockFilepathProcessor::class);
+
+        $this->registerConfigDefinedPreProcessors();
     }
 
     protected function registerPostProcessors(): void
@@ -72,6 +74,22 @@ trait SetsUpMarkdownConverter
         );
 
         $this->registerPostProcessor(DynamicMarkdownLinkProcessor::class);
+
+        $this->registerConfigDefinedPostProcessors();
+    }
+
+    protected function registerConfigDefinedPreProcessors(): void
+    {
+        foreach (Config::getArray('markdown.preprocessors', []) as $processorClassName) {
+            $this->registerPreProcessor($processorClassName);
+        }
+    }
+
+    protected function registerConfigDefinedPostProcessors(): void
+    {
+        foreach (Config::getArray('markdown.postprocessors', []) as $processorClassName) {
+            $this->registerPostProcessor($processorClassName);
+        }
     }
 
     protected function registerPreProcessor(string $class, bool $when = true): void
