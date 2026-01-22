@@ -323,6 +323,61 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("foo\nbar\nbaz\n", $service->normalizeIndentationLevel($markdown));
     }
 
+    public function testCustomPreProcessorsCanBeRegisteredViaConfig()
+    {
+        config(['markdown.preprocessors' => [TestMarkdownPreProcessor::class]]);
+
+        $service = new MarkdownService('Hello World');
+        $result = $service->parse();
+
+        $this->assertStringContainsString('PREPROCESSED', $result);
+    }
+
+    public function testCustomPostProcessorsCanBeRegisteredViaConfig()
+    {
+        config(['markdown.postprocessors' => [TestMarkdownPostProcessor::class]]);
+
+        $service = new MarkdownService('Hello World');
+        $result = $service->parse();
+
+        $this->assertStringContainsString('POSTPROCESSED', $result);
+    }
+
+    public function testCustomProcessorsWorkWithExistingProcessors()
+    {
+        config([
+            'markdown.preprocessors' => [TestMarkdownPreProcessor::class],
+            'markdown.postprocessors' => [TestMarkdownPostProcessor::class],
+        ]);
+
+        $service = new MarkdownService('>info Test message');
+        $result = $service->parse();
+
+        // Custom processors should work alongside built-in shortcode processor
+        $this->assertStringContainsString('PREPROCESSED', $result);
+        $this->assertStringContainsString('POSTPROCESSED', $result);
+    }
+
+    public function testRealWorldUseCaseCustomHeadingIdProcessor()
+    {
+        config(['markdown.postprocessors' => [CustomHeadingIdPostProcessor::class]]);
+
+        $service = new MarkdownService('# My Heading');
+        $result = $service->parse();
+
+        $this->assertStringContainsString('id="custom-my-heading"', $result);
+    }
+
+    public function testRealWorldUseCaseEmojiShortcodeProcessor()
+    {
+        config(['markdown.preprocessors' => [EmojiShortcodePreProcessor::class]]);
+
+        $service = new MarkdownService('Hello :smile: World');
+        $result = $service->parse();
+
+        $this->assertStringNotContainsString(':smile:', $result);
+    }
+
     protected function makeService(): MarkdownServiceTestClass
     {
         return new MarkdownServiceTestClass();
@@ -345,4 +400,64 @@ class MarkdownServiceTestClass extends MarkdownService
 class TestDocumentationPageSubclass extends DocumentationPage
 {
     //
+}
+
+/**
+ * Test preprocessor for feature tests.
+ */
+class TestMarkdownPreProcessor implements \Hyde\Markdown\Contracts\MarkdownPreProcessorContract
+{
+    public static function preprocess(string $markdown): string
+    {
+        return 'PREPROCESSED: '.$markdown;
+    }
+}
+
+/**
+ * Test postprocessor for feature tests.
+ */
+class TestMarkdownPostProcessor implements \Hyde\Markdown\Contracts\MarkdownPostProcessorContract
+{
+    public static function postprocess(string $html): string
+    {
+        return $html.'<!-- POSTPROCESSED -->';
+    }
+}
+
+/**
+ * Example real-world postprocessor that adds custom IDs to headings.
+ */
+class CustomHeadingIdPostProcessor implements \Hyde\Markdown\Contracts\MarkdownPostProcessorContract
+{
+    public static function postprocess(string $html): string
+    {
+        return preg_replace_callback(
+            '/<h([1-6])>(.+?)<\/h\1>/',
+            function ($matches) {
+                $level = $matches[1];
+                $text = $matches[2];
+                $id = 'custom-'.strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', strip_tags($text)));
+
+                return "<h{$level} id=\"{$id}\">{$text}</h{$level}>";
+            },
+            $html
+        );
+    }
+}
+
+/**
+ * Example real-world preprocessor that converts emoji shortcodes.
+ */
+class EmojiShortcodePreProcessor implements \Hyde\Markdown\Contracts\MarkdownPreProcessorContract
+{
+    public static function preprocess(string $markdown): string
+    {
+        $emojis = [
+            ':smile:' => "\u{1F604}",
+            ':heart:' => "\u{2764}",
+            ':thumbsup:' => "\u{1F44D}",
+        ];
+
+        return str_replace(array_keys($emojis), array_values($emojis), $markdown);
+    }
 }
