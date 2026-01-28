@@ -1126,11 +1126,11 @@
         },
         {
             "name": "hyde/framework",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "c5faf11f8377c0064d5f9738fa58e46ed10fbf16"
+                "reference": "8ed50ad9c2bb6a5e5e6937945a4737b2f79ba40a"
             },
             "require": {
                 "hydephp/torchlight-commonmark": "^1.0",
@@ -1176,7 +1176,7 @@
         },
         {
             "name": "hyde/publications",
-            "version": "dev-update-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/publications",
@@ -1223,7 +1223,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-update-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -5873,16 +5873,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.3.0",
+            "version": "v7.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "40c295f2deb408d5e9d2d32b8ba1dd61e36f05af"
+                "reference": "608476f4604102976d687c483ac63a79ba18cc97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/40c295f2deb408d5e9d2d32b8ba1dd61e36f05af",
-                "reference": "40c295f2deb408d5e9d2d32b8ba1dd61e36f05af",
+                "url": "https://api.github.com/repos/symfony/process/zipball/608476f4604102976d687c483ac63a79ba18cc97",
+                "reference": "608476f4604102976d687c483ac63a79ba18cc97",
                 "shasum": ""
             },
             "require": {
@@ -5914,7 +5914,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.3.0"
+                "source": "https://github.com/symfony/process/tree/v7.4.5"
             },
             "funding": [
                 {
@@ -5926,11 +5926,15 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-17T09:11:12+00:00"
+            "time": "2026-01-26T15:07:59+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -7041,7 +7045,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-update-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -7067,11 +7071,11 @@
         },
         {
             "name": "hyde/realtime-compiler",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "dd4172f14d8d59e3de65a675132510c3095c947c"
+                "reference": "8c12540a4458b724b4bd762e8df855dba62d6fd0"
             },
             "require": {
                 "desilva/microserve": "^2.0",
@@ -7123,7 +7127,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-update-composer-dependencies",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
