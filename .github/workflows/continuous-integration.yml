@@ -147,7 +147,7 @@ jobs:
           path: '_media'
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           add: '["_media/app.css", "packages/hydefront/dist/app.css"]'
           message: 'Compile TailwindCSS for production'
@@ -507,7 +507,7 @@ jobs:
       # End directory listing
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           pull: 'origin gh-pages'
           add: '["master", "index.html"]'
