@@ -13,7 +13,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # If PR title starts with "Internal: " then add the "Internal" label
       - name: Label Internal Pull Requests

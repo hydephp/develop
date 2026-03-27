@@ -11,7 +11,7 @@ jobs:
         run:  echo "XDEBUG_MODE=off" >> $GITHUB_ENV
 
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: src
 
