@@ -72,6 +72,26 @@ class HydePageDataFactoryTest extends UnitTestCase
         $this->assertInstanceOf(NavigationData::class, $this->factory()->toArray()['navigation']);
     }
 
+    public function testTitleStripsNumericalPrefixFromBasename()
+    {
+        $this->assertSame('Foo', $this->factoryFromPage(new MarkdownPage('01-foo'))->toArray()['title']);
+    }
+
+    public function testTitleStripsNumericalPrefixFromNestedBasename()
+    {
+        $this->assertSame('Bar', $this->factoryFromPage(new MarkdownPage('foo/02-bar'))->toArray()['title']);
+    }
+
+    public function testIndexPageTitleStripsNumericalPrefixFromParentIdentifierBasename()
+    {
+        $this->assertSame('Foo', $this->factoryFromPage(new MarkdownPage('01-foo/index'))->toArray()['title']);
+    }
+
+    public function testIndexPageTitleStripsNumericalPrefixFromNestedParentIdentifierBasename()
+    {
+        $this->assertSame('Bar', $this->factoryFromPage(new MarkdownPage('foo/02-bar/index'))->toArray()['title']);
+    }
+
     protected function factory(array $data = []): HydePageDataFactory
     {
         return $this->factoryFromPage(new InMemoryPage('', $data));
