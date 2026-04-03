@@ -10,6 +10,7 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationData;
+use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 
 use function basename;
 use function dirname;
@@ -68,7 +69,18 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         return $this->getMatter('title')
             ?? $this->findTitleFromMarkdownHeadings()
             ?? $this->findTitleFromParentIdentifier()
-            ?? Hyde::makeTitle(basename($this->identifier));
+            ?? Hyde::makeTitle($this->getCleanBasename());
+    }
+
+    private function getCleanBasename(): string
+    {
+        $basename = basename($this->identifier);
+
+        if (NumericalPageOrderingHelper::hasNumericalPrefix($basename)) {
+            return NumericalPageOrderingHelper::splitNumericPrefix($basename)[1];
+        }
+
+        return $basename;
     }
 
     private function findTitleFromMarkdownHeadings(): ?string
@@ -87,7 +99,13 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
     private function findTitleFromParentIdentifier(): ?string
     {
         if (str_contains($this->identifier, '/') && str_ends_with($this->identifier, '/index')) {
-            return Hyde::makeTitle(basename(dirname($this->identifier)));
+            $parentBasename = basename(dirname($this->identifier));
+
+            if (NumericalPageOrderingHelper::hasNumericalPrefix($parentBasename)) {
+                $parentBasename = NumericalPageOrderingHelper::splitNumericPrefix($parentBasename)[1];
+            }
+
+            return Hyde::makeTitle($parentBasename);
         }
 
         return null;
