@@ -12,7 +12,7 @@ jobs:
           php-version: "8.2"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict --no-check-all
