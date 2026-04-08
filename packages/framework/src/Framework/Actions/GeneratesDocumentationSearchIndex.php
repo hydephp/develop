@@ -55,10 +55,10 @@ class GeneratesDocumentationSearchIndex
     protected function generatePageEntry(DocumentationPage $page): array
     {
         return [
-            'slug' => basename($page->identifier),
+            'slug' => basename($page->routeKey),
             'title' => $page->title,
             'content' => trim($this->getSearchContentForDocument($page)),
-            'destination' => $this->formatDestination(basename($page->identifier)),
+            'destination' => $this->formatDestination(basename($page->routeKey)),
         ];
     }
 

@@ -114,6 +114,31 @@ class DocumentationSearchServiceTest extends UnitTestCase
         );
     }
 
+    public function testNumericPrefixesAreStrippedFromSearchResults()
+    {
+        $this->file('_docs/01-foo.md');
+
+        $this->assertSame([[
+            'slug' => 'foo',
+            'title' => 'Foo',
+            'content' => '',
+            'destination' => 'foo.html',
+        ]], $this->getArray());
+    }
+
+    public function testNumericPrefixesAreRemovedFromNestedSearchResults()
+    {
+        $this->directory(Hyde::path('_docs/01-category'));
+        $this->file('_docs/01-category/02-item-name.md');
+
+        $result = $this->getArray()[0];
+
+        $this->assertSame('item-name', $result['slug']);
+        $this->assertSame('item-name.html', $result['destination']);
+        $this->assertStringNotContainsString('02-', json_encode($result));
+        $this->assertStringNotContainsString('01-', json_encode($result));
+    }
+
     protected function getArray(): array
     {
         return json_decode(GeneratesDocumentationSearchIndex::handle(), true);
