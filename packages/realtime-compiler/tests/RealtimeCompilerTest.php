@@ -11,6 +11,7 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
+use Hyde\RealtimeCompiler\Routing\Router;
 
 class RealtimeCompilerTest extends TestCase
 {
@@ -211,9 +212,66 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('Internal Server Error', $response->statusMessage);
     }
 
+    public function testOverridesSiteUrlWithRequestUrl()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        config(['hyde.url' => 'https://hydephp.com']);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('http://localhost:8080', config('hyde.url'));
+    }
+
+    public function testOverridesSiteUrlUsesHttpsSchemeForSecureRequests()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'hyde.test';
+        $_SERVER['HTTPS'] = 'on';
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('https://hyde.test', config('hyde.url'));
+
+        unset($_SERVER['HTTPS']);
+    }
+
+    public function testOverridesSiteUrlFallsBackToLocalhostWhenHostIsMissing()
+    {
+        $this->mockCompilerRoute('');
+        unset($_SERVER['HTTP_HOST']);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('http://localhost', config('hyde.url'));
+    }
+
+    public function testDoesNotOverrideSiteUrlWhenSavePreviewIsEnabled()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        config([
+            'hyde.server.save_preview' => true,
+            'hyde.url' => 'https://hydephp.com',
+        ]);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('https://hydephp.com', config('hyde.url'));
+    }
+
     protected function mockCompilerRoute(string $route, $method = 'GET'): void
     {
         $_SERVER['REQUEST_METHOD'] = $method;
         $_SERVER['REQUEST_URI'] = "/$route";
+    }
+
+    protected function invokeOverrideSiteUrl(): void
+    {
+        $method = new ReflectionMethod(Router::class, 'overrideSiteUrl');
+        $method->setAccessible(true);
+        $method->invoke(new Router(new Request()));
     }
 }
