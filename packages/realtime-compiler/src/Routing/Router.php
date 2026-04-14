@@ -32,6 +32,8 @@ class Router
 
         $this->bootApplication();
 
+        $this->overrideSiteUrl();
+
         $virtualRoutes = app(RealtimeCompiler::class)->getVirtualRoutes();
 
         if (isset($virtualRoutes[$this->request->path])) {
@@ -69,6 +71,27 @@ class Router
 
         // The page is not a web page, so we assume it should be proxied.
         return true;
+    }
+
+    /**
+     * Override the configured site URL so compiled pages reference the local
+     * server instead of the production URL. Without this, assets such as
+     * media files would be loaded from the production host when previewing
+     * the site locally.
+     */
+    protected function overrideSiteUrl(): void
+    {
+        // When save_preview is enabled, the compiled page is written to disk,
+        // so we leave the configured site URL alone to avoid baking the local
+        // preview URL into the persisted output.
+        if (config('hyde.server.save_preview')) {
+            return;
+        }
+
+        $scheme = (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
+        config(['hyde.url' => "$scheme://$host"]);
     }
 
     /**
