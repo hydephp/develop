@@ -56,9 +56,11 @@ class GenerateBuildManifest extends PostBuildTask
         return file_exists($path) ? unixsum_file($path) : null;
     }
 
-    protected function hashSourcePath(HydePage $page): string
+    protected function hashSourcePath(HydePage $page): ?string
     {
-        return unixsum_file(Hyde::path($page->getSourcePath()));
+        $path = Hyde::path($page->getSourcePath());
+
+        return file_exists($path) ? unixsum_file($path) : null;
     }
 
     protected function getManifestPath(): string
