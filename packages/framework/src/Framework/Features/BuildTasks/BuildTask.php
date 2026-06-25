@@ -49,13 +49,7 @@ abstract class BuildTask
             $this->handle();
             $this->printFinishMessage();
         } catch (Throwable $exception) {
-            if ($exception instanceof BuildTaskSkippedException) {
-                $this->write("<bg=yellow>Skipped</>\n");
-                $this->write("<fg=gray> > {$exception->getMessage()}</>");
-            } else {
-                $this->write("<error>Failed</error>\n");
-                $this->write("<error>{$exception->getMessage()}</error>");
-            }
+            $this->handleExceptionReporting($exception);
 
             $this->exitCode = $exception->getCode();
         }
@@ -122,5 +116,16 @@ abstract class BuildTask
         $this->write(" in {$this->getExecutionTimeString()}");
 
         return $this;
+    }
+
+    protected function handleExceptionReporting(Throwable $exception): void
+    {
+        if ($exception instanceof BuildTaskSkippedException) {
+            $this->write("<bg=yellow>Skipped</>\n");
+            $this->write("<fg=gray> > {$exception->getMessage()}</>");
+        } else {
+            $this->write("<error>Failed</error>\n");
+            $this->write("<error>{$exception->getMessage()}</error>");
+        }
     }
 }

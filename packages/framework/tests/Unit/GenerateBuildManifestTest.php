@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Exception;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 use Hyde\Hyde;
@@ -50,5 +51,31 @@ class GenerateBuildManifestTest extends UnitTestCase
         $this->assertSame(unixsum_file(Hyde::path('_pages/404.blade.php')), $manifest['pages'][404]['source_hash']);
         $this->assertNull($manifest['pages'][404]['output_hash']);
         $this->assertNull($manifest['pages']['docs/search.json']['source_hash']);
+    }
+
+    public function testExceptionHandlingPrintsDeferredStartMessage()
+    {
+        $task = new FailingGenerateBuildManifest();
+
+        $this->assertSame(123, $task->run());
+
+        $this->assertSame('<comment>Generating build manifest...</comment> ', $task->buffer[0]);
+        $this->assertSame("<error>Failed</error>\n", $task->buffer[1]);
+        $this->assertSame('<error>Test exception</error>', $task->buffer[2]);
+    }
+}
+
+class FailingGenerateBuildManifest extends GenerateBuildManifest
+{
+    public array $buffer = [];
+
+    public function handle(): void
+    {
+        throw new Exception('Test exception', 123);
+    }
+
+    public function write(string $message): void
+    {
+        $this->buffer[] = $message;
     }
 }
