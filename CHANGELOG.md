@@ -30,6 +30,7 @@ This serves two purposes:
 
 ### Fixed
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332
+- Fixed bug causing build manifest to not generate when a site has dynamic pages in https://github.com/hydephp/develop/pull/2450
 
 ### Security
 - in case of vulnerabilities.
