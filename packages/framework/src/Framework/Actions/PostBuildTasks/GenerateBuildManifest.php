@@ -8,8 +8,8 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
-use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
+use Throwable;
 
 use function Hyde\unixsum_file;
 use function file_put_contents;
@@ -79,8 +79,19 @@ class GenerateBuildManifest extends PostBuildTask
         ], JSON_PRETTY_PRINT);
     }
 
-    public function setOutput(OutputStyle $output): void
+    public function printStartMessage(): void
     {
-        // Disable output
+        // Deferred to failure handler
+    }
+
+    public function printFinishMessage(): void
+    {
+        // Silent
+    }
+
+    protected function handleExceptionReporting(Throwable $exception): void
+    {
+        $this->write("<comment>{$this->getMessage()}...</comment> ");
+        parent::handleExceptionReporting($exception);
     }
 }
