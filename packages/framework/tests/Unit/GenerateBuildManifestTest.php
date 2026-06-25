@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
+use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 
@@ -18,6 +19,8 @@ class GenerateBuildManifestTest extends UnitTestCase
 
     public function testActionGeneratesBuildManifest()
     {
+        Hyde::pages()->addPage(new DocumentationSearchIndex());
+
         (new GenerateBuildManifest())->handle();
 
         $this->assertFileExists(Hyde::path('app/storage/framework/cache/build-manifest.json'));
@@ -27,9 +30,9 @@ class GenerateBuildManifestTest extends UnitTestCase
         $this->assertIsArray($manifest);
 
         $this->assertCount(2, $manifest);
-        $this->assertCount(2, $manifest['pages']);
+        $this->assertCount(3, $manifest['pages']);
 
-        $this->assertSame([404, 'index'], array_keys($manifest['pages']));
+        $this->assertSame([404, 'index', 'docs/search.json'], array_keys($manifest['pages']));
 
         $this->assertArrayHasKey('source_path', $manifest['pages'][404]);
         $this->assertArrayHasKey('output_path', $manifest['pages'][404]);
@@ -38,11 +41,14 @@ class GenerateBuildManifestTest extends UnitTestCase
 
         $this->assertSame('_pages/404.blade.php', $manifest['pages'][404]['source_path']);
         $this->assertSame('_pages/index.blade.php', $manifest['pages']['index']['source_path']);
+        $this->assertSame('docs/search.json', $manifest['pages']['docs/search.json']['source_path']);
 
         $this->assertSame('404.html', $manifest['pages'][404]['output_path']);
         $this->assertSame('index.html', $manifest['pages']['index']['output_path']);
+        $this->assertSame('docs/search.json', $manifest['pages']['docs/search.json']['output_path']);
 
         $this->assertSame(unixsum_file(Hyde::path('_pages/404.blade.php')), $manifest['pages'][404]['source_hash']);
         $this->assertNull($manifest['pages'][404]['output_hash']);
+        $this->assertNull($manifest['pages']['docs/search.json']['source_hash']);
     }
 }
