@@ -8,3 +8,14 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ## Changes required to the v2 branch
 
+---
+
+## Release Notes
+
+### New Features
+
+### Feature Changes
+
+### Breaking Changes
+
+### Upgrade guide
