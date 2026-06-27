@@ -322,7 +322,7 @@ class StaticSiteServiceTest extends TestCase
 
         $this->artisan('build')
             ->expectsOutput('There were some warnings during the build process:')
-            ->expectsOutputToContain('Hyde\Framework\Exceptions\BuildWarning')
+            ->expectsOutputToContain('This is a warning')
             ->doesntExpectOutput(' 1. This is a warning')
             ->assertExitCode(2);
     }
