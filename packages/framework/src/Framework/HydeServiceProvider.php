@@ -14,6 +14,7 @@ use Hyde\Framework\Services\MarkdownService;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Framework\Concerns\RegistersFileLocations;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Console\Command;
 use Hyde\Facades\Config;
 
 /**
@@ -55,6 +56,10 @@ class HydeServiceProvider extends ServiceProvider
         $this->useMediaDirectory(Config::getString('hyde.media_directory', '_media'));
 
         $this->discoverBladeViewsIn(BladePage::sourceDirectory());
+
+        $this->app->afterResolving(Command::class, function (Command $command, $app): void {
+            $command->setLaravel($app);
+        });
     }
 
     public function boot(): void
