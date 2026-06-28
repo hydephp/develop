@@ -12,6 +12,8 @@ beforeEach(function () {
     renderUsing($this->output = new BufferedOutput());
 
     $this::mockConfig();
+
+    app()->singleton('files', fn () => new \Illuminate\Filesystem\Filesystem());
 });
 
 afterEach(function () {
