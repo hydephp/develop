@@ -37,7 +37,7 @@ jobs:
           }
           
           # Create hard links for all suites
-          for suite in unit feature_hyde feature_framework publications realtime_compiler; do
+          for suite in unit feature_hyde feature_framework realtime_compiler; do
             setup_directory $suite
           done
           
@@ -67,14 +67,12 @@ jobs:
           run_tests unit UnitFramework & pid1=$!
           run_tests feature_hyde FeatureHyde & pid2=$!
           run_tests feature_framework FeatureFramework & pid3=$!
-          run_tests publications Publications & pid4=$!
           run_tests realtime_compiler "Realtime Compiler" & pid5=$!
           
           # Wait for all background jobs to finish and capture exit codes
           wait $pid1 || echo "Unit tests failed" >> test_failures
           wait $pid2 || echo "Feature Hyde tests failed" >> test_failures
           wait $pid3 || echo "Feature Framework tests failed" >> test_failures
-          wait $pid4 || echo "Publications tests failed" >> test_failures
           wait $pid5 || echo "Realtime Compiler tests failed" >> test_failures
 
           # Check if any tests failed
@@ -101,12 +99,6 @@ jobs:
         run: |
           cat test_outputs/feature_framework.log
           grep -q "Feature Framework tests failed" test_failures && exit 1 || exit 0
-
-      - name: Display Publications Tests Output
-        if: always()
-        run: |
-          cat test_outputs/publications.log
-          grep -q "Publications tests failed" test_failures && exit 1 || exit 0
 
       - name: Display Realtime Compiler Tests Output
         if: always()

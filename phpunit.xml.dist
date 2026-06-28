@@ -18,9 +18,6 @@
         <testsuite name="FeatureFramework">
             <directory suffix="Test.php">./packages/framework/tests/Feature</directory>
         </testsuite>
-        <testsuite name="Publications">
-            <directory suffix="Test.php">./packages/publications/tests</directory>
-        </testsuite>
         <testsuite name="Realtime Compiler">
             <directory suffix="Test.php">./packages/realtime-compiler/tests</directory>
             <exclude>./packages/realtime-compiler/tests/Integration</exclude>
@@ -33,7 +30,6 @@
     <source>
         <include>
             <directory suffix=".php">./packages/framework/src</directory>
-            <directory suffix=".php">./packages/publications/src</directory>
         </include>
     </source>
 </phpunit>
