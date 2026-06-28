@@ -287,6 +287,37 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('https://hydephp.com', config('hyde.url'));
     }
 
+    public function testRouterHandleOverridesSiteUrlForPageRequest()
+    {
+        putenv('SERVER_DASHBOARD=false');
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        config(['hyde.url' => 'https://hydephp.com']);
+
+        $kernel = new HttpKernel();
+        $kernel->handle(new Request());
+
+        $this->assertSame('http://localhost:8080', config('hyde.url'));
+    }
+
+    public function testRouterHandleDoesNotOverrideSiteUrlWhenSavePreviewIsEnabled()
+    {
+        putenv('SERVER_DASHBOARD=false');
+        putenv('SERVER_SAVE_PREVIEW=true');
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $kernel = new HttpKernel();
+        $kernel->handle(new Request());
+
+        // When save_preview is enabled, overrideSiteUrl() must not replace the
+        // configured URL with the local server address.
+        $this->assertNotSame('http://localhost:8080', config('hyde.url'));
+
+        putenv('SERVER_SAVE_PREVIEW=');
+    }
+
     protected function mockCompilerRoute(string $route, $method = 'GET'): void
     {
         $_SERVER['REQUEST_METHOD'] = $method;
