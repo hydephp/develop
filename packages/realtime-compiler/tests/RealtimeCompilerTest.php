@@ -11,9 +11,12 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
+use Hyde\RealtimeCompiler\Routing\Router;
 
 class RealtimeCompilerTest extends TestCase
 {
+    protected array $serverBackup = [];
+
     public static function setUpBeforeClass(): void
     {
         putenv('SERVER_LIVE_EDIT=false');
@@ -29,10 +32,14 @@ class RealtimeCompilerTest extends TestCase
     {
         parent::setUp();
         ob_start();
+
+        $this->serverBackup = $_SERVER;
     }
 
     protected function tearDown(): void
     {
+        $_SERVER = $this->serverBackup;
+
         parent::tearDown();
         ob_end_clean();
     }
@@ -70,6 +77,7 @@ class RealtimeCompilerTest extends TestCase
 
     public function testHandlesRoutesPagesWithHtmlExtension()
     {
+        $this->mockCompilerRoute('foo.html');
         Filesystem::put('_pages/foo.md', '# Hello World!');
 
         $kernel = new HttpKernel();
@@ -211,9 +219,115 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('Internal Server Error', $response->statusMessage);
     }
 
+    public function testOverridesSiteUrlWithRequestUrl()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        config(['hyde.url' => 'https://hydephp.com']);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('http://localhost:8080', config('hyde.url'));
+    }
+
+    public function testOverridesSiteUrlUsesHttpsSchemeForSecureRequests()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'hyde.test';
+        $_SERVER['HTTPS'] = 'on';
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('https://hyde.test', config('hyde.url'));
+    }
+
+    public function testOverridesSiteUrlFallsBackToConfiguredServerWhenHostIsMissing()
+    {
+        $this->mockCompilerRoute('');
+        unset($_SERVER['HTTP_HOST']);
+
+        config([
+            'hyde.server.host' => 'hyde.test',
+            'hyde.server.port' => 8080,
+        ]);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('http://hyde.test:8080', config('hyde.url'));
+    }
+
+    public function testOverridesSiteUrlFallsBackToConfiguredServerWhenHostHeaderIsInvalid()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'evil.test/path';
+
+        config([
+            'hyde.server.host' => 'localhost',
+            'hyde.server.port' => 8080,
+        ]);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('http://localhost:8080', config('hyde.url'));
+    }
+
+    public function testDoesNotOverrideSiteUrlWhenSavePreviewIsEnabled()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        config([
+            'hyde.server.save_preview' => true,
+            'hyde.url' => 'https://hydephp.com',
+        ]);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('https://hydephp.com', config('hyde.url'));
+    }
+
+    public function testRouterHandleOverridesSiteUrlForPageRequest()
+    {
+        putenv('SERVER_DASHBOARD=false');
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        config(['hyde.url' => 'https://hydephp.com']);
+
+        $kernel = new HttpKernel();
+        $kernel->handle(new Request());
+
+        $this->assertSame('http://localhost:8080', config('hyde.url'));
+    }
+
+    public function testRouterHandleDoesNotOverrideSiteUrlWhenSavePreviewIsEnabled()
+    {
+        putenv('SERVER_DASHBOARD=false');
+        putenv('SERVER_SAVE_PREVIEW=true');
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $kernel = new HttpKernel();
+        $kernel->handle(new Request());
+
+        // When save_preview is enabled, overrideSiteUrl() must not replace the
+        // configured URL with the local server address.
+        $this->assertNotSame('http://localhost:8080', config('hyde.url'));
+
+        putenv('SERVER_SAVE_PREVIEW=');
+    }
+
     protected function mockCompilerRoute(string $route, $method = 'GET'): void
     {
         $_SERVER['REQUEST_METHOD'] = $method;
         $_SERVER['REQUEST_URI'] = "/$route";
+    }
+
+    protected function invokeOverrideSiteUrl(): void
+    {
+        $method = new ReflectionMethod(Router::class, 'overrideSiteUrl');
+        $method->setAccessible(true);
+        $method->invoke(new Router(new Request()));
     }
 }

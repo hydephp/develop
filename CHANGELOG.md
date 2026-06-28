@@ -32,6 +32,7 @@ This serves two purposes:
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332
 - Fixed bug causing build manifest to not generate when a site has dynamic pages in https://github.com/hydephp/develop/pull/2450
 - Fixed bug causing errors in the build manifest task not showing in console in https://github.com/hydephp/develop/pull/2451
+- Fixed realtime compiler loading assets from production URL when configured in https://github.com/hydephp/develop/pull/2418
 
 ### Security
 - in case of vulnerabilities.
