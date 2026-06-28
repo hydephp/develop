@@ -15,6 +15,8 @@ use Hyde\RealtimeCompiler\Routing\Router;
 
 class RealtimeCompilerTest extends TestCase
 {
+    protected array $serverBackup = [];
+
     public static function setUpBeforeClass(): void
     {
         putenv('SERVER_LIVE_EDIT=false');
@@ -30,10 +32,14 @@ class RealtimeCompilerTest extends TestCase
     {
         parent::setUp();
         ob_start();
+
+        $this->serverBackup = $_SERVER;
     }
 
     protected function tearDown(): void
     {
+        $_SERVER = $this->serverBackup;
+
         parent::tearDown();
         ob_end_clean();
     }
@@ -71,6 +77,7 @@ class RealtimeCompilerTest extends TestCase
 
     public function testHandlesRoutesPagesWithHtmlExtension()
     {
+        $this->mockCompilerRoute('foo.html');
         Filesystem::put('_pages/foo.md', '# Hello World!');
 
         $kernel = new HttpKernel();
@@ -233,18 +240,36 @@ class RealtimeCompilerTest extends TestCase
         $this->invokeOverrideSiteUrl();
 
         $this->assertSame('https://hyde.test', config('hyde.url'));
-
-        unset($_SERVER['HTTPS']);
     }
 
-    public function testOverridesSiteUrlFallsBackToLocalhostWhenHostIsMissing()
+    public function testOverridesSiteUrlFallsBackToConfiguredServerWhenHostIsMissing()
     {
         $this->mockCompilerRoute('');
         unset($_SERVER['HTTP_HOST']);
 
+        config([
+            'hyde.server.host' => 'hyde.test',
+            'hyde.server.port' => 8080,
+        ]);
+
         $this->invokeOverrideSiteUrl();
 
-        $this->assertSame('http://localhost', config('hyde.url'));
+        $this->assertSame('http://hyde.test:8080', config('hyde.url'));
+    }
+
+    public function testOverridesSiteUrlFallsBackToConfiguredServerWhenHostHeaderIsInvalid()
+    {
+        $this->mockCompilerRoute('');
+        $_SERVER['HTTP_HOST'] = 'evil.test/path';
+
+        config([
+            'hyde.server.host' => 'localhost',
+            'hyde.server.port' => 8080,
+        ]);
+
+        $this->invokeOverrideSiteUrl();
+
+        $this->assertSame('http://localhost:8080', config('hyde.url'));
     }
 
     public function testDoesNotOverrideSiteUrlWhenSavePreviewIsEnabled()
