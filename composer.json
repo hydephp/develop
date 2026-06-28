@@ -17,7 +17,6 @@
     "require": {
         "php": "^8.2",
         "hyde/framework": "*",
-        "hyde/publications": "*",
         "hyde/ui-kit": "*",
         "laravel-zero/framework": "^11.0"
     },
