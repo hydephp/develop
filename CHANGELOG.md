@@ -17,7 +17,7 @@ This serves two purposes:
 2. At release time, you can move the Unreleased section changes into a new release version section.
 
 ### Added
-- for new features.
+- Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
 
 ### Changed
 - for changes in existing functionality.
