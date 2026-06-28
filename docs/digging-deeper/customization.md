@@ -228,6 +228,15 @@ If you don't want to have a footer on your site, you can set the `'footer'` conf
 'footer' => 'false',
 ```
 
+#### Disabling the scroll-to-top button
+
+The footer includes a scroll-to-top button by default. If you want to keep the footer but hide this button, add the following to your configuration file:
+
+```php
+// filepath: config/hyde.php
+'footer_scroll_to_top_button' => false,
+```
+
 ### Head and script HTML hooks
 
 >info Note: The configuration options `head` and `scripts` were added in HydePHP v1.5. If you are running an older version, you need to use the Blade options, or upgrade your project.

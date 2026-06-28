@@ -319,8 +319,6 @@ return [
 
     'footer' => 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
 
-    'footer_scroll_to_top_button' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Navigation Menu Configuration
