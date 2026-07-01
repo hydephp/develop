@@ -9,6 +9,14 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      frontend-deps:
+        patterns:
+          - "vite"
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
+          - "@tailwindcss/*"
 
   - package-ecosystem: "composer" # See documentation for possible values
     directory: "/" # Location of package manifests
