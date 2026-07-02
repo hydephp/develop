@@ -15,9 +15,21 @@ class Vite
     protected const CSS_EXTENSIONS = ['css', 'less', 'sass', 'scss', 'styl', 'stylus', 'pcss', 'postcss'];
     protected const JS_EXTENSIONS = ['js', 'jsx', 'ts', 'tsx'];
 
+    protected static bool $forceDisabled = false;
+
     public static function running(): bool
     {
+        if (static::$forceDisabled) {
+            return false;
+        }
+
         return Filesystem::exists('app/storage/framework/runtime/vite.hot');
+    }
+
+    /** @internal Force Vite to be treated as not running, regardless of the hot file. */
+    public static function forceDisable(bool $disable = true): void
+    {
+        static::$forceDisabled = $disable;
     }
 
     public static function asset(string $path): HtmlString
