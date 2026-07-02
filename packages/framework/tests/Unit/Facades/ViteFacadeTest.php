@@ -19,6 +19,8 @@ class ViteFacadeTest extends UnitTestCase
 
     protected function tearDown(): void
     {
+        Vite::forceDisable(false);
+
         $this->cleanUpFilesystem();
     }
 
@@ -34,6 +36,26 @@ class ViteFacadeTest extends UnitTestCase
         $this->assertFileDoesNotExist('app/storage/framework/runtime/vite.hot');
 
         $this->assertFalse(Vite::running());
+    }
+
+    public function testRunningReturnsFalseWhenForceDisabledEvenIfHotFileExists()
+    {
+        $this->file('app/storage/framework/runtime/vite.hot');
+
+        Vite::forceDisable();
+
+        $this->assertFalse(Vite::running());
+    }
+
+    public function testForceDisableCanBeToggledBackOn()
+    {
+        $this->file('app/storage/framework/runtime/vite.hot');
+
+        Vite::forceDisable();
+        $this->assertFalse(Vite::running());
+
+        Vite::forceDisable(false);
+        $this->assertTrue(Vite::running());
     }
 
     public function testItAlwaysImportsClientModule()

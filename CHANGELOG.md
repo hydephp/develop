@@ -34,6 +34,7 @@ This serves two purposes:
 - Fixed bug causing errors in the build manifest task not showing in console in https://github.com/hydephp/develop/pull/2451
 - Fixed realtime compiler loading assets from production URL when configured in https://github.com/hydephp/develop/pull/2418
 - Updated the scroll to top button to smooth scroll to the top of the page in https://github.com/hydephp/develop/pull/2458
+- Fix build command trying to use Vite in site builds if server is running in https://github.com/hydephp/develop/issues/2483
 
 ### Security
 - in case of vulnerabilities.

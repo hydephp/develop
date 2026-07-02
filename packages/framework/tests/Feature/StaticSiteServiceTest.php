@@ -106,6 +106,20 @@ class StaticSiteServiceTest extends TestCase
         rename(Hyde::path('_media/app.css.bak'), Hyde::path('_media/app.css'));
     }
 
+    public function testBuildCommandDoesNotUseViteDevServerPathEvenWhenViteIsRunning()
+    {
+        $this->file('app/storage/framework/runtime/vite.hot');
+
+        $this->artisan('build')
+            ->assertExitCode(0);
+
+        $contents = Filesystem::getContents('_site/index.html');
+
+        $this->assertStringNotContainsString('http://localhost:5173', $contents);
+
+        Filesystem::unlink('app/storage/framework/runtime/vite.hot');
+    }
+
     public function testAllPageTypesCanBeCompiled()
     {
         $this->file('_pages/html.html');

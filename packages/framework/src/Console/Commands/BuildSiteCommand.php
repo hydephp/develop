@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
+use Hyde\Facades\Vite;
 use Hyde\Facades\Config;
 use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
@@ -52,7 +53,15 @@ class BuildSiteCommand extends Command
 
         $this->runPreBuildActions();
 
-        $this->service->compileStaticPages();
+        // The static build should never reference the Vite dev server, even if it happens
+        // to be running in another process, as that would break the built site's assets.
+        Vite::forceDisable();
+
+        try {
+            $this->service->compileStaticPages();
+        } finally {
+            Vite::forceDisable(false);
+        }
 
         $this->runPostBuildActions();
 
