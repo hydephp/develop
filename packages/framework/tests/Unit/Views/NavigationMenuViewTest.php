@@ -6,6 +6,8 @@ namespace Hyde\Framework\Testing\Unit\Views;
 
 use Illuminate\Support\Str;
 use Hyde\Facades\Filesystem;
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
@@ -137,7 +139,7 @@ navigation:
 ');
         Hyde::boot();
 
-        $this->artisan('rebuild _pages/foo.md');
+        StaticPageBuilder::handle(Pages::getPage('_pages/foo.md'));
         $this->assertStringContainsString('My custom label', file_get_contents(Hyde::path('_site/foo.html')));
         Filesystem::unlink('_site/foo.html');
     }
@@ -151,7 +153,7 @@ BLADE
         );
         Hyde::boot();
 
-        $this->artisan('rebuild _pages/foo.blade.php');
+        StaticPageBuilder::handle(Pages::getPage('_pages/foo.blade.php'));
         $this->assertStringContainsString('My custom label', file_get_contents(Hyde::path('_site/foo.html')));
         Filesystem::unlink('_site/foo.html');
     }

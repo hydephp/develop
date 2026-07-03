@@ -6,7 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Author;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
+use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Config;
@@ -34,7 +36,7 @@ class PostsAuthorIntegrationTest extends TestCase
     {
         $this->createPostFile('post-with-undefined-author', 'test_undefined_author');
 
-        $this->artisan('rebuild _posts/post-with-undefined-author.md')->assertExitCode(0);
+        StaticPageBuilder::handle(Pages::getPage('_posts/post-with-undefined-author.md'));
         $this->assertFileExists(Hyde::path('_site/posts/post-with-undefined-author.html'));
 
         // Check that the author is rendered as is in the DOM
@@ -55,7 +57,7 @@ class PostsAuthorIntegrationTest extends TestCase
             'named_author' => Author::create('Test Author', null),
         ]);
 
-        $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);
+        StaticPageBuilder::handle(Pages::getPage('_posts/post-with-defined-author-with-name.md'));
         $this->assertFileExists(Hyde::path('_site/posts/post-with-defined-author-with-name.html'));
 
         // Check that the author is contains the set name in the DOM
@@ -76,7 +78,7 @@ class PostsAuthorIntegrationTest extends TestCase
             'test_author_with_website' => Author::create('Test Author', 'https://example.org'),
         ]);
 
-        $this->artisan('rebuild _posts/post-with-defined-author-with-name.md')->assertExitCode(0);
+        StaticPageBuilder::handle(Pages::getPage('_posts/post-with-defined-author-with-name.md'));
         $this->assertFileExists(Hyde::path('_site/posts/post-with-defined-author-with-name.html'));
 
         // Check that the author is contains the set name in the DOM
@@ -111,7 +113,7 @@ class PostsAuthorIntegrationTest extends TestCase
             MD
         );
 
-        $this->artisan('rebuild _posts/post-with-all-author-fields.md')->assertExitCode(0);
+        StaticPageBuilder::handle(Pages::getPage('_posts/post-with-all-author-fields.md'));
         $this->cleanUpWhenDone('_site/posts/post-with-all-author-fields.html');
         $this->assertFileExists(Hyde::path('_site/posts/post-with-all-author-fields.html'));
 
@@ -167,8 +169,8 @@ class PostsAuthorIntegrationTest extends TestCase
             MD
         );
 
-        $this->artisan('rebuild _posts/literal.md')->assertExitCode(0);
-        $this->artisan('rebuild _posts/changed.md')->assertExitCode(0);
+        StaticPageBuilder::handle(Pages::getPage('_posts/literal.md'));
+        StaticPageBuilder::handle(Pages::getPage('_posts/changed.md'));
         $this->assertFileExists(Hyde::path('_site/posts/literal.html'));
         $this->assertFileExists(Hyde::path('_site/posts/changed.html'));
         $this->cleanUpWhenDone('_site/posts/literal.html');
