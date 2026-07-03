@@ -91,7 +91,7 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
       if (command === 'build') {
         // Process input files - use named keys to prevent filename collisions
         const resolvedInput: Record<string, string> = {};
-        
+
         for (const entry of input) {
           const resolvedPath = path.resolve(process.cwd(), entry);
 
@@ -112,10 +112,10 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
           build: {
             outDir: '_media',
             emptyOutDir: false,
-            rollupOptions: {
+            rolldownOptions: {
               input: resolvedInput,
               output: {
-                entryFileNames: (chunkInfo) => {
+                entryFileNames: (chunkInfo: any) => {
                   // Use app.js for the JS entry point 
                   if (chunkInfo.name === 'js') {
                     return 'app.js';
@@ -123,7 +123,7 @@ export default function hydePlugin(options: HydePluginOptions = {}): Plugin {
                   return '[name].js';
                 },
                 chunkFileNames: '[name].js',
-                assetFileNames: (assetInfo) => {
+                assetFileNames: (assetInfo: any) => {
                   // Use app.css for CSS assets
                   if (assetInfo.name && assetInfo.name.endsWith('.css')) {
                     return 'app.css';
