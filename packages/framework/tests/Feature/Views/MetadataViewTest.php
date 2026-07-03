@@ -7,6 +7,8 @@ namespace Hyde\Framework\Testing\Feature\Views;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Actions\StaticPageBuilder;
 
 /**
  * This tests ensures all metadata is rendered correctly in the compiled pages.
@@ -33,7 +35,7 @@ class MetadataViewTest extends TestCase
     protected function build(?string $page = null): void
     {
         if ($page) {
-            $this->artisan("rebuild $page");
+            StaticPageBuilder::handle(Pages::getPage($page));
         } else {
             $this->artisan('build');
         }
