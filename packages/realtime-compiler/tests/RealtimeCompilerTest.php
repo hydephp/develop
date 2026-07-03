@@ -256,6 +256,46 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('text/html', $this->invokeGetContentType($page));
     }
 
+    public function testSitemapRouteReturnsSitemapResponse()
+    {
+        // The application is freshly booted within the router, so we need to set the
+        // site URL via the environment, as an in-memory config change won't be seen.
+        $this->mockCompilerRoute('sitemap.xml');
+        putenv('SITE_URL=https://example.com');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+        $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+        $this->assertStringContainsString('<urlset', $response->body);
+
+        putenv('SITE_URL');
+    }
+
+    public function testRssFeedRouteReturnsRssResponse()
+    {
+        $this->mockCompilerRoute('feed.xml');
+        putenv('SITE_URL=https://example.com');
+        Filesystem::put('_posts/test-post.md', "---\ntitle: Test Post\ndescription: Test post description\n---\n\n# Test Post");
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+        $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+        $this->assertStringContainsString('<rss ', $response->body);
+        $this->assertStringContainsString('version="2.0"', $response->body);
+        $this->assertStringContainsString('Test Post', $response->body);
+
+        Filesystem::unlink('_posts/test-post.md');
+        putenv('SITE_URL');
+    }
+
     public function testPingRouteReturnsPingResponse()
     {
         $this->mockCompilerRoute('ping');
