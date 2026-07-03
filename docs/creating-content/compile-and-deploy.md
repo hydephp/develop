@@ -28,8 +28,8 @@ php hyde serve
 
 #### Learn more about these commands in the [console commands](console-commands) documentation:
 
-- [Build command](console-commands#build-the-static-site)
-- [Serve command](console-commands#start-the-realtime-compiler)
+- [Build command](console-commands#build)
+- [Serve command](console-commands#serve)
 
 ---
 
