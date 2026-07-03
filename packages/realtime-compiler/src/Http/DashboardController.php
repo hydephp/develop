@@ -238,13 +238,6 @@ class DashboardController extends BaseController
 
     public static function enabled(): bool
     {
-        /** @deprecated Previously, the setting was hyde.server.dashboard, so for backwards compatability we need this */
-        if (is_bool($oldConfig = config('hyde.server.dashboard'))) {
-            trigger_error('Using `hyde.server.dashboard` as boolean is deprecated. Please use `hyde.server.dashboard.enabled` instead.', E_USER_DEPRECATED);
-
-            return $oldConfig;
-        }
-
         return config('hyde.server.dashboard.enabled', true);
     }
 
