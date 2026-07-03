@@ -25,8 +25,6 @@ use function Hyde\unslash;
 
 /**
  * Build a single static site file.
- *
- * @deprecated This command is deprecated and will be removed in HydePHP v3.0. Use \Hyde\Framework\Actions\StaticPageBuilder::handle() instead.
  */
 class RebuildPageCommand extends Command
 {
@@ -34,12 +32,10 @@ class RebuildPageCommand extends Command
     protected $signature = 'rebuild {path : The relative file path (example: _posts/hello-world.md)}';
 
     /** @var string */
-    protected $description = 'Run the static site builder for a single file [Deprecated, will be removed in v3.0]';
+    protected $description = 'Run the static site builder for a single file';
 
     public function handle(): int
     {
-        $this->printDeprecationWarning();
-
         if ($this->argument('path') === Hyde::getMediaDirectory()) {
             return (new TransferMediaAssets())->run($this->output);
 
@@ -49,17 +45,6 @@ class RebuildPageCommand extends Command
         }
 
         return $this->makeBuildTask($this->output, $this->getNormalizedPathString())->run();
-    }
-
-    /**
-     * @deprecated The `rebuild` command is deprecated and will be removed in HydePHP v3.0.
-     * @since v2.x
-     */
-    protected function printDeprecationWarning(): void
-    {
-        $this->warn('The `rebuild` command is deprecated and will be removed in HydePHP v3.0.');
-        $this->line('If you need to build a single page programmatically, use Hyde\Framework\Actions\StaticPageBuilder::handle() instead.');
-        $this->newLine();
     }
 
     protected function getNormalizedPathString(): string

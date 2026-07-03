@@ -23,7 +23,7 @@ This serves two purposes:
 - for changes in existing functionality.
 
 ### Deprecated
-- Deprecated the `rebuild` command. It has no remaining internal consumers now that the realtime compiler renders pages in-memory, and single-page builds can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. It will be removed in v3.0; use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need to build a single page programmatically.
+- for soon-to-be removed features.
 
 ### Removed
 - for now removed features.

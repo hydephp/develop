@@ -16,7 +16,7 @@ Now that you have some amazing content, you'll want to compile your site into st
 php hyde build
 ```
 
-**You can also compile a single file, though this is deprecated and will be removed in v3.0 (use `StaticPageBuilder::handle()` instead if you need this programmatically):**
+**You can also compile a single file:**
 
 ```bash
 php hyde rebuild <filepath>
@@ -35,7 +35,7 @@ php hyde serve
 #### Learn more about these commands in the [console commands](console-commands) documentation:
 
 - [Build command](console-commands#build-the-static-site)
-- [Rebuild command (Deprecated)](console-commands#rebuild)
+- [Rebuild command](console-commands#build-a-single-file)
 - [Serve command](console-commands#start-the-realtime-compiler)
 
 ---
