@@ -47,7 +47,6 @@ Here is a quick reference of all the available commands. You can also run `php h
 |-----------------------------------------|---------------------------------------------------------------------------------------------|
 | [`build`](#build)                       | Build the static site                                                                       |
 | [`serve`](#serve)                       | Start the realtime compiler server                                                          |
-| [`rebuild`](#rebuild)                   | Run the static site builder for a single file (Deprecated, will be removed in v3.0)         |
 | [`build:rss`](#build-rss)               | Generate the RSS feed                                                                       |
 | [`build:search`](#build-search)         | Generate the `docs/search.json` file                                                        |
 | [`build:sitemap`](#build-sitemap)       | Generate the `sitemap.xml` file                                                             |
@@ -78,24 +77,6 @@ Build the static site
 | `--vite`        | Build frontend assets using Vite           |
 | `--pretty-urls` | Should links in output use pretty URLs?    |
 | `--no-api`      | Disable API calls, for example, Torchlight |
-
-## Run the static site builder for a single file
-
-<a name="rebuild" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
-
->warning **Deprecated:** The `rebuild` command is deprecated and will be removed in HydePHP v3.0. It has no remaining internal consumers now that the realtime compiler renders pages in-memory, and building a single page can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. If you need to build a single page programmatically, use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead.
-
-```bash
-php hyde rebuild <path>
-```
-
-Run the static site builder for a single file
-
-#### Arguments
-
-|        |                                                                                |
-|--------|--------------------------------------------------------------------------------|
-| `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
 
 ## Start the Realtime Compiler Server
 
