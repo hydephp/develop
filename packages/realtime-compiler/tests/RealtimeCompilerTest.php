@@ -7,10 +7,12 @@ use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Facades\Filesystem;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
+use Hyde\RealtimeCompiler\Routing\PageRouter;
 use Hyde\RealtimeCompiler\Routing\Router;
 
 class RealtimeCompilerTest extends TestCase
@@ -197,6 +199,63 @@ class RealtimeCompilerTest extends TestCase
         Filesystem::unlink('_docs/index.md');
     }
 
+    public function testDocsSearchJsonRendersSearchIndexWithJsonContentType()
+    {
+        $this->mockCompilerRoute('docs/search.json');
+        Filesystem::put('_docs/index.md', '# Hello World!');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotInstanceOf(HtmlResponse::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+
+        $headers = $this->getResponseHeaders($response);
+        $this->assertSame('application/json', $headers['Content-Type']);
+        $this->assertSame((string) strlen($response->body), $headers['Content-Length']);
+
+        $this->assertIsArray(json_decode($response->body, true));
+
+        Filesystem::unlink('_docs/index.md');
+    }
+
+    public function testGetContentTypeReturnsApplicationJsonForJsonOutputPath()
+    {
+        $page = $this->makePageWithOutputPath('foo.json');
+
+        $this->assertSame('application/json', $this->invokeGetContentType($page));
+    }
+
+    public function testGetContentTypeReturnsApplicationXmlForXmlOutputPath()
+    {
+        $page = $this->makePageWithOutputPath('foo.xml');
+
+        $this->assertSame('application/xml', $this->invokeGetContentType($page));
+    }
+
+    public function testGetContentTypeReturnsTextPlainForTxtOutputPath()
+    {
+        $page = $this->makePageWithOutputPath('foo.txt');
+
+        $this->assertSame('text/plain', $this->invokeGetContentType($page));
+    }
+
+    public function testGetContentTypeReturnsTextHtmlForHtmlOutputPath()
+    {
+        $page = $this->makePageWithOutputPath('foo.html');
+
+        $this->assertSame('text/html', $this->invokeGetContentType($page));
+    }
+
+    public function testGetContentTypeDefaultsToTextHtmlForUnknownExtension()
+    {
+        $page = $this->makePageWithOutputPath('foo');
+
+        $this->assertSame('text/html', $this->invokeGetContentType($page));
+    }
+
     public function testPingRouteReturnsPingResponse()
     {
         $this->mockCompilerRoute('ping');
@@ -329,5 +388,46 @@ class RealtimeCompilerTest extends TestCase
         $method = new ReflectionMethod(Router::class, 'overrideSiteUrl');
         $method->setAccessible(true);
         $method->invoke(new Router(new Request()));
+    }
+
+    protected function invokeGetContentType(InMemoryPage $page): string
+    {
+        $this->mockCompilerRoute('foo');
+
+        $method = new ReflectionMethod(PageRouter::class, 'getContentType');
+        $method->setAccessible(true);
+
+        return $method->invoke(new PageRouter(new Request()), $page);
+    }
+
+    protected function makePageWithOutputPath(string $outputPath): InMemoryPage
+    {
+        return new class('foo', [], 'contents', '', $outputPath) extends InMemoryPage
+        {
+            protected string $customOutputPath;
+
+            public function __construct(string $identifier, array $matter, string $contents, string $view, string $outputPath)
+            {
+                // The custom output path must be assigned before calling the parent
+                // constructor, as it triggers factory data construction which calls
+                // getOutputPath() before this constructor body would otherwise run.
+                $this->customOutputPath = $outputPath;
+
+                parent::__construct($identifier, $matter, $contents, $view);
+            }
+
+            public function getOutputPath(): string
+            {
+                return $this->customOutputPath;
+            }
+        };
+    }
+
+    protected function getResponseHeaders(Response $response): array
+    {
+        $property = new ReflectionProperty(Response::class, 'headers');
+        $property->setAccessible(true);
+
+        return $property->getValue($response);
     }
 }
