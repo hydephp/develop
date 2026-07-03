@@ -38,7 +38,19 @@ git commit -m "Pre-upgrade backup before HydePHP v3.0"
 
 ### Update Node Dependencies
 
-//
+HydePHP v3 upgrades the bundled `vite` dependency from v7 to v8. Update your `package.json` `devDependencies` to require the new major version:
+
+```json
+{
+    "devDependencies": {
+        "vite": "^8.0.0"
+    }
+}
+```
+
+Then run `npm install` (or your package manager's equivalent) to pick up the update.
+
+If you have a custom `vite.config.js` that overrides `build.rollupOptions`, note that Vite 8 builds with Rolldown by default. The `hyde-vite-plugin` now configures its own build options under `build.rolldownOptions` rather than `build.rollupOptions` — if your custom config only sets `rollupOptions`, double check your output still ends up where you expect after upgrading.
 
 ## Step 2: Replace the Removed `rebuild` Command
 
