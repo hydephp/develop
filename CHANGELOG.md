@@ -27,10 +27,10 @@ _Changes to the realtime compiler requires an update to v4.5 or later of the `hy
 - Upgraded default realtime comiler version to v4.5 in https://github.com/hydephp/develop/pull/2510
 
 ### Deprecated
-- Deprecated the `rebuild` command. It has no remaining internal consumers now that the realtime compiler renders pages in-memory, and single-page builds can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. It will be removed in v3.0; use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need to build a single page programmatically.
+- for changes that will be removed in upcoming releases.
 
 ### Removed
-- for now removed features.
+- Removed the `rebuild` command. It had no remaining internal consumers now that the realtime compiler renders pages in-memory, and single-page builds can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. Use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need to build a single page programmatically.
 
 ### Fixed
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332

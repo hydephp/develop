@@ -37,24 +37,6 @@ class MediaDirectoryCanBeChangedTest extends TestCase
         $this->resetSite();
     }
 
-    public function testMediaOutputDirectoryCanBeChangedForSiteRebuilds()
-    {
-        Filesystem::deleteDirectory('_site');
-
-        $this->directory('_assets');
-        $this->file('_assets/app.css');
-
-        Hyde::setMediaDirectory('_assets');
-
-        $this->artisan('rebuild _assets');
-
-        $this->assertDirectoryDoesNotExist(Hyde::path('_site/media'));
-        $this->assertDirectoryExists(Hyde::path('_site/assets'));
-        $this->assertFileExists(Hyde::path('_site/assets/app.css'));
-
-        $this->resetSite();
-    }
-
     public function testCompiledPagesHaveLinksToTheRightMediaFileLocation()
     {
         Filesystem::moveDirectory('_media', '_assets');

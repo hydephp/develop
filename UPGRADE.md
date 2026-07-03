@@ -40,11 +40,33 @@ git commit -m "Pre-upgrade backup before HydePHP v3.0"
 
 //
 
+## Step 2: Replace the Removed `rebuild` Command
+
+The `rebuild` command has been removed in v3.0. It had no remaining internal consumers now that the realtime compiler renders pages entirely in-memory, and building a single page could silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale while looking like a complete build.
+
+**Before:**
+```bash
+php hyde rebuild _posts/hello-world.md
+```
+
+**After:**
+
+If you need to build a single page programmatically, use `StaticPageBuilder::handle()` directly:
+
+```php
+use Hyde\Foundation\Facades\Pages;
+use Hyde\Framework\Actions\StaticPageBuilder;
+
+StaticPageBuilder::handle(Pages::getPage('_posts/hello-world.md'));
+```
+
+Note that this only produces a correct `_site` when the page is self-contained. For anything that touches aggregate outputs, run `php hyde build` to rebuild the whole site instead.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
 
-- [ ] Example item
+- [ ] Replaced any `php hyde rebuild <path>` usage with `StaticPageBuilder::handle()` or a full `php hyde build`
 
 ## Troubleshooting
 
