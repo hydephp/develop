@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler;
 
 use Illuminate\Support\ServiceProvider;
+use Hyde\Facades\Features;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 use Hyde\RealtimeCompiler\Http\OpenInEditorController;
 use Hyde\RealtimeCompiler\Console\Commands\HerdInstallCommand;
 use Hyde\RealtimeCompiler\Console\Commands\ServeCommand;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
 class RealtimeCompilerServiceProvider extends ServiceProvider
 {
@@ -42,6 +44,14 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
 
         if (OpenInEditorController::enabled()) {
             $router->registerVirtualRoute('/_hyde/open-in-editor', [VirtualRouteController::class, 'openInEditor']);
+        }
+
+        if (Features::hasSitemap()) {
+            $router->registerVirtualRoute('/sitemap.xml', [VirtualRouteController::class, 'sitemap']);
+        }
+
+        if (Features::hasRss()) {
+            $router->registerVirtualRoute('/'.RssFeedGenerator::getFilename(), [VirtualRouteController::class, 'rssFeed']);
         }
     }
 }

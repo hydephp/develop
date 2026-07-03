@@ -74,6 +74,19 @@ class Router
             return false;
         }
 
+        // Don't proxy the sitemap, as it's generated on the fly.
+        // Note that unlike the RSS feed below, the sitemap filename is not configurable.
+        if ($this->request->path === '/sitemap.xml') {
+            return false;
+        }
+
+        // Don't proxy the RSS feed, as it's generated on the fly.
+        // We can't resolve the configured `hyde.rss.filename` here as the application
+        // is not booted yet, so we match against the default filename instead.
+        if ($this->request->path === '/feed.xml') {
+            return false;
+        }
+
         // Dotted page routes (like documentation version folders) are proxied only when a matching asset exists.
         return $this->resolveAssetPath() !== null;
     }

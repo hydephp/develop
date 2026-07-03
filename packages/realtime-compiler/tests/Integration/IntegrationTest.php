@@ -86,4 +86,32 @@ class IntegrationTest extends IntegrationTestCase
         unlink($this->projectPath('_docs/index.md'));
         unlink($this->projectPath('_docs/installation.md'));
     }
+
+    public function testDynamicSitemapGeneration()
+    {
+        // Setting a site URL is required to enable the sitemap feature. The realtime compiler
+        // then overrides it with the local server address, which is what we assert against.
+        file_put_contents($this->projectPath('.env'), 'SITE_URL=https://hydephp.dev');
+
+        $this->get('/sitemap.xml')
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/xml')
+            ->assertSeeText('http://localhost:8080');
+
+        unlink($this->projectPath('.env'));
+    }
+
+    public function testDynamicRssFeedGeneration()
+    {
+        file_put_contents($this->projectPath('.env'), 'SITE_URL=https://hydephp.dev');
+        file_put_contents($this->projectPath('_posts/dynamic-rss-test.md'), "---\ntitle: Dynamic RSS Test\ndescription: Dynamic RSS test description\n---\n\n# Dynamic RSS Test");
+
+        $this->get('/feed.xml')
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/rss+xml')
+            ->assertSeeText('Dynamic RSS Test');
+
+        unlink($this->projectPath('.env'));
+        unlink($this->projectPath('_posts/dynamic-rss-test.md'));
+    }
 }
