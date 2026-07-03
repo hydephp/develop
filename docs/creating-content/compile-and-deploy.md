@@ -16,7 +16,7 @@ Now that you have some amazing content, you'll want to compile your site into st
 php hyde build
 ```
 
-**You can also compile a single file, though this is deprecated and will be removed in v3.0 (use `StaticPageBuilder::handle()` instead if you need this programmatically):**
+**You can also compile a single file, though this is deprecated and will be removed in v3.0 (use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need this programmatically):**
 
 ```bash
 php hyde rebuild <filepath>
