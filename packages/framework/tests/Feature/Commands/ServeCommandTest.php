@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Closure;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Console\Concerns\Command;
 use Illuminate\Contracts\Process\InvokedProcess;
 use Illuminate\Support\Facades\Process;
 use TypeError;
@@ -132,6 +133,50 @@ class ServeCommandTest extends TestCase
         config(['hyde.server.port' => 'foo']);
 
         $this->artisan('serve --no-ansi')
+            ->expectsOutput('Starting the HydeRC server... Use Ctrl+C to stop')
+            ->assertExitCode(0);
+    }
+
+    public function testHydeServeCommandWithConfigOption()
+    {
+        $this->artisan('serve --no-ansi --config=hyde.server.port=9000')
+            ->expectsOutput('Starting the HydeRC server... Use Ctrl+C to stop')
+            ->assertExitCode(0);
+
+        Process::assertRan("php -S localhost:9000 {$this->binaryPath()}");
+    }
+
+    public function testHydeServeCommandRejectsInvalidConfigOption()
+    {
+        $this->artisan('serve --no-ansi --config=invalid-override')
+            ->expectsOutputToContain('Invalid --config value [invalid-override]. Expected format: key=value')
+            ->assertExitCode(Command::FAILURE);
+
+        Process::assertNothingRan();
+    }
+
+    public function testHydeServeCommandForwardsConfigOptionToServedProcessAsEnvironmentVariable()
+    {
+        Process::shouldReceive('forever')
+            ->once()
+            ->withNoArgs()
+            ->andReturnSelf();
+
+        Process::shouldReceive('env')
+            ->once()
+            ->with([
+                'HYDE_SERVER_REQUEST_OUTPUT' => false,
+                'HYDE_CONFIG_OVERRIDES' => 'hyde.pretty_urls=true',
+            ])
+            ->andReturnSelf();
+
+        Process::shouldReceive('start')
+            ->once()
+            ->andReturn(tap(mock(InvokedProcess::class), function ($mock) {
+                $mock->shouldReceive('running')->once()->andReturn(false);
+            }));
+
+        $this->artisan('serve --no-ansi --config=hyde.pretty_urls=true')
             ->expectsOutput('Starting the HydeRC server... Use Ctrl+C to stop')
             ->assertExitCode(0);
     }

@@ -170,6 +170,21 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
         $this->assertArrayNotHasKey('HYDE_PLAY_CDN', $command->getEnvironmentVariables());
     }
 
+    public function testConfigOptionPropagatesToEnvironmentVariables()
+    {
+        $command = $this->getMock(['config' => ['hyde.pretty_urls=true']]);
+        $this->assertSame('hyde.pretty_urls=true', $command->getEnvironmentVariables()['HYDE_CONFIG_OVERRIDES']);
+
+        $command = $this->getMock(['config' => ['hyde.pretty_urls=true', 'hyde.features.play_cdn=false']]);
+        $this->assertSame("hyde.pretty_urls=true\nhyde.features.play_cdn=false", $command->getEnvironmentVariables()['HYDE_CONFIG_OVERRIDES']);
+
+        $command = $this->getMock(['config' => []]);
+        $this->assertArrayNotHasKey('HYDE_CONFIG_OVERRIDES', $command->getEnvironmentVariables());
+
+        $command = $this->getMock();
+        $this->assertArrayNotHasKey('HYDE_CONFIG_OVERRIDES', $command->getEnvironmentVariables());
+    }
+
     public function testParseEnvironmentOption()
     {
         $command = $this->getMock(['foo' => 'true']);

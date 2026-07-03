@@ -45,6 +45,35 @@ class LoadConfigurationTest extends UnitTestCase
         (new LoadConfigurationEnvironmentTestClass(['HYDE_SERVER_DASHBOARD' => 'disabled']))->bootstrap(new Application(getcwd()));
         $this->assertFalse(config('hyde.server.dashboard.enabled'));
     }
+
+    public function testItLoadsConfigOverridesFromEnvironment()
+    {
+        (new LoadConfigurationEnvironmentTestClass(['HYDE_CONFIG_OVERRIDES' => 'hyde.name=Foo']))->bootstrap(new Application(getcwd()));
+        $this->assertSame('Foo', config('hyde.name'));
+    }
+
+    public function testItLoadsMultipleConfigOverridesFromEnvironment()
+    {
+        (new LoadConfigurationEnvironmentTestClass(['HYDE_CONFIG_OVERRIDES' => "hyde.name=Foo\nhyde.pretty_urls=true"]))->bootstrap(new Application(getcwd()));
+        $this->assertSame('Foo', config('hyde.name'));
+        $this->assertTrue(config('hyde.pretty_urls'));
+    }
+
+    public function testItDoesNothingWhenNoConfigOverridesAreInTheEnvironment()
+    {
+        (new LoadConfigurationEnvironmentTestClass([]))->bootstrap(new Application(getcwd()));
+        $this->assertSame('HydePHP', config('hyde.name'));
+    }
+
+    public function testConfigOverridesFromEnvironmentTakePrecedenceOverRealtimeCompilerOptions()
+    {
+        (new LoadConfigurationEnvironmentTestClass([
+            'HYDE_PRETTY_URLS' => 'disabled',
+            'HYDE_CONFIG_OVERRIDES' => 'hyde.pretty_urls=true',
+        ]))->bootstrap(new Application(getcwd()));
+
+        $this->assertTrue(config('hyde.pretty_urls'));
+    }
 }
 
 class LoadConfigurationTestClass extends LoadConfiguration

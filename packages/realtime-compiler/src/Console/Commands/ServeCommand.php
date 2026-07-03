@@ -14,9 +14,11 @@ use Illuminate\Support\Sleep;
 use InvalidArgumentException;
 use Exception;
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Concerns\HasConfigOverrides;
 use Hyde\RealtimeCompiler\ConsoleOutput;
 use Illuminate\Support\Facades\Process;
 
+use function implode;
 use function rtrim;
 use function sprintf;
 use function in_array;
@@ -30,6 +32,8 @@ use function class_exists;
  */
 class ServeCommand extends Command
 {
+    use HasConfigOverrides;
+
     /** @var string */
     protected $signature = 'serve
         {--host= : <comment>[default: "localhost"]</comment>}}
@@ -40,6 +44,7 @@ class ServeCommand extends Command
         {--play-cdn= : Enable the Tailwind Play CDN. (Overrides config setting)}
         {--open=false : Open the site preview in the browser.}
         {--vite : Enable Vite for Hot Module Replacement (HMR)}
+        {--config=* : Override a config value for this command, for example --config=hyde.pretty_urls=true}
     ';
 
     /** @var string */
@@ -52,6 +57,14 @@ class ServeCommand extends Command
 
     public function safeHandle(): int
     {
+        if (! $this->validateConfigOverrides()) {
+            return Command::FAILURE;
+        }
+
+        // Applied here too (not just forwarded to the served process below) so that options
+        // like --host/--port, which fall back to config, also respect the overrides.
+        $this->applyConfigOverrides();
+
         $this->configureOutput();
         $this->printStartMessage();
 
@@ -106,7 +119,16 @@ class ServeCommand extends Command
             'HYDE_SERVER_DASHBOARD' => $this->parseEnvironmentOption('dashboard'),
             'HYDE_PRETTY_URLS' => $this->parseEnvironmentOption('pretty-urls'),
             'HYDE_PLAY_CDN' => $this->parseEnvironmentOption('play-cdn'),
+            'HYDE_CONFIG_OVERRIDES' => $this->getConfigOverridesForEnvironment(),
         ]);
+    }
+
+    /** Serializes the `--config` overrides so they can be forwarded to the served process as a single environment variable. */
+    protected function getConfigOverridesForEnvironment(): ?string
+    {
+        $overrides = $this->getConfigOverrideOptions();
+
+        return $overrides === [] ? null : implode("\n", $overrides);
     }
 
     protected function configureOutput(): void

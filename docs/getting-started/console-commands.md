@@ -114,17 +114,25 @@ Run the static site builder for a single file
 <a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-php hyde serve [--host [HOST]] [--port [PORT]] [--vite]
+php hyde serve [--host [HOST]] [--port [PORT]] [--vite] [--config CONFIG]
 ```
 
 Start the realtime compiler server.
 
 #### Options
 
-|           |                        |
-|-----------|------------------------|
-| `--host=` | [default: "localhost"] |
-| `--port=` | [default: 8080]        |
+|             |                                                                                                                |
+|-------------|----------------------------------------------------------------------------------------------------------------|
+| `--host=`   | [default: "localhost"]                                                                                       |
+| `--port=`   | [default: 8080]                                                                                               |
+| `--config=` | Override a config value for this command, for example `--config=hyde.pretty_urls=true` \n- Is multiple: yes |
+
+Just like `build` and `rebuild`, `--config` overrides are forwarded to the pages the server renders,
+and they take precedence over the dedicated options such as `--pretty-urls` and `--play-cdn`:
+
+```bash
+php hyde serve --config=hyde.pretty_urls=true --config=hyde.features.play_cdn=true
+```
 
 ## Test and validate your project to optimize your site
 

@@ -7,10 +7,12 @@ namespace Hyde\Foundation\Internal;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
+use Hyde\Support\ConfigOverrideValueParser;
 
 use function getenv;
 use function array_merge;
 use function in_array;
+use function explode;
 use function tap;
 
 /** @internal */
@@ -68,6 +70,24 @@ class LoadConfiguration extends BaseLoadConfiguration
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_SERVER_DASHBOARD', 'hyde.server.dashboard.enabled');
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_PRETTY_URLS', 'hyde.pretty_urls');
             $this->mergeRealtimeCompilerEnvironment($repository, 'HYDE_PLAY_CDN', 'hyde.use_play_cdn');
+
+            // Lets the `serve` command forward its `--config` overrides to the realtime compiler's request process.
+            $this->mergeConfigOverrides($repository);
+        }
+    }
+
+    private function mergeConfigOverrides(Repository $repository): void
+    {
+        $overrides = $this->getEnv('HYDE_CONFIG_OVERRIDES');
+
+        if (! $overrides) {
+            return;
+        }
+
+        foreach (explode("\n", $overrides) as $override) {
+            [$key, $value] = explode('=', $override, 2);
+
+            $repository->set($key, ConfigOverrideValueParser::parse($value));
         }
     }
 

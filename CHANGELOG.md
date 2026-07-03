@@ -18,7 +18,7 @@ This serves two purposes:
 
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
-- Added a repeatable `--config=key=value` option to the `build` and `rebuild` commands, letting you temporarily override a config value for a single command invocation without editing the project config files. The overrides take precedence over both the project config and other build options, such as `--pretty-urls`.
+- Added a repeatable `--config=key=value` option to the `build`, `rebuild`, and `serve` commands, letting you temporarily override a config value for a single command invocation without editing the project config files. The overrides take precedence over both the project config and other build options, such as `--pretty-urls`. For `serve`, the overrides are also forwarded to the pages rendered by the realtime compiler.
 
 ### Changed
 - for changes in existing functionality.
