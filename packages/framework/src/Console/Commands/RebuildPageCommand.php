@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Exception;
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Concerns\HasConfigOverrides;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
@@ -28,14 +29,23 @@ use function Hyde\unslash;
  */
 class RebuildPageCommand extends Command
 {
+    use HasConfigOverrides;
+
     /** @var string */
-    protected $signature = 'rebuild {path : The relative file path (example: _posts/hello-world.md)}';
+    protected $signature = 'rebuild {path : The relative file path (example: _posts/hello-world.md)}
+        {--config=* : Override a config value for this command, for example --config=hyde.pretty_urls=true}';
 
     /** @var string */
     protected $description = 'Run the static site builder for a single file';
 
     public function handle(): int
     {
+        if (! $this->validateConfigOverrides()) {
+            return Command::FAILURE;
+        }
+
+        $this->applyConfigOverrides();
+
         if ($this->argument('path') === Hyde::getMediaDirectory()) {
             return (new TransferMediaAssets())->run($this->output);
 

@@ -66,25 +66,33 @@ Here is a quick reference of all the available commands. You can also run `php h
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-php hyde build [--vite] [--pretty-urls] [--no-api]
+php hyde build [--vite] [--pretty-urls] [--no-api] [--config CONFIG]
 ```
 
 Build the static site
 
 #### Options
 
-|                 |                                            |
-|-----------------|--------------------------------------------|
-| `--vite`        | Build frontend assets using Vite           |
-| `--pretty-urls` | Should links in output use pretty URLs?    |
-| `--no-api`      | Disable API calls, for example, Torchlight |
+|                 |                                                                                       |
+|-----------------|---------------------------------------------------------------------------------------|
+| `--vite`        | Build frontend assets using Vite                                                     |
+| `--pretty-urls` | Should links in output use pretty URLs?                                              |
+| `--no-api`      | Disable API calls, for example, Torchlight                                           |
+| `--config=`     | Override a config value for this command, for example `--config=hyde.pretty_urls=true` \n- Is multiple: yes |
+
+You can repeat `--config` to override several values in the same command, and the overrides
+take precedence over both the project config and any other build options such as `--pretty-urls`:
+
+```bash
+php hyde build --config=hyde.pretty_urls=true --config=hyde.features.play_cdn=true
+```
 
 ## Run the static site builder for a single file
 
 <a name="rebuild" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```bash
-php hyde rebuild <path>
+php hyde rebuild <path> [--config CONFIG]
 ```
 
 Run the static site builder for a single file
@@ -94,6 +102,12 @@ Run the static site builder for a single file
 |        |                                                                                |
 |--------|--------------------------------------------------------------------------------|
 | `path` | The relative file path (example: \_posts/hello-world.md) \n - Is required: yes |
+
+#### Options
+
+|             |                                                                                                                |
+|-------------|----------------------------------------------------------------------------------------------------------------|
+| `--config=` | Override a config value for this command, for example `--config=hyde.pretty_urls=true` \n- Is multiple: yes |
 
 ## Start the Realtime Compiler Server
 

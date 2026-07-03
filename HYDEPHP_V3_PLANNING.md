@@ -14,6 +14,8 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### New Features
 
+- Added a generic `--config=key=value` CLI option to the `build` and `rebuild` commands. It's repeatable, so you can override several config values in the same command invocation without editing the project config files, for example `hyde build --config=hyde.pretty_urls=true --config=hyde.features.play_cdn=true`. Overrides take precedence over both the project config and any other build options, such as `--pretty-urls`.
+
 ### Feature Changes
 
 ### Minor Changes and Cleanup

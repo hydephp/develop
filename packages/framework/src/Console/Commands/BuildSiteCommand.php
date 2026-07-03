@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Support\BuildWarnings;
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Concerns\HasConfigOverrides;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Illuminate\Support\Facades\Process;
@@ -24,11 +25,14 @@ use function app;
  */
 class BuildSiteCommand extends Command
 {
+    use HasConfigOverrides;
+
     /** @var string */
     protected $signature = 'build
         {--vite : Build frontend assets using Vite}
         {--pretty-urls : Should links in output use pretty URLs?}
-        {--no-api : Disable API calls, for example, Torchlight}';
+        {--no-api : Disable API calls, for example, Torchlight}
+        {--config=* : Override a config value for this command, for example --config=hyde.pretty_urls=true}';
 
     /** @var string */
     protected $description = 'Build the static site';
@@ -41,6 +45,10 @@ class BuildSiteCommand extends Command
         $timeStart = microtime(true);
 
         $this->title('Building your static site!');
+
+        if (! $this->validateConfigOverrides()) {
+            return Command::FAILURE;
+        }
 
         $this->service = new BuildService($this->output);
 
@@ -86,6 +94,9 @@ class BuildSiteCommand extends Command
         if ($this->option('vite')) {
             $this->runNodeCommand('npm run build', 'Building frontend assets for production!');
         }
+
+        // Config overrides are applied last so that they take precedence over the options above.
+        $this->applyConfigOverrides();
 
         $this->taskService->runPreBuildTasks();
     }
