@@ -33,9 +33,38 @@ class PageRouter
 
     protected function handlePageRequest(): Response
     {
+        $page = $this->getPageFromRoute();
+        $body = $this->getHtml($page);
+
+        $contentType = $this->getContentType($page);
+
+        if ($contentType !== 'text/html') {
+            return (new Response(200, 'OK', [
+                'body' => $body,
+            ]))->withHeaders([
+                'Content-Type' => $contentType,
+                'Content-Length' => (string) strlen($body),
+            ]);
+        }
+
         return new HtmlResponse(200, 'OK', [
-            'body' => $this->getHtml($this->getPageFromRoute()),
+            'body' => $body,
         ]);
+    }
+
+    /**
+     * Determine the response content type based on the compiled page's output file extension.
+     */
+    protected function getContentType(HydePage $page): string
+    {
+        $extension = pathinfo($page->getOutputPath(), PATHINFO_EXTENSION);
+
+        return match ($extension) {
+            'json' => 'application/json',
+            'xml' => 'application/xml',
+            'txt' => 'text/plain',
+            default => 'text/html',
+        };
     }
 
     protected function normalizePath(string $path): string
