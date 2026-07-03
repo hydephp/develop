@@ -23,6 +23,18 @@ class RebuildPageCommandTest extends TestCase
         $this->resetSite();
     }
 
+    public function testCommandOutputsDeprecationWarning()
+    {
+        $this->file('_pages/test-page.md', 'foo');
+
+        $this->artisan('rebuild _pages/test-page.md')
+            ->expectsOutput('The `rebuild` command is deprecated and will be removed in HydePHP v3.0.')
+            ->expectsOutput('If you need to build a single page programmatically, use Hyde\Framework\Actions\StaticPageBuilder::handle() instead.')
+            ->assertExitCode(0);
+
+        $this->resetSite();
+    }
+
     public function testMediaFilesCanBeTransferred()
     {
         $this->directory(Hyde::path('_site/media'));
