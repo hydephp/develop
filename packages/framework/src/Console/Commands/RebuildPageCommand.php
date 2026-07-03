@@ -53,7 +53,6 @@ class RebuildPageCommand extends Command
 
     /**
      * @deprecated The `rebuild` command is deprecated and will be removed in HydePHP v3.0.
-     * @since v2.x
      */
     protected function printDeprecationWarning(): void
     {
