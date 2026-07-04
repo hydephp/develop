@@ -253,6 +253,55 @@ class PublishCommandViewsTest extends TestCase
         $this->assertNotSame('MODIFIED BY USER', File::get($target));
     }
 
+    public function testApprovedOverwriteAbortsWhenDestinationChangesAfterPrompt()
+    {
+        $source = $this->source('layouts', 'app.blade.php');
+        $target = 'resources/views/vendor/hyde/layouts/app.blade.php';
+        File::ensureDirectoryExists(Hyde::path('resources/views/vendor/hyde/layouts'));
+        File::put(Hyde::path($target), 'MODIFIED BEFORE PROMPT');
+
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput([], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $publisher = new class($command, $input, $source, $target) extends ViewsPublisher
+        {
+            public function __construct($command, $input, protected string $source, protected string $target)
+            {
+                parent::__construct($command, $input);
+            }
+
+            protected function collectOfferedFiles(): array
+            {
+                return [[$this->source => $this->target], [$this->source => 'layouts/app.blade.php']];
+            }
+
+            protected function selectFiles(array $offered, array $labels): array
+            {
+                return [$this->source];
+            }
+
+            protected function resolveBlocked(array $blocked): ?array
+            {
+                File::put(Hyde::path($this->target), 'MODIFIED AFTER PROMPT');
+
+                return $blocked;
+            }
+        };
+
+        try {
+            $publisher->publish();
+            $this->fail('The publisher should abort when an approved destination changes before copy.');
+        } catch (\RuntimeException $exception) {
+            $this->assertSame("Cannot publish: destination [$target] changed after overwrite checks. Run the command again.", $exception->getMessage());
+        }
+
+        $this->assertSame('MODIFIED AFTER PROMPT', File::get(Hyde::path($target)));
+    }
+
     public function testInteractiveConflictPromptCanSkip()
     {
         $this->seedAllViews();

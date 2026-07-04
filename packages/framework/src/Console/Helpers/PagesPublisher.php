@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 use function array_map;
 use function count;
+use function Hyde\unixsum_file;
 use function implode;
 use function sprintf;
 use function Laravel\Prompts\confirm;
@@ -327,7 +328,7 @@ class PagesPublisher
      * Apply the shared overwrite policy and copy the resolved pages into place.
      *
      * @param  array<array{page: PublishablePage, target: string}>  $resolved
-     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string}>|null The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
+     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>|null The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
      */
     protected function write(array $resolved): ?array
     {
@@ -342,11 +343,16 @@ class PagesPublisher
                 'absolute' => Hyde::path($entry['target']),
             ];
 
-            match (OverwritePolicy::decide($record['source'], $record['absolute'])) {
-                OverwriteAction::Copy => $copy[] = $record,
-                OverwriteAction::Skip => $this->current[] = $entry,
-                OverwriteAction::Blocked => $blocked[] = $record,
-            };
+            $action = OverwritePolicy::decide($record['source'], $record['absolute']);
+
+            if ($action === OverwriteAction::Copy) {
+                $copy[] = $record;
+            } elseif ($action === OverwriteAction::Skip) {
+                $this->current[] = $entry;
+            } else {
+                $record['destinationChecksum'] = $this->destinationChecksum($record['absolute']);
+                $blocked[] = $record;
+            }
         }
 
         $overwrite = $this->resolveBlocked($blocked);
@@ -357,13 +363,61 @@ class PagesPublisher
 
         $this->leftModified = $overwrite === [] ? array_map(fn (array $record): array => ['page' => $record['page'], 'target' => $record['target']], $blocked) : [];
 
-        $written = [...$copy, ...$overwrite];
+        $written = $this->refreshApprovedWrites($copy, $overwrite);
 
         foreach ($written as $record) {
             $this->copy($record['source'], $record['absolute']);
         }
 
         return $written;
+    }
+
+    /**
+     * Re-check destinations immediately before copying so a file changed during an interactive prompt is not lost.
+     *
+     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $copy
+     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $overwrite
+     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>
+     */
+    protected function refreshApprovedWrites(array $copy, array $overwrite): array
+    {
+        $written = [];
+
+        foreach ($copy as $record) {
+            $this->refreshApprovedWrite($written, $record, false);
+        }
+
+        foreach ($overwrite as $record) {
+            $this->refreshApprovedWrite($written, $record, true);
+        }
+
+        return $written;
+    }
+
+    /**
+     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $written
+     * @param  array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}  $record
+     */
+    protected function refreshApprovedWrite(array &$written, array $record, bool $approvedOverwrite): void
+    {
+        match (OverwritePolicy::decide($record['source'], $record['absolute'])) {
+            OverwriteAction::Copy => $written[] = $record,
+            OverwriteAction::Skip => $this->current[] = ['page' => $record['page'], 'target' => $record['target']],
+            OverwriteAction::Blocked => $this->handleStillBlockedWrite($written, $record, $approvedOverwrite),
+        };
+    }
+
+    /**
+     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $written
+     * @param  array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}  $record
+     */
+    protected function handleStillBlockedWrite(array &$written, array $record, bool $approvedOverwrite): void
+    {
+        if (! $approvedOverwrite || ($record['destinationChecksum'] ?? null) !== $this->destinationChecksum($record['absolute'])) {
+            throw new RuntimeException("Cannot publish: destination [{$record['target']}] changed after overwrite checks. Run the command again.");
+        }
+
+        $written[] = $record;
     }
 
     protected function copy(string $source, string $target): void
@@ -378,8 +432,8 @@ class PagesPublisher
     /**
      * Resolve what to do with modified (blocked) destinations, mirroring the views flow (§7).
      *
-     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string}>  $blocked
-     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string}>|null
+     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $blocked
+     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>|null
      */
     protected function resolveBlocked(array $blocked): ?array
     {
@@ -425,7 +479,12 @@ class PagesPublisher
         return null;
     }
 
-    /** @param  array<array{page: PublishablePage, target: string, source: string, absolute: string}>  $written */
+    protected function destinationChecksum(string $target): string
+    {
+        return unixsum_file($target);
+    }
+
+    /** @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $written */
     protected function report(array $written): void
     {
         if ($written === [] && $this->leftModified === [] && $this->current !== []) {

@@ -17,6 +17,7 @@ use function array_keys;
 use function array_merge;
 use function count;
 use function explode;
+use function Hyde\unixsum_file;
 use function implode;
 use function reset;
 use function sprintf;
@@ -35,6 +36,9 @@ use function Laravel\Prompts\select;
  */
 class ViewsPublisher
 {
+    /** @var array<string, string> EOL-agnostic destination checksums captured when a file was first blocked. */
+    protected array $blockedChecksums = [];
+
     public function __construct(protected Command $command, protected InputInterface $input)
     {
     }
@@ -61,13 +65,56 @@ class ViewsPublisher
             return $this->canPrompt() ? Command::SUCCESS : Command::FAILURE;
         }
 
-        $published = array_merge($copy, $overwrite);
+        [$published, $current] = $this->refreshApprovedWrites($copy, $current, $overwrite);
 
         foreach ($published as $source => $target) {
             $this->copy($source, $target);
         }
 
         return $this->report($published, $current, $overwrite === [] ? $blocked : [], count($offered));
+    }
+
+    /**
+     * Re-check destinations immediately before copying so a file changed during an interactive prompt is not lost.
+     *
+     * @param  array<string, string>  $copy
+     * @param  array<string, string>  $current
+     * @param  array<string, string>  $overwrite
+     * @return array{0: array<string, string>, 1: array<string, string>}
+     */
+    protected function refreshApprovedWrites(array $copy, array $current, array $overwrite): array
+    {
+        $published = [];
+
+        foreach ($copy as $source => $target) {
+            $this->refreshApprovedWrite($published, $current, $source, $target, false);
+        }
+
+        foreach ($overwrite as $source => $target) {
+            $this->refreshApprovedWrite($published, $current, $source, $target, true);
+        }
+
+        return [$published, $current];
+    }
+
+    /** @param  array<string, string>  $published  @param  array<string, string>  $current */
+    protected function refreshApprovedWrite(array &$published, array &$current, string $source, string $target, bool $approvedOverwrite): void
+    {
+        match (OverwritePolicy::decide($source, $target)) {
+            OverwriteAction::Copy => $published[$source] = $target,
+            OverwriteAction::Skip => $current[$source] = $target,
+            OverwriteAction::Blocked => $this->handleStillBlockedWrite($published, $source, $target, $approvedOverwrite),
+        };
+    }
+
+    /** @param  array<string, string>  $published */
+    protected function handleStillBlockedWrite(array &$published, string $source, string $target, bool $approvedOverwrite): void
+    {
+        if (! $approvedOverwrite || ($this->blockedChecksums[$source] ?? null) !== $this->destinationChecksum($target)) {
+            throw new RuntimeException("Cannot publish: destination [$target] changed after overwrite checks. Run the command again.");
+        }
+
+        $published[$source] = $target;
     }
 
     protected function copy(string $source, string $target): void
@@ -146,14 +193,24 @@ class ViewsPublisher
         $blocked = [];
 
         foreach ($selected as $source => $target) {
-            match (OverwritePolicy::decide($source, $target)) {
-                OverwriteAction::Copy => $copy[$source] = $target,
-                OverwriteAction::Skip => $current[$source] = $target,
-                OverwriteAction::Blocked => $blocked[$source] = $target,
-            };
+            $action = OverwritePolicy::decide($source, $target);
+
+            if ($action === OverwriteAction::Copy) {
+                $copy[$source] = $target;
+            } elseif ($action === OverwriteAction::Skip) {
+                $current[$source] = $target;
+            } else {
+                $this->blockedChecksums[$source] = $this->destinationChecksum($target);
+                $blocked[$source] = $target;
+            }
         }
 
         return [$copy, $current, $blocked];
+    }
+
+    protected function destinationChecksum(string $target): string
+    {
+        return unixsum_file($target);
     }
 
     /**

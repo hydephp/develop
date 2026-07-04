@@ -485,6 +485,42 @@ class PublishCommandPagesTest extends TestCase
         $this->assertNotSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
     }
 
+    public function testApprovedOverwriteAbortsWhenDestinationChangesAfterPrompt()
+    {
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BEFORE PROMPT');
+
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput([], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $publisher = new class($command, $input) extends PagesPublisher
+        {
+            protected function selectPages(): ?array
+            {
+                return [PublishablePages::get('welcome')];
+            }
+
+            protected function resolveBlocked(array $blocked): ?array
+            {
+                File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED AFTER PROMPT');
+
+                return $blocked;
+            }
+        };
+
+        try {
+            $publisher->publish();
+            $this->fail('The publisher should abort when an approved destination changes before copy.');
+        } catch (\RuntimeException $exception) {
+            $this->assertSame('Cannot publish: destination [_pages/index.blade.php] changed after overwrite checks. Run the command again.', $exception->getMessage());
+        }
+
+        $this->assertSame('MODIFIED AFTER PROMPT', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
     public function testInteractiveConflictPromptCanSkipAModifiedPage()
     {
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
