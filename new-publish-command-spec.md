@@ -204,6 +204,10 @@ php hyde publish --page=welcome --force
 
 ### 5.4 Destination resolution (per selected page)
 
+`--to` names a single destination, so it is only valid when publishing a **single named page**
+(`--page=NAME --to=PATH`). A bare `--page` (multi-select) combined with `--to` is rejected, since
+one path cannot stand in as the destination for several pages.
+
 1. `--to=PATH` → use it. Must resolve under `_pages/` and end in `.blade.php`, else fail.
 2. Non-interactive, no `--to` → use `defaultTarget`. If `defaultTarget` is null
    (e.g. `blank`), there is nothing to fall back to → fail helpfully, pointing to `--to`.

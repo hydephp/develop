@@ -1,0 +1,275 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Hyde\Framework\Testing\Feature\Commands;
+
+use Hyde\Console\Commands\PublishCommand;
+use Hyde\Console\Helpers\ConsoleHelper;
+use Hyde\Console\Helpers\PagesPublisher;
+use Hyde\Console\Helpers\PublishablePage;
+use Hyde\Console\Helpers\PublishablePages;
+use Hyde\Facades\Filesystem;
+use Hyde\Hyde;
+use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\CoversClass;
+
+use function glob;
+
+/**
+ * Covers the starter-page publishing flow (§5): named vs. picker selection, the §5.4 destination
+ * resolution precedence (--to → non-interactive default → interactive prompt → default), --to
+ * validation, destination-conflict detection (§5.6), the interactive confirm (§5.5), the shared
+ * overwrite policy (§7) applied to pages, and the interactive-only optional rebuild (§5.7).
+ */
+#[CoversClass(PublishCommand::class)]
+#[CoversClass(PagesPublisher::class)]
+class PublishCommandPagesTest extends TestCase
+{
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Start from a known-empty _pages so each test controls exactly which destinations exist.
+        $this->withoutDefaultPages();
+    }
+
+    protected function tearDown(): void
+    {
+        ConsoleHelper::clearMocks();
+        PublishablePages::clear();
+
+        // Remove anything a test published, then restore the two committed default pages so the tree stays clean.
+        foreach (glob(Hyde::path('_pages/*.blade.php')) as $file) {
+            File::delete($file);
+        }
+
+        $this->restoreDefaultPages();
+
+        parent::tearDown();
+    }
+
+    // Named-page publishing (--page=NAME) with non-interactive destination resolution (§5.4 step 2).
+
+    public function testNamedPagePublishesToItsDefaultTargetNonInteractively()
+    {
+        $this->artisan('publish --page=welcome --no-interaction')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+        $this->assertSame(
+            File::get(Hyde::vendorPath('resources/views/homepages/welcome.blade.php')),
+            File::get(Hyde::path('_pages/index.blade.php'))
+        );
+    }
+
+    public function testUnknownPageNameFailsHelpfully()
+    {
+        $this->artisan('publish --page=nope --no-interaction')
+            ->expectsOutputToContain('The page [nope] does not exist.')
+            ->expectsOutputToContain('Available pages: welcome, posts, blank, 404')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
+    // The '404' key is a string on the value object but coerces to an int array key: lookup must compare ->key (§5.1).
+
+    public function testNumericPageKeyIsResolvedByItsStringKey()
+    {
+        $this->artisan('publish --page=404 --no-interaction')
+            ->expectsOutputToContain('Published [404] to [_pages/404.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
+    }
+
+    // Destination resolution: --to wins over the default (§5.4 step 1).
+
+    public function testToOverridesTheDefaultTarget()
+    {
+        $this->artisan('publish --page=posts --to=_pages/index.blade.php --no-interaction')
+            ->expectsOutputToContain('Published [posts] to [_pages/index.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+        $this->assertFileDoesNotExist(Hyde::path('_pages/posts.blade.php'));
+    }
+
+    // A page with no default target (blank) cannot be resolved non-interactively without --to (§5.4 step 2).
+
+    public function testPageWithoutDefaultTargetFailsNonInteractivelyWithoutTo()
+    {
+        $this->artisan('publish --page=blank --no-interaction')
+            ->expectsOutputToContain('The [blank] page has no default destination. Provide one with --to.')
+            ->assertExitCode(1);
+    }
+
+    public function testPageWithoutDefaultTargetPublishesWithTo()
+    {
+        $this->artisan('publish --page=blank --to=_pages/about.blade.php --no-interaction')
+            ->expectsOutputToContain('Published [blank] to [_pages/about.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
+    }
+
+    // --to validation: must live under _pages/ and end in .blade.php (§5.4 step 1, §9).
+
+    public function testToPathOutsidePagesDirectoryIsRejected()
+    {
+        $this->artisan('publish --page=welcome --to=resources/views/foo.blade.php --no-interaction')
+            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
+            ->assertExitCode(1);
+    }
+
+    public function testToPathWithWrongExtensionIsRejected()
+    {
+        $this->artisan('publish --page=welcome --to=_pages/index.md --no-interaction')
+            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
+            ->assertExitCode(1);
+    }
+
+    // Overwrite policy (§7): identical -> skip, modified -> fail without --force, --force overwrites.
+
+    public function testIdenticalPageIsSkippedAsAlreadyCurrent()
+    {
+        $this->artisan('publish --page=welcome --no-interaction')->assertExitCode(0);
+
+        $this->artisan('publish --page=welcome --no-interaction')
+            ->expectsOutputToContain('All selected pages are already up to date.')
+            ->assertExitCode(0);
+    }
+
+    public function testModifiedPageCannotBeOverwrittenNonInteractivelyWithoutForce()
+    {
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
+
+        $this->artisan('publish --page=welcome --no-interaction')
+            ->expectsOutput('Cannot overwrite modified files without --force:')
+            ->expectsOutputToContain('_pages/index.blade.php')
+            ->expectsOutput('Run again with --force to overwrite.')
+            ->assertExitCode(1);
+
+        $this->assertSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
+    public function testForceOverwritesModifiedPage()
+    {
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
+
+        $this->artisan('publish --page=welcome --force --no-interaction')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertNotSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
+    // Interactive destination prompt (§5.4 step 3): default / alternative / custom path.
+
+    public function testInteractiveResolutionCanChooseAnAlternativeTarget()
+    {
+        $this->artisan('publish --page=posts')
+            ->expectsQuestion('Where should "Posts feed" be published?', '_pages/index.blade.php')
+            ->expectsOutputToContain('Published [posts] to [_pages/index.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+        $this->assertFileDoesNotExist(Hyde::path('_pages/posts.blade.php'));
+    }
+
+    public function testInteractiveResolutionCanChooseACustomPath()
+    {
+        $this->artisan('publish --page=blank')
+            ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
+            ->expectsQuestion('Enter a path within _pages/', '_pages/custom.blade.php')
+            ->expectsOutputToContain('Published [blank] to [_pages/custom.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/custom.blade.php'));
+    }
+
+    public function testCustomPathFromPromptIsValidated()
+    {
+        $this->artisan('publish --page=blank')
+            ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
+            ->expectsQuestion('Enter a path within _pages/', 'somewhere/else.blade.php')
+            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
+            ->assertExitCode(1);
+    }
+
+    // Interactive picker flow (§5.5): select -> resolve -> confirm.
+
+    public function testInteractivePickerPublishesSelectedPagesAfterConfirmation()
+    {
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['welcome'])
+            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
+            ->expectsOutput('Ready to publish:')
+            ->expectsOutputToContain('Welcome page → _pages/index.blade.php')
+            ->expectsConfirmation('Proceed?', 'yes')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+    }
+
+    public function testInteractivePickerCanBeDeclinedAtConfirmation()
+    {
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['welcome'])
+            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
+            ->expectsConfirmation('Proceed?', 'no')
+            ->expectsOutputToContain('Cancelled. No pages were published.')
+            ->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
+    // Destination-conflict detection before any write (§5.6).
+
+    public function testTwoPagesResolvingToTheSameTargetAreRejectedBeforeWriting()
+    {
+        // Register a second page whose default collides with welcome's default so the picker offers both.
+        PublishablePages::register(new PublishablePage(
+            key: 'clash',
+            label: 'Clashing page',
+            description: 'A page that targets the homepage too.',
+            source: 'resources/views/homepages/blank.blade.php',
+            defaultTarget: '_pages/index.blade.php',
+            allowCustomTarget: false,
+        ));
+
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['welcome', 'clash'])
+            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
+            ->expectsOutputToContain('Welcome page and Clashing page both target _pages/index.blade.php.')
+            ->expectsOutputToContain('Pick one, or set --to for each.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
+    // Optional rebuild (§5.7): offered interactively, never non-interactively.
+
+    public function testRebuildIsOfferedInteractivelyAfterPublishing()
+    {
+        $this->artisan('publish --page=welcome')
+            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(0);
+    }
+
+    public function testRebuildIsNeverOfferedNonInteractively()
+    {
+        $this->artisan('publish --page=welcome --no-interaction')
+            ->doesntExpectOutputToContain('Rebuild the site now?')
+            ->assertExitCode(0);
+    }
+}

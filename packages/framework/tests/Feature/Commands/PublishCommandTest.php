@@ -19,8 +19,6 @@ use Symfony\Component\Console\Exception\RuntimeException;
 #[CoversClass(PublishCommand::class)]
 class PublishCommandTest extends TestCase
 {
-    protected string $pagesStub = 'Publishing pages is not yet implemented.';
-
     protected function tearDown(): void
     {
         // The views-routing tests below publish real files; remove them so the tree stays clean.
@@ -77,11 +75,13 @@ class PublishCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    public function testToOptionIsAllowedAlongsideThePageFlag()
+    public function testToOptionRequiresANamedPageNotABarePageFlag()
     {
+        // --to names one destination, so it is only valid with a single named page (§5.4); a bare --page
+        // (multi-select) with --to is rejected rather than letting one path stand in for several pages.
         $this->artisan('publish --page --to=_pages/index.blade.php')
-            ->expectsOutputToContain($this->pagesStub)
-            ->assertExitCode(0);
+            ->expectsOutputToContain('--to is only valid when publishing a single page. Use --page=NAME with --to.')
+            ->assertExitCode(1);
     }
 
     public function testNonInteractiveWithNoActionableFlagsFailsWithUsageHint()
@@ -120,16 +120,18 @@ class PublishCommandTest extends TestCase
 
     public function testBarePageFlagRoutesToPages()
     {
-        $this->artisan('publish --page')
-            ->expectsOutputToContain($this->pagesStub)
-            ->assertExitCode(0);
+        // A bare --page needs the interactive picker; non-interactively it reaches the pages flow and fails there.
+        $this->artisan('publish --page --no-interaction')
+            ->expectsOutputToContain('No page specified for publishing. Provide one, for example --page=welcome.')
+            ->assertExitCode(1);
     }
 
     public function testPageFlagWithNameRoutesToPages()
     {
-        $this->artisan('publish --page=welcome')
-            ->expectsOutputToContain($this->pagesStub)
-            ->assertExitCode(0);
+        // An unknown name proves the flag routes into the pages flow and its registry lookup, without writing anything.
+        $this->artisan('publish --page=nonexistent --no-interaction')
+            ->expectsOutputToContain('The page [nonexistent] does not exist.')
+            ->assertExitCode(1);
     }
 
     // Interactive wizard routing (§3).
@@ -147,9 +149,14 @@ class PublishCommandTest extends TestCase
 
     public function testWizardRoutesToPages()
     {
+        // Route through the wizard into the real pages flow. Welcome resolves to the default _pages/index.blade.php,
+        // which ships identical to the source, so this is a non-destructive "already up to date" skip.
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'page')
-            ->expectsOutputToContain($this->pagesStub)
+            ->expectsQuestion('Select pages to publish', ['welcome'])
+            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
+            ->expectsConfirmation('Proceed?', 'yes')
+            ->expectsOutputToContain('All selected pages are already up to date.')
             ->assertExitCode(0);
     }
 
@@ -158,7 +165,6 @@ class PublishCommandTest extends TestCase
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'cancel')
             ->doesntExpectOutputToContain('Published')
-            ->doesntExpectOutputToContain($this->pagesStub)
             ->assertExitCode(0);
     }
 
