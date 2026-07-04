@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
-use Illuminate\Support\Facades\Artisan;
-
-use function array_search;
-use function sprintf;
 
 /**
- * Publish the Hyde config files.
+ * Deprecated alias for publishing the Hyde config files.
+ *
+ * Kept working through v3 as a thin delegator: it prints a one-line deprecation
+ * notice and forwards to `php hyde vendor:publish --tag=hyde-config`. Target
+ * removal in v4.
+ *
+ * @see \Hyde\Console\Commands\VendorPublishCommand
  */
 class PublishConfigsCommand extends Command
 {
@@ -24,29 +25,8 @@ class PublishConfigsCommand extends Command
 
     public function handle(): int
     {
-        $options = [
-            'All configs',
-            '<comment>hyde-configs</comment>: Main configuration files',
-            '<comment>support-configs</comment>: Laravel and package configuration files',
-        ];
-        $selection = $this->choice('Which configuration files do you want to publish?', $options, 'All configs');
+        $this->warn('publish:configs is deprecated. Use php hyde vendor:publish --tag=hyde-config instead.');
 
-        $tag = $this->parseTagFromSelection($selection, $options);
-
-        Artisan::call('vendor:publish', [
-            '--tag' => $tag,
-            '--force' => true,
-        ], $this->output);
-
-        $this->infoComment(sprintf('Published config files to [%s]', Hyde::path('config')));
-
-        return Command::SUCCESS;
-    }
-
-    protected function parseTagFromSelection(string $selection, array $options): string
-    {
-        $tags = ['configs', 'hyde-configs', 'support-configs'];
-
-        return $tags[array_search($selection, $options)];
+        return $this->call('vendor:publish', ['--tag' => 'hyde-config']);
     }
 }

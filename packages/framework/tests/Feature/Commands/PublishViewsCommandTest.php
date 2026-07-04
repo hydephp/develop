@@ -4,257 +4,72 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Commands;
 
-use Hyde\Console\Commands\PublishViewsCommand;
-use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
-use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
-use Laravel\Prompts\Key;
-use Laravel\Prompts\Prompt;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
- * @see \Hyde\Framework\Testing\Unit\InteractivePublishCommandHelperTest
+ * Step 7 (§8): publish:views is now a thin, deprecated delegator to `php hyde publish`.
+ * It prints a one-line deprecation notice and forwards the group to the matching scope flag
+ * (layouts → --layouts, components → --components, no group → --all).
+ *
+ * @see \Hyde\Framework\Testing\Feature\Commands\PublishCommandViewsTest for the real views flow.
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\PublishViewsCommand::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Helpers\InteractivePublishCommandHelper::class)]
+#[CoversClass(\Hyde\Console\Commands\PublishViewsCommand::class)]
 class PublishViewsCommandTest extends TestCase
 {
-    public function testCommandPublishesViews()
+    public function testWithoutGroupPrintsNoticeAndDelegatesToPublishAll()
     {
-        $count = Filesystem::findFiles('vendor/hyde/framework/resources/views/components', '.blade.php', true)->count()
-            + Filesystem::findFiles('vendor/hyde/framework/resources/views/layouts', '.blade.php', true)->count();
+        $count = $this->viewCount('layouts') + $this->viewCount('components');
 
-        $this->artisan('publish:views')
-            ->expectsQuestion('Which group do you want to publish?', 'all')
-            ->doesntExpectOutputToContain('Selected group')
-            ->expectsOutput("Published all $count files to [resources/views/vendor/hyde]")
+        $this->artisan('publish:views --no-interaction')
+            ->expectsOutputToContain('publish:views is deprecated. Use php hyde publish --all instead.')
+            ->expectsOutputToContain("Published all $count views to [resources/views/vendor/hyde]")
             ->assertExitCode(0);
 
-        // Assert all groups were published
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde'));
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde/layouts'));
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde/components'));
-
-        // Assert files were published
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'));
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
-
-        // Assert subdirectories were published with files
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde/components/docs'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/docs/documentation-article.blade.php'));
     }
 
-    public function testCanSelectGroupWithArgument()
+    public function testLayoutsGroupPrintsNoticeAndDelegatesToLayoutsFlag()
     {
-        ConsoleHelper::disableLaravelPrompts();
+        $count = $this->viewCount('layouts');
 
-        $this->artisan('publish:views layouts')
-            ->expectsOutput('Published all [layout] files to [resources/views/vendor/hyde/layouts]')
-            ->assertExitCode(0);
-
-        // Assert selected group was published
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde'));
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde/layouts'));
-
-        // Assert files were published
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'));
-
-        // Assert not selected group was not published
-        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
-    }
-
-    public function testCanSelectGroupWithQuestion()
-    {
-        ConsoleHelper::disableLaravelPrompts();
-
-        $this->artisan('publish:views')
-            ->expectsQuestion('Which group do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
-            ->expectsOutput('Published all [layout] files to [resources/views/vendor/hyde/layouts]')
-            ->assertExitCode(0);
-
-        // Assert selected group was published
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde'));
-        $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde/layouts'));
-
-        // Assert files were published
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'));
-
-        // Assert not selected group was not published
-        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
-    }
-
-    public function testWithInvalidSuppliedTag()
-    {
-        $this->artisan('publish:views invalid')
-            ->expectsOutput("Invalid selection: 'invalid'")
-            ->expectsOutput('Allowed values are: [all, layouts, components]')
-            ->assertExitCode(1);
-    }
-
-    public function testInteractiveSelectionOnWindowsSystemsSkipsInteractiveness()
-    {
-        ConsoleHelper::mockWindowsOs(true);
-
-        $this->artisan('publish:views components')
-            ->expectsOutput('Published all [component] files to [resources/views/vendor/hyde/components]')
-            ->assertExitCode(0);
-    }
-
-    public function testInteractiveSelectionOnUnixSystems()
-    {
-        if (windows_os()) {
-            $this->markTestSkipped('Test is not applicable on Windows systems.');
-        }
-
-        Prompt::fake([
-            Key::DOWN, Key::SPACE,
-            Key::DOWN, Key::SPACE,
-            Key::DOWN, Key::SPACE,
-            Key::ENTER,
-        ]);
-
-        $output = $this->executePublishViewsCommand();
-
-        Prompt::assertOutputContains('Select the files you want to publish');
-        Prompt::assertOutputContains('All files');
-        Prompt::assertOutputContains('app.blade.php');
-        Prompt::assertOutputContains('docs.blade.php');
-        Prompt::assertOutputContains('footer.blade.php');
-
-        $this->assertSame("Published selected [layout] files to [resources/views/vendor/hyde/layouts]\n", $output->fetch());
-
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/docs.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/footer.blade.php'));
-
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
-        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
-    }
-
-    public function testInteractiveSelectionWithHittingEnterRightAway()
-    {
-        if (windows_os()) {
-            $this->markTestSkipped('Test is not applicable on Windows systems.');
-        }
-
-        Prompt::fake([
-            Key::ENTER,
-        ]);
-
-        $output = $this->executePublishViewsCommand();
-
-        Prompt::assertOutputContains('Select the files you want to publish');
-        Prompt::assertOutputContains('All files');
-        Prompt::assertOutputContains('app.blade.php');
-        Prompt::assertOutputContains('docs.blade.php');
-
-        $this->assertSame("Published all [layout] files to [resources/views/vendor/hyde/layouts]\n", $output->fetch());
-
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/docs.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/footer.blade.php'));
-
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
-        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
-    }
-
-    public function testInteractiveSelectionWithComplexToggles()
-    {
-        if (windows_os()) {
-            $this->markTestSkipped('Test is not applicable on Windows systems.');
-        }
-
-        Prompt::fake([
-            // Select "all files"
-            Key::SPACE,
-            // Unselect next file
-            Key::DOWN, Key::SPACE,
-            // Go back up and deselect the all files option
-            Key::UP, Key::SPACE,
-            // Select the next three files
-            Key::DOWN, Key::SPACE, Key::DOWN, Key::SPACE, Key::DOWN, Key::SPACE,
-            // De-select the last file
-            Key::SPACE,
-            // Confirm selection
-            Key::ENTER,
-        ]);
-
-        $output = $this->executePublishViewsCommand();
-
-        Prompt::assertOutputContains('Select the files you want to publish');
-        Prompt::assertOutputContains('All files');
-        Prompt::assertOutputContains('app.blade.php');
-        Prompt::assertOutputContains('docs.blade.php');
-
-        $this->assertSame("Published selected [layout] files to [resources/views/vendor/hyde/layouts]\n", $output->fetch());
-
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/docs.blade.php'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/footer.blade.php'));
-
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
-        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
-    }
-
-    public function testCanSelectGroupWithQuestionAndPrompts()
-    {
-        if (windows_os()) {
-            $this->markTestSkipped('Test is not applicable on Windows systems.');
-        }
-
-        $this->artisan('publish:views')
-            ->expectsQuestion('Which group do you want to publish?', '<comment>layouts</comment>: Shared layout views, such as the app layout, navigation menu, and Markdown page templates')
-            ->expectsOutput('Selected group [layouts]')
-            ->expectsQuestion('Select the files you want to publish', [(is_dir(Hyde::path('packages')) ? 'packages' : 'vendor/hyde').'/framework/resources/views/layouts/app.blade.php'])
-            ->expectsOutput('Published selected file to [resources/views/vendor/hyde/layouts/app.blade.php]')
+        $this->artisan('publish:views layouts --no-interaction')
+            ->expectsOutputToContain('publish:views is deprecated. Use php hyde publish --layouts instead.')
+            ->expectsOutputToContain("Published all $count views to [resources/views/vendor/hyde/layouts]")
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
-
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'));
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
-        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
     }
 
-    protected function executePublishViewsCommand(): BufferedOutput
+    public function testComponentsGroupPrintsNoticeAndDelegatesToComponentsFlag()
     {
-        $command = (new PublishViewsCommand());
-        $input = new ArrayInput(['group' => 'layouts'], $command->getDefinition());
-        $output = new BufferedOutput();
-        $command->setInput($input);
-        $command->setOutput(new OutputStyle($input, $output));
-        $command->handle();
+        $count = $this->viewCount('components');
 
-        return $output;
+        $this->artisan('publish:views components --no-interaction')
+            ->expectsOutputToContain('publish:views is deprecated. Use php hyde publish --components instead.')
+            ->expectsOutputToContain("Published all $count views to [resources/views/vendor/hyde/components]")
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts'));
+    }
+
+    protected function viewCount(string $group): int
+    {
+        return Filesystem::findFiles("packages/framework/resources/views/$group", '.blade.php', true)->count();
     }
 
     protected function tearDown(): void
     {
-        ConsoleHelper::clearMocks();
-        PromptsReset::resetFallbacks();
-
         if (File::isDirectory(Hyde::path('resources/views/vendor'))) {
             File::deleteDirectory(Hyde::path('resources/views/vendor'));
         }
 
         parent::tearDown();
-    }
-}
-
-abstract class PromptsReset extends Prompt
-{
-    // Workaround for https://github.com/laravel/prompts/issues/158
-    public static function resetFallbacks(): void
-    {
-        static::$shouldFallback = false;
     }
 }

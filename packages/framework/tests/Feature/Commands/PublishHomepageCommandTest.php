@@ -7,9 +7,17 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\PublishHomepageCommand::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Concerns\AsksToRebuildSite::class)]
+/**
+ * Step 7 (§8): publish:homepage is now a thin, deprecated delegator to `php hyde publish --page`.
+ * It prints a one-line deprecation notice, forwards the optional template name to --page=NAME
+ * (a bare invocation maps to --page, i.e. the picker), and forwards the --force flag.
+ *
+ * @see \Hyde\Framework\Testing\Feature\Commands\PublishCommandPagesTest for the real pages flow.
+ */
+#[CoversClass(\Hyde\Console\Commands\PublishHomepageCommand::class)]
 class PublishHomepageCommandTest extends TestCase
 {
     protected function setUp(): void
@@ -30,95 +38,58 @@ class PublishHomepageCommandTest extends TestCase
         parent::tearDown();
     }
 
-    public function testThereAreNoDefaultPages()
+    public function testNamedTemplatePrintsNoticeAndDelegatesToPageFlag()
     {
+        $this->artisan('publish:homepage welcome --no-interaction')
+            ->expectsOutputToContain('publish:homepage is deprecated. Use php hyde publish --page=welcome instead.')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+    }
+
+    public function testUnknownTemplateDelegatesAndFailsHelpfully()
+    {
+        $this->artisan('publish:homepage nope --no-interaction')
+            ->expectsOutputToContain('publish:homepage is deprecated. Use php hyde publish --page=nope instead.')
+            ->expectsOutputToContain('The page [nope] does not exist.')
+            ->assertExitCode(1);
+
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
-    public function testCommandReturnsExpectedOutput()
-    {
-        $this->artisan('publish:homepage welcome')
-            ->expectsConfirmation('Would you like to rebuild the site?')
-            ->assertExitCode(0);
-
-        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
-    }
-
-    public function testCommandReturnsExpectedOutputWithRebuild()
-    {
-        $this->artisan('publish:homepage welcome')
-            ->expectsConfirmation('Would you like to rebuild the site?', 'yes')
-            ->expectsOutput('Okay, building site!')
-            ->expectsOutput('Site is built!')
-            ->assertExitCode(0);
-
-        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
-        $this->resetSite();
-    }
-
-    public function testCommandPromptsForOutput()
+    public function testBareInvocationPrintsNoticeAndDelegatesToThePagePicker()
     {
         $this->artisan('publish:homepage')
-            ->expectsQuestion(
-                'Which homepage do you want to publish?',
-                'welcome: The default welcome page.'
-            )
-            ->expectsOutput('Published page [welcome]')
-            ->expectsConfirmation('Would you like to rebuild the site?')
+            ->expectsOutputToContain('publish:homepage is deprecated. Use php hyde publish --page instead.')
+            ->expectsQuestion('Select pages to publish', ['welcome'])
+            ->expectsConfirmation('Proceed?', 'yes')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }
 
-    public function testCommandShowsFeedbackOutputWhenSupplyingAHomepageName()
+    public function testForceFlagIsForwardedToOverwriteModifiedFiles()
     {
-        $this->artisan('publish:homepage welcome')
-            ->expectsOutput('Published page [welcome]')
-            ->expectsConfirmation('Would you like to rebuild the site?', false)
-            ->assertExitCode(0);
-
-        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
-    }
-
-    public function testCommandHandlesErrorCode404()
-    {
-        $this->artisan('publish:homepage invalid-page')
-            ->assertExitCode(404);
-
-        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
-    }
-
-    public function testCommandDoesNotOverwriteModifiedFilesWithoutForceFlag()
-    {
-        file_put_contents(Hyde::path('_pages/index.blade.php'), 'foo');
-
-        $this->artisan('publish:homepage welcome')
-            ->assertExitCode(409);
-
-        $this->assertSame('foo', file_get_contents(Hyde::path('_pages/index.blade.php')));
-
-        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
-    }
-
-    public function testCommandOverwritesModifiedFilesIfForceFlagIsSet()
-    {
-        file_put_contents(Hyde::path('_pages/index.blade.php'), 'foo');
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish:homepage welcome --force --no-interaction')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
             ->assertExitCode(0);
 
-        $this->assertNotSame('foo', file_get_contents(Hyde::path('_pages/index.blade.php')));
-
-        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+        $this->assertNotSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
     }
 
-    public function testCommandDoesNotReturn409IfTheCurrentFileIsADefaultFile()
+    public function testWithoutForceModifiedFilesAreProtected()
     {
-        copy(Hyde::vendorPath('resources/views/layouts/app.blade.php'), Hyde::path('_pages/index.blade.php'));
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish:homepage welcome --no-interaction')
-            ->assertExitCode(0);
+            ->expectsOutput('Cannot overwrite modified files without --force:')
+            ->assertExitCode(1);
 
-        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+        $this->assertSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
     }
 }
