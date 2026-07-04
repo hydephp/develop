@@ -274,11 +274,16 @@ php hyde vendor:publish --tag=hyde-config
 
 Identical rule everywhere. **No historical-checksum manifest.**
 
-| Destination state                  | Action                                   |
-|------------------------------------|------------------------------------------|
-| Missing                            | copy                                     |
-| Byte-identical to current source   | skip (`already current`)                 |
-| Exists and differs (user-modified) | require interactive confirm OR `--force` |
+"Identical" is compared **EOL-agnostically** (line endings normalized before
+comparison), reusing Hyde's existing `unixsum` checksum. A file that differs from
+the source only by line endings counts as unchanged (`skip`), not modified — CRLF/LF
+differences from git autocrlf, editors, or OS are noise, never a user modification.
+
+| Destination state                       | Action                                   |
+|-----------------------------------------|------------------------------------------|
+| Missing                                 | copy                                     |
+| Identical to source (EOL-normalized)    | skip (`already current`)                 |
+| Exists and differs (user-modified)      | require interactive confirm OR `--force` |
 
 Interactive conflict prompt:
 
