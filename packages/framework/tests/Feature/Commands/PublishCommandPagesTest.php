@@ -71,6 +71,19 @@ class PublishCommandPagesTest extends TestCase
         );
     }
 
+    // §2/§11: --all means "all views" and does not apply to pages. Combined with --page, the page
+    // flow wins (page-intent is resolved before view-intent) and --all is inert — it must not divert
+    // into the views "Published all" path. PagesPublisher never reads the --all option.
+    public function testAllFlagDoesNotApplyToPagesWhenCombinedWithPage()
+    {
+        $this->artisan('publish --page=welcome --all --no-interaction')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->doesntExpectOutputToContain('Published all')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
+    }
+
     public function testUnknownPageNameFailsHelpfully()
     {
         $this->artisan('publish --page=nope --no-interaction')
