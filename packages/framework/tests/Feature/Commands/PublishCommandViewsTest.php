@@ -19,18 +19,11 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-/**
- * Covers the views publishing flow (§4) and the shared overwrite policy applied to views (§7):
- * the grouped multi-select picker, --layouts/--components prefiltering, --all skipping the picker,
- * cardinality-aware output, and the missing/identical/modified overwrite behavior with --force.
- */
 #[CoversClass(PublishCommand::class)]
 #[CoversClass(ViewsPublisher::class)]
 #[CoversClass(\Hyde\Console\Helpers\InteractiveMultiselect::class)]
 class PublishCommandViewsTest extends TestCase
 {
-    // Non-interactive scope selection (a scoped group is exactly equivalent to adding --all).
-
     public function testAllPublishesEveryView()
     {
         $count = $this->viewCount('layouts') + $this->viewCount('components');
@@ -66,8 +59,6 @@ class PublishCommandViewsTest extends TestCase
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts'));
     }
-
-    // Interactive picker selection (single / many / cross-group), with cardinality-aware output.
 
     public function testPickerCanPublishASingleView()
     {
@@ -148,8 +139,6 @@ class PublishCommandViewsTest extends TestCase
         ]));
     }
 
-    // The picker is prefiltered by the scope flag and uses group-prefixed labels with an "All views" row.
-
     public function testLayoutsPickerIsPrefilteredWithGroupPrefixedLabels()
     {
         $output = $this->runViewsPicker(['--layouts' => true], [Key::SPACE, Key::ENTER]);
@@ -159,7 +148,6 @@ class PublishCommandViewsTest extends TestCase
         Prompt::assertOutputContains('layouts/app.blade.php');
         Prompt::assertOutputDoesntContain('components/');
 
-        // Checking the "All views" sentinel selects every offered (layouts) view.
         $this->assertStringContainsString('Published all', $output->fetch());
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/components'));
@@ -184,8 +172,6 @@ class PublishCommandViewsTest extends TestCase
         $this->assertSame([404], InteractiveMultiselect::select('Select test option', [404 => 'Not found'], 'All options'));
     }
 
-    // Overwrite policy (§7): missing -> copy, identical -> skip, modified -> confirm or --force.
-
     public function testIdenticalViewsAreSkippedAsAlreadyCurrent()
     {
         $this->seedAllViews();
@@ -206,7 +192,6 @@ class PublishCommandViewsTest extends TestCase
             ->expectsOutput('Run again with --force to overwrite.')
             ->assertExitCode(1);
 
-        // Hard stop: the modified file is left untouched and nothing else is written either.
         $this->assertSame('MODIFIED BY USER', File::get($target));
     }
 
@@ -328,12 +313,8 @@ class PublishCommandViewsTest extends TestCase
         $this->assertSame('MODIFIED BY USER', File::get($target));
     }
 
-    // §4 cardinality-aware output: a mixed run reports what was copied alongside what was already current,
-    // instead of collapsing to either the "Published all" or the "all up to date" shortcut.
-
     public function testMixedRunReportsPublishedAlongsideAlreadyCurrentViews()
     {
-        // Seed only the layouts so they are already current, then publish everything: components copy, layouts skip.
         $this->artisan('publish --layouts --no-interaction')->assertExitCode(0);
 
         $components = $this->viewCount('components');
@@ -356,13 +337,11 @@ class PublishCommandViewsTest extends TestCase
         return (is_dir(Hyde::path('packages')) ? 'packages' : 'vendor/hyde')."/framework/resources/views/$group/$file";
     }
 
-    /** Publish every view so subsequent runs see identical (already current) destinations. */
     protected function seedAllViews(): void
     {
         $this->artisan('publish --all --no-interaction')->assertExitCode(0);
     }
 
-    /** Modify one already-published view so it is seen as user-modified, and return its target path. */
     protected function modifyPublishedView(): string
     {
         $target = Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php');
@@ -371,7 +350,6 @@ class PublishCommandViewsTest extends TestCase
         return $target;
     }
 
-    /** Drive the interactive picker with faked keystrokes and return the buffered output. */
     protected function runViewsPicker(array $parameters, array $keys): BufferedOutput
     {
         if (windows_os()) {

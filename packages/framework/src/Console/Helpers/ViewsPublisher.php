@@ -22,17 +22,7 @@ use function reset;
 use function sprintf;
 use function Laravel\Prompts\select;
 
-/**
- * The views publishing flow for the {@see \Hyde\Console\Commands\PublishCommand}.
- *
- * Publishes Hyde's Blade overrides from the two declared groups (layouts, components) into
- * resources/views/vendor/hyde/. The flow is: decide every selected file's outcome first (via the shared
- * {@see OverwritePolicy}), resolve any modified-file conflicts second (interactive prompt or --force), and
- * only then write — so cancelling never leaves a half-published tree. Output is cardinality-aware and
- * reports the full breakdown of what was copied, what was already current, and what was left modified.
- *
- * @internal This helper is scoped to the publish command and should not be used elsewhere.
- */
+/** @internal This helper is scoped to the publish command and should not be used elsewhere. */
 class ViewsPublisher
 {
     /** @var array<string, string> EOL-agnostic destination checksums captured when a file was first blocked. */
@@ -319,7 +309,6 @@ class ViewsPublisher
         return $count === 1 ? '1 view' : "$count views";
     }
 
-    /** Find the most specific common parent directory shared by the given files' target paths. */
     protected function baseDirectory(array $files): string
     {
         $partsMap = collect($files)->map(fn (string $file): array => explode('/', $file));
