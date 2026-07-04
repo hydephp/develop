@@ -301,17 +301,9 @@ class RealtimeCompilerTest extends TestCase
         // InteractsWithLaravel::createApplication()), so config values must be
         // changed on disk rather than through the config() helper for this to
         // take effect for the request handled below.
-        $configPath = BASE_PATH.'/config/hyde.php';
-        $original = file_get_contents($configPath);
+        $pattern = '/(\'generate_sitemap\'\s*=>\s*)true/';
 
-        $this->assertSame(1, substr_count($original, "'generate_sitemap' => true,"));
-        file_put_contents($configPath, str_replace(
-            "'generate_sitemap' => true,",
-            "'generate_sitemap' => false,",
-            $original
-        ));
-
-        try {
+        $this->withModifiedConfigFile($pattern, '${1}false', function () {
             $this->mockCompilerRoute('sitemap.xml');
 
             $kernel = new HttpKernel();
@@ -320,37 +312,31 @@ class RealtimeCompilerTest extends TestCase
             $this->expectExceptionMessage('Route [sitemap.xml] not found.');
 
             $kernel->handle(new Request());
-        } finally {
-            file_put_contents($configPath, $original);
-        }
+        });
     }
 
     public function testRssFeedRouteIsNotRegisteredWhenRssGenerationIsDisabled()
     {
-        $configPath = BASE_PATH.'/config/hyde.php';
-        $original = file_get_contents($configPath);
+        // Scoped to the `rss` config array (rather than matching `'enabled' => true`
+        // anywhere in the file) since other features may also have an `enabled` key.
+        $pattern = '/(\'rss\'\s*=>\s*\[.*?\'enabled\'\s*=>\s*)true/s';
 
-        $this->assertSame(1, substr_count($original, "// Should the RSS feed be generated?\n        'enabled' => true,"));
-        file_put_contents($configPath, str_replace(
-            "// Should the RSS feed be generated?\n        'enabled' => true,",
-            "// Should the RSS feed be generated?\n        'enabled' => false,",
-            $original
-        ));
-
-        try {
+        $this->withModifiedConfigFile($pattern, '${1}false', function () {
             Filesystem::put('_posts/disabled-rss-test.md', "---\ntitle: Disabled RSS Test\n---\n\n# Disabled RSS Test");
-            $this->mockCompilerRoute('feed.xml');
 
-            $kernel = new HttpKernel();
+            try {
+                $this->mockCompilerRoute('feed.xml');
 
-            $this->expectException(RouteNotFoundException::class);
-            $this->expectExceptionMessage('Route [feed.xml] not found.');
+                $kernel = new HttpKernel();
 
-            $kernel->handle(new Request());
-        } finally {
-            Filesystem::unlink('_posts/disabled-rss-test.md');
-            file_put_contents($configPath, $original);
-        }
+                $this->expectException(RouteNotFoundException::class);
+                $this->expectExceptionMessage('Route [feed.xml] not found.');
+
+                $kernel->handle(new Request());
+            } finally {
+                Filesystem::unlink('_posts/disabled-rss-test.md');
+            }
+        });
     }
 
     public function testRssFeedRouteRespectsConfiguredCustomFilename()
@@ -359,29 +345,49 @@ class RealtimeCompilerTest extends TestCase
         // before the fix, requesting the real (custom) feed path would incorrectly be
         // treated as a static asset request and result in a 404, since shouldProxy()
         // only ever matched against the hardcoded default filename `feed.xml`.
+        $pattern = '/(\'rss\'\s*=>\s*\[.*?\'filename\'\s*=>\s*\')feed\.xml(\')/s';
+
+        $this->withModifiedConfigFile($pattern, '${1}custom-feed.xml${2}', function () {
+            Filesystem::put('_posts/custom-filename-test.md', "---\ntitle: Custom Filename Test\ndescription: Custom filename test description\n---\n\n# Custom Filename Test");
+
+            try {
+                $this->mockCompilerRoute('custom-feed.xml');
+
+                $kernel = new HttpKernel();
+                $response = $kernel->handle(new Request());
+
+                $this->assertInstanceOf(Response::class, $response);
+                $this->assertSame(200, $response->statusCode);
+                $this->assertStringContainsString('<rss ', $response->body);
+                $this->assertStringContainsString('Custom Filename Test', $response->body);
+            } finally {
+                Filesystem::unlink('_posts/custom-filename-test.md');
+            }
+        });
+    }
+
+    /**
+     * Temporarily rewrite the project's `config/hyde.php` file by applying a regex
+     * replacement, run the given callback, then always restore the original contents.
+     *
+     * This is needed because the Router creates a fresh application instance for
+     * every request, so config values must be changed on disk (rather than through
+     * the `config()` helper) to take effect for a request handled within $callback.
+     */
+    protected function withModifiedConfigFile(string $pattern, string $replacement, callable $callback): void
+    {
         $configPath = BASE_PATH.'/config/hyde.php';
         $original = file_get_contents($configPath);
 
-        $this->assertSame(1, substr_count($original, "'filename' => 'feed.xml',"));
-        file_put_contents($configPath, str_replace(
-            "'filename' => 'feed.xml',",
-            "'filename' => 'custom-feed.xml',",
-            $original
-        ));
+        $this->assertSame(1, preg_match($pattern, $original), 'Expected exactly one match for the config replacement pattern.');
+
+        $modified = preg_replace($pattern, $replacement, $original, 1);
+
+        file_put_contents($configPath, $modified);
 
         try {
-            Filesystem::put('_posts/custom-filename-test.md', "---\ntitle: Custom Filename Test\ndescription: Custom filename test description\n---\n\n# Custom Filename Test");
-            $this->mockCompilerRoute('custom-feed.xml');
-
-            $kernel = new HttpKernel();
-            $response = $kernel->handle(new Request());
-
-            $this->assertInstanceOf(Response::class, $response);
-            $this->assertSame(200, $response->statusCode);
-            $this->assertStringContainsString('<rss ', $response->body);
-            $this->assertStringContainsString('Custom Filename Test', $response->body);
+            $callback();
         } finally {
-            Filesystem::unlink('_posts/custom-filename-test.md');
             file_put_contents($configPath, $original);
         }
     }

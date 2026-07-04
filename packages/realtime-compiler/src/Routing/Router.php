@@ -135,7 +135,8 @@ class Router
 
             $config = require $configPath;
 
-            $filename = is_array($config) ? ($config['rss']['filename'] ?? $default) : $default;
+            $rss = is_array($config) ? ($config['rss'] ?? null) : null;
+            $filename = is_array($rss) ? ($rss['filename'] ?? $default) : $default;
 
             return is_string($filename) && $filename !== '' ? ltrim($filename, '/') : $default;
         } catch (Throwable) {
