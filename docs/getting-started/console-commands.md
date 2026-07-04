@@ -237,13 +237,6 @@ This publishes the Hyde-owned config files (`hyde.php`, `docs.php`, `markdown.ph
 | `--provider=` | The service provider that has assets you want to publish                   |
 | `--tag=`      | One or many tags that have assets you want to publish \n- Is multiple: yes |
 
-## Deprecated publishing commands
+## Removed publishing commands
 
-The following commands from earlier versions of Hyde still work but are deprecated, and print a notice
-pointing to their replacement. They will be removed in a future major version, so prefer the new commands.
-
-| Deprecated command            | Use instead                                        |
-|-------------------------------|----------------------------------------------------|
-| `publish:views [group]`       | `publish --layouts` / `publish --components`       |
-| `publish:configs`             | `vendor:publish --tag=hyde-config`                 |
-| `publish:homepage [template]` | `publish --page=[template]`                        |
+The legacy `publish:*` publishing commands from earlier versions of Hyde were removed in v3. See the [Removed Publishing Commands](https://hydephp.com/docs/3.x/upgrade-guide#removed-publishing-commands) section of the upgrade guide for the replacement for each.
