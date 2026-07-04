@@ -273,6 +273,34 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
+    public function testEmptyPageSelectionExitsWithoutPublishing()
+    {
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput([], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $publisher = new class($command, $input) extends PagesPublisher
+        {
+            protected function selectPages(): ?array
+            {
+                return [];
+            }
+        };
+
+        $this->assertSame(0, $publisher->publish());
+
+        $contents = $output->fetch();
+        $this->assertStringContainsString('No pages selected; nothing to publish.', $contents);
+        $this->assertStringNotContainsString('Ready to publish:', $contents);
+        $this->assertStringNotContainsString('Published', $contents);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+        $this->assertFileDoesNotExist(Hyde::path('_pages/404.blade.php'));
+    }
+
     // Destination-conflict detection before any write (§5.6).
 
     public function testTwoPagesResolvingToTheSameTargetAreRejectedBeforeWriting()

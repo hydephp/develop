@@ -79,6 +79,32 @@ class PublishCommandViewsTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/page.blade.php'));
     }
 
+    public function testEmptyViewSelectionExitsWithoutPublishing()
+    {
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput([], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $publisher = new class($command, $input) extends ViewsPublisher
+        {
+            protected function selectFiles(array $offered, array $labels): array
+            {
+                return [];
+            }
+        };
+
+        $this->assertSame(0, $publisher->publish());
+
+        $contents = $output->fetch();
+        $this->assertStringContainsString('No views selected; nothing to publish.', $contents);
+        $this->assertStringNotContainsString('Published', $contents);
+
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde'));
+    }
+
     public function testPickerCanPublishManyViewsFromOneGroup()
     {
         $this->artisan('publish --layouts')
