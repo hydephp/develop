@@ -371,6 +371,19 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
+    public function testCustomTargetWithDuplicateSlashesConflictsWithNormalizedDefaultTarget()
+    {
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['welcome', 'blank'])
+            ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
+            ->expectsQuestion('Enter a path within _pages/', '_pages//index.blade.php')
+            ->expectsOutputToContain('Welcome page and Blank page both target _pages/index.blade.php.')
+            ->expectsOutputToContain('Pick one, or set --to for each.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
     // Optional rebuild (§5.7): offered interactively, never non-interactively.
 
     public function testRebuildIsOfferedInteractivelyAfterPublishing()

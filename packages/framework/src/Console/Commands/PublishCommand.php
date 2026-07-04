@@ -66,6 +66,12 @@ class PublishCommand extends Command
             return Command::FAILURE;
         }
 
+        if ($this->hasEmptyPageOption()) {
+            $this->error('The --page option cannot be empty. Use --page for the picker or --page=welcome.');
+
+            return Command::FAILURE;
+        }
+
         if ($this->option('to') !== null && ! $this->wantsToPublishPage()) {
             $this->error('--to is only valid when publishing a page.');
 
@@ -126,7 +132,13 @@ class PublishCommand extends Command
      */
     protected function wantsToPublishPage(): bool
     {
-        return $this->input->hasParameterOption('--page') || $this->option('page') !== null;
+        return $this->input->hasParameterOption(['--page', '--page=']) || $this->option('page') !== null;
+    }
+
+    protected function hasEmptyPageOption(): bool
+    {
+        return $this->input->hasParameterOption('--page=')
+            || ($this->input->hasParameterOption('--page') && $this->input->getParameterOption('--page', false) === '');
     }
 
     protected function failWithUsageHint(): int

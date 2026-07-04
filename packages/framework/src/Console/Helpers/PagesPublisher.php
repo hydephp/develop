@@ -19,6 +19,7 @@ use function array_map;
 use function count;
 use function Hyde\unixsum_file;
 use function implode;
+use function preg_replace;
 use function sprintf;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\select;
@@ -181,7 +182,7 @@ class PagesPublisher
                 return null;
             }
 
-            $resolved[] = ['page' => $page, 'target' => $target];
+            $resolved[] = ['page' => $page, 'target' => $this->normalizeTargetPath($target)];
         }
 
         return $resolved;
@@ -257,13 +258,13 @@ class PagesPublisher
                 : 'The path must be within _pages/ and end in .blade.php.'
         );
 
-        return Str::replace('\\', '/', $path);
+        return $this->normalizeTargetPath($path);
     }
 
     /** Validate a user-supplied destination: it must live under _pages/ and be a Blade page. Returns null on failure. */
     protected function validateCustomTarget(string $path): ?string
     {
-        $normalized = Str::replace('\\', '/', $path);
+        $normalized = $this->normalizeTargetPath($path);
 
         if (! $this->isValidCustomTarget($normalized)) {
             $this->command->error('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.');
@@ -276,11 +277,16 @@ class PagesPublisher
 
     protected function isValidCustomTarget(string $path): bool
     {
-        $normalized = Str::replace('\\', '/', $path);
+        $normalized = $this->normalizeTargetPath($path);
 
         return Str::startsWith($normalized, '_pages/')
             && ! Str::contains($normalized, '..')
             && Str::endsWith($normalized, '.blade.php');
+    }
+
+    protected function normalizeTargetPath(string $path): string
+    {
+        return (string) preg_replace('#/+#', '/', Str::replace('\\', '/', $path));
     }
 
     /**

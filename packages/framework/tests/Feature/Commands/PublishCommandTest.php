@@ -127,6 +127,13 @@ class PublishCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    public function testPageFlagWithEmptyValueFailsBeforeTheWizard()
+    {
+        $this->artisan('publish --page= --no-interaction')
+            ->expectsOutputToContain('The --page option cannot be empty. Use --page for the picker or --page=welcome.')
+            ->assertExitCode(1);
+    }
+
     public function testPageFlagWithNameRoutesToPages()
     {
         // An unknown name proves the flag routes into the pages flow and its registry lookup, without writing anything.
@@ -150,13 +157,14 @@ class PublishCommandTest extends TestCase
 
     public function testWizardRoutesToPages()
     {
-        // Route through the wizard into the real pages flow. Welcome resolves to the default _pages/index.blade.php,
-        // which ships identical to the source, so this is a non-destructive "already up to date" skip.
+        // Route through the wizard into the real pages flow. The tracked homepage fixture differs from the current
+        // bundled source, so the overwrite guard proves the wizard reached PagesPublisher without writing anything.
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
             ->expectsConfirmation('Proceed?', 'yes')
-            ->expectsOutputToContain('All selected pages are already up to date.')
+            ->expectsQuestion('1 selected files already exist and appear modified.', 'skip')
+            ->expectsOutputToContain('1 page left unchanged because they were modified:')
             ->assertExitCode(0);
     }
 
