@@ -24,7 +24,7 @@ if (! file_exists('report.xml')) {
 }
 
 // Shared database with the CI server
-$url = 'https://analytics.hydephp.com/api/test_runs';
+$url = 'https://ci.hydephp.com/api/test_runs';
 $data = [
     'runner' => json_encode($runner),
 ];
