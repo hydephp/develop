@@ -222,6 +222,24 @@ class PublishCommandViewsTest extends TestCase
         $this->assertSame(File::get(Hyde::path($this->source('layouts', 'app.blade.php'))), File::get($target));
     }
 
+    public function testCopyFailureFailsWithoutReportingSuccess()
+    {
+        app()->instance(\Illuminate\Filesystem\Filesystem::class, new class extends \Illuminate\Filesystem\Filesystem
+        {
+            public function copy($path, $target): bool
+            {
+                return false;
+            }
+        });
+
+        $this->artisan('publish --layouts --no-interaction')
+            ->expectsOutputToContain('Error: Failed to copy')
+            ->doesntExpectOutputToContain('Published')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+    }
+
     public function testInteractiveConflictPromptCanOverwrite()
     {
         $this->seedAllViews();
@@ -326,6 +344,8 @@ class PublishCommandViewsTest extends TestCase
 
     protected function tearDown(): void
     {
+        app()->forgetInstance(\Illuminate\Filesystem\Filesystem::class);
+
         ConsoleHelper::clearMocks();
         ViewsPromptsReset::resetFallbacks();
 

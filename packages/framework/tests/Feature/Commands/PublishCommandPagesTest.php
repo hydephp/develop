@@ -42,6 +42,8 @@ class PublishCommandPagesTest extends TestCase
 
     protected function tearDown(): void
     {
+        app()->forgetInstance(\Illuminate\Filesystem\Filesystem::class);
+
         ConsoleHelper::clearMocks();
         PagesPromptsReset::resetFallbacks();
         PublishablePages::clear();
@@ -208,6 +210,24 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertNotSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
+    public function testCopyFailureFailsWithoutReportingSuccess()
+    {
+        app()->instance(\Illuminate\Filesystem\Filesystem::class, new class extends \Illuminate\Filesystem\Filesystem
+        {
+            public function copy($path, $target): bool
+            {
+                return false;
+            }
+        });
+
+        $this->artisan('publish --page=welcome --no-interaction')
+            ->expectsOutputToContain('Error: Failed to copy')
+            ->doesntExpectOutputToContain('Published')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
     // Interactive destination prompt (§5.4 step 3): default / alternative / custom path.

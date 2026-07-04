@@ -10,6 +10,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Services\OverwritePolicy;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 
 use function array_keys;
@@ -63,11 +64,19 @@ class ViewsPublisher
         $published = array_merge($copy, $overwrite);
 
         foreach ($published as $source => $target) {
-            Filesystem::ensureParentDirectoryExists($target);
-            Filesystem::copy($source, $target);
+            $this->copy($source, $target);
         }
 
         return $this->report($published, $current, $overwrite === [] ? $blocked : [], count($offered));
+    }
+
+    protected function copy(string $source, string $target): void
+    {
+        Filesystem::ensureParentDirectoryExists($target);
+
+        if (! Filesystem::copy($source, $target)) {
+            throw new RuntimeException("Failed to copy [$source] to [$target].");
+        }
     }
 
     /**

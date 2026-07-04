@@ -32,8 +32,16 @@ class OverwritePolicy
             throw new RuntimeException("Cannot publish: source file [$source] does not exist.");
         }
 
+        if (! Filesystem::isFile($source)) {
+            throw new RuntimeException("Cannot publish: source [$source] is not a file.");
+        }
+
         if (! Filesystem::exists($destination)) {
             return OverwriteAction::Copy;
+        }
+
+        if (Filesystem::isDirectory($destination)) {
+            throw new RuntimeException("Cannot publish: destination [$destination] is a directory.");
         }
 
         if (static::filesMatch($source, $destination)) {

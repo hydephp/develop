@@ -11,9 +11,12 @@ use Hyde\Framework\Services\OverwritePolicy;
 use RuntimeException;
 
 use function file_put_contents;
+use function is_dir;
 use function unlink;
 use function uniqid;
 use function is_file;
+use function mkdir;
+use function rmdir;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\OverwritePolicy::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Enums\OverwriteAction::class)]
@@ -36,6 +39,10 @@ class OverwritePolicyTest extends UnitTestCase
         foreach ([$this->source, $this->destination] as $path) {
             if (is_file(Hyde::path($path))) {
                 unlink(Hyde::path($path));
+            }
+
+            if (is_dir(Hyde::path($path))) {
+                rmdir(Hyde::path($path));
             }
         }
     }
@@ -77,6 +84,17 @@ class OverwritePolicyTest extends UnitTestCase
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage("Cannot publish: source file [$this->source] does not exist.");
+
+        OverwritePolicy::decide($this->source, $this->destination);
+    }
+
+    public function testThrowsCleanExceptionWhenDestinationIsADirectory()
+    {
+        $this->putSource('Hello world');
+        mkdir(Hyde::path($this->destination));
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage("Cannot publish: destination [$this->destination] is a directory.");
 
         OverwritePolicy::decide($this->source, $this->destination);
     }

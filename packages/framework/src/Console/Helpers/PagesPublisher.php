@@ -12,6 +12,7 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 
 use function array_map;
@@ -359,11 +360,19 @@ class PagesPublisher
         $written = [...$copy, ...$overwrite];
 
         foreach ($written as $record) {
-            Filesystem::ensureParentDirectoryExists($record['absolute']);
-            Filesystem::copy($record['source'], $record['absolute']);
+            $this->copy($record['source'], $record['absolute']);
         }
 
         return $written;
+    }
+
+    protected function copy(string $source, string $target): void
+    {
+        Filesystem::ensureParentDirectoryExists($target);
+
+        if (! Filesystem::copy($source, $target)) {
+            throw new RuntimeException("Failed to copy [$source] to [$target].");
+        }
     }
 
     /**
