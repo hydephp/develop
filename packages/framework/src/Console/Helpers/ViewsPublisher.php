@@ -12,7 +12,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputInterface;
 
-use function array_intersect;
 use function array_keys;
 use function array_merge;
 use function count;
@@ -259,10 +258,17 @@ class ViewsPublisher
     protected function baseDirectory(array $files): string
     {
         $partsMap = collect($files)->map(fn (string $file): array => explode('/', $file));
+        $commonParts = [];
 
-        $commonParts = $partsMap->reduce(function (array $carry, array $parts): array {
-            return array_intersect($carry, $parts);
-        }, $partsMap->first());
+        foreach ($partsMap->first() as $index => $part) {
+            foreach ($partsMap as $parts) {
+                if (! isset($parts[$index]) || $parts[$index] !== $part) {
+                    break 2;
+                }
+            }
+
+            $commonParts[] = $part;
+        }
 
         return implode('/', $commonParts);
     }

@@ -103,6 +103,24 @@ class PublishCommandViewsTest extends TestCase
             ->assertExitCode(0);
     }
 
+    public function testBaseDirectoryIgnoresSharedSegmentsAfterPathsDiverge()
+    {
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput([], $command->getDefinition());
+        $publisher = new class($command, $input) extends ViewsPublisher
+        {
+            public function exposeBaseDirectory(array $files): string
+            {
+                return $this->baseDirectory($files);
+            }
+        };
+
+        $this->assertSame('resources/views/vendor/hyde', $publisher->exposeBaseDirectory([
+            'resources/views/vendor/hyde/layouts/page.blade.php',
+            'resources/views/vendor/hyde/components/page.blade.php',
+        ]));
+    }
+
     // The picker is prefiltered by the scope flag and uses group-prefixed labels with an "All views" row.
 
     public function testLayoutsPickerIsPrefilteredWithGroupPrefixedLabels()
