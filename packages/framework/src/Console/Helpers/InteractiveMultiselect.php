@@ -8,7 +8,6 @@ use Laravel\Prompts\MultiSelectPrompt;
 
 use function array_filter;
 use function array_keys;
-use function array_merge;
 use function array_values;
 use function in_array;
 
@@ -36,7 +35,7 @@ class InteractiveMultiselect
      */
     public static function select(string $label, array $options, ?string $allLabel = null): array
     {
-        $choices = $allLabel !== null ? array_merge([self::ALL => $allLabel], $options) : $options;
+        $choices = $allLabel !== null ? [self::ALL => $allLabel] + $options : $options;
 
         $prompt = new MultiSelectPrompt($label, $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 

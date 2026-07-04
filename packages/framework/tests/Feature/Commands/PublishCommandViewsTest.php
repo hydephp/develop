@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Console\Commands\PublishCommand;
 use Hyde\Console\Helpers\ConsoleHelper;
+use Hyde\Console\Helpers\InteractiveMultiselect;
 use Hyde\Console\Helpers\ViewsPublisher;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
@@ -170,6 +171,17 @@ class PublishCommandViewsTest extends TestCase
 
         Prompt::assertOutputContains('components/article-excerpt.blade.php');
         Prompt::assertOutputDoesntContain('layouts/');
+    }
+
+    public function testAllSentinelPreservesNumericOptionKeys()
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
+
+        Prompt::fake([Key::DOWN, Key::SPACE, Key::ENTER]);
+
+        $this->assertSame([404], InteractiveMultiselect::select('Select test option', [404 => 'Not found'], 'All options'));
     }
 
     // Overwrite policy (§7): missing -> copy, identical -> skip, modified -> confirm or --force.
