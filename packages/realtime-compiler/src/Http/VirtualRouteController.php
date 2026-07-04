@@ -34,7 +34,7 @@ class VirtualRouteController
         return (new OpenInEditorController($request))->handle();
     }
 
-    public static function sitemap(): Response
+    public static function sitemap(Request $request): Response
     {
         return (new Response(200, 'OK', [
             'body' => SitemapGenerator::make(),
@@ -43,7 +43,7 @@ class VirtualRouteController
         ]);
     }
 
-    public static function rssFeed(): Response
+    public static function rssFeed(Request $request): Response
     {
         return (new Response(200, 'OK', [
             'body' => RssFeedGenerator::make(),
