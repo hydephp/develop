@@ -135,10 +135,17 @@ class Router
 
             $config = require $configPath;
 
-            $rss = is_array($config) ? ($config['rss'] ?? null) : null;
-            $filename = is_array($rss) ? ($rss['filename'] ?? $default) : $default;
+            if (! is_array($config) || ! isset($config['rss']) || ! is_array($config['rss'])) {
+                return $default;
+            }
 
-            return is_string($filename) && $filename !== '' ? ltrim($filename, '/') : $default;
+            $filename = $config['rss']['filename'] ?? $default;
+
+            if (! is_string($filename) || $filename === '') {
+                return $default;
+            }
+
+            return ltrim($filename, '/');
         } catch (Throwable) {
             return $default;
         }

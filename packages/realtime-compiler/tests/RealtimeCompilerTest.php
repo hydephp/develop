@@ -373,6 +373,9 @@ class RealtimeCompilerTest extends TestCase
      * This is needed because the Router creates a fresh application instance for
      * every request, so config values must be changed on disk (rather than through
      * the `config()` helper) to take effect for a request handled within $callback.
+     *
+     * Assumes the targeted config values are unquoted PHP booleans/strings, as is
+     * the case for the `hyde.php` config stubs shipped with Hyde.
      */
     protected function withModifiedConfigFile(string $pattern, string $replacement, callable $callback): void
     {
