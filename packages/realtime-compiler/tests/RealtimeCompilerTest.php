@@ -258,10 +258,11 @@ class RealtimeCompilerTest extends TestCase
 
     public function testSitemapRouteReturnsSitemapResponse()
     {
-        // The application is freshly booted within the router, so we need to set the
-        // site URL via the environment, as an in-memory config change won't be seen.
+        // Note this works even without a production site URL configured: the router always
+        // overrides the site URL to the local server address (unless save_preview is enabled),
+        // so the sitemap and RSS feed are available on the dev server regardless of whether a
+        // production URL has been set.
         $this->mockCompilerRoute('sitemap.xml');
-        putenv('SITE_URL=https://example.com');
 
         $kernel = new HttpKernel();
         $response = $kernel->handle(new Request());
@@ -271,14 +272,11 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('OK', $response->statusMessage);
         $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
         $this->assertStringContainsString('<urlset', $response->body);
-
-        putenv('SITE_URL');
     }
 
     public function testRssFeedRouteReturnsRssResponse()
     {
         $this->mockCompilerRoute('feed.xml');
-        putenv('SITE_URL=https://example.com');
         Filesystem::put('_posts/test-post.md', "---\ntitle: Test Post\ndescription: Test post description\n---\n\n# Test Post");
 
         $kernel = new HttpKernel();
@@ -293,7 +291,6 @@ class RealtimeCompilerTest extends TestCase
         $this->assertStringContainsString('Test Post', $response->body);
 
         Filesystem::unlink('_posts/test-post.md');
-        putenv('SITE_URL');
     }
 
     public function testPingRouteReturnsPingResponse()
