@@ -25,7 +25,16 @@ use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
-/** @internal This helper is scoped to the publish command and should not be used elsewhere. */
+/**
+ * The starter-page publishing flow for the {@see \Hyde\Console\Commands\PublishCommand}.
+ *
+ * Publishes pages from the {@see PublishablePages} registry into the project's _pages directory. Unlike views,
+ * a page may have several valid destinations, so the flow is: select the pages, resolve each destination (§5.4:
+ * --to → non-interactive default → interactive prompt → default), detect any two pages colliding on one target
+ * (§5.6) before writing, confirm, then apply the shared {@see OverwritePolicy} exactly as the views flow does.
+ *
+ * @internal This helper is scoped to the publish command and should not be used elsewhere.
+ */
 class PagesPublisher
 {
     /** Sentinel key for the "Custom path…" row in the destination prompt; real targets are _pages/ paths, so it never collides. */
@@ -57,7 +66,7 @@ class PagesPublisher
         $pages = $this->selectPages();
 
         if ($pages === null) {
-            return Command::FAILURE;
+            return Command::FAILURE; // A guidance message was already printed.
         }
 
         if ($pages === []) {
@@ -69,6 +78,8 @@ class PagesPublisher
         $resolved = $this->resolveDestinations($pages);
 
         if ($resolved === null) {
+            // A destination could not be resolved (invalid --to, an invalid custom path, or a page with no
+            // default in non-interactive mode). A guidance message was already printed; this is always a failure.
             return Command::FAILURE;
         }
 
@@ -99,7 +110,11 @@ class PagesPublisher
         return Command::SUCCESS;
     }
 
-    /** @return array<PublishablePage>|null */
+    /**
+     * Determine which pages to publish: a named page directly, or the interactive picker.
+     *
+     * @return array<PublishablePage>|null The selected pages, or null when the run should fail (message printed).
+     */
     protected function selectPages(): ?array
     {
         if ($this->hasNamedPage()) {
@@ -116,6 +131,7 @@ class PagesPublisher
             return [$page];
         }
 
+        // A bare --page (or the wizard) needs the picker, which requires an interactive terminal.
         if (! $this->canPrompt()) {
             $this->command->error('No page specified for publishing. Provide one, for example --page=welcome.');
 
@@ -172,6 +188,7 @@ class PagesPublisher
         return $resolved;
     }
 
+    /** Resolve one page's destination per the §5.4 precedence. Returns null when it cannot be resolved. */
     protected function resolveTarget(PublishablePage $page): ?string
     {
         // 1. An explicit --to wins, but only for pages that allow a custom destination (e.g. not 404), and it is
@@ -205,6 +222,7 @@ class PagesPublisher
             return $this->promptForTarget($page);
         }
 
+        // 4. Otherwise the default is the only offered destination.
         return $page->defaultTarget;
     }
 
@@ -243,6 +261,7 @@ class PagesPublisher
         return $this->normalizeTargetPath($path);
     }
 
+    /** Validate a user-supplied destination: it must live under _pages/ and be a Blade page. Returns null on failure. */
     protected function validateCustomTarget(string $path): ?string
     {
         $normalized = $this->normalizeTargetPath($path);
@@ -312,8 +331,10 @@ class PagesPublisher
     }
 
     /**
+     * Apply the shared overwrite policy and copy the resolved pages into place.
+     *
      * @param  array<array{page: PublishablePage, target: string}>  $resolved
-     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>|null
+     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>|null The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
      */
     protected function write(array $resolved): ?array
     {
@@ -516,6 +537,7 @@ class PagesPublisher
         }
     }
 
+    /** Whether a specific page name was supplied via --page=NAME (as opposed to a bare --page or the wizard). */
     protected function hasNamedPage(): bool
     {
         $name = $this->command->option('page');

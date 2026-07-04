@@ -28,13 +28,18 @@ final class PublishablePages
         return static::all()[$key] ?? null;
     }
 
+    /** Register a publishable page, making it available to the publish command. Overrides any page sharing its key. */
     public static function register(PublishablePage $page): void
     {
         static::$pages = static::all();
         static::$pages[$page->key] = $page;
     }
 
-    /** @internal Primarily used to restore state between tests. */
+    /**
+     * Reset the registry back to its default catalog.
+     *
+     * @internal Primarily used to restore state between tests.
+     */
     public static function clear(): void
     {
         static::$pages = null;

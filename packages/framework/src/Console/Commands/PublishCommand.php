@@ -14,8 +14,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use function is_string;
 use function Laravel\Prompts\select;
 
+/**
+ * The flag-driven, views-centric publishing command for Hyde Blade customizations,
+ * with an optional side path for publishing starter pages.
+ *
+ * This is the command spine: it owns the full flag surface, all guardrails, and the
+ * interactive wizard routing. The actual views and pages publishing are delegated to
+ * handlers that are stubbed out in this step and filled in by later steps.
+ */
 class PublishCommand extends Command
 {
+    /** @var string */
     protected $signature = 'publish
         {--layouts : Scope publishing to the Hyde layout views}
         {--components : Scope publishing to the Hyde component views}
@@ -24,6 +33,7 @@ class PublishCommand extends Command
         {--to= : Destination path for a published page (pages only)}
         {--force : Overwrite files that you have modified}';
 
+    /** @var string */
     protected $description = 'Publish Hyde views and starter pages for customization';
 
     /**
@@ -76,6 +86,8 @@ class PublishCommand extends Command
             return $this->publishViews();
         }
 
+        // No actionable flags were supplied. We must decide before attempting any prompt: without
+        // an interactive terminal there is no wizard to run, so we fail with usage guidance instead.
         if (! $this->input->isInteractive()) {
             return $this->failWithUsageHint();
         }
@@ -83,6 +95,7 @@ class PublishCommand extends Command
         return $this->runWizard();
     }
 
+    /** Interactive step 1 (§3): route to the views or pages flow, or cancel out. */
     protected function runWizard(): int
     {
         $choice = select('What do you want to publish?', [
