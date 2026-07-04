@@ -437,9 +437,9 @@ class PagesPublisher
     /**
      * Offer to rebuild the site after a successful publish (§5.7).
      *
-     * Interactive only, and deliberately defaulting to NO. We do not reuse the shared AsksToRebuildSite trait
-     * here: it prompts with different wording and defaults to YES, which would auto-rebuild the entire site after
-     * a single page publish. Keep this inline so the no-default is not "helpfully" consolidated back to a yes-default.
+     * Interactive only, and deliberately defaulting to NO. A single page publish should not auto-rebuild the
+     * entire site, so the prompt defaults to NO — keep this check here rather than consolidating it into a
+     * shared rebuild helper, which would tempt a yes-default back in.
      */
     protected function maybeRebuild(): void
     {
