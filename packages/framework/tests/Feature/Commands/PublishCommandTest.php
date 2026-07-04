@@ -154,7 +154,6 @@ class PublishCommandTest extends TestCase
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
-            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
             ->expectsConfirmation('Proceed?', 'yes')
             ->expectsOutputToContain('All selected pages are already up to date.')
             ->assertExitCode(0);

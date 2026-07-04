@@ -12,8 +12,13 @@ use Hyde\Console\Helpers\PublishablePages;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\File;
+use Laravel\Prompts\Key;
+use Laravel\Prompts\Prompt;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 use function glob;
 
@@ -38,6 +43,7 @@ class PublishCommandPagesTest extends TestCase
     protected function tearDown(): void
     {
         ConsoleHelper::clearMocks();
+        PagesPromptsReset::resetFallbacks();
         PublishablePages::clear();
 
         // Remove anything a test published, then restore the two committed default pages so the tree stays clean.
@@ -132,6 +138,17 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(1);
     }
 
+    // A page that disallows custom targets (404) rejects --to and keeps its fixed default.
+
+    public function testToIsRejectedForAPageThatDisallowsCustomTargets()
+    {
+        $this->artisan('publish --page=404 --to=_pages/error.blade.php --no-interaction')
+            ->expectsOutputToContain('The [404] page cannot be published to a custom path; omit --to to use its default (_pages/404.blade.php).')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/error.blade.php'));
+    }
+
     // Overwrite policy (§7): identical -> skip, modified -> fail without --force, --force overwrites.
 
     public function testIdenticalPageIsSkippedAsAlreadyCurrent()
@@ -206,9 +223,9 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractivePickerPublishesSelectedPagesAfterConfirmation()
     {
+        // Welcome has a single sensible destination, so it is not prompted for; it resolves to its default.
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
-            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
             ->expectsOutput('Ready to publish:')
             ->expectsOutputToContain('Welcome page → _pages/index.blade.php')
             ->expectsConfirmation('Proceed?', 'yes')
@@ -223,7 +240,6 @@ class PublishCommandPagesTest extends TestCase
     {
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
-            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
             ->expectsConfirmation('Proceed?', 'no')
             ->expectsOutputToContain('Cancelled. No pages were published.')
             ->assertExitCode(0);
@@ -245,9 +261,10 @@ class PublishCommandPagesTest extends TestCase
             allowCustomTarget: false,
         ));
 
+        // Neither page is prompted for (welcome and clash each resolve straight to their default), so the
+        // collision is caught purely from the picker selection, before any destination prompt or write.
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome', 'clash'])
-            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
             ->expectsOutputToContain('Welcome page and Clashing page both target _pages/index.blade.php.')
             ->expectsOutputToContain('Pick one, or set --to for each.')
             ->assertExitCode(1);
@@ -259,8 +276,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testRebuildIsOfferedInteractivelyAfterPublishing()
     {
+        // Welcome resolves to its default without a destination prompt, so the only interaction is the rebuild offer.
         $this->artisan('publish --page=welcome')
-            ->expectsQuestion('Where should "Welcome page" be published?', '_pages/index.blade.php')
             ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
             ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
@@ -271,5 +288,70 @@ class PublishCommandPagesTest extends TestCase
         $this->artisan('publish --page=welcome --no-interaction')
             ->doesntExpectOutputToContain('Rebuild the site now?')
             ->assertExitCode(0);
+    }
+
+    // The picker round-trips the numeric '404' key: PHP coerces it to an int option key, and it must cast
+    // back to the string key to resolve. This covers the sneakier path the named --page=404 test cannot reach.
+
+    public function testPickerCanSelectTheNumericKeyedPage()
+    {
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['404'])
+            ->expectsConfirmation('Proceed?', 'yes')
+            ->expectsOutputToContain('Published [404] to [_pages/404.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
+    }
+
+    // Option 2's whole point: the pages picker must NOT offer an "All" row (unlike the views picker).
+
+    public function testPickerDoesNotOfferAnAllRow()
+    {
+        // Space+enter selects the first row (welcome); the next enter accepts "Proceed?" (default yes), the
+        // last accepts "Rebuild the site now?" (default no) — so the run completes without leftover prompts.
+        $output = $this->runPagesPicker([Key::SPACE, Key::ENTER, Key::ENTER, Key::ENTER]);
+
+        Prompt::assertOutputContains('Select pages to publish');
+        Prompt::assertOutputContains('Welcome page');
+        Prompt::assertOutputDoesntContain('All pages');
+        Prompt::assertOutputDoesntContain('All views');
+
+        // The first offered row is a real page (welcome), not a select-all sentinel, so a single space+enter publishes it.
+        $this->assertStringContainsString('Published [welcome]', $output->fetch());
+    }
+
+    /** Drive the interactive pages picker with faked keystrokes and return the buffered output. */
+    protected function runPagesPicker(array $keys): BufferedOutput
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
+
+        // Earlier --no-interaction runs in this class leave Prompt::$shouldFallback stuck true, which would
+        // route the picker through the (unrendered) fallback path; reset it so the prompt renders to the fake buffer.
+        PagesPromptsReset::resetFallbacks();
+
+        Prompt::fake($keys);
+
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput(['--page' => null], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+        $command->handle();
+
+        return $output;
+    }
+}
+
+abstract class PagesPromptsReset extends Prompt
+{
+    // Workaround for https://github.com/laravel/prompts/issues/158
+    public static function resetFallbacks(): void
+    {
+        static::$shouldFallback = false;
     }
 }

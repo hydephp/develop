@@ -206,12 +206,18 @@ php hyde publish --page=welcome --force
 
 `--to` names a single destination, so it is only valid when publishing a **single named page**
 (`--page=NAME --to=PATH`). A bare `--page` (multi-select) combined with `--to` is rejected, since
-one path cannot stand in as the destination for several pages.
+one path cannot stand in as the destination for several pages. `--to` is also rejected for a page
+that declares `allowCustomTarget = false` (e.g. `404`), which has one fixed destination.
 
-1. `--to=PATH` → use it. Must resolve under `_pages/` and end in `.blade.php`, else fail.
+1. `--to=PATH` → use it. Rejected if the page disallows custom targets; otherwise must resolve
+   under `_pages/` and end in `.blade.php`, else fail.
 2. Non-interactive, no `--to` → use `defaultTarget`. If `defaultTarget` is null
    (e.g. `blank`), there is nothing to fall back to → fail helpfully, pointing to `--to`.
-3. Interactive AND (`alternativeTargets` non-empty OR `allowCustomTarget` OR `defaultTarget` is null) → prompt:
+3. Interactive AND (`alternativeTargets` non-empty OR `defaultTarget` is null) → prompt. `allowCustomTarget`
+   governs only whether a "Custom path…" entry is offered here (and whether `--to` is accepted), **not**
+   whether the prompt appears — a page whose default is its one sensible destination (e.g. `welcome`, `404`)
+   is not prompted for, keeping the common case a single, frictionless step. Its custom placement, when
+   allowed, is reached through `--to`.
 
    ```
    Where should "Posts feed" be published?

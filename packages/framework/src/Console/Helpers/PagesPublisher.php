@@ -189,8 +189,15 @@ class PagesPublisher
     /** Resolve one page's destination per the §5.4 precedence. Returns null when it cannot be resolved. */
     protected function resolveTarget(PublishablePage $page): ?string
     {
-        // 1. An explicit --to wins (validated against _pages/ and the .blade.php extension).
+        // 1. An explicit --to wins, but only for pages that allow a custom destination (e.g. not 404), and it is
+        //    validated against _pages/ and the .blade.php extension.
         if ($this->command->option('to') !== null) {
+            if (! $page->allowCustomTarget) {
+                $this->command->error(sprintf('The [%s] page cannot be published to a custom path; omit --to to use its default (%s).', $page->key, $page->defaultTarget));
+
+                return null;
+            }
+
             return $this->validateCustomTarget((string) $this->command->option('to'));
         }
 
@@ -205,12 +212,15 @@ class PagesPublisher
             return $page->defaultTarget;
         }
 
-        // 3. Interactively, prompt whenever there is a real choice to make (alternatives, custom paths, or no default).
-        if ($page->alternativeTargets !== [] || $page->allowCustomTarget || $page->defaultTarget === null) {
+        // 3. Interactively, prompt only when the destination is genuinely ambiguous: the page offers alternative
+        //    targets, or it has no default at all. A page whose default is the one sensible destination (welcome, 404)
+        //    is not prompted for — its custom placement, if allowed, is reached through --to instead. This keeps the
+        //    common "publish the welcome homepage" case a single, frictionless step.
+        if ($page->alternativeTargets !== [] || $page->defaultTarget === null) {
             return $this->promptForTarget($page);
         }
 
-        // 4. Otherwise the default is the only valid destination.
+        // 4. Otherwise the default is the only offered destination.
         return $page->defaultTarget;
     }
 
@@ -275,7 +285,9 @@ class PagesPublisher
 
         foreach ($labelsByTarget as $target => $labels) {
             if (count($labels) > 1) {
-                $this->command->error(sprintf('%s both target %s.', $this->joinLabels($labels), $target));
+                // "both" reads correctly for a pair; three or more colliding pages need "all".
+                $verb = count($labels) === 2 ? 'both target' : 'all target';
+                $this->command->error(sprintf('%s %s %s.', $this->joinLabels($labels), $verb, $target));
                 $this->command->line('Pick one, or set --to for each.');
 
                 return false;
@@ -379,11 +391,19 @@ class PagesPublisher
             'cancel' => 'Cancel',
         ], 'skip');
 
-        return match ($choice) {
-            'overwrite' => $blocked,
-            'skip' => [],
-            default => null,
-        };
+        if ($choice === 'overwrite') {
+            return $blocked;
+        }
+
+        if ($choice === 'skip') {
+            return [];
+        }
+
+        // Cancelling the overwrite prompt aborts the whole run; announce it as the views flow and the
+        // "Proceed? no" path both do, so the exit is never silent. This branch is only reached interactively.
+        $this->command->infoComment('Cancelled. No pages were published.');
+
+        return null;
     }
 
     /** @param  array<array{page: PublishablePage, target: string, source: string, absolute: string}>  $written */
