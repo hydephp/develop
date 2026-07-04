@@ -153,7 +153,7 @@ final class PublishablePage
         public string $label,                // 'Posts feed'
         public string $description,          // short help text
         public string $source,               // stub path within the framework
-        public string $defaultTarget,        // '_pages/posts.blade.php'
+        public ?string $defaultTarget,       // '_pages/posts.blade.php', or null when the page has no default (always prompt / require --to)
         /** @var array<string,string> path => human label */
         public array  $alternativeTargets = [],
         public bool   $allowCustomTarget = true,
@@ -179,11 +179,15 @@ plugins register their own publishable pages.
 |-----------|--------------------------|---------------------------------------|---------|
 | `welcome` | `_pages/index.blade.php` | —                                     | yes     |
 | `posts`   | `_pages/posts.blade.php` | `_pages/index.blade.php` (as homepage)| yes     |
-| `blank`   | `_pages/index.blade.php` | —                                     | yes     |
+| `blank`   | *(none — always prompt)* | —                                     | yes     |
 | `404`     | `_pages/404.blade.php`   | —                                     | **no**  |
 
 No dedicated "homepage" concept: setting a homepage = publishing a
 homepage-capable page to `_pages/index.blade.php`.
+
+`blank` is a general-purpose empty starter you drop anywhere, so it declares no
+default target: in interactive mode its destination is always prompted for, and
+non-interactive use must supply `--to` (see §5.4).
 
 ### 5.3 Behavior
 
@@ -197,8 +201,9 @@ php hyde publish --page=welcome --force
 ### 5.4 Destination resolution (per selected page)
 
 1. `--to=PATH` → use it. Must resolve under `_pages/` and end in `.blade.php`, else fail.
-2. Non-interactive, no `--to` → use `defaultTarget`.
-3. Interactive AND (`alternativeTargets` non-empty OR `allowCustomTarget`) → prompt:
+2. Non-interactive, no `--to` → use `defaultTarget`. If `defaultTarget` is null
+   (e.g. `blank`), there is nothing to fall back to → fail helpfully, pointing to `--to`.
+3. Interactive AND (`alternativeTargets` non-empty OR `allowCustomTarget` OR `defaultTarget` is null) → prompt:
 
    ```
    Where should "Posts feed" be published?

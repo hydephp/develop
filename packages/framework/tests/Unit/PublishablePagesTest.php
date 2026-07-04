@@ -44,7 +44,7 @@ class PublishablePagesTest extends UnitTestCase
 
         $this->assertSame('_pages/index.blade.php', $pages['welcome']->defaultTarget);
         $this->assertSame('_pages/posts.blade.php', $pages['posts']->defaultTarget);
-        $this->assertSame('_pages/index.blade.php', $pages['blank']->defaultTarget);
+        $this->assertNull($pages['blank']->defaultTarget, 'blank has no default target; its destination is always prompted for or set via --to.');
         $this->assertSame('_pages/404.blade.php', $pages['404']->defaultTarget);
     }
 

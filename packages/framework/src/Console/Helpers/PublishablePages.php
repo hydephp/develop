@@ -69,7 +69,7 @@ final class PublishablePages
                 label: 'Blank page',
                 description: 'A blank Blade template with just the base layout.',
                 source: 'resources/views/homepages/blank.blade.php',
-                defaultTarget: '_pages/index.blade.php',
+                defaultTarget: null, // An empty starter you drop anywhere: no default, so its destination is always prompted for (or set via --to).
             ),
             new PublishablePage(
                 key: '404',

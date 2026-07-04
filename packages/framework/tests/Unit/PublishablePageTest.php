@@ -46,6 +46,19 @@ class PublishablePageTest extends UnitTestCase
         $this->assertTrue($page->allowCustomTarget);
     }
 
+    public function testDefaultTargetMayBeNullForPagesWithoutADefaultDestination()
+    {
+        $page = new PublishablePage(
+            key: 'blank',
+            label: 'Blank page',
+            description: 'A blank Blade template with just the base layout.',
+            source: 'resources/views/homepages/blank.blade.php',
+            defaultTarget: null,
+        );
+
+        $this->assertNull($page->defaultTarget);
+    }
+
     public function testValueObjectIsImmutable()
     {
         $reflection = new ReflectionClass(PublishablePage::class);
