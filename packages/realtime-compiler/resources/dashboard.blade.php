@@ -268,7 +268,7 @@
                                                         @endif
                                                     </form>
                                                 @endif
-                                                <a href="{{ $route->getLink() }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
+                                                <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -300,7 +300,7 @@
                                 <div class="col-lg-4 p-2 d-flex flex-grow-1">
                                     <figure class="card w-100 p-2 mb-0">
                                         @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif', 'ico']))
-                                            <img loading="lazy" src="media/{{ $mediaFile->getIdentifier() }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
+                                            <img loading="lazy" src="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
                                         @else
                                             <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);" role="presentation">
                                                 @if($dashboard::isMediaFileProbablyMinified($mediaFile->getContents()))
@@ -326,7 +326,7 @@
                                                     </div>
                                                     <div class="row small align-items-center">
                                                         <div class="w-auto pe-0">
-                                                            <a href="media/{{ $mediaFile->getIdentifier() }}" title="Open this image in the browser" target="_blank">Fullscreen</a>
+                                                            <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" title="Open this image in the browser" target="_blank">Fullscreen</a>
                                                         </div>
                                                         @if($dashboard->isInteractive())
                                                             <div class="w-auto ps-0">

@@ -22,6 +22,7 @@ use Hyde\Foundation\Facades\Routes;
 use Desilva\Microserve\JsonResponse;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\Support\Filesystem\MediaFile;
+use Hyde\Support\Models\Route;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
@@ -133,6 +134,31 @@ class DashboardController extends BaseController
     public function getPageList(): array
     {
         return Hyde::routes()->all();
+    }
+
+    public function getRoutePreviewLink(Route $route): string
+    {
+        return $this->rootRelativeLink($route->getLink());
+    }
+
+    public function getMediaPreviewLink(MediaFile $mediaFile): string
+    {
+        return $this->rootRelativeLink('media/'.$mediaFile->getIdentifier());
+    }
+
+    protected function rootRelativeLink(string $link): string
+    {
+        if (str_starts_with($link, '#') || preg_match('/^[a-z][a-z0-9+.-]*:/i', $link) || str_starts_with($link, '//')) {
+            return $link;
+        }
+
+        if ($link === './') {
+            return '/';
+        }
+
+        $link = preg_replace('#^(\.\./)+#', '', $link) ?? $link;
+
+        return '/'.ltrim($link, '/');
     }
 
     /** @internal */
