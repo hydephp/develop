@@ -127,9 +127,15 @@ class Router
         $default = 'feed.xml';
 
         try {
-            $config = require BASE_PATH.'/config/hyde.php';
+            $configPath = realpath(BASE_PATH.'/config/hyde.php');
 
-            $filename = $config['rss']['filename'] ?? $default;
+            if ($configPath === false || ! is_file($configPath)) {
+                return $default;
+            }
+
+            $config = require $configPath;
+
+            $filename = is_array($config) ? ($config['rss']['filename'] ?? $default) : $default;
 
             return is_string($filename) && $filename !== '' ? ltrim($filename, '/') : $default;
         } catch (Throwable) {

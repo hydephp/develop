@@ -304,7 +304,7 @@ class RealtimeCompilerTest extends TestCase
         $configPath = BASE_PATH.'/config/hyde.php';
         $original = file_get_contents($configPath);
 
-        $this->assertStringContainsString("'generate_sitemap' => true,", $original);
+        $this->assertSame(1, substr_count($original, "'generate_sitemap' => true,"));
         file_put_contents($configPath, str_replace(
             "'generate_sitemap' => true,",
             "'generate_sitemap' => false,",
@@ -330,10 +330,10 @@ class RealtimeCompilerTest extends TestCase
         $configPath = BASE_PATH.'/config/hyde.php';
         $original = file_get_contents($configPath);
 
-        $this->assertStringContainsString("'enabled' => true,", $original);
+        $this->assertSame(1, substr_count($original, "// Should the RSS feed be generated?\n        'enabled' => true,"));
         file_put_contents($configPath, str_replace(
-            "'enabled' => true,",
-            "'enabled' => false,",
+            "// Should the RSS feed be generated?\n        'enabled' => true,",
+            "// Should the RSS feed be generated?\n        'enabled' => false,",
             $original
         ));
 
@@ -362,7 +362,7 @@ class RealtimeCompilerTest extends TestCase
         $configPath = BASE_PATH.'/config/hyde.php';
         $original = file_get_contents($configPath);
 
-        $this->assertStringContainsString("'filename' => 'feed.xml',", $original);
+        $this->assertSame(1, substr_count($original, "'filename' => 'feed.xml',"));
         file_put_contents($configPath, str_replace(
             "'filename' => 'feed.xml',",
             "'filename' => 'custom-feed.xml',",
