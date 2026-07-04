@@ -34,7 +34,7 @@ class VirtualRouteController
         return (new Response(200, 'OK', [
             'body' => SitemapGenerator::make(),
         ]))->withHeaders([
-            'Content-Type' => 'application/xml',
+            'Content-Type' => 'application/xml; charset=UTF-8',
         ]);
     }
 
@@ -43,7 +43,7 @@ class VirtualRouteController
         return (new Response(200, 'OK', [
             'body' => RssFeedGenerator::make(),
         ]))->withHeaders([
-            'Content-Type' => 'application/rss+xml',
+            'Content-Type' => 'application/rss+xml; charset=UTF-8',
         ]);
     }
 }

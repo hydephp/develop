@@ -93,7 +93,7 @@ class IntegrationTest extends IntegrationTestCase
         // overrides it with the local server address, which is what we assert against.
         $this->get('/sitemap.xml')
             ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/xml')
+            ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')
             ->assertSeeText('http://localhost:8080');
     }
 
@@ -103,7 +103,7 @@ class IntegrationTest extends IntegrationTestCase
 
         $this->get('/feed.xml')
             ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/rss+xml')
+            ->assertHeader('Content-Type', 'application/rss+xml; charset=UTF-8')
             ->assertSeeText('Dynamic RSS Test');
 
         unlink($this->projectPath('_posts/dynamic-rss-test.md'));

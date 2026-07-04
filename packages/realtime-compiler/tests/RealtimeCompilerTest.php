@@ -270,6 +270,7 @@ class RealtimeCompilerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(200, $response->statusCode);
         $this->assertSame('OK', $response->statusMessage);
+        $this->assertSame('application/xml; charset=UTF-8', $this->getResponseHeaders($response)['Content-Type']);
         $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
         $this->assertStringContainsString('<urlset', $response->body);
     }
@@ -285,12 +286,104 @@ class RealtimeCompilerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(200, $response->statusCode);
         $this->assertSame('OK', $response->statusMessage);
+        $this->assertSame('application/rss+xml; charset=UTF-8', $this->getResponseHeaders($response)['Content-Type']);
         $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
         $this->assertStringContainsString('<rss ', $response->body);
         $this->assertStringContainsString('version="2.0"', $response->body);
         $this->assertStringContainsString('Test Post', $response->body);
 
         Filesystem::unlink('_posts/test-post.md');
+    }
+
+    public function testSitemapRouteIsNotRegisteredWhenSitemapGenerationIsDisabled()
+    {
+        // The Router creates a fresh application instance for every request (see
+        // InteractsWithLaravel::createApplication()), so config values must be
+        // changed on disk rather than through the config() helper for this to
+        // take effect for the request handled below.
+        $configPath = BASE_PATH.'/config/hyde.php';
+        $original = file_get_contents($configPath);
+
+        $this->assertStringContainsString("'generate_sitemap' => true,", $original);
+        file_put_contents($configPath, str_replace(
+            "'generate_sitemap' => true,",
+            "'generate_sitemap' => false,",
+            $original
+        ));
+
+        try {
+            $this->mockCompilerRoute('sitemap.xml');
+
+            $kernel = new HttpKernel();
+
+            $this->expectException(RouteNotFoundException::class);
+            $this->expectExceptionMessage('Route [sitemap.xml] not found.');
+
+            $kernel->handle(new Request());
+        } finally {
+            file_put_contents($configPath, $original);
+        }
+    }
+
+    public function testRssFeedRouteIsNotRegisteredWhenRssGenerationIsDisabled()
+    {
+        $configPath = BASE_PATH.'/config/hyde.php';
+        $original = file_get_contents($configPath);
+
+        $this->assertStringContainsString("'enabled' => true,", $original);
+        file_put_contents($configPath, str_replace(
+            "'enabled' => true,",
+            "'enabled' => false,",
+            $original
+        ));
+
+        try {
+            Filesystem::put('_posts/disabled-rss-test.md', "---\ntitle: Disabled RSS Test\n---\n\n# Disabled RSS Test");
+            $this->mockCompilerRoute('feed.xml');
+
+            $kernel = new HttpKernel();
+
+            $this->expectException(RouteNotFoundException::class);
+            $this->expectExceptionMessage('Route [feed.xml] not found.');
+
+            $kernel->handle(new Request());
+        } finally {
+            Filesystem::unlink('_posts/disabled-rss-test.md');
+            file_put_contents($configPath, $original);
+        }
+    }
+
+    public function testRssFeedRouteRespectsConfiguredCustomFilename()
+    {
+        // This proves the bug fix for shouldProxy() resolving the configured RSS filename:
+        // before the fix, requesting the real (custom) feed path would incorrectly be
+        // treated as a static asset request and result in a 404, since shouldProxy()
+        // only ever matched against the hardcoded default filename `feed.xml`.
+        $configPath = BASE_PATH.'/config/hyde.php';
+        $original = file_get_contents($configPath);
+
+        $this->assertStringContainsString("'filename' => 'feed.xml',", $original);
+        file_put_contents($configPath, str_replace(
+            "'filename' => 'feed.xml',",
+            "'filename' => 'custom-feed.xml',",
+            $original
+        ));
+
+        try {
+            Filesystem::put('_posts/custom-filename-test.md', "---\ntitle: Custom Filename Test\ndescription: Custom filename test description\n---\n\n# Custom Filename Test");
+            $this->mockCompilerRoute('custom-feed.xml');
+
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertInstanceOf(Response::class, $response);
+            $this->assertSame(200, $response->statusCode);
+            $this->assertStringContainsString('<rss ', $response->body);
+            $this->assertStringContainsString('Custom Filename Test', $response->body);
+        } finally {
+            Filesystem::unlink('_posts/custom-filename-test.md');
+            file_put_contents($configPath, $original);
+        }
     }
 
     public function testPingRouteReturnsPingResponse()

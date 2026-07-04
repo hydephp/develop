@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\RealtimeCompiler\Routing;
 
+use Throwable;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Facades\Features;
@@ -65,7 +66,7 @@ class Router
         }
 
         if (Features::hasRss()) {
-            $compiler->registerVirtualRoute('/'.RssFeedGenerator::getFilename(), [VirtualRouteController::class, 'rssFeed']);
+            $compiler->registerVirtualRoute('/'.ltrim(RssFeedGenerator::getFilename(), '/'), [VirtualRouteController::class, 'rssFeed']);
         }
     }
 
@@ -102,14 +103,38 @@ class Router
         }
 
         // Don't proxy the RSS feed, as it's generated on the fly.
-        // We can't resolve the configured `hyde.rss.filename` here as the application
-        // is not booted yet, so we match against the default filename instead.
-        if ($request->path === '/feed.xml') {
+        if ($request->path === '/'.$this->resolveConfiguredRssFilename()) {
             return false;
         }
 
         // The page is not a web page, so we assume it should be proxied.
         return true;
+    }
+
+    /**
+     * Resolve the configured `hyde.rss.filename` without booting the full application.
+     *
+     * This is needed because {@see shouldProxy()} runs before {@see bootApplication()},
+     * so the Laravel `config()` helper (used by {@see RssFeedGenerator::getFilename()})
+     * is not yet available. Instead, we read the value straight from the project's
+     * published config file, which always exists for a Hyde project (see `app/bootstrap.php`).
+     *
+     * @todo Track whether the router bootstrap order can be adjusted so this and
+     *       {@see registerDynamicVirtualRoutes()} share a single source of truth.
+     */
+    protected function resolveConfiguredRssFilename(): string
+    {
+        $default = 'feed.xml';
+
+        try {
+            $config = require BASE_PATH.'/config/hyde.php';
+
+            $filename = $config['rss']['filename'] ?? $default;
+
+            return is_string($filename) && $filename !== '' ? ltrim($filename, '/') : $default;
+        } catch (Throwable) {
+            return $default;
+        }
     }
 
     /**
