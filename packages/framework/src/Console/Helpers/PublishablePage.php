@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Hyde\Console\Helpers;
+
+/**
+ * An immutable value object describing a starter/default page that can be published into the project's _pages directory.
+ *
+ * Unlike view groups, a page may have multiple valid destinations and carries display metadata, so each publishable
+ * page is modelled explicitly and registered in the {@see PublishablePages} registry rather than as a fixed file map.
+ *
+ * @see \Hyde\Console\Helpers\PublishablePages
+ */
+final class PublishablePage
+{
+    /**
+     * @param  string  $key  The unique identifier for the page (e.g. 'posts').
+     * @param  string  $label  The human-readable name shown in pickers (e.g. 'Posts feed').
+     * @param  string  $description  A short help text describing the page.
+     * @param  string  $source  The framework-relative path to the stub file, resolved via Hyde::vendorPath() when published.
+     * @param  string  $defaultTarget  The default project-relative destination (e.g. '_pages/posts.blade.php').
+     * @param  array<string, string>  $alternativeTargets  Additional valid destinations, mapping a project-relative path to a human label.
+     * @param  bool  $allowCustomTarget  Whether the user may publish this page to a custom path.
+     */
+    public function __construct(
+        public readonly string $key,
+        public readonly string $label,
+        public readonly string $description,
+        public readonly string $source,
+        public readonly string $defaultTarget,
+        public readonly array $alternativeTargets = [],
+        public readonly bool $allowCustomTarget = true,
+    ) {
+    }
+}
