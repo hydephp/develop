@@ -11,7 +11,18 @@ use function array_keys;
 use function array_values;
 use function in_array;
 
-/** @internal This helper is scoped to the publish command flows and should not be used elsewhere. */
+/**
+ * A small interactive multi-select prompt with an optional "All" sentinel row.
+ *
+ * When an $allLabel is given, the list is prepended with a single "select all" option: checking
+ * that sentinel row means "everything" regardless of the other checkbox state. Callers that do not
+ * want a bulk affordance (e.g. the pages picker, where "all starter pages at once" is never a sensible
+ * selection) pass no $allLabel and the row is omitted. The caller supplies an already-labelled
+ * key => label map (for views these are group-prefixed paths), and gets back the selected option
+ * keys with the sentinel resolved away.
+ *
+ * @internal This helper is scoped to the publish command flows and should not be used elsewhere.
+ */
 class InteractiveMultiselect
 {
     /** The sentinel key for the "All" row; option keys are file paths, so this never collides. */

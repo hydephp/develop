@@ -22,6 +22,12 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 use function glob;
 
+/**
+ * Covers the starter-page publishing flow (§5): named vs. picker selection, the §5.4 destination
+ * resolution precedence (--to → non-interactive default → interactive prompt → default), --to
+ * validation, destination-conflict detection (§5.6), the interactive confirm (§5.5), the shared
+ * overwrite policy (§7) applied to pages, and the interactive-only optional rebuild (§5.7).
+ */
 #[CoversClass(PublishCommand::class)]
 #[CoversClass(PagesPublisher::class)]
 class PublishCommandPagesTest extends TestCase
@@ -97,6 +103,8 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
     }
 
+    // Destination resolution: --to wins over the default (§5.4 step 1).
+
     public function testToOverridesTheDefaultTarget()
     {
         $this->artisan('publish --page=posts --to=_pages/index.blade.php --no-interaction')
@@ -106,6 +114,8 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
         $this->assertFileDoesNotExist(Hyde::path('_pages/posts.blade.php'));
     }
+
+    // A page with no default target (blank) cannot be resolved non-interactively without --to (§5.4 step 2).
 
     public function testPageWithoutDefaultTargetFailsNonInteractivelyWithoutTo()
     {
@@ -122,6 +132,8 @@ class PublishCommandPagesTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
     }
+
+    // --to validation: must live under _pages/ and end in .blade.php (§5.4 step 1, §9).
 
     public function testToPathOutsidePagesDirectoryIsRejected()
     {
@@ -268,6 +280,8 @@ class PublishCommandPagesTest extends TestCase
         Prompt::assertStrippedOutputContains('The path must be within _pages/ and end in .blade.php.');
     }
 
+    // Interactive picker flow (§5.5): select -> resolve -> confirm.
+
     public function testInteractivePickerPublishesSelectedPagesAfterConfirmation()
     {
         $this->artisan('publish --page')
@@ -321,6 +335,8 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/404.blade.php'));
     }
 
+    // Destination-conflict detection before any write (§5.6).
+
     public function testTwoPagesResolvingToTheSameTargetAreRejectedBeforeWriting()
     {
         PublishablePages::register(new PublishablePage(
@@ -353,6 +369,8 @@ class PublishCommandPagesTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
+
+    // Optional rebuild (§5.7): offered interactively, never non-interactively.
 
     public function testRebuildIsOfferedInteractivelyAfterPublishing()
     {
@@ -442,6 +460,8 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
+    // §7 interactive conflict prompt applied to pages: overwrite / skip / cancel, mirroring the views flow.
+
     public function testInteractiveConflictPromptCanOverwriteAPage()
     {
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
@@ -516,6 +536,9 @@ class PublishCommandPagesTest extends TestCase
 
         $this->assertSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
     }
+
+    // §4/§5 cardinality-aware output: a mixed run reports what was published alongside what was already current
+    // (pluralized), without collapsing to the "all up to date" shortcut.
 
     public function testMixedRunReportsPublishedAlongsideAlreadyCurrentPages()
     {

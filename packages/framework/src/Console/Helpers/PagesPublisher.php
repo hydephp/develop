@@ -25,7 +25,16 @@ use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
-/** @internal This helper is scoped to the publish command and should not be used elsewhere. */
+/**
+ * The starter-page publishing flow for the {@see \Hyde\Console\Commands\PublishCommand}.
+ *
+ * Publishes pages from the {@see PublishablePages} registry into the project's _pages directory. Unlike views,
+ * a page may have several valid destinations, so the flow is: select the pages, resolve each destination (§5.4:
+ * --to → non-interactive default → interactive prompt → default), detect any two pages colliding on one target
+ * (§5.6) before writing, confirm, then apply the shared {@see OverwritePolicy} exactly as the views flow does.
+ *
+ * @internal This helper is scoped to the publish command and should not be used elsewhere.
+ */
 class PagesPublisher
 {
     /** Sentinel key for the "Custom path…" row in the destination prompt; real targets are _pages/ paths, so it never collides. */
