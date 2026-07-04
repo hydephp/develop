@@ -268,6 +268,33 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('OK', $response->statusMessage);
     }
 
+    public function testDashboardLinksAreRootRelativeWhenAccessedWithTrailingSlash()
+    {
+        $dashboardEnvironment = getenv('SERVER_DASHBOARD');
+        putenv('SERVER_DASHBOARD=true');
+        $this->mockCompilerRoute('dashboard/');
+
+        Filesystem::put('_pages/foo.md', '# Hello World!');
+        Filesystem::put('_media/test.css', 'body {}');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertInstanceOf(HtmlResponse::class, $response);
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+            $this->assertStringContainsString('href="/foo.html"', $response->body);
+            $this->assertStringContainsString('href="/media/test.css"', $response->body);
+            $this->assertStringNotContainsString('href="foo.html"', $response->body);
+            $this->assertStringNotContainsString('href="media/test.css"', $response->body);
+        } finally {
+            Filesystem::unlink('_pages/foo.md');
+            Filesystem::unlink('_media/test.css');
+            putenv($dashboardEnvironment === false ? 'SERVER_DASHBOARD' : "SERVER_DASHBOARD=$dashboardEnvironment");
+        }
+    }
+
     public function testExceptionHandling()
     {
         $exception = new Exception('foo');
