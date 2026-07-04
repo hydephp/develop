@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Console\Commands\PublishCommand;
+use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Exception\RuntimeException;
 
@@ -17,8 +19,17 @@ use Symfony\Component\Console\Exception\RuntimeException;
 #[CoversClass(PublishCommand::class)]
 class PublishCommandTest extends TestCase
 {
-    protected string $viewsStub = 'Publishing views is not yet implemented.';
     protected string $pagesStub = 'Publishing pages is not yet implemented.';
+
+    protected function tearDown(): void
+    {
+        // The views-routing tests below publish real files; remove them so the tree stays clean.
+        if (File::isDirectory(Hyde::path('resources/views/vendor'))) {
+            File::deleteDirectory(Hyde::path('resources/views/vendor'));
+        }
+
+        parent::tearDown();
+    }
 
     // Guardrails: raw tag/provider/config publishing is redirected to vendor:publish (§9).
 
@@ -83,26 +94,27 @@ class PublishCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    // Flag routing to the (stubbed) handlers.
+    // Flag routing to the views handler. The full views behavior is covered in PublishCommandViewsTest;
+    // here we assert only that each flag actually reaches the real views publisher (routing coverage).
 
     public function testLayoutsFlagRoutesToViews()
     {
-        $this->artisan('publish --layouts')
-            ->expectsOutputToContain($this->viewsStub)
+        $this->artisan('publish --layouts --no-interaction')
+            ->expectsOutputToContain('views to [resources/views/vendor/hyde/layouts]')
             ->assertExitCode(0);
     }
 
     public function testComponentsFlagRoutesToViews()
     {
-        $this->artisan('publish --components')
-            ->expectsOutputToContain($this->viewsStub)
+        $this->artisan('publish --components --no-interaction')
+            ->expectsOutputToContain('views to [resources/views/vendor/hyde/components]')
             ->assertExitCode(0);
     }
 
     public function testAllFlagRoutesToViews()
     {
-        $this->artisan('publish --all')
-            ->expectsOutputToContain($this->viewsStub)
+        $this->artisan('publish --all --no-interaction')
+            ->expectsOutputToContain('Published all')
             ->assertExitCode(0);
     }
 
@@ -124,9 +136,12 @@ class PublishCommandTest extends TestCase
 
     public function testWizardRoutesToViews()
     {
+        $appLayout = (is_dir(Hyde::path('packages')) ? 'packages' : 'vendor/hyde').'/framework/resources/views/layouts/app.blade.php';
+
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'views')
-            ->expectsOutputToContain($this->viewsStub)
+            ->expectsQuestion('Select Hyde views to publish', [$appLayout])
+            ->expectsOutputToContain('Published 1 view')
             ->assertExitCode(0);
     }
 
@@ -142,7 +157,7 @@ class PublishCommandTest extends TestCase
     {
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'cancel')
-            ->doesntExpectOutputToContain($this->viewsStub)
+            ->doesntExpectOutputToContain('Published')
             ->doesntExpectOutputToContain($this->pagesStub)
             ->assertExitCode(0);
     }

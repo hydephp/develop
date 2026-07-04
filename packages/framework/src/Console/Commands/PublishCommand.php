@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
+use Hyde\Console\Helpers\ViewsPublisher;
 use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -103,12 +104,9 @@ class PublishCommand extends Command
         };
     }
 
-    /** @todo Replaced with the real views publisher in Step 4. */
     protected function publishViews(): int
     {
-        $this->infoComment('Publishing views is not yet implemented.');
-
-        return Command::SUCCESS;
+        return (new ViewsPublisher($this, $this->input))->publish();
     }
 
     /** @todo Replaced with the real pages publisher in Step 5. */

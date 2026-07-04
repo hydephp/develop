@@ -134,6 +134,10 @@ Published 3 views to resources/views/vendor/hyde/layouts
 Published all 42 views to resources/views/vendor/hyde
 ```
 
+A mixed run reports the breakdown — how many views were copied, how many were skipped
+because already current, and which were left unchanged because modified (with a `--force`
+hint); `Published all N views` prints only when the entire offered set was genuinely copied.
+
 ---
 
 ## 5. Pages (the `--page` side path)
