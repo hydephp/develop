@@ -12,6 +12,7 @@ use Hyde\Console\Helpers\PublishablePages;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Laravel\Prompts\Key;
 use Laravel\Prompts\Prompt;
@@ -344,6 +345,154 @@ class PublishCommandPagesTest extends TestCase
         Prompt::assertOutputDoesntContain('All views');
 
         // The first offered row is a real page (welcome), not a select-all sentinel, so a single space+enter publishes it.
+        $this->assertStringContainsString('Published [welcome]', $output->fetch());
+    }
+
+    // A bare --page (no name) needs the picker, which needs an interactive terminal, so non-interactively it
+    // fails in the pages flow (§3/§5). Exercised here through PagesPublisher so the guidance path is covered there.
+
+    public function testBarePageWithoutInteractionFailsHelpfully()
+    {
+        $this->artisan('publish --page --no-interaction')
+            ->expectsOutputToContain('No page specified for publishing. Provide one, for example --page=welcome.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
+    // §9: a --to path may not escape _pages/ via traversal, even though it starts with _pages/ and ends in .blade.php.
+
+    public function testToPathWithParentTraversalIsRejected()
+    {
+        $this->artisan('publish --page=welcome --to=_pages/../secret.blade.php --no-interaction')
+            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('secret.blade.php'));
+    }
+
+    // §5.6: three or more pages colliding on one target switch the message from "both target" to "all target".
+
+    public function testThreePagesResolvingToTheSameTargetReportAllTarget()
+    {
+        foreach (['clash-one' => 'Clash One', 'clash-two' => 'Clash Two'] as $key => $label) {
+            PublishablePages::register(new PublishablePage(
+                key: $key,
+                label: $label,
+                description: 'A page that targets the homepage too.',
+                source: 'resources/views/homepages/blank.blade.php',
+                defaultTarget: '_pages/index.blade.php',
+                allowCustomTarget: false,
+            ));
+        }
+
+        // None of the three is prompted for (each resolves straight to _pages/index.blade.php), so the collision is
+        // caught from the picker selection alone, before any confirmation or write.
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['welcome', 'clash-one', 'clash-two'])
+            ->expectsOutputToContain('Welcome page, Clash One and Clash Two all target _pages/index.blade.php.')
+            ->expectsOutputToContain('Pick one, or set --to for each.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
+    // §7 interactive conflict prompt applied to pages: overwrite / skip / cancel, mirroring the views flow.
+
+    public function testInteractiveConflictPromptCanOverwriteAPage()
+    {
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
+
+        $this->artisan('publish --page=welcome')
+            ->expectsQuestion('1 selected files already exist and appear modified.', 'overwrite')
+            ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(0);
+
+        $this->assertNotSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
+    public function testInteractiveConflictPromptCanSkipAModifiedPage()
+    {
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
+
+        $this->artisan('publish --page=welcome')
+            ->expectsQuestion('1 selected files already exist and appear modified.', 'skip')
+            ->expectsOutputToContain('1 page left unchanged because they were modified:')
+            ->expectsOutputToContain('_pages/index.blade.php')
+            ->expectsOutputToContain('Run again with --force to overwrite.')
+            ->assertExitCode(0);
+
+        // Skipping leaves the file as the user had it, and (nothing was written) never offers a rebuild.
+        $this->assertSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
+    public function testInteractiveConflictPromptCanCancelForPages()
+    {
+        File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
+
+        $this->artisan('publish --page=welcome')
+            ->expectsQuestion('1 selected files already exist and appear modified.', 'cancel')
+            ->expectsOutputToContain('Cancelled. No pages were published.')
+            ->assertExitCode(0);
+
+        $this->assertSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
+    // §4/§5 cardinality-aware output: a mixed run reports what was published alongside what was already current
+    // (pluralized), without collapsing to the "all up to date" shortcut.
+
+    public function testMixedRunReportsPublishedAlongsideAlreadyCurrentPages()
+    {
+        // Seed two pages so they are already current, then register a third new page and publish all three.
+        $this->artisan('publish --page=welcome --no-interaction')->assertExitCode(0);
+        $this->artisan('publish --page=404 --no-interaction')->assertExitCode(0);
+
+        PublishablePages::register(new PublishablePage(
+            key: 'about',
+            label: 'About page',
+            description: 'A simple about page.',
+            source: 'resources/views/homepages/blank.blade.php',
+            defaultTarget: '_pages/about.blade.php',
+        ));
+
+        // welcome and 404 are already current; only about is copied — so the run reports both sides.
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['welcome', '404', 'about'])
+            ->expectsConfirmation('Proceed?', 'yes')
+            ->expectsOutputToContain('Published [about] to [_pages/about.blade.php]')
+            ->expectsOutputToContain('2 pages already up to date and skipped.')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
+    }
+
+    // §5.7: accepting the interactive rebuild offer runs the build command; declining is covered elsewhere.
+    // The command is driven directly (not through the console kernel) so that mocking the Artisan facade
+    // intercepts only maybeRebuild's own build call, rather than the runner's call that dispatches the command.
+
+    public function testAcceptingTheRebuildOfferRunsTheBuild()
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
+
+        PagesPromptsReset::resetFallbacks();
+
+        Artisan::shouldReceive('call')->once()->with('build', [], \Mockery::any())->andReturn(0);
+
+        // 'y' + enter answers the "Rebuild the site now?" confirm (which defaults to no) with yes.
+        Prompt::fake(['y', Key::ENTER]);
+
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput(['--page' => 'welcome'], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $this->assertSame(0, $command->handle());
         $this->assertStringContainsString('Published [welcome]', $output->fetch());
     }
 

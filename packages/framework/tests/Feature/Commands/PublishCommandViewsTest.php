@@ -205,6 +205,24 @@ class PublishCommandViewsTest extends TestCase
         $this->assertSame('MODIFIED BY USER', File::get($target));
     }
 
+    // §4 cardinality-aware output: a mixed run reports what was copied alongside what was already current,
+    // instead of collapsing to either the "Published all" or the "all up to date" shortcut.
+
+    public function testMixedRunReportsPublishedAlongsideAlreadyCurrentViews()
+    {
+        // Seed only the layouts so they are already current, then publish everything: components copy, layouts skip.
+        $this->artisan('publish --layouts --no-interaction')->assertExitCode(0);
+
+        $components = $this->viewCount('components');
+        $layouts = $this->viewCount('layouts');
+
+        $this->artisan('publish --all --no-interaction')
+            ->expectsOutputToContain("Published $components views to [resources/views/vendor/hyde/components]")
+            ->expectsOutputToContain("$layouts views already up to date and skipped.")
+            ->doesntExpectOutputToContain('Published all')
+            ->assertExitCode(0);
+    }
+
     protected function viewCount(string $group): int
     {
         return Filesystem::findFiles("packages/framework/resources/views/$group", '.blade.php', true)->count();
