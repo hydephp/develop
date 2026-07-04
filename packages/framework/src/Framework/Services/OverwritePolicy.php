@@ -6,6 +6,7 @@ namespace Hyde\Framework\Services;
 
 use Hyde\Enums\OverwriteAction;
 use Hyde\Facades\Filesystem;
+use RuntimeException;
 
 use function Hyde\unixsum_file;
 
@@ -27,6 +28,10 @@ class OverwritePolicy
 {
     public static function decide(string $source, string $destination): OverwriteAction
     {
+        if (! Filesystem::exists($source)) {
+            throw new RuntimeException("Cannot publish: source file [$source] does not exist.");
+        }
+
         if (! Filesystem::exists($destination)) {
             return OverwriteAction::Copy;
         }

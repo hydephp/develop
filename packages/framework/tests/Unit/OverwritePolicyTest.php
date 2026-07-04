@@ -8,6 +8,7 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Enums\OverwriteAction;
 use Hyde\Framework\Services\OverwritePolicy;
+use RuntimeException;
 
 use function file_put_contents;
 use function unlink;
@@ -68,6 +69,16 @@ class OverwritePolicyTest extends UnitTestCase
         $this->putDestination("Hello\r\nworld\r\n");
 
         $this->assertSame(OverwriteAction::Skip, OverwritePolicy::decide($this->source, $this->destination));
+    }
+
+    public function testThrowsCleanExceptionWhenSourceFileIsMissing()
+    {
+        $this->putDestination('Existing destination');
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage("Cannot publish: source file [$this->source] does not exist.");
+
+        OverwritePolicy::decide($this->source, $this->destination);
     }
 
     protected function putSource(string $contents): void
