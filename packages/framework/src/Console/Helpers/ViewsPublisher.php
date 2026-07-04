@@ -14,7 +14,6 @@ use RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 
 use function array_keys;
-use function array_merge;
 use function count;
 use function explode;
 use function Hyde\unixsum_file;
