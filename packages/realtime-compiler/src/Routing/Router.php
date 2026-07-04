@@ -6,11 +6,14 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Facades\Features;
 use Hyde\RealtimeCompiler\RealtimeCompiler;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 use Hyde\RealtimeCompiler\Models\FileObject;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
 class Router
 {
@@ -37,6 +40,8 @@ class Router
 
         $this->overrideSiteUrl();
 
+        $this->registerDynamicVirtualRoutes();
+
         $virtualRoutes = app(RealtimeCompiler::class)->getVirtualRoutes();
 
         if (isset($virtualRoutes[$this->request->path])) {
@@ -51,6 +56,27 @@ class Router
         }
 
         return PageRouter::handle($this->request);
+    }
+
+    /**
+     * Register virtual routes whose availability depends on the site URL, which is only
+     * finalized after {@see overrideSiteUrl()} has run. Unlike the routes registered in
+     * the service provider's boot method, these can't be resolved any earlier: outside of
+     * `save_preview` mode, the site URL is always overridden to a local address, so (unlike
+     * a real `hyde build`) we don't need a production site URL to be configured to serve
+     * these on the local dev server.
+     */
+    protected function registerDynamicVirtualRoutes(): void
+    {
+        $compiler = app(RealtimeCompiler::class);
+
+        if (Features::hasSitemap()) {
+            $compiler->registerVirtualRoute('/sitemap.xml', [VirtualRouteController::class, 'sitemap']);
+        }
+
+        if (Features::hasRss()) {
+            $compiler->registerVirtualRoute('/'.RssFeedGenerator::getFilename(), [VirtualRouteController::class, 'rssFeed']);
+        }
     }
 
     /**

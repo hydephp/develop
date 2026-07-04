@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Hyde\RealtimeCompiler;
 
 use Illuminate\Support\ServiceProvider;
-use Hyde\Facades\Features;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 use Hyde\RealtimeCompiler\Http\OpenInEditorController;
 use Hyde\RealtimeCompiler\Console\Commands\HerdInstallCommand;
 use Hyde\RealtimeCompiler\Console\Commands\ServeCommand;
-use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
 class RealtimeCompilerServiceProvider extends ServiceProvider
 {
@@ -46,12 +44,7 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
             $router->registerVirtualRoute('/_hyde/open-in-editor', [VirtualRouteController::class, 'openInEditor']);
         }
 
-        if (Features::hasSitemap()) {
-            $router->registerVirtualRoute('/sitemap.xml', [VirtualRouteController::class, 'sitemap']);
-        }
-
-        if (Features::hasRss()) {
-            $router->registerVirtualRoute('/'.RssFeedGenerator::getFilename(), [VirtualRouteController::class, 'rssFeed']);
-        }
+        // The sitemap and RSS feed routes are registered in the Router itself, once the site URL
+        // has been finalized for the request. See Router::registerDynamicVirtualRoutes().
     }
 }
