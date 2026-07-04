@@ -236,13 +236,38 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/custom.blade.php'));
     }
 
-    public function testCustomPathFromPromptIsValidated()
+    public function testCustomPathFromPromptRepromptsUntilValid()
     {
-        $this->artisan('publish --page=blank')
-            ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
-            ->expectsQuestion('Enter a path within _pages/', 'somewhere/else.blade.php')
-            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
-            ->assertExitCode(1);
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
+
+        PagesPromptsReset::resetFallbacks();
+
+        $invalidPath = 'somewhere/else.blade.php';
+
+        Prompt::fake([
+            Key::ENTER,
+            $invalidPath,
+            Key::ENTER,
+            ...array_fill(0, strlen($invalidPath), Key::BACKSPACE),
+            '_pages/custom.blade.php',
+            Key::ENTER,
+            Key::ENTER,
+        ]);
+
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput(['--page' => 'blank'], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $this->assertSame(0, $command->handle());
+
+        $this->assertFileExists(Hyde::path('_pages/custom.blade.php'));
+        $this->assertStringContainsString('Published [blank] to [_pages/custom.blade.php]', $output->fetch());
+        Prompt::assertStrippedOutputContains('The path must be within _pages/ and end in .blade.php.');
     }
 
     // Interactive picker flow (§5.5): select -> resolve -> confirm.

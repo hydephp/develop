@@ -246,9 +246,16 @@ class PagesPublisher
 
     protected function promptForCustomTarget(): ?string
     {
-        $path = text('Enter a path within _pages/', placeholder: '_pages/example.blade.php', required: true);
+        $path = text(
+            label: 'Enter a path within _pages/',
+            placeholder: '_pages/example.blade.php',
+            required: true,
+            validate: fn (string $value): ?string => $this->isValidCustomTarget($value)
+                ? null
+                : 'The path must be within _pages/ and end in .blade.php.'
+        );
 
-        return $this->validateCustomTarget($path);
+        return Str::replace('\\', '/', $path);
     }
 
     /** Validate a user-supplied destination: it must live under _pages/ and be a Blade page. Returns null on failure. */
@@ -256,17 +263,22 @@ class PagesPublisher
     {
         $normalized = Str::replace('\\', '/', $path);
 
-        $valid = Str::startsWith($normalized, '_pages/')
-            && ! Str::contains($normalized, '..')
-            && Str::endsWith($normalized, '.blade.php');
-
-        if (! $valid) {
+        if (! $this->isValidCustomTarget($normalized)) {
             $this->command->error('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.');
 
             return null;
         }
 
         return $normalized;
+    }
+
+    protected function isValidCustomTarget(string $path): bool
+    {
+        $normalized = Str::replace('\\', '/', $path);
+
+        return Str::startsWith($normalized, '_pages/')
+            && ! Str::contains($normalized, '..')
+            && Str::endsWith($normalized, '.blade.php');
     }
 
     /**
