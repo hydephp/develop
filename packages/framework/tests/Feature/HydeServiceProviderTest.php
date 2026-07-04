@@ -395,4 +395,12 @@ class HydeServiceProviderTest extends TestCase
 
         $this->assertNotContains('torchlight.php', $files);
     }
+
+    public function testLegacyConfigPublishTagsAreRemovedAndPublishNothing()
+    {
+        // hyde-config is the only Hyde config publish tag in v3; the legacy tags publish nothing.
+        foreach (['configs', 'hyde-configs', 'support-configs'] as $tag) {
+            $this->assertSame([], ServiceProvider::pathsToPublish(ConfigurationServiceProvider::class, $tag));
+        }
+    }
 }
