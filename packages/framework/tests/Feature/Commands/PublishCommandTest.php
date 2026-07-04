@@ -12,11 +12,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Exception\RuntimeException;
 
-/**
- * Covers the PublishCommand spine: the flag surface, all guardrails (§9), and the
- * interactive wizard routing (§3). The views and pages handlers are stubs in this step,
- * so these tests assert routing and guardrails, not real publishing.
- */
 #[CoversClass(PublishCommand::class)]
 class PublishCommandTest extends TestCase
 {
@@ -99,9 +94,6 @@ class PublishCommandTest extends TestCase
             ->expectsOutput('  php hyde publish --page=welcome')
             ->assertExitCode(1);
     }
-
-    // Flag routing to the views handler. The full views behavior is covered in PublishCommandViewsTest;
-    // here we assert only that each flag actually reaches the real views publisher (routing coverage).
 
     public function testLayoutsFlagRoutesToViews()
     {
@@ -187,9 +179,6 @@ class PublishCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    // Approach 1 must not swallow genuine mistakes: unknown options and stray arguments
-    // still hit Symfony's native errors rather than our redirect or a stub handler.
-
     public function testUnknownOptionIsNotSwallowed()
     {
         $this->expectException(RuntimeException::class);
@@ -205,9 +194,6 @@ class PublishCommandTest extends TestCase
 
         $this->artisan('publish resources/views/foo.blade.php')->run();
     }
-
-    // The legacy publish commands are removed in v3, not aliased. Invoking one must raise Symfony's
-    // native command-not-found error, proving the command is gone and that no shim intercepts it.
 
     public function testRemovedLegacyPublishViewsCommandRaisesCommandNotFound()
     {

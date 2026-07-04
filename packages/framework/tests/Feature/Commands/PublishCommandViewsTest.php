@@ -19,11 +19,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-/**
- * Covers the views publishing flow (§4) and the shared overwrite policy applied to views (§7):
- * the grouped multi-select picker, --layouts/--components prefiltering, --all skipping the picker,
- * cardinality-aware output, and the missing/identical/modified overwrite behavior with --force.
- */
 #[CoversClass(PublishCommand::class)]
 #[CoversClass(ViewsPublisher::class)]
 #[CoversClass(\Hyde\Console\Helpers\InteractiveMultiselect::class)]
@@ -177,8 +172,6 @@ class PublishCommandViewsTest extends TestCase
         $this->assertSame([404], InteractiveMultiselect::select('Select test option', [404 => 'Not found'], 'All options'));
     }
 
-    // Overwrite policy (§7): missing -> copy, identical -> skip, modified -> confirm or --force.
-
     public function testIdenticalViewsAreSkippedAsAlreadyCurrent()
     {
         $this->seedAllViews();
@@ -319,9 +312,6 @@ class PublishCommandViewsTest extends TestCase
 
         $this->assertSame('MODIFIED BY USER', File::get($target));
     }
-
-    // §4 cardinality-aware output: a mixed run reports what was copied alongside what was already current,
-    // instead of collapsing to either the "Published all" or the "all up to date" shortcut.
 
     public function testMixedRunReportsPublishedAlongsideAlreadyCurrentViews()
     {
