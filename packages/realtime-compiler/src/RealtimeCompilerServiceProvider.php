@@ -44,7 +44,7 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
             $router->registerVirtualRoute('/_hyde/open-in-editor', [VirtualRouteController::class, 'openInEditor']);
         }
 
-        // The sitemap and RSS feed routes are registered in the Router itself, once the site URL
-        // has been finalized for the request. See Router::registerDynamicVirtualRoutes().
+        // The sitemap and RSS feed routes are registered dynamically instead of here.
+        // @see \Hyde\RealtimeCompiler\Routing\Router::registerDynamicVirtualRoutes()
     }
 }

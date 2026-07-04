@@ -75,7 +75,7 @@ class Router
         }
 
         if (Features::hasRss()) {
-            $compiler->registerVirtualRoute('/'.RssFeedGenerator::getFilename(), [VirtualRouteController::class, 'rssFeed']);
+            $compiler->registerVirtualRoute('/'.ltrim(RssFeedGenerator::getFilename(), '/'), [VirtualRouteController::class, 'rssFeed']);
         }
     }
 

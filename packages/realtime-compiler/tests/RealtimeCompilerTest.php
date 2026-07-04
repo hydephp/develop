@@ -14,6 +14,7 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
+use Hyde\RealtimeCompiler\RealtimeCompiler;
 use Hyde\RealtimeCompiler\Routing\PageRouter;
 use Hyde\RealtimeCompiler\Routing\Router;
 
@@ -341,6 +342,29 @@ class RealtimeCompilerTest extends TestCase
         $this->assertStringContainsString('<urlset', $response->body);
     }
 
+    public function testRegisterDynamicVirtualRoutesDoesNotRegisterSitemapWhenFeatureIsDisabled()
+    {
+        $this->mockCompilerRoute('sitemap.xml');
+        config(['hyde.url' => 'http://localhost:8080', 'hyde.generate_sitemap' => false]);
+
+        $routes = $this->invokeRegisterDynamicVirtualRoutes();
+
+        $this->assertArrayNotHasKey('/sitemap.xml', $routes);
+    }
+
+    public function testRegisterDynamicVirtualRoutesDoesNotRegisterRssFeedWhenFeatureIsDisabled()
+    {
+        $this->mockCompilerRoute('feed.xml');
+        config(['hyde.url' => 'http://localhost:8080', 'hyde.rss.enabled' => false]);
+        Filesystem::put('_posts/test-post.md', "---\ntitle: Test Post\ndescription: Test post description\n---\n\n# Test Post");
+
+        $routes = $this->invokeRegisterDynamicVirtualRoutes();
+
+        $this->assertArrayNotHasKey('/feed.xml', $routes);
+
+        Filesystem::unlink('_posts/test-post.md');
+    }
+
     public function testRssFeedRouteReturnsRssResponse()
     {
         $this->mockCompilerRoute('feed.xml');
@@ -625,6 +649,16 @@ class RealtimeCompilerTest extends TestCase
         $method = new ReflectionMethod(Router::class, 'overrideSiteUrl');
         $method->setAccessible(true);
         $method->invoke(new Router(new Request()));
+    }
+
+    /** @return array<string, callable> */
+    protected function invokeRegisterDynamicVirtualRoutes(): array
+    {
+        $method = new ReflectionMethod(Router::class, 'registerDynamicVirtualRoutes');
+        $method->setAccessible(true);
+        $method->invoke(new Router(new Request()));
+
+        return app(RealtimeCompiler::class)->getVirtualRoutes();
     }
 
     protected function invokeGetContentType(InMemoryPage $page): string
