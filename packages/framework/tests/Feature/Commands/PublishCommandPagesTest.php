@@ -50,7 +50,11 @@ class PublishCommandPagesTest extends TestCase
 
         // Remove anything a test published, then restore the two committed default pages so the tree stays clean.
         foreach (glob(Hyde::path('_pages/*.blade.php')) as $file) {
-            File::delete($file);
+            if (File::isDirectory($file)) {
+                File::deleteDirectory($file);
+            } else {
+                File::delete($file);
+            }
         }
 
         $this->restoreDefaultPages();
@@ -210,6 +214,58 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertNotSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
+    }
+
+    public function testPublishFailsWhenRegisteredPageSourceIsMissing()
+    {
+        $missingSource = 'resources/views/homepages/missing-source.blade.php';
+
+        PublishablePages::register(new PublishablePage(
+            key: 'missing-source',
+            label: 'Missing source page',
+            description: 'A page registered by an extension with a missing source file.',
+            source: $missingSource,
+            defaultTarget: '_pages/missing-source.blade.php',
+        ));
+
+        $this->artisan('publish --page=missing-source --no-interaction')
+            ->expectsOutputToContain('Error: Cannot publish: source file ['.Hyde::vendorPath($missingSource).'] does not exist.')
+            ->doesntExpectOutputToContain('Published')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/missing-source.blade.php'));
+    }
+
+    public function testPublishFailsWhenRegisteredPageSourceIsADirectory()
+    {
+        $directorySource = 'resources/views/homepages';
+
+        PublishablePages::register(new PublishablePage(
+            key: 'directory-source',
+            label: 'Directory source page',
+            description: 'A page registered by an extension with a directory source.',
+            source: $directorySource,
+            defaultTarget: '_pages/directory-source.blade.php',
+        ));
+
+        $this->artisan('publish --page=directory-source --no-interaction')
+            ->expectsOutputToContain('Error: Cannot publish: source ['.Hyde::vendorPath($directorySource).'] is not a file.')
+            ->doesntExpectOutputToContain('Published')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/directory-source.blade.php'));
+    }
+
+    public function testPublishFailsWhenDestinationIsADirectory()
+    {
+        File::makeDirectory(Hyde::path('_pages/index.blade.php'));
+
+        $this->artisan('publish --page=welcome --no-interaction')
+            ->expectsOutputToContain('Error: Cannot publish: destination ['.Hyde::path('_pages/index.blade.php').'] is a directory.')
+            ->doesntExpectOutputToContain('Published')
+            ->assertExitCode(1);
+
+        $this->assertDirectoryExists(Hyde::path('_pages/index.blade.php'));
     }
 
     public function testCopyFailureFailsWithoutReportingSuccess()
