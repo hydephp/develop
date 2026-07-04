@@ -10,11 +10,11 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Services\OverwritePolicy;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputInterface;
 
 use function array_map;
-use function array_slice;
 use function count;
 use function implode;
 use function sprintf;
@@ -474,11 +474,7 @@ class PagesPublisher
     /** @param  array<string>  $labels */
     protected function joinLabels(array $labels): string
     {
-        if (count($labels) < 2) {
-            return implode('', $labels);
-        }
-
-        return implode(', ', array_slice($labels, 0, -1)).' and '.$labels[count($labels) - 1];
+        return Arr::join($labels, ', ', ' and ');
     }
 
     protected function pageCount(int $count): string
