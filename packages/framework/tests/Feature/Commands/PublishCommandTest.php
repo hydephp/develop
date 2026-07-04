@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Exception\RuntimeException;
 
 /**
@@ -188,5 +189,16 @@ class PublishCommandTest extends TestCase
         $this->expectExceptionMessage('No arguments expected for "publish" command, got "resources/views/foo.blade.php".');
 
         $this->artisan('publish resources/views/foo.blade.php')->run();
+    }
+
+    // The legacy publish commands are removed in v3, not aliased. Invoking one must raise Symfony's
+    // native command-not-found error, proving the command is gone and that no shim intercepts it.
+
+    public function testRemovedLegacyPublishViewsCommandRaisesCommandNotFound()
+    {
+        $this->expectException(CommandNotFoundException::class);
+        $this->expectExceptionMessage('The command "publish:views" does not exist.');
+
+        $this->artisan('publish:views')->run();
     }
 }

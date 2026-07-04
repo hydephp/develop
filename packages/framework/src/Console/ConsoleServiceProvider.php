@@ -27,9 +27,6 @@ class ConsoleServiceProvider extends ServiceProvider
 
             Commands\VendorPublishCommand::class,
             Commands\PublishCommand::class,
-            Commands\PublishConfigsCommand::class,
-            Commands\PublishHomepageCommand::class,
-            Commands\PublishViewsCommand::class,
             Commands\PackageDiscoverCommand::class,
 
             Commands\RouteListCommand::class,
