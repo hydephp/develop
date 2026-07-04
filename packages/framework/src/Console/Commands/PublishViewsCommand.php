@@ -25,13 +25,23 @@ class PublishViewsCommand extends Command
 
     public function handle(): int
     {
+        $group = $this->argument('group');
+
         // A bare invocation (no group) historically published every group, so it maps to
         // --all rather than the interactive wizard, keeping legacy scripts non-interactive.
-        $flag = match ($this->argument('group')) {
+        $flag = match ($group) {
             'layouts' => '--layouts',
             'components' => '--components',
-            default => '--all',
+            null => '--all',
+            default => null,
         };
+
+        if ($flag === null) {
+            $this->error("Invalid selection: '$group'");
+            $this->infoComment('Allowed values are: [layouts, components]');
+
+            return Command::FAILURE;
+        }
 
         $this->warn("publish:views is deprecated. Use php hyde publish $flag instead.");
 

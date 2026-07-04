@@ -59,6 +59,16 @@ class PublishViewsCommandTest extends TestCase
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts'));
     }
 
+    public function testInvalidGroupFailsWithoutPublishingViews()
+    {
+        $this->artisan('publish:views typo_group --no-interaction')
+            ->expectsOutputToContain("Invalid selection: 'typo_group'")
+            ->expectsOutputToContain('Allowed values are: [layouts, components]')
+            ->assertExitCode(1);
+
+        $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor'));
+    }
+
     protected function viewCount(string $group): int
     {
         return Filesystem::findFiles("packages/framework/resources/views/$group", '.blade.php', true)->count();
