@@ -32,7 +32,7 @@ class InteractiveMultiselect
     /**
      * @param  array<string, string>  $options  Map of option key => display label.
      * @param  string|null  $allLabel  Label for the "select all" row, or null to omit it entirely.
-     * @return array<string>  The selected option keys (never includes the sentinel).
+     * @return array<string> The selected option keys (never includes the sentinel).
      */
     public static function select(string $label, array $options, ?string $allLabel = null): array
     {

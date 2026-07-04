@@ -20,7 +20,6 @@ use function explode;
 use function implode;
 use function reset;
 use function sprintf;
-
 use function Laravel\Prompts\select;
 
 /**
@@ -74,7 +73,7 @@ class ViewsPublisher
 
     /**
      * @return array{0: array<string, string>, 1: array<string, string>}
-     *              A tuple of [source => target] and [source => group-prefixed label] for the offered files.
+     *                                                                   A tuple of [source => target] and [source => group-prefixed label] for the offered files.
      */
     protected function collectOfferedFiles(): array
     {
@@ -113,7 +112,7 @@ class ViewsPublisher
     /**
      * @param  array<string, string>  $offered
      * @param  array<string, string>  $labels
-     * @return array<string>  The selected source keys.
+     * @return array<string> The selected source keys.
      */
     protected function selectFiles(array $offered, array $labels): array
     {
@@ -132,7 +131,7 @@ class ViewsPublisher
      *
      * @param  array<string, string>  $selected
      * @return array{0: array<string, string>, 1: array<string, string>, 2: array<string, string>}
-     *              A tuple of [copy, already-current, blocked] maps, each source => target.
+     *                                                                                             A tuple of [copy, already-current, blocked] maps, each source => target.
      */
     protected function decide(array $selected): array
     {
@@ -155,8 +154,8 @@ class ViewsPublisher
      * Resolve what to do with modified (blocked) files, after the full outcome is known but before any write.
      *
      * @param  array<string, string>  $blocked
-     * @return array<string, string>|null  The blocked files to overwrite, or null when the run should stop
-     *                                      (cancelled interactively, or blocked non-interactively without --force).
+     * @return array<string, string>|null The blocked files to overwrite, or null when the run should stop
+     *                                    (cancelled interactively, or blocked non-interactively without --force).
      */
     protected function resolveBlocked(array $blocked): ?array
     {
@@ -203,8 +202,8 @@ class ViewsPublisher
 
     /**
      * @param  array<string, string>  $published  The files actually written (source => target).
-     * @param  array<string, string>  $current    The files skipped because already up to date.
-     * @param  array<string, string>  $blocked    The modified files left unchanged (interactive skip).
+     * @param  array<string, string>  $current  The files skipped because already up to date.
+     * @param  array<string, string>  $blocked  The modified files left unchanged (interactive skip).
      */
     protected function report(array $published, array $current, array $blocked, int $offeredTotal): int
     {

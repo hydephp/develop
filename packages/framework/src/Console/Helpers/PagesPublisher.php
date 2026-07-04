@@ -18,7 +18,6 @@ use function array_slice;
 use function count;
 use function implode;
 use function sprintf;
-
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
@@ -111,7 +110,7 @@ class PagesPublisher
     /**
      * Determine which pages to publish: a named page directly, or the interactive picker.
      *
-     * @return array<PublishablePage>|null  The selected pages, or null when the run should fail (message printed).
+     * @return array<PublishablePage>|null The selected pages, or null when the run should fail (message printed).
      */
     protected function selectPages(): ?array
     {
@@ -167,7 +166,7 @@ class PagesPublisher
      * Resolve the destination for each selected page, in registry order.
      *
      * @param  array<PublishablePage>  $pages
-     * @return array<array{page: PublishablePage, target: string}>|null  Null when resolution failed or was cancelled.
+     * @return array<array{page: PublishablePage, target: string}>|null Null when resolution failed or was cancelled.
      */
     protected function resolveDestinations(array $pages): ?array
     {
@@ -316,7 +315,7 @@ class PagesPublisher
      *
      * @param  array<array{page: PublishablePage, target: string}>  $resolved
      * @return array<array{page: PublishablePage, target: string, source: string, absolute: string}>|null
-     *              The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
+     *                                                                                                    The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
      */
     protected function write(array $resolved): ?array
     {

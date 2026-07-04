@@ -9,7 +9,6 @@ use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\PagesPublisher;
 use Hyde\Console\Helpers\PublishablePage;
 use Hyde\Console\Helpers\PublishablePages;
-use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
