@@ -149,6 +149,19 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/error.blade.php'));
     }
 
+    // The two --to rejections must never disagree. Bare --page + --to is a multi-select context with a single
+    // destination: the "one path can't serve several pages" guard (message A) must win over any per-page reason
+    // (message B, e.g. 404's custom-path rejection) AND fire before the picker — so this interactive run, which
+    // would hang on an unanswered picker prompt if the picker were reached, asks nothing and exits on message A.
+
+    public function testBarePageWithToIsRejectedBeforeThePickerAndBeatsThePerPageReason()
+    {
+        $this->artisan('publish --page --to=_pages/error.blade.php')
+            ->expectsOutputToContain('--to is only valid when publishing a single page. Use --page=NAME with --to.')
+            ->doesntExpectOutputToContain('cannot be published to a custom path')
+            ->assertExitCode(1);
+    }
+
     // Overwrite policy (§7): identical -> skip, modified -> fail without --force, --force overwrites.
 
     public function testIdenticalPageIsSkippedAsAlreadyCurrent()
