@@ -81,7 +81,7 @@ The main configuration file, `hyde.php`, is used for things ranging from site na
 
 Since HydePHP is based on Laravel we also have a few configuration files related to them. As you most often don't need
 to edit any of these, unless you want to make changes to the underlying application, they are not present in the
-base HydePHP installation. However, you can publish them to your project by running `php hyde publish:configs`.
+base HydePHP installation. However, you can publish them to your project by running `php hyde vendor:publish --tag=hyde-config`.
 
 | Config File                                                                                                            | Description                                                             |
 |------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
@@ -92,7 +92,7 @@ base HydePHP installation. However, you can publish them to your project by runn
 
 {.align-top}
 
-If any of these files are missing, you can run `php hyde publish:configs` to copy the default files to your project.
+If any of these files are missing, you can run `php hyde vendor:publish --tag=hyde-config` to copy the default files to your project.
 
 ## Configuration Options
 
@@ -371,11 +371,14 @@ instead the appropriate color scheme will be automatically applied based on the 
 Hyde uses the Laravel Blade templating engine. Most parts of the included templates have been extracted into components to be customized easily.
 Before editing the views you should familiarize yourself with the [Laravel Blade Documentation](https://laravel.com/docs/10.x/blade).
 
-To edit a default Hyde component you need to publish them first using the `hyde publish:views` command.
+To edit a default Hyde component you need to publish them first using the `hyde publish` command.
 
 ```bash
-php hyde publish:views
+php hyde publish --all
 ```
+
+You can also run `php hyde publish` without any flags to interactively pick which views to publish,
+or scope the command to just `--layouts` or `--components`.
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 

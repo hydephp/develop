@@ -130,7 +130,7 @@ To make it really easy to customize asset loading, the styles and scripts are lo
 To customize them, run the following command:
 
 ```bash
-php hyde publish:views layouts
+php hyde publish --layouts
 ```
 
 Then edit the files found in `resources/views/vendor/hyde/layouts` directory of your project.
