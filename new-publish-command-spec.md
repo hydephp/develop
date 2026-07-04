@@ -281,8 +281,10 @@ php hyde vendor:publish --tag=hyde-config
 `hyde.php`, `docs.php`, `markdown.php`, `view.php`, `cache.php`, `commands.php`.
 
 - Torchlight is **not** included — it is obtained via Torchlight's own package tag.
-- Granular tags (e.g. per-file) may still be registered for power users, but the
-  single `hyde-config` tag is the documented path.
+- `hyde-config` is the **only** Hyde config publish tag in v3. The legacy tags
+  (`configs`, `hyde-configs`, `support-configs`) are removed — they publish nothing.
+- Updating existing config files requires `--force`: `vendor:publish` skips files
+  that already exist without it.
 - `publish` has no config concept. `php hyde publish --config` fails and points here.
 
 > (Exact tag name `hyde-config` is bikesheddable; keep it singular and Hyde-scoped.)
@@ -325,21 +327,23 @@ Run again with --force to overwrite.
 
 ---
 
-## 8. Deprecated aliases (kept for v3, removed from primary docs)
+## 8. Removed commands (v3)
 
-| Old command                   | Maps to                                   |
+v3 is a major release, so the three legacy publish commands are **removed, not
+aliased**. There is no compat shim and no deprecation-notice interceptor: invoking
+a removed command produces Symfony's native "command not found" error (which already
+suggests `publish` as an alternative). The upgrade guide is the migration hint.
+
+| Removed command               | Use instead                               |
 |-------------------------------|-------------------------------------------|
-| `publish:views [group]`       | `publish --layouts` / `--components`      |
-| `publish:configs`             | `vendor:publish --tag=hyde-config`        |
+| `publish:views [group]`       | `publish --all` / `--layouts` / `--components` |
+| `publish:configs`             | `vendor:publish --tag=hyde-config --force` |
 | `publish:homepage [template]` | `publish --page=[template]`               |
 
-Each prints a one-line deprecation notice, e.g.:
-
-```
-publish:configs is deprecated. Use php hyde vendor:publish --tag=hyde-config instead.
-```
-
-Aliases keep working through v3; target removal in v4.
+The full replacement table — including the `publish:homepage posts` / `blank`
+mappings that do **not** map 1:1 (they need `--to=_pages/index.blade.php`) — lives in
+the v3 upgrade guide's "Removed Publishing Commands" section, which is the canonical
+migration reference.
 
 ---
 
@@ -363,7 +367,8 @@ Aliases keep working through v3; target removal in v4.
 4. `PublishablePage` value object + `PublishablePages` registry (extension point).
 5. Shared `OverwritePolicy` service (missing / identical / modified).
 6. Shared interactive multi-select + confirmation UI component.
-7. Deprecated alias commands delegating to `PublishCommand` / `vendor:publish`.
+
+(No alias/compat commands: the legacy `publish:*` commands are removed outright — see §8.)
 8. Register the `hyde-config` publish tag on the relevant service provider.
 
 Views stay declarative file-group lists (no per-item class); only pages use the
@@ -394,8 +399,10 @@ value-object + registry model.
     identical→skip, modified→confirm-or-`--force`. No checksum manifest.
 14. Modified files are never overwritten without interactive confirm or `--force`.
 15. Non-interactive mode never prompts and fails helpfully on ambiguity.
-16. `publish:views`, `publish:configs`, `publish:homepage` still work, print a
-    deprecation notice, and are absent from primary docs.
+16. The legacy commands (`publish:views`, `publish:configs`, `publish:homepage`)
+    are removed; invoking them raises the native command-not-found error, and the
+    upgrade guide documents each replacement (including the `posts`/`blank` `--to`
+    mappings).
 
 ---
 
@@ -406,5 +413,6 @@ value-object + registry model.
   Replace with `php hyde publish --components`.
 - Rewrite the publishing docs around `php hyde publish` (views + `--page`) as the
   primary command, and `php hyde vendor:publish --tag=hyde-config` for config.
-  Document `vendor:publish` as the advanced Laravel path; list deprecated aliases
-  in a migration note only.
+  Document `vendor:publish` as the advanced Laravel path; the removed legacy
+  commands are covered only by the upgrade guide's "Removed Publishing Commands"
+  migration table.

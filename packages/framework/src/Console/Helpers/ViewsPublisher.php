@@ -72,8 +72,7 @@ class ViewsPublisher
     }
 
     /**
-     * @return array{0: array<string, string>, 1: array<string, string>}
-     *                                                                   A tuple of [source => target] and [source => group-prefixed label] for the offered files.
+     * @return array{0: array<string, string>, 1: array<string, string>} A tuple of [source => target] and [source => group-prefixed label] for the offered files.
      */
     protected function collectOfferedFiles(): array
     {
@@ -130,8 +129,7 @@ class ViewsPublisher
      * Decide every selected file's outcome up front, before anything is written.
      *
      * @param  array<string, string>  $selected
-     * @return array{0: array<string, string>, 1: array<string, string>, 2: array<string, string>}
-     *                                                                                             A tuple of [copy, already-current, blocked] maps, each source => target.
+     * @return array{0: array<string, string>, 1: array<string, string>, 2: array<string, string>} A tuple of [copy, already-current, blocked] maps, each source => target.
      */
     protected function decide(array $selected): array
     {
@@ -154,8 +152,7 @@ class ViewsPublisher
      * Resolve what to do with modified (blocked) files, after the full outcome is known but before any write.
      *
      * @param  array<string, string>  $blocked
-     * @return array<string, string>|null The blocked files to overwrite, or null when the run should stop
-     *                                    (cancelled interactively, or blocked non-interactively without --force).
+     * @return array<string, string>|null The blocked files to overwrite, or null when the run should stop (cancelled interactively, or blocked non-interactively without --force).
      */
     protected function resolveBlocked(array $blocked): ?array
     {

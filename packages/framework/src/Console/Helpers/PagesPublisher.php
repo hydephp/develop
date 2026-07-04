@@ -314,8 +314,7 @@ class PagesPublisher
      * Apply the shared overwrite policy and copy the resolved pages into place.
      *
      * @param  array<array{page: PublishablePage, target: string}>  $resolved
-     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string}>|null
-     *                                                                                                    The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
+     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string}>|null The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
      */
     protected function write(array $resolved): ?array
     {
