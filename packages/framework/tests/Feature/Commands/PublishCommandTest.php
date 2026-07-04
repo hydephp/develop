@@ -20,11 +20,23 @@ use Symfony\Component\Console\Exception\RuntimeException;
 #[CoversClass(PublishCommand::class)]
 class PublishCommandTest extends TestCase
 {
+    protected bool $restoreIndexPage = false;
+
+    protected ?string $originalIndexPage = null;
+
     protected function tearDown(): void
     {
         // The views-routing tests below publish real files; remove them so the tree stays clean.
         if (File::isDirectory(Hyde::path('resources/views/vendor'))) {
             File::deleteDirectory(Hyde::path('resources/views/vendor'));
+        }
+
+        if ($this->restoreIndexPage) {
+            if ($this->originalIndexPage === null) {
+                File::delete(Hyde::path('_pages/index.blade.php'));
+            } else {
+                File::put(Hyde::path('_pages/index.blade.php'), $this->originalIndexPage);
+            }
         }
 
         parent::tearDown();
@@ -157,8 +169,10 @@ class PublishCommandTest extends TestCase
 
     public function testWizardRoutesToPages()
     {
-        // Route through the wizard into the real pages flow. The tracked homepage fixture differs from the current
-        // bundled source, so the overwrite guard proves the wizard reached PagesPublisher without writing anything.
+        // Route through the wizard into the real pages flow. A deliberately modified target makes the overwrite
+        // guard prove the wizard reached PagesPublisher without depending on the repository fixture contents.
+        $this->modifyDefaultHomePage();
+
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
@@ -166,6 +180,16 @@ class PublishCommandTest extends TestCase
             ->expectsQuestion('1 selected files already exist and appear modified.', 'skip')
             ->expectsOutputToContain('1 page left unchanged because they were modified:')
             ->assertExitCode(0);
+    }
+
+    protected function modifyDefaultHomePage(): void
+    {
+        $target = Hyde::path('_pages/index.blade.php');
+
+        $this->restoreIndexPage = true;
+        $this->originalIndexPage = File::exists($target) ? File::get($target) : null;
+
+        File::put($target, 'MODIFIED BY USER');
     }
 
     public function testWizardCancelExitsCleanlyWithoutPublishing()
