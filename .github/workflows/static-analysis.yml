@@ -2,7 +2,7 @@ name: 🔎 Static Analysis
 
 on:
   pull_request:
-    branches: [ "master", "2.x-dev" ]
+    branches: [ "master", "3.x-dev" ]
 
 jobs:
 
