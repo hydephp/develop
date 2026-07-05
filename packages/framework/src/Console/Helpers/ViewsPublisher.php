@@ -6,33 +6,24 @@ namespace Hyde\Console\Helpers;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Enums\OverwriteAction;
-use Hyde\Facades\Filesystem;
 use Hyde\Framework\Services\OverwritePolicy;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use RuntimeException;
-use Symfony\Component\Console\Input\InputInterface;
 
 use function array_keys;
 use function count;
 use function explode;
-use function Hyde\unixsum_file;
 use function implode;
 use function reset;
 use function sprintf;
-use function Laravel\Prompts\select;
 
 /**
  * @internal This helper is scoped to the publish command and should not be used elsewhere.
  */
-class ViewsPublisher
+class ViewsPublisher extends BasePublisher
 {
-    /** @var array<string, string> EOL-agnostic destination checksums captured when a file was first blocked. */
-    protected array $blockedChecksums = [];
-
-    public function __construct(protected Command $command, protected InputInterface $input)
-    {
-    }
+    /** @var array<string, string> Files skipped because already up to date. */
+    protected array $current = [];
 
     /**
      * Every file's outcome is decided, and conflicts resolved, before anything is written — so cancelling
@@ -51,6 +42,7 @@ class ViewsPublisher
         }
 
         [$copy, $current, $blocked] = $this->decide($selected);
+        $this->current = $current;
 
         $overwrite = $this->resolveBlocked($blocked);
 
@@ -60,65 +52,19 @@ class ViewsPublisher
             return $this->canPrompt() ? Command::SUCCESS : Command::FAILURE;
         }
 
-        [$published, $current] = $this->refreshApprovedWrites($copy, $current, $overwrite);
+        $written = $this->refreshApprovedWrites($copy, $overwrite);
+
+        if ($written === null) {
+            return Command::FAILURE;
+        }
+
+        $published = $this->recordsToMap($written);
 
         foreach ($published as $source => $target) {
             $this->copy($source, $target);
         }
 
-        return $this->report($published, $current, $overwrite === [] ? $blocked : [], count($offered));
-    }
-
-    /**
-     * Re-check destinations immediately before copying so a file changed during an interactive prompt is not lost.
-     *
-     * @param  array<string, string>  $copy
-     * @param  array<string, string>  $current
-     * @param  array<string, string>  $overwrite
-     * @return array{0: array<string, string>, 1: array<string, string>}
-     */
-    protected function refreshApprovedWrites(array $copy, array $current, array $overwrite): array
-    {
-        $published = [];
-
-        foreach ($copy as $source => $target) {
-            $this->refreshApprovedWrite($published, $current, $source, $target, false);
-        }
-
-        foreach ($overwrite as $source => $target) {
-            $this->refreshApprovedWrite($published, $current, $source, $target, true);
-        }
-
-        return [$published, $current];
-    }
-
-    /** @param  array<string, string>  $published  @param  array<string, string>  $current */
-    protected function refreshApprovedWrite(array &$published, array &$current, string $source, string $target, bool $approvedOverwrite): void
-    {
-        match (OverwritePolicy::decide($source, $target)) {
-            OverwriteAction::Copy => $published[$source] = $target,
-            OverwriteAction::Skip => $current[$source] = $target,
-            OverwriteAction::Blocked => $this->handleStillBlockedWrite($published, $source, $target, $approvedOverwrite),
-        };
-    }
-
-    /** @param  array<string, string>  $published */
-    protected function handleStillBlockedWrite(array &$published, string $source, string $target, bool $approvedOverwrite): void
-    {
-        if (! $approvedOverwrite || ($this->blockedChecksums[$source] ?? null) !== $this->destinationChecksum($target)) {
-            throw new RuntimeException("Cannot publish: destination [$target] changed after overwrite checks. Run the command again.");
-        }
-
-        $published[$source] = $target;
-    }
-
-    protected function copy(string $source, string $target): void
-    {
-        Filesystem::ensureParentDirectoryExists($target);
-
-        if (! Filesystem::copy($source, $target)) {
-            throw new RuntimeException("Failed to copy [$source] to [$target].");
-        }
+        return $this->report($published, $this->current, $overwrite === [] ? $this->recordsToMap($blocked) : [], count($offered));
     }
 
     /**
@@ -177,7 +123,7 @@ class ViewsPublisher
 
     /**
      * @param  array<string, string>  $selected
-     * @return array{0: array<string, string>, 1: array<string, string>, 2: array<string, string>} A tuple of [copy, already-current, blocked] maps, each source => target.
+     * @return array{0: array<array{source: string, target: string, absolute: string, destinationChecksum?: string}>, 1: array<string, string>, 2: array<array{source: string, target: string, absolute: string, destinationChecksum?: string}>} A tuple of [copy records, already-current map, blocked records].
      */
     protected function decide(array $selected): array
     {
@@ -187,70 +133,48 @@ class ViewsPublisher
 
         foreach ($selected as $source => $target) {
             $action = OverwritePolicy::decide($source, $target);
+            $record = $this->record($source, $target);
 
             if ($action === OverwriteAction::Copy) {
-                $copy[$source] = $target;
+                $copy[] = $record;
             } elseif ($action === OverwriteAction::Skip) {
                 $current[$source] = $target;
             } else {
-                $this->blockedChecksums[$source] = $this->destinationChecksum($target);
-                $blocked[$source] = $target;
+                $record['destinationChecksum'] = $this->destinationChecksum($target);
+                $blocked[] = $record;
             }
         }
 
         return [$copy, $current, $blocked];
     }
 
-    protected function destinationChecksum(string $target): string
+    /** @return array{source: string, target: string, absolute: string} */
+    protected function record(string $source, string $target): array
     {
-        return unixsum_file($target);
+        return ['source' => $source, 'target' => $target, 'absolute' => $target];
     }
 
-    /**
-     * @param  array<string, string>  $blocked
-     * @return array<string, string>|null The blocked files to overwrite, or null when the run should stop (cancelled interactively, or blocked non-interactively without --force).
-     */
-    protected function resolveBlocked(array $blocked): ?array
+    /** @param  array<array{source: string, target: string, absolute: string, destinationChecksum?: string}>  $records */
+    protected function recordsToMap(array $records): array
     {
-        if ($blocked === []) {
-            return [];
+        $map = [];
+
+        foreach ($records as $record) {
+            $map[$record['source']] = $record['target'];
         }
 
-        if ($this->command->option('force')) {
-            return $blocked;
-        }
-
-        if (! $this->canPrompt()) {
-            $this->command->error('Cannot overwrite modified files without --force:');
-
-            foreach ($blocked as $target) {
-                $this->command->line('  '.$target);
-            }
-
-            $this->command->newLine();
-            $this->command->line('Run again with --force to overwrite.');
-
-            return null;
-        }
-
-        $choice = select(sprintf('%d selected files already exist and appear modified.', count($blocked)), [
-            'skip' => 'Skip modified files',
-            'overwrite' => 'Overwrite modified files',
-            'cancel' => 'Cancel',
-        ], 'skip');
-
-        return match ($choice) {
-            'overwrite' => $blocked,
-            'skip' => [],
-            default => $this->cancel(),
-        };
+        return $map;
     }
 
-    protected function cancel(): ?array
+    /** @param  array{source: string, target: string, absolute: string, destinationChecksum?: string}  $record */
+    protected function noteCurrent(array $record): void
     {
-        $this->command->infoComment('Cancelled. No views were published.');
+        $this->current[$record['source']] = $record['target'];
+    }
 
-        return null;
+    protected function cancelledMessage(): string
+    {
+        return 'Cancelled. No views were published.';
     }
 
     /**
@@ -328,10 +252,5 @@ class ViewsPublisher
         }
 
         return implode('/', $commonParts);
-    }
-
-    protected function canPrompt(): bool
-    {
-        return ConsoleHelper::canUseLaravelPrompts($this->input);
     }
 }

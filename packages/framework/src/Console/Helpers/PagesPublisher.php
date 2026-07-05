@@ -6,18 +6,14 @@ namespace Hyde\Console\Helpers;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Enums\OverwriteAction;
-use Hyde\Facades\Filesystem;
 use Hyde\Framework\Services\OverwritePolicy;
 use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use RuntimeException;
-use Symfony\Component\Console\Input\InputInterface;
 
 use function array_map;
 use function count;
-use function Hyde\unixsum_file;
 use function implode;
 use function preg_replace;
 use function sprintf;
@@ -28,7 +24,7 @@ use function Laravel\Prompts\text;
 /**
  * @internal This helper is scoped to the publish command and should not be used elsewhere.
  */
-class PagesPublisher
+class PagesPublisher extends BasePublisher
 {
     /** Sentinel key for the "Custom path…" row in the destination prompt; real targets are _pages/ paths, so it never collides. */
     protected const CUSTOM = '__hyde_custom_target__';
@@ -41,10 +37,6 @@ class PagesPublisher
 
     /** Whether the pages were chosen through the interactive picker (which adds a confirmation step). */
     protected bool $usedPicker = false;
-
-    public function __construct(protected Command $command, protected InputInterface $input)
-    {
-    }
 
     public function publish(): int
     {
@@ -91,6 +83,10 @@ class PagesPublisher
         // A null result means the run stopped after the decision but before any write: a non-interactive blocked
         // run without --force is a hard failure, while an interactive Cancel is a clean exit.
         if ($written === null) {
+            if ($this->failedWriteRefresh()) {
+                return Command::FAILURE;
+            }
+
             return $this->canPrompt() ? Command::SUCCESS : Command::FAILURE;
         }
 
@@ -335,7 +331,7 @@ class PagesPublisher
             if ($action === OverwriteAction::Copy) {
                 $copy[] = $record;
             } elseif ($action === OverwriteAction::Skip) {
-                $this->current[] = $entry;
+                $this->noteCurrent($record);
             } else {
                 $record['destinationChecksum'] = $this->destinationChecksum($record['absolute']);
                 $blocked[] = $record;
@@ -352,6 +348,10 @@ class PagesPublisher
 
         $written = $this->refreshApprovedWrites($copy, $overwrite);
 
+        if ($written === null) {
+            return null;
+        }
+
         foreach ($written as $record) {
             $this->copy($record['source'], $record['absolute']);
         }
@@ -360,113 +360,16 @@ class PagesPublisher
     }
 
     /**
-     * Re-check destinations immediately before copying so a file changed during an interactive prompt is not lost.
-     *
-     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $copy
-     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $overwrite
-     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>
-     */
-    protected function refreshApprovedWrites(array $copy, array $overwrite): array
-    {
-        $written = [];
-
-        foreach ($copy as $record) {
-            $this->refreshApprovedWrite($written, $record, false);
-        }
-
-        foreach ($overwrite as $record) {
-            $this->refreshApprovedWrite($written, $record, true);
-        }
-
-        return $written;
-    }
-
-    /**
-     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $written
      * @param  array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}  $record
      */
-    protected function refreshApprovedWrite(array &$written, array $record, bool $approvedOverwrite): void
+    protected function noteCurrent(array $record): void
     {
-        match (OverwritePolicy::decide($record['source'], $record['absolute'])) {
-            OverwriteAction::Copy => $written[] = $record,
-            OverwriteAction::Skip => $this->current[] = ['page' => $record['page'], 'target' => $record['target']],
-            OverwriteAction::Blocked => $this->handleStillBlockedWrite($written, $record, $approvedOverwrite),
-        };
+        $this->current[] = ['page' => $record['page'], 'target' => $record['target']];
     }
 
-    /**
-     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $written
-     * @param  array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}  $record
-     */
-    protected function handleStillBlockedWrite(array &$written, array $record, bool $approvedOverwrite): void
+    protected function cancelledMessage(): string
     {
-        if (! $approvedOverwrite || ($record['destinationChecksum'] ?? null) !== $this->destinationChecksum($record['absolute'])) {
-            throw new RuntimeException("Cannot publish: destination [{$record['target']}] changed after overwrite checks. Run the command again.");
-        }
-
-        $written[] = $record;
-    }
-
-    protected function copy(string $source, string $target): void
-    {
-        Filesystem::ensureParentDirectoryExists($target);
-
-        if (! Filesystem::copy($source, $target)) {
-            throw new RuntimeException("Failed to copy [$source] to [$target].");
-        }
-    }
-
-    /**
-     * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $blocked
-     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>|null
-     */
-    protected function resolveBlocked(array $blocked): ?array
-    {
-        if ($blocked === []) {
-            return [];
-        }
-
-        if ($this->command->option('force')) {
-            return $blocked;
-        }
-
-        if (! $this->canPrompt()) {
-            $this->command->error('Cannot overwrite modified files without --force:');
-
-            foreach ($blocked as $record) {
-                $this->command->line('  '.$record['target']);
-            }
-
-            $this->command->newLine();
-            $this->command->line('Run again with --force to overwrite.');
-
-            return null;
-        }
-
-        $choice = select(sprintf('%d selected files already exist and appear modified.', count($blocked)), [
-            'skip' => 'Skip modified files',
-            'overwrite' => 'Overwrite modified files',
-            'cancel' => 'Cancel',
-        ], 'skip');
-
-        if ($choice === 'overwrite') {
-            return $blocked;
-        }
-
-        if ($choice === 'skip') {
-            return [];
-        }
-
-        // Cancelling the overwrite prompt aborts the whole run; announce it as the views flow and the
-        // "Proceed? no" path both do, so the exit is never silent. This branch is only reached interactively.
-        $this->command->infoComment('Cancelled. No pages were published.');
-
-        return null;
-    }
-
-    protected function destinationChecksum(string $target): string
-    {
-        return unixsum_file($target);
+        return 'Cancelled. No pages were published.';
     }
 
     /** @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $written */
@@ -543,10 +446,5 @@ class PagesPublisher
     protected function pageCount(int $count): string
     {
         return $count === 1 ? '1 page' : "$count pages";
-    }
-
-    protected function canPrompt(): bool
-    {
-        return ConsoleHelper::canUseLaravelPrompts($this->input);
     }
 }

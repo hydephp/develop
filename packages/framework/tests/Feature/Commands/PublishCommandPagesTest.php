@@ -539,12 +539,8 @@ class PublishCommandPagesTest extends TestCase
             }
         };
 
-        try {
-            $publisher->publish();
-            $this->fail('The publisher should abort when an approved destination changes before copy.');
-        } catch (\RuntimeException $exception) {
-            $this->assertSame('Cannot publish: destination [_pages/index.blade.php] changed after overwrite checks. Run the command again.', $exception->getMessage());
-        }
+        $this->assertSame(1, $publisher->publish());
+        $this->assertStringContainsString('Cannot publish: destination [_pages/index.blade.php] changed after overwrite checks. Run the command again.', $output->fetch());
 
         $this->assertSame('MODIFIED AFTER PROMPT', File::get(Hyde::path('_pages/index.blade.php')));
     }

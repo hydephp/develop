@@ -123,8 +123,7 @@ class PublishCommand extends Command
 
     protected function hasEmptyPageOption(): bool
     {
-        return $this->input->hasParameterOption('--page=')
-            || ($this->input->hasParameterOption('--page') && $this->input->getParameterOption('--page', false) === '');
+        return $this->option('page') === '';
     }
 
     protected function failWithUsageHint(): int
