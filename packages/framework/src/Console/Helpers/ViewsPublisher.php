@@ -225,7 +225,7 @@ class ViewsPublisher extends BasePublisher
 
     protected function viewCount(int $count): string
     {
-        return $count === 1 ? '1 view' : "$count views";
+        return "$count ".Str::plural('view', $count);
     }
 
     /** Find the most specific common parent directory shared by the given files' target paths. */

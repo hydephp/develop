@@ -33,7 +33,7 @@ class InteractiveMultiselect
 
         $prompt = new MultiSelectPrompt($label, $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
-        $selected = (array) $prompt->prompt();
+        $selected = $prompt->prompt();
 
         // Selecting the sentinel means "everything", regardless of which other rows were checked.
         if (in_array(self::ALL, $selected, true)) {

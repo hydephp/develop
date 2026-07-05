@@ -441,6 +441,6 @@ class PagesPublisher extends BasePublisher
 
     protected function pageCount(int $count): string
     {
-        return $count === 1 ? '1 page' : "$count pages";
+        return "$count ".Str::plural('page', $count);
     }
 }
