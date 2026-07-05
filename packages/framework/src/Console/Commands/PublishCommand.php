@@ -6,6 +6,7 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Console\Concerns\Command;
 use Hyde\Console\Helpers\PagesPublisher;
+use Hyde\Console\Helpers\PublisherConsole;
 use Hyde\Console\Helpers\ViewsPublisher;
 use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Input\InputInterface;
@@ -100,12 +101,12 @@ class PublishCommand extends Command
 
     protected function publishViews(): int
     {
-        return (new ViewsPublisher($this, $this->input))->publish();
+        return (new ViewsPublisher(new PublisherConsole($this, $this->input)))->publish();
     }
 
     protected function publishPage(): int
     {
-        return (new PagesPublisher($this, $this->input))->publish();
+        return (new PagesPublisher(new PublisherConsole($this, $this->input)))->publish();
     }
 
     protected function wantsToPublishViews(): bool

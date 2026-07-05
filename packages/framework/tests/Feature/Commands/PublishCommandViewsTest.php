@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Console\Commands\PublishCommand;
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\InteractiveMultiselect;
+use Hyde\Console\Helpers\PublisherConsole;
 use Hyde\Console\Helpers\ViewsPublisher;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
@@ -80,7 +81,7 @@ class PublishCommandViewsTest extends TestCase
         $command->setInput($input);
         $command->setOutput(new OutputStyle($input, $output));
 
-        $publisher = new class($command, $input) extends ViewsPublisher
+        $publisher = new class(new PublisherConsole($command, $input)) extends ViewsPublisher
         {
             protected function selectFiles(array $offered, array $labels): array
             {
@@ -125,7 +126,7 @@ class PublishCommandViewsTest extends TestCase
     {
         $command = $this->app->make(PublishCommand::class);
         $input = new ArrayInput([], $command->getDefinition());
-        $publisher = new class($command, $input) extends ViewsPublisher
+        $publisher = new class(new PublisherConsole($command, $input)) extends ViewsPublisher
         {
             public function exposeBaseDirectory(array $files): string
             {

@@ -41,12 +41,16 @@ class PagesPublisher extends BasePublisher
     /** Whether the pages were chosen through the interactive picker (which adds a confirmation step). */
     protected bool $usedPicker = false;
 
+    public function __construct(protected PublisherConsole $console)
+    {
+    }
+
     public function publish(): int
     {
         // --to names a single destination, so it is only meaningful for a single named page. A bare --page
         // (multi-select) with --to would have one path stand in for several pages; reject it rather than guess.
-        if ($this->command->option('to') !== null && ! $this->hasNamedPage()) {
-            $this->command->error('--to is only valid when publishing a single page. Use --page=NAME with --to.');
+        if ($this->console->option('to') !== null && ! $this->hasNamedPage()) {
+            $this->console->error('--to is only valid when publishing a single page. Use --page=NAME with --to.');
 
             return Command::FAILURE;
         }
@@ -58,7 +62,7 @@ class PagesPublisher extends BasePublisher
         }
 
         if ($pages === []) {
-            $this->command->infoComment('No pages selected; nothing to publish.');
+            $this->console->infoComment('No pages selected; nothing to publish.');
 
             return Command::SUCCESS;
         }
@@ -76,7 +80,7 @@ class PagesPublisher extends BasePublisher
         }
 
         if ($this->usedPicker && ! $this->confirmProceed($resolved)) {
-            $this->command->infoComment('Cancelled. No pages were published.');
+            $this->console->infoComment('Cancelled. No pages were published.');
 
             return Command::SUCCESS;
         }
@@ -86,7 +90,7 @@ class PagesPublisher extends BasePublisher
         // A null result means the run stopped after the decision but before any write: a non-interactive blocked
         // run without --force is a hard failure, while an interactive Cancel is a clean exit.
         if ($written === null) {
-            return $this->canPrompt() ? Command::SUCCESS : Command::FAILURE;
+            return $this->console->canPrompt() ? Command::SUCCESS : Command::FAILURE;
         }
 
         $this->report($written);
@@ -106,12 +110,12 @@ class PagesPublisher extends BasePublisher
     protected function selectPages(): ?array
     {
         if ($this->hasNamedPage()) {
-            $name = (string) $this->command->option('page');
+            $name = (string) $this->console->option('page');
             $page = $this->findPage($name);
 
             if ($page === null) {
-                $this->command->error("The page [$name] does not exist.");
-                $this->command->line('Available pages: '.implode(', ', array_map(fn (PublishablePage $page): string => $page->key, PublishablePages::all())));
+                $this->console->error("The page [$name] does not exist.");
+                $this->console->line('Available pages: '.implode(', ', array_map(fn (PublishablePage $page): string => $page->key, PublishablePages::all())));
 
                 return null;
             }
@@ -119,8 +123,8 @@ class PagesPublisher extends BasePublisher
             return [$page];
         }
 
-        if (! $this->canPrompt()) {
-            $this->command->error('No page specified for publishing. Provide one, for example --page=welcome.');
+        if (! $this->console->canPrompt()) {
+            $this->console->error('No page specified for publishing. Provide one, for example --page=welcome.');
 
             return null;
         }
@@ -177,19 +181,19 @@ class PagesPublisher extends BasePublisher
 
     protected function resolveTarget(PublishablePage $page): ?string
     {
-        if ($this->command->option('to') !== null) {
+        if ($this->console->option('to') !== null) {
             if (! $page->allowCustomTarget) {
-                $this->command->error(sprintf('The [%s] page cannot be published to a custom path; omit --to to use its default (%s).', $page->key, $page->defaultTarget));
+                $this->console->error(sprintf('The [%s] page cannot be published to a custom path; omit --to to use its default (%s).', $page->key, $page->defaultTarget));
 
                 return null;
             }
 
-            return $this->validateCustomTarget((string) $this->command->option('to'));
+            return $this->validateCustomTarget((string) $this->console->option('to'));
         }
 
-        if (! $this->canPrompt()) {
+        if (! $this->console->canPrompt()) {
             if ($page->defaultTarget === null) {
-                $this->command->error(sprintf('The [%s] page has no default destination. Provide one with --to.', $page->key));
+                $this->console->error(sprintf('The [%s] page has no default destination. Provide one with --to.', $page->key));
 
                 return null;
             }
@@ -245,7 +249,7 @@ class PagesPublisher extends BasePublisher
     protected function validateCustomTarget(string $path): ?string
     {
         if (! $this->isValidCustomTarget($path)) {
-            $this->command->error('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.');
+            $this->console->error('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.');
 
             return null;
         }
@@ -283,8 +287,8 @@ class PagesPublisher extends BasePublisher
             if (count($labels) > 1) {
                 // "both" reads correctly for a pair; three or more colliding pages need "all".
                 $verb = count($labels) === 2 ? 'both target' : 'all target';
-                $this->command->error(sprintf('%s %s %s.', $this->joinLabels($labels), $verb, $target));
-                $this->command->line('Pick one, or set --to for each.');
+                $this->console->error(sprintf('%s %s %s.', $this->joinLabels($labels), $verb, $target));
+                $this->console->line('Pick one, or set --to for each.');
 
                 return false;
             }
@@ -296,13 +300,13 @@ class PagesPublisher extends BasePublisher
     /** @param  array<array{page: PublishablePage, target: string}>  $resolved */
     protected function confirmProceed(array $resolved): bool
     {
-        $this->command->line('Ready to publish:');
+        $this->console->line('Ready to publish:');
 
         foreach ($resolved as $entry) {
-            $this->command->line(sprintf('  %s → %s', $entry['page']->label, $entry['target']));
+            $this->console->line(sprintf('  %s → %s', $entry['page']->label, $entry['target']));
         }
 
-        $this->command->newLine();
+        $this->console->newLine();
 
         return confirm('Proceed?', true);
     }
@@ -337,7 +341,7 @@ class PagesPublisher extends BasePublisher
             }
         }
 
-        $overwrite = $this->resolveBlocked($blocked);
+        $overwrite = $this->console->resolveBlocked($blocked, 'Cancelled. No pages were published.');
 
         if ($overwrite === null) {
             return null;
@@ -362,37 +366,32 @@ class PagesPublisher extends BasePublisher
         $this->current[] = ['page' => $record['page'], 'target' => $record['target']];
     }
 
-    protected function cancelledMessage(): string
-    {
-        return 'Cancelled. No pages were published.';
-    }
-
     /** @param  array<array{page: PublishablePage, target: string, source: string, absolute: string}>  $written */
     protected function report(array $written): void
     {
         if ($written === [] && $this->leftModified === [] && $this->current !== []) {
-            $this->command->infoComment('All selected pages are already up to date.');
+            $this->console->infoComment('All selected pages are already up to date.');
 
             return;
         }
 
         foreach ($written as $record) {
-            $this->command->infoComment(sprintf('Published [%s] to [%s]', $record['page']->key, $record['target']));
+            $this->console->infoComment(sprintf('Published [%s] to [%s]', $record['page']->key, $record['target']));
         }
 
         if ($this->current !== []) {
-            $this->command->infoComment(sprintf('%s already up to date and skipped.', $this->pageCount(count($this->current))));
+            $this->console->infoComment(sprintf('%s already up to date and skipped.', $this->pageCount(count($this->current))));
         }
 
         if ($this->leftModified !== []) {
-            $this->command->newLine();
-            $this->command->warn(sprintf('%s left unchanged because they were modified:', $this->pageCount(count($this->leftModified))));
+            $this->console->newLine();
+            $this->console->warn(sprintf('%s left unchanged because they were modified:', $this->pageCount(count($this->leftModified))));
 
             foreach ($this->leftModified as $entry) {
-                $this->command->line('  '.$entry['target']);
+                $this->console->line('  '.$entry['target']);
             }
 
-            $this->command->line('Run again with --force to overwrite.');
+            $this->console->line('Run again with --force to overwrite.');
         }
     }
 
@@ -403,19 +402,19 @@ class PagesPublisher extends BasePublisher
      */
     protected function maybeRebuild(): void
     {
-        if (! $this->canPrompt()) {
+        if (! $this->console->canPrompt()) {
             return;
         }
 
         if (confirm('Rebuild the site now?', false)) {
-            Artisan::call('build', [], $this->command->getOutput());
+            Artisan::call('build', [], $this->console->getOutput());
         }
     }
 
     /** Whether a specific page name was supplied via --page=NAME (as opposed to a bare --page or the wizard). */
     protected function hasNamedPage(): bool
     {
-        $name = $this->command->option('page');
+        $name = $this->console->option('page');
 
         return is_string($name) && $name !== '';
     }

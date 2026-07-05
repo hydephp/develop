@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Console\Commands\PublishCommand;
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\PagesPublisher;
+use Hyde\Console\Helpers\PublisherConsole;
 use Hyde\Console\Helpers\PublishablePage;
 use Hyde\Console\Helpers\PublishablePages;
 use Hyde\Hyde;
@@ -357,7 +358,7 @@ class PublishCommandPagesTest extends TestCase
         $command->setInput($input);
         $command->setOutput(new OutputStyle($input, $output));
 
-        $publisher = new class($command, $input) extends PagesPublisher
+        $publisher = new class(new PublisherConsole($command, $input)) extends PagesPublisher
         {
             protected function selectPages(): ?array
             {

@@ -26,6 +26,10 @@ class ViewsPublisher extends BasePublisher
     /** @var array<string, string> Files skipped because already up to date. */
     protected array $current = [];
 
+    public function __construct(protected PublisherConsole $console)
+    {
+    }
+
     /**
      * Every file's outcome is decided, and conflicts resolved, before anything is written — so cancelling
      * never leaves a half-published tree.
@@ -37,7 +41,7 @@ class ViewsPublisher extends BasePublisher
         $selected = Arr::only($offered, $this->selectFiles($offered, $labels));
 
         if ($selected === []) {
-            $this->command->infoComment('No views selected; nothing to publish.');
+            $this->console->infoComment('No views selected; nothing to publish.');
 
             return Command::SUCCESS;
         }
@@ -45,12 +49,12 @@ class ViewsPublisher extends BasePublisher
         [$copy, $current, $blocked] = $this->decide($selected);
         $this->current = $current;
 
-        $overwrite = $this->resolveBlocked($blocked);
+        $overwrite = $this->console->resolveBlocked($blocked, 'Cancelled. No views were published.');
 
         // A null resolution means the run stopped after the decision but before any write: a non-interactive
         // blocked run without --force is a hard failure, while an interactive Cancel is a clean exit.
         if ($overwrite === null) {
-            return $this->canPrompt() ? Command::SUCCESS : Command::FAILURE;
+            return $this->console->canPrompt() ? Command::SUCCESS : Command::FAILURE;
         }
 
         $written = array_merge($copy, $overwrite);
@@ -90,11 +94,11 @@ class ViewsPublisher extends BasePublisher
             'components' => ViewPublishGroup::fromGroup('hyde-components'),
         ];
 
-        if ($this->command->option('layouts')) {
+        if ($this->console->option('layouts')) {
             return Arr::only($groups, ['layouts']);
         }
 
-        if ($this->command->option('components')) {
+        if ($this->console->option('components')) {
             return Arr::only($groups, ['components']);
         }
 
@@ -111,7 +115,7 @@ class ViewsPublisher extends BasePublisher
         // --all skips the picker; so does a non-interactive run, where publishing a scoped group is
         // exactly equivalent to adding --all: one predictable rule, with OverwritePolicy still protecting
         // any modified files.
-        if ($this->command->option('all') || ! $this->canPrompt()) {
+        if ($this->console->option('all') || ! $this->console->canPrompt()) {
             return array_keys($offered);
         }
 
@@ -162,11 +166,6 @@ class ViewsPublisher extends BasePublisher
         return $map;
     }
 
-    protected function cancelledMessage(): string
-    {
-        return 'Cancelled. No views were published.';
-    }
-
     /**
      * @param  array<string, string>  $published  The files actually written (source => target).
      * @param  array<string, string>  $current  The files skipped because already up to date.
@@ -175,28 +174,28 @@ class ViewsPublisher extends BasePublisher
     protected function report(array $published, array $current, array $blocked, int $offeredTotal): int
     {
         if ($published === [] && $blocked === [] && $current !== []) {
-            $this->command->infoComment('All selected views are already up to date.');
+            $this->console->infoComment('All selected views are already up to date.');
 
             return Command::SUCCESS;
         }
 
         if ($published !== []) {
-            $this->command->infoComment($this->publishedLine($published, $offeredTotal));
+            $this->console->infoComment($this->publishedLine($published, $offeredTotal));
         }
 
         if ($current !== []) {
-            $this->command->infoComment(sprintf('%s already up to date and skipped.', $this->viewCount(count($current))));
+            $this->console->infoComment(sprintf('%s already up to date and skipped.', $this->viewCount(count($current))));
         }
 
         if ($blocked !== []) {
-            $this->command->newLine();
-            $this->command->warn(sprintf('%s left unchanged because they were modified:', $this->viewCount(count($blocked))));
+            $this->console->newLine();
+            $this->console->warn(sprintf('%s left unchanged because they were modified:', $this->viewCount(count($blocked))));
 
             foreach ($blocked as $target) {
-                $this->command->line('  '.$target);
+                $this->console->line('  '.$target);
             }
 
-            $this->command->line('Run again with --force to overwrite.');
+            $this->console->line('Run again with --force to overwrite.');
         }
 
         return Command::SUCCESS;
