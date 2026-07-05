@@ -11,13 +11,14 @@ use Hyde\Hyde;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\WhitespacePathNormalizer;
 
 use function array_merge;
 use function array_map;
 use function count;
 use function implode;
 use function is_string;
-use function preg_replace;
 use function sprintf;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\select;
@@ -243,29 +244,30 @@ class PagesPublisher extends BasePublisher
     /** Validate a user-supplied destination: it must live under _pages/ and be a Blade page. Returns null on failure. */
     protected function validateCustomTarget(string $path): ?string
     {
-        $normalized = $this->normalizeTargetPath($path);
-
-        if (! $this->isValidCustomTarget($normalized)) {
+        if (! $this->isValidCustomTarget($path)) {
             $this->command->error('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.');
 
             return null;
         }
 
-        return $normalized;
+        return $this->normalizeTargetPath($path);
     }
 
     protected function isValidCustomTarget(string $path): bool
     {
-        $normalized = $this->normalizeTargetPath($path);
+        try {
+            $normalized = $this->normalizeTargetPath($path);
+        } catch (FilesystemException) {
+            return false;
+        }
 
         return Str::startsWith($normalized, '_pages/')
-            && ! Str::contains($normalized, '..')
             && Str::endsWith($normalized, '.blade.php');
     }
 
     protected function normalizeTargetPath(string $path): string
     {
-        return (string) preg_replace('#/+#', '/', Str::replace('\\', '/', $path));
+        return (new WhitespacePathNormalizer())->normalizePath($path);
     }
 
     /** @param  array<array{page: PublishablePage, target: string}>  $resolved */

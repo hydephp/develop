@@ -411,6 +411,19 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
+    public function testCustomTargetWithSingleDotSegmentConflictsWithNormalizedDefaultTarget()
+    {
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['welcome', 'blank'])
+            ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
+            ->expectsQuestion('Enter a path within _pages/', '_pages/./index.blade.php')
+            ->expectsOutputToContain('Welcome page and Blank page both target _pages/index.blade.php.')
+            ->expectsOutputToContain('Pick one, or set --to for each.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
     public function testRebuildIsOfferedInteractivelyAfterPublishing()
     {
         // Welcome resolves to its default without a destination prompt, so the only interaction is the rebuild offer.
@@ -474,6 +487,15 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('secret.blade.php'));
+    }
+
+    public function testToPathWithTraversalBeforePagesDirectoryIsRejected()
+    {
+        $this->artisan('publish --page=welcome --to=../_pages/index.blade.php --no-interaction')
+            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('../_pages/index.blade.php'));
     }
 
     public function testThreePagesResolvingToTheSameTargetReportAllTarget()
