@@ -12,7 +12,6 @@ use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function array_key_exists;
 use function is_string;
 use function Laravel\Prompts\select;
 
@@ -130,9 +129,7 @@ class PublishCommand extends Command
 
     protected function optionWasProvided(string $name): bool
     {
-        return (function (string $name): bool {
-            return array_key_exists($name, $this->options);
-        })->call($this->input, $name);
+        return $this->input->hasParameterOption("--$name");
     }
 
     protected function failWithUsageHint(): int
