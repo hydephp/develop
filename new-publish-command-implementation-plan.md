@@ -134,37 +134,22 @@ Hand the agent a single step + the spec — never the whole plan.
   six files. Suite green.
 - **Spec ref:** §6.
 
-## Step 7 — Deprecated aliases
-
-- **Goal:** keep the old commands working as thin, notice-printing delegators.
-- **In scope:** convert `publish:views`, `publish:configs`, `publish:homepage` into
-  aliases that print a one-line deprecation notice and delegate per §8
-  (`publish:views [group]` → `publish --layouts`/`--components`; `publish:configs` →
-  `vendor:publish --tag=hyde-config`; `publish:homepage [template]` → `publish --page=[template]`).
-- **Out of scope:** deleting the old commands (they stay through v3); changing new
-  command behavior; docs.
-- **Files:** the three old command classes (now delegating) + alias tests.
-- **Depends on:** Steps 4, 5, 6.
-- **Done when:** tests assert each alias prints its notice and routes to the new path.
-  Suite green.
-- **Spec ref:** §8.
-
-## Step 8 — Docs cleanup
+## Step 7 — Docs cleanup
 
 - **Goal:** align the docs with the new command surface.
 - **In scope:** fix the nonexistent `php hyde publish:components` reference in
   `docs/digging-deeper/advanced-markdown.md` (→ `php hyde publish --components`);
   rewrite the publishing docs around `php hyde publish` (views + `--page`) and
   `php hyde vendor:publish --tag=hyde-config`; add a short migration note listing the
-  deprecated aliases.
+  removed legacy commands and their replacements.
 - **Out of scope:** any code changes. Docs only.
 - **Files:** the affected docs pages only.
-- **Depends on:** Steps 4–7.
-- **Done when:** no doc references a nonexistent command; the deprecated aliases appear
-  only in the migration note, not the primary flow.
+- **Depends on:** Steps 4–6.
+- **Done when:** no doc references a nonexistent command; the removed legacy commands
+  appear only in the migration note, not the primary flow.
 - **Spec ref:** §12, §8.
 
-## Step 9 (optional) — Acceptance sweep
+## Step 8 (optional) — Acceptance sweep
 
 - **Goal:** verify nothing drifted across steps.
 - **In scope:** walk §11 criteria 1–16 one by one; for any not already covered by an
