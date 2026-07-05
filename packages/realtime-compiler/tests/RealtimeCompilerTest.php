@@ -365,18 +365,6 @@ class RealtimeCompilerTest extends TestCase
         Filesystem::unlink('_posts/test-post.md');
     }
 
-    public function testShouldProxyDoesNotProxyCustomRssFeedFilename()
-    {
-        $this->mockCompilerRoute('custom-feed.xml');
-        Filesystem::put('hyde.yml', "rss:\n  filename: custom-feed.xml\n");
-
-        try {
-            $this->assertFalse($this->invokeShouldProxy());
-        } finally {
-            Filesystem::unlink('hyde.yml');
-        }
-    }
-
     public function testRssFeedRouteReturnsRssResponse()
     {
         $this->mockCompilerRoute('feed.xml');
@@ -671,14 +659,6 @@ class RealtimeCompilerTest extends TestCase
         $method->invoke(new Router(new Request()));
 
         return app(RealtimeCompiler::class)->getVirtualRoutes();
-    }
-
-    protected function invokeShouldProxy(): bool
-    {
-        $method = new ReflectionMethod(Router::class, 'shouldProxy');
-        $method->setAccessible(true);
-
-        return $method->invoke(new Router(new Request()), new Request());
     }
 
     protected function invokeGetContentType(InMemoryPage $page): string

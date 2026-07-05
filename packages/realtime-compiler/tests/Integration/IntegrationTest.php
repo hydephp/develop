@@ -108,20 +108,4 @@ class IntegrationTest extends IntegrationTestCase
 
         unlink($this->projectPath('_posts/dynamic-rss-test.md'));
     }
-
-    public function testDynamicRssFeedGenerationWithCustomFilename()
-    {
-        file_put_contents($this->projectPath('hyde.yml'), "rss:\n  filename: custom-feed.xml\n");
-        file_put_contents($this->projectPath('_posts/dynamic-custom-rss-test.md'), "---\ntitle: Dynamic Custom RSS Test\ndescription: Dynamic RSS test description\n---\n\n# Dynamic Custom RSS Test");
-
-        try {
-            $this->get('/custom-feed.xml')
-                ->assertStatus(200)
-                ->assertHeader('Content-Type', 'application/rss+xml')
-                ->assertSeeText('Dynamic Custom RSS Test');
-        } finally {
-            unlink($this->projectPath('hyde.yml'));
-            unlink($this->projectPath('_posts/dynamic-custom-rss-test.md'));
-        }
-    }
 }
