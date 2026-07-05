@@ -4,14 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Helpers;
 
-/**
- * An immutable value object describing a starter/default page that can be published into the project's _pages directory.
- *
- * Unlike view groups, a page may have multiple valid destinations and carries display metadata, so each publishable
- * page is modelled explicitly and registered in the {@see PublishablePages} registry rather than as a fixed file map.
- *
- * @see \Hyde\Console\Helpers\PublishablePages
- */
 final class PublishablePage
 {
     /**

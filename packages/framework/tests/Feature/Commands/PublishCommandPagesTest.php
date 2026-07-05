@@ -22,12 +22,6 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 use function glob;
 
-/**
- * Covers the starter-page publishing flow (§5): named vs. picker selection, the §5.4 destination
- * resolution precedence (--to → non-interactive default → interactive prompt → default), --to
- * validation, destination-conflict detection (§5.6), the interactive confirm (§5.5), the shared
- * overwrite policy (§7) applied to pages, and the interactive-only optional rebuild (§5.7).
- */
 #[CoversClass(PublishCommand::class)]
 #[CoversClass(PagesPublisher::class)]
 class PublishCommandPagesTest extends TestCase
@@ -36,7 +30,6 @@ class PublishCommandPagesTest extends TestCase
     {
         parent::setUp();
 
-        // Start from a known-empty _pages so each test controls exactly which destinations exist.
         $this->withoutDefaultPages();
     }
 
@@ -48,7 +41,6 @@ class PublishCommandPagesTest extends TestCase
         PagesPromptsReset::resetFallbacks();
         PublishablePages::clear();
 
-        // Remove anything a test published, then restore the two committed default pages so the tree stays clean.
         foreach (glob(Hyde::path('_pages/*.blade.php')) as $file) {
             if (File::isDirectory($file)) {
                 File::deleteDirectory($file);
@@ -61,8 +53,6 @@ class PublishCommandPagesTest extends TestCase
 
         parent::tearDown();
     }
-
-    // Named-page publishing (--page=NAME) with non-interactive destination resolution (§5.4 step 2).
 
     public function testNamedPagePublishesToItsDefaultTargetNonInteractively()
     {
@@ -77,7 +67,7 @@ class PublishCommandPagesTest extends TestCase
         );
     }
 
-    // §2/§11: --all means "all views" and does not apply to pages. Combined with --page, the page
+    // --all means "all views" and does not apply to pages. Combined with --page, the page
     // flow wins (page-intent is resolved before view-intent) and --all is inert — it must not divert
     // into the views "Published all" path. PagesPublisher never reads the --all option.
     public function testAllFlagDoesNotApplyToPagesWhenCombinedWithPage()
@@ -100,8 +90,7 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
-    // The '404' key is a string on the value object but coerces to an int array key: lookup must compare ->key (§5.1).
-
+    // The '404' key is a string on the value object but coerces to an int array key: lookup must compare ->key.
     public function testNumericPageKeyIsResolvedByItsStringKey()
     {
         $this->artisan('publish --page=404 --no-interaction')
@@ -110,8 +99,6 @@ class PublishCommandPagesTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
     }
-
-    // Destination resolution: --to wins over the default (§5.4 step 1).
 
     public function testToOverridesTheDefaultTarget()
     {
@@ -122,8 +109,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
         $this->assertFileDoesNotExist(Hyde::path('_pages/posts.blade.php'));
     }
-
-    // A page with no default target (blank) cannot be resolved non-interactively without --to (§5.4 step 2).
 
     public function testPageWithoutDefaultTargetFailsNonInteractivelyWithoutTo()
     {
@@ -141,8 +126,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
     }
 
-    // --to validation: must live under _pages/ and end in .blade.php (§5.4 step 1, §9).
-
     public function testToPathOutsidePagesDirectoryIsRejected()
     {
         $this->artisan('publish --page=welcome --to=resources/views/foo.blade.php --no-interaction')
@@ -157,8 +140,6 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(1);
     }
 
-    // A page that disallows custom targets (404) rejects --to and keeps its fixed default.
-
     public function testToIsRejectedForAPageThatDisallowsCustomTargets()
     {
         $this->artisan('publish --page=404 --to=_pages/error.blade.php --no-interaction')
@@ -172,7 +153,6 @@ class PublishCommandPagesTest extends TestCase
     // destination: the "one path can't serve several pages" guard (message A) must win over any per-page reason
     // (message B, e.g. 404's custom-path rejection) AND fire before the picker — so this interactive run, which
     // would hang on an unanswered picker prompt if the picker were reached, asks nothing and exits on message A.
-
     public function testBarePageWithToIsRejectedBeforeThePickerAndBeatsThePerPageReason()
     {
         $this->artisan('publish --page --to=_pages/error.blade.php')
@@ -180,8 +160,6 @@ class PublishCommandPagesTest extends TestCase
             ->doesntExpectOutputToContain('cannot be published to a custom path')
             ->assertExitCode(1);
     }
-
-    // Overwrite policy (§7): identical -> skip, modified -> fail without --force, --force overwrites.
 
     public function testIdenticalPageIsSkippedAsAlreadyCurrent()
     {
@@ -286,8 +264,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
-    // Interactive destination prompt (§5.4 step 3): default / alternative / custom path.
-
     public function testInteractiveResolutionCanChooseAnAlternativeTarget()
     {
         $this->artisan('publish --page=posts')
@@ -346,8 +322,6 @@ class PublishCommandPagesTest extends TestCase
         Prompt::assertStrippedOutputContains('The path must be within _pages/ and end in .blade.php.');
     }
 
-    // Interactive picker flow (§5.5): select -> resolve -> confirm.
-
     public function testInteractivePickerPublishesSelectedPagesAfterConfirmation()
     {
         // Welcome has a single sensible destination, so it is not prompted for; it resolves to its default.
@@ -402,11 +376,8 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/404.blade.php'));
     }
 
-    // Destination-conflict detection before any write (§5.6).
-
     public function testTwoPagesResolvingToTheSameTargetAreRejectedBeforeWriting()
     {
-        // Register a second page whose default collides with welcome's default so the picker offers both.
         PublishablePages::register(new PublishablePage(
             key: 'clash',
             label: 'Clashing page',
@@ -440,8 +411,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
-    // Optional rebuild (§5.7): offered interactively, never non-interactively.
-
     public function testRebuildIsOfferedInteractivelyAfterPublishing()
     {
         // Welcome resolves to its default without a destination prompt, so the only interaction is the rebuild offer.
@@ -473,8 +442,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
     }
 
-    // Option 2's whole point: the pages picker must NOT offer an "All" row (unlike the views picker).
-
     public function testPickerDoesNotOfferAnAllRow()
     {
         // Space+enter selects the first row (welcome); the next enter accepts "Proceed?" (default yes), the
@@ -490,9 +457,7 @@ class PublishCommandPagesTest extends TestCase
         $this->assertStringContainsString('Published [welcome]', $output->fetch());
     }
 
-    // A bare --page (no name) needs the picker, which needs an interactive terminal, so non-interactively it
-    // fails in the pages flow (§3/§5). Exercised here through PagesPublisher so the guidance path is covered there.
-
+    // A bare --page (no name) needs the picker, which needs an interactive terminal, so non-interactively it fails.
     public function testBarePageWithoutInteractionFailsHelpfully()
     {
         $this->artisan('publish --page --no-interaction')
@@ -502,8 +467,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
-    // §9: a --to path may not escape _pages/ via traversal, even though it starts with _pages/ and ends in .blade.php.
-
     public function testToPathWithParentTraversalIsRejected()
     {
         $this->artisan('publish --page=welcome --to=_pages/../secret.blade.php --no-interaction')
@@ -512,8 +475,6 @@ class PublishCommandPagesTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('secret.blade.php'));
     }
-
-    // §5.6: three or more pages colliding on one target switch the message from "both target" to "all target".
 
     public function testThreePagesResolvingToTheSameTargetReportAllTarget()
     {
@@ -538,8 +499,6 @@ class PublishCommandPagesTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
-
-    // §7 interactive conflict prompt applied to pages: overwrite / skip / cancel, mirroring the views flow.
 
     public function testInteractiveConflictPromptCanOverwriteAPage()
     {
@@ -617,9 +576,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
     }
 
-    // §4/§5 cardinality-aware output: a mixed run reports what was published alongside what was already current
-    // (pluralized), without collapsing to the "all up to date" shortcut.
-
     public function testMixedRunReportsPublishedAlongsideAlreadyCurrentPages()
     {
         // Seed two pages so they are already current, then register a third new page and publish all three.
@@ -646,7 +602,6 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
     }
 
-    // §5.7: accepting the interactive rebuild offer runs the build command; declining is covered elsewhere.
     // The command is driven directly (not through the console kernel) so that mocking the Artisan facade
     // intercepts only maybeRebuild's own build call, rather than the runner's call that dispatches the command.
 

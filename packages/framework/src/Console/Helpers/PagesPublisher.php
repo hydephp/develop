@@ -26,13 +26,6 @@ use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
 /**
- * The starter-page publishing flow for the {@see \Hyde\Console\Commands\PublishCommand}.
- *
- * Publishes pages from the {@see PublishablePages} registry into the project's _pages directory. Unlike views,
- * a page may have several valid destinations, so the flow is: select the pages, resolve each destination (§5.4:
- * --to → non-interactive default → interactive prompt → default), detect any two pages colliding on one target
- * (§5.6) before writing, confirm, then apply the shared {@see OverwritePolicy} exactly as the views flow does.
- *
  * @internal This helper is scoped to the publish command and should not be used elsewhere.
  */
 class PagesPublisher
@@ -46,7 +39,7 @@ class PagesPublisher
     /** @var array<array{page: PublishablePage, target: string}> Modified destinations left unchanged (interactive skip). */
     protected array $leftModified = [];
 
-    /** Whether the pages were chosen through the interactive picker (which adds the §5.5 confirmation step). */
+    /** Whether the pages were chosen through the interactive picker (which adds a confirmation step). */
     protected bool $usedPicker = false;
 
     public function __construct(protected Command $command, protected InputInterface $input)
@@ -55,7 +48,7 @@ class PagesPublisher
 
     public function publish(): int
     {
-        // §5.4: --to names a single destination, so it is only meaningful for a single named page. A bare --page
+        // --to names a single destination, so it is only meaningful for a single named page. A bare --page
         // (multi-select) with --to would have one path stand in for several pages; reject it rather than guess.
         if ($this->command->option('to') !== null && ! $this->hasNamedPage()) {
             $this->command->error('--to is only valid when publishing a single page. Use --page=NAME with --to.');
@@ -131,7 +124,6 @@ class PagesPublisher
             return [$page];
         }
 
-        // A bare --page (or the wizard) needs the picker, which requires an interactive terminal.
         if (! $this->canPrompt()) {
             $this->command->error('No page specified for publishing. Provide one, for example --page=welcome.');
 
@@ -188,11 +180,8 @@ class PagesPublisher
         return $resolved;
     }
 
-    /** Resolve one page's destination per the §5.4 precedence. Returns null when it cannot be resolved. */
     protected function resolveTarget(PublishablePage $page): ?string
     {
-        // 1. An explicit --to wins, but only for pages that allow a custom destination (e.g. not 404), and it is
-        //    validated against _pages/ and the .blade.php extension.
         if ($this->command->option('to') !== null) {
             if (! $page->allowCustomTarget) {
                 $this->command->error(sprintf('The [%s] page cannot be published to a custom path; omit --to to use its default (%s).', $page->key, $page->defaultTarget));
@@ -203,7 +192,6 @@ class PagesPublisher
             return $this->validateCustomTarget((string) $this->command->option('to'));
         }
 
-        // 2. Non-interactive falls back to the default; a page without one (e.g. blank) cannot be resolved.
         if (! $this->canPrompt()) {
             if ($page->defaultTarget === null) {
                 $this->command->error(sprintf('The [%s] page has no default destination. Provide one with --to.', $page->key));
@@ -214,15 +202,12 @@ class PagesPublisher
             return $page->defaultTarget;
         }
 
-        // 3. Interactively, prompt only when the destination is genuinely ambiguous: the page offers alternative
-        //    targets, or it has no default at all. A page whose default is the one sensible destination (welcome, 404)
-        //    is not prompted for — its custom placement, if allowed, is reached through --to instead. This keeps the
-        //    common "publish the welcome homepage" case a single, frictionless step.
+        // Only prompt when the destination is genuinely ambiguous: alternative targets exist, or there is no
+        // default at all. A page with one sensible default (welcome, 404) is never prompted for.
         if ($page->alternativeTargets !== [] || $page->defaultTarget === null) {
             return $this->promptForTarget($page);
         }
 
-        // 4. Otherwise the default is the only offered destination.
         return $page->defaultTarget;
     }
 
@@ -289,11 +274,7 @@ class PagesPublisher
         return (string) preg_replace('#/+#', '/', Str::replace('\\', '/', $path));
     }
 
-    /**
-     * Reject the run when two selected pages resolve to the same destination (§5.6), before anything is written.
-     *
-     * @param  array<array{page: PublishablePage, target: string}>  $resolved
-     */
+    /** @param  array<array{page: PublishablePage, target: string}>  $resolved */
     protected function assertNoDestinationConflicts(array $resolved): bool
     {
         $labelsByTarget = [];
@@ -436,8 +417,6 @@ class PagesPublisher
     }
 
     /**
-     * Resolve what to do with modified (blocked) destinations, mirroring the views flow (§7).
-     *
      * @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $blocked
      * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>|null
      */
@@ -520,11 +499,9 @@ class PagesPublisher
     }
 
     /**
-     * Offer to rebuild the site after a successful publish (§5.7).
-     *
-     * Interactive only, and deliberately defaulting to NO. A single page publish should not auto-rebuild the
-     * entire site, so the prompt defaults to NO — keep this check here rather than consolidating it into a
-     * shared rebuild helper, which would tempt a yes-default back in.
+     * Interactive only, and deliberately defaulting to NO: a single page publish should not auto-rebuild
+     * the entire site. Keep this check here rather than moving it into a shared rebuild helper, which
+     * would tempt a yes-default back in.
      */
     protected function maybeRebuild(): void
     {

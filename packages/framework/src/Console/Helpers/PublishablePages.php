@@ -4,14 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Helpers;
 
-/**
- * The registry of publishable starter pages.
- *
- * Ships with Hyde's default catalog (welcome, posts, blank, 404) and serves as an extension point so that
- * Hyde Cloud and plugins can register their own publishable pages via {@see PublishablePages::register()}.
- *
- * @see \Hyde\Console\Helpers\PublishablePage
- */
 final class PublishablePages
 {
     /** @var array<string, PublishablePage>|null */
@@ -28,7 +20,7 @@ final class PublishablePages
         return static::all()[$key] ?? null;
     }
 
-    /** Register a publishable page, making it available to the publish command. Overrides any page sharing its key. */
+    /** Overrides any existing page sharing its key. */
     public static function register(PublishablePage $page): void
     {
         static::$pages = static::all();
@@ -69,7 +61,7 @@ final class PublishablePages
                 label: 'Blank page',
                 description: 'A blank Blade template with just the base layout.',
                 source: 'resources/views/homepages/blank.blade.php',
-                defaultTarget: null, // An empty starter you drop anywhere: no default, so its destination is always prompted for (or set via --to).
+                defaultTarget: null,
             ),
             new PublishablePage(
                 key: '404',

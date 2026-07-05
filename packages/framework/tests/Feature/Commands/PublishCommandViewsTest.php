@@ -19,18 +19,11 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-/**
- * Covers the views publishing flow (§4) and the shared overwrite policy applied to views (§7):
- * the grouped multi-select picker, --layouts/--components prefiltering, --all skipping the picker,
- * cardinality-aware output, and the missing/identical/modified overwrite behavior with --force.
- */
 #[CoversClass(PublishCommand::class)]
 #[CoversClass(ViewsPublisher::class)]
 #[CoversClass(\Hyde\Console\Helpers\InteractiveMultiselect::class)]
 class PublishCommandViewsTest extends TestCase
 {
-    // Non-interactive scope selection (a scoped group is exactly equivalent to adding --all).
-
     public function testAllPublishesEveryView()
     {
         $count = $this->viewCount('layouts') + $this->viewCount('components');
@@ -66,8 +59,6 @@ class PublishCommandViewsTest extends TestCase
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/article-excerpt.blade.php'));
         $this->assertDirectoryDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts'));
     }
-
-    // Interactive picker selection (single / many / cross-group), with cardinality-aware output.
 
     public function testPickerCanPublishASingleView()
     {
@@ -148,8 +139,6 @@ class PublishCommandViewsTest extends TestCase
         ]));
     }
 
-    // The picker is prefiltered by the scope flag and uses group-prefixed labels with an "All views" row.
-
     public function testLayoutsPickerIsPrefilteredWithGroupPrefixedLabels()
     {
         $output = $this->runViewsPicker(['--layouts' => true], [Key::SPACE, Key::ENTER]);
@@ -183,8 +172,6 @@ class PublishCommandViewsTest extends TestCase
 
         $this->assertSame([404], InteractiveMultiselect::select('Select test option', [404 => 'Not found'], 'All options'));
     }
-
-    // Overwrite policy (§7): missing -> copy, identical -> skip, modified -> confirm or --force.
 
     public function testIdenticalViewsAreSkippedAsAlreadyCurrent()
     {
@@ -327,9 +314,6 @@ class PublishCommandViewsTest extends TestCase
 
         $this->assertSame('MODIFIED BY USER', File::get($target));
     }
-
-    // §4 cardinality-aware output: a mixed run reports what was copied alongside what was already current,
-    // instead of collapsing to either the "Published all" or the "all up to date" shortcut.
 
     public function testMixedRunReportsPublishedAlongsideAlreadyCurrentViews()
     {

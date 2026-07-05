@@ -11,18 +11,8 @@ use RuntimeException;
 use function Hyde\unixsum_file;
 
 /**
- * The shared, pure decision logic for whether a source file may be published to a destination path.
- *
- * Given a source and a destination, it decides between three outcomes without performing any I/O
- * beyond reading the two files, and without any knowledge of what is being published (views, pages, etc.):
- *
- *   - {@see OverwriteAction::Copy}    The destination is missing.
- *   - {@see OverwriteAction::Skip}    The destination is unchanged from the source.
- *   - {@see OverwriteAction::Blocked} The destination exists and was modified by the user.
- *
  * The comparison is EOL-agnostic (via {@see \Hyde\unixsum_file()}) so that files differing only by
  * their line endings (for example after a CRLF checkout) are treated as unchanged rather than modified.
- * There is no historical-checksum manifest; the destination is only ever compared to the current source.
  */
 class OverwritePolicy
 {

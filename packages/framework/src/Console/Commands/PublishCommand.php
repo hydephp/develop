@@ -14,14 +14,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use function is_string;
 use function Laravel\Prompts\select;
 
-/**
- * The flag-driven, views-centric publishing command for Hyde Blade customizations,
- * with an optional side path for publishing starter pages.
- *
- * This is the command spine: it owns the full flag surface, all guardrails, and the
- * interactive wizard routing. The actual views and pages publishing are delegated to
- * handlers that are stubbed out in this step and filled in by later steps.
- */
 class PublishCommand extends Command
 {
     /** @var string */
@@ -37,13 +29,10 @@ class PublishCommand extends Command
     protected $description = 'Publish Hyde views and starter pages for customization';
 
     /**
-     * Intercept the raw input before Symfony's strict option binding so we can redirect the
-     * curated-out tag/provider/config publishing flags to vendor:publish with a helpful message.
-     *
-     * We deliberately do not declare these as options: doing so would advertise them in the
-     * command's help output, which is exactly the raw-publishing surface this command exists to
-     * hide. By only short-circuiting these three specific tokens, a genuine typo such as --layout
-     * still falls through to Symfony's native "unknown option" error.
+     * --tag/--provider/--config are deliberately not declared as options: doing so would advertise
+     * them in the command's help output, which is exactly the raw-publishing surface this command
+     * hides. So they're intercepted here, before Symfony's strict option binding, and redirected to
+     * vendor:publish. A genuine typo such as --layout still falls through to Symfony's own error.
      */
     public function run(InputInterface $input, OutputInterface $output): int
     {
@@ -86,8 +75,6 @@ class PublishCommand extends Command
             return $this->publishViews();
         }
 
-        // No actionable flags were supplied. We must decide before attempting any prompt: without
-        // an interactive terminal there is no wizard to run, so we fail with usage guidance instead.
         if (! $this->input->isInteractive()) {
             return $this->failWithUsageHint();
         }
@@ -95,7 +82,6 @@ class PublishCommand extends Command
         return $this->runWizard();
     }
 
-    /** Interactive step 1 (§3): route to the views or pages flow, or cancel out. */
     protected function runWizard(): int
     {
         $choice = select('What do you want to publish?', [

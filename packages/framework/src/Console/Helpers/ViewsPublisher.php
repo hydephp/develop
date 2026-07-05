@@ -23,14 +23,6 @@ use function sprintf;
 use function Laravel\Prompts\select;
 
 /**
- * The views publishing flow for the {@see \Hyde\Console\Commands\PublishCommand}.
- *
- * Publishes Hyde's Blade overrides from the two declared groups (layouts, components) into
- * resources/views/vendor/hyde/. The flow is: decide every selected file's outcome first (via the shared
- * {@see OverwritePolicy}), resolve any modified-file conflicts second (interactive prompt or --force), and
- * only then write — so cancelling never leaves a half-published tree. Output is cardinality-aware and
- * reports the full breakdown of what was copied, what was already current, and what was left modified.
- *
  * @internal This helper is scoped to the publish command and should not be used elsewhere.
  */
 class ViewsPublisher
@@ -42,6 +34,10 @@ class ViewsPublisher
     {
     }
 
+    /**
+     * Every file's outcome is decided, and conflicts resolved, before anything is written — so cancelling
+     * never leaves a half-published tree.
+     */
     public function publish(): int
     {
         [$offered, $labels] = $this->collectOfferedFiles();
@@ -180,8 +176,6 @@ class ViewsPublisher
     }
 
     /**
-     * Decide every selected file's outcome up front, before anything is written.
-     *
      * @param  array<string, string>  $selected
      * @return array{0: array<string, string>, 1: array<string, string>, 2: array<string, string>} A tuple of [copy, already-current, blocked] maps, each source => target.
      */
@@ -213,8 +207,6 @@ class ViewsPublisher
     }
 
     /**
-     * Resolve what to do with modified (blocked) files, after the full outcome is known but before any write.
-     *
      * @param  array<string, string>  $blocked
      * @return array<string, string>|null The blocked files to overwrite, or null when the run should stop (cancelled interactively, or blocked non-interactively without --force).
      */

@@ -12,11 +12,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Exception\RuntimeException;
 
-/**
- * Covers the PublishCommand spine: the flag surface, all guardrails (§9), and the
- * interactive wizard routing (§3). The views and pages handlers are stubs in this step,
- * so these tests assert routing and guardrails, not real publishing.
- */
 #[CoversClass(PublishCommand::class)]
 class PublishCommandTest extends TestCase
 {
@@ -26,7 +21,6 @@ class PublishCommandTest extends TestCase
 
     protected function tearDown(): void
     {
-        // The views-routing tests below publish real files; remove them so the tree stays clean.
         if (File::isDirectory(Hyde::path('resources/views/vendor'))) {
             File::deleteDirectory(Hyde::path('resources/views/vendor'));
         }
@@ -41,8 +35,6 @@ class PublishCommandTest extends TestCase
 
         parent::tearDown();
     }
-
-    // Guardrails: raw tag/provider/config publishing is redirected to vendor:publish (§9).
 
     public function testTagFlagIsRedirectedToVendorPublish()
     {
@@ -72,8 +64,6 @@ class PublishCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
-    // Guardrails: the command's own flag combinations (§9).
-
     public function testLayoutsAndComponentsAreMutuallyExclusive()
     {
         $this->artisan('publish --layouts --components')
@@ -90,8 +80,6 @@ class PublishCommandTest extends TestCase
 
     public function testToOptionRequiresANamedPageNotABarePageFlag()
     {
-        // --to names one destination, so it is only valid with a single named page (§5.4); a bare --page
-        // (multi-select) with --to is rejected rather than letting one path stand in for several pages.
         $this->artisan('publish --page --to=_pages/index.blade.php')
             ->expectsOutputToContain('--to is only valid when publishing a single page. Use --page=NAME with --to.')
             ->assertExitCode(1);
@@ -106,9 +94,6 @@ class PublishCommandTest extends TestCase
             ->expectsOutput('  php hyde publish --page=welcome')
             ->assertExitCode(1);
     }
-
-    // Flag routing to the views handler. The full views behavior is covered in PublishCommandViewsTest;
-    // here we assert only that each flag actually reaches the real views publisher (routing coverage).
 
     public function testLayoutsFlagRoutesToViews()
     {
@@ -133,7 +118,6 @@ class PublishCommandTest extends TestCase
 
     public function testBarePageFlagRoutesToPages()
     {
-        // A bare --page needs the interactive picker; non-interactively it reaches the pages flow and fails there.
         $this->artisan('publish --page --no-interaction')
             ->expectsOutputToContain('No page specified for publishing. Provide one, for example --page=welcome.')
             ->assertExitCode(1);
@@ -148,13 +132,10 @@ class PublishCommandTest extends TestCase
 
     public function testPageFlagWithNameRoutesToPages()
     {
-        // An unknown name proves the flag routes into the pages flow and its registry lookup, without writing anything.
         $this->artisan('publish --page=nonexistent --no-interaction')
             ->expectsOutputToContain('The page [nonexistent] does not exist.')
             ->assertExitCode(1);
     }
-
-    // Interactive wizard routing (§3).
 
     public function testWizardRoutesToViews()
     {
@@ -199,9 +180,6 @@ class PublishCommandTest extends TestCase
             ->doesntExpectOutputToContain('Published')
             ->assertExitCode(0);
     }
-
-    // Approach 1 must not swallow genuine mistakes: unknown options and stray arguments
-    // still hit Symfony's native errors rather than our redirect or a stub handler.
 
     public function testUnknownOptionIsNotSwallowed()
     {
