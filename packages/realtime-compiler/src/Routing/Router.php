@@ -14,6 +14,8 @@ use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 use Hyde\RealtimeCompiler\Models\FileObject;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Illuminate\Support\Arr;
+use Symfony\Component\Yaml\Yaml;
 
 class Router
 {
@@ -107,9 +109,14 @@ class Router
         }
 
         // Don't proxy the RSS feed, as it's generated on the fly.
-        // We can't resolve the configured `hyde.rss.filename` here as the application
-        // is not booted yet, so we match against the default filename instead.
         if ($this->request->path === '/feed.xml') {
+            return false;
+        }
+
+        if (
+            in_array(pathinfo($this->request->path, PATHINFO_EXTENSION), ['xml', 'rss'], true)
+            && $this->request->path === $this->getConfiguredRssFeedPath()
+        ) {
             return false;
         }
 
@@ -137,6 +144,61 @@ class Router
         }
 
         return $this->resolvedAssetPath;
+    }
+
+    protected function getConfiguredRssFeedPath(): string
+    {
+        return '/'.ltrim($this->getConfiguredRssFeedFilename(), '/');
+    }
+
+    protected function getConfiguredRssFeedFilename(): string
+    {
+        return $this->getYamlConfiguredRssFeedFilename()
+            ?? $this->getPhpConfiguredRssFeedFilename()
+            ?? 'feed.xml';
+    }
+
+    protected function getPhpConfiguredRssFeedFilename(): ?string
+    {
+        $configPath = BASE_PATH.'/config/hyde.php';
+
+        if (! is_file($configPath)) {
+            return null;
+        }
+
+        $config = require $configPath;
+
+        return is_string($config['rss']['filename'] ?? null)
+            ? $config['rss']['filename']
+            : null;
+    }
+
+    protected function getYamlConfiguredRssFeedFilename(): ?string
+    {
+        $configPath = $this->getYamlConfigPath();
+
+        if ($configPath === null) {
+            return null;
+        }
+
+        $config = Arr::undot((array) Yaml::parseFile($configPath));
+
+        if (array_key_first($config) === 'hyde') {
+            $config = $config['hyde'] ?? [];
+        }
+
+        return is_string($config['rss']['filename'] ?? null)
+            ? $config['rss']['filename']
+            : null;
+    }
+
+    protected function getYamlConfigPath(): ?string
+    {
+        return match (true) {
+            is_file(BASE_PATH.'/hyde.yml') => BASE_PATH.'/hyde.yml',
+            is_file(BASE_PATH.'/hyde.yaml') => BASE_PATH.'/hyde.yaml',
+            default => null,
+        };
     }
 
     /**
