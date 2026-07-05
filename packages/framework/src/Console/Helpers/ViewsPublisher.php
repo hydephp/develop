@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 use function array_keys;
+use function array_merge;
 use function count;
 use function explode;
 use function implode;
@@ -52,11 +53,7 @@ class ViewsPublisher extends BasePublisher
             return $this->canPrompt() ? Command::SUCCESS : Command::FAILURE;
         }
 
-        $written = $this->refreshApprovedWrites($copy, $overwrite);
-
-        if ($written === null) {
-            return Command::FAILURE;
-        }
+        $written = array_merge($copy, $overwrite);
 
         $published = $this->recordsToMap($written);
 
@@ -123,7 +120,7 @@ class ViewsPublisher extends BasePublisher
 
     /**
      * @param  array<string, string>  $selected
-     * @return array{0: array<array{source: string, target: string, absolute: string, destinationChecksum?: string}>, 1: array<string, string>, 2: array<array{source: string, target: string, absolute: string, destinationChecksum?: string}>} A tuple of [copy records, already-current map, blocked records].
+     * @return array{0: array<array{source: string, target: string, absolute: string}>, 1: array<string, string>, 2: array<array{source: string, target: string, absolute: string}>} A tuple of [copy records, already-current map, blocked records].
      */
     protected function decide(array $selected): array
     {
@@ -140,7 +137,6 @@ class ViewsPublisher extends BasePublisher
             } elseif ($action === OverwriteAction::Skip) {
                 $current[$source] = $target;
             } else {
-                $record['destinationChecksum'] = $this->destinationChecksum($target);
                 $blocked[] = $record;
             }
         }
@@ -154,7 +150,7 @@ class ViewsPublisher extends BasePublisher
         return ['source' => $source, 'target' => $target, 'absolute' => $target];
     }
 
-    /** @param  array<array{source: string, target: string, absolute: string, destinationChecksum?: string}>  $records */
+    /** @param  array<array{source: string, target: string, absolute: string}>  $records */
     protected function recordsToMap(array $records): array
     {
         $map = [];
@@ -164,12 +160,6 @@ class ViewsPublisher extends BasePublisher
         }
 
         return $map;
-    }
-
-    /** @param  array{source: string, target: string, absolute: string, destinationChecksum?: string}  $record */
-    protected function noteCurrent(array $record): void
-    {
-        $this->current[$record['source']] = $record['target'];
     }
 
     protected function cancelledMessage(): string

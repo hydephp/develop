@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
+use function array_merge;
 use function array_map;
 use function count;
 use function implode;
@@ -83,10 +84,6 @@ class PagesPublisher extends BasePublisher
         // A null result means the run stopped after the decision but before any write: a non-interactive blocked
         // run without --force is a hard failure, while an interactive Cancel is a clean exit.
         if ($written === null) {
-            if ($this->failedWriteRefresh()) {
-                return Command::FAILURE;
-            }
-
             return $this->canPrompt() ? Command::SUCCESS : Command::FAILURE;
         }
 
@@ -311,7 +308,7 @@ class PagesPublisher extends BasePublisher
      * Apply the shared overwrite policy and copy the resolved pages into place.
      *
      * @param  array<array{page: PublishablePage, target: string}>  $resolved
-     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>|null The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
+     * @return array<array{page: PublishablePage, target: string, source: string, absolute: string}>|null The pages actually written, or null when the run should stop (cancelled, or blocked without --force).
      */
     protected function write(array $resolved): ?array
     {
@@ -333,7 +330,6 @@ class PagesPublisher extends BasePublisher
             } elseif ($action === OverwriteAction::Skip) {
                 $this->noteCurrent($record);
             } else {
-                $record['destinationChecksum'] = $this->destinationChecksum($record['absolute']);
                 $blocked[] = $record;
             }
         }
@@ -346,11 +342,7 @@ class PagesPublisher extends BasePublisher
 
         $this->leftModified = $overwrite === [] ? array_map(fn (array $record): array => ['page' => $record['page'], 'target' => $record['target']], $blocked) : [];
 
-        $written = $this->refreshApprovedWrites($copy, $overwrite);
-
-        if ($written === null) {
-            return null;
-        }
+        $written = array_merge($copy, $overwrite);
 
         foreach ($written as $record) {
             $this->copy($record['source'], $record['absolute']);
@@ -360,7 +352,7 @@ class PagesPublisher extends BasePublisher
     }
 
     /**
-     * @param  array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}  $record
+     * @param  array{page: PublishablePage, target: string, source: string, absolute: string}  $record
      */
     protected function noteCurrent(array $record): void
     {
@@ -372,7 +364,7 @@ class PagesPublisher extends BasePublisher
         return 'Cancelled. No pages were published.';
     }
 
-    /** @param  array<array{page: PublishablePage, target: string, source: string, absolute: string, destinationChecksum?: string}>  $written */
+    /** @param  array<array{page: PublishablePage, target: string, source: string, absolute: string}>  $written */
     protected function report(array $written): void
     {
         if ($written === [] && $this->leftModified === [] && $this->current !== []) {
