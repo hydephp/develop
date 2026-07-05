@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Enums\OverwriteAction;
 use Hyde\Framework\Services\OverwritePolicy;
-use RuntimeException;
 
 use function file_put_contents;
 use function is_dir;
@@ -78,25 +77,26 @@ class OverwritePolicyTest extends UnitTestCase
         $this->assertSame(OverwriteAction::Skip, OverwritePolicy::decide($this->source, $this->destination));
     }
 
-    public function testThrowsCleanExceptionWhenSourceFileIsMissing()
+    public function testReturnsErrorWhenSourceFileIsMissing()
     {
         $this->putDestination('Existing destination');
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Cannot publish: source file [$this->source] does not exist.");
-
-        OverwritePolicy::decide($this->source, $this->destination);
+        $this->assertSame(OverwriteAction::Error, OverwritePolicy::decide($this->source, $this->destination));
     }
 
-    public function testThrowsCleanExceptionWhenDestinationIsADirectory()
+    public function testReturnsErrorWhenSourceIsADirectory()
+    {
+        mkdir(Hyde::path($this->source));
+
+        $this->assertSame(OverwriteAction::Error, OverwritePolicy::decide($this->source, $this->destination));
+    }
+
+    public function testReturnsErrorWhenDestinationIsADirectory()
     {
         $this->putSource('Hello world');
         mkdir(Hyde::path($this->destination));
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Cannot publish: destination [$this->destination] is a directory.");
-
-        OverwritePolicy::decide($this->source, $this->destination);
+        $this->assertSame(OverwriteAction::Error, OverwritePolicy::decide($this->source, $this->destination));
     }
 
     protected function putSource(string $contents): void

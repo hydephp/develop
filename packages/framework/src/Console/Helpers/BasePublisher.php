@@ -12,6 +12,38 @@ use RuntimeException;
  */
 abstract class BasePublisher
 {
+    protected int $policyErrors = 0;
+
+    protected function reportPolicyError(PublisherConsole $console, string $source, string $target): void
+    {
+        $this->policyErrors++;
+
+        if (! Filesystem::exists($source)) {
+            $console->error("Skipped [$target]: source file [$source] does not exist.");
+
+            return;
+        }
+
+        if (! Filesystem::isFile($source)) {
+            $console->error("Skipped [$target]: source [$source] is not a file.");
+
+            return;
+        }
+
+        if (Filesystem::isDirectory($target)) {
+            $console->error("Skipped [$target]: destination is a directory.");
+
+            return;
+        }
+
+        $console->error("Skipped [$target]: source or destination is invalid.");
+    }
+
+    protected function hasPolicyErrors(): bool
+    {
+        return $this->policyErrors > 0;
+    }
+
     protected function copy(string $source, string $target): void
     {
         Filesystem::ensureParentDirectoryExists($target);

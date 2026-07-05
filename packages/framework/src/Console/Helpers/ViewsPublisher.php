@@ -65,7 +65,9 @@ class ViewsPublisher extends BasePublisher
             $this->copy($source, $target);
         }
 
-        return $this->report($published, $this->current, $overwrite === [] ? $this->recordsToMap($blocked) : [], count($offered));
+        $status = $this->report($published, $this->current, $overwrite === [] ? $this->recordsToMap($blocked) : [], count($offered));
+
+        return $this->hasPolicyErrors() ? Command::FAILURE : $status;
     }
 
     /**
@@ -140,6 +142,8 @@ class ViewsPublisher extends BasePublisher
                 $copy[] = $record;
             } elseif ($action === OverwriteAction::Skip) {
                 $current[$source] = $target;
+            } elseif ($action === OverwriteAction::Error) {
+                $this->reportPolicyError($this->console, $source, $target);
             } else {
                 $blocked[] = $record;
             }

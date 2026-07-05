@@ -20,4 +20,7 @@ enum OverwriteAction: string
 
     /** The destination exists and differs from the source (user-modified), so overwriting is blocked. */
     case Blocked = 'blocked';
+
+    /** The source or destination state is invalid, so this item should be skipped with an error. */
+    case Error = 'error';
 }

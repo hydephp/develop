@@ -228,6 +228,54 @@ class PublishCommandViewsTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
     }
 
+    public function testInvalidViewDoesNotStopValidViewsFromPublishing()
+    {
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput([], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $validSource = $this->source('layouts', 'app.blade.php');
+        $missingSource = $this->source('layouts', 'missing-view.blade.php');
+
+        $publisher = new class(new PublisherConsole($command, $input), $validSource, $missingSource) extends ViewsPublisher
+        {
+            public function __construct(PublisherConsole $console, protected string $validSource, protected string $missingSource)
+            {
+                parent::__construct($console);
+            }
+
+            protected function collectOfferedFiles(): array
+            {
+                return [
+                    [
+                        $this->missingSource => 'resources/views/vendor/hyde/layouts/missing-view.blade.php',
+                        $this->validSource => 'resources/views/vendor/hyde/layouts/app.blade.php',
+                    ],
+                    [
+                        $this->missingSource => 'layouts/missing-view.blade.php',
+                        $this->validSource => 'layouts/app.blade.php',
+                    ],
+                ];
+            }
+
+            protected function selectFiles(array $offered, array $labels): array
+            {
+                return array_keys($offered);
+            }
+        };
+
+        $this->assertSame(1, $publisher->publish());
+
+        $contents = $output->fetch();
+        $this->assertStringContainsString('Skipped [resources/views/vendor/hyde/layouts/missing-view.blade.php]: source file ['.$missingSource.'] does not exist.', $contents);
+        $this->assertStringContainsString('Published 1 view to [resources/views/vendor/hyde/layouts/app.blade.php]', $contents);
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/missing-view.blade.php'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+    }
+
     public function testInteractiveConflictPromptCanOverwrite()
     {
         $this->seedAllViews();

@@ -198,21 +198,22 @@ class PublishCommandPagesTest extends TestCase
     public function testPublishFailsWhenRegisteredPageSourceIsMissing()
     {
         $missingSource = 'resources/views/homepages/missing-source.blade.php';
+        $target = '_pages/missing-source.blade.php';
 
         PublishablePages::register(new PublishablePage(
             key: 'missing-source',
             label: 'Missing source page',
             description: 'A page registered by an extension with a missing source file.',
             source: $missingSource,
-            defaultTarget: '_pages/missing-source.blade.php',
+            defaultTarget: $target,
         ));
 
         $this->artisan('publish --page=missing-source --no-interaction')
-            ->expectsOutputToContain('Error: Cannot publish: source file ['.Hyde::vendorPath($missingSource).'] does not exist.')
+            ->expectsOutputToContain('Skipped ['.Hyde::path($target).']: source file ['.Hyde::vendorPath($missingSource).'] does not exist.')
             ->doesntExpectOutputToContain('Published')
             ->assertExitCode(1);
 
-        $this->assertFileDoesNotExist(Hyde::path('_pages/missing-source.blade.php'));
+        $this->assertFileDoesNotExist(Hyde::path($target));
     }
 
     public function testPublishFailsWhenRegisteredPageSourceIsADirectory()
@@ -228,7 +229,7 @@ class PublishCommandPagesTest extends TestCase
         ));
 
         $this->artisan('publish --page=directory-source --no-interaction')
-            ->expectsOutputToContain('Error: Cannot publish: source ['.Hyde::vendorPath($directorySource).'] is not a file.')
+            ->expectsOutputToContain('Skipped ['.Hyde::path('_pages/directory-source.blade.php').']: source ['.Hyde::vendorPath($directorySource).'] is not a file.')
             ->doesntExpectOutputToContain('Published')
             ->assertExitCode(1);
 
@@ -240,11 +241,43 @@ class PublishCommandPagesTest extends TestCase
         File::makeDirectory(Hyde::path('_pages/index.blade.php'));
 
         $this->artisan('publish --page=welcome --no-interaction')
-            ->expectsOutputToContain('Error: Cannot publish: destination ['.Hyde::path('_pages/index.blade.php').'] is a directory.')
+            ->expectsOutputToContain('Skipped ['.Hyde::path('_pages/index.blade.php').']: destination is a directory.')
             ->doesntExpectOutputToContain('Published')
             ->assertExitCode(1);
 
         $this->assertDirectoryExists(Hyde::path('_pages/index.blade.php'));
+    }
+
+    public function testInvalidRegisteredPageDoesNotStopValidPagesFromPublishing()
+    {
+        $missingSource = 'resources/views/homepages/missing-source.blade.php';
+
+        PublishablePages::register(new PublishablePage(
+            key: 'missing-source',
+            label: 'Missing source page',
+            description: 'A page registered by an extension with a missing source file.',
+            source: $missingSource,
+            defaultTarget: '_pages/missing-source.blade.php',
+        ));
+
+        PublishablePages::register(new PublishablePage(
+            key: 'about',
+            label: 'About page',
+            description: 'A valid page in the same batch.',
+            source: 'resources/views/homepages/blank.blade.php',
+            defaultTarget: '_pages/about.blade.php',
+        ));
+
+        $this->artisan('publish --page')
+            ->expectsQuestion('Select pages to publish', ['missing-source', 'about'])
+            ->expectsConfirmation('Proceed?', 'yes')
+            ->expectsOutputToContain('Skipped ['.Hyde::path('_pages/missing-source.blade.php').']: source file ['.Hyde::vendorPath($missingSource).'] does not exist.')
+            ->expectsOutputToContain('Published [about] to [_pages/about.blade.php]')
+            ->expectsConfirmation('Rebuild the site now?', 'no')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/missing-source.blade.php'));
+        $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
     }
 
     public function testCopyFailureFailsWithoutReportingSuccess()

@@ -99,7 +99,7 @@ class PagesPublisher extends BasePublisher
             $this->maybeRebuild();
         }
 
-        return Command::SUCCESS;
+        return $this->hasPolicyErrors() ? Command::FAILURE : Command::SUCCESS;
     }
 
     /**
@@ -336,6 +336,8 @@ class PagesPublisher extends BasePublisher
                 $copy[] = $record;
             } elseif ($action === OverwriteAction::Skip) {
                 $this->noteCurrent($record);
+            } elseif ($action === OverwriteAction::Error) {
+                $this->reportPolicyError($this->console, $record['source'], $record['absolute']);
             } else {
                 $blocked[] = $record;
             }
