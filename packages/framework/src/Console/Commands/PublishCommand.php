@@ -11,6 +11,7 @@ use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use function array_key_exists;
 use function is_string;
 use function Laravel\Prompts\select;
 
@@ -114,16 +115,23 @@ class PublishCommand extends Command
 
     /**
      * The --page flag is value-optional, so a bare --page and an absent --page both read as null
-     * via option(). We check the raw input for its presence to tell the two apart.
+     * via option(). We check Symfony's parsed options for its presence to tell the two apart.
      */
     protected function wantsToPublishPage(): bool
     {
-        return $this->input->hasParameterOption(['--page', '--page=']) || $this->option('page') !== null;
+        return $this->option('page') !== null || $this->optionWasProvided('page');
     }
 
     protected function hasEmptyPageOption(): bool
     {
         return $this->option('page') === '';
+    }
+
+    protected function optionWasProvided(string $name): bool
+    {
+        return (function (string $name): bool {
+            return array_key_exists($name, $this->options);
+        })->call($this->input, $name);
     }
 
     protected function failWithUsageHint(): int

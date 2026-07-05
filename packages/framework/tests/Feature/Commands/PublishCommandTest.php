@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 use Hyde\Console\Commands\PublishCommand;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
@@ -135,6 +136,42 @@ class PublishCommandTest extends TestCase
         $this->artisan('publish --page=nonexistent --no-interaction')
             ->expectsOutputToContain('The page [nonexistent] does not exist.')
             ->assertExitCode(1);
+    }
+
+    public function testProgrammaticBarePageFlagRoutesToPages()
+    {
+        $this->assertSame(1, Artisan::call('publish', [
+            '--page' => null,
+            '--no-interaction' => true,
+        ]));
+
+        $this->assertStringContainsString(
+            'No page specified for publishing. Provide one, for example --page=welcome.',
+            Artisan::output()
+        );
+    }
+
+    public function testProgrammaticEmptyPageFlagFailsBeforeTheWizard()
+    {
+        $this->assertSame(1, Artisan::call('publish', [
+            '--page' => '',
+            '--no-interaction' => true,
+        ]));
+
+        $this->assertStringContainsString(
+            'The --page option cannot be empty. Use --page for the picker or --page=welcome.',
+            Artisan::output()
+        );
+    }
+
+    public function testProgrammaticPageNameRoutesToPages()
+    {
+        $this->assertSame(1, Artisan::call('publish', [
+            '--page' => 'nonexistent',
+            '--no-interaction' => true,
+        ]));
+
+        $this->assertStringContainsString('The page [nonexistent] does not exist.', Artisan::output());
     }
 
     public function testWizardRoutesToViews()

@@ -16,6 +16,7 @@ use function array_merge;
 use function array_map;
 use function count;
 use function implode;
+use function is_string;
 use function preg_replace;
 use function sprintf;
 use function Laravel\Prompts\confirm;
@@ -414,7 +415,7 @@ class PagesPublisher extends BasePublisher
     {
         $name = $this->command->option('page');
 
-        return $name !== null && $name !== '';
+        return is_string($name) && $name !== '';
     }
 
     /** Find a page by key, comparing the ->key property so a numeric key such as '404' is never lost to array coercion. */
