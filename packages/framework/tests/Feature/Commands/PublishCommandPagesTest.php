@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Console\Commands\PublishCommand;
+use Hyde\Console\Helpers\BasePublisher;
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\PagesPublisher;
 use Hyde\Console\Helpers\PublisherConsole;
@@ -24,6 +25,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use function glob;
 
 #[CoversClass(PublishCommand::class)]
+#[CoversClass(BasePublisher::class)]
 #[CoversClass(PublisherConsole::class)]
 #[CoversClass(PagesPublisher::class)]
 class PublishCommandPagesTest extends TestCase
@@ -49,6 +51,10 @@ class PublishCommandPagesTest extends TestCase
             } else {
                 File::delete($file);
             }
+        }
+
+        if (File::isDirectory(Hyde::path('_pages/company'))) {
+            File::deleteDirectory(Hyde::path('_pages/company'));
         }
 
         $this->restoreDefaultPages();
@@ -126,6 +132,21 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
+    }
+
+    public function testPageCanBePublishedToNestedCustomTarget()
+    {
+        $target = '_pages/company/about.blade.php';
+
+        $this->artisan("publish --page=blank --to=$target --no-interaction")
+            ->expectsOutputToContain("Published [blank] to [$target]")
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path($target));
+        $this->assertSame(
+            File::get(Hyde::vendorPath('resources/views/homepages/blank.blade.php')),
+            File::get(Hyde::path($target))
+        );
     }
 
     public function testToPathOutsidePagesDirectoryIsRejected()
