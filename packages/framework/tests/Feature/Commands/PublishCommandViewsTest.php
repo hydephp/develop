@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Console\Commands\PublishCommand;
+use Hyde\Console\Helpers\BasePublisher;
 use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Console\Helpers\InteractiveMultiselect;
 use Hyde\Console\Helpers\PublisherConsole;
@@ -21,6 +22,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 #[CoversClass(PublishCommand::class)]
+#[CoversClass(BasePublisher::class)]
 #[CoversClass(PublisherConsole::class)]
 #[CoversClass(ViewsPublisher::class)]
 #[CoversClass(\Hyde\Console\Helpers\InteractiveMultiselect::class)]
@@ -275,6 +277,51 @@ class PublishCommandViewsTest extends TestCase
         $this->assertStringContainsString('Published 1 view to [resources/views/vendor/hyde/layouts/app.blade.php]', $contents);
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/layouts/missing-view.blade.php'));
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/layouts/app.blade.php'));
+    }
+
+    public function testUnclassifiedInvalidViewStateIsReported()
+    {
+        $command = $this->app->make(PublishCommand::class);
+        $input = new ArrayInput([], $command->getDefinition());
+        $output = new BufferedOutput();
+        $command->setLaravel($this->app);
+        $command->setInput($input);
+        $command->setOutput(new OutputStyle($input, $output));
+
+        $source = $this->source('layouts', 'app.blade.php');
+        $target = 'resources/views/vendor/hyde/layouts/app.blade.php';
+
+        $publisher = new class(new PublisherConsole($command, $input), $source, $target) extends ViewsPublisher
+        {
+            public function __construct(PublisherConsole $console, protected string $source, protected string $target)
+            {
+                parent::__construct($console);
+            }
+
+            protected function collectOfferedFiles(): array
+            {
+                return [[$this->source => $this->target], [$this->source => 'layouts/app.blade.php']];
+            }
+
+            protected function selectFiles(array $offered, array $labels): array
+            {
+                return array_keys($offered);
+            }
+
+            protected function decide(array $selected): array
+            {
+                $this->reportPolicyError($this->console, $this->source, $this->target);
+
+                return [[], [], []];
+            }
+        };
+
+        $this->assertSame(1, $publisher->publish());
+
+        $this->assertStringContainsString(
+            'Skipped [resources/views/vendor/hyde/layouts/app.blade.php]: source or destination is invalid.',
+            $output->fetch()
+        );
     }
 
     public function testInteractiveConflictPromptCanOverwrite()
