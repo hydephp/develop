@@ -24,6 +24,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use function glob;
 
 #[CoversClass(PublishCommand::class)]
+#[CoversClass(PublisherConsole::class)]
 #[CoversClass(PagesPublisher::class)]
 class PublishCommandPagesTest extends TestCase
 {

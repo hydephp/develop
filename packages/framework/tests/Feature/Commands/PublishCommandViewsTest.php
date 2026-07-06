@@ -21,6 +21,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 #[CoversClass(PublishCommand::class)]
+#[CoversClass(PublisherConsole::class)]
 #[CoversClass(ViewsPublisher::class)]
 #[CoversClass(\Hyde\Console\Helpers\InteractiveMultiselect::class)]
 class PublishCommandViewsTest extends TestCase
