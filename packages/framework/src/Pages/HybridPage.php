@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use Illuminate\Support\Facades\View;
 use Hyde\Pages\HybridPages\HybridPageCompiler;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\HtmlString;
 
 class HybridPage extends MarkdownPage
 {
@@ -15,7 +16,7 @@ class HybridPage extends MarkdownPage
     {
         return View::make($this->getBladeView())->with([
             'title' => $this->title,
-            'content' => (new HybridPageCompiler())->handle($this),
+            'content' => new HtmlString((new HybridPageCompiler())->handle($this)),
         ])->render();
     }
 }
