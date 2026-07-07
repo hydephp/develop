@@ -25,13 +25,13 @@ class InteractiveMultiselect
     /**
      * @param  array<string, string>  $options  Map of option key => display label.
      * @param  string|null  $allLabel  Label for the "select all" row, or null to omit it entirely.
-     * @return array<string> The selected option keys (never includes the sentinel).
+     * @return array<int|string> The selected option keys (never includes the sentinel).
      */
     public static function select(string $label, array $options, ?string $allLabel = null): array
     {
         $choices = $allLabel !== null ? [self::ALL => $allLabel] + $options : $options;
 
-        $prompt = new MultiSelectPrompt($label, $choices, [], 10, 'required', hint: 'Navigate with arrow keys, space to select, enter to confirm.');
+        $prompt = new MultiSelectPrompt($label, $choices, [], 10, false, hint: 'Navigate with arrow keys, space to select, enter to confirm.');
 
         $selected = $prompt->prompt();
 
@@ -40,6 +40,6 @@ class InteractiveMultiselect
             return array_keys($options);
         }
 
-        return array_values(array_filter($selected, fn (string $key): bool => $key !== self::ALL));
+        return array_values(array_filter($selected, fn ($key): bool => (string) $key !== self::ALL));
     }
 }

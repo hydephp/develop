@@ -177,6 +177,28 @@ class PublishCommandViewsTest extends TestCase
         $this->assertSame([404], InteractiveMultiselect::select('Select test option', [404 => 'Not found'], 'All options'));
     }
 
+    public function testPickerCanSelectNumericOptionKeyDirectly()
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
+
+        Prompt::fake([Key::SPACE, Key::ENTER]);
+
+        $this->assertSame([404], InteractiveMultiselect::select('Select test option', [404 => 'Not found']));
+    }
+
+    public function testPickerCanSubmitAnEmptySelection()
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
+
+        Prompt::fake([Key::ENTER]);
+
+        $this->assertSame([], InteractiveMultiselect::select('Select test option', ['one' => 'One']));
+    }
+
     public function testIdenticalViewsAreSkippedAsAlreadyCurrent()
     {
         $this->seedAllViews();
