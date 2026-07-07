@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Helpers;
 
+use Hyde\Pages\BladePage;
+use Hyde\Pages\Concerns\HydePage;
+
 final class PublishablePage
 {
     /**
@@ -14,6 +17,7 @@ final class PublishablePage
      * @param  string|null  $defaultTarget  The default project-relative destination (e.g. '_pages/posts.blade.php'), or null when the page has no default and its destination must be resolved interactively or via --to.
      * @param  array<string, string>  $alternativeTargets  Additional valid destinations, mapping a project-relative path to a human label.
      * @param  bool  $allowCustomTarget  Whether the user may publish this page to a custom path.
+     * @param  class-string<HydePage>  $pageClass  The Hyde page model this page is published as; controls custom target validation.
      */
     public function __construct(
         public readonly string $key,
@@ -23,6 +27,7 @@ final class PublishablePage
         public readonly ?string $defaultTarget,
         public readonly array $alternativeTargets = [],
         public readonly bool $allowCustomTarget = true,
+        public readonly string $pageClass = BladePage::class,
     ) {
     }
 }

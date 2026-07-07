@@ -161,6 +161,8 @@ final class PublishablePage
         /** @var array<string,string> path => human label */
         public array  $alternativeTargets = [],
         public bool   $allowCustomTarget = true,
+        /** @var class-string<HydePage> */
+        public string $pageClass = BladePage::class, // controls custom target validation
     ) {}
 }
 
@@ -209,8 +211,10 @@ php hyde publish --page=welcome --force
 one path cannot stand in as the destination for several pages. `--to` is also rejected for a page
 that declares `allowCustomTarget = false` (e.g. `404`), which has one fixed destination.
 
-1. `--to=PATH` → use it. Rejected if the page disallows custom targets; otherwise must resolve
-   under `_pages/` and end in `.blade.php`, else fail.
+1. `--to=PATH` → use it. Rejected if the page disallows custom targets; otherwise it must resolve
+   to a source file for the publishable page's configured `pageClass`. For the default catalog this
+   means a `BladePage` source path such as `_pages/index.blade.php`, but custom `source_root`,
+   `source_directories`, file extensions, and extended page classes are respected.
 2. Non-interactive, no `--to` → use `defaultTarget`. If `defaultTarget` is null
    (e.g. `blank`), there is nothing to fall back to → fail helpfully, pointing to `--to`.
 3. Interactive AND (`alternativeTargets` non-empty OR `defaultTarget` is null) → prompt. `allowCustomTarget`
@@ -353,7 +357,7 @@ migration reference.
 - `publish --config` → redirect to `vendor:publish --tag=hyde-config`.
 - `--layouts` + `--components` together → mutually exclusive error.
 - `--to` without `--page` → `--to is only valid when publishing a page.`
-- `--to` path outside `_pages/` or wrong extension → fail with a valid example.
+- `--to` path outside the selected publishable page class's source directory or with the wrong extension → fail with a valid example.
 - Non-interactive with no actionable flags → fail with usage examples.
 
 ---

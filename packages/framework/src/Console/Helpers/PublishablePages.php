@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Helpers;
 
+use Hyde\Pages\BladePage;
+
 final class PublishablePages
 {
     /** @var array<string, PublishablePage>|null */
@@ -46,15 +48,15 @@ final class PublishablePages
                 label: 'Welcome page',
                 description: 'The default Hyde welcome page.',
                 source: 'resources/views/homepages/welcome.blade.php',
-                defaultTarget: '_pages/index.blade.php',
+                defaultTarget: BladePage::sourcePath('index'),
             ),
             new PublishablePage(
                 key: 'posts',
                 label: 'Posts feed',
                 description: 'A feed of your latest posts. Perfect for a blog site!',
                 source: 'resources/views/homepages/post-feed.blade.php',
-                defaultTarget: '_pages/posts.blade.php',
-                alternativeTargets: ['_pages/index.blade.php' => 'Use as your site homepage'],
+                defaultTarget: BladePage::sourcePath('posts'),
+                alternativeTargets: [BladePage::sourcePath('index') => 'Use as your site homepage'],
             ),
             new PublishablePage(
                 key: 'blank',
@@ -68,7 +70,7 @@ final class PublishablePages
                 label: '404 page',
                 description: 'A custom 404 error page.',
                 source: 'resources/views/pages/404.blade.php',
-                defaultTarget: '_pages/404.blade.php',
+                defaultTarget: BladePage::sourcePath('404'),
                 allowCustomTarget: false,
             ),
         ]);

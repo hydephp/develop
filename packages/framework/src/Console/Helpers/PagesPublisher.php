@@ -8,6 +8,7 @@ use Hyde\Console\Concerns\Command;
 use Hyde\Enums\OverwriteAction;
 use Hyde\Framework\Services\OverwritePolicy;
 use Hyde\Hyde;
+use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ use function Laravel\Prompts\text;
  */
 class PagesPublisher extends BasePublisher
 {
-    /** Sentinel key for the "Custom path…" row in the destination prompt; real targets are _pages/ paths, so it never collides. */
+    /** Sentinel key for the "Custom path…" row in the destination prompt; real targets are source paths, so it never collides. */
     protected const CUSTOM = '__hyde_custom_target__';
 
     /** @var array<array{page: PublishablePage, target: string}> Pages skipped because the destination is already up to date. */
@@ -188,7 +189,7 @@ class PagesPublisher extends BasePublisher
                 return null;
             }
 
-            return $this->validateCustomTarget((string) $this->console->option('to'));
+            return $this->validateCustomTarget((string) $this->console->option('to'), $page);
         }
 
         if (! $this->console->canPrompt()) {
@@ -228,28 +229,28 @@ class PagesPublisher extends BasePublisher
 
         $choice = (string) select(sprintf('Where should "%s" be published?', $page->label), $options);
 
-        return $choice === self::CUSTOM ? $this->promptForCustomTarget() : $choice;
+        return $choice === self::CUSTOM ? $this->promptForCustomTarget($page) : $choice;
     }
 
-    protected function promptForCustomTarget(): ?string
+    protected function promptForCustomTarget(PublishablePage $page): ?string
     {
         $path = text(
-            label: 'Enter a path within _pages/',
-            placeholder: '_pages/example.blade.php',
+            label: sprintf('Enter a %s source path', class_basename($page->pageClass)),
+            placeholder: $this->exampleTargetPath($page),
             required: true,
-            validate: fn (string $value): ?string => $this->isValidCustomTarget($value)
+            validate: fn (string $value): ?string => $this->isValidCustomTarget($value, $page)
                 ? null
-                : 'The path must be within _pages/ and end in .blade.php.'
+                : $this->customTargetPromptError($page)
         );
 
         return $this->normalizeTargetPath($path);
     }
 
-    /** Validate a user-supplied destination: it must live under _pages/ and be a Blade page. Returns null on failure. */
-    protected function validateCustomTarget(string $path): ?string
+    /** Validate a user-supplied destination against the publishable page's configured Hyde page model. */
+    protected function validateCustomTarget(string $path, PublishablePage $page): ?string
     {
-        if (! $this->isValidCustomTarget($path)) {
-            $this->console->error('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.');
+        if (! $this->isValidCustomTarget($path, $page)) {
+            $this->console->error($this->customTargetOptionError($page));
 
             return null;
         }
@@ -257,7 +258,7 @@ class PagesPublisher extends BasePublisher
         return $this->normalizeTargetPath($path);
     }
 
-    protected function isValidCustomTarget(string $path): bool
+    protected function isValidCustomTarget(string $path, PublishablePage $page): bool
     {
         try {
             $normalized = $this->normalizeTargetPath($path);
@@ -265,13 +266,69 @@ class PagesPublisher extends BasePublisher
             return false;
         }
 
-        return Str::startsWith($normalized, '_pages/')
-            && Str::endsWith($normalized, '.blade.php');
+        $pageClass = $page->pageClass;
+
+        return $this->targetIsWithinSourceDirectory($normalized, $page->pageClass)
+            && Str::endsWith($normalized, $pageClass::fileExtension());
     }
 
     protected function normalizeTargetPath(string $path): string
     {
         return (new WhitespacePathNormalizer())->normalizePath($path);
+    }
+
+    /** @param class-string<HydePage> $pageClass */
+    protected function targetIsWithinSourceDirectory(string $target, string $pageClass): bool
+    {
+        $sourceDirectory = $this->normalizeTargetPath($pageClass::sourceDirectory());
+
+        return $sourceDirectory === ''
+            || Str::startsWith($target, "$sourceDirectory/");
+    }
+
+    protected function customTargetOptionError(PublishablePage $page): string
+    {
+        $pageClass = $page->pageClass;
+
+        return sprintf(
+            'The --to path must be within %s and end in %s, for example %s.',
+            $this->sourceDirectoryLabel($page),
+            $pageClass::fileExtension(),
+            $this->customTargetExamplePath($page)
+        );
+    }
+
+    protected function customTargetPromptError(PublishablePage $page): string
+    {
+        $pageClass = $page->pageClass;
+
+        return sprintf(
+            'The path must be within %s and end in %s.',
+            $this->sourceDirectoryLabel($page),
+            $pageClass::fileExtension()
+        );
+    }
+
+    protected function sourceDirectoryLabel(PublishablePage $page): string
+    {
+        $pageClass = $page->pageClass;
+        $sourceDirectory = $this->normalizeTargetPath($pageClass::sourceDirectory());
+
+        return $sourceDirectory === '' ? 'the project root' : "$sourceDirectory/";
+    }
+
+    protected function exampleTargetPath(PublishablePage $page): string
+    {
+        $pageClass = $page->pageClass;
+
+        return $this->normalizeTargetPath($pageClass::sourcePath('example'));
+    }
+
+    protected function customTargetExamplePath(PublishablePage $page): string
+    {
+        return $page->defaultTarget !== null
+            ? $this->normalizeTargetPath($page->defaultTarget)
+            : $this->exampleTargetPath($page);
     }
 
     /** @param  array<array{page: PublishablePage, target: string}>  $resolved */

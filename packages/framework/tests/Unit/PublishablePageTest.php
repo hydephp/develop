@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use ReflectionClass;
+use Hyde\Pages\BladePage;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Console\Helpers\PublishablePage;
 
@@ -30,9 +31,10 @@ class PublishablePageTest extends UnitTestCase
         $this->assertSame('_pages/posts.blade.php', $page->defaultTarget);
         $this->assertSame(['_pages/index.blade.php' => 'Use as your site homepage'], $page->alternativeTargets);
         $this->assertFalse($page->allowCustomTarget);
+        $this->assertSame(BladePage::class, $page->pageClass);
     }
 
-    public function testOptionalPropertiesDefaultToNoAlternativesAndCustomTargetAllowed()
+    public function testOptionalPropertiesDefaultToNoAlternativesCustomTargetAllowedAndBladePageClass()
     {
         $page = new PublishablePage(
             key: 'welcome',
@@ -44,6 +46,7 @@ class PublishablePageTest extends UnitTestCase
 
         $this->assertSame([], $page->alternativeTargets);
         $this->assertTrue($page->allowCustomTarget);
+        $this->assertSame(BladePage::class, $page->pageClass);
     }
 
     public function testDefaultTargetMayBeNullForPagesWithoutADefaultDestination()

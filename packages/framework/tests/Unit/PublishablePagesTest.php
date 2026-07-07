@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Pages\BladePage;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Console\Helpers\PublishablePage;
 use Hyde\Console\Helpers\PublishablePages;
@@ -16,11 +17,13 @@ class PublishablePagesTest extends UnitTestCase
 {
     protected function setUp(): void
     {
+        BladePage::setSourceDirectory('_pages');
         PublishablePages::clear();
     }
 
     protected function tearDown(): void
     {
+        BladePage::setSourceDirectory('_pages');
         PublishablePages::clear();
     }
 
@@ -46,6 +49,19 @@ class PublishablePagesTest extends UnitTestCase
         $this->assertSame('_pages/posts.blade.php', $pages['posts']->defaultTarget);
         $this->assertNull($pages['blank']->defaultTarget, 'blank has no default target; its destination is always prompted for or set via --to.');
         $this->assertSame('_pages/404.blade.php', $pages['404']->defaultTarget);
+    }
+
+    public function testDefaultCatalogTargetsFollowTheConfiguredBladePageSourceDirectory()
+    {
+        BladePage::setSourceDirectory('content/pages');
+        PublishablePages::clear();
+
+        $pages = PublishablePages::all();
+
+        $this->assertSame('content/pages/index.blade.php', $pages['welcome']->defaultTarget);
+        $this->assertSame('content/pages/posts.blade.php', $pages['posts']->defaultTarget);
+        $this->assertSame('content/pages/404.blade.php', $pages['404']->defaultTarget);
+        $this->assertSame(['content/pages/index.blade.php' => 'Use as your site homepage'], $pages['posts']->alternativeTargets);
     }
 
     public function testDefaultCatalogSources()

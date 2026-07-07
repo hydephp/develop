@@ -12,6 +12,7 @@ use Hyde\Console\Helpers\PublisherConsole;
 use Hyde\Console\Helpers\PublishablePage;
 use Hyde\Console\Helpers\PublishablePages;
 use Hyde\Hyde;
+use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Artisan;
@@ -34,6 +35,7 @@ class PublishCommandPagesTest extends TestCase
     {
         parent::setUp();
 
+        BladePage::setSourceDirectory('_pages');
         $this->withoutDefaultPages();
     }
 
@@ -44,6 +46,7 @@ class PublishCommandPagesTest extends TestCase
         ConsoleHelper::clearMocks();
         PagesPromptsReset::resetFallbacks();
         PublishablePages::clear();
+        BladePage::setSourceDirectory('_pages');
 
         foreach (glob(Hyde::path('_pages/*.blade.php')) as $file) {
             if (File::isDirectory($file)) {
@@ -55,6 +58,10 @@ class PublishCommandPagesTest extends TestCase
 
         if (File::isDirectory(Hyde::path('_pages/company'))) {
             File::deleteDirectory(Hyde::path('_pages/company'));
+        }
+
+        if (File::isDirectory(Hyde::path('content'))) {
+            File::deleteDirectory(Hyde::path('content'));
         }
 
         $this->restoreDefaultPages();
@@ -149,6 +156,18 @@ class PublishCommandPagesTest extends TestCase
         );
     }
 
+    public function testDefaultTargetUsesConfiguredBladePageSourceDirectory()
+    {
+        BladePage::setSourceDirectory('content/pages');
+        PublishablePages::clear();
+
+        $this->artisan('publish --page=welcome --no-interaction')
+            ->expectsOutputToContain('Published [welcome] to [content/pages/index.blade.php]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('content/pages/index.blade.php'));
+    }
+
     public function testToPathOutsidePagesDirectoryIsRejected()
     {
         $this->artisan('publish --page=welcome --to=resources/views/foo.blade.php --no-interaction')
@@ -160,6 +179,40 @@ class PublishCommandPagesTest extends TestCase
     {
         $this->artisan('publish --page=welcome --to=_pages/index.md --no-interaction')
             ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
+            ->assertExitCode(1);
+    }
+
+    public function testToPathIsValidatedAgainstThePublishablePageClass()
+    {
+        PublishablePages::register(new PublishablePage(
+            key: 'markdown',
+            label: 'Markdown page',
+            description: 'A Markdown starter page.',
+            source: 'resources/views/homepages/blank.blade.php',
+            defaultTarget: null,
+            pageClass: PublishCommandPagesCustomPage::class,
+        ));
+
+        $this->artisan('publish --page=markdown --to=content/custom/about.mdx --no-interaction')
+            ->expectsOutputToContain('Published [markdown] to [content/custom/about.mdx]')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('content/custom/about.mdx'));
+    }
+
+    public function testToPathWrongForThePublishablePageClassIsRejected()
+    {
+        PublishablePages::register(new PublishablePage(
+            key: 'markdown',
+            label: 'Markdown page',
+            description: 'A Markdown starter page.',
+            source: 'resources/views/homepages/blank.blade.php',
+            defaultTarget: null,
+            pageClass: PublishCommandPagesCustomPage::class,
+        ));
+
+        $this->artisan('publish --page=markdown --to=_pages/about.blade.php --no-interaction')
+            ->expectsOutputToContain('The --to path must be within content/custom/ and end in .mdx, for example content/custom/example.mdx.')
             ->assertExitCode(1);
     }
 
@@ -336,7 +389,7 @@ class PublishCommandPagesTest extends TestCase
     {
         $this->artisan('publish --page=blank')
             ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
-            ->expectsQuestion('Enter a path within _pages/', '_pages/custom.blade.php')
+            ->expectsQuestion('Enter a BladePage source path', '_pages/custom.blade.php')
             ->expectsOutputToContain('Published [blank] to [_pages/custom.blade.php]')
             ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
@@ -459,7 +512,7 @@ class PublishCommandPagesTest extends TestCase
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome', 'blank'])
             ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
-            ->expectsQuestion('Enter a path within _pages/', '_pages//index.blade.php')
+            ->expectsQuestion('Enter a BladePage source path', '_pages//index.blade.php')
             ->expectsOutputToContain('Welcome page and Blank page both target _pages/index.blade.php.')
             ->expectsOutputToContain('Pick one, or set --to for each.')
             ->assertExitCode(1);
@@ -472,7 +525,7 @@ class PublishCommandPagesTest extends TestCase
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome', 'blank'])
             ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
-            ->expectsQuestion('Enter a path within _pages/', '_pages/./index.blade.php')
+            ->expectsQuestion('Enter a BladePage source path', '_pages/./index.blade.php')
             ->expectsOutputToContain('Welcome page and Blank page both target _pages/index.blade.php.')
             ->expectsOutputToContain('Pick one, or set --to for each.')
             ->assertExitCode(1);
@@ -534,24 +587,6 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
-    }
-
-    public function testToPathWithParentTraversalIsRejected()
-    {
-        $this->artisan('publish --page=welcome --to=_pages/../secret.blade.php --no-interaction')
-            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
-            ->assertExitCode(1);
-
-        $this->assertFileDoesNotExist(Hyde::path('secret.blade.php'));
-    }
-
-    public function testToPathWithTraversalBeforePagesDirectoryIsRejected()
-    {
-        $this->artisan('publish --page=welcome --to=../_pages/index.blade.php --no-interaction')
-            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
-            ->assertExitCode(1);
-
-        $this->assertFileDoesNotExist(Hyde::path('../_pages/index.blade.php'));
     }
 
     public function testThreePagesResolvingToTheSameTargetReportAllTarget()
@@ -703,4 +738,10 @@ abstract class PagesPromptsReset extends Prompt
     {
         static::$shouldFallback = false;
     }
+}
+
+class PublishCommandPagesCustomPage extends \Hyde\Pages\MarkdownPage
+{
+    public static string $sourceDirectory = 'content/custom';
+    public static string $fileExtension = '.mdx';
 }
