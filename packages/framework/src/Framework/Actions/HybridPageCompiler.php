@@ -9,6 +9,6 @@ class HybridPageCompiler
 {
     public function handle(HybridPage $page): HtmlString
     {
-        //
+        return $page->markdown->toHtml($page::class);
     }
 }

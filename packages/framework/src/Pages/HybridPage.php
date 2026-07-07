@@ -3,6 +3,7 @@
 namespace Hyde\Pages;
 
 use Illuminate\Support\Facades\View;
+use Hyde\Framework\Actions\HybridPageCompiler;
 
 class HybridPage extends MarkdownPage
 {
@@ -12,7 +13,7 @@ class HybridPage extends MarkdownPage
     {
         return View::make($this->getBladeView())->with([
             'title' => $this->title,
-            'content' => $this->markdown->toHtml(static::class),
+            'content' => (new HybridPageCompiler())->handle($this),
         ])->render();
     }
 }
