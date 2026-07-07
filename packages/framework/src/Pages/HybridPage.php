@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages;
 
 use Illuminate\Support\Facades\View;
-use Hyde\Framework\Actions\HybridPageCompiler;
+use Hyde\Pages\HybridPages\HybridPageCompiler;
 
 class HybridPage extends MarkdownPage
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Framework\Actions;
+namespace Hyde\Pages\HybridPages;
 
 use Hyde\Pages\HybridPage;
 use Illuminate\Support\HtmlString;
