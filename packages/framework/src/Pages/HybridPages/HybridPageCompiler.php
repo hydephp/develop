@@ -18,6 +18,10 @@ class HybridPageCompiler
 
     public function handle(HybridPage $page): string
     {
-        return Markdown::render($page->markdown, $page::class);
+        $markdown = $page->markdown;
+
+        $html = Markdown::render($markdown, $page::class);
+
+        return $html;
     }
 }
