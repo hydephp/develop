@@ -17,7 +17,7 @@ abstract class HybridPageBlock
 
     public function signature(): string
     {
-        $hash = sha1('TODO');
+        $hash = hash('sha256', 'TODO');
 
         return "<!-- HYDE[HybridPageBlock]$hash -->";
     }
