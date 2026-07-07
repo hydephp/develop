@@ -15,5 +15,12 @@ abstract class HybridPageBlock
         $this->page = $page;
     }
 
+    public function signature(): string
+    {
+        $hash = sha1('TODO');
+
+        return "<!-- HYDE[HybridPageBlock]$hash -->";
+    }
+
     abstract public function render();
 }
