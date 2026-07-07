@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Hyde\Console\Helpers;
+
+use Hyde\Pages\BladePage;
+
+final class PublishablePages
+{
+    /** @var array<string, PublishablePage>|null */
+    protected static ?array $pages = null;
+
+    /** @return array<string, PublishablePage> */
+    public static function all(): array
+    {
+        return static::$pages ??= static::getDefaultPages();
+    }
+
+    public static function get(string $key): ?PublishablePage
+    {
+        return static::all()[$key] ?? null;
+    }
+
+    /** Overrides any existing page sharing its key. */
+    public static function register(PublishablePage $page): void
+    {
+        static::$pages = static::all();
+        static::$pages[$page->key] = $page;
+    }
+
+    /**
+     * Reset the registry back to its default catalog.
+     *
+     * @internal Primarily used to restore state between tests.
+     */
+    public static function clear(): void
+    {
+        static::$pages = null;
+    }
+
+    /** @return array<string, PublishablePage> */
+    protected static function getDefaultPages(): array
+    {
+        return static::keyed([
+            new PublishablePage(
+                key: 'welcome',
+                label: 'Welcome page',
+                description: 'The default Hyde welcome page.',
+                source: 'resources/views/homepages/welcome.blade.php',
+                defaultTarget: BladePage::sourcePath('index'),
+            ),
+            new PublishablePage(
+                key: 'posts',
+                label: 'Posts feed',
+                description: 'A feed of your latest posts. Perfect for a blog site!',
+                source: 'resources/views/homepages/post-feed.blade.php',
+                defaultTarget: BladePage::sourcePath('posts'),
+                alternativeTargets: [BladePage::sourcePath('index') => 'Use as your site homepage'],
+            ),
+            new PublishablePage(
+                key: 'blank',
+                label: 'Blank page',
+                description: 'A blank Blade template with just the base layout.',
+                source: 'resources/views/homepages/blank.blade.php',
+                defaultTarget: null,
+            ),
+            new PublishablePage(
+                key: '404',
+                label: '404 page',
+                description: 'A custom 404 error page.',
+                source: 'resources/views/pages/404.blade.php',
+                defaultTarget: BladePage::sourcePath('404'),
+                allowCustomTarget: false,
+            ),
+        ]);
+    }
+
+    /**
+     * @param  array<PublishablePage>  $pages
+     * @return array<string, PublishablePage>
+     */
+    protected static function keyed(array $pages): array
+    {
+        return collect($pages)->keyBy(fn (PublishablePage $page): string => $page->key)->all();
+    }
+}

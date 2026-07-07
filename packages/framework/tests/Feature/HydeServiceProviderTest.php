@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Hyde\Console\ConsoleServiceProvider;
+use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Foundation\HydeCoreExtension;
@@ -20,6 +21,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\ServiceProvider;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\HydeServiceProvider::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\RegistersFileLocations::class)]
@@ -370,5 +372,35 @@ class HydeServiceProviderTest extends TestCase
         Hyde::boot();
 
         $this->assertSame(app('navigation.sidebar'), DocumentationSidebar::get());
+    }
+
+    public function testHydeConfigPublishTagPublishesExactlyTheSixHydeOwnedConfigFiles()
+    {
+        $paths = ServiceProvider::pathsToPublish(ConfigurationServiceProvider::class, 'hyde-config');
+
+        $sources = array_map('basename', array_keys($paths));
+        $destinations = array_map('basename', array_values($paths));
+
+        $expected = ['hyde.php', 'docs.php', 'markdown.php', 'view.php', 'cache.php', 'commands.php'];
+
+        $this->assertSame($expected, $sources);
+        $this->assertSame($expected, $destinations);
+    }
+
+    public function testHydeConfigPublishTagDoesNotPublishTorchlightConfig()
+    {
+        $paths = ServiceProvider::pathsToPublish(ConfigurationServiceProvider::class, 'hyde-config');
+
+        $files = array_map('basename', array_keys($paths));
+
+        $this->assertNotContains('torchlight.php', $files);
+    }
+
+    public function testLegacyConfigPublishTagsAreRemovedAndPublishNothing()
+    {
+        // hyde-config is the only Hyde config publish tag in v3; the legacy tags publish nothing.
+        foreach (['configs', 'hyde-configs', 'support-configs'] as $tag) {
+            $this->assertSame([], ServiceProvider::pathsToPublish(ConfigurationServiceProvider::class, $tag));
+        }
     }
 }

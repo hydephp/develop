@@ -89,14 +89,16 @@ composer update
 Then, update your config files. This is the hardest part, as you may need to manually copy in your own changes.
 
 ```bash
-php hyde publish:configs
+php hyde vendor:publish --tag=hyde-config --force
 ```
+
+Note that existing files are skipped without `--force`, so it is required here to overwrite your current config files.
 
 If you have published any of the included Blade components you will need to re-publish them.
 
 ```bash
-php hyde publish:views layouts
-php hyde publish:views components
+php hyde publish --layouts
+php hyde publish --components
 ```
 
 You may also want to download any resources that have been updated. You download these from the Zip file of the latest release on GitHub.

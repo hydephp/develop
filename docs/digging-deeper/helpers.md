@@ -333,8 +333,8 @@ HydePHP comes with a started homepage called 'posts'. This includes a component 
 
 #### Creating our posts page
 
-Now, let's paginate this feed! For this example, we will assume that you ran `php hyde publish:homepage posts`
-and renamed the resulting `index.blade.php` file to `posts.blade.php`. We will also assume that you have a few blog posts set up.
+Now, let's paginate this feed! For this example, we will assume that you ran `php hyde publish --page=posts`
+to publish the posts feed page to `_pages/posts.blade.php`. We will also assume that you have a few blog posts set up.
 
 The blog post feed component is a simple component that looks like this:
 

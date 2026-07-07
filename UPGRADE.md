@@ -74,11 +74,31 @@ StaticPageBuilder::handle(Pages::getPage('_posts/hello-world.md'));
 
 Note that this only produces a correct `_site` when the page is self-contained. For anything that touches aggregate outputs, run `php hyde build` to rebuild the whole site instead.
 
+## Step 3: Replace the Removed Publishing Commands
+
+The three legacy publishing commands (`publish:views`, `publish:configs`, and `publish:homepage`) were removed in v3 and replaced by the unified `publish` command (and, for configuration files, the standard `vendor:publish` path). They are not aliased — invoking one now raises the native "command not found" error, which already suggests `publish` as an alternative.
+
+| Removed in v3              | Use instead                                                                                                                              |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `publish:views`            | `php hyde publish --all` (or `--layouts` / `--components`, or bare `publish` for the interactive picker)                                  |
+| `publish:views layouts`    | `php hyde publish --layouts`                                                                                                              |
+| `publish:views components` | `php hyde publish --components`                                                                                                          |
+| `publish:configs`          | `php hyde vendor:publish --tag=hyde-config --force`                                                                                       |
+| `publish:homepage`         | `php hyde publish --page`                                                                                                                 |
+| `publish:homepage welcome` | `php hyde publish --page=welcome`                                                                                                        |
+| `publish:homepage posts`   | `php hyde publish --page=posts --to=_pages/index.blade.php` (the old command always published to the index; the new default is `_pages/posts.blade.php`) |
+| `publish:homepage blank`   | `php hyde publish --page=blank --to=_pages/index.blade.php` (blank now has no default destination)                                        |
+
+The config publish tags were consolidated too: `hyde-configs`, `support-configs`, and `configs` are removed, and `hyde-config` is now the only Hyde config publish tag.
+
+Note that the new `publish` command never overwrites files you have modified without confirmation or `--force`, where the old commands overwrote silently. This is why the `publish:configs` replacement passes `--force` — existing files are skipped without it.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
 
 - [ ] Replaced any `php hyde rebuild <path>` usage with `StaticPageBuilder::handle()` or a full `php hyde build`
+- [ ] Replaced any `publish:views`, `publish:configs`, or `publish:homepage` usage with the new `publish` / `vendor:publish` commands (see the table above; note the `posts`/`blank` `--to` mappings)
 
 ## Troubleshooting
 
