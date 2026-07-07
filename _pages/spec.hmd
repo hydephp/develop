@@ -1,0 +1,63 @@
+# Hybrid Page Example
+
+This is a Hybrid Markdown and Blade page. It uses Markdown as the base, and supports Blade in various ways using code blocks. The file extension is `.hmd` which stands for both Hyde and Hybrid Markdown.
+
+If you want to write an actual code block, use four backticks as the terminator.
+
+In all cases, we will pass the `$page` variable to the view, meaning that you can access the data for the page. The Blade is evaluated at build time.
+
+Each rendered component is wrapped with a section/div (pending decision) containing the classes `hybrid-container not-prose`.
+
+## Using the Blade tag, you can put any arbitrary Blade code
+
+````markdown
+```blade
+$world = 'world';
+
+{{ "Hello $world" }}
+```
+````
+
+```blade
+$world = 'world';
+
+{{ "Hello $world" }}
+```
+
+This kind of "anonymous" component will render using `Blade::render()`.
+
+## Using the Component tag you can call a Blade component using Yaml Front Matter syntax
+
+````markdown
+```component(component-name)
+foo: bar
+```
+````
+
+```component(component-name)
+foo: bar
+```
+
+Each variable will be passed to the Blade view. In the future we may try to parse the props of a page to validate the properties added in front matter.
+
+Though not required, you can use triple dashes to enclose the front matter part, this allows you to write Markdown content inside the component. This is passed as the `$slot` property to the page. We will compile the Markdown to HTML using the HydePHP Markdown converted (meaning fancy features like coloured codeblocks and more are avaliable), though you may need to add the `prose` class to your container.
+
+````markdown
+```component(component-name)
+---
+foo: bar
+---
+
+# I can now write Markdown here!
+```
+````
+
+```component(component-name)
+---
+foo: bar
+---
+
+# I can now write Markdown here!
+```
+
+
