@@ -3,10 +3,11 @@
 namespace Hyde\Framework\Actions;
 
 use Hyde\Pages\HybridPage;
+use Illuminate\Support\HtmlString;
 
 class HybridPageCompiler
 {
-    public function handle(HybridPage $page): string
+    public function handle(HybridPage $page): HtmlString
     {
         //
     }
