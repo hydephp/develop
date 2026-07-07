@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hyde\Pages;
 
 use Illuminate\Support\Facades\View;
