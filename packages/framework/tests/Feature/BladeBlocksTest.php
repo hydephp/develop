@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Facades\Filesystem;
-use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\DocumentationPage;
@@ -14,6 +12,11 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 
+use function config;
+use function file_put_contents;
+use function substr_count;
+use function unlink;
+
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeBlockProcessor::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeBlocks\BladeBlock::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeBlocks\BladeRenderBlock::class)]
@@ -21,21 +24,30 @@ use InvalidArgumentException;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeBlocks\BladeBlockExtractor::class)]
 class BladeBlocksTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        file_put_contents(
+            'resources/views/components/blade-block-fixture.blade.php',
+            "data=[{{ \$attributes->get('foo') }}] slot=[{{ \$slot }}]"
+        );
+
+        file_put_contents(
+            'resources/views/components/blade-block-props-fixture.blade.php',
+            "value=[{{ \$foo ?? 'UNDEFINED' }}]"
+        );
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        unlink('resources/views/components/blade-block-fixture.blade.php');
+        unlink('resources/views/components/blade-block-props-fixture.blade.php');
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
 
         config(['markdown.enable_blade_blocks' => true]);
-
-        $this->file(
-            'resources/views/components/blade-block-fixture.blade.php',
-            "data=[{{ \$attributes->get('foo') }}] slot=[{{ \$slot }}]"
-        );
-
-        $this->file(
-            'resources/views/components/blade-block-props-fixture.blade.php',
-            "value=[{{ \$foo ?? 'UNDEFINED' }}]"
-        );
     }
 
     private function render(string $markdown): string
@@ -64,7 +76,7 @@ class BladeBlocksTest extends TestCase
         $this->assertStringNotContainsString('blade-block', $html);
     }
 
-    // blade render
+    // Test `blade render`
 
     public function testBladeRenderBlockIsExecuted()
     {
@@ -83,13 +95,12 @@ class BladeBlocksTest extends TestCase
     public function testPageVariableIsAvailableInBladeRenderBlock()
     {
         $page = MarkdownPage::make('blade-block-page', [], "```blade render\n{{ \$page->identifier ?? 'NO-PAGE' }}\n```");
-        StaticPageBuilder::handle($page);
 
-        $html = file_get_contents(Hyde::path('_site/blade-block-page.html'));
+        Hyde::shareViewData($page);
+
+        $html = $page->compile();
 
         $this->assertStringContainsString('<div class="blade-block not-prose">blade-block-page</div>', $html);
-
-        Filesystem::unlink('_site/blade-block-page.html');
     }
 
     // Bare `blade` and ordinary code blocks
@@ -110,7 +121,7 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('&lt;h1&gt;Hello&lt;/h1&gt;', $html);
     }
 
-    // blade component(name)
+    // Test `blade component(name)`
 
     public function testComponentBlockWithBareYamlData()
     {
@@ -240,13 +251,12 @@ class BladeBlocksTest extends TestCase
     public function testComponentSlotUsesPageClassWhenCompiledWithinPage()
     {
         $page = MarkdownPage::make('blade-block-slot-page', [], "```blade component(blade-block-fixture)\n---\nfoo: bar\n---\n\n# Heading\n```");
-        StaticPageBuilder::handle($page);
 
-        $html = file_get_contents(Hyde::path('_site/blade-block-slot-page.html'));
+        Hyde::shareViewData($page);
+
+        $html = $page->compile();
 
         $this->assertStringContainsString('<h1>Heading</h1>', $html);
-
-        Filesystem::unlink('_site/blade-block-slot-page.html');
     }
 
     public function testFeatureWorksAcrossPageTypes()
@@ -259,13 +269,12 @@ class BladeBlocksTest extends TestCase
 
         foreach ($cases as [$pageClass, $outputPath]) {
             $page = $pageClass::make('blade-block-type-test', [], "```blade render\n{{ \"PageType\" }}\n```");
-            StaticPageBuilder::handle($page);
 
-            $html = file_get_contents(Hyde::path($outputPath));
+            Hyde::shareViewData($page);
+
+            $html = $page->compile();
 
             $this->assertStringContainsString('<div class="blade-block not-prose">PageType</div>', $html);
-
-            Filesystem::unlink($outputPath);
         }
     }
 
