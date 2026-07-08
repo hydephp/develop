@@ -13,6 +13,8 @@ abstract class HybridPageBlock
 
     protected readonly string $hash;
 
+    abstract public function render(): string;
+
     public function __construct(HybridPage $page, string $content)
     {
         $this->page = $page;
@@ -25,8 +27,6 @@ abstract class HybridPageBlock
     {
         return sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash);
     }
-
-    abstract public function render(): string;
 
     protected function computeHash(): string
     {
