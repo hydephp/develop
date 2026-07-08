@@ -119,10 +119,6 @@ Will throw an error.
 ```
 ````
 
-```component
-Will throw an error.
-```
-
 Here is the logic table for this
 
 | Block                     | Behavior            |
