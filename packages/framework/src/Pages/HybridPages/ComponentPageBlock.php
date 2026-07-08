@@ -16,10 +16,13 @@ use Symfony\Component\Yaml\Yaml;
 class ComponentPageBlock extends HybridPageBlock
 {
     protected string $name;
+    protected string $body;
+    protected FrontMatter $data;
 
     public function __construct(HybridPage $page, string $content, string $name)
     {
         $this->name = $name;
+        [$this->data, $this->body] = $this->parse($content);
 
         parent::__construct($page, $content);
     }
