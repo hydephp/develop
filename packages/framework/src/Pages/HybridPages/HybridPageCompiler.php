@@ -20,8 +20,23 @@ class HybridPageCompiler
     {
         $markdown = $page->markdown;
 
+        [$this->blocks, $markdown] = $this->extractBlocks($markdown);
+
         $html = Markdown::render($markdown, $page::class);
 
+        $html = $this->injectCompiledBlocks($html);
+
         return $html;
+    }
+
+    /** @return array{array<string, \Hyde\Pages\HybridPages\HybridPageBlock>, string} */
+    protected function extractBlocks(string $markdown): array
+    {
+        //
+    }
+
+    protected function injectCompiledBlocks(string $html): string
+    {
+        //
     }
 }
