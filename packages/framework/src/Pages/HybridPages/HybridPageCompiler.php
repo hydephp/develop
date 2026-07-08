@@ -16,13 +16,20 @@ class HybridPageCompiler
      */
     protected array $blocks = [];
 
-    public function handle(HybridPage $page): string
+    protected HybridPage $page;
+
+    public function __construct(HybridPage $page)
     {
-        $markdown = $page->markdown;
+        $this->page = $page;
+    }
+
+    public function handle(): string
+    {
+        $markdown = $this->page->markdown;
 
         [$this->blocks, $markdown] = $this->extractBlocks($markdown->body());
 
-        $html = Markdown::render($markdown, $page::class);
+        $html = Markdown::render($markdown, $this->page::class);
 
         $html = $this->injectCompiledBlocks($html);
 

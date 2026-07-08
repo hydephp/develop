@@ -17,7 +17,7 @@ class HybridPage extends MarkdownPage
         return View::make($this->getBladeView())->with([
             'title' => $this->title,
             'content' => new HtmlString(
-                (new HybridPageCompiler())->handle($this),
+                (new HybridPageCompiler($this))->handle(),
             ),
         ])->render();
     }
