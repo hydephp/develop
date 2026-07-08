@@ -71,7 +71,7 @@ class HybridPageBlockExtractor
             $closed = $end > $i;
 
             if ($block = $this->makeBlock($info, $this->dedent($body, $indent))) {
-                $signature = $block->signature();
+                $signature = $block->signature;
                 $blocks[$signature] = $block;
                 $output[] = $signature;
             } else {

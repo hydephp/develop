@@ -16,6 +16,7 @@ abstract class HybridPageBlock
     protected string $content;
 
     protected readonly string $hash;
+    public readonly string $signature;
 
     abstract protected function render(): string;
 
@@ -25,11 +26,7 @@ abstract class HybridPageBlock
         $this->content = $content;
 
         $this->hash = hash('sha256', implode("\0", $this->getHashableContent()));
-    }
-
-    public function signature(): string
-    {
-        return sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash);
+        $this->signature = sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash);
     }
 
     public function compile(): string
