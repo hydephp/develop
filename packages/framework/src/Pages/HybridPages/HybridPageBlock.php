@@ -26,17 +26,12 @@ abstract class HybridPageBlock
 
         [$this->data, $this->body] = $this->parse($content);
 
-        $this->hash = $this->hash();
+        $this->hash = hash('sha256', static::class."\0".$this->content);
     }
 
     public function signature(): string
     {
         return sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash);
-    }
-
-    protected function hash(): string
-    {
-        return hash('sha256', static::class."\0".$this->content);
     }
 
     abstract public function render(): string;
