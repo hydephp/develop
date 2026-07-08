@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Pages\HybridPages;
+namespace Hyde\Markdown\Processing\BladeBlocks;
 
 use Illuminate\Support\Facades\Blade;
 
-class BladePageBlock extends HybridPageBlock
+class BladeRenderBlock extends BladeBlock
 {
     protected function render(): string
     {

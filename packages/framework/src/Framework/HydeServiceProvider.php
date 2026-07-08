@@ -51,8 +51,6 @@ class HydeServiceProvider extends ServiceProvider
             DocumentationPage::class => $this->getOutputDirectoryConfiguration(DocumentationPage::class, 'docs'),
         ]);
 
-        // TODO: Register directories for HybridPage::class
-
         $this->storeCompiledSiteIn(Config::getString('hyde.output_directory', '_site'));
 
         $this->useMediaDirectory(Config::getString('hyde.media_directory', '_media'));

@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Pages\HybridPages;
+namespace Hyde\Markdown\Processing\BladeBlocks;
 
-use Hyde\Pages\HybridPage;
 use InvalidArgumentException;
 
 use function array_map;
@@ -19,16 +18,9 @@ use function str_replace;
 use function strlen;
 use function trim;
 
-class HybridPageBlockExtractor
+class BladeBlockExtractor
 {
-    protected HybridPage $page;
-
-    public function __construct(HybridPage $page)
-    {
-        $this->page = $page;
-    }
-
-    /** @return array{array<string, \Hyde\Pages\HybridPages\HybridPageBlock>, string} */
+    /** @return array{array<string, \Hyde\Markdown\Processing\BladeBlocks\BladeBlock>, string} */
     public function handle(string $markdown): array
     {
         $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $markdown));
@@ -106,22 +98,18 @@ class HybridPageBlockExtractor
         ));
     }
 
-    protected function makeBlock(string $info, string $content): ?HybridPageBlock
+    protected function makeBlock(string $info, string $content): ?BladeBlock
     {
-        // Fence highlighters only read the first token of the info string, so
-        // everything Hyde executes is keyed off the "blade" prefix followed by a
-        // directive. This keeps real Blade highlighting in every case, and a bare
-        // ```blade``` stays an ordinary (non-executed) syntax-highlighted sample.
         $tokens = preg_split('/\s+/', $info);
 
         if ($tokens[0] !== 'blade' || count($tokens) === 1) {
-            return null; // Not a hybrid block — leave it in the Markdown untouched.
+            return null; // Not a Blade block — leave it in the Markdown untouched.
         }
 
         $directive = $tokens[1];
 
         if ($directive === 'render') {
-            return new BladePageBlock($this->page, $content);
+            return new BladeRenderBlock($content);
         }
 
         if (preg_match('/^component\((?<name>[^)]+)\)$/', $directive, $matches)) {
@@ -131,7 +119,7 @@ class HybridPageBlockExtractor
                 throw new InvalidArgumentException('Component blocks must specify a component name.');
             }
 
-            return new ComponentPageBlock($this->page, $content, $name);
+            return new BladeComponentBlock($content, $name);
         }
 
         throw new InvalidArgumentException(

@@ -84,6 +84,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Blade Block Support
+    |--------------------------------------------------------------------------
+    |
+    | A sister feature to the Blade support above, letting you render Blade using
+    | fenced code blocks instead of the [Blade]: directive.
+    |
+    | It carries the same security caveat since it allows arbitrary PHP to run,
+    | so it's disabled by default. Only enable it if your Markdown is trusted.
+    |
+    | To see the syntax and usage, see the documentation.
+    |
+    */
+
+    'enable_blade_blocks' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Tailwind Typography Prose Classes
     |--------------------------------------------------------------------------
     |

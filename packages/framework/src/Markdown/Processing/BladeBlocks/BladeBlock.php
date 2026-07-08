@@ -2,17 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Pages\HybridPages;
-
-use Hyde\Pages\HybridPage;
+namespace Hyde\Markdown\Processing\BladeBlocks;
 
 use function hash;
 use function implode;
 use function sprintf;
 
-abstract class HybridPageBlock
+abstract class BladeBlock
 {
-    protected HybridPage $page;
     protected string $content;
 
     public readonly string $signature;
@@ -21,12 +18,11 @@ abstract class HybridPageBlock
 
     private static int $sequence = 1;
 
-    public function __construct(HybridPage $page, string $content)
+    public function __construct(string $content)
     {
-        $this->page = $page;
         $this->content = $content;
 
-        $this->signature = sprintf('<!-- HYDE[HybridPageBlock]%s -->',
+        $this->signature = sprintf('<!-- HYDE[BladeBlock]%s -->',
             hash('sha256', implode("\0", $this->getHashableContent())),
         );
     }
@@ -34,7 +30,7 @@ abstract class HybridPageBlock
     public function compile(): string
     {
         return sprintf(
-            '<div class="hybrid-container not-prose">%s</div>',
+            '<div class="blade-block not-prose">%s</div>',
             $this->render(),
         );
     }

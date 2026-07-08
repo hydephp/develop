@@ -7,7 +7,6 @@ namespace Hyde\Foundation;
 use Hyde\Hyde;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
-use Hyde\Pages\HybridPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
@@ -41,7 +40,6 @@ class HydeCoreExtension extends HydeExtension
             MarkdownPage::class => Features::hasMarkdownPages(),
             MarkdownPost::class => Features::hasMarkdownPosts(),
             DocumentationPage::class => Features::hasDocumentationPages(),
-            HybridPage::class => true, // TODO: Add the feature flag
         ], fn (bool $value): bool => $value));
     }
 

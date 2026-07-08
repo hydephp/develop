@@ -1,12 +1,14 @@
-# Hybrid Page Example
+# Blade Blocks Example
 
-This is a Hybrid Markdown and Blade page. It uses Markdown as the base, and supports Blade in various ways using code blocks. The file extension is `.hmd` which stands for both Hyde and Hybrid Markdown.
+Blade Blocks let you embed and execute Blade within any Markdown page using code blocks. It is a sister feature to Hyde's `[Blade]:` BladeDown support, and works on ordinary Markdown pages, posts, and documentation pages alike — there is no special page type or file extension.
+
+The feature is opt-in. Enable it by setting `markdown.enable_blade_blocks` to `true` in your `config/markdown.php`. Like BladeDown, it allows arbitrary PHP to run, so only enable it if your Markdown is trusted.
 
 If you want to write an actual code block, use four backticks as the terminator.
 
 In all cases, we will pass the `$page` variable to the view, meaning that you can access the data for the page. The Blade is evaluated at build time.
 
-Each rendered component is wrapped with a div containing the classes `hybrid-container not-prose`.
+Each rendered block is wrapped with a div containing the classes `blade-block not-prose`.
 
 ## A bare `blade` block is just a highlighted code sample
 
@@ -121,6 +123,10 @@ Note that blocks with the same content will still be compiled independently.
 {{ "Random $random" }}
 ```
 
+### Nested blocks in component slots
+
+A component's Markdown slot is compiled through the standard Markdown pipeline, so Blade blocks written inside a slot are themselves processed. The substitution is safe under this reentrancy: each block's signature is content-hashed and therefore unique, and only the signatures present in the HTML currently being processed are swapped, each being removed before it is compiled.
+
 ### Component without a name
 
 A component without a name in the directive will throw an error.
@@ -136,8 +142,8 @@ Here is the logic table for this
 | Block                     | Behavior            |
 | ------------------------- | ------------------- |
 | `blade`                   | highlighted sample  |
-| `blade render`            | valid hybrid block  |
-| `blade component(name)`   | valid hybrid block  |
+| `blade render`            | valid Blade block   |
+| `blade component(name)`   | valid Blade block   |
 | `blade component`         | throw               |
 | `blade component()`       | throw               |
 | `blade component(foo`     | throw               |
