@@ -60,4 +60,9 @@ foo: bar
 # I can now write Markdown here!
 ```
 
+---
 
+## And of course, normal code blocks are unaffected
+```
+<h1>Hello World!</h1>
+```
