@@ -75,3 +75,32 @@ foo: bar
 Also, in component Markdown slots, the {{ $blade }} is not rendered.
 ```
 
+## Equal code blocks
+
+Note that blocks with the same content will give the same result.
+
+````
+```blade
+@php($random = rand(1, 1000))
+
+{{ "Random $random" }}
+```
+
+```blade
+@php($random = rand(1, 1000))
+
+{{ "Random $random" }}
+```
+````
+
+```blade
+@php($random = rand(1, 1000))
+
+{{ "Random $random" }}
+```
+
+```blade
+@php($random = rand(1, 1000))
+
+{{ "Random $random" }}
+```
