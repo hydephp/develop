@@ -12,7 +12,7 @@ class HybridPageCompiler
     /**
      * Contains the blocks keyed by their hash code.
      *
-     * @var array<string, \Hyde\Pages\HybridPages\HybridPageBlock
+     * @var array<string, \Hyde\Pages\HybridPages\HybridPageBlock>
      */
     protected array $blocks = [];
 
