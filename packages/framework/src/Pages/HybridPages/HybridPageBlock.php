@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\HybridPages;
 
+use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\HybridPage;
 
 abstract class HybridPageBlock
 {
     protected HybridPage $page;
+    protected FrontMatter $data;
     protected string $content;
 
     public function __construct(HybridPage $page, string $content)
