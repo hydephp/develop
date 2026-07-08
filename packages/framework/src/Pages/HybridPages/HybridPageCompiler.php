@@ -35,6 +35,19 @@ class HybridPageCompiler
         //
     }
 
+    protected function makeBlock(string $info, string $content): ?HybridPageBlock
+    {
+        if ($info === 'blade') {
+            return new BladePageBlock($this->page, $content);
+        }
+
+        if (preg_match('/^component\((?<name>[^)]+)\)$/', $info, $matches)) {
+            return new ComponentPageBlock($this->page, trim($matches['name']), $content);
+        }
+
+        return null; // Not a hybrid block — leave it in the Markdown untouched.
+    }
+
     protected function injectCompiledBlocks(string $html): string
     {
         $replacements = [];
