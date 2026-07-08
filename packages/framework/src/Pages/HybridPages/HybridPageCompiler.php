@@ -121,7 +121,7 @@ class HybridPageCompiler
         }
 
         if (preg_match('/^component\((?<name>[^)]+)\)$/', $info, $matches)) {
-            return new ComponentPageBlock($this->page, trim($matches['name']), $content);
+            return new ComponentPageBlock($this->page, $content, trim($matches['name']));
         }
 
         return null; // Not a hybrid block — leave it in the Markdown untouched.
