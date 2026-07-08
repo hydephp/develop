@@ -15,7 +15,6 @@ use Symfony\Component\Yaml\Yaml;
 
 use function array_merge;
 use function filled;
-use function hash;
 use function is_array;
 use function ltrim;
 use function sprintf;

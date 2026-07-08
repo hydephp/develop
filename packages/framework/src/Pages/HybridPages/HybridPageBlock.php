@@ -25,7 +25,7 @@ abstract class HybridPageBlock
         $this->content = $content;
 
         $this->signature = sprintf('<!-- HYDE[HybridPageBlock]%s -->',
-            hash('sha256', implode("\0", $this->getHashableContent()))
+            hash('sha256', implode("\0", $this->getHashableContent())),
         );
     }
 

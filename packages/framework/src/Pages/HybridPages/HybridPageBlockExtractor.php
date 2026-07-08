@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\HybridPages;
 
 use Hyde\Pages\HybridPage;
+
 use function array_map;
 use function array_push;
 use function count;

@@ -37,7 +37,6 @@ class HybridPageCompiler
         return $html;
     }
 
-
     protected function injectCompiledBlocks(string $html): string
     {
         $replacements = [];
