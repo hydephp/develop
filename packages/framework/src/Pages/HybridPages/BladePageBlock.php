@@ -8,6 +8,6 @@ class BladePageBlock extends HybridPageBlock
 {
     public function render(): string
     {
-        // TODO: Implement render() method.
+        return $this->content;
     }
 }
