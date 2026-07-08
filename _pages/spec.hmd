@@ -10,6 +10,8 @@ Each rendered component is wrapped with a div containing the classes `hybrid-con
 
 ## Using the Blade tag, you can put any arbitrary Blade code
 
+# Todo: Consider changing `blade` as it can conflict with showing Blade code.
+
 ````markdown
 ```blade
 @php($world = 'world')
