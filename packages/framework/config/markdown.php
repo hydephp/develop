@@ -69,9 +69,10 @@ return [
     | Blade-supported Markdown
     |--------------------------------------------------------------------------
     |
-    | This feature allows you to use basic Laravel Blade in Markdown files.
+    | This feature allows you to use Laravel Blade in Markdown files through
+    | both [Blade]: directives and executable fenced Blade blocks.
     |
-    | BladeDown is enabled by default because source files in Hyde projects are
+    | Blade support is enabled by default because source files in Hyde projects are
     | generally trusted and reviewed. Since Blade can execute arbitrary PHP,
     | disable this when compiling untrusted or unreviewed Markdown.
     |
@@ -81,23 +82,6 @@ return [
     */
 
     'enable_blade' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Blade Block Support
-    |--------------------------------------------------------------------------
-    |
-    | A sister feature to the Blade support above, letting you render Blade using
-    | fenced code blocks instead of the [Blade]: directive.
-    |
-    | It carries the same security caveat since it allows arbitrary PHP to run,
-    | so it's disabled by default. Only enable it if your Markdown is trusted.
-    |
-    | To see the syntax and usage, see the documentation.
-    |
-    */
-
-    'enable_blade_blocks' => false,
 
     /*
     |--------------------------------------------------------------------------

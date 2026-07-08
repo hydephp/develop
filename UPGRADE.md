@@ -52,50 +52,39 @@ Then run `npm install` (or your package manager's equivalent) to pick up the upd
 
 If you have a custom `vite.config.js` that overrides `build.rollupOptions`, note that Vite 8 builds with Rolldown by default. The `hyde-vite-plugin` now configures its own build options under `build.rolldownOptions` rather than `build.rollupOptions` — if your custom config only sets `rollupOptions`, double check your output still ends up where you expect after upgrading.
 
-## Step 2: Review the BladeDown Default
+## Step 2: Review the Blade in Markdown Default
 
-HydePHP v3 enables BladeDown (Blade in Markdown) by default. New projects and projects without an explicit
-`markdown.enable_blade` setting will render `[Blade]:` directives and can execute PHP from them during a build.
+HydePHP v3 enables Blade in Markdown by default. The existing `markdown.enable_blade` setting now controls both
+`[Blade]:` directives and the new executable `blade render` and `blade component(name)` fenced code blocks. New
+projects and projects without an explicit setting can execute PHP from either syntax during a build.
 
 Existing projects normally keep their published `config/markdown.php` file during a dependency update. If yours
-currently sets `enable_blade` to `false`, it will remain disabled until you change it:
+currently sets `enable_blade` to `false`, both forms will remain disabled until you change it:
 
 ```php
 // filepath: config/markdown.php
 'enable_blade' => true,
 ```
 
+When enabled, the following fences are executable. A fence using only `blade` remains an ordinary syntax-highlighted
+code sample.
+
+- `blade render`
+- `blade component(name)`
+
 The v3 default is intended for sites where Markdown is part of the trusted, reviewed project source. If you ingest
-Markdown from users or another untrusted source, or your CI builds pull requests before review, keep the setting
-disabled:
+Markdown from users or another untrusted source, or your CI builds pull requests before review, keep all Blade in
+Markdown disabled:
 
 ```php
 // filepath: config/markdown.php
 'enable_blade' => false,
 ```
 
-BladeDown is not a security boundary for contributors who can add arbitrary project files, since they could add a
+This setting is not a security boundary for contributors who can add arbitrary project files, since they could add a
 malicious `.blade.php` file instead. Review source changes before building them in a privileged environment.
 
-## Step 3: Consider Enabling Blade Blocks
-
-HydePHP v3 adds Blade Blocks as an opt-in way to render Blade and Blade components from fenced code blocks in any
-Markdown page. Existing projects do not need to change anything unless they want to use this feature.
-
-To enable Blade Blocks, add the following setting to your published `config/markdown.php` file:
-
-```php
-// filepath: config/markdown.php
-'enable_blade_blocks' => true,
-```
-
-This enables the executable `blade render` and `blade component(name)` fence directives. A fence using only `blade`
-remains an ordinary syntax-highlighted code sample.
-
-Blade Blocks can execute arbitrary PHP during a build, so only enable them when your Markdown is trusted and reviewed.
-Leave the setting unset or set it to `false` when compiling untrusted or unreviewed Markdown.
-
-## Step 4: Replace the Removed `rebuild` Command
+## Step 3: Replace the Removed `rebuild` Command
 
 The `rebuild` command has been removed in v3.0. It had no remaining internal consumers now that the realtime compiler renders pages entirely in-memory, and building a single page could silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale while looking like a complete build.
 
@@ -180,7 +169,6 @@ from navigation menus and the sitemap. Redirect pages always include a visible f
 Use this checklist to track your upgrade progress:
 
 - [ ] Reviewed `markdown.enable_blade` and explicitly selected the appropriate trust policy
-- [ ] Reviewed the opt-in `markdown.enable_blade_blocks` setting
 - [ ] Replaced any `php hyde rebuild <path>` usage with `StaticPageBuilder::handle()` or a full `php hyde build`
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 

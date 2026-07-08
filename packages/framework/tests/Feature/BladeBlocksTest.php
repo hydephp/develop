@@ -43,13 +43,6 @@ class BladeBlocksTest extends TestCase
         unlink('resources/views/components/blade-block-props-fixture.blade.php');
     }
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        config(['markdown.enable_blade_blocks' => true]);
-    }
-
     private function render(string $markdown): string
     {
         return Markdown::render($markdown);
@@ -57,14 +50,22 @@ class BladeBlocksTest extends TestCase
 
     // Feature toggle
 
-    public function testFeatureIsDisabledByDefault()
+    public function testFeatureIsEnabledByDefault()
     {
-        config(['markdown.enable_blade_blocks' => false]);
-
         $html = $this->render("```blade render\n{{ \"Hello World!\" }}\n```");
 
+        $this->assertStringContainsString('<div class="blade-block not-prose">Hello World!</div>', $html);
+    }
+
+    public function testBladeDownAndBladeBlocksCanBeDisabledTogether()
+    {
+        config(['markdown.enable_blade' => false]);
+
+        $html = $this->render("[Blade]: {{ \"Hello BladeDown!\" }}\n\n```blade render\n{{ \"Hello BladeBlock!\" }}\n```");
+
+        $this->assertStringContainsString('[Blade]: {{', $html);
         $this->assertStringNotContainsString('<div class="blade-block', $html);
-        $this->assertStringContainsString('{{', $html);
+        $this->assertSame(2, substr_count($html, '{{'));
     }
 
     public function testPlainMarkdownIsUnaffectedWhenFeatureEnabled()
@@ -278,10 +279,8 @@ class BladeBlocksTest extends TestCase
         }
     }
 
-    public function testBladeDownAndBladeBlocksCanBeEnabledTogether()
+    public function testBladeDownAndBladeBlocksAreEnabledTogether()
     {
-        config(['markdown.enable_blade' => true]);
-
         $html = $this->render("[Blade]: {{ \"Hello BladeDown!\" }}\n\n```blade render\n{{ \"Hello BladeBlock!\" }}\n```");
 
         $this->assertStringContainsString('Hello BladeDown!', $html);

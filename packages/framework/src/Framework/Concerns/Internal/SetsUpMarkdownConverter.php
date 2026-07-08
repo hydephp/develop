@@ -54,10 +54,11 @@ trait SetsUpMarkdownConverter
 
     protected function registerPreProcessors(): void
     {
-        // Registered first so blocks are extracted before other processors read the fences.
-        $this->registerPreProcessor(BladeBlockProcessor::class, Config::getBool('markdown.enable_blade_blocks', false));
+        $enableBlade = Config::getBool('markdown.enable_blade', true);
 
-        $this->registerPreProcessor(BladeDownProcessor::class, Config::getBool('markdown.enable_blade', true));
+        // Registered first so blocks are extracted before other processors read the fences.
+        $this->registerPreProcessor(BladeBlockProcessor::class, $enableBlade);
+        $this->registerPreProcessor(BladeDownProcessor::class, $enableBlade);
 
         $this->registerPreProcessor(ShortcodeProcessor::class);
         $this->registerPreProcessor(CodeblockFilepathProcessor::class);
@@ -65,15 +66,10 @@ trait SetsUpMarkdownConverter
 
     protected function registerPostProcessors(): void
     {
-        $this->registerPostProcessor(
-            BladeBlockProcessor::class,
-            Config::getBool('markdown.enable_blade_blocks', false)
-        );
+        $enableBlade = Config::getBool('markdown.enable_blade', true);
 
-        $this->registerPostProcessor(
-            BladeDownProcessor::class,
-            Config::getBool('markdown.enable_blade', true)
-        );
+        $this->registerPostProcessor(BladeBlockProcessor::class, $enableBlade);
+        $this->registerPostProcessor(BladeDownProcessor::class, $enableBlade);
 
         $this->registerPostProcessor(
             CodeblockFilepathProcessor::class,

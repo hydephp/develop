@@ -2,7 +2,7 @@
 
 Blade Blocks let you embed and execute Blade within any Markdown page using code blocks. It is a sister feature to Hyde's `[Blade]:` BladeDown support, and works on ordinary Markdown pages, posts, and documentation pages alike — there is no special page type or file extension.
 
-The feature is opt-in. Enable it by setting `markdown.enable_blade_blocks` to `true` in your `config/markdown.php`. Like BladeDown, it allows arbitrary PHP to run, so only enable it if your Markdown is trusted.
+Blade Blocks and BladeDown are enabled by default and are both controlled by `markdown.enable_blade` in your `config/markdown.php`. They allow arbitrary PHP to run, so disable this option if your Markdown is not trusted.
 
 If you want to write an actual code block, use four backticks as the terminator.
 
