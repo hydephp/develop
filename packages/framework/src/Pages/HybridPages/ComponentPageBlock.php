@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Pages\HybridPages;
 
 use Hyde\Markdown\Models\FrontMatter;
+use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\HybridPage;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
+use Illuminate\View\ComponentAttributeBag;
 use Symfony\Component\Yaml\Yaml;
 
 class ComponentPageBlock extends HybridPageBlock
@@ -21,7 +25,16 @@ class ComponentPageBlock extends HybridPageBlock
 
     public function render(): string
     {
-        return $this->content;
+        $slot = $this->body === '' ? '' : Markdown::render($this->body, $this->page::class);
+
+        return Blade::render(
+            sprintf('<x-%s :$attributes>{!! $slot !!}</x-%s>', $this->name, $this->name),
+            [
+                'attributes' => new ComponentAttributeBag($this->data->toArray()),
+                'slot' => new HtmlString($slot),
+                'page' => $this->page,
+            ],
+        );
     }
 
     /** @return array{FrontMatter, string} */
