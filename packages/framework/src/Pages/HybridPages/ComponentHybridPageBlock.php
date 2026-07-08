@@ -21,4 +21,9 @@ class ComponentHybridPageBlock extends HybridPageBlock
     {
         // TODO: Implement render() method.
     }
+
+    protected function hash(): string
+    {
+        return hash('sha256', static::class."\0".$this->name."\0".$this->content);
+    }
 }
