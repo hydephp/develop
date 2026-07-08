@@ -22,6 +22,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 - Added native support for versioned documentation pages. Register versions in the new `docs.versions` configuration option, and store the pages for each version in a matching subdirectory of the documentation source directory (like `_docs/1.x` and `_docs/2.x`). Each version is compiled to a matching subdirectory of the documentation output directory, and gets its own sidebar, search index, and search page. A version switcher dropdown is shown in the documentation sidebar, the main navigation links to the default version's index page, and a redirect page is generated at the documentation root pointing to the default version. Sidebar and search configuration entries (`docs.sidebar.order`, `docs.sidebar.labels`, `docs.sidebar.exclude`, and `docs.exclude_from_search`) match version-agnostic identifiers and route keys, so a single entry applies to the page in every version, while full versioned keys allow version-specific overrides. Enabling the feature is all or nothing: documentation source files stored outside the version directories are ignored, so pages that should live at the documentation root belong in the normal page source directory (like `_pages/docs/index.md`). Versioning is disabled by default, and single-version sites are unaffected. ([#2516](https://github.com/hydephp/develop/pull/2516))
 - Redirects can now be declared as source and destination path pairs in the `hyde.redirects` configuration array. Hyde registers them with the kernel, includes them in `route:list`, and generates them through the normal site build.
+- Added opt-in Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. The supported directives are `blade render` and `blade component(name)`, and the feature can be enabled with `markdown.enable_blade_blocks`. ([#2504](https://github.com/hydephp/develop/pull/2504))
 
 ### Feature Changes
 
@@ -45,6 +46,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 Please fill in UPGRADE.md as you make changes.
 
+- Blade Blocks are available as an opt-in feature for trusted Markdown. Add `markdown.enable_blade_blocks` to a published `config/markdown.php` file and set it to `true` to use executable `blade render` and `blade component(name)` fenced code blocks.
 - BladeDown is now enabled by default. Existing projects with a published `config/markdown.php` retain their current setting; set `markdown.enable_blade` to `true` to adopt the v3 default, or keep it `false` when compiling untrusted or unreviewed Markdown.
 - The `rebuild` command has been removed. If you need to build a single page programmatically, use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead.
 - Move any calls to `Redirect::create()` or `Redirect::store()` into the `redirects` array in `config/hyde.php`, using the old path as the key and the destination as the value.
