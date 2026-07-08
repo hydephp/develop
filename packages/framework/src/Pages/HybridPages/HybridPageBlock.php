@@ -33,7 +33,10 @@ abstract class HybridPageBlock
 
     public function compile(): string
     {
-        return $this->render();
+        return sprintf(
+            '<section class="hybrid-container not-prose">%s</section>',
+            $this->render(),
+        );
     }
 
     protected function computeHash(): string
