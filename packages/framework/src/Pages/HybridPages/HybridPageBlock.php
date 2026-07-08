@@ -17,17 +17,21 @@ abstract class HybridPageBlock
     // content minus front matter (the template / slot)
     protected string $body;
 
+    protected readonly string $hash;
+
     public function __construct(HybridPage $page, string $content)
     {
         $this->page = $page;
         $this->content = $content;
 
         [$this->data, $this->body] = $this->parse($content);
+
+        $this->hash = $this->hash();
     }
 
     public function signature(): string
     {
-        return sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash());
+        return sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash);
     }
 
     protected function hash(): string
