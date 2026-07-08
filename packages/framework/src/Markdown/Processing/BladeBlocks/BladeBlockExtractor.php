@@ -100,11 +100,6 @@ class BladeBlockExtractor
         $fence = $matches['fence'];
         $fenceChar = $fence[0];
 
-        // A backtick info string may not itself contain backticks (CommonMark).
-        if ($fenceChar === '`' && str_contains($matches['info'], '`')) {
-            return null;
-        }
-
         return [
             'indent' => strlen($matches['indent']),
             'fence' => $fence,
