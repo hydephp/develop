@@ -30,6 +30,6 @@ abstract class HybridPageBlock
 
     protected function computeHash(): string
     {
-        return hash('sha256', static::class . "\0" . $this->content); 
+        return hash('sha256', static::class."\0".$this->content);
     }
 }
