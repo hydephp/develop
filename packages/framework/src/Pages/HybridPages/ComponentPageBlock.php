@@ -13,6 +13,7 @@ use Illuminate\View\ComponentAttributeBag;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Symfony\Component\Yaml\Yaml;
 
+use function array_merge;
 use function filled;
 use function hash;
 use function is_array;
@@ -66,8 +67,9 @@ class ComponentPageBlock extends HybridPageBlock
         return str_starts_with(ltrim($content), '---');
     }
 
-    protected function computeHash(): string
+    /** @inheritDoc */
+    protected function getHashableContent(): array
     {
-        return hash('sha256', static::class."\0".$this->name."\0".$this->content);
+        return array_merge(parent::getHashableContent(), [$this->name]);
     }
 }

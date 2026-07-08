@@ -7,6 +7,7 @@ namespace Hyde\Pages\HybridPages;
 use Hyde\Pages\HybridPage;
 
 use function hash;
+use function implode;
 use function sprintf;
 
 abstract class HybridPageBlock
@@ -23,7 +24,7 @@ abstract class HybridPageBlock
         $this->page = $page;
         $this->content = $content;
 
-        $this->hash = $this->computeHash();
+        $this->hash = hash('sha256', implode("\0", $this->getHashableContent()));
     }
 
     public function signature(): string
@@ -39,8 +40,9 @@ abstract class HybridPageBlock
         );
     }
 
-    protected function computeHash(): string
+    /** @return array<string> */
+    protected function getHashableContent(): array
     {
-        return hash('sha256', static::class."\0".$this->content);
+        return [static::class, $this->content];
     }
 }
