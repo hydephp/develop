@@ -11,7 +11,7 @@ class BladePageBlock extends HybridPageBlock
 {
     public function render(): string
     {
-        return Blade::render($this->content);
+        return Blade::render($this->content, $this->data->toArray());
     }
 
     /**
