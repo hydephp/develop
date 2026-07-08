@@ -60,7 +60,7 @@ class ComponentPageBlock extends HybridPageBlock
         return str_starts_with(ltrim($content), '---');
     }
 
-    protected function hash(): string
+    protected function computeHash(): string
     {
         return hash('sha256', static::class."\0".$this->name."\0".$this->content);
     }

@@ -18,7 +18,7 @@ abstract class HybridPageBlock
         $this->page = $page;
         $this->content = $content;
 
-        $this->hash = hash('sha256', static::class."\0".$this->content);
+        $this->hash = $this->computeHash();
     }
 
     public function signature(): string
@@ -27,4 +27,9 @@ abstract class HybridPageBlock
     }
 
     abstract public function render(): string;
+
+    protected function computeHash(): string
+    {
+        return hash('sha256', static::class . "\0" . $this->content); 
+    }
 }
