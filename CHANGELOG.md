@@ -20,7 +20,7 @@ This serves two purposes:
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
 
 ### Changed
-- for changes in existing functionality.
+- BladeDown (Blade in Markdown) is now enabled by default. Set `markdown.enable_blade` to `false` when compiling untrusted or unreviewed Markdown.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.

@@ -52,11 +52,37 @@ Then run `npm install` (or your package manager's equivalent) to pick up the upd
 
 If you have a custom `vite.config.js` that overrides `build.rollupOptions`, note that Vite 8 builds with Rolldown by default. The `hyde-vite-plugin` now configures its own build options under `build.rolldownOptions` rather than `build.rollupOptions` — if your custom config only sets `rollupOptions`, double check your output still ends up where you expect after upgrading.
 
-## Step 2: Replace the Removed `rebuild` Command
+## Step 2: Review the BladeDown Default
+
+HydePHP v3 enables BladeDown (Blade in Markdown) by default. New projects and projects without an explicit
+`markdown.enable_blade` setting will render `[Blade]:` directives and can execute PHP from them during a build.
+
+Existing projects normally keep their published `config/markdown.php` file during a dependency update. If yours
+currently sets `enable_blade` to `false`, it will remain disabled until you change it:
+
+```php
+// filepath: config/markdown.php
+'enable_blade' => true,
+```
+
+The v3 default is intended for sites where Markdown is part of the trusted, reviewed project source. If you ingest
+Markdown from users or another untrusted source, or your CI builds pull requests before review, keep the setting
+disabled:
+
+```php
+// filepath: config/markdown.php
+'enable_blade' => false,
+```
+
+BladeDown is not a security boundary for contributors who can add arbitrary project files, since they could add a
+malicious `.blade.php` file instead. Review source changes before building them in a privileged environment.
+
+## Step 3: Replace the Removed `rebuild` Command
 
 The `rebuild` command has been removed in v3.0. It had no remaining internal consumers now that the realtime compiler renders pages entirely in-memory, and building a single page could silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale while looking like a complete build.
 
 **Before:**
+
 ```bash
 php hyde rebuild _posts/hello-world.md
 ```
@@ -78,10 +104,10 @@ Note that this only produces a correct `_site` when the page is self-contained. 
 
 Use this checklist to track your upgrade progress:
 
+- [ ] Reviewed `markdown.enable_blade` and explicitly selected the appropriate trust policy
 - [ ] Replaced any `php hyde rebuild <path>` usage with `StaticPageBuilder::handle()` or a full `php hyde build`
 
 ## Troubleshooting
-
 
 ## Getting Help
 
