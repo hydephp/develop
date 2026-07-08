@@ -14,6 +14,7 @@ use function explode;
 use function implode;
 use function preg_match;
 use function preg_replace;
+use function preg_split;
 use function str_replace;
 use function strlen;
 use function trim;
@@ -107,11 +108,23 @@ class HybridPageBlockExtractor
 
     protected function makeBlock(string $info, string $content): ?HybridPageBlock
     {
-        if ($info === 'blade') {
+        // Fence highlighters only read the first token of the info string, so
+        // everything Hyde executes is keyed off the "blade" prefix followed by a
+        // directive. This keeps real Blade highlighting in every case, and a bare
+        // ```blade``` stays an ordinary (non-executed) syntax-highlighted sample.
+        $tokens = preg_split('/\s+/', $info);
+
+        if ($tokens[0] !== 'blade' || count($tokens) === 1) {
+            return null; // Not a hybrid block — leave it in the Markdown untouched.
+        }
+
+        $directive = $tokens[1];
+
+        if ($directive === 'render') {
             return new BladePageBlock($this->page, $content);
         }
 
-        if (preg_match('/^component\((?<name>[^)]+)\)$/', $info, $matches)) {
+        if (preg_match('/^component\((?<name>[^)]+)\)$/', $directive, $matches)) {
             $name = trim($matches['name']);
 
             if ($name === '') {
@@ -121,12 +134,8 @@ class HybridPageBlockExtractor
             return new ComponentPageBlock($this->page, $content, $name);
         }
 
-        if ($info === 'component' || str_starts_with($info, 'component(')) {
-            throw new InvalidArgumentException(
-                'Invalid component block syntax. Expected ```component(component-name).'
-            );
-        }
-
-        return null; // Not a hybrid block — leave it in the Markdown untouched.
+        throw new InvalidArgumentException(
+            'Invalid Blade block syntax. Expected ```blade render``` or ```blade component(component-name)```.'
+        );
     }
 }
