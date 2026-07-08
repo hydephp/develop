@@ -7,6 +7,17 @@ namespace Hyde\Pages\HybridPages;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Pages\HybridPage;
 
+use function array_map;
+use function array_push;
+use function count;
+use function explode;
+use function implode;
+use function preg_match;
+use function preg_replace;
+use function str_replace;
+use function strlen;
+use function trim;
+
 class HybridPageCompiler
 {
     /**

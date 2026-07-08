@@ -6,6 +6,9 @@ namespace Hyde\Pages\HybridPages;
 
 use Hyde\Pages\HybridPage;
 
+use function hash;
+use function sprintf;
+
 abstract class HybridPageBlock
 {
     protected HybridPage $page;

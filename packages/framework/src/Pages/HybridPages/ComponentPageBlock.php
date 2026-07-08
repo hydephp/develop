@@ -13,6 +13,12 @@ use Illuminate\View\ComponentAttributeBag;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Symfony\Component\Yaml\Yaml;
 
+use function filled;
+use function hash;
+use function is_array;
+use function ltrim;
+use function sprintf;
+
 class ComponentPageBlock extends HybridPageBlock
 {
     protected string $name;
