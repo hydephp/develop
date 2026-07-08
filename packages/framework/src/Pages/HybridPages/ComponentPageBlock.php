@@ -12,9 +12,9 @@ class ComponentPageBlock extends HybridPageBlock
 
     public function __construct(HybridPage $page, string $content, string $name)
     {
-        parent::__construct($page, $content);
-
         $this->name = $name;
+
+        parent::__construct($page, $content);
     }
 
     public function render(): string
