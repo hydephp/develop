@@ -44,17 +44,20 @@ class ComponentPageBlock extends HybridPageBlock
     /** @return array{FrontMatter, string} */
     protected function parse(string $content): array
     {
-        // Triple-dash form → front matter + Markdown slot.
-        if (str_starts_with(ltrim($content), '---')) {
+        if ($this->hasFrontMatter($content)) {
             $document = YamlFrontMatter::markdownCompatibleParse($content);
 
             return [FrontMatter::fromArray($document->matter()), $document->body()];
         }
 
-        // Shorthand form → the entire block is front matter, no slot.
         $matter = Yaml::parse($content);
 
         return [FrontMatter::fromArray(is_array($matter) ? $matter : []), ''];
+    }
+
+    protected function hasFrontMatter(string $content): bool
+    {
+        return str_starts_with(ltrim($content), '---');
     }
 
     protected function hash(): string
