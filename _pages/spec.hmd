@@ -6,7 +6,7 @@ If you want to write an actual code block, use four backticks as the terminator.
 
 In all cases, we will pass the `$page` variable to the view, meaning that you can access the data for the page. The Blade is evaluated at build time.
 
-Each rendered component is wrapped with a section/div (pending decision) containing the classes `hybrid-container not-prose`.
+Each rendered component is wrapped with a div containing the classes `hybrid-container not-prose`.
 
 ## Using the Blade tag, you can put any arbitrary Blade code
 

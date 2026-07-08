@@ -34,7 +34,7 @@ abstract class HybridPageBlock
     public function compile(): string
     {
         return sprintf(
-            '<section class="hybrid-container not-prose">%s</section>',
+            '<div class="hybrid-container not-prose">%s</div>',
             $this->render(),
         );
     }
