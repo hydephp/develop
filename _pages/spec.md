@@ -123,10 +123,6 @@ Note that blocks with the same content will still be compiled independently.
 {{ "Random $random" }}
 ```
 
-### Nested blocks in component slots
-
-A component's Markdown slot is compiled through the standard Markdown pipeline, so Blade blocks written inside a slot are themselves processed. The substitution is safe under this reentrancy: each block's signature is content-hashed and therefore unique, and only the signatures present in the HTML currently being processed are swapped, each being removed before it is compiled.
-
 ### Component without a name
 
 A component without a name in the directive will throw an error.

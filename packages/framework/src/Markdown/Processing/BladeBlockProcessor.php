@@ -6,10 +6,11 @@ namespace Hyde\Markdown\Processing;
 
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
+use Hyde\Markdown\Processing\BladeBlocks\BladeBlock;
 use Hyde\Markdown\Processing\BladeBlocks\BladeBlockExtractor;
 
-use function str_contains;
-use function str_replace;
+use function array_map;
+use function strtr;
 
 /**
  * Renders executable Blade code blocks within any Markdown page.
@@ -40,16 +41,12 @@ class BladeBlockProcessor implements MarkdownPreProcessorContract, MarkdownPostP
 
     public static function postprocess(string $html): string
     {
-        // Compiling a block can re-enter this processor, so we only touch signatures
-        // present in this HTML and remove each before compiling it.
-        foreach (static::$blocks as $signature => $block) {
-            if (str_contains($html, $signature)) {
-                unset(static::$blocks[$signature]);
+        $blocks = static::$blocks;
+        static::$blocks = [];
 
-                $html = str_replace($signature, $block->compile(), $html);
-            }
-        }
-
-        return $html;
+        return strtr($html, array_map(
+            fn (BladeBlock $block): string => $block->compile(),
+            $blocks,
+        ));
     }
 }
