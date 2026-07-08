@@ -20,7 +20,7 @@ class HybridPageCompiler
     {
         $markdown = $page->markdown;
 
-        [$this->blocks, $markdown] = $this->extractBlocks($markdown);
+        [$this->blocks, $markdown] = $this->extractBlocks($markdown->body());
 
         $html = Markdown::render($markdown, $page::class);
 
