@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Pages\HybridPages;
 
-class BladeHybridPageBlock extends HybridPageBlock
+class BladePageBlock extends HybridPageBlock
 {
     public function render()
     {

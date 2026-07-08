@@ -6,7 +6,7 @@ namespace Hyde\Pages\HybridPages;
 
 use Hyde\Pages\HybridPage;
 
-class ComponentHybridPageBlock extends HybridPageBlock
+class ComponentPageBlock extends HybridPageBlock
 {
     protected string $name;
 
