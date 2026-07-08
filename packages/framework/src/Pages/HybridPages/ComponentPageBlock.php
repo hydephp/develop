@@ -29,7 +29,7 @@ class ComponentPageBlock extends HybridPageBlock
 
     public function render(): string
     {
-        $slot = $this->body === '' ? '' : Markdown::render($this->body, $this->page::class);
+        $slot = filled($this->body) ? Markdown::render($this->body, $this->page::class) : '';
 
         return Blade::render(
             sprintf('<x-%s :$attributes>{!! $slot !!}</x-%s>', $this->name, $this->name),
