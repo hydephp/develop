@@ -37,6 +37,12 @@ class HybridPageCompiler
 
     protected function injectCompiledBlocks(string $html): string
     {
-        //
+        $replacements = [];
+
+        foreach ($this->blocks as $block) {
+            $replacements[$block->signature()] = $block->render();
+        }
+
+        return strtr($html, $replacements);
     }
 }
