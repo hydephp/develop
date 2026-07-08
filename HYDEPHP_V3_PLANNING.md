@@ -4,6 +4,8 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ## Planned features
 
+- Change all HydePHP reposotiries to use `main` instead of `master` as the default branch. This change will be executed around the time of the release.
+
 ## Changes requires to this branch
 
 ## Changes required to the v2 branch
