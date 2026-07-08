@@ -140,18 +140,17 @@ class MarkdownServiceTest extends TestCase
         $this->assertFalse($service->isDocumentationPage());
     }
 
-    public function testBladedownIsNotEnabledByDefault()
+    public function testBladedownIsEnabledByDefault()
     {
         $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
-        $this->assertSame("<p>[Blade]: {{ &quot;Hello World!&quot; }}</p>\n", $service->parse());
+        $this->assertSame("Hello World!\n", $service->parse());
     }
 
-    public function testBladedownCanBeEnabled()
+    public function testBladedownCanBeDisabled()
     {
-        config(['markdown.enable_blade' => true]);
+        config(['markdown.enable_blade' => false]);
         $service = new MarkdownService('[Blade]: {{ "Hello World!" }}');
-        $service->addFeature('bladedown')->parse();
-        $this->assertSame("Hello World!\n", $service->parse());
+        $this->assertSame("<p>[Blade]: {{ &quot;Hello World!&quot; }}</p>\n", $service->parse());
     }
 
     public function testRawHtmlTagsAreStrippedByDefault()
