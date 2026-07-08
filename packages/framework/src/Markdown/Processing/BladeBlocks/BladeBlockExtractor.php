@@ -113,9 +113,7 @@ class BladeBlockExtractor
         }
 
         if (preg_match('/^component\((?<name>[^)]+)\)$/', $directive, $matches)) {
-            $name = trim($matches['name']);
-
-            return new BladeComponentBlock($content, $name);
+            return new BladeComponentBlock($content, trim($matches['name']));
         }
 
         throw new InvalidArgumentException(
