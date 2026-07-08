@@ -75,7 +75,9 @@ foo: bar
 Also, in component Markdown slots, the {{ $blade }} is not rendered.
 ```
 
-## Equal code blocks
+## Edge cases & Considerations
+
+### Equal code blocks
 
 Note that blocks with the same content will still be compiled independently.
 
