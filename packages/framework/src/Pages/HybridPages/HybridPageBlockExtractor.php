@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Pages\HybridPages;
 
 use Hyde\Pages\HybridPage;
+use InvalidArgumentException;
 
 use function array_map;
 use function array_push;
@@ -111,7 +112,19 @@ class HybridPageBlockExtractor
         }
 
         if (preg_match('/^component\((?<name>[^)]+)\)$/', $info, $matches)) {
-            return new ComponentPageBlock($this->page, $content, trim($matches['name']));
+            $name = trim($matches['name']);
+
+            if ($name === '') {
+                throw new InvalidArgumentException('Component blocks must specify a component name.');
+            }
+
+            return new ComponentPageBlock($this->page, $content, $name);
+        }
+
+        if ($info === 'component' || str_starts_with($info, 'component(')) {
+            throw new InvalidArgumentException(
+                'Invalid component block syntax. Expected ```component(component-name).'
+            );
         }
 
         return null; // Not a hybrid block — leave it in the Markdown untouched.

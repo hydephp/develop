@@ -108,3 +108,28 @@ Note that blocks with the same content will still be compiled independently.
 
 {{ "Random $random" }}
 ```
+
+### Component without tag
+
+A component without a name in the tag will throw an error
+
+````markdown
+```component
+Will throw an error.
+```
+````
+
+```component
+Will throw an error.
+```
+
+Here is the logic table for this
+
+| Block                     | Behavior            |
+| ------------------------- | ------------------- |
+| `blade`                   | valid hybrid block  |
+| `component(name)`         | valid hybrid block  |
+| `component`               | throw               |
+| `component()`             | throw               |
+| `component(foo`           | throw               |
+| `php`, `js`, `html`, etc. | ordinary code block |
