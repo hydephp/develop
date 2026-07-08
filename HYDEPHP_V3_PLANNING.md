@@ -16,6 +16,8 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### Feature Changes
 
+- BladeDown (Blade in Markdown) is now enabled by default. Hyde sites generally treat project content as trusted and reviewed; sites that compile untrusted or unreviewed Markdown can disable it with `markdown.enable_blade`.
+
 ### Minor Changes and Cleanup
 
 - Removed the legacy `checkForDeprecatedRunMixCommandUsage` check and the placeholder `--run-dev`/`--run-prod` options from the `build` command, which were kept in v2 only to surface a helpful error message. ([#2461](https://github.com/hydephp/develop/pull/2461))
@@ -30,4 +32,5 @@ Having this document in code lets us know the devlopment state at any given poin
 
 Please fill in UPGRADE.md as you make changes.
 
+- BladeDown is now enabled by default. Existing projects with a published `config/markdown.php` retain their current setting; set `markdown.enable_blade` to `true` to adopt the v3 default, or keep it `false` when compiling untrusted or unreviewed Markdown.
 - The `rebuild` command has been removed. If you need to build a single page programmatically, use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead.

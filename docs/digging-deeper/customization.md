@@ -439,15 +439,19 @@ you can use the `allow_html` setting to enable all HTML tags.
 
 ### Allow Blade Code
 
-HydePHP also allows you to use Blade code in your Markdown files. This is disabled by default, since it allows
-arbitrary PHP code specified in Markdown to be executed. It's easy to enable however, using the `enable_blade` setting.
+HydePHP also allows you to use Blade code in your Markdown files. This feature, called BladeDown, is enabled by default
+in HydePHP v3 because project source is normally trusted and reviewed.
+
+Blade code can execute arbitrary PHP during the build. Disable it when processing Markdown from outside your trusted
+review process:
 
 ```php
 // filepath: config/markdown.php
-'enable_blade' => true,
+'enable_blade' => false,
 ```
 
-See the [Blade in Markdown](advanced-markdown#using-blade-in-markdown) documentation for more information on how to use this feature.
+See the [Blade in Markdown](advanced-markdown#using-blade-in-markdown) documentation for syntax and a detailed
+explanation of the trust model.
 
 ## YAML Configuration
 

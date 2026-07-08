@@ -18,13 +18,9 @@ This serves two purposes:
 
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
-- Added a custom error page to the realtime compiler server to produce more helpful exception output in https://github.com/hydephp/develop/pull/2505
-- Redesigned the dashboard in the realtime compiler server to have a more modern and capable design https://github.com/hydephp/develop/pull/2508
-
-_Changes to the realtime compiler requires an update to v4.5 or later of the `hyde/realtime-compiler` package in your project's `composer.json`.
 
 ### Changed
-- Upgraded default realtime comiler version to v4.5 in https://github.com/hydephp/develop/pull/2510
+- BladeDown (Blade in Markdown) is now enabled by default. Set `markdown.enable_blade` to `false` when compiling untrusted or unreviewed Markdown.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.

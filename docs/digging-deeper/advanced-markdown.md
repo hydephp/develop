@@ -12,7 +12,8 @@ Since HydePHP makes heavy use of Markdown, there are some extra features and hel
 
 ## Using Blade in Markdown
 
-A special feature in Hyde, is that you can use [Laravel Blade](https://laravel.com/docs/10.x/blade) in Markdown files!
+BladeDown is Hyde's support for using [Laravel Blade](https://laravel.com/docs/10.x/blade) in Markdown files.
+It is enabled by default in HydePHP v3.
 
 To use Blade in your Markdown files, simply use the Blade shortcode directive, followed by your desired Blade string.
 
@@ -32,15 +33,23 @@ directive to render a more complex Blade template. You can pass data to includes
  [Blade]: @include("hello", ["name" => "World"])
 ```
 
-### Enabling Blade-supported Markdown
+### Trusting Markdown content
 
-The feature is disabled by default since it allows arbitrary PHP to run, which could be a security risk, depending on your setup.
-However, if your Markdown is trusted, and you know it's safe, you can enable it in the `config/markdown.php` file.
+Blade directives can execute arbitrary PHP during the site build. Hyde projects normally treat source files committed
+to the project as trusted: content changes should be reviewed both for the text they publish and for executable
+directives hidden in the source.
+
+If your site accepts Markdown outside that trusted review process, or builds pull requests before they have been
+reviewed, disable BladeDown in the `config/markdown.php` file:
 
 ```php
 // filepath: config/markdown.php
-'enable_blade' => true,
+'enable_blade' => false,
 ```
+
+Disabling BladeDown is not a sandbox for contributors who can add arbitrary project files, since they could add a
+malicious Blade template instead. Treat project-level write access as trusted and review source changes before
+building them in a privileged environment.
 
 ### Limitations
 
