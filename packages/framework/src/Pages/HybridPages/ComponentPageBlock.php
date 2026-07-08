@@ -33,7 +33,7 @@ class ComponentPageBlock extends HybridPageBlock
         parent::__construct($page, $content);
     }
 
-    public function render(): string
+    protected function render(): string
     {
         $slot = filled($this->body) ? Markdown::render($this->body, $this->page::class) : '';
 

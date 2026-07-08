@@ -43,7 +43,7 @@ class HybridPageCompiler
         $replacements = [];
 
         foreach ($this->blocks as $block) {
-            $replacements[$block->signature()] = $block->render();
+            $replacements[$block->signature()] = $block->compile();
         }
 
         return strtr($html, $replacements);

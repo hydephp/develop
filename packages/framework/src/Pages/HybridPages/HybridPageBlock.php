@@ -16,7 +16,7 @@ abstract class HybridPageBlock
 
     protected readonly string $hash;
 
-    abstract public function render(): string;
+    abstract protected function render(): string;
 
     public function __construct(HybridPage $page, string $content)
     {
@@ -29,6 +29,11 @@ abstract class HybridPageBlock
     public function signature(): string
     {
         return sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash);
+    }
+
+    public function compile(): string
+    {
+        return $this->render();
     }
 
     protected function computeHash(): string

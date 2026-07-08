@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Blade;
 
 class BladePageBlock extends HybridPageBlock
 {
-    public function render(): string
+    protected function render(): string
     {
         return Blade::render($this->content);
     }
