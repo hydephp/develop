@@ -14,6 +14,7 @@ use function implode;
 use function preg_match;
 use function preg_replace;
 use function preg_split;
+use function str_contains;
 use function str_replace;
 use function strlen;
 use function trim;
@@ -33,23 +34,17 @@ class BladeBlockExtractor
             $line = $lines[$i];
 
             // Only opening code fences are interesting; everything else passes through.
-            if (! preg_match('/^(?<indent> {0,3})(?<fence>`{3,}|~{3,})(?<info>.*)$/', $line, $open)) {
+            $openingFence = $this->parseCodeFenceOpening($line);
+
+            if ($openingFence === null) {
                 $output[] = $line;
                 continue;
             }
 
-            $char = $open['fence'][0];
-            $length = strlen($open['fence']);
-
-            // A backtick info string may not itself contain backticks (CommonMark).
-            if ($char === '`' && str_contains($open['info'], '`')) {
-                $output[] = $line;
-                continue;
-            }
-
-            $indent = strlen($open['indent']);
-            $info = trim($open['info']);
-            $closer = '/^ {0,3}('.$char.'{3,})[ \t]*$/';
+            $length = $openingFence['fenceLength'];
+            $indent = $openingFence['indent'];
+            $info = $openingFence['info'];
+            $closer = $openingFence['closerPattern'];
 
             // Find the matching close: same char, at least as long, whitespace only.
             // Because a longer fence never closes on a shorter one, a ```` block
@@ -84,6 +79,40 @@ class BladeBlockExtractor
         }
 
         return [$blocks, implode("\n", $output)];
+    }
+
+    /**
+     * @return array{
+     *     indent: int,
+     *     fence: string,
+     *     fenceChar: string,
+     *     fenceLength: int,
+     *     info: string,
+     *     closerPattern: string
+     * }|null
+     */
+    protected function parseCodeFenceOpening(string $line): ?array
+    {
+        if (! preg_match('/^(?<indent> {0,3})(?<fence>`{3,}|~{3,})(?<info>.*)$/', $line, $matches)) {
+            return null;
+        }
+
+        $fence = $matches['fence'];
+        $fenceChar = $fence[0];
+
+        // A backtick info string may not itself contain backticks (CommonMark).
+        if ($fenceChar === '`' && str_contains($matches['info'], '`')) {
+            return null;
+        }
+
+        return [
+            'indent' => strlen($matches['indent']),
+            'fence' => $fence,
+            'fenceChar' => $fenceChar,
+            'fenceLength' => strlen($fence),
+            'info' => trim($matches['info']),
+            'closerPattern' => '/^ {0,3}('.$fenceChar.'{3,})[ \t]*$/',
+        ];
     }
 
     protected function dedent(array $lines, int $indent): string
