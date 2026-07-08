@@ -13,7 +13,7 @@
 ## The Elegant and Powerful Static Site Generator
 
 HydePHP is a Static Site Generator focused on writing content, not markup. With Hyde, it is easy to create static
-websites, blogs, and documentation pages using Markdown, BladeDown, and Laravel Blade templates.
+websites, blogs, and documentation pages using Markdown and (optionally) Laravel's Blade.
 
 Operated entirely through the command-line, HydePHP provides developers with a fast and efficient way to create high-quality websites with ease.
 Unlike traditional web development frameworks, sites compiled with HydePHP don't require any server to run,
