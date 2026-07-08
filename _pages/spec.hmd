@@ -12,14 +12,14 @@ Each rendered component is wrapped with a section/div (pending decision) contain
 
 ````markdown
 ```blade
-$world = 'world';
+@php($world = 'world')
 
 {{ "Hello $world" }}
 ```
 ````
 
 ```blade
-$world = 'world';
+@php($world = 'world')
 
 {{ "Hello $world" }}
 ```
