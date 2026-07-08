@@ -16,7 +16,7 @@
     @if(config('hyde.use_play_cdn', false))
         <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
         <script>tailwind.config = { {!! HydeFront::injectTailwindConfig() !!} }</script>
-        <script>console.warn('The HydePHP TailwindCSS Play CDN is enabled. This is for development purposes only and should not be used in production.', 'See https://hydephp.com/docs/1.x/managing-assets');</script>
+        <script>console.warn('The HydePHP TailwindCSS Play CDN is enabled. This is for development purposes only and should not be used in production.', 'See https://hydephp.com/docs/2.x/managing-assets');</script>
     @endif
 @endif
 
