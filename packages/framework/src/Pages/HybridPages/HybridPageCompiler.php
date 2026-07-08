@@ -82,8 +82,9 @@ class HybridPageCompiler
             $closed = $end > $i;
 
             if ($block = $this->makeBlock($info, $this->dedent($body, $indent))) {
-                $blocks[$block->hash()] = $block;
-                $output[] = $block->signature();
+                $signature = $block->signature();
+                $blocks[$signature] = $block;
+                $output[] = $signature;
             } else {
                 // Ordinary code block — emit it verbatim, fences and all.
                 $output[] = $line;
