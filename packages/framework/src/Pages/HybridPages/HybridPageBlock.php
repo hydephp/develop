@@ -9,10 +9,12 @@ use Hyde\Pages\HybridPage;
 abstract class HybridPageBlock
 {
     protected HybridPage $page;
+    protected string $content;
 
-    public function __construct(HybridPage $page)
+    public function __construct(HybridPage $page, string $content)
     {
         $this->page = $page;
+        $this->content = $content;
     }
 
     public function signature(): string
