@@ -27,5 +27,5 @@ abstract class HybridPageBlock
         return hash('sha256', static::class."\0".$this->content);
     }
 
-    abstract public function render();
+    abstract public function render(): string;
 }

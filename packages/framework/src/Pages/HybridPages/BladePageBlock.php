@@ -6,7 +6,7 @@ namespace Hyde\Pages\HybridPages;
 
 class BladePageBlock extends HybridPageBlock
 {
-    public function render()
+    public function render(): string
     {
         // TODO: Implement render() method.
     }

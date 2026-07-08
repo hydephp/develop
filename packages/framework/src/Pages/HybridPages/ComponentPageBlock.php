@@ -17,7 +17,7 @@ class ComponentPageBlock extends HybridPageBlock
         $this->name = $name;
     }
 
-    public function render()
+    public function render(): string
     {
         // TODO: Implement render() method.
     }
