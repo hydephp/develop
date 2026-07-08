@@ -10,6 +10,7 @@ use Hyde\Pages\HybridPage;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\ComponentAttributeBag;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Symfony\Component\Yaml\Yaml;
 
 class ComponentPageBlock extends HybridPageBlock
@@ -42,7 +43,9 @@ class ComponentPageBlock extends HybridPageBlock
     {
         // Triple-dash form → front matter + Markdown slot.
         if (str_starts_with(ltrim($content), '---')) {
-            return parent::parse($content);
+            $document = YamlFrontMatter::markdownCompatibleParse($content);
+
+            return [FrontMatter::fromArray($document->matter()), $document->body()];
         }
 
         // Shorthand form → the entire block is front matter, no slot.

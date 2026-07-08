@@ -25,18 +25,6 @@ abstract class HybridPageBlock
         [$this->data, $this->body] = $this->parse($content);
     }
 
-    /**
-     * Split raw block content into its front matter and body.
-     *
-     * @return array{\Hyde\Markdown\Models\FrontMatter, string}
-     */
-    protected function parse(string $content): array
-    {
-        $document = YamlFrontMatter::markdownCompatibleParse($content);
-
-        return [FrontMatter::fromArray($document->matter()), $document->body()];
-    }
-
     public function signature(): string
     {
         return sprintf('<!-- HYDE[HybridPageBlock]%s -->', $this->hash());
@@ -48,4 +36,6 @@ abstract class HybridPageBlock
     }
 
     abstract public function render(): string;
+
+    abstract protected function parse(string $content): array;
 }
