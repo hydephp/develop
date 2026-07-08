@@ -19,6 +19,8 @@ abstract class HybridPageBlock
 
     abstract protected function render(): string;
 
+    private static int $sequence = 1;
+
     public function __construct(HybridPage $page, string $content)
     {
         $this->page = $page;
@@ -40,6 +42,6 @@ abstract class HybridPageBlock
     /** @return array<string> */
     protected function getHashableContent(): array
     {
-        return [static::class, $this->content];
+        return [static::class, self::$sequence++, $this->content];
     }
 }

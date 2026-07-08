@@ -77,7 +77,7 @@ Also, in component Markdown slots, the {{ $blade }} is not rendered.
 
 ## Equal code blocks
 
-Note that blocks with the same content will give the same result.
+Note that blocks with the same content will still be compiled independently.
 
 ````
 ```blade
