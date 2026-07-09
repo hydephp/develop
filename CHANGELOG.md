@@ -19,6 +19,9 @@ This serves two purposes:
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
 - Added a custom error page to the realtime compiler server to produce more helpful exception output in https://github.com/hydephp/develop/pull/2505
+- Redesigned the dashboard in the realtime compiler server to have a more modern and capable design https://github.com/hydephp/develop/pull/2508
+
+_Changes to the realtime compiler requires an update to v4.5 or later of the `hyde/realtime-compiler` package in your project's `composer.json`.
 
 ### Changed
 - for changes in existing functionality.

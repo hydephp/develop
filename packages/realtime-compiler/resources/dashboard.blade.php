@@ -5,389 +5,1789 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ $csrfToken }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>{{ $title }}</title>
     <base target="_parent">
     <style>
-        .justCreatedPage td {
-            animation: 2s ease-out 0s 1 FadeOut;
+        :root {
+            --bg:            #0a0b0f;
+            --surface:       #12141a;
+            --surface-2:     #191c24;
+            --border:        #23262f;
+            --border-soft:   #1a1d25;
+            --text:          #e8e9ee;
+            --text-muted:    #8b8f9c;
+            --text-faint:    #5c606c;
+
+            --blue:          #5b8def;
+            --blue-soft:     rgba(91, 141, 239, .14);
+            --purple:        #a78bfa;
+            --purple-soft:   rgba(167, 139, 250, .14);
+            --teal:          #2dd4bf;
+            --teal-soft:     rgba(45, 212, 191, .14);
+            --amber:         #f0b429;
+            --amber-soft:    rgba(240, 180, 41, .14);
+            --orange:        #f2884b;
+            --orange-soft:   rgba(242, 136, 75, .14);
+            --red:           #f0575c;
+            --red-soft:      rgba(240, 87, 92, .14);
+            --green:         #34d399;
+            --green-soft:    rgba(52, 211, 153, .14);
+
+            --radius:        12px;
+            --radius-sm:     8px;
+            --font-sans:     -apple-system, ui-sans-serif, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono:     ui-monospace, "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
         }
 
-        @keyframes FadeOut {
-            0% {
-                background-color: rgba(25, 135, 84, 0.4);
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            font-size: 14px;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code, .mono {
+            font-family: var(--font-mono);
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: .001ms !important;
+                transition-duration: .001ms !important;
             }
-            100% {
-                background-color: white;
+        }
+
+        /* ---------- Status ---------- */
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .pill-amber {
+            background: var(--amber-soft);
+            color: var(--amber);
+        }
+
+        /* ---------- Buttons ---------- */
+
+        .btn {
+            appearance: none;
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            color: var(--text);
+            font: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 7px 13px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1.2;
+            transition: border-color .12s ease, background .12s ease, color .12s ease;
+        }
+
+        .btn:hover {
+            border-color: #33384a;
+            background: #1d212b;
+            text-decoration: none;
+        }
+
+        .btn:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        .btn svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #0a0b0f;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #7aa3f2;
+            border-color: #7aa3f2;
+        }
+
+        .btn-primary:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        .btn-danger {
+            background: var(--red-soft);
+            border-color: rgba(240, 87, 92, .34);
+            color: #ffb3b5;
+        }
+
+        .btn-danger:hover {
+            background: rgba(240, 87, 92, .22);
+            border-color: var(--red);
+            color: #ffd0d1;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border-color: transparent;
+            color: var(--text-muted);
+            padding: 6px 8px;
+        }
+
+        .btn-ghost:hover {
+            background: var(--surface-2);
+            color: var(--text);
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        /* ---------- Layout / cards ---------- */
+
+        main {
+            flex: 1;
+            max-width: 1080px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 32px 24px 48px;
+        }
+
+        .intro {
+            margin-bottom: 28px;
+        }
+
+        .intro-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 6px;
+        }
+
+        .intro-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .intro h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -.01em;
+        }
+
+        .intro-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .intro p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 13.5px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .card-header h2 {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* ---------- Info chips (project info) ---------- */
+
+        .chip-grid {
+            display: grid;
+            grid-template-columns: minmax(280px, 2fr) repeat(3, minmax(max-content, 1fr));
+            gap: 18px 34px;
+            align-items: start;
+        }
+
+        .info-chip {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .info-chip:not(.info-chip-path) {
+            justify-self: center;
+            white-space: nowrap;
+        }
+
+        .info-chip .swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-chip .swatch svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .info-chip .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--text-faint);
+            margin-bottom: 3px;
+        }
+
+        .info-chip .value {
+            font-size: 13px;
+            color: var(--text);
+            word-break: break-word;
+        }
+
+        .info-chip .value-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .info-chip-path .value-row {
+            align-items: flex-start;
+        }
+
+        .info-chip-path .value-row span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .copy-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-faint);
+            cursor: pointer;
+            padding: 2px;
+            display: inline-flex;
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover {
+            color: var(--text);
+            background: var(--surface-2);
+        }
+
+        .copy-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ---------- Route list ---------- */
+
+        .route-list {
+            overflow-x: auto;
+            margin: -0.5rem 0;
+        }
+
+        .route-group-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            padding: 10px 12px 8px;
+            margin-top: 8px;
+        }
+
+        .route-group:first-child .route-group-label {
+            margin-top: 0;
+        }
+
+        .route-group-label .count {
+            font-weight: 500;
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--text-faint);
+        }
+
+        .route-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 12px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .route-row:hover {
+            background: var(--surface-2);
+        }
+
+        .route-file {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .route-path-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .route-path-line svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .route-path-line svg.icon-muted {
+            color: var(--text-faint);
+        }
+
+        .route-path-src {
+            color: var(--text);
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .route-path-src.editable {
+            cursor: pointer;
+        }
+
+        .route-path-src.editable:hover {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+
+        .route-path-out {
+            color: var(--text-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .route-output-path {
+            display: inline-flex;
+            align-items: baseline;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .route-output-path .route-path-out {
+            min-width: 0;
+        }
+
+        .route-key-link {
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .route-key-link:hover {
+            color: var(--blue);
+            text-decoration: underline;
+        }
+
+        .route-actions-col {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2px;
+            flex-shrink: 0;
+            border-left: 1px solid var(--border-soft);
+            padding-left: 12px;
+        }
+
+        .route-actions-col .btn {
+            padding: 6px;
+        }
+
+        .route-actions-col .route-action {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .route-actions-col .route-action:hover,
+        .route-actions-col .route-action:focus-within {
+            z-index: 30;
+        }
+
+        .route-actions-col .route-action::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 6px);
+            z-index: 20;
+            transform: translateX(-50%);
+            pointer-events: none;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #0f1117;
+            color: var(--text);
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1;
+            padding: 6px 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .28);
+            opacity: 0;
+            transition: opacity .08s ease;
+        }
+
+        .route-actions-col .route-action.tooltip-align-right::after {
+            transform: translateX(-70%);
+        }
+
+        .route-actions-col .route-action::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 1px);
+            z-index: 21;
+            width: 7px;
+            height: 7px;
+            transform: translateX(-50%) rotate(45deg);
+            pointer-events: none;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: #0f1117;
+            opacity: 0;
+            transition: opacity .08s ease;
+        }
+
+        .route-actions-col .route-action:hover::after,
+        .route-actions-col .route-action:hover::before,
+        .route-actions-col .route-action:focus-within::after,
+        .route-actions-col .route-action:focus-within::before {
+            opacity: 1;
+        }
+
+        .route-actions-col .btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .route-actions-col .btn-delete {
+            color: var(--text-muted);
+        }
+
+        .route-actions-col .edit-page-btn:hover {
+            color: var(--blue);
+            background: var(--blue-soft);
+        }
+
+        .route-actions-col .btn-delete:hover {
+            color: var(--red);
+            background: var(--red-soft);
+        }
+
+        .just-created {
+            animation: rowFadeIn 2.2s ease-out;
+        }
+
+        @keyframes rowFadeIn {
+            0% { background-color: var(--green-soft); }
+            100% { background-color: transparent; }
+        }
+
+        /* ---------- Empty states ---------- */
+
+        .empty-state {
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-sm);
+            padding: 28px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .empty-state strong {
+            display: block;
+            color: var(--text);
+            font-size: 13.5px;
+            margin-bottom: 3px;
+        }
+
+        /* ---------- Media library ---------- */
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        .media-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--surface-2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .media-preview {
+            position: relative;
+            height: 140px;
+            background: #0d0f14;
+        }
+
+        .media-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .media-preview .file-preview {
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 11px;
+            background:
+                    radial-gradient(circle at 35% 20%, rgba(var(--media-brand-rgb), .32), transparent 42%),
+                    linear-gradient(135deg, rgba(var(--media-brand-rgb), .20), rgba(var(--media-brand-rgb), .08));
+        }
+
+        .media-preview .file-preview-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--media-brand);
+            color: var(--media-mark-color, #fff);
+            font-family: var(--font-mono);
+            font-size: 17px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 0;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, .22);
+        }
+
+        .media-preview .file-preview-label {
+            max-width: calc(100% - 24px);
+            color: var(--media-brand);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .media-overlay {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity .15s ease;
+        }
+
+        .media-card:hover .media-overlay {
+            opacity: 1;
+        }
+
+        .media-overlay .btn {
+            background: rgba(18, 20, 26, .9);
+            backdrop-filter: blur(3px);
+        }
+
+        .media-meta {
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-chip {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            background: var(--blue-soft);
+            color: var(--blue);
+        }
+
+        .file-chip[data-type="png"], .file-chip[data-type="jpg"], .file-chip[data-type="jpeg"],
+        .file-chip[data-type="gif"], .file-chip[data-type="svg"], .file-chip[data-type="ico"],
+        .file-chip[data-type="webp"] {
+            background: var(--teal-soft);
+            color: var(--teal);
+        }
+
+        .file-chip[data-type="js"], .file-chip[data-type="css"], .file-chip[data-type="json"],
+        .file-chip[data-type="yml"], .file-chip[data-type="yaml"], .file-chip[data-type="xml"] {
+            background: var(--purple-soft);
+            color: var(--purple);
+        }
+
+        .file-chip[data-type="mp3"], .file-chip[data-type="wav"], .file-chip[data-type="flac"],
+        .file-chip[data-type="m4a"] {
+            background: var(--amber-soft);
+            color: var(--amber);
+        }
+
+        .file-chip[data-type="mp4"], .file-chip[data-type="mov"], .file-chip[data-type="mkv"],
+        .file-chip[data-type="avi"] {
+            background: var(--red-soft);
+            color: var(--red);
+        }
+
+        .media-meta .info {
+            min-width: 0;
+        }
+
+        .media-meta .name {
+            font-size: 12.5px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .media-meta .size {
+            font-size: 11px;
+            color: var(--text-faint);
+        }
+
+        /* ---------- Tip strip ---------- */
+
+        .tip-strip {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-top: 4px;
+        }
+
+        .tip-strip .swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--amber-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tip-strip .swatch svg {
+            width: 15px;
+            height: 15px;
+            stroke: var(--amber);
+        }
+
+        .tip-strip p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .tip-strip p code {
+            background: var(--surface-2);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* ---------- Footer ---------- */
+
+        footer {
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+            padding: 16px 24px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-faint);
+        }
+
+        /* ---------- Modals (native dialog) ---------- */
+
+        dialog {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text);
+            padding: 0;
+        }
+
+        dialog::backdrop {
+            background: rgba(6, 7, 10, .65);
+        }
+
+        dialog#createPageModal {
+            width: min(560px, 92vw);
+            max-height: 88vh;
+        }
+
+        dialog#deletePageModal {
+            width: min(460px, 92vw);
+        }
+
+        dialog#quickViewModal {
+            width: min(960px, 94vw);
+            height: min(720px, 88vh);
+        }
+
+        dialog#quickViewModal[open] {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-soft);
+            flex-shrink: 0;
+        }
+
+        .modal-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-header .modal-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .modal-body {
+            padding: 20px 22px;
+            overflow-y: auto;
+            max-height: calc(88vh - 130px);
+        }
+
+        .modal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 16px 22px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .modal-footer .feedback-link {
+            margin-right: auto;
+            font-size: 12px;
+            color: var(--text-faint);
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .field input, .field select, .field textarea {
+            width: 100%;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font: inherit;
+            font-size: 13px;
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+        }
+
+        .field textarea {
+            font-family: var(--font-mono);
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .field-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0 16px;
+        }
+
+        .field-divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid var(--border-soft);
+            margin: 0;
+        }
+
+        .field-divider span {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--text-faint);
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .form-error {
+            background: var(--red-soft);
+            color: #ffb3b5;
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            font-size: 12.5px;
+            margin-bottom: 16px;
+        }
+
+        .delete-page-details {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .delete-page-details strong {
+            color: var(--text);
+        }
+
+        .delete-page-details .mono {
+            display: inline-block;
+            margin-top: 8px;
+            color: #ffb3b5;
+            word-break: break-all;
+        }
+
+        /* Quick view */
+
+        .quick-view-body {
+            padding: 0;
+            flex: 1;
+            min-height: 0;
+            max-height: none;
+            overflow: hidden;
+        }
+
+        .quick-view-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: #fff;
+        }
+
+        /* ---------- Toast ---------- */
+
+        .toast-wrap {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 50;
+        }
+
+        #asyncErrorToast {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--red);
+            border-radius: var(--radius-sm);
+            width: 320px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .45);
+            transform: translateY(12px);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform .18s ease, opacity .18s ease;
+        }
+
+        #asyncErrorToast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .toast-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .toast-header strong {
+            font-size: 12.5px;
+            color: var(--red);
+        }
+
+        .toast-body {
+            padding: 12px;
+            font-size: 12.5px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 900px) {
+            .chip-grid {
+                grid-template-columns: repeat(3, max-content);
+            }
+
+            .info-chip-path {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            main {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .chip-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-chip:not(.info-chip-path) {
+                white-space: normal;
+            }
+
+            .intro-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .intro-actions .btn {
+                justify-content: center;
+            }
+
+            .route-actions-col {
+                flex-wrap: wrap;
+            }
+
+            dialog#quickViewModal {
+                width: 96vw;
+                height: 90vh;
             }
         }
     </style>
-    <style>/*! fileicon.css v0.1.1 | MIT License | github.com/picturepan2/fileicon.css */.file-icon{font-family:Arial,Tahoma,sans-serif;font-weight:300;display:inline-block;width:33px;height:44px;background:#018fef;position:relative;border-radius:3px;text-align:left;-webkit-font-smoothing:antialiased}.file-icon::before{display:block;content:"";position:absolute;top:0;right:0;width:0;height:0;border-bottom-left-radius:2px;border-width:6px;border-style:solid;border-color:#fff #fff rgba(255,255,255,.35) rgba(255,255,255,.35)}.file-icon::after{display:block;content:attr(data-type);position:absolute;bottom:0;left:0;font-size:12px;color:#fff;text-transform:lowercase;width:100%;padding:3px 5px;white-space:nowrap;overflow:hidden}.file-icon[data-type=rar],.file-icon[data-type=zip]{background:#acacac}.file-icon[data-type^=doc]{background:#307cf1}.file-icon[data-type^=xls]{background:#0f9d58}.file-icon[data-type^=ppt]{background:#d24726}.file-icon[data-type=pdf]{background:#e13d34}.file-icon[data-type=txt]{background:#5eb533}.file-icon[data-type=flac],.file-icon[data-type=m4a],.file-icon[data-type=mp3],.file-icon[data-type=wma]{background:#8e44ad}.file-icon[data-type=avi],.file-icon[data-type=mkv],.file-icon[data-type=mov],.file-icon[data-type=mp4],.file-icon[data-type=wmv]{background:#7a3ce7}.file-icon[data-type=bmp],.file-icon[data-type=gif],.file-icon[data-type=jpeg],.file-icon[data-type=jpg],.file-icon[data-type=png]{background:#f4b400}</style>
 </head>
-<body class="d-flex flex-column min-vh-100">
-<nav class="navbar navbar-dark bg-dark flex-md-nowrap p-2">
-    <a class="navbar-brand col-md-3 col-lg-auto me-0 ps-3 fs-6" href="/dashboard" style="font-weight: 600;">{{ $title }}</a>
-    @if(! $dashboard->isInteractive())
-        <span class="nav-item text-nowrap px-3 me-auto">
-            <span class="badge rounded-pill text-bg-info" title="This dashboard is readonly. You can change this in the `hyde.php` config.">
-                Readonly
-            </span>
-        </span>
-    @endif
+<body>
+<main>
+    <div class="intro">
+        <div class="intro-header">
+            <div class="intro-title">
+                <h1>Welcome to your site dashboard!</h1>
+                @if(! $dashboard->isInteractive())
+                    <span class="pill pill-amber" title="This dashboard is readonly. You can change this in the `hyde.php` config.">Readonly</span>
+                @endif
+            </div>
+            <div class="intro-actions">
+                @if($request->embedded)
+                    <a href="/dashboard" class="btn btn-ghost btn-sm">Open full page dashboard</a>
+                @else
+                    <a href="/" class="btn btn-sm" title="Return to the site">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                        Back to site
+                    </a>
+                @endif
+            </div>
+        </div>
+        <p>This page is served by the Realtime Compiler and won't be saved to your static site.</p>
+    </div>
 
-    <div class="navbar-nav">
-        @if($request->embedded)
-            <div class="nav-item text-nowrap pe-4">
-                <a class="nav-link px-3" href="/dashboard">Open full page dashboard</a>
-            </div>
-        @else
-            <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="/">Back to site</a>
-            </div>
-        @endif
-    </div>
-</nav>
-<main class="container py-4 mb-auto">
-    <div class="col-xl-10 mx-auto">
-        <header class="px-4 py-5 my-4 text-center bg-light">
-            <h1 class="display-6 fw-bold">{{ $title }}</h1>
-            <div class="mx-auto">
-                <h2 class="h4">Welcome to the dashboard for your HydePHP site.</h2>
-                <p class="lead mb-0">This page is accessible through the Hyde Realtime Compiler and will not be saved to your static site.</p>
-            </div>
-        </header>
-    </div>
-    <section>
-        <div class="col-xl-10 mx-auto">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h2 class="h5 mb-0">Project Information</h2>
-                        @if($dashboard->isInteractive())
-                            <form class="buttonActionForm" action="" method="POST">
-                                <input type="hidden" name="_token" value="{{ $csrfToken }}">
-                                <input type="hidden" name="action" value="openInExplorer">
-                                <button type="submit" class="btn btn-outline-primary btn-sm" title="Open project in system file explorer">Open folder</button>
-                            </form>
-                        @endif
-                    </div>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            @foreach($dashboard->getProjectInformation() as $type => $info)
-                                <td>
-                                    <strong class="h6">{{ $type }}:</strong>
-                                    <span class="card-text">{{ $info }}</span>
-                                    @if($loop->last)
-                                        <button id="copyPathToClipboardButton" class="btn float-end px-1 py-0" onclick="copyPathToClipboard()" title="Copy path to clipboard">
-                                            <svg id="copyPathToClipboardButtonIcon" style="display: inline;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
-                                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                                                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                                            </svg>
-                                            <svg id="copyPathToClipboardButtonIconSuccess" style="display: none;" title="Copied!" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                                                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                                            </svg>
+    {{-- Project information --}}
+    <section class="card">
+        <div class="card-header">
+            <h2>Project information</h2>
+            @if($dashboard->isInteractive())
+                <form class="buttonActionForm" action="" method="POST">
+                    <input type="hidden" name="_token" value="{{ $csrfToken }}">
+                    <input type="hidden" name="action" value="openInExplorer">
+                    <button type="submit" class="btn btn-sm" title="Open project in system file explorer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"></path></svg>
+                        Open folder
+                    </button>
+                </form>
+            @endif
+        </div>
+
+        <div class="card-body">
+            <div class="chip-grid">
+                @php $swatches = ['blue', 'purple', 'teal']; $i = 0; @endphp
+                @foreach($dashboard->getProjectInformation() as $type => $info)
+                    @php $swatch = $swatches[$i % count($swatches)]; $i++; $isProjectPath = $type === 'Project Path'; @endphp
+                    <div @class(['info-chip', 'info-chip-path' => $isProjectPath])>
+                            <span class="swatch" style="background: var(--{{ $swatch }}-soft)">
+                                @if($isProjectPath)
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a2 2 0 0 1 2-2h2M4 17v2a2 2 0 0 0 2 2h2M20 7V5a2 2 0 0 0-2-2h-2M20 17v2a2 2 0 0 1-2 2h-2"></path></svg>
+                                @elseif($loop->first)
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5Z"></path><path d="M3 12l9 5 9-5"></path></svg>
+                                @else
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"></rect><path d="M9 9h6v6H9z"></path></svg>
+                                @endif
+                            </span>
+
+                        <div>
+                            <div class="label">{{ $type }}</div>
+                            <div class="value">
+                                @if($isProjectPath)
+                                    <div class="value-row mono">
+                                        <span>{{ $info }}</span>
+                                        <button id="copyPathToClipboardButton" class="copy-btn" data-copy-value="{{ $info }}" title="Copy path to clipboard">
+                                            <svg id="copyPathToClipboardButtonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V5a2 2 0 0 1 2-2h9"></path></svg>
+                                            <svg id="copyPathToClipboardButtonIconSuccess" style="display:none" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
                                         </button>
-                                        <script>
-                                            async function copyPathToClipboard() {
-                                                let data = '{{ str_replace('\\', '\\\\', $info) }}';
-                                                try {
-                                                    await navigator.clipboard.writeText(data);
-                                                    document.getElementById("copyPathToClipboardButtonIcon").style.display = 'none';
-                                                    document.getElementById("copyPathToClipboardButtonIconSuccess").style.display = 'inline';
-                                                    await new Promise(resolve => setTimeout(resolve, 3000)).then(function () {
-                                                        document.getElementById("copyPathToClipboardButtonIcon").style.display = 'inline';
-                                                        document.getElementById("copyPathToClipboardButtonIconSuccess").style.display = 'none';
-                                                    });
-                                                } catch (error) {
-                                                    window.prompt("Copy to clipboard: Ctrl+C", data);
-                                                }
-                                            }
-                                        </script>
-                                    @endif
-                                </td>
-                            @endforeach
-                        </tr>
-                    </table>
-                </div>
+                                    </div>
+                                @else
+                                    {{ $info }}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
-    <section>
-        <div class="col-xl-10 mx-auto">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h2 class="h5 mb-0">Site Pages & Routes</h2>
-                        @if($dashboard->isInteractive())
-                            <noscript><style>#createPageModalButton { display: none; }</style></noscript>
-                            <!-- Button trigger modal -->
-                            <button id="createPageModalButton" type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createPageModal">
-                                Create page
+
+    {{-- Pages & routes --}}
+    <section class="card">
+        <div class="card-header">
+            <h2>Site pages &amp; routes</h2>
+            @if($dashboard->isInteractive())
+                <noscript><style>#createPageModalButton { display: none; }</style></noscript>
+
+                <button id="createPageModalButton" type="button" class="btn btn-primary btn-sm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>
+                    Create page
+                </button>
+
+                <dialog id="createPageModal" aria-labelledby="createPageModalLabel">
+                    <form id="createPageForm" action="" method="POST">
+                        <input type="hidden" name="_token" value="{{ $csrfToken }}">
+                        <input type="hidden" name="action" value="createPage">
+
+                        <div class="modal-header">
+                            <h3 id="createPageModalLabel">Create new page</h3>
+                            <button type="button" class="btn btn-ghost btn-sm" data-dialog-close aria-label="Close">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
                             </button>
+                        </div>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="createPageModal" tabindex="-1" aria-labelledby="createPageModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="createPageModalLabel">Create new page</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form id="createPageForm" action="" method="POST">
-                                            <input type="hidden" name="_token" value="{{ $csrfToken }}">
-                                            <input type="hidden" name="action" value="createPage">
+                        <div class="modal-body">
+                            <div id="createPageFormError" class="form-error" style="display: none;">
+                                <strong>Error:</strong>
+                                <span id="createPageFormErrorContents"></span>
+                            </div>
 
-                                            <div class="modal-body">
-                                                <div id="createPageFormError" class="alert alert-danger" style="display: none;">
-                                                    <strong>Error:</strong>
-                                                    <span id="createPageFormErrorContents"></span>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="pageTypeSelection" class="form-label">Select page type</label>
-                                                    <select id="pageTypeSelection" name="pageTypeSelection" class="form-select" aria-label="Select page type">
-                                                        <option selected disabled>Select page type</option>
-                                                        @foreach(['BladePage', 'MarkdownPage', 'MarkdownPost', 'DocumentationPage'] as $page)
-                                                            <option value="{{ str($page)->kebab() }}">{{ $page }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                            <div class="field">
+                                <label for="pageTypeSelection">Page type</label>
+                                <select id="pageTypeSelection" name="pageTypeSelection">
+                                    <option selected disabled>Select page type</option>
+                                    @foreach(['HtmlPage', 'BladePage', 'MarkdownPage', 'MarkdownPost', 'DocumentationPage'] as $page)
+                                        <option value="{{ str($page)->kebab() }}">{{ $page }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                                                <div class="page-creation-group" id="baseInfo" style="display: none">
-                                                    <div class="px-3 d-flex align-items-center justify-content-between">
-                                                        <div class="col"><hr role="presentation"></div>
-                                                        <div class="col-auto px-2"><small class="text-muted">Required Details</small></div>
-                                                        <div class="col"><hr role="presentation"></div>
-                                                    </div>
+                            <div class="page-creation-group" id="baseInfo" style="display: none">
+                                <div class="field-divider"><hr><span>Required details</span><hr></div>
 
-                                                    <div class="mb-3">
-                                                        <label for="titleInput" id="titleInputLabel" class="form-label">Page title</label>
-                                                        <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter a title" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="contentInput" id="contentInputLabel" class="form-label">Markdown text</label>
-                                                        <textarea class="form-control" id="contentInput" name="contentInput" rows="8" placeholder="Enter your Markdown text" required></textarea>
-                                                    </div>
-                                                </div>
+                                <div class="field">
+                                    <label for="titleInput" id="titleInputLabel">Page title</label>
+                                    <input type="text" id="titleInput" name="titleInput" placeholder="Enter a title" required>
+                                </div>
 
-                                                <div class="page-creation-group" id="createsPost" style="display: none">
-                                                    <div class="px-3 d-flex align-items-center justify-content-between">
-                                                        <div class="col"><hr role="presentation"></div>
-                                                        <div class="col-auto px-2"><small class="text-muted">Extra Details</small></div>
-                                                        <div class="col"><hr role="presentation"></div>
-                                                    </div>
+                                <div class="field">
+                                    <label for="contentInput" id="contentInputLabel">Markdown text</label>
+                                    <textarea id="contentInput" name="contentInput" rows="8" placeholder="Enter your Markdown text" required></textarea>
+                                </div>
+                            </div>
 
-                                                    <div class="mb-3">
-                                                        <label for="postDescription" class="form-label">Post description</label>
-                                                        <input type="text" class="form-control" id="postDescription" name="postDescription" placeholder="Enter a post description (optional)">
-                                                    </div>
+                            <div class="page-creation-group" id="createsPost" style="display: none">
+                                <div class="field-divider"><hr><span>Extra details</span><hr></div>
 
-                                                    <div class="mb-3 row">
-                                                        <div class="col-lg-4">
-                                                            <label for="postCategory" class="form-label">Post category</label>
-                                                            <input type="text" class="form-control" id="postCategory" name="postCategory" placeholder="Enter a post category (optional)">
-                                                        </div>
+                                <div class="field">
+                                    <label for="postDescription">Post description</label>
+                                    <input type="text" id="postDescription" name="postDescription" placeholder="Enter a post description (optional)">
+                                </div>
 
-                                                        <div class="col-lg-4">
-                                                            <label for="postAuthor" class="form-label">Post author</label>
-                                                            <input type="text" class="form-control" id="postAuthor" name="postAuthor" placeholder="Enter a post author (optional)">
-                                                        </div>
-
-                                                        <div class="col-lg-4">
-                                                            <label for="postDate" class="form-label">Post date</label>
-                                                            <input type="datetime-local" class="form-control" id="postDate" name="postDate" placeholder="Enter a post date (optional)" value="{{ date('Y-m-d H:i') }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="https://github.com/hydephp/realtime-compiler/issues/new?{{ http_build_query(['title' => 'Feedback on the dashboard create page modal', 'body' => 'Write something nice!']) }}" class="btn btn-sm btn-outline-success me-auto" title="This is a new feature, we'd love your feedback!" target="_blank" rel="noopener">Send feedback</a>
-
-                                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-sm btn-primary" id="createPageButton" title="Please select a page type first" disabled>Create page</button>
-                                            </div>
-                                        </form>
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label for="postCategory">Post category</label>
+                                        <input type="text" id="postCategory" name="postCategory" placeholder="Optional">
+                                    </div>
+                                    <div class="field">
+                                        <label for="postAuthor">Post author</label>
+                                        <input type="text" id="postAuthor" name="postAuthor" placeholder="Optional">
+                                    </div>
+                                    <div class="field">
+                                        <label for="postDate">Post date</label>
+                                        <input type="datetime-local" id="postDate" name="postDate" value="{{ date('Y-m-d H:i') }}">
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    </div>
-                </div>
-                <div class="card-body">
-                    @if(empty($dashboard->getPageList()))
-                        <div class="alert alert-info">
-                            <strong>Info:</strong>
-                            There are no pages yet.
-                            @if($dashboard->isInteractive())
-                                Why not create one using the button above?
-                            @else
-                                Why not create some?
-                            @endif
                         </div>
+
+                        <div class="modal-footer">
+                            @php
+                                $feedbackQuery = http_build_query([
+                                    'title' => 'Feedback on the dashboard create page modal',
+                                    'body' => 'Write something nice!'
+                                ]);
+                            @endphp
+                            <a class="feedback-link" href="https://github.com/hydephp/realtime-compiler/issues/new?{{ $feedbackQuery }}" title="This is a new feature, we'd love your feedback!" target="_blank" rel="noopener">Send feedback</a>
+                            <button type="button" class="btn btn-sm" data-dialog-close>Close</button>
+                            <button type="submit" class="btn btn-primary btn-sm" id="createPageButton" title="Please select a page type first" disabled>Create page</button>
+                        </div>
+                    </form>
+                </dialog>
+            @endif
+        </div>
+
+        <div class="card-body">
+            @if(empty($dashboard->getPageList()))
+                <div class="empty-state">
+                    <strong>No pages yet</strong>
+                    There are no pages yet.
+                    @if($dashboard->isInteractive())
+                        Create one using the button above.
                     @else
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tr>
-                                    @foreach(['Page Type', 'Route Key', 'Source File', 'Output File'] as $header)
-                                        <th>{{ $header }}</th>
-                                    @endforeach
-                                    <th class="text-end">Actions</th>
-                                </tr>
-                                @foreach($dashboard->getPageList() as $route)
-                                    <tr id="pageRow-{{ $route->getRouteKey() }}" @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage active' : ''])>
-                                        <td>
-                                            <code title="\{{ $route->getPageClass() }}">{{ class_basename($route->getPageClass()) }}</code>
-                                        </td>
-                                        <td>
-                                            {{ $route->getRouteKey() }}
-                                        </td>
-                                        <td>
-                                            @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
-                                                <i class="text-muted" title="This page is generated dynamically and does not have a source file.">{{ '<none>' }}</i>
-                                            @else
-                                                {{ $route->getSourcePath() }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $route->getOutputPath() }}
-                                        </td>
-                                        <td class="text-end">
-                                            <div class="d-flex justify-content-end">
-                                                @if($dashboard->isInteractive())
-                                                    <form class="buttonActionForm" action="" method="POST">
-                                                        <input type="hidden" name="_token" value="{{ $csrfToken }}">
-                                                        <input type="hidden" name="action" value="openPageInEditor">
-                                                        <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
-                                                        @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
-                                                            <button type="submit" class="btn btn-outline-secondary btn-sm me-2" title="Cannot edit in-memory pages" style="pointer-events: auto; cursor: unset" disabled>Edit</button>
-                                                        @else
-                                                            <button type="submit" class="btn btn-outline-primary btn-sm me-2" title="Open in system default application">Edit</button>
-                                                        @endif
-                                                    </form>
-                                                @endif
-                                                <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-outline-primary btn-sm" title="Open this page preview in browser">View</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
+                        Why not create some?
                     @endif
                 </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="col-xl-10 mx-auto">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h2 class="h5 mb-0">Media Library</h2>
-                    </div>
-                </div>
-                <div class="card-body">
-                    @if(empty(\Hyde\Support\Filesystem\MediaFile::all()))
-                        <div class="alert alert-info">
-                            <strong>Info:</strong>
-                            There are no media files yet. Why not add some?
-                        </div>
-                    @else
-                        <div class="container d-flex flex-wrap px-0">
-                            @foreach(\Hyde\Support\Filesystem\MediaFile::all() as $mediaFile)
-                                <div class="col-lg-4 p-2 d-flex flex-grow-1">
-                                    <figure class="card w-100 p-2 mb-0">
-                                        @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif', 'ico']))
-                                            <img loading="lazy" src="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" alt="{{ $mediaFile->getName() }}" class="object-fit-cover w-100 rounded-2" style="height: 240px;">
-                                        @else
-                                            <code style="height: 240px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, white 60%, transparent);" role="presentation">
-                                                @if($dashboard::isMediaFileProbablyMinified($mediaFile->getContents()))
-                                                    <pre style="white-space: normal;">{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
+            @else
+                <div class="route-list">
+                    @php
+                        $typeColors = [
+                            'BladePage'         => 'red',
+                            'MarkdownPage'      => 'blue',
+                            'MarkdownPost'      => 'teal',
+                            'DocumentationPage' => 'amber',
+                            'HtmlPage'          => 'orange',
+                        ];
+
+                        // Extra inner SVG paths layered onto the base file icon to hint at page type.
+                        $typeIcons = [
+                            'HtmlPage'          => '<path d="M10 13l-1.5 1.5L10 16"></path><path d="M14 13l1.5 1.5L14 16"></path>',
+                            'BladePage'         => '<path d="M9.5 12.5c.8 0 .8.7.8 1.5s0 1.5-.8 1.5"></path><path d="M14.5 12.5c-.8 0-.8.7-.8 1.5s0 1.5.8 1.5"></path>',
+                            'MarkdownPage'      => '<path d="M9.5 12v4M14.5 12v4M8.5 14h7"></path>',
+                            'MarkdownPost'      => '<path d="M9.5 12v4M14.5 12v4M8.5 14h7"></path>',
+                            'DocumentationPage' => '<path d="M8.5 12.5h7"></path><path d="M8.5 15.5h4.5"></path>',
+                        ];
+
+                        $groups = [];
+                        foreach ($dashboard->getPageList() as $route) {
+                            $isMemory = $route->getPage() instanceof \Hyde\Pages\InMemoryPage;
+
+                            if ($isMemory) {
+                                $dir = 'Dynamically generated';
+                            } else {
+                                $sourcePath = $route->getSourcePath();
+                                $dir = str_contains($sourcePath, '/') ? explode('/', $sourcePath, 2)[0] : $sourcePath;
+                            }
+
+                            $groups[$dir][] = $route;
+                        }
+
+                        // Keep source directories in a stable order, with dynamically generated routes listed last.
+                        uksort($groups, function ($a, $b) {
+                            if ($a === 'Dynamically generated') return 1;
+                            if ($b === 'Dynamically generated') return -1;
+                            return strcmp($a, $b);
+                        });
+                    @endphp
+
+                    @foreach($groups as $dir => $routes)
+                        <div class="route-group">
+                            <div class="route-group-label">{{ $dir }} <span class="count">{{ count($routes) }}</span></div>
+
+                            @foreach($routes as $route)
+                                @php
+                                    $typeKey = class_basename($route->getPageClass());
+                                    $color = $typeColors[$typeKey] ?? 'purple';
+                                    $isMemory = $route->getPage() instanceof \Hyde\Pages\InMemoryPage;
+                                    $editFormId = 'editPageForm-'.md5($route->getRouteKey());
+                                @endphp
+
+                                <div id="pageRow-{{ $route->getRouteKey() }}"
+                                        @class(['route-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage just-created' : ''])>
+
+                                    <div class="route-file">
+                                        <div class="route-path-line">
+                                            @if($isMemory)
+                                                <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="This page is generated dynamically and does not have a source file."><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"></path></svg>
+                                                <span class="route-path-out mono" style="font-style: italic;">generated</span>
+                                            @else
+                                                <svg style="color: color-mix(in srgb, var(--{{ $color }}) 55%, var(--text-muted))" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="{{ $typeKey }}"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path>{!! $typeIcons[$typeKey] ?? '' !!}</svg>
+                                                <span
+                                                    class="route-path-src mono{{ $dashboard->isInteractive() ? ' editable edit-page-source' : '' }}"
+                                                    @if($dashboard->isInteractive())
+                                                        data-route-key="{{ $route->getRouteKey() }}"
+                                                        data-edit-form-id="{{ $editFormId }}"
+                                                        title="{{ $route->getSourcePath() }} &middot; open in editor"
+                                                    @else
+                                                        title="{{ $route->getSourcePath() }}"
+                                                    @endif
+                                                >{{ $route->getSourcePath() }}</span>
+                                            @endif
+
+                                            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+
+                                            @php
+                                                $outputPath = $route->getOutputPath();
+                                                $routeKey = $route->getRouteKey();
+                                                $suffix = str_starts_with($outputPath, $routeKey) ? substr($outputPath, strlen($routeKey)) : '';
+                                            @endphp
+
+                                            <span class="route-output-path" title="{{ $outputPath }}"><a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="route-key-link mono" title="Open this page &middot; route key: {{ $routeKey }}">{{ $routeKey }}</a><span class="route-path-out mono">{{ $suffix }}</span></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="route-actions-col">
+                                        @if($dashboard->isInteractive())
+                                            <form id="{{ $editFormId }}" class="buttonActionForm route-action" action="" method="POST" data-tooltip="{{ $isMemory ? 'Cannot edit in-memory pages' : 'Open in editor' }}">
+                                                <input type="hidden" name="_token" value="{{ $csrfToken }}">
+                                                <input type="hidden" name="action" value="openPageInEditor">
+                                                <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
+
+                                                @if($isMemory)
+                                                    <button type="submit" class="btn btn-ghost btn-sm" style="cursor: not-allowed" disabled aria-label="Cannot edit in-memory page {{ $route->getRouteKey() }}">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
+                                                    </button>
                                                 @else
-                                                    <pre class="overflow-hidden">{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
+                                                    <button type="submit" class="btn btn-ghost btn-sm edit-page-btn" data-route-key="{{ $route->getRouteKey() }}" aria-label="Open {{ $route->getRouteKey() }} in editor">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
+                                                    </button>
                                                 @endif
-                                            </code>
+                                            </form>
+
+                                            @if($isMemory)
+                                                <span class="route-action tooltip-align-right" data-tooltip="Cannot delete in-memory pages">
+                                                    <button type="button" class="btn btn-ghost btn-sm" style="cursor: not-allowed" disabled aria-label="Cannot delete in-memory page {{ $route->getRouteKey() }}">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
+                                                    </button>
+                                                </span>
+                                            @else
+                                                <span class="route-action" data-tooltip="Delete source file">
+                                                    <button type="button"
+                                                            class="btn btn-ghost btn-sm btn-delete delete-page-btn"
+                                                            data-route-key="{{ $route->getRouteKey() }}"
+                                                            data-source-path="{{ $route->getSourcePath() }}"
+                                                            aria-label="Delete source file for {{ $route->getRouteKey() }}">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
+                                                    </button>
+                                                </span>
+                                            @endif
                                         @endif
-                                        <figcaption class="container mt-3">
-                                            <div class="row flex-nowrap">
-                                                <div class="col-auto px-0">
-                                                    <div class="file-icon" data-type="{{ $mediaFile->getExtension() }}"></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="row flex-nowrap justify-content-start">
-                                                        <p class="col-auto text-truncate mb-0 pe-2" style="max-width: 210px;">
-                                                            <strong title="{{ $mediaFile->getPath() }}">{{ $mediaFile->getName() }}</strong>
-                                                        </p>
-                                                        <div class="col px-0 text-nowrap">
-                                                            <small class="text-muted">({{ $dashboard::bytesToHuman($mediaFile->getLength()) }})</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row small align-items-center">
-                                                        <div class="w-auto pe-0">
-                                                            <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" title="Open this image in the browser" target="_blank">Fullscreen</a>
-                                                        </div>
-                                                        @if($dashboard->isInteractive())
-                                                            <div class="w-auto ps-0">
-                                                                <form class="buttonActionForm" action="" method="POST">
-                                                                    <input type="hidden" name="_token" value="{{ $csrfToken }}">
-                                                                    <input type="hidden" name="action" value="openMediaFileInEditor">
-                                                                    <input type="hidden" name="identifier" value="{{ $mediaFile->getIdentifier() }}">
-                                                                    <button type="submit" class="btn btn-link btn-sm py-0" title="Open this image in the system editor">Edit</button>
-                                                                </form>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
+
+                                        <span class="route-action tooltip-align-right" data-tooltip="Quick view">
+                                            <button type="button" class="btn btn-ghost btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" aria-label="Quick view {{ $route->getRouteKey() }}">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
-                    @endif
+                    @endforeach
                 </div>
-            </div>
+            @endif
         </div>
     </section>
-    @if($dashboard->showTips())
-        <section>
-            <div class="col-xl-10 mx-auto pt-3 px-5">
-                <div class="alert alert-success">
-                    <strong>Tip:</strong>
-                    {{ $dashboard->getTip() }}
+
+    {{-- Media library --}}
+    <section class="card">
+        <div class="card-header">
+            <h2>Media library</h2>
+        </div>
+
+        <div class="card-body">
+            @if(empty(\Hyde\Support\Filesystem\MediaFile::all()))
+                <div class="empty-state">
+                    <strong>No media files yet</strong>
+                    Why not add some?
                 </div>
-            </div>
-        </section>
+            @else
+                <div class="media-grid">
+                    @foreach(\Hyde\Support\Filesystem\MediaFile::all() as $mediaFile)
+                        <div class="media-card">
+                            <div class="media-preview">
+                                @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif', 'ico', 'webp']))
+                                    <img loading="lazy" src="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" alt="{{ $mediaFile->getName() }}">
+                                @else
+                                    @php($mediaPlaceholder = $dashboard::getMediaPlaceholder($mediaFile->getExtension()))
+                                    <div
+                                            class="file-preview"
+                                            role="img"
+                                            aria-label="{{ $mediaPlaceholder['label'] }} file"
+                                            style="--media-brand: {{ $mediaPlaceholder['color'] }}; --media-brand-rgb: {{ $mediaPlaceholder['rgb'] }}; {{ $mediaPlaceholder['label'] === 'JavaScript' ? '--media-mark-color: #1c1e24;' : '' }}"
+                                    >
+                                        <div class="file-preview-mark">{{ $mediaPlaceholder['mark'] }}</div>
+                                        <div class="file-preview-label">{{ $mediaPlaceholder['label'] }}</div>
+                                    </div>
+                                @endif
+
+                                <div class="media-overlay">
+                                    @if($dashboard->isInteractive())
+                                        <form class="buttonActionForm" action="" method="POST" style="margin:0">
+                                            <input type="hidden" name="_token" value="{{ $csrfToken }}">
+                                            <input type="hidden" name="action" value="openMediaFileInEditor">
+                                            <input type="hidden" name="identifier" value="{{ $mediaFile->getIdentifier() }}">
+                                            <button type="submit" class="btn btn-sm" title="Open this image in the system editor">Edit</button>
+                                        </form>
+                                    @endif
+                                    <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" class="btn btn-sm" title="Open this image in the browser" target="_blank">Open</a>
+                                </div>
+                            </div>
+
+                            <div class="media-meta">
+                                <span class="file-chip" data-type="{{ $mediaFile->getExtension() }}">{{ $mediaFile->getExtension() }}</span>
+                                <div class="info">
+                                    <div class="name" title="{{ $mediaFile->getPath() }}">{{ $mediaFile->getName() }}</div>
+                                    <div class="size">{{ $dashboard::bytesToHuman($mediaFile->getLength()) }}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </section>
+
+    @if($dashboard->showTips())
+        <div class="tip-strip">
+                <span class="swatch">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.55 1 1.4 1 2.3V16h6v-1.2c0-.9.4-1.75 1-2.3A6 6 0 0 0 12 2Z"></path></svg>
+                </span>
+            <p><strong style="color: var(--text-muted)">Tip:</strong> {{ $dashboard->getTip() }}</p>
+        </div>
     @endif
 </main>
-<footer class="bg-light text-center py-3 mt-3">
-    <div class="container d-flex align-items-center justify-content-between">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
-            <p class="mb-1">
-                HydePHP Realtime Compiler <span class="text-muted">{{ $dashboard->getVersion() }}</span>
-            </p>
-        </div>
-        <div class="col-lg-3"></div>
-    </div>
+
+<footer>
+    <p>HydePHP Realtime Compiler <span class="mono">{{ $dashboard->getVersion() }}</span></p>
 </footer>
+
+{{-- Quick view is read-only, so it's available even when the dashboard is not interactive --}}
+<dialog id="quickViewModal" aria-labelledby="quickViewModalLabel">
+    <div class="modal-header">
+        <h3 id="quickViewModalLabel">Preview</h3>
+        <div class="modal-header-actions">
+            <a id="quickViewOpenLink" href="#" target="_blank" class="btn btn-ghost btn-sm" title="Open in a new tab">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M10 14 20 4M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"></path></svg>
+            </a>
+            <button type="button" class="btn btn-ghost btn-sm" data-dialog-close aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body quick-view-body">
+        <iframe id="quickViewFrame" src="about:blank" title="Page preview"></iframe>
+    </div>
+</dialog>
+
 @if($dashboard->isInteractive())
-    {{-- Interactivity is not needed when editor is disabled --}}
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <dialog id="deletePageModal" aria-labelledby="deletePageModalLabel">
+        <form id="deletePageForm" action="" method="POST">
+            <input type="hidden" name="_token" value="{{ $csrfToken }}">
+            <input type="hidden" name="action" value="deletePage">
+            <input type="hidden" name="routeKey" id="deletePageRouteKeyInput" value="">
 
-    <script>{!! $dashboard->getScripts() !!}</script>
+            <div class="modal-header">
+                <h3 id="deletePageModalLabel">Delete page</h3>
+                <button type="button" class="btn btn-ghost btn-sm" data-dialog-close aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+                </button>
+            </div>
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="asyncErrorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="modal-body">
+                <div id="deletePageFormError" class="form-error" style="display: none;">
+                    <strong>Error:</strong>
+                    <span id="deletePageFormErrorContents"></span>
+                </div>
+
+                <p class="delete-page-details">
+                    Delete <strong id="deletePageRouteKey"></strong>? This permanently removes the source file:
+                    <span id="deletePageSourcePath" class="mono"></span>
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm" data-dialog-close>Cancel</button>
+                <button type="submit" class="btn btn-danger btn-sm" id="deletePageButton">Delete page</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div class="toast-wrap">
+        <div id="asyncErrorToast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <strong id="asyncErrorToastHeader" class="me-auto">Error</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                <strong id="asyncErrorToastHeader">Error</strong>
+                <button type="button" class="btn btn-ghost btn-sm" data-toast-close aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+                </button>
             </div>
             <div id="asyncErrorToastBody" class="toast-body"></div>
         </div>
     </div>
 @endif
+
+<script>
+    (() => {
+        'use strict';
+
+        function toTitleCase(value) {
+            return value.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase());
+        }
+
+        /* ---------- copy to clipboard ---------- */
+
+        document.getElementById('copyPathToClipboardButton')?.addEventListener('click', async function () {
+            const icon = document.getElementById('copyPathToClipboardButtonIcon');
+            const iconSuccess = document.getElementById('copyPathToClipboardButtonIconSuccess');
+
+            try {
+                await navigator.clipboard.writeText(this.dataset.copyValue);
+                icon.style.display = 'none';
+                iconSuccess.style.display = 'inline';
+
+                setTimeout(() => {
+                    icon.style.display = 'inline';
+                    iconSuccess.style.display = 'none';
+                }, 3000);
+            } catch (error) {
+                window.prompt('Copy to clipboard: Ctrl+C', this.dataset.copyValue);
+            }
+        });
+
+        /* ---------- dialogs ---------- */
+
+        document.querySelectorAll('dialog').forEach(dialog => {
+            dialog.addEventListener('click', function (event) {
+                if (event.target === this) this.close();
+            });
+        });
+
+        document.querySelectorAll('[data-dialog-close]').forEach(button => {
+            button.addEventListener('click', function () {
+                this.closest('dialog')?.close();
+            });
+        });
+
+        /* ---------- quick view ---------- */
+
+        document.querySelectorAll('.quick-view-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const modal = document.getElementById('quickViewModal');
+                const label = document.getElementById('quickViewModalLabel');
+                const openLink = document.getElementById('quickViewOpenLink');
+                const frame = document.getElementById('quickViewFrame');
+
+                if (!modal || !label || !openLink || !frame) {
+                    console.error('Quick view: one or more modal elements are missing from the DOM.');
+                    return;
+                }
+
+                label.innerText = this.dataset.previewLabel || 'Preview';
+                openLink.href = this.dataset.previewUrl || '#';
+                frame.src = this.dataset.previewUrl || 'about:blank';
+                modal.showModal();
+            });
+        });
+
+        document.getElementById('quickViewModal')?.addEventListener('close', () => {
+            document.getElementById('quickViewFrame').src = 'about:blank';
+        });
+
+        @if($dashboard->isInteractive())
+        /* ---------- error toast ---------- */
+
+        const toast = document.getElementById('asyncErrorToast');
+
+        function showErrorToast(title, message) {
+            document.getElementById('asyncErrorToastHeader').innerText = title;
+            document.getElementById('asyncErrorToastBody').innerText = message;
+            toast.classList.add('show');
+
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => toast.classList.remove('show'), 6000);
+        }
+
+        document.querySelector('[data-toast-close]')?.addEventListener('click', () => {
+            toast.classList.remove('show');
+        });
+
+        /* ---------- create page modal open ---------- */
+
+        document.getElementById('createPageModalButton')?.addEventListener('click', () => {
+            const modal = document.getElementById('createPageModal');
+            modal.showModal();
+            document.getElementById('pageTypeSelection').focus();
+        });
+
+        /* ---------- async forms ---------- */
+
+        function registerAsyncForm(form, okHandler = null, errorHandler = null, beforeCallHandler = null, afterCallHandler = null) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                beforeCallHandler?.();
+
+                fetch('', {
+                    method: 'POST',
+                    body: new FormData(event.target),
+                    headers: new Headers({ 'Accept': 'application/json' }),
+                }).then(async response => {
+                    if (response.ok) {
+                        okHandler?.(response);
+                    } else if (errorHandler) {
+                        errorHandler(response);
+                    } else {
+                        const data = await response.json();
+                        showErrorToast(`Error: ${response.status} ${response.statusText}`, data.error);
+                    }
+                }).catch(error => {
+                    console.error('Network error:', error);
+                }).finally(() => {
+                    afterCallHandler?.();
+                });
+            });
+        }
+
+        document.querySelectorAll('.buttonActionForm').forEach(form => registerAsyncForm(form));
+
+        document.querySelectorAll('.edit-page-source').forEach(el => {
+            el.addEventListener('click', function () {
+                document.getElementById(this.dataset.editFormId)?.requestSubmit();
+            });
+        });
+
+        /* ---------- delete page form ---------- */
+
+        const deletePageForm = document.getElementById('deletePageForm');
+
+        if (deletePageForm) {
+            const deletePageModal = document.getElementById('deletePageModal');
+            const deletePageRouteKeyInput = document.getElementById('deletePageRouteKeyInput');
+            const deletePageRouteKey = document.getElementById('deletePageRouteKey');
+            const deletePageSourcePath = document.getElementById('deletePageSourcePath');
+            const deletePageButton = document.getElementById('deletePageButton');
+            const deletePageFormError = document.getElementById('deletePageFormError');
+            const deletePageFormErrorContents = document.getElementById('deletePageFormErrorContents');
+
+            document.querySelectorAll('.delete-page-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    deletePageRouteKeyInput.value = this.dataset.routeKey || '';
+                    deletePageRouteKey.innerText = this.dataset.routeKey || 'this page';
+                    deletePageSourcePath.innerText = this.dataset.sourcePath || '';
+                    deletePageFormError.style.display = 'none';
+                    deletePageFormErrorContents.innerText = '';
+                    deletePageButton.disabled = false;
+                    deletePageModal.showModal();
+                });
+            });
+
+            registerAsyncForm(
+                deletePageForm,
+                () => {
+                    deletePageModal.close();
+                    location.reload();
+                },
+                async response => {
+                    const data = await response.json();
+                    deletePageFormError.style.display = 'block';
+                    deletePageFormErrorContents.innerText = data.error;
+                },
+                () => {
+                    deletePageButton.disabled = true;
+                    deletePageFormError.style.display = 'none';
+                    deletePageFormErrorContents.innerText = '';
+                },
+                () => {
+                    deletePageButton.disabled = false;
+                }
+            );
+        }
+
+        /* ---------- create page form ---------- */
+
+        const createPageForm = document.getElementById('createPageForm');
+
+        if (createPageForm) {
+            const createPageButton = document.getElementById('createPageButton');
+            const createPageFormError = document.getElementById('createPageFormError');
+            const createPageFormErrorContents = document.getElementById('createPageFormErrorContents');
+
+            registerAsyncForm(
+                createPageForm,
+                () => {
+                    document.getElementById('createPageModal').close();
+                    createPageForm.reset();
+                    location.reload();
+                },
+                async response => {
+                    const data = await response.json();
+                    createPageFormError.style.display = 'block';
+                    createPageFormErrorContents.innerText = data.error;
+                },
+                () => {
+                    createPageButton.disabled = true;
+                    createPageFormError.style.display = 'none';
+                    createPageFormErrorContents.innerText = '';
+                },
+                () => {
+                    createPageButton.disabled = false;
+                }
+            );
+
+            /* ---------- page type field switching ---------- */
+
+            const createPageModalLabel = document.getElementById('createPageModalLabel');
+            const titleInputLabel = document.getElementById('titleInputLabel');
+            const contentInputLabel = document.getElementById('contentInputLabel');
+            const contentInput = document.getElementById('contentInput');
+
+            const pageTypeSelection = document.getElementById('pageTypeSelection');
+            const baseInfo = document.getElementById('baseInfo');
+            const createsPost = document.getElementById('createsPost');
+
+            const defaults = {
+                modalLabel: createPageModalLabel.innerText,
+                titleLabel: titleInputLabel.innerText,
+                contentLabel: contentInputLabel.innerText,
+                contentPlaceholder: contentInput.placeholder,
+            };
+
+            pageTypeSelection.addEventListener('change', function (event) {
+                createPageModalLabel.innerText = defaults.modalLabel;
+                titleInputLabel.innerText = defaults.titleLabel;
+                contentInputLabel.innerText = defaults.contentLabel;
+                contentInput.placeholder = defaults.contentPlaceholder;
+
+                createPageButton.disabled = false;
+                createPageButton.title = '';
+
+                baseInfo.style.display = 'none';
+                createsPost.style.display = 'none';
+
+                const selection = event.target.value;
+
+                if (selection === 'markdown-post') {
+                    baseInfo.style.display = 'block';
+                    createsPost.style.display = 'block';
+                    createPageModalLabel.innerText = 'Creating a new Markdown post';
+                    titleInputLabel.innerText = 'Post title';
+                } else {
+                    baseInfo.style.display = 'block';
+                    createPageModalLabel.innerText = 'Creating a new ' + toTitleCase(selection);
+                }
+
+                if (selection === 'blade-page') {
+                    contentInputLabel.innerText = 'Blade content';
+                    contentInput.placeholder = 'Enter your Blade content';
+                } else if (selection === 'html-page') {
+                    createPageModalLabel.innerText = 'Creating a new HTML page';
+                    contentInputLabel.innerText = 'HTML content';
+                    contentInput.placeholder = 'Enter your HTML content';
+                }
+            });
+        }
+        @endif
+    })();
+</script>
 </body>
 </html>

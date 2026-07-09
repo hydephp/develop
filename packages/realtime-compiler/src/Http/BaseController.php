@@ -30,7 +30,7 @@ abstract class BaseController
             $this->console = new ConsoleOutput();
         }
 
-        if ($this->withSession) {
+        if ($this->withSession && session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
     }
@@ -114,6 +114,10 @@ abstract class BaseController
 
     protected function expectsJson(): bool
     {
-        return array_change_key_case(getallheaders())['accept'] === 'application/json';
+        $headers = function_exists('getallheaders') ? getallheaders() : [
+            'Accept' => $_SERVER['HTTP_ACCEPT'] ?? null,
+        ];
+
+        return (array_change_key_case($headers)['accept'] ?? null) === 'application/json';
     }
 }

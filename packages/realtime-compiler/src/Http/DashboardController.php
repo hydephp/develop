@@ -7,13 +7,15 @@ namespace Hyde\RealtimeCompiler\Http;
 use Hyde\Hyde;
 use OutOfBoundsException;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\HtmlPage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\InMemoryPage;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
-use Hyde\Foundation\PharSupport;
+use Hyde\Facades\Filesystem;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
@@ -31,6 +33,8 @@ use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+
+use function Hyde\unslash;
 
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
@@ -108,6 +112,7 @@ class DashboardController extends BaseController
             'openPageInEditor' => $this->openPageInEditor(),
             'openMediaFileInEditor' => $this->openMediaFileInEditor(),
             'createPage' => $this->createPage(),
+            'deletePage' => $this->deletePage(),
             default => $this->abort(403, "Invalid action '$action'"),
         };
 
@@ -124,9 +129,10 @@ class DashboardController extends BaseController
     public function getProjectInformation(): array
     {
         return [
+            'Project Path' => Hyde::path(),
             'Hyde Version' => self::getPackageVersion('hyde/hyde'),
             'Framework Version' => self::getPackageVersion('hyde/framework'),
-            'Project Path' => Hyde::path(),
+            'PHP Version' => PHP_VERSION,
         ];
     }
 
@@ -144,6 +150,31 @@ class DashboardController extends BaseController
     public function getMediaPreviewLink(MediaFile $mediaFile): string
     {
         return $this->rootRelativeLink('media/'.$mediaFile->getIdentifier());
+    }
+
+    /** @return array{label: string, mark: string, color: string, rgb: string} */
+    public static function getMediaPlaceholder(string $extension): array
+    {
+        return match (strtolower($extension)) {
+            'css' => [
+                'label' => 'CSS',
+                'mark' => '{}',
+                'color' => 'rebeccapurple',
+                'rgb' => '102, 51, 153',
+            ],
+            'js', 'mjs', 'cjs' => [
+                'label' => 'JavaScript',
+                'mark' => 'JS',
+                'color' => '#F0DB4F',
+                'rgb' => '240, 219, 79',
+            ],
+            default => [
+                'label' => 'BINARY',
+                'mark' => 'BIN',
+                'color' => '#8b8f9c',
+                'rgb' => '139, 143, 156',
+            ],
+        };
     }
 
     protected function rootRelativeLink(string $link): string
@@ -259,6 +290,10 @@ class DashboardController extends BaseController
             $contents = $page->compile();
         }
 
+        if (self::isLoadedInIframe()) {
+            return $contents;
+        }
+
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {
             if (config('hyde.server.dashboard.welcome-banner', true)) {
@@ -279,18 +314,14 @@ class DashboardController extends BaseController
         return $contents;
     }
 
+    protected static function isLoadedInIframe(): bool
+    {
+        return strtolower($_SERVER['HTTP_SEC_FETCH_DEST'] ?? '') === 'iframe';
+    }
+
     public function isInteractive(): bool
     {
         return config('hyde.server.dashboard.interactive', true);
-    }
-
-    public function getScripts(): string
-    {
-        if (PharSupport::running()) {
-            return file_get_contents('phar://hyde.phar/vendor/hyde/realtime-compiler/resources/dashboard.js');
-        }
-
-        return file_get_contents(Hyde::vendorPath('resources/dashboard.js', 'realtime-compiler'));
     }
 
     public function getFlash(string $key, $default = null): ?string
@@ -334,6 +365,39 @@ class DashboardController extends BaseController
         Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
     }
 
+    protected function deletePage(): void
+    {
+        $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
+        $route = Routes::get($routeKey);
+        $page = $route->getPage();
+
+        if ($page instanceof InMemoryPage) {
+            $this->abort(403, 'Cannot delete in-memory pages');
+        }
+
+        $sourcePath = $route->getSourcePath();
+        $absolutePath = Hyde::path($sourcePath);
+
+        if (! (str_ends_with($absolutePath, '.md') || str_ends_with($absolutePath, '.blade.php'))) {
+            $this->abort(403, sprintf("Refusing to delete unsafe file '%s'", basename($absolutePath)));
+        }
+
+        if (! is_file($absolutePath)) {
+            $this->abort(404, sprintf("File '%s' not found", $sourcePath));
+        }
+
+        if (! Filesystem::unlink($sourcePath)) {
+            $this->abort(500, sprintf("Failed to delete file '%s'", $sourcePath));
+        }
+
+        Hyde::files()->forget($sourcePath);
+        Hyde::pages()->forget($sourcePath);
+        Hyde::routes()->forget($routeKey);
+
+        $this->writeToConsole(sprintf("Deleted file '%s'", $sourcePath), 'dashboard@deletePage');
+        $this->setJsonResponse(200, "Deleted file '$sourcePath'");
+    }
+
     protected function openMediaFileInEditor(): void
     {
         $identifier = $this->request->data['identifier'] ?? $this->abort(400, 'Must provide identifier');
@@ -365,18 +429,19 @@ class DashboardController extends BaseController
         // Match page class
         $pageClass = match ($pageType) {
             'blade-page' => BladePage::class,
+            'html-page' => HtmlPage::class,
             'markdown-page' => MarkdownPage::class,
             'markdown-post' => MarkdownPost::class,
             'documentation-page' => DocumentationPage::class,
             default => $this->abort(400, "Unsupported page type '$pageType'"),
         };
 
-        $creator = $pageClass === MarkdownPost::class
-            ? new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content)
-            : new CreatesNewPageSourceFile($title, $pageClass, false, $content);
-
         try {
-            $path = $creator->save();
+            $path = match ($pageClass) {
+                MarkdownPost::class => (new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content))->save(),
+                HtmlPage::class => $this->createHtmlPage($title, $content),
+                default => (new CreatesNewPageSourceFile($title, $pageClass, false, $content))->save(),
+            };
         } catch (FileConflictException $exception) {
             $this->abort($exception->getCode(), $exception->getMessage());
         }
@@ -387,6 +452,39 @@ class DashboardController extends BaseController
         $this->setJsonResponse(201, "Created file '$path'!");
     }
 
+    protected function createHtmlPage(string $title, string $content): string
+    {
+        $identifier = $this->formatPageIdentifier($title);
+        $path = Hyde::path(HtmlPage::sourcePath($identifier));
+
+        if (file_exists($path)) {
+            throw new FileConflictException($path);
+        }
+
+        Filesystem::ensureParentDirectoryExists($path);
+
+        if (file_put_contents($path, Hyde::normalizeNewlines($content)) === false) {
+            $this->abort(500, sprintf("Failed to create file '%s'", Hyde::pathToRelative($path)));
+        }
+
+        return $path;
+    }
+
+    protected function formatPageIdentifier(string $title): string
+    {
+        $title = trim($title, '/\\');
+
+        if (str_ends_with(strtolower($title), HtmlPage::fileExtension())) {
+            $title = substr($title, 0, -strlen(HtmlPage::fileExtension()));
+        }
+
+        $directory = str_contains($title, '/')
+            ? unslash('/'.rtrim(Str::beforeLast($title, '/').'/', '/\\'))
+            : '';
+
+        return unslash("$directory/".Hyde::makeSlug(basename($title)));
+    }
+
     protected static function injectDashboardButton(string $contents): string
     {
         return str_replace('</body>', sprintf('%s</body>', self::button()), $contents);
@@ -395,32 +493,40 @@ class DashboardController extends BaseController
     protected static function button(): string
     {
         return <<<'HTML'
-            <style>
-                 .dashboard-btn {
-                    background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%);
-                    margin: 10px;
-                    padding: .5rem 1rem;
-                    text-align: center;
-                    transition: 0.5s;
-                    background-size: 200% auto;
-                    background-position: right center;
-                    color: white;
-                    box-shadow: 0 0 20px #162134;
-                    border-radius: 10px;
-                    display: block;
-                    position: absolute;
-                    right: 1rem;
-                    top: 1rem
-                 }
+        <style>
+            .dashboard-btn {
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                backdrop-filter: blur(6px);
+                margin: 10px;
+                padding: .5rem 1.1rem;
+                text-align: center;
+                transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+                color: #E8E9ED;
+                font-weight: 500;
+                letter-spacing: 0.01em;
+                border-radius: 8px;
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                text-decoration: none;
+            }
 
-                 .dashboard-btn:hover {
-                    background-position: left center;
-                    color: #fff;
-                    text-decoration: none;
-                }
-            </style>
-            <a href="/dashboard" class="dashboard-btn">Dashboard</a>
-        HTML;
+            .dashboard-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(212, 82, 133, 0.5);
+                color: #fff;
+                transform: translateY(-1px);
+                text-decoration: none;
+            }
+
+            .dashboard-btn:active {
+                transform: translateY(0);
+            }
+        </style>
+        <a href="/dashboard" class="dashboard-btn">Dashboard</a>
+    HTML;
     }
 
     protected static function welcomeComponent(): string
