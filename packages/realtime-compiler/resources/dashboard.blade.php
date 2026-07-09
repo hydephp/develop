@@ -865,7 +865,7 @@
 
 <main>
     <div class="intro">
-        <h1>Dashboard</h1>
+        <h1>Welcome to your site dashboard!</h1>
         <p>This page is served by the Realtime Compiler and won't be saved to your static site.</p>
     </div>
 
