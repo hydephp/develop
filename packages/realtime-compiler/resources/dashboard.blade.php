@@ -408,6 +408,15 @@
             text-overflow: ellipsis;
         }
 
+        .route-path-src.editable {
+            cursor: pointer;
+        }
+
+        .route-path-src.editable:hover {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+
         .route-path-out {
             color: var(--text-muted);
             overflow: hidden;
@@ -1189,6 +1198,7 @@
                                     $typeKey = class_basename($route->getPageClass());
                                     $color = $typeColors[$typeKey] ?? 'purple';
                                     $isMemory = $route->getPage() instanceof \Hyde\Pages\InMemoryPage;
+                                    $editFormId = 'editPageForm-'.md5($route->getRouteKey());
                                 @endphp
 
                                 <div id="pageRow-{{ $route->getRouteKey() }}"
@@ -1201,7 +1211,16 @@
                                                 <span class="route-path-out mono" style="font-style: italic;">generated</span>
                                             @else
                                                 <svg style="color: color-mix(in srgb, var(--{{ $color }}) 55%, var(--text-muted))" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="{{ $typeKey }}"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path>{!! $typeIcons[$typeKey] ?? '' !!}</svg>
-                                                <span class="route-path-src mono" title="{{ $route->getSourcePath() }}">{{ $route->getSourcePath() }}</span>
+                                                <span
+                                                    class="route-path-src mono{{ $dashboard->isInteractive() ? ' editable edit-page-source' : '' }}"
+                                                    @if($dashboard->isInteractive())
+                                                        data-route-key="{{ $route->getRouteKey() }}"
+                                                        data-edit-form-id="{{ $editFormId }}"
+                                                        title="{{ $route->getSourcePath() }} &middot; open in editor"
+                                                    @else
+                                                        title="{{ $route->getSourcePath() }}"
+                                                    @endif
+                                                >{{ $route->getSourcePath() }}</span>
                                             @endif
 
                                             <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
@@ -1218,7 +1237,7 @@
 
                                     <div class="route-actions-col">
                                         @if($dashboard->isInteractive())
-                                            <form class="buttonActionForm" action="" method="POST">
+                                            <form id="{{ $editFormId }}" class="buttonActionForm" action="" method="POST">
                                                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                 <input type="hidden" name="action" value="openPageInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
@@ -1228,7 +1247,7 @@
                                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
                                                     </button>
                                                 @else
-                                                    <button type="submit" class="btn btn-ghost btn-sm" title="Open in system default application" aria-label="Edit">
+                                                    <button type="submit" class="btn btn-ghost btn-sm edit-page-btn" data-route-key="{{ $route->getRouteKey() }}" title="Open in system default application" aria-label="Edit">
                                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
                                                     </button>
                                                 @endif
@@ -1524,6 +1543,12 @@
         }
 
         document.querySelectorAll('.buttonActionForm').forEach(form => registerAsyncForm(form));
+
+        document.querySelectorAll('.edit-page-source').forEach(el => {
+            el.addEventListener('click', function () {
+                document.getElementById(this.dataset.editFormId)?.requestSubmit();
+            });
+        });
 
         /* ---------- delete page form ---------- */
 
