@@ -339,32 +339,7 @@
 
         .route-list {
             overflow-x: auto;
-        }
-
-        .route-list-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 0 12px 8px;
-            font-size: 10.5px;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: var(--text-faint);
-        }
-
-        .route-list-header .route-key-col {
-            font-size: 10.5px;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: var(--text-faint);
-            border-left: none;
-            padding-left: 12px;
-        }
-
-        .route-group + .route-group {
-            margin-top: 4px;
+            margin: -0.5rem 0;
         }
 
         .route-group-label {
@@ -439,18 +414,26 @@
             text-overflow: ellipsis;
         }
 
-        .route-key-col {
-            width: auto;
-            min-width: 140px;
-            max-width: 260px;
-            flex-shrink: 0;
-            font-size: 13px;
-            color: var(--text-muted);
+        .route-output-path {
+            display: inline-flex;
+            align-items: baseline;
+            min-width: 0;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            border-left: 1px solid var(--border-soft);
-            padding-left: 12px;
+        }
+
+        .route-output-path .route-path-out {
+            min-width: 0;
+        }
+
+        .route-key-link {
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .route-key-link:hover {
+            color: var(--blue);
+            text-decoration: underline;
         }
 
         .route-actions-col {
@@ -1197,12 +1180,6 @@
                         });
                     @endphp
 
-                    <div class="route-list-header">
-                        <div class="route-file">Page details</div>
-                        <div class="route-key-col">Route key</div>
-                        <div class="route-actions-col">Actions</div>
-                    </div>
-
                     @foreach($groups as $dir => $routes)
                         <div class="route-group">
                             <div class="route-group-label">{{ $dir }} <span class="count">{{ count($routes) }}</span></div>
@@ -1229,11 +1206,15 @@
 
                                             <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
 
-                                            <span class="route-path-out mono" title="{{ $route->getOutputPath() }}">{{ $route->getOutputPath() }}</span>
+                                            @php
+                                                $outputPath = $route->getOutputPath();
+                                                $routeKey = $route->getRouteKey();
+                                                $suffix = str_starts_with($outputPath, $routeKey) ? substr($outputPath, strlen($routeKey)) : '';
+                                            @endphp
+
+                                            <span class="route-output-path" title="{{ $outputPath }}"><a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="route-key-link mono" title="Open this page &middot; route key: {{ $routeKey }}">{{ $routeKey }}</a><span class="route-path-out mono">{{ $suffix }}</span></span>
                                         </div>
                                     </div>
-
-                                    <div class="route-key-col mono" title="{{ $route->getRouteKey() }}">{{ $route->getRouteKey() }}</div>
 
                                     <div class="route-actions-col">
                                         @if($dashboard->isInteractive())
@@ -1268,10 +1249,6 @@
                                                 </button>
                                             @endif
                                         @endif
-
-                                        <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-ghost btn-sm" title="Open this page" aria-label="Open">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><path d="M15 3h6v6M10 14 21 3"></path></svg>
-                                        </a>
 
                                         <button type="button" class="btn btn-ghost btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard" aria-label="Quick view">
                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
