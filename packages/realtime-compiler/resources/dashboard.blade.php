@@ -453,13 +453,18 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            border-left: 1px solid var(--border-soft);
+            padding-left: 12px;
         }
 
         .route-actions-col {
             display: flex;
+            align-items: center;
             justify-content: flex-end;
             gap: 1px;
             flex-shrink: 0;
+            border-left: 1px solid var(--border-soft);
+            padding-left: 12px;
         }
 
         .route-actions-col .btn {
@@ -1192,9 +1197,9 @@
                     @endphp
 
                     <div class="route-list-header">
-                        <div class="route-file"></div>
+                        <div class="route-file">Page details</div>
                         <div class="route-key-col">Route key</div>
-                        <div class="route-actions-col"></div>
+                        <div class="route-actions-col">Actions</div>
                     </div>
 
                     @foreach($groups as $dir => $routes)
@@ -1217,7 +1222,7 @@
                                                 <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="This page is generated dynamically and does not have a source file."><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"></path></svg>
                                                 <span class="route-path-out mono" style="font-style: italic;">generated</span>
                                             @else
-                                                <svg style="color: var(--{{ $color }})" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="{{ $typeKey }}"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path>{!! $typeIcons[$typeKey] ?? '' !!}</svg>
+                                                <svg style="color: color-mix(in srgb, var(--{{ $color }}) 55%, var(--text-muted))" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="{{ $typeKey }}"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path>{!! $typeIcons[$typeKey] ?? '' !!}</svg>
                                                 <span class="route-path-src mono" title="{{ $route->getSourcePath() }}">{{ $route->getSourcePath() }}</span>
                                             @endif
 
