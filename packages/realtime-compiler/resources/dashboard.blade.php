@@ -476,6 +476,57 @@
             padding: 6px;
         }
 
+        .route-actions-col .route-action {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .route-actions-col .route-action::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 6px);
+            z-index: 20;
+            transform: translateX(-50%);
+            pointer-events: none;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #0f1117;
+            color: var(--text);
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1;
+            padding: 6px 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .28);
+            opacity: 0;
+            transition: opacity .08s ease;
+        }
+
+        .route-actions-col .route-action::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 1px);
+            z-index: 21;
+            width: 7px;
+            height: 7px;
+            transform: translateX(-50%) rotate(45deg);
+            pointer-events: none;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: #0f1117;
+            opacity: 0;
+            transition: opacity .08s ease;
+        }
+
+        .route-actions-col .route-action:hover::after,
+        .route-actions-col .route-action:hover::before,
+        .route-actions-col .route-action:focus-within::after,
+        .route-actions-col .route-action:focus-within::before {
+            opacity: 1;
+        }
+
         .route-actions-col .btn svg {
             width: 15px;
             height: 15px;
@@ -1272,41 +1323,46 @@
 
                                     <div class="route-actions-col">
                                         @if($dashboard->isInteractive())
-                                            <form id="{{ $editFormId }}" class="buttonActionForm" action="" method="POST">
+                                            <form id="{{ $editFormId }}" class="buttonActionForm route-action" action="" method="POST" data-tooltip="{{ $isMemory ? 'Cannot edit in-memory pages' : 'Open in editor' }}">
                                                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                 <input type="hidden" name="action" value="openPageInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
 
                                                 @if($isMemory)
-                                                    <button type="submit" class="btn btn-ghost btn-sm" title="Cannot edit in-memory pages" style="opacity:.4; cursor: not-allowed" disabled aria-label="Edit">
+                                                    <button type="submit" class="btn btn-ghost btn-sm" style="cursor: not-allowed" disabled aria-label="Cannot edit in-memory page {{ $route->getRouteKey() }}">
                                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
                                                     </button>
                                                 @else
-                                                    <button type="submit" class="btn btn-ghost btn-sm edit-page-btn" data-route-key="{{ $route->getRouteKey() }}" title="Open in system default application" aria-label="Edit">
+                                                    <button type="submit" class="btn btn-ghost btn-sm edit-page-btn" data-route-key="{{ $route->getRouteKey() }}" aria-label="Open {{ $route->getRouteKey() }} in editor">
                                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
                                                     </button>
                                                 @endif
                                             </form>
 
                                             @if($isMemory)
-                                                <button type="button" class="btn btn-ghost btn-sm" title="Cannot delete in-memory pages" style="opacity:.4; cursor: not-allowed" disabled aria-label="Delete">
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
-                                                </button>
+                                                <span class="route-action" data-tooltip="Cannot delete in-memory pages">
+                                                    <button type="button" class="btn btn-ghost btn-sm" style="cursor: not-allowed" disabled aria-label="Cannot delete in-memory page {{ $route->getRouteKey() }}">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
+                                                    </button>
+                                                </span>
                                             @else
-                                                <button type="button"
-                                                        class="btn btn-ghost btn-sm btn-delete delete-page-btn"
-                                                        data-route-key="{{ $route->getRouteKey() }}"
-                                                        data-source-path="{{ $route->getSourcePath() }}"
-                                                        title="Delete this page source file"
-                                                        aria-label="Delete">
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
-                                                </button>
+                                                <span class="route-action" data-tooltip="Delete source file">
+                                                    <button type="button"
+                                                            class="btn btn-ghost btn-sm btn-delete delete-page-btn"
+                                                            data-route-key="{{ $route->getRouteKey() }}"
+                                                            data-source-path="{{ $route->getSourcePath() }}"
+                                                            aria-label="Delete source file for {{ $route->getRouteKey() }}">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
+                                                    </button>
+                                                </span>
                                             @endif
                                         @endif
 
-                                        <button type="button" class="btn btn-ghost btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard" aria-label="Quick view">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                        </button>
+                                        <span class="route-action" data-tooltip="Quick view">
+                                            <button type="button" class="btn btn-ghost btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" aria-label="Quick view {{ $route->getRouteKey() }}">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             @endforeach
