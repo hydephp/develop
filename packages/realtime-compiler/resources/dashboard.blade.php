@@ -536,6 +536,11 @@
             color: var(--text-muted);
         }
 
+        .route-actions-col .edit-page-btn:hover {
+            color: var(--blue);
+            background: var(--blue-soft);
+        }
+
         .route-actions-col .btn-delete:hover {
             color: var(--red);
             background: var(--red-soft);
