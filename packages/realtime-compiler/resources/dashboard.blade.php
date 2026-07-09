@@ -1405,7 +1405,7 @@
                     @foreach(\Hyde\Support\Filesystem\MediaFile::all() as $mediaFile)
                         <div class="media-card">
                             <div class="media-preview">
-                                @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif', 'ico']))
+                                @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif', 'ico', 'webp']))
                                     <img loading="lazy" src="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" alt="{{ $mediaFile->getName() }}">
                                 @else
                                     @php($mediaPlaceholder = $dashboard::getMediaPlaceholder($mediaFile->getExtension()))
