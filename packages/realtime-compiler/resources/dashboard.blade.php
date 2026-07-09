@@ -269,14 +269,21 @@
 
         .chip-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
+            grid-template-columns: minmax(280px, 2fr) repeat(3, minmax(max-content, 1fr));
+            gap: 18px 34px;
+            align-items: start;
         }
 
         .info-chip {
             display: flex;
             align-items: flex-start;
             gap: 12px;
+            min-width: 0;
+        }
+
+        .info-chip:not(.info-chip-path) {
+            justify-self: center;
+            white-space: nowrap;
         }
 
         .info-chip .swatch {
@@ -312,6 +319,16 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            min-width: 0;
+        }
+
+        .info-chip-path .value-row {
+            align-items: flex-start;
+        }
+
+        .info-chip-path .value-row span {
+            min-width: 0;
+            overflow-wrap: anywhere;
         }
 
         .copy-btn {
@@ -940,10 +957,28 @@
             color: var(--text-muted);
         }
 
+        @media (max-width: 900px) {
+            .chip-grid {
+                grid-template-columns: repeat(3, max-content);
+            }
+
+            .info-chip-path {
+                grid-column: 1 / -1;
+            }
+        }
+
         @media (max-width: 640px) {
             main {
                 padding-left: 16px;
                 padding-right: 16px;
+            }
+
+            .chip-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-chip:not(.info-chip-path) {
+                white-space: normal;
             }
 
             .intro-header {
@@ -1007,10 +1042,10 @@
             <div class="chip-grid">
                 @php $swatches = ['blue', 'purple', 'teal']; $i = 0; @endphp
                 @foreach($dashboard->getProjectInformation() as $type => $info)
-                    @php $swatch = $swatches[$i % count($swatches)]; $i++; @endphp
-                    <div class="info-chip">
+                    @php $swatch = $swatches[$i % count($swatches)]; $i++; $isProjectPath = $type === 'Project Path'; @endphp
+                    <div @class(['info-chip', 'info-chip-path' => $isProjectPath])>
                             <span class="swatch" style="background: var(--{{ $swatch }}-soft)">
-                                @if($loop->last)
+                                @if($isProjectPath)
                                     <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a2 2 0 0 1 2-2h2M4 17v2a2 2 0 0 0 2 2h2M20 7V5a2 2 0 0 0-2-2h-2M20 17v2a2 2 0 0 1-2 2h-2"></path></svg>
                                 @elseif($loop->first)
                                     <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5Z"></path><path d="M3 12l9 5 9-5"></path></svg>
@@ -1022,7 +1057,7 @@
                         <div>
                             <div class="label">{{ $type }}</div>
                             <div class="value">
-                                @if($loop->last)
+                                @if($isProjectPath)
                                     <div class="value-row mono">
                                         <span>{{ $info }}</span>
                                         <button id="copyPathToClipboardButton" class="copy-btn" data-copy-value="{{ $info }}" title="Copy path to clipboard">

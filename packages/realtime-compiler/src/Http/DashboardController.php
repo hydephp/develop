@@ -130,10 +130,10 @@ class DashboardController extends BaseController
     public function getProjectInformation(): array
     {
         return [
+            'Project Path' => Hyde::path(),
             'Hyde Version' => self::getPackageVersion('hyde/hyde'),
             'Framework Version' => self::getPackageVersion('hyde/framework'),
             'PHP Version' => PHP_VERSION,
-            'Project Path' => Hyde::path(),
         ];
     }
 
