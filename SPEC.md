@@ -56,7 +56,19 @@ foo: bar
 
 Each variable will be passed to the Blade view. In the future we may try to parse the props of a page to validate the properties added in front matter.
 
-Though not required, you can use triple dashes to enclose the front matter part, this allows you to write Markdown content inside the component. This is passed as the `$slot` property to the page. We will compile the Markdown to HTML using the HydePHP Markdown converted (meaning fancy features like coloured codeblocks and more are avaliable), though you may need to add the `prose` class to your container.
+When the block does not contain a YAML mapping, its content is treated as Markdown and passed to the component's `$slot`:
+
+````markdown
+```blade component(component-name)
+This is Markdown passed directly to the **component slot**.
+```
+````
+
+```blade component(component-name)
+This is Markdown passed directly to the **component slot**.
+```
+
+To pass both variables and Markdown slot content, use triple dashes to enclose the front matter. The Markdown after the front matter is compiled to HTML using the HydePHP Markdown converter (meaning features like coloured blockquotes and more are available), though you may need to add the `prose` class to your container.
 
 ````markdown
 ```blade component(component-name)

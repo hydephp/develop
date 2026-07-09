@@ -58,7 +58,17 @@ title: Check this
 ```
 ````
 
-To pass Markdown as the component slot, enclose the component data in YAML front matter and add the Markdown after it:
+If the block does not contain a YAML mapping, its content is rendered as Markdown and passed directly to the component
+slot. This is useful when the component does not need any data:
+
+````markdown
+```blade component(alert)
+This content is passed to the component **slot**.
+```
+````
+
+To pass both component data and Markdown slot content, enclose the data in YAML front matter and add the Markdown after
+it:
 
 ````markdown
 ```blade component(alert)

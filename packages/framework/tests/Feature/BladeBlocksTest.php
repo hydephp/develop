@@ -141,12 +141,13 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('<strong>bold</strong>', $html);
     }
 
-    public function testComponentWithNonMappingBodyYieldsNoData()
+    public function testComponentWithNonMappingBodyUsesContentAsMarkdownSlot()
     {
-        $html = $this->render("```blade component(blade-block-fixture)\njust some text\n```");
+        $html = $this->render("```blade component(blade-block-fixture)\nThis is just a simple alert message.\n\nIt supports **Markdown** without front matter.\n```");
 
         $this->assertStringContainsString('data=[]', $html);
-        $this->assertStringContainsString('slot=[]', $html);
+        $this->assertStringContainsString('<p>This is just a simple alert message.</p>', $html);
+        $this->assertStringContainsString('<p>It supports <strong>Markdown</strong> without front matter.</p>', $html);
     }
 
     public function testComponentDataIsAvailableAsViewVariables()

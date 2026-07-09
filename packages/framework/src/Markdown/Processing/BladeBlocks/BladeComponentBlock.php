@@ -57,7 +57,11 @@ class BladeComponentBlock extends BladeBlock
 
         $matter = Yaml::parse($content);
 
-        return [FrontMatter::fromArray(is_array($matter) ? $matter : []), ''];
+        if (is_array($matter)) {
+            return [FrontMatter::fromArray($matter), ''];
+        }
+
+        return [FrontMatter::fromArray([]), $content];
     }
 
     protected function hasFrontMatter(string $content): bool
