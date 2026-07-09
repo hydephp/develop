@@ -26,6 +26,8 @@
             --teal-soft: rgba(45, 212, 191, .14);
             --amber: #f0b429;
             --amber-soft: rgba(240, 180, 41, .14);
+            --orange: #f2884b;
+            --orange-soft: rgba(242, 136, 75, .14);
             --red: #f0575c;
             --red-soft: rgba(240, 87, 92, .14);
             --green: #34d399;
@@ -111,12 +113,6 @@
             font-weight: 600;
             font-size: 14px;
             color: var(--text);
-            white-space: nowrap;
-        }
-
-        .brand-sub {
-            font-size: 13px;
-            color: var(--text-faint);
             white-space: nowrap;
         }
 
@@ -565,32 +561,6 @@
             color: var(--text-faint);
         }
 
-        .media-actions {
-            display: flex;
-            gap: 12px;
-            padding: 0 12px 10px;
-            font-size: 11.5px;
-        }
-
-        .media-actions button {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font: inherit;
-            font-size: 11.5px;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .media-actions a, .media-actions button {
-            color: var(--text-muted);
-        }
-
-        .media-actions a:hover, .media-actions button:hover {
-            color: var(--blue);
-            text-decoration: none;
-        }
-
         /* ---------- Tip strip ---------- */
 
         .tip-strip {
@@ -648,34 +618,55 @@
             color: var(--text-faint);
         }
 
-        /* ---------- Modal (native dialog) ---------- */
+        /* ---------- Modals (native dialog) ---------- */
 
-        dialog#createPageModal {
+        dialog {
             border: 1px solid var(--border);
             border-radius: var(--radius);
             background: var(--surface);
             color: var(--text);
             padding: 0;
+        }
+
+        dialog::backdrop {
+            background: rgba(6, 7, 10, .65);
+        }
+
+        dialog#createPageModal {
             width: min(560px, 92vw);
             max-height: 88vh;
         }
 
-        dialog#createPageModal::backdrop {
-            background: rgba(6, 7, 10, .65);
+        dialog#quickViewModal {
+            width: min(960px, 94vw);
+            height: min(720px, 88vh);
+            display: flex;
+            flex-direction: column;
         }
 
         .modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 22px;
+            padding: 14px 18px;
             border-bottom: 1px solid var(--border-soft);
+            flex-shrink: 0;
         }
 
         .modal-header h3 {
             font-size: 14px;
             font-weight: 600;
             margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-header .modal-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
         }
 
         .modal-body {
@@ -764,6 +755,22 @@
             margin-bottom: 16px;
         }
 
+        /* Quick view */
+
+        .quick-view-body {
+            padding: 0;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .quick-view-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: #fff;
+        }
+
         /* ---------- Toast ---------- */
 
         .toast-wrap {
@@ -819,6 +826,11 @@
 
             .row-actions {
                 flex-wrap: wrap;
+            }
+
+            dialog#quickViewModal {
+                width: 96vw;
+                height: 90vh;
             }
         }
     </style>
@@ -884,26 +896,10 @@
                                 @if($loop->last)
                                     <div class="value-row mono">
                                         <span>{{ $info }}</span>
-                                        <button id="copyPathToClipboardButton" class="copy-btn" onclick="copyPathToClipboard()" title="Copy path to clipboard">
+                                        <button id="copyPathToClipboardButton" class="copy-btn" data-copy-value="{{ $info }}" title="Copy path to clipboard">
                                             <svg id="copyPathToClipboardButtonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M4 16V5a2 2 0 0 1 2-2h9"></path></svg>
                                             <svg id="copyPathToClipboardButtonIconSuccess" style="display:none" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
                                         </button>
-                                        <script>
-                                            async function copyPathToClipboard() {
-                                                let data = '{{ str_replace('\\', '\\\\', $info) }}';
-                                                try {
-                                                    await navigator.clipboard.writeText(data);
-                                                    document.getElementById("copyPathToClipboardButtonIcon").style.display = 'none';
-                                                    document.getElementById("copyPathToClipboardButtonIconSuccess").style.display = 'inline';
-                                                    await new Promise(resolve => setTimeout(resolve, 3000)).then(function () {
-                                                        document.getElementById("copyPathToClipboardButtonIcon").style.display = 'inline';
-                                                        document.getElementById("copyPathToClipboardButtonIconSuccess").style.display = 'none';
-                                                    });
-                                                } catch (error) {
-                                                    window.prompt("Copy to clipboard: Ctrl+C", data);
-                                                }
-                                            }
-                                        </script>
                                     </div>
                                 @else
                                     {{ $info }}
@@ -922,7 +918,7 @@
             <h2>Site pages &amp; routes</h2>
             @if($dashboard->isInteractive())
                 <noscript><style>#createPageModalButton { display: none; }</style></noscript>
-                <button id="createPageModalButton" type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('createPageModal').showModal()">
+                <button id="createPageModalButton" type="button" class="btn btn-primary btn-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>
                     Create page
                 </button>
@@ -934,7 +930,7 @@
 
                         <div class="modal-header">
                             <h3 id="createPageModalLabel">Create new page</h3>
-                            <button type="button" class="btn btn-ghost btn-sm" data-bs-dismiss="modal" onclick="document.getElementById('createPageModal').close()" aria-label="Close">
+                            <button type="button" class="btn btn-ghost btn-sm" data-dialog-close aria-label="Close">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
                             </button>
                         </div>
@@ -995,7 +991,7 @@
 
                         <div class="modal-footer">
                             <a class="feedback-link" href="https://github.com/hydephp/realtime-compiler/issues/new?{{ http_build_query(['title' => 'Feedback on the dashboard create page modal', 'body' => 'Write something nice!']) }}" title="This is a new feature, we'd love your feedback!" target="_blank" rel="noopener">Send feedback</a>
-                            <button type="button" class="btn btn-sm" data-bs-dismiss="modal" onclick="document.getElementById('createPageModal').close()">Close</button>
+                            <button type="button" class="btn btn-sm" data-dialog-close>Close</button>
                             <button type="submit" class="btn btn-primary btn-sm" id="createPageButton" title="Please select a page type first" disabled>Create page</button>
                         </div>
                     </form>
@@ -1023,16 +1019,17 @@
                         <tbody>
                         @php
                             $typeColors = [
-                                'BladePage' => 'purple',
+                                'BladePage' => 'red',
                                 'MarkdownPage' => 'blue',
                                 'MarkdownPost' => 'teal',
                                 'DocumentationPage' => 'amber',
+                                'HtmlPage' => 'orange',
                             ];
                         @endphp
                         @foreach($dashboard->getPageList() as $route)
                             @php
                                 $typeKey = class_basename($route->getPageClass());
-                                $color = $typeColors[$typeKey] ?? 'blue';
+                                $color = $typeColors[$typeKey] ?? 'purple';
                             @endphp
                             <tr id="pageRow-{{ $route->getRouteKey() }}" @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage just-created' : ''])>
                                 <td>
@@ -1063,7 +1060,8 @@
                                                 @endif
                                             </form>
                                         @endif
-                                        <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-sm" title="Open this page preview in browser">View</a>
+                                        <button type="button" class="btn btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard">Quick view</button>
+                                        <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-sm" title="Open this page">Open</a>
                                     </div>
                                 </td>
                             </tr>
@@ -1142,66 +1140,224 @@
     <p>HydePHP Realtime Compiler <span class="mono">{{ $dashboard->getVersion() }}</span></p>
 </footer>
 
-@if($dashboard->isInteractive())
-    {{-- Interactivity is not needed when editor is disabled --}}
+{{-- Quick view is read-only, so it's available even when the dashboard is not interactive --}}
+<dialog id="quickViewModal" aria-labelledby="quickViewModalLabel">
+    <div class="modal-header">
+        <h3 id="quickViewModalLabel">Preview</h3>
+        <div class="modal-header-actions">
+            <a id="quickViewOpenLink" href="#" target="_blank" class="btn btn-ghost btn-sm" title="Open in a new tab">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M10 14 20 4M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"></path></svg>
+            </a>
+            <button type="button" class="btn btn-ghost btn-sm" data-dialog-close aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body quick-view-body">
+        <iframe id="quickViewFrame" src="about:blank" title="Page preview"></iframe>
+    </div>
+</dialog>
 
+@if($dashboard->isInteractive())
     <div class="toast-wrap">
         <div id="asyncErrorToast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <strong id="asyncErrorToastHeader">Error</strong>
-                <button type="button" class="btn btn-ghost btn-sm" data-bs-dismiss="toast" aria-label="Close">
+                <button type="button" class="btn btn-ghost btn-sm" data-toast-close aria-label="Close">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M18 6 6 18M6 6l12 12"></path></svg>
                 </button>
             </div>
             <div id="asyncErrorToastBody" class="toast-body"></div>
         </div>
     </div>
+@endif
 
-    <script>
-        // Lightweight compatibility shim so dashboard.js (which historically drove
-        // its modal/toast through the Bootstrap JS API) keeps working now that
-        // Bootstrap has been removed. Native <dialog> handles the createPage modal
-        // directly; this just gives `bootstrap.Modal` / `bootstrap.Toast` callers
-        // an equivalent surface to call into.
-        window.bootstrap = window.bootstrap || {
-            Modal: class {
-                constructor(el) { this.el = el; }
-                show() { if (this.el.showModal && !this.el.open) this.el.showModal(); }
-                hide() { if (this.el.close) this.el.close(); }
-                static getOrCreateInstance(el) { return new this(el); }
-            },
-            Toast: class {
-                constructor(el) { this.el = el; }
-                show() {
-                    this.el.classList.add('show');
-                    clearTimeout(this.el._hideTimer);
-                    this.el._hideTimer = setTimeout(() => this.hide(), 6000);
-                }
-                hide() { this.el.classList.remove('show'); }
-                static getOrCreateInstance(el) { return new this(el); }
-            },
-        };
+<script>
+    (() => {
+        'use strict';
 
-        // Declarative dismiss handling, replacing Bootstrap's data-bs-dismiss auto-wiring.
-        document.addEventListener('click', function (event) {
-            const dismiss = event.target.closest('[data-bs-dismiss]');
-            if (!dismiss) return;
+        function toTitleCase(value) {
+            return value.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase());
+        }
 
-            const kind = dismiss.getAttribute('data-bs-dismiss');
-            if (kind === 'modal') {
-                dismiss.closest('dialog')?.close();
-            } else if (kind === 'toast') {
-                dismiss.closest('#asyncErrorToast')?.classList.remove('show');
+        /* ---------- copy to clipboard ---------- */
+
+        document.getElementById('copyPathToClipboardButton')?.addEventListener('click', async function () {
+            const icon = document.getElementById('copyPathToClipboardButtonIcon');
+            const iconSuccess = document.getElementById('copyPathToClipboardButtonIconSuccess');
+
+            try {
+                await navigator.clipboard.writeText(this.dataset.copyValue);
+                icon.style.display = 'none';
+                iconSuccess.style.display = 'inline';
+                setTimeout(() => {
+                    icon.style.display = 'inline';
+                    iconSuccess.style.display = 'none';
+                }, 3000);
+            } catch (error) {
+                window.prompt('Copy to clipboard: Ctrl+C', this.dataset.copyValue);
             }
         });
 
-        // Close the create-page modal on backdrop click.
-        document.getElementById('createPageModal')?.addEventListener('click', function (event) {
-            if (event.target === this) this.close();
-        });
-    </script>
+        /* ---------- dialogs ---------- */
 
-    <script>{!! $dashboard->getScripts() !!}</script>
-@endif
+        document.querySelectorAll('dialog').forEach(dialog => {
+            dialog.addEventListener('click', function (event) {
+                if (event.target === this) this.close();
+            });
+        });
+
+        document.querySelectorAll('[data-dialog-close]').forEach(button => {
+            button.addEventListener('click', function () {
+                this.closest('dialog')?.close();
+            });
+        });
+
+        /* ---------- quick view ---------- */
+
+        document.querySelectorAll('.quick-view-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                document.getElementById('quickViewModalLabel').innerText = this.dataset.previewLabel;
+                document.getElementById('quickViewOpenLink').href = this.dataset.previewUrl;
+                document.getElementById('quickViewFrame').src = this.dataset.previewUrl;
+                document.getElementById('quickViewModal').showModal();
+            });
+        });
+
+        document.getElementById('quickViewModal')?.addEventListener('close', () => {
+            document.getElementById('quickViewFrame').src = 'about:blank';
+        });
+
+        @if($dashboard->isInteractive())
+        /* ---------- error toast ---------- */
+
+        const toast = document.getElementById('asyncErrorToast');
+
+        function showErrorToast(title, message) {
+            document.getElementById('asyncErrorToastHeader').innerText = title;
+            document.getElementById('asyncErrorToastBody').innerText = message;
+            toast.classList.add('show');
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => toast.classList.remove('show'), 6000);
+        }
+
+        document.querySelector('[data-toast-close]')?.addEventListener('click', () => {
+            toast.classList.remove('show');
+        });
+
+        /* ---------- create page modal open ---------- */
+
+        document.getElementById('createPageModalButton')?.addEventListener('click', () => {
+            const modal = document.getElementById('createPageModal');
+            modal.showModal();
+            document.getElementById('pageTypeSelection').focus();
+        });
+
+        /* ---------- async forms ---------- */
+
+        function registerAsyncForm(form, okHandler = null, errorHandler = null, beforeCallHandler = null, afterCallHandler = null) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                beforeCallHandler?.();
+
+                fetch('', {
+                    method: 'POST',
+                    body: new FormData(event.target),
+                    headers: new Headers({'Accept': 'application/json'}),
+                }).then(async response => {
+                    if (response.ok) {
+                        okHandler?.(response);
+                    } else if (errorHandler) {
+                        errorHandler(response);
+                    } else {
+                        const data = await response.json();
+                        showErrorToast(`Error: ${response.status} ${response.statusText}`, data.error);
+                    }
+                }).catch(error => {
+                    console.error('Network error:', error);
+                });
+
+                afterCallHandler?.();
+            });
+        }
+
+        document.querySelectorAll('.buttonActionForm').forEach(form => registerAsyncForm(form));
+
+        /* ---------- create page form ---------- */
+
+        const createPageForm = document.getElementById('createPageForm');
+
+        if (createPageForm) {
+            const createPageButton = document.getElementById('createPageButton');
+            const createPageFormError = document.getElementById('createPageFormError');
+            const createPageFormErrorContents = document.getElementById('createPageFormErrorContents');
+
+            registerAsyncForm(createPageForm, () => {
+                document.getElementById('createPageModal').close();
+                createPageForm.reset();
+                location.reload();
+            }, async response => {
+                const data = await response.json();
+                createPageFormError.style.display = 'block';
+                createPageFormErrorContents.innerText = data.error;
+            }, () => {
+                createPageButton.disabled = true;
+                createPageFormError.style.display = 'none';
+                createPageFormErrorContents.innerText = '';
+            }, () => {
+                createPageButton.disabled = false;
+            });
+
+            /* ---------- page type field switching ---------- */
+
+            const createPageModalLabel = document.getElementById('createPageModalLabel');
+            const titleInputLabel = document.getElementById('titleInputLabel');
+            const contentInputLabel = document.getElementById('contentInputLabel');
+            const contentInput = document.getElementById('contentInput');
+            const pageTypeSelection = document.getElementById('pageTypeSelection');
+            const baseInfo = document.getElementById('baseInfo');
+            const createsPost = document.getElementById('createsPost');
+
+            const defaults = {
+                modalLabel: createPageModalLabel.innerText,
+                titleLabel: titleInputLabel.innerText,
+                contentLabel: contentInputLabel.innerText,
+                contentPlaceholder: contentInput.placeholder,
+            };
+
+            pageTypeSelection.addEventListener('change', function (event) {
+                createPageModalLabel.innerText = defaults.modalLabel;
+                titleInputLabel.innerText = defaults.titleLabel;
+                contentInputLabel.innerText = defaults.contentLabel;
+                contentInput.placeholder = defaults.contentPlaceholder;
+
+                createPageButton.disabled = false;
+                createPageButton.title = '';
+
+                baseInfo.style.display = 'none';
+                createsPost.style.display = 'none';
+
+                const selection = event.target.value;
+
+                if (selection === 'markdown-post') {
+                    baseInfo.style.display = 'block';
+                    createsPost.style.display = 'block';
+                    createPageModalLabel.innerText = 'Creating a new Markdown post';
+                    titleInputLabel.innerText = 'Post title';
+                } else {
+                    baseInfo.style.display = 'block';
+                    createPageModalLabel.innerText = 'Creating a new ' + toTitleCase(selection);
+                }
+
+                if (selection === 'blade-page') {
+                    contentInputLabel.innerText = 'Blade content';
+                    contentInput.placeholder = 'Enter your Blade content';
+                }
+            });
+        }
+        @endif
+    })();
+</script>
 </body>
 </html>

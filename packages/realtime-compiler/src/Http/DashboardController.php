@@ -284,15 +284,6 @@ class DashboardController extends BaseController
         return config('hyde.server.dashboard.interactive', true);
     }
 
-    public function getScripts(): string
-    {
-        if (PharSupport::running()) {
-            return file_get_contents('phar://hyde.phar/vendor/hyde/realtime-compiler/resources/dashboard.js');
-        }
-
-        return file_get_contents(Hyde::vendorPath('resources/dashboard.js', 'realtime-compiler'));
-    }
-
     public function getFlash(string $key, $default = null): ?string
     {
         return $this->flashes[$key] ?? $default;
