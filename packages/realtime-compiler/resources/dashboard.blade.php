@@ -640,6 +640,9 @@
         dialog#quickViewModal {
             width: min(960px, 94vw);
             height: min(720px, 88vh);
+        }
+
+        dialog#quickViewModal[open] {
             display: flex;
             flex-direction: column;
         }
@@ -1217,10 +1220,20 @@
 
         document.querySelectorAll('.quick-view-btn').forEach(button => {
             button.addEventListener('click', function () {
-                document.getElementById('quickViewModalLabel').innerText = this.dataset.previewLabel;
-                document.getElementById('quickViewOpenLink').href = this.dataset.previewUrl;
-                document.getElementById('quickViewFrame').src = this.dataset.previewUrl;
-                document.getElementById('quickViewModal').showModal();
+                const modal = document.getElementById('quickViewModal');
+                const label = document.getElementById('quickViewModalLabel');
+                const openLink = document.getElementById('quickViewOpenLink');
+                const frame = document.getElementById('quickViewFrame');
+
+                if (!modal || !label || !openLink || !frame) {
+                    console.error('Quick view: one or more modal elements are missing from the DOM.');
+                    return;
+                }
+
+                label.innerText = this.dataset.previewLabel || 'Preview';
+                openLink.href = this.dataset.previewUrl || '#';
+                frame.src = this.dataset.previewUrl || 'about:blank';
+                modal.showModal();
             });
         });
 
