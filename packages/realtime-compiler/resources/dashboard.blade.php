@@ -672,6 +672,50 @@
             backdrop-filter: blur(3px);
         }
 
+        .media-btn {
+            overflow: hidden;
+            max-width: 56px;
+            padding-left: 10px;
+            padding-right: 10px;
+            transition: max-width .22s ease, opacity .18s ease, padding .22s ease, margin .22s ease;
+        }
+
+        .media-btn-label {
+            display: grid;
+        }
+
+        .media-btn-label-short,
+        .media-btn-label-long {
+            grid-area: 1 / 1;
+            white-space: nowrap;
+            transition: opacity .15s ease;
+        }
+
+        .media-btn-label-long {
+            opacity: 0;
+        }
+
+        .media-btn:hover {
+            max-width: 220px;
+        }
+
+        .media-btn:hover .media-btn-label-short {
+            opacity: 0;
+        }
+
+        .media-btn:hover .media-btn-label-long {
+            opacity: 1;
+        }
+
+        .media-overlay:has(.media-btn-edit:hover) .media-btn-open,
+        .media-overlay:has(.media-btn-open:hover) .media-btn-edit {
+            max-width: 0;
+            opacity: 0;
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: -4px;
+        }
+
         .media-meta {
             padding: 10px 12px;
             display: flex;
@@ -1426,10 +1470,20 @@
                                             <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                             <input type="hidden" name="action" value="openMediaFileInEditor">
                                             <input type="hidden" name="identifier" value="{{ $mediaFile->getIdentifier() }}">
-                                            <button type="submit" class="btn btn-sm" title="Open this image in the system editor">Edit</button>
+                                            <button type="submit" class="btn btn-sm media-btn media-btn-edit" title="Open this image in the system editor">
+                                                <span class="media-btn-label">
+                                                    <span class="media-btn-label-short">Edit</span>
+                                                    <span class="media-btn-label-long">Open in system editor</span>
+                                                </span>
+                                            </button>
                                         </form>
                                     @endif
-                                    <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" class="btn btn-sm" title="Open this image in the browser" target="_blank">Open</a>
+                                    <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" class="btn btn-sm media-btn media-btn-open" title="Open this image in the browser" target="_blank">
+                                        <span class="media-btn-label">
+                                            <span class="media-btn-label-short">Open</span>
+                                            <span class="media-btn-label-long">Open in new tab</span>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
 
