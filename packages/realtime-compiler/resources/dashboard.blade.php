@@ -9,34 +9,34 @@
     <base target="_parent">
     <style>
         :root {
-            --bg: #0a0b0f;
-            --surface: #12141a;
-            --surface-2: #191c24;
-            --border: #23262f;
-            --border-soft: #1a1d25;
-            --text: #e8e9ee;
-            --text-muted: #8b8f9c;
-            --text-faint: #5c606c;
+            --bg:            #0a0b0f;
+            --surface:       #12141a;
+            --surface-2:     #191c24;
+            --border:        #23262f;
+            --border-soft:   #1a1d25;
+            --text:          #e8e9ee;
+            --text-muted:    #8b8f9c;
+            --text-faint:    #5c606c;
 
-            --blue: #5b8def;
-            --blue-soft: rgba(91, 141, 239, .14);
-            --purple: #a78bfa;
-            --purple-soft: rgba(167, 139, 250, .14);
-            --teal: #2dd4bf;
-            --teal-soft: rgba(45, 212, 191, .14);
-            --amber: #f0b429;
-            --amber-soft: rgba(240, 180, 41, .14);
-            --orange: #f2884b;
-            --orange-soft: rgba(242, 136, 75, .14);
-            --red: #f0575c;
-            --red-soft: rgba(240, 87, 92, .14);
-            --green: #34d399;
-            --green-soft: rgba(52, 211, 153, .14);
+            --blue:          #5b8def;
+            --blue-soft:     rgba(91, 141, 239, .14);
+            --purple:        #a78bfa;
+            --purple-soft:   rgba(167, 139, 250, .14);
+            --teal:          #2dd4bf;
+            --teal-soft:     rgba(45, 212, 191, .14);
+            --amber:         #f0b429;
+            --amber-soft:    rgba(240, 180, 41, .14);
+            --orange:        #f2884b;
+            --orange-soft:   rgba(242, 136, 75, .14);
+            --red:           #f0575c;
+            --red-soft:      rgba(240, 87, 92, .14);
+            --green:         #34d399;
+            --green-soft:    rgba(52, 211, 153, .14);
 
-            --radius: 12px;
-            --radius-sm: 8px;
-            --font-sans: -apple-system, ui-sans-serif, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --font-mono: ui-monospace, "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+            --radius:        12px;
+            --radius-sm:     8px;
+            --font-sans:     -apple-system, ui-sans-serif, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono:     ui-monospace, "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
         }
 
         * {
@@ -403,12 +403,8 @@
         }
 
         @keyframes rowFadeIn {
-            0% {
-                background-color: var(--green-soft);
-            }
-            100% {
-                background-color: transparent;
-            }
+            0% { background-color: var(--green-soft); }
+            100% { background-color: transparent; }
         }
 
         /* ---------- Empty states ---------- */
@@ -523,27 +519,27 @@
             color: var(--blue);
         }
 
-        .file-chip[data-type=png], .file-chip[data-type=jpg], .file-chip[data-type=jpeg],
-        .file-chip[data-type=gif], .file-chip[data-type=svg], .file-chip[data-type=ico],
-        .file-chip[data-type=webp] {
+        .file-chip[data-type="png"], .file-chip[data-type="jpg"], .file-chip[data-type="jpeg"],
+        .file-chip[data-type="gif"], .file-chip[data-type="svg"], .file-chip[data-type="ico"],
+        .file-chip[data-type="webp"] {
             background: var(--teal-soft);
             color: var(--teal);
         }
 
-        .file-chip[data-type=js], .file-chip[data-type=css], .file-chip[data-type=json],
-        .file-chip[data-type=yml], .file-chip[data-type=yaml], .file-chip[data-type=xml] {
+        .file-chip[data-type="js"], .file-chip[data-type="css"], .file-chip[data-type="json"],
+        .file-chip[data-type="yml"], .file-chip[data-type="yaml"], .file-chip[data-type="xml"] {
             background: var(--purple-soft);
             color: var(--purple);
         }
 
-        .file-chip[data-type=mp3], .file-chip[data-type=wav], .file-chip[data-type=flac],
-        .file-chip[data-type=m4a] {
+        .file-chip[data-type="mp3"], .file-chip[data-type="wav"], .file-chip[data-type="flac"],
+        .file-chip[data-type="m4a"] {
             background: var(--amber-soft);
             color: var(--amber);
         }
 
-        .file-chip[data-type=mp4], .file-chip[data-type=mov], .file-chip[data-type=mkv],
-        .file-chip[data-type=avi] {
+        .file-chip[data-type="mp4"], .file-chip[data-type="mov"], .file-chip[data-type="mkv"],
+        .file-chip[data-type="avi"] {
             background: var(--red-soft);
             color: var(--red);
         }
@@ -884,21 +880,23 @@
                 </form>
             @endif
         </div>
+
         <div class="card-body">
             <div class="chip-grid">
                 @php $swatches = ['blue', 'purple', 'teal']; $i = 0; @endphp
                 @foreach($dashboard->getProjectInformation() as $type => $info)
                     @php $swatch = $swatches[$i % count($swatches)]; $i++; @endphp
                     <div class="info-chip">
-                        <span class="swatch" style="background: var(--{{ $swatch }}-soft)">
-                            @if($loop->last)
-                                <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a2 2 0 0 1 2-2h2M4 17v2a2 2 0 0 0 2 2h2M20 7V5a2 2 0 0 0-2-2h-2M20 17v2a2 2 0 0 1-2 2h-2"></path></svg>
-                            @elseif($loop->first)
-                                <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5Z"></path><path d="M3 12l9 5 9-5"></path></svg>
-                            @else
-                                <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"></rect><path d="M9 9h6v6H9z"></path></svg>
-                            @endif
-                        </span>
+                            <span class="swatch" style="background: var(--{{ $swatch }}-soft)">
+                                @if($loop->last)
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a2 2 0 0 1 2-2h2M4 17v2a2 2 0 0 0 2 2h2M20 7V5a2 2 0 0 0-2-2h-2M20 17v2a2 2 0 0 1-2 2h-2"></path></svg>
+                                @elseif($loop->first)
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5Z"></path><path d="M3 12l9 5 9-5"></path></svg>
+                                @else
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--{{ $swatch }})" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"></rect><path d="M9 9h6v6H9z"></path></svg>
+                                @endif
+                            </span>
+
                         <div>
                             <div class="label">{{ $type }}</div>
                             <div class="value">
@@ -927,6 +925,7 @@
             <h2>Site pages &amp; routes</h2>
             @if($dashboard->isInteractive())
                 <noscript><style>#createPageModalButton { display: none; }</style></noscript>
+
                 <button id="createPageModalButton" type="button" class="btn btn-primary btn-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>
                     Create page
@@ -967,6 +966,7 @@
                                     <label for="titleInput" id="titleInputLabel">Page title</label>
                                     <input type="text" id="titleInput" name="titleInput" placeholder="Enter a title" required>
                                 </div>
+
                                 <div class="field">
                                     <label for="contentInput" id="contentInputLabel">Markdown text</label>
                                     <textarea id="contentInput" name="contentInput" rows="8" placeholder="Enter your Markdown text" required></textarea>
@@ -999,7 +999,13 @@
                         </div>
 
                         <div class="modal-footer">
-                            <a class="feedback-link" href="https://github.com/hydephp/realtime-compiler/issues/new?{{ http_build_query(['title' => 'Feedback on the dashboard create page modal', 'body' => 'Write something nice!']) }}" title="This is a new feature, we'd love your feedback!" target="_blank" rel="noopener">Send feedback</a>
+                            @php
+                                $feedbackQuery = http_build_query([
+                                    'title' => 'Feedback on the dashboard create page modal',
+                                    'body' => 'Write something nice!'
+                                ]);
+                            @endphp
+                            <a class="feedback-link" href="https://github.com/hydephp/realtime-compiler/issues/new?{{ $feedbackQuery }}" title="This is a new feature, we'd love your feedback!" target="_blank" rel="noopener">Send feedback</a>
                             <button type="button" class="btn btn-sm" data-dialog-close>Close</button>
                             <button type="submit" class="btn btn-primary btn-sm" id="createPageButton" title="Please select a page type first" disabled>Create page</button>
                         </div>
@@ -1007,11 +1013,17 @@
                 </dialog>
             @endif
         </div>
+
         <div class="card-body">
             @if(empty($dashboard->getPageList()))
                 <div class="empty-state">
                     <strong>No pages yet</strong>
-                    There are no pages yet. @if($dashboard->isInteractive()) Create one using the button above. @else Why not create some? @endif
+                    There are no pages yet.
+                    @if($dashboard->isInteractive())
+                        Create one using the button above.
+                    @else
+                        Why not create some?
+                    @endif
                 </div>
             @else
                 <div class="table-scroll">
@@ -1025,28 +1037,34 @@
                             <th class="text-end"></th>
                         </tr>
                         </thead>
+
                         <tbody>
                         @php
                             $typeColors = [
-                                'BladePage' => 'red',
-                                'MarkdownPage' => 'blue',
-                                'MarkdownPost' => 'teal',
+                                'BladePage'         => 'red',
+                                'MarkdownPage'      => 'blue',
+                                'MarkdownPost'      => 'teal',
                                 'DocumentationPage' => 'amber',
-                                'HtmlPage' => 'orange',
+                                'HtmlPage'          => 'orange',
                             ];
                         @endphp
+
                         @foreach($dashboard->getPageList() as $route)
                             @php
                                 $typeKey = class_basename($route->getPageClass());
                                 $color = $typeColors[$typeKey] ?? 'purple';
                             @endphp
-                            <tr id="pageRow-{{ $route->getRouteKey() }}" @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage just-created' : ''])>
+                            <tr id="pageRow-{{ $route->getRouteKey() }}"
+                                    @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage just-created' : ''])>
+
                                 <td>
-                                    <span class="type-pill" style="background: var(--{{ $color }}-soft); color: var(--{{ $color }})" title="\{{ $route->getPageClass() }}">
-                                        <span class="dot" style="background: var(--{{ $color }})"></span>{{ $typeKey }}
-                                    </span>
+                                            <span class="type-pill" style="background: var(--{{ $color }}-soft); color: var(--{{ $color }})" title="\{{ $route->getPageClass() }}">
+                                                <span class="dot" style="background: var(--{{ $color }})"></span>{{ $typeKey }}
+                                            </span>
                                 </td>
+
                                 <td class="mono">{{ $route->getRouteKey() }}</td>
+
                                 <td class="path-cell mono" title="{{ $route->getPage() instanceof \Hyde\Pages\InMemoryPage ? '' : $route->getSourcePath() }}">
                                     @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
                                         <i style="color: var(--text-faint)" title="This page is generated dynamically and does not have a source file.">&lt;none&gt;</i>
@@ -1054,7 +1072,9 @@
                                         {{ $route->getSourcePath() }}
                                     @endif
                                 </td>
+
                                 <td class="path-cell mono" title="{{ $route->getOutputPath() }}">{{ $route->getOutputPath() }}</td>
+
                                 <td>
                                     <div class="row-actions">
                                         @if($dashboard->isInteractive())
@@ -1062,6 +1082,7 @@
                                                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                 <input type="hidden" name="action" value="openPageInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
+
                                                 @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
                                                     <button type="submit" class="btn btn-sm" title="Cannot edit in-memory pages" style="opacity:.4; cursor: not-allowed" disabled>Edit</button>
                                                 @else
@@ -1069,10 +1090,12 @@
                                                 @endif
                                             </form>
                                         @endif
+
                                         <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-sm" title="Open this page">Open</a>
                                         <button type="button" class="btn btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard">Quick view</button>
                                     </div>
                                 </td>
+
                             </tr>
                         @endforeach
                         </tbody>
@@ -1087,6 +1110,7 @@
         <div class="card-header">
             <h2>Media library</h2>
         </div>
+
         <div class="card-body">
             @if(empty(\Hyde\Support\Filesystem\MediaFile::all()))
                 <div class="empty-state">
@@ -1109,6 +1133,7 @@
                                         @endif
                                     </div>
                                 @endif
+
                                 <div class="media-overlay">
                                     <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" class="btn btn-sm" title="Open this image in the browser" target="_blank">Fullscreen</a>
                                     @if($dashboard->isInteractive())
@@ -1121,6 +1146,7 @@
                                     @endif
                                 </div>
                             </div>
+
                             <div class="media-meta">
                                 <span class="file-chip" data-type="{{ $mediaFile->getExtension() }}">{{ $mediaFile->getExtension() }}</span>
                                 <div class="info">
@@ -1128,6 +1154,7 @@
                                     <div class="size">{{ $dashboard::bytesToHuman($mediaFile->getLength()) }}</div>
                                 </div>
                             </div>
+
                         </div>
                     @endforeach
                 </div>
@@ -1137,9 +1164,9 @@
 
     @if($dashboard->showTips())
         <div class="tip-strip">
-            <span class="swatch">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.55 1 1.4 1 2.3V16h6v-1.2c0-.9.4-1.75 1-2.3A6 6 0 0 0 12 2Z"></path></svg>
-            </span>
+                <span class="swatch">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.55 1 1.4 1 2.3V16h6v-1.2c0-.9.4-1.75 1-2.3A6 6 0 0 0 12 2Z"></path></svg>
+                </span>
             <p><strong style="color: var(--text)">Tip:</strong> {{ $dashboard->getTip() }}</p>
         </div>
     @endif
@@ -1199,6 +1226,7 @@
                 await navigator.clipboard.writeText(this.dataset.copyValue);
                 icon.style.display = 'none';
                 iconSuccess.style.display = 'inline';
+
                 setTimeout(() => {
                     icon.style.display = 'inline';
                     iconSuccess.style.display = 'none';
@@ -1256,6 +1284,7 @@
             document.getElementById('asyncErrorToastHeader').innerText = title;
             document.getElementById('asyncErrorToastBody').innerText = message;
             toast.classList.add('show');
+
             clearTimeout(toast._hideTimer);
             toast._hideTimer = setTimeout(() => toast.classList.remove('show'), 6000);
         }
@@ -1283,7 +1312,7 @@
                 fetch('', {
                     method: 'POST',
                     body: new FormData(event.target),
-                    headers: new Headers({'Accept': 'application/json'}),
+                    headers: new Headers({ 'Accept': 'application/json' }),
                 }).then(async response => {
                     if (response.ok) {
                         okHandler?.(response);
@@ -1312,21 +1341,27 @@
             const createPageFormError = document.getElementById('createPageFormError');
             const createPageFormErrorContents = document.getElementById('createPageFormErrorContents');
 
-            registerAsyncForm(createPageForm, () => {
-                document.getElementById('createPageModal').close();
-                createPageForm.reset();
-                location.reload();
-            }, async response => {
-                const data = await response.json();
-                createPageFormError.style.display = 'block';
-                createPageFormErrorContents.innerText = data.error;
-            }, () => {
-                createPageButton.disabled = true;
-                createPageFormError.style.display = 'none';
-                createPageFormErrorContents.innerText = '';
-            }, () => {
-                createPageButton.disabled = false;
-            });
+            registerAsyncForm(
+                createPageForm,
+                () => {
+                    document.getElementById('createPageModal').close();
+                    createPageForm.reset();
+                    location.reload();
+                },
+                async response => {
+                    const data = await response.json();
+                    createPageFormError.style.display = 'block';
+                    createPageFormErrorContents.innerText = data.error;
+                },
+                () => {
+                    createPageButton.disabled = true;
+                    createPageFormError.style.display = 'none';
+                    createPageFormErrorContents.innerText = '';
+                },
+                () => {
+                    createPageButton.disabled = false;
+                }
+            );
 
             /* ---------- page type field switching ---------- */
 
@@ -1334,6 +1369,7 @@
             const titleInputLabel = document.getElementById('titleInputLabel');
             const contentInputLabel = document.getElementById('contentInputLabel');
             const contentInput = document.getElementById('contentInput');
+
             const pageTypeSelection = document.getElementById('pageTypeSelection');
             const baseInfo = document.getElementById('baseInfo');
             const createsPost = document.getElementById('createsPost');
