@@ -354,6 +354,26 @@
             overflow-x: auto;
         }
 
+        .route-list-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 12px 8px;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+        }
+
+        .route-list-header .route-key-col {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+        }
+
         .route-group + .route-group {
             margin-top: 6px;
         }
@@ -403,9 +423,12 @@
         }
 
         .route-path-line svg {
-            width: 14px;
-            height: 14px;
+            width: 15px;
+            height: 15px;
             flex-shrink: 0;
+        }
+
+        .route-path-line svg.icon-muted {
             color: var(--text-faint);
         }
 
@@ -422,22 +445,6 @@
             text-overflow: ellipsis;
         }
 
-        .route-meta-line {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 4px;
-            font-size: 11px;
-            color: var(--text-faint);
-        }
-
-        .route-meta-line .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
         .route-key-col {
             width: 160px;
             flex-shrink: 0;
@@ -451,13 +458,26 @@
         .route-actions-col {
             display: flex;
             justify-content: flex-end;
-            gap: 4px;
+            gap: 1px;
             flex-shrink: 0;
+        }
+
+        .route-actions-col .btn {
+            padding: 6px;
         }
 
         .route-actions-col .btn svg {
             width: 15px;
             height: 15px;
+        }
+
+        .route-actions-col .btn-delete {
+            color: var(--text-muted);
+        }
+
+        .route-actions-col .btn-delete:hover {
+            color: var(--red);
+            background: var(--red-soft);
         }
 
         .just-created {
@@ -1140,12 +1160,21 @@
                             'HtmlPage'          => 'orange',
                         ];
 
+                        // Extra inner SVG paths layered onto the base file icon to hint at page type.
+                        $typeIcons = [
+                            'HtmlPage'          => '<path d="M10 13l-1.5 1.5L10 16"></path><path d="M14 13l1.5 1.5L14 16"></path>',
+                            'BladePage'         => '<path d="M9.5 12.5c.8 0 .8.7.8 1.5s0 1.5-.8 1.5"></path><path d="M14.5 12.5c-.8 0-.8.7-.8 1.5s0 1.5.8 1.5"></path>',
+                            'MarkdownPage'      => '<path d="M9.5 12v4M14.5 12v4M8.5 14h7"></path>',
+                            'MarkdownPost'      => '<path d="M9.5 12v4M14.5 12v4M8.5 14h7"></path>',
+                            'DocumentationPage' => '<path d="M8.5 12.5h7"></path><path d="M8.5 15.5h4.5"></path>',
+                        ];
+
                         $groups = [];
                         foreach ($dashboard->getPageList() as $route) {
                             $isMemory = $route->getPage() instanceof \Hyde\Pages\InMemoryPage;
 
                             if ($isMemory) {
-                                $dir = 'Generated';
+                                $dir = 'Dynamically generated';
                             } else {
                                 $sourcePath = $route->getSourcePath();
                                 $dir = str_contains($sourcePath, '/') ? explode('/', $sourcePath, 2)[0] : $sourcePath;
@@ -1156,11 +1185,17 @@
 
                         // Keep source directories in a stable order, with dynamically generated routes listed last.
                         uksort($groups, function ($a, $b) {
-                            if ($a === 'Generated') return 1;
-                            if ($b === 'Generated') return -1;
+                            if ($a === 'Dynamically generated') return 1;
+                            if ($b === 'Dynamically generated') return -1;
                             return strcmp($a, $b);
                         });
                     @endphp
+
+                    <div class="route-list-header">
+                        <div class="route-file"></div>
+                        <div class="route-key-col">Route key</div>
+                        <div class="route-actions-col"></div>
+                    </div>
 
                     @foreach($groups as $dir => $routes)
                         <div class="route-group">
@@ -1179,21 +1214,16 @@
                                     <div class="route-file">
                                         <div class="route-path-line">
                                             @if($isMemory)
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="This page is generated dynamically and does not have a source file."><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"></path></svg>
+                                                <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="This page is generated dynamically and does not have a source file."><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"></path></svg>
                                                 <span class="route-path-out mono" style="font-style: italic;">generated</span>
                                             @else
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>
+                                                <svg style="color: var(--{{ $color }})" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="{{ $typeKey }}"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path>{!! $typeIcons[$typeKey] ?? '' !!}</svg>
                                                 <span class="route-path-src mono" title="{{ $route->getSourcePath() }}">{{ $route->getSourcePath() }}</span>
                                             @endif
 
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                                            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
 
                                             <span class="route-path-out mono" title="{{ $route->getOutputPath() }}">{{ $route->getOutputPath() }}</span>
-                                        </div>
-
-                                        <div class="route-meta-line">
-                                            <span class="dot" style="background: var(--{{ $color }})"></span>
-                                            <span title="\{{ $route->getPageClass() }}">{{ $typeKey }}</span>
                                         </div>
                                     </div>
 
@@ -1223,12 +1253,11 @@
                                                 </button>
                                             @else
                                                 <button type="button"
-                                                        class="btn btn-ghost btn-sm delete-page-btn"
+                                                        class="btn btn-ghost btn-sm btn-delete delete-page-btn"
                                                         data-route-key="{{ $route->getRouteKey() }}"
                                                         data-source-path="{{ $route->getSourcePath() }}"
                                                         title="Delete this page source file"
-                                                        aria-label="Delete"
-                                                        style="color: var(--red)">
+                                                        aria-label="Delete">
                                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
                                                 </button>
                                             @endif
