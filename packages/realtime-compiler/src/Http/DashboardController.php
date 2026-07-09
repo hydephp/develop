@@ -132,6 +132,7 @@ class DashboardController extends BaseController
         return [
             'Hyde Version' => self::getPackageVersion('hyde/hyde'),
             'Framework Version' => self::getPackageVersion('hyde/framework'),
+            'PHP Version' => PHP_VERSION,
             'Project Path' => Hyde::path(),
         ];
     }
