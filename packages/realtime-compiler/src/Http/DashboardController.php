@@ -7,6 +7,7 @@ namespace Hyde\RealtimeCompiler\Http;
 use Hyde\Hyde;
 use OutOfBoundsException;
 use Hyde\Pages\BladePage;
+use Hyde\Pages\HtmlPage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\MarkdownPage;
@@ -33,6 +34,8 @@ use Hyde\Framework\Actions\CreatesNewPageSourceFile;
 use Hyde\Framework\Exceptions\FileConflictException;
 use Hyde\Framework\Actions\CreatesNewMarkdownPostFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+
+use function Hyde\unslash;
 
 /**
  * @internal This class is not intended to be edited outside the Hyde Realtime Compiler.
@@ -401,18 +404,19 @@ class DashboardController extends BaseController
         // Match page class
         $pageClass = match ($pageType) {
             'blade-page' => BladePage::class,
+            'html-page' => HtmlPage::class,
             'markdown-page' => MarkdownPage::class,
             'markdown-post' => MarkdownPost::class,
             'documentation-page' => DocumentationPage::class,
             default => $this->abort(400, "Unsupported page type '$pageType'"),
         };
 
-        $creator = $pageClass === MarkdownPost::class
-            ? new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content)
-            : new CreatesNewPageSourceFile($title, $pageClass, false, $content);
-
         try {
-            $path = $creator->save();
+            $path = match ($pageClass) {
+                MarkdownPost::class => (new CreatesNewMarkdownPostFile($title, $postDescription, $postCategory, $postAuthor, $postDate, $content))->save(),
+                HtmlPage::class => $this->createHtmlPage($title, $content),
+                default => (new CreatesNewPageSourceFile($title, $pageClass, false, $content))->save(),
+            };
         } catch (FileConflictException $exception) {
             $this->abort($exception->getCode(), $exception->getMessage());
         }
@@ -421,6 +425,39 @@ class DashboardController extends BaseController
 
         $this->flash('justCreatedPage', RouteKey::fromPage($pageClass, $pageClass::pathToIdentifier($path))->get());
         $this->setJsonResponse(201, "Created file '$path'!");
+    }
+
+    protected function createHtmlPage(string $title, string $content): string
+    {
+        $identifier = $this->formatPageIdentifier($title);
+        $path = Hyde::path(HtmlPage::sourcePath($identifier));
+
+        if (file_exists($path)) {
+            throw new FileConflictException($path);
+        }
+
+        Filesystem::ensureParentDirectoryExists($path);
+
+        if (file_put_contents($path, Hyde::normalizeNewlines($content)) === false) {
+            $this->abort(500, sprintf("Failed to create file '%s'", Hyde::pathToRelative($path)));
+        }
+
+        return $path;
+    }
+
+    protected function formatPageIdentifier(string $title): string
+    {
+        $title = trim($title, '/\\');
+
+        if (str_ends_with(strtolower($title), HtmlPage::fileExtension())) {
+            $title = substr($title, 0, -strlen(HtmlPage::fileExtension()));
+        }
+
+        $directory = str_contains($title, '/')
+            ? unslash('/'.rtrim(Str::beforeLast($title, '/').'/', '/\\'))
+            : '';
+
+        return unslash("$directory/".Hyde::makeSlug(basename($title)));
     }
 
     protected static function injectDashboardButton(string $contents): string

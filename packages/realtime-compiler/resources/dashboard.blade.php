@@ -987,7 +987,7 @@
                                 <label for="pageTypeSelection">Page type</label>
                                 <select id="pageTypeSelection" name="pageTypeSelection">
                                     <option selected disabled>Select page type</option>
-                                    @foreach(['BladePage', 'MarkdownPage', 'MarkdownPost', 'DocumentationPage'] as $page)
+                                    @foreach(['HtmlPage', 'BladePage', 'MarkdownPage', 'MarkdownPost', 'DocumentationPage'] as $page)
                                         <option value="{{ str($page)->kebab() }}">{{ $page }}</option>
                                     @endforeach
                                 </select>
@@ -1533,6 +1533,10 @@
                 if (selection === 'blade-page') {
                     contentInputLabel.innerText = 'Blade content';
                     contentInput.placeholder = 'Enter your Blade content';
+                } else if (selection === 'html-page') {
+                    createPageModalLabel.innerText = 'Creating a new HTML page';
+                    contentInputLabel.innerText = 'HTML content';
+                    contentInput.placeholder = 'Enter your HTML content';
                 }
             });
         }
