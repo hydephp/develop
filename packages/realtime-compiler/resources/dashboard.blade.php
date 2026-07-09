@@ -468,23 +468,44 @@
             display: block;
         }
 
-        .media-preview .code-box {
+        .media-preview .file-preview {
             height: 140px;
-            overflow: hidden;
-            background: #f4f5f7;
-            color: #1c1e24;
-            font-family: var(--font-mono);
-            font-size: 10.5px;
-            line-height: 1.5;
-            padding: 10px 12px;
-            -webkit-mask-image: linear-gradient(180deg, white 55%, transparent);
-            mask-image: linear-gradient(180deg, white 55%, transparent);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 11px;
+            background:
+                radial-gradient(circle at 35% 20%, rgba(var(--media-brand-rgb), .32), transparent 42%),
+                linear-gradient(135deg, rgba(var(--media-brand-rgb), .20), rgba(var(--media-brand-rgb), .08));
         }
 
-        .media-preview .code-box pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-break: break-word;
+        .media-preview .file-preview-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--media-brand);
+            color: var(--media-mark-color, #fff);
+            font-family: var(--font-mono);
+            font-size: 17px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 0;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, .22);
+        }
+
+        .media-preview .file-preview-label {
+            max-width: calc(100% - 24px);
+            color: var(--media-brand);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .media-overlay {
@@ -1171,12 +1192,15 @@
                                 @if(in_array($mediaFile->getExtension(), ['svg', 'png', 'jpg', 'jpeg', 'gif', 'ico']))
                                     <img loading="lazy" src="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" alt="{{ $mediaFile->getName() }}">
                                 @else
-                                    <div class="code-box" role="presentation">
-                                        @if($dashboard::isMediaFileProbablyMinified($mediaFile->getContents()))
-                                            <pre style="white-space: normal;">{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
-                                        @else
-                                            <pre>{{ $dashboard::highlightMediaLibraryCode($mediaFile->getContents()) }}</pre>
-                                        @endif
+                                    @php($mediaPlaceholder = $dashboard::getMediaPlaceholder($mediaFile->getExtension()))
+                                    <div
+                                        class="file-preview"
+                                        role="img"
+                                        aria-label="{{ $mediaPlaceholder['label'] }} file"
+                                        style="--media-brand: {{ $mediaPlaceholder['color'] }}; --media-brand-rgb: {{ $mediaPlaceholder['rgb'] }}; {{ $mediaPlaceholder['label'] === 'JavaScript' ? '--media-mark-color: #1c1e24;' : '' }}"
+                                    >
+                                        <div class="file-preview-mark">{{ $mediaPlaceholder['mark'] }}</div>
+                                        <div class="file-preview-label">{{ $mediaPlaceholder['label'] }}</div>
                                     </div>
                                 @endif
 

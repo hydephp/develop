@@ -152,6 +152,31 @@ class DashboardController extends BaseController
         return $this->rootRelativeLink('media/'.$mediaFile->getIdentifier());
     }
 
+    /** @return array{label: string, mark: string, color: string, rgb: string} */
+    public static function getMediaPlaceholder(string $extension): array
+    {
+        return match (strtolower($extension)) {
+            'css' => [
+                'label' => 'CSS',
+                'mark' => '{}',
+                'color' => 'rebeccapurple',
+                'rgb' => '102, 51, 153',
+            ],
+            'js', 'mjs', 'cjs' => [
+                'label' => 'JavaScript',
+                'mark' => 'JS',
+                'color' => '#F0DB4F',
+                'rgb' => '240, 219, 79',
+            ],
+            default => [
+                'label' => 'BINARY',
+                'mark' => 'BIN',
+                'color' => '#8b8f9c',
+                'rgb' => '139, 143, 156',
+            ],
+        };
+    }
+
     protected function rootRelativeLink(string $link): string
     {
         if (str_starts_with($link, '#') || preg_match('/^[a-z][a-z0-9+.-]*:/i', $link) || str_starts_with($link, '//')) {
