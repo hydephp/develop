@@ -1237,7 +1237,7 @@
                 <span class="swatch">
                     <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.55 1 1.4 1 2.3V16h6v-1.2c0-.9.4-1.75 1-2.3A6 6 0 0 0 12 2Z"></path></svg>
                 </span>
-            <p><strong style="color: var(--text)">Tip:</strong> {{ $dashboard->getTip() }}</p>
+            <p><strong style="color: var(--text-muted)">Tip:</strong> {{ $dashboard->getTip() }}</p>
         </div>
     @endif
 </main>
