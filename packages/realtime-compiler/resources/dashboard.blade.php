@@ -205,6 +205,10 @@
             font-size: 12px;
         }
 
+        .quick-view-btn {
+            margin-left: 0.25rem;
+        }
+
         /* ---------- Layout / cards ---------- */
 
         main {
@@ -1065,8 +1069,8 @@
                                                 @endif
                                             </form>
                                         @endif
-                                        <button type="button" class="btn btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard">Quick view</button>
                                         <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-sm" title="Open this page">Open</a>
+                                        <button type="button" class="btn btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard">Quick view</button>
                                     </div>
                                 </td>
                             </tr>
