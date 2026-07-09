@@ -654,19 +654,17 @@
 
         .media-overlay {
             position: absolute;
-            inset: 0;
+            top: 8px;
+            right: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(10, 11, 15, 0);
+            gap: 4px;
             opacity: 0;
-            transition: opacity .15s ease, background .15s ease;
+            transition: opacity .15s ease;
         }
 
         .media-card:hover .media-overlay {
             opacity: 1;
-            background: rgba(10, 11, 15, .55);
         }
 
         .media-overlay .btn {
@@ -1420,7 +1418,6 @@
                                 @endif
 
                                 <div class="media-overlay">
-                                    <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" class="btn btn-sm" title="Open this image in the browser" target="_blank">Fullscreen</a>
                                     @if($dashboard->isInteractive())
                                         <form class="buttonActionForm" action="" method="POST" style="margin:0">
                                             <input type="hidden" name="_token" value="{{ $csrfToken }}">
@@ -1429,6 +1426,7 @@
                                             <button type="submit" class="btn btn-sm" title="Open this image in the system editor">Edit</button>
                                         </form>
                                     @endif
+                                    <a href="{{ $dashboard->getMediaPreviewLink($mediaFile) }}" class="btn btn-sm" title="Open this image in the browser" target="_blank">Open</a>
                                 </div>
                             </div>
 
