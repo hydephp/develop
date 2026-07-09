@@ -372,10 +372,12 @@
             letter-spacing: .08em;
             text-transform: uppercase;
             color: var(--text-faint);
+            border-left: none;
+            padding-left: 12px;
         }
 
         .route-group + .route-group {
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         .route-group-label {
@@ -387,7 +389,12 @@
             letter-spacing: .08em;
             text-transform: uppercase;
             color: var(--text-faint);
-            padding: 16px 12px 8px;
+            padding: 10px 12px 8px;
+            margin-top: 8px;
+        }
+
+        .route-group:first-child .route-group-label {
+            margin-top: 0;
         }
 
         .route-group-label .count {
@@ -446,7 +453,9 @@
         }
 
         .route-key-col {
-            width: 160px;
+            width: auto;
+            min-width: 140px;
+            max-width: 260px;
             flex-shrink: 0;
             font-size: 13px;
             color: var(--text-muted);
@@ -461,7 +470,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 1px;
+            gap: 2px;
             flex-shrink: 0;
             border-left: 1px solid var(--border-soft);
             padding-left: 12px;
