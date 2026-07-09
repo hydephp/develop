@@ -348,70 +348,119 @@
             height: 14px;
         }
 
-        /* ---------- Table ---------- */
+        /* ---------- Route list ---------- */
 
-        .table-scroll {
+        .route-list {
             overflow-x: auto;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .route-group + .route-group {
+            margin-top: 6px;
         }
 
-        thead th {
-            text-align: left;
+        .route-group-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 10.5px;
             font-weight: 700;
             letter-spacing: .08em;
             text-transform: uppercase;
             color: var(--text-faint);
-            padding: 0 12px 10px;
-            white-space: nowrap;
+            padding: 16px 12px 8px;
         }
 
-        tbody td {
-            padding: 11px 12px;
+        .route-group-label .count {
+            font-weight: 500;
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--text-faint);
+        }
+
+        .route-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 12px;
             border-top: 1px solid var(--border-soft);
-            font-size: 13px;
-            vertical-align: middle;
         }
 
-        tbody tr:hover {
+        .route-row:hover {
             background: var(--surface-2);
         }
 
-        .path-cell {
+        .route-file {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .route-path-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .route-path-line svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            color: var(--text-faint);
+        }
+
+        .route-path-src {
+            color: var(--text);
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .route-path-out {
             color: var(--text-muted);
-            max-width: 260px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .route-meta-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+            font-size: 11px;
+            color: var(--text-faint);
+        }
+
+        .route-meta-line .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .route-key-col {
+            width: 160px;
+            flex-shrink: 0;
+            font-size: 13px;
+            color: var(--text-muted);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
-        .type-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-family: var(--font-mono);
-            padding: 3px 9px;
-            border-radius: 6px;
-        }
-
-        .type-pill .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .row-actions {
+        .route-actions-col {
             display: flex;
             justify-content: flex-end;
-            gap: 6px;
+            gap: 4px;
+            flex-shrink: 0;
         }
 
-        .just-created td {
+        .route-actions-col .btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .just-created {
             animation: rowFadeIn 2.2s ease-out;
         }
 
@@ -476,8 +525,8 @@
             justify-content: center;
             gap: 11px;
             background:
-                radial-gradient(circle at 35% 20%, rgba(var(--media-brand-rgb), .32), transparent 42%),
-                linear-gradient(135deg, rgba(var(--media-brand-rgb), .20), rgba(var(--media-brand-rgb), .08));
+                    radial-gradient(circle at 35% 20%, rgba(var(--media-brand-rgb), .32), transparent 42%),
+                    linear-gradient(135deg, rgba(var(--media-brand-rgb), .20), rgba(var(--media-brand-rgb), .08));
         }
 
         .media-preview .file-preview-mark {
@@ -884,7 +933,7 @@
                 padding-right: 16px;
             }
 
-            .row-actions {
+            .route-actions-col {
                 flex-wrap: wrap;
             }
 
@@ -1081,92 +1130,122 @@
                     @endif
                 </div>
             @else
-                <div class="table-scroll">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Page type</th>
-                            <th>Route key</th>
-                            <th>Source file</th>
-                            <th>Output file</th>
-                            <th class="text-end"></th>
-                        </tr>
-                        </thead>
+                <div class="route-list">
+                    @php
+                        $typeColors = [
+                            'BladePage'         => 'red',
+                            'MarkdownPage'      => 'blue',
+                            'MarkdownPost'      => 'teal',
+                            'DocumentationPage' => 'amber',
+                            'HtmlPage'          => 'orange',
+                        ];
 
-                        <tbody>
-                        @php
-                            $typeColors = [
-                                'BladePage'         => 'red',
-                                'MarkdownPage'      => 'blue',
-                                'MarkdownPost'      => 'teal',
-                                'DocumentationPage' => 'amber',
-                                'HtmlPage'          => 'orange',
-                            ];
-                        @endphp
+                        $groups = [];
+                        foreach ($dashboard->getPageList() as $route) {
+                            $isMemory = $route->getPage() instanceof \Hyde\Pages\InMemoryPage;
 
-                        @foreach($dashboard->getPageList() as $route)
-                            @php
-                                $typeKey = class_basename($route->getPageClass());
-                                $color = $typeColors[$typeKey] ?? 'purple';
-                            @endphp
-                            <tr id="pageRow-{{ $route->getRouteKey() }}"
-                                    @class(['page-table-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage just-created' : ''])>
+                            if ($isMemory) {
+                                $dir = 'Generated';
+                            } else {
+                                $sourcePath = $route->getSourcePath();
+                                $dir = str_contains($sourcePath, '/') ? explode('/', $sourcePath, 2)[0] : $sourcePath;
+                            }
 
-                                <td>
-                                            <span class="type-pill" style="background: var(--{{ $color }}-soft); color: var(--{{ $color }})" title="\{{ $route->getPageClass() }}">
-                                                <span class="dot" style="background: var(--{{ $color }})"></span>{{ $typeKey }}
-                                            </span>
-                                </td>
+                            $groups[$dir][] = $route;
+                        }
 
-                                <td class="mono">{{ $route->getRouteKey() }}</td>
+                        // Keep source directories in a stable order, with dynamically generated routes listed last.
+                        uksort($groups, function ($a, $b) {
+                            if ($a === 'Generated') return 1;
+                            if ($b === 'Generated') return -1;
+                            return strcmp($a, $b);
+                        });
+                    @endphp
 
-                                <td class="path-cell mono" title="{{ $route->getPage() instanceof \Hyde\Pages\InMemoryPage ? '' : $route->getSourcePath() }}">
-                                    @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
-                                        <i style="color: var(--text-faint)" title="This page is generated dynamically and does not have a source file.">&lt;none&gt;</i>
-                                    @else
-                                        {{ $route->getSourcePath() }}
-                                    @endif
-                                </td>
+                    @foreach($groups as $dir => $routes)
+                        <div class="route-group">
+                            <div class="route-group-label">{{ $dir }} <span class="count">{{ count($routes) }}</span></div>
 
-                                <td class="path-cell mono" title="{{ $route->getOutputPath() }}">{{ $route->getOutputPath() }}</td>
+                            @foreach($routes as $route)
+                                @php
+                                    $typeKey = class_basename($route->getPageClass());
+                                    $color = $typeColors[$typeKey] ?? 'purple';
+                                    $isMemory = $route->getPage() instanceof \Hyde\Pages\InMemoryPage;
+                                @endphp
 
-                                <td>
-                                    <div class="row-actions">
+                                <div id="pageRow-{{ $route->getRouteKey() }}"
+                                        @class(['route-row', $dashboard->getFlash('justCreatedPage') === $route->getRouteKey() ? 'justCreatedPage just-created' : ''])>
+
+                                    <div class="route-file">
+                                        <div class="route-path-line">
+                                            @if($isMemory)
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="This page is generated dynamically and does not have a source file."><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"></path></svg>
+                                                <span class="route-path-out mono" style="font-style: italic;">generated</span>
+                                            @else
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>
+                                                <span class="route-path-src mono" title="{{ $route->getSourcePath() }}">{{ $route->getSourcePath() }}</span>
+                                            @endif
+
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+
+                                            <span class="route-path-out mono" title="{{ $route->getOutputPath() }}">{{ $route->getOutputPath() }}</span>
+                                        </div>
+
+                                        <div class="route-meta-line">
+                                            <span class="dot" style="background: var(--{{ $color }})"></span>
+                                            <span title="\{{ $route->getPageClass() }}">{{ $typeKey }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="route-key-col mono" title="{{ $route->getRouteKey() }}">{{ $route->getRouteKey() }}</div>
+
+                                    <div class="route-actions-col">
                                         @if($dashboard->isInteractive())
                                             <form class="buttonActionForm" action="" method="POST">
                                                 <input type="hidden" name="_token" value="{{ $csrfToken }}">
                                                 <input type="hidden" name="action" value="openPageInEditor">
                                                 <input type="hidden" name="routeKey" value="{{ $route->getRouteKey() }}">
 
-                                                @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
-                                                    <button type="submit" class="btn btn-sm" title="Cannot edit in-memory pages" style="opacity:.4; cursor: not-allowed" disabled>Edit</button>
+                                                @if($isMemory)
+                                                    <button type="submit" class="btn btn-ghost btn-sm" title="Cannot edit in-memory pages" style="opacity:.4; cursor: not-allowed" disabled aria-label="Edit">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
+                                                    </button>
                                                 @else
-                                                    <button type="submit" class="btn btn-sm" title="Open in system default application">Edit</button>
+                                                    <button type="submit" class="btn btn-ghost btn-sm" title="Open in system default application" aria-label="Edit">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
+                                                    </button>
                                                 @endif
                                             </form>
 
-                                            @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
-                                                <button type="button" class="btn btn-danger btn-sm" title="Cannot delete in-memory pages" style="opacity:.4; cursor: not-allowed" disabled>Delete</button>
+                                            @if($isMemory)
+                                                <button type="button" class="btn btn-ghost btn-sm" title="Cannot delete in-memory pages" style="opacity:.4; cursor: not-allowed" disabled aria-label="Delete">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
+                                                </button>
                                             @else
                                                 <button type="button"
-                                                        class="btn btn-danger btn-sm delete-page-btn"
+                                                        class="btn btn-ghost btn-sm delete-page-btn"
                                                         data-route-key="{{ $route->getRouteKey() }}"
                                                         data-source-path="{{ $route->getSourcePath() }}"
-                                                        title="Delete this page source file">
-                                                    Delete
+                                                        title="Delete this page source file"
+                                                        aria-label="Delete"
+                                                        style="color: var(--red)">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
                                                 </button>
                                             @endif
                                         @endif
 
-                                        <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-sm" title="Open this page">Open</a>
-                                        <button type="button" class="btn btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard">Quick view</button>
-                                    </div>
-                                </td>
+                                        <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-ghost btn-sm" title="Open this page" aria-label="Open">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><path d="M15 3h6v6M10 14 21 3"></path></svg>
+                                        </a>
 
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                                        <button type="button" class="btn btn-ghost btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" title="Preview this page without leaving the dashboard" aria-label="Quick view">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
             @endif
         </div>
@@ -1194,10 +1273,10 @@
                                 @else
                                     @php($mediaPlaceholder = $dashboard::getMediaPlaceholder($mediaFile->getExtension()))
                                     <div
-                                        class="file-preview"
-                                        role="img"
-                                        aria-label="{{ $mediaPlaceholder['label'] }} file"
-                                        style="--media-brand: {{ $mediaPlaceholder['color'] }}; --media-brand-rgb: {{ $mediaPlaceholder['rgb'] }}; {{ $mediaPlaceholder['label'] === 'JavaScript' ? '--media-mark-color: #1c1e24;' : '' }}"
+                                            class="file-preview"
+                                            role="img"
+                                            aria-label="{{ $mediaPlaceholder['label'] }} file"
+                                            style="--media-brand: {{ $mediaPlaceholder['color'] }}; --media-brand-rgb: {{ $mediaPlaceholder['rgb'] }}; {{ $mediaPlaceholder['label'] === 'JavaScript' ? '--media-mark-color: #1c1e24;' : '' }}"
                                     >
                                         <div class="file-preview-mark">{{ $mediaPlaceholder['mark'] }}</div>
                                         <div class="file-preview-label">{{ $mediaPlaceholder['label'] }}</div>
