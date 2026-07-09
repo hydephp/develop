@@ -295,6 +295,59 @@ class RealtimeCompilerTest extends TestCase
         }
     }
 
+    public function testDashboardRendersDeletePageButtonAndConfirmationModal()
+    {
+        $dashboardEnvironment = getenv('SERVER_DASHBOARD');
+        putenv('SERVER_DASHBOARD=true');
+        $this->mockCompilerRoute('dashboard');
+
+        Filesystem::put('_pages/delete-button-test.md', '# Delete Button Test');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertInstanceOf(HtmlResponse::class, $response);
+            $this->assertStringContainsString('class="btn btn-danger btn-sm delete-page-btn"', $response->body);
+            $this->assertStringContainsString('data-route-key="delete-button-test"', $response->body);
+            $this->assertStringContainsString('id="deletePageModal"', $response->body);
+            $this->assertStringContainsString('name="action" value="deletePage"', $response->body);
+        } finally {
+            Filesystem::unlinkIfExists('_pages/delete-button-test.md');
+            putenv($dashboardEnvironment === false ? 'SERVER_DASHBOARD' : "SERVER_DASHBOARD=$dashboardEnvironment");
+        }
+    }
+
+    public function testDashboardCanDeleteSourceBackedPage()
+    {
+        $dashboardEnvironment = getenv('SERVER_DASHBOARD');
+        putenv('SERVER_DASHBOARD=true');
+        $this->mockCompilerRoute('dashboard', 'POST');
+
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['HTTP_ACCEPT'] = 'application/json';
+        $_SESSION['csrf_token'] = 'delete-page-token';
+
+        Filesystem::put('_pages/delete-action-test.md', '# Delete Action Test');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request([
+                '_token' => 'delete-page-token',
+                'action' => 'deletePage',
+                'routeKey' => 'delete-action-test',
+            ]));
+
+            $this->assertInstanceOf(JsonResponse::class, $response);
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+            $this->assertFalse(Filesystem::exists('_pages/delete-action-test.md'));
+        } finally {
+            Filesystem::unlinkIfExists('_pages/delete-action-test.md');
+            putenv($dashboardEnvironment === false ? 'SERVER_DASHBOARD' : "SERVER_DASHBOARD=$dashboardEnvironment");
+        }
+    }
+
     public function testExceptionHandling()
     {
         $exception = new Exception('foo');

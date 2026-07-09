@@ -11,9 +11,11 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\InMemoryPage;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Foundation\PharSupport;
+use Hyde\Facades\Filesystem;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
@@ -108,6 +110,7 @@ class DashboardController extends BaseController
             'openPageInEditor' => $this->openPageInEditor(),
             'openMediaFileInEditor' => $this->openMediaFileInEditor(),
             'createPage' => $this->createPage(),
+            'deletePage' => $this->deletePage(),
             default => $this->abort(403, "Invalid action '$action'"),
         };
 
@@ -332,6 +335,39 @@ class DashboardController extends BaseController
         }
 
         Process::run(sprintf('%s %s', $binary, escapeshellarg($path)))->throw();
+    }
+
+    protected function deletePage(): void
+    {
+        $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
+        $route = Routes::get($routeKey);
+        $page = $route->getPage();
+
+        if ($page instanceof InMemoryPage) {
+            $this->abort(403, 'Cannot delete in-memory pages');
+        }
+
+        $sourcePath = $route->getSourcePath();
+        $absolutePath = Hyde::path($sourcePath);
+
+        if (! (str_ends_with($absolutePath, '.md') || str_ends_with($absolutePath, '.blade.php'))) {
+            $this->abort(403, sprintf("Refusing to delete unsafe file '%s'", basename($absolutePath)));
+        }
+
+        if (! is_file($absolutePath)) {
+            $this->abort(404, sprintf("File '%s' not found", $sourcePath));
+        }
+
+        if (! Filesystem::unlink($sourcePath)) {
+            $this->abort(500, sprintf("Failed to delete file '%s'", $sourcePath));
+        }
+
+        Hyde::files()->forget($sourcePath);
+        Hyde::pages()->forget($sourcePath);
+        Hyde::routes()->forget($routeKey);
+
+        $this->writeToConsole(sprintf("Deleted file '%s'", $sourcePath), 'dashboard@deletePage');
+        $this->setJsonResponse(200, "Deleted file '$sourcePath'");
     }
 
     protected function openMediaFileInEditor(): void

@@ -165,6 +165,11 @@
             text-decoration: none;
         }
 
+        .btn:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
         .btn svg {
             width: 14px;
             height: 14px;
@@ -186,6 +191,18 @@
         .btn-primary:disabled {
             opacity: .45;
             cursor: not-allowed;
+        }
+
+        .btn-danger {
+            background: var(--red-soft);
+            border-color: rgba(240, 87, 92, .34);
+            color: #ffb3b5;
+        }
+
+        .btn-danger:hover {
+            background: rgba(240, 87, 92, .22);
+            border-color: var(--red);
+            color: #ffd0d1;
         }
 
         .btn-ghost {
@@ -633,6 +650,10 @@
             max-height: 88vh;
         }
 
+        dialog#deletePageModal {
+            width: min(460px, 92vw);
+        }
+
         dialog#quickViewModal {
             width: min(960px, 94vw);
             height: min(720px, 88vh);
@@ -752,6 +773,23 @@
             padding: 10px 12px;
             font-size: 12.5px;
             margin-bottom: 16px;
+        }
+
+        .delete-page-details {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .delete-page-details strong {
+            color: var(--text);
+        }
+
+        .delete-page-details .mono {
+            display: inline-block;
+            margin-top: 8px;
+            color: #ffb3b5;
+            word-break: break-all;
         }
 
         /* Quick view */
@@ -1085,6 +1123,18 @@
                                                     <button type="submit" class="btn btn-sm" title="Open in system default application">Edit</button>
                                                 @endif
                                             </form>
+
+                                            @if($route->getPage() instanceof \Hyde\Pages\InMemoryPage)
+                                                <button type="button" class="btn btn-danger btn-sm" title="Cannot delete in-memory pages" style="opacity:.4; cursor: not-allowed" disabled>Delete</button>
+                                            @else
+                                                <button type="button"
+                                                        class="btn btn-danger btn-sm delete-page-btn"
+                                                        data-route-key="{{ $route->getRouteKey() }}"
+                                                        data-source-path="{{ $route->getSourcePath() }}"
+                                                        title="Delete this page source file">
+                                                    Delete
+                                                </button>
+                                            @endif
                                         @endif
 
                                         <a href="{{ $dashboard->getRoutePreviewLink($route) }}" class="btn btn-sm" title="Open this page">Open</a>
@@ -1191,6 +1241,38 @@
 </dialog>
 
 @if($dashboard->isInteractive())
+    <dialog id="deletePageModal" aria-labelledby="deletePageModalLabel">
+        <form id="deletePageForm" action="" method="POST">
+            <input type="hidden" name="_token" value="{{ $csrfToken }}">
+            <input type="hidden" name="action" value="deletePage">
+            <input type="hidden" name="routeKey" id="deletePageRouteKeyInput" value="">
+
+            <div class="modal-header">
+                <h3 id="deletePageModalLabel">Delete page</h3>
+                <button type="button" class="btn btn-ghost btn-sm" data-dialog-close aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div id="deletePageFormError" class="form-error" style="display: none;">
+                    <strong>Error:</strong>
+                    <span id="deletePageFormErrorContents"></span>
+                </div>
+
+                <p class="delete-page-details">
+                    Delete <strong id="deletePageRouteKey"></strong>? This permanently removes the source file:
+                    <span id="deletePageSourcePath" class="mono"></span>
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm" data-dialog-close>Cancel</button>
+                <button type="submit" class="btn btn-danger btn-sm" id="deletePageButton">Delete page</button>
+            </div>
+        </form>
+    </dialog>
+
     <div class="toast-wrap">
         <div id="asyncErrorToast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -1320,13 +1402,60 @@
                     }
                 }).catch(error => {
                     console.error('Network error:', error);
+                }).finally(() => {
+                    afterCallHandler?.();
                 });
-
-                afterCallHandler?.();
             });
         }
 
         document.querySelectorAll('.buttonActionForm').forEach(form => registerAsyncForm(form));
+
+        /* ---------- delete page form ---------- */
+
+        const deletePageForm = document.getElementById('deletePageForm');
+
+        if (deletePageForm) {
+            const deletePageModal = document.getElementById('deletePageModal');
+            const deletePageRouteKeyInput = document.getElementById('deletePageRouteKeyInput');
+            const deletePageRouteKey = document.getElementById('deletePageRouteKey');
+            const deletePageSourcePath = document.getElementById('deletePageSourcePath');
+            const deletePageButton = document.getElementById('deletePageButton');
+            const deletePageFormError = document.getElementById('deletePageFormError');
+            const deletePageFormErrorContents = document.getElementById('deletePageFormErrorContents');
+
+            document.querySelectorAll('.delete-page-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    deletePageRouteKeyInput.value = this.dataset.routeKey || '';
+                    deletePageRouteKey.innerText = this.dataset.routeKey || 'this page';
+                    deletePageSourcePath.innerText = this.dataset.sourcePath || '';
+                    deletePageFormError.style.display = 'none';
+                    deletePageFormErrorContents.innerText = '';
+                    deletePageButton.disabled = false;
+                    deletePageModal.showModal();
+                });
+            });
+
+            registerAsyncForm(
+                deletePageForm,
+                () => {
+                    deletePageModal.close();
+                    location.reload();
+                },
+                async response => {
+                    const data = await response.json();
+                    deletePageFormError.style.display = 'block';
+                    deletePageFormErrorContents.innerText = data.error;
+                },
+                () => {
+                    deletePageButton.disabled = true;
+                    deletePageFormError.style.display = 'none';
+                    deletePageFormErrorContents.innerText = '';
+                },
+                () => {
+                    deletePageButton.disabled = false;
+                }
+            );
+        }
 
         /* ---------- create page form ---------- */
 
