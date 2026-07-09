@@ -494,32 +494,40 @@ class DashboardController extends BaseController
     protected static function button(): string
     {
         return <<<'HTML'
-            <style>
-                 .dashboard-btn {
-                    background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%);
-                    margin: 10px;
-                    padding: .5rem 1rem;
-                    text-align: center;
-                    transition: 0.5s;
-                    background-size: 200% auto;
-                    background-position: right center;
-                    color: white;
-                    box-shadow: 0 0 20px #162134;
-                    border-radius: 10px;
-                    display: block;
-                    position: absolute;
-                    right: 1rem;
-                    top: 1rem
-                 }
+        <style>
+            .dashboard-btn {
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                backdrop-filter: blur(6px);
+                margin: 10px;
+                padding: .5rem 1.1rem;
+                text-align: center;
+                transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+                color: #E8E9ED;
+                font-weight: 500;
+                letter-spacing: 0.01em;
+                border-radius: 8px;
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                text-decoration: none;
+            }
 
-                 .dashboard-btn:hover {
-                    background-position: left center;
-                    color: #fff;
-                    text-decoration: none;
-                }
-            </style>
-            <a href="/dashboard" class="dashboard-btn">Dashboard</a>
-        HTML;
+            .dashboard-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(212, 82, 133, 0.5);
+                color: #fff;
+                transform: translateY(-1px);
+                text-decoration: none;
+            }
+
+            .dashboard-btn:active {
+                transform: translateY(0);
+            }
+        </style>
+        <a href="/dashboard" class="dashboard-btn">Dashboard</a>
+    HTML;
     }
 
     protected static function welcomeComponent(): string
