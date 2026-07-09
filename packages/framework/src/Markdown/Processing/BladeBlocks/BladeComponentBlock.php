@@ -11,13 +11,9 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\ComponentAttributeBag;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 use function array_merge;
 use function filled;
-use function is_array;
-use function ltrim;
 use function sprintf;
 
 class BladeComponentBlock extends BladeBlock
@@ -50,28 +46,13 @@ class BladeComponentBlock extends BladeBlock
     /** @return array{FrontMatter, string} */
     protected function parse(string $content): array
     {
-        if ($this->hasFrontMatter($content)) {
+        if (str_starts_with($content, '---')) {
             $document = YamlFrontMatter::markdownCompatibleParse($content);
 
             return [FrontMatter::fromArray($document->matter()), $document->body()];
         }
 
-        try {
-            $matter = Yaml::parse($content);
-
-            if (is_array($matter)) {
-                return [FrontMatter::fromArray($matter), ''];
-            }
-        } catch (ParseException) {
-            // It's not valid YAML, so treat the whole block as a Markdown slot.
-        }
-
         return [FrontMatter::fromArray([]), $content];
-    }
-
-    protected function hasFrontMatter(string $content): bool
-    {
-        return str_starts_with(ltrim($content), '---');
     }
 
     /** @return class-string<\Hyde\Pages\Concerns\HydePage>|null */

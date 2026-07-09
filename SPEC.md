@@ -42,21 +42,25 @@ Anything Hyde executes is keyed off the `blade` prefix followed by a directive. 
 
 This kind of "anonymous" component will render using `Blade::render()`.
 
-## Using the `blade component(name)` directive you can call a Blade component using Yaml Front Matter syntax
+## Using the `blade component(name)` directive you can call a Blade component using YAML front matter syntax
 
 ````markdown
 ```blade component(component-name)
+---
 foo: bar
+---
 ```
 ````
 
 ```blade component(component-name)
+---
 foo: bar
+---
 ```
 
 Each variable will be passed to the Blade view. In the future we may try to parse the props of a page to validate the properties added in front matter.
 
-When the block does not contain a YAML mapping, its content is treated as Markdown and passed to the component's `$slot`:
+When the block does not start with YAML front matter, its content is treated as Markdown and passed to the component's `$slot`:
 
 ````markdown
 ```blade component(component-name)
@@ -68,7 +72,7 @@ This is Markdown passed directly to the **component slot**.
 This is Markdown passed directly to the **component slot**.
 ```
 
-To pass both variables and Markdown slot content, use triple dashes to enclose the front matter. The Markdown after the front matter is compiled to HTML using the HydePHP Markdown converter (meaning features like coloured blockquotes and more are available), though you may need to add the `prose` class to your container.
+To pass both variables and Markdown slot content, add the Markdown after the front matter. That Markdown is compiled to HTML using the HydePHP Markdown converter (meaning features like coloured blockquotes and more are available), though you may need to add the `prose` class to your container.
 
 ````markdown
 ```blade component(component-name)

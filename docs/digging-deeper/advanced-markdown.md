@@ -48,18 +48,20 @@ For multi-line Blade, use an executable `blade render` fenced block:
 The Blade is evaluated at build time, and the rendered output is wrapped in a
 `<div class="blade-block not-prose">` element. When compiling a page, the `$page` variable is available to the block.
 
-You can also render a Blade component using the `blade component(name)` directive. A YAML mapping in the block is
-passed to the component as data:
+You can also render a Blade component using the `blade component(name)` directive. Component data is passed using YAML
+front matter at the start of the block:
 
 ````markdown
 ```blade component(alert)
+---
 type: warning
 title: Check this
+---
 ```
 ````
 
-If the block does not contain a YAML mapping, its content is rendered as Markdown and passed directly to the component
-slot. This is useful when the component does not need any data:
+If the block does not start with YAML front matter, its content is rendered as Markdown and passed directly to the
+component slot. This is useful when the component does not need any data:
 
 ````markdown
 ```blade component(alert)

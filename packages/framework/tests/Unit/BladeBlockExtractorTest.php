@@ -55,7 +55,7 @@ class BladeBlockExtractorTest extends UnitTestCase
 
     public function testExtractsComponentBlock()
     {
-        [$blocks] = (new BladeBlockExtractor())->handle("```blade component(x)\nfoo: bar\n```");
+        [$blocks] = (new BladeBlockExtractor())->handle("```blade component(x)\ncontent\n```");
 
         $this->assertCount(1, $blocks);
         $this->assertInstanceOf(BladeComponentBlock::class, array_values($blocks)[0]);

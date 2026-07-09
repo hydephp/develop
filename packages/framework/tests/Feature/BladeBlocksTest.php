@@ -124,14 +124,6 @@ class BladeBlocksTest extends TestCase
 
     // Test `blade component(name)`
 
-    public function testComponentBlockWithBareYamlData()
-    {
-        $html = $this->render("```blade component(blade-block-fixture)\nfoo: bar\n```");
-
-        $this->assertStringContainsString('data=[bar]', $html);
-        $this->assertStringContainsString('slot=[]', $html);
-    }
-
     public function testComponentBlockWithFrontMatterAndMarkdownSlot()
     {
         $html = $this->render("```blade component(blade-block-fixture)\n---\nfoo: bar\n---\n\n# Heading\n\nSome **bold** text\n```");
@@ -141,7 +133,7 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('<strong>bold</strong>', $html);
     }
 
-    public function testComponentWithNonMappingBodyUsesContentAsMarkdownSlot()
+    public function testComponentWithMarkdownBodyUsesContentAsMarkdownSlot()
     {
         $html = $this->render("```blade component(blade-block-fixture)\nThis is just a simple alert message.\n\nIt supports **Markdown** without front matter.\n```");
 
@@ -150,11 +142,11 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('<p>It supports <strong>Markdown</strong> without front matter.</p>', $html);
     }
 
-    public function testComponentWithInvalidYamlFallsBackToMarkdownSlot()
+    public function testTextLookingLikeYamlIsTreatedAsMarkdownSlot()
     {
         $markdown = <<<'MARKDOWN'
 ```blade component(blade-block-fixture)
-This: is an alert
+Warning: This is an alert
 - Item 1
 - Item 2
 
@@ -165,14 +157,22 @@ MARKDOWN;
         $html = $this->render($markdown);
 
         $this->assertStringContainsString('data=[]', $html);
-        $this->assertStringContainsString('This: is an alert', $html);
+        $this->assertStringContainsString('Warning: This is an alert', $html);
         $this->assertStringContainsString('<li>Item 1</li>', $html);
         $this->assertStringContainsString('<li>Item 2</li>', $html);
     }
 
+    public function testFrontMatterMustStartTheComponentBlock()
+    {
+        $html = $this->render("```blade component(blade-block-fixture)\n\n---\nfoo: bar\n---\n```");
+
+        $this->assertStringContainsString('data=[]', $html);
+        $this->assertStringContainsString('foo: bar', $html);
+    }
+
     public function testComponentDataIsAvailableAsViewVariables()
     {
-        $html = $this->render("```blade component(blade-block-props-fixture)\nfoo: bar\n```");
+        $html = $this->render("```blade component(blade-block-props-fixture)\n---\nfoo: bar\n---\n```");
 
         $this->assertStringContainsString('value=[bar]', $html);
     }
@@ -205,7 +205,7 @@ MARKDOWN;
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->render("```blade component(foo bar)\nfoo: bar\n```");
+        $this->render("```blade component(foo bar)\ncontent\n```");
     }
 
     // Fence parsing behavior (through the real pipeline)

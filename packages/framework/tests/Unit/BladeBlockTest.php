@@ -43,8 +43,8 @@ class BladeBlockTest extends UnitTestCase
 
     public function testComponentBlockAddsNameToHashableContent()
     {
-        $first = new BladeComponentBlock('foo: bar', 'component-one');
-        $second = new BladeComponentBlock('foo: bar', 'component-two');
+        $first = new BladeComponentBlock('slot content', 'component-one');
+        $second = new BladeComponentBlock('slot content', 'component-two');
 
         $this->assertNotSame($first->signature, $second->signature);
     }
