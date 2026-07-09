@@ -47,7 +47,7 @@ abstract class BaseController
         throw new HttpException($code, $message);
     }
 
-    protected function matchStatusCode(int $statusCode): string
+    public static function matchStatusCode(int $statusCode): string
     {
         return match ($statusCode) {
             200 => 'OK',
@@ -55,6 +55,7 @@ abstract class BaseController
             400 => 'Bad Request',
             403 => 'Forbidden',
             404 => 'Not Found',
+            405 => 'Method Not Allowed',
             409 => 'Conflict',
             default => 'Internal Server Error',
         };
@@ -86,7 +87,7 @@ abstract class BaseController
         return in_array($requestIp, $allowedIps, true);
     }
 
-    protected static function generateCSRFToken(): string
+    public static function generateCSRFToken(): string
     {
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
