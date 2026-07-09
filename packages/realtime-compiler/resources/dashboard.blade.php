@@ -764,6 +764,8 @@
             padding: 0;
             flex: 1;
             min-height: 0;
+            max-height: none;
+            overflow: hidden;
         }
 
         .quick-view-body iframe {
