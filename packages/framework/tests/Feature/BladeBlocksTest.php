@@ -150,6 +150,26 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('<p>It supports <strong>Markdown</strong> without front matter.</p>', $html);
     }
 
+    public function testComponentWithInvalidYamlFallsBackToMarkdownSlot()
+    {
+        $markdown = <<<'MARKDOWN'
+```blade component(blade-block-fixture)
+This: is an alert
+- Item 1
+- Item 2
+
+```
+
+MARKDOWN;
+
+        $html = $this->render($markdown);
+
+        $this->assertStringContainsString('data=[]', $html);
+        $this->assertStringContainsString('This: is an alert', $html);
+        $this->assertStringContainsString('<li>Item 1</li>', $html);
+        $this->assertStringContainsString('<li>Item 2</li>', $html);
+    }
+
     public function testComponentDataIsAvailableAsViewVariables()
     {
         $html = $this->render("```blade component(blade-block-props-fixture)\nfoo: bar\n```");

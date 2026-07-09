@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\ComponentAttributeBag;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 use function array_merge;
@@ -55,10 +56,14 @@ class BladeComponentBlock extends BladeBlock
             return [FrontMatter::fromArray($document->matter()), $document->body()];
         }
 
-        $matter = Yaml::parse($content);
+        try {
+            $matter = Yaml::parse($content);
 
-        if (is_array($matter)) {
-            return [FrontMatter::fromArray($matter), ''];
+            if (is_array($matter)) {
+                return [FrontMatter::fromArray($matter), ''];
+            }
+        } catch (ParseException) {
+            // It's not valid YAML, so treat the whole block as a Markdown slot.
         }
 
         return [FrontMatter::fromArray([]), $content];
