@@ -15,7 +15,6 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\InMemoryPage;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
-use Hyde\Foundation\PharSupport;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
