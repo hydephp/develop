@@ -205,10 +205,6 @@
             font-size: 12px;
         }
 
-        .quick-view-btn {
-            margin-left: 0.25rem;
-        }
-
         /* ---------- Layout / cards ---------- */
 
         main {
