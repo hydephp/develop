@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
+use Hyde\RealtimeCompiler\Http\OpenInEditorController;
 use Hyde\RealtimeCompiler\Console\Commands\HerdInstallCommand;
 use Hyde\RealtimeCompiler\Console\Commands\ServeCommand;
 
@@ -37,6 +38,10 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
 
         if (LiveEditController::enabled()) {
             $router->registerVirtualRoute('/_hyde/live-edit', [VirtualRouteController::class, 'liveEdit']);
+        }
+
+        if (OpenInEditorController::enabled()) {
+            $router->registerVirtualRoute('/_hyde/open-in-editor', [VirtualRouteController::class, 'openInEditor']);
         }
     }
 }

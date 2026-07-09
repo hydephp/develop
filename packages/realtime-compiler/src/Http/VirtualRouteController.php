@@ -26,4 +26,9 @@ class VirtualRouteController
     {
         return (new LiveEditController($request))->handle();
     }
+
+    public static function openInEditor(Request $request): Response
+    {
+        return (new OpenInEditorController($request))->handle();
+    }
 }
