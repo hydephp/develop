@@ -508,7 +508,7 @@
             transition: opacity .08s ease;
         }
 
-        .route-actions-col .route-action:last-child::after {
+        .route-actions-col .route-action.tooltip-align-right::after {
             right: 0;
             left: auto;
             transform: none;
@@ -531,7 +531,7 @@
             transition: opacity .08s ease;
         }
 
-        .route-actions-col .route-action:last-child::before {
+        .route-actions-col .route-action.tooltip-align-right::before {
             right: 12px;
             left: auto;
             transform: rotate(45deg);
@@ -1362,7 +1362,7 @@
                                             </form>
 
                                             @if($isMemory)
-                                                <span class="route-action" data-tooltip="Cannot delete in-memory pages">
+                                                <span class="route-action tooltip-align-right" data-tooltip="Cannot delete in-memory pages">
                                                     <button type="button" class="btn btn-ghost btn-sm" style="cursor: not-allowed" disabled aria-label="Cannot delete in-memory page {{ $route->getRouteKey() }}">
                                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"></path></svg>
                                                     </button>
@@ -1380,7 +1380,7 @@
                                             @endif
                                         @endif
 
-                                        <span class="route-action" data-tooltip="Quick view">
+                                        <span class="route-action tooltip-align-right" data-tooltip="Quick view">
                                             <button type="button" class="btn btn-ghost btn-sm quick-view-btn" data-preview-url="{{ $dashboard->getRoutePreviewLink($route) }}" data-preview-label="{{ $route->getRouteKey() }}" aria-label="Quick view {{ $route->getRouteKey() }}">
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                             </button>
