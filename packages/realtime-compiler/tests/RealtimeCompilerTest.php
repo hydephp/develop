@@ -309,7 +309,7 @@ class RealtimeCompilerTest extends TestCase
             $response = $kernel->handle(new Request());
 
             $this->assertInstanceOf(HtmlResponse::class, $response);
-            $this->assertStringContainsString('class="btn btn-danger btn-sm delete-page-btn"', $response->body);
+            $this->assertStringContainsString('class="btn btn-ghost btn-sm btn-delete delete-page-btn"', $response->body);
             $this->assertStringContainsString('data-route-key="delete-button-test"', $response->body);
             $this->assertStringContainsString('id="deletePageModal"', $response->body);
             $this->assertStringContainsString('name="action" value="deletePage"', $response->body);
