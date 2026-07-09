@@ -509,9 +509,7 @@
         }
 
         .route-actions-col .route-action.tooltip-align-right::after {
-            right: 0;
-            left: auto;
-            transform: none;
+            transform: translateX(-70%);
         }
 
         .route-actions-col .route-action::before {
@@ -529,12 +527,6 @@
             background: #0f1117;
             opacity: 0;
             transition: opacity .08s ease;
-        }
-
-        .route-actions-col .route-action.tooltip-align-right::before {
-            right: 12px;
-            left: auto;
-            transform: rotate(45deg);
         }
 
         .route-actions-col .route-action:hover::after,
