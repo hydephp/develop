@@ -18,6 +18,7 @@ This serves two purposes:
 
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
+- Added a custom error page to the realtime compiler server to produce more helpful exception output in https://github.com/hydephp/develop/pull/2505
 
 ### Changed
 - for changes in existing functionality.
