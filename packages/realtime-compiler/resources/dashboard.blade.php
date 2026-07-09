@@ -85,42 +85,7 @@
             }
         }
 
-        /* ---------- Topbar ---------- */
-
-        .topbar {
-            border-bottom: 1px solid var(--border);
-            background: var(--surface);
-        }
-
-        .topbar-inner {
-            max-width: 1080px;
-            margin: 0 auto;
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 0;
-        }
-
-        .brand-title {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text);
-            white-space: nowrap;
-        }
-
-        .topbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        /* ---------- Status ---------- */
 
         .pill {
             display: inline-flex;
@@ -236,11 +201,33 @@
             margin-bottom: 28px;
         }
 
+        .intro-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 6px;
+        }
+
+        .intro-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
         .intro h1 {
             font-size: 20px;
             font-weight: 600;
-            margin: 0 0 6px;
+            margin: 0;
             letter-spacing: -.01em;
+        }
+
+        .intro-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
         }
 
         .intro p {
@@ -962,9 +949,18 @@
         }
 
         @media (max-width: 640px) {
-            .topbar-inner, main {
+            main {
                 padding-left: 16px;
                 padding-right: 16px;
+            }
+
+            .intro-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .intro-actions .btn {
+                justify-content: center;
             }
 
             .route-actions-col {
@@ -979,27 +975,23 @@
     </style>
 </head>
 <body>
-<div class="topbar">
-    <div class="topbar-inner">
-        <div class="brand">
-            <span class="brand-title">{{ $title }}</span>
-            @if(! $dashboard->isInteractive())
-                <span class="pill pill-amber" title="This dashboard is readonly. You can change this in the `hyde.php` config.">Readonly</span>
-            @endif
-        </div>
-        <div class="topbar-actions">
-            @if($request->embedded)
-                <a href="/dashboard" class="btn btn-ghost btn-sm">Open full page dashboard</a>
-            @else
-                <a href="/" class="btn btn-ghost btn-sm">Back to site</a>
-            @endif
-        </div>
-    </div>
-</div>
-
 <main>
     <div class="intro">
-        <h1>Welcome to your site dashboard!</h1>
+        <div class="intro-header">
+            <div class="intro-title">
+                <h1>Welcome to your site dashboard!</h1>
+                @if(! $dashboard->isInteractive())
+                    <span class="pill pill-amber" title="This dashboard is readonly. You can change this in the `hyde.php` config.">Readonly</span>
+                @endif
+            </div>
+            <div class="intro-actions">
+                @if($request->embedded)
+                    <a href="/dashboard" class="btn btn-ghost btn-sm">Open full page dashboard</a>
+                @else
+                    <a href="/" class="btn btn-ghost btn-sm">Back to site</a>
+                @endif
+            </div>
+        </div>
         <p>This page is served by the Realtime Compiler and won't be saved to your static site.</p>
     </div>
 
