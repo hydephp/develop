@@ -1078,7 +1078,10 @@
                 @if($request->embedded)
                     <a href="/dashboard" class="btn btn-ghost btn-sm">Open full page dashboard</a>
                 @else
-                    <a href="/" class="btn btn-ghost btn-sm">Back to site</a>
+                    <a href="/" class="btn btn-sm" title="Return to the site">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                        Back to site
+                    </a>
                 @endif
             </div>
         </div>
