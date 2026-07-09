@@ -259,6 +259,10 @@ class DashboardController extends BaseController
             $contents = $page->compile();
         }
 
+        if (self::isLoadedInIframe()) {
+            return $contents;
+        }
+
         // If the page is the default welcome page we inject dashboard components
         if (str_contains($contents, 'This is the default homepage')) {
             if (config('hyde.server.dashboard.welcome-banner', true)) {
@@ -277,6 +281,11 @@ class DashboardController extends BaseController
         }
 
         return $contents;
+    }
+
+    protected static function isLoadedInIframe(): bool
+    {
+        return strtolower($_SERVER['HTTP_SEC_FETCH_DEST'] ?? '') === 'iframe';
     }
 
     public function isInteractive(): bool
