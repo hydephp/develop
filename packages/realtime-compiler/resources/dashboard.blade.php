@@ -481,6 +481,11 @@
             display: inline-flex;
         }
 
+        .route-actions-col .route-action:hover,
+        .route-actions-col .route-action:focus-within {
+            z-index: 30;
+        }
+
         .route-actions-col .route-action::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -503,6 +508,12 @@
             transition: opacity .08s ease;
         }
 
+        .route-actions-col .route-action:last-child::after {
+            right: 0;
+            left: auto;
+            transform: none;
+        }
+
         .route-actions-col .route-action::before {
             content: "";
             position: absolute;
@@ -518,6 +529,12 @@
             background: #0f1117;
             opacity: 0;
             transition: opacity .08s ease;
+        }
+
+        .route-actions-col .route-action:last-child::before {
+            right: 12px;
+            left: auto;
+            transform: rotate(45deg);
         }
 
         .route-actions-col .route-action:hover::after,
