@@ -24,7 +24,7 @@ This serves two purposes:
 _Changes to the realtime compiler requires an update to v4.5 or later of the `hyde/realtime-compiler` package in your project's `composer.json`.
 
 ### Changed
-- for changes in existing functionality.
+- Upgraded default realtime comiler version to v4.5 in https://github.com/hydephp/develop/pull/2510
 
 ### Deprecated
 - Deprecated the `rebuild` command. It has no remaining internal consumers now that the realtime compiler renders pages in-memory, and single-page builds can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. It will be removed in v3.0; use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need to build a single page programmatically.
