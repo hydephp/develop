@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit;
 
+use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\UnitTestCase;
 use Illuminate\Support\Collection;
+use Hyde\Support\Facades\Render;
+use Hyde\Support\Models\RenderData;
+use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Navigation\NavigationItem;
 use Hyde\Framework\Features\Navigation\NavigationGroup;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Services\DocumentationSidebarTest
@@ -21,6 +27,12 @@ class DocumentationSidebarUnitTest extends UnitTestCase
 {
     protected static bool $needsKernel = true;
     protected static bool $needsConfig = true;
+
+    protected function setUp(): void
+    {
+        \Illuminate\Support\Facades\Facade::setFacadeApplication(app());
+        Render::swap(new RenderData());
+    }
 
     // Base menu tests
 
@@ -122,6 +134,52 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         app()->instance('navigation.sidebar', $instance = new DocumentationSidebar());
 
         $this->assertSame($instance, DocumentationSidebar::get());
+    }
+
+    public function testGetMethodFallsBackToDefaultSidebarWhenNoPageIsBeingRendered()
+    {
+        app()->instance('navigation.sidebar', $instance = new DocumentationSidebar());
+
+        $this->assertSame($instance, DocumentationSidebar::get());
+    }
+
+    public function testGetMethodFallsBackToDefaultVersionSidebarForUnversionedDocumentationPage()
+    {
+        self::mockConfig(['docs.versions' => ['1.x', '2.x']]);
+        Hyde::kernel()->boot();
+
+        app()->instance('navigation.sidebar.1.x', new DocumentationSidebar([], DocumentationVersions::get('1.x')));
+        app()->instance('navigation.sidebar.2.x', $default = new DocumentationSidebar([], DocumentationVersions::get('2.x')));
+
+        Render::setPage(new DocumentationPage('installation'));
+
+        $this->assertSame($default, DocumentationSidebar::get());
+    }
+
+    public function testGetMethodResolvesVersionedSidebarForRenderedDocumentationPage()
+    {
+        self::mockConfig(['docs.versions' => ['1.x', '2.x']]);
+        Hyde::kernel()->boot();
+
+        app()->instance('navigation.sidebar', new DocumentationSidebar());
+        app()->instance('navigation.sidebar.1.x', new DocumentationSidebar([], DocumentationVersions::get('1.x')));
+
+        Render::setPage(new DocumentationPage('1.x/installation'));
+
+        $this->assertSame('1.x', DocumentationSidebar::get()->version->name);
+    }
+
+    public function testGetMethodResolvesVersionedSidebarForRenderedSearchPage()
+    {
+        self::mockConfig(['docs.versions' => ['1.x', '2.x']]);
+        Hyde::kernel()->boot();
+
+        app()->instance('navigation.sidebar', new DocumentationSidebar());
+        app()->instance('navigation.sidebar.1.x', new DocumentationSidebar([], DocumentationVersions::get('1.x')));
+
+        Render::setPage(new DocumentationSearchPage(DocumentationVersions::get('1.x')));
+
+        $this->assertSame('1.x', DocumentationSidebar::get()->version->name);
     }
 
     public function testGetHeaderReturnsDefaultWhenNotConfigured()

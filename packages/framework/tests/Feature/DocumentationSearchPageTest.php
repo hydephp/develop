@@ -9,6 +9,7 @@ use Hyde\Hyde;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
@@ -35,6 +36,16 @@ class DocumentationSearchPageTest extends TestCase
         $this->assertSame('foo/search', $page->routeKey);
     }
 
+    public function testRouteKeyIsSetToVersionedDocumentationOutputDirectory()
+    {
+        config(['docs.versions' => ['1.x']]);
+
+        $page = new DocumentationSearchPage(DocumentationVersions::get('1.x'));
+
+        $this->assertSame('docs/1.x/search', $page->routeKey);
+        $this->assertSame('1.x', $page->getDocumentationVersion()->name);
+    }
+
     public function testEnabledDefaultsToTrue()
     {
         $this->assertTrue(DocumentationSearchPage::enabled());
@@ -52,6 +63,23 @@ class DocumentationSearchPageTest extends TestCase
         $this->assertFalse(DocumentationSearchPage::enabled());
     }
 
+    public function testEnabledIsFalseWhenVersionedRouteExists()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::pages()->put('docs/1.x/search', new InMemoryPage('docs/1.x/search'));
+
+        $this->assertFalse(DocumentationSearchPage::enabled(DocumentationVersions::get('1.x')));
+        $this->assertTrue(DocumentationSearchPage::enabled(DocumentationVersions::get('2.x')));
+    }
+
+    public function testVersionedSearchPageIsDisabledWhenSearchPagesAreDisabled()
+    {
+        config(['docs.versions' => ['1.x'], 'docs.create_search_page' => false]);
+
+        $this->assertFalse(DocumentationSearchPage::enabled(DocumentationVersions::get('1.x')));
+    }
+
     public function testEnabledIsFalseWhenDisabledAndRouteExists()
     {
         config(['docs.create_search_page' => false]);
@@ -64,10 +92,25 @@ class DocumentationSearchPageTest extends TestCase
         $this->assertSame('docs/search', DocumentationSearchPage::routeKey());
     }
 
+    public function testStaticRouteKeyHelperWithVersion()
+    {
+        config(['docs.versions' => ['1.x']]);
+
+        $this->assertSame('docs/1.x/search', DocumentationSearchPage::routeKey(DocumentationVersions::get('1.x')));
+    }
+
     public function testStaticRouteKeyHelperWithCustomOutputDirectory()
     {
         DocumentationPage::setOutputDirectory('foo');
         $this->assertSame('foo/search', DocumentationSearchPage::routeKey());
+    }
+
+    public function testStaticRouteKeyHelperWithVersionAndCustomOutputDirectory()
+    {
+        config(['docs.versions' => ['1.x']]);
+        DocumentationPage::setOutputDirectory('foo');
+
+        $this->assertSame('foo/1.x/search', DocumentationSearchPage::routeKey(DocumentationVersions::get('1.x')));
     }
 
     public function testStaticRouteKeyHelperWithRootOutputDirectory()

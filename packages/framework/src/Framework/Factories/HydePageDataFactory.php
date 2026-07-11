@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Hyde\Framework\Factories;
 
 use Hyde\Hyde;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Contracts\FrontMatter\PageSchema;
 use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationData;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
+use function is_a;
 use function basename;
 use function dirname;
 use function str_contains;
@@ -98,8 +101,10 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     private function findTitleFromParentIdentifier(): ?string
     {
-        if (str_contains($this->identifier, '/') && str_ends_with($this->identifier, '/index')) {
-            $parentBasename = basename(dirname($this->identifier));
+        $identifier = $this->identifierForTitleInference();
+
+        if (str_contains($identifier, '/') && str_ends_with($identifier, '/index')) {
+            $parentBasename = basename(dirname($identifier));
 
             if (NumericalPageOrderingHelper::hasNumericalPrefix($parentBasename)) {
                 $parentBasename = NumericalPageOrderingHelper::splitNumericPrefix($parentBasename)[1];
@@ -109,6 +114,15 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         }
 
         return null;
+    }
+
+    private function identifierForTitleInference(): string
+    {
+        // Strip any documentation version prefix, so that version index pages
+        // are not titled after the version directory they are stored in.
+        return is_a($this->pageData->pageClass, DocumentationPage::class, true)
+            ? DocumentationVersions::stripVersionPrefix($this->identifier)
+            : $this->identifier;
     }
 
     protected function getMatter(string $key): ?string

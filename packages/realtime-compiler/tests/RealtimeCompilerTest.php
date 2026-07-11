@@ -9,6 +9,7 @@ use Desilva\Microserve\Response;
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\InMemoryPage;
+use Illuminate\View\ViewException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
@@ -138,6 +139,18 @@ class RealtimeCompilerTest extends TestCase
         $kernel->handle(new Request());
     }
 
+    public function testSends404ErrorResponseForMissingMediaAsset()
+    {
+        $this->mockCompilerRoute('media/missing.css');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(404, $response->statusCode);
+        $this->assertSame('Not Found', $response->statusMessage);
+    }
+
     public function testSends404ErrorResponseForMissingAsset()
     {
         $this->mockCompilerRoute('missing.css');
@@ -148,6 +161,59 @@ class RealtimeCompilerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(404, $response->statusCode);
         $this->assertSame('Not Found', $response->statusMessage);
+    }
+
+    public function testThrowsRouteNotFoundExceptionForMissingHtmlPage()
+    {
+        $this->mockCompilerRoute('missing.html');
+
+        $kernel = new HttpKernel();
+
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage('Route [missing] not found');
+
+        $kernel->handle(new Request());
+    }
+
+    public function testFallsBackToPageRouterForExtensionLikePathThatIsNotAnAsset()
+    {
+        $this->mockCompilerRoute('9.x');
+
+        Filesystem::ensureDirectoryExists('_pages/9.x');
+        Filesystem::put('_pages/9.x/index.md', '# Hello World!');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertStringContainsString('Hello World!', $response->body);
+
+        Filesystem::deleteDirectory('_pages/9.x');
+    }
+
+    public function testErrorThrownWhileCompilingExistingDottedPageIsNotSentAsA404()
+    {
+        // The dotted path makes the request look like a static asset, but as the page exists,
+        // an error thrown while compiling it must surface instead of being masked as a 404.
+        $this->mockCompilerRoute('9.x');
+
+        Filesystem::ensureDirectoryExists('_pages/9.x');
+        Filesystem::put('_pages/9.x/index.md', "[Blade]: {{ \Hyde\Foundation\Facades\Routes::get('missing-route') }}");
+
+        $kernel = new HttpKernel();
+
+        try {
+            $kernel->handle(new Request());
+
+            $this->fail('The error thrown while compiling the page was not sent.');
+        } catch (ViewException $exception) {
+            // Blade wraps exceptions thrown while rendering a view, so we assert on the underlying one.
+            $this->assertInstanceOf(RouteNotFoundException::class, $exception->getPrevious());
+            $this->assertStringContainsString('Route [missing-route] not found', $exception->getMessage());
+        } finally {
+            Filesystem::deleteDirectory('_pages/9.x');
+        }
     }
 
     public function testTrailingSlashesAreNormalizedFromRoute()
