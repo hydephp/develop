@@ -11,7 +11,6 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
-use Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion;
 
 /**
  * @internal This page is used to render the search page for the documentation.
@@ -23,7 +22,7 @@ use Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion;
  * When documentation versioning is enabled, one search page is generated per version,
  * and you can override them with pages matching their route keys, like "docs/1.x/search".
  */
-class DocumentationSearchPage extends InMemoryPage implements HasDocumentationVersion
+class DocumentationSearchPage extends InMemoryPage
 {
     protected readonly ?DocumentationVersion $version;
 
@@ -46,6 +45,9 @@ class DocumentationSearchPage extends InMemoryPage implements HasDocumentationVe
         return Config::getBool('docs.create_search_page', true) && ! static::anotherSearchPageExists($version);
     }
 
+    /**
+     * Get the documentation version this search page belongs to, or null if it does not belong to one.
+     */
     public function getDocumentationVersion(): ?DocumentationVersion
     {
         return $this->version;

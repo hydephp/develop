@@ -9,8 +9,8 @@ use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Contracts\Support\Arrayable;
+use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
-use Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion;
 
 use function app;
 use function is_string;
@@ -32,8 +32,12 @@ class DocumentationSidebar extends NavigationMenu
     {
         $page = Render::getPage();
 
-        if ($page instanceof HasDocumentationVersion && ($version = $page->getDocumentationVersion()) !== null) {
-            return app("navigation.sidebar.$version->name");
+        if ($page instanceof DocumentationPage || $page instanceof DocumentationSearchPage) {
+            $version = $page->getDocumentationVersion();
+
+            if ($version !== null) {
+                return app("navigation.sidebar.$version->name");
+            }
         }
 
         return app('navigation.sidebar');

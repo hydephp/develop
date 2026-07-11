@@ -10,7 +10,6 @@ use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
-use Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion;
 
 use function trim;
 use function sprintf;
@@ -30,7 +29,7 @@ use function basename;
  *
  * @see https://hydephp.com/docs/2.x/documentation-pages
  */
-class DocumentationPage extends BaseMarkdownPage implements HasDocumentationVersion
+class DocumentationPage extends BaseMarkdownPage
 {
     public static string $sourceDirectory = '_docs';
     public static string $outputDirectory = 'docs';

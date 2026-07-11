@@ -10,7 +10,6 @@ use Hyde\Support\Models\RouteKey;
 use Hyde\Support\Facades\Render;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
-use Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 /**
@@ -19,7 +18,7 @@ use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
  * When documentation versioning is enabled, one search index is generated per version,
  * containing only the pages belonging to that version.
  */
-class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationVersion
+class DocumentationSearchIndex extends InMemoryPage
 {
     protected readonly ?DocumentationVersion $version;
 
@@ -40,6 +39,9 @@ class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationV
         return GeneratesDocumentationSearchIndex::handle($this->version);
     }
 
+    /**
+     * Get the documentation version this search index belongs to, or null if it does not belong to one.
+     */
     public function getDocumentationVersion(): ?DocumentationVersion
     {
         return $this->version;
@@ -66,7 +68,9 @@ class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationV
     {
         $page = Render::getPage();
 
-        $version = $page instanceof HasDocumentationVersion ? $page->getDocumentationVersion() : null;
+        $version = $page instanceof DocumentationPage || $page instanceof DocumentationSearchPage
+            ? $page->getDocumentationVersion()
+            : null;
 
         return static::routeKey($version ?? DocumentationVersions::default());
     }
