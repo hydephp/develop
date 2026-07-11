@@ -53,7 +53,7 @@ trait SetsUpMarkdownConverter
 
     protected function registerPreProcessors(): void
     {
-        $this->registerPreProcessor(BladeDownProcessor::class, Config::getBool('markdown.enable_blade', false));
+        $this->registerPreProcessor(BladeDownProcessor::class, Config::getBool('markdown.enable_blade', true));
 
         $this->registerPreProcessor(ShortcodeProcessor::class);
         $this->registerPreProcessor(CodeblockFilepathProcessor::class);
@@ -63,7 +63,7 @@ trait SetsUpMarkdownConverter
     {
         $this->registerPostProcessor(
             BladeDownProcessor::class,
-            Config::getBool('markdown.enable_blade', false)
+            Config::getBool('markdown.enable_blade', true)
         );
 
         $this->registerPostProcessor(
