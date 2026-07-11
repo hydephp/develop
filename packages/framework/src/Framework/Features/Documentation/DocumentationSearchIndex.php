@@ -65,6 +65,6 @@ class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationV
 
         $version = $page instanceof HasDocumentationVersion ? $page->getDocumentationVersion() : null;
 
-        return static::outputPath($version ?? (DocumentationVersions::enabled() ? DocumentationVersions::default() : null));
+        return static::outputPath($version ?? DocumentationVersions::default());
     }
 }

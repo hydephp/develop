@@ -57,6 +57,18 @@ class DocumentationVersionsTest extends TestCase
         config(['docs.versions' => ['1.x', '2.x'], 'docs.default_version' => '1.x']);
 
         $this->assertSame('1.x', DocumentationVersions::default()->name);
+        $this->assertTrue(DocumentationVersions::get('1.x')->isDefault());
+        $this->assertFalse(DocumentationVersions::get('2.x')->isDefault());
+    }
+
+    public function testDefaultVersionIsNullWhenVersioningIsDisabled()
+    {
+        $this->assertNull(DocumentationVersions::default());
+    }
+
+    public function testVersionsAreNotDefaultWhenVersioningIsDisabled()
+    {
+        $this->assertFalse((new DocumentationVersion('1.x'))->isDefault());
     }
 
     public function testDefaultVersionNameReturnsNullForEmptyVersionList()
@@ -74,7 +86,7 @@ class DocumentationVersionsTest extends TestCase
         $this->expectException(InvalidConfigurationException::class);
         $this->expectExceptionMessage("The default documentation version '2.x' is not present in the `docs.versions` configuration.");
 
-        DocumentationVersions::all();
+        DocumentationVersions::default();
     }
 
     public function testInvalidVersionNameThrows()

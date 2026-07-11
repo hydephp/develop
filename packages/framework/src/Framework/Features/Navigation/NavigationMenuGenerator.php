@@ -51,7 +51,7 @@ class NavigationMenuGenerator
 
         $this->generatesSidebar = $menuType === DocumentationSidebar::class;
 
-        $this->version = $version ?? ($this->generatesSidebar && DocumentationVersions::enabled() ? DocumentationVersions::default() : null);
+        $this->version = $version ?? ($this->generatesSidebar ? DocumentationVersions::default() : null);
 
         $this->routes = $this->generatesSidebar
             ? $this->getSidebarRoutes()

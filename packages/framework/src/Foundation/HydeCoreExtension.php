@@ -40,8 +40,10 @@ class HydeCoreExtension extends HydeExtension
 
     public function discoverPages(PageCollection $collection): void
     {
-        if (DocumentationVersions::enabled() && Features::hasDocumentationPages()) {
-            $this->discoverDocumentationRootRedirect($collection);
+        $default = DocumentationVersions::default();
+
+        if ($default !== null && Features::hasDocumentationPages()) {
+            $this->discoverDocumentationRootRedirect($collection, $default);
         }
 
         if (Features::hasDocumentationSearch()) {
@@ -70,15 +72,14 @@ class HydeCoreExtension extends HydeExtension
      * Creating your own page with the `docs/index` route key overrides the generated redirect,
      * and the redirect is of course only added when the default version has an index page.
      */
-    protected function discoverDocumentationRootRedirect(PageCollection $collection): void
+    protected function discoverDocumentationRootRedirect(PageCollection $collection, DocumentationVersion $default): void
     {
         $routeKey = unslash(DocumentationPage::outputDirectory().'/index');
-        $default = DocumentationVersions::default();
 
         $taken = $this->hasPageWithRouteKey($collection, $routeKey);
 
         // There's nothing to redirect to if the default version has no index page.
-        $exists = $this->hasPageWithRouteKey($collection, DocumentationPage::homeRouteName($default));
+        $exists = $this->hasPageWithRouteKey($collection, $default->homeRouteName());
 
         if ($exists && ! $taken) {
             $collection->addPage(new Redirect($routeKey, Hyde::formatLink("$default->name/index.html"), matter: [

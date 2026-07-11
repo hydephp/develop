@@ -23,7 +23,6 @@ final class DocumentationVersion implements Stringable
 {
     public function __construct(
         public readonly string $name,
-        public readonly bool $isDefault = false,
     ) {
     }
 
@@ -35,10 +34,12 @@ final class DocumentationVersion implements Stringable
     /**
      * Is this the default version? The default version is linked in the main navigation,
      * and is the target of the generated documentation root redirect page.
+     *
+     * Which version is the default one is determined by the configuration, and not by the version itself.
      */
     public function isDefault(): bool
     {
-        return $this->isDefault;
+        return DocumentationVersions::default()?->name === $this->name;
     }
 
     /**

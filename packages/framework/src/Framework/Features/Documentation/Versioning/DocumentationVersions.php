@@ -66,10 +66,8 @@ final class DocumentationVersions
         /** @var array<int, string> $versions */
         $versions = Config::getArray('docs.versions', []);
 
-        $default = self::defaultVersionName($versions);
-
-        return (new Collection($versions))->mapWithKeys(function (string $name) use ($default): array {
-            return [self::validateVersionName($name) => new DocumentationVersion($name, $name === $default)];
+        return (new Collection($versions))->mapWithKeys(function (string $name): array {
+            return [self::validateVersionName($name) => new DocumentationVersion($name)];
         });
     }
 
@@ -82,14 +80,23 @@ final class DocumentationVersions
     }
 
     /**
-     * Get the default documentation version.
+     * Get the default documentation version, or null when documentation versioning is disabled.
      *
      * This is the version set in the `docs.default_version` configuration,
      * falling back to the last entry in the `docs.versions` list.
      */
-    public static function default(): DocumentationVersion
+    public static function default(): ?DocumentationVersion
     {
-        return self::all()->firstOrFail(fn (DocumentationVersion $version): bool => $version->isDefault());
+        if (! self::enabled()) {
+            return null;
+        }
+
+        /** @var array<int, string> $versions */
+        $versions = Config::getArray('docs.versions', []);
+
+        $default = self::defaultVersionName($versions);
+
+        return $default === null ? null : self::get($default);
     }
 
     /**
