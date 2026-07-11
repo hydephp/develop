@@ -2,7 +2,7 @@ name: 🔬 HydeStan
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "1.x", "2.x", "master" ]
   pull_request:
 
 permissions:
