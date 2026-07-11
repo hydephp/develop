@@ -26,11 +26,9 @@ class NavigationServiceProvider extends ServiceProvider
     }
 
     /**
-     * The documentation sidebar is bound as `navigation.sidebar`. When documentation versioning is
-     * enabled, each version gets its own sidebar, and the default service resolves the sidebar
-     * belonging to the default version. Sidebars should be resolved through the container
-     * binding, or better yet, using {@see DocumentationSidebar::get()}, which selects the
-     * sidebar matching the version of the page being rendered.
+     * The documentation sidebar is bound as `navigation.sidebar`. When documentation versioning is enabled,
+     * each version additionally gets its own sidebar, and `navigation.sidebar` is aliased to the default
+     * version's, so that both names resolve the same instance instead of generating it twice.
      */
     protected function registerDocumentationSidebars(): void
     {
@@ -45,14 +43,11 @@ class NavigationServiceProvider extends ServiceProvider
         }
 
         $versions->each(function (DocumentationVersion $version): void {
-            /** @internal The version-specific service names are an implementation detail. */
             $this->app->singleton("navigation.sidebar.$version->name", function () use ($version): DocumentationSidebar {
                 return NavigationMenuGenerator::handle(DocumentationSidebar::class, $version);
             });
         });
 
-        // Aliasing the default service means both names resolve the same sidebar instance,
-        // instead of generating a second sidebar for the same set of documentation pages.
         $this->app->alias('navigation.sidebar.'.DocumentationVersions::default()->name, 'navigation.sidebar');
     }
 }
