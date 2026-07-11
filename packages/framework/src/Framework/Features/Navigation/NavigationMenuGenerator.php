@@ -36,9 +36,10 @@ class NavigationMenuGenerator
     protected bool $usesGroups;
 
     /**
-     * The documentation version the menu is generated for, when documentation versioning is enabled.
+     * The documentation version the sidebar is generated for. For the main navigation
+     * menu, this only selects which documentation home page is included.
      */
-    protected ?DocumentationVersion $version;
+    protected ?DocumentationVersion $documentationVersion;
 
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
     protected function __construct(string $menuType, ?DocumentationVersion $version = null)
@@ -51,7 +52,7 @@ class NavigationMenuGenerator
 
         $this->generatesSidebar = $menuType === DocumentationSidebar::class;
 
-        $this->version = $version ?? DocumentationVersions::default();
+        $this->documentationVersion = $version ?? DocumentationVersions::default();
 
         $this->routes = $this->generatesSidebar
             ? $this->getSidebarRoutes()
@@ -67,7 +68,7 @@ class NavigationMenuGenerator
 
         $menu->generate();
 
-        return $menu->generatesSidebar ? new DocumentationSidebar($menu->items, $menu->version) : new $menuType($menu->items);
+        return $menu->generatesSidebar ? new DocumentationSidebar($menu->items, $menu->documentationVersion) : new $menuType($menu->items);
     }
 
     /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
@@ -75,7 +76,7 @@ class NavigationMenuGenerator
     {
         $routes = Routes::getRoutes(DocumentationPage::class);
 
-        if ($this->version === null) {
+        if ($this->documentationVersion === null) {
             return $routes;
         }
 
@@ -83,7 +84,7 @@ class NavigationMenuGenerator
             /** @var \Hyde\Pages\DocumentationPage $page */
             $page = $route->getPage();
 
-            return $page->getDocumentationVersion()?->name === $this->version->name;
+            return $page->getDocumentationVersion()?->name === $this->documentationVersion->name;
         });
     }
 
@@ -147,12 +148,12 @@ class NavigationMenuGenerator
 
     protected function documentationHomeRouteName(): string
     {
-        return $this->version?->homeRouteName() ?? DocumentationPage::homeRouteName();
+        return $this->documentationVersion?->homeRouteName() ?? DocumentationPage::homeRouteName();
     }
 
     protected function documentationHome(): ?Route
     {
-        return $this->version?->home() ?? DocumentationPage::home();
+        return $this->documentationVersion?->home() ?? DocumentationPage::home();
     }
 
     protected function canGroupRoute(Route $route): bool
