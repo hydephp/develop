@@ -9,11 +9,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
-use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 
 use function count;
 use function sprintf;
@@ -95,19 +95,15 @@ final class DocumentationVersions
     }
 
     /**
-     * Get the version of the documentation page currently being rendered, falling back to the
-     * default version when the rendered page does not belong to one, for example when the
-     * search modal is rendered on a page that is not part of the documentation module.
+     * Get the version of the page currently being rendered, falling back to the default version
+     * when the rendered page does not belong to one, for example when the search modal is
+     * rendered on a page that is not part of the documentation module.
      */
     public static function current(): ?DocumentationVersion
     {
         $page = Render::getPage();
 
-        $version = $page instanceof DocumentationPage || $page instanceof DocumentationSearchPage
-            ? $page->getDocumentationVersion()
-            : null;
-
-        return $version ?? self::default();
+        return ($page === null ? null : self::fromRouteKey($page->getRouteKey())) ?? self::default();
     }
 
     /**
@@ -144,7 +140,7 @@ final class DocumentationVersions
      * Returns null when the given page does not belong to a version,
      * or when the equivalent page does not exist in the target version.
      */
-    public static function getEquivalentRoute(DocumentationPage|DocumentationSearchPage $page, DocumentationVersion $targetVersion): ?Route
+    public static function getEquivalentRoute(HydePage $page, DocumentationVersion $targetVersion): ?Route
     {
         $currentVersion = self::fromRouteKey($page->getRouteKey());
 
@@ -158,12 +154,8 @@ final class DocumentationVersions
     }
 
     /**
-     * Get the keys that configuration entries can use to target a documentation page, in precedence order.
-     *
-     * A page can be targeted by both its route key and its identifier, and both of these can be
-     * used in their version-agnostic form, so that a single entry applies to the page in
-     * every documentation version. Duplicate keys are removed, meaning that pages
-     * that do not belong to a version only have their two canonical keys.
+     * Get the version-specific and version-agnostic keys the documentation configuration
+     * entries can use to target a documentation page, most specific key first.
      *
      * @return array<int, string>
      */

@@ -143,13 +143,13 @@ class DocumentationSidebarUnitTest extends UnitTestCase
         $this->assertSame($instance, DocumentationSidebar::get());
     }
 
-    public function testGetMethodFallsBackToDefaultSidebarForUnversionedDocumentationPage()
+    public function testGetMethodFallsBackToDefaultVersionSidebarForUnversionedDocumentationPage()
     {
         self::mockConfig(['docs.versions' => ['1.x', '2.x']]);
         Hyde::kernel()->boot();
 
-        app()->instance('navigation.sidebar', $default = new DocumentationSidebar());
         app()->instance('navigation.sidebar.1.x', new DocumentationSidebar([], DocumentationVersions::get('1.x')));
+        app()->instance('navigation.sidebar.2.x', $default = new DocumentationSidebar([], DocumentationVersions::get('2.x')));
 
         Render::setPage(new DocumentationPage('installation'));
 

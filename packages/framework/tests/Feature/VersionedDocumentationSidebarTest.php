@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Hyde\Hyde;
 use Hyde\Support\Facades\Render;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Providers\NavigationServiceProvider;
@@ -53,7 +54,6 @@ class VersionedDocumentationSidebarTest extends VersionedDocumentationTestCase
         $this->assertSame('2.x', $sidebar->version->name);
         $this->assertSame(['docs/2.x/installation'], $this->menuRouteKeys($sidebar));
 
-        // The default service resolves the default version's sidebar, instead of generating a second one.
         $this->assertSame($this->sidebar('2.x'), $sidebar);
     }
 
@@ -73,6 +73,24 @@ class VersionedDocumentationSidebarTest extends VersionedDocumentationTestCase
         Render::setPage(DocumentationPage::get('2.x/installation'));
 
         $this->assertSame('2.x', DocumentationSidebar::get()->version->name);
+    }
+
+    public function testSidebarResolutionSupportsCustomPagesOverridingAVersionedPage()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/1.x/installation.md');
+        $this->file('_docs/2.x/installation.md');
+        $this->file('_pages/docs/1.x/search.blade.php', 'Custom search page');
+
+        $this->rediscoverPages();
+
+        $page = Hyde::routes()->get('docs/1.x/search')->getPage();
+
+        Render::setPage($page);
+
+        $this->assertSame('1.x', DocumentationSidebar::get()->version->name);
+        $this->assertSame('docs/2.x/search', DocumentationVersions::getEquivalentRoute($page, DocumentationVersions::get('2.x'))->getRouteKey());
     }
 
     public function testSidebarGroupsSkipTheVersionSegment()
