@@ -13,7 +13,7 @@ use Hyde\Console\Concerns\Command;
 class MonorepoReleaseCommand extends Command
 {
     /** @var string */
-    protected $signature = 'monorepo:release {--dry-run}';
+    protected $signature = 'monorepo:release {--base=master : Version branch to release from (1.x, 2.x, or master)} {--dry-run}';
 
     /** @var string */
     protected $description = 'Prepare a new syndicated HydePHP release';
@@ -29,6 +29,7 @@ class MonorepoReleaseCommand extends Command
     protected string $newVersion;
 
     protected bool $failed = false;
+    protected string $baseBranch;
     protected string $branch;
     protected string $releaseBody;
 
@@ -36,8 +37,15 @@ class MonorepoReleaseCommand extends Command
     {
         $this->title('Preparing a new syndicated HydePHP release!');
         $this->dryRun = $this->option('dry-run');
+        $this->baseBranch = (string) $this->option('base');
 
-        $this->fetchAndCheckoutMaster();
+        if (! in_array($this->baseBranch, ['1.x', '2.x', 'master'], true)) {
+            $this->failCommand('The release base must be one of: 1.x, 2.x, master.');
+
+            return Command::FAILURE;
+        }
+
+        $this->fetchAndCheckoutBaseBranch();
         $this->getCurrentVersion();
         $this->askForNewVersion();
         $this->newLine();
@@ -64,16 +72,9 @@ class MonorepoReleaseCommand extends Command
             $this->makeMonorepoCommit();
         }
 
-        $this->prepareFrameworkPR();
-
-        if ($this->isNotPatch()) {
-            $this->prepareHydePR();
-            $this->prepareDocsPR();
-        }
-
         $this->prepareMonorepoPR();
 
-        $this->confirm('Once the pull requests are merged and propagated, press enter to proceed and draft the releases.', true);
+        $this->confirm('Once the monorepo pull request is merged and the package mirrors are synced, press enter to proceed and draft the releases.', true);
 
         $this->prepareFrameworkRelease();
 
@@ -87,13 +88,13 @@ class MonorepoReleaseCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function fetchAndCheckoutMaster(): void
+    protected function fetchAndCheckoutBaseBranch(): void
     {
-        $this->info('Fetching and checking out master branch...');
+        $this->info("Fetching and checking out $this->baseBranch branch...");
 
-        $this->runUnlessDryRun('echo hi');
-        $this->runUnlessDryRun('git checkout master');
-        $this->runUnlessDryRun('git pull');
+        $this->runUnlessDryRun('git fetch origin '.escapeshellarg($this->baseBranch));
+        $this->runUnlessDryRun('git checkout '.escapeshellarg($this->baseBranch));
+        $this->runUnlessDryRun('git pull --ff-only origin '.escapeshellarg($this->baseBranch));
 
         $this->exitIfFailed();
 
@@ -322,42 +323,10 @@ This serves two purposes:
         $this->line('Done.');
     }
 
-    protected function prepareFrameworkPR(): void
-    {
-        $this->preparePackagePR('framework');
-    }
-
-    protected function prepareHydePR(): void
-    {
-        $this->preparePackagePR('hyde');
-    }
-
-    protected function prepareDocsPR(): void
-    {
-        $this->preparePackagePR('hydephp.com', 'upcoming', 'Merge upcoming documentation', 'This PR merges the upcoming documentation for `v'.$this->newVersion.'` into the master branch.');
-    }
-
-    protected function getTitle(): string
-    {
-        return "HydePHP v$this->newVersion - ".date('Y-m-d');
-    }
-
     protected function getCompanionBody(): string
     {
         // return sprintf('Please see the release notes in the development monorepo [`Release v%s`](https://github.com/hydephp/develop/releases/tag/v%s)', $this->newVersion, $this->newVersion);
         return sprintf('Please see the release notes in the development monorepo https://github.com/hydephp/develop/releases/tag/v%s', $this->newVersion);
-    }
-
-    protected function preparePackagePR(string $package, string $branch = 'develop', ?string $title = null, ?string $body = null): void
-    {
-        // Create link to draft pull request merging develop into master
-        $link = sprintf('https://github.com/hydephp/'.$package.'/compare/master...'.$branch.'?expand=1&draft=1&title=%s&body=%s',
-            urlencode($title ?? $this->getTitle()),
-            $body ?? ($this->isPatch() ? '' : $this->getCompanionBody())
-        );
-
-        $this->info("Opening $package pull request link in browser. Please review and submit the PR once all changes are propagated.");
-        $this->runUnlessDryRun((PHP_OS_FAMILY === 'Windows' ? 'explorer' : 'open').' '.escapeshellarg($link), true);
     }
 
     protected function prepareMonorepoPR(): void
@@ -373,7 +342,7 @@ This serves two purposes:
         // Inject "version" before version in PR body
         $body = preg_replace('/## \[(.*)]/', '## Version [v$1]', $body, 1);
 
-        $link = sprintf('https://github.com/hydephp/develop/compare/master...'.$this->branch.'?expand=1&draft=1&title=%s&body=%s',
+        $link = sprintf('https://github.com/hydephp/develop/compare/'.$this->baseBranch.'...'.$this->branch.'?expand=1&draft=1&title=%s&body=%s',
             urlencode($title),
             $this->isPatch() ? 'Framework patch release' : urlencode($body)
         );

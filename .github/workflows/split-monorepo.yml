@@ -4,7 +4,7 @@ name: 🪓 Split monorepo
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "1.x", "2.x", "master" ]
 
 # Cancels all previous workflow runs for the same branch that have not yet completed.
 concurrency:
@@ -16,10 +16,9 @@ jobs:
 
   hyde:
     runs-on: ubuntu-latest
-    continue-on-error: true
     environment:
       name: hydephp/hyde
-      url: https://github.com/hydephp/hyde/tree/master
+      url: https://github.com/hydephp/hyde/tree/${{ github.ref_name }}
 
     steps:
       - name: Checkout hydephp/develop
@@ -33,7 +32,7 @@ jobs:
         with:
           repository: hydephp/hyde
           path: hyde
-          ref: develop
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -81,15 +80,14 @@ jobs:
           git add .
           git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-          git push upstream develop
+          git push upstream HEAD:${{ github.ref_name }}
           echo "No changes to this package. Exiting gracefully."
 
   framework:
     runs-on: ubuntu-latest
-    continue-on-error: true
     environment:
       name: hydephp/framework
-      url: https://github.com/hydephp/framework/tree/master
+      url: https://github.com/hydephp/framework/tree/${{ github.ref_name }}
 
     steps:
       - name: Checkout hydephp/develop
@@ -103,7 +101,7 @@ jobs:
         with:
           repository: hydephp/framework
           path: framework
-          ref: develop
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -132,10 +130,11 @@ jobs:
           git add .
           git commit --author="$COMMIT_AUTHOR_NAME <$COMMIT_AUTHOR_EMAIL>" -m "$COMMIT_MESSAGE https://github.com/hydephp/develop/commit/${{ github.sha }}"
 
-          git push upstream develop
+          git push upstream HEAD:${{ github.ref_name }}
           echo "No changes to this package. Exiting gracefully."
 
   realtime-compiler:
+    if: github.ref_name == 'master'
     runs-on: ubuntu-latest
     continue-on-error: true
     environment:
@@ -186,6 +185,7 @@ jobs:
           git push upstream master
 
   hydefront:
+    if: github.ref_name == 'master'
     runs-on: ubuntu-latest
     continue-on-error: true
     environment:
@@ -236,6 +236,7 @@ jobs:
           git push upstream master
 
   docs:
+    if: github.ref_name == 'master'
     runs-on: ubuntu-latest
     continue-on-error: true
     environment:
@@ -291,6 +292,7 @@ jobs:
           echo "No changes to this package. Exiting gracefully."
 
   testing:
+    if: github.ref_name == 'master'
     runs-on: ubuntu-latest
     continue-on-error: true
     environment:
@@ -341,6 +343,7 @@ jobs:
           git push upstream master
 
   ui-kit:
+    if: github.ref_name == 'master'
     runs-on: ubuntu-latest
     continue-on-error: true
     environment:
@@ -392,6 +395,7 @@ jobs:
           git push upstream master
 
   vite-plugin:
+    if: github.ref_name == 'master'
     runs-on: ubuntu-latest
     continue-on-error: true
     environment:

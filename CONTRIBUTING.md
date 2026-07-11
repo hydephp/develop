@@ -40,11 +40,11 @@ When thinking about a new feature, make sure it's intuitive and easy to understa
 
 ## Which Branch?
 
-All bug fixes should be sent to the latest version that supports bug fixes (currently 1.x). Bug fixes should never be sent to the master branch unless they fix features that exist only in the upcoming release.
+Bug fixes for the current stable release should be sent to the `2.x` branch. Fixes for v1 should be sent to `1.x` only when they apply to that supported release line. Bug fixes should never be sent to `master` unless they affect features that exist only in the upcoming v3 release.
 
-Minor features that are fully backward compatible with the current release may be sent to the latest stable branch (currently 1.x).
+Minor features that are fully backward compatible with the current release may be sent to `2.x`.
 
-Major new features or features with breaking changes should always be sent to the master branch, which contains the upcoming release.
+Major new features or features with breaking changes should be sent to `master`, which contains the upcoming v3 release.
 
 ## Procedure
 

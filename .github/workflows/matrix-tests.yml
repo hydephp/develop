@@ -2,7 +2,7 @@ name: Matrix Tests
 
 on:
   pull_request:
-    branches: [ "master", "2.x-dev" ]
+    branches: [ "1.x", "2.x", "master" ]
     paths:
       - 'app/**'
       - 'packages/**'
