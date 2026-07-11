@@ -17,18 +17,11 @@ return [
     | Documentation Versions
     |--------------------------------------------------------------------------
     |
-    | Hyde supports hosting multiple versions of your documentation side by
-    | side. Each version listed here maps to a subdirectory of the source
-    | directory (`_docs/1.x`) compiled to a matching subdirectory of the
-    | output directory (`docs/1.x`), with its own sidebar and search.
+    | Each version maps `_docs/<version>` to `docs/<version>`.
+    | Leave this empty to disable versioning. When enabled, documentation
+    | files outside registered version directories are ignored.
     |
-    | Leave the list empty to disable versioning (the default behaviour).
-    | When versions are registered, all documentation pages must be stored
-    | in a version directory, as any files outside them are ignored.
-    |
-    | The default version is linked in the main navigation menu and receives
-    | the generated `docs/index` redirect page. It defaults to the last
-    | entry in the list, but can be set explicitly if you prefer.
+    | The default version defaults to the last entry in the list.
     |
     */
 

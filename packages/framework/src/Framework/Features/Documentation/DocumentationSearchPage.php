@@ -26,9 +26,6 @@ class DocumentationSearchPage extends InMemoryPage
 {
     protected readonly ?DocumentationVersion $version;
 
-    /**
-     * Create a new DocumentationSearchPage instance.
-     */
     public function __construct(?DocumentationVersion $version = null)
     {
         $this->version = $version;

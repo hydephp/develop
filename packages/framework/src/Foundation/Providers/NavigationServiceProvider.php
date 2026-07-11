@@ -25,11 +25,7 @@ class NavigationServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * The documentation sidebar is bound as `navigation.sidebar`. When documentation versioning is enabled,
-     * each version additionally gets its own sidebar, and `navigation.sidebar` is aliased to the default
-     * version's, so that both names resolve the same instance instead of generating it twice.
-     */
+    /** Register and alias the version-specific documentation sidebars. */
     protected function registerDocumentationSidebars(): void
     {
         $versions = DocumentationVersions::all();

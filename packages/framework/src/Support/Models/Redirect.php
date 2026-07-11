@@ -37,6 +37,7 @@ class Redirect extends InMemoryPage
      *
      * @param  string  $path  The URI path to redirect from.
      * @param  string  $destination  The destination to redirect to.
+     * @param  \Hyde\Markdown\Models\FrontMatter|array<string, mixed>  $matter  The front matter for the redirect page.
      */
     public function __construct(string $path, string $destination, bool $showText = true, FrontMatter|array $matter = [])
     {

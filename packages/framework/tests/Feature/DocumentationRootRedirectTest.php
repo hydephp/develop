@@ -75,7 +75,6 @@ class DocumentationRootRedirectTest extends VersionedDocumentationTestCase
     {
         $this->enableVersions();
 
-        // Documentation pages outside the version directories are ignored, so this file is not a page.
         $this->file('_docs/index.md');
         $this->file('_docs/2.x/index.md');
 

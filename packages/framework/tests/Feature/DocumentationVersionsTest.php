@@ -217,7 +217,7 @@ class DocumentationVersionsTest extends TestCase
         $this->file('_docs/2.x/installation.md');
         $this->file('_docs/2.x/upgrading.md');
 
-        Hyde::boot(); // Reboot to rediscover new pages
+        $this->rediscoverPages();
 
         $page = DocumentationPage::get('2.x/installation');
 
@@ -236,7 +236,7 @@ class DocumentationVersionsTest extends TestCase
         $this->file('_docs/1.x/getting-started/installation.md');
         $this->file('_docs/2.x/getting-started/installation.md');
 
-        Hyde::boot(); // Reboot to rediscover new pages
+        $this->rediscoverPages();
 
         $route = DocumentationVersions::getEquivalentRoute(DocumentationPage::get('2.x/getting-started/installation'), DocumentationVersions::get('1.x'));
 
@@ -250,7 +250,7 @@ class DocumentationVersionsTest extends TestCase
 
         $this->file('_docs/1.x/shared.md');
 
-        Hyde::boot(); // Reboot to rediscover new pages
+        $this->rediscoverPages();
 
         $this->assertNull(DocumentationVersions::getEquivalentRoute(new DocumentationPage('shared'), DocumentationVersions::get('1.x')));
     }
@@ -264,6 +264,11 @@ class DocumentationVersionsTest extends TestCase
             ['beta-1'],
             ['rc_1'],
         ];
+    }
+
+    protected function rediscoverPages(): void
+    {
+        Hyde::boot();
     }
 
     public static function invalidVersionNameProvider(): array
