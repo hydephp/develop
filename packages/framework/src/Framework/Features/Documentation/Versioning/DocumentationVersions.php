@@ -17,6 +17,8 @@ use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use function count;
 use function sprintf;
 use function in_array;
+use function array_values;
+use function array_unique;
 use function Hyde\unslash;
 use function preg_match;
 use function str_contains;
@@ -136,6 +138,26 @@ final class DocumentationVersions
         $pathWithinVersion = Str::after($page->getRouteKey(), $currentVersion->routeKeyPrefix().'/');
 
         return Routes::find($targetVersion->routeKeyPrefix().'/'.$pathWithinVersion);
+    }
+
+    /**
+     * Get the keys that configuration entries can use to target a documentation page, in precedence order.
+     *
+     * A page can be targeted by both its route key and its identifier, and both of these can be
+     * used in their version-agnostic form, so that a single entry applies to the page in
+     * every documentation version. Duplicate keys are removed, meaning that pages
+     * that do not belong to a version only have their two canonical keys.
+     *
+     * @return array<int, string>
+     */
+    public static function configurationKeys(string $routeKey, string $identifier): array
+    {
+        return array_values(array_unique([
+            $routeKey,
+            $identifier,
+            self::stripVersionPrefixFromRouteKey($routeKey),
+            self::stripVersionPrefix($identifier),
+        ]));
     }
 
     /**

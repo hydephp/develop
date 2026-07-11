@@ -12,7 +12,7 @@ use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function basename;
-use function in_array;
+use function array_intersect;
 use function trim;
 
 /**
@@ -59,14 +59,9 @@ class GeneratesDocumentationSearchIndex
             return false;
         }
 
-        $excluded = $this->getPagesToExcludeFromSearch();
+        $keys = DocumentationVersions::configurationKeys($page->getRouteKey(), $page->identifier);
 
-        // Pages can be excluded by their identifier or route key, and in both cases the version-agnostic
-        // form can be used, so that a single exclusion entry applies to the page in every version.
-        return ! in_array($page->identifier, $excluded)
-            && ! in_array($page->getRouteKey(), $excluded)
-            && ! in_array(DocumentationVersions::stripVersionPrefix($page->identifier), $excluded)
-            && ! in_array(DocumentationVersions::stripVersionPrefixFromRouteKey($page->getRouteKey()), $excluded);
+        return array_intersect($keys, $this->getPagesToExcludeFromSearch()) === [];
     }
 
     /**

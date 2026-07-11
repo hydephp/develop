@@ -15,10 +15,10 @@ use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
+use function is_a;
 use function basename;
 use function array_flip;
-use function in_array;
-use function is_a;
+use function array_intersect;
 use function array_key_exists;
 
 /**
@@ -44,12 +44,11 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private readonly FrontMatter $matter;
 
     /**
-     * The identifier and route key without any documentation version prefix, allowing version-agnostic
-     * configuration entries to match pages in all documentation versions. These are identical
-     * to the identifier and route key for pages that do not belong to a version.
+     * The keys configuration entries can use to target this page, in precedence order.
+     *
+     * @var array<int, string>
      */
-    private readonly string $versionAgnosticIdentifier;
-    private readonly string $versionAgnosticRouteKey;
+    private readonly array $configurationKeys;
 
     public function __construct(CoreDataObject $pageData, string $title)
     {
@@ -59,13 +58,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $this->routeKey = $pageData->routeKey;
         $this->title = $title;
 
-        $this->versionAgnosticIdentifier = $this->isInstanceOf(DocumentationPage::class)
-            ? DocumentationVersions::stripVersionPrefix($this->identifier)
-            : $this->identifier;
-
-        $this->versionAgnosticRouteKey = $this->isInstanceOf(DocumentationPage::class)
-            ? DocumentationVersions::stripVersionPrefixFromRouteKey($this->routeKey)
-            : $this->routeKey;
+        $this->configurationKeys = $this->isInstanceOf(DocumentationPage::class)
+            ? DocumentationVersions::configurationKeys($this->routeKey, $this->identifier)
+            : [$this->routeKey];
 
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
@@ -139,29 +134,16 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             ?? $this->invert($this->getMatter('navigation.visible'));
     }
 
-    private function searchForHiddenInConfigs(): ?bool
+    private function searchForHiddenInConfigs(): bool
     {
-        return $this->isInstanceOf(DocumentationPage::class)
-            ? $this->isPageHiddenInSidebarConfiguration()
-            : $this->isPageHiddenInNavigationConfiguration();
+        return $this->isExcludedIn(Config::getArray('hyde.navigation.exclude', ['404']))
+            || ($this->isInstanceOf(DocumentationPage::class) && $this->isExcludedIn(Config::getArray('docs.sidebar.exclude', ['404'])));
     }
 
-    private function isPageHiddenInNavigationConfiguration(): bool
+    /** @param array<string> $config */
+    private function isExcludedIn(array $config): bool
     {
-        $config = Config::getArray('hyde.navigation.exclude', ['404']);
-
-        return in_array($this->routeKey, $config) || in_array($this->versionAgnosticRouteKey, $config);
-    }
-
-    private function isPageHiddenInSidebarConfiguration(): ?bool
-    {
-        $config = Config::getArray('docs.sidebar.exclude', ['404']);
-
-        return
-            // Check if the page is hidden from the sidebar by route key or identifier.
-            (in_array($this->routeKey, $config) || in_array($this->identifier, $config) || in_array($this->versionAgnosticRouteKey, $config) || in_array($this->versionAgnosticIdentifier, $config))
-            // Check if the page is hidden from the main navigation by its route key.
-            || $this->isPageHiddenInNavigationConfiguration();
+        return array_intersect($this->configurationKeys, $config) !== [];
     }
 
     private function isNonDocumentationPageInHiddenSubdirectory(): bool
@@ -180,78 +162,50 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForLabelInConfigs(): ?string
     {
-        return $this->isInstanceOf(DocumentationPage::class)
-            ? $this->searchForLabelInSidebarConfig()
-            : $this->searchForLabelInNavigationConfig();
-    }
-
-    private function searchForLabelInNavigationConfig(): ?string
-    {
         /** @var array<string, string> $config */
-        $config = Config::getArray('hyde.navigation.labels', [
-            'index' => 'Home',
-            DocumentationPage::homeRouteName() => 'Docs',
-        ]);
+        $config = $this->isInstanceOf(DocumentationPage::class)
+            ? Config::getArray('docs.sidebar.labels', [
+                DocumentationPage::homeRouteName() => 'Docs',
+            ])
+            : Config::getArray('hyde.navigation.labels', [
+                'index' => 'Home',
+                DocumentationPage::homeRouteName() => 'Docs',
+            ]);
 
-        return $config[$this->routeKey] ?? $config[$this->versionAgnosticRouteKey] ?? null;
-    }
+        foreach ($this->configurationKeys as $key) {
+            if (isset($config[$key])) {
+                return $config[$key];
+            }
+        }
 
-    private function searchForLabelInSidebarConfig(): ?string
-    {
-        /** @var array<string>|array<string, string> $config */
-        $config = Config::getArray('docs.sidebar.labels', [
-            DocumentationPage::homeRouteName() => 'Docs',
-        ]);
-
-        return $config[$this->routeKey] ?? $config[$this->identifier]
-            ?? $config[$this->versionAgnosticRouteKey] ?? $config[$this->versionAgnosticIdentifier] ?? null;
+        return null;
     }
 
     private function searchForPriorityInConfigs(): ?int
     {
-        return $this->isInstanceOf(DocumentationPage::class)
-            ? $this->searchForPriorityInSidebarConfig()
-            : $this->searchForPriorityInNavigationConfig();
-    }
-
-    private function searchForPriorityInSidebarConfig(): ?int
-    {
-        /** @var array<string>|array<string, int> $config */
-        $config = Config::getArray('docs.sidebar.order', []);
-
-        return
-            // For consistency with the navigation config.
-            $this->parseNavigationPriorityConfig($config, 'routeKey')
-            // For backwards compatibility, and ease of use, as the route key prefix
-            // is redundant due to it being the same for all documentation pages
-            ?? $this->parseNavigationPriorityConfig($config, 'identifier')
-            // So that version-agnostic entries apply to the page in all documentation versions.
-            ?? $this->parseNavigationPriorityConfig($config, 'versionAgnosticRouteKey')
-            ?? $this->parseNavigationPriorityConfig($config, 'versionAgnosticIdentifier');
-    }
-
-    private function searchForPriorityInNavigationConfig(): ?int
-    {
         /** @var array<string, int>|array<string> $config */
-        $config = Config::getArray('hyde.navigation.order', [
-            'index' => 0,
-            'posts' => 10,
-            DocumentationPage::homeRouteName() => 100,
-        ]);
+        $config = $this->isInstanceOf(DocumentationPage::class)
+            ? Config::getArray('docs.sidebar.order', [])
+            : Config::getArray('hyde.navigation.order', [
+                'index' => 0,
+                'posts' => 10,
+                DocumentationPage::homeRouteName() => 100,
+            ]);
 
-        return $this->parseNavigationPriorityConfig($config, 'routeKey')
-            ?? $this->parseNavigationPriorityConfig($config, 'versionAgnosticRouteKey');
+        foreach ($this->configurationKeys as $key) {
+            $priority = $this->parseNavigationPriorityConfig($config, $key);
+
+            if ($priority !== null) {
+                return $priority;
+            }
+        }
+
+        return null;
     }
 
-    /**
-     * @param  array<string, int>|array<string>  $config
-     * @param  'routeKey'|'identifier'|'versionAgnosticIdentifier'|'versionAgnosticRouteKey'  $pageKeyName
-     */
-    private function parseNavigationPriorityConfig(array $config, string $pageKeyName): ?int
+    /** @param  array<string, int>|array<string>  $config */
+    private function parseNavigationPriorityConfig(array $config, string $pageKey): ?int
     {
-        /** @var string $pageKey */
-        $pageKey = $this->{$pageKeyName};
-
         // Check if the config entry is a flat array or a keyed array.
         if (! array_key_exists($pageKey, $config)) {
             // Adding an offset makes so that pages with a front matter priority, or
@@ -288,12 +242,23 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function pageIsInSubdirectory(): bool
     {
-        return Str::contains($this->versionAgnosticIdentifier, '/');
+        return Str::contains($this->versionAgnosticIdentifier(), '/');
     }
 
     private function getSubdirectoryName(): string
     {
-        return Str::before($this->versionAgnosticIdentifier, '/');
+        return Str::before($this->versionAgnosticIdentifier(), '/');
+    }
+
+    /**
+     * The identifier without any documentation version prefix, so that the subdirectory
+     * of a versioned page is resolved within its version, and not as the version.
+     */
+    private function versionAgnosticIdentifier(): string
+    {
+        return $this->isInstanceOf(DocumentationPage::class)
+            ? DocumentationVersions::stripVersionPrefix($this->identifier)
+            : $this->identifier;
     }
 
     protected function getSubdirectoryConfiguration(): string
