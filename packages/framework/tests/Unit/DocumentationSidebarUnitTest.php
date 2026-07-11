@@ -30,8 +30,6 @@ class DocumentationSidebarUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         \Illuminate\Support\Facades\Facade::setFacadeApplication(app());
         Render::swap(new RenderData());
     }

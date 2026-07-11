@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
+use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
+use Hyde\Foundation\Providers\NavigationServiceProvider;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
@@ -19,6 +21,8 @@ use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
  * @see \Hyde\Framework\Testing\Feature\DocumentationVersionsTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(DocumentationPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(HydeCoreExtension::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(NavigationServiceProvider::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(DocumentationVersion::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(DocumentationVersions::class)]
 class VersionedDocumentationTest extends TestCase

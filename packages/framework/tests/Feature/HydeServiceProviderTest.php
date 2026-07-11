@@ -358,6 +358,19 @@ class HydeServiceProviderTest extends TestCase
         $this->assertInstanceOf(DocumentationSidebar::class, app('navigation.sidebar'));
     }
 
+    public function testCanGetVersionedDocumentationSidebarFromContainer()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::boot();
+
+        /** @var DocumentationSidebar $sidebar */
+        $sidebar = app('navigation.sidebar.1.x');
+
+        $this->assertInstanceOf(DocumentationSidebar::class, $sidebar);
+        $this->assertSame('1.x', $sidebar->version->name);
+    }
+
     public function testCanGetMainNavigationMenuFromContainerUsingShorthand()
     {
         Hyde::boot();

@@ -59,6 +59,14 @@ class DocumentationVersionsTest extends TestCase
         $this->assertSame('1.x', DocumentationVersions::default()->name);
     }
 
+    public function testDefaultVersionNameReturnsNullForEmptyVersionList()
+    {
+        $method = new \ReflectionMethod(DocumentationVersions::class, 'defaultVersionName');
+        $method->setAccessible(true);
+
+        $this->assertNull($method->invoke(null, []));
+    }
+
     public function testUnknownDefaultVersionThrows()
     {
         config(['docs.versions' => ['1.x'], 'docs.default_version' => '2.x']);
