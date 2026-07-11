@@ -23,6 +23,8 @@ return [
     | output directory (`docs/1.x`), with its own sidebar and search.
     |
     | Leave the list empty to disable versioning (the default behaviour).
+    | When versions are registered, all documentation pages must be stored
+    | in a version directory, as any files outside them are ignored.
     |
     | The default version is linked in the main navigation menu and receives
     | the generated `docs/index` redirect page. It defaults to the last

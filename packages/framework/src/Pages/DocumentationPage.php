@@ -23,9 +23,10 @@ use function basename;
  * Documentation pages are stored in the _docs directory and using the .md extension.
  * The Markdown will be compiled to HTML using the documentation page layout to the _site/docs/ directory.
  *
- * When documentation versioning is enabled through the `docs.versions` configuration, pages stored in
- * version subdirectories (like `_docs/1.x`) belong to that version and are compiled to a matching
- * subdirectory of the output directory (like `_site/docs/1.x`).
+ * When documentation versioning is enabled through the `docs.versions` configuration, each page belongs to the
+ * version subdirectory it is stored in (like `_docs/1.x`), and is compiled to a matching subdirectory of the
+ * output directory (like `_site/docs/1.x`). Source files stored outside the version directories are then
+ * not part of any version, and are therefore not discovered as documentation pages.
  *
  * @see https://hydephp.com/docs/2.x/documentation-pages
  */
@@ -38,8 +39,9 @@ class DocumentationPage extends BaseMarkdownPage implements HasDocumentationVers
     /**
      * Get the route for the documentation index page, if it exists.
      *
-     * When documentation versioning is enabled, this is the generated redirect page at the documentation
-     * root. Use {@see DocumentationVersion::home()} to get the index page of a specific version.
+     * When documentation versioning is enabled, this is the generated redirect page at the documentation root.
+     *
+     * @see \Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion::home() To get the index page of a specific version.
      */
     public static function home(): ?Route
     {
@@ -50,7 +52,8 @@ class DocumentationPage extends BaseMarkdownPage implements HasDocumentationVers
      * Get the route key for the documentation index page, for example `docs/index`.
      *
      * This is always the documentation root, regardless of whether documentation versioning is enabled.
-     * Use {@see DocumentationVersion::homeRouteName()} to get the route key of a specific version's index page.
+     *
+     * @see \Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion::homeRouteName() To get the route key of a specific version's index page.
      */
     public static function homeRouteName(): string
     {
@@ -58,8 +61,7 @@ class DocumentationPage extends BaseMarkdownPage implements HasDocumentationVers
     }
 
     /**
-     * Get the documentation version this page belongs to, or null if versioning
-     * is disabled, or the page is not stored in a version subdirectory.
+     * Get the documentation version this page belongs to, or null if documentation versioning is disabled.
      */
     public function getDocumentationVersion(): ?DocumentationVersion
     {

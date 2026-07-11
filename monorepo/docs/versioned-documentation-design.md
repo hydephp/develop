@@ -38,13 +38,14 @@ Version names must match `/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/` (no slashes); violatio
 
 New namespace: `Hyde\Framework\Features\Documentation\Versioning`
 
-- **`DocumentationVersion`** — readonly value object: `name`, `isDefault()`, `routeKeyPrefix()`
-  (e.g. `docs/1.x`), `homeRouteName()` (e.g. `docs/1.x/index`), `getHomeRoute()`.
+- **`DocumentationVersion`** — readonly value object: `name`, `isDefault()` (derived through the
+  registry, as defaultness belongs to the configuration), `routeKeyPrefix()` (e.g. `docs/1.x`),
+  `homeRouteName()` (e.g. `docs/1.x/index`), `home()`.
 - **`DocumentationVersions`** — static registry over config: `enabled()`, `all()`,
-  `get(string $name)`, `getOrFail()`, `default()`, `fromIdentifier(string $identifier)`
-  (maps a page identifier's first path segment to a registered version, or null),
-  `getEquivalentRoute(DocumentationVersion $target, DocumentationPage $page)` (same logical page
-  in another version, null when it does not exist there).
+  `get(string $name)`, `default()` (null when versioning is disabled),
+  `fromIdentifier(string $identifier)` (maps a page identifier's first path segment to a registered
+  version, or null), `getEquivalentRoute(DocumentationPage $page, DocumentationVersion $target)`
+  (same logical page in another version, null when it does not exist there).
 - **`HasDocumentationVersion`** — interface with `getDocumentationVersion(): ?DocumentationVersion`,
   implemented by `DocumentationPage` and the versioned search pages, so the sidebar/search views
   can resolve the version of whatever page is being rendered (docs pages *and* in-memory search
@@ -53,10 +54,14 @@ New namespace: `Hyde\Framework\Features\Documentation\Versioning`
 ### Key decisions and their rationale
 
 1. **Version identity comes from the identifier's first path segment**, checked against the
-   registry. A directory `_docs/getting-started` is *not* a version unless listed in config, so
-   mixed layouts and gradual migrations keep working. Pages outside a version directory while
-   versioning is enabled remain plain docs pages (routed as before, excluded from version
-   sidebars/search shards).
+   registry. A directory `_docs/getting-started` is *not* a version unless listed in config.
+   **Versioning is all or nothing:** when versions are registered, every documentation page must
+   live in a version directory, and source files outside them are discarded during file discovery
+   (`HydeCoreExtension::discoverFiles()`). Supporting mixed layouts would make them a permanent
+   compatibility promise, and required nullable page versions, default-sidebar and default-search
+   fallbacks, and switcher suppression — a lot of policy for pages that the per-version sidebar,
+   switcher, and search shards cannot meaningfully serve anyway. Sites wanting a page at the docs
+   root can put one in `_pages/docs/index.md`, which overrides the generated redirect.
 2. **No new page class.** `DocumentationPage` itself becomes version-aware. A separate
    `VersionedDocumentationPage` would force users (and Hyde internals: `Routes::getRoutes()`,
    navigation, factories) to handle two classes. HydePHP.com's pain came precisely from
@@ -65,10 +70,14 @@ New namespace: `Hyde\Framework\Features\Documentation\Versioning`
    (default), `_docs/2.x/getting-started/installation.md` → route key `docs/2.x/installation`.
    The version segment survives flattening; only the intra-version structure flattens. This keeps
    HydePHP.com-style URLs and avoids cross-version collisions.
-4. **`DocumentationPage::homeRouteName()` returns the default version's home** (`docs/2.x/index`)
-   when versioning is enabled and no explicit version is passed. All existing consumers (main nav
-   "Docs" link, labels, priorities) then do the right thing automatically. It accepts an optional
-   `DocumentationVersion|string` parameter for per-version homes.
+4. **The home-route abstraction has a single owner.** `DocumentationPage::home()` and
+   `homeRouteName()` keep their v2 semantics: they always point at the documentation root
+   (`docs/index`), which under versioning is the generated redirect. Per-version homes belong to
+   the version object (`$version->home()`, `$version->homeRouteName()`). Consumers that need the
+   default version's home ask the registry for it explicitly. Keeping the legacy root route stable
+   is also what lets the published `config/docs.php` call `DocumentationPage::homeRouteName()`
+   while the configuration is still loading, without the route helper having to know about the
+   configuration lifecycle.
 5. **Sidebar config keys are version-agnostic by default.** `docs.sidebar.order/labels/exclude`
    and `docs.exclude_from_search` entries match both the full identifier (`2.x/readme`) and the
    version-stripped identifier (`readme`), so one config applies to all versions, with
@@ -76,10 +85,11 @@ New namespace: `Hyde\Framework\Features\Documentation\Versioning`
 6. **Automatic sidebar grouping skips the version segment.** `2.x/getting-started/foo` groups
    under `getting-started`; `2.x/foo` is ungrouped (top level of the version).
 7. **Per-version sidebars are container singletons** — `navigation.sidebar.{version}` registered
-   in `NavigationServiceProvider` alongside the existing `navigation.sidebar` (which, when
-   versioning is on, holds the default version's sidebar). `DocumentationSidebar::get()` picks
-   the right one from the current render context. The sidebar Blade view now calls
-   `DocumentationSidebar::get()` instead of `app('navigation.sidebar')`.
+   in `NavigationServiceProvider`, with the existing `navigation.sidebar` aliased to the default
+   version's binding, so both names resolve one instance rather than generating a second identical
+   sidebar. The version-specific service names are an internal convention, not public API.
+   `DocumentationSidebar::get()` picks the right one from the current render context, and the
+   sidebar Blade view calls it instead of `app('navigation.sidebar')`.
 8. **Per-version search shards.** `HydeCoreExtension::discoverPages()` registers one
    `DocumentationSearchIndex` + `DocumentationSearchPage` per version (`docs/2.x/search.json`,
    `docs/2.x/search.html`). `GeneratesDocumentationSearchIndex` takes an optional version and
@@ -98,14 +108,14 @@ New namespace: `Hyde\Framework\Features\Documentation\Versioning`
 | File | Change |
 | --- | --- |
 | `packages/framework/src/Framework/Features/Documentation/Versioning/*` | New classes (registry, value object, interface) |
-| `packages/framework/src/Pages/DocumentationPage.php` | `getDocumentationVersion()`, version-preserving flattening, version-aware home helpers |
+| `packages/framework/src/Pages/DocumentationPage.php` | `getDocumentationVersion()`, version-preserving flattening |
 | `packages/framework/src/Framework/Factories/NavigationDataFactory.php` | Version-stripped identifier in group/label/order/exclude lookups; `homeRouteName()` for default nav order |
 | `packages/framework/src/Framework/Features/Navigation/NavigationMenuGenerator.php` | Optional version filter for sidebar generation, version-aware home exclusion and empty-sidebar fallback |
 | `packages/framework/src/Framework/Features/Navigation/DocumentationSidebar.php` | Render-context-aware `get()` |
 | `packages/framework/src/Foundation/Providers/NavigationServiceProvider.php` | Per-version sidebar singletons |
 | `packages/framework/src/Framework/Actions/GeneratesDocumentationSearchIndex.php` | Optional version filter, version-stripped exclude matching |
 | `packages/framework/src/Framework/Features/Documentation/DocumentationSearchIndex.php` + `DocumentationSearchPage.php` | Optional version (route key, output path, enabled check) |
-| `packages/framework/src/Foundation/HydeCoreExtension.php` | Per-version search page registration + docs root redirect |
+| `packages/framework/src/Foundation/HydeCoreExtension.php` | Discarding unversioned source files, per-version search page registration, docs root redirect |
 | `packages/framework/resources/views/components/docs/sidebar.blade.php` | Use `DocumentationSidebar::get()` |
 | `packages/framework/resources/views/components/docs/sidebar-brand.blade.php` | Include version switcher; version-aware home link |
 | `packages/framework/resources/views/components/docs/version-switcher.blade.php` | New component |
@@ -151,13 +161,11 @@ as the work they describe.
 - The version registry helpers gained `fromRouteKey()`, `stripVersionPrefix()`, and
   `stripVersionPrefixFromRouteKey()`, used by navigation/search to make configuration
   entries version-agnostic. The interface method is named `getDocumentationVersion()`.
-- `DocumentationVersions::enabled()` treats versioning as disabled when called before the app
-  configuration is available, because the published `config/docs.php` calls
-  `DocumentationPage::homeRouteName()` while the configuration itself is loading. Version-agnostic
-  route key matching compensates: a `docs/index` key in a published config file still matches
-  every version's index page at runtime.
 - `HydePageDataFactory::findTitleFromParentIdentifier()` strips the version prefix so `2.x/index`
   is not titled "2.X".
+- `DocumentationSearchIndex::outputPath()` was renamed to `routeKey()`, mirroring
+  `DocumentationSearchPage::routeKey()`. The inherited `HydePage::outputPath(string $identifier)`
+  signature would otherwise have forced a `DocumentationVersion|string` union on the parameter.
 - Documentation site docs (hydephp/docs repo) still need a "Versioned documentation" section —
   that repo is separate from this monorepo.
 - Future enhancements deliberately left out (see "Out of scope") remain unimplemented.
