@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Features;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Testing\TestCase;
 use Hyde\Enums\Feature;
@@ -22,6 +23,7 @@ class DarkmodeFeatureTest extends TestCase
         $this->mockPage();
 
         $this->app->instance('navigation.main', new MainNavigationMenu());
+        $this->app->instance('navigation.sidebar', new DocumentationSidebar());
     }
 
     public function testHasDarkmodeIsFalseWhenNotSet()
