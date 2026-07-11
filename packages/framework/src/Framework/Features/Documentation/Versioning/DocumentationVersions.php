@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
@@ -91,6 +92,22 @@ final class DocumentationVersions
         $default = self::defaultVersionName($versions);
 
         return $default === null ? null : self::get($default);
+    }
+
+    /**
+     * Get the version of the documentation page currently being rendered, falling back to the
+     * default version when the rendered page does not belong to one, for example when the
+     * search modal is rendered on a page that is not part of the documentation module.
+     */
+    public static function current(): ?DocumentationVersion
+    {
+        $page = Render::getPage();
+
+        $version = $page instanceof DocumentationPage || $page instanceof DocumentationSearchPage
+            ? $page->getDocumentationVersion()
+            : null;
+
+        return $version ?? self::default();
     }
 
     /**

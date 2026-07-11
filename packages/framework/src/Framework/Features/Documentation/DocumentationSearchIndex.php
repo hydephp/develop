@@ -7,10 +7,8 @@ namespace Hyde\Framework\Features\Documentation;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
-use Hyde\Support\Facades\Render;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
-use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 /**
  * @internal This page is used to render the search index for the documentation.
@@ -58,20 +56,5 @@ class DocumentationSearchIndex extends InMemoryPage
     public function getOutputPath(): string
     {
         return static::routeKey($this->version);
-    }
-
-    /**
-     * Get the search index path for the page currently being rendered, so that documentation
-     * pages in a version use the search index belonging to that version.
-     */
-    public static function outputPathForRenderedPage(): string
-    {
-        $page = Render::getPage();
-
-        $version = $page instanceof DocumentationPage || $page instanceof DocumentationSearchPage
-            ? $page->getDocumentationVersion()
-            : null;
-
-        return static::routeKey($version ?? DocumentationVersions::default());
     }
 }

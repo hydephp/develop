@@ -1,4 +1,9 @@
-@props(['modal' => true])
+@props([
+    'modal' => true,
+    'searchIndexPath' => \Hyde\Framework\Features\Documentation\DocumentationSearchIndex::routeKey(
+        \Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions::current()
+    ),
+])
 
 <div id="hyde-search" x-data="hydeSearch">
     <template id="search-highlight-template">
@@ -38,7 +43,7 @@
         
         document.addEventListener('alpine:init', () => {
             Alpine.data('hydeSearch', () => 
-                initHydeSearch('{{ Hyde::relativeLink(\Hyde\Framework\Features\Documentation\DocumentationSearchIndex::outputPathForRenderedPage()) }}')
+                initHydeSearch('{{ Hyde::relativeLink($searchIndexPath) }}')
             );
         });
     </script>

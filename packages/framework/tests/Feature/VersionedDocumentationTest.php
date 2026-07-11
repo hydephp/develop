@@ -532,7 +532,7 @@ class VersionedDocumentationTest extends TestCase
 
         Render::setPage(DocumentationPage::get('1.x/installation'));
 
-        $this->assertSame('docs/1.x/search.json', \Hyde\Framework\Features\Documentation\DocumentationSearchIndex::outputPathForRenderedPage());
+        $this->assertSame('docs/1.x/search.json', \Hyde\Framework\Features\Documentation\DocumentationSearchIndex::routeKey(DocumentationVersions::current()));
     }
 
     public function testVersionedSearchPageCanBeOverriddenByUserPage()

@@ -80,42 +80,42 @@ class DocumentationSearchIndexTest extends TestCase
         $this->assertSame('search.json', DocumentationSearchIndex::routeKey());
     }
 
-    public function testOutputPathForRenderedPageFallsBackToDefaultVersionSearchIndexWhenRenderedDocumentationPageIsUnversioned()
+    public function testCurrentVersionSearchIndexPathFallsBackToDefaultVersionSearchIndexWhenRenderedDocumentationPageIsUnversioned()
     {
         config(['docs.versions' => ['1.x', '2.x']]);
         DocumentationPage::setOutputDirectory('docs');
 
         Render::setPage(new DocumentationPage('installation'));
 
-        $this->assertSame('docs/2.x/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
+        $this->assertSame('docs/2.x/search.json', DocumentationSearchIndex::routeKey(DocumentationVersions::current()));
     }
 
-    public function testOutputPathForRenderedPageFallsBackToDefaultVersionSearchIndexWhenRenderedPageHasNoDocumentationVersion()
+    public function testCurrentVersionSearchIndexPathFallsBackToDefaultVersionSearchIndexWhenRenderedPageHasNoDocumentationVersion()
     {
         config(['docs.versions' => ['1.x', '2.x']]);
         DocumentationPage::setOutputDirectory('docs');
 
         Render::setPage(new InMemoryPage('index'));
 
-        $this->assertSame('docs/2.x/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
+        $this->assertSame('docs/2.x/search.json', DocumentationSearchIndex::routeKey(DocumentationVersions::current()));
     }
 
-    public function testOutputPathForRenderedPageFallsBackToUnversionedSearchIndexWhenVersioningIsDisabled()
+    public function testCurrentVersionSearchIndexPathFallsBackToUnversionedSearchIndexWhenVersioningIsDisabled()
     {
         DocumentationPage::setOutputDirectory('docs');
 
         Render::setPage(new InMemoryPage('index'));
 
-        $this->assertSame('docs/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
+        $this->assertSame('docs/search.json', DocumentationSearchIndex::routeKey(DocumentationVersions::current()));
     }
 
-    public function testOutputPathForRenderedPageUsesVersionedSearchIndexForVersionedSearchPages()
+    public function testCurrentVersionSearchIndexPathUsesVersionedSearchIndexForVersionedSearchPages()
     {
         config(['docs.versions' => ['1.x']]);
         DocumentationPage::setOutputDirectory('docs');
 
         Render::setPage(new DocumentationSearchPage(DocumentationVersions::get('1.x')));
 
-        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
+        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::routeKey(DocumentationVersions::current()));
     }
 }
