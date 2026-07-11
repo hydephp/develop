@@ -138,9 +138,9 @@ class RealtimeCompilerTest extends TestCase
         $kernel->handle(new Request());
     }
 
-    public function testSends404ErrorResponseForMissingAsset()
+    public function testSends404ErrorResponseForMissingMediaAsset()
     {
-        $this->mockCompilerRoute('missing.css');
+        $this->mockCompilerRoute('media/missing.css');
 
         $kernel = new HttpKernel();
         $response = $kernel->handle(new Request());
@@ -148,6 +148,21 @@ class RealtimeCompilerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(404, $response->statusCode);
         $this->assertSame('Not Found', $response->statusMessage);
+    }
+
+    public function testFallsBackToPageRouterForExtensionLikePathThatIsNotAnAsset()
+    {
+        // A dotted path segment that isn't an existing media file (for example a
+        // documentation version folder like "1.x") should be handled by the page
+        // router rather than being assumed to be a missing static asset.
+        $this->mockCompilerRoute('missing.css');
+
+        $kernel = new HttpKernel();
+
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage('Route [missing.css] not found');
+
+        $kernel->handle(new Request());
     }
 
     public function testTrailingSlashesAreNormalizedFromRoute()

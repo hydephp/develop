@@ -19,6 +19,9 @@ class Router
 
     protected Request $request;
 
+    /** @var string|false|null Memoized result of {@see resolveAssetPath()}. `false` means not yet resolved. */
+    protected string|false|null $resolvedAssetPath = false;
+
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -55,12 +58,10 @@ class Router
             return true;
         }
 
-        // Get the requested file extension
+        // If the path has no extension, it's a pretty url for a web page.
         $extension = pathinfo($request->path)['extension'] ?? null;
 
-        // If the extension is not set (pretty url), or is .html,
-        // we assume it's a web page which we need to compile.
-        if ($extension === null || $extension === 'html') {
+        if ($extension === null) {
             return false;
         }
 
@@ -69,8 +70,26 @@ class Router
             return false;
         }
 
-        // The page is not a web page, so we assume it should be proxied.
-        return true;
+        // A dotted path segment isn't necessarily a file extension (for example,
+        // documentation version folders like "1.x"), and the set of extensions
+        // treated as media files is user-configurable, which we can't read yet
+        // as the application isn't booted at this point. So rather than
+        // guessing from the extension, we only proxy when a matching file
+        // actually exists; everything else is handled as a page request.
+        return $this->resolveAssetPath() !== null;
+    }
+
+    /**
+     * Locate the static file for the current request, memoized so a lookup
+     * already performed in {@see shouldProxy()} isn't repeated in {@see proxyStatic()}.
+     */
+    protected function resolveAssetPath(): ?string
+    {
+        if ($this->resolvedAssetPath === false) {
+            $this->resolvedAssetPath = AssetFileLocator::find($this->request->path);
+        }
+
+        return $this->resolvedAssetPath;
     }
 
     /**
@@ -155,7 +174,7 @@ class Router
      */
     protected function proxyStatic(): Response
     {
-        $path = AssetFileLocator::find($this->request->path);
+        $path = $this->resolveAssetPath();
 
         if ($path === null) {
             return $this->notFound();
