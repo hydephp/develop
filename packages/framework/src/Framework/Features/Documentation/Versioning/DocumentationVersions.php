@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Documentation\Versioning;
 
 use Hyde\Facades\Config;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
@@ -20,7 +21,6 @@ use function in_array;
 use function Hyde\unslash;
 use function preg_match;
 use function str_contains;
-use function array_key_last;
 use function str_starts_with;
 
 /**
@@ -177,7 +177,7 @@ final class DocumentationVersions
             return null;
         }
 
-        $default = Config::getNullableString('docs.default_version') ?? $versions[array_key_last($versions)];
+        $default = Config::getNullableString('docs.default_version') ?? Arr::last($versions);
 
         if (! in_array($default, $versions, true)) {
             throw new InvalidConfigurationException(sprintf("The default documentation version '%s' is not present in the `docs.versions` configuration.", $default), 'docs', 'default_version');
