@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### About
 
-Keep an Unreleased section at the top to track upcoming changes.
+We keep an Unreleased section at the top to track upcoming changes.
 
 This serves two purposes:
 
-1. People can see what changes they might expect in upcoming releases
-2. At release time, you can move the Unreleased section changes into a new release version section.
+1. People can see what changes they might expect in upcoming releases.
+2. At release time, we can move the Unreleased section changes into a new release version section.
 
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
