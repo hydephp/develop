@@ -165,7 +165,6 @@ class RealtimeCompilerTest extends TestCase
 
     public function testThrowsRouteNotFoundExceptionForMissingHtmlPage()
     {
-        // Unlike a missing asset, a missing web page is an error we want to show the developer.
         $this->mockCompilerRoute('missing.html');
 
         $kernel = new HttpKernel();
@@ -178,9 +177,6 @@ class RealtimeCompilerTest extends TestCase
 
     public function testFallsBackToPageRouterForExtensionLikePathThatIsNotAnAsset()
     {
-        // A dotted path segment that isn't an existing media file (for example a
-        // documentation version folder like "9.x") should be handled by the page
-        // router rather than being assumed to be a missing static asset.
         $this->mockCompilerRoute('9.x');
 
         Filesystem::ensureDirectoryExists('_pages/9.x');

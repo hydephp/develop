@@ -19,8 +19,8 @@ class Router
 
     protected Request $request;
 
-    /** @var string|false|null Memoized result of {@see resolveAssetPath()}. `false` means not yet resolved. */
-    protected string|false|null $resolvedAssetPath = false;
+    protected bool $assetPathResolved = false;
+    protected ?string $resolvedAssetPath = null;
 
     public function __construct(Request $request)
     {
@@ -46,7 +46,7 @@ class Router
         // A path with a file extension that matches neither a static file nor a page (like a
         // missing stylesheet or source map) is a missing asset, and not a missing web page,
         // so we send a normal 404 response instead of the pretty page not found error.
-        if ($this->looksLikeAsset() && ! PageRouter::hasRoute($this->request)) {
+        if ($this->hasAssetLikeExtension() && ! PageRouter::hasRoute($this->request)) {
             return $this->notFound();
         }
 
@@ -65,7 +65,7 @@ class Router
             return true;
         }
 
-        if (! $this->looksLikeAsset()) {
+        if (! $this->hasAssetLikeExtension()) {
             return false;
         }
 
@@ -74,35 +74,27 @@ class Router
             return false;
         }
 
-        // A dotted path segment isn't necessarily a file extension (for example,
-        // documentation version folders like "1.x"), and the set of extensions
-        // treated as media files is user-configurable, which we can't read yet
-        // as the application isn't booted at this point. So rather than
-        // guessing from the extension, we only proxy when a matching file
-        // actually exists; everything else is handled as a page request.
+        // Dotted page routes (like documentation version folders) are proxied only when a matching asset exists.
         return $this->resolveAssetPath() !== null;
     }
 
     /**
-     * Does the request path look like it's for a static asset, rather than a web page?
+     * Does the request path have an extension that isn't a web page?
      *
      * Paths without an extension are pretty urls, and .html paths are compiled pages.
      */
-    protected function looksLikeAsset(): bool
+    protected function hasAssetLikeExtension(): bool
     {
         $extension = pathinfo($this->request->path)['extension'] ?? null;
 
         return $extension !== null && $extension !== 'html';
     }
 
-    /**
-     * Locate the static file for the current request, memoized so a lookup
-     * already performed in {@see shouldProxy()} isn't repeated in {@see proxyStatic()}.
-     */
     protected function resolveAssetPath(): ?string
     {
-        if ($this->resolvedAssetPath === false) {
+        if (! $this->assetPathResolved) {
             $this->resolvedAssetPath = AssetFileLocator::find($this->request->path);
+            $this->assetPathResolved = true;
         }
 
         return $this->resolvedAssetPath;
