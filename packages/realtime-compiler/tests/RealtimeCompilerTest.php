@@ -9,6 +9,7 @@ use Desilva\Microserve\Response;
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\InMemoryPage;
+use Illuminate\View\ViewException;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
@@ -162,6 +163,19 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('Not Found', $response->statusMessage);
     }
 
+    public function testThrowsRouteNotFoundExceptionForMissingHtmlPage()
+    {
+        // Unlike a missing asset, a missing web page is an error we want to show the developer.
+        $this->mockCompilerRoute('missing.html');
+
+        $kernel = new HttpKernel();
+
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage('Route [missing] not found');
+
+        $kernel->handle(new Request());
+    }
+
     public function testFallsBackToPageRouterForExtensionLikePathThatIsNotAnAsset()
     {
         // A dotted path segment that isn't an existing media file (for example a
@@ -180,6 +194,30 @@ class RealtimeCompilerTest extends TestCase
         $this->assertStringContainsString('Hello World!', $response->body);
 
         Filesystem::deleteDirectory('_pages/9.x');
+    }
+
+    public function testErrorThrownWhileCompilingExistingDottedPageIsNotSentAsA404()
+    {
+        // The dotted path makes the request look like a static asset, but as the page exists,
+        // an error thrown while compiling it must surface instead of being masked as a 404.
+        $this->mockCompilerRoute('9.x');
+
+        Filesystem::ensureDirectoryExists('_pages/9.x');
+        Filesystem::put('_pages/9.x/index.md', "[Blade]: {{ \Hyde\Foundation\Facades\Routes::get('missing-route') }}");
+
+        $kernel = new HttpKernel();
+
+        try {
+            $kernel->handle(new Request());
+
+            $this->fail('The error thrown while compiling the page was not sent.');
+        } catch (ViewException $exception) {
+            // Blade wraps exceptions thrown while rendering a view, so we assert on the underlying one.
+            $this->assertInstanceOf(RouteNotFoundException::class, $exception->getPrevious());
+            $this->assertStringContainsString('Route [missing-route] not found', $exception->getMessage());
+        } finally {
+            Filesystem::deleteDirectory('_pages/9.x');
+        }
     }
 
     public function testTrailingSlashesAreNormalizedFromRoute()
