@@ -106,16 +106,6 @@ class VersionedDocumentationTest extends TestCase
         $this->assertSame('docs/2.x/getting-started/installation.html', $page->getOutputPath());
     }
 
-    public function testUnversionedPagesFlattenAsBeforeWhenVersioningIsEnabled()
-    {
-        $this->enableVersions();
-
-        $page = new DocumentationPage('getting-started/installation');
-
-        $this->assertSame('docs/installation', $page->getRouteKey());
-        $this->assertSame('docs/installation.html', $page->getOutputPath());
-    }
-
     public function testFlattenedRouteKeysAreUnchangedWhenVersioningIsDisabled()
     {
         $page = new DocumentationPage('getting-started/installation');
@@ -195,6 +185,35 @@ class VersionedDocumentationTest extends TestCase
         $this->assertSame(['docs/1.x/installation', 'docs/2.x/advanced', 'docs/2.x/installation'], $routes);
     }
 
+    public function testUnversionedDocumentationFilesAreIgnoredWhenVersioningIsEnabled()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/index.md');
+        $this->file('_docs/shared.md');
+        $this->file('_docs/getting-started/installation.md');
+        $this->file('_docs/2.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $routes = Hyde::routes()->getRoutes(DocumentationPage::class)->keys()->all();
+
+        $this->assertSame(['docs/2.x/installation'], $routes);
+
+        $this->assertEmpty(Hyde::files()->getFiles(DocumentationPage::class)->filter(function ($file): bool {
+            return ! str_starts_with($file->getPath(), '_docs/2.x/');
+        }));
+    }
+
+    public function testUnversionedDocumentationFilesAreDiscoveredWhenVersioningIsDisabled()
+    {
+        $this->file('_docs/shared.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertContains('docs/shared', Hyde::routes()->getRoutes(DocumentationPage::class)->keys()->all());
+    }
+
     public function testVersionedDocumentationUsesCustomDocumentationOutputDirectory()
     {
         $this->enableVersions();
@@ -245,37 +264,6 @@ class VersionedDocumentationTest extends TestCase
 
         $this->assertSame('2.x', $twoSidebar->version->name);
         $this->assertSame(['docs/2.x/installation', 'docs/2.x/upgrading'], $this->menuRouteKeys($twoSidebar));
-    }
-
-    public function testUnversionedDocumentationPagesCanCoexistWithVersionedDocumentation()
-    {
-        $this->enableVersions();
-
-        $this->file('_docs/shared.md', '# Shared');
-        $this->file('_docs/1.x/installation.md', '# Legacy Install');
-        $this->file('_docs/2.x/installation.md', '# Current Install');
-
-        Hyde::boot(); // Reboot to rediscover new pages
-
-        $routes = Hyde::routes()->getRoutes(DocumentationPage::class)->keys()->all();
-
-        $this->assertContains('docs/shared', $routes);
-
-        /** @var DocumentationSidebar $oneSidebar */
-        $oneSidebar = app('navigation.sidebar.1.x');
-        /** @var DocumentationSidebar $twoSidebar */
-        $twoSidebar = app('navigation.sidebar.2.x');
-
-        $this->assertSame(['docs/1.x/installation'], $this->menuRouteKeys($oneSidebar));
-        $this->assertSame(['docs/2.x/installation'], $this->menuRouteKeys($twoSidebar));
-
-        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $oneIndex */
-        $oneIndex = Hyde::pages()->get('docs/1.x/search.json');
-        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $twoIndex */
-        $twoIndex = Hyde::pages()->get('docs/2.x/search.json');
-
-        $this->assertSame(['Legacy Install'], array_column(json_decode($oneIndex->compile(), true), 'title'));
-        $this->assertSame(['Current Install'], array_column(json_decode($twoIndex->compile(), true), 'title'));
     }
 
     public function testDefaultSidebarIsTheDefaultVersionSidebarWhenVersioningIsEnabled()
@@ -582,16 +570,17 @@ class VersionedDocumentationTest extends TestCase
         $this->assertInstanceOf(\Hyde\Pages\MarkdownPage::class, Hyde::routes()->get('docs/index')->getPage());
     }
 
-    public function testDocumentationRootRedirectCanBeOverriddenByDocumentationIndexPage()
+    public function testDocumentationRootRedirectIsNotOverriddenByUnversionedDocumentationIndexPage()
     {
         $this->enableVersions();
 
+        // Documentation pages outside the version directories are ignored, so this file is not a page.
         $this->file('_docs/index.md');
         $this->file('_docs/2.x/index.md');
 
         Hyde::boot(); // Reboot to rediscover new pages
 
-        $this->assertInstanceOf(DocumentationPage::class, Hyde::routes()->get('docs/index')->getPage());
+        $this->assertInstanceOf(\Hyde\Support\Models\Redirect::class, Hyde::routes()->get('docs/index')->getPage());
     }
 
     public function testDocumentationRootRedirectIsNotAddedWhenTheDefaultVersionHasNoIndexPage()

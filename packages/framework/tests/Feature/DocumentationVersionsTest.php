@@ -253,16 +253,15 @@ class DocumentationVersionsTest extends TestCase
         $this->assertSame('docs/1.x/installation', $route->getRouteKey());
     }
 
-    public function testGetEquivalentRouteReturnsNullForUnversionedPage()
+    public function testGetEquivalentRouteReturnsNullForPagesThatAreNotInAVersion()
     {
         config(['docs.versions' => ['1.x', '2.x']]);
 
-        $this->file('_docs/shared.md');
         $this->file('_docs/1.x/shared.md');
 
         Hyde::boot(); // Reboot to rediscover new pages
 
-        $this->assertNull(DocumentationVersions::getEquivalentRoute(DocumentationPage::get('shared'), DocumentationVersions::get('1.x')));
+        $this->assertNull(DocumentationVersions::getEquivalentRoute(new DocumentationPage('shared'), DocumentationVersions::get('1.x')));
     }
 
     public static function validVersionNameProvider(): array

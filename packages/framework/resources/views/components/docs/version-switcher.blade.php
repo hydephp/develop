@@ -3,11 +3,8 @@
     $switcherVersions = \Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions::all();
     $switcherCurrentPage = \Hyde\Support\Facades\Render::getPage();
 
-    // The current version is the one the rendered page belongs to, so that the switcher is hidden for pages
-    // stored outside the version directories. We fall back to the sidebar's version when there is no page.
-    $switcherCurrentVersion = $switcherCurrentPage instanceof \Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion
-        ? $switcherCurrentPage->getDocumentationVersion()
-        : $sidebar->version;
+    // The sidebar is resolved from the version of the page being rendered, so its version is the current one.
+    $switcherCurrentVersion = $sidebar->version;
 @endphp
 
 @if($switcherCurrentVersion !== null && $switcherVersions->count() > 1)

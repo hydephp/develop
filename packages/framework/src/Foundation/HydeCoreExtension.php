@@ -12,7 +12,9 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Redirect;
+use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
+use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
@@ -36,6 +38,13 @@ class HydeCoreExtension extends HydeExtension
             MarkdownPost::class => Features::hasMarkdownPosts(),
             DocumentationPage::class => Features::hasDocumentationPages(),
         ], fn (bool $value): bool => $value));
+    }
+
+    public function discoverFiles(FileCollection $collection): void
+    {
+        if (DocumentationVersions::enabled()) {
+            $this->discardUnversionedDocumentationFiles($collection);
+        }
     }
 
     public function discoverPages(PageCollection $collection): void
@@ -64,6 +73,24 @@ class HydeCoreExtension extends HydeExtension
                 }
             }
         }
+    }
+
+    /**
+     * When documentation versioning is enabled, all documentation pages belong to a version, so any
+     * source files stored outside the version directories are not part of the site, and are ignored.
+     *
+     * If you want a page at the documentation root, you can create one in the normal page source
+     * directory instead, for example `_pages/docs/index.md`, which overrides the root redirect.
+     */
+    protected function discardUnversionedDocumentationFiles(FileCollection $collection): void
+    {
+        $collection->getFiles(DocumentationPage::class)->each(function (SourceFile $file) use ($collection): void {
+            $identifier = DocumentationPage::pathToIdentifier($file->getPath());
+
+            if (DocumentationVersions::fromIdentifier($identifier) === null) {
+                $collection->forget($file->getPath());
+            }
+        });
     }
 
     /**
