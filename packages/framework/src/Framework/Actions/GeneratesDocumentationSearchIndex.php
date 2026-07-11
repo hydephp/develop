@@ -61,10 +61,12 @@ class GeneratesDocumentationSearchIndex
 
         $excluded = $this->getPagesToExcludeFromSearch();
 
-        // We check both the full identifier and the version-agnostic identifier,
-        // so that a single exclusion entry applies to the page in every version.
+        // Pages can be excluded by their identifier or route key, and in both cases the version-agnostic
+        // form can be used, so that a single exclusion entry applies to the page in every version.
         return ! in_array($page->identifier, $excluded)
-            && ! in_array(DocumentationVersions::stripVersionPrefix($page->identifier), $excluded);
+            && ! in_array($page->getRouteKey(), $excluded)
+            && ! in_array(DocumentationVersions::stripVersionPrefix($page->identifier), $excluded)
+            && ! in_array(DocumentationVersions::stripVersionPrefixFromRouteKey($page->getRouteKey()), $excluded);
     }
 
     /**

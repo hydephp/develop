@@ -106,6 +106,42 @@ class DocumentationSearchServiceTest extends UnitTestCase
         );
     }
 
+    public function testPagesCanBeExcludedFromTheSearchIndexByRouteKey()
+    {
+        $this->file('_docs/excluded.md');
+        self::mockConfig(['docs.exclude_from_search' => ['docs/excluded']]);
+
+        $this->assertSame([], $this->getArray());
+    }
+
+    public function testVersionedPagesCanBeExcludedFromTheSearchIndexByRouteKey()
+    {
+        self::mockConfig([
+            'docs.versions' => ['1.x', '2.x'],
+            'docs.exclude_from_search' => ['docs/1.x/changelog'],
+        ]);
+
+        $this->file('_docs/1.x/changelog.md', '# Legacy Changelog');
+        $this->file('_docs/2.x/changelog.md', '# Current Changelog');
+
+        $this->assertSame([], $this->getArray(DocumentationVersions::get('1.x')));
+        $this->assertSame(['Current Changelog'], array_column($this->getArray(DocumentationVersions::get('2.x')), 'title'));
+    }
+
+    public function testVersionAgnosticRouteKeyExclusionsApplyToAllVersions()
+    {
+        self::mockConfig([
+            'docs.versions' => ['1.x', '2.x'],
+            'docs.exclude_from_search' => ['docs/changelog'],
+        ]);
+
+        $this->file('_docs/1.x/changelog.md', '# Legacy Changelog');
+        $this->file('_docs/2.x/changelog.md', '# Current Changelog');
+
+        $this->assertSame([], $this->getArray(DocumentationVersions::get('1.x')));
+        $this->assertSame([], $this->getArray(DocumentationVersions::get('2.x')));
+    }
+
     public function testVersionedIndexOnlyContainsPagesForTheRequestedVersion()
     {
         self::mockConfig(['docs.versions' => ['1.x', '2.x']]);
