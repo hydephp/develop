@@ -2,7 +2,7 @@ name: Sync documentation mirror
 
 on:
   push:
-    branches: [ master ]
+    branches: [ "1.x", "2.x", "master" ]
     paths:
       - 'docs/**'
       - '.github/workflows/sync-documentation-mirror.yml'
@@ -28,7 +28,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = "push" ]; then
-            echo "TARGET_SUBDIR=master" >> "$GITHUB_OUTPUT"
+            echo "TARGET_SUBDIR=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
             echo "SOURCE_LABEL=${GITHUB_REF_NAME}@${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
           elif [ "$EVENT_NAME" = "release" ]; then
             if [ "$IS_PRERELEASE" = "true" ]; then
@@ -41,6 +41,8 @@ jobs:
                 echo "TARGET_SUBDIR=1.x" >> "$GITHUB_OUTPUT" ;;
               v2.*|2.*)
                 echo "TARGET_SUBDIR=2.x" >> "$GITHUB_OUTPUT" ;;
+              v3.*|3.*)
+                echo "TARGET_SUBDIR=3.x" >> "$GITHUB_OUTPUT" ;;
               *)
                 echo "Unrecognized release tag: ${TAG_NAME}, skipping."
                 echo "SKIP=true" >> "$GITHUB_OUTPUT"
@@ -52,7 +54,7 @@ jobs:
       - name: Checkout monorepo
         if: steps.vars.outputs.SKIP != 'true'
         uses: actions/checkout@v6
-        # For push events this checks out the pushed commit on master.
+        # For push events this checks out the pushed commit on its version branch.
         # For release events, github.ref is the release tag, so we check
         # out exactly the code that was released.
 
