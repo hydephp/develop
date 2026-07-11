@@ -280,6 +280,9 @@ class VersionedDocumentationTest extends TestCase
 
         $this->assertSame('2.x', $sidebar->version->name);
         $this->assertSame(['docs/2.x/installation'], $this->menuRouteKeys($sidebar));
+
+        // The default service resolves the default version's sidebar, instead of generating a second one.
+        $this->assertSame(app('navigation.sidebar.2.x'), $sidebar);
     }
 
     public function testSidebarResolutionUsesTheVersionOfTheRenderedPage()
