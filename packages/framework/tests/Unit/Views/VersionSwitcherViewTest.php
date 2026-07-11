@@ -105,6 +105,19 @@ class VersionSwitcherViewTest extends TestCase
         $this->renderComponent('2.x')->assertSee('<span class="block py-1 px-3 opacity-50">1.x</span>', false);
     }
 
+    public function testComponentIsNotRenderedForPagesThatAreNotInAVersion()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/installation')));
+
+        // Documentation pages stored outside the version directories don't belong to any
+        // version, so we don't want to present them as being in the default version.
+        $this->mockPage(new DocumentationPage('shared'), 'docs/shared');
+
+        $this->renderComponent('2.x')->assertDontSee('docs-version-switcher');
+    }
+
     public function testComponentMarksTheCurrentVersionAsSelected()
     {
         config(['docs.versions' => ['1.x', '2.x']]);
