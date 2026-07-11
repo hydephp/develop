@@ -602,4 +602,16 @@ class VersionedDocumentationTest extends TestCase
 
         $this->assertInstanceOf(DocumentationPage::class, Hyde::routes()->get('docs/index')->getPage());
     }
+
+    public function testDocumentationRootRedirectIsNotAddedWhenTheDefaultVersionHasNoIndexPage()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/1.x/index.md');
+        $this->file('_docs/2.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertNull(Hyde::routes()->get('docs/index'));
+    }
 }

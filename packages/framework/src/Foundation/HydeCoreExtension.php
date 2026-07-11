@@ -67,18 +67,28 @@ class HydeCoreExtension extends HydeExtension
     /**
      * When documentation versioning is enabled, the documentation root redirects to the default
      * version's index page, so that inbound links to the docs root always have a destination.
-     * Creating your own page with the `docs/index` route key overrides the generated redirect.
+     * Creating your own page with the `docs/index` route key overrides the generated redirect,
+     * and the redirect is of course only added when the default version has an index page.
      */
     protected function discoverDocumentationRootRedirect(PageCollection $collection): void
     {
         $routeKey = unslash(DocumentationPage::outputDirectory().'/index');
+        $default = DocumentationVersions::default();
 
-        $taken = $collection->first(fn (HydePage $page): bool => $page->getRouteKey() === $routeKey) !== null;
+        $taken = $this->hasPageWithRouteKey($collection, $routeKey);
 
-        if (! $taken) {
-            $collection->addPage(new Redirect($routeKey, Hyde::formatLink(DocumentationVersions::default()->name.'/index.html'), matter: [
+        // There's nothing to redirect to if the default version has no index page.
+        $exists = $this->hasPageWithRouteKey($collection, DocumentationPage::homeRouteName($default));
+
+        if ($exists && ! $taken) {
+            $collection->addPage(new Redirect($routeKey, Hyde::formatLink("$default->name/index.html"), matter: [
                 'navigation' => ['hidden' => true],
             ]));
         }
+    }
+
+    protected function hasPageWithRouteKey(PageCollection $collection, string $routeKey): bool
+    {
+        return $collection->first(fn (HydePage $page): bool => $page->getRouteKey() === $routeKey) !== null;
     }
 }
