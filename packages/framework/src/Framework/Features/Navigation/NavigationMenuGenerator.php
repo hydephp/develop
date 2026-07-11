@@ -36,7 +36,7 @@ class NavigationMenuGenerator
     protected bool $usesGroups;
 
     /**
-     * The documentation version to generate a sidebar for, when documentation versioning is enabled.
+     * The documentation version the menu is generated for, when documentation versioning is enabled.
      */
     protected ?DocumentationVersion $version;
 
@@ -51,7 +51,7 @@ class NavigationMenuGenerator
 
         $this->generatesSidebar = $menuType === DocumentationSidebar::class;
 
-        $this->version = $version ?? ($this->generatesSidebar ? DocumentationVersions::default() : null);
+        $this->version = $version ?? DocumentationVersions::default();
 
         $this->routes = $this->generatesSidebar
             ? $this->getSidebarRoutes()
@@ -145,17 +145,9 @@ class NavigationMenuGenerator
         }
     }
 
-    /**
-     * Get the route key of the documentation index page that the menu being generated links.
-     *
-     * For sidebars that is the index page of the sidebar's version, and for the main navigation
-     * menu it is the index page of the default version, when versioning is enabled.
-     */
     protected function documentationHomeRouteName(): string
     {
-        $version = $this->generatesSidebar ? $this->version : DocumentationVersions::default();
-
-        return $version?->homeRouteName() ?? DocumentationPage::homeRouteName();
+        return $this->version?->homeRouteName() ?? DocumentationPage::homeRouteName();
     }
 
     protected function documentationHome(): ?Route
