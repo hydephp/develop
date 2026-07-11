@@ -7,11 +7,13 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Facades\Features;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Models\Redirect;
 use Hyde\Testing\UnitTestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeCoreExtension::class)]
@@ -28,6 +30,16 @@ class HydeCoreExtensionTest extends UnitTestCase
     public function testClassIsRegistered()
     {
         $this->assertContains(HydeCoreExtension::class, HydeKernel::getInstance()->getRegisteredExtensions());
+    }
+
+    public function testConfiguredRedirectsAreDiscovered()
+    {
+        config(['hyde.redirects' => ['old-page' => 'new-page']]);
+
+        $pages = PageCollection::init(HydeKernel::getInstance());
+        (new HydeCoreExtension())->discoverPages($pages);
+
+        $this->assertEquals(new Redirect('old-page', 'new-page'), $pages->get('old-page'));
     }
 
     public function testGetPageClasses()
