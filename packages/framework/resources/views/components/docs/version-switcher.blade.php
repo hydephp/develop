@@ -7,7 +7,7 @@
     $switcherCurrentVersion = $sidebar->version;
 @endphp
 
-@if($switcherCurrentVersion !== null && $switcherVersions->count() > 1 && $page instanceof DocumentationPage)
+@if($switcherCurrentVersion !== null && $switcherVersions->count() > 1)
     <div id="docs-version-switcher" x-data="{ versionSwitcherOpen: false }" @click.outside="versionSwitcherOpen = false" class="relative px-4 pb-3">
         <button id="docs-version-switcher-button" @click="versionSwitcherOpen = ! versionSwitcherOpen" :aria-expanded="versionSwitcherOpen"
                 aria-haspopup="listbox" aria-label="Switch documentation version"
