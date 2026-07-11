@@ -102,7 +102,7 @@ class VersionSwitcherViewTest extends TestCase
 
         $this->mockPage(new DocumentationPage('2.x/upgrading'), 'docs/2.x/upgrading');
 
-        $this->renderComponent('2.x')->assertSee('<span class="block py-1 px-3 opacity-50">1.x</span>', false);
+        $this->renderComponent('2.x')->assertSee('<span aria-disabled="true" class="block py-1 px-3 opacity-50">1.x</span>', false);
     }
 
     public function testComponentMarksTheCurrentVersionAsSelected()
@@ -114,6 +114,56 @@ class VersionSwitcherViewTest extends TestCase
 
         $this->mockPage(new DocumentationPage('2.x/installation'), 'docs/2.x/installation');
 
-        $this->renderComponent('2.x')->assertSeeOnce('aria-selected="true"');
+        $this->renderComponent('2.x')->assertSeeOnce('aria-current="page"');
+    }
+
+    public function testComponentDoesNotUseListboxSemantics()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('1.x/installation')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/installation')));
+
+        $this->mockPage(new DocumentationPage('2.x/installation'), 'docs/2.x/installation');
+
+        $view = $this->renderComponent('2.x');
+
+        $view->assertDontSee('role="listbox"', false);
+        $view->assertDontSee('role="option"', false);
+        $view->assertDontSee('aria-haspopup', false);
+        $view->assertDontSee('aria-selected', false);
+    }
+
+    public function testEscapeKeyClosesTheSwitcherAndReturnsFocusToTheButton()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('1.x/installation')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/installation')));
+
+        $this->mockPage(new DocumentationPage('2.x/installation'), 'docs/2.x/installation');
+
+        $view = $this->renderComponent('2.x');
+
+        $view->assertSee('@keydown.escape.window="versionSwitcherOpen = false; $refs.versionSwitcherButton.focus()"', false);
+    }
+
+    public function testSwitcherListIsScrollableSoALongListOfVersionsRemainsUsable()
+    {
+        config(['docs.versions' => ['1.x', '2.x', '3.x', '4.x', '5.x', '6.x', '7.x', '8.x', '9.x', '10.x']]);
+
+        foreach (config('docs.versions') as $version) {
+            Hyde::routes()->addRoute(new Route(new DocumentationPage("$version/installation")));
+        }
+
+        $this->mockPage(new DocumentationPage('10.x/installation'), 'docs/10.x/installation');
+
+        $view = $this->renderComponent('10.x');
+
+        $view->assertSee('max-h-64 overflow-y-auto', false);
+
+        foreach (config('docs.versions') as $version) {
+            $view->assertSee($version);
+        }
     }
 }
