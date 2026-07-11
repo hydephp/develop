@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
@@ -125,7 +124,7 @@ final class DocumentationVersions
      * Returns null when the given page does not belong to a version,
      * or when the equivalent page does not exist in the target version.
      */
-    public static function getEquivalentRoute(HydePage $page, DocumentationVersion $targetVersion): ?Route
+    public static function getEquivalentRoute(DocumentationPage $page, DocumentationVersion $targetVersion): ?Route
     {
         $currentVersion = self::fromRouteKey($page->getRouteKey());
 
