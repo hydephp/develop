@@ -7,6 +7,7 @@ namespace Hyde\Framework\Features\Documentation\Versioning;
 use Hyde\Facades\Config;
 use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
+use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
@@ -16,6 +17,7 @@ use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use function count;
 use function sprintf;
 use function in_array;
+use function Hyde\unslash;
 use function preg_match;
 use function str_contains;
 use function array_key_last;
@@ -147,6 +149,20 @@ final class DocumentationVersions
         $version = self::fromIdentifier($identifier);
 
         return $version === null ? $identifier : Str::after($identifier, $version->name.'/');
+    }
+
+    /**
+     * Strip the version segment from a documentation route key, if it has one.
+     *
+     * For example, `docs/1.x/installation` becomes `docs/installation`.
+     */
+    public static function stripVersionPrefixFromRouteKey(string $routeKey): string
+    {
+        $version = self::fromRouteKey($routeKey);
+
+        return $version === null
+            ? $routeKey
+            : unslash(DocumentationPage::outputDirectory().'/'.Str::after($routeKey, $version->routeKeyPrefix().'/'));
     }
 
     protected static function configurationAvailable(): bool

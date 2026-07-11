@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function filled;
 use function assert;
@@ -33,8 +35,13 @@ class NavigationMenuGenerator
     protected bool $generatesSidebar;
     protected bool $usesGroups;
 
+    /**
+     * The documentation version to generate a sidebar for, when documentation versioning is enabled.
+     */
+    protected ?DocumentationVersion $version;
+
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
-    protected function __construct(string $menuType)
+    protected function __construct(string $menuType, ?DocumentationVersion $version = null)
     {
         assert(in_array($menuType, [MainNavigationMenu::class, DocumentationSidebar::class]));
 
@@ -44,21 +51,40 @@ class NavigationMenuGenerator
 
         $this->generatesSidebar = $menuType === DocumentationSidebar::class;
 
+        $this->version = $version ?? ($this->generatesSidebar && DocumentationVersions::enabled() ? DocumentationVersions::default() : null);
+
         $this->routes = $this->generatesSidebar
-            ? Routes::getRoutes(DocumentationPage::class)
+            ? $this->getSidebarRoutes()
             : Routes::all();
 
         $this->usesGroups = $this->usesGroups();
     }
 
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
-    public static function handle(string $menuType): MainNavigationMenu|DocumentationSidebar
+    public static function handle(string $menuType, ?DocumentationVersion $version = null): MainNavigationMenu|DocumentationSidebar
     {
-        $menu = new static($menuType);
+        $menu = new static($menuType, $version);
 
         $menu->generate();
 
-        return new $menuType($menu->items);
+        return $menu->generatesSidebar ? new DocumentationSidebar($menu->items, $menu->version) : new $menuType($menu->items);
+    }
+
+    /** @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route> */
+    protected function getSidebarRoutes(): RouteCollection
+    {
+        $routes = Routes::getRoutes(DocumentationPage::class);
+
+        if ($this->version === null) {
+            return $routes;
+        }
+
+        return $routes->filter(function (Route $route): bool {
+            /** @var \Hyde\Pages\DocumentationPage $page */
+            $page = $route->getPage();
+
+            return $page->getDocumentationVersion()?->name === $this->version->name;
+        });
     }
 
     protected function generate(): void
@@ -75,8 +101,8 @@ class NavigationMenuGenerator
 
         if ($this->generatesSidebar) {
             // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
-            if ($this->items->count() === 0 && DocumentationPage::home() !== null) {
-                $this->items->push(NavigationItem::create(DocumentationPage::home()));
+            if ($this->items->count() === 0 && DocumentationPage::home($this->version) !== null) {
+                $this->items->push(NavigationItem::create(DocumentationPage::home($this->version)));
             }
         } else {
             collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $data): void {
@@ -110,7 +136,7 @@ class NavigationMenuGenerator
 
         if ($this->generatesSidebar) {
             // Since the index page is linked in the header, we don't want it in the sidebar
-            return ! $route->is(DocumentationPage::homeRouteName());
+            return ! $route->is(DocumentationPage::homeRouteName($this->version));
         } else {
             // While we for the most part can rely on the navigation visibility state provided by the navigation data factory,
             // we need to make an exception for documentation pages, which generally have a visible state, as the data is

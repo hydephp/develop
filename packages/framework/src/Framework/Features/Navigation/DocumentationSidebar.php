@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Contracts\Support\Arrayable;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
+use Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion;
 
 use function app;
 use function is_string;
@@ -15,16 +19,45 @@ use function is_string;
 class DocumentationSidebar extends NavigationMenu
 {
     /**
+     * The documentation version this sidebar was generated for, when documentation versioning is enabled.
+     */
+    public readonly ?DocumentationVersion $version;
+
+    /**
      * Get the navigation menu instance from the service container.
+     *
+     * When documentation versioning is enabled, this resolves the sidebar
+     * for the version of the page currently being rendered.
      */
     public static function get(): static
     {
+        if (! Hyde::kernel()->isBooted()) {
+            // Booting the kernel registers the sidebar singletons in the service container.
+            Hyde::kernel()->boot();
+        }
+
+        $page = Render::getPage();
+
+        if ($page instanceof HasDocumentationVersion && ($version = $page->getDocumentationVersion()) !== null) {
+            return app("navigation.sidebar.$version->name");
+        }
+
         return app('navigation.sidebar');
     }
 
-    public function __construct(Arrayable|array $items = [])
+    public function __construct(Arrayable|array $items = [], ?DocumentationVersion $version = null)
     {
         parent::__construct($items);
+
+        $this->version = $version;
+    }
+
+    /**
+     * Get the route for this sidebar's documentation index page, if it exists.
+     */
+    public function getHomeRoute(): ?Route
+    {
+        return DocumentationPage::home($this->version);
     }
 
     public function getHeader(): string
@@ -72,7 +105,7 @@ class DocumentationSidebar extends NavigationMenu
 
         $currentPage = Render::getPage();
 
-        if ($currentPage->getRoute()->is(DocumentationPage::homeRouteName()) && blank($currentPage->navigationMenuGroup())) {
+        if ($currentPage->getRoute()->is(DocumentationPage::homeRouteName($this->version)) && blank($currentPage->navigationMenuGroup())) {
             // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
             return $this->items->sortBy(fn (NavigationGroup $item): int => $item->getPriority())->first();
         }

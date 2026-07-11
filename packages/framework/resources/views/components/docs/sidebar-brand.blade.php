@@ -1,7 +1,7 @@
 <div id="sidebar-brand" class="flex items-center justify-between h-16 py-4 px-2">
     <strong class="px-2">
-        @if(DocumentationPage::home())
-            <a href="{{ DocumentationPage::home() }}">
+        @if($sidebar->getHomeRoute())
+            <a href="{{ $sidebar->getHomeRoute() }}">
                 {{ $sidebar->getHeader() }}
             </a>
         @else

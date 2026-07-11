@@ -9,6 +9,8 @@ use Illuminate\Support\ServiceProvider;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 class NavigationServiceProvider extends ServiceProvider
 {
@@ -19,8 +21,15 @@ class NavigationServiceProvider extends ServiceProvider
                 return NavigationMenuGenerator::handle(MainNavigationMenu::class);
             });
 
+            // When documentation versioning is enabled, this holds the default version's sidebar.
             $this->app->singleton('navigation.sidebar', function (): DocumentationSidebar {
                 return NavigationMenuGenerator::handle(DocumentationSidebar::class);
+            });
+
+            DocumentationVersions::all()->each(function (DocumentationVersion $version): void {
+                $this->app->singleton("navigation.sidebar.$version->name", function () use ($version): DocumentationSidebar {
+                    return NavigationMenuGenerator::handle(DocumentationSidebar::class, $version);
+                });
             });
         });
     }

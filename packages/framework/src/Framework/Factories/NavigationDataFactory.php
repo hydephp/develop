@@ -13,6 +13,7 @@ use Hyde\Framework\Factories\Concerns\CoreDataObject;
 use Hyde\Framework\Features\Navigation\NavigationMenu;
 use Hyde\Markdown\Contracts\FrontMatter\SubSchemas\NavigationSchema;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function basename;
 use function array_flip;
@@ -42,6 +43,14 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private readonly string $identifier;
     private readonly FrontMatter $matter;
 
+    /**
+     * The identifier and route key without any documentation version prefix, allowing version-agnostic
+     * configuration entries to match pages in all documentation versions. These are identical
+     * to the identifier and route key for pages that do not belong to a version.
+     */
+    private readonly string $versionAgnosticIdentifier;
+    private readonly string $versionAgnosticRouteKey;
+
     public function __construct(CoreDataObject $pageData, string $title)
     {
         $this->matter = $pageData->matter;
@@ -49,6 +58,14 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $this->pageClass = $pageData->pageClass;
         $this->routeKey = $pageData->routeKey;
         $this->title = $title;
+
+        $this->versionAgnosticIdentifier = $this->isInstanceOf(DocumentationPage::class)
+            ? DocumentationVersions::stripVersionPrefix($this->identifier)
+            : $this->identifier;
+
+        $this->versionAgnosticRouteKey = $this->isInstanceOf(DocumentationPage::class)
+            ? DocumentationVersions::stripVersionPrefixFromRouteKey($this->routeKey)
+            : $this->routeKey;
 
         $this->label = $this->makeLabel();
         $this->group = $this->makeGroup();
@@ -131,7 +148,9 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function isPageHiddenInNavigationConfiguration(): bool
     {
-        return in_array($this->routeKey, Config::getArray('hyde.navigation.exclude', ['404']));
+        $config = Config::getArray('hyde.navigation.exclude', ['404']);
+
+        return in_array($this->routeKey, $config) || in_array($this->versionAgnosticRouteKey, $config);
     }
 
     private function isPageHiddenInSidebarConfiguration(): ?bool
@@ -140,7 +159,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
         return
             // Check if the page is hidden from the sidebar by route key or identifier.
-            (in_array($this->routeKey, $config) || in_array($this->identifier, $config))
+            (in_array($this->routeKey, $config) || in_array($this->identifier, $config) || in_array($this->versionAgnosticRouteKey, $config) || in_array($this->versionAgnosticIdentifier, $config))
             // Check if the page is hidden from the main navigation by its route key.
             || $this->isPageHiddenInNavigationConfiguration();
     }
@@ -174,7 +193,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             DocumentationPage::homeRouteName() => 'Docs',
         ]);
 
-        return $config[$this->routeKey] ?? null;
+        return $config[$this->routeKey] ?? $config[$this->versionAgnosticRouteKey] ?? null;
     }
 
     private function searchForLabelInSidebarConfig(): ?string
@@ -184,7 +203,8 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             DocumentationPage::homeRouteName() => 'Docs',
         ]);
 
-        return $config[$this->routeKey] ?? $config[$this->identifier] ?? null;
+        return $config[$this->routeKey] ?? $config[$this->identifier]
+            ?? $config[$this->versionAgnosticRouteKey] ?? $config[$this->versionAgnosticIdentifier] ?? null;
     }
 
     private function searchForPriorityInConfigs(): ?int
@@ -204,7 +224,10 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
             $this->parseNavigationPriorityConfig($config, 'routeKey')
             // For backwards compatibility, and ease of use, as the route key prefix
             // is redundant due to it being the same for all documentation pages
-            ?? $this->parseNavigationPriorityConfig($config, 'identifier');
+            ?? $this->parseNavigationPriorityConfig($config, 'identifier')
+            // So that version-agnostic entries apply to the page in all documentation versions.
+            ?? $this->parseNavigationPriorityConfig($config, 'versionAgnosticRouteKey')
+            ?? $this->parseNavigationPriorityConfig($config, 'versionAgnosticIdentifier');
     }
 
     private function searchForPriorityInNavigationConfig(): ?int
@@ -213,15 +236,16 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $config = Config::getArray('hyde.navigation.order', [
             'index' => 0,
             'posts' => 10,
-            'docs/index' => 100,
+            DocumentationPage::homeRouteName() => 100,
         ]);
 
-        return $this->parseNavigationPriorityConfig($config, 'routeKey');
+        return $this->parseNavigationPriorityConfig($config, 'routeKey')
+            ?? $this->parseNavigationPriorityConfig($config, 'versionAgnosticRouteKey');
     }
 
     /**
      * @param  array<string, int>|array<string>  $config
-     * @param  'routeKey'|'identifier'  $pageKeyName
+     * @param  'routeKey'|'identifier'|'versionAgnosticIdentifier'|'versionAgnosticRouteKey'  $pageKeyName
      */
     private function parseNavigationPriorityConfig(array $config, string $pageKeyName): ?int
     {
@@ -264,12 +288,12 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function pageIsInSubdirectory(): bool
     {
-        return Str::contains($this->identifier, '/');
+        return Str::contains($this->versionAgnosticIdentifier, '/');
     }
 
     private function getSubdirectoryName(): string
     {
-        return Str::before($this->identifier, '/');
+        return Str::before($this->versionAgnosticIdentifier, '/');
     }
 
     protected function getSubdirectoryConfiguration(): string
