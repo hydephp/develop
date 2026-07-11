@@ -16,6 +16,7 @@ use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function is_a;
+use function in_array;
 use function basename;
 use function array_flip;
 use function array_intersect;
@@ -44,7 +45,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     private readonly FrontMatter $matter;
 
     /**
-     * The keys configuration entries can use to target this page, in precedence order.
+     * The keys the documentation configuration entries can use to target this page, most specific first.
      *
      * @var array<int, string>
      */
@@ -136,14 +137,15 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function searchForHiddenInConfigs(): bool
     {
-        return $this->isExcludedIn(Config::getArray('hyde.navigation.exclude', ['404']))
-            || ($this->isInstanceOf(DocumentationPage::class) && $this->isExcludedIn(Config::getArray('docs.sidebar.exclude', ['404'])));
+        // The main navigation configuration only targets pages by their route key, whereas the
+        // sidebar configuration can also target documentation pages by their identifier.
+        return in_array($this->routeKey, Config::getArray('hyde.navigation.exclude', ['404']), true)
+            || ($this->isInstanceOf(DocumentationPage::class) && $this->isExcludedInSidebarConfig());
     }
 
-    /** @param array<string> $config */
-    private function isExcludedIn(array $config): bool
+    private function isExcludedInSidebarConfig(): bool
     {
-        return array_intersect($this->configurationKeys, $config) !== [];
+        return array_intersect($this->configurationKeys, Config::getArray('docs.sidebar.exclude', ['404'])) !== [];
     }
 
     private function isNonDocumentationPageInHiddenSubdirectory(): bool
@@ -242,19 +244,15 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     private function pageIsInSubdirectory(): bool
     {
-        return Str::contains($this->versionAgnosticIdentifier(), '/');
+        return Str::contains($this->identifierWithinVersion(), '/');
     }
 
     private function getSubdirectoryName(): string
     {
-        return Str::before($this->versionAgnosticIdentifier(), '/');
+        return Str::before($this->identifierWithinVersion(), '/');
     }
 
-    /**
-     * The identifier without any documentation version prefix, so that the subdirectory
-     * of a versioned page is resolved within its version, and not as the version.
-     */
-    private function versionAgnosticIdentifier(): string
+    private function identifierWithinVersion(): string
     {
         return $this->isInstanceOf(DocumentationPage::class)
             ? DocumentationVersions::stripVersionPrefix($this->identifier)
