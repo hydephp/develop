@@ -50,7 +50,7 @@ class HydeKernel implements SerializableContract
     use Serializable;
     use Macroable;
 
-    final public const VERSION = '2.0.1';
+    final public const VERSION = '2.0.3';
 
     protected static self $instance;
 
