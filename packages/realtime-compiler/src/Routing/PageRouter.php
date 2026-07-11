@@ -7,6 +7,7 @@ namespace Hyde\RealtimeCompiler\Routing;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Support\Models\Route;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
@@ -108,18 +109,27 @@ class PageRouter
         return (new self($request))->handlePageRequest();
     }
 
+    /**
+     * Does the request match a page route? This allows the router to tell a missing
+     * page apart from a missing static asset, without having to compile the page.
+     */
+    public static function hasRoute(Request $request): bool
+    {
+        return (new self($request))->findRoute() !== null;
+    }
+
     protected function getPageFromRoute(): HydePage
     {
-        try {
-            return Routes::get($this->normalizePath($this->request->path))->getPage();
-        } catch (RouteNotFoundException $exception) {
-            $index = Routes::find($this->normalizePath($this->request->path).'/index');
+        $route = $this->findRoute() ?? throw new RouteNotFoundException($this->normalizePath($this->request->path));
 
-            if ($index) {
-                return $index->getPage();
-            }
+        return $route->getPage();
+    }
 
-            throw $exception;
-        }
+    protected function findRoute(): ?Route
+    {
+        $routeKey = $this->normalizePath($this->request->path);
+
+        // Directory-style requests (like `/docs/1.x`) are served by their index page.
+        return Routes::find($routeKey) ?? Routes::find("$routeKey/index");
     }
 }

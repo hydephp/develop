@@ -9,7 +9,6 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\RealtimeCompiler;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
-use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Models\FileObject;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
@@ -30,7 +29,7 @@ class Router
 
     public function handle(): Response
     {
-        if ($this->shouldProxy($this->request)) {
+        if ($this->shouldProxy()) {
             return $this->proxyStatic();
         }
 
@@ -44,29 +43,25 @@ class Router
             return $virtualRoutes[$this->request->path]($this->request);
         }
 
-        try {
-            return PageRouter::handle($this->request);
-        } catch (RouteNotFoundException $exception) {
-            // A dotted path that matches neither a static file nor a page (like a missing
-            // stylesheet or source map) is a missing asset, and not a missing web page,
-            // so we send a normal 404 response instead of the pretty error page.
-            if ($this->looksLikeAsset()) {
-                return $this->notFound();
-            }
-
-            throw $exception;
+        // A path with a file extension that matches neither a static file nor a page (like a
+        // missing stylesheet or source map) is a missing asset, and not a missing web page,
+        // so we send a normal 404 response instead of the pretty page not found error.
+        if ($this->looksLikeAsset() && ! PageRouter::hasRoute($this->request)) {
+            return $this->notFound();
         }
+
+        return PageRouter::handle($this->request);
     }
 
     /**
      * If the request is not for a web page, we assume it's
      * a static asset, which we instead want to proxy.
      */
-    protected function shouldProxy(Request $request): bool
+    protected function shouldProxy(): bool
     {
         // Always proxy media files. This condition is just to improve performance
         // without having to check the file extension.
-        if (str_starts_with($request->path, '/media/')) {
+        if (str_starts_with($this->request->path, '/media/')) {
             return true;
         }
 
@@ -75,7 +70,7 @@ class Router
         }
 
         // Don't proxy the search.json file, as it's generated on the fly.
-        if (str_ends_with($request->path, 'search.json')) {
+        if (str_ends_with($this->request->path, 'search.json')) {
             return false;
         }
 
