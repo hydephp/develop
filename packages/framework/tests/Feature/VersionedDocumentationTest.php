@@ -435,4 +435,56 @@ class VersionedDocumentationTest extends TestCase
         $this->assertInstanceOf(\Hyde\Pages\BladePage::class, Hyde::routes()->get('docs/1.x/search')->getPage());
         $this->assertNotInstanceOf(\Hyde\Pages\BladePage::class, Hyde::routes()->get('docs/2.x/search')->getPage());
     }
+
+    // Section: Documentation root redirect
+
+    public function testDocumentationRootRedirectsToTheDefaultVersion()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/2.x/index.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $page = Hyde::routes()->get('docs/index')->getPage();
+
+        $this->assertInstanceOf(\Hyde\Support\Models\Redirect::class, $page);
+        $this->assertSame('2.x/index.html', $page->destination);
+        $this->assertStringContainsString('http-equiv="refresh" content="0;url=\'2.x/index.html\'"', $page->compile());
+        $this->assertFalse($page->showInNavigation());
+    }
+
+    public function testDocumentationRootRedirectUsesPrettyUrlsWhenEnabled()
+    {
+        $this->enableVersions();
+
+        config(['hyde.pretty_urls' => true]);
+
+        $this->file('_docs/2.x/index.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertSame('2.x/', Hyde::routes()->get('docs/index')->getPage()->destination);
+    }
+
+    public function testDocumentationRootRedirectIsNotAddedWhenVersioningIsDisabled()
+    {
+        $this->file('_docs/index.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertInstanceOf(DocumentationPage::class, Hyde::routes()->get('docs/index')->getPage());
+    }
+
+    public function testDocumentationRootRedirectCanBeOverriddenByUserPage()
+    {
+        $this->enableVersions();
+
+        $this->file('_pages/docs/index.md');
+        $this->file('_docs/2.x/index.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertInstanceOf(\Hyde\Pages\MarkdownPage::class, Hyde::routes()->get('docs/index')->getPage());
+    }
 }

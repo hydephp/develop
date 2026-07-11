@@ -7,6 +7,7 @@ namespace Hyde\Support\Models;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
+use Hyde\Markdown\Models\FrontMatter;
 use Illuminate\Support\Facades\View;
 
 use function str_ends_with;
@@ -37,13 +38,13 @@ class Redirect extends InMemoryPage
      * @param  string  $path  The URI path to redirect from.
      * @param  string  $destination  The destination to redirect to.
      */
-    public function __construct(string $path, string $destination, bool $showText = true)
+    public function __construct(string $path, string $destination, bool $showText = true, FrontMatter|array $matter = [])
     {
         $this->path = $this->normalizePath($path);
         $this->destination = $destination;
         $this->showText = $showText;
 
-        parent::__construct($this->path);
+        parent::__construct($this->path, $matter);
     }
 
     /**
