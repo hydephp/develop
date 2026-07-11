@@ -7,11 +7,13 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    target-branch: "master"
     schedule:
       interval: "daily"
 
   - package-ecosystem: "composer" # See documentation for possible values
     directory: "/" # Location of package manifests
+    target-branch: "master"
     schedule:
       interval: "daily"
 
@@ -20,5 +22,6 @@ updates:
       - "/"
       - "packages/hyde"
       - "packages/hydefront"
+    target-branch: "master"
     schedule:
       interval: "daily"
