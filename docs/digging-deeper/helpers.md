@@ -461,3 +461,81 @@ just apply these changes to that new view, but for this example I'm going to upd
 
 And that's it! You now have a paginated blog post feed. You can now visit `/posts/page-1.html` and see the first page of your blog posts.
 You can then click the pagination links to navigate to the next pages.
+
+## Redirects
+
+The `Redirect` class provides a simple way to create redirect pages that forward visitors from an old URL to a new one using an HTML meta refresh.
+
+Unlike standard Hyde pages, redirects are **not** automatically discovered because they do not exist on disk. You create them manually, typically in a build task, then store them to your site's output directory. Because they are not discoverable, they never show up in navigation menus, sitemaps, or RSS feeds.
+
+### Creating a redirect
+
+The quickest way to create and store a redirect in a single step is the static `create` method. It takes the path to redirect *from*, and the destination to redirect *to*.
+
+```php
+use Hyde\Support\Models\Redirect;
+
+Redirect::create('old-page', 'new-page');
+```
+
+This immediately renders the redirect and writes it to your site output directory as `old-page.html`. When a visitor opens that page, a meta refresh sends them on to `new-page`.
+
+The destination can be either a relative path within your site, or an absolute URL.
+
+```php
+// Redirect to another page in your site
+Redirect::create('docs/old-guide', 'docs/new-guide');
+
+// Redirect to an external URL
+Redirect::create('chat', 'https://discord.gg/example');
+```
+
+The trailing `.html` extension on the path is optional, as it will be normalized away. This means `Redirect::create('foo.html', ...)` and `Redirect::create('foo', ...)` are equivalent.
+
+### Deferring the store
+
+The `create` method writes the file to disk right away. If you'd rather build the redirect first and store it later, construct the instance directly and call `store()` when you're ready.
+
+```php
+use Hyde\Support\Models\Redirect;
+
+$redirect = new Redirect('old-page', 'new-page');
+
+// Later, when you're ready to write it to disk
+$redirect->store();
+```
+
+### Hiding the redirect text
+
+By default, the redirect page renders a short fallback message with a link, in case the automatic meta refresh doesn't fire. You can hide this by passing `false` as the third argument.
+
+```php
+Redirect::create('old-page', 'new-page', showText: false);
+```
+
+### Registering redirects with the build command
+
+Since redirects aren't discoverable, `Redirect::create()` is a good fit inside a build task where you want the file written immediately. But if you'd prefer redirects to be handled by the standard `php hyde build` command alongside the rest of your pages, you can add them to the kernel's route index instead. A good place to do this is the `boot` method of your `AppServiceProvider`.
+
+```php
+// filepath app/Providers/AppServiceProvider.php
+use Hyde\Hyde;
+use Hyde\Foundation\HydeKernel;
+use Hyde\Support\Models\Redirect;
+
+public function boot(): void
+{
+    // This registers a callback that runs after the kernel has booted
+    Hyde::kernel()->booted(function (HydeKernel $hyde) {
+        $redirect = new Redirect('old-page', 'new-page');
+
+        // Add the page to the kernel so Hyde knows about it
+        $hyde->pages()->addPage($redirect);
+
+        // Add the route so the build command will compile and save it
+        $hyde->routes()->addRoute($redirect->getRoute());
+    });
+}
+```
+
+With this approach you don't need to call `store()` yourself. Because the redirect is now part of the route index, the standard build command will compile and save it just like any other page.
