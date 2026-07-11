@@ -9,6 +9,8 @@ use Hyde\Framework\Actions\StaticPageBuilder;
 use LaravelZero\Framework\Commands\Command;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 /**
  * Run the build process for the documentation search index.
@@ -23,12 +25,23 @@ class BuildSearchCommand extends Command
 
     public function handle(): int
     {
-        StaticPageBuilder::handle(Pages::get('docs/search.json') ?? new DocumentationSearchIndex());
-
-        if (DocumentationSearchPage::enabled()) {
-            StaticPageBuilder::handle(Pages::get('docs/search') ?? new DocumentationSearchPage());
+        if (DocumentationVersions::enabled()) {
+            DocumentationVersions::all()->each(function (DocumentationVersion $version): void {
+                $this->build($version);
+            });
+        } else {
+            $this->build(null);
         }
 
         return Command::SUCCESS;
+    }
+
+    protected function build(?DocumentationVersion $version): void
+    {
+        StaticPageBuilder::handle(Pages::get(DocumentationSearchIndex::outputPath($version)) ?? new DocumentationSearchIndex($version));
+
+        if (DocumentationSearchPage::enabled($version)) {
+            StaticPageBuilder::handle(Pages::get(DocumentationSearchPage::routeKey($version)) ?? new DocumentationSearchPage($version));
+        }
     }
 }

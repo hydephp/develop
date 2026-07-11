@@ -38,7 +38,7 @@
         
         document.addEventListener('alpine:init', () => {
             Alpine.data('hydeSearch', () => 
-                initHydeSearch('{{ Hyde::relativeLink(\Hyde\Framework\Features\Documentation\DocumentationSearchIndex::outputPath()) }}')
+                initHydeSearch('{{ Hyde::relativeLink(\Hyde\Framework\Features\Documentation\DocumentationSearchIndex::outputPathForRenderedPage()) }}')
             );
         });
     </script>

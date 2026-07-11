@@ -14,6 +14,8 @@ use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Facades\Features;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function array_filter;
 use function array_keys;
@@ -35,10 +37,21 @@ class HydeCoreExtension extends HydeExtension
     public function discoverPages(PageCollection $collection): void
     {
         if (Features::hasDocumentationSearch()) {
-            $collection->addPage(new DocumentationSearchIndex());
+            if (DocumentationVersions::enabled()) {
+                // When documentation versioning is enabled, each version gets its own search index and search page.
+                DocumentationVersions::all()->each(function (DocumentationVersion $version) use ($collection): void {
+                    $collection->addPage(new DocumentationSearchIndex($version));
 
-            if (DocumentationSearchPage::enabled()) {
-                $collection->addPage(new DocumentationSearchPage());
+                    if (DocumentationSearchPage::enabled($version)) {
+                        $collection->addPage(new DocumentationSearchPage($version));
+                    }
+                });
+            } else {
+                $collection->addPage(new DocumentationSearchIndex());
+
+                if (DocumentationSearchPage::enabled()) {
+                    $collection->addPage(new DocumentationSearchPage());
+                }
             }
         }
     }

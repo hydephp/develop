@@ -8,6 +8,8 @@ use Hyde\Facades\Config;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function basename;
 use function in_array;
@@ -15,6 +17,8 @@ use function trim;
 
 /**
  * @internal Generate a JSON string that can be used as a search index for documentation pages.
+ *
+ * When a documentation version is supplied, the index only contains pages belonging to that version.
  */
 class GeneratesDocumentationSearchIndex
 {
@@ -27,15 +31,15 @@ class GeneratesDocumentationSearchIndex
      *
      * @return string The path to the generated file.
      */
-    public static function handle(): string
+    public static function handle(?DocumentationVersion $version = null): string
     {
-        $service = new static();
+        $service = new static($version);
         $service->run();
 
         return $service->index->toJson();
     }
 
-    protected function __construct()
+    protected function __construct(protected readonly ?DocumentationVersion $version = null)
     {
         $this->index = new Collection();
     }
@@ -43,10 +47,24 @@ class GeneratesDocumentationSearchIndex
     protected function run(): void
     {
         DocumentationPage::all()->each(function (DocumentationPage $page): void {
-            if (! in_array($page->identifier, $this->getPagesToExcludeFromSearch())) {
+            if ($this->shouldIncludePage($page)) {
                 $this->index->push($this->generatePageEntry($page));
             }
         });
+    }
+
+    protected function shouldIncludePage(DocumentationPage $page): bool
+    {
+        if ($this->version !== null && $page->getDocumentationVersion()?->name !== $this->version->name) {
+            return false;
+        }
+
+        $excluded = $this->getPagesToExcludeFromSearch();
+
+        // We check both the full identifier and the version-agnostic identifier,
+        // so that a single exclusion entry applies to the page in every version.
+        return ! in_array($page->identifier, $excluded)
+            && ! in_array(DocumentationVersions::stripVersionPrefix($page->identifier), $excluded);
     }
 
     /**

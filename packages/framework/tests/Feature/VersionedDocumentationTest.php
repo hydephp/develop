@@ -342,4 +342,97 @@ class VersionedDocumentationTest extends TestCase
         $this->assertNotNull($item);
         $this->assertSame('Docs', $item->getLabel());
     }
+
+    // Section: Search
+
+    public function testEachVersionGetsItsOwnSearchIndexAndSearchPage()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/1.x/installation.md');
+        $this->file('_docs/2.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $routes = Hyde::routes()->keys()->all();
+
+        $this->assertContains('docs/1.x/search.json', $routes);
+        $this->assertContains('docs/2.x/search.json', $routes);
+        $this->assertContains('docs/1.x/search', $routes);
+        $this->assertContains('docs/2.x/search', $routes);
+
+        $this->assertNotContains('docs/search.json', $routes);
+        $this->assertNotContains('docs/search', $routes);
+    }
+
+    public function testSearchIndexesOnlyContainPagesFromTheirVersion()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/1.x/installation.md', "# Installing 1.x\nLegacy");
+        $this->file('_docs/2.x/installation.md', "# Installing 2.x\nCurrent");
+        $this->file('_docs/2.x/upgrading.md', "# Upgrading\nUpgrade guide");
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $oneIndex */
+        $oneIndex = Hyde::pages()->get('docs/1.x/search.json');
+        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $twoIndex */
+        $twoIndex = Hyde::pages()->get('docs/2.x/search.json');
+
+        $one = json_decode($oneIndex->compile(), true);
+        $two = json_decode($twoIndex->compile(), true);
+
+        $this->assertSame(['Installing 1.x'], array_column($one, 'title'));
+        $this->assertSame(['Installing 2.x', 'Upgrading'], array_column($two, 'title'));
+
+        $this->assertSame('installation.html', $one[0]['destination']);
+    }
+
+    public function testVersionAgnosticSearchExclusionsApplyToAllVersions()
+    {
+        $this->enableVersions();
+
+        config(['docs.exclude_from_search' => ['changelog']]);
+
+        $this->file('_docs/1.x/changelog.md');
+        $this->file('_docs/1.x/installation.md');
+        $this->file('_docs/2.x/changelog.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $oneIndex */
+        $oneIndex = Hyde::pages()->get('docs/1.x/search.json');
+        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $twoIndex */
+        $twoIndex = Hyde::pages()->get('docs/2.x/search.json');
+
+        $this->assertSame(['Installation'], array_column(json_decode($oneIndex->compile(), true), 'title'));
+        $this->assertSame([], json_decode($twoIndex->compile(), true));
+    }
+
+    public function testSearchIndexPathIsResolvedFromTheRenderedPage()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/1.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        Render::setPage(DocumentationPage::get('1.x/installation'));
+
+        $this->assertSame('docs/1.x/search.json', \Hyde\Framework\Features\Documentation\DocumentationSearchIndex::outputPathForRenderedPage());
+    }
+
+    public function testVersionedSearchPageCanBeOverriddenByUserPage()
+    {
+        $this->enableVersions();
+
+        $this->file('_pages/docs/1.x/search.blade.php');
+        $this->file('_docs/1.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertInstanceOf(\Hyde\Pages\BladePage::class, Hyde::routes()->get('docs/1.x/search')->getPage());
+        $this->assertNotInstanceOf(\Hyde\Pages\BladePage::class, Hyde::routes()->get('docs/2.x/search')->getPage());
+    }
 }
