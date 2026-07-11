@@ -4,8 +4,8 @@
 <div align=center>
 
 [![Test & Build](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/hydephp/develop/actions/workflows/continuous-integration.yml)
-[![Framework Tests (Matrix)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml/badge.svg?branch=develop)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml)
-[![Hyde Tests](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml/badge.svg?branch=develop)](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml)
+[![Framework Tests (Matrix)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/hydephp/framework/actions/workflows/run-tests.yml)
+[![Hyde Tests](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/hydephp/hyde/actions/workflows/run-tests.yml)
 </div>
 
 <div align=center>
@@ -60,11 +60,13 @@ The two most important components are **Hyde** and **Framework**. We also use **
 
 ### How the monorepo works
 
-Changes to HydePHP including some first-party packages are made here. The changes are then pushed to the `develop` or `master` branches of the readonly repositories seen in the table above.
+Changes to HydePHP including some first-party packages are made here. Changes to the core Hyde and Framework packages are mirrored to the matching `1.x`, `2.x`, or `master` branch in their read-only repositories. Other first-party packages continue to be mirrored from `master`.
 
 ### Releases
 
 The versioning between the Framework and Hyde packages are linked together, meaning that if Hyde gets a major release, so must Framework, and vice versa. To make this easier, we also publish major and minor releases in the monorepo. Patch releases are not published in the monorepo, and are instead handled by the individual packages, as the changes therein are generally self-contained.
+
+The release helper targets `master` by default. Pass the maintained version branch when preparing a release from another line, for example `php hyde monorepo:release --base=2.x`. Once the monorepo release pull request is merged, the matching branch is synchronized to the Hyde and Framework repositories before their releases are published.
 
 ## Contributing
 
