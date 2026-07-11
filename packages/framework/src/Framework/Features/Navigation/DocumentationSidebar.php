@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
-use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
@@ -31,11 +30,6 @@ class DocumentationSidebar extends NavigationMenu
      */
     public static function get(): static
     {
-        if (! Hyde::kernel()->isBooted()) {
-            // Booting the kernel registers the sidebar singletons in the service container.
-            Hyde::kernel()->boot();
-        }
-
         $page = Render::getPage();
 
         if ($page instanceof HasDocumentationVersion && ($version = $page->getDocumentationVersion()) !== null) {
