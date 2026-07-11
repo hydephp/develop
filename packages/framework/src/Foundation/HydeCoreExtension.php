@@ -77,43 +77,28 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /**
-     * When documentation versioning is enabled, all documentation pages belong to a version, so any
-     * source files stored outside the version directories are not part of the site, and are ignored.
-     *
-     * Since silently dropping a source file could make documentation disappear from a build after a
-     * mistake during migration, each ignored file is reported as a build warning.
-     *
-     * If you want a page at the documentation root, you can create one in the normal page source
-     * directory instead, for example `_pages/docs/index.md`, which overrides the root redirect.
-     */
+    /** Discard documentation source files stored outside the version directories. */
     protected function discardUnversionedDocumentationFiles(FileCollection $collection): void
     {
         $collection->getFiles(DocumentationPage::class)->each(function (SourceFile $file) use ($collection): void {
             if (DocumentationVersions::fromIdentifier(DocumentationPage::pathToIdentifier($file->getPath())) === null) {
                 $collection->forget($file->getPath());
 
+                // Warn because enabling versioning would otherwise silently drop existing documentation files.
                 BuildWarnings::report(sprintf('Ignoring unversioned documentation file "%s" as documentation versioning is enabled. Move it into a registered version directory to include it in the site.', $file->getPath()));
             }
         });
     }
 
-    /**
-     * When documentation versioning is enabled, the documentation root redirects to the default
-     * version's index page, so that inbound links to the docs root always have a destination.
-     * Creating your own page with the `docs/index` route key overrides the generated redirect,
-     * and the redirect is of course only added when the default version has an index page.
-     */
+    /** Add the documentation root redirect unless the route is user-defined. */
     protected function discoverDocumentationRootRedirect(PageCollection $collection, DocumentationVersion $default): void
     {
         $routeKey = unslash(DocumentationPage::outputDirectory().'/index');
 
-        $taken = $this->hasPageWithRouteKey($collection, $routeKey);
+        $rootRouteExists = $this->hasPageWithRouteKey($collection, $routeKey);
+        $defaultHomeExists = $this->hasPageWithRouteKey($collection, $default->homeRouteName());
 
-        // There's nothing to redirect to if the default version has no index page.
-        $exists = $this->hasPageWithRouteKey($collection, $default->homeRouteName());
-
-        if ($exists && ! $taken) {
+        if ($defaultHomeExists && ! $rootRouteExists) {
             $collection->addPage(new Redirect($routeKey, Hyde::formatLink("$default->name/index.html"), matter: [
                 'navigation' => ['hidden' => true],
             ]));

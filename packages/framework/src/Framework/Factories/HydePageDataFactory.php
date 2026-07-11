@@ -101,11 +101,7 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
 
     private function findTitleFromParentIdentifier(): ?string
     {
-        // We strip any documentation version prefix, so that version index pages
-        // do not get titled after the version directory they are stored in.
-        $identifier = is_a($this->pageData->pageClass, DocumentationPage::class, true)
-            ? DocumentationVersions::stripVersionPrefix($this->identifier)
-            : $this->identifier;
+        $identifier = $this->identifierForTitleInference();
 
         if (str_contains($identifier, '/') && str_ends_with($identifier, '/index')) {
             $parentBasename = basename(dirname($identifier));
@@ -118,6 +114,15 @@ class HydePageDataFactory extends Concerns\PageDataFactory implements PageSchema
         }
 
         return null;
+    }
+
+    private function identifierForTitleInference(): string
+    {
+        // Strip any documentation version prefix, so that version index pages
+        // are not titled after the version directory they are stored in.
+        return is_a($this->pageData->pageClass, DocumentationPage::class, true)
+            ? DocumentationVersions::stripVersionPrefix($this->identifier)
+            : $this->identifier;
     }
 
     protected function getMatter(string $key): ?string

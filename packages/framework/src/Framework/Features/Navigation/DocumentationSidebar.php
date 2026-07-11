@@ -17,9 +17,6 @@ use function is_string;
 
 class DocumentationSidebar extends NavigationMenu
 {
-    /**
-     * The documentation version this sidebar was generated for, when documentation versioning is enabled.
-     */
     public readonly ?DocumentationVersion $version;
 
     /**
