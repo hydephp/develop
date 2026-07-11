@@ -6,6 +6,7 @@
     <header id="sidebar-header" class="h-16">
         @include('hyde::components.docs.sidebar-brand')
     </header>
+    @include('hyde::components.docs.version-switcher')
     <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
         @include('hyde::components.docs.sidebar-items')
     </nav>

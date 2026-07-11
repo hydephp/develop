@@ -1,0 +1,84 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Hyde\Framework\Testing\Unit\Views;
+
+use Hyde\Hyde;
+use Hyde\Testing\TestCase;
+use Hyde\Support\Models\Route;
+use Hyde\Testing\TestsBladeViews;
+use Hyde\Pages\DocumentationPage;
+use Hyde\Testing\Support\TestView;
+use Hyde\Framework\Features\Navigation\DocumentationSidebar;
+use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
+
+/**
+ * @see resources/views/components/docs/version-switcher.blade.php
+ */
+class VersionSwitcherViewTest extends TestCase
+{
+    use TestsBladeViews;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->mockRoute();
+    }
+
+    protected function renderComponent(?string $version = null): TestView
+    {
+        return $this->view(view('hyde::components.docs.version-switcher', [
+            'sidebar' => NavigationMenuGenerator::handle(DocumentationSidebar::class, $version ? DocumentationVersions::get($version) : null),
+        ]));
+    }
+
+    public function testComponentIsNotRenderedWhenVersioningIsDisabled()
+    {
+        $this->renderComponent()->assertDontSee('docs-version-switcher');
+    }
+
+    public function testComponentRendersVersionsWhenVersioningIsEnabled()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('1.x/installation')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/installation')));
+
+        $this->mockPage(new DocumentationPage('2.x/installation'), 'docs/2.x/installation');
+
+        $view = $this->renderComponent('2.x');
+
+        $view->assertHasElement('#docs-version-switcher');
+        $view->assertSee('Version 2.x');
+        $view->assertSee('../../docs/1.x/installation.html');
+    }
+
+    public function testComponentLinksToVersionHomeWhenEquivalentPageIsMissing()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('1.x/index')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/upgrading')));
+
+        $this->mockPage(new DocumentationPage('2.x/upgrading'), 'docs/2.x/upgrading');
+
+        $view = $this->renderComponent('2.x');
+
+        $view->assertSee('../../docs/1.x/index.html');
+    }
+
+    public function testComponentMarksTheCurrentVersionAsSelected()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('1.x/installation')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/installation')));
+
+        $this->mockPage(new DocumentationPage('2.x/installation'), 'docs/2.x/installation');
+
+        $this->renderComponent('2.x')->assertSeeOnce('aria-selected="true"');
+    }
+}
