@@ -150,19 +150,36 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('Not Found', $response->statusMessage);
     }
 
-    public function testFallsBackToPageRouterForExtensionLikePathThatIsNotAnAsset()
+    public function testSends404ErrorResponseForMissingAsset()
     {
-        // A dotted path segment that isn't an existing media file (for example a
-        // documentation version folder like "1.x") should be handled by the page
-        // router rather than being assumed to be a missing static asset.
         $this->mockCompilerRoute('missing.css');
 
         $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
 
-        $this->expectException(RouteNotFoundException::class);
-        $this->expectExceptionMessage('Route [missing.css] not found');
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(404, $response->statusCode);
+        $this->assertSame('Not Found', $response->statusMessage);
+    }
 
-        $kernel->handle(new Request());
+    public function testFallsBackToPageRouterForExtensionLikePathThatIsNotAnAsset()
+    {
+        // A dotted path segment that isn't an existing media file (for example a
+        // documentation version folder like "9.x") should be handled by the page
+        // router rather than being assumed to be a missing static asset.
+        $this->mockCompilerRoute('9.x');
+
+        Filesystem::ensureDirectoryExists('_pages/9.x');
+        Filesystem::put('_pages/9.x/index.md', '# Hello World!');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertStringContainsString('Hello World!', $response->body);
+
+        Filesystem::deleteDirectory('_pages/9.x');
     }
 
     public function testTrailingSlashesAreNormalizedFromRoute()

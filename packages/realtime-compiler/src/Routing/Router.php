@@ -9,6 +9,7 @@ use Desilva\Microserve\Response;
 use Hyde\RealtimeCompiler\RealtimeCompiler;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Models\FileObject;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
 
@@ -43,7 +44,18 @@ class Router
             return $virtualRoutes[$this->request->path]($this->request);
         }
 
-        return PageRouter::handle($this->request);
+        try {
+            return PageRouter::handle($this->request);
+        } catch (RouteNotFoundException $exception) {
+            // A dotted path that matches neither a static file nor a page (like a missing
+            // stylesheet or source map) is a missing asset, and not a missing web page,
+            // so we send a normal 404 response instead of the pretty error page.
+            if ($this->looksLikeAsset()) {
+                return $this->notFound();
+            }
+
+            throw $exception;
+        }
     }
 
     /**
@@ -58,10 +70,7 @@ class Router
             return true;
         }
 
-        // If the path has no extension, it's a pretty url for a web page.
-        $extension = pathinfo($request->path)['extension'] ?? null;
-
-        if ($extension === null) {
+        if (! $this->looksLikeAsset()) {
             return false;
         }
 
@@ -77,6 +86,18 @@ class Router
         // guessing from the extension, we only proxy when a matching file
         // actually exists; everything else is handled as a page request.
         return $this->resolveAssetPath() !== null;
+    }
+
+    /**
+     * Does the request path look like it's for a static asset, rather than a web page?
+     *
+     * Paths without an extension are pretty urls, and .html paths are compiled pages.
+     */
+    protected function looksLikeAsset(): bool
+    {
+        $extension = pathinfo($this->request->path)['extension'] ?? null;
+
+        return $extension !== null && $extension !== 'html';
     }
 
     /**
