@@ -32,17 +32,6 @@ final class DocumentationVersion implements Stringable
     }
 
     /**
-     * Is this the default version? The default version is linked in the main navigation,
-     * and is the target of the generated documentation root redirect page.
-     *
-     * Which version is the default one is determined by the configuration, and not by the version itself.
-     */
-    public function isDefault(): bool
-    {
-        return DocumentationVersions::default()?->name === $this->name;
-    }
-
-    /**
      * Get the route key prefix for pages belonging to this version. For example, `docs/1.x`.
      */
     public function routeKeyPrefix(): string

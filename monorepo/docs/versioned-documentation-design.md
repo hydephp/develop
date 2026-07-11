@@ -38,9 +38,9 @@ Version names must match `/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/` (no slashes); violatio
 
 New namespace: `Hyde\Framework\Features\Documentation\Versioning`
 
-- **`DocumentationVersion`** — readonly value object: `name`, `isDefault()` (derived through the
-  registry, as defaultness belongs to the configuration), `routeKeyPrefix()` (e.g. `docs/1.x`),
-  `homeRouteName()` (e.g. `docs/1.x/index`), `home()`.
+- **`DocumentationVersion`** — readonly value object: `name`, `routeKeyPrefix()` (e.g. `docs/1.x`),
+  `homeRouteName()` (e.g. `docs/1.x/index`), `home()`. Defaultness is not modelled here, as it
+  belongs to the configuration: ask the registry with `DocumentationVersions::default()`.
 - **`DocumentationVersions`** — static registry over config: `enabled()`, `all()`,
   `get(string $name)`, `default()` (null when versioning is disabled),
   `fromIdentifier(string $identifier)` (maps a page identifier's first path segment to a registered
@@ -57,7 +57,8 @@ New namespace: `Hyde\Framework\Features\Documentation\Versioning`
    registry. A directory `_docs/getting-started` is *not* a version unless listed in config.
    **Versioning is all or nothing:** when versions are registered, every documentation page must
    live in a version directory, and source files outside them are discarded during file discovery
-   (`HydeCoreExtension::discoverFiles()`). Supporting mixed layouts would make them a permanent
+   (`HydeCoreExtension::discoverFiles()`), each reported through `BuildWarnings` so a migration
+   mistake cannot silently remove pages from a build. Supporting mixed layouts would make them a permanent
    compatibility promise, and required nullable page versions, default-sidebar and default-search
    fallbacks, and switcher suppression — a lot of policy for pages that the per-version sidebar,
    switcher, and search shards cannot meaningfully serve anyway. Sites wanting a page at the docs

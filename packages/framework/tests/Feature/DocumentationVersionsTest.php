@@ -48,8 +48,6 @@ class DocumentationVersionsTest extends TestCase
         config(['docs.versions' => ['1.x', '2.x']]);
 
         $this->assertSame('2.x', DocumentationVersions::default()->name);
-        $this->assertTrue(DocumentationVersions::get('2.x')->isDefault());
-        $this->assertFalse(DocumentationVersions::get('1.x')->isDefault());
     }
 
     public function testDefaultVersionCanBeSetExplicitly()
@@ -57,18 +55,11 @@ class DocumentationVersionsTest extends TestCase
         config(['docs.versions' => ['1.x', '2.x'], 'docs.default_version' => '1.x']);
 
         $this->assertSame('1.x', DocumentationVersions::default()->name);
-        $this->assertTrue(DocumentationVersions::get('1.x')->isDefault());
-        $this->assertFalse(DocumentationVersions::get('2.x')->isDefault());
     }
 
     public function testDefaultVersionIsNullWhenVersioningIsDisabled()
     {
         $this->assertNull(DocumentationVersions::default());
-    }
-
-    public function testVersionsAreNotDefaultWhenVersioningIsDisabled()
-    {
-        $this->assertFalse((new DocumentationVersion('1.x'))->isDefault());
     }
 
     public function testDefaultVersionNameReturnsNullForEmptyVersionList()
