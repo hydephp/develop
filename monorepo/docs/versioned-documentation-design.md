@@ -1,7 +1,7 @@
 # Versioned Documentation Pages — Design & Implementation Handoff
 
 **Branch:** `v3/support-versioned-documentation-pages` (targets `2.x` a.k.a. the v3 dev line)
-**Status:** In progress — see the checklist at the bottom for exactly where work stands.
+**Status:** Implementation complete — see the checklist at the bottom.
 
 This document serves two purposes: it records the design decisions for native versioned
 documentation support in HydePHP v3, and it is a handoff file so that anyone (human or agent)
@@ -133,15 +133,31 @@ New namespace: `Hyde\Framework\Features\Documentation\Versioning`
 
 ## Implementation checklist (update as you go!)
 
-- [ ] 1. Design document committed (this file)
-- [ ] 2. `DocumentationVersion` + `DocumentationVersions` registry + config + tests
-- [ ] 3. Version-aware `DocumentationPage` (route keys, output paths, home routes) + tests
-- [ ] 4. Version-aware sidebars/navigation (factory, generator, provider, views) + tests
-- [ ] 5. Per-version search index + search pages + build:search verification + tests
-- [ ] 6. Version switcher component + version-aware search view
-- [ ] 7. Docs root redirect
-- [ ] 8. Release notes (`HYDEPHP_V3_PLANNING.md`), `UPGRADE.md`, broad test run, final doc pass
+- [x] 1. Design document committed (this file)
+- [x] 2. `DocumentationVersion` + `DocumentationVersions` registry + config + tests
+- [x] 3. Version-aware `DocumentationPage` (route keys, output paths, home routes) + tests
+- [x] 4. Version-aware sidebars/navigation (factory, generator, provider, views) + tests
+- [x] 5. Per-version search index + search pages + build:search verification + tests
+- [x] 6. Version switcher component + version-aware search view
+- [x] 7. Docs root redirect
+- [x] 8. Release notes (`HYDEPHP_V3_PLANNING.md`), `UPGRADE.md`, broad test run, final doc pass
 
 Each step is one commit (or a few small ones). If you are resuming: `git log --oneline` against
 this checklist tells you where things stand; the checklist boxes are updated in the same commit
 as the work they describe.
+
+## Implementation notes (deviations from the original sketch)
+
+- The version registry helpers gained `fromRouteKey()`, `stripVersionPrefix()`, and
+  `stripVersionPrefixFromRouteKey()`, used by navigation/search to make configuration
+  entries version-agnostic. The interface method is named `getDocumentationVersion()`.
+- `DocumentationVersions::enabled()` treats versioning as disabled when called before the app
+  configuration is available, because the published `config/docs.php` calls
+  `DocumentationPage::homeRouteName()` while the configuration itself is loading. Version-agnostic
+  route key matching compensates: a `docs/index` key in a published config file still matches
+  every version's index page at runtime.
+- `HydePageDataFactory::findTitleFromParentIdentifier()` strips the version prefix so `2.x/index`
+  is not titled "2.X".
+- Documentation site docs (hydephp/docs repo) still need a "Versioned documentation" section —
+  that repo is separate from this monorepo.
+- Future enhancements deliberately left out (see "Out of scope") remain unimplemented.

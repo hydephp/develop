@@ -99,6 +99,29 @@ StaticPageBuilder::handle(Pages::getPage('_posts/hello-world.md'));
 
 Note that this only produces a correct `_site` when the page is self-contained. For anything that touches aggregate outputs, run `php hyde build` to rebuild the whole site instead.
 
+## Optional: Adopt Versioned Documentation
+
+HydePHP v3 adds native support for hosting multiple versions of your documentation side by side. This feature is entirely opt-in — if you do nothing, your documentation site works exactly as before.
+
+To enable it:
+
+1. Move your documentation source files into version subdirectories, for example `_docs/1.x/` and `_docs/2.x/`.
+2. Register the versions in `config/docs.php`:
+
+```php
+// filepath: config/docs.php
+'versions' => [
+    '1.x',
+    '2.x',
+],
+```
+
+Each version is compiled to a matching subdirectory of the documentation output directory (`docs/1.x`, `docs/2.x`), with its own sidebar, search index, and search page. A version switcher is shown in the sidebar, and `docs/index.html` is generated as a redirect to the default version (the last entry in the list, or set `docs.default_version` explicitly).
+
+Your existing `docs.sidebar.order`, `docs.sidebar.labels`, `docs.sidebar.exclude`, and `docs.exclude_from_search` entries keep working without version prefixes — they apply to the matching page in every version. Prefix an entry with a version (like `2.x/readme` or `docs/2.x/readme`) to target a single version.
+
+If you previously implemented multi-version documentation with custom page classes or extensions (like early versions of HydePHP.com did), you can now remove that custom code in favor of the `docs.versions` configuration, keeping your existing `_docs/<version>` directory layout as-is.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
