@@ -2,9 +2,9 @@ name: End-to-End Testing
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "1.x", "2.x", "master" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "1.x", "2.x", "master" ]
   workflow_dispatch:
 
 jobs:
