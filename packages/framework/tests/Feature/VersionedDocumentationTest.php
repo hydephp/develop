@@ -8,7 +8,9 @@ use Hyde\Hyde;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\BuildWarnings;
 use Hyde\Support\Facades\Render;
+use Hyde\Framework\Exceptions\BuildWarning;
 use Hyde\Foundation\Providers\NavigationServiceProvider;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
@@ -203,6 +205,31 @@ class VersionedDocumentationTest extends TestCase
         $this->assertEmpty(Hyde::files()->getFiles(DocumentationPage::class)->filter(function ($file): bool {
             return ! str_starts_with($file->getPath(), '_docs/2.x/');
         }));
+    }
+
+    public function testIgnoredUnversionedDocumentationFilesAreReportedAsBuildWarnings()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/installation.md');
+        $this->file('_docs/2.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $warnings = array_map(fn (BuildWarning $warning): string => $warning->getMessage(), BuildWarnings::getWarnings());
+
+        $this->assertSame(['Ignoring unversioned documentation file "_docs/installation.md" as documentation versioning is enabled. Move it into a registered version directory to include it in the site.'], $warnings);
+    }
+
+    public function testNoBuildWarningsAreReportedWhenAllDocumentationFilesAreVersioned()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/2.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertFalse(BuildWarnings::hasWarnings());
     }
 
     public function testUnversionedDocumentationFilesAreDiscoveredWhenVersioningIsDisabled()

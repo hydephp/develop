@@ -11,6 +11,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\BuildWarnings;
 use Hyde\Support\Models\Redirect;
 use Hyde\Foundation\Kernel\FileCollection;
 use Hyde\Foundation\Kernel\PageCollection;
@@ -25,6 +26,7 @@ use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 use function Hyde\unslash;
 use function array_filter;
 use function array_keys;
+use function sprintf;
 
 class HydeCoreExtension extends HydeExtension
 {
@@ -79,16 +81,19 @@ class HydeCoreExtension extends HydeExtension
      * When documentation versioning is enabled, all documentation pages belong to a version, so any
      * source files stored outside the version directories are not part of the site, and are ignored.
      *
+     * Since silently dropping a source file could make documentation disappear from a build after a
+     * mistake during migration, each ignored file is reported as a build warning.
+     *
      * If you want a page at the documentation root, you can create one in the normal page source
      * directory instead, for example `_pages/docs/index.md`, which overrides the root redirect.
      */
     protected function discardUnversionedDocumentationFiles(FileCollection $collection): void
     {
         $collection->getFiles(DocumentationPage::class)->each(function (SourceFile $file) use ($collection): void {
-            $identifier = DocumentationPage::pathToIdentifier($file->getPath());
-
-            if (DocumentationVersions::fromIdentifier($identifier) === null) {
+            if (DocumentationVersions::fromIdentifier(DocumentationPage::pathToIdentifier($file->getPath())) === null) {
                 $collection->forget($file->getPath());
+
+                BuildWarnings::report(sprintf('Ignoring unversioned documentation file "%s" as documentation versioning is enabled. Move it into a registered version directory to include it in the site.', $file->getPath()));
             }
         });
     }

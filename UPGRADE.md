@@ -118,7 +118,13 @@ To enable it:
 
 Each version is compiled to a matching subdirectory of the documentation output directory (`docs/1.x`, `docs/2.x`), with its own sidebar, search index, and search page. A version switcher is shown in the sidebar, and `docs/index.html` is generated as a redirect to the default version's index page (the last entry in the list, or set `docs.default_version` explicitly).
 
-Versioning is all or nothing: once you register versions, every documentation page must live in a version directory. Make sure step 1 is complete, as any Markdown files left directly in `_docs` are ignored, and will no longer be compiled. If you want a page at the documentation root, create it in your normal page source directory instead, for example `_pages/docs/index.md`, which then replaces the generated redirect.
+Versioning is all or nothing: once you register versions, every documentation page must live in a version directory. Make sure step 1 is complete, as any Markdown files left directly in `_docs` are ignored, and will no longer be compiled. Each ignored file is reported as a build warning, so if you miss one, `php hyde build` tells you which:
+
+```
+Ignoring unversioned documentation file "_docs/installation.md" as documentation versioning is enabled. Move it into a registered version directory to include it in the site.
+```
+
+If you want a page at the documentation root, create it in your normal page source directory instead, for example `_pages/docs/index.md`, which then replaces the generated redirect.
 
 Your existing `docs.sidebar.order`, `docs.sidebar.labels`, `docs.sidebar.exclude`, and `docs.exclude_from_search` entries keep working without version prefixes — they apply to the matching page in every version. Prefix an entry with a version (like `2.x/readme` or `docs/2.x/readme`) to target a single version.
 
