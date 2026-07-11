@@ -3,7 +3,6 @@
     $switcherVersions = \Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions::all();
     $switcherCurrentPage = \Hyde\Support\Facades\Render::getPage();
 
-    // The sidebar is resolved from the version of the page being rendered, so its version is the current one.
     $switcherCurrentVersion = $sidebar->version;
 @endphp
 
