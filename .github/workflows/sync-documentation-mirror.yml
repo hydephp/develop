@@ -53,7 +53,7 @@ jobs:
 
       - name: Checkout monorepo
         if: steps.vars.outputs.SKIP != 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         # For push events this checks out the pushed commit on its version branch.
         # For release events, github.ref is the release tag, so we check
         # out exactly the code that was released.
