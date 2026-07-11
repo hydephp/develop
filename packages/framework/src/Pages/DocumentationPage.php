@@ -57,8 +57,8 @@ class DocumentationPage extends BaseMarkdownPage implements HasDocumentationVers
         $version ??= DocumentationVersions::enabled() ? DocumentationVersions::default() : null;
 
         return $version === null
-            ? unslash(static::baseRouteKey().'/index')
-            : unslash(static::baseRouteKey()."/$version/index");
+            ? static::baseRouteKey().'/index'
+            : static::baseRouteKey()."/$version/index";
     }
 
     /**
