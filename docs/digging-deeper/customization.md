@@ -115,6 +115,7 @@ as the value:
 When you run `php hyde build`, Hyde registers each redirect with the kernel and generates the corresponding HTML page.
 This means redirects appear in `php hyde route:list` and are rebuilt and cleaned up together with the rest of the site.
 Redirects are not included in navigation menus or the sitemap.
+Each redirect includes a visible link to the destination as an accessible fallback when automatic redirection is unavailable.
 
 The paths are relative to the site root and normally omit the `.html` extension. You can also define redirects in
 `hyde.yml`:

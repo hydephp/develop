@@ -47,15 +47,6 @@ class RedirectTest extends TestCase
         $this->assertSame('foo', $redirect->path);
     }
 
-    public function testTextCanBeDisabled()
-    {
-        $redirect = new Redirect('foo', 'bar');
-        $this->assertStringContainsString('Redirecting to <a href=', $redirect->compile());
-
-        $redirect = new Redirect('foo', 'bar', false);
-        $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->compile());
-    }
-
     public function testConfiguredRedirectsAreRegisteredWithTheKernelAndBuiltWithTheSite()
     {
         config(['hyde.redirects' => ['foo' => 'bar']]);

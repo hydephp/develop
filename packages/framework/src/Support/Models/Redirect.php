@@ -19,17 +19,15 @@ class Redirect extends InMemoryPage
 {
     public readonly string $path;
     public readonly string $destination;
-    public readonly bool $showText;
 
     /**
      * @param  string  $path  The URI path to redirect from.
      * @param  \Hyde\Markdown\Models\FrontMatter|array<string, mixed>  $matter  The front matter for the redirect page.
      */
-    public function __construct(string $path, string $destination, bool $showText = true, FrontMatter|array $matter = [])
+    public function __construct(string $path, string $destination, FrontMatter|array $matter = [])
     {
         $this->path = $this->normalizePath($path);
         $this->destination = $destination;
-        $this->showText = $showText;
 
         parent::__construct($this->path, $matter);
     }
@@ -38,7 +36,6 @@ class Redirect extends InMemoryPage
     {
         return View::make('hyde::pages.redirect', [
             'destination' => $this->destination,
-            'showText' => $this->showText,
         ])->render();
     }
 
