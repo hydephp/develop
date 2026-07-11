@@ -126,11 +126,29 @@ class VersionedDocumentationTest extends TestCase
 
     // Section: Home routes
 
-    public function testHomeRouteNameUsesDefaultVersionWhenVersioningIsEnabled()
+    public function testDocumentationHomeRouteNameIsTheDocumentationRootRegardlessOfVersioning()
+    {
+        $this->assertSame('docs/index', DocumentationPage::homeRouteName());
+
+        $this->enableVersions();
+
+        $this->assertSame('docs/index', DocumentationPage::homeRouteName());
+    }
+
+    public function testVersionsOwnTheirHomeRoutes()
     {
         $this->enableVersions();
 
-        $this->assertSame('docs/2.x/index', DocumentationPage::homeRouteName());
+        $this->file('_docs/1.x/index.md');
+        $this->file('_docs/2.x/index.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertSame('docs/1.x/index', DocumentationVersions::get('1.x')->homeRouteName());
+        $this->assertSame('docs/1.x/index', DocumentationVersions::get('1.x')->home()->getRouteKey());
+
+        // The documentation root is the generated redirect page pointing to the default version.
+        $this->assertSame('docs/index', DocumentationPage::home()->getRouteKey());
     }
 
     public function testExplicitDefaultVersionIsUsedForVersionedDocumentationEntryPoints()
@@ -144,8 +162,7 @@ class VersionedDocumentationTest extends TestCase
 
         Hyde::boot(); // Reboot to rediscover new pages
 
-        $this->assertSame('docs/1.x/index', DocumentationPage::homeRouteName());
-        $this->assertSame('docs/1.x/index', DocumentationPage::home()->getRouteKey());
+        $this->assertSame('docs/1.x/index', DocumentationVersions::default()->homeRouteName());
 
         /** @var DocumentationSidebar $sidebar */
         $sidebar = app('navigation.sidebar');
@@ -159,32 +176,6 @@ class VersionedDocumentationTest extends TestCase
         $this->assertContains('docs/1.x/index', $keys);
         $this->assertNotContains('docs/2.x/index', $keys);
         $this->assertSame('1.x/index.html', Hyde::routes()->get('docs/index')->getPage()->destination);
-    }
-
-    public function testHomeRouteNameAcceptsExplicitVersion()
-    {
-        $this->enableVersions();
-
-        $this->assertSame('docs/1.x/index', DocumentationPage::homeRouteName('1.x'));
-        $this->assertSame('docs/1.x/index', DocumentationPage::homeRouteName(DocumentationVersions::get('1.x')));
-    }
-
-    public function testHomeRouteNameIsUnchangedWhenVersioningIsDisabled()
-    {
-        $this->assertSame('docs/index', DocumentationPage::homeRouteName());
-    }
-
-    public function testHomeFindsVersionIndexRoutes()
-    {
-        $this->enableVersions();
-
-        $this->file('_docs/1.x/index.md');
-        $this->file('_docs/2.x/index.md');
-
-        Hyde::boot(); // Reboot to rediscover new pages
-
-        $this->assertSame('docs/2.x/index', DocumentationPage::home()->getRouteKey());
-        $this->assertSame('docs/1.x/index', DocumentationPage::home('1.x')->getRouteKey());
     }
 
     // Section: Discovery

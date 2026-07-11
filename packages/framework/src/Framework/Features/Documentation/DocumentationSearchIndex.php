@@ -30,7 +30,7 @@ class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationV
     {
         $this->version = $version;
 
-        parent::__construct(static::outputPath($version), [
+        parent::__construct(static::routeKey($version), [
             'navigation' => ['hidden' => true],
         ]);
     }
@@ -45,14 +45,17 @@ class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationV
         return $this->version;
     }
 
-    public static function outputPath(DocumentationVersion|string|null $version = null): string
+    /**
+     * Get the route key of the search index, which for this page is also its output path.
+     */
+    public static function routeKey(?DocumentationVersion $version = null): string
     {
-        return RouteKey::fromPage(DocumentationPage::class, $version === null ? 'search' : "$version/search").'.json';
+        return RouteKey::fromPage(DocumentationPage::class, $version === null ? 'search' : "$version->name/search").'.json';
     }
 
     public function getOutputPath(): string
     {
-        return static::outputPath($this->version);
+        return static::routeKey($this->version);
     }
 
     /**
@@ -65,6 +68,6 @@ class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationV
 
         $version = $page instanceof HasDocumentationVersion ? $page->getDocumentationVersion() : null;
 
-        return static::outputPath($version ?? DocumentationVersions::default());
+        return static::routeKey($version ?? DocumentationVersions::default());
     }
 }

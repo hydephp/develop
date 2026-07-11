@@ -57,7 +57,7 @@ class DocumentationSidebar extends NavigationMenu
      */
     public function getHomeRoute(): ?Route
     {
-        return DocumentationPage::home($this->version);
+        return $this->version?->home() ?? DocumentationPage::home();
     }
 
     public function getHeader(): string
@@ -105,7 +105,7 @@ class DocumentationSidebar extends NavigationMenu
 
         $currentPage = Render::getPage();
 
-        if ($currentPage->getRoute()->is(DocumentationPage::homeRouteName($this->version)) && blank($currentPage->navigationMenuGroup())) {
+        if ($currentPage->getRoute()->is($this->version?->homeRouteName() ?? DocumentationPage::homeRouteName()) && blank($currentPage->navigationMenuGroup())) {
             // Unless the index page has a specific group set, the first group in the sidebar should be open when visiting the index page.
             return $this->items->sortBy(fn (NavigationGroup $item): int => $item->getPriority())->first();
         }

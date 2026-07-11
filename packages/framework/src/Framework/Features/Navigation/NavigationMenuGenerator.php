@@ -101,8 +101,8 @@ class NavigationMenuGenerator
 
         if ($this->generatesSidebar) {
             // If there are no pages other than the index page, we add it to the sidebar so that it's not empty
-            if ($this->items->count() === 0 && DocumentationPage::home($this->version) !== null) {
-                $this->items->push(NavigationItem::create(DocumentationPage::home($this->version)));
+            if ($this->items->count() === 0 && ($home = $this->documentationHome()) !== null) {
+                $this->items->push(NavigationItem::create($home));
             }
         } else {
             collect(Config::getArray('hyde.navigation.custom', []))->each(function (array $data): void {
@@ -136,13 +136,31 @@ class NavigationMenuGenerator
 
         if ($this->generatesSidebar) {
             // Since the index page is linked in the header, we don't want it in the sidebar
-            return ! $route->is(DocumentationPage::homeRouteName($this->version));
+            return ! $route->is($this->documentationHomeRouteName());
         } else {
             // While we for the most part can rely on the navigation visibility state provided by the navigation data factory,
             // we need to make an exception for documentation pages, which generally have a visible state, as the data is
             // also used in the sidebar. But we only want the documentation index page to be in the main navigation.
-            return ! $route->getPage() instanceof DocumentationPage || $route->is(DocumentationPage::homeRouteName());
+            return ! $route->getPage() instanceof DocumentationPage || $route->is($this->documentationHomeRouteName());
         }
+    }
+
+    /**
+     * Get the route key of the documentation index page that the menu being generated links.
+     *
+     * For sidebars that is the index page of the sidebar's version, and for the main navigation
+     * menu it is the index page of the default version, when versioning is enabled.
+     */
+    protected function documentationHomeRouteName(): string
+    {
+        $version = $this->generatesSidebar ? $this->version : DocumentationVersions::default();
+
+        return $version?->homeRouteName() ?? DocumentationPage::homeRouteName();
+    }
+
+    protected function documentationHome(): ?Route
+    {
+        return $this->version?->home() ?? DocumentationPage::home();
     }
 
     protected function canGroupRoute(Route $route): bool

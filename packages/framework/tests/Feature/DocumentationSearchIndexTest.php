@@ -48,37 +48,36 @@ class DocumentationSearchIndexTest extends TestCase
         $this->assertSame('1.x', $page->getDocumentationVersion()->name);
     }
 
-    public function testStaticOutputPathHelper()
+    public function testStaticRouteKeyHelper()
     {
-        $this->assertSame('docs/search.json', DocumentationSearchIndex::outputPath());
+        $this->assertSame('docs/search.json', DocumentationSearchIndex::routeKey());
     }
 
-    public function testStaticOutputPathHelperWithVersion()
-    {
-        config(['docs.versions' => ['1.x']]);
-
-        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::outputPath('1.x'));
-        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::outputPath(DocumentationVersions::get('1.x')));
-    }
-
-    public function testStaticOutputPathHelperWithCustomOutputDirectory()
-    {
-        DocumentationPage::setOutputDirectory('foo');
-        $this->assertSame('foo/search.json', DocumentationSearchIndex::outputPath());
-    }
-
-    public function testStaticOutputPathHelperWithVersionAndCustomOutputDirectory()
+    public function testStaticRouteKeyHelperWithVersion()
     {
         config(['docs.versions' => ['1.x']]);
-        DocumentationPage::setOutputDirectory('foo');
 
-        $this->assertSame('foo/1.x/search.json', DocumentationSearchIndex::outputPath(DocumentationVersions::get('1.x')));
+        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::routeKey(DocumentationVersions::get('1.x')));
     }
 
-    public function testStaticOutputPathHelperWithRootOutputDirectory()
+    public function testStaticRouteKeyHelperWithCustomOutputDirectory()
+    {
+        DocumentationPage::setOutputDirectory('foo');
+        $this->assertSame('foo/search.json', DocumentationSearchIndex::routeKey());
+    }
+
+    public function testStaticRouteKeyHelperWithVersionAndCustomOutputDirectory()
+    {
+        config(['docs.versions' => ['1.x']]);
+        DocumentationPage::setOutputDirectory('foo');
+
+        $this->assertSame('foo/1.x/search.json', DocumentationSearchIndex::routeKey(DocumentationVersions::get('1.x')));
+    }
+
+    public function testStaticRouteKeyHelperWithRootOutputDirectory()
     {
         DocumentationPage::setOutputDirectory('');
-        $this->assertSame('search.json', DocumentationSearchIndex::outputPath());
+        $this->assertSame('search.json', DocumentationSearchIndex::routeKey());
     }
 
     public function testOutputPathForRenderedPageFallsBackToDefaultVersionSearchIndexWhenRenderedDocumentationPageIsUnversioned()

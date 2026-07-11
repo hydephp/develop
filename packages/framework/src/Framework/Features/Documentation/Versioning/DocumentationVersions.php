@@ -12,7 +12,6 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
-use Illuminate\Support\Facades\Facade;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function count;
@@ -42,13 +41,6 @@ final class DocumentationVersions
      */
     public static function enabled(): bool
     {
-        // Version helpers may be called from configuration files while the configuration itself is being
-        // loaded (for example `DocumentationPage::homeRouteName()`), in which case we consider
-        // versioning to be disabled, as the version registry cannot be read yet.
-        if (! self::configurationAvailable()) {
-            return false;
-        }
-
         return count(Config::getArray('docs.versions', [])) > 0;
     }
 
@@ -170,11 +162,6 @@ final class DocumentationVersions
         return $version === null
             ? $routeKey
             : unslash(DocumentationPage::outputDirectory().'/'.Str::after($routeKey, $version->routeKeyPrefix().'/'));
-    }
-
-    protected static function configurationAvailable(): bool
-    {
-        return Facade::getFacadeApplication()?->bound('config') ?? false;
     }
 
     /** @param array<int, string> $versions */

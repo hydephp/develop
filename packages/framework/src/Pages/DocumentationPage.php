@@ -38,27 +38,23 @@ class DocumentationPage extends BaseMarkdownPage implements HasDocumentationVers
     /**
      * Get the route for the documentation index page, if it exists.
      *
-     * When versioning is enabled, this defaults to the default version's index page,
-     * but a specific version can be passed to get the index page for that version.
+     * When documentation versioning is enabled, this is the generated redirect page at the documentation
+     * root. Use {@see DocumentationVersion::home()} to get the index page of a specific version.
      */
-    public static function home(DocumentationVersion|string|null $version = null): ?Route
+    public static function home(): ?Route
     {
-        return Routes::find(static::homeRouteName($version));
+        return Routes::find(static::homeRouteName());
     }
 
     /**
-     * Get the route key for the documentation index page.
+     * Get the route key for the documentation index page, for example `docs/index`.
      *
-     * When versioning is enabled, this defaults to the default version's index page,
-     * but a specific version can be passed to get the route key for that version.
+     * This is always the documentation root, regardless of whether documentation versioning is enabled.
+     * Use {@see DocumentationVersion::homeRouteName()} to get the route key of a specific version's index page.
      */
-    public static function homeRouteName(DocumentationVersion|string|null $version = null): string
+    public static function homeRouteName(): string
     {
-        $version ??= DocumentationVersions::enabled() ? DocumentationVersions::default() : null;
-
-        return $version === null
-            ? static::baseRouteKey().'/index'
-            : static::baseRouteKey()."/$version/index";
+        return static::baseRouteKey().'/index';
     }
 
     /**

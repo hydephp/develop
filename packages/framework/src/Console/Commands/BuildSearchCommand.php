@@ -38,7 +38,7 @@ class BuildSearchCommand extends Command
 
     protected function build(?DocumentationVersion $version): void
     {
-        StaticPageBuilder::handle(Pages::get(DocumentationSearchIndex::outputPath($version)) ?? new DocumentationSearchIndex($version));
+        StaticPageBuilder::handle(Pages::get(DocumentationSearchIndex::routeKey($version)) ?? new DocumentationSearchIndex($version));
 
         if (DocumentationSearchPage::enabled($version)) {
             StaticPageBuilder::handle(Pages::get(DocumentationSearchPage::routeKey($version)) ?? new DocumentationSearchPage($version));
