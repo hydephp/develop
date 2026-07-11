@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Facades\Render;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
@@ -80,12 +81,31 @@ class DocumentationSearchIndexTest extends TestCase
         $this->assertSame('search.json', DocumentationSearchIndex::outputPath());
     }
 
-    public function testOutputPathForRenderedPageFallsBackToUnversionedSearchIndex()
+    public function testOutputPathForRenderedPageFallsBackToDefaultVersionSearchIndexWhenRenderedDocumentationPageIsUnversioned()
     {
-        config(['docs.versions' => ['1.x']]);
+        config(['docs.versions' => ['1.x', '2.x']]);
         DocumentationPage::setOutputDirectory('docs');
 
         Render::setPage(new DocumentationPage('installation'));
+
+        $this->assertSame('docs/2.x/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
+    }
+
+    public function testOutputPathForRenderedPageFallsBackToDefaultVersionSearchIndexWhenRenderedPageHasNoDocumentationVersion()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+        DocumentationPage::setOutputDirectory('docs');
+
+        Render::setPage(new InMemoryPage('index'));
+
+        $this->assertSame('docs/2.x/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
+    }
+
+    public function testOutputPathForRenderedPageFallsBackToUnversionedSearchIndexWhenVersioningIsDisabled()
+    {
+        DocumentationPage::setOutputDirectory('docs');
+
+        Render::setPage(new InMemoryPage('index'));
 
         $this->assertSame('docs/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
     }

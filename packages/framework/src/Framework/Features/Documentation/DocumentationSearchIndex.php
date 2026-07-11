@@ -11,6 +11,7 @@ use Hyde\Support\Facades\Render;
 use Hyde\Framework\Actions\GeneratesDocumentationSearchIndex;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\HasDocumentationVersion;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 /**
  * @internal This page is used to render the search index for the documentation.
@@ -62,6 +63,8 @@ class DocumentationSearchIndex extends InMemoryPage implements HasDocumentationV
     {
         $page = Render::getPage();
 
-        return static::outputPath($page instanceof HasDocumentationVersion ? $page->getDocumentationVersion() : null);
+        $version = $page instanceof HasDocumentationVersion ? $page->getDocumentationVersion() : null;
+
+        return static::outputPath($version ?? (DocumentationVersions::enabled() ? DocumentationVersions::default() : null));
     }
 }

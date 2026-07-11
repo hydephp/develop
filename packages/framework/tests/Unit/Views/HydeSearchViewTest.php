@@ -34,10 +34,19 @@ class HydeSearchViewTest extends TestCase
             ->assertDontSee("initHydeSearch('../../docs/search.json')", false);
     }
 
-    public function testComponentFallsBackToRootSearchIndexForNonDocumentationVersionPages()
+    public function testComponentFallsBackToDefaultVersionSearchIndexForNonDocumentationVersionPages()
     {
-        config(['docs.versions' => ['1.x']]);
+        config(['docs.versions' => ['1.x', '2.x']]);
 
+        $this->mockPage(new InMemoryPage('index'), 'index');
+
+        $this->view('hyde::components.docs.hyde-search')
+            ->assertSee("initHydeSearch('docs/2.x/search.json')", false)
+            ->assertDontSee("initHydeSearch('docs/search.json')", false);
+    }
+
+    public function testComponentFallsBackToRootSearchIndexWhenVersioningIsDisabled()
+    {
         $this->mockPage(new InMemoryPage('index'), 'index');
 
         $this->view('hyde::components.docs.hyde-search')
