@@ -9,6 +9,7 @@ use Hyde\Testing\TestCase;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestsBladeViews;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Testing\Support\TestView;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Hyde\Framework\Features\Navigation\NavigationMenuGenerator;
@@ -40,6 +41,13 @@ class VersionSwitcherViewTest extends TestCase
         $this->renderComponent()->assertDontSee('docs-version-switcher');
     }
 
+    public function testComponentIsNotRenderedWhenOnlyOneVersionIsConfigured()
+    {
+        config(['docs.versions' => ['2.x']]);
+
+        $this->renderComponent('2.x')->assertDontSee('docs-version-switcher');
+    }
+
     public function testComponentRendersVersionsWhenVersioningIsEnabled()
     {
         config(['docs.versions' => ['1.x', '2.x']]);
@@ -68,6 +76,33 @@ class VersionSwitcherViewTest extends TestCase
         $view = $this->renderComponent('2.x');
 
         $view->assertSee('../../docs/1.x/index.html');
+    }
+
+    public function testComponentLinksToVersionHomeWhenThereIsNoCurrentPage()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Render::clearData();
+        $this->mockRoute();
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('1.x/index')));
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/index')));
+
+        $view = $this->renderComponent('2.x');
+
+        $view->assertHasElement('#docs-version-switcher');
+        $view->assertSee('docs/1.x/index.html');
+    }
+
+    public function testComponentRendersDisabledVersionWhenNoEquivalentPageOrHomeExists()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        Hyde::routes()->addRoute(new Route(new DocumentationPage('2.x/upgrading')));
+
+        $this->mockPage(new DocumentationPage('2.x/upgrading'), 'docs/2.x/upgrading');
+
+        $this->renderComponent('2.x')->assertSee('<span class="block py-1 px-3 opacity-50">1.x</span>', false);
     }
 
     public function testComponentMarksTheCurrentVersionAsSelected()

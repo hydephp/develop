@@ -79,6 +79,25 @@ class DocumentationVersionsTest extends TestCase
         DocumentationVersions::all();
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('validVersionNameProvider')]
+    public function testValidVersionNamesAreAccepted(string $name)
+    {
+        config(['docs.versions' => [$name]]);
+
+        $this->assertSame($name, DocumentationVersions::get($name)->name);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidVersionNameProvider')]
+    public function testInvalidVersionNamesAreRejected(string $name)
+    {
+        config(['docs.versions' => [$name]]);
+
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage("Invalid documentation version name '$name'.");
+
+        DocumentationVersions::all();
+    }
+
     public function testGetReturnsNullForUnregisteredVersion()
     {
         config(['docs.versions' => ['1.x']]);
@@ -127,6 +146,34 @@ class DocumentationVersionsTest extends TestCase
         $this->assertSame('3.x/installation', DocumentationVersions::stripVersionPrefix('3.x/installation'));
     }
 
+    public function testStripVersionPrefixFromRouteKey()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        $this->assertSame('docs/installation', DocumentationVersions::stripVersionPrefixFromRouteKey('docs/1.x/installation'));
+        $this->assertSame('docs/getting-started/installation', DocumentationVersions::stripVersionPrefixFromRouteKey('docs/2.x/getting-started/installation'));
+        $this->assertSame('docs/installation', DocumentationVersions::stripVersionPrefixFromRouteKey('docs/installation'));
+        $this->assertSame('posts/1.x/installation', DocumentationVersions::stripVersionPrefixFromRouteKey('posts/1.x/installation'));
+    }
+
+    public function testStripVersionPrefixFromRouteKeyRespectsCustomOutputDirectory()
+    {
+        config(['docs.versions' => ['1.x']]);
+
+        DocumentationPage::setOutputDirectory('reference');
+
+        try {
+            $this->assertSame('reference/installation', DocumentationVersions::stripVersionPrefixFromRouteKey('reference/1.x/installation'));
+        } finally {
+            DocumentationPage::setOutputDirectory('docs');
+        }
+    }
+
+    public function testStripVersionPrefixFromRouteKeyReturnsInputWhenVersioningIsDisabled()
+    {
+        $this->assertSame('docs/1.x/installation', DocumentationVersions::stripVersionPrefixFromRouteKey('docs/1.x/installation'));
+    }
+
     public function testVersionRouteKeyPrefixAndHomeRouteName()
     {
         config(['docs.versions' => ['1.x']]);
@@ -169,5 +216,55 @@ class DocumentationVersionsTest extends TestCase
         $this->assertSame('docs/1.x/installation', $route->getRouteKey());
 
         $this->assertNull(DocumentationVersions::getEquivalentRoute(DocumentationPage::get('2.x/upgrading'), DocumentationVersions::get('1.x')));
+    }
+
+    public function testGetEquivalentRouteFindsFlattenedPageInOtherVersion()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        $this->file('_docs/1.x/getting-started/installation.md');
+        $this->file('_docs/2.x/getting-started/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $route = DocumentationVersions::getEquivalentRoute(DocumentationPage::get('2.x/getting-started/installation'), DocumentationVersions::get('1.x'));
+
+        $this->assertNotNull($route);
+        $this->assertSame('docs/1.x/installation', $route->getRouteKey());
+    }
+
+    public function testGetEquivalentRouteReturnsNullForUnversionedPage()
+    {
+        config(['docs.versions' => ['1.x', '2.x']]);
+
+        $this->file('_docs/shared.md');
+        $this->file('_docs/1.x/shared.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertNull(DocumentationVersions::getEquivalentRoute(DocumentationPage::get('shared'), DocumentationVersions::get('1.x')));
+    }
+
+    public static function validVersionNameProvider(): array
+    {
+        return [
+            ['1.x'],
+            ['v2'],
+            ['2026.07'],
+            ['beta-1'],
+            ['rc_1'],
+        ];
+    }
+
+    public static function invalidVersionNameProvider(): array
+    {
+        return [
+            [''],
+            ['1.x/nested'],
+            ['.hidden'],
+            ['-draft'],
+            ['_internal'],
+            ['release candidate'],
+        ];
     }
 }

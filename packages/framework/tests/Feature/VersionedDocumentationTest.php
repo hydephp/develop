@@ -129,6 +129,34 @@ class VersionedDocumentationTest extends TestCase
         $this->assertSame('docs/2.x/index', DocumentationPage::homeRouteName());
     }
 
+    public function testExplicitDefaultVersionIsUsedForVersionedDocumentationEntryPoints()
+    {
+        config(['docs.versions' => ['1.x', '2.x'], 'docs.default_version' => '1.x']);
+
+        $this->file('_docs/1.x/index.md');
+        $this->file('_docs/1.x/installation.md');
+        $this->file('_docs/2.x/index.md');
+        $this->file('_docs/2.x/installation.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertSame('docs/1.x/index', DocumentationPage::homeRouteName());
+        $this->assertSame('docs/1.x/index', DocumentationPage::home()->getRouteKey());
+
+        /** @var DocumentationSidebar $sidebar */
+        $sidebar = app('navigation.sidebar');
+        $this->assertSame('1.x', $sidebar->version->name);
+        $this->assertSame(['docs/1.x/installation'], $this->menuRouteKeys($sidebar));
+
+        /** @var MainNavigationMenu $menu */
+        $menu = app('navigation.main');
+        $keys = $this->menuRouteKeys($menu);
+
+        $this->assertContains('docs/1.x/index', $keys);
+        $this->assertNotContains('docs/2.x/index', $keys);
+        $this->assertSame('1.x/index.html', Hyde::routes()->get('docs/index')->getPage()->destination);
+    }
+
     public function testHomeRouteNameAcceptsExplicitVersion()
     {
         $this->enableVersions();
@@ -172,6 +200,32 @@ class VersionedDocumentationTest extends TestCase
         $this->assertSame(['docs/1.x/installation', 'docs/2.x/advanced', 'docs/2.x/installation'], $routes);
     }
 
+    public function testVersionedDocumentationUsesCustomDocumentationOutputDirectory()
+    {
+        $this->enableVersions();
+        DocumentationPage::setOutputDirectory('reference');
+
+        try {
+            $this->file('_docs/2.x/index.md');
+            $this->file('_docs/2.x/installation.md');
+
+            Hyde::boot(); // Reboot to rediscover new pages
+
+            $routes = Hyde::routes()->keys()->all();
+
+            $this->assertContains('reference/index', $routes);
+            $this->assertContains('reference/2.x/index', $routes);
+            $this->assertContains('reference/2.x/installation', $routes);
+            $this->assertContains('reference/1.x/search.json', $routes);
+            $this->assertContains('reference/2.x/search.json', $routes);
+            $this->assertContains('reference/1.x/search', $routes);
+            $this->assertContains('reference/2.x/search', $routes);
+            $this->assertSame('2.x/index.html', Hyde::routes()->get('reference/index')->getPage()->destination);
+        } finally {
+            DocumentationPage::setOutputDirectory('docs');
+        }
+    }
+
     // Section: Sidebars
 
     public function testEachVersionGetsItsOwnSidebar()
@@ -196,6 +250,37 @@ class VersionedDocumentationTest extends TestCase
 
         $this->assertSame('2.x', $twoSidebar->version->name);
         $this->assertSame(['docs/2.x/installation', 'docs/2.x/upgrading'], $this->menuRouteKeys($twoSidebar));
+    }
+
+    public function testUnversionedDocumentationPagesCanCoexistWithVersionedDocumentation()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/shared.md', '# Shared');
+        $this->file('_docs/1.x/installation.md', '# Legacy Install');
+        $this->file('_docs/2.x/installation.md', '# Current Install');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $routes = Hyde::routes()->getRoutes(DocumentationPage::class)->keys()->all();
+
+        $this->assertContains('docs/shared', $routes);
+
+        /** @var DocumentationSidebar $oneSidebar */
+        $oneSidebar = app('navigation.sidebar.1.x');
+        /** @var DocumentationSidebar $twoSidebar */
+        $twoSidebar = app('navigation.sidebar.2.x');
+
+        $this->assertSame(['docs/1.x/installation'], $this->menuRouteKeys($oneSidebar));
+        $this->assertSame(['docs/2.x/installation'], $this->menuRouteKeys($twoSidebar));
+
+        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $oneIndex */
+        $oneIndex = Hyde::pages()->get('docs/1.x/search.json');
+        /** @var \Hyde\Framework\Features\Documentation\DocumentationSearchIndex $twoIndex */
+        $twoIndex = Hyde::pages()->get('docs/2.x/search.json');
+
+        $this->assertSame(['Legacy Install'], array_column(json_decode($oneIndex->compile(), true), 'title'));
+        $this->assertSame(['Current Install'], array_column(json_decode($twoIndex->compile(), true), 'title'));
     }
 
     public function testDefaultSidebarIsTheDefaultVersionSidebarWhenVersioningIsEnabled()
@@ -283,6 +368,20 @@ class VersionedDocumentationTest extends TestCase
         $sidebar = app('navigation.sidebar.2.x');
 
         $this->assertSame(['docs/2.x/installation'], $this->menuRouteKeys($sidebar));
+    }
+
+    public function testVersionSidebarFallsBackToIndexPageWhenItWouldOtherwiseBeEmpty()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/1.x/index.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        /** @var DocumentationSidebar $sidebar */
+        $sidebar = app('navigation.sidebar.1.x');
+
+        $this->assertSame(['docs/1.x/index'], $this->menuRouteKeys($sidebar));
     }
 
     public function testSidebarHomeRouteUsesTheSidebarVersion()
@@ -486,5 +585,17 @@ class VersionedDocumentationTest extends TestCase
         Hyde::boot(); // Reboot to rediscover new pages
 
         $this->assertInstanceOf(\Hyde\Pages\MarkdownPage::class, Hyde::routes()->get('docs/index')->getPage());
+    }
+
+    public function testDocumentationRootRedirectCanBeOverriddenByDocumentationIndexPage()
+    {
+        $this->enableVersions();
+
+        $this->file('_docs/index.md');
+        $this->file('_docs/2.x/index.md');
+
+        Hyde::boot(); // Reboot to rediscover new pages
+
+        $this->assertInstanceOf(DocumentationPage::class, Hyde::routes()->get('docs/index')->getPage());
     }
 }

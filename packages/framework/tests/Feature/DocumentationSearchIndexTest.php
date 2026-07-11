@@ -6,7 +6,10 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Support\Facades\Render;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
+use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 /**
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSearchCommandTest
@@ -33,9 +36,28 @@ class DocumentationSearchIndexTest extends TestCase
         $this->assertSame('foo/search.json', $page->routeKey);
     }
 
+    public function testRouteKeyIsSetToVersionedDocumentationOutputDirectory()
+    {
+        config(['docs.versions' => ['1.x']]);
+
+        $page = new DocumentationSearchIndex(DocumentationVersions::get('1.x'));
+
+        $this->assertSame('docs/1.x/search.json', $page->routeKey);
+        $this->assertSame('docs/1.x/search.json', $page->getOutputPath());
+        $this->assertSame('1.x', $page->getDocumentationVersion()->name);
+    }
+
     public function testStaticOutputPathHelper()
     {
         $this->assertSame('docs/search.json', DocumentationSearchIndex::outputPath());
+    }
+
+    public function testStaticOutputPathHelperWithVersion()
+    {
+        config(['docs.versions' => ['1.x']]);
+
+        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::outputPath('1.x'));
+        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::outputPath(DocumentationVersions::get('1.x')));
     }
 
     public function testStaticOutputPathHelperWithCustomOutputDirectory()
@@ -44,9 +66,37 @@ class DocumentationSearchIndexTest extends TestCase
         $this->assertSame('foo/search.json', DocumentationSearchIndex::outputPath());
     }
 
+    public function testStaticOutputPathHelperWithVersionAndCustomOutputDirectory()
+    {
+        config(['docs.versions' => ['1.x']]);
+        DocumentationPage::setOutputDirectory('foo');
+
+        $this->assertSame('foo/1.x/search.json', DocumentationSearchIndex::outputPath(DocumentationVersions::get('1.x')));
+    }
+
     public function testStaticOutputPathHelperWithRootOutputDirectory()
     {
         DocumentationPage::setOutputDirectory('');
         $this->assertSame('search.json', DocumentationSearchIndex::outputPath());
+    }
+
+    public function testOutputPathForRenderedPageFallsBackToUnversionedSearchIndex()
+    {
+        config(['docs.versions' => ['1.x']]);
+        DocumentationPage::setOutputDirectory('docs');
+
+        Render::setPage(new DocumentationPage('installation'));
+
+        $this->assertSame('docs/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
+    }
+
+    public function testOutputPathForRenderedPageUsesVersionedSearchIndexForVersionedSearchPages()
+    {
+        config(['docs.versions' => ['1.x']]);
+        DocumentationPage::setOutputDirectory('docs');
+
+        Render::setPage(new DocumentationSearchPage(DocumentationVersions::get('1.x')));
+
+        $this->assertSame('docs/1.x/search.json', DocumentationSearchIndex::outputPathForRenderedPage());
     }
 }

@@ -19,6 +19,8 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
     {
         self::resetKernel();
         self::mockConfig();
+        \Illuminate\Support\Facades\Facade::setFacadeApplication(app());
+        DocumentationPage::setOutputDirectory('docs');
     }
 
     public function testSearchForPriorityInNavigationConfigForMarkdownPageWithKeyedConfig()
@@ -144,6 +146,49 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(502, $factory->makePriority());
     }
 
+    public function testVersionSpecificSidebarConfigurationTakesPrecedenceOverAgnosticConfiguration()
+    {
+        self::mockConfig([
+            'docs.versions' => ['1.x', '2.x'],
+            'docs.sidebar.labels' => [
+                'readme' => 'Readme',
+                '1.x/readme' => 'Legacy Readme',
+                'docs/2.x/readme' => 'Current Readme',
+            ],
+            'docs.sidebar.order' => [
+                'readme',
+                '1.x/readme' => 10,
+                'docs/2.x/readme' => 20,
+            ],
+        ]);
+
+        $legacy = new NavigationConfigTestClass($this->makeCoreDataObject('1.x/readme', 'docs/1.x/readme', DocumentationPage::class));
+        $current = new NavigationConfigTestClass($this->makeCoreDataObject('2.x/readme', 'docs/2.x/readme', DocumentationPage::class));
+
+        $this->assertSame('Legacy Readme', $legacy->makeLabel());
+        $this->assertSame(10, $legacy->makePriority());
+        $this->assertSame('Current Readme', $current->makeLabel());
+        $this->assertSame(20, $current->makePriority());
+    }
+
+    public function testVersionAgnosticRouteKeyConfigurationAppliesToVersionedDocumentationPages()
+    {
+        self::mockConfig([
+            'docs.versions' => ['1.x'],
+            'docs.sidebar.labels' => [
+                'docs/readme' => 'Docs Readme',
+            ],
+            'docs.sidebar.order' => [
+                'docs/readme',
+            ],
+        ]);
+
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject('1.x/readme', 'docs/1.x/readme', DocumentationPage::class));
+
+        $this->assertSame('Docs Readme', $factory->makeLabel());
+        $this->assertSame(500, $factory->makePriority());
+    }
+
     public function testSearchForLabelInNavigationConfigForMarkdownPage()
     {
         self::mockConfig([
@@ -211,6 +256,18 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
 
         $factory = new NavigationConfigTestClass($this->makeCoreDataObject('visibleDocPage', pageClass: DocumentationPage::class));
         $this->assertFalse($factory->makeHidden());
+    }
+
+    public function testVersionedDocumentationPagesCanBeHiddenByFullIdentifierAndAgnosticRouteKey()
+    {
+        self::mockConfig([
+            'docs.versions' => ['1.x', '2.x'],
+            'docs.sidebar.exclude' => ['1.x/hidden', 'docs/shared'],
+        ]);
+
+        $this->assertTrue((new NavigationConfigTestClass($this->makeCoreDataObject('1.x/hidden', 'docs/1.x/hidden', DocumentationPage::class)))->makeHidden());
+        $this->assertFalse((new NavigationConfigTestClass($this->makeCoreDataObject('2.x/hidden', 'docs/2.x/hidden', DocumentationPage::class)))->makeHidden());
+        $this->assertTrue((new NavigationConfigTestClass($this->makeCoreDataObject('2.x/shared', 'docs/2.x/shared', DocumentationPage::class)))->makeHidden());
     }
 
     public function testSearchForHiddenInConfigsSelectsCorrectConfigurationBasedOnPageType()
