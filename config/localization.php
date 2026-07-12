@@ -4,5 +4,5 @@ return [
     'languages' => [
         'en',
         'sv',
-    ]
+    ],
 ];

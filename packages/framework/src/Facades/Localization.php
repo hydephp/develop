@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Closure;
-use Hyde\Facades\Config;
 use Illuminate\Support\Facades\App;
 
 use function count;
