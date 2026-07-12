@@ -2,6 +2,7 @@
 navigation:
     label: "Customizing your Site"
     priority: 25
+abstract: "HydePHP favors convention over configuration with sensible defaults out of the box, but this page walks through the many options available for customizing your site."
 ---
 
 # Customizing Your Site

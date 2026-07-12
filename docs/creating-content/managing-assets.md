@@ -1,6 +1,7 @@
 ---
 navigation:
     priority: 20
+abstract: "HydePHP ships with a complete preconfigured frontend so you don't have to think about asset compilation, but this page covers how to customize it if you want to."
 ---
 
 # Managing and Compiling Assets

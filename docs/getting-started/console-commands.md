@@ -1,6 +1,7 @@
 ---
 navigation:
     priority: 5
+abstract: "HydePHP's command line is built on Laravel Zero, so everything here will feel like Artisan. This page covers the commands you'll reach for daily when creating and building your site."
 ---
 
 # Console Commands

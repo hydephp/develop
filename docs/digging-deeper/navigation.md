@@ -2,6 +2,7 @@
 navigation:
     label: "Navigation Menus"
     priority: 26
+abstract: "HydePHP automatically generates navigation menus based on your project files. This page covers the two menu types and how to customize them further."
 ---
 
 # Navigation Menus

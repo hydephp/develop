@@ -2,6 +2,7 @@
 navigation:
     label: "Realtime Compiler"
     priority: 81
+abstract: "The HydePHP Realtime Compiler powers the `php hyde serve` command, letting you preview your static site on a local development server without rebuilding it."
 ---
 
 # Realtime Compiler

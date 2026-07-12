@@ -2,6 +2,7 @@
 navigation:
     priority: 10
     label: Core Concepts
+abstract: "A high-level overview of what makes HydePHP special, from autodiscovery to intelligent data generation, so you can quickly grasp the framework's benefits before diving deeper."
 ---
 
 # Core HydePHP Concepts

@@ -2,6 +2,7 @@
 navigation:
     priority: 35
     label: "File-based Collections"
+abstract: "HydePHP's DataCollections give you a Laravel Collections-like developer experience over file-based data such as Markdown, YAML, and JSON, with no database required."
 ---
 
 # File-based Collections

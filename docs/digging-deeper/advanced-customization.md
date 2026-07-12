@@ -2,6 +2,7 @@
 navigation:
     label: "Advanced Customization"
     priority: 30
+abstract: "Example-driven coverage of advanced HydePHP customization options, intended for developers who already know their way around the framework's directory structure."
 ---
 
 # Advanced Customization
