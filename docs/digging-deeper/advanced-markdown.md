@@ -12,8 +12,8 @@ Since HydePHP makes heavy use of Markdown, there are some extra features and hel
 
 ## Using Blade in Markdown
 
-BladeDown is Hyde's support for using [Laravel Blade](https://laravel.com/docs/10.x/blade) in Markdown files.
-It is enabled by default in HydePHP v3.
+Hyde supports [Laravel Blade](https://laravel.com/docs/10.x/blade) in Markdown through single-line BladeDown directives
+and full Blade blocks. Both forms are enabled by default in HydePHP v3.
 
 To use Blade in your Markdown files, simply use the Blade shortcode directive, followed by your desired Blade string.
 
@@ -33,27 +33,81 @@ directive to render a more complex Blade template. You can pass data to includes
  [Blade]: @include("hello", ["name" => "World"])
 ```
 
+### Blade blocks
+
+For multi-line Blade, use an executable `blade render` fenced block:
+
+````markdown
+```blade render
+@php($world = 'world')
+
+{{ "Hello $world" }}
+```
+````
+
+The Blade is evaluated at build time, and the rendered output is wrapped in a
+`<div class="blade-block not-prose">` element. When compiling a page, the `$page` variable is available to the block.
+
+You can also render a Blade component using the `blade component(name)` directive. Component data is passed using YAML
+front matter at the start of the block:
+
+````markdown
+```blade component(alert)
+---
+type: warning
+title: Check this
+---
+```
+````
+
+If the block does not start with YAML front matter, its content is rendered as Markdown and passed directly to the
+component slot. This is useful when the component does not need any data:
+
+````markdown
+```blade component(alert)
+This content is passed to the component **slot**.
+```
+````
+
+To pass both component data and Markdown slot content, enclose the data in YAML front matter and add the Markdown after
+it:
+
+````markdown
+```blade component(alert)
+---
+type: warning
+title: Check this
+---
+
+This content is passed to the component **slot**.
+```
+````
+
+A fence using only `blade` is an ordinary syntax-highlighted code sample and is not executed. Unsupported Blade block
+directives, including `blade component` without a component name, throw an exception.
+
 ### Trusting Markdown content
 
-Blade directives can execute arbitrary PHP during the site build. Hyde projects normally treat source files committed
-to the project as trusted: content changes should be reviewed both for the text they publish and for executable
-directives hidden in the source.
+Blade directives and Blade blocks are both controlled by `markdown.enable_blade`, and can execute arbitrary PHP during
+the site build. Hyde projects normally treat source files committed to the project as trusted: content changes should
+be reviewed both for the text they publish and for executable directives hidden in the source.
 
 If your site accepts Markdown outside that trusted review process, or builds pull requests before they have been
-reviewed, disable BladeDown in the `config/markdown.php` file:
+reviewed, disable Blade in Markdown in the `config/markdown.php` file:
 
 ```php
 // filepath: config/markdown.php
 'enable_blade' => false,
 ```
 
-Disabling BladeDown is not a sandbox for contributors who can add arbitrary project files, since they could add a
-malicious Blade template instead. Treat project-level write access as trusted and review source changes before
+Disabling Blade in Markdown is not a sandbox for contributors who can add arbitrary project files, since they could
+add a malicious Blade template instead. Treat project-level write access as trusted and review source changes before
 building them in a privileged environment.
 
 ### Limitations
 
-All shortcodes must be the first word on a new line, and only single-line shortcodes are supported.
+All `[Blade]:` shortcodes must be the first word on a new line, and only single-line shortcodes are supported. Use
+Blade blocks for multi-line code.
 
 ## Coloured Blockquotes
 
