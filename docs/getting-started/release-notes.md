@@ -2,6 +2,7 @@
 navigation:
     label: v2 Release Notes
     priority: 15
+abstract: "HydePHP v2.0 overhauls the asset system and navigation API, replaces Laravel Mix with Vite, and adds numerous performance improvements. This page gives an overview of what changed."
 ---
 
 # HydePHP v2.0 Release Notes

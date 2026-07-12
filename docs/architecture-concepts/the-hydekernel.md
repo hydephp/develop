@@ -1,3 +1,7 @@
+---
+abstract: "The HydeKernel is the core object encapsulating a HydePHP project, and the engine behind the Hyde facade you use throughout the framework."
+---
+
 # The HydeKernel
 
 ## Introduction

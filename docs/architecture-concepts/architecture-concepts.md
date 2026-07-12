@@ -2,6 +2,7 @@
 navigation:
     label: Introduction
     priority: 50
+abstract: "A power-user's introduction to the internals of HydePHP, covering how the framework's architecture works under the hood for those extending or contributing to it."
 ---
 
 # Advanced Architecture Concepts

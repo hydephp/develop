@@ -1,3 +1,7 @@
+---
+abstract: "HydePHP tries to fill in the gaps in your front matter automatically. This article explains how dynamic data discovery works so you can write less and let Hyde do more."
+---
+
 # Dynamic Data Discovery
 
 [//]: # (Adds a pseudo-subtitle)

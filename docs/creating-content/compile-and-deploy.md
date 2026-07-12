@@ -2,6 +2,7 @@
 navigation:
     priority: 25
     label: "Compile & Deploy"
+abstract: "Once your HydePHP content is ready, this page covers running the build command to compile your site into static HTML and deploying it wherever you like."
 ---
 
 # Compile and Deploy Your Site

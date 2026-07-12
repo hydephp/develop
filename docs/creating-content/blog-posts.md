@@ -2,6 +2,7 @@
 navigation:
     label: "Creating Blog Posts"
     priority: 11
+abstract: "Everything you need to start writing blog posts in HydePHP, from dropping a Markdown file in _posts to scaffolding one with front matter using the HydeCLI."
 ---
 
 # Creating Blog Posts
