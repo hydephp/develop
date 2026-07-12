@@ -13,9 +13,7 @@ use Hyde\Testing\TestCase;
 use InvalidArgumentException;
 
 use function config;
-use function file_put_contents;
 use function substr_count;
-use function unlink;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeBlockProcessor::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeBlocks\BladeBlock::class)]
@@ -24,23 +22,14 @@ use function unlink;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Markdown\Processing\BladeBlocks\BladeBlockExtractor::class)]
 class BladeBlocksTest extends TestCase
 {
-    public static function setUpBeforeClass(): void
+    protected function setUp(): void
     {
-        file_put_contents(
-            'resources/views/components/blade-block-fixture.blade.php',
-            "data=[{{ \$attributes->get('foo') }}] slot=[{{ \$slot }}]"
-        );
+        parent::setUp();
 
-        file_put_contents(
-            'resources/views/components/blade-block-props-fixture.blade.php',
-            "value=[{{ \$foo ?? 'UNDEFINED' }}]"
-        );
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        unlink('resources/views/components/blade-block-fixture.blade.php');
-        unlink('resources/views/components/blade-block-props-fixture.blade.php');
+        $this->files([
+            'resources/views/components/blade-block-fixture.blade.php' => "data=[{{ \$attributes->get('foo') }}] slot=[{{ \$slot }}]",
+            'resources/views/components/blade-block-props-fixture.blade.php' => "value=[{{ \$foo ?? 'UNDEFINED' }}]",
+        ]);
     }
 
     private function render(string $markdown): string

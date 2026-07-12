@@ -1,3 +1,0 @@
-The value of foo is {{ $foo }}
-
-{{ $slot }}
