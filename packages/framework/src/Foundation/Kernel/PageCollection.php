@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Facades\Localization;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
@@ -30,13 +31,21 @@ final class PageCollection extends BaseFoundationCollection
 {
     public function addPage(HydePage $page): void
     {
-        $this->put($page->getSourcePath(), $page);
+        $this->put(static::makeKey($page), $page);
     }
 
     protected function runDiscovery(): void
     {
         $this->kernel->files()->each(function (SourceFile $file): void {
-            $this->addPage($this->parsePage($file->pageClass, $file->getPath()));
+            $page = $this->parsePage($file->pageClass, $file->getPath());
+
+            if (Localization::enabled()) {
+                foreach (Localization::languages() as $language) {
+                    $this->addPage($page->withLanguage($language));
+                }
+            } else {
+                $this->addPage($page);
+            }
         });
     }
 
@@ -56,7 +65,24 @@ final class PageCollection extends BaseFoundationCollection
 
     public function getPage(string $sourcePath): HydePage
     {
-        return $this->get($sourcePath) ?? throw new FileNotFoundException($sourcePath);
+        // When the site is localized, each source file has one page per language,
+        // so we resolve the page for the default language when given a source path.
+
+        return $this->get($sourcePath)
+            ?? $this->get(static::makeLocalizedKey(Localization::defaultLanguage(), $sourcePath))
+            ?? throw new FileNotFoundException($sourcePath);
+    }
+
+    protected static function makeKey(HydePage $page): string
+    {
+        return $page->getLanguage() === null
+            ? $page->getSourcePath()
+            : static::makeLocalizedKey($page->getLanguage(), $page->getSourcePath());
+    }
+
+    protected static function makeLocalizedKey(string $language, string $sourcePath): string
+    {
+        return "$language::$sourcePath";
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */
