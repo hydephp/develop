@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Hyde;
 use Hyde\Facades\Localization;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
+use Hyde\Support\Models\Redirect;
+
+use function str_repeat;
+use function substr_count;
 
 /**
  * The PageCollection contains all the instantiated pages.
@@ -43,10 +48,37 @@ final class PageCollection extends BaseFoundationCollection
                 foreach (Localization::languages() as $language) {
                     $this->addPage($page->withLanguage($language));
                 }
+
+                $this->addDefaultLanguageRedirect($page);
             } else {
                 $this->addPage($page);
             }
         });
+    }
+
+    /**
+     * Add a redirect from the unprefixed route key to the default language, so that
+     * for example `/foo` sends the visitor to `/en/foo` when English is the default.
+     */
+    protected function addDefaultLanguageRedirect(HydePage $page): void
+    {
+        $routeKey = $page->getRouteKey();
+
+        $this->addPage(new Redirect($routeKey, static::makeRedirectDestination($routeKey), matter: [
+            'navigation' => ['hidden' => true],
+        ]));
+    }
+
+    protected static function makeRedirectDestination(string $routeKey): string
+    {
+        // The destination is relative to the redirect page, which sits at the unprefixed
+        // route key, so we need to walk back up to the site webroot before descending
+        // into the language directory. For example, `posts/hello` redirects to
+        // `../en/posts/hello.html`, which resolves to `/en/posts/hello.html`.
+
+        $depth = substr_count($routeKey, '/');
+
+        return str_repeat('../', $depth).Hyde::formatLink(Localization::defaultLanguage()."/$routeKey.html");
     }
 
     protected function runExtensionHandlers(): void
