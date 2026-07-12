@@ -102,9 +102,9 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         $this->assertMenuEquals([], [new MarkdownPage('404')]);
     }
 
-    public function testRedirectPagesAreAddedToNavigationMenu()
+    public function testRedirectPagesAreNotAddedToNavigationMenu()
     {
-        $this->assertMenuEquals(['Redirect'], [
+        $this->assertMenuEquals([], [
             new Redirect('redirect', 'destination'),
         ]);
     }

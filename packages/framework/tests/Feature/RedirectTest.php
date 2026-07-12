@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
 use Hyde\Support\Models\Redirect;
@@ -13,12 +14,10 @@ use Hyde\Testing\TestCase;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\Redirect::class)]
 class RedirectTest extends TestCase
 {
-    public function testCanCreateARedirect()
+    public function testCanCompileARedirect()
     {
-        $redirect = Redirect::create('foo', 'bar');
+        $redirect = new Redirect('foo', 'bar');
 
-        $this->assertInstanceOf(Redirect::class, $redirect);
-        $this->assertEquals(new Redirect('foo', 'bar'), $redirect);
         $this->assertSame('foo', $redirect->path);
         $this->assertSame('bar', $redirect->destination);
 
@@ -39,42 +38,40 @@ class RedirectTest extends TestCase
 
             HTML), str_replace("\r", '', $redirect->compile())
         );
-
-        $this->assertFileExists(Hyde::path('_site/foo.html'));
-        $this->assertSame($redirect->compile(), file_get_contents(Hyde::path('_site/foo.html')));
-
-        Filesystem::unlink('_site/foo.html');
     }
 
     public function testPathParameterIsNormalized()
     {
-        $redirect = Redirect::create('foo.html', 'bar');
+        $redirect = new Redirect('foo.html', 'bar');
 
         $this->assertSame('foo', $redirect->path);
-
-        Filesystem::unlink('_site/foo.html');
     }
 
-    public function testTextCanBeDisabled()
+    public function testConfiguredRedirectsAreRegisteredWithTheKernelAndBuiltWithTheSite()
     {
-        $redirect = Redirect::create('foo', 'bar');
-        $this->assertStringContainsString('Redirecting to <a href=', $redirect->compile());
+        config(['hyde.redirects' => ['foo' => 'bar']]);
+        HydeKernel::setInstance(new HydeKernel(Hyde::path()));
 
-        $redirect = Redirect::create('foo', 'bar', false);
-        $this->assertStringNotContainsString('Redirecting to <a href=', $redirect->compile());
-    }
+        $redirect = Hyde::pages()->get('foo');
 
-    public function testRedirectPagesCanBeCompilableByStaticSiteThoughManualDiscovery()
-    {
-        $redirect = new Redirect('foo', 'bar');
-
-        Hyde::pages()->addPage($redirect);
-
+        $this->assertEquals(new Redirect('foo', 'bar'), $redirect);
+        $this->assertSame($redirect, Hyde::routes()->get('foo')->getPage());
         StaticPageBuilder::handle($redirect);
 
         $this->assertFileExists(Hyde::path('_site/foo.html'));
         $this->assertSame($redirect->compile(), file_get_contents(Hyde::path('_site/foo.html')));
 
         Filesystem::unlink('_site/foo.html');
+    }
+
+    public function testRedirectsCannotWriteOutsideTheBuildPipeline()
+    {
+        $this->assertFalse(method_exists(Redirect::class, 'create'));
+        $this->assertFalse(method_exists(Redirect::class, 'store'));
+    }
+
+    public function testRedirectsAreHiddenFromNavigation()
+    {
+        $this->assertFalse((new Redirect('foo', 'bar'))->showInNavigation());
     }
 }

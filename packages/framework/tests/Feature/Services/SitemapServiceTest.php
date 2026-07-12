@@ -11,6 +11,7 @@ use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Foundation\HydeKernel;
 use Illuminate\Support\Facades\File;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapGenerator::class)]
@@ -65,6 +66,18 @@ class SitemapServiceTest extends TestCase
         $this->assertCount(3, $service->getXmlElement()->url);
 
         Filesystem::unlink('_posts/foo.md');
+    }
+
+    public function testGenerateDoesNotAddConfiguredRedirectsToXml()
+    {
+        config(['hyde.redirects' => ['old-page' => 'new-page']]);
+        HydeKernel::setInstance(new HydeKernel(Hyde::path()));
+
+        $service = new SitemapGenerator();
+        $service->generate();
+
+        $this->assertCount(2, $service->getXmlElement()->url);
+        $this->assertStringNotContainsString('old-page', $service->getXml());
     }
 
     public function testGenerateAddsDocumentationPagesToXml()

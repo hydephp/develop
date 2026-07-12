@@ -18,6 +18,7 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Facades\Features;
+use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
@@ -51,6 +52,10 @@ class HydeCoreExtension extends HydeExtension
 
     public function discoverPages(PageCollection $collection): void
     {
+        foreach (Config::getArray('hyde.redirects', []) as $path => $destination) {
+            $collection->addPage(new Redirect((string) $path, (string) $destination));
+        }
+
         $default = DocumentationVersions::default();
 
         if ($default !== null && Features::hasDocumentationPages()) {

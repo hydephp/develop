@@ -98,6 +98,34 @@ If any of these files are missing, you can run `php hyde publish:configs` to cop
 
 While all options are already documented within the files, here are some further explanations of some of the options.
 
+### Redirects
+
+Redirects are defined in the `redirects` array in `config/hyde.php`. Use the old path as the key and the new path or URL
+as the value:
+
+```php
+// filepath config/hyde.php
+'redirects' => [
+    'old-page' => 'new-page',
+    'docs/old-guide' => 'docs/new-guide',
+    'community' => 'https://example.com/community',
+],
+```
+
+When you run `php hyde build`, Hyde registers each redirect with the kernel and generates the corresponding HTML page.
+This means redirects appear in `php hyde route:list` and are rebuilt and cleaned up together with the rest of the site.
+Redirects are not included in navigation menus or the sitemap.
+Each redirect includes a visible link to the destination as an accessible fallback when automatic redirection is unavailable.
+
+The paths are relative to the site root and normally omit the `.html` extension. You can also define redirects in
+`hyde.yml`:
+
+```yaml
+redirects:
+  old-page: new-page
+  docs/old-guide: docs/new-guide
+```
+
 ### RSS feed generation
 
 When enabled, an RSS feed containing all your Markdown blog posts will be generated when you compile your static site.
@@ -470,6 +498,8 @@ name: HydePHP
 url: "http://localhost"
 pretty_urls: false
 generate_sitemap: true
+redirects:
+  old-page: new-page
 rss:
   enabled: true
   filename: feed.xml
