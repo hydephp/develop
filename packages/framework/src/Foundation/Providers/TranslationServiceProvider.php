@@ -4,20 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
 
 /**
  * Register the Hyde translation services.
  */
-class TranslationServiceProvider extends ServiceProvider
+class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
-
-    public function boot(): void
-    {
-        //
-    }
+    //
 }
