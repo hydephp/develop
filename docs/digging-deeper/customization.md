@@ -457,12 +457,12 @@ Any custom options will be merged with the defaults.
 ### Allow Raw HTML
 
 Since Hyde uses [GitHub Flavored Markdown](https://commonmark.thephpleague.com/2.3/extensions/github-flavored-markdown/),
-some HTML tags are stripped out by default. If you want to allow all arbitrary HTML tags, and understand the risks involved,
-you can use the `allow_html` setting to enable all HTML tags.
+it can strip potentially unsafe HTML tags. Raw HTML is enabled by default in HydePHP v3 because project source is
+normally trusted and reviewed. Disable it when processing Markdown from outside your trusted review process.
 
 ```php
 // filepath: config/markdown.php
-'allow_html' => true,
+'allow_html' => false,
 ```
 
 ### Allow Blade Code
