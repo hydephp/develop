@@ -2,6 +2,7 @@
 navigation:
     label: Quickstart Guide
     priority: 1
+abstract: "Get a new HydePHP project up and running in minutes, from installing via Composer to compiling your first static site."
 ---
 
 # Quickstart Guide

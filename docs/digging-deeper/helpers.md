@@ -2,6 +2,7 @@
 navigation:
     priority: 35
     label: "Helpers and Utilities"
+abstract: "A rundown of the most important helper classes and utilities HydePHP provides for developers writing custom code and Blade templates."
 ---
 
 # Helpers and Utilities

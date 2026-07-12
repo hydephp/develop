@@ -1,5 +1,6 @@
 ---
 navigation.priority: 1000
+abstract: "The Extensions API lets package developers hook directly into the HydePHP Kernel to add custom page types and new features, explained here through a series of practical examples."
 ---
 
 # The Extensions API
