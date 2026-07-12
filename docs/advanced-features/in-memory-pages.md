@@ -1,3 +1,7 @@
+---
+abstract: "InMemoryPages are HydePHP pages generated at runtime rather than backed by a file on disk, handy for package developers and one-off custom pages."
+---
+
 # InMemoryPages
 
 ## Introduction

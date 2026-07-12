@@ -2,6 +2,7 @@
 navigation:
     label: Documentation Pages
     priority: 12
+abstract: "HydePHP's Documentation module turns Markdown files in your _docs directory into a full documentation site with an automatically generated, customizable sidebar."
 ---
 
 # Creating Documentation Pages
