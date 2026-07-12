@@ -1,6 +1,7 @@
 ---
 navigation:
     label: "Navigation API"
+abstract: "The Navigation API introduced in HydePHP v2 powers the main menu and documentation sidebar, and this page shows how to use it to build your own custom navigation menus."
 ---
 
 # Navigation API

@@ -1,6 +1,7 @@
 ---
 navigation:
     label: "HydePage API"
+abstract: "Full API reference for HydePHP's built-in HydePage classes, useful if you're extending the framework or building your own custom page classes and Blade templates."
 ---
 
 # HydePage API Reference

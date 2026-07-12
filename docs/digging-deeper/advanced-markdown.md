@@ -2,6 +2,7 @@
 navigation:
     label: "Advanced Markdown"
     priority: 27
+abstract: "HydePHP extends standard Markdown with extra features and helpers, including the ability to use Laravel Blade directly inside your Markdown files."
 ---
 
 # Advanced Markdown

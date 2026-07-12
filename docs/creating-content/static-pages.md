@@ -2,6 +2,7 @@
 navigation:
     priority: 11
     label: "Markdown & Blade Pages"
+abstract: "HydePHP offers two ways to build static pages: content-focused Markdown pages, and Blade pages for when you need full control over the HTML and dynamic PHP."
 ---
 
 # Creating Static Pages

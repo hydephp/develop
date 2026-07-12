@@ -2,6 +2,7 @@
 navigation:
     label: v2 Upgrade Guide
     priority: 16
+abstract: "A step-by-step guide to upgrading an existing HydePHP site to v2.0, covering the asset system, navigation API, and other breaking changes."
 ---
 
 # HydePHP v2.0 Upgrade Guide
