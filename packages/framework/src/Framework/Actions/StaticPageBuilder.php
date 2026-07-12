@@ -7,8 +7,8 @@ namespace Hyde\Framework\Actions;
 use Hyde\Hyde;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Facades\Localization;
 use Hyde\Pages\Concerns\HydePage;
-use Illuminate\Support\Facades\App;
 
 /**
  * Converts a Hyde page object into a static HTML page.
@@ -39,20 +39,6 @@ class StaticPageBuilder
      */
     protected static function compilePage(HydePage $page): string
     {
-        $language = $page->getLanguage();
-
-        if ($language === null) {
-            return $page->compile();
-        }
-
-        $locale = App::getLocale();
-
-        App::setLocale($language);
-
-        try {
-            return $page->compile();
-        } finally {
-            App::setLocale($locale);
-        }
+        return Localization::usingLanguage($page->getLanguage(), fn (): string => $page->compile());
     }
 }

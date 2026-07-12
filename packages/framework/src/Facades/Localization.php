@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Facades;
 
+use Closure;
 use Hyde\Facades\Config;
+use Illuminate\Support\Facades\App;
 
 use function count;
 
@@ -40,5 +42,33 @@ class Localization
     public static function defaultLanguage(): string
     {
         return static::languages()[0] ?? Config::getString('app.locale', 'en');
+    }
+
+    /**
+     * Run the callback using the given language as the app locale, so that translation
+     * strings are resolved for it, then restore the previously active locale.
+     *
+     * Passing a null language runs the callback as is, using the default locale.
+     *
+     * @template T
+     *
+     * @param  \Closure(): T  $callback
+     * @return T
+     */
+    public static function usingLanguage(?string $language, Closure $callback): mixed
+    {
+        if ($language === null) {
+            return $callback();
+        }
+
+        $locale = App::getLocale();
+
+        App::setLocale($language);
+
+        try {
+            return $callback();
+        } finally {
+            App::setLocale($locale);
+        }
     }
 }
