@@ -3,7 +3,6 @@
 return [
     'languages' => [
         'en',
-        'de',
         'sv',
     ]
 ];
