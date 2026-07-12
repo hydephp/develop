@@ -1,6 +1,7 @@
 ---
 navigation:
     priority: 35
+abstract: "A guide to updating an existing HydePHP project to the latest version, covering backups, version compatibility, and the recommended upgrade steps."
 ---
 
 # Updating Hyde Projects

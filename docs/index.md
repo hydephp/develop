@@ -1,3 +1,7 @@
+---
+abstract: "HydePHP is a Static Site Generator focused on writing content, not markup, letting you build fast, lightweight static websites, blogs, and documentation with Markdown and Laravel Blade."
+---
+
 # Welcome to HydePHP
 
 <style>.images-inline img { display: inline; margin: 4px 2px;}</style>

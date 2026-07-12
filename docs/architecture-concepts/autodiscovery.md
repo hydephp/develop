@@ -1,3 +1,7 @@
+---
+abstract: "Autodiscovery is how HydePHP automatically finds and registers your pages without configuration. This article explains how it works and the lifecycle of the HydeKernel."
+---
+
 # Autodiscovery
 
 ## Introduction

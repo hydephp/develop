@@ -1,5 +1,6 @@
 ---
 title: Page models
+abstract: "Page models are the PHP classes at the heart of how HydePHP builds your site. This article gives a high-level overview of how they hold and process your content."
 ---
 
 # The Hyde Page Models

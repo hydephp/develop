@@ -1,6 +1,7 @@
 ---
 navigation:
     priority: 35
+abstract: "Common issues and gotchas you might run into with HydePHP's automatic, convention-driven features, plus how to use the built-in validate command to catch them."
 ---
 
 # Troubleshooting
