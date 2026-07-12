@@ -190,8 +190,8 @@ If you have a newline after the filepath, like in the first example, it will be 
 
 ### Advanced usage
 
-If you have enabled HTML in Markdown by setting the `allow_html` option to true in your `config/markdown.php` file,
-anything within the path label will be rendered as HTML. This means you can add links, or even images to the label.
+Since HTML in Markdown is enabled by default, anything within the path label will be rendered as HTML. This means you
+can add links, or even images to the label. This requires `allow_html` to remain `true` in `config/markdown.php`.
 
 ````markdown
 // filepath: <a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>
@@ -290,16 +290,16 @@ You can find the full reference on the [Customization](customization#markdown-co
 
 ### Raw HTML Tags
 
-To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension, which strips out potentially unsafe HTML.
-If you want to allow all arbitrary HTML tags, and understand the risks involved, you can enable all HTML tags by setting
-the `allow_html` option to `true` in your `config/markdown.php` file.
+To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension. HydePHP v3 allows raw HTML by default because
+project source is normally trusted and reviewed. If you process Markdown from outside your trusted review process, set
+the `allow_html` option to `false` in your `config/markdown.php` file to strip potentially unsafe HTML tags.
 
 ```php
 // filepath: config/markdown.php
-'allow_html' => true,
+'allow_html' => false,
 ```
 
-This will add and configure the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.
+When HTML is allowed, Hyde configures the `DisallowedRawHtml` CommonMark extension so that no HTML tags are stripped out.
 
 ### Tailwind Typography Prose Classes
 

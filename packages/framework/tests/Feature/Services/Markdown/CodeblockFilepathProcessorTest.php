@@ -219,8 +219,24 @@ class CodeblockFilepathProcessorTest extends TestCase
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
     }
 
-    public function testProcessorEscapesHtmlByDefault()
+    public function testProcessorDoesNotEscapeHtmlByDefault()
     {
+        $html = <<<'HTML'
+        <!-- HYDE[Filepath]<a href="">Link</a> -->
+        <pre><code class="language-html"></code></pre>
+        HTML;
+
+        $expected = <<<'HTML'
+        <pre><code class="language-html"><small class="relative float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block top-0 right-0"><span class="sr-only">Filepath: </span><a href="">Link</a></small></code></pre>
+        HTML;
+
+        $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
+    }
+
+    public function testProcessorEscapesHtmlWhenExplicitlyDisabled()
+    {
+        config(['markdown.allow_html' => false]);
+
         $html = <<<'HTML'
         <!-- HYDE[Filepath]<a href="">Link</a> -->
         <pre><code class="language-html"></code></pre>
@@ -229,22 +245,6 @@ class CodeblockFilepathProcessorTest extends TestCase
         $escaped = e('<a href="">Link</a>');
         $expected = <<<HTML
         <pre><code class="language-html"><small class="relative float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block top-0 right-0"><span class="sr-only">Filepath: </span>$escaped</small></code></pre>
-        HTML;
-
-        $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));
-    }
-
-    public function testProcessorDoesNotEscapeHtmlIfConfigured()
-    {
-        config(['markdown.allow_html' => true]);
-
-        $html = <<<'HTML'
-        <!-- HYDE[Filepath]<a href="">Link</a> -->
-        <pre><code class="language-html"></code></pre>
-        HTML;
-
-        $expected = <<<'HTML'
-        <pre><code class="language-html"><small class="relative float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block top-0 right-0"><span class="sr-only">Filepath: </span><a href="">Link</a></small></code></pre>
         HTML;
 
         $this->assertSame($expected, CodeblockFilepathProcessor::postprocess($html));

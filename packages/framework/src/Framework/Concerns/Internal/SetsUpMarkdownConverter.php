@@ -30,7 +30,7 @@ trait SetsUpMarkdownConverter
             $this->addExtension(TorchlightExtension::class);
         }
 
-        if (Config::getBool('markdown.allow_html', false)) {
+        if (Config::getBool('markdown.allow_html', true)) {
             $this->enableAllHtmlElements();
         }
     }
