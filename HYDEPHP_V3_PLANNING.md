@@ -24,6 +24,7 @@ Having this document in code lets us know the devlopment state at any given poin
 - Redirects can now be declared as source and destination path pairs in the `hyde.redirects` configuration array. Hyde registers them with the kernel, includes them in `route:list`, and generates them through the normal site build.
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. The supported directives are `blade render` and `blade component(name)`, and the feature is controlled by `markdown.enable_blade`. ([#2504](https://github.com/hydephp/develop/pull/2504))
 - Pages can now compile to non-HTML output files. Page classes declare their output file extension through the new static `$outputExtension` property (defaulting to `.html`), and in-memory page identifiers can declare a `.json`, `.txt`, or `.xml` extension directly, so `InMemoryPage::make('robots.txt', contents: ...)` compiles to `_site/robots.txt` through the standard site build. Only the HTML extension is implicit in route keys: pages compiled to non-HTML files keep their extension in the route key, formalizing the convention already used by the documentation search index.
+- Pages can now control their own sitemap inclusion. Set `sitemap: false` in a page's front matter to exclude it from the generated `sitemap.xml`, or override the new `HydePage::showInSitemap()` method in custom page classes. Pages compiled to non-HTML output files (like `robots.txt`) are excluded by default, and `sitemap: true` front matter opts such a page back in.
 
 ### Feature Changes
 
@@ -32,6 +33,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### Minor Changes and Cleanup
 
+- Fixed documentation search index files leaking into the generated sitemap: `search.json` (and any other page compiled to a non-HTML output file) no longer appears in `sitemap.xml`. The sitemap generator now asks each page through `HydePage::showInSitemap()` instead of only filtering out redirect pages.
 - The `Redirect` page class constructor now accepts an optional `$matter` parameter, used by the framework to hide the generated documentation root redirect from navigation menus. Existing usages are unaffected.
 - The realtime compiler now resolves registered page routes before proxying static assets, replacing the hardcoded `search.json` exemption, so `hyde serve` serves any registered route regardless of its output extension. Registered pages now always win over a static file at the same path; the previous behavior of serving such a shadowing file only affected the dev server and no real setups are expected to be affected.
 
