@@ -20,7 +20,7 @@ use Illuminate\Filesystem\Filesystem;
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSitemapCommandTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapGenerator::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapPage::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSitemapCommand::class)]
 class SitemapFeatureTest extends TestCase
 {
@@ -36,7 +36,7 @@ class SitemapFeatureTest extends TestCase
         $this->withSiteUrl();
 
         $this->artisan('build:sitemap')
-            ->expectsOutputToContain('Created _site/sitemap.xml')
+            ->expectsOutputToContain('Created [_site/sitemap.xml]')
             ->assertExitCode(0);
 
         $this->assertFileExists('_site/sitemap.xml');

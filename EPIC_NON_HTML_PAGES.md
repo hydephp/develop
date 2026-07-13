@@ -134,6 +134,9 @@ versioned docs route keys like `docs/1.x/index` would false-positive
      > Decide in PR 5/6 whether the first-party generated files need any extension outside
      > the allowlist (none currently do — all are `.txt`/`.xml`), which determines whether
      > (1) is needed for the framework itself or only for the secondary audience.
+     > *(PR 5 part A: confirmed for `sitemap.xml` — within the allowlist. `feed.xml`,
+     > `robots.txt`, and `llms.txt` are too, so the framework itself will not need
+     > option (b); the remaining call in PR 8 is only for the power-user audience.)*
 
 ### D3: Sitemap inclusion becomes a page-level concern
 
@@ -198,6 +201,18 @@ and giving the `build:sitemap` / `build:rss` commands a concrete class to
 instantiate. Lean toward a plain `InMemoryPage` registered with a container-bound
 `compile` closure unless PR 5 surfaces a concrete need for the subclass.
 
+> **Decided (PR 5 part A): thin subclass.** The command wiring is the concrete need
+> the deferral anticipated: `build:sitemap` builds the registered route's page and
+> must fall back to a fresh instance when the route is not registered (mirroring how
+> `BuildSearchCommand` falls back to `new DocumentationSearchIndex()`), and a plain
+> page would need that construction logic exported from a shared factory anyway.
+> `SitemapPage extends InMemoryPage` lives next to its generator in
+> `Hyde\Framework\Features\XmlGenerators`, keeps the construction in one place, and
+> stays out of `Hyde\Pages` so it is exempt from the discovered-page unit test
+> contract, exactly like `DocumentationSearchIndex`. The D4 swappability tier is
+> unaffected: `compile()` resolves `SitemapGenerator` from the container, verified
+> by a rebind test. Part B should mirror this with `RssFeedPage`.
+
 ### D5: User-defined pages beat generators
 
 If the page collection already contains a user-defined page with a route key such
@@ -220,6 +235,16 @@ container → fully custom page in code.
 > user-registered `robots.txt` (via both a `HydeExtension` page class and a `booting()`
 > `addPage()` callback) suppresses the generated one — this is the D5 contract and the
 > most likely silent failure for the power-user audience.
+
+> **Verified for the sitemap (PR 5 part A):** both user paths win, through two
+> different mechanisms that the tests pin down end-to-end. `booting()` callbacks run
+> before the page collection boots (`BootsHydeKernel::boot()`), so a callback-registered
+> `sitemap.xml` page is visible to the core extension's `hasPageWithRouteKey()` skip
+> check. A user `HydeExtension` runs *after* the core extension (registration order),
+> so the skip check cannot see its pages; instead the user page replaces the generated
+> one under the same collection key (`addPage()` keys by source path). Both are
+> asserted through the real `build` command output. The robots.txt equivalent remains
+> mandatory for PR 6.
 
 ### D6: No built-in `TextPage` or `.txt` autodiscovery
 
@@ -363,10 +388,14 @@ Implementation notes (branch `v3/non-html-pages-sitemap-inclusion-policy`):
 - No UPGRADE.md entry: the fix requires no user action, and nothing realistic
   depended on search indexes appearing in sitemaps.
 
-### PR 5 — Convert sitemap and RSS from build tasks to pages
+### PR 5 — Convert sitemap and RSS from build tasks to pages 🚧 Part A (sitemap) implemented; part B (RSS) remaining
 
 Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed in
 `route:list`, included in the build manifest, overridable in user land.
+
+> **Split during implementation:** part A converts the sitemap, part B will convert
+> the RSS feed the same way. The bullets below still describe both; the part A notes
+> at the end of this section record what landed and what part B should mirror.
 
 - Register `sitemap.xml` / `feed.xml` as `InMemoryPage`s per D4, with a lazy
   `compile` that resolves the generator from the container
@@ -396,6 +425,38 @@ Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed
   (`Features::hasSitemap()` already requires a site URL).
 - Nice side effect: build output shows them under "Dynamic Pages" with the standard
   progress display.
+
+Implementation notes, part A (branch `v3/non-html-pages-convert-sitemap`):
+
+- `SitemapPage extends InMemoryPage` per the D4 "thin subclass" decision (see the D4
+  note for the rationale), hiding itself from navigation like
+  `DocumentationSearchIndex` and self-excluding from the sitemap via the D3 non-HTML
+  default. Registered at the end of `HydeCoreExtension::discoverPages()` behind
+  `Features::hasSitemap()` with the D5 skip check (see the D5 note for the verified
+  override ordering semantics).
+- `SitemapGenerator` verified container-resolvable and rebindable: not `final`, no
+  constructor dependencies, and a test rebinds it and asserts the page's compiled
+  output changes.
+- `GenerateSitemap` was removed rather than deprecated: a kept-but-registered task
+  would generate the sitemap twice, and a kept-but-unregistered task is dead code
+  that still breaks anyone re-registering it (double generation) — a clean removal
+  with release-notes guidance to the rebind/override tiers is more honest. Recorded
+  as a v3 breaking change with the realistic impact being same-basename user-land
+  task overrides.
+- `build:sitemap` builds the registered route's page via `StaticPageBuilder`,
+  falling back to `new SitemapPage()` when the route is not registered. The fallback
+  preserves the old task behavior where the explicit command generates the sitemap
+  even with `hyde.generate_sitemap` disabled (only the base URL gates it), and the
+  route-first lookup means a user-defined `sitemap.xml` page wins here too. Skip
+  exit code changed from 3 (task-runner semantics) to 1.
+- `GlobalMetadataBag` verified: the sitemap head link is emitted under the same
+  `Features::hasSitemap()` condition that registers the page — no drift possible.
+- Realtime compiler needed no changes (PR 2's route-first resolution); a serve test
+  asserts `sitemap.xml` returns the generated XML with `application/xml`.
+- Heads-up for part B: `BuildTaskServiceUnitTest`'s framework-task fixtures were
+  migrated from `GenerateSitemap` to `GenerateBuildManifest` (not `GenerateRssFeed`)
+  so removing the RSS task won't churn them again. Part B should mirror everything
+  here with `RssFeedPage`, taking its route key from `RssFeedGenerator::getFilename()`.
 
 ### PR 6 — Generated `robots.txt`
 

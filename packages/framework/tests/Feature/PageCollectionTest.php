@@ -22,6 +22,13 @@ use Illuminate\Support\Collection;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Pages::class)]
 class PageCollectionTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.generate_sitemap' => false]);
+    }
+
     public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()
     {
         $collection = PageCollection::init(Hyde::getInstance())->boot();
