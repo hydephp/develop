@@ -50,11 +50,6 @@ class Redirect extends InMemoryPage
         return false;
     }
 
-    public function showInLlmsTxt(): bool
-    {
-        return false;
-    }
-
     /**
      * @throws \Hyde\Framework\Exceptions\InvalidConfigurationException If the path ends in a non-HTML output extension,
      *                                                                  as meta refresh redirects only work for HTML pages.

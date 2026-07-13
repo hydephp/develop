@@ -6,12 +6,9 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
-use Hyde\Pages\MarkdownPost;
-use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\Redirect;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator::class)]
@@ -50,7 +47,7 @@ class LlmsTxtGeneratorTest extends TestCase
         $this->assertStringStartsWith("# HydePHP\n\n## Pages", $this->generate());
     }
 
-    public function testGroupsPagesIntoTheirConfiguredSections()
+    public function testGroupsPagesIntoSectionsByPageType()
     {
         $this->file('_pages/about.md', '# About');
         $this->file('_docs/installation.md', '# Installation');
@@ -71,30 +68,6 @@ class LlmsTxtGeneratorTest extends TestCase
         ## Blog Posts
 
         - [Hello World](https://example.com/posts/hello-world.html)
-
-        TXT, $this->generate());
-    }
-
-    public function testSectionsFollowTheOrderOfTheConfiguredMap()
-    {
-        config(['hyde.llms.sections' => [
-            MarkdownPost::class => 'Blog Posts',
-            DocumentationPage::class => 'Documentation',
-        ]]);
-
-        $this->file('_docs/installation.md', '# Installation');
-        $this->file('_posts/hello-world.md', '# Hello World');
-
-        $this->assertSame(<<<'TXT'
-        # HydePHP
-
-        ## Blog Posts
-
-        - [Hello World](https://example.com/posts/hello-world.html)
-
-        ## Documentation
-
-        - [Installation](https://example.com/docs/installation.html)
 
         TXT, $this->generate());
     }
@@ -143,6 +116,20 @@ class LlmsTxtGeneratorTest extends TestCase
         $this->assertStringNotContainsString('Private', $this->generate());
     }
 
+    public function testPagesExcludedFromTheSitemapAreNotListed()
+    {
+        $this->markdown('_pages/private.md', '# Private', ['sitemap' => false]);
+
+        $this->assertStringNotContainsString('Private', $this->generate());
+    }
+
+    public function testPagesExcludedFromTheSitemapCanBeAddedBackUsingFrontMatter()
+    {
+        $this->markdown('_pages/private.md', '# Private', ['sitemap' => false, 'llms' => true]);
+
+        $this->assertStringContainsString('- [Private](https://example.com/private.html)', $this->generate());
+    }
+
     public function testErrorPagesAreNotListed()
     {
         $this->assertStringNotContainsString('404', $this->generate());
@@ -157,26 +144,21 @@ class LlmsTxtGeneratorTest extends TestCase
         $this->assertStringNotContainsString('sitemap.xml', $contents);
     }
 
-    public function testRedirectsAreNotListed()
+    public function testVirtualPagesLikeTheDocumentationSearchPageAreNotListed()
     {
-        config(['hyde.llms.sections' => [Redirect::class => 'Redirects']]);
-
-        Routes::addRoute(new Route(new Redirect('old-page', 'new-page')));
-
-        $this->assertStringNotContainsString('old-page', $this->generate());
-    }
-
-    public function testPageTypesNotInTheSectionsConfigAreNotListed()
-    {
-        config(['hyde.llms.sections' => [DocumentationPage::class => 'Documentation']]);
-
-        $this->file('_posts/hello-world.md', '# Hello World');
         $this->file('_docs/installation.md', '# Installation');
 
         $contents = $this->generate();
 
-        $this->assertStringContainsString('Installation', $contents);
-        $this->assertStringNotContainsString('Hello World', $contents);
+        $this->assertStringContainsString('- [Installation](https://example.com/docs/installation.html)', $contents);
+        $this->assertStringNotContainsString('docs/search', $contents);
+    }
+
+    public function testRedirectsAreNotListed()
+    {
+        Routes::addRoute(new Route(new Redirect('old-page', 'new-page')));
+
+        $this->assertStringNotContainsString('old-page', $this->generate());
     }
 
     public function testCustomPageClassesAreListedUnderTheirParentClassSection()
@@ -193,36 +175,6 @@ class LlmsTxtGeneratorTest extends TestCase
         $this->file('_docs/installation.md', '# Installation');
 
         $this->assertStringContainsString('- [Installation](https://example.com/docs/installation)', $this->generate());
-    }
-
-    public function testSectionKeyThatIsNotAPageClassFailsWithConfigurationException()
-    {
-        config(['hyde.llms.sections' => ['NotAPageClass' => 'Pages']]);
-
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('Invalid `hyde.llms.sections` entry at index [NotAPageClass]: each key must be a page class extending Hyde\Pages\Concerns\HydePage.');
-
-        $this->generate();
-    }
-
-    public function testNonStringSectionHeadingFailsWithConfigurationException()
-    {
-        config(['hyde.llms.sections' => [MarkdownPage::class => 123]]);
-
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('Invalid `hyde.llms.sections` entry at index [Hyde\Pages\MarkdownPage]: each section heading must be a non-empty string, int given.');
-
-        $this->generate();
-    }
-
-    public function testEmptySectionHeadingFailsWithConfigurationException()
-    {
-        config(['hyde.llms.sections' => [MarkdownPage::class => '']]);
-
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('Invalid `hyde.llms.sections` entry at index [Hyde\Pages\MarkdownPage]: each section heading must be a non-empty string, string given.');
-
-        $this->generate();
     }
 
     protected function generate(): string

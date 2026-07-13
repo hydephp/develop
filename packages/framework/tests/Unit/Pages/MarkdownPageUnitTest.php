@@ -130,12 +130,6 @@ class MarkdownPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertFalse((new MarkdownPage('foo', ['sitemap' => false]))->showInSitemap());
     }
 
-    public function testShowInLlmsTxt()
-    {
-        $this->assertTrue((new MarkdownPage())->showInLlmsTxt());
-        $this->assertFalse((new MarkdownPage('foo', ['llms' => false]))->showInLlmsTxt());
-    }
-
     public function testNavigationMenuPriority()
     {
         $this->assertSame(999, (new MarkdownPage())->navigationMenuPriority());

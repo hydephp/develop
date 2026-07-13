@@ -71,7 +71,6 @@ class LlmsTxtPageTest extends TestCase
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
-        $this->assertFalse($page->showInLlmsTxt());
     }
 
     public function testLlmsTxtPageCompilesUsingTheLlmsTxtGenerator()
