@@ -83,7 +83,7 @@ class InMemoryPage extends HydePage
      */
     public static function outputPath(string $identifier): string
     {
-        if (static::identifierDeclaresOutputFileExtension($identifier)) {
+        if (static::identifierDeclaresOutputExtension($identifier)) {
             return (string) RouteKey::fromPage(static::class, $identifier);
         }
 
@@ -93,7 +93,7 @@ class InMemoryPage extends HydePage
     /**
      * Determine if the given page identifier declares a supported non-HTML output file extension.
      */
-    protected static function identifierDeclaresOutputFileExtension(string $identifier): bool
+    protected static function identifierDeclaresOutputExtension(string $identifier): bool
     {
         foreach (['.json', '.txt', '.xml'] as $extension) {
             if (str_ends_with($identifier, $extension)) {

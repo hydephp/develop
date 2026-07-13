@@ -50,11 +50,11 @@ class MarkdownPostUnitTest extends BaseMarkdownPageUnitTest
         );
     }
 
-    public function testOutputFileExtension()
+    public function testOutputExtension()
     {
         $this->assertSame(
             '.html',
-            MarkdownPost::outputFileExtension()
+            MarkdownPost::outputExtension()
         );
     }
 
