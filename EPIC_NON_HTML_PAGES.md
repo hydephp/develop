@@ -68,6 +68,11 @@ it is proven in production, requires no realtime-compiler lookup changes
 (`PageRouter::normalizePath()` only strips `.html`), and lets `docs/search` (page)
 and `docs/search.json` (index) coexist as distinct routes, which they already do.
 
+> **Implemented (PR 1):** `RouteKey::fromPage()` appends the page class's declared
+> non-HTML output extension to the key (skipping it when the identifier already ends
+> with it), so classes like PR 3's `TextPage` are D1-compliant out of the box and
+> PR 2 can rely on "route key == request path with only `.html` stripped" universally.
+
 ### D2: Output extension is declared, not inferred
 
 Do **not** infer "this identifier has an extension" from a dot in the identifier —
@@ -83,6 +88,13 @@ versioned docs route keys like `docs/1.x/index` would false-positive
   trailing extensions in the identifier (`.txt`, `.json`, `.xml`), or (b) add an
   explicit constructor/`make()` parameter. Leaning (a) with allowlist since
   `InMemoryPage::make('robots.txt', contents: $txt)` is the DX we actually want.
+
+> **Decided (PR 1):** option (a). The allowlist (`.json`, `.txt`, `.xml`) lives in
+> `InMemoryPage::identifierDeclaresOutputFileExtension()`, overridable by subclasses.
+> `Redirect` deliberately inherits it (no special case): a redirect declared for a
+> non-HTML path now emits its file at that exact path instead of an unreachable
+> double-extension path. Neither behavior can make a meta-refresh work when the
+> server serves the file as non-HTML — document that limitation in PR 8.
 
 ### D3: Sitemap inclusion becomes a page-level concern
 
@@ -112,7 +124,7 @@ feature default → config tweaks → file on disk → fully dynamic page in cod
 
 ## Work breakdown (one PR each, in dependency order)
 
-### PR 1 — Foundation: declared output extensions on `HydePage`
+### PR 1 — Foundation: declared output extensions on `HydePage` ✅ Implemented
 
 Goal: any page class can emit a non-`.html` file without overriding `getOutputPath()`.
 
@@ -123,6 +135,20 @@ Goal: any page class can emit a non-`.html` file without overriding `getOutputPa
   `InMemoryPage::make('robots.txt', contents: ...)` outputs `robots.txt`.
 - Refactor `DocumentationSearchIndex` to drop its `getOutputPath()` override.
 - Pure refactor for existing sites: no compiled-output changes.
+
+Implementation notes (branch `v3/non-html-pages-foundation`):
+
+- An `outputFileExtension()` accessor accompanies the property, matching the other
+  static accessors, and is part of the `BaseHydePageUnitTest` contract. No setter
+  was added — the existing setters exist for config-driven source customization,
+  which does not apply here; subclasses redeclare the property.
+- Non-HTML extension handling was placed in `RouteKey::fromPage()` (see D1 note)
+  rather than only in `outputPath()`, so route keys and output paths cannot drift.
+- One qualification to "no compiled-output changes": in-memory page identifiers
+  (including `hyde.redirects` paths) that already end in an allowlisted extension
+  previously produced double-extension output (`data.json.html`); they now compile
+  to the declared path as-is. Recorded in the v3 release notes as a breaking change,
+  though the old output was almost certainly never intended or relied upon.
 
 ### PR 2 — Realtime compiler: route-first resolution for non-HTML paths
 
