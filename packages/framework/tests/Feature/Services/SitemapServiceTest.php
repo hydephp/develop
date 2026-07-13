@@ -113,15 +113,13 @@ class SitemapServiceTest extends TestCase
 
     public function testGenerateDoesNotAddPagesWithSitemapFrontMatterSetToFalse()
     {
-        file_put_contents(Hyde::path('_pages/foo.md'), "---\nsitemap: false\n---\n\n# Foo");
+        $this->file('_pages/foo.md', "---\nsitemap: false\n---\n\n# Foo");
 
         $service = new SitemapGenerator();
         $service->generate();
 
         $this->assertCount(2, $service->getXmlElement()->url);
         $this->assertStringNotContainsString('foo', $service->getXml());
-
-        Filesystem::unlink('_pages/foo.md');
     }
 
     public function testGenerateDoesNotAddPagesWithSitemapFrontMatterSetToQuotedFalseString()
