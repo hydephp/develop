@@ -109,25 +109,11 @@ class LlmsTxtGeneratorTest extends TestCase
         $this->assertStringContainsString('- [Installation](https://example.com/docs/installation.html): First line. Second line.', $this->generate());
     }
 
-    public function testPagesCanOptOutUsingFrontMatter()
-    {
-        $this->markdown('_pages/private.md', '# Private', ['llms' => false]);
-
-        $this->assertStringNotContainsString('Private', $this->generate());
-    }
-
     public function testPagesExcludedFromTheSitemapAreNotListed()
     {
         $this->markdown('_pages/private.md', '# Private', ['sitemap' => false]);
 
         $this->assertStringNotContainsString('Private', $this->generate());
-    }
-
-    public function testPagesExcludedFromTheSitemapCanBeAddedBackUsingFrontMatter()
-    {
-        $this->markdown('_pages/private.md', '# Private', ['sitemap' => false, 'llms' => true]);
-
-        $this->assertStringContainsString('- [Private](https://example.com/private.html)', $this->generate());
     }
 
     public function testErrorPagesAreNotListed()
@@ -166,6 +152,28 @@ class LlmsTxtGeneratorTest extends TestCase
         Routes::addRoute(new Route(new LlmsTxtGeneratorTestPage('custom')));
 
         $this->assertStringContainsString("## Pages\n\n- [Index](https://example.com/index.html)\n- [Custom](https://example.com/custom.html)", $this->generate());
+    }
+
+    public function testPagesAreListedInRouteOrderSoNumericPrefixesKeepTheirReadingOrder()
+    {
+        $this->file('_docs/02-usage.md', '# Usage');
+        $this->file('_docs/01-installation.md', '# Installation');
+        $this->file('_docs/03-advanced.md', '# Advanced');
+
+        $this->assertStringContainsString(<<<'TXT'
+        ## Documentation
+
+        - [Installation](https://example.com/docs/installation.html)
+        - [Usage](https://example.com/docs/usage.html)
+        - [Advanced](https://example.com/docs/advanced.html)
+        TXT, $this->generate());
+    }
+
+    public function testMarkdownSyntaxInPageTitlesIsEscapedInLinkLabels()
+    {
+        $this->markdown('_docs/arrays.md', '# Arrays', ['title' => 'Arrays [Advanced]']);
+
+        $this->assertStringContainsString('- [Arrays \[Advanced\]](https://example.com/docs/arrays.html)', $this->generate());
     }
 
     public function testPrettyUrlsAreUsedWhenEnabled()
