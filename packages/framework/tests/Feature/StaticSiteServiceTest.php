@@ -215,9 +215,9 @@ class StaticSiteServiceTest extends TestCase
         $this->withoutSiteUrl();
         config(['hyde.rss.enabled' => false]);
 
-        $this->artisan('build')
-            ->doesntExpectOutput('Generating RSS feed...')
-            ->assertExitCode(0);
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
     }
 
     public function testRssFeedIsGeneratedWhenConditionsAreMet()
@@ -227,9 +227,9 @@ class StaticSiteServiceTest extends TestCase
 
         Filesystem::touch('_posts/foo.md');
 
-        $this->artisan('build')
-            // ->expectsOutput('Generating RSS feed...')
-            ->assertExitCode(0);
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/feed.xml'));
 
         Filesystem::unlink('_posts/foo.md');
         Filesystem::unlink('_site/feed.xml');
