@@ -12,6 +12,16 @@ Static alias for the constructor.
 InMemoryPage::make(string|(Closure(): string)|(Closure(static):, Hyde\Markdown\Models\FrontMatter|array $matter, Closure|string|null $contents, string $view): static
 ```
 
+#### `outputPath()`
+
+Qualify a page identifier into a target output file path, relative to the _site output directory.
+
+If the identifier declares a supported non-HTML output file extension, like &quot;robots.txt&quot;, the page is saved to that path as-is, instead of having the HTML extension appended.
+
+```php
+InMemoryPage::outputPath(string $identifier): string
+```
+
 #### `__construct()`
 
 Create a new in-memory (virtual) page instance.
@@ -21,6 +31,8 @@ Pass literal contents or a closure to `$contents`, or pass a registered Laravel 
 Contents and views cannot be used together. Omit both to create an empty page. An empty view value is treated as no view.
 
 View values ending in `.blade.php` are treated as Blade file paths. Other values are treated as registered Laravel view keys.
+
+Identifiers ending in `.json`, `.txt`, or `.xml` retain that extension in the output path.
 
 ```php
 /** @param string|(Closure(): string)|(Closure(static): string)|null $contents */
