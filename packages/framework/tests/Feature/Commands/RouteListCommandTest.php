@@ -20,7 +20,7 @@ class RouteListCommandTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.generate_sitemap' => false]);
+        config(['hyde.generate_sitemap' => false, 'hyde.robots.enabled' => false]);
     }
 
     public function testRouteListCommand()
