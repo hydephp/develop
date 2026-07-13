@@ -9,7 +9,7 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildRssFeedCommand::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\RssFeedPage::class)]
 class BuildRssFeedCommandTest extends TestCase
 {
     public function testRssFeedIsGeneratedWhenConditionsAreMet()
