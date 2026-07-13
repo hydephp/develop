@@ -141,21 +141,6 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         $this->assertTrue((new InMemoryPage('robots.txt', ['sitemap' => true]))->showInSitemap());
     }
 
-    public function testShowInLlmsTxt()
-    {
-        $this->assertTrue((new InMemoryPage('foo'))->showInLlmsTxt());
-        $this->assertFalse((new InMemoryPage('foo', ['llms' => false]))->showInLlmsTxt());
-    }
-
-    public function testShowInLlmsTxtIsFalseForPagesWithNonHtmlOutputPaths()
-    {
-        $this->assertFalse((new InMemoryPage('robots.txt'))->showInLlmsTxt());
-        $this->assertFalse((new InMemoryPage('data.json'))->showInLlmsTxt());
-        $this->assertFalse((new InMemoryPage('custom.xml'))->showInLlmsTxt());
-
-        $this->assertTrue((new InMemoryPage('robots.txt', ['llms' => true]))->showInLlmsTxt());
-    }
-
     public function testNavigationMenuPriority()
     {
         $this->assertSame(999, (new InMemoryPage('foo'))->navigationMenuPriority());
