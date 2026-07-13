@@ -32,6 +32,7 @@ use function ltrim;
 use function rtrim;
 use function sprintf;
 use function str_contains;
+use function str_ends_with;
 use function str_starts_with;
 
 /**
@@ -406,6 +407,18 @@ abstract class HydePage implements PageSchema, SerializableContract
     public function showInNavigation(): bool
     {
         return ! $this->navigation->hidden;
+    }
+
+    /**
+     * Can the page be shown in the sitemap?
+     *
+     * It can be explicitly set in the front matter using the `sitemap` key,
+     * otherwise it defaults to true for pages compiled to HTML files, and
+     * false for pages compiled to non-HTML files like `robots.txt`.
+     */
+    public function showInSitemap(): bool
+    {
+        return (bool) $this->matter('sitemap', str_ends_with($this->getOutputPath(), '.html'));
     }
 
     /**
