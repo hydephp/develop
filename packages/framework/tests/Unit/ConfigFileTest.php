@@ -6,7 +6,6 @@ namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Enums\Feature;
 use Hyde\Foundation\HydeCoreExtension;
-use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
 use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
@@ -14,7 +13,6 @@ use Hyde\Pages\HtmlPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
-use ReflectionClass;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\HydeConfigFilesAreMatchingTest
@@ -81,29 +79,6 @@ class ConfigFileTest extends UnitTestCase
     {
         expect($this->getConfig('features'))
             ->toBe(Feature::cases());
-    }
-
-    public function testDefaultLlmsSectionsValuesMatchDeclaredValues()
-    {
-        expect($this->getConfig('llms')['sections'])->toBe([
-            HtmlPage::class => 'Pages',
-            BladePage::class => 'Pages',
-            MarkdownPage::class => 'Pages',
-            DocumentationPage::class => 'Documentation',
-            MarkdownPost::class => 'Blog Posts',
-        ]);
-    }
-
-    public function testDefaultLlmsSectionsMatchTheGeneratorFallbackUsedWhenTheOptionIsAbsent()
-    {
-        expect($this->getConfig('llms')['sections'])
-            ->toBe((new ReflectionClass(LlmsTxtGenerator::class))->getConstant('DEFAULT_SECTIONS'));
-    }
-
-    public function testDefaultLlmsSectionsCoverAllCoreExtensionClasses()
-    {
-        expect(array_keys($this->getConfig('llms')['sections']))
-            ->toEqualCanonicalizing(HydeCoreExtension::getPageClasses());
     }
 
     protected function getConfig(string $option): mixed

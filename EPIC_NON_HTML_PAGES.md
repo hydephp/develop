@@ -183,17 +183,22 @@ a standalone feature in its own right.
 > listing redirects in a sitemap is an SEO anti-pattern, so an opt-in would only
 > be a trap.
 
-> **Extended (PR 7):** the same policy shape was reused for llms.txt.
-> `HydePage::showInLlmsTxt()` reads the `llms` front matter key with the identical
-> resolved-output-path default (so generated non-HTML pages self-exclude), `Redirect`
-> overrides it to `false` unconditionally, and it joined the `BaseHydePageUnitTest`
-> contract next to `showInSitemap()`. The two methods are deliberately separate
-> rather than one generic "machine index" flag: a page's presence in a search-engine
-> sitemap and its presence in an AI-facing content index are different editorial
-> decisions, and users will want `sitemap: true` with `llms: false` (or the reverse).
-> Note the layering — `showInLlmsTxt()` is the *per-page* opt-out, while the
-> `hyde.llms.sections` config decides which page *types* are listed at all (PR 7);
-> a page is listed only if both allow it.
+> **Reused, not duplicated (PR 7):** llms.txt inclusion is *derived from*
+> `showInSitemap()` rather than getting a parallel `showInLlmsTxt()` page method. An
+> initial PR 7 implementation added the mirror method (plus a `Redirect` override, a
+> `BaseHydePageUnitTest` contract entry, and six page unit test implementations) and it
+> was cut in review as unearned surface: `showInSitemap()` already answers the exact
+> question llms.txt needs — "is this page part of the machine-readable index of my
+> site" — and its resolved-output-path default already excludes every generated
+> non-HTML page and redirect for free. The `LlmsTxtGenerator` instead reads
+> `matter('llms', $page->showInSitemap())`, so users keep per-page control in both
+> directions (`llms: false` to drop a sitemapped page, `llms: true` to add back one
+> that is `sitemap: false`) with zero new public API on `HydePage`.
+> The coupling is a deliberate, documented rule ("a page excluded from the sitemap is
+> excluded from llms.txt"), and it is the *less* surprising default: a user who hides
+> a page from search engines does not expect it advertised to AI agents. If independent
+> control ever proves necessary, promoting the front matter key to a real
+> `showInLlmsTxt()` method later is additive and non-breaking.
 
 ### D4: Generators become container-resolved pages; generator actions stay
 
@@ -620,19 +625,25 @@ Implementation notes (branch `v3/non-html-pages-llms-txt`):
   without a base URL get no llms.txt, exactly as they get no sitemap. Under
   `hyde serve` the realtime compiler overrides the site URL, so the page *is* served
   locally (asserted by a `text/plain` serve test).
-- **Deviation — sections are a page-class-keyed config map, not glob patterns.** The
-  epic (and the research doc) sketched `sections`/`exclude` arrays of route-key globs.
-  Implemented instead as `hyde.llms.sections`, mapping page class to section heading,
-  because that is the existing Hyde vocabulary for per-page-type configuration
-  (`hyde.source_directories`, `hyde.output_directories` are the same shape), whereas
-  Hyde has no glob-matching config anywhere. Matching is by `instanceof`, first match
-  wins in config order — the same semantics `PageCollection::getPages()` and
-  `RouteCollection::getRoutes()` already use — so a user's `GuidePage extends
-  MarkdownPage` inherits the `MarkdownPage` section instead of being silently dropped.
-  Map order is section order. Crucially, **a page type absent from the map is not
-  listed at all**, which folds the epic's separate "exclusions" requirement into the
-  same key: dropping `MarkdownPost::class` removes the blog from the file. That is one
-  mechanism instead of two, and it needs no configuration for the common case.
+- **Deviation — there is no section configuration at all.** The epic (and the research
+  doc) asked for "config for section grouping/exclusions", sketched as route-key globs.
+  An initial implementation shipped a `hyde.llms.sections` map of page class to section
+  heading; it was cut in review. Hyde already *knows* its page types, so grouping needs
+  no user input to be correct, and the config bought only heading renames and bulk
+  exclusion — rare needs, paid for by every user in config-file surface (a five-entry
+  array, entry validation, an exception path, and a comment explaining that omitting a
+  class silently drops those pages, which is a trap the framework did not previously
+  have). The section map now lives as a `protected const SECTIONS` on the generator:
+  page classes are matched with `instanceof` in declaration order — the same semantics
+  `PageCollection::getPages()` and `RouteCollection::getRoutes()` use — so a user's
+  `GuidePage extends MarkdownPage` lands in the `Pages` section, while every
+  `InMemoryPage` descendant (the generated pages, redirects, and the documentation
+  search page) is absent from the map and therefore never listed. Users who genuinely
+  need different sections have the D4 tier already advertised for exactly this:
+  override the generator and rebind it in the container. The config surface is now two
+  keys, `enabled` and `description`, matching the size of the `rss` and `robots` blocks.
+  *Design rule this records: a configuration option must be justified against the
+  container-rebind tier that already exists, not merely be useful in principle.*
 - **Deviation — `hyde.description` does not exist.** The epic assumed a site-level
   description config key; there is none (only `hyde.rss.description`). Added
   `hyde.llms.description`, mirroring the RSS key rather than inventing a global one,
@@ -649,18 +660,31 @@ Implementation notes (branch `v3/non-html-pages-llms-txt`):
   would otherwise emit a broken list item — this is *not* a "verbatim string" case like
   the robots.txt disallow rules, where PR 6 correctly refused to normalize, because
   here the value is prose embedded in a line-oriented format rather than an exact-match
-  rule value. Section-map entries are validated like the robots config (per-entry
-  `InvalidConfigurationException` naming the key and offending index).
+  rule value. With the sections config gone, no llms config entry needs validation: both
+  remaining keys are scalars read through the typed `Config` accessors.
 - **Deviation — 404 pages are never listed.** An error page is not content, and every
   real-world llms.txt excludes it. Filtered in the generator by identifier, mirroring
-  the `$identifier === '404'` special case `SitemapGenerator` already carries, and kept
-  as an overridable `isErrorPage()` predicate rather than an inline magic string. This
-  is a generator-level curation concern, not a page-level default, which is why it did
-  not go into `showInLlmsTxt()` (the sitemap precedent likewise keeps its 404 handling
-  in the generator).
+  the `$identifier === '404'` special case `SitemapGenerator` already carries. This is a
+  generator-level curation concern rather than a page-level default (the sitemap
+  precedent likewise keeps its 404 handling in the generator), and it is the reason the
+  sitemap-derived inclusion rule is not a bare alias for `showInSitemap()`.
 - Everything else the epic left implicit held: `llms.txt` is within the D2 allowlist,
   and the generated page self-excludes from its own listing (and the sitemap) through
   the D3 resolved-output-path default.
+
+> **Scope correction (post-implementation review).** The first cut of this PR was
+> overbuilt for the value delivered, and two pieces were cut back before merge: the
+> `hyde.llms.sections` config (see the sections deviation above) and the
+> `HydePage::showInLlmsTxt()` page method (see the D3 "Reused, not duplicated" note).
+> Between them they added a public method to every page class, an entry in the
+> `BaseHydePageUnitTest` contract with six implementations, a config array with its own
+> validation and exception path, and a config comment long enough to advertise that the
+> option was not simple. All of it served needs that the existing `showInSitemap()`
+> front matter and the D4 container-rebind tier already served. The feature's user-facing
+> capability is unchanged; only the surface shrank. Worth carrying into PR 8 and any
+> future generated-page work: **the D4 rebind tier is the default answer for
+> customization, and a new config key or page-model method has to beat it, not merely
+> be useful.**
 
 ### PR 8 — Documentation & release notes
 
