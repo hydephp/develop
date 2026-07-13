@@ -20,6 +20,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
 
 /**
  * Test the base HydePage class.
@@ -126,6 +127,21 @@ class HydePageTest extends TestCase
     public function testOutputPathUsesTheOutputExtensionOfThePageClass()
     {
         $this->assertSame('output/hello-world.txt', NonHtmlOutputTestPage::outputPath('hello-world'));
+    }
+
+    public function testOutputExtensionWithoutLeadingDotThrows()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid output extension 'txt' declared by");
+
+        MissingDotOutputExtensionTestPage::outputExtension();
+    }
+
+    public function testOutputExtensionWithPathSeparatorThrows()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        PathSeparatorOutputExtensionTestPage::outputExtension();
     }
 
     public function testGetRouteKeyForPageWithNonHtmlOutputExtensionIncludesExtension()
@@ -1318,6 +1334,20 @@ class NonHtmlOutputTestPage extends HydePage
     public static string $sourceExtension = '.txt';
     public static string $outputExtension = '.txt';
     public static string $template = 'template';
+}
+
+class MissingDotOutputExtensionTestPage extends HydePage
+{
+    use VoidCompiler;
+
+    public static string $outputExtension = 'txt';
+}
+
+class PathSeparatorOutputExtensionTestPage extends HydePage
+{
+    use VoidCompiler;
+
+    public static string $outputExtension = '.txt/../evil';
 }
 
 class ConfigurableSourcesTestPage extends HydePage
