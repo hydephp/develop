@@ -137,6 +137,13 @@ versioned docs route keys like `docs/1.x/index` would false-positive
      > *(PR 5 part A: confirmed for `sitemap.xml` — within the allowlist. `feed.xml`,
      > `robots.txt`, and `llms.txt` are too, so the framework itself will not need
      > option (b); the remaining call in PR 8 is only for the power-user audience.)*
+     > *(PR 5 part B qualification: the RSS filename is user-configurable, and the old
+     > task wrote any `hyde.rss.filename` verbatim — so `RssFeedPage` overrides
+     > `identifierHasExplicitOutputExtension()` to always treat the configured filename
+     > as the literal output path, keeping `feed.rss` (or an extensionless name)
+     > working. This confirms the subclass override is a workable escape hatch for
+     > first-party pages, but does not settle option (b) for user-land `make()`
+     > callers, which remains the PR 8 call.)*
 
 ### D3: Sitemap inclusion becomes a page-level concern
 
@@ -244,7 +251,7 @@ container → fully custom page in code.
 > so the skip check cannot see its pages; instead the user page replaces the generated
 > one under the same collection key (`addPage()` keys by source path). Both are
 > asserted through the real `build` command output. The robots.txt equivalent remains
-> mandatory for PR 6.
+> mandatory for PR 6. *(Part B: both paths verified the same way for the feed page.)*
 
 ### D6: No built-in `TextPage` or `.txt` autodiscovery
 
@@ -388,14 +395,14 @@ Implementation notes (branch `v3/non-html-pages-sitemap-inclusion-policy`):
 - No UPGRADE.md entry: the fix requires no user action, and nothing realistic
   depended on search indexes appearing in sitemaps.
 
-### PR 5 — Convert sitemap and RSS from build tasks to pages 🚧 Part A (sitemap) implemented; part B (RSS) remaining
+### PR 5 — Convert sitemap and RSS from build tasks to pages ✅ Implemented
 
 Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed in
 `route:list`, included in the build manifest, overridable in user land.
 
-> **Split during implementation:** part A converts the sitemap, part B will convert
-> the RSS feed the same way. The bullets below still describe both; the part A notes
-> at the end of this section record what landed and what part B should mirror.
+> **Split during implementation:** part A converted the sitemap, part B converted
+> the RSS feed the same way. The bullets below describe both; the notes at the end
+> of this section record what landed in each part.
 
 - Register `sitemap.xml` / `feed.xml` as `InMemoryPage`s per D4, with a lazy
   `compile` that resolves the generator from the container
@@ -457,6 +464,27 @@ Implementation notes, part A (branch `v3/non-html-pages-convert-sitemap`):
   migrated from `GenerateSitemap` to `GenerateBuildManifest` (not `GenerateRssFeed`)
   so removing the RSS task won't churn them again. Part B should mirror everything
   here with `RssFeedPage`, taking its route key from `RssFeedGenerator::getFilename()`.
+
+Implementation notes, part B (branch `v3/non-html-pages-convert-rss-feed`):
+
+- `RssFeedPage` mirrors `SitemapPage` throughout: thin subclass in `XmlGenerators`,
+  container-resolved `compile()` (rebind verified by test), registered behind
+  `Features::hasRss()` with the D5 skip check, hidden from navigation, D3-excluded
+  from the sitemap, and both user override paths verified end-to-end.
+- One divergence: the route key comes from `RssFeedGenerator::getFilename()`
+  (config `hyde.rss.filename`), and since the removed task wrote any configured
+  filename verbatim, `RssFeedPage` overrides `identifierHasExplicitOutputExtension()`
+  to always use the filename as the literal output path — `feed.rss` or an
+  extensionless name would otherwise regress to `.html`-suffixed output (see the
+  D2 part B qualification).
+- `build:rss` keeps the old task's semantics of having no guard at all: invoked
+  explicitly it generates the feed regardless of the feature conditions (no site
+  URL, no posts, or `hyde.rss.enabled` false), falling back to `new RssFeedPage()`
+  when the route is not registered. Only `build:sitemap` has a base-URL guard,
+  matching the tasks each command replaced.
+- `BuildTaskService` no longer registers any feature-gated tasks; the `Features`
+  facade import went with the last one. The remaining framework tasks
+  (clean/transfer/manifest) are all config-gated.
 
 ### PR 6 — Generated `robots.txt`
 
