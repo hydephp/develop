@@ -72,3 +72,19 @@ you are actually trying to do before reaching for a comment. Comments are only f
 
 Never write comments that narrate what the next line does, where code came from, or
 why a change is correct — that belongs in the PR description, not the code.
+
+## Developer Experience
+
+HydePHP treats Developer Experience as a design constraint, not a layer of polish added after a feature works. The framework exists to make creating content-focused websites feel simple without taking away the power developers expect from Laravel. Its guiding promise is that users should be able to begin with Markdown and sensible defaults, while retaining the freedom to use Blade, customize the frontend, replace conventions, or extend the build process when their project demands it.
+
+The default path should therefore be the shortest path. A common task should work without configuration, manual registration, or knowledge of internal architecture. HydePHP favors convention over configuration, automatic discovery, appropriate default layouts, generated navigation, scaffolding commands, and ready-to-use frontend assets. Configuration and extension points are still important, but they should remain optional until the user has a reason to reach for them. A new feature is aligned with HydePHP when its basic use feels obvious and its advanced use remains possible.
+
+HydePHP also aims to reuse mental models its users already know. APIs should follow Laravel conventions where practical, and features should compose naturally with familiar tools such as collections, facades, Blade components, console commands, configuration files, service providers, and lifecycle callbacks. Naming should describe what an operation does rather than expose how Hyde implements it. Before inventing a new abstraction, an agent should look for the closest existing HydePHP or Laravel pattern and extend that vocabulary consistently.
+
+Good Developer Experience includes the failure path. HydePHP should validate assumptions early, produce actionable error messages, and avoid letting mistakes silently reach the generated site. Recent work on the asset and data systems reflects this approach through automatic validation, clearer exception handling, syntax checking, and helpers that remove repetitive filesystem work. Commands should explain what they are doing, generated files should be predictable, and errors should tell the developer what needs to change.
+
+Performance and feedback speed matter as well. Improvements such as realtime compilation, Vite integration, hot module replacement, intelligent caching, and faster document processing are Developer Experience features because they shorten the distance between an edit and a trustworthy result. Agents should avoid unnecessary work in normal builds, preserve deterministic output, and prefer lazy or cached computation where it reduces repeated cost without making behavior harder to understand.
+
+Finally, a feature is not complete when its implementation compiles. HydePHP requires focused changes, tests that demonstrate the intended behavior, and documentation for changes users can observe. Backward compatibility and the appropriate release branch must also be considered. Tests protect the experience from regression, while documentation confirms that the public API can be explained clearly. When an API is difficult to test or document, that is often evidence that it is also difficult to use.
+
+An AI coding agent working on HydePHP should evaluate every feature with a simple standard: does this make the common case joyful, preserve control for advanced users, behave like the rest of the Laravel ecosystem, fail helpfully, and remain understandable through tests and documentation? The most Hyde-like implementation is rarely the one with the most options or abstractions. It is the one that removes the most friction while introducing the least surprise.
