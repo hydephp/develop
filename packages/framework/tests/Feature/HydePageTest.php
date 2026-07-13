@@ -128,6 +128,11 @@ class HydePageTest extends TestCase
         $this->assertSame('output/hello-world.txt', NonHtmlOutputTestPage::outputPath('hello-world'));
     }
 
+    public function testGetRouteKeyForPageWithNonHtmlOutputFileExtensionIncludesExtension()
+    {
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getRouteKey());
+    }
+
     public function testGetOutputPathUsesTheOutputFileExtensionOfThePageClass()
     {
         $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getOutputPath());

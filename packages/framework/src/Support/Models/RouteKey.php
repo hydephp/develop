@@ -11,6 +11,7 @@ use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 
 use function Hyde\unslash;
+use function str_ends_with;
 
 /**
  * Route keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.
@@ -56,7 +57,24 @@ final class RouteKey implements Stringable
     {
         $identifier = self::stripPrefixIfNeeded($pageClass, $identifier);
 
-        return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
+        return new self(unslash("{$pageClass::baseRouteKey()}/$identifier".self::outputFileExtensionIfNeeded($pageClass, $identifier)));
+    }
+
+    /**
+     * Since only the HTML extension is implicit in route keys, pages compiled to non-HTML
+     * files include the output file extension declared by their page class in the key.
+     *
+     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
+     */
+    protected static function outputFileExtensionIfNeeded(string $pageClass, string $identifier): string
+    {
+        $extension = $pageClass::outputFileExtension();
+
+        if ($extension === '.html' || str_ends_with($identifier, $extension)) {
+            return '';
+        }
+
+        return $extension;
     }
 
     /**
