@@ -100,9 +100,4 @@ class RedirectTest extends TestCase
     {
         $this->assertFalse((new Redirect('foo', 'bar'))->showInSitemap());
     }
-
-    public function testRedirectsAreHiddenFromLlmsTxt()
-    {
-        $this->assertFalse((new Redirect('foo', 'bar'))->showInLlmsTxt());
-    }
 }

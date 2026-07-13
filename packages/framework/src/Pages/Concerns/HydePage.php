@@ -422,21 +422,6 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Can the page be listed in the llms.txt file?
-     *
-     * It can be explicitly set in the front matter using the `llms` key,
-     * otherwise it defaults to true for pages compiled to HTML files, and
-     * false for pages compiled to non-HTML files like `robots.txt`.
-     *
-     * Note that only pages of a type registered in the `hyde.llms.sections`
-     * config are listed in the file, regardless of this value.
-     */
-    public function showInLlmsTxt(): bool
-    {
-        return filter_var($this->matter('llms', str_ends_with($this->getOutputPath(), '.html')), FILTER_VALIDATE_BOOLEAN);
-    }
-
-    /**
      * Get the priority of the page in the navigation menu.
      */
     public function navigationMenuPriority(): int
