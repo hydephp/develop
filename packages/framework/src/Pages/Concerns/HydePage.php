@@ -159,7 +159,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the output subdirectory to store compiled HTML files for the page type.
+     * Get the output subdirectory where compiled files are stored for the page type.
      */
     public static function outputDirectory(): string
     {
