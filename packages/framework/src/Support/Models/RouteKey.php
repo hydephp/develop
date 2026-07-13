@@ -56,13 +56,14 @@ final class RouteKey implements Stringable
     public static function fromPage(string $pageClass, string $identifier): self
     {
         $identifier = self::stripPrefixIfNeeded($pageClass, $identifier);
+        $key = unslash("{$pageClass::baseRouteKey()}/$identifier");
         $extension = $pageClass::outputExtension();
 
-        if ($extension !== '.html' && ! str_ends_with($identifier, $extension)) {
-            $identifier .= $extension;
+        if ($extension !== '.html' && ! str_ends_with($key, $extension)) {
+            $key .= $extension;
         }
 
-        return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
+        return new self($key);
     }
 
     /**
