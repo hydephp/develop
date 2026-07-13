@@ -459,11 +459,19 @@ Implementation notes, part A (branch `v3/non-html-pages-convert-sitemap`):
   `hyde.generate_sitemap` disabled, and `build:rss` had no guard at all, emitting an
   empty feed with zero posts. That silently overriding the user's own configuration
   or producing a useless file is a trap, not a feature: the commands now fail with
-  a message stating the specific unmet condition (no base URL, disabled in config,
-  no posts, missing SimpleXML) when the route is not registered. Because the lookup
-  is route-first rather than feature-flag-first, a user-defined page under the route
-  key is still built even when the feature conditions are unmet — the only behavior
-  the fallback enabled that anyone could plausibly want, preserved without it.)*
+  a generic "feature is not enabled" error when the route is not registered. Because
+  the lookup is route-first rather than feature-flag-first, a user-defined page under
+  the route key is still built even when the feature conditions are unmet — the only
+  behavior the fallback enabled that anyone could plausibly want, preserved without
+  it.)*
+  *(Revised again in a second review pass: the first revision reported the specific
+  unmet condition — no base URL, disabled in config, no posts, missing SimpleXML —
+  by re-checking the `Features::hasSitemap()`/`hasRss()` conditions in the command.
+  That mirror was dropped for a single static message: its final SimpleXML branch
+  attributed the failure by elimination rather than observation, so any drift in the
+  mirrored conditions or an extension removing the page would blame SimpleXML on a
+  system where it is fine, and these commands fail too rarely to justify carrying
+  duplicated feature logic for a nicer message.)*
 - `GlobalMetadataBag` verified: the sitemap head link is emitted under the same
   `Features::hasSitemap()` condition that registers the page — no drift possible.
 - Realtime compiler needed no changes (PR 2's route-first resolution); a serve test
@@ -486,10 +494,10 @@ Implementation notes, part B (branch `v3/non-html-pages-convert-rss-feed`):
   extensionless name would otherwise regress to `.html`-suffixed output (see the
   D2 part B qualification).
 - `build:rss` builds the registered route's page like `build:sitemap`, and fails
-  with the specific unmet condition when the route is not registered (see the
-  revised-in-review note in the part A section — the old task's no-guard semantics,
-  where an explicit invocation emitted an empty feed with zero posts, were
-  deliberately not preserved).
+  with the generic "feature is not enabled" error when the route is not registered
+  (see the revised-in-review notes in the part A section — the old task's no-guard
+  semantics, where an explicit invocation emitted an empty feed with zero posts,
+  were deliberately not preserved).
 - `BuildTaskService` no longer registers any feature-gated tasks; the `Features`
   facade import went with the last one. The remaining framework tasks
   (clean/transfer/manifest) are all config-gated.
