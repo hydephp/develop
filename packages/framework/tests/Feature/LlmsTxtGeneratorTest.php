@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\Redirect;
 use Hyde\Foundation\Facades\Routes;
@@ -183,6 +184,21 @@ class LlmsTxtGeneratorTest extends TestCase
         $this->file('_docs/installation.md', '# Installation');
 
         $this->assertStringContainsString('- [Installation](https://example.com/docs/installation)', $this->generate());
+    }
+
+    public function testGeneratorOverrideCanListPagesThatAreExcludedFromTheSitemap()
+    {
+        $this->markdown('_pages/thin.md', '# Thin Page', ['sitemap' => false]);
+
+        $generator = new class extends LlmsTxtGenerator
+        {
+            protected function shouldListPage(HydePage $page): bool
+            {
+                return $page->getIdentifier() !== '404';
+            }
+        };
+
+        $this->assertStringContainsString('- [Thin Page](https://example.com/thin.html)', $generator->generate());
     }
 
     protected function generate(): string
