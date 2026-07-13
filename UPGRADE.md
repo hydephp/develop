@@ -222,12 +222,12 @@ sites without one are unaffected. The file only links to pages you already publi
 sitemap does not, but it is a deliberate invitation for AI services to read your site. That is a choice worth
 making consciously: if you would rather not extend that invitation, set `hyde.llms.enabled` to `false`.
 
-If you do keep it, the defaults need no configuration. Pages are grouped into sections by page type through the
-`hyde.llms.sections` configuration array, and each link is described by the page's `abstract` front matter,
-falling back to its `description`, so filling those in improves the file. Individual pages can be left out with
-`llms: false` front matter, and page types can be left out by removing them from the sections array. As with the
-sitemap and robots.txt, you can replace the file wholesale by registering your own `llms.txt` page, or adjust
-the output by rebinding the `LlmsTxtGenerator` class in the service container.
+If you do keep it, it needs no configuration. Pages are grouped into a section per page type, and each link is
+described by the page's `abstract` front matter, falling back to its `description`, so filling those in improves
+the file. Pages follow their sitemap inclusion, so anything already carrying `sitemap: false` stays out of this
+file too, and `llms: false` front matter leaves out a single page regardless. As with the sitemap and robots.txt,
+you can replace the file wholesale by registering your own `llms.txt` page, or adjust the output by rebinding the
+`LlmsTxtGenerator` class in the service container.
 
 Be aware that llms.txt is an emerging standard which is still subject to change. We cannot make a backwards
 compatibility promise for the generated output while the specification is still moving, and we expect to change

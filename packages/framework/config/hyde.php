@@ -164,22 +164,15 @@ return [
     | Llms.txt Generation
     |--------------------------------------------------------------------------
     |
-    | When enabled, an llms.txt file indexing your site is generated when you
-    | compile your static site, so that AI services and agents can discover
-    | your content without having to crawl through your rendered HTML.
+    | When enabled, an llms.txt file listing your pages will be generated when
+    | you compile your static site, helping AI services and agents find your
+    | content. Set this to false if you would rather they did not.
     |
-    | The file only links to pages that are already published, so it surfaces
-    | nothing your sitemap does not. Still, if you would rather not help AI
-    | services read your site, set 'enabled' to false to skip the file.
+    | This feature requires that a site base URL has been set.
     |
-    | This feature requires that a site base URL has been set, as the file
-    | needs absolute links. Pages can opt out using `llms: false` in their
-    | front matter, and the abstract or description front matter of each
-    | page is used as its link description.
-    |
-    | Please note that llms.txt is an emerging standard which is still subject
-    | to change. We may therefore need to change the format of the generated
-    | file in future minor and patch releases in order to follow the spec.
+    | Note that llms.txt is an emerging standard which is still subject to
+    | change, so we may need to change the format of the generated file
+    | in future minor and patch releases in order to follow the spec.
     |
     */
 
@@ -189,16 +182,6 @@ return [
 
         // An optional summary of your site, added as the introductory blockquote.
         'description' => null,
-
-        // The page types to list in the file, and the heading each is listed under.
-        // Page types that are not listed here are not added to the file at all.
-        'sections' => [
-            \Hyde\Pages\HtmlPage::class => 'Pages',
-            \Hyde\Pages\BladePage::class => 'Pages',
-            \Hyde\Pages\MarkdownPage::class => 'Pages',
-            \Hyde\Pages\DocumentationPage::class => 'Documentation',
-            \Hyde\Pages\MarkdownPost::class => 'Blog Posts',
-        ],
     ],
 
     /*
