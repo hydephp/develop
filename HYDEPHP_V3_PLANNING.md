@@ -14,24 +14,6 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ## Changes required to the v2 branch
 
-## Upgrade script rules
-
-We will provide an automated upgrade script (likely Rector-based) when we finalize the release.
-Until then, this section collects the rules that script needs to implement, so we don't lose
-track of them. Add an entry here whenever a change requires mechanical migration of user code.
-
-- Rename the static page class property `$fileExtension` to `$sourceExtension`, and the
-  `fileExtension()` and `setFileExtension()` methods to `sourceExtension()` and
-  `setSourceExtension()`. This covers property declarations in page classes
-  (`public static string $fileExtension = '.md';`), direct static property access
-  (`MarkdownPage::$fileExtension`, `$pageClass::$fileExtension`), and static method calls
-  (`MarkdownPage::fileExtension()`). The rule must be scoped to
-  `Hyde\Pages\Concerns\HydePage` subclasses (or known Hyde symbols) — it must not rename
-  unrelated properties or methods that happen to share the name.
-- Dynamic references cannot be migrated automatically and should be called out as manual
-  upgrade cases: variable method/property names (`$method = 'fileExtension';
-  $pageClass::$method()`), reflection, and string-based access.
-
 ---
 
 ## Release Notes
@@ -58,7 +40,7 @@ track of them. Add an entry here whenever a change requires mechanical migration
 
 ### Breaking Changes
 
-- Renamed the static page class property `$fileExtension` to `$sourceExtension`, and the `fileExtension()` and `setFileExtension()` methods to `sourceExtension()` and `setSourceExtension()`. The old name was ambiguous now that page classes also declare an output extension through the new `$outputExtension` property, and the renamed pair makes the source/output distinction explicit. Custom page classes and code calling these APIs need the mechanical rename, which the planned automated upgrade script will handle (see the upgrade script rules section above).
+- Renamed the static page class property `$fileExtension` to `$sourceExtension`, and the `fileExtension()` and `setFileExtension()` methods to `sourceExtension()` and `setSourceExtension()`. The old name was ambiguous now that page classes also declare an output extension through the new `$outputExtension` property, and the renamed pair makes the source/output distinction explicit. Custom page classes and code calling these APIs need the mechanical rename, which the planned automated upgrade script will handle (see the upgrade script rules section at the end of this document).
 - In-memory page identifiers ending in `.json`, `.txt`, or `.xml` (including redirect paths declared in `hyde.redirects`) now compile to that path as-is instead of gaining a second `.html` extension. The old double-extension outputs (like `data.json.html`) were almost certainly never intended, so no real sites are expected to be affected.
 - Removed `Redirect::create()`, `Redirect::store()`, and the `Redirect` constructor's `showText` argument. Redirects must now be declared in `hyde.redirects`, keeping all generated output inside the kernel-owned build graph. Redirect routes are intrinsically excluded from navigation menus and sitemaps, and always include an accessible fallback link.
 
@@ -73,3 +55,26 @@ Please fill in UPGRADE.md as you make changes.
 - The `rebuild` command has been removed. If you need to build a single page programmatically, use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead.
 - Move any calls to `Redirect::create()` or `Redirect::store()` into the `redirects` array in `config/hyde.php`, using the old path as the key and the destination as the value.
 - Rename `$fileExtension` to `$sourceExtension` in custom page classes, and update any calls to `fileExtension()` or `setFileExtension()` to `sourceExtension()` and `setSourceExtension()`.
+
+---
+
+## Upgrade script rules
+
+We will provide an automated upgrade script (likely Rector-based) when we finalize the release.
+Until then, this section collects the rules that script needs to implement, so we don't lose
+track of them. Add an entry here whenever a change requires mechanical migration of user code.
+
+- Rename the static page class property `$fileExtension` to `$sourceExtension`, and the
+  `fileExtension()` and `setFileExtension()` methods to `sourceExtension()` and
+  `setSourceExtension()`. This covers property declarations in page classes
+  (`public static string $fileExtension = '.md';`), direct static property access
+  (`MarkdownPage::$fileExtension`, `$pageClass::$fileExtension`), static method calls
+  (`MarkdownPage::fileExtension()`), and method declarations that override these methods
+  in page classes (`public static function fileExtension(): string`) — the methods are
+  public and non-final, and an un-renamed override would silently stop being called once
+  the framework calls `sourceExtension()`. The rule must be scoped to
+  `Hyde\Pages\Concerns\HydePage` subclasses (or known Hyde symbols) — it must not rename
+  unrelated properties or methods that happen to share the name.
+- Dynamic references cannot be migrated automatically and should be called out as manual
+  upgrade cases: variable method/property names (`$method = 'fileExtension';
+  $pageClass::$method()`), reflection, and string-based access.
