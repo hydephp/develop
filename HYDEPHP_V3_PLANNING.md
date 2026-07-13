@@ -24,6 +24,7 @@ Having this document in code lets us know the devlopment state at any given poin
 - Redirects can now be declared as source and destination path pairs in the `hyde.redirects` configuration array. Hyde registers them with the kernel, includes them in `route:list`, and generates them through the normal site build.
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. The supported directives are `blade render` and `blade component(name)`, and the feature is controlled by `markdown.enable_blade`. ([#2504](https://github.com/hydephp/develop/pull/2504))
 - Added built-in terminal code blocks using the `terminal` fence language. Command prompts are styled for selection-free copying, and `terminal xml` supports four Symfony-style Console formatter tags. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
+- Pages can now compile to non-HTML output files. Page classes declare their output file extension through the new static `$outputFileExtension` property (defaulting to `.html`), and in-memory page identifiers can declare a `.json`, `.txt`, or `.xml` extension directly, so `InMemoryPage::make('robots.txt', contents: ...)` compiles to `_site/robots.txt` through the standard site build. Only the HTML extension is implicit in route keys: pages compiled to non-HTML files keep their extension in the route key, formalizing the convention already used by the documentation search index.
 
 ### Feature Changes
 
@@ -42,6 +43,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### Breaking Changes
 
+- In-memory pages (including redirects) with identifiers ending in `.json`, `.txt`, or `.xml` now compile to that path as-is, instead of having `.html` appended to the output filename. Sites relying on the old double-extension output (like `data.json.html`) need to rename such identifiers.
 - Removed `Redirect::create()`, `Redirect::store()`, and the `Redirect` constructor's `showText` argument. Redirects must now be declared in `hyde.redirects`, keeping all generated output inside the kernel-owned build graph. Redirect routes are intrinsically excluded from navigation menus and sitemaps, and always include an accessible fallback link.
 - Removed the `InMemoryPage` instance macro API. Dynamic contents should now be supplied with a closure, while custom methods and other behavior belong in an `InMemoryPage` subclass.
 - Removed `InMemoryPage` content-source precedence. Calls that previously supplied both `contents` and `view` must retain only the intended source; positional view calls that used an empty-string contents placeholder must use `null` instead.
