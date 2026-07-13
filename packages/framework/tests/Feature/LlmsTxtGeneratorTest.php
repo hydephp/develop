@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
-use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
@@ -14,7 +13,6 @@ use Hyde\Support\Models\Redirect;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
-use Illuminate\Support\Facades\File;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator::class)]
 class LlmsTxtGeneratorTest extends TestCase
@@ -24,13 +22,6 @@ class LlmsTxtGeneratorTest extends TestCase
         parent::setUp();
 
         $this->withSiteUrl();
-
-        // Reset the pages directory so that the generated listings are deterministic.
-        File::deleteDirectory(Hyde::path('_pages'));
-        File::makeDirectory(Hyde::path('_pages'));
-
-        copy(Hyde::vendorPath('resources/views/homepages/welcome.blade.php'), Hyde::path('_pages/index.blade.php'));
-        copy(Hyde::vendorPath('resources/views/pages/404.blade.php'), Hyde::path('_pages/404.blade.php'));
     }
 
     public function testGeneratesFileWithSiteNameAsHeading()
