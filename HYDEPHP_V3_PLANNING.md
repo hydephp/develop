@@ -14,6 +14,24 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ## Changes required to the v2 branch
 
+## Upgrade script rules
+
+We will provide an automated upgrade script (likely Rector-based) when we finalize the release.
+Until then, this section collects the rules that script needs to implement, so we don't lose
+track of them. Add an entry here whenever a change requires mechanical migration of user code.
+
+- Rename the static page class property `$fileExtension` to `$sourceExtension`, and the
+  `fileExtension()` and `setFileExtension()` methods to `sourceExtension()` and
+  `setSourceExtension()`. This covers property declarations in page classes
+  (`public static string $fileExtension = '.md';`), direct static property access
+  (`MarkdownPage::$fileExtension`, `$pageClass::$fileExtension`), and static method calls
+  (`MarkdownPage::fileExtension()`). The rule must be scoped to
+  `Hyde\Pages\Concerns\HydePage` subclasses (or known Hyde symbols) — it must not rename
+  unrelated properties or methods that happen to share the name.
+- Dynamic references cannot be migrated automatically and should be called out as manual
+  upgrade cases: variable method/property names (`$method = 'fileExtension';
+  $pageClass::$method()`), reflection, and string-based access.
+
 ---
 
 ## Release Notes
@@ -24,7 +42,7 @@ Having this document in code lets us know the devlopment state at any given poin
 - Redirects can now be declared as source and destination path pairs in the `hyde.redirects` configuration array. Hyde registers them with the kernel, includes them in `route:list`, and generates them through the normal site build.
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. The supported directives are `blade render` and `blade component(name)`, and the feature is controlled by `markdown.enable_blade`. ([#2504](https://github.com/hydephp/develop/pull/2504))
 - Added built-in terminal code blocks using the `terminal` fence language. Command prompts are styled for selection-free copying, and `terminal xml` supports four Symfony-style Console formatter tags. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
-- Pages can now compile to non-HTML output files. Page classes declare their output file extension through the new static `$outputFileExtension` property (defaulting to `.html`), and in-memory page identifiers can declare a `.json`, `.txt`, or `.xml` extension directly, so `InMemoryPage::make('robots.txt', contents: ...)` compiles to `_site/robots.txt` through the standard site build. Only the HTML extension is implicit in route keys: pages compiled to non-HTML files keep their extension in the route key, formalizing the convention already used by the documentation search index.
+- Pages can now compile to non-HTML output files. Page classes declare their output file extension through the new static `$outputExtension` property (defaulting to `.html`), and in-memory page identifiers can declare a `.json`, `.txt`, or `.xml` extension directly, so `InMemoryPage::make('robots.txt', contents: ...)` compiles to `_site/robots.txt` through the standard site build. Only the HTML extension is implicit in route keys: pages compiled to non-HTML files keep their extension in the route key, formalizing the convention already used by the documentation search index.
 
 ### Feature Changes
 
@@ -43,6 +61,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### Breaking Changes
 
+- Renamed the static page class property `$fileExtension` to `$sourceExtension`, and the `fileExtension()` and `setFileExtension()` methods to `sourceExtension()` and `setSourceExtension()`. The old name was ambiguous now that page classes also declare an output extension through the new `$outputExtension` property, and the renamed pair makes the source/output distinction explicit. Custom page classes and code calling these APIs need the mechanical rename, which the planned automated upgrade script will handle (see the upgrade script rules section above).
 - In-memory page identifiers ending in `.json`, `.txt`, or `.xml` (including redirect paths declared in `hyde.redirects`) now compile to that path as-is instead of gaining a second `.html` extension. The old double-extension outputs (like `data.json.html`) were almost certainly never intended, so no real sites are expected to be affected.
 - Removed `Redirect::create()`, `Redirect::store()`, and the `Redirect` constructor's `showText` argument. Redirects must now be declared in `hyde.redirects`, keeping all generated output inside the kernel-owned build graph. Redirect routes are intrinsically excluded from navigation menus and sitemaps, and always include an accessible fallback link.
 - Removed the `InMemoryPage` instance macro API. Dynamic contents should now be supplied with a closure, while custom methods and other behavior belong in an `InMemoryPage` subclass.
@@ -60,6 +79,7 @@ Please fill in UPGRADE.md as you make changes.
 - Move any calls to `Redirect::create()` or `Redirect::store()` into the `redirects` array in `config/hyde.php`, using the old path as the key and the destination as the value.
 - Move `InMemoryPage` `compile` macro callbacks into the contents argument, and replace other instance macros with methods on an `InMemoryPage` subclass.
 - Update `InMemoryPage` calls to supply only `contents` or `view`. Replace an empty-string positional contents placeholder with `null`, or use the named `view` argument.
+- Rename `$fileExtension` to `$sourceExtension` in custom page classes, and update any calls to `fileExtension()` or `setFileExtension()` to `sourceExtension()` and `setSourceExtension()`.
 
 ## `InMemoryPage` content-source motivation
 

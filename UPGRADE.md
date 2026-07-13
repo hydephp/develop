@@ -302,6 +302,42 @@ new InMemoryPage('example', view: '');
 new InMemoryPage('example', view: null);
 ```
 
+## Step 6: Rename Page File Extension References
+
+The static page class property `$fileExtension` has been renamed to `$sourceExtension`, along with the
+`fileExtension()` and `setFileExtension()` methods, which are now `sourceExtension()` and `setSourceExtension()`.
+The rename pairs the source extension with the new `$outputExtension` property (defaulting to `.html`), which
+page classes can override to compile to non-HTML output files.
+
+This only affects projects with custom page classes or code calling these APIs. Update property declarations
+and call sites:
+
+**Before:**
+
+```php
+class CustomPage extends HydePage
+{
+    public static string $fileExtension = '.md';
+}
+
+$extension = MarkdownPage::fileExtension();
+```
+
+**After:**
+
+```php
+class CustomPage extends HydePage
+{
+    public static string $sourceExtension = '.md';
+}
+
+$extension = MarkdownPage::sourceExtension();
+```
+
+The automated upgrade script will handle this rename for ordinary declarations, property accesses, and method
+calls. Dynamic references — variable method or property names, reflection, and string-based access — must be
+updated manually.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
@@ -311,6 +347,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
+- [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 
 ## Troubleshooting
 
