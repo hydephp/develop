@@ -448,6 +448,12 @@ class InMemoryPageContentTestPage extends InMemoryPage
         $this->assertSame('docs/1.x.html', InMemoryPage::outputPath('docs/1.x'));
     }
 
+    public function testSubclassCanCustomizeExplicitOutputExtensions()
+    {
+        $this->assertSame('data.csv', CsvInMemoryPage::outputPath('data.csv'));
+        $this->assertSame('robots.txt.html', CsvInMemoryPage::outputPath('robots.txt'));
+    }
+
     public function testGetOutputPathForIdentifierWithDeclaredOutputExtension()
     {
         $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getOutputPath());
@@ -481,4 +487,9 @@ class InMemoryPageContentTestPage extends InMemoryPage
     {
         $this->assertSame('User-agent: *', (new InMemoryPage('robots.txt', contents: 'User-agent: *'))->compile());
     }
+}
+
+class CsvInMemoryPage extends InMemoryPage
+{
+    protected const EXPLICIT_OUTPUT_EXTENSIONS = ['.csv'];
 }
