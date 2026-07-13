@@ -12,7 +12,6 @@ use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Illuminate\Console\OutputStyle;
@@ -135,7 +134,6 @@ class BuildTaskService
         $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
         $this->registerIf(TransferMediaAssets::class, $this->canTransferMediaAssets());
         $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
-        $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
         $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
     }
 
@@ -152,11 +150,6 @@ class BuildTaskService
     private function canGenerateManifest(): bool
     {
         return Config::getBool('hyde.generate_build_manifest', true);
-    }
-
-    private function canGenerateSitemap(): bool
-    {
-        return Features::hasSitemap();
     }
 
     private function canGenerateFeed(): bool
