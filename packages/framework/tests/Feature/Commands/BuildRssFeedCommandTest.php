@@ -80,6 +80,20 @@ class BuildRssFeedCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
     }
 
+    public function testSkipReasonFallsBackToMissingSimpleXmlExtensionWhenOtherConditionsAreMet()
+    {
+        $this->withSiteUrl();
+        $this->file('_posts/foo.md');
+
+        Hyde::routes()->forget('feed.xml');
+
+        $this->artisan('build:rss')
+            ->expectsOutput('Cannot generate the RSS feed as the SimpleXML extension is not installed')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
+    }
+
     public function testCommandBuildsUserDefinedFeedPageEvenWhenRssFeatureConditionsAreNotMet()
     {
         $this->withSiteUrl();
