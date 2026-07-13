@@ -115,6 +115,26 @@ versioned docs route keys like `docs/1.x/index` would false-positive
 > `.html` even when the instance compiles to `robots.txt`; the real output extension
 > lives in the resolved output path.
 
+> **Open decision — the allowlist relocates the trap, it does not eliminate it.**
+> The allowlist correctly avoids the `docs/1.x` false-positive that killed dot-inference,
+> but it is conservative in the false-*negative* direction: an identifier the allowlist
+> does not recognize still gets the `.html` suffix. So `make('site.webmanifest')` →
+> `site.webmanifest.html` and `make('sitemap.xsl')` → `sitemap.xsl.html` — the exact
+> `robots.txt.html` bug this decision fixed, one extension over, and both are plausible
+> power-user cases (PWA manifest, sitemap stylesheet). The allowlist stays as the
+> zero-config default, but it should not be the *only* path. Two mitigations, at least
+> one required before PR 8:
+> 1. **(Preferred) Keep D2 option (b) available alongside (a):** an explicit
+     >    `make(..., outputExtension: '.xsl')` / constructor parameter that bypasses the
+     >    allowlist for any extension. Allowlist for ergonomics, explicit param for
+     >    everything else — this actually closes the trap instead of moving it.
+> 2. **(Minimum) Document the `EXPLICIT_OUTPUT_EXTENSIONS` override clearly** so a user
+     >    can subclass and extend the recognized list, and ensure the appended-`.html`
+     >    output is at least discoverable/greppable rather than silently wrong.
+     > Decide in PR 5/6 whether the first-party generated files need any extension outside
+     > the allowlist (none currently do — all are `.txt`/`.xml`), which determines whether
+     > (1) is needed for the framework itself or only for the secondary audience.
+
 ### D3: Sitemap inclusion becomes a page-level concern
 
 Replace the `instanceof Redirect` filter in `SitemapGenerator` with a
@@ -178,6 +198,17 @@ class through an extension. Combined with D4's container-resolved generators, th
 gives a smooth escalation path:
 feature default → config tweaks → rebind the generator (or content closure) in the
 container → fully custom page in code.
+
+> **Timing caveat — the skip check is ordering-sensitive.** "Is a `robots.txt` route
+> already registered" is evaluated at `discoverPages()` time, so whether a user's page
+> wins depends on it being visible at that moment. A page registered via a late
+> `booting()` callback may or may not be present depending on boot ordering. The
+> `discoverDocumentationRootRedirect()` precedent suggests this is fine, but "fine and
+> ordering-dependent" is exactly what passes in our tests and breaks for the one user
+> who registers late. PR 5/6 MUST include an end-to-end test asserting that a
+> user-registered `robots.txt` (via both a `HydeExtension` page class and a `booting()`
+> `addPage()` callback) suppresses the generated one — this is the D5 contract and the
+> most likely silent failure for the power-user audience.
 
 ### D6: No built-in `TextPage` or `.txt` autodiscovery
 
@@ -316,6 +347,15 @@ Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed
 - **Decide plain `InMemoryPage` (compile macro) vs. thin subclass here** (D4). Default
   to plain + container binding unless type identity or command wiring forces a
   subclass; note that D3 already handles sitemap self-exclusion either way.
+- **Verify the generators are actually container-resolvable** before advertising the
+  rebind: no unresolvable constructor dependencies, not `final` (or the swap can't be
+  bound). D4's whole swappability tier is a lie if `app(SitemapGenerator::class)`
+  can't be rebound. Add a test that rebinds the generator and asserts the page's
+  compiled output changes.
+- Confirm none of the first-party generated files (`sitemap.xml`, `feed.xml`,
+  `robots.txt`, `llms.txt`) need an extension outside the D2 allowlist — they don't
+  today, which settles the D2 "open decision" in favor of the framework not needing
+  option (b) for its own use (the power-user escape hatch is a separate call).
 - Register in `HydeCoreExtension::discoverPages()` behind `Features::hasSitemap()` /
   `Features::hasRss()`; remove `GenerateSitemap`/`GenerateRssFeed` from
   `BuildTaskService::registerFrameworkTasks()` (evaluate deprecation vs. removal —
@@ -348,6 +388,11 @@ Goal: best-in-class llms.txt support — no other SSG generates this well out of
 - `llms.txt` registered as an `InMemoryPage` wired like robots.txt (feature-gated,
   config for section grouping/exclusions, container-resolved generator, user-defined
   page precedence).
+- **Make the default state (on vs. off) a deliberate decision with a clean opt-out**,
+  not an afterthought. Some of our audience is privacy/OPSEC-minded and will have
+  opinions about surfacing content to AI crawlers; the feature flag (and its default)
+  should be a first-class, documented choice, mirroring how `robots.txt` disabling
+  works, rather than something a user has to discover.
 - Consider `llms-full.txt` (full page contents) as a follow-up, not in scope.
 
 ### PR 8 — Documentation & release notes
