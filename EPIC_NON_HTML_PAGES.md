@@ -539,10 +539,16 @@ Implementation notes (branch `v3/non-html-pages-robots`):
 - Generator output: `User-agent: *`, then verbatim `Disallow:` lines from the
   `hyde.robots.disallow` config array, or `Allow: /` when there are none (a group
   needs at least one rule; an unconditional `Allow: /` next to disallow rules would
-  be noise). Rules are deliberately not normalized (no leading-slash fixup):
+  be noise). The config entries are *rule values*, not filesystem paths — named and
+  documented as such in the config stubs and generator — and are deliberately not
+  normalized (no leading-slash fixup, trimming, or empty-string removal):
   normalization would guess intent and break valid values like wildcard patterns or
-  the empty string (a valid "allow everything" rule); the config stub documents the
-  leading-slash convention instead.
+  the empty string (a valid "allow everything" rule). The verbatim contract is
+  string-only, validated per entry: a non-string value throws an
+  `InvalidConfigurationException` naming `hyde.robots.disallow` and the offending
+  index, instead of surfacing as a PHP-level type error at build time. Later
+  generated text pages copying this pattern (llms.txt) should keep both halves —
+  verbatim strings, explicit validation.
 - `robots.txt` is within the D2 allowlist, consistent with the PR 5 confirmation
   that first-party generated files do not need option (b).
 - No `build:robots` command: the sitemap/RSS commands exist only as carry-overs of

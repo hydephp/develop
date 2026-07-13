@@ -143,8 +143,8 @@ return [
     | when you compile your static site. A link to your sitemap is included
     | when the sitemap feature is enabled.
     |
-    | Paths added to the disallow array are written verbatim as Disallow
-    | rules for all crawlers, and should therefore start with a slash.
+    | Values added to the disallow array are written verbatim as Disallow
+    | rule values for all crawlers, so wildcard patterns are supported.
     |
     */
 
@@ -152,9 +152,10 @@ return [
         // Should the robots.txt file be generated?
         'enabled' => true,
 
-        // Paths to ask crawlers not to access.
+        // Disallow rule values asking crawlers not to access matching paths.
         'disallow' => [
             // '/private',
+            // '/*.pdf$',
         ],
     ],
 
