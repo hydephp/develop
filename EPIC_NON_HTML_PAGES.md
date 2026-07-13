@@ -68,6 +68,11 @@ it is proven in production, requires no realtime-compiler lookup changes
 (`PageRouter::normalizePath()` only strips `.html`), and lets `docs/search` (page)
 and `docs/search.json` (index) coexist as distinct routes, which they already do.
 
+> **Implemented (PR 1):** `RouteKey::fromPage()` appends the page class's declared
+> non-HTML output extension to the key (skipping it when the identifier already ends
+> with it), so classes like PR 3's `TextPage` are D1-compliant out of the box and
+> PR 2 can rely on "route key == request path with only `.html` stripped" universally.
+
 ### D2: Output extension is declared, not inferred
 
 Do **not** infer "this identifier has an extension" from a dot in the identifier —
@@ -75,14 +80,25 @@ versioned docs route keys like `docs/1.x/index` would false-positive
 (`pathinfo('docs/1.x')['extension'] === 'x'`). Instead the extension is declared:
 
 - File-discovered classes declare it statically, mirroring the existing
-  `HtmlPage::$fileExtension` pattern: `TextPage::$outputFileExtension = '.txt'`.
-- `HydePage` gets `public static string $outputFileExtension = '.html'` (or an
-  instance-level `getOutputFileExtension()` hook), and `outputPath()` uses it instead
-  of the hardcoded `'.html'`. This removes the `getOutputPath()` override dance.
+  `HtmlPage::$sourceExtension` pattern: `TextPage::$outputExtension = '.txt'`.
+- `HydePage` gets `public static string $outputExtension = '.html'` (or an
+  instance-level hook), and `outputPath()` uses it instead of the hardcoded
+  `'.html'`. This removes the `getOutputPath()` override dance.
 - For `InMemoryPage`, decide in the PR whether to (a) accept a small allowlist of
   trailing extensions in the identifier (`.txt`, `.json`, `.xml`), or (b) add an
   explicit constructor/`make()` parameter. Leaning (a) with allowlist since
   `InMemoryPage::make('robots.txt', contents: $txt)` is the DX we actually want.
+
+> **Decided (PR 1):** option (a). The allowlist (`.json`, `.txt`, `.xml`) is the
+> `InMemoryPage::EXPLICIT_OUTPUT_EXTENSIONS` constant, checked by
+> `identifierHasExplicitOutputExtension()`; subclasses customize the recognized
+> extensions by overriding the constant rather than the algorithm.
+> `Redirect` rejects source paths ending in a recognized non-HTML extension with
+> an `InvalidConfigurationException` (revised during PR 1 review from the earlier
+> "inherit with documented limitation" decision): a meta-refresh redirect cannot
+> work when the file is served as non-HTML, and neither the old unreachable
+> double-extension output nor an as-is file delivers the advertised redirect, so
+> the configuration fails fast instead of silently producing a broken page.
 
 ### D3: Sitemap inclusion becomes a page-level concern
 
@@ -112,17 +128,42 @@ feature default → config tweaks → file on disk → fully dynamic page in cod
 
 ## Work breakdown (one PR each, in dependency order)
 
-### PR 1 — Foundation: declared output extensions on `HydePage`
+### PR 1 — Foundation: declared output extensions on `HydePage` ✅ Implemented
 
 Goal: any page class can emit a non-`.html` file without overriding `getOutputPath()`.
 
-- Add `$outputFileExtension` (default `'.html'`) to `HydePage`; use it in
+- Add `$outputExtension` (default `'.html'`) to `HydePage`; use it in
   `outputPath()` (`HydePage.php:211-214`).
 - Route keys follow D1; audit `RouteKey` and `Route` for assumptions.
 - Let `InMemoryPage` respect a declared/allowlisted extension per D2, so
   `InMemoryPage::make('robots.txt', contents: ...)` outputs `robots.txt`.
 - Refactor `DocumentationSearchIndex` to drop its `getOutputPath()` override.
 - Pure refactor for existing sites: no compiled-output changes.
+
+Implementation notes (branch `v3/non-html-pages-foundation`):
+
+- An `outputExtension()` accessor accompanies the property, matching the other
+  static accessors, and is part of the `BaseHydePageUnitTest` contract. No setter
+  was added — the existing setters exist for config-driven source customization,
+  which does not apply here; subclasses redeclare the property.
+- Review outcome: the existing `$fileExtension` API was renamed to `$sourceExtension`
+  (with `fileExtension()`/`setFileExtension()` becoming `sourceExtension()`/
+  `setSourceExtension()`) so the source/output pair reads symmetrically — the old
+  name really meant the source extension, and fixing the vocabulary before later
+  page types (`TextPage`, sitemap, RSS, robots, llms) build on it avoids much larger
+  churn. Clean break, no compatibility aliases: independently redeclared static
+  properties cannot alias each other without precedence/synchronization hacks.
+  The mechanical migration is recorded in `HYDEPHP_V3_PLANNING.md` under
+  "Upgrade script rules" for the release-time Rector script.
+- Non-HTML extension handling was placed in `RouteKey::fromPage()` (see D1 note)
+  rather than only in `outputPath()`, so route keys and output paths cannot drift.
+- One qualification to "no compiled-output changes": ordinary in-memory page
+  identifiers that already end in an allowlisted extension previously produced
+  double-extension output (`data.json.html`); they now compile to the declared
+  path as-is. `hyde.redirects` paths using those extensions are instead rejected
+  (see the D2 note), since their HTML meta-refresh content cannot work when served
+  as non-HTML. Both recorded in the v3 release notes as breaking changes, though
+  the old outputs were almost certainly never intended or relied upon.
 
 ### PR 2 — Realtime compiler: route-first resolution for non-HTML paths
 
@@ -142,8 +183,8 @@ filename special cases.
 Goal: drop `_pages/robots.txt` in, get `_site/robots.txt` out.
 
 - New `TextPage extends HydePage`: `$sourceDirectory = '_pages'`,
-  `$outputDirectory = ''`, `$fileExtension = '.txt'`,
-  `$outputFileExtension = '.txt'`; `compile()` returns file contents verbatim
+  `$outputDirectory = ''`, `$sourceExtension = '.txt'`,
+  `$outputExtension = '.txt'`; `compile()` returns file contents verbatim
   (mirror `HtmlPage`).
 - Register in `HydeCoreExtension::getPageClasses()`. No `Feature::TextPages` enum
   case — the feature is always on, since it is inert without source files.

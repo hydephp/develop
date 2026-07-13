@@ -20,6 +20,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
 
 /**
  * Test the base HydePage class.
@@ -46,9 +47,14 @@ class HydePageTest extends TestCase
         $this->assertSame('', HydePage::outputDirectory());
     }
 
-    public function testBaseFileExtension()
+    public function testBaseSourceExtension()
     {
-        $this->assertSame('', HydePage::fileExtension());
+        $this->assertSame('', HydePage::sourceExtension());
+    }
+
+    public function testBaseOutputExtension()
+    {
+        $this->assertSame('.html', HydePage::outputExtension());
     }
 
     public function testBaseSourcePath()
@@ -93,9 +99,14 @@ class HydePageTest extends TestCase
         $this->assertSame('output', TestPage::outputDirectory());
     }
 
-    public function testFileExtension()
+    public function testSourceExtension()
     {
-        $this->assertSame('.md', TestPage::fileExtension());
+        $this->assertSame('.md', TestPage::sourceExtension());
+    }
+
+    public function testOutputExtension()
+    {
+        $this->assertSame('.html', TestPage::outputExtension());
     }
 
     public function testSourcePath()
@@ -106,6 +117,53 @@ class HydePageTest extends TestCase
     public function testOutputPath()
     {
         $this->assertSame('output/hello-world.html', TestPage::outputPath('hello-world'));
+    }
+
+    public function testOutputExtensionCanBeOverriddenByChildClasses()
+    {
+        $this->assertSame('.txt', NonHtmlOutputTestPage::outputExtension());
+    }
+
+    public function testOutputPathUsesTheOutputExtensionOfThePageClass()
+    {
+        $this->assertSame('output/hello-world.txt', NonHtmlOutputTestPage::outputPath('hello-world'));
+    }
+
+    public function testOutputExtensionWithoutLeadingDotThrows()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid output extension 'txt' declared by");
+
+        MissingDotOutputExtensionTestPage::outputExtension();
+    }
+
+    public function testOutputExtensionWithPathSeparatorThrows()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        PathSeparatorOutputExtensionTestPage::outputExtension();
+    }
+
+    public function testGetRouteKeyForPageWithNonHtmlOutputExtensionIncludesExtension()
+    {
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getRouteKey());
+    }
+
+    public function testGetOutputPathUsesTheOutputExtensionOfThePageClass()
+    {
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getOutputPath());
+    }
+
+    public function testGetLinkForPageWithNonHtmlOutputExtension()
+    {
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getLink());
+    }
+
+    public function testGetLinkForPageWithNonHtmlOutputExtensionIsNotAffectedByPrettyUrls()
+    {
+        config(['hyde.pretty_urls' => true]);
+
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getLink());
     }
 
     public function testPath()
@@ -246,27 +304,27 @@ class HydePageTest extends TestCase
         $this->resetDirectoryConfiguration();
     }
 
-    public function testGetFileExtensionReturnsStaticProperty()
+    public function testGetSourceExtensionReturnsStaticProperty()
     {
-        MarkdownPage::setFileExtension('.foo');
+        MarkdownPage::setSourceExtension('.foo');
 
-        $this->assertSame('.foo', MarkdownPage::fileExtension());
+        $this->assertSame('.foo', MarkdownPage::sourceExtension());
         $this->resetDirectoryConfiguration();
     }
 
-    public function testSetFileExtensionForcesLeadingPeriod()
+    public function testSetSourceExtensionForcesLeadingPeriod()
     {
-        MarkdownPage::setFileExtension('foo');
+        MarkdownPage::setSourceExtension('foo');
 
-        $this->assertSame('.foo', MarkdownPage::fileExtension());
+        $this->assertSame('.foo', MarkdownPage::sourceExtension());
         $this->resetDirectoryConfiguration();
     }
 
-    public function testSetFileExtensionRemovesTrailingPeriod()
+    public function testSetSourceExtensionRemovesTrailingPeriod()
     {
-        MarkdownPage::setFileExtension('foo.');
+        MarkdownPage::setSourceExtension('foo.');
 
-        $this->assertSame('.foo', MarkdownPage::fileExtension());
+        $this->assertSame('.foo', MarkdownPage::sourceExtension());
         $this->resetDirectoryConfiguration();
     }
 
@@ -288,10 +346,10 @@ class HydePageTest extends TestCase
         $this->assertSame('foo', ConfigurableSourcesTestPage::outputDirectory());
     }
 
-    public function testSetFileExtension()
+    public function testSetSourceExtension()
     {
-        ConfigurableSourcesTestPage::setFileExtension('.foo');
-        $this->assertSame('.foo', ConfigurableSourcesTestPage::fileExtension());
+        ConfigurableSourcesTestPage::setSourceExtension('.foo');
+        $this->assertSame('.foo', ConfigurableSourcesTestPage::sourceExtension());
     }
 
     public function testStaticGetMethodReturnsDiscoveredPage()
@@ -354,7 +412,7 @@ class HydePageTest extends TestCase
     public function testQualifyBasenameUsesTheStaticProperties()
     {
         MarkdownPage::setSourceDirectory('foo');
-        MarkdownPage::setFileExtension('txt');
+        MarkdownPage::setSourceExtension('txt');
 
         $this->assertSame('foo/bar.txt', MarkdownPage::sourcePath('bar'));
 
@@ -497,7 +555,7 @@ class HydePageTest extends TestCase
         }
     }
 
-    public function testAllPageModelsHaveConfiguredFileExtension()
+    public function testAllPageModelsHaveConfiguredSourceExtension()
     {
         $pages = [
             BladePage::class => '.blade.php',
@@ -508,7 +566,7 @@ class HydePageTest extends TestCase
 
         foreach ($pages as $page => $expected) {
             assert(is_a($page, HydePage::class, true));
-            $this->assertSame($expected, $page::fileExtension());
+            $this->assertSame($expected, $page::sourceExtension());
         }
     }
 
@@ -527,14 +585,14 @@ class HydePageTest extends TestCase
         $this->assertTrue(property_exists(BaseMarkdownPage::class, 'markdown'));
     }
 
-    public function testAbstractMarkdownPageHasFileExtensionProperty()
+    public function testAbstractMarkdownPageHasSourceExtensionProperty()
     {
-        $this->assertTrue(property_exists(BaseMarkdownPage::class, 'fileExtension'));
+        $this->assertTrue(property_exists(BaseMarkdownPage::class, 'sourceExtension'));
     }
 
-    public function testAbstractMarkdownPageFileExtensionPropertyIsSetToMd()
+    public function testAbstractMarkdownPageSourceExtensionPropertyIsSetToMd()
     {
-        $this->assertSame('.md', BaseMarkdownPage::fileExtension());
+        $this->assertSame('.md', BaseMarkdownPage::sourceExtension());
     }
 
     public function testAbstractMarkdownPageConstructorArgumentsAreOptional()
@@ -1253,7 +1311,7 @@ class HydePageTest extends TestCase
         MarkdownPage::setSourceDirectory('_pages');
         MarkdownPost::setSourceDirectory('_posts');
         DocumentationPage::setSourceDirectory('_docs');
-        MarkdownPage::setFileExtension('.md');
+        MarkdownPage::setSourceExtension('.md');
     }
 }
 
@@ -1263,8 +1321,33 @@ class TestPage extends HydePage
 
     public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
-    public static string $fileExtension = '.md';
+    public static string $sourceExtension = '.md';
     public static string $template = 'template';
+}
+
+class NonHtmlOutputTestPage extends HydePage
+{
+    use VoidCompiler;
+
+    public static string $sourceDirectory = 'source';
+    public static string $outputDirectory = 'output';
+    public static string $sourceExtension = '.txt';
+    public static string $outputExtension = '.txt';
+    public static string $template = 'template';
+}
+
+class MissingDotOutputExtensionTestPage extends HydePage
+{
+    use VoidCompiler;
+
+    public static string $outputExtension = 'txt';
+}
+
+class PathSeparatorOutputExtensionTestPage extends HydePage
+{
+    use VoidCompiler;
+
+    public static string $outputExtension = '.txt/../evil';
 }
 
 class ConfigurableSourcesTestPage extends HydePage
@@ -1273,7 +1356,7 @@ class ConfigurableSourcesTestPage extends HydePage
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
     public static string $template;
 }
 
@@ -1283,7 +1366,7 @@ class DiscoverableTestPage extends HydePage
 
     public static string $sourceDirectory = 'foo';
     public static string $outputDirectory = 'bar';
-    public static string $fileExtension = 'baz';
+    public static string $sourceExtension = 'baz';
     public static string $template;
 }
 
@@ -1293,7 +1376,7 @@ class NonDiscoverableTestPage extends HydePage
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
 }
 
 class PartiallyDiscoverablePage extends HydePage
@@ -1302,7 +1385,7 @@ class PartiallyDiscoverablePage extends HydePage
 
     public static string $sourceDirectory = 'foo';
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
 }
 
 class DiscoverablePageWithInvalidSourceDirectory extends HydePage
@@ -1311,7 +1394,7 @@ class DiscoverablePageWithInvalidSourceDirectory extends HydePage
 
     public static string $sourceDirectory = '';
     public static string $outputDirectory = '';
-    public static string $fileExtension = '';
+    public static string $sourceExtension = '';
 }
 
 class MissingSourceDirectoryMarkdownPage extends BaseMarkdownPage

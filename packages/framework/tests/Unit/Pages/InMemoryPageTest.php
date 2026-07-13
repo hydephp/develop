@@ -143,4 +143,89 @@ class InMemoryPageTest extends TestCase
         $this->assertTrue($page->hasMacro('foo'));
         $this->assertFalse($page->hasMacro('bar'));
     }
+
+    public function testIdentifierCanDeclareTxtOutputExtension()
+    {
+        $this->assertSame('robots.txt', InMemoryPage::outputPath('robots.txt'));
+    }
+
+    public function testIdentifierCanDeclareJsonOutputExtension()
+    {
+        $this->assertSame('data.json', InMemoryPage::outputPath('data.json'));
+    }
+
+    public function testIdentifierCanDeclareXmlOutputExtension()
+    {
+        $this->assertSame('sitemap.xml', InMemoryPage::outputPath('sitemap.xml'));
+    }
+
+    public function testIdentifierCanDeclareOutputExtensionForNestedPages()
+    {
+        $this->assertSame('docs/search.json', InMemoryPage::outputPath('docs/search.json'));
+    }
+
+    public function testIdentifierWithoutExtensionGetsHtmlOutputExtension()
+    {
+        $this->assertSame('foo.html', InMemoryPage::outputPath('foo'));
+    }
+
+    public function testIdentifierWithUnrecognizedExtensionGetsHtmlOutputExtension()
+    {
+        $this->assertSame('foo.md.html', InMemoryPage::outputPath('foo.md'));
+    }
+
+    public function testIdentifierWithHtmlExtensionGetsHtmlOutputExtensionAppended()
+    {
+        $this->assertSame('foo.html.html', InMemoryPage::outputPath('foo.html'));
+    }
+
+    public function testDottedIdentifierIsNotMistakenForDeclaredOutputExtension()
+    {
+        $this->assertSame('docs/1.x.html', InMemoryPage::outputPath('docs/1.x'));
+    }
+
+    public function testSubclassCanCustomizeExplicitOutputExtensions()
+    {
+        $this->assertSame('data.csv', CsvInMemoryPage::outputPath('data.csv'));
+        $this->assertSame('robots.txt.html', CsvInMemoryPage::outputPath('robots.txt'));
+    }
+
+    public function testGetOutputPathForIdentifierWithDeclaredOutputExtension()
+    {
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getOutputPath());
+    }
+
+    public function testGetRouteKeyForIdentifierWithDeclaredOutputExtension()
+    {
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getRouteKey());
+    }
+
+    public function testGetLinkForIdentifierWithDeclaredOutputExtension()
+    {
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getLink());
+    }
+
+    public function testGetLinkForIdentifierWithDeclaredOutputExtensionIsNotAffectedByPrettyUrls()
+    {
+        config(['hyde.pretty_urls' => true]);
+
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getLink());
+    }
+
+    public function testGetCanonicalUrlForIdentifierWithDeclaredOutputExtension()
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $this->assertSame('https://example.com/robots.txt', (new InMemoryPage('robots.txt'))->getCanonicalUrl());
+    }
+
+    public function testCompiledContentsAreNotAffectedByDeclaredOutputExtension()
+    {
+        $this->assertSame('User-agent: *', (new InMemoryPage('robots.txt', contents: 'User-agent: *'))->compile());
+    }
+}
+
+class CsvInMemoryPage extends InMemoryPage
+{
+    protected const EXPLICIT_OUTPUT_EXTENSIONS = ['.csv'];
 }

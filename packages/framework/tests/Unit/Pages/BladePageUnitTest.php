@@ -31,9 +31,14 @@ class BladePageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('', BladePage::baseRouteKey());
     }
 
-    public function testFileExtension()
+    public function testSourceExtension()
     {
-        $this->assertSame('.blade.php', BladePage::fileExtension());
+        $this->assertSame('.blade.php', BladePage::sourceExtension());
+    }
+
+    public function testOutputExtension()
+    {
+        $this->assertSame('.html', BladePage::outputExtension());
     }
 
     public function testSourcePath()
