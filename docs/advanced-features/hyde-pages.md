@@ -70,7 +70,7 @@ abstract class HydePage
     public static string $sourceDirectory;
 
     /**
-     * The output subdirectory to store compiled HTML. Relative to the _site output directory.
+     * The output subdirectory to store compiled files. Relative to the _site output directory.
      */
     public static string $outputDirectory;
 
