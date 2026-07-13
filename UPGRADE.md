@@ -336,8 +336,8 @@ Hyde::kernel()->booting(function ($kernel): void {
 ```
 
 The `build:sitemap` and `build:rss` commands still work and now compile the registered pages. When the output
-cannot be generated, they fail with a message explaining why (no base URL, disabled in the configuration, or —
-for the feed — no Markdown posts) instead of generating an empty or unwanted file. `build:sitemap` reports this
+cannot be generated (no base URL, disabled in the configuration, or — for the feed — no Markdown posts), they
+fail with an error instead of generating an empty or unwanted file. `build:sitemap` reports this
 failure with exit code 1 instead of 3. If you registered your own page under the route key, the commands build
 it regardless of these conditions.
 
