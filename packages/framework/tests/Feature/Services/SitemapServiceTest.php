@@ -124,6 +124,17 @@ class SitemapServiceTest extends TestCase
         Filesystem::unlink('_pages/foo.md');
     }
 
+    public function testGenerateDoesNotAddPagesWithSitemapFrontMatterSetToQuotedFalseString()
+    {
+        $this->file('_pages/foo.md', "---\nsitemap: \"false\"\n---\n\n# Foo");
+
+        $service = new SitemapGenerator();
+        $service->generate();
+
+        $this->assertCount(2, $service->getXmlElement()->url);
+        $this->assertStringNotContainsString('foo', $service->getXml());
+    }
+
     public function testGenerateDoesNotAddPagesWithNonHtmlOutputPaths()
     {
         Routes::addRoute(new Route(new InMemoryPage('robots.txt')));
