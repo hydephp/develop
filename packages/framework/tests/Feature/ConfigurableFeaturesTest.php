@@ -64,6 +64,17 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::hasSitemap());
     }
 
+    public function testHasRobotsTxtReturnsTrueByDefault()
+    {
+        $this->assertTrue(Features::hasRobotsTxt());
+    }
+
+    public function testHasRobotsTxtReturnsFalseWhenDisabledInConfig()
+    {
+        config(['hyde.robots.enabled' => false]);
+        $this->assertFalse(Features::hasRobotsTxt());
+    }
+
     public function testHasThemeToggleButtonsReturnsTrueWhenDarkmodeEnabledAndConfigTrue()
     {
         // Enable dark mode and set hyde.theme_toggle_buttons config option to true
