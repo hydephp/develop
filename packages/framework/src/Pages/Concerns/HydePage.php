@@ -223,8 +223,11 @@ abstract class HydePage implements PageSchema, SerializableContract
     {
         $routeKey = RouteKey::fromPage(static::class, $identifier);
 
-        // Since only the HTML extension is implicit in route keys, other extensions are already part of the key.
-        return static::outputExtension() === '.html' ? "$routeKey.html" : (string) $routeKey;
+        if (static::outputExtension() === '.html') {
+            return "$routeKey.html";
+        }
+
+        return (string) $routeKey;
     }
 
     /**
