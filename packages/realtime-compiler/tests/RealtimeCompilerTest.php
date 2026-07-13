@@ -413,6 +413,25 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame("User-agent: *\nAllow: /\n\nSitemap: http://localhost:8080/sitemap.xml\n", $response->body);
     }
 
+    public function testLlmsTxtRouteIsServedWithPlainTextContentType()
+    {
+        $this->mockCompilerRoute('llms.txt');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotInstanceOf(HtmlResponse::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+
+        $headers = $this->getResponseHeaders($response);
+        $this->assertSame('text/plain', $headers['Content-Type']);
+
+        $this->assertStringStartsWith('# HydePHP', $response->body);
+        $this->assertStringContainsString('http://localhost:8080/', $response->body);
+    }
+
     public function testGetContentTypeReturnsApplicationJsonForJsonOutputPath()
     {
         $page = $this->makePageWithOutputPath('foo.json');
