@@ -109,6 +109,21 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertSame('User-agent: *', file_get_contents(Hyde::path('_site/robots.txt')));
     }
 
+    public function testBuildCommandExcludesNonHtmlPagesFromTheSitemap()
+    {
+        $this->withSiteUrl();
+
+        Hyde::kernel()->booting(function (HydeKernel $kernel): void {
+            $kernel->pages()->addPage(new InMemoryPage('robots.txt', contents: 'User-agent: *'));
+        });
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/robots.txt'));
+        $this->assertFileExists(Hyde::path('_site/sitemap.xml'));
+        $this->assertStringNotContainsString('robots.txt', file_get_contents(Hyde::path('_site/sitemap.xml')));
+    }
+
     public function testBuildCommandCompilesDiscoverableCustomPageClassWithNonHtmlOutputExtension()
     {
         $this->directory('_leaves');
