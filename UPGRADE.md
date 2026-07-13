@@ -218,16 +218,19 @@ above). Crawl rules can be added to the `hyde.robots.disallow` configuration arr
 
 Hyde now generates an [`llms.txt`](https://llmstxt.org/) file by default, indexing your site's content for AI
 services and agents. It requires a site base URL, since the file links to your pages with absolute URLs, so
-sites without one are unaffected. The file only links to pages you already publish, and it lists nothing your
-sitemap does not, but it is a deliberate invitation for AI services to read your site. That is a choice worth
-making consciously: if you would rather not extend that invitation, set `hyde.llms.enabled` to `false`.
+sites without one are unaffected. The file indexes only material you already publish — it lists nothing your
+sitemap does not, and grants no access to anything private — but it is a deliberate invitation for AI services
+to read your site. That is a choice worth making consciously: if you would rather not extend that invitation,
+set `hyde.llms.enabled` to `false`. Note that leaving pages out of this file does not stop AI crawlers from
+reading them; crawler access is governed by your `robots.txt`, not by llms.txt.
 
-If you do keep it, it needs no configuration. Pages are grouped into a section per page type, and each link is
-described by the page's `abstract` front matter, falling back to its `description`, so filling those in improves
-the file. Pages follow their sitemap inclusion, so anything already carrying `sitemap: false` stays out of this
-file too, and `llms: false` front matter leaves out a single page regardless. As with the sitemap and robots.txt,
-you can replace the file wholesale by registering your own `llms.txt` page, or adjust the output by rebinding the
-`LlmsTxtGenerator` class in the service container.
+If you do keep it, it needs no configuration. Pages are grouped into a section per page type and listed in the
+same order as your sitemap, and each link is described by the page's `abstract` front matter, falling back to
+its `description`, so filling those in improves the file. A page is listed when it is included in the sitemap,
+so anything already carrying `sitemap: false` stays out of this file too — there is no separate front matter key
+to learn. As with the sitemap and robots.txt, you can replace the file wholesale by registering your own
+`llms.txt` page, or adjust the sections and output by extending the `LlmsTxtGenerator` class and rebinding it in
+the service container.
 
 Be aware that llms.txt is an emerging standard which is still subject to change. We cannot make a backwards
 compatibility promise for the generated output while the specification is still moving, and we expect to change
