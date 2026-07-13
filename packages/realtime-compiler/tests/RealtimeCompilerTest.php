@@ -347,6 +347,27 @@ class RealtimeCompilerTest extends TestCase
         Filesystem::unlink('_docs/index.md');
     }
 
+    public function testSitemapXmlRouteIsServedWithXmlContentType()
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $this->mockCompilerRoute('sitemap.xml');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotInstanceOf(HtmlResponse::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+
+        $headers = $this->getResponseHeaders($response);
+        $this->assertSame('application/xml', $headers['Content-Type']);
+
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+        $this->assertStringContainsString('<urlset', $response->body);
+    }
+
     public function testGetContentTypeReturnsApplicationJsonForJsonOutputPath()
     {
         $page = $this->makePageWithOutputPath('foo.json');
