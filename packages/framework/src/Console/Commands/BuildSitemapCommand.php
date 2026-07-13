@@ -6,10 +6,10 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
+use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Features\XmlGenerators\SitemapPage;
-use Hyde\Pages\Concerns\HydePage;
 
 use function sprintf;
 
@@ -26,22 +26,32 @@ class BuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        if (! Hyde::hasSiteUrl()) {
-            $this->error('Cannot generate sitemap without a valid base URL');
+        $page = Routes::find(SitemapPage::routeKey())?->getPage();
+
+        if ($page === null) {
+            $this->error($this->getSkipReason());
 
             return Command::FAILURE;
         }
 
-        $path = StaticPageBuilder::handle($this->getSitemapPage());
+        $path = StaticPageBuilder::handle($page);
 
         $this->infoComment(sprintf('Created [%s]', Hyde::pathToRelative($path)));
 
         return Command::SUCCESS;
     }
 
-    /** Get the registered sitemap page, falling back to a new instance when the route is not registered. */
-    protected function getSitemapPage(): HydePage
+    /** Explain why the sitemap route is not registered, mirroring the conditions of {@see \Hyde\Facades\Features::hasSitemap()}. */
+    protected function getSkipReason(): string
     {
-        return Routes::find(SitemapPage::routeKey())?->getPage() ?? new SitemapPage();
+        if (! Hyde::hasSiteUrl()) {
+            return 'Cannot generate sitemap without a valid base URL';
+        }
+
+        if (! Config::getBool('hyde.generate_sitemap', true)) {
+            return 'Cannot generate the sitemap as it is disabled in the configuration';
+        }
+
+        return 'Cannot generate the sitemap as the SimpleXML extension is not installed';
     }
 }
