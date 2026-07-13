@@ -57,6 +57,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $fileExtension;
+    public static string $outputFileExtension = '.html';
     public static string $template;
 
     public readonly string $identifier;
@@ -174,6 +175,14 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
+     * Get the file extension of the compiled output files for the page type, including the leading dot.
+     */
+    public static function outputFileExtension(): string
+    {
+        return static::$outputFileExtension;
+    }
+
+    /**
      * Set the output directory for the page type.
      */
     public static function setSourceDirectory(string $sourceDirectory): void
@@ -210,7 +219,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function outputPath(string $identifier): string
     {
-        return RouteKey::fromPage(static::class, $identifier).'.html';
+        return RouteKey::fromPage(static::class, $identifier).static::outputFileExtension();
     }
 
     /**
@@ -292,12 +301,15 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get the route key for the page.
      *
-     * The route key is the page URL path, relative to the site root, but without any file extensions.
+     * The route key is the page URL path, relative to the site root, but without the HTML file extension.
      * For example, if the page will be saved to `_site/docs/index.html`, the key is `docs/index`.
+     * Pages compiled to non-HTML files keep their extension in the route key, so a page
+     * saved to `_site/docs/search.json` has the route key `docs/search.json`.
      *
      * Route keys are used to identify page routes, similar to how named routes work in Laravel,
      * only that here the name is not just arbitrary, but also defines the output location,
-     * as the route key is used to determine the output path which is `$routeKey.html`.
+     * as the route key is used to determine the output path which is `$routeKey.html`,
+     * or the route key as-is for pages compiled to non-HTML files.
      */
     public function getRouteKey(): string
     {
