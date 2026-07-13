@@ -60,11 +60,16 @@ coloured blockquotes. Simply append the desired colour after the initial `>` cha
 ‎>success Success Blockquote
 ```
 
+<div class="docs-default-blockquotes">
+
 > Normal Blockquote
 >info Info Blockquote
 >warning Warning Blockquote
 >danger Danger Blockquote
 >success Success Blockquote
+
+</div>
+
 
 ### Customizations
 
