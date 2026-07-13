@@ -48,6 +48,14 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         );
     }
 
+    public function testOutputFileExtension()
+    {
+        $this->assertSame(
+            '.html',
+            HtmlPage::outputFileExtension()
+        );
+    }
+
     public function testSourcePath()
     {
         $this->assertSame(

@@ -143,4 +143,78 @@ class InMemoryPageTest extends TestCase
         $this->assertTrue($page->hasMacro('foo'));
         $this->assertFalse($page->hasMacro('bar'));
     }
+
+    public function testIdentifierCanDeclareTxtOutputFileExtension()
+    {
+        $this->assertSame('robots.txt', InMemoryPage::outputPath('robots.txt'));
+    }
+
+    public function testIdentifierCanDeclareJsonOutputFileExtension()
+    {
+        $this->assertSame('data.json', InMemoryPage::outputPath('data.json'));
+    }
+
+    public function testIdentifierCanDeclareXmlOutputFileExtension()
+    {
+        $this->assertSame('sitemap.xml', InMemoryPage::outputPath('sitemap.xml'));
+    }
+
+    public function testIdentifierCanDeclareOutputFileExtensionForNestedPages()
+    {
+        $this->assertSame('docs/search.json', InMemoryPage::outputPath('docs/search.json'));
+    }
+
+    public function testIdentifierWithoutExtensionGetsHtmlOutputFileExtension()
+    {
+        $this->assertSame('foo.html', InMemoryPage::outputPath('foo'));
+    }
+
+    public function testIdentifierWithUnsupportedExtensionGetsHtmlOutputFileExtension()
+    {
+        $this->assertSame('foo.md.html', InMemoryPage::outputPath('foo.md'));
+    }
+
+    public function testIdentifierWithHtmlExtensionGetsHtmlOutputFileExtensionAppended()
+    {
+        $this->assertSame('foo.html.html', InMemoryPage::outputPath('foo.html'));
+    }
+
+    public function testDottedIdentifierIsNotMistakenForDeclaredOutputFileExtension()
+    {
+        $this->assertSame('docs/1.x.html', InMemoryPage::outputPath('docs/1.x'));
+    }
+
+    public function testGetOutputPathForIdentifierWithDeclaredOutputFileExtension()
+    {
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getOutputPath());
+    }
+
+    public function testGetRouteKeyForIdentifierWithDeclaredOutputFileExtension()
+    {
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getRouteKey());
+    }
+
+    public function testGetLinkForIdentifierWithDeclaredOutputFileExtension()
+    {
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getLink());
+    }
+
+    public function testGetLinkForIdentifierWithDeclaredOutputFileExtensionIsNotAffectedByPrettyUrls()
+    {
+        config(['hyde.pretty_urls' => true]);
+
+        $this->assertSame('robots.txt', (new InMemoryPage('robots.txt'))->getLink());
+    }
+
+    public function testGetCanonicalUrlForIdentifierWithDeclaredOutputFileExtension()
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $this->assertSame('https://example.com/robots.txt', (new InMemoryPage('robots.txt'))->getCanonicalUrl());
+    }
+
+    public function testCompiledContentsAreNotAffectedByDeclaredOutputFileExtension()
+    {
+        $this->assertSame('User-agent: *', (new InMemoryPage('robots.txt', contents: 'User-agent: *'))->compile());
+    }
 }
