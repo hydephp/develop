@@ -9,6 +9,8 @@ use Hyde\Testing\TestCase;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\File;
 use Hyde\Framework\Actions\StaticPageBuilder;
 
@@ -105,5 +107,45 @@ class NonHtmlPageOutputTest extends TestCase
 
         $this->assertFileExists(Hyde::path('_site/robots.txt'));
         $this->assertSame('User-agent: *', file_get_contents(Hyde::path('_site/robots.txt')));
+    }
+
+    public function testBuildCommandCompilesDiscoverableCustomPageClassWithNonHtmlOutputExtension()
+    {
+        $this->directory('_leaves');
+        $this->file('_leaves/hello.md', 'Hello World');
+
+        Hyde::kernel()->registerExtension(NonHtmlPageTestExtension::class);
+
+        $this->assertSame(['hello'], DiscoverableNonHtmlTestPage::files());
+        $this->assertTrue(Routes::exists('hello.txt'));
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/hello.txt'));
+        $this->assertSame('Hello World', file_get_contents(Hyde::path('_site/hello.txt')));
+        $this->assertFileDoesNotExist(Hyde::path('_site/hello.txt.html'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/hello.html'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/hello.md.html'));
+    }
+}
+
+class DiscoverableNonHtmlTestPage extends HydePage
+{
+    public static string $sourceDirectory = '_leaves';
+    public static string $outputDirectory = '';
+    public static string $sourceExtension = '.md';
+    public static string $outputExtension = '.txt';
+
+    public function compile(): string
+    {
+        return file_get_contents(Hyde::path($this->getSourcePath()));
+    }
+}
+
+class NonHtmlPageTestExtension extends HydeExtension
+{
+    public static function getPageClasses(): array
+    {
+        return [DiscoverableNonHtmlTestPage::class];
     }
 }
