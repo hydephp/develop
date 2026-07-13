@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\File;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\BuildTasks\BuildTask::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\BuildTasks\PreBuildTask::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\BuildTasks\PostBuildTask::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSiteCommand::class)]
 class BuildTaskServiceTest extends TestCase
 {

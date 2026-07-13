@@ -8,7 +8,7 @@ use Closure;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest as FrameworkGenerateBuildManifest;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
+use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
@@ -162,11 +162,6 @@ class BuildTaskServiceUnitTest extends UnitTestCase
         $this->assertInstanceOf(PostBuildTask::class, new FrameworkGenerateBuildManifest());
     }
 
-    public function testGenerateRssFeedExtendsPostBuildTask()
-    {
-        $this->assertInstanceOf(PostBuildTask::class, new GenerateRssFeed());
-    }
-
     public function testCanRunPreBuildTasks()
     {
         $this->can(fn () => $this->service->runPreBuildTasks(...));
@@ -276,7 +271,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     {
         $files = [
             'app/Actions/GenerateBuildManifestBuildTask.php' => FrameworkGenerateBuildManifest::class,
-            'app/Actions/GenerateRssFeedBuildTask.php' => GenerateRssFeed::class,
+            'app/Actions/TransferMediaAssetsBuildTask.php' => TransferMediaAssets::class,
         ];
 
         $this->mockKernelFilesystem($files);
@@ -285,7 +280,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->assertSame([
             'Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest',
-            'Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed',
+            'Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets',
         ], $this->service->getRegisteredTasks());
 
         $this->resetKernelInstance();
