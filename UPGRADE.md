@@ -309,8 +309,10 @@ The static page class property `$fileExtension` has been renamed to `$sourceExte
 The rename pairs the source extension with the new `$outputExtension` property (defaulting to `.html`), which
 page classes can override to compile to non-HTML output files.
 
-This only affects projects with custom page classes or code calling these APIs. Update property declarations
-and call sites:
+This only affects projects with custom page classes or code calling these APIs. Update property declarations,
+call sites, and any methods that override `fileExtension()` or `setFileExtension()` — the methods are public
+and non-final, and an un-renamed override silently stops being called now that the framework calls
+`sourceExtension()`:
 
 **Before:**
 
@@ -334,9 +336,9 @@ class CustomPage extends HydePage
 $extension = MarkdownPage::sourceExtension();
 ```
 
-The automated upgrade script will handle this rename for ordinary declarations, property accesses, and method
-calls. Dynamic references — variable method or property names, reflection, and string-based access — must be
-updated manually.
+The automated upgrade script will handle this rename for ordinary property declarations, property accesses,
+method calls, and overridden method declarations. Dynamic references — variable method or property names,
+reflection, and string-based access — must be updated manually.
 
 ## Migration Checklist
 
