@@ -19,9 +19,6 @@ class Router
 
     protected Request $request;
 
-    protected bool $assetPathResolved = false;
-    protected ?string $resolvedAssetPath = null;
-
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -29,7 +26,9 @@ class Router
 
     public function handle(): Response
     {
-        if ($this->shouldProxy()) {
+        // Media files are always static assets, so we proxy them
+        // directly without paying for booting the application.
+        if (str_starts_with($this->request->path, '/media/')) {
             return $this->proxyStatic();
         }
 
@@ -43,39 +42,14 @@ class Router
             return $virtualRoutes[$this->request->path]($this->request);
         }
 
-        // A path with a file extension that matches neither a static file nor a page (like a
-        // missing stylesheet or source map) is a missing asset, and not a missing web page,
-        // so we send a normal 404 response instead of the pretty page not found error.
+        // A path with a file extension that isn't a web page is a static asset request,
+        // unless a page route is registered for the path (like `docs/search.json`),
+        // as pages take precedence over the on-disk files the proxy serves.
         if ($this->hasAssetLikeExtension() && ! PageRouter::hasRoute($this->request)) {
-            return $this->notFound();
+            return $this->proxyStatic();
         }
 
         return PageRouter::handle($this->request);
-    }
-
-    /**
-     * If the request is not for a web page, we assume it's
-     * a static asset, which we instead want to proxy.
-     */
-    protected function shouldProxy(): bool
-    {
-        // Always proxy media files. This condition is just to improve performance
-        // without having to check the file extension.
-        if (str_starts_with($this->request->path, '/media/')) {
-            return true;
-        }
-
-        if (! $this->hasAssetLikeExtension()) {
-            return false;
-        }
-
-        // Don't proxy the search.json file, as it's generated on the fly.
-        if (str_ends_with($this->request->path, 'search.json')) {
-            return false;
-        }
-
-        // Dotted page routes (like documentation version folders) are proxied only when a matching asset exists.
-        return $this->resolveAssetPath() !== null;
     }
 
     /**
@@ -88,16 +62,6 @@ class Router
         $extension = pathinfo($this->request->path)['extension'] ?? null;
 
         return $extension !== null && $extension !== 'html';
-    }
-
-    protected function resolveAssetPath(): ?string
-    {
-        if (! $this->assetPathResolved) {
-            $this->resolvedAssetPath = AssetFileLocator::find($this->request->path);
-            $this->assetPathResolved = true;
-        }
-
-        return $this->resolvedAssetPath;
     }
 
     /**
@@ -182,7 +146,7 @@ class Router
      */
     protected function proxyStatic(): Response
     {
-        $path = $this->resolveAssetPath();
+        $path = AssetFileLocator::find($this->request->path);
 
         if ($path === null) {
             return $this->notFound();
