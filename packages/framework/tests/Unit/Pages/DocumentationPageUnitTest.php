@@ -38,6 +38,11 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertSame('.md', DocumentationPage::fileExtension());
     }
 
+    public function testOutputFileExtension()
+    {
+        $this->assertSame('.html', DocumentationPage::outputFileExtension());
+    }
+
     public function testSourcePath()
     {
         $this->assertSame('_docs/hello-world.md', DocumentationPage::sourcePath('hello-world'));
