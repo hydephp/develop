@@ -10,8 +10,11 @@ use SimpleXMLElement;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Hyde\Foundation\HydeKernel;
+use Hyde\Foundation\Facades\Routes;
 use Illuminate\Support\Facades\File;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapGenerator::class)]
@@ -94,16 +97,53 @@ class SitemapServiceTest extends TestCase
         $this->restoreDocumentationSearch();
     }
 
-    public function test_generate_adds_documentation_search_pages_to_xml()
+    public function testGenerateAddsDocumentationSearchPageButNotSearchIndexToXml()
     {
         Filesystem::touch('_docs/foo.md');
 
         $service = new SitemapGenerator();
         $service->generate();
 
-        $this->assertCount(5, $service->getXmlElement()->url);
+        $this->assertCount(4, $service->getXmlElement()->url);
+        $this->assertStringContainsString('docs/search.html', $service->getXml());
+        $this->assertStringNotContainsString('search.json', $service->getXml());
 
         Filesystem::unlink('_docs/foo.md');
+    }
+
+    public function testGenerateDoesNotAddPagesWithSitemapFrontMatterSetToFalse()
+    {
+        file_put_contents(Hyde::path('_pages/foo.md'), "---\nsitemap: false\n---\n\n# Foo");
+
+        $service = new SitemapGenerator();
+        $service->generate();
+
+        $this->assertCount(2, $service->getXmlElement()->url);
+        $this->assertStringNotContainsString('foo', $service->getXml());
+
+        Filesystem::unlink('_pages/foo.md');
+    }
+
+    public function testGenerateDoesNotAddPagesWithNonHtmlOutputPaths()
+    {
+        Routes::addRoute(new Route(new InMemoryPage('robots.txt')));
+
+        $service = new SitemapGenerator();
+        $service->generate();
+
+        $this->assertCount(2, $service->getXmlElement()->url);
+        $this->assertStringNotContainsString('robots.txt', $service->getXml());
+    }
+
+    public function testGenerateAddsNonHtmlPagesWithSitemapFrontMatterSetToTrue()
+    {
+        Routes::addRoute(new Route(new InMemoryPage('robots.txt', ['sitemap' => true])));
+
+        $service = new SitemapGenerator();
+        $service->generate();
+
+        $this->assertCount(3, $service->getXmlElement()->url);
+        $this->assertStringContainsString('robots.txt', $service->getXml());
     }
 
     public function testGetXmlReturnsXmlString()
