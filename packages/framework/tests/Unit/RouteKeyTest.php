@@ -9,6 +9,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
@@ -81,6 +82,23 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(InMemoryPage::class, 'foo/bar'));
     }
 
+    public function testFromPageWithInMemoryPageIdentifierDeclaringOutputFileExtension()
+    {
+        $this->assertEquals(new RouteKey('robots.txt'), RouteKey::fromPage(InMemoryPage::class, 'robots.txt'));
+        $this->assertEquals(new RouteKey('docs/search.json'), RouteKey::fromPage(InMemoryPage::class, 'docs/search.json'));
+    }
+
+    public function testFromPageWithNonHtmlOutputFileExtensionIncludesExtensionInRouteKey()
+    {
+        $this->assertEquals(new RouteKey('foo.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo'));
+        $this->assertEquals(new RouteKey('foo/bar.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo/bar'));
+    }
+
+    public function testFromPageWithNonHtmlOutputFileExtensionDoesNotDuplicateExtensionAlreadyInIdentifier()
+    {
+        $this->assertEquals(new RouteKey('foo.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo.txt'));
+    }
+
     public function testFromPageWithCustomOutputDirectory()
     {
         MarkdownPage::setOutputDirectory('foo');
@@ -134,5 +152,15 @@ class RouteKeyTest extends UnitTestCase
     {
         $this->assertSame('docs/foo-bar', RouteKey::fromPage(DocumentationPage::class, 'foo-bar')->get());
         $this->assertSame('docs/abc-bar', RouteKey::fromPage(DocumentationPage::class, 'abc-bar')->get());
+    }
+}
+
+class NonHtmlOutputPageStub extends HydePage
+{
+    public static string $outputFileExtension = '.txt';
+
+    public function compile(): string
+    {
+        return '';
     }
 }
