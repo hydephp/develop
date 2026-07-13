@@ -53,6 +53,19 @@ class BuildSitemapCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
     }
 
+    public function testSkipReasonFallsBackToMissingSimpleXmlExtensionWhenOtherConditionsAreMet()
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        Hyde::routes()->forget('sitemap.xml');
+
+        $this->artisan('build:sitemap')
+            ->expectsOutput('Cannot generate the sitemap as the SimpleXML extension is not installed')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
+    }
+
     public function testCommandBuildsUserDefinedSitemapPageWhenOneIsRegistered()
     {
         config(['hyde.url' => 'https://example.com']);
