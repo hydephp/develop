@@ -368,6 +368,33 @@ class RealtimeCompilerTest extends TestCase
         $this->assertStringContainsString('<urlset', $response->body);
     }
 
+    public function testRssFeedRouteIsServedWithXmlContentType()
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $this->mockCompilerRoute('feed.xml');
+
+        Filesystem::put('_posts/rc-test-post.md', '# Hello World!');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertInstanceOf(Response::class, $response);
+            $this->assertNotInstanceOf(HtmlResponse::class, $response);
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/xml', $headers['Content-Type']);
+
+            $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+            $this->assertStringContainsString('<rss', $response->body);
+        } finally {
+            Filesystem::unlink('_posts/rc-test-post.md');
+        }
+    }
+
     public function testGetContentTypeReturnsApplicationJsonForJsonOutputPath()
     {
         $page = $this->makePageWithOutputPath('foo.json');
