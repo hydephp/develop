@@ -433,7 +433,7 @@ class InMemoryPageContentTestPage extends InMemoryPage
         $this->assertSame('foo.html', InMemoryPage::outputPath('foo'));
     }
 
-    public function testIdentifierWithUnsupportedExtensionGetsHtmlOutputExtension()
+    public function testIdentifierWithUnrecognizedExtensionGetsHtmlOutputExtension()
     {
         $this->assertSame('foo.md.html', InMemoryPage::outputPath('foo.md'));
     }

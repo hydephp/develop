@@ -36,6 +36,8 @@ class InMemoryPage extends HydePage
     public static string $outputDirectory;
     public static string $sourceExtension;
 
+    protected const EXPLICIT_OUTPUT_EXTENSIONS = ['.json', '.txt', '.xml'];
+
     /**
      * The literal page contents, or a closure that generates them at compile time.
      *
@@ -109,12 +111,13 @@ class InMemoryPage extends HydePage
     /**
      * Qualify a page identifier into a target output file path, relative to the _site output directory.
      *
-     * If the identifier declares a supported non-HTML output file extension, like "robots.txt",
-     * the page is saved to that path as-is, instead of having the HTML extension appended.
+     * If the identifier ends in a recognized non-HTML extension (`.json`, `.txt`, or `.xml` by default),
+     * it is treated as an explicit output path and no HTML extension is appended, so an identifier
+     * of "robots.txt" saves the page to "_site/robots.txt".
      */
     public static function outputPath(string $identifier): string
     {
-        if (static::identifierDeclaresOutputExtension($identifier)) {
+        if (static::identifierHasExplicitOutputExtension($identifier)) {
             return (string) RouteKey::fromPage(static::class, $identifier);
         }
 
@@ -122,11 +125,11 @@ class InMemoryPage extends HydePage
     }
 
     /**
-     * Determine if the given page identifier declares a supported non-HTML output file extension.
+     * Determine whether the identifier ends with an explicit output extension.
      */
-    protected static function identifierDeclaresOutputExtension(string $identifier): bool
+    protected static function identifierHasExplicitOutputExtension(string $identifier): bool
     {
-        foreach (['.json', '.txt', '.xml'] as $extension) {
+        foreach (static::EXPLICIT_OUTPUT_EXTENSIONS as $extension) {
             if (str_ends_with($identifier, $extension)) {
                 return true;
             }
