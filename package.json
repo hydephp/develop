@@ -11,7 +11,7 @@
         "autoprefixer": "^10.4.27",
         "hyde-vite-plugin": "file:packages/vite-plugin",
         "hydefront": "^4.0.0",
-        "postcss": "^8.5.9",
+        "postcss": "^8.5.19",
         "tailwindcss": "^4.1.16",
         "vite": "^8.0.0"
     }
