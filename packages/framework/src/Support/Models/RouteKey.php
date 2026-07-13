@@ -56,25 +56,13 @@ final class RouteKey implements Stringable
     public static function fromPage(string $pageClass, string $identifier): self
     {
         $identifier = self::stripPrefixIfNeeded($pageClass, $identifier);
-
-        return new self(unslash("{$pageClass::baseRouteKey()}/$identifier".self::outputExtensionIfNeeded($pageClass, $identifier)));
-    }
-
-    /**
-     * Since only the HTML extension is implicit in route keys, pages compiled to non-HTML
-     * files include the output file extension declared by their page class in the key.
-     *
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
-     */
-    protected static function outputExtensionIfNeeded(string $pageClass, string $identifier): string
-    {
         $extension = $pageClass::outputExtension();
 
-        if ($extension === '.html' || str_ends_with($identifier, $extension)) {
-            return '';
+        if ($extension !== '.html' && ! str_ends_with($identifier, $extension)) {
+            $identifier .= $extension;
         }
 
-        return $extension;
+        return new self(unslash("{$pageClass::baseRouteKey()}/$identifier"));
     }
 
     /**
