@@ -26,7 +26,7 @@ class PageCollectionTest extends TestCase
     {
         parent::setUp();
 
-        config(['hyde.generate_sitemap' => false]);
+        config(['hyde.generate_sitemap' => false, 'hyde.rss.enabled' => false]);
     }
 
     public function testBootMethodCreatesNewPageCollectionAndDiscoversPagesAutomatically()
