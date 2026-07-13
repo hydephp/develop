@@ -186,19 +186,23 @@ class LlmsTxtGeneratorTest extends TestCase
         $this->assertStringContainsString('- [Installation](https://example.com/docs/installation)', $this->generate());
     }
 
-    public function testGeneratorOverrideCanListPagesThatAreExcludedFromTheSitemap()
+    public function testGeneratorOverrideCanListAPageThatIsExcludedFromTheSitemap()
     {
         $this->markdown('_pages/thin.md', '# Thin Page', ['sitemap' => false]);
+        $this->markdown('_pages/private.md', '# Private Page', ['sitemap' => false]);
 
         $generator = new class extends LlmsTxtGenerator
         {
             protected function shouldListPage(HydePage $page): bool
             {
-                return $page->getIdentifier() !== '404';
+                return parent::shouldListPage($page) || $page->getIdentifier() === 'thin';
             }
         };
 
-        $this->assertStringContainsString('- [Thin Page](https://example.com/thin.html)', $generator->generate());
+        $contents = $generator->generate();
+
+        $this->assertStringContainsString('- [Thin Page](https://example.com/thin.html)', $contents);
+        $this->assertStringNotContainsString('Private Page', $contents);
     }
 
     protected function generate(): string
