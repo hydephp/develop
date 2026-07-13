@@ -252,6 +252,7 @@ container → fully custom page in code.
 > one under the same collection key (`addPage()` keys by source path). Both are
 > asserted through the real `build` command output. The robots.txt equivalent remains
 > mandatory for PR 6. *(Part B: both paths verified the same way for the feed page.)*
+> *(PR 6: both paths verified the same way for the robots.txt page.)*
 
 ### D6: No built-in `TextPage` or `.txt` autodiscovery
 
@@ -502,7 +503,7 @@ Implementation notes, part B (branch `v3/non-html-pages-convert-rss-feed`):
   facade import went with the last one. The remaining framework tasks
   (clean/transfer/manifest) are all config-gated.
 
-### PR 6 — Generated `robots.txt`
+### PR 6 — Generated `robots.txt` ✅ Implemented
 
 Goal: sensible robots.txt out of the box, zero config.
 
@@ -511,6 +512,48 @@ Goal: sensible robots.txt out of the box, zero config.
 - Config (e.g. `hyde.robots`) for disallow rules / disabling; user-defined page
   precedence per D5 (an explicitly registered `robots.txt` page wins).
 - Depends on PRs 1, 2, 5 patterns.
+
+Implementation notes (branch `v3/non-html-pages-robots`):
+
+- `RobotsTxtPage extends InMemoryPage` mirrors `SitemapPage`/`RssFeedPage` throughout:
+  thin subclass, container-resolved generator in `compile()` (rebind verified by test),
+  registered in `HydeCoreExtension::discoverPages()` with the D5 skip check, hidden
+  from navigation, D3-excluded from the sitemap via the non-HTML default, and both
+  user override paths (booting callback and extension) verified end-to-end through
+  the real `build` command per the D5 mandate.
+- The page and its `RobotsTxtGenerator` live in a new
+  `Hyde\Framework\Features\TextGenerators` namespace mirroring `XmlGenerators`
+  (and likewise outside `Hyde\Pages`, exempting the page from the discovered-page
+  unit test contract). PR 7's llms.txt generator and page should land there too —
+  as `LlmsTxtGenerator`/`LlmsTxtPage` for symmetry, superseding the epic's earlier
+  `GeneratesLlmsTxt` working name.
+- Feature gate: `Features::hasRobotsTxt()` reads only `hyde.robots.enabled`
+  (default `true`). Unlike `hasSitemap()`/`hasRss()` there is no site URL
+  requirement — robots.txt directives are relative, and the one absolute URL (the
+  `Sitemap:` line) is gated separately inside the generator by `Features::hasSitemap()`,
+  the same condition that registers the sitemap page and emits its head link
+  (the `GlobalMetadataBag` no-drift precedent). Consequence: the page registers
+  unconditionally on default config, so it appears in zero-config builds — several
+  existing tests asserting exact collections gained a `hyde.robots.enabled => false`
+  in their setup, alongside their existing sitemap/RSS switches.
+- Generator output: `User-agent: *`, then verbatim `Disallow:` lines from the
+  `hyde.robots.disallow` config array, or `Allow: /` when there are none (a group
+  needs at least one rule; an unconditional `Allow: /` next to disallow rules would
+  be noise). The config entries are *rule values*, not filesystem paths — named and
+  documented as such in the config stubs and generator — and are deliberately not
+  normalized (no leading-slash fixup, trimming, or empty-string removal):
+  normalization would guess intent and break valid values like wildcard patterns or
+  the empty string (a valid "allow everything" rule). The verbatim contract is
+  string-only, validated per entry: a non-string value throws an
+  `InvalidConfigurationException` naming `hyde.robots.disallow` and the offending
+  index, instead of surfacing as a PHP-level type error at build time. Later
+  generated text pages copying this pattern (llms.txt) should keep both halves —
+  verbatim strings, explicit validation.
+- `robots.txt` is within the D2 allowlist, consistent with the PR 5 confirmation
+  that first-party generated files do not need option (b).
+- No `build:robots` command: the sitemap/RSS commands exist only as carry-overs of
+  the removed post-build tasks; robots.txt never had one, and the standard build
+  and realtime compiler (serve test asserts `text/plain`) cover the lifecycle.
 
 ### PR 7 — Generated `llms.txt`
 
