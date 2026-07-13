@@ -302,14 +302,16 @@ new InMemoryPage('example', view: '');
 new InMemoryPage('example', view: null);
 ```
 
-## Step 6: Review Sitemap Customizations
+## Step 6: Review Sitemap and RSS Feed Customizations
 
-The sitemap is now generated as a regular page instead of by a post-build task, so `sitemap.xml` is served by
-`php hyde serve`, listed in `route:list`, and included in the build manifest. Sites that just enable or disable
-the sitemap through `hyde.generate_sitemap` and `hyde.url` need no changes.
+The sitemap and RSS feed are now generated as regular pages instead of by post-build tasks, so `sitemap.xml` and
+the RSS feed (`feed.xml`, or your configured `hyde.rss.filename`) are served by `php hyde serve`, listed in
+`route:list`, and included in the build manifest. Sites that just enable or disable these features through
+`hyde.generate_sitemap`, `hyde.rss`, and `hyde.url` need no changes.
 
-The `GenerateSitemap` post-build task class has been removed. If you overrode it with a same-basename build task,
-or referenced the class directly, customize the sitemap through one of its replacement tiers instead:
+The `GenerateSitemap` and `GenerateRssFeed` post-build task classes have been removed. If you overrode one with a
+same-basename build task, or referenced the classes directly, customize the output through one of the replacement
+tiers instead:
 
 - Rebind the generator in the service container to change the output while keeping the page registration:
 
@@ -319,8 +321,10 @@ use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 app()->bind(SitemapGenerator::class, MyCustomSitemapGenerator::class);
 ```
 
-- Or register your own page with the `sitemap.xml` route key (from a service provider, booting callback, or
-  extension), which replaces the generated page entirely:
+The same works for `RssFeedGenerator`.
+
+- Or register your own page with the same route key (`sitemap.xml`, or the configured feed filename) from a
+  service provider, booting callback, or extension, which replaces the generated page entirely:
 
 ```php
 use Hyde\Hyde;
@@ -331,8 +335,8 @@ Hyde::kernel()->booting(function ($kernel): void {
 });
 ```
 
-The `build:sitemap` command still works and now compiles the registered page. When no base URL is configured it
-reports failure with exit code 1 instead of 3.
+The `build:sitemap` and `build:rss` commands still work and now compile the registered pages. When no base URL is
+configured, `build:sitemap` reports failure with exit code 1 instead of 3.
 
 ## Step 7: Rename Page File Extension References
 
@@ -384,7 +388,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
-- [ ] Replaced any references to the removed `GenerateSitemap` build task with a `SitemapGenerator` container rebind or a user-defined `sitemap.xml` page
+- [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
 - [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 
 ## Troubleshooting
