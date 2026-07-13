@@ -51,9 +51,9 @@ class HydePageTest extends TestCase
         $this->assertSame('', HydePage::sourceExtension());
     }
 
-    public function testBaseOutputFileExtension()
+    public function testBaseOutputExtension()
     {
-        $this->assertSame('.html', HydePage::outputFileExtension());
+        $this->assertSame('.html', HydePage::outputExtension());
     }
 
     public function testBaseSourcePath()
@@ -103,9 +103,9 @@ class HydePageTest extends TestCase
         $this->assertSame('.md', TestPage::sourceExtension());
     }
 
-    public function testOutputFileExtension()
+    public function testOutputExtension()
     {
-        $this->assertSame('.html', TestPage::outputFileExtension());
+        $this->assertSame('.html', TestPage::outputExtension());
     }
 
     public function testSourcePath()
@@ -118,32 +118,32 @@ class HydePageTest extends TestCase
         $this->assertSame('output/hello-world.html', TestPage::outputPath('hello-world'));
     }
 
-    public function testOutputFileExtensionCanBeOverriddenByChildClasses()
+    public function testOutputExtensionCanBeOverriddenByChildClasses()
     {
-        $this->assertSame('.txt', NonHtmlOutputTestPage::outputFileExtension());
+        $this->assertSame('.txt', NonHtmlOutputTestPage::outputExtension());
     }
 
-    public function testOutputPathUsesTheOutputFileExtensionOfThePageClass()
+    public function testOutputPathUsesTheOutputExtensionOfThePageClass()
     {
         $this->assertSame('output/hello-world.txt', NonHtmlOutputTestPage::outputPath('hello-world'));
     }
 
-    public function testGetRouteKeyForPageWithNonHtmlOutputFileExtensionIncludesExtension()
+    public function testGetRouteKeyForPageWithNonHtmlOutputExtensionIncludesExtension()
     {
         $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getRouteKey());
     }
 
-    public function testGetOutputPathUsesTheOutputFileExtensionOfThePageClass()
+    public function testGetOutputPathUsesTheOutputExtensionOfThePageClass()
     {
         $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getOutputPath());
     }
 
-    public function testGetLinkForPageWithNonHtmlOutputFileExtension()
+    public function testGetLinkForPageWithNonHtmlOutputExtension()
     {
         $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getLink());
     }
 
-    public function testGetLinkForPageWithNonHtmlOutputFileExtensionIsNotAffectedByPrettyUrls()
+    public function testGetLinkForPageWithNonHtmlOutputExtensionIsNotAffectedByPrettyUrls()
     {
         config(['hyde.pretty_urls' => true]);
 
@@ -1316,7 +1316,7 @@ class NonHtmlOutputTestPage extends HydePage
     public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
     public static string $sourceExtension = '.txt';
-    public static string $outputFileExtension = '.txt';
+    public static string $outputExtension = '.txt';
     public static string $template = 'template';
 }
 

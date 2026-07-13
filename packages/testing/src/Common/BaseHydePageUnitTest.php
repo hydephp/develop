@@ -104,7 +104,7 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
 
     abstract public function testSourceExtension();
 
-    abstract public function testOutputFileExtension();
+    abstract public function testOutputExtension();
 
     abstract public function testSourceDirectory();
 
