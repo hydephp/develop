@@ -341,7 +341,16 @@ fail with an error instead of generating an empty or unwanted file. `build:sitem
 failure with exit code 1 instead of 3. If you registered your own page under the route key, the commands build
 it regardless of these conditions.
 
-## Step 7: Rename Page File Extension References
+## Step 7: Review the New Generated robots.txt
+
+Hyde now generates a `robots.txt` file by default, allowing all crawlers and linking to the sitemap when that
+feature is enabled. Most sites want this and need no changes. If you already publish a `robots.txt` through your
+own tooling — a deploy step or web server configuration that would conflict with the generated file — either
+disable the feature with `hyde.robots.enabled => false`, or move the contents into Hyde by registering your own
+`robots.txt` page (which replaces the generated one, using the same registration pattern as the sitemap example
+above). Crawl rules can be added to the `hyde.robots.disallow` configuration array without any custom code.
+
+## Step 8: Rename Page File Extension References
 
 The static page class property `$fileExtension` has been renamed to `$sourceExtension`, along with the
 `fileExtension()` and `setFileExtension()` methods, which are now `sourceExtension()` and `setSourceExtension()`.
@@ -392,6 +401,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
 - [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
+- [ ] Confirmed the new generated `robots.txt` does not conflict with an existing one, or disabled it with `hyde.robots.enabled`
 - [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 
 ## Troubleshooting
