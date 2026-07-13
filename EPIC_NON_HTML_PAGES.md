@@ -158,6 +158,17 @@ a standalone feature in its own right.
 > agent workflow warns about — the discovered-page tests would pass while the
 > InMemoryPage-backed generated pages regress.
 
+> **Implemented (PR 4):** `HydePage::showInSitemap()` reads the `sitemap` front
+> matter key, defaulting to whether the resolved output path (`getOutputPath()`)
+> ends in `.html`, per the constraint above. Front matter wins in both directions,
+> so `sitemap: true` opts a non-HTML page back in. One refinement to "defaults
+> `false` for redirects": `Redirect` overrides `showInSitemap()` to return `false`
+> unconditionally, mirroring its `showInNavigation()` and the already-recorded
+> release note that redirect routes are intrinsically excluded from navigation and
+> sitemaps — a redirect page has no front matter channel in `hyde.redirects`, and
+> listing redirects in a sitemap is an SEO anti-pattern, so an opt-in would only
+> be a trap.
+
 ### D4: Generators become container-resolved pages; generator actions stay
 
 Each generated file is registered as an `InMemoryPage` whose compiled contents
@@ -322,7 +333,7 @@ would introduce extension-specific framework surface without solving the broader
 verbatim-file problem. Documentation will instead show the service provider /
 `booting()` registration pattern for custom text output.
 
-### PR 4 — Sitemap inclusion policy
+### PR 4 — Sitemap inclusion policy ✅ Implemented
 
 Goal: pages control their own sitemap presence; fix the production `search.json` leak.
 
@@ -333,6 +344,24 @@ Goal: pages control their own sitemap presence; fix the production `search.json`
 - `SitemapGenerator::generate()` filters on it instead of `instanceof Redirect`.
 - Changelog note: search indexes no longer appear in sitemaps (bugfix).
 - Independent of PRs 1-3; must land before or with PR 5.
+
+Implementation notes (branch `v3/non-html-pages-sitemap-inclusion-policy`):
+
+- Implemented exactly per D3 (see the D3 "Implemented" note for the front matter
+  semantics and the `Redirect` refinement). `showInSitemap()` joined the
+  `BaseHydePageUnitTest` contract; the InMemoryPage unit test covers the
+  identifier-encoded non-HTML default that the static-extension tests cannot.
+- The non-HTML self-exclusion is verified end-to-end: a registered `robots.txt`
+  `InMemoryPage` is built by the real `build` command and asserted absent from
+  the built `sitemap.xml`, guarding the D3 resolved-output-path constraint
+  against regression by construction rather than only at the unit level.
+- Two existing tests asserted the leak as expected behavior and were flipped:
+  `SitemapServiceTest` now asserts the docs search *page* stays while the search
+  *index* is excluded, and the `SitemapFeatureTest` expected XML dropped its
+  `docs/search.json` entry (it also gained a `sitemap: false` page proving the
+  front matter opt-out through the `build:sitemap` command).
+- No UPGRADE.md entry: the fix requires no user action, and nothing realistic
+  depended on search indexes appearing in sitemaps.
 
 ### PR 5 — Convert sitemap and RSS from build tasks to pages
 

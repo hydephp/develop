@@ -15,7 +15,6 @@ use Hyde\Pages\MarkdownPost;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Support\Models\Route;
-use Hyde\Support\Models\Redirect;
 use Illuminate\Support\Carbon;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Foundation\Facades\Routes;
@@ -31,7 +30,7 @@ class SitemapGenerator extends BaseXmlGenerator
     public function generate(): static
     {
         Routes::all()->each(function (Route $route): void {
-            if (! $route->getPage() instanceof Redirect) {
+            if ($route->getPage()->showInSitemap()) {
                 $this->addRoute($route);
             }
         });

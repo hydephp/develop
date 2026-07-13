@@ -86,6 +86,12 @@ class BladePageUnitTest extends BaseHydePageUnitTest
         $this->assertTrue((new BladePage())->showInNavigation());
     }
 
+    public function testShowInSitemap()
+    {
+        $this->assertTrue((new BladePage())->showInSitemap());
+        $this->assertFalse((new BladePage('foo', ['sitemap' => false]))->showInSitemap());
+    }
+
     public function testNavigationMenuPriority()
     {
         $this->assertSame(999, (new BladePage())->navigationMenuPriority());
