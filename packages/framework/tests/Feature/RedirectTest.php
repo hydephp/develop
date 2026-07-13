@@ -95,4 +95,9 @@ class RedirectTest extends TestCase
     {
         $this->assertFalse((new Redirect('foo', 'bar'))->showInNavigation());
     }
+
+    public function testRedirectsAreHiddenFromSitemaps()
+    {
+        $this->assertFalse((new Redirect('foo', 'bar'))->showInSitemap());
+    }
 }
