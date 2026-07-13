@@ -418,7 +418,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function showInSitemap(): bool
     {
-        return (bool) $this->matter('sitemap', str_ends_with($this->getOutputPath(), '.html'));
+        return filter_var($this->matter('sitemap', str_ends_with($this->getOutputPath(), '.html')), FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
