@@ -56,7 +56,7 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
     public static string $outputFileExtension = '.html';
     public static string $template;
 
@@ -96,7 +96,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function isDiscoverable(): bool
     {
-        return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension) && filled(static::$sourceDirectory);
+        return isset(static::$sourceDirectory, static::$outputDirectory, static::$sourceExtension) && filled(static::$sourceDirectory);
     }
 
     // Section: Query
@@ -167,11 +167,11 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the file extension of the source files for the page type.
+     * Get the file extension of the source files for the page type, such as `.md` or `.blade.php`.
      */
-    public static function fileExtension(): string
+    public static function sourceExtension(): string
     {
-        return static::$fileExtension ?? '';
+        return static::$sourceExtension ?? '';
     }
 
     /**
@@ -199,11 +199,11 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the file extension for the page type.
+     * Set the source file extension for the page type.
      */
-    public static function setFileExtension(string $fileExtension): void
+    public static function setSourceExtension(string $sourceExtension): void
     {
-        static::$fileExtension = rtrim('.'.ltrim($fileExtension, '.'), '.');
+        static::$sourceExtension = rtrim('.'.ltrim($sourceExtension, '.'), '.');
     }
 
     /**
@@ -211,7 +211,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function sourcePath(string $identifier): string
     {
-        return unslash(static::sourceDirectory().'/'.unslash($identifier).static::fileExtension());
+        return unslash(static::sourceDirectory().'/'.unslash($identifier).static::sourceExtension());
     }
 
     /**
@@ -244,7 +244,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     {
         return unslash(Str::between(Hyde::pathToRelative($path),
             static::sourceDirectory().'/',
-            static::fileExtension())
+            static::sourceExtension())
         );
     }
 
