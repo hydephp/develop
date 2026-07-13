@@ -8,8 +8,11 @@ use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
+
+use function str_ends_with;
 
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on source files.
@@ -74,6 +77,7 @@ class InMemoryPage extends HydePage
      *
      * View values ending in `.blade.php` are treated as Blade file paths. Other values are treated
      * as registered Laravel view keys.
+     * Identifiers ending in `.json`, `.txt`, or `.xml` retain that extension in the output path.
      *
      * @param  string  $identifier
      * @param  FrontMatter|array  $matter
@@ -100,6 +104,35 @@ class InMemoryPage extends HydePage
 
         $this->contents = $contents ?? '';
         $this->view = $view ?? '';
+    }
+
+    /**
+     * Qualify a page identifier into a target output file path, relative to the _site output directory.
+     *
+     * If the identifier declares a supported non-HTML output file extension, like "robots.txt",
+     * the page is saved to that path as-is, instead of having the HTML extension appended.
+     */
+    public static function outputPath(string $identifier): string
+    {
+        if (static::identifierDeclaresOutputFileExtension($identifier)) {
+            return (string) RouteKey::fromPage(static::class, $identifier);
+        }
+
+        return parent::outputPath($identifier);
+    }
+
+    /**
+     * Determine if the given page identifier declares a supported non-HTML output file extension.
+     */
+    protected static function identifierDeclaresOutputFileExtension(string $identifier): bool
+    {
+        foreach (['.json', '.txt', '.xml'] as $extension) {
+            if (str_ends_with($identifier, $extension)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
