@@ -6,14 +6,10 @@ namespace Hyde\Console\Commands;
 
 use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
-use Hyde\Facades\Config;
-use Hyde\Facades\Features;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Features\XmlGenerators\RssFeedPage;
-use Hyde\Pages\MarkdownPost;
 
-use function count;
 use function sprintf;
 
 /**
@@ -32,7 +28,7 @@ class BuildRssFeedCommand extends Command
         $page = Routes::find(RssFeedPage::routeKey())?->getPage();
 
         if ($page === null) {
-            $this->error($this->getSkipReason());
+            $this->error('Cannot generate the RSS feed as the feature is not enabled');
 
             return Command::FAILURE;
         }
@@ -42,23 +38,5 @@ class BuildRssFeedCommand extends Command
         $this->infoComment(sprintf('Created [%s]', Hyde::pathToRelative($path)));
 
         return Command::SUCCESS;
-    }
-
-    /** Explain why the RSS feed route is not registered, mirroring the conditions of {@see \Hyde\Facades\Features::hasRss()}. */
-    protected function getSkipReason(): string
-    {
-        if (! Hyde::hasSiteUrl()) {
-            return 'Cannot generate an RSS feed without a valid base URL';
-        }
-
-        if (! Config::getBool('hyde.rss.enabled', true)) {
-            return 'Cannot generate the RSS feed as it is disabled in the configuration';
-        }
-
-        if (! Features::hasMarkdownPosts() || count(MarkdownPost::files()) === 0) {
-            return 'Cannot generate an RSS feed without any Markdown posts';
-        }
-
-        return 'Cannot generate the RSS feed as the SimpleXML extension is not installed';
     }
 }
