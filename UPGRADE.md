@@ -214,7 +214,27 @@ disable the feature with `hyde.robots.enabled => false`, or move the contents in
 `robots.txt` page (which replaces the generated one, using the same registration pattern as the sitemap example
 above). Crawl rules can be added to the `hyde.robots.disallow` configuration array without any custom code.
 
-## Step 7: Rename Page File Extension References
+## Step 7: Decide Whether to Publish the New llms.txt
+
+Hyde now generates an [`llms.txt`](https://llmstxt.org/) file by default, indexing your site's content for AI
+services and agents. It requires a site base URL, since the file links to your pages with absolute URLs, so
+sites without one are unaffected. The file only links to pages you already publish, and it lists nothing your
+sitemap does not, but it is a deliberate invitation for AI services to read your site. That is a choice worth
+making consciously: if you would rather not extend that invitation, set `hyde.llms.enabled` to `false`.
+
+If you do keep it, the defaults need no configuration. Pages are grouped into sections by page type through the
+`hyde.llms.sections` configuration array, and each link is described by the page's `abstract` front matter,
+falling back to its `description`, so filling those in improves the file. Individual pages can be left out with
+`llms: false` front matter, and page types can be left out by removing them from the sections array. As with the
+sitemap and robots.txt, you can replace the file wholesale by registering your own `llms.txt` page, or adjust
+the output by rebinding the `LlmsTxtGenerator` class in the service container.
+
+Be aware that llms.txt is an emerging standard which is still subject to change. We cannot make a backwards
+compatibility promise for the generated output while the specification is still moving, and we expect to change
+the file format in minor and patch releases as the standard evolves. If you depend on the exact output, pin the
+format by registering your own page.
+
+## Step 8: Rename Page File Extension References
 
 The static page class property `$fileExtension` has been renamed to `$sourceExtension`, along with the
 `fileExtension()` and `setFileExtension()` methods, which are now `sourceExtension()` and `setSourceExtension()`.
@@ -264,6 +284,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
 - [ ] Confirmed the new generated `robots.txt` does not conflict with an existing one, or disabled it with `hyde.robots.enabled`
+- [ ] Decided whether to publish the new generated `llms.txt` for AI services, or disabled it with `hyde.llms.enabled`
 - [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 
 ## Troubleshooting
