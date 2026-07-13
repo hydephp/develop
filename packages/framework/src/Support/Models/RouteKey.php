@@ -57,7 +57,7 @@ final class RouteKey implements Stringable
     {
         $identifier = self::stripPrefixIfNeeded($pageClass, $identifier);
 
-        return new self(unslash("{$pageClass::baseRouteKey()}/$identifier".self::outputFileExtensionIfNeeded($pageClass, $identifier)));
+        return new self(unslash("{$pageClass::baseRouteKey()}/$identifier".self::outputExtensionIfNeeded($pageClass, $identifier)));
     }
 
     /**
@@ -66,9 +66,9 @@ final class RouteKey implements Stringable
      *
      * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
      */
-    protected static function outputFileExtensionIfNeeded(string $pageClass, string $identifier): string
+    protected static function outputExtensionIfNeeded(string $pageClass, string $identifier): string
     {
-        $extension = $pageClass::outputFileExtension();
+        $extension = $pageClass::outputExtension();
 
         if ($extension === '.html' || str_ends_with($identifier, $extension)) {
             return '';

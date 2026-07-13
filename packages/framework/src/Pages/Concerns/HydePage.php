@@ -57,7 +57,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     public static string $sourceDirectory;
     public static string $outputDirectory;
     public static string $sourceExtension;
-    public static string $outputFileExtension = '.html';
+    public static string $outputExtension = '.html';
     public static string $template;
 
     public readonly string $identifier;
@@ -175,11 +175,13 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the file extension of the compiled output files for the page type, including the leading dot.
+     * Get the output file extension for the page type, such as `.html` or `.txt`.
+     *
+     * The value includes the leading dot, so it can be used directly as a file name suffix.
      */
-    public static function outputFileExtension(): string
+    public static function outputExtension(): string
     {
-        return static::$outputFileExtension;
+        return static::$outputExtension;
     }
 
     /**
@@ -222,7 +224,7 @@ abstract class HydePage implements PageSchema, SerializableContract
         $routeKey = RouteKey::fromPage(static::class, $identifier);
 
         // Since only the HTML extension is implicit in route keys, other extensions are already part of the key.
-        return static::outputFileExtension() === '.html' ? "$routeKey.html" : (string) $routeKey;
+        return static::outputExtension() === '.html' ? "$routeKey.html" : (string) $routeKey;
     }
 
     /**

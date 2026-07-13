@@ -82,19 +82,19 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(InMemoryPage::class, 'foo/bar'));
     }
 
-    public function testFromPageWithInMemoryPageIdentifierDeclaringOutputFileExtension()
+    public function testFromPageWithInMemoryPageIdentifierDeclaringOutputExtension()
     {
         $this->assertEquals(new RouteKey('robots.txt'), RouteKey::fromPage(InMemoryPage::class, 'robots.txt'));
         $this->assertEquals(new RouteKey('docs/search.json'), RouteKey::fromPage(InMemoryPage::class, 'docs/search.json'));
     }
 
-    public function testFromPageWithNonHtmlOutputFileExtensionIncludesExtensionInRouteKey()
+    public function testFromPageWithNonHtmlOutputExtensionIncludesExtensionInRouteKey()
     {
         $this->assertEquals(new RouteKey('foo.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo'));
         $this->assertEquals(new RouteKey('foo/bar.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo/bar'));
     }
 
-    public function testFromPageWithNonHtmlOutputFileExtensionDoesNotDuplicateExtensionAlreadyInIdentifier()
+    public function testFromPageWithNonHtmlOutputExtensionDoesNotDuplicateExtensionAlreadyInIdentifier()
     {
         $this->assertEquals(new RouteKey('foo.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo.txt'));
     }
@@ -157,7 +157,7 @@ class RouteKeyTest extends UnitTestCase
 
 class NonHtmlOutputPageStub extends HydePage
 {
-    public static string $outputFileExtension = '.txt';
+    public static string $outputExtension = '.txt';
 
     public function compile(): string
     {
