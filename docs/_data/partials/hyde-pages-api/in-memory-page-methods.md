@@ -16,7 +16,7 @@ InMemoryPage::make(string|(Closure(): string)|(Closure(static):, Hyde\Markdown\M
 
 Qualify a page identifier into a target output file path, relative to the _site output directory.
 
-If the identifier declares a supported non-HTML output file extension, like &quot;robots.txt&quot;, the page is saved to that path as-is, instead of having the HTML extension appended.
+If the identifier ends in a recognized non-HTML extension (`.json`, `.txt`, or `.xml` by default), it is treated as an explicit output path and no HTML extension is appended, so an identifier of &quot;robots.txt&quot; saves the page to &quot;_site/robots.txt&quot;.
 
 ```php
 InMemoryPage::outputPath(string $identifier): string

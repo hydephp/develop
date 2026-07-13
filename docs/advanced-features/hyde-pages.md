@@ -77,7 +77,12 @@ abstract class HydePage
     /**
      * The file extension of the source files.
      */
-    public static string $fileExtension;
+    public static string $sourceExtension;
+
+    /**
+     * The file extension of the compiled output files.
+     */
+    public static string $outputExtension = '.html';
 
     /**
      * The default template to use for rendering the page.
@@ -139,7 +144,7 @@ abstract class BaseMarkdownPage extends HydePage
 {
     public Markdown $markdown;
 
-    public static string $fileExtension = '.md';
+    public static string $sourceExtension = '.md';
 }
 ```
 
@@ -177,7 +182,7 @@ class InMemoryPage extends HydePage
 {
     public static string $sourceDirectory;
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
 
     protected string|\Closure $contents;
     protected string $view;
@@ -208,7 +213,7 @@ class BladePage extends HydePage
 {
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-    public static string $fileExtension = '.blade.php';
+    public static string $sourceExtension = '.blade.php';
 }
 ```
 
@@ -326,7 +331,7 @@ class HtmlPage extends HydePage
 {
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-    public static string $fileExtension = '.html';
+    public static string $sourceExtension = '.html';
 }
 ```
 
