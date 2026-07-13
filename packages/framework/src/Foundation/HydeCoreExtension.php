@@ -21,6 +21,7 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\XmlGenerators\RssFeedPage;
 use Hyde\Framework\Features\XmlGenerators\SitemapPage;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
@@ -85,6 +86,10 @@ class HydeCoreExtension extends HydeExtension
         if (Features::hasSitemap()) {
             $this->discoverSitemapPage($collection);
         }
+
+        if (Features::hasRss()) {
+            $this->discoverRssFeedPage($collection);
+        }
     }
 
     /** Add the generated sitemap page unless the route is user-defined. */
@@ -92,6 +97,14 @@ class HydeCoreExtension extends HydeExtension
     {
         if (! $this->hasPageWithRouteKey($collection, SitemapPage::routeKey())) {
             $collection->addPage(new SitemapPage());
+        }
+    }
+
+    /** Add the generated RSS feed page unless the route is user-defined. */
+    protected function discoverRssFeedPage(PageCollection $collection): void
+    {
+        if (! $this->hasPageWithRouteKey($collection, RssFeedPage::routeKey())) {
+            $collection->addPage(new RssFeedPage());
         }
     }
 
