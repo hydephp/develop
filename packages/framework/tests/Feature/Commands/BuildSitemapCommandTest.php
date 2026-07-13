@@ -41,21 +41,37 @@ class BuildSitemapCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
     }
 
-    public function testSitemapIsGeneratedWhenSitemapGenerationIsDisabledInConfig()
+    public function testSitemapIsNotGeneratedWhenSitemapGenerationIsDisabledInConfig()
     {
         config(['hyde.url' => 'https://example.com']);
         config(['hyde.generate_sitemap' => false]);
 
-        $this->cleanUpWhenDone('_site/sitemap.xml');
+        $this->artisan('build:sitemap')
+            ->expectsOutput('Cannot generate the sitemap as it is disabled in the configuration')
+            ->assertExitCode(1);
 
-        $this->artisan('build:sitemap')->assertExitCode(0);
-
-        $this->assertFileExists(Hyde::path('_site/sitemap.xml'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
     }
 
     public function testCommandBuildsUserDefinedSitemapPageWhenOneIsRegistered()
     {
         config(['hyde.url' => 'https://example.com']);
+
+        $this->cleanUpWhenDone('_site/sitemap.xml');
+
+        Hyde::kernel()->booting(function (HydeKernel $kernel): void {
+            $kernel->pages()->addPage(new InMemoryPage('sitemap.xml', contents: '<?xml version="1.0"?><urlset/>'));
+        });
+
+        $this->artisan('build:sitemap')->assertExitCode(0);
+
+        $this->assertSame('<?xml version="1.0"?><urlset/>', file_get_contents(Hyde::path('_site/sitemap.xml')));
+    }
+
+    public function testCommandBuildsUserDefinedSitemapPageEvenWhenSitemapFeatureIsDisabled()
+    {
+        config(['hyde.url' => 'https://example.com']);
+        config(['hyde.generate_sitemap' => false]);
 
         $this->cleanUpWhenDone('_site/sitemap.xml');
 
