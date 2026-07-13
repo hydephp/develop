@@ -51,6 +51,11 @@ class HydePageTest extends TestCase
         $this->assertSame('', HydePage::fileExtension());
     }
 
+    public function testBaseOutputFileExtension()
+    {
+        $this->assertSame('.html', HydePage::outputFileExtension());
+    }
+
     public function testBaseSourcePath()
     {
         $this->assertSame('hello-world', HydePage::sourcePath('hello-world'));
@@ -98,6 +103,11 @@ class HydePageTest extends TestCase
         $this->assertSame('.md', TestPage::fileExtension());
     }
 
+    public function testOutputFileExtension()
+    {
+        $this->assertSame('.html', TestPage::outputFileExtension());
+    }
+
     public function testSourcePath()
     {
         $this->assertSame('source/hello-world.md', TestPage::sourcePath('hello-world'));
@@ -106,6 +116,33 @@ class HydePageTest extends TestCase
     public function testOutputPath()
     {
         $this->assertSame('output/hello-world.html', TestPage::outputPath('hello-world'));
+    }
+
+    public function testOutputFileExtensionCanBeOverriddenByChildClasses()
+    {
+        $this->assertSame('.txt', NonHtmlOutputTestPage::outputFileExtension());
+    }
+
+    public function testOutputPathUsesTheOutputFileExtensionOfThePageClass()
+    {
+        $this->assertSame('output/hello-world.txt', NonHtmlOutputTestPage::outputPath('hello-world'));
+    }
+
+    public function testGetOutputPathUsesTheOutputFileExtensionOfThePageClass()
+    {
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getOutputPath());
+    }
+
+    public function testGetLinkForPageWithNonHtmlOutputFileExtension()
+    {
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getLink());
+    }
+
+    public function testGetLinkForPageWithNonHtmlOutputFileExtensionIsNotAffectedByPrettyUrls()
+    {
+        config(['hyde.pretty_urls' => true]);
+
+        $this->assertSame('output/hello-world.txt', (new NonHtmlOutputTestPage('hello-world'))->getLink());
     }
 
     public function testPath()
@@ -1264,6 +1301,17 @@ class TestPage extends HydePage
     public static string $sourceDirectory = 'source';
     public static string $outputDirectory = 'output';
     public static string $fileExtension = '.md';
+    public static string $template = 'template';
+}
+
+class NonHtmlOutputTestPage extends HydePage
+{
+    use VoidCompiler;
+
+    public static string $sourceDirectory = 'source';
+    public static string $outputDirectory = 'output';
+    public static string $fileExtension = '.txt';
+    public static string $outputFileExtension = '.txt';
     public static string $template = 'template';
 }
 

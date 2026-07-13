@@ -52,6 +52,14 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         );
     }
 
+    public function testOutputFileExtension()
+    {
+        $this->assertSame(
+            '.html',
+            InMemoryPage::outputFileExtension()
+        );
+    }
+
     public function testSourcePath()
     {
         $this->assertSame(
