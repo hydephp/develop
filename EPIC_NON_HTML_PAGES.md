@@ -204,8 +204,16 @@ a standalone feature in its own right.
 >
 > The coupling is therefore a feature, not a compromise, and it is the *less* surprising
 > default: a user who hides a page from search engines does not expect it advertised to AI
-> agents. Should a concrete need for decoupling appear, reintroducing `llms:` front matter
-> (or promoting it to a `showInLlmsTxt()` method) is additive and non-breaking — so waiting
+> agents.
+>
+> The known cost is the converse case: a page kept out of the sitemap for SEO reasons
+> (thin content, a duplicate, a paginated archive) that would still be useful to an agent.
+> That site is not stuck today — overriding `shouldListPage()` on the generator and
+> rebinding it is exactly the D4 tier, and it is a three-line override. The trade is
+> deliberate: the edge case pays at the generator tier instead of every site paying for a
+> second front matter key. Should the case turn out to be common, reintroducing `llms:`
+> front matter (or promoting it to a `showInLlmsTxt()` method) is additive and
+> non-breaking — so waiting
 > for that evidence costs nothing, while shipping the key speculatively costs us the
 > support burden forever.
 
