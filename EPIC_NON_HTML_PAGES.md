@@ -157,11 +157,13 @@ Implementation notes (branch `v3/non-html-pages-foundation`):
   "Upgrade script rules" for the release-time Rector script.
 - Non-HTML extension handling was placed in `RouteKey::fromPage()` (see D1 note)
   rather than only in `outputPath()`, so route keys and output paths cannot drift.
-- One qualification to "no compiled-output changes": in-memory page identifiers
-  (including `hyde.redirects` paths) that already end in an allowlisted extension
-  previously produced double-extension output (`data.json.html`); they now compile
-  to the declared path as-is. Recorded in the v3 release notes as a breaking change,
-  though the old output was almost certainly never intended or relied upon.
+- One qualification to "no compiled-output changes": ordinary in-memory page
+  identifiers that already end in an allowlisted extension previously produced
+  double-extension output (`data.json.html`); they now compile to the declared
+  path as-is. `hyde.redirects` paths using those extensions are instead rejected
+  (see the D2 note), since their HTML meta-refresh content cannot work when served
+  as non-HTML. Both recorded in the v3 release notes as breaking changes, though
+  the old outputs were almost certainly never intended or relied upon.
 
 ### PR 2 — Realtime compiler: route-first resolution for non-HTML paths
 
