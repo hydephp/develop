@@ -94,6 +94,8 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
 
     abstract public function testShowInSitemap();
 
+    abstract public function testShowInLlmsTxt();
+
     abstract public function testGetSourcePath();
 
     abstract public function testGetLink();
