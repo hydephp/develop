@@ -93,10 +93,12 @@ versioned docs route keys like `docs/1.x/index` would false-positive
 > `InMemoryPage::EXPLICIT_OUTPUT_EXTENSIONS` constant, checked by
 > `identifierHasExplicitOutputExtension()`; subclasses customize the recognized
 > extensions by overriding the constant rather than the algorithm.
-> `Redirect` deliberately inherits it (no special case): a redirect declared for a
-> non-HTML path now emits its file at that exact path instead of an unreachable
-> double-extension path. Neither behavior can make a meta-refresh work when the
-> server serves the file as non-HTML — document that limitation in PR 8.
+> `Redirect` rejects source paths ending in a recognized non-HTML extension with
+> an `InvalidConfigurationException` (revised during PR 1 review from the earlier
+> "inherit with documented limitation" decision): a meta-refresh redirect cannot
+> work when the file is served as non-HTML, and neither the old unreachable
+> double-extension output nor an as-is file delivers the advertised redirect, so
+> the configuration fails fast instead of silently producing a broken page.
 
 ### D3: Sitemap inclusion becomes a page-level concern
 
