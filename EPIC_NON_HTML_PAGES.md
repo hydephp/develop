@@ -23,10 +23,12 @@ three different mechanisms for emitting non-HTML files, each with its own tradeo
    needs a hardcoded exemption to serve it
    (`packages/realtime-compiler/src/Routing/Router.php:72-75`).
 3. **Verbatim source files** (`HtmlPage`) are autodiscovered from `_pages` and copied
-   as-is — but only for `.html`.
+   as-is, but this is a source-file convenience specific to HTML rather than a
+   requirement for supporting non-HTML output.
 
-Unifying these under one model gives us `robots.txt`/`llms.txt` support nearly for
-free, fixes real bugs, and simplifies the framework.
+Making the output format part of the page model gives us `robots.txt`/`llms.txt`
+support nearly for free, fixes real bugs, and simplifies the framework. It does not
+require every output format to have a matching filesystem-discovered page class.
 
 ### Bugs and gaps this epic fixes
 
@@ -70,8 +72,9 @@ and `docs/search.json` (index) coexist as distinct routes, which they already do
 
 > **Implemented (PR 1):** `RouteKey::fromPage()` appends the page class's declared
 > non-HTML output extension to the key (skipping it when the identifier already ends
-> with it), so classes like PR 3's `TextPage` are D1-compliant out of the box and
-> PR 2 can rely on "route key == request path with only `.html` stripped" universally.
+> with it), so custom page classes declaring a non-HTML output extension are
+> D1-compliant out of the box and PR 2 can rely on "route key == request path with
+> only `.html` stripped" universally.
 
 ### D2: Output extension is declared, not inferred
 
@@ -79,8 +82,8 @@ Do **not** infer "this identifier has an extension" from a dot in the identifier
 versioned docs route keys like `docs/1.x/index` would false-positive
 (`pathinfo('docs/1.x')['extension'] === 'x'`). Instead the extension is declared:
 
-- File-discovered classes declare it statically, mirroring the existing
-  `HtmlPage::$sourceExtension` pattern: `TextPage::$outputExtension = '.txt'`.
+- File-discovered custom classes declare it statically, mirroring the existing
+  `HtmlPage::$sourceExtension` pattern.
 - `HydePage` gets `public static string $outputExtension = '.html'` (or an
   instance-level hook), and `outputPath()` uses it instead of the hardcoded
   `'.html'`. This removes the `getOutputPath()` override dance.
@@ -119,14 +122,35 @@ Registration happens in `HydeCoreExtension::discoverPages()` behind the existing
 `Features::hasSitemap()` / `Features::hasRss()` conditions, replacing the
 registrations in `BuildTaskService::registerFrameworkTasks()`.
 
-### D5: Source files beat generators
+### D5: User-defined pages beat generators
 
-If a user provides `_pages/robots.txt`, the framework does not register its generated
-`RobotsTxtPage`. Same pattern as `discoverDocumentationRootRedirect()`, which skips
-when a user-defined route exists. This gives a smooth escalation path:
-feature default → config tweaks → file on disk → fully dynamic page in code.
+If the page collection already contains a user-defined page with a route key such
+as `robots.txt`, the framework does not register its generated `RobotsTxtPage`.
+This follows the pattern of `discoverDocumentationRootRedirect()`, which skips when
+a user-defined route exists.
+Users can register an `InMemoryPage` from a service provider or provide a custom page
+class through an extension. This gives a smooth escalation path:
+feature default → config tweaks → fully custom page in code.
 
-## Work breakdown (one PR each, in dependency order)
+### D6: No built-in `TextPage` or `.txt` autodiscovery
+
+First-class non-HTML support is about a page's output path and participation in the
+route/build/serve lifecycle; it does not require a dedicated source-backed page class
+for each file extension. `InMemoryPage::make('robots.txt', contents: ...)` already
+provides the full lifecycle integration and is a better fit for the dynamic content
+advanced users commonly need, while the planned generated robots and llms pages cover
+the common cases without any source file at all.
+
+A core `TextPage` would add only the convenience of autodiscovering `_pages/*.txt`,
+while creating pressure for parallel `XmlPage`, `JsonPage`, and similar classes.
+Plain-text files also cannot carry front matter, requiring page-type defaults or
+special handling for navigation and sitemap behavior. That framework surface is not
+justified by the narrow drop-a-file use case. If demand emerges for filesystem-backed
+verbatim files, it should be designed as a generic raw/public-file mechanism instead
+of one page class per extension. Custom discoverable page classes remain supported as
+an extension point.
+
+## Work breakdown (planned PR sequence, in dependency order)
 
 ### PR 1 — Foundation: declared output extensions on `HydePage` ✅ Implemented
 
@@ -150,7 +174,7 @@ Implementation notes (branch `v3/non-html-pages-foundation`):
   (with `fileExtension()`/`setFileExtension()` becoming `sourceExtension()`/
   `setSourceExtension()`) so the source/output pair reads symmetrically — the old
   name really meant the source extension, and fixing the vocabulary before later
-  page types (`TextPage`, sitemap, RSS, robots, llms) build on it avoids much larger
+  non-HTML page types (sitemap, RSS, robots, llms) build on it avoids much larger
   churn. Clean break, no compatibility aliases: independently redeclared static
   properties cannot alias each other without precedence/synchronization hacks.
   The mechanical migration is recorded in `HYDEPHP_V3_PLANNING.md` under
@@ -198,21 +222,15 @@ Implementation notes (branch `v3/non-html-pages-realtime-compiler`):
   proxied like any other asset.
 - `getContentType()` untouched — no new content types came up.
 
-### PR 3 — `TextPage` class (the headline feature)
+### PR 3 — `TextPage` autodiscovery ❌ Removed from scope
 
-Goal: drop `_pages/robots.txt` in, get `_site/robots.txt` out.
-
-- New `TextPage extends HydePage`: `$sourceDirectory = '_pages'`,
-  `$outputDirectory = ''`, `$sourceExtension = '.txt'`,
-  `$outputExtension = '.txt'`; `compile()` returns file contents verbatim
-  (mirror `HtmlPage`).
-- Register in `HydeCoreExtension::getPageClasses()`. No `Feature::TextPages` enum
-  case — the feature is always on, since it is inert without source files.
-- Hidden from navigation menus by default; excluded from sitemap via PR 4's
-  mechanism (or an interim guard if PR 4 lands later).
-- Docs: static-pages page gains a "Text pages" section, including the in-code
-  variant (service provider / `booting()` callback assembling contents dynamically,
-  e.g. looping over routes to build a robots.txt — the `InMemoryPage` example).
+The proposed `TextPage` class was evaluated after the non-HTML foundation landed and
+removed from the epic per D6. The foundation already makes a `.txt` `InMemoryPage`
+first-class, the common robots/llms cases will have generated pages, and advanced
+content is often dynamic. Adding a core class solely for `_pages/*.txt` discovery
+would introduce extension-specific framework surface without solving the broader
+verbatim-file problem. Documentation will instead show the service provider /
+`booting()` registration pattern for custom text output.
 
 ### PR 4 — Sitemap inclusion policy
 
@@ -247,8 +265,8 @@ Goal: sensible robots.txt out of the box, zero config.
 
 - `RobotsTxtPage extends InMemoryPage`, route key `robots.txt`; default output
   `User-agent: * / Allow: /` plus a `Sitemap:` line when `Features::hasSitemap()`.
-- Config (e.g. `hyde.robots`) for disallow rules / disabling; source-file precedence
-  per D5 (a `_pages/robots.txt` `TextPage` wins).
+- Config (e.g. `hyde.robots`) for disallow rules / disabling; user-defined page
+  precedence per D5 (an explicitly registered `robots.txt` page wins).
 - Depends on PRs 1, 2, 5 patterns.
 
 ### PR 7 — Generated `llms.txt`
@@ -264,16 +282,18 @@ Goal: best-in-class llms.txt support — no other SSG generates this well out of
 
 ### PR 8 — Documentation & release notes
 
-- Document `TextPage`, in-code virtual pages, `sitemap: false` front matter,
-  robots/llms config, and the "source file beats generator" rule.
-- Update `HYDEPHP_V3_PLANNING.md` release notes: new features (TextPage, robots.txt,
-  llms.txt, serve support for sitemap/RSS), breaking changes (build task classes
+- Document in-code virtual pages, `sitemap: false` front matter, robots/llms config,
+  and the "user-defined page beats generator" rule.
+- Update `HYDEPHP_V3_PLANNING.md` release notes: new features (robots.txt, llms.txt,
+  serve support for sitemap/RSS), breaking changes (build task classes
   removed/relocated, search.json removed from sitemaps).
 
 ## Out of scope (noted for later)
 
-- Blade-processed text files (`robots.blade.txt`) analogous to `BladePage` — wait for
-  demand; the in-code `InMemoryPage` path covers dynamic cases.
+- Filesystem autodiscovery for verbatim or Blade-processed text files
+  (`robots.txt`, `robots.blade.txt`) — wait for demand; the in-code `InMemoryPage`
+  path covers custom and dynamic cases. If added later, prefer a generic mechanism
+  for raw/public files over extension-specific page classes.
 - `llms-full.txt` / per-page markdown exports.
 - Generalizing `GenerateBuildManifest` or search-index generation commands beyond
   what PR 5 requires.
