@@ -43,7 +43,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### Breaking Changes
 
-- In-memory pages (including redirects) with identifiers ending in `.json`, `.txt`, or `.xml` now compile to that path as-is, instead of having `.html` appended to the output filename. Sites relying on the old double-extension output (like `data.json.html`) need to rename such identifiers.
+- In-memory page identifiers ending in `.json`, `.txt`, or `.xml` (including redirect paths declared in `hyde.redirects`) now compile to that path as-is instead of gaining a second `.html` extension. The old double-extension outputs (like `data.json.html`) were almost certainly never intended, so no real sites are expected to be affected.
 - Removed `Redirect::create()`, `Redirect::store()`, and the `Redirect` constructor's `showText` argument. Redirects must now be declared in `hyde.redirects`, keeping all generated output inside the kernel-owned build graph. Redirect routes are intrinsically excluded from navigation menus and sitemaps, and always include an accessible fallback link.
 - Removed the `InMemoryPage` instance macro API. Dynamic contents should now be supplied with a closure, while custom methods and other behavior belong in an `InMemoryPage` subclass.
 - Removed `InMemoryPage` content-source precedence. Calls that previously supplied both `contents` and `view` must retain only the intended source; positional view calls that used an empty-string contents placeholder must use `null` instead.
