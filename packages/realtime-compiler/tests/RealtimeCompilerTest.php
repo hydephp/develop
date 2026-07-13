@@ -216,6 +216,65 @@ class RealtimeCompilerTest extends TestCase
         }
     }
 
+    public function testServesRegisteredPageRouteEvenWhenMatchingAssetExists()
+    {
+        $this->mockCompilerRoute('9.x');
+
+        Filesystem::ensureDirectoryExists('_pages/9.x');
+        Filesystem::put('_pages/9.x/index.md', '# Hello World!');
+        Filesystem::put('_media/9.x', 'static decoy');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertStringContainsString('Hello World!', $response->body);
+            $this->assertStringNotContainsString('static decoy', $response->body);
+        } finally {
+            Filesystem::deleteDirectory('_pages/9.x');
+            Filesystem::unlink('_media/9.x');
+        }
+    }
+
+    public function testDocsSearchJsonRouteWinsOverMatchingAssetFile()
+    {
+        $this->mockCompilerRoute('docs/search.json');
+
+        Filesystem::put('_docs/index.md', '# Hello World!');
+        Filesystem::ensureDirectoryExists('_media/docs');
+        Filesystem::put('_media/docs/search.json', '"static decoy"');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertNotSame('"static decoy"', $response->body);
+            $this->assertIsArray(json_decode($response->body, true));
+        } finally {
+            Filesystem::unlink('_docs/index.md');
+            Filesystem::deleteDirectory('_media/docs');
+        }
+    }
+
+    public function testProxiesRootLevelAssetWhenNoRouteMatchesThePath()
+    {
+        $this->mockCompilerRoute('data.json');
+
+        Filesystem::put('_media/data.json', '{"static": true}');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('{"static": true}', $response->body);
+        } finally {
+            Filesystem::unlink('_media/data.json');
+        }
+    }
+
     public function testTrailingSlashesAreNormalizedFromRoute()
     {
         $this->mockCompilerRoute('foo/');
