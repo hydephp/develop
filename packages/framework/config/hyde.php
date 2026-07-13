@@ -136,6 +136,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Robots.txt Generation
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, a robots.txt file allowing all crawlers will be generated
+    | when you compile your static site. A link to your sitemap is included
+    | when the sitemap feature is enabled.
+    |
+    | Paths added to the disallow array are written verbatim as Disallow
+    | rules for all crawlers, and should therefore start with a slash.
+    |
+    */
+
+    'robots' => [
+        // Should the robots.txt file be generated?
+        'enabled' => true,
+
+        // Paths to ask crawlers not to access.
+        'disallow' => [
+            // '/private',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Source Root Directory
     |--------------------------------------------------------------------------
     |
