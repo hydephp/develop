@@ -185,7 +185,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the output directory for the page type.
+     * Set the source directory for the page type.
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
@@ -193,7 +193,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the source directory for the page type.
+     * Set the output directory for the page type.
      */
     public static function setOutputDirectory(string $outputDirectory): void
     {
