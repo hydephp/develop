@@ -113,7 +113,6 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Add the generated robots.txt page unless the route is user-defined. */
     protected function discoverRobotsTxtPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, RobotsTxtPage::routeKey())) {
