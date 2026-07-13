@@ -16,10 +16,13 @@ use function Hyde\unslash;
  * Route keys provide the core bindings of the HydePHP routing system as they are what canonically identifies a page.
  * This class both provides a data object for normalized type-hintable values, and general related helper methods.
  *
- * In short, the route key is the URL path relative to the site webroot, without the file extension.
+ * In short, the route key is the URL path relative to the site webroot, without the HTML file extension.
  *
  * For example, `_pages/index.blade.php` would be compiled to `_site/index.html` and thus has the route key of `index`.
  * As another example, `_posts/welcome.md` would be compiled to `_site/posts/welcome.html` and thus has the route key of `posts/welcome`.
+ *
+ * Only the HTML extension is implicit: pages compiled to non-HTML files keep their extension in the route key,
+ * so the documentation search index saved to `_site/docs/search.json` has the route key `docs/search.json`.
  *
  * Note that if the source page's output directory is changed, the route key will change accordingly.
  * This can potentially cause links to break when changing the output directory for a page class.
