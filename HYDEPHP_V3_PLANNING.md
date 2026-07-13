@@ -76,6 +76,9 @@ track of them. Add an entry here whenever a change requires mechanical migration
   the framework calls `sourceExtension()`. The rule must be scoped to
   `Hyde\Pages\Concerns\HydePage` subclasses (or known Hyde symbols) — it must not rename
   unrelated properties or methods that happen to share the name.
+- The rename must also cover named arguments: `Page::setFileExtension(fileExtension: '.md')`
+  becomes `Page::setSourceExtension(sourceExtension: '.md')`, since the parameter was renamed
+  along with the method. Include a dedicated Rector fixture for this case.
 - Dynamic references cannot be migrated automatically and should be called out as manual
   upgrade cases: variable method/property names (`$method = 'fileExtension';
   $pageClass::$method()`), reflection, and string-based access.
