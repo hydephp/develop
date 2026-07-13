@@ -165,7 +165,7 @@ Implementation notes (branch `v3/non-html-pages-foundation`):
   as non-HTML. Both recorded in the v3 release notes as breaking changes, though
   the old outputs were almost certainly never intended or relied upon.
 
-### PR 2 — Realtime compiler: route-first resolution for non-HTML paths
+### PR 2 — Realtime compiler: route-first resolution for non-HTML paths ✅ Implemented
 
 Goal: `hyde serve` serves any registered route regardless of extension; no
 filename special cases.
@@ -177,6 +177,26 @@ filename special cases.
   missing-asset 404s, and `search.json` still served.
 - `PageRouter::getContentType()` already handles txt/xml/json; extend the map only
   if new types come up.
+
+Implementation notes (branch `v3/non-html-pages-realtime-compiler`):
+
+- The route lookup needs the booted application, but `shouldProxy()` ran before
+  booting, so the predicate was dissolved into `Router::handle()` instead of
+  booting inside it: the `/media/` prefix remains the only boot-free fast path,
+  and any other asset-like path is proxied only when no registered route matches.
+  Missing assets fall through to the 404 in `proxyStatic()`, which absorbed the
+  previous separate missing-asset branch (same response either way).
+- Perf consequence: requests for existing static files outside `media/` now boot
+  the app before being proxied, since routes must be consulted first. Such files
+  are rare (Hyde assets live under `media/`), and every non-proxied request
+  already booted.
+- Behavior fix beyond the search.json generalization: a static file whose path
+  shadowed a registered dotted route (like a `_media/9.x` file next to a
+  `9.x/index` page) was previously served instead of the page; the page now wins.
+  Conversely, a routeless file like `_media/search.json` requested as
+  `/search.json` was previously 404'd by the suffix special case and is now
+  proxied like any other asset.
+- `getContentType()` untouched — no new content types came up.
 
 ### PR 3 — `TextPage` class (the headline feature)
 

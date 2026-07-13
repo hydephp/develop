@@ -36,6 +36,7 @@ Having this document in code lets us know the devlopment state at any given poin
 ### Minor Changes and Cleanup
 
 - The `Redirect` page class constructor now accepts an optional `$matter` parameter, used by the framework to hide the generated documentation root redirect from navigation menus. Existing usages are unaffected.
+- The realtime compiler now resolves registered page routes before proxying static assets, replacing the hardcoded `search.json` exemption, so `hyde serve` serves any registered route regardless of its output extension. Registered pages now always win over a static file at the same path; the previous behavior of serving such a shadowing file only affected the dev server and no real setups are expected to be affected.
 
 - Removed the legacy `checkForDeprecatedRunMixCommandUsage` check and the placeholder `--run-dev`/`--run-prod` options from the `build` command, which were kept in v2 only to surface a helpful error message. ([#2461](https://github.com/hydephp/develop/pull/2461))
 - Removed the deprecated `hyde.server.dashboard` boolean config check from `DashboardController::enabled()`, which was kept in v2 for backwards compatibility but had since then been replaced with `hyde.server.dashboard.enabled`. ([#2461](https://github.com/hydephp/develop/pull/2462))
