@@ -21,6 +21,7 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\XmlGenerators\SitemapPage;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
@@ -79,6 +80,18 @@ class HydeCoreExtension extends HydeExtension
                     $collection->addPage(new DocumentationSearchPage());
                 }
             }
+        }
+
+        if (Features::hasSitemap()) {
+            $this->discoverSitemapPage($collection);
+        }
+    }
+
+    /** Add the generated sitemap page unless the route is user-defined. */
+    protected function discoverSitemapPage(PageCollection $collection): void
+    {
+        if (! $this->hasPageWithRouteKey($collection, SitemapPage::routeKey())) {
+            $collection->addPage(new SitemapPage());
         }
     }
 
