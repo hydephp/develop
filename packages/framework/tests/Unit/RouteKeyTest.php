@@ -99,6 +99,12 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('foo.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo.txt'));
     }
 
+    public function testFromPageWithNonHtmlOutputExtensionAndEmptyIdentifierAppendsExtensionToOutputDirectory()
+    {
+        $this->assertEquals(new RouteKey('feed.xml'), RouteKey::fromPage(NonHtmlOutputDirectoryPageStub::class, ''));
+        $this->assertEquals(new RouteKey('feed/episode.xml'), RouteKey::fromPage(NonHtmlOutputDirectoryPageStub::class, 'episode'));
+    }
+
     public function testFromPageWithCustomOutputDirectory()
     {
         MarkdownPage::setOutputDirectory('foo');
@@ -158,6 +164,17 @@ class RouteKeyTest extends UnitTestCase
 class NonHtmlOutputPageStub extends HydePage
 {
     public static string $outputExtension = '.txt';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class NonHtmlOutputDirectoryPageStub extends HydePage
+{
+    public static string $outputDirectory = 'feed';
+    public static string $outputExtension = '.xml';
 
     public function compile(): string
     {
