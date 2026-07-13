@@ -20,7 +20,7 @@ class GenerateBuildManifestTest extends UnitTestCase
 
     public function testActionGeneratesBuildManifest()
     {
-        self::mockConfig(['hyde.robots.enabled' => false]);
+        self::mockConfig(['hyde.robots.enabled' => false, 'hyde.llms.enabled' => false]);
 
         Hyde::pages()->addPage(new DocumentationSearchIndex());
 

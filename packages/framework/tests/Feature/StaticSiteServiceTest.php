@@ -145,7 +145,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function testOnlyProgressBarsForTypesWithPagesAreShown()
     {
-        config(['hyde.generate_sitemap' => false, 'hyde.robots.enabled' => false]);
+        config(['hyde.generate_sitemap' => false, 'hyde.robots.enabled' => false, 'hyde.llms.enabled' => false]);
 
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
