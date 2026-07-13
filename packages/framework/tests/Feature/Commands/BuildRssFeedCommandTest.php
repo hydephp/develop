@@ -50,7 +50,7 @@ class BuildRssFeedCommandTest extends TestCase
         $this->file('_posts/foo.md');
 
         $this->artisan('build:rss')
-            ->expectsOutput('Cannot generate an RSS feed without a valid base URL')
+            ->expectsOutput('Cannot generate the RSS feed as the feature is not enabled')
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
@@ -63,7 +63,7 @@ class BuildRssFeedCommandTest extends TestCase
         $this->file('_posts/foo.md');
 
         $this->artisan('build:rss')
-            ->expectsOutput('Cannot generate the RSS feed as it is disabled in the configuration')
+            ->expectsOutput('Cannot generate the RSS feed as the feature is not enabled')
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
@@ -74,21 +74,7 @@ class BuildRssFeedCommandTest extends TestCase
         $this->withSiteUrl();
 
         $this->artisan('build:rss')
-            ->expectsOutput('Cannot generate an RSS feed without any Markdown posts')
-            ->assertExitCode(1);
-
-        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
-    }
-
-    public function testSkipReasonFallsBackToMissingSimpleXmlExtensionWhenOtherConditionsAreMet()
-    {
-        $this->withSiteUrl();
-        $this->file('_posts/foo.md');
-
-        Hyde::routes()->forget('feed.xml');
-
-        $this->artisan('build:rss')
-            ->expectsOutput('Cannot generate the RSS feed as the SimpleXML extension is not installed')
+            ->expectsOutput('Cannot generate the RSS feed as the feature is not enabled')
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));

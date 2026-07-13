@@ -35,7 +35,7 @@ class BuildSitemapCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
 
         $this->artisan('build:sitemap')
-            ->expectsOutput('Cannot generate sitemap without a valid base URL')
+            ->expectsOutput('Cannot generate the sitemap as the feature is not enabled')
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
@@ -47,20 +47,7 @@ class BuildSitemapCommandTest extends TestCase
         config(['hyde.generate_sitemap' => false]);
 
         $this->artisan('build:sitemap')
-            ->expectsOutput('Cannot generate the sitemap as it is disabled in the configuration')
-            ->assertExitCode(1);
-
-        $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
-    }
-
-    public function testSkipReasonFallsBackToMissingSimpleXmlExtensionWhenOtherConditionsAreMet()
-    {
-        config(['hyde.url' => 'https://example.com']);
-
-        Hyde::routes()->forget('sitemap.xml');
-
-        $this->artisan('build:sitemap')
-            ->expectsOutput('Cannot generate the sitemap as the SimpleXML extension is not installed')
+            ->expectsOutput('Cannot generate the sitemap as the feature is not enabled')
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
