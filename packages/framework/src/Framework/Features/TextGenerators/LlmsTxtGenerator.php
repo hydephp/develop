@@ -15,11 +15,11 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
 
+use function addcslashes;
 use function array_fill_keys;
 use function array_filter;
 use function array_values;
 use function filled;
-use function filter_var;
 use function implode;
 use function is_string;
 use function preg_replace;
@@ -33,10 +33,14 @@ use function trim;
  * heading, the configured `hyde.llms.description` as the summary blockquote, and the site's
  * pages as Markdown links, grouped into a section for each page type.
  *
- * Pages are listed when they are included in the sitemap, so a page excluded from the sitemap
- * is left out of this file as well. Use `llms: false` front matter to leave out a single page
- * regardless of its sitemap state, and `llms: true` to add one back. The `abstract` front
- * matter of a page, falling back to its `description`, is used as its link description.
+ * A page is listed when it is included in the sitemap, as both files are machine-readable
+ * indexes of the site's published pages, meaning `sitemap: false` front matter leaves a page
+ * out of both. The `abstract` front matter of a page, falling back to its `description`, is
+ * used as its link description.
+ *
+ * Sections are written in the order they are declared in, and the pages within each section
+ * are written in route order, which is the same order the sitemap lists and the build compiles
+ * them in, so numerically prefixed source files keep their intended reading order.
  *
  * Note that llms.txt is an emerging standard which is still subject to change, so the format
  * of the generated file may change in future minor and patch releases to follow the spec.
@@ -46,25 +50,28 @@ use function trim;
  */
 class LlmsTxtGenerator
 {
-    /**
-     * The page types listed in the file, and the section heading each is listed under.
-     *
-     * Sections are written in the order declared here, and pages of a type not listed
-     * here, like the virtual pages Hyde generates, are not added to the file.
-     *
-     * @var array<class-string<\Hyde\Pages\Concerns\HydePage>, string>
-     */
-    protected const SECTIONS = [
-        HtmlPage::class => 'Pages',
-        BladePage::class => 'Pages',
-        MarkdownPage::class => 'Pages',
-        DocumentationPage::class => 'Documentation',
-        MarkdownPost::class => 'Blog Posts',
-    ];
-
     public function generate(): string
     {
         return implode("\n", $this->getLines())."\n";
+    }
+
+    /**
+     * The page types listed in the file, and the section heading each is listed under.
+     *
+     * Pages of a type not listed here, like the virtual pages Hyde generates, are not
+     * added to the file. Override this to group your own page types into sections.
+     *
+     * @return array<class-string<\Hyde\Pages\Concerns\HydePage>, string>
+     */
+    protected function sections(): array
+    {
+        return [
+            HtmlPage::class => 'Pages',
+            BladePage::class => 'Pages',
+            MarkdownPage::class => 'Pages',
+            DocumentationPage::class => 'Documentation',
+            MarkdownPost::class => 'Blog Posts',
+        ];
     }
 
     /** @return array<string> */
@@ -99,45 +106,43 @@ class LlmsTxtGenerator
      */
     protected function getSections(): array
     {
-        $sections = array_fill_keys(array_values(static::SECTIONS), []);
+        $sections = $this->sections();
 
-        Routes::all()->each(function (Route $route) use (&$sections): void {
+        $grouped = array_fill_keys(array_values($sections), []);
+
+        Routes::all()->each(function (Route $route) use ($sections, &$grouped): void {
             $page = $route->getPage();
 
             if (! $this->shouldListPage($page)) {
                 return;
             }
 
-            foreach (static::SECTIONS as $pageClass => $heading) {
+            foreach ($sections as $pageClass => $heading) {
                 if ($page instanceof $pageClass) {
-                    $sections[$heading][] = $route;
+                    $grouped[$heading][] = $route;
 
                     return;
                 }
             }
         });
 
-        return array_filter($sections);
+        return array_filter($grouped);
     }
 
     /**
-     * Pages follow their sitemap inclusion unless they set the `llms` front matter key.
-     * Error pages are never listed, as they are not content.
+     * Pages are listed when they are included in the sitemap, apart from error pages,
+     * which are never listed as they are not content.
      */
     protected function shouldListPage(HydePage $page): bool
     {
-        if ($page->getIdentifier() === '404') {
-            return false;
-        }
-
-        return filter_var($page->matter('llms', $page->showInSitemap()), FILTER_VALIDATE_BOOLEAN);
+        return $page->showInSitemap() && $page->getIdentifier() !== '404';
     }
 
     protected function makeLink(Route $route): string
     {
         $page = $route->getPage();
 
-        $link = sprintf('- [%s](%s)', $page->title, Hyde::url($route->getOutputPath()));
+        $link = sprintf('- [%s](%s)', $this->escapeLinkLabel($page->title), Hyde::url($route->getOutputPath()));
 
         $description = $this->getPageDescription($page);
 
@@ -153,6 +158,15 @@ class LlmsTxtGenerator
         }
 
         return $this->normalizeText($description);
+    }
+
+    /**
+     * Escape the characters that would otherwise terminate the Markdown link label,
+     * so that a title like "Arrays [Advanced]" does not emit a malformed link.
+     */
+    protected function escapeLinkLabel(string $label): string
+    {
+        return addcslashes($this->normalizeText($label), '[]\\');
     }
 
     /**
