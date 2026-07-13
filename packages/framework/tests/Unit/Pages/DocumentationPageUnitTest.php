@@ -88,6 +88,12 @@ class DocumentationPageUnitTest extends BaseMarkdownPageUnitTest
         $this->assertTrue((new DocumentationPage())->showInNavigation());
     }
 
+    public function testShowInSitemap()
+    {
+        $this->assertTrue((new DocumentationPage())->showInSitemap());
+        $this->assertFalse((new DocumentationPage('foo', ['sitemap' => false]))->showInSitemap());
+    }
+
     public function testNavigationMenuPriority()
     {
         $this->assertSame(999, (new DocumentationPage())->navigationMenuPriority());
