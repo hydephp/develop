@@ -42,11 +42,11 @@ class MarkdownPostUnitTest extends BaseMarkdownPageUnitTest
         );
     }
 
-    public function testFileExtension()
+    public function testSourceExtension()
     {
         $this->assertSame(
             '.md',
-            MarkdownPost::fileExtension()
+            MarkdownPost::sourceExtension()
         );
     }
 

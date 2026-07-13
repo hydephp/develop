@@ -467,8 +467,8 @@ class DashboardController extends BaseController
     {
         $title = trim($title, '/\\');
 
-        if (str_ends_with(strtolower($title), HtmlPage::fileExtension())) {
-            $title = substr($title, 0, -strlen(HtmlPage::fileExtension()));
+        if (str_ends_with(strtolower($title), HtmlPage::sourceExtension())) {
+            $title = substr($title, 0, -strlen(HtmlPage::sourceExtension()));
         }
 
         $directory = str_contains($title, '/')
