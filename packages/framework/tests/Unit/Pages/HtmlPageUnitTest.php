@@ -122,6 +122,12 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         $this->assertTrue((new HtmlPage())->showInNavigation());
     }
 
+    public function testShowInSitemap()
+    {
+        $this->assertTrue((new HtmlPage())->showInSitemap());
+        $this->assertFalse((new HtmlPage('foo', ['sitemap' => false]))->showInSitemap());
+    }
+
     public function testNavigationMenuPriority()
     {
         $this->assertSame(999, (new HtmlPage())->navigationMenuPriority());
