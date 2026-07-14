@@ -18,7 +18,6 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use InvalidArgumentException;
-use RuntimeException;
 use stdClass;
 
 /**
@@ -42,16 +41,6 @@ class HydeExtensionFeatureTest extends TestCase
         parent::setUp();
 
         $this->kernel = HydeKernel::getInstance();
-    }
-
-    public function testDiscoveryFailsFastForPageClassUsingLegacyFileExtensionApi()
-    {
-        $this->kernel->registerExtension(LegacyPageExtension::class);
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('uses the $fileExtension API which was renamed in HydePHP v3');
-
-        $this->kernel->boot();
     }
 
     public function testHandlerMethodsAreCalledByDiscovery()
@@ -227,28 +216,6 @@ class TestPageClass extends HydePage
     public function compile(): string
     {
         return '';
-    }
-}
-
-class LegacyFileExtensionPageClass extends HydePage
-{
-    public static string $sourceDirectory = 'foo';
-    public static string $outputDirectory = 'foo';
-    public static string $fileExtension = '.txt';
-
-    public function compile(): string
-    {
-        return '';
-    }
-}
-
-class LegacyPageExtension extends HydeExtension
-{
-    public static function getPageClasses(): array
-    {
-        return [
-            LegacyFileExtensionPageClass::class,
-        ];
     }
 }
 

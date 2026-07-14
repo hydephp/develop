@@ -285,9 +285,6 @@ The automated upgrade script will handle this rename for ordinary property decla
 method calls, and overridden method declarations. Dynamic references — variable method or property names,
 reflection, and string-based access — must be updated manually.
 
-You do not need to hunt for affected classes: page discovery fails fast with an exception naming any
-registered page class that still uses the old API, instead of silently skipping the class during builds.
-
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
