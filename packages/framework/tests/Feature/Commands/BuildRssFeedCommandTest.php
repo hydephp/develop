@@ -44,6 +44,18 @@ class BuildRssFeedCommandTest extends TestCase
         Filesystem::unlink('_site/blog.xml');
     }
 
+    public function testRssFilenameCanUseAnImplicitHtmlRouteKey()
+    {
+        $this->withSiteUrl();
+        config(['hyde.rss.filename' => 'blog.html']);
+        $this->file('_posts/foo.md');
+
+        $this->artisan('build:rss')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/blog.html'));
+        Filesystem::unlink('_site/blog.html');
+    }
+
     public function testRssFeedIsNotGeneratedWithoutSiteUrl()
     {
         config(['hyde.url' => '']);

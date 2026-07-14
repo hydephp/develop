@@ -94,6 +94,15 @@ class RssFeedPageTest extends TestCase
         $this->assertSame('feed.rss', Routes::get('feed.rss')->getPage()->getOutputPath());
     }
 
+    public function testConfiguredHtmlFilenameUsesAnImplicitHtmlRouteKey()
+    {
+        config(['hyde.rss.filename' => 'feed.html']);
+
+        $this->assertFalse(Routes::exists('feed.html'));
+        $this->assertTrue(Routes::exists('feed'));
+        $this->assertSame('feed.html', Routes::get('feed')->getPage()->getOutputPath());
+    }
+
     public function testFeedPageIsHiddenFromNavigationAndExcludesItselfFromTheSitemap()
     {
         $page = new GeneratedFilePage(GeneratedFileRegistry::rssOutputPath(), RssFeedGenerator::class);

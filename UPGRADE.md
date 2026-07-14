@@ -17,6 +17,20 @@ InMemoryPage::file('robots.txt', contents: $text);
 // _site/robots.txt
 ```
 
+Route keys are always derived from the resolved output path by removing only its final `.html` extension. This also
+applies to exact-path files, so the page and file constructors intentionally differ for an identifier ending in HTML:
+
+```php
+InMemoryPage::file('download.html');
+// output: download.html, route key: download
+
+InMemoryPage::make('download.html');
+// output: download.html.html, route key: download.html
+```
+
+Custom pages that override `getOutputPath()` no longer need to override `getRouteKey()`. The route key is resolved
+lazily, so output paths backed by instance state are safe to initialize after calling the parent constructor.
+
 ## Before You Begin
 
 ### Prerequisites

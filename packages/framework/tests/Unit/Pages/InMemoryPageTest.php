@@ -174,6 +174,15 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('docs/1.x/search.json', InMemoryPage::file('docs/1.x/search.json')->getOutputPath());
     }
 
+    public function testExactHtmlFileUsesTheUniversalImplicitHtmlRouteRule()
+    {
+        $this->assertSame('download.html', InMemoryPage::file('download.html')->getOutputPath());
+        $this->assertSame('download', InMemoryPage::file('download.html')->getRouteKey());
+
+        $this->assertSame('download.html.html', InMemoryPage::make('download.html')->getOutputPath());
+        $this->assertSame('download.html', InMemoryPage::make('download.html')->getRouteKey());
+    }
+
     #[DataProvider('invalidExactOutputPaths')]
     public function testFileRejectsInvalidOutputPaths(string $path): void
     {
@@ -216,6 +225,52 @@ class InMemoryPageTest extends TestCase
         };
 
         $this->assertSame('custom/data.json', $page->getRouteKey());
+    }
+
+    public function testOverriddenOutputPathCanUseStateInitializedAfterParentConstructor()
+    {
+        $this->withSiteUrl();
+
+        $page = new class extends InMemoryPage
+        {
+            private string $resolvedOutputPath;
+
+            public function __construct()
+            {
+                parent::__construct('custom');
+
+                $this->resolvedOutputPath = 'custom/data.json';
+            }
+
+            public function getOutputPath(): string
+            {
+                return $this->resolvedOutputPath;
+            }
+        };
+
+        $this->assertSame('custom/data.json', $page->getRouteKey());
+        $this->assertSame('https://example.com/custom/data.json', $page->getCanonicalUrl());
+        $this->assertStringContainsString('custom/data.json', $page->metadata()->render());
+    }
+
+    public function testRouteKeyTracksMutableOutputPathResolution()
+    {
+        $page = new class extends InMemoryPage
+        {
+            public string $resolvedOutputPath = 'first.html';
+
+            public function getOutputPath(): string
+            {
+                return $this->resolvedOutputPath;
+            }
+        };
+
+        $this->assertSame('first', $page->getRouteKey());
+
+        $page->resolvedOutputPath = 'second.json';
+
+        $this->assertSame('second.json', $page->getRouteKey());
+        $this->assertSame('second.json', $page->routeKey);
     }
 
     public function testGetLinkForFile()

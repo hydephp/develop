@@ -176,6 +176,14 @@ class HydePageTest extends TestCase
         $this->assertSame(TestPage::outputDirectory(), TestPage::baseRouteKey());
     }
 
+    public function testCustomBaseRouteKeyRemainsPartOfTheOutputPath()
+    {
+        $page = new CustomBaseRouteKeyTestPage('hello-world');
+
+        $this->assertSame('custom/hello-world.html', $page->getOutputPath());
+        $this->assertSame('custom/hello-world', $page->getRouteKey());
+    }
+
     public function testIsDiscoverable()
     {
         $this->assertTrue(TestPage::isDiscoverable());
@@ -1334,6 +1342,18 @@ class NonHtmlOutputTestPage extends HydePage
     public static string $sourceExtension = '.txt';
     public static string $outputExtension = '.txt';
     public static string $template = 'template';
+}
+
+class CustomBaseRouteKeyTestPage extends HydePage
+{
+    use VoidCompiler;
+
+    public static string $outputDirectory = 'ignored';
+
+    public static function baseRouteKey(): string
+    {
+        return 'custom';
+    }
 }
 
 class MissingDotOutputExtensionTestPage extends HydePage

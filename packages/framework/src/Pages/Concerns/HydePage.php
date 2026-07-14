@@ -52,6 +52,8 @@ use function str_starts_with;
  * In Blade views, you can always access the current page instance being rendered using the $page variable.
  *
  * @see \Hyde\Pages\Concerns\BaseMarkdownPage
+ *
+ * @property-read string $routeKey The lazily resolved route key. Prefer getRouteKey().
  */
 abstract class HydePage implements PageSchema, SerializableContract
 {
@@ -66,7 +68,6 @@ abstract class HydePage implements PageSchema, SerializableContract
     public static string $template;
 
     public readonly string $identifier;
-    public readonly string $routeKey;
     public readonly string $title;
 
     public FrontMatter $matter;
@@ -88,7 +89,6 @@ abstract class HydePage implements PageSchema, SerializableContract
     {
         $this->identifier = $identifier;
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
-        $this->routeKey = RouteKey::fromOutputPath($this->getOutputPath())->get();
 
         $this->constructFactoryData();
         $this->constructMetadata();
@@ -237,7 +237,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function outputPath(string $identifier): string
     {
-        $outputPath = unslash(static::outputDirectory().'/'.static::normalizeOutputIdentifier($identifier));
+        $outputPath = unslash(static::baseRouteKey().'/'.static::normalizeOutputIdentifier($identifier));
         $extension = static::outputExtension();
 
         if ($extension !== '.html' && str_ends_with($outputPath, $extension)) {
@@ -306,7 +306,7 @@ abstract class HydePage implements PageSchema, SerializableContract
         return [
             'class' => static::class,
             'identifier' => $this->identifier,
-            'routeKey' => $this->routeKey,
+            'routeKey' => $this->getRouteKey(),
             'matter' => $this->matter,
             'metadata' => $this->metadata,
             'navigation' => $this->navigation,
@@ -349,7 +349,27 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRouteKey(): string
     {
-        return $this->routeKey;
+        return RouteKey::fromOutputPath($this->getOutputPath())->get();
+    }
+
+    /**
+     * Preserve read access to the historical public routeKey property while
+     * resolving it lazily from the authoritative output path.
+     */
+    public function __get(string $property): mixed
+    {
+        if ($property === 'routeKey') {
+            return $this->getRouteKey();
+        }
+
+        trigger_error(sprintf('Undefined property: %s::$%s', static::class, $property), E_USER_WARNING);
+
+        return null;
+    }
+
+    public function __isset(string $property): bool
+    {
+        return $property === 'routeKey';
     }
 
     /**

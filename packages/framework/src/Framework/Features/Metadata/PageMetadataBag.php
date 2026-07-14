@@ -8,24 +8,51 @@ use Hyde\Facades\Meta;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Foundation\Kernel\Hyperlinks;
+use Hyde\Support\Facades\Render;
 
 use function substr_count;
 use function str_repeat;
+use function str_starts_with;
 
 class PageMetadataBag extends MetadataBag
 {
     protected HydePage $page;
+    protected bool $generated = false;
+    protected bool $generating = false;
 
     public function __construct(HydePage $page)
     {
         $this->page = $page;
-
-        $this->generate();
     }
 
-    protected function generate(): void
+    public function get(): array
     {
-        $this->addDynamicPageMetadata($this->page);
+        $this->generateIfNeeded();
+
+        return parent::get();
+    }
+
+    public function add(MetadataElementContract|string $element): static
+    {
+        $this->generateIfNeeded();
+
+        return parent::add($element);
+    }
+
+    protected function generateIfNeeded(): void
+    {
+        if ($this->generated || $this->generating) {
+            return;
+        }
+
+        $this->generating = true;
+
+        try {
+            $this->addDynamicPageMetadata($this->page);
+            $this->generated = true;
+        } finally {
+            $this->generating = false;
+        }
     }
 
     protected function addDynamicPageMetadata(HydePage $page): void
@@ -79,13 +106,24 @@ class PageMetadataBag extends MetadataBag
 
     protected function resolveImageLink(string $image): string
     {
-        // Since this is run before the page is rendered, we don't have the currentPage property.
-        // So we need to run some of the same calculations here to resolve the image path link.
-        return Hyperlinks::isRemote($image) ? $image : $this->calculatePathTraversal().$image;
+        if (Hyperlinks::isRemote($image) || str_starts_with($image, '../')) {
+            return $image;
+        }
+
+        return $this->calculatePathTraversal().$image;
     }
 
     private function calculatePathTraversal(): string
     {
-        return str_repeat('../', substr_count(MarkdownPost::outputDirectory().'/'.$this->page->identifier, '/'));
+        $routeKey = Render::getPage() === $this->page ? Render::getRouteKey() : null;
+
+        if ($routeKey !== null) {
+            return str_repeat('../', substr_count($routeKey, '/'));
+        }
+
+        $depth = substr_count($this->page->getOutputPath(), '/');
+
+        // Empty post identifiers historically resolve relative to the post output directory.
+        return str_repeat('../', $depth + (int) ($this->page->identifier === ''));
     }
 }
