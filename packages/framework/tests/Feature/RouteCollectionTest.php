@@ -11,6 +11,7 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\HtmlPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
@@ -112,6 +113,28 @@ class RouteCollectionTest extends TestCase
         $collection->addRoute(new Route(new BladePage('new')));
         $this->assertCount(3, $collection);
         $this->assertEquals(new Route(new BladePage('new')), $collection->last());
+    }
+
+    public function testRegisteredRouteIdentityRemainsStableWhenOutputResolutionChanges()
+    {
+        $page = new class extends InMemoryPage
+        {
+            public string $resolvedOutputPath = 'first.html';
+
+            public function getOutputPath(): string
+            {
+                return $this->resolvedOutputPath;
+            }
+        };
+
+        $collection = Hyde::routes();
+        $collection->addRoute(new Route($page));
+
+        $page->resolvedOutputPath = 'second.json';
+
+        $this->assertTrue($collection->has('first'));
+        $this->assertFalse($collection->has('second.json'));
+        $this->assertSame('first', $collection->get('first')->getRouteKey());
     }
 
     public function testGetRoute()

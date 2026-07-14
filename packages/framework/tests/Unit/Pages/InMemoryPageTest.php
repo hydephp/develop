@@ -253,7 +253,7 @@ class InMemoryPageTest extends TestCase
         $this->assertStringContainsString('custom/data.json', $page->metadata()->render());
     }
 
-    public function testRouteKeyTracksMutableOutputPathResolution()
+    public function testRouteKeyIsResolvedLazilyButRemainsStable()
     {
         $page = new class extends InMemoryPage
         {
@@ -269,8 +269,20 @@ class InMemoryPageTest extends TestCase
 
         $page->resolvedOutputPath = 'second.json';
 
-        $this->assertSame('second.json', $page->getRouteKey());
-        $this->assertSame('second.json', $page->routeKey);
+        $this->assertSame('first', $page->getRouteKey());
+        $this->assertSame('first', $page->routeKey);
+    }
+
+    public function testCompatibilityRouteKeyPropertyCannotBeAssignedExternally()
+    {
+        $page = new InMemoryPage('first');
+
+        $this->assertTrue(property_exists($page, 'routeKey'));
+        $this->assertSame('first', $page->routeKey);
+
+        $this->expectException(\Error::class);
+
+        $page->routeKey = 'incorrect';
     }
 
     public function testGetLinkForFile()

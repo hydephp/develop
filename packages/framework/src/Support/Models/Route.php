@@ -27,6 +27,9 @@ class Route implements Stringable, SerializableContract
     public function __construct(HydePage $page)
     {
         $this->page = $page;
+
+        // Entering the route lifecycle finalizes the page's lazily resolved identity.
+        $this->page->getRouteKey();
     }
 
     /**

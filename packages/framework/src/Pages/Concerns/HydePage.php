@@ -70,6 +70,8 @@ abstract class HydePage implements PageSchema, SerializableContract
     public readonly string $identifier;
     public readonly string $title;
 
+    protected readonly string $routeKey;
+
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
     public NavigationData $navigation;
@@ -349,7 +351,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRouteKey(): string
     {
-        return RouteKey::fromOutputPath($this->getOutputPath())->get();
+        return $this->routeKey ??= RouteKey::fromOutputPath($this->getOutputPath())->get();
     }
 
     /**
