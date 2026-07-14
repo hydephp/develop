@@ -31,20 +31,50 @@ _To see how to register the page, see the examples below. But first we must look
 
 To create an InMemoryPage, you need to instantiate it with the required parameters.
 
-Since a page would not be useful without any content to render, the class offers two content options through the constructor.
+The constructor supports three content strategies: literal string contents, lazy closure contents, and Blade view rendering.
 
-You can either pass a string to the `$contents` parameter, Hyde will then save that literally as the page's contents.
+Pass a string to the `$contents` parameter when the page contents are already available. Hyde saves the string literally.
 
 ```php
-$page = new InMemoryPage(contents: 'Hello World!');
+$page = new InMemoryPage('robots.txt', contents: "User-agent: *\n");
 ```
 
-Alternatively, you can pass a Blade view name to the `$view` parameter, and Hyde will use that view to render the page
-contents with the supplied front matter during the static site build process.
+Pass a closure when the contents should be generated lazily during compilation. The closure is resolved again for each
+compilation, which makes it useful for pages generated from the current application state.
+
+```php
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
+use Hyde\Pages\InMemoryPage;
+
+$page = new InMemoryPage(
+    'sitemap.xml',
+    ['navigation' => ['hidden' => true]],
+    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+);
+```
+
+Non-static closures are bound to the page instance, so they can use `$this` to access page context such as front matter.
+
+```php
+$page = new InMemoryPage(
+    'example.txt',
+    ['title' => 'Example'],
+    function (): string {
+        return $this->matter->get('title');
+    },
+);
+```
+
+Static closures are also supported, but they run unbound and cannot use `$this`. The `$contents` parameter accepts only
+a string or closure, not arbitrary callables.
+
+Alternatively, pass a Blade view name or arbitrary `.blade.php` file to the `$view` parameter. Hyde renders the view
+with the supplied front matter during the static site build process.
 
 >warning Note that `$contents` take precedence over `$view`, so if you pass both, only `$contents` will be used.
+> This includes a closure that returns an empty string. A view is used only when literal contents are the empty string.
 
-You can also register a macro with the name `compile` to overload the default compile method.
+For complete control beyond these strategies, extend `InMemoryPage` and override `compile()` in your custom page class.
 
 ## Registering the Page
 

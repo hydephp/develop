@@ -178,9 +178,7 @@ class BuildSearchCommandTest extends TestCase
     {
         Hyde::pages()->addPage(new SearchIndexOverrideTestPage());
 
-        Hyde::pages()->addPage(tap(new InMemoryPage('docs/search'), function (InMemoryPage $page): void {
-            $page->macro('compile', fn () => 'Foo');
-        }));
+        Hyde::pages()->addPage(new InMemoryPage('docs/search', contents: fn (): string => 'Foo'));
 
         $this->artisan('build:search')->assertExitCode(0);
 
