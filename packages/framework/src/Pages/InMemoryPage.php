@@ -10,8 +10,8 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
-use ReflectionFunction;
 
+use function app;
 use function sprintf;
 
 /**
@@ -22,7 +22,7 @@ use function sprintf;
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
  *
  * Pages may use literal string contents, a lazy closure, or a Blade view. Configured contents take precedence over
- * a view. Non-static closures are bound to the page instance and may use $this, while static closures run unbound.
+ * a view. Content closures are invoked through the application container and may receive injected dependencies.
  * Instance macros may add per-page methods, but cannot override compile().
  *
  * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
@@ -53,8 +53,7 @@ class InMemoryPage extends HydePage
      *
      * The in-memory page class offers three content strategies. You can pass a literal string or a lazy closure to
      * the $contents parameter, or pass a view name or Blade file to the $view parameter. Closures are resolved each
-     * time the contents are requested. Non-static closures are bound to this page and may use $this. Static closures
-     * are supported but run unbound and cannot use $this.
+     * time the contents are requested through the application container, allowing dependencies to be injected.
      *
      * Configured contents take precedence over a view, including closures that return an empty string.
      *
@@ -75,20 +74,12 @@ class InMemoryPage extends HydePage
         $this->view = $view;
     }
 
-    /** Get the literal contents or lazily resolve the configured content closure. */
+    /** Get the literal contents or resolve the configured content closure through the application container. */
     public function getContents(): string
     {
-        if (! $this->contents instanceof Closure) {
-            return $this->contents;
-        }
-
-        $contents = $this->contents;
-
-        if (! (new ReflectionFunction($contents))->isStatic()) {
-            $contents = $contents->bindTo($this, static::class);
-        }
-
-        return $contents();
+        return $this->contents instanceof Closure
+            ? app()->call($this->contents)
+            : $this->contents;
     }
 
     /** Get the view key or Blade file for the view to use to render the page contents when this strategy is used. */

@@ -193,12 +193,12 @@ $page->macro(
 $page = new InMemoryPage(
     'sitemap.xml',
     ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    fn (SitemapGenerator $generator): string => $generator->generate()->getXml(),
 );
 ```
 
-Closures are resolved lazily during compilation and are not cached. Non-static closures are bound to the page instance,
-so they can use `$this`; static closures are supported when page context is not needed.
+Closures are resolved lazily through the application container during compilation and are not cached. Dependencies
+declared as closure parameters are injected when the contents are requested, and existing closure bindings are preserved.
 
 Other instance macros remain supported for adding per-instance methods. Use closure contents for dynamic output, keep
 macros for additional per-instance methods, and create an `InMemoryPage` subclass when you need complete class-level

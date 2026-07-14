@@ -28,7 +28,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 - Blade in Markdown is now enabled by default. The `markdown.enable_blade` option controls both `[Blade]:` directives and executable Blade Blocks. Hyde sites generally treat project content as trusted and reviewed; sites that compile untrusted or unreviewed Markdown can disable both forms with this option.
 - Raw HTML in Markdown is now enabled by default. Hyde sites generally treat project content as trusted and reviewed; sites that compile untrusted or unreviewed Markdown can set `markdown.allow_html` to `false` to strip potentially unsafe HTML tags.
-- `InMemoryPage` contents now accept lazy closures in addition to literal strings. Non-static closures are bound to the page instance and resolved each time contents are requested.
+- `InMemoryPage` contents now accept lazy closures in addition to literal strings. Closures are invoked through the application container each time contents are requested, allowing dependencies to be injected.
 
 ### Minor Changes and Cleanup
 

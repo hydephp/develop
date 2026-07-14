@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 use BadMethodCallException;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
+use RuntimeException;
 use TypeError;
 
 /**
@@ -89,7 +90,7 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('bar', $page->compile());
     }
 
-    public function testStaticClosureRunsUnbound()
+    public function testStaticClosureIsInvokedThroughContainer()
     {
         $page = new InMemoryPage('foo', contents: static fn (): string => 'bar');
 
@@ -97,34 +98,40 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('bar', $page->compile());
     }
 
-    public function testNonStaticClosureCanUseThis()
+    public function testContentClosureReceivesDependenciesFromContainer()
     {
-        $page = new InMemoryPage('example.txt', contents: function (): string {
-            return $this->getIdentifier();
+        app()->instance(InMemoryPageContentGenerator::class, new InMemoryPageContentGenerator('injected'));
+
+        $page = new InMemoryPage('foo', contents: function (InMemoryPageContentGenerator $generator): string {
+            return $generator->generate();
         });
 
-        $this->assertSame('example.txt', $page->getContents());
+        $this->assertSame('injected', $page->getContents());
     }
 
-    public function testBoundClosureCanAccessPageFrontMatter()
+    public function testStaticContentClosureReceivesDependenciesFromContainer()
     {
-        $page = new InMemoryPage('example.txt', ['title' => 'Example'], function (): string {
-            return $this->matter->get('title');
+        app()->instance(InMemoryPageContentGenerator::class, new InMemoryPageContentGenerator('injected'));
+
+        $page = new InMemoryPage('foo', contents: static function (InMemoryPageContentGenerator $generator): string {
+            return $generator->generate();
         });
 
-        $this->assertSame('Example', $page->compile());
+        $this->assertSame('injected', $page->compile());
     }
 
-    public function testClosureUsesSubclassAsBindingScope()
+    public function testFirstClassCallableClosurePreservesItsOriginalBinding()
     {
-        $page = new class('foo', contents: function (): string {
-            return $this->subclassContents;
-        }) extends InMemoryPage
+        $generator = new class
         {
-            protected string $subclassContents = 'subclass';
+            public function generate(): string
+            {
+                return 'generated';
+            }
         };
+        $page = new InMemoryPage('foo', contents: $generator->generate(...));
 
-        $this->assertSame('subclass', $page->getContents());
+        $this->assertSame('generated', $page->compile());
     }
 
     public function testClosureCanReturnEmptyString()
@@ -147,6 +154,18 @@ class InMemoryPageTest extends TestCase
         $this->expectException(TypeError::class);
 
         (new InMemoryPage('foo', contents: fn () => 123))->compile();
+    }
+
+    public function testExceptionsThrownByContentClosurePropagateUnchanged()
+    {
+        $exception = new RuntimeException('Generation failed');
+        $page = new InMemoryPage('foo', contents: function () use ($exception): never {
+            throw $exception;
+        });
+
+        $this->expectExceptionObject($exception);
+
+        $page->compile();
     }
 
     public function testClosureIsLazyWhenPageIsConstructedAndRunsWhenContentsAreRequested()
@@ -390,5 +409,17 @@ class InMemoryPageTest extends TestCase
         };
 
         $this->assertSame('custom', $page->compile());
+    }
+}
+
+class InMemoryPageContentGenerator
+{
+    public function __construct(protected readonly string $contents)
+    {
+    }
+
+    public function generate(): string
+    {
+        return $this->contents;
     }
 }
