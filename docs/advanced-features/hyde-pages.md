@@ -166,7 +166,8 @@ You can learn more about the InMemoryPage class in the [InMemoryPage documentati
 
 As the class is not discoverable, the static path properties are not initialized. Instead, you rely on literal string
 contents, lazy closure contents, or a Blade view. Contents take precedence over the view. Extend the class and override
-`compile()` when you need complete compilation control.
+`compile()` when you need complete compilation control. Instance macros can add extra per-page methods, but cannot
+override existing methods such as `compile()`.
 
 ```php
 /**
@@ -180,6 +181,9 @@ class InMemoryPage extends HydePage
 
     protected string|\Closure $contents;
     protected string $view;
+
+    /** @var array<string, callable> */
+    protected array $macros = [];
 }
 ```
 
