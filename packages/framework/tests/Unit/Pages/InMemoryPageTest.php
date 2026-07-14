@@ -445,6 +445,10 @@ class InMemoryPageTest extends TestCase
             'directory' => ['foo/'],
             'windows separator' => ['foo\\robots.txt'],
             'windows absolute' => ['C:\\robots.txt'],
+            'dot' => ['.'],
+            'leading dot segment' => ['./robots.txt'],
+            'nested dot segment' => ['foo/./robots.txt'],
+            'empty segment' => ['foo//robots.txt'],
         ];
     }
 
