@@ -38,8 +38,8 @@ require every output format to have a matching filesystem-discovered page class.
   `docs/2.x/search.json`. There is no per-page sitemap exclusion mechanism at all.
 - **`hyde serve` does not serve `sitemap.xml` or the RSS feed**, because they only
   exist as post-build artifacts.
-- **`InMemoryPage` has no unambiguous exact-file construction mode**, making the
-  natural "assemble a non-HTML file in code" escape hatch depend on inference.
+- **Custom page classes cannot declare a non-HTML output format**, forcing them to
+  override path resolution and making route-key and output-path drift possible.
 - **The realtime compiler special-cases `search.json` by string suffix** instead of
   asking the route system.
 
@@ -76,35 +76,36 @@ and `docs/search.json` (index) coexist as distinct routes, which they already do
 > D1-compliant out of the box and PR 2 can rely on "route key == request path with
 > only `.html` stripped" universally.
 
-### D2: Exact output paths are explicit, not inferred
+### D2: Output extensions are declared by the page class, not inferred
 
 Do **not** infer "this identifier has an extension" from a dot in the identifier —
 versioned docs route keys like `docs/1.x/index` would false-positive
 (`pathinfo('docs/1.x')['extension'] === 'x'`). Instead, output intent is explicit:
 
-- File-discovered custom classes configure their output extension statically,
-  mirroring the existing `HtmlPage::$sourceExtension` pattern.
-- `HydePage` gets `public static string $outputExtension = '.html'` (or an
-  instance-level hook), and `outputPath()` uses it instead of the hardcoded `'.html'`.
-- `InMemoryPage` has two unambiguous construction modes: `make()` uses normal HTML
-  page semantics, while `file()` validates and uses its identifier as the exact
-  relative output path.
+- `HydePage` gets `public static string $outputExtension = '.html'`, and both route-key
+  and output-path resolution use it.
+- File-discovered and in-memory custom page classes declare another extension by
+  redeclaring that static property, mirroring the existing source path properties.
+- A plain `InMemoryPage` always uses its class's HTML semantics. Dots in an identifier
+  carry no output-format meaning.
 
-> **Final decision (before PR 8): explicit page versus file construction.** The
-> allowlist introduced in PR 1 was removed after review because it still inferred
-> output behavior and merely relocated the original trap: `.txt` was treated as a
-> file while `.webmanifest` was not. `InMemoryPage::make('docs/1.x')` now always
-> produces `docs/1.x.html`, and `InMemoryPage::file('robots.txt')` produces exactly
-> `robots.txt`. The file mode also handles `site.webmanifest`, `sitemap.xsl`, nested
-> `downloads/data.csv`, and extensionless `feed` paths without special cases.
+> **Final design decision (before PR 8): output behavior remains class-level.** Two
+> instance-level designs were implemented during development and rejected before
+> release. The first inferred non-HTML behavior from an allowlist of identifier
+> suffixes; it merely moved the trap because `.txt` worked while `.webmanifest` did
+> not. The second added `InMemoryPage::file()` and an `$exactOutputPath` instance flag.
+> It supported arbitrary paths, but broke the `HydePage` static/instance contract:
+> `InMemoryPage::outputPath('robots.txt')` returned `robots.txt.html` while the file
+> instance's `getOutputPath()` returned `robots.txt`. Compiler integrations are
+> allowed to resolve paths statically, so the disagreement was unsafe.
 >
-> The two output mechanisms are now both declarative: file-discovered custom page
-> classes use the per-class static `$outputExtension`, while individual virtual
-> files use `InMemoryPage::file()`. First-party generated files opt into exact-path
-> mode directly. In particular, `RssFeedPage` no longer overrides an inference hook;
-> its configurable filename is inherently an exact output path. Redirects retain
-> normal HTML semantics even when their route identifiers contain dots, so a redirect
-> identifier of `legacy.json` compiles to `legacy.json.html`.
+> Both designs were removed. Non-HTML behavior is represented by a page subclass with
+> a static `$outputExtension`, keeping `Page::outputPath($identifier)` equal to the
+> corresponding instance's `getOutputPath()`. First-party generated pages follow the
+> same rule. `RssFeedPage` is the narrow exception because its configured filename may
+> use any extension or none; it overrides the static `outputPath()` method, so its
+> static and instance resolution still agree. Redirects and plain `InMemoryPage`
+> instances retain HTML semantics even when their identifiers contain dots.
 
 ### D3: Sitemap inclusion becomes a page-level concern
 
@@ -117,17 +118,11 @@ a standalone feature in its own right.
 
 > **Implementation constraint (from PR 1) — read before writing `showInSitemap()`:**
 > the "output is not `.html`" default MUST be derived from the page's *resolved
-> output path* (e.g. the extension of `getOutputPath()`), not from the static
-> `outputExtension()` accessor. For file-discovered custom pages the two agree, but
-> per D2 an `InMemoryPage::file()` instance uses an exact output path while its static
-> `outputExtension()` stays `.html`. So a `robots.txt` / `sitemap.xml` / `llms.txt`
-> file page reports `.html` statically despite compiling to a non-HTML file.
-> Keying the non-HTML default off `getOutputPath()` makes all four generated pages
-> self-exclude correctly; keying it off `outputExtension()` would silently
-> re-introduce the exact `search.json` leak this epic exists to fix. This is the
-> kind of "rule implemented only for the cases the current PR exercised" trap the
-> agent workflow warns about — the discovered-page tests would pass while the
-> InMemoryPage-backed generated pages regress.
+> output path* (`getOutputPath()`), not merely from the declared extension. The
+> resolved path is the canonical answer and also covers specialized classes such as
+> `RssFeedPage`, whose configurable filename cannot be represented by one fixed
+> extension. Keying the default off `getOutputPath()` makes all generated pages
+> self-exclude correctly and prevents the `search.json` leak from returning.
 
 > **Implemented (PR 4):** `HydePage::showInSitemap()` reads the `sitemap` front
 > matter key, defaulting to whether the resolved output path (`getOutputPath()`)
@@ -254,10 +249,9 @@ container → fully custom page in code.
 
 First-class non-HTML support is about a page's output path and participation in the
 route/build/serve lifecycle; it does not require a dedicated source-backed page class
-for each file extension. `InMemoryPage::file('robots.txt', contents: ...)` already
-provides the full lifecycle integration and is a better fit for the dynamic content
-advanced users commonly need, while the planned generated robots and llms pages cover
-the common cases without any source file at all.
+for each file extension. A small `InMemoryPage` subclass declaring `$outputExtension`
+provides the full lifecycle integration and is a better fit for dynamic content, while
+the generated robots and llms pages cover the common cases without source files.
 
 A core `TextPage` would add only the convenience of autodiscovering `_pages/*.txt`,
 while creating pressure for parallel `XmlPage`, `JsonPage`, and similar classes.
@@ -270,16 +264,15 @@ an extension point.
 
 ## Work breakdown (planned PR sequence, in dependency order)
 
-### PR 1 — Foundation: explicit output paths and page-class extensions ✅ Implemented
+### PR 1 — Foundation: page-class output extensions ✅ Implemented
 
 Goal: any page class can emit a non-`.html` file without overriding `getOutputPath()`.
 
 - Add `$outputExtension` (default `'.html'`) to `HydePage`; use it in
   `outputPath()` (`HydePage.php:211-214`).
 - Route keys follow D1; audit `RouteKey` and `Route` for assumptions.
-- Add explicit exact-path construction for `InMemoryPage` per D2, so
-  `InMemoryPage::file('robots.txt', contents: ...)` outputs `robots.txt`.
-- Refactor `DocumentationSearchIndex` to use the exact-path file-page mode.
+- Keep `InMemoryPage` on the same class-level output path contract as other pages.
+- Refactor `DocumentationSearchIndex` to declare its `.json` output extension.
 - Pure refactor for existing sites: no compiled-output changes.
 
 Implementation notes (branch `v3/non-html-pages-foundation`):
@@ -299,15 +292,11 @@ Implementation notes (branch `v3/non-html-pages-foundation`):
   "Upgrade script rules" for the release-time Rector script.
 - Page-class output extension handling was placed in `RouteKey::fromPage()` (see D1 note)
   rather than only in `outputPath()`, so route keys and output paths cannot drift.
-- **Revised before PR 8:** the original allowlist-based implementation was replaced
-  by `InMemoryPage::file()` (see the final D2 decision). `make()` and direct
-  construction consistently retain HTML output semantics, while exact-path file
-  instances work without an extension-specific subclass or inference.
-- The two output-extension mechanisms coexist intentionally — per-class static for
-  discovered classes, per-instance exact-path construction for `InMemoryPage`.
-  The one constraint this places downstream is recorded in the D3 implementation
-  note: sitemap / non-HTML detection must read the resolved output path, not the
-  static `outputExtension()` accessor.
+- **Revised before PR 8:** both identifier-suffix inference and the later
+  instance-level exact-path factory were removed (see D2). Output behavior is
+  class-level for discovered and in-memory pages alike.
+- Sitemap / non-HTML detection reads the resolved output path, not just the static
+  extension declaration, so specialized static path overrides remain supported.
 
 ### PR 2 — Realtime compiler: route-first resolution for non-HTML paths ✅ Implemented
 
@@ -373,10 +362,9 @@ Implementation notes (branch `v3/non-html-pages-sitemap-inclusion-policy`):
 
 - Implemented exactly per D3 (see the D3 "Implemented" note for the front matter
   semantics and the `Redirect` refinement). `showInSitemap()` joined the
-  `BaseHydePageUnitTest` contract; the InMemoryPage unit test covers the
-  exact-path non-HTML default that the static-extension tests cannot.
-- The non-HTML self-exclusion is verified end-to-end: a registered `robots.txt`
-  `InMemoryPage` is built by the real `build` command and asserted absent from
+  `BaseHydePageUnitTest` contract.
+- The non-HTML self-exclusion is verified end-to-end: a registered `.txt`
+  `InMemoryPage` subclass is built by the real `build` command and asserted absent from
   the built `sitemap.xml`, guarding the D3 resolved-output-path constraint
   against regression by construction rather than only at the unit level.
 - Two existing tests asserted the leak as expected behavior and were flipped:
@@ -409,8 +397,8 @@ Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed
   bound). D4's whole swappability tier is a lie if `app(SitemapGenerator::class)`
   can't be rebound. Add a test that rebinds the generator and asserts the page's
   compiled output changes.
-- Ensure all first-party generated files (`sitemap.xml`, `feed.xml`, `robots.txt`,
-  `llms.txt`) use the D2 exact-path mode, including the configurable RSS filename.
+- Ensure first-party generated page classes declare their output format per D2;
+  preserve the configurable RSS filename through a class-level path override.
 - Register in `HydeCoreExtension::discoverPages()` behind `Features::hasSitemap()` /
   `Features::hasRss()`; remove `GenerateSitemap`/`GenerateRssFeed` from
   `BuildTaskService::registerFrameworkTasks()` (evaluate deprecation vs. removal —
@@ -479,8 +467,8 @@ Implementation notes, part B (branch `v3/non-html-pages-convert-rss-feed`):
   from the sitemap, and both user override paths verified end-to-end.
 - One divergence: the route key comes from `RssFeedGenerator::getFilename()`
   (config `hyde.rss.filename`). Since the removed task wrote any configured filename
-  verbatim, `RssFeedPage` uses the exact-path construction mode — `feed.rss` and an
-  extensionless name therefore work without an inference override.
+  verbatim, `RssFeedPage` overrides static `outputPath()` — `feed.rss` and an
+  extensionless name therefore work while static and instance resolution still agree.
 - `build:rss` builds the registered route's page like `build:sitemap`, and fails
   with the generic "feature is not enabled" error when the route is not registered
   (see the revised-in-review notes in the part A section — the old task's no-guard
@@ -536,7 +524,7 @@ Implementation notes (branch `v3/non-html-pages-robots`):
   index, instead of surfacing as a PHP-level type error at build time. Later
   generated text pages copying this pattern (llms.txt) should keep both halves —
   verbatim strings, explicit validation.
-- `RobotsTxtPage` uses the D2 exact-path mode for `robots.txt`.
+- `RobotsTxtPage` declares its `.txt` output extension per D2.
 - No `build:robots` command: the sitemap/RSS commands exist only as carry-overs of
   the removed post-build tasks; robots.txt never had one, and the standard build
   and realtime compiler (serve test asserts `text/plain`) cover the lifecycle.
@@ -659,8 +647,8 @@ Implementation notes (branch `v3/non-html-pages-llms-txt`):
   generator-level curation concern rather than a page-level default (the sitemap
   precedent likewise keeps its 404 handling in the generator), and it is the reason the
   sitemap-derived inclusion rule is not a bare alias for `showInSitemap()`.
-- Everything else the epic left implicit held: `LlmsTxtPage` uses the D2 exact-path
-  mode, and the generated page self-excludes from its own listing (and the sitemap)
+- Everything else the epic left implicit held: `LlmsTxtPage` declares its `.txt`
+  output extension, and the generated page self-excludes from its own listing (and the sitemap)
   through the D3 resolved-output-path default.
 
 > **Scope correction (post-implementation review).** The first cut of this PR was
