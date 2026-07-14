@@ -40,26 +40,21 @@ InMemoryPage::make('about', contents: $html);
 // _site/about.html
 ```
 
-In-memory pages generate HTML by default. To generate another format, extend `InMemoryPage` and declare the output
-extension on the page class:
+The output format is inferred from the identifier. Identifiers without an extension compile to `.html`, while an
+identifier that already has an extension keeps it:
 
 ```php
-class TextFilePage extends InMemoryPage
-{
-    public static string $outputExtension = '.txt';
-}
-
-TextFilePage::make('robots', contents: $text);
+InMemoryPage::make('robots.txt', contents: $text);
 // _site/robots.txt
 ```
 
-The output extension belongs to the page type, ensuring static and instance path resolution use the same rules:
+Static and instance path resolution use the same inference:
 
 ```php
-TextFilePage::outputPath('robots');
+InMemoryPage::outputPath('robots.txt');
 // robots.txt
 
-TextFilePage::make('robots')->getOutputPath();
+InMemoryPage::make('robots.txt')->getOutputPath();
 // robots.txt
 ```
 
