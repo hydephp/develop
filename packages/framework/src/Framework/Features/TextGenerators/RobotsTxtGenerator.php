@@ -8,7 +8,8 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
-use Hyde\Framework\Features\XmlGenerators\SitemapPage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileGenerator;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
 
 use function array_merge;
 use function get_debug_type;
@@ -24,13 +25,18 @@ use function sprintf;
  * rule are supported. A link to the sitemap is included when the sitemap
  * feature is enabled.
  *
- * @see \Hyde\Framework\Features\TextGenerators\RobotsTxtPage
+ * @see \Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage
  */
-class RobotsTxtGenerator
+class RobotsTxtGenerator implements GeneratedFileGenerator
 {
     public function generate(): string
     {
         return implode("\n", $this->getLines())."\n";
+    }
+
+    public function generateFile(): string
+    {
+        return $this->generate();
     }
 
     /** @return array<string> */
@@ -39,7 +45,7 @@ class RobotsTxtGenerator
         $lines = array_merge(['User-agent: *'], $this->getRuleLines());
 
         if (Features::hasSitemap()) {
-            $lines = array_merge($lines, ['', 'Sitemap: '.Hyde::url(SitemapPage::routeKey())]);
+            $lines = array_merge($lines, ['', 'Sitemap: '.Hyde::url(GeneratedFileRegistry::SITEMAP)]);
         }
 
         return $lines;

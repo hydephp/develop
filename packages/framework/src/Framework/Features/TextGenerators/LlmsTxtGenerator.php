@@ -14,6 +14,7 @@ use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileGenerator;
 
 use function addcslashes;
 use function array_fill_keys;
@@ -46,13 +47,18 @@ use function trim;
  * of the generated file may change in future minor and patch releases to follow the spec.
  *
  * @see https://llmstxt.org/
- * @see \Hyde\Framework\Features\TextGenerators\LlmsTxtPage
+ * @see \Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage
  */
-class LlmsTxtGenerator
+class LlmsTxtGenerator implements GeneratedFileGenerator
 {
     public function generate(): string
     {
         return implode("\n", $this->getLines())."\n";
+    }
+
+    public function generateFile(): string
+    {
+        return $this->generate();
     }
 
     /**

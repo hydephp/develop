@@ -12,7 +12,8 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
-use Hyde\Framework\Features\TextGenerators\RobotsTxtPage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -22,7 +23,8 @@ use Illuminate\Support\Facades\File;
  *
  * @see \Hyde\Framework\Testing\Feature\RobotsTxtGeneratorTest
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\TextGenerators\RobotsTxtPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeCoreExtension::class)]
 class RobotsTxtPageTest extends TestCase
 {
@@ -39,7 +41,7 @@ class RobotsTxtPageTest extends TestCase
 
         $page = Routes::get('robots.txt')->getPage();
 
-        $this->assertInstanceOf(RobotsTxtPage::class, $page);
+        $this->assertInstanceOf(GeneratedFilePage::class, $page);
         $this->assertSame('robots.txt', $page->getOutputPath());
         $this->assertSame('robots.txt', $page->getRouteKey());
     }
@@ -60,7 +62,7 @@ class RobotsTxtPageTest extends TestCase
 
     public function testRobotsTxtPageIsHiddenFromNavigationAndExcludedFromTheSitemap()
     {
-        $page = new RobotsTxtPage();
+        $page = new GeneratedFilePage(GeneratedFileRegistry::ROBOTS, RobotsTxtGenerator::class);
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -70,7 +72,7 @@ class RobotsTxtPageTest extends TestCase
     {
         $this->withoutSiteUrl();
 
-        $this->assertSame("User-agent: *\nAllow: /\n", (new RobotsTxtPage())->compile());
+        $this->assertSame("User-agent: *\nAllow: /\n", (new GeneratedFilePage(GeneratedFileRegistry::ROBOTS, RobotsTxtGenerator::class))->compile());
     }
 
     public function testRobotsTxtGeneratorCanBeSwappedThroughTheServiceContainer()
@@ -132,7 +134,7 @@ class RobotsTxtPageTest extends TestCase
 
         $page = Routes::get('robots.txt')->getPage();
 
-        $this->assertNotInstanceOf(RobotsTxtPage::class, $page);
+        $this->assertNotInstanceOf(GeneratedFilePage::class, $page);
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'robots.txt')->count());
 
         $this->artisan('build')->assertExitCode(0);
@@ -146,7 +148,7 @@ class RobotsTxtPageTest extends TestCase
 
         $page = Routes::get('robots.txt')->getPage();
 
-        $this->assertNotInstanceOf(RobotsTxtPage::class, $page);
+        $this->assertNotInstanceOf(GeneratedFilePage::class, $page);
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'robots.txt')->count());
 
         $this->artisan('build')->assertExitCode(0);

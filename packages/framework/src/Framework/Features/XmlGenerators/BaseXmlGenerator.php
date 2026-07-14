@@ -8,6 +8,7 @@ namespace Hyde\Framework\Features\XmlGenerators;
 
 use Exception;
 use SimpleXMLElement;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileGenerator;
 
 use function extension_loaded;
 use function htmlspecialchars;
@@ -19,7 +20,7 @@ use function throw_unless;
  * @see \Hyde\Framework\Features\XmlGenerators\RssFeedGenerator
  * @see \Hyde\Framework\Features\XmlGenerators\SitemapGenerator
  */
-abstract class BaseXmlGenerator
+abstract class BaseXmlGenerator implements GeneratedFileGenerator
 {
     protected SimpleXMLElement $xmlElement;
 
@@ -58,6 +59,11 @@ abstract class BaseXmlGenerator
     public function getXml(): string
     {
         return (string) $this->xmlElement->asXML();
+    }
+
+    public function generateFile(): string
+    {
+        return $this->generate()->getXml();
     }
 
     /**

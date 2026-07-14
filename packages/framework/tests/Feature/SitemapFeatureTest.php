@@ -20,7 +20,7 @@ use Illuminate\Filesystem\Filesystem;
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSitemapCommandTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapGenerator::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSitemapCommand::class)]
 class SitemapFeatureTest extends TestCase
 {

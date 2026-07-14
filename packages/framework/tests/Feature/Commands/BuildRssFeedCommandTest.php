@@ -11,7 +11,7 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildRssFeedCommand::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\RssFeedPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage::class)]
 class BuildRssFeedCommandTest extends TestCase
 {
     public function testRssFeedIsGeneratedWhenConditionsAreMet()

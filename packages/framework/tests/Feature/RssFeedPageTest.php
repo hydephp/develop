@@ -13,7 +13,8 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
-use Hyde\Framework\Features\XmlGenerators\RssFeedPage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -24,7 +25,8 @@ use Illuminate\Support\Facades\File;
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildRssFeedCommandTest
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\RssFeedPage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeCoreExtension::class)]
 class RssFeedPageTest extends TestCase
 {
@@ -49,7 +51,7 @@ class RssFeedPageTest extends TestCase
 
         $page = Routes::get('feed.xml')->getPage();
 
-        $this->assertInstanceOf(RssFeedPage::class, $page);
+        $this->assertInstanceOf(GeneratedFilePage::class, $page);
         $this->assertSame('feed.xml', $page->getOutputPath());
         $this->assertSame('feed.xml', $page->getRouteKey());
     }
@@ -94,7 +96,7 @@ class RssFeedPageTest extends TestCase
 
     public function testFeedPageIsHiddenFromNavigationAndExcludesItselfFromTheSitemap()
     {
-        $page = new RssFeedPage();
+        $page = new GeneratedFilePage(GeneratedFileRegistry::rssOutputPath(), RssFeedGenerator::class);
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -102,7 +104,7 @@ class RssFeedPageTest extends TestCase
 
     public function testFeedPageCompilesUsingTheRssFeedGenerator()
     {
-        $contents = (new RssFeedPage())->compile();
+        $contents = (new GeneratedFilePage(GeneratedFileRegistry::rssOutputPath(), RssFeedGenerator::class))->compile();
 
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $contents);
         $this->assertStringContainsString('<rss', $contents);
@@ -168,7 +170,7 @@ class RssFeedPageTest extends TestCase
 
         $page = Routes::get('feed.xml')->getPage();
 
-        $this->assertNotInstanceOf(RssFeedPage::class, $page);
+        $this->assertNotInstanceOf(GeneratedFilePage::class, $page);
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'feed.xml')->count());
 
         $this->artisan('build')->assertExitCode(0);
@@ -182,7 +184,7 @@ class RssFeedPageTest extends TestCase
 
         $page = Routes::get('feed.xml')->getPage();
 
-        $this->assertNotInstanceOf(RssFeedPage::class, $page);
+        $this->assertNotInstanceOf(GeneratedFilePage::class, $page);
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'feed.xml')->count());
 
         $this->artisan('build')->assertExitCode(0);

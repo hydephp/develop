@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Features\XmlGenerators\RssFeedPage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
 
 use function sprintf;
 
@@ -25,7 +25,7 @@ class BuildRssFeedCommand extends Command
 
     public function handle(): int
     {
-        $page = Routes::find(RssFeedPage::routeKey())?->getPage();
+        $page = Routes::find(GeneratedFileRegistry::rssOutputPath())?->getPage();
 
         if ($page === null) {
             $this->error('Cannot generate the RSS feed as the feature is not enabled');

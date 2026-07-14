@@ -21,10 +21,7 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
-use Hyde\Framework\Features\TextGenerators\LlmsTxtPage;
-use Hyde\Framework\Features\TextGenerators\RobotsTxtPage;
-use Hyde\Framework\Features\XmlGenerators\RssFeedPage;
-use Hyde\Framework\Features\XmlGenerators\SitemapPage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
@@ -85,52 +82,10 @@ class HydeCoreExtension extends HydeExtension
             }
         }
 
-        if (Features::hasSitemap()) {
-            $this->discoverSitemapPage($collection);
-        }
-
-        if (Features::hasRss()) {
-            $this->discoverRssFeedPage($collection);
-        }
-
-        if (Features::hasRobotsTxt()) {
-            $this->discoverRobotsTxtPage($collection);
-        }
-
-        if (Features::hasLlmsTxt()) {
-            $this->discoverLlmsTxtPage($collection);
-        }
-    }
-
-    /** Add the generated sitemap page unless the route is user-defined. */
-    protected function discoverSitemapPage(PageCollection $collection): void
-    {
-        if (! $this->hasPageWithRouteKey($collection, SitemapPage::routeKey())) {
-            $collection->addPage(new SitemapPage());
-        }
-    }
-
-    /** Add the generated RSS feed page unless the route is user-defined. */
-    protected function discoverRssFeedPage(PageCollection $collection): void
-    {
-        if (! $this->hasPageWithRouteKey($collection, RssFeedPage::routeKey())) {
-            $collection->addPage(new RssFeedPage());
-        }
-    }
-
-    /** Add the generated robots.txt page unless the route is user-defined. */
-    protected function discoverRobotsTxtPage(PageCollection $collection): void
-    {
-        if (! $this->hasPageWithRouteKey($collection, RobotsTxtPage::routeKey())) {
-            $collection->addPage(new RobotsTxtPage());
-        }
-    }
-
-    /** Add the generated llms.txt page unless the route is user-defined. */
-    protected function discoverLlmsTxtPage(PageCollection $collection): void
-    {
-        if (! $this->hasPageWithRouteKey($collection, LlmsTxtPage::routeKey())) {
-            $collection->addPage(new LlmsTxtPage());
+        foreach (GeneratedFileRegistry::pages() as $page) {
+            if (! $this->hasPageWithRouteKey($collection, $page->getRouteKey())) {
+                $collection->addPage($page);
+            }
         }
     }
 
