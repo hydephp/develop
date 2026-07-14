@@ -9,9 +9,9 @@ use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Facades\View;
 
+use function Hyde\unslash;
 use function sprintf;
 use function str_ends_with;
 
@@ -31,10 +31,9 @@ class InMemoryPage extends HydePage
     public static string $outputDirectory;
     public static string $sourceExtension;
 
-    protected const EXPLICIT_OUTPUT_EXTENSIONS = ['.json', '.txt', '.xml'];
-
     protected string $contents;
     protected string $view;
+    protected readonly bool $exactOutputPath;
 
     /** @var array<string, callable> */
     protected array $macros = [];
@@ -45,6 +44,14 @@ class InMemoryPage extends HydePage
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
     {
         return new static($identifier, $matter, $contents, $view);
+    }
+
+    /**
+     * Create an in-memory page whose identifier is used as the exact output path.
+     */
+    public static function file(string $outputPath, FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
+    {
+        return new static($outputPath, $matter, $contents, $view, exactOutputPath: true);
     }
 
     /**
@@ -61,16 +68,15 @@ class InMemoryPage extends HydePage
      *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
      *                              You can then also use the route helper to get a link to it by using the route key "foo/bar".
      *                              Take note that the identifier must be unique to prevent overwriting other pages.
-     *                              The identifier can also declare a non-HTML output file extension (".json", ".txt", or ".xml"),
-     *                              so an identifier of "robots.txt" will save the page to "_site/robots.txt"
-     *                              instead of appending the HTML extension.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      */
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '', bool $exactOutputPath = false)
     {
+        $this->exactOutputPath = $exactOutputPath;
+
         parent::__construct($identifier, $matter);
 
         $this->contents = $contents;
@@ -78,33 +84,15 @@ class InMemoryPage extends HydePage
     }
 
     /**
-     * Qualify a page identifier into a target output file path, relative to the _site output directory.
-     *
-     * If the identifier ends in a recognized non-HTML extension (`.json`, `.txt`, or `.xml` by default),
-     * it is treated as an explicit output path and no HTML extension is appended, so an identifier
-     * of "robots.txt" saves the page to "_site/robots.txt".
+     * Get the path where the compiled page will be saved.
      */
-    public static function outputPath(string $identifier): string
+    public function getOutputPath(): string
     {
-        if (static::identifierHasExplicitOutputExtension($identifier)) {
-            return (string) RouteKey::fromPage(static::class, $identifier);
+        if ($this->exactOutputPath) {
+            return unslash($this->identifier);
         }
 
-        return parent::outputPath($identifier);
-    }
-
-    /**
-     * Determine whether the identifier ends with an explicit output extension.
-     */
-    protected static function identifierHasExplicitOutputExtension(string $identifier): bool
-    {
-        foreach (static::EXPLICIT_OUTPUT_EXTENSIONS as $extension) {
-            if (str_ends_with($identifier, $extension)) {
-                return true;
-            }
-        }
-
-        return false;
+        return parent::getOutputPath();
     }
 
     /** Get the contents of the page. This will be saved as-is to the output file when this strategy is used. */
