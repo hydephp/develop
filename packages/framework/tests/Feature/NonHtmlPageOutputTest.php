@@ -32,7 +32,7 @@ class NonHtmlPageOutputTest extends TestCase
         parent::tearDown();
     }
 
-    public function testBuildCommandCompilesInMemoryPageWithTxtExtensionToDeclaredOutputPath()
+    public function testBuildCommandCompilesExactTxtOutputPath()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
             $kernel->pages()->addPage(InMemoryPage::file('robots.txt', contents: "User-agent: *\nAllow: /"));
@@ -45,7 +45,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/robots.txt.html'));
     }
 
-    public function testBuildCommandCompilesInMemoryPageWithJsonExtensionToDeclaredOutputPath()
+    public function testBuildCommandCompilesExactJsonOutputPath()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
             $kernel->pages()->addPage(InMemoryPage::file('data.json', contents: '{"foo": "bar"}'));
@@ -57,7 +57,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertSame('{"foo": "bar"}', file_get_contents(Hyde::path('_site/data.json')));
     }
 
-    public function testBuildCommandCompilesInMemoryPageWithXmlExtensionToDeclaredOutputPath()
+    public function testBuildCommandCompilesExactXmlOutputPath()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
             $kernel->pages()->addPage(InMemoryPage::file('custom.xml', contents: '<?xml version="1.0"?><foo/>'));
@@ -69,7 +69,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertSame('<?xml version="1.0"?><foo/>', file_get_contents(Hyde::path('_site/custom.xml')));
     }
 
-    public function testBuildCommandCompilesInMemoryPageWithDeclaredExtensionInNestedPath()
+    public function testBuildCommandCompilesNestedExactOutputPath()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
             $kernel->pages()->addPage(InMemoryPage::file('foo/bar.txt', contents: 'baz'));
@@ -98,7 +98,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertSame('feed', file_get_contents(Hyde::path('_site/feed')));
     }
 
-    public function testInMemoryPageWithDeclaredExtensionIsRegisteredAsRoute()
+    public function testExactOutputPageIsRegisteredAsRoute()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
             $kernel->pages()->addPage(InMemoryPage::file('robots.txt', contents: 'User-agent: *'));
@@ -108,7 +108,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertSame('robots.txt', Routes::get('robots.txt')->getOutputPath());
     }
 
-    public function testStaticPageBuilderCompilesInMemoryPageWithDeclaredExtension()
+    public function testStaticPageBuilderCompilesExactOutputPage()
     {
         StaticPageBuilder::handle(InMemoryPage::file('llms.txt', contents: '# Hello World'));
 
@@ -116,7 +116,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertSame('# Hello World', file_get_contents(Hyde::path('_site/llms.txt')));
     }
 
-    public function testInMemoryPageWithDeclaredExtensionCanCompileUsingView()
+    public function testExactOutputPageCanCompileUsingView()
     {
         $this->file('_pages/robots.blade.php', 'User-agent: {{ $agent }}');
 
@@ -126,7 +126,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertSame('User-agent: *', file_get_contents(Hyde::path('_site/robots.txt')));
     }
 
-    public function testBuildCommandExcludesNonHtmlPagesFromTheSitemap()
+    public function testBuildCommandExcludesExactNonHtmlPageFromSitemap()
     {
         $this->withSiteUrl();
 
