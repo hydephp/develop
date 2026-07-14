@@ -7,13 +7,9 @@ namespace Hyde\Framework\Features\TextGenerators;
 use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
-use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 use function array_merge;
-use function get_debug_type;
 use function implode;
-use function is_string;
-use function sprintf;
 
 /**
  * Generates the contents for the robots.txt file.
@@ -53,15 +49,8 @@ class RobotsTxtGenerator
 
         $lines = [];
 
-        foreach ($rules as $index => $rule) {
-            if (! is_string($rule)) {
-                throw new InvalidConfigurationException(sprintf(
-                    'Invalid `hyde.robots.disallow` entry at index [%s]: each Disallow rule must be a string, %s given.',
-                    $index, get_debug_type($rule)
-                ), 'hyde', 'disallow');
-            }
-
-            $lines[] = "Disallow: $rule";
+        foreach ($rules as $rule) {
+            $lines[] = 'Disallow: '.(string) $rule;
         }
 
         return $lines;

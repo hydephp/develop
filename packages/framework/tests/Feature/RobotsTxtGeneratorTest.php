@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Testing\TestCase;
-use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator::class)]
@@ -49,24 +48,12 @@ class RobotsTxtGeneratorTest extends TestCase
         $this->assertSame("User-agent: *\nDisallow: /*.pdf$\nDisallow: \n", $this->generate());
     }
 
-    public function testNonStringDisallowRuleFailsWithConfigurationException()
+    public function testNumericDisallowRulesAreCastToStrings()
     {
-        config(['hyde.robots.disallow' => ['/private', 123]]);
+        $this->withoutSiteUrl();
+        config(['hyde.robots.disallow' => [123, 3.14]]);
 
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('Invalid `hyde.robots.disallow` entry at index [1]: each Disallow rule must be a string, int given.');
-
-        $this->generate();
-    }
-
-    public function testNonStringDisallowRuleExceptionIdentifiesStringKeys()
-    {
-        config(['hyde.robots.disallow' => ['foo' => null]]);
-
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('Invalid `hyde.robots.disallow` entry at index [foo]: each Disallow rule must be a string, null given.');
-
-        $this->generate();
+        $this->assertSame("User-agent: *\nDisallow: 123\nDisallow: 3.14\n", $this->generate());
     }
 
     public function testGeneratesDisallowRulesAndSitemapLineTogether()
