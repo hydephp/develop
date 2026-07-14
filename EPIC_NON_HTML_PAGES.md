@@ -493,18 +493,10 @@ Implementation notes (branch `v3/non-html-pages-robots`):
   existing tests asserting exact collections gained a `hyde.robots.enabled => false`
   in their setup, alongside their existing sitemap/RSS switches.
 - Generator output: `User-agent: *`, then verbatim `Disallow:` lines from the
-  `hyde.robots.disallow` config array, or `Allow: /` when there are none (a group
-  needs at least one rule; an unconditional `Allow: /` next to disallow rules would
-  be noise). The config entries are *rule values*, not filesystem paths — named and
-  documented as such in the config stubs and generator — and are deliberately not
-  normalized (no leading-slash fixup, trimming, or empty-string removal):
-  normalization would guess intent and break valid values like wildcard patterns or
-  the empty string (a valid "allow everything" rule). The verbatim contract is
-  string-only, validated per entry: a non-string value throws an
-  `InvalidConfigurationException` naming `hyde.robots.disallow` and the offending
-  index, instead of surfacing as a PHP-level type error at build time. Later
-  generated text pages copying this pattern (llms.txt) should keep both halves —
-  verbatim strings, explicit validation.
+  `hyde.robots.disallow` config array, or `Allow: /` when there are none. The config entries are
+  *rule values*, not filesystem paths, and are deliberately not normalized
+  (no leading-slash fixup or empty-string removal) so valid values like wildcard patterns are supported.
+  Non-string values (like integers or floats) are safely cast to strings during generation.
 - Its `InMemoryPage` identifier includes the `.txt` output extension per D2.
 - No `build:robots` command: the sitemap/RSS commands exist only as carry-overs of
   the removed post-build tasks; robots.txt never had one, and the standard build
