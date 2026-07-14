@@ -72,6 +72,7 @@ class InMemoryPage extends HydePage
      *                                                           all this data will be passed to the view rendering engine.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
+     * @param  bool  $exactOutputPath  Whether to use the identifier as the exact output path. Prefer the `file()` constructor for this mode.
      */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '', bool $exactOutputPath = false)
     {
