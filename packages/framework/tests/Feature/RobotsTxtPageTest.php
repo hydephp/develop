@@ -127,7 +127,10 @@ class RobotsTxtPageTest extends TestCase
     public function testUserPageRegisteredInBootingCallbackSuppressesTheGeneratedRobotsTxtPage()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::file('robots.txt', contents: 'user defined robots'));
+            $kernel->pages()->addPage(new class('robots.txt', contents: 'user defined robots') extends InMemoryPage
+            {
+                public static string $outputExtension = '.txt';
+            });
         });
 
         $page = Routes::get('robots.txt')->getPage();
@@ -159,6 +162,9 @@ class RobotsTxtPageTestExtension extends HydeExtension
 {
     public function discoverPages(PageCollection $collection): void
     {
-        $collection->addPage(InMemoryPage::file('robots.txt', contents: 'extension defined robots'));
+        $collection->addPage(new class('robots.txt', contents: 'extension defined robots') extends InMemoryPage
+        {
+            public static string $outputExtension = '.txt';
+        });
     }
 }

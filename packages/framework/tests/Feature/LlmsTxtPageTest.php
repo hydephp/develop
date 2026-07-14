@@ -128,7 +128,10 @@ class LlmsTxtPageTest extends TestCase
     public function testUserPageRegisteredInBootingCallbackSuppressesTheGeneratedLlmsTxtPage()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::file('llms.txt', contents: 'user defined llms'));
+            $kernel->pages()->addPage(new class('llms.txt', contents: 'user defined llms') extends InMemoryPage
+            {
+                public static string $outputExtension = '.txt';
+            });
         });
 
         $page = Routes::get('llms.txt')->getPage();
@@ -160,6 +163,9 @@ class LlmsTxtPageTestExtension extends HydeExtension
 {
     public function discoverPages(PageCollection $collection): void
     {
-        $collection->addPage(InMemoryPage::file('llms.txt', contents: 'extension defined llms'));
+        $collection->addPage(new class('llms.txt', contents: 'extension defined llms') extends InMemoryPage
+        {
+            public static string $outputExtension = '.txt';
+        });
     }
 }

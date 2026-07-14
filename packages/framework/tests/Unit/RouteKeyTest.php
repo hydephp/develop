@@ -82,7 +82,7 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(InMemoryPage::class, 'foo/bar'));
     }
 
-    public function testFromPageWithInMemoryPageIdentifierDeclaringOutputExtension()
+    public function testFromPageWithDottedInMemoryPageIdentifier()
     {
         $this->assertEquals(new RouteKey('robots.txt'), RouteKey::fromPage(InMemoryPage::class, 'robots.txt'));
         $this->assertEquals(new RouteKey('docs/search.json'), RouteKey::fromPage(InMemoryPage::class, 'docs/search.json'));

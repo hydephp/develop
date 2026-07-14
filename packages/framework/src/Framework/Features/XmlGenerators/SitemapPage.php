@@ -17,11 +17,13 @@ use function app;
  */
 class SitemapPage extends InMemoryPage
 {
+    public static string $outputExtension = '.xml';
+
     public function __construct()
     {
         parent::__construct(static::routeKey(), [
             'navigation' => ['hidden' => true],
-        ], exactOutputPath: true);
+        ]);
     }
 
     public function compile(): string

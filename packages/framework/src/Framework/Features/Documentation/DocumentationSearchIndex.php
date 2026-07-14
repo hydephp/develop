@@ -18,6 +18,8 @@ use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
  */
 class DocumentationSearchIndex extends InMemoryPage
 {
+    public static string $outputExtension = '.json';
+
     protected readonly ?DocumentationVersion $version;
 
     public function __construct(?DocumentationVersion $version = null)
@@ -26,7 +28,7 @@ class DocumentationSearchIndex extends InMemoryPage
 
         parent::__construct(static::routeKey($version), [
             'navigation' => ['hidden' => true],
-        ], exactOutputPath: true);
+        ]);
     }
 
     public function compile(): string
