@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
-use Hyde\Framework\Features\XmlGenerators\SitemapPage;
 
 use function array_merge;
 use function get_debug_type;
@@ -23,8 +22,6 @@ use function sprintf;
  * is written verbatim as a Disallow rule, so wildcard patterns and the empty
  * rule are supported. A link to the sitemap is included when the sitemap
  * feature is enabled.
- *
- * @see \Hyde\Framework\Features\TextGenerators\RobotsTxtPage
  */
 class RobotsTxtGenerator
 {
@@ -39,7 +36,7 @@ class RobotsTxtGenerator
         $lines = array_merge(['User-agent: *'], $this->getRuleLines());
 
         if (Features::hasSitemap()) {
-            $lines = array_merge($lines, ['', 'Sitemap: '.Hyde::url(SitemapPage::routeKey())]);
+            $lines = array_merge($lines, ['', 'Sitemap: '.Hyde::url('sitemap.xml')]);
         }
 
         return $lines;

@@ -12,7 +12,6 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
-use Hyde\Framework\Features\TextGenerators\LlmsTxtPage;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -22,7 +21,6 @@ use Illuminate\Support\Facades\File;
  *
  * @see \Hyde\Framework\Testing\Feature\LlmsTxtGeneratorTest
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\TextGenerators\LlmsTxtPage::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeCoreExtension::class)]
 class LlmsTxtPageTest extends TestCase
 {
@@ -46,7 +44,7 @@ class LlmsTxtPageTest extends TestCase
 
         $page = Routes::get('llms.txt')->getPage();
 
-        $this->assertInstanceOf(LlmsTxtPage::class, $page);
+        $this->assertSame(InMemoryPage::class, $page::class);
         $this->assertSame('llms.txt', $page->getOutputPath());
         $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('llms.txt', $page->getRouteKey());
@@ -68,7 +66,7 @@ class LlmsTxtPageTest extends TestCase
 
     public function testLlmsTxtPageIsHiddenFromNavigationAndExcludedFromTheSitemap()
     {
-        $page = new LlmsTxtPage();
+        $page = Routes::get('llms.txt')->getPage();
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -76,7 +74,7 @@ class LlmsTxtPageTest extends TestCase
 
     public function testLlmsTxtPageCompilesUsingTheLlmsTxtGenerator()
     {
-        $this->assertSame((new LlmsTxtGenerator())->generate(), (new LlmsTxtPage())->compile());
+        $this->assertSame((new LlmsTxtGenerator())->generate(), Routes::get('llms.txt')->getPage()->compile());
     }
 
     public function testLlmsTxtGeneratorCanBeSwappedThroughTheServiceContainer()
@@ -134,7 +132,7 @@ class LlmsTxtPageTest extends TestCase
 
         $page = Routes::get('llms.txt')->getPage();
 
-        $this->assertNotInstanceOf(LlmsTxtPage::class, $page);
+        $this->assertSame('user defined llms', $page->compile());
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'llms.txt')->count());
 
         $this->artisan('build')->assertExitCode(0);
@@ -148,7 +146,7 @@ class LlmsTxtPageTest extends TestCase
 
         $page = Routes::get('llms.txt')->getPage();
 
-        $this->assertNotInstanceOf(LlmsTxtPage::class, $page);
+        $this->assertSame('extension defined llms', $page->compile());
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'llms.txt')->count());
 
         $this->artisan('build')->assertExitCode(0);

@@ -12,7 +12,6 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
-use Hyde\Framework\Features\XmlGenerators\SitemapPage;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -23,7 +22,6 @@ use Illuminate\Support\Facades\File;
  * @see \Hyde\Framework\Testing\Feature\SitemapFeatureTest
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapPage::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeCoreExtension::class)]
 class SitemapPageTest extends TestCase
 {
@@ -42,7 +40,7 @@ class SitemapPageTest extends TestCase
 
         $page = Routes::get('sitemap.xml')->getPage();
 
-        $this->assertInstanceOf(SitemapPage::class, $page);
+        $this->assertSame(InMemoryPage::class, $page::class);
         $this->assertSame('sitemap.xml', $page->getOutputPath());
         $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('sitemap.xml', $page->getRouteKey());
@@ -65,7 +63,9 @@ class SitemapPageTest extends TestCase
 
     public function testSitemapPageIsHiddenFromNavigationAndExcludesItselfFromTheSitemap()
     {
-        $page = new SitemapPage();
+        $this->withSiteUrl();
+
+        $page = Routes::get('sitemap.xml')->getPage();
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -75,7 +75,7 @@ class SitemapPageTest extends TestCase
     {
         $this->withSiteUrl();
 
-        $contents = (new SitemapPage())->compile();
+        $contents = Routes::get('sitemap.xml')->getPage()->compile();
 
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $contents);
         $this->assertStringContainsString('<urlset', $contents);
@@ -147,7 +147,7 @@ class SitemapPageTest extends TestCase
 
         $page = Routes::get('sitemap.xml')->getPage();
 
-        $this->assertNotInstanceOf(SitemapPage::class, $page);
+        $this->assertSame('user defined sitemap', $page->compile());
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'sitemap.xml')->count());
 
         $this->artisan('build')->assertExitCode(0);
@@ -163,7 +163,7 @@ class SitemapPageTest extends TestCase
 
         $page = Routes::get('sitemap.xml')->getPage();
 
-        $this->assertNotInstanceOf(SitemapPage::class, $page);
+        $this->assertSame('extension defined sitemap', $page->compile());
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'sitemap.xml')->count());
 
         $this->artisan('build')->assertExitCode(0);

@@ -46,7 +46,6 @@ use function trim;
  * of the generated file may change in future minor and patch releases to follow the spec.
  *
  * @see https://llmstxt.org/
- * @see \Hyde\Framework\Features\TextGenerators\LlmsTxtPage
  */
 class LlmsTxtGenerator
 {

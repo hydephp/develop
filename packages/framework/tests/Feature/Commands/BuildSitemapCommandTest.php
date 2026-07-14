@@ -10,7 +10,6 @@ use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSitemapCommand::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapPage::class)]
 class BuildSitemapCommandTest extends TestCase
 {
     public function testSitemapIsGeneratedWhenConditionsAreMet()

@@ -8,7 +8,6 @@ use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Features\XmlGenerators\SitemapPage;
 
 use function sprintf;
 
@@ -25,7 +24,7 @@ class BuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        $page = Routes::find(SitemapPage::routeKey())?->getPage();
+        $page = Routes::find('sitemap.xml')?->getPage();
 
         if ($page === null) {
             $this->error('Cannot generate the sitemap as the feature is not enabled');
