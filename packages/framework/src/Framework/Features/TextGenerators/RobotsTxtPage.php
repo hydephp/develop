@@ -17,11 +17,13 @@ use function app;
  */
 class RobotsTxtPage extends InMemoryPage
 {
+    public static string $outputExtension = '.txt';
+
     public function __construct()
     {
         parent::__construct(static::routeKey(), [
             'navigation' => ['hidden' => true],
-        ], exactOutputPath: true);
+        ]);
     }
 
     public function compile(): string

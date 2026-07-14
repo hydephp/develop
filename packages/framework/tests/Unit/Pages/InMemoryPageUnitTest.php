@@ -113,14 +113,6 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         $this->assertEquals(InMemoryPage::make('foo'), new InMemoryPage('foo'));
     }
 
-    public function testFile()
-    {
-        $this->assertEquals(
-            InMemoryPage::file('robots.txt', contents: 'User-agent: *'),
-            new InMemoryPage('robots.txt', contents: 'User-agent: *', exactOutputPath: true)
-        );
-    }
-
     public function testMakeWithData()
     {
         $this->assertEquals(
@@ -138,15 +130,6 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
     {
         $this->assertTrue((new InMemoryPage('foo'))->showInSitemap());
         $this->assertFalse((new InMemoryPage('foo', ['sitemap' => false]))->showInSitemap());
-    }
-
-    public function testShowInSitemapIsFalseForPagesWithNonHtmlOutputPaths()
-    {
-        $this->assertFalse(InMemoryPage::file('robots.txt')->showInSitemap());
-        $this->assertFalse(InMemoryPage::file('data.json')->showInSitemap());
-        $this->assertFalse(InMemoryPage::file('custom.xml')->showInSitemap());
-
-        $this->assertTrue(InMemoryPage::file('robots.txt', ['sitemap' => true])->showInSitemap());
     }
 
     public function testNavigationMenuPriority()

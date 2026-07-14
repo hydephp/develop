@@ -7,8 +7,6 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 use BadMethodCallException;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
-use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\Pages\InMemoryPageUnitTest
@@ -25,12 +23,6 @@ class InMemoryPageTest extends TestCase
     {
         $this->assertInstanceOf(InMemoryPage::class, InMemoryPage::make('foo', contents: 'bar'));
         $this->assertEquals(InMemoryPage::make('foo', contents: 'bar'), new InMemoryPage('foo', contents: 'bar'));
-    }
-
-    public function testFileWithContentsString()
-    {
-        $this->assertInstanceOf(InMemoryPage::class, InMemoryPage::file('robots.txt', contents: 'bar'));
-        $this->assertSame('robots.txt', InMemoryPage::file('robots.txt', contents: 'bar')->getOutputPath());
     }
 
     public function testContentsMethod()
@@ -164,68 +156,13 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('docs/1.x.html', InMemoryPage::outputPath('docs/1.x'));
     }
 
-    public function testFileUsesAnyOutputPathExactly()
+    public function testStaticAndInstanceOutputPathsUseTheSameSemantics()
     {
-        $this->assertSame('robots.txt', InMemoryPage::file('robots.txt')->getOutputPath());
-        $this->assertSame('site.webmanifest', InMemoryPage::file('site.webmanifest')->getOutputPath());
-        $this->assertSame('sitemap.xsl', InMemoryPage::file('sitemap.xsl')->getOutputPath());
-        $this->assertSame('downloads/data.csv', InMemoryPage::file('downloads/data.csv')->getOutputPath());
-        $this->assertSame('feed', InMemoryPage::file('feed')->getOutputPath());
-        $this->assertSame('docs/1.x/search.json', InMemoryPage::file('docs/1.x/search.json')->getOutputPath());
-    }
-
-    #[DataProvider('invalidExactOutputPaths')]
-    public function testFileRejectsInvalidOutputPaths(string $path): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        InMemoryPage::file($path);
-    }
-
-    public static function invalidExactOutputPaths(): array
-    {
-        return [
-            'empty' => [''],
-            'absolute' => ['/robots.txt'],
-            'traversal' => ['../robots.txt'],
-            'nested traversal' => ['foo/../../robots.txt'],
-            'directory' => ['foo/'],
-            'windows separator' => ['foo\\robots.txt'],
-            'windows absolute' => ['C:\\robots.txt'],
-            'dot' => ['.'],
-            'leading dot segment' => ['./robots.txt'],
-            'nested dot segment' => ['foo/./robots.txt'],
-            'empty segment' => ['foo//robots.txt'],
-        ];
-    }
-
-    public function testGetRouteKeyForFile()
-    {
-        $this->assertSame('robots.txt', InMemoryPage::file('robots.txt')->getRouteKey());
-        $this->assertSame('feed', InMemoryPage::file('feed')->getRouteKey());
-    }
-
-    public function testGetLinkForFile()
-    {
-        $this->assertSame('robots.txt', InMemoryPage::file('robots.txt')->getLink());
-    }
-
-    public function testGetLinkForFileIsNotAffectedByPrettyUrls()
-    {
-        config(['hyde.pretty_urls' => true]);
-
-        $this->assertSame('robots.txt', InMemoryPage::file('robots.txt')->getLink());
-    }
-
-    public function testGetCanonicalUrlForFile()
-    {
-        config(['hyde.url' => 'https://example.com']);
-
-        $this->assertSame('https://example.com/robots.txt', InMemoryPage::file('robots.txt')->getCanonicalUrl());
-    }
-
-    public function testCompiledContentsAreNotAffectedByExactOutputPath()
-    {
-        $this->assertSame('User-agent: *', InMemoryPage::file('robots.txt', contents: 'User-agent: *')->compile());
+        foreach (['foo', 'robots.txt', 'docs/search.json'] as $identifier) {
+            $this->assertSame(
+                InMemoryPage::outputPath($identifier),
+                (new InMemoryPage($identifier))->getOutputPath()
+            );
+        }
     }
 }
