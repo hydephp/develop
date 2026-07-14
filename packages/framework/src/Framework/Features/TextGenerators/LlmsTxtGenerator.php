@@ -99,11 +99,6 @@ class LlmsTxtGenerator
         return $lines;
     }
 
-    /**
-     * Group the site's listed routes into their sections, discarding the empty ones.
-     *
-     * @return array<string, array<\Hyde\Support\Models\Route>>
-     */
     protected function getSections(): array
     {
         $sections = $this->sections();
@@ -129,10 +124,6 @@ class LlmsTxtGenerator
         return array_filter($grouped);
     }
 
-    /**
-     * Pages are listed when they are included in the sitemap, apart from error pages,
-     * which are never listed as they are not content.
-     */
     protected function shouldListPage(HydePage $page): bool
     {
         return $page->showInSitemap() && $page->getIdentifier() !== '404';
@@ -160,18 +151,11 @@ class LlmsTxtGenerator
         return $this->normalizeText($description);
     }
 
-    /**
-     * Escape the characters that would otherwise terminate the Markdown link label,
-     * so that a title like "Arrays [Advanced]" does not emit a malformed link.
-     */
     protected function escapeLinkLabel(string $label): string
     {
         return addcslashes($this->normalizeText($label), '[]\\');
     }
 
-    /**
-     * Collapse whitespace so that multi-line front matter cannot break the line-based file format.
-     */
     protected function normalizeText(string $text): string
     {
         return preg_replace('/\s+/', ' ', trim($text));
