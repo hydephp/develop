@@ -34,25 +34,22 @@ To create an InMemoryPage, you need to instantiate it with the required paramete
 Since a page would not be useful without any content to render, the class offers two content options through the constructor.
 
 You can either pass a string to the `$contents` parameter, Hyde will then save that literally as the page's contents.
+Normal construction always uses HTML page semantics, even when the identifier contains a dot. Use `file()` when the
+identifier should instead be used as the exact output path:
 
 ```php
-$page = InMemoryPage::make('about', contents: 'Hello World!');
+InMemoryPage::make('about', contents: $html);
+// _site/about.html
+
+InMemoryPage::make('robots.txt', contents: $text);
+// _site/robots.txt.html
+
+InMemoryPage::file('robots.txt', contents: $text);
+// _site/robots.txt
 ```
 
-This uses normal HTML page semantics and writes the contents to `_site/about.html`.
-Dots in the identifier do not change that behavior.
-
-To create a page at an exact output path, use the `file()` constructor:
-
-```php
-$robots = InMemoryPage::file('robots.txt', contents: "User-agent: *\nAllow: /");
-$manifest = InMemoryPage::file('site.webmanifest', contents: $manifestJson);
-$data = InMemoryPage::file('downloads/data.csv', contents: $csv);
-```
-
-The route key and output path are exactly the path passed to `file()`. The path may
-use any extension or no extension at all; Hyde does not infer output behavior from
-the filename.
+The route key and output path are exactly the relative file path passed to `file()`. This supports files such as
+`site.webmanifest`, nested JSON files, and extensionless outputs without inferring behavior from the filename.
 
 Alternatively, you can pass a Blade view name to the `$view` parameter, and Hyde will use that view to render the page
 contents with the supplied front matter during the static site build process.

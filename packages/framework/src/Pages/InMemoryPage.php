@@ -51,6 +51,8 @@ class InMemoryPage extends HydePage
 
     /**
      * Create an in-memory page whose identifier is used as the exact output path.
+     *
+     * The output path must be a relative file path contained within the site output directory.
      */
     public static function file(string $outputPath, FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
     {
@@ -66,6 +68,7 @@ class InMemoryPage extends HydePage
      *
      * Note that $contents take precedence over $view, so if you pass both, only $contents will be used.
      * You can also register a macro with the name 'compile' to overload the default compile method.
+     * Normal construction uses HTML page semantics; use the `file()` constructor to create an exact-path file page.
      *
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
      *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
@@ -75,7 +78,7 @@ class InMemoryPage extends HydePage
      *                                                           all this data will be passed to the view rendering engine.
      * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
-     * @param  bool  $exactOutputPath  Whether to use the identifier as the exact output path. Prefer the `file()` constructor for this mode.
+     * @param  bool  $exactOutputPath  Whether to validate and use the identifier as an exact output path. Prefer the `file()` constructor for this mode.
      */
     public function __construct(
         string $identifier = '',
