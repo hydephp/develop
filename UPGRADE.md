@@ -2,16 +2,16 @@
 
 ## Overview
 
-HydePHP v3 lets custom page classes declare their output extension. `InMemoryPage` generates HTML by default; extend it
-and set the static `$outputExtension` property when creating an in-memory page for another format:
+HydePHP v3 infers an `InMemoryPage` output format from its identifier. Identifiers that already have an extension keep
+it, while identifiers without an extension compile to `.html`:
 
 ```php
-class TextFilePage extends InMemoryPage
-{
-    public static string $outputExtension = '.txt';
-}
+use Hyde\Pages\InMemoryPage;
 
-TextFilePage::make('robots', contents: $text);
+InMemoryPage::make('about', contents: $html);
+// _site/about.html
+
+InMemoryPage::make('robots.txt', contents: $text);
 // _site/robots.txt
 ```
 
@@ -341,13 +341,8 @@ The same works for `RssFeedGenerator`.
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 
-class CustomSitemapPage extends InMemoryPage
-{
-    public static string $outputExtension = '.xml';
-}
-
 Hyde::kernel()->booting(function ($kernel) use ($myXml): void {
-    $kernel->pages()->addPage(new CustomSitemapPage('sitemap', contents: $myXml));
+    $kernel->pages()->addPage(InMemoryPage::make('sitemap.xml', contents: $myXml));
 });
 ```
 
@@ -393,8 +388,7 @@ format by registering your own page.
 
 The static page class property `$fileExtension` has been renamed to `$sourceExtension`, along with the
 `fileExtension()` and `setFileExtension()` methods, which are now `sourceExtension()` and `setSourceExtension()`.
-The rename pairs the source extension with the new `$outputExtension` property (defaulting to `.html`), which
-page classes can override to compile to non-HTML output files.
+The new name makes it explicit that these APIs describe the extension of source files.
 
 This only affects projects with custom page classes or code calling these APIs. Update property declarations,
 call sites, and any methods that override `fileExtension()` or `setFileExtension()` — the methods are public

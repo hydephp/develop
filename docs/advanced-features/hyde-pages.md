@@ -161,15 +161,11 @@ autodiscovery, you may benefit from creating a custom page class instead, as tha
 
 You can learn more about the InMemoryPage class in the [InMemoryPage documentation](in-memory-pages).
 
-In-memory pages generate HTML by default. Custom subclasses can generate another format by declaring their output extension:
+In-memory pages infer their output format from the identifier. Identifiers without an extension compile to `.html`,
+while identifiers that already have an extension keep it:
 
 ```php
-class TextFilePage extends InMemoryPage
-{
-    public static string $outputExtension = '.txt';
-}
-
-TextFilePage::make('robots', contents: $text);
+InMemoryPage::make('robots.txt', contents: $text);
 // _site/robots.txt
 ```
 
