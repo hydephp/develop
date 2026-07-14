@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 
 use function Hyde\unslash;
+use function str_contains;
 use function str_ends_with;
+use function str_starts_with;
 
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on source files.
@@ -108,6 +110,10 @@ class InMemoryPage extends HydePage
         ?string $view = null,
         bool $exactOutputPath = false,
     ) {
+        if ($exactOutputPath) {
+            $identifier = static::normalizeExactOutputPath($identifier);
+        }
+
         $this->exactOutputPath = $exactOutputPath;
 
         parent::__construct($identifier, $matter);
@@ -122,6 +128,24 @@ class InMemoryPage extends HydePage
 
         $this->contents = $contents ?? '';
         $this->view = $view ?? '';
+    }
+
+    protected static function normalizeExactOutputPath(string $path): string
+    {
+        if (
+            $path === ''
+            || str_starts_with($path, '/')
+            || str_ends_with($path, '/')
+            || str_contains($path, '\\')
+            || preg_match('/^[A-Za-z]:/', $path)
+            || in_array('..', explode('/', $path), true)
+        ) {
+            throw new InvalidArgumentException(
+                "Invalid exact output path [$path]. The path must be a relative file path inside the site output directory."
+            );
+        }
+
+        return unslash($path);
     }
 
     /**
