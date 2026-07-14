@@ -34,22 +34,34 @@ To create an InMemoryPage, you need to instantiate it with the required paramete
 Since a page would not be useful without any content to render, the class offers two content options through the constructor.
 
 You can either pass a string to the `$contents` parameter, Hyde will then save that literally as the page's contents.
-Normal construction always uses HTML page semantics, even when the identifier contains a dot. Use `file()` when the
-identifier should instead be used as the exact output path:
 
 ```php
 InMemoryPage::make('about', contents: $html);
 // _site/about.html
+```
 
-InMemoryPage::make('robots.txt', contents: $text);
-// _site/robots.txt.html
+In-memory pages generate HTML by default. To generate another format, extend `InMemoryPage` and declare the output
+extension on the page class:
 
-InMemoryPage::file('robots.txt', contents: $text);
+```php
+class TextFilePage extends InMemoryPage
+{
+    public static string $outputExtension = '.txt';
+}
+
+TextFilePage::make('robots', contents: $text);
 // _site/robots.txt
 ```
 
-The route key and output path are exactly the relative file path passed to `file()`. This supports files such as
-`site.webmanifest`, nested JSON files, and extensionless outputs without inferring behavior from the filename.
+The output extension belongs to the page type, ensuring static and instance path resolution use the same rules:
+
+```php
+TextFilePage::outputPath('robots');
+// robots.txt
+
+TextFilePage::make('robots')->getOutputPath();
+// robots.txt
+```
 
 Alternatively, you can pass a Blade view name to the `$view` parameter, and Hyde will use that view to render the page
 contents with the supplied front matter during the static site build process.
