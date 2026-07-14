@@ -6,7 +6,6 @@ namespace Hyde\Support\Models;
 
 use Hyde\Pages\InMemoryPage;
 use Hyde\Markdown\Models\FrontMatter;
-use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Illuminate\Support\Facades\View;
 
 use function str_ends_with;
@@ -50,18 +49,10 @@ class Redirect extends InMemoryPage
         return false;
     }
 
-    /**
-     * @throws \Hyde\Framework\Exceptions\InvalidConfigurationException If the path ends in a non-HTML output extension,
-     *                                                                  as meta refresh redirects only work for HTML pages.
-     */
     protected function normalizePath(string $path): string
     {
         if (str_ends_with($path, '.html')) {
             return substr($path, 0, -5);
-        }
-
-        if (static::identifierHasExplicitOutputExtension($path)) {
-            throw new InvalidConfigurationException("Invalid redirect source path [$path]: redirects use HTML meta refresh tags, which cannot work for files served as non-HTML content.");
         }
 
         return $path;

@@ -21,7 +21,7 @@ class RobotsTxtPage extends InMemoryPage
     {
         parent::__construct(static::routeKey(), [
             'navigation' => ['hidden' => true],
-        ]);
+        ], exactOutputPath: true);
     }
 
     public function compile(): string

@@ -26,7 +26,7 @@ class DocumentationSearchIndex extends InMemoryPage
 
         parent::__construct(static::routeKey($version), [
             'navigation' => ['hidden' => true],
-        ]);
+        ], exactOutputPath: true);
     }
 
     public function compile(): string

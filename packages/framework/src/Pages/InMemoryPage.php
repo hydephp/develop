@@ -8,10 +8,10 @@ use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 
+use function Hyde\unslash;
 use function str_ends_with;
 
 /**
@@ -36,8 +36,6 @@ class InMemoryPage extends HydePage
     public static string $outputDirectory;
     public static string $sourceExtension;
 
-    protected const EXPLICIT_OUTPUT_EXTENSIONS = ['.json', '.txt', '.xml'];
-
     /**
      * The literal page contents, or a closure that generates them at compile time.
      *
@@ -46,6 +44,7 @@ class InMemoryPage extends HydePage
      * @var string|(Closure(): string)|(Closure(static): string)
      */
     protected string|Closure $contents;
+    protected readonly bool $exactOutputPath;
 
     /**
      * The Blade view key or Blade file path.
@@ -69,6 +68,20 @@ class InMemoryPage extends HydePage
     }
 
     /**
+     * Create an in-memory page whose identifier is used as the exact output path.
+     *
+     * @param  string|(Closure(): string)|(Closure(static): string)|null  $contents
+     */
+    public static function file(
+        string $outputPath,
+        FrontMatter|array $matter = [],
+        string|Closure|null $contents = null,
+        ?string $view = null,
+    ): static {
+        return new static($outputPath, $matter, $contents, $view, exactOutputPath: true);
+    }
+
+    /**
      * Create a new in-memory (virtual) page instance.
      *
      * Pass literal contents or a closure to `$contents`, or pass a registered Laravel view key
@@ -79,7 +92,6 @@ class InMemoryPage extends HydePage
      *
      * View values ending in `.blade.php` are treated as Blade file paths. Other values are treated
      * as registered Laravel view keys.
-     * Identifiers ending in `.json`, `.txt`, or `.xml` retain that extension in the output path.
      *
      * @param  string  $identifier
      * @param  FrontMatter|array  $matter
@@ -93,7 +105,10 @@ class InMemoryPage extends HydePage
         FrontMatter|array $matter = [],
         string|Closure|null $contents = null,
         ?string $view = null,
+        bool $exactOutputPath = false,
     ) {
+        $this->exactOutputPath = $exactOutputPath;
+
         parent::__construct($identifier, $matter);
 
         $view = $view === '' ? null : $view;
@@ -109,33 +124,15 @@ class InMemoryPage extends HydePage
     }
 
     /**
-     * Qualify a page identifier into a target output file path, relative to the _site output directory.
-     *
-     * If the identifier ends in a recognized non-HTML extension (`.json`, `.txt`, or `.xml` by default),
-     * it is treated as an explicit output path and no HTML extension is appended, so an identifier
-     * of "robots.txt" saves the page to "_site/robots.txt".
+     * Get the path where the compiled page will be saved.
      */
-    public static function outputPath(string $identifier): string
+    public function getOutputPath(): string
     {
-        if (static::identifierHasExplicitOutputExtension($identifier)) {
-            return (string) RouteKey::fromPage(static::class, $identifier);
+        if ($this->exactOutputPath) {
+            return unslash($this->identifier);
         }
 
-        return parent::outputPath($identifier);
-    }
-
-    /**
-     * Determine whether the identifier ends with an explicit output extension.
-     */
-    protected static function identifierHasExplicitOutputExtension(string $identifier): bool
-    {
-        foreach (static::EXPLICIT_OUTPUT_EXTENSIONS as $extension) {
-            if (str_ends_with($identifier, $extension)) {
-                return true;
-            }
-        }
-
-        return false;
+        return parent::getOutputPath();
     }
 
     /**

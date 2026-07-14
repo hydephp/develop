@@ -163,7 +163,7 @@ class RssFeedPageTest extends TestCase
     public function testUserPageRegisteredInBootingCallbackSuppressesTheGeneratedFeedPage()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(new InMemoryPage('feed.xml', contents: 'user defined feed'));
+            $kernel->pages()->addPage(InMemoryPage::file('feed.xml', contents: 'user defined feed'));
         });
 
         $page = Routes::get('feed.xml')->getPage();
@@ -195,6 +195,6 @@ class RssFeedPageTestExtension extends HydeExtension
 {
     public function discoverPages(PageCollection $collection): void
     {
-        $collection->addPage(new InMemoryPage('feed.xml', contents: 'extension defined feed'));
+        $collection->addPage(InMemoryPage::file('feed.xml', contents: 'extension defined feed'));
     }
 }
