@@ -21,6 +21,7 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\TextGenerators\LlmsTxtPage;
 use Hyde\Framework\Features\TextGenerators\RobotsTxtPage;
 use Hyde\Framework\Features\XmlGenerators\RssFeedPage;
 use Hyde\Framework\Features\XmlGenerators\SitemapPage;
@@ -95,6 +96,10 @@ class HydeCoreExtension extends HydeExtension
         if (Features::hasRobotsTxt()) {
             $this->discoverRobotsTxtPage($collection);
         }
+
+        if (Features::hasLlmsTxt()) {
+            $this->discoverLlmsTxtPage($collection);
+        }
     }
 
     /** Add the generated sitemap page unless the route is user-defined. */
@@ -113,10 +118,19 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
+    /** Add the generated robots.txt page unless the route is user-defined. */
     protected function discoverRobotsTxtPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, RobotsTxtPage::routeKey())) {
             $collection->addPage(new RobotsTxtPage());
+        }
+    }
+
+    /** Add the generated llms.txt page unless the route is user-defined. */
+    protected function discoverLlmsTxtPage(PageCollection $collection): void
+    {
+        if (! $this->hasPageWithRouteKey($collection, LlmsTxtPage::routeKey())) {
+            $collection->addPage(new LlmsTxtPage());
         }
     }
 

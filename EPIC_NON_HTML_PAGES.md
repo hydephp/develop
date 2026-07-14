@@ -144,6 +144,10 @@ versioned docs route keys like `docs/1.x/index` would false-positive
      > working. This confirms the subclass override is a workable escape hatch for
      > first-party pages, but does not settle option (b) for user-land `make()`
      > callers, which remains the PR 8 call.)*
+     > *(PR 7: confirmed for `llms.txt` — within the allowlist, needing no override.
+     > All four first-party generated files have now landed inside the allowlist, so
+     > the framework never needed option (b); the PR 8 call is purely about the
+     > power-user `make()` audience.)*
 
 ### D3: Sitemap inclusion becomes a page-level concern
 
@@ -178,6 +182,40 @@ a standalone feature in its own right.
 > sitemaps — a redirect page has no front matter channel in `hyde.redirects`, and
 > listing redirects in a sitemap is an SEO anti-pattern, so an opt-in would only
 > be a trap.
+
+> **Reused, not duplicated (PR 7): llms.txt inclusion *is* sitemap inclusion.** No new
+> page method and no new front matter key were added. `LlmsTxtGenerator::shouldListPage()`
+> is simply `$page->showInSitemap() && $page->getIdentifier() !== '404'`.
+>
+> This landed in two cuts. The first PR 7 implementation added a mirror
+> `HydePage::showInLlmsTxt()` (plus a `Redirect` override, a `BaseHydePageUnitTest`
+> contract entry, and six page unit test implementations); that was cut because
+> `showInSitemap()` already answers the exact question llms.txt asks — "is this page part
+> of the machine-readable index of my site" — and its resolved-output-path default already
+> excludes every generated non-HTML page and redirect for free. The interim version kept an
+> `llms` front matter key (`matter('llms', $page->showInSitemap())`) to preserve decoupling;
+> that was cut too, on the grounds that **front matter is public API we must support
+> forever, so it has to earn its place.** The decisive argument is that llms.txt is not a
+> control plane: omitting a page from it does not stop any AI service from reading that
+> page (only `robots.txt` speaks to crawler access), so `llms: false` could never mean
+> "hide this from AI" — it could only mean "curate my index", which is precisely what
+> `sitemap: false` already means. A second key with near-identical semantics would mostly
+> generate the question "which one do I use?".
+>
+> The coupling is therefore a feature, not a compromise, and it is the *less* surprising
+> default: a user who hides a page from search engines does not expect it advertised to AI
+> agents.
+>
+> The known cost is the converse case: a page kept out of the sitemap for SEO reasons
+> (thin content, a duplicate, a paginated archive) that would still be useful to an agent.
+> That site is not stuck today — overriding `shouldListPage()` on the generator and
+> rebinding it is exactly the D4 tier, and it is a three-line override. The trade is
+> deliberate: the edge case pays at the generator tier instead of every site paying for a
+> second front matter key. Should the case turn out to be common, reintroducing `llms:`
+> front matter (or promoting it to a `showInLlmsTxt()` method) is additive and
+> non-breaking — so waiting
+> for that evidence costs nothing, while shipping the key speculatively costs us the
+> support burden forever.
 
 ### D4: Generators become container-resolved pages; generator actions stay
 
@@ -253,6 +291,7 @@ container → fully custom page in code.
 > asserted through the real `build` command output. The robots.txt equivalent remains
 > mandatory for PR 6. *(Part B: both paths verified the same way for the feed page.)*
 > *(PR 6: both paths verified the same way for the robots.txt page.)*
+> *(PR 7: both paths verified the same way for the llms.txt page.)*
 
 ### D6: No built-in `TextPage` or `.txt` autodiscovery
 
@@ -555,7 +594,7 @@ Implementation notes (branch `v3/non-html-pages-robots`):
   the removed post-build tasks; robots.txt never had one, and the standard build
   and realtime compiler (serve test asserts `text/plain`) cover the lifecycle.
 
-### PR 7 — Generated `llms.txt`
+### PR 7 — Generated `llms.txt` ✅ Implemented
 
 Goal: best-in-class llms.txt support — no other SSG generates this well out of the box.
 
@@ -571,6 +610,135 @@ Goal: best-in-class llms.txt support — no other SSG generates this well out of
   should be a first-class, documented choice, mirroring how `robots.txt` disabling
   works, rather than something a user has to discover.
 - Consider `llms-full.txt` (full page contents) as a follow-up, not in scope.
+
+Implementation notes (branch `v3/non-html-pages-llms-txt`):
+
+- `LlmsTxtPage` + `LlmsTxtGenerator` land in `Hyde\Framework\Features\TextGenerators`
+  next to the robots.txt pair (superseding the `GeneratesLlmsTxt` working name, as
+  PR 6 anticipated), and mirror `RobotsTxtPage` throughout: thin `InMemoryPage`
+  subclass, container-resolved generator in `compile()` (rebind verified by test),
+  registered in `HydeCoreExtension::discoverPages()` with the D5 skip check, hidden
+  from navigation, D3-excluded from the sitemap, and both user override paths verified
+  end-to-end through the real `build` command. No `build:llms` command, for the same
+  reason PR 6 added no `build:robots`.
+- **Default on, with the opt-out as the documented choice.** `Features::hasLlmsTxt()`
+  reads `hyde.llms.enabled` (default `true`), so the file ships by default. The
+  decision the epic demanded: llms.txt lists only already-published pages and surfaces
+  nothing the sitemap does not, sitemap/RSS/robots are all on by default, and the
+  actual crawler control plane is robots.txt, not llms.txt — so an opt-*in* would
+  bury the feature for the majority to protect a minority that a `false` in the config
+  serves just as well. The opt-out is called out in the config stub, the release notes,
+  and its own UPGRADE.md step rather than being left for users to discover.
+- **Emerging-standard caveat, recorded deliberately.** llms.txt is a proposal, not a
+  ratified standard, so the generated *format* carries no backwards-compatibility
+  promise: we expect to change it in minor and patch releases as the spec moves. This
+  is stated in the config stub, the generator docblock, the release notes, and
+  UPGRADE.md (which points users who need a frozen format at the user-defined page
+  tier). Shipping an imperfect llms.txt is judged better than shipping none.
+- **Deviation — site URL is required** (unlike robots.txt, which deliberately is not
+  gated on one). `hasLlmsTxt()` requires `Hyde::hasSiteUrl()`, putting llms.txt in the
+  sitemap/RSS camp: the file's entire payload is links, and relative links in a file
+  fetched by an arbitrary agent are a degraded product. Consequence: zero-config sites
+  without a base URL get no llms.txt, exactly as they get no sitemap. Under
+  `hyde serve` the realtime compiler overrides the site URL, so the page *is* served
+  locally (asserted by a `text/plain` serve test).
+- **Deviation — there is no section configuration at all.** The epic (and the research
+  doc) asked for "config for section grouping/exclusions", sketched as route-key globs.
+  An initial implementation shipped a `hyde.llms.sections` map of page class to section
+  heading; it was cut in review. Hyde already *knows* its page types, so grouping needs
+  no user input to be correct, and the config bought only heading renames and bulk
+  exclusion — rare needs, paid for by every user in config-file surface (a five-entry
+  array, entry validation, an exception path, and a comment explaining that omitting a
+  class silently drops those pages, which is a trap the framework did not previously
+  have). The section map now lives as a `protected sections()` method on the generator:
+  page classes are matched with `instanceof` in declaration order — the same semantics
+  `PageCollection::getPages()` and `RouteCollection::getRoutes()` use — so a user's
+  `GuidePage extends MarkdownPage` lands in the `Pages` section, while every
+  `InMemoryPage` descendant (the generated pages, redirects, and the documentation
+  search page) is absent from the map and therefore never listed. Users who genuinely
+  need different sections have the D4 tier already advertised for exactly this:
+  override the generator and rebind it in the container. The config surface is now two
+  keys, `enabled` and `description`, matching the size of the `rss` and `robots` blocks.
+  A method rather than a constant because overriding the generator *is* the advertised
+  customization tier, and a method lets an override compute its sections from config,
+  installed extensions, or runtime state, which a constant expression cannot.
+  *Design rule this records: a configuration option must be justified against the
+  container-rebind tier that already exists, not merely be useful in principle.*
+- **Page ordering is route order, deliberately.** Sections are emitted in the order
+  `sections()` declares them, and pages within a section in route-collection order —
+  the same order the sitemap lists and the build compiles them in. This is a chosen and
+  tested contract, not an accident of discovery: `FileFinder` sorts its results by path,
+  so the order is deterministic and platform-independent, and because Hyde strips
+  numeric filename prefixes from route keys while still discovering by path, a
+  `01-installation.md` / `02-usage.md` docs set lands in the file in its intended reading
+  order with clean URLs. Navigation priority was considered as the ordering key and
+  rejected: it would couple the file to navigation config, and it is meaningless for the
+  blog posts and nav-hidden pages that make up much of the listing.
+- **Deviation — `hyde.description` does not exist.** The epic assumed a site-level
+  description config key; there is none (only `hyde.rss.description`). Added
+  `hyde.llms.description`, mirroring the RSS key rather than inventing a global one,
+  which would have pulled in the `hyde.meta` description tag and page metadata
+  generation — a cross-cutting change that does not belong in this PR. It is nullable,
+  and the summary blockquote is omitted when unset (only the H1 is required by the
+  spec).
+  *Follow-up recorded (out of scope): site identity metadata is fragmenting.* The site
+  name, base URL, language, and now two separate descriptions (`hyde.rss.description`
+  and `hyde.llms.description`) all describe the same site identity from different config
+  keys. A coherent site-metadata object — name, canonical URL, description, language,
+  author/organization — with feature-specific overrides would consolidate them. That is
+  its own architectural change, not scope for this epic; this PR deliberately mirrored
+  the existing RSS key rather than pre-empting that design.
+- **Markdown-significant characters in titles are escaped.** A page titled
+  `Arrays [Advanced]` would otherwise emit `- [Arrays [Advanced]](url)`, a malformed
+  link. `escapeLinkLabel()` escapes `[`, `]`, and `\` in the label. Link *descriptions*
+  are not escaped: they are prose trailing the link rather than delimiter-sensitive
+  syntax.
+- **Link descriptions:** the `abstract` front matter added by #2523, falling back to
+  `description`. #2523 only added `abstract` to the docs *content* — there is no
+  framework schema support for it, and consistent with PR 4 (which did not add
+  `sitemap` to `PageSchema::PAGE_SCHEMA` either), `abstract` was not added to the
+  schema; it is documented on the generator that reads it. Note that this PR adds **no
+  new front matter keys at all** — it only consumes `abstract`, `description`, and
+  `sitemap`, which all already existed. Whitespace
+  in descriptions is collapsed to a single line, since a multi-line YAML block scalar
+  would otherwise emit a broken list item — this is *not* a "verbatim string" case like
+  the robots.txt disallow rules, where PR 6 correctly refused to normalize, because
+  here the value is prose embedded in a line-oriented format rather than an exact-match
+  rule value. With the sections config gone, no llms config entry needs validation: both
+  remaining keys are scalars read through the typed `Config` accessors.
+- **Deviation — 404 pages are never listed.** An error page is not content, and every
+  real-world llms.txt excludes it. Filtered in the generator by identifier, mirroring
+  the `$identifier === '404'` special case `SitemapGenerator` already carries. This is a
+  generator-level curation concern rather than a page-level default (the sitemap
+  precedent likewise keeps its 404 handling in the generator), and it is the reason the
+  sitemap-derived inclusion rule is not a bare alias for `showInSitemap()`.
+- Everything else the epic left implicit held: `llms.txt` is within the D2 allowlist,
+  and the generated page self-excludes from its own listing (and the sitemap) through
+  the D3 resolved-output-path default.
+
+> **Scope correction (post-implementation review).** The first cut of this PR was
+> overbuilt for the value delivered, and three pieces were cut back before merge: the
+> `hyde.llms.sections` config (see the sections deviation above), the
+> `HydePage::showInLlmsTxt()` page method, and the `llms` front matter key that briefly
+> replaced it (both in the D3 "Reused, not duplicated" note). Between them they added a
+> public method to every page class, an entry in the `BaseHydePageUnitTest` contract with
+> six implementations, a front matter key we would have to support for the life of v3, a
+> config array with its own validation and exception path, and a config comment long
+> enough to advertise that the option was not simple. All of it served needs that the
+> existing `sitemap: false` front matter and the D4 container-rebind tier already served.
+> The feature's user-facing capability is materially unchanged; only the surface shrank.
+> The final shape adds **no new front matter, no page-model API, and two scalar config
+> keys.**
+>
+> Three rules worth carrying into PR 8 and any future generated-page work:
+> 1. **The D4 rebind tier is the default answer for customization.** A new config key or
+>    page-model method has to beat it, not merely be useful.
+> 2. **Front matter is forever.** A key we introduce is public API we must support and
+>    document for the life of the major version, so a speculative one is a real liability.
+>    Adding a key later is additive and non-breaking, which makes "wait for the evidence"
+>    the cheap option and "ship it just in case" the expensive one.
+> 3. **A long explanatory comment in a config stub is a design smell,** not diligence. If
+>    an option needs paragraphs to explain, the option is usually the problem.
 
 ### PR 8 — Documentation & release notes
 

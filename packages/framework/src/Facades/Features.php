@@ -123,6 +123,15 @@ class Features implements SerializableContract
     }
 
     /**
+     * Can an llms.txt file be generated?
+     */
+    public static function hasLlmsTxt(): bool
+    {
+        return Hyde::hasSiteUrl()
+            && Config::getBool('hyde.llms.enabled', true);
+    }
+
+    /**
      * Should documentation search be enabled?
      */
     public static function hasDocumentationSearch(): bool
