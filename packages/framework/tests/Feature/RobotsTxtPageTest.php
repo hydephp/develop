@@ -41,6 +41,7 @@ class RobotsTxtPageTest extends TestCase
 
         $this->assertInstanceOf(RobotsTxtPage::class, $page);
         $this->assertSame('robots.txt', $page->getOutputPath());
+        $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('robots.txt', $page->getRouteKey());
     }
 

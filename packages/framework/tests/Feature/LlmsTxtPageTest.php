@@ -48,6 +48,7 @@ class LlmsTxtPageTest extends TestCase
 
         $this->assertInstanceOf(LlmsTxtPage::class, $page);
         $this->assertSame('llms.txt', $page->getOutputPath());
+        $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('llms.txt', $page->getRouteKey());
     }
 

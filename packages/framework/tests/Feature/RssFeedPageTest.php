@@ -51,6 +51,7 @@ class RssFeedPageTest extends TestCase
 
         $this->assertInstanceOf(RssFeedPage::class, $page);
         $this->assertSame('feed.xml', $page->getOutputPath());
+        $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('feed.xml', $page->getRouteKey());
     }
 
@@ -90,6 +91,7 @@ class RssFeedPageTest extends TestCase
 
         $this->assertTrue(Routes::exists('feed.rss'));
         $this->assertSame('feed.rss', Routes::get('feed.rss')->getPage()->getOutputPath());
+        $this->assertSame('feed.rss', RssFeedPage::outputPath('feed.rss'));
     }
 
     public function testFeedPageIsHiddenFromNavigationAndExcludesItselfFromTheSitemap()
