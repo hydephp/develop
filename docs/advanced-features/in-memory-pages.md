@@ -49,24 +49,14 @@ use Hyde\Pages\InMemoryPage;
 $page = new InMemoryPage(
     'sitemap.xml',
     ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    fn (SitemapGenerator $generator): string => $generator->generate()->getXml(),
 );
 ```
 
-Non-static closures are bound to the page instance, so they can use `$this` to access page context such as front matter.
-
-```php
-$page = new InMemoryPage(
-    'example.txt',
-    ['title' => 'Example'],
-    function (): string {
-        return $this->matter->get('title');
-    },
-);
-```
-
-Static closures are also supported, but they run unbound and cannot use `$this`. The `$contents` parameter accepts only
-a string or closure, not arbitrary callables.
+When contents are provided as a closure, Hyde resolves and invokes it through the application container each time the
+contents are requested. Dependencies declared as closure parameters are injected lazily. Hyde does not rebind content
+closures, so first-class callable closures preserve their original object binding. The `$contents` parameter accepts
+only a string or closure, not arbitrary callables.
 
 Alternatively, pass a Blade view name or arbitrary `.blade.php` file to the `$view` parameter. Hyde renders the view
 with the supplied front matter during the static site build process.
