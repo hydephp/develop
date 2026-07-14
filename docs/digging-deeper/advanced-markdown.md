@@ -169,6 +169,9 @@ You can customize the terminal markup and Tailwind classes by publishing Hyde's 
 php hyde publish:views components
 ```
 
+The terminal component will be published to
+`resources/views/vendor/hyde/components/markdown/terminal.blade.php`.
+
 ## Coloured Blockquotes
 
 The HydePHP Markdown converter also supports some extra directives and features. One of them being four different

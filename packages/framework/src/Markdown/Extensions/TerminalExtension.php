@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Extensions;
 
-use Hyde\Markdown\Nodes\TerminalBlock;
-use Hyde\Markdown\Processing\TerminalBlockRenderer;
-use Hyde\Markdown\Processing\TransformTerminalBlocks;
+use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
+use Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer;
+use Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\ExtensionInterface;
 
 /** @internal */
-final class TerminalExtension implements ExtensionInterface
+class TerminalExtension implements ExtensionInterface
 {
     public function register(EnvironmentBuilderInterface $environment): void
     {

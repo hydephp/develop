@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Markdown\Processing;
+namespace Hyde\Markdown\Extensions\Processing;
 
-use Hyde\Markdown\Nodes\TerminalBlock;
+use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 
@@ -14,7 +14,7 @@ use function in_array;
 use function strtolower;
 
 /** @internal */
-final class TransformTerminalBlocks
+class TransformTerminalBlocks
 {
     public function __invoke(DocumentParsedEvent $event): void
     {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Markdown\Nodes;
+namespace Hyde\Markdown\Extensions\Nodes;
 
 use League\CommonMark\Node\Block\AbstractBlock;
 
 /** @internal */
-final class TerminalBlock extends AbstractBlock
+class TerminalBlock extends AbstractBlock
 {
     public function __construct(
         public readonly string $literal,

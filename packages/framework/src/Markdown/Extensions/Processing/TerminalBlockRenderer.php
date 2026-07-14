@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyde\Markdown\Processing;
+namespace Hyde\Markdown\Extensions\Processing;
 
-use Hyde\Markdown\Nodes\TerminalBlock;
+use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
 use InvalidArgumentException;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
@@ -25,7 +25,7 @@ use function sprintf;
 use function view;
 
 /** @internal */
-final class TerminalBlockRenderer implements NodeRendererInterface
+class TerminalBlockRenderer implements NodeRendererInterface
 {
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): string
     {
@@ -33,12 +33,12 @@ final class TerminalBlockRenderer implements NodeRendererInterface
             throw new InvalidArgumentException(sprintf('Incompatible node type: %s', get_class($node)));
         }
 
-        return view('hyde::components.terminal', [
+        return view('hyde::components.markdown.terminal', [
             'contents' => $this->renderContents($node),
         ])->render();
     }
 
-    private function renderContents(TerminalBlock $node): string
+    protected function renderContents(TerminalBlock $node): string
     {
         return implode("\n", array_map(
             fn (string $line): string => $this->renderLine($line, $node->usesSymfonyFormatting),
@@ -46,7 +46,7 @@ final class TerminalBlockRenderer implements NodeRendererInterface
         ));
     }
 
-    private function renderLine(string $line, bool $usesSymfonyFormatting): string
+    protected function renderLine(string $line, bool $usesSymfonyFormatting): string
     {
         if (preg_match('/^(\$[\t ]+)(.*)$/', $line, $matches)) {
             return sprintf(
@@ -59,7 +59,7 @@ final class TerminalBlockRenderer implements NodeRendererInterface
         return $this->renderText($line, $usesSymfonyFormatting);
     }
 
-    private function renderText(string $text, bool $usesSymfonyFormatting): string
+    protected function renderText(string $text, bool $usesSymfonyFormatting): string
     {
         if (! $usesSymfonyFormatting) {
             return e($text);

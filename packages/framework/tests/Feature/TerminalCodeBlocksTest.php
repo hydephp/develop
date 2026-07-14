@@ -6,10 +6,10 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Markdown\Extensions\TerminalExtension;
+use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
+use Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer;
+use Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks;
 use Hyde\Markdown\Models\Markdown;
-use Hyde\Markdown\Nodes\TerminalBlock;
-use Hyde\Markdown\Processing\TerminalBlockRenderer;
-use Hyde\Markdown\Processing\TransformTerminalBlocks;
 use Hyde\Testing\TestCase;
 use Torchlight\Commonmark\BaseExtension;
 
