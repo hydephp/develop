@@ -10,10 +10,13 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
+use InvalidArgumentException;
 
 use function Hyde\unslash;
 use function sprintf;
+use function str_contains;
 use function str_ends_with;
+use function str_starts_with;
 
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
@@ -74,14 +77,41 @@ class InMemoryPage extends HydePage
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      * @param  bool  $exactOutputPath  Whether to use the identifier as the exact output path. Prefer the `file()` constructor for this mode.
      */
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '', bool $exactOutputPath = false)
-    {
+    public function __construct(
+        string $identifier = '',
+        FrontMatter|array $matter = [],
+        string $contents = '',
+        string $view = '',
+        bool $exactOutputPath = false
+    ) {
+        if ($exactOutputPath) {
+            $identifier = static::normalizeExactOutputPath($identifier);
+        }
+
         $this->exactOutputPath = $exactOutputPath;
 
         parent::__construct($identifier, $matter);
 
         $this->contents = $contents;
         $this->view = $view;
+    }
+
+    protected static function normalizeExactOutputPath(string $path): string
+    {
+        if (
+            $path === ''
+            || str_starts_with($path, '/')
+            || str_ends_with($path, '/')
+            || str_contains($path, '\\')
+            || preg_match('/^[A-Za-z]:/', $path)
+            || in_array('..', explode('/', $path), true)
+        ) {
+            throw new InvalidArgumentException(
+                "Invalid exact output path [$path]. The path must be a relative file path inside the site output directory."
+            );
+        }
+
+        return unslash($path);
     }
 
     /**
