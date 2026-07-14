@@ -16,6 +16,10 @@ InMemoryPage::make(string|(Closure(): string)|(Closure(static):, Hyde\Markdown\M
 
 Create an in-memory page whose identifier is used as the exact output path.
 
+The output path must be a relative file path contained within the site output directory.
+
+The output path must be a relative file path contained within the site output directory.
+
 ```php
 /** @param string|(Closure(): string)|(Closure(static): string)|null $contents */
 InMemoryPage::file(string $outputPath, Hyde\Markdown\Models\FrontMatter|array $matter, Closure|string|null $contents, string $view): static
@@ -31,7 +35,9 @@ Contents and views cannot be used together. Omit both to create an empty page. A
 
 View values ending in `.blade.php` are treated as Blade file paths. Other values are treated as registered Laravel view keys.
 
-- **Parameter $exactOutputPath:** Whether to use the identifier as the exact output path. Prefer the `file()` constructor for this mode.
+Normal construction uses HTML page semantics; use the `file()` constructor to create an exact-path file page.
+
+- **Parameter $exactOutputPath:** Whether to validate and use the identifier as an exact output path. Prefer the `file()` constructor for this mode.
 
 ```php
 /** @param string|(Closure(): string)|(Closure(static): string)|null $contents */

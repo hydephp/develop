@@ -184,7 +184,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      *
      * The value includes the leading dot, so it can be used directly as a file name suffix.
      *
-     * @throws \InvalidArgumentException If the declared extension does not start with a dot or contains a path separator.
+     * @throws \InvalidArgumentException If the output extension does not start with a dot or contains a path separator.
      */
     public static function outputExtension(): string
     {

@@ -70,25 +70,25 @@ it is proven in production, requires no realtime-compiler lookup changes
 (`PageRouter::normalizePath()` only strips `.html`), and lets `docs/search` (page)
 and `docs/search.json` (index) coexist as distinct routes, which they already do.
 
-> **Implemented (PR 1):** `RouteKey::fromPage()` appends the page class's declared
+> **Implemented (PR 1):** `RouteKey::fromPage()` appends the page class's configured
 > non-HTML output extension to the key (skipping it when the identifier already ends
-> with it), so custom page classes declaring a non-HTML output extension are
+> with it), so custom page classes configured with a non-HTML output extension are
 > D1-compliant out of the box and PR 2 can rely on "route key == request path with
 > only `.html` stripped" universally.
 
-### D2: Output extension is declared, not inferred
+### D2: Exact output paths are explicit, not inferred
 
 Do **not** infer "this identifier has an extension" from a dot in the identifier —
 versioned docs route keys like `docs/1.x/index` would false-positive
-(`pathinfo('docs/1.x')['extension'] === 'x'`). Instead the extension is declared:
+(`pathinfo('docs/1.x')['extension'] === 'x'`). Instead, output intent is explicit:
 
-- File-discovered custom classes declare it statically, mirroring the existing
-  `HtmlPage::$sourceExtension` pattern.
+- File-discovered custom classes configure their output extension statically,
+  mirroring the existing `HtmlPage::$sourceExtension` pattern.
 - `HydePage` gets `public static string $outputExtension = '.html'` (or an
-  instance-level hook), and `outputPath()` uses it instead of the hardcoded
-  `'.html'`. This removes the `getOutputPath()` override dance.
+  instance-level hook), and `outputPath()` uses it instead of the hardcoded `'.html'`.
 - `InMemoryPage` has two unambiguous construction modes: `make()` uses normal HTML
-  page semantics, while `file()` treats its identifier as the exact output path.
+  page semantics, while `file()` validates and uses its identifier as the exact
+  relative output path.
 
 > **Final decision (before PR 8): explicit page versus file construction.** The
 > allowlist introduced in PR 1 was removed after review because it still inferred
@@ -270,7 +270,7 @@ an extension point.
 
 ## Work breakdown (planned PR sequence, in dependency order)
 
-### PR 1 — Foundation: declared output extensions on `HydePage` ✅ Implemented
+### PR 1 — Foundation: explicit output paths and page-class extensions ✅ Implemented
 
 Goal: any page class can emit a non-`.html` file without overriding `getOutputPath()`.
 
@@ -279,7 +279,7 @@ Goal: any page class can emit a non-`.html` file without overriding `getOutputPa
 - Route keys follow D1; audit `RouteKey` and `Route` for assumptions.
 - Add explicit exact-path construction for `InMemoryPage` per D2, so
   `InMemoryPage::file('robots.txt', contents: ...)` outputs `robots.txt`.
-- Refactor `DocumentationSearchIndex` to drop its `getOutputPath()` override.
+- Refactor `DocumentationSearchIndex` to use the exact-path file-page mode.
 - Pure refactor for existing sites: no compiled-output changes.
 
 Implementation notes (branch `v3/non-html-pages-foundation`):
@@ -297,7 +297,7 @@ Implementation notes (branch `v3/non-html-pages-foundation`):
   properties cannot alias each other without precedence/synchronization hacks.
   The mechanical migration is recorded in `HYDEPHP_V3_PLANNING.md` under
   "Upgrade script rules" for the release-time Rector script.
-- Non-HTML extension handling was placed in `RouteKey::fromPage()` (see D1 note)
+- Page-class output extension handling was placed in `RouteKey::fromPage()` (see D1 note)
   rather than only in `outputPath()`, so route keys and output paths cannot drift.
 - **Revised before PR 8:** the original allowlist-based implementation was replaced
   by `InMemoryPage::file()` (see the final D2 decision). `make()` and direct

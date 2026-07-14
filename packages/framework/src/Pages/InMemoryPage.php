@@ -72,6 +72,8 @@ class InMemoryPage extends HydePage
     /**
      * Create an in-memory page whose identifier is used as the exact output path.
      *
+     * The output path must be a relative file path contained within the site output directory.
+     *
      * @param  string|(Closure(): string)|(Closure(static): string)|null  $contents
      */
     public static function file(
@@ -91,6 +93,7 @@ class InMemoryPage extends HydePage
      *
      * Contents and views cannot be used together. Omit both to create an empty page.
      * An empty view value is treated as no view.
+     * Normal construction uses HTML page semantics; use the `file()` constructor to create an exact-path file page.
      *
      * View values ending in `.blade.php` are treated as Blade file paths. Other values are treated
      * as registered Laravel view keys.
@@ -99,7 +102,7 @@ class InMemoryPage extends HydePage
      * @param  FrontMatter|array  $matter
      * @param  string|(Closure(): string)|(Closure(static): string)|null  $contents
      * @param  string|null  $view
-     * @param  bool  $exactOutputPath  Whether to use the identifier as the exact output path. Prefer the `file()` constructor for this mode.
+     * @param  bool  $exactOutputPath  Whether to validate and use the identifier as an exact output path. Prefer the `file()` constructor for this mode.
      *
      * @throws InvalidArgumentException If both contents and a view are supplied.
      */
