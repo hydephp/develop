@@ -8,10 +8,8 @@ use Hyde\Facades\Filesystem;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Hyde;
-use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Support\Models\Redirect;
 use Hyde\Testing\TestCase;
-use RuntimeException;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\Redirect::class)]
 class RedirectTest extends TestCase
@@ -66,23 +64,12 @@ class RedirectTest extends TestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function testRedirectWithNonHtmlSourcePathIsRejected()
+    public function testDottedRedirectPathUsesHtmlPageSemantics()
     {
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage('Invalid redirect source path [legacy.json]: redirects use HTML meta refresh tags');
+        $redirect = new Redirect('legacy.json', 'new-location');
 
-        new Redirect('legacy.json', 'new-location');
-    }
-
-    public function testConfiguredRedirectWithNonHtmlSourcePathIsRejected()
-    {
-        config(['hyde.redirects' => ['legacy.txt' => 'new-location']]);
-        HydeKernel::setInstance(new HydeKernel(Hyde::path()));
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Invalid redirect source path [legacy.txt]');
-
-        Hyde::pages();
+        $this->assertSame('legacy.json', $redirect->getRouteKey());
+        $this->assertSame('legacy.json.html', $redirect->getOutputPath());
     }
 
     public function testRedirectsCannotWriteOutsideTheBuildPipeline()

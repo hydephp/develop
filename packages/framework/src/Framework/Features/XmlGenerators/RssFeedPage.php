@@ -21,7 +21,7 @@ class RssFeedPage extends InMemoryPage
     {
         parent::__construct(static::routeKey(), [
             'navigation' => ['hidden' => true],
-        ]);
+        ], exactOutputPath: true);
     }
 
     public function compile(): string
@@ -35,15 +35,5 @@ class RssFeedPage extends InMemoryPage
     public static function routeKey(): string
     {
         return RssFeedGenerator::getFilename();
-    }
-
-    /**
-     * The identifier is the user-configured `hyde.rss.filename` and is always used
-     * verbatim as the output path, regardless of its extension, so filenames like
-     * `feed.rss` outside the default recognized extensions keep working.
-     */
-    protected static function identifierHasExplicitOutputExtension(string $identifier): bool
-    {
-        return true;
     }
 }
