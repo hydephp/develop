@@ -71,7 +71,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     public readonly string $identifier;
     public readonly string $title;
 
-    protected readonly string $routeKey;
+    protected ?string $routeKey = null;
 
     /** @var \WeakMap<self, string>|null */
     private static ?WeakMap $resolvedRouteKeys = null;

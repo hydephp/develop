@@ -32,7 +32,7 @@ Custom pages that override `getOutputPath()` no longer need to override `getRout
 lazily, so output paths backed by instance state are safe to initialize after calling the parent constructor.
 The first route read fixes that identity for the rest of the page lifecycle, including when a `Route` is constructed.
 
-The historical public readonly `routeKey` property is now a protected readonly compatibility declaration backed by
+The historical public readonly `routeKey` property is now a protected compatibility declaration backed by
 an internal lazy cache. Direct reads such as `$page->routeKey` remain supported through the magic accessor, but new
 code should call `$page->getRouteKey()`. Code that reflects public properties, uses `get_object_vars()`, inspects property visibility,
 or depends on the native serialized property shape must account for that runtime compatibility change.
