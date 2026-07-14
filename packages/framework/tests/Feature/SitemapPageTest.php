@@ -44,6 +44,7 @@ class SitemapPageTest extends TestCase
 
         $this->assertInstanceOf(SitemapPage::class, $page);
         $this->assertSame('sitemap.xml', $page->getOutputPath());
+        $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('sitemap.xml', $page->getRouteKey());
     }
 
