@@ -106,6 +106,8 @@ class PageMetadataBag extends MetadataBag
 
     protected function resolveImageLink(string $image): string
     {
+        // FeaturedImage resolves local assets against the active render route. Preserve
+        // an already-relative result instead of applying page traversal a second time.
         if (Hyperlinks::isRemote($image) || str_starts_with($image, '../')) {
             return $image;
         }

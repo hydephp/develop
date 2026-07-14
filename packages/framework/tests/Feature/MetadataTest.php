@@ -11,11 +11,13 @@ use Hyde\Framework\Features\Metadata\Elements\LinkElement;
 use Hyde\Framework\Features\Metadata\Elements\MetadataElement;
 use Hyde\Framework\Features\Metadata\Elements\OpenGraphElement;
 use Hyde\Framework\Features\Metadata\MetadataBag;
+use Hyde\Framework\Features\Metadata\PageMetadataBag;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
+use Hyde\Support\Facades\Render;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\MetadataBag::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\Metadata\PageMetadataBag::class)]
@@ -228,6 +230,46 @@ class MetadataTest extends TestCase
         $page = new MarkdownPage('bar');
 
         $this->assertStringContainsString('<link rel="canonical" href="foo/bar.html">', $page->metadata->render());
+    }
+
+    public function testLazyMetadataUsesFlattenedVersionedDocumentationOutputPath()
+    {
+        $this->withSiteUrl();
+        config([
+            'docs.versions' => ['1.x', '2.x'],
+            'docs.flattened_output_paths' => true,
+        ]);
+
+        $page = new DocumentationPage('2.x/guides/01-installation');
+
+        $this->assertStringContainsString(
+            '<link rel="canonical" href="https://example.com/docs/2.x/installation.html">',
+            $page->metadata->render(),
+        );
+    }
+
+    public function testEveryPublicMetadataReadPathTriggersLazyGeneration()
+    {
+        $this->withSiteUrl();
+
+        foreach (['get', 'render', 'toHtml'] as $method) {
+            $metadata = (new MarkdownPage($method))->metadata();
+            $rendered = $method === 'get' ? implode("\n", $metadata->get()) : $metadata->{$method}();
+
+            $this->assertStringContainsString("https://example.com/$method.html", $rendered);
+        }
+    }
+
+    public function testLazyMetadataSurvivesNativePageSerialization()
+    {
+        $this->withSiteUrl();
+
+        $page = unserialize(serialize(new MarkdownPage('serialized')), ['allowed_classes' => true]);
+
+        $this->assertStringContainsString(
+            '<link rel="canonical" href="https://example.com/serialized.html">',
+            $page->metadata->render(),
+        );
     }
 
     public function testCanonicalLinkUsesCleanUrlSetting()
@@ -470,6 +512,29 @@ class MetadataTest extends TestCase
         $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../media/foo.jpg?v=00000000">');
     }
 
+    public function testNestedPostImageIsNotPrefixedTwiceDuringActivePageRender()
+    {
+        config(['hyde.cache_busting' => false]);
+        $this->file('_media/foo.jpg');
+
+        $page = new MarkdownPost('foo/bar', matter: ['image' => 'foo.jpg']);
+        Render::setPage($page);
+
+        try {
+            $this->assertPageHasMetadata($page, '<meta property="og:image" content="../../media/foo.jpg">');
+        } finally {
+            Render::clearData();
+        }
+    }
+
+    public function testAlreadyRelativeAndRemoteImageLinksAreNotPrefixed()
+    {
+        $metadata = new InspectablePageMetadataBag(new MarkdownPost('foo/bar'));
+
+        $this->assertSame('../image.png', $metadata->resolveImageLink('../image.png'));
+        $this->assertSame('https://example.com/image.png', $metadata->resolveImageLink('https://example.com/image.png'));
+    }
+
     public function testDynamicPostMetaPropertiesContainsImageLinkThatIsAlwaysRelativeForNestedOutputDirectories()
     {
         MarkdownPost::setOutputDirectory('_posts/foo');
@@ -575,5 +640,13 @@ class MetadataTest extends TestCase
         ]);
 
         $this->assertPageDoesNotHaveMetadata($page, '<meta name="author"');
+    }
+}
+
+class InspectablePageMetadataBag extends PageMetadataBag
+{
+    public function resolveImageLink(string $image): string
+    {
+        return parent::resolveImageLink($image);
     }
 }
