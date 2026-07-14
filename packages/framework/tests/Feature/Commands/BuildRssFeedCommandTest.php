@@ -88,7 +88,10 @@ class BuildRssFeedCommandTest extends TestCase
         $this->cleanUpWhenDone('_site/feed.xml');
 
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::file('feed.xml', contents: '<?xml version="1.0"?><rss/>'));
+            $kernel->pages()->addPage(new class('feed.xml', contents: '<?xml version="1.0"?><rss/>') extends InMemoryPage
+            {
+                public static string $outputExtension = '.xml';
+            });
         });
 
         $this->artisan('build:rss')->assertExitCode(0);

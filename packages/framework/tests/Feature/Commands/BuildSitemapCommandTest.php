@@ -60,7 +60,10 @@ class BuildSitemapCommandTest extends TestCase
         $this->cleanUpWhenDone('_site/sitemap.xml');
 
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::file('sitemap.xml', contents: '<?xml version="1.0"?><urlset/>'));
+            $kernel->pages()->addPage(new class('sitemap.xml', contents: '<?xml version="1.0"?><urlset/>') extends InMemoryPage
+            {
+                public static string $outputExtension = '.xml';
+            });
         });
 
         $this->artisan('build:sitemap')->assertExitCode(0);
@@ -76,7 +79,10 @@ class BuildSitemapCommandTest extends TestCase
         $this->cleanUpWhenDone('_site/sitemap.xml');
 
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::file('sitemap.xml', contents: '<?xml version="1.0"?><urlset/>'));
+            $kernel->pages()->addPage(new class('sitemap.xml', contents: '<?xml version="1.0"?><urlset/>') extends InMemoryPage
+            {
+                public static string $outputExtension = '.xml';
+            });
         });
 
         $this->artisan('build:sitemap')->assertExitCode(0);

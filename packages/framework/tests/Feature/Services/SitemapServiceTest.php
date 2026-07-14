@@ -135,7 +135,10 @@ class SitemapServiceTest extends TestCase
 
     public function testGenerateDoesNotAddPagesWithNonHtmlOutputPaths()
     {
-        Routes::addRoute(new Route(InMemoryPage::file('robots.txt')));
+        Routes::addRoute(new Route(new class('robots.txt') extends InMemoryPage
+        {
+            public static string $outputExtension = '.txt';
+        }));
 
         $service = new SitemapGenerator();
         $service->generate();
@@ -146,7 +149,10 @@ class SitemapServiceTest extends TestCase
 
     public function testGenerateAddsNonHtmlPagesWithSitemapFrontMatterSetToTrue()
     {
-        Routes::addRoute(new Route(InMemoryPage::file('robots.txt', ['sitemap' => true])));
+        Routes::addRoute(new Route(new class('robots.txt', ['sitemap' => true]) extends InMemoryPage
+        {
+            public static string $outputExtension = '.txt';
+        }));
 
         $service = new SitemapGenerator();
         $service->generate();
