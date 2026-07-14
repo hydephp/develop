@@ -7,6 +7,8 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 use BadMethodCallException;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @see \Hyde\Framework\Testing\Unit\Pages\InMemoryPageUnitTest
@@ -169,6 +171,28 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('sitemap.xsl', InMemoryPage::file('sitemap.xsl')->getOutputPath());
         $this->assertSame('downloads/data.csv', InMemoryPage::file('downloads/data.csv')->getOutputPath());
         $this->assertSame('feed', InMemoryPage::file('feed')->getOutputPath());
+        $this->assertSame('docs/1.x/search.json', InMemoryPage::file('docs/1.x/search.json')->getOutputPath());
+    }
+
+    #[DataProvider('invalidExactOutputPaths')]
+    public function testFileRejectsInvalidOutputPaths(string $path): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        InMemoryPage::file($path);
+    }
+
+    public static function invalidExactOutputPaths(): array
+    {
+        return [
+            'empty' => [''],
+            'absolute' => ['/robots.txt'],
+            'traversal' => ['../robots.txt'],
+            'nested traversal' => ['foo/../../robots.txt'],
+            'directory' => ['foo/'],
+            'windows separator' => ['foo\\robots.txt'],
+            'windows absolute' => ['C:\\robots.txt'],
+        ];
     }
 
     public function testGetRouteKeyForFile()
