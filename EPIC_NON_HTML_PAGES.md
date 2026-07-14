@@ -71,11 +71,17 @@ it is proven in production, requires no realtime-compiler lookup changes
 (`PageRouter::normalizePath()` only strips `.html`), and lets `docs/search` (page)
 and `docs/search.json` (index) coexist as distinct routes, which they already do.
 
-> **Implemented (PR 1):** `RouteKey::fromPage()` appends the page class's configured
-> non-HTML output extension to the key (skipping it when the identifier already ends
-> with it), so custom page classes configured with a non-HTML output extension are
-> D1-compliant out of the box and PR 2 can rely on "route key == request path with
-> only `.html` stripped" universally.
+> **Initial implementation (PR 1):** `RouteKey::fromPage()` appended the page
+> class's configured non-HTML output extension to the key.
+>
+> **Superseded by the post-implementation simplification:** the resolved output path
+> is now authoritative. `HydePage::outputPath()` constructs class-backed output from
+> the normalized identifier, `outputDirectory()`, and `outputExtension()`. During
+> construction, the page stores its route key by passing the instance's resolved
+> `getOutputPath()` to `RouteKey::fromOutputPath()`, which removes only the final
+> `.html`. `RouteKey::fromPage()` remains a static compatibility helper implemented
+> through the same output-path rule. `baseRouteKey()` remains an alias for
+> `outputDirectory()`, but no longer independently controls output semantics.
 
 ### D2: Exact output paths are explicit, not inferred
 
@@ -102,8 +108,8 @@ versioned docs route keys like `docs/1.x/index` would false-positive
 > The two output mechanisms are now both declarative: file-discovered custom page
 > classes use the per-class static `$outputExtension`, while individual virtual
 > files use `InMemoryPage::file()`. First-party generated files opt into exact-path
-> mode directly. In particular, `RssFeedPage` no longer overrides an inference hook;
-> its configurable filename is inherently an exact output path. Redirects retain
+> mode directly. In particular, the generated-file registry treats the configurable
+> RSS filename as an exact output path. Redirects retain
 > normal HTML semantics even when their route identifiers contain dots, so a redirect
 > identifier of `legacy.json` compiles to `legacy.json.html`.
 
@@ -290,8 +296,9 @@ Implementation notes (branch `v3/non-html-pages-foundation`):
   properties cannot alias each other without precedence/synchronization hacks.
   The mechanical migration is recorded in `HYDEPHP_V3_PLANNING.md` under
   "Upgrade script rules" for the release-time Rector script.
-- Page-class output extension handling was placed in `RouteKey::fromPage()` (see D1 note)
-  rather than only in `outputPath()`, so route keys and output paths cannot drift.
+- **Superseded by the D1 simplification:** page-class output extension handling now
+  belongs to `outputPath()`, and the stored route key is derived from the resolved
+  instance output path so the two cannot drift.
 - **Revised before PR 8:** the original allowlist-based implementation was replaced
   by `InMemoryPage::file()` (see the final D2 decision). `make()` and direct
   construction consistently retain HTML output semantics, while exact-path file
