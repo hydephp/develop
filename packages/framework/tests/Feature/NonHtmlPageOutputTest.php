@@ -30,10 +30,10 @@ class NonHtmlPageOutputTest extends TestCase
         parent::tearDown();
     }
 
-    public function testBuildCommandCompilesInMemoryPageSubclassWithTxtOutputExtension()
+    public function testBuildCommandCompilesInMemoryPageWithTxtIdentifier()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(new InMemoryTxtTestPage('robots', contents: "User-agent: *\nAllow: /"));
+            $kernel->pages()->addPage(InMemoryPage::make('robots.txt', contents: "User-agent: *\nAllow: /"));
         });
 
         $this->artisan('build')->assertExitCode(0);
@@ -46,7 +46,7 @@ class NonHtmlPageOutputTest extends TestCase
     public function testBuildCommandCompilesNestedNonHtmlOutputPath()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(new InMemoryTxtTestPage('foo/bar', contents: 'baz'));
+            $kernel->pages()->addPage(InMemoryPage::make('foo/bar.txt', contents: 'baz'));
         });
 
         $this->artisan('build')->assertExitCode(0);
@@ -58,7 +58,7 @@ class NonHtmlPageOutputTest extends TestCase
     public function testNonHtmlInMemoryPageIsRegisteredAsRoute()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(new InMemoryTxtTestPage('robots', contents: 'User-agent: *'));
+            $kernel->pages()->addPage(InMemoryPage::make('robots.txt', contents: 'User-agent: *'));
         });
 
         $this->assertTrue(Routes::exists('robots.txt'));
@@ -67,7 +67,7 @@ class NonHtmlPageOutputTest extends TestCase
 
     public function testStaticPageBuilderCompilesNonHtmlInMemoryPage()
     {
-        StaticPageBuilder::handle(new InMemoryTxtTestPage('llms', contents: '# Hello World'));
+        StaticPageBuilder::handle(InMemoryPage::make('llms.txt', contents: '# Hello World'));
 
         $this->assertFileExists(Hyde::path('_site/llms.txt'));
         $this->assertSame('# Hello World', file_get_contents(Hyde::path('_site/llms.txt')));
@@ -77,7 +77,7 @@ class NonHtmlPageOutputTest extends TestCase
     {
         $this->file('_pages/robots.blade.php', 'User-agent: {{ $agent }}');
 
-        StaticPageBuilder::handle(new InMemoryTxtTestPage('robots', ['agent' => '*'], view: 'robots'));
+        StaticPageBuilder::handle(InMemoryPage::make('robots.txt', ['agent' => '*'], view: 'robots'));
 
         $this->assertFileExists(Hyde::path('_site/robots.txt'));
         $this->assertSame('User-agent: *', file_get_contents(Hyde::path('_site/robots.txt')));
@@ -88,7 +88,7 @@ class NonHtmlPageOutputTest extends TestCase
         $this->withSiteUrl();
 
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(new InMemoryTxtTestPage('robots', contents: 'User-agent: *'));
+            $kernel->pages()->addPage(InMemoryPage::make('robots.txt', contents: 'User-agent: *'));
         });
 
         $this->artisan('build')->assertExitCode(0);
@@ -116,11 +116,6 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/hello.html'));
         $this->assertFileDoesNotExist(Hyde::path('_site/hello.md.html'));
     }
-}
-
-class InMemoryTxtTestPage extends InMemoryPage
-{
-    public static string $outputExtension = '.txt';
 }
 
 class DiscoverableNonHtmlTestPage extends HydePage

@@ -398,21 +398,22 @@ class InMemoryPageTest extends TestCase
         $this->assertSame(0, $page->invocations);
     }
 
-    public function testOutputPathUsesNormalHtmlPageSemantics()
+    public function testOutputPathInfersFormatFromIdentifier()
     {
         $this->assertSame('foo.html', InMemoryPage::outputPath('foo'));
-        $this->assertSame('robots.txt.html', InMemoryPage::outputPath('robots.txt'));
-        $this->assertSame('data.json.html', InMemoryPage::outputPath('data.json'));
-        $this->assertSame('sitemap.xml.html', InMemoryPage::outputPath('sitemap.xml'));
-        $this->assertSame('docs/search.json.html', InMemoryPage::outputPath('docs/search.json'));
-        $this->assertSame('foo.md.html', InMemoryPage::outputPath('foo.md'));
-        $this->assertSame('foo.html.html', InMemoryPage::outputPath('foo.html'));
-        $this->assertSame('docs/1.x.html', InMemoryPage::outputPath('docs/1.x'));
+        $this->assertSame('robots.txt', InMemoryPage::outputPath('robots.txt'));
+        $this->assertSame('data.json', InMemoryPage::outputPath('data.json'));
+        $this->assertSame('sitemap.xml', InMemoryPage::outputPath('sitemap.xml'));
+        $this->assertSame('docs/search.json', InMemoryPage::outputPath('docs/search.json'));
+        $this->assertSame('foo.md', InMemoryPage::outputPath('foo.md'));
+        $this->assertSame('foo.html', InMemoryPage::outputPath('foo.html'));
+        $this->assertSame('docs/1.x', InMemoryPage::outputPath('docs/1.x'));
+        $this->assertSame('docs/1.x/index.html', InMemoryPage::outputPath('docs/1.x/index'));
     }
 
     public function testStaticAndInstanceOutputPathsUseTheSameSemantics()
     {
-        foreach (['foo', 'robots.txt', 'docs/search.json'] as $identifier) {
+        foreach (['foo', 'robots.txt', 'docs/search.json', 'docs/1.x/index'] as $identifier) {
             $this->assertSame(
                 InMemoryPage::outputPath($identifier),
                 (new InMemoryPage($identifier))->getOutputPath()

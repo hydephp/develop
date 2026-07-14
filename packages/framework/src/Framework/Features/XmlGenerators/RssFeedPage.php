@@ -7,7 +7,6 @@ namespace Hyde\Framework\Features\XmlGenerators;
 use Hyde\Pages\InMemoryPage;
 
 use function app;
-use function Hyde\unslash;
 
 /**
  * @internal This page is used to render the RSS feed for the site.
@@ -36,13 +35,5 @@ class RssFeedPage extends InMemoryPage
     public static function routeKey(): string
     {
         return RssFeedGenerator::getFilename();
-    }
-
-    /**
-     * Use the configured RSS filename as the output path.
-     */
-    public static function outputPath(string $identifier): string
-    {
-        return unslash($identifier);
     }
 }

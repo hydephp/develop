@@ -11,6 +11,8 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 
+use function Hyde\unslash;
+use function pathinfo;
 use function str_ends_with;
 
 /**
@@ -76,6 +78,7 @@ class InMemoryPage extends HydePage
      *
      * View values ending in `.blade.php` are treated as Blade file paths. Other values are treated
      * as registered Laravel view keys.
+     * Identifiers that already have an extension use it as the output path unchanged.
      *
      * @param  string  $identifier
      * @param  FrontMatter|array  $matter
@@ -102,6 +105,19 @@ class InMemoryPage extends HydePage
 
         $this->contents = $contents ?? '';
         $this->view = $view ?? '';
+    }
+
+    /**
+     * Qualify a page identifier into a target output file path.
+     *
+     * Identifiers with a file extension are used verbatim, while identifiers
+     * without an extension are compiled to HTML files.
+     */
+    public static function outputPath(string $identifier): string
+    {
+        $identifier = unslash($identifier);
+
+        return $identifier.(pathinfo($identifier, PATHINFO_EXTENSION) === '' ? '.html' : '');
     }
 
     /**

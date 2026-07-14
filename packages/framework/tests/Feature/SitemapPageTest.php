@@ -142,10 +142,7 @@ class SitemapPageTest extends TestCase
         $this->withSiteUrl();
 
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(new class('sitemap.xml', contents: 'user defined sitemap') extends InMemoryPage
-            {
-                public static string $outputExtension = '.xml';
-            });
+            $kernel->pages()->addPage(InMemoryPage::make('sitemap.xml', contents: 'user defined sitemap'));
         });
 
         $page = Routes::get('sitemap.xml')->getPage();
@@ -179,9 +176,6 @@ class SitemapPageTestExtension extends HydeExtension
 {
     public function discoverPages(PageCollection $collection): void
     {
-        $collection->addPage(new class('sitemap.xml', contents: 'extension defined sitemap') extends InMemoryPage
-        {
-            public static string $outputExtension = '.xml';
-        });
+        $collection->addPage(InMemoryPage::make('sitemap.xml', contents: 'extension defined sitemap'));
     }
 }
