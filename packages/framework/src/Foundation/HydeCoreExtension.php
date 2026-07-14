@@ -81,7 +81,10 @@ class HydeCoreExtension extends HydeExtension
                 }
             }
         }
+    }
 
+    public function discoverDefaultPages(PageCollection $collection): void
+    {
         foreach (GeneratedFileRegistry::pages() as $page) {
             if (! $this->hasPageWithRouteKey($collection, $page->getRouteKey())) {
                 $collection->addPage($page);

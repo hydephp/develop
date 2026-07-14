@@ -62,7 +62,7 @@ class HydeExtensionFeatureTest extends TestCase
 
         $this->kernel->boot();
 
-        $this->assertSame(['booting', 'files', 'pages', 'routes', 'booted'], HydeTestExtension::$callCache);
+        $this->assertSame(['booting', 'files', 'pages', 'default-pages', 'routes', 'booted'], HydeTestExtension::$callCache);
 
         HydeTestExtension::$callCache = [];
     }
@@ -81,6 +81,14 @@ class HydeExtensionFeatureTest extends TestCase
         $this->kernel->boot();
 
         $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('pages'));
+    }
+
+    public function testDefaultPageHandlerDependencyInjection()
+    {
+        $this->kernel->registerExtension(InspectableTestExtension::class);
+        $this->kernel->boot();
+
+        $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('default-pages'));
     }
 
     public function testRouteHandlerDependencyInjection()
@@ -190,6 +198,11 @@ class HydeTestExtension extends HydeExtension
         static::$callCache[] = 'pages';
     }
 
+    public function discoverDefaultPages(PageCollection $collection): void
+    {
+        static::$callCache[] = 'default-pages';
+    }
+
     public function discoverRoutes(RouteCollection $collection): void
     {
         static::$callCache[] = 'routes';
@@ -274,6 +287,11 @@ class InspectableTestExtension extends HydeExtension
     public function discoverPages(PageCollection $collection): void
     {
         self::$callCache['pages'] = func_get_args();
+    }
+
+    public function discoverDefaultPages(PageCollection $collection): void
+    {
+        self::$callCache['default-pages'] = func_get_args();
     }
 
     public function discoverRoutes(RouteCollection $collection): void

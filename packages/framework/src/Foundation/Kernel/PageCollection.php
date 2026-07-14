@@ -46,6 +46,10 @@ final class PageCollection extends BaseFoundationCollection
         foreach ($this->kernel->getExtensions() as $extension) {
             $extension->discoverPages($this);
         }
+
+        foreach ($this->kernel->getExtensions() as $extension) {
+            $extension->discoverDefaultPages($this);
+        }
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass */

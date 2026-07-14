@@ -156,7 +156,7 @@ class SitemapPageTest extends TestCase
         $this->assertSame('user defined sitemap', file_get_contents(Hyde::path('_site/sitemap.xml')));
     }
 
-    public function testUserPageRegisteredThroughExtensionSuppressesTheGeneratedSitemapPage()
+    public function testUserPageRegisteredThroughExtensionSuppressesTheGeneratedSitemapPageRegardlessOfCollectionKey()
     {
         $this->withSiteUrl();
 
@@ -177,6 +177,12 @@ class SitemapPageTestExtension extends HydeExtension
 {
     public function discoverPages(PageCollection $collection): void
     {
-        $collection->addPage(InMemoryPage::file('sitemap.xml', contents: 'extension defined sitemap'));
+        $collection->addPage(new class('sitemap.xml', contents: 'extension defined sitemap', exactOutputPath: true) extends InMemoryPage
+        {
+            public function getSourcePath(): string
+            {
+                return '_custom/sitemap.xml';
+            }
+        });
     }
 }

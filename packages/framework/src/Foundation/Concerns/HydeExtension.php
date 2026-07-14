@@ -69,6 +69,17 @@ abstract class HydeExtension
     }
 
     /**
+     * If your extension provides fallback pages, register them here.
+     *
+     * This handler runs after every extension's normal page discovery handler,
+     * so defaults can fill route gaps without depending on extension order.
+     */
+    public function discoverDefaultPages(PageCollection $collection): void
+    {
+        //
+    }
+
+    /**
      * If your extension needs to hook into the route discovery process,
      * you can configure the following handler method. It will be called
      * at the end of the route discovery process. The collection instance
