@@ -87,8 +87,8 @@ abstract class HydePage implements PageSchema, SerializableContract
     public function __construct(string $identifier = '', FrontMatter|array $matter = [])
     {
         $this->identifier = $identifier;
-        $this->routeKey = RouteKey::fromPage(static::class, $identifier)->get();
         $this->matter = $matter instanceof FrontMatter ? $matter : new FrontMatter($matter);
+        $this->routeKey = RouteKey::fromOutputPath($this->getOutputPath())->get();
 
         $this->constructFactoryData();
         $this->constructMetadata();
@@ -237,13 +237,25 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function outputPath(string $identifier): string
     {
-        $routeKey = RouteKey::fromPage(static::class, $identifier);
+        $outputPath = unslash(static::outputDirectory().'/'.static::normalizeOutputIdentifier($identifier));
+        $extension = static::outputExtension();
 
-        if (static::outputExtension() === '.html') {
-            return "$routeKey.html";
+        if ($extension !== '.html' && str_ends_with($outputPath, $extension)) {
+            return $outputPath;
         }
 
-        return (string) $routeKey;
+        return $outputPath.$extension;
+    }
+
+    /**
+     * Normalize the identifier segment used to construct the output path.
+     *
+     * Page types may override this when source naming conventions contain metadata
+     * that should not be present in the compiled output path.
+     */
+    protected static function normalizeOutputIdentifier(string $identifier): string
+    {
+        return $identifier;
     }
 
     /**

@@ -67,6 +67,14 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('docs/foo'), RouteKey::fromPage(DocumentationPage::class, 'foo'));
     }
 
+    public function testFromOutputPathRemovesOnlyTheHtmlExtension()
+    {
+        $this->assertSame('foo/bar', RouteKey::fromOutputPath('foo/bar.html')->get());
+        $this->assertSame('foo/bar.html', RouteKey::fromOutputPath('foo/bar.html.html')->get());
+        $this->assertSame('foo/bar.json', RouteKey::fromOutputPath('foo/bar.json')->get());
+        $this->assertSame('feed', RouteKey::fromOutputPath('feed')->get());
+    }
+
     public function testFromPageWithNestedIdentifier()
     {
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(HtmlPage::class, 'foo/bar'));

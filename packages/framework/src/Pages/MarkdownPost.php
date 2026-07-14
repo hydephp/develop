@@ -7,6 +7,7 @@ namespace Hyde\Pages;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\Blogging\Models\FeaturedImage;
 use Hyde\Framework\Features\Blogging\Models\PostAuthor;
+use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 use Hyde\Markdown\Contracts\FrontMatter\BlogPostSchema;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\DateString;
@@ -50,5 +51,12 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
             'author' => $this->author,
             'image' => $this->image,
         ]);
+    }
+
+    protected static function normalizeOutputIdentifier(string $identifier): string
+    {
+        return BlogPostDatePrefixHelper::hasDatePrefix($identifier)
+            ? BlogPostDatePrefixHelper::stripDatePrefix($identifier)
+            : $identifier;
     }
 }

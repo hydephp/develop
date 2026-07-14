@@ -8,12 +8,12 @@ use Hyde\Facades\Config;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\Route;
+use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function trim;
 use function sprintf;
-use function Hyde\unslash;
 use function basename;
 
 /**
@@ -78,19 +78,6 @@ class DocumentationPage extends BaseMarkdownPage
     }
 
     /**
-     * Get the route key for the page.
-     *
-     * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
-     * Pages belonging to a documentation version keep the version prefix, so only the structure within the version is flattened.
-     */
-    public function getRouteKey(): string
-    {
-        return Config::getBool('docs.flattened_output_paths', true)
-            ? unslash(static::outputDirectory().'/'.$this->versionedBasename(basename(parent::getRouteKey())))
-            : parent::getRouteKey();
-    }
-
-    /**
      * Get the path where the compiled page will be saved.
      *
      * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
@@ -101,6 +88,13 @@ class DocumentationPage extends BaseMarkdownPage
         return Config::getBool('docs.flattened_output_paths', true)
             ? static::outputPath($this->versionedBasename(basename($this->identifier)))
             : parent::getOutputPath();
+    }
+
+    protected static function normalizeOutputIdentifier(string $identifier): string
+    {
+        return NumericalPageOrderingHelper::hasNumericalPrefix($identifier)
+            ? NumericalPageOrderingHelper::splitNumericPrefix($identifier)[1]
+            : $identifier;
     }
 
     /**

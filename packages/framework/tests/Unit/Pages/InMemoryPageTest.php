@@ -205,6 +205,19 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('feed', InMemoryPage::file('feed')->getRouteKey());
     }
 
+    public function testRouteKeyIsDerivedFromOverriddenOutputPath()
+    {
+        $page = new class('ignored') extends InMemoryPage
+        {
+            public function getOutputPath(): string
+            {
+                return 'custom/data.json';
+            }
+        };
+
+        $this->assertSame('custom/data.json', $page->getRouteKey());
+    }
+
     public function testGetLinkForFile()
     {
         $this->assertSame('robots.txt', InMemoryPage::file('robots.txt')->getLink());

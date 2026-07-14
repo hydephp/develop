@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
-use Hyde\Pages\DocumentationPage;
-use Hyde\Pages\MarkdownPost;
-use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
-use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
-
 use function Hyde\unslash;
+use function substr;
 use function str_ends_with;
 
 /**
@@ -55,34 +51,23 @@ final class RouteKey implements Stringable
     /** @param class-string<\Hyde\Pages\Concerns\HydePage> $pageClass */
     public static function fromPage(string $pageClass, string $identifier): self
     {
-        $identifier = self::stripPrefixIfNeeded($pageClass, $identifier);
-        $key = unslash("{$pageClass::baseRouteKey()}/$identifier");
-        $extension = $pageClass::outputExtension();
-
-        if ($extension !== '.html' && ! str_ends_with($key, $extension)) {
-            $key .= $extension;
-        }
-
-        return new self($key);
+        return self::fromOutputPath($pageClass::outputPath($identifier));
     }
 
     /**
-     * @param  class-string<\Hyde\Pages\Concerns\HydePage>  $pageClass
-     * */
-    protected static function stripPrefixIfNeeded(string $pageClass, string $identifier): string
+     * Create a route key from the resolved path of a compiled page.
+     *
+     * Only the HTML extension is implicit in Hyde routes. Every other extension,
+     * and extensionless output paths, remain part of the route key verbatim.
+     */
+    public static function fromOutputPath(string $outputPath): self
     {
-        if (is_a($pageClass, DocumentationPage::class, true)) {
-            if (NumericalPageOrderingHelper::hasNumericalPrefix($identifier)) {
-                return NumericalPageOrderingHelper::splitNumericPrefix($identifier)[1];
-            }
+        $key = unslash($outputPath);
+
+        if (str_ends_with($key, '.html')) {
+            $key = substr($key, 0, -5);
         }
 
-        if (is_a($pageClass, MarkdownPost::class, true)) {
-            if (BlogPostDatePrefixHelper::hasDatePrefix($identifier)) {
-                return BlogPostDatePrefixHelper::stripDatePrefix($identifier);
-            }
-        }
-
-        return $identifier;
+        return new self($key);
     }
 }
