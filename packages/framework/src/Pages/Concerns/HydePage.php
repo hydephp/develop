@@ -24,16 +24,12 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 
 use function Hyde\unslash;
 use function filled;
 use function ltrim;
 use function rtrim;
-use function sprintf;
-use function str_contains;
 use function str_ends_with;
-use function str_starts_with;
 
 /**
  * The base class for all Hyde pages.
@@ -183,21 +179,10 @@ abstract class HydePage implements PageSchema, SerializableContract
      * Get the output file extension for the page type, such as `.html` or `.txt`.
      *
      * The value includes the leading dot, so it can be used directly as a file name suffix.
-     *
-     * @throws \InvalidArgumentException If the output extension does not start with a dot or contains a path separator.
      */
     public static function outputExtension(): string
     {
-        $extension = static::$outputExtension;
-
-        if (! str_starts_with($extension, '.') || str_contains($extension, '/') || str_contains($extension, '\\')) {
-            throw new InvalidArgumentException(sprintf(
-                "Invalid output extension '%s' declared by %s: extensions must start with a dot and cannot contain path separators.",
-                $extension, static::class
-            ));
-        }
-
-        return $extension;
+        return static::$outputExtension;
     }
 
     /**
