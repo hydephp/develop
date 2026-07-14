@@ -11,6 +11,8 @@ use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
 
+use function Hyde\unslash;
+use function pathinfo;
 use function sprintf;
 use function str_ends_with;
 
@@ -56,6 +58,7 @@ class InMemoryPage extends HydePage
      *
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
      *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
+     *                              If the identifier already has an extension, such as "robots.txt", it is used as the output path unchanged.
      *                              You can then also use the route helper to get a link to it by using the route key "foo/bar".
      *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
@@ -69,6 +72,19 @@ class InMemoryPage extends HydePage
 
         $this->contents = $contents;
         $this->view = $view;
+    }
+
+    /**
+     * Qualify a page identifier into a target output file path.
+     *
+     * Identifiers with a file extension are used verbatim, while identifiers
+     * without an extension are compiled to HTML files.
+     */
+    public static function outputPath(string $identifier): string
+    {
+        $identifier = unslash($identifier);
+
+        return $identifier.(pathinfo($identifier, PATHINFO_EXTENSION) === '' ? '.html' : '');
     }
 
     /** Get the contents of the page. This will be saved as-is to the output file when this strategy is used. */

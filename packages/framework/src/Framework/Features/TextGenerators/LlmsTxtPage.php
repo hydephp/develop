@@ -17,8 +17,6 @@ use function app;
  */
 class LlmsTxtPage extends InMemoryPage
 {
-    public static string $outputExtension = '.txt';
-
     public function __construct()
     {
         parent::__construct(static::routeKey(), [
