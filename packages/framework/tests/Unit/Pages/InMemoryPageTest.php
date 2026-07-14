@@ -298,6 +298,16 @@ class InMemoryPageTest extends TestCase
         $page->routeKey = 'incorrect';
     }
 
+    public function testResolvingRouteKeyDoesNotChangePageValueEquality()
+    {
+        $resolved = new InMemoryPage('page');
+        $unresolved = new InMemoryPage('page');
+
+        $resolved->getRouteKey();
+
+        $this->assertEquals($unresolved, $resolved);
+    }
+
     public function testGetLinkForFile()
     {
         $this->assertSame('robots.txt', InMemoryPage::file('robots.txt')->getLink());

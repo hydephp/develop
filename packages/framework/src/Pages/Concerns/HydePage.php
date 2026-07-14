@@ -25,6 +25,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use WeakMap;
 
 use function Hyde\unslash;
 use function filled;
@@ -71,6 +72,9 @@ abstract class HydePage implements PageSchema, SerializableContract
     public readonly string $title;
 
     protected readonly string $routeKey;
+
+    /** @var \WeakMap<self, string>|null */
+    private static ?WeakMap $resolvedRouteKeys = null;
 
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
@@ -351,14 +355,17 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRouteKey(): string
     {
-        if (! isset($this->routeKey)) {
-            $routeKey = RouteKey::fromOutputPath($this->getOutputPath())->get();
+        $routeKeys = self::$resolvedRouteKeys ??= new WeakMap();
 
-            $this->synchronizeFactoryDataForResolvedRoute($routeKey);
-            $this->routeKey = $routeKey;
+        if (isset($routeKeys[$this])) {
+            return $routeKeys[$this];
         }
 
-        return $this->routeKey;
+        $routeKey = RouteKey::fromOutputPath($this->getOutputPath())->get();
+
+        $this->synchronizeFactoryDataForResolvedRoute($routeKey);
+
+        return $routeKeys[$this] = $routeKey;
     }
 
     /**
