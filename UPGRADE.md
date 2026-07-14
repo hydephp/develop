@@ -2,7 +2,20 @@
 
 ## Overview
 
-//
+HydePHP v3 adds `InMemoryPage::file()` for creating virtual pages whose identifier is used as the exact output path,
+allowing files such as `robots.txt`, `site.webmanifest`, nested JSON files, and extensionless outputs without extension
+inference. Normal `InMemoryPage::make()` construction retains its historical HTML behavior:
+
+```php
+InMemoryPage::make('about', contents: $html);
+// _site/about.html
+
+InMemoryPage::make('robots.txt', contents: $text);
+// _site/robots.txt.html
+
+InMemoryPage::file('robots.txt', contents: $text);
+// _site/robots.txt
+```
 
 ## Before You Begin
 
