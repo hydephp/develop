@@ -13,6 +13,7 @@ use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
 use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePaths;
 use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
 use Illuminate\Support\Facades\File;
 
@@ -73,6 +74,19 @@ class RobotsTxtPageTest extends TestCase
         $this->withoutSiteUrl();
 
         $this->assertSame("User-agent: *\nAllow: /\n", (new GeneratedFilePage(GeneratedFileRegistry::ROBOTS, RobotsTxtGenerator::class))->compile());
+    }
+
+    public function testGeneratedPageRetainsItsGeneratorAcrossNativeSerialization()
+    {
+        $this->withoutSiteUrl();
+
+        $page = new GeneratedFilePage(GeneratedFilePaths::ROBOTS, RobotsTxtGenerator::class);
+
+        $restored = unserialize(serialize($page), ['allowed_classes' => true]);
+
+        $this->assertInstanceOf(GeneratedFilePage::class, $restored);
+        $this->assertSame(GeneratedFilePaths::ROBOTS, $restored->getOutputPath());
+        $this->assertSame("User-agent: *\nAllow: /\n", $restored->compile());
     }
 
     public function testRobotsTxtGeneratorCanBeSwappedThroughTheServiceContainer()

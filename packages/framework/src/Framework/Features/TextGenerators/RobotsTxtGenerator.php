@@ -9,7 +9,7 @@ use Hyde\Facades\Config;
 use Hyde\Facades\Features;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Framework\Features\GeneratedFiles\GeneratedFileGenerator;
-use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePaths;
 
 use function array_merge;
 use function get_debug_type;
@@ -45,7 +45,7 @@ class RobotsTxtGenerator implements GeneratedFileGenerator
         $lines = array_merge(['User-agent: *'], $this->getRuleLines());
 
         if (Features::hasSitemap()) {
-            $lines = array_merge($lines, ['', 'Sitemap: '.Hyde::url(GeneratedFileRegistry::SITEMAP)]);
+            $lines = array_merge($lines, ['', 'Sitemap: '.Hyde::url(GeneratedFilePaths::SITEMAP)]);
         }
 
         return $lines;

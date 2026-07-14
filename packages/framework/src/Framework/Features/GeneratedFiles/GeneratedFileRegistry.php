@@ -18,18 +18,18 @@ use function array_values;
  */
 final class GeneratedFileRegistry
 {
-    public const SITEMAP = 'sitemap.xml';
-    public const ROBOTS = 'robots.txt';
-    public const LLMS = 'llms.txt';
+    public const SITEMAP = GeneratedFilePaths::SITEMAP;
+    public const ROBOTS = GeneratedFilePaths::ROBOTS;
+    public const LLMS = GeneratedFilePaths::LLMS;
 
     /** @return array<\Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage> */
     public static function pages(): array
     {
         return array_values(array_filter([
-            Features::hasSitemap() ? new GeneratedFilePage(self::SITEMAP, SitemapGenerator::class) : null,
+            Features::hasSitemap() ? new GeneratedFilePage(GeneratedFilePaths::SITEMAP, SitemapGenerator::class) : null,
             Features::hasRss() ? new GeneratedFilePage(self::rssOutputPath(), RssFeedGenerator::class) : null,
-            Features::hasRobotsTxt() ? new GeneratedFilePage(self::ROBOTS, RobotsTxtGenerator::class) : null,
-            Features::hasLlmsTxt() ? new GeneratedFilePage(self::LLMS, LlmsTxtGenerator::class) : null,
+            Features::hasRobotsTxt() ? new GeneratedFilePage(GeneratedFilePaths::ROBOTS, RobotsTxtGenerator::class) : null,
+            Features::hasLlmsTxt() ? new GeneratedFilePage(GeneratedFilePaths::LLMS, LlmsTxtGenerator::class) : null,
         ]));
     }
 
