@@ -38,6 +38,11 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### Minor Changes and Cleanup
 
+- Added `HydeExtension::discoverDefaultPages()` for fallback pages. All extensions
+  complete normal `discoverPages()` handling before any default-page handler runs,
+  allowing framework-generated routes to fill gaps without depending on normal
+  extension registration order. Default handlers retain extension registration order
+  relative to each other.
 - Fixed documentation search index files leaking into the generated sitemap: `search.json` (and any other page compiled to a non-HTML output file) no longer appears in `sitemap.xml`. The sitemap generator now asks each page through `HydePage::showInSitemap()` instead of only filtering out redirect pages.
 - The `Redirect` page class constructor now accepts an optional `$matter` parameter, used by the framework to hide the generated documentation root redirect from navigation menus. Existing usages are unaffected.
 - The realtime compiler now resolves registered page routes before proxying static assets, replacing the hardcoded `search.json` exemption, so `hyde serve` serves any registered route regardless of its output extension. Registered pages now always win over a static file at the same path; the previous behavior of serving such a shadowing file only affected the dev server and no real setups are expected to be affected.

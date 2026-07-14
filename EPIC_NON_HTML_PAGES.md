@@ -50,9 +50,10 @@ require every output format to have a matching filesystem-discovered page class.
 - `BuildService::getPageTypes()` derives page classes from the live page collection,
   and `StaticPageBuilder` writes whatever `getOutputPath()` returns — dynamic pages
   need zero build-service changes.
-- `HydeCoreExtension::discoverPages()` is the proven registration point for
-  feature-gated virtual pages (search index, redirects), and users/packages can do
-  the same via `Hyde::kernel()->booting()` callbacks or a `HydeExtension`.
+- Extension page discovery is the proven registration mechanism for feature-gated
+  virtual pages. Normal pages use `discoverPages()`; framework fallbacks use the
+  later `discoverDefaultPages()` phase so user routes are present before defaults
+  fill any remaining gaps.
 - The route-key-with-extension convention is already de facto established:
   `DocumentationSearchIndex` uses route key `docs/search.json` equal to its output path.
 
@@ -176,13 +177,11 @@ a standalone feature in its own right.
 
 ### D4: Generators become container-resolved pages; generator actions stay
 
-Each generated file is registered as an `InMemoryPage` whose compiled contents
-resolve its generator **from the container at build time**, e.g. a `sitemap.xml`
-page whose compile step returns `app(SitemapGenerator::class)->generate()`. The XML
-generator actions (`SitemapGenerator`, `RssFeedGenerator`) are untouched and remain
-the default implementations — this is still the `DocumentationSearchIndex` →
-`GeneratesDocumentationSearchIndex` split, but the generator is *resolved*, not
-`new`'d.
+Each generated file is registered as an internal `GeneratedFilePage`, built on
+`InMemoryPage` exact-path semantics. Its compiled contents resolve a generator
+**from the container at build time**. All generated-file generators expose a small
+internal final-string adapter while retaining their existing public `generate()`
+behavior; the XML generators also retain `getXml()`.
 
 Resolving through the container is the point: a user can rebind `SitemapGenerator`
 (or the page's content closure) to swap the output without replacing the page — a
@@ -191,9 +190,9 @@ produced **lazily** (a `compile` macro / closure or a thin subclass `compile()`)
 never eager string content, since generation must run at build time against the
 final route set.
 
-Registration happens in `HydeCoreExtension::discoverPages()` behind the existing
-`Features::hasSitemap()` / `Features::hasRss()` conditions, replacing the
-registrations in `BuildTaskService::registerFrameworkTasks()`.
+Definitions for sitemap, RSS, robots, and llms output live in one internal registry.
+`HydeCoreExtension::discoverDefaultPages()` loops over enabled definitions after all
+normal page discovery has completed and registers only routes that are still absent.
 
 **Plain page vs. thin subclass is deferred to PR 5.** D3 already defaults non-HTML
 pages out of the sitemap, so a subclass is *not* needed merely to stop a generated
@@ -215,40 +214,29 @@ instantiate. Lean toward a plain `InMemoryPage` registered with a container-boun
 > unaffected: `compile()` resolves `SitemapGenerator` from the container, verified
 > by a rebind test. Part B should mirror this with `RssFeedPage`.
 
+> **Superseded by the post-implementation simplification:** command construction no
+> longer requires page class identity. Commands build the registered route, and the
+> shared registry supplies the fallback route information. One internal
+> `GeneratedFilePage` therefore replaces `SitemapPage`, `RssFeedPage`,
+> `RobotsTxtPage`, and `LlmsTxtPage` without changing generator rebinding or route
+> override behavior.
+
 ### D5: User-defined pages beat generators
 
 If the page collection already contains a user-defined page with a route key such
-as `robots.txt`, the framework does not register its generated `RobotsTxtPage`.
-This follows the pattern of `discoverDocumentationRootRedirect()`, which skips when
-a user-defined route exists.
+as `robots.txt`, the framework does not register the matching generated default.
 Users can register an `InMemoryPage` from a service provider or provide a custom page
 class through an extension. Combined with D4's container-resolved generators, this
 gives a smooth escalation path:
 feature default → config tweaks → rebind the generator (or content closure) in the
 container → fully custom page in code.
 
-> **Timing caveat — the skip check is ordering-sensitive.** "Is a `robots.txt` route
-> already registered" is evaluated at `discoverPages()` time, so whether a user's page
-> wins depends on it being visible at that moment. A page registered via a late
-> `booting()` callback may or may not be present depending on boot ordering. The
-> `discoverDocumentationRootRedirect()` precedent suggests this is fine, but "fine and
-> ordering-dependent" is exactly what passes in our tests and breaks for the one user
-> who registers late. PR 5/6 MUST include an end-to-end test asserting that a
-> user-registered `robots.txt` (via both a `HydeExtension` page class and a `booting()`
-> `addPage()` callback) suppresses the generated one — this is the D5 contract and the
-> most likely silent failure for the power-user audience.
-
-> **Verified for the sitemap (PR 5 part A):** both user paths win, through two
-> different mechanisms that the tests pin down end-to-end. `booting()` callbacks run
-> before the page collection boots (`BootsHydeKernel::boot()`), so a callback-registered
-> `sitemap.xml` page is visible to the core extension's `hasPageWithRouteKey()` skip
-> check. A user `HydeExtension` runs *after* the core extension (registration order),
-> so the skip check cannot see its pages; instead the user page replaces the generated
-> one under the same collection key (`addPage()` keys by source path). Both are
-> asserted through the real `build` command output. The robots.txt equivalent remains
-> mandatory for PR 6. *(Part B: both paths verified the same way for the feed page.)*
-> *(PR 6: both paths verified the same way for the robots.txt page.)*
-> *(PR 7: both paths verified the same way for the llms.txt page.)*
+> **Superseded ordering design:** page discovery now has two explicit phases. Every
+> extension completes `discoverPages()` before any extension runs
+> `discoverDefaultPages()`. Framework-generated files are registered in the default
+> phase only when their route is absent. User precedence is therefore independent of
+> page-collection source keys and normal extension registration order. Default
+> handlers still run in extension registration order relative to other defaults.
 
 ### D6: No built-in `TextPage` or `.txt` autodiscovery
 
@@ -269,6 +257,11 @@ of one page class per extension. Custom discoverable page classes remain support
 an extension point.
 
 ## Work breakdown (planned PR sequence, in dependency order)
+
+> **Historical note:** the PR 5–7 implementation notes below record the intermediate
+> thin-page implementation that originally landed. The post-implementation
+> simplification recorded in D4 and D5 supersedes references to the four specialized
+> page subclasses and registration through `discoverPages()`.
 
 ### PR 1 — Foundation: explicit output paths and page-class extensions ✅ Implemented
 
