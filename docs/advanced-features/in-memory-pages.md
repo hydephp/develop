@@ -36,8 +36,23 @@ The constructor supports three content strategies: literal string contents, lazy
 Pass a string to the `$contents` parameter when the page contents are already available. Hyde saves the string literally.
 
 ```php
-$page = new InMemoryPage('robots.txt', contents: "User-agent: *\n");
+$page = InMemoryPage::make('about', contents: 'Hello World!');
 ```
+
+This uses normal HTML page semantics and writes the contents to `_site/about.html`.
+Dots in the identifier do not change that behavior.
+
+To create a page at an exact output path, use the `file()` constructor:
+
+```php
+$robots = InMemoryPage::file('robots.txt', contents: "User-agent: *\nAllow: /");
+$manifest = InMemoryPage::file('site.webmanifest', contents: $manifestJson);
+$data = InMemoryPage::file('downloads/data.csv', contents: $csv);
+```
+
+The route key and output path are exactly the path passed to `file()`. The path may
+use any extension or no extension at all; Hyde does not infer output behavior from
+the filename.
 
 Pass a closure when the contents should be generated lazily during compilation. The closure is invoked again for each
 compilation, which makes it useful for pages generated from the current application state.

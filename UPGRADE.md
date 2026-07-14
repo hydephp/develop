@@ -331,7 +331,7 @@ use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 
 Hyde::kernel()->booting(function ($kernel): void {
-    $kernel->pages()->addPage(new InMemoryPage('sitemap.xml', contents: $myXml));
+    $kernel->pages()->addPage(InMemoryPage::file('sitemap.xml', contents: $myXml));
 });
 ```
 

@@ -12,14 +12,13 @@ Static alias for the constructor.
 InMemoryPage::make(string|(Closure(): string)|(Closure(static):, Hyde\Markdown\Models\FrontMatter|array $matter, Closure|string|null $contents, string $view): static
 ```
 
-#### `outputPath()`
+#### `file()`
 
-Qualify a page identifier into a target output file path, relative to the _site output directory.
-
-If the identifier ends in a recognized non-HTML extension (`.json`, `.txt`, or `.xml` by default), it is treated as an explicit output path and no HTML extension is appended, so an identifier of &quot;robots.txt&quot; saves the page to &quot;_site/robots.txt&quot;.
+Create an in-memory page whose identifier is used as the exact output path.
 
 ```php
-InMemoryPage::outputPath(string $identifier): string
+/** @param string|(Closure(): string)|(Closure(static): string)|null $contents */
+InMemoryPage::file(string $outputPath, Hyde\Markdown\Models\FrontMatter|array $matter, Closure|string|null $contents, string $view): static
 ```
 
 #### `__construct()`
@@ -32,14 +31,22 @@ Contents and views cannot be used together. Omit both to create an empty page. A
 
 View values ending in `.blade.php` are treated as Blade file paths. Other values are treated as registered Laravel view keys.
 
-Identifiers ending in `.json`, `.txt`, or `.xml` retain that extension in the output path.
+- **Parameter $exactOutputPath:** Whether to use the identifier as the exact output path. Prefer the `file()` constructor for this mode.
 
 ```php
 /** @param string|(Closure(): string)|(Closure(static): string)|null $contents */
-$page = new InMemoryPage(string $identifier, FrontMatter|array $matter, string|(Closure(): string)|(Closure(static):, string|null $view): void
+$page = new InMemoryPage(string $identifier, FrontMatter|array $matter, string|(Closure(): string)|(Closure(static):, string|null $view, bool $exactOutputPath): void
 ```
 
 - **Throws:** InvalidArgumentException If both contents and a view are supplied.
+
+#### `getOutputPath()`
+
+Get the path where the compiled page will be saved.
+
+```php
+$page->getOutputPath(): string
+```
 
 #### `getContents()`
 

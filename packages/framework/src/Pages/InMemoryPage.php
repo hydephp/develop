@@ -97,6 +97,7 @@ class InMemoryPage extends HydePage
      * @param  FrontMatter|array  $matter
      * @param  string|(Closure(): string)|(Closure(static): string)|null  $contents
      * @param  string|null  $view
+     * @param  bool  $exactOutputPath  Whether to use the identifier as the exact output path. Prefer the `file()` constructor for this mode.
      *
      * @throws InvalidArgumentException If both contents and a view are supplied.
      */
