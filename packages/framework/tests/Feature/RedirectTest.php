@@ -64,12 +64,12 @@ class RedirectTest extends TestCase
         Filesystem::unlink('_site/foo.html');
     }
 
-    public function testDottedRedirectPathUsesHtmlPageSemantics()
+    public function testDottedRedirectPathKeepsItsExtension()
     {
         $redirect = new Redirect('legacy.json', 'new-location');
 
         $this->assertSame('legacy.json', $redirect->getRouteKey());
-        $this->assertSame('legacy.json.html', $redirect->getOutputPath());
+        $this->assertSame('legacy.json', $redirect->getOutputPath());
     }
 
     public function testRedirectsCannotWriteOutsideTheBuildPipeline()
