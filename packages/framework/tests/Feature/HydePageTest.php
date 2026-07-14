@@ -20,7 +20,6 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-use InvalidArgumentException;
 
 /**
  * Test the base HydePage class.
@@ -129,19 +128,14 @@ class HydePageTest extends TestCase
         $this->assertSame('output/hello-world.txt', NonHtmlOutputTestPage::outputPath('hello-world'));
     }
 
-    public function testOutputExtensionWithoutLeadingDotThrows()
+    public function testOutputExtensionWithoutLeadingDotIsReturnedUnchanged()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid output extension 'txt' declared by");
-
-        MissingDotOutputExtensionTestPage::outputExtension();
+        $this->assertSame('txt', MissingDotOutputExtensionTestPage::outputExtension());
     }
 
-    public function testOutputExtensionWithPathSeparatorThrows()
+    public function testOutputExtensionWithPathSeparatorIsReturnedUnchanged()
     {
-        $this->expectException(InvalidArgumentException::class);
-
-        PathSeparatorOutputExtensionTestPage::outputExtension();
+        $this->assertSame('.txt/../evil', PathSeparatorOutputExtensionTestPage::outputExtension());
     }
 
     public function testGetRouteKeyForPageWithNonHtmlOutputExtensionIncludesExtension()
