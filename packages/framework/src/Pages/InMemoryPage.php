@@ -101,13 +101,17 @@ class InMemoryPage extends HydePage
 
     protected static function normalizeExactOutputPath(string $path): string
     {
+        $segments = explode('/', $path);
+
         if (
             $path === ''
             || str_starts_with($path, '/')
             || str_ends_with($path, '/')
             || str_contains($path, '\\')
             || preg_match('/^[A-Za-z]:/', $path)
-            || in_array('..', explode('/', $path), true)
+            || in_array('', $segments, true)
+            || in_array('.', $segments, true)
+            || in_array('..', $segments, true)
         ) {
             throw new InvalidArgumentException(
                 "Invalid exact output path [$path]. The path must be a relative file path inside the site output directory."
