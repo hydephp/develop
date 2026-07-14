@@ -14,7 +14,6 @@ use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
 use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage;
 use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePaths;
-use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -63,7 +62,7 @@ class RobotsTxtPageTest extends TestCase
 
     public function testRobotsTxtPageIsHiddenFromNavigationAndExcludedFromTheSitemap()
     {
-        $page = new GeneratedFilePage(GeneratedFileRegistry::ROBOTS, RobotsTxtGenerator::class);
+        $page = new GeneratedFilePage(GeneratedFilePaths::ROBOTS, RobotsTxtGenerator::class);
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -73,7 +72,7 @@ class RobotsTxtPageTest extends TestCase
     {
         $this->withoutSiteUrl();
 
-        $this->assertSame("User-agent: *\nAllow: /\n", (new GeneratedFilePage(GeneratedFileRegistry::ROBOTS, RobotsTxtGenerator::class))->compile());
+        $this->assertSame("User-agent: *\nAllow: /\n", (new GeneratedFilePage(GeneratedFilePaths::ROBOTS, RobotsTxtGenerator::class))->compile());
     }
 
     public function testGeneratedPageRetainsItsGeneratorAcrossNativeSerialization()

@@ -13,7 +13,7 @@ use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage;
-use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePaths;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -66,7 +66,7 @@ class SitemapPageTest extends TestCase
 
     public function testSitemapPageIsHiddenFromNavigationAndExcludesItselfFromTheSitemap()
     {
-        $page = new GeneratedFilePage(GeneratedFileRegistry::SITEMAP, SitemapGenerator::class);
+        $page = new GeneratedFilePage(GeneratedFilePaths::SITEMAP, SitemapGenerator::class);
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -76,7 +76,7 @@ class SitemapPageTest extends TestCase
     {
         $this->withSiteUrl();
 
-        $contents = (new GeneratedFilePage(GeneratedFileRegistry::SITEMAP, SitemapGenerator::class))->compile();
+        $contents = (new GeneratedFilePage(GeneratedFilePaths::SITEMAP, SitemapGenerator::class))->compile();
 
         $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $contents);
         $this->assertStringContainsString('<urlset', $contents);

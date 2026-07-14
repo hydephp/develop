@@ -8,7 +8,7 @@ use Hyde\Hyde;
 use Hyde\Console\Concerns\Command;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePaths;
 
 use function sprintf;
 
@@ -25,7 +25,7 @@ class BuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        $page = Routes::find(GeneratedFileRegistry::SITEMAP)?->getPage();
+        $page = Routes::find(GeneratedFilePaths::SITEMAP)?->getPage();
 
         if ($page === null) {
             $this->error('Cannot generate the sitemap as the feature is not enabled');

@@ -18,10 +18,6 @@ use function array_values;
  */
 final class GeneratedFileRegistry
 {
-    public const SITEMAP = GeneratedFilePaths::SITEMAP;
-    public const ROBOTS = GeneratedFilePaths::ROBOTS;
-    public const LLMS = GeneratedFilePaths::LLMS;
-
     /** @return array<\Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage> */
     public static function pages(): array
     {

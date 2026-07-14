@@ -13,7 +13,7 @@ use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
 use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePage;
-use Hyde\Framework\Features\GeneratedFiles\GeneratedFileRegistry;
+use Hyde\Framework\Features\GeneratedFiles\GeneratedFilePaths;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -69,7 +69,7 @@ class LlmsTxtPageTest extends TestCase
 
     public function testLlmsTxtPageIsHiddenFromNavigationAndExcludedFromTheSitemap()
     {
-        $page = new GeneratedFilePage(GeneratedFileRegistry::LLMS, LlmsTxtGenerator::class);
+        $page = new GeneratedFilePage(GeneratedFilePaths::LLMS, LlmsTxtGenerator::class);
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -77,7 +77,7 @@ class LlmsTxtPageTest extends TestCase
 
     public function testLlmsTxtPageCompilesUsingTheLlmsTxtGenerator()
     {
-        $this->assertSame((new LlmsTxtGenerator())->generate(), (new GeneratedFilePage(GeneratedFileRegistry::LLMS, LlmsTxtGenerator::class))->compile());
+        $this->assertSame((new LlmsTxtGenerator())->generate(), (new GeneratedFilePage(GeneratedFilePaths::LLMS, LlmsTxtGenerator::class))->compile());
     }
 
     public function testLlmsTxtGeneratorCanBeSwappedThroughTheServiceContainer()
