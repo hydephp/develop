@@ -110,6 +110,65 @@ building them in a privileged environment.
 All `[Blade]:` shortcodes must be the first word on a new line, and only single-line shortcodes are supported. Use
 Blade blocks for multi-line code.
 
+## Terminal Code Blocks
+
+Use the `terminal` language on a fenced code block to render command output as a terminal window. This is a built-in
+Markdown feature and does not require a Torchlight API token.
+
+````markdown
+```terminal
+$ php hyde publish
+
+ Which group would you like to publish?
+ ❯ views    Blade templates and components
+   configs  Configuration files
+   layouts  Page and homepage layouts
+```
+````
+
+Which renders as:
+
+```terminal
+$ php hyde publish
+
+ Which group would you like to publish?
+ ❯ views    Blade templates and components
+   configs  Configuration files
+   layouts  Page and homepage layouts
+```
+
+Lines beginning with a `$ ` prompt are highlighted as commands. The prompt is excluded from text selection, so you
+can select and copy the command without including it.
+
+### Symfony Console formatting
+
+Add the `xml` modifier to use Hyde's four supported Symfony Console formatter tags:
+
+````markdown
+```terminal xml
+<info>Published successfully!</info>
+<comment>Restart the development server.</comment>
+<question>Continue?</question>
+<error>Build failed.</error>
+```
+````
+
+| Tag          | Default style       |
+| ------------ | ------------------- |
+| `<info>`     | Green text          |
+| `<comment>`  | Yellow text         |
+| `<question>` | Black text on cyan  |
+| `<error>`    | White text on red   |
+
+The formatter only recognizes these four tags. All other terminal content, including HTML, is escaped and displayed
+as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output.
+
+You can customize the terminal markup and Tailwind classes by publishing Hyde's Blade components:
+
+```bash
+php hyde publish:views components
+```
+
 ## Coloured Blockquotes
 
 The HydePHP Markdown converter also supports some extra directives and features. One of them being four different
