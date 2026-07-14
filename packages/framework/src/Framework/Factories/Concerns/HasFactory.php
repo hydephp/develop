@@ -11,6 +11,8 @@ use Hyde\Support\Models\RouteKey;
 
 trait HasFactory
 {
+    protected string $constructionRouteKey;
+
     public function toCoreDataObject(): CoreDataObject
     {
         return $this->makeCoreDataObject(
@@ -22,6 +24,8 @@ trait HasFactory
 
     protected function toConstructionCoreDataObject(): CoreDataObject
     {
+        // Base construction cannot safely dispatch to instance path overrides. This
+        // provisional route is replaced in navigation data when the route is finalized.
         $outputPath = static::outputPath($this->identifier);
 
         return $this->makeCoreDataObject(
@@ -47,12 +51,29 @@ trait HasFactory
     protected function constructFactoryData(): void
     {
         $pageData = $this->toConstructionCoreDataObject();
+        $this->constructionRouteKey = $pageData->routeKey;
 
         $this->assignFactoryData(new HydePageDataFactory($pageData));
 
         if ($this instanceof MarkdownPost) {
             $this->assignFactoryData(new BlogPostDataFactory($pageData));
         }
+    }
+
+    protected function synchronizeFactoryDataForResolvedRoute(string $routeKey): void
+    {
+        if ($routeKey === $this->constructionRouteKey) {
+            return;
+        }
+
+        $pageData = $this->makeCoreDataObject(
+            $this->getSourcePath(),
+            $this->getOutputPath(),
+            $routeKey,
+        );
+
+        $this->navigation = (new HydePageDataFactory($pageData))->toArray()['navigation'];
+        $this->constructionRouteKey = $routeKey;
     }
 
     protected function assignFactoryData(PageDataFactory $factory): void

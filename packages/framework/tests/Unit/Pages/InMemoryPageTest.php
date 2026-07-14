@@ -230,6 +230,10 @@ class InMemoryPageTest extends TestCase
     public function testOverriddenOutputPathCanUseStateInitializedAfterParentConstructor()
     {
         $this->withSiteUrl();
+        config([
+            'hyde.navigation.labels' => ['custom/data.json' => 'Custom Data'],
+            'hyde.navigation.exclude' => ['custom/data.json'],
+        ]);
 
         $page = new class extends InMemoryPage
         {
@@ -249,8 +253,17 @@ class InMemoryPageTest extends TestCase
         };
 
         $this->assertSame('custom/data.json', $page->getRouteKey());
+        $this->assertSame('Custom', $page->title);
+        $this->assertSame('Custom Data', $page->navigation->label);
+        $this->assertTrue($page->navigation->hidden);
+        $this->assertSame('custom/data.json', $page->getLink());
         $this->assertSame('https://example.com/custom/data.json', $page->getCanonicalUrl());
         $this->assertStringContainsString('custom/data.json', $page->metadata()->render());
+
+        $factoryData = $page->toCoreDataObject();
+
+        $this->assertSame('custom/data.json', $factoryData->outputPath);
+        $this->assertSame('custom/data.json', $factoryData->routeKey);
     }
 
     public function testRouteKeyIsResolvedLazilyButRemainsStable()

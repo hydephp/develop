@@ -351,7 +351,14 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRouteKey(): string
     {
-        return $this->routeKey ??= RouteKey::fromOutputPath($this->getOutputPath())->get();
+        if (! isset($this->routeKey)) {
+            $routeKey = RouteKey::fromOutputPath($this->getOutputPath())->get();
+
+            $this->synchronizeFactoryDataForResolvedRoute($routeKey);
+            $this->routeKey = $routeKey;
+        }
+
+        return $this->routeKey;
     }
 
     /**
