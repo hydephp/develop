@@ -46,6 +46,63 @@ contents with the supplied front matter during the static site build process.
 
 You can also register a macro with the name `compile` to overload the default compile method.
 
+## Registering the Page
+
+### In a Hyde project
+
+Register the page in the `boot` method of your `AppServiceProvider`. The `booting` callback runs before Hyde's discovery
+process, allowing the route to be generated automatically.
+
+```php
+// filepath: app/Providers/AppServiceProvider.php
+
+namespace App\Providers;
+
+use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Foundation\HydeKernel;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        Hyde::booting(function (HydeKernel $hyde): void {
+            $hyde->pages()->addPage(new InMemoryPage(
+                identifier: 'hello',
+                matter: ['title' => 'Hello'],
+                contents: '<h1>Hello World!</h1>',
+            ));
+        });
+    }
+}
+```
+
+The page will be written to `_site/hello.html` and can be referenced using the `hello` route key.
+
+### In a package extension
+
+Package extensions can register the page directly in the page discovery callback. Pages added at this stage are
+subsequently discovered as routes.
+
+```php
+use Hyde\Pages\InMemoryPage;
+use Hyde\Foundation\Concerns\HydeExtension;
+use Hyde\Foundation\Kernel\PageCollection;
+
+class ExampleExtension extends HydeExtension
+{
+    public function discoverPages(PageCollection $collection): void
+    {
+        $collection->addPage(new InMemoryPage(
+            identifier: 'hello',
+            matter: ['title' => 'Hello'],
+            contents: '<h1>Hello World!</h1>',
+        ));
+    }
+}
+```
+
 ## API Reference
 
 To see all the methods available, please see the [InMemoryPage API reference](hyde-pages#inmemorypage).
