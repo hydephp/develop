@@ -176,12 +176,12 @@ class HydePageTest extends TestCase
         $this->assertSame(TestPage::outputDirectory(), TestPage::baseRouteKey());
     }
 
-    public function testCustomBaseRouteKeyRemainsPartOfTheOutputPath()
+    public function testOutputDirectoryRemainsAuthoritativeWhenBaseRouteKeyIsOverridden()
     {
         $page = new CustomBaseRouteKeyTestPage('hello-world');
 
-        $this->assertSame('custom/hello-world.html', $page->getOutputPath());
-        $this->assertSame('custom/hello-world', $page->getRouteKey());
+        $this->assertSame('ignored/hello-world.html', $page->getOutputPath());
+        $this->assertSame('ignored/hello-world', $page->getRouteKey());
     }
 
     public function testIsDiscoverable()

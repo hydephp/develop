@@ -227,7 +227,7 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('custom/data.json', $page->getRouteKey());
     }
 
-    public function testOverriddenOutputPathCanUseStateInitializedAfterParentConstructor()
+    public function testOverriddenOutputPathCanUseStateInitializedBeforeParentConstructor()
     {
         $this->withSiteUrl();
         config([
@@ -241,9 +241,9 @@ class InMemoryPageTest extends TestCase
 
             public function __construct()
             {
-                parent::__construct('custom');
-
                 $this->resolvedOutputPath = 'custom/data.json';
+
+                parent::__construct('custom');
             }
 
             public function getOutputPath(): string
@@ -266,7 +266,7 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('custom/data.json', $factoryData->routeKey);
     }
 
-    public function testRouteKeyIsResolvedLazilyButRemainsStable()
+    public function testRouteKeyIsResolvedDuringConstructionAndRemainsStable()
     {
         $page = new class extends InMemoryPage
         {
@@ -286,7 +286,7 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('first', $page->routeKey);
     }
 
-    public function testCompatibilityRouteKeyPropertyCannotBeAssignedExternally()
+    public function testReadonlyRouteKeyPropertyCannotBeAssignedExternally()
     {
         $page = new InMemoryPage('first');
 
@@ -296,16 +296,6 @@ class InMemoryPageTest extends TestCase
         $this->expectException(\Error::class);
 
         $page->routeKey = 'incorrect';
-    }
-
-    public function testResolvingRouteKeyDoesNotChangePageValueEquality()
-    {
-        $resolved = new InMemoryPage('page');
-        $unresolved = new InMemoryPage('page');
-
-        $resolved->getRouteKey();
-
-        $this->assertEquals($unresolved, $resolved);
     }
 
     public function testGetLinkForFile()
