@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
+use BadMethodCallException;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
 use TypeError;
@@ -293,19 +294,89 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('bar', (new InMemoryPage('foo', view: 'bar'))->getBladeView());
     }
 
-    public function testMacroMethodWasRemoved()
+    public function testCanCreateInstanceMacros()
     {
-        $this->assertFalse(method_exists(InMemoryPage::class, 'macro'));
+        $page = InMemoryPage::make('foo');
+
+        $page->macro('foo', function (): string {
+            return 'bar';
+        });
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $this->assertSame('bar', $page->foo());
     }
 
-    public function testHasMacroMethodWasRemoved()
+    public function testCanCreateInstanceMacrosUsingCallableObject()
     {
-        $this->assertFalse(method_exists(InMemoryPage::class, 'hasMacro'));
+        $page = InMemoryPage::make('foo');
+
+        $page->macro('foo', new class
+        {
+            public function __invoke(): string
+            {
+                return 'bar';
+            }
+        });
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $this->assertSame('bar', $page->foo());
     }
 
-    public function testCustomMacroCallHandlerWasRemoved()
+    public function testCallingMacroWithArguments()
     {
-        $this->assertFalse(method_exists(InMemoryPage::class, '__call'));
+        $page = InMemoryPage::make('foo');
+
+        $page->macro('foo', function (...$arguments): array {
+            return $arguments;
+        });
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $this->assertSame(['bar'], $page->foo('bar'));
+    }
+
+    public function testInstanceMacroClosureIsBoundToPage()
+    {
+        $page = InMemoryPage::make('foo');
+
+        $page->macro('identifier', function (): string {
+            return $this->getIdentifier();
+        });
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $this->assertSame('foo', $page->identifier());
+    }
+
+    public function testCompileMethodDoesNotDispatchToAMacro()
+    {
+        $page = new InMemoryPage('foo', contents: 'contents');
+
+        $page->macro('compile', fn (): string => 'macro');
+
+        $this->assertTrue($page->hasMacro('compile'));
+        $this->assertSame('contents', $page->compile());
+    }
+
+    public function testCallingUnknownMethodThrowsException()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Method Hyde\Pages\InMemoryPage::foo does not exist.');
+
+        $page = InMemoryPage::make('foo');
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $page->foo();
+    }
+
+    public function testHasMacro()
+    {
+        $page = InMemoryPage::make('foo');
+
+        $page->macro('foo', function (): string {
+            return 'bar';
+        });
+
+        $this->assertTrue($page->hasMacro('foo'));
+        $this->assertFalse($page->hasMacro('bar'));
     }
 
     public function testSubclassCanOverrideCompileMethod()

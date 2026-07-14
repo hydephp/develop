@@ -10,6 +10,7 @@ use Hyde\Support\Models\Route;
 use Hyde\Console\Concerns\Command;
 
 use function filled;
+use function sprintf;
 use function file_exists;
 use function class_basename;
 use function str_starts_with;
@@ -40,7 +41,15 @@ class RouteListItem
 
     protected function stylePageType(string $class): string
     {
-        return $this->getPageType($class);
+        $type = $this->getPageType($class);
+
+        $page = $this->route->getPage();
+
+        if ($page instanceof InMemoryPage && $page->hasMacro('typeLabel')) {
+            $type .= sprintf(' <fg=gray>(%s)</>', (string) $page->__call('typeLabel', []));
+        }
+
+        return $type;
     }
 
     protected function styleSourcePath(string $path): string

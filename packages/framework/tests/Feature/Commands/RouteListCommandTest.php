@@ -77,6 +77,26 @@ class RouteListCommandTest extends TestCase
             ]])->assertExitCode(0);
     }
 
+    public function testConsoleRouteListWithTypeLabel()
+    {
+        Hyde::routes()->forget('404');
+        Hyde::routes()->forget('index');
+
+        $page = new InMemoryPage('foo');
+        $page->macro('typeLabel', function () {
+            return 'Foo';
+        });
+        Hyde::routes()->put('foo', new Route($page));
+
+        $this->artisan('route:list')
+            ->expectsTable($this->headers(), [[
+                'page_type' => 'InMemoryPage <fg=gray>(Foo)</>',
+                'source_file' => '<fg=gray>none</>',
+                'output_file' => '_site/foo.html',
+                'route_key' => 'foo',
+            ]])->assertExitCode(0);
+    }
+
     public function testConsoleRouteListWithTextFormatOption()
     {
         $this->artisan('route:list --format=txt')
