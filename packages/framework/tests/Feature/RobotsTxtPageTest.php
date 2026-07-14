@@ -12,7 +12,6 @@ use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Concerns\HydeExtension;
 use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
-use Hyde\Framework\Features\TextGenerators\RobotsTxtPage;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -22,7 +21,6 @@ use Illuminate\Support\Facades\File;
  *
  * @see \Hyde\Framework\Testing\Feature\RobotsTxtGeneratorTest
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\TextGenerators\RobotsTxtPage::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\HydeCoreExtension::class)]
 class RobotsTxtPageTest extends TestCase
 {
@@ -39,7 +37,7 @@ class RobotsTxtPageTest extends TestCase
 
         $page = Routes::get('robots.txt')->getPage();
 
-        $this->assertInstanceOf(RobotsTxtPage::class, $page);
+        $this->assertSame(InMemoryPage::class, $page::class);
         $this->assertSame('robots.txt', $page->getOutputPath());
         $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('robots.txt', $page->getRouteKey());
@@ -61,7 +59,7 @@ class RobotsTxtPageTest extends TestCase
 
     public function testRobotsTxtPageIsHiddenFromNavigationAndExcludedFromTheSitemap()
     {
-        $page = new RobotsTxtPage();
+        $page = Routes::get('robots.txt')->getPage();
 
         $this->assertFalse($page->showInNavigation());
         $this->assertFalse($page->showInSitemap());
@@ -71,7 +69,7 @@ class RobotsTxtPageTest extends TestCase
     {
         $this->withoutSiteUrl();
 
-        $this->assertSame("User-agent: *\nAllow: /\n", (new RobotsTxtPage())->compile());
+        $this->assertSame("User-agent: *\nAllow: /\n", Routes::get('robots.txt')->getPage()->compile());
     }
 
     public function testRobotsTxtGeneratorCanBeSwappedThroughTheServiceContainer()
@@ -133,7 +131,7 @@ class RobotsTxtPageTest extends TestCase
 
         $page = Routes::get('robots.txt')->getPage();
 
-        $this->assertNotInstanceOf(RobotsTxtPage::class, $page);
+        $this->assertSame('user defined robots', $page->compile());
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'robots.txt')->count());
 
         $this->artisan('build')->assertExitCode(0);
@@ -147,7 +145,7 @@ class RobotsTxtPageTest extends TestCase
 
         $page = Routes::get('robots.txt')->getPage();
 
-        $this->assertNotInstanceOf(RobotsTxtPage::class, $page);
+        $this->assertSame('extension defined robots', $page->compile());
         $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'robots.txt')->count());
 
         $this->artisan('build')->assertExitCode(0);

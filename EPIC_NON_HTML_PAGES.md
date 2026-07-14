@@ -117,8 +117,8 @@ a standalone feature in its own right.
 > **Implementation constraint (from PR 1) — read before writing `showInSitemap()`:**
 > the "output is not `.html`" default MUST be derived from the page's *resolved
 > output path* (`getOutputPath()`), not merely from the declared extension. The
-> resolved path is the canonical answer and also covers specialized classes such as
-> `RssFeedPage`, whose configurable filename cannot be represented by one fixed
+> resolved path is the canonical answer and also covers generated pages such as
+> the RSS feed, whose configurable filename cannot be represented by one fixed
 > extension. Keying the default off `getOutputPath()` makes all generated pages
 > self-exclude correctly and prevents the `search.json` leak from returning.
 
@@ -188,30 +188,17 @@ Registration happens in `HydeCoreExtension::discoverPages()` behind the existing
 `Features::hasSitemap()` / `Features::hasRss()` conditions, replacing the
 registrations in `BuildTaskService::registerFrameworkTasks()`.
 
-**Plain page vs. thin subclass is deferred to PR 5.** D3 already defaults non-HTML
-pages out of the sitemap, so a subclass is *not* needed merely to stop a generated
-page self-listing. The only remaining reasons to introduce `SitemapPage extends
-InMemoryPage` (mirroring `DocumentationSearchIndex`) are type identity (`instanceof`)
-and giving the `build:sitemap` / `build:rss` commands a concrete class to
-instantiate. Lean toward a plain `InMemoryPage` registered with a container-bound
-`compile` closure unless PR 5 surfaces a concrete need for the subclass.
-
-> **Decided (PR 5 part A): thin subclass.** The command wiring is the concrete need
-> the deferral anticipated: `build:sitemap` builds the registered route's page and
-> must fall back to a fresh instance when the route is not registered (mirroring how
-> `BuildSearchCommand` falls back to `new DocumentationSearchIndex()`), and a plain
-> page would need that construction logic exported from a shared factory anyway.
-> `SitemapPage extends InMemoryPage` lives next to its generator in
-> `Hyde\Framework\Features\XmlGenerators`, keeps the construction in one place, and
-> stays out of `Hyde\Pages` so it is exempt from the discovered-page unit test
-> contract, exactly like `DocumentationSearchIndex`. The D4 swappability tier is
-> unaffected: `compile()` resolves `SitemapGenerator` from the container, verified
-> by a rebind test. Part B should mirror this with `RssFeedPage`.
+**Decided: plain `InMemoryPage`.** D3 already defaults non-HTML pages out of the
+sitemap, and the commands only build registered routes. The temporary thin subclasses
+were justified by an early command fallback that instantiated fresh pages, but that
+fallback was removed in review. With no type-identity consumer remaining, generated
+pages are ordinary `InMemoryPage` instances registered with container-resolved
+`compile` macros. The D4 swappability tier is preserved and verified by rebind tests.
 
 ### D5: User-defined pages beat generators
 
 If the page collection already contains a user-defined page with a route key such
-as `robots.txt`, the framework does not register its generated `RobotsTxtPage`.
+as `robots.txt`, the framework does not register its generated page.
 This follows the pattern of `discoverDocumentationRootRedirect()`, which skips when
 a user-defined route exists.
 Users can register an `InMemoryPage` from a service provider or provide a custom page
@@ -389,9 +376,8 @@ Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed
   (`app(SitemapGenerator::class)->generate()` / `app(RssFeedGenerator::class)->generate()`),
   so the implementation is swappable via container rebind. RSS route key comes from
   `RssFeedGenerator::getFilename()` (config `hyde.rss.filename`).
-- **Decide plain `InMemoryPage` (compile macro) vs. thin subclass here** (D4). Default
-  to plain + container binding unless type identity or command wiring forces a
-  subclass; note that D3 already handles sitemap self-exclusion either way.
+- Use plain `InMemoryPage` instances with container-bound `compile` macros (D4);
+  D3 already handles sitemap self-exclusion.
 - **Verify the generators are actually container-resolvable** before advertising the
   rebind: no unresolvable constructor dependencies, not `final` (or the swap can't be
   bound). D4's whole swappability tier is a lie if `app(SitemapGenerator::class)`
@@ -404,8 +390,7 @@ Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed
   `BuildTaskService::registerFrameworkTasks()` (evaluate deprecation vs. removal —
   v3 allows breaking changes, but third-party code may reference the task classes).
 - Rewire `build:sitemap` / `build:rss` commands to build the same registered page
-  via `StaticPageBuilder::handle(...)` (a shared factory if the pages are plain
-  `InMemoryPage`s, or `new …Page()` if subclassed).
+  via `StaticPageBuilder::handle(...)`.
 - Verify `GlobalMetadataBag` head links and the `hyde.url` requirements still hold
   (`Features::hasSitemap()` already requires a site URL).
 - Nice side effect: build output shows them under "Dynamic Pages" with the standard
@@ -413,10 +398,9 @@ Goal: `sitemap.xml` and `feed.xml` are routes — served by `hyde serve`, listed
 
 Implementation notes, part A (branch `v3/non-html-pages-convert-sitemap`):
 
-- `SitemapPage extends InMemoryPage` per the D4 "thin subclass" decision (see the D4
-  note for the rationale), hiding itself from navigation like
-  `DocumentationSearchIndex` and self-excluding from the sitemap via the D3 non-HTML
-  default. Registered at the end of `HydeCoreExtension::discoverPages()` behind
+- A plain `InMemoryPage` with a container-resolved `compile` macro is hidden from
+  navigation and self-excludes from the sitemap via the D3 non-HTML default.
+  Registered at the end of `HydeCoreExtension::discoverPages()` behind
   `Features::hasSitemap()` with the D5 skip check (see the D5 note for the verified
   override ordering semantics).
 - `SitemapGenerator` verified container-resolvable and rebindable: not `final`, no
@@ -454,15 +438,15 @@ Implementation notes, part A (branch `v3/non-html-pages-convert-sitemap`):
   `Features::hasSitemap()` condition that registers the page — no drift possible.
 - Realtime compiler needed no changes (PR 2's route-first resolution); a serve test
   asserts `sitemap.xml` returns the generated XML with `application/xml`.
-- Heads-up for part B: `BuildTaskServiceUnitTest`'s framework-task fixtures were
+- For part B, `BuildTaskServiceUnitTest`'s framework-task fixtures were
   migrated from `GenerateSitemap` to `GenerateBuildManifest` (not `GenerateRssFeed`)
-  so removing the RSS task won't churn them again. Part B should mirror everything
-  here with `RssFeedPage`, taking its route key from `RssFeedGenerator::getFilename()`.
+  so removing the RSS task would not churn them again. The RSS route key comes from
+  `RssFeedGenerator::getFilename()`.
 
 Implementation notes, part B (branch `v3/non-html-pages-convert-rss-feed`):
 
-- `RssFeedPage` mirrors `SitemapPage` throughout: thin subclass in `XmlGenerators`,
-  container-resolved `compile()` (rebind verified by test), registered behind
+- The RSS feed mirrors the sitemap throughout: a plain `InMemoryPage` with a
+  container-resolved `compile` macro (rebind verified by test), registered behind
   `Features::hasRss()` with the D5 skip check, hidden from navigation, D3-excluded
   from the sitemap, and both user override paths verified end-to-end.
 - One divergence: the route key comes from `RssFeedGenerator::getFilename()`
@@ -489,17 +473,15 @@ Goal: sensible robots.txt out of the box, zero config.
 
 Implementation notes (branch `v3/non-html-pages-robots`):
 
-- `RobotsTxtPage extends InMemoryPage` mirrors `SitemapPage`/`RssFeedPage` throughout:
-  thin subclass, container-resolved generator in `compile()` (rebind verified by test),
+- The generated robots.txt is a plain `InMemoryPage` with a container-resolved
+  `compile` macro (rebind verified by test),
   registered in `HydeCoreExtension::discoverPages()` with the D5 skip check, hidden
   from navigation, D3-excluded from the sitemap via the non-HTML default, and both
   user override paths (booting callback and extension) verified end-to-end through
   the real `build` command per the D5 mandate.
-- The page and its `RobotsTxtGenerator` live in a new
-  `Hyde\Framework\Features\TextGenerators` namespace mirroring `XmlGenerators`
-  (and likewise outside `Hyde\Pages`, exempting the page from the discovered-page
-  unit test contract). PR 7's llms.txt generator and page should land there too —
-  as `LlmsTxtGenerator`/`LlmsTxtPage` for symmetry, superseding the epic's earlier
+- `RobotsTxtGenerator` lives in the
+  `Hyde\Framework\Features\TextGenerators` namespace mirroring `XmlGenerators`.
+  PR 7's generator follows it as `LlmsTxtGenerator`, superseding the epic's earlier
   `GeneratesLlmsTxt` working name.
 - Feature gate: `Features::hasRobotsTxt()` reads only `hyde.robots.enabled`
   (default `true`). Unlike `hasSitemap()`/`hasRss()` there is no site URL
@@ -523,7 +505,7 @@ Implementation notes (branch `v3/non-html-pages-robots`):
   index, instead of surfacing as a PHP-level type error at build time. Later
   generated text pages copying this pattern (llms.txt) should keep both halves —
   verbatim strings, explicit validation.
-- `RobotsTxtPage` declares its `.txt` output extension per D2.
+- Its `InMemoryPage` identifier includes the `.txt` output extension per D2.
 - No `build:robots` command: the sitemap/RSS commands exist only as carry-overs of
   the removed post-build tasks; robots.txt never had one, and the standard build
   and realtime compiler (serve test asserts `text/plain`) cover the lifecycle.
@@ -547,10 +529,10 @@ Goal: best-in-class llms.txt support — no other SSG generates this well out of
 
 Implementation notes (branch `v3/non-html-pages-llms-txt`):
 
-- `LlmsTxtPage` + `LlmsTxtGenerator` land in `Hyde\Framework\Features\TextGenerators`
-  next to the robots.txt pair (superseding the `GeneratesLlmsTxt` working name, as
-  PR 6 anticipated), and mirror `RobotsTxtPage` throughout: thin `InMemoryPage`
-  subclass, container-resolved generator in `compile()` (rebind verified by test),
+- `LlmsTxtGenerator` lands in `Hyde\Framework\Features\TextGenerators`
+  next to the robots.txt generator (superseding the `GeneratesLlmsTxt` working name,
+  as PR 6 anticipated), and its plain `InMemoryPage` uses a container-resolved
+  `compile` macro (rebind verified by test),
   registered in `HydeCoreExtension::discoverPages()` with the D5 skip check, hidden
   from navigation, D3-excluded from the sitemap, and both user override paths verified
   end-to-end through the real `build` command. No `build:llms` command, for the same
@@ -646,8 +628,8 @@ Implementation notes (branch `v3/non-html-pages-llms-txt`):
   generator-level curation concern rather than a page-level default (the sitemap
   precedent likewise keeps its 404 handling in the generator), and it is the reason the
   sitemap-derived inclusion rule is not a bare alias for `showInSitemap()`.
-- Everything else the epic left implicit held: `LlmsTxtPage` declares its `.txt`
-  output extension, and the generated page self-excludes from its own listing (and the sitemap)
+- Everything else the epic left implicit held: the `llms.txt` page identifier declares
+  its `.txt` output extension, and the generated page self-excludes from its own listing (and the sitemap)
   through the D3 resolved-output-path default.
 
 > **Scope correction (post-implementation review).** The first cut of this PR was

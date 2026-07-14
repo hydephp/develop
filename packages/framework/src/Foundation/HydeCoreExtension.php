@@ -10,6 +10,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\BuildWarnings;
 use Hyde\Support\Models\Redirect;
@@ -21,14 +22,15 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
-use Hyde\Framework\Features\TextGenerators\LlmsTxtPage;
-use Hyde\Framework\Features\TextGenerators\RobotsTxtPage;
-use Hyde\Framework\Features\XmlGenerators\RssFeedPage;
-use Hyde\Framework\Features\XmlGenerators\SitemapPage;
+use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
+use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function Hyde\unslash;
+use function app;
 use function array_filter;
 use function array_keys;
 use function sprintf;
@@ -105,32 +107,46 @@ class HydeCoreExtension extends HydeExtension
     /** Add the generated sitemap page unless the route is user-defined. */
     protected function discoverSitemapPage(PageCollection $collection): void
     {
-        if (! $this->hasPageWithRouteKey($collection, SitemapPage::routeKey())) {
-            $collection->addPage(new SitemapPage());
+        if (! $this->hasPageWithRouteKey($collection, 'sitemap.xml')) {
+            $page = new InMemoryPage('sitemap.xml', ['navigation' => ['hidden' => true]]);
+            $page->macro('compile', fn (): string => app(SitemapGenerator::class)->generate()->getXml());
+
+            $collection->addPage($page);
         }
     }
 
     /** Add the generated RSS feed page unless the route is user-defined. */
     protected function discoverRssFeedPage(PageCollection $collection): void
     {
-        if (! $this->hasPageWithRouteKey($collection, RssFeedPage::routeKey())) {
-            $collection->addPage(new RssFeedPage());
+        $routeKey = RssFeedGenerator::getFilename();
+
+        if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
+            $page = new InMemoryPage($routeKey, ['navigation' => ['hidden' => true]]);
+            $page->macro('compile', fn (): string => app(RssFeedGenerator::class)->generate()->getXml());
+
+            $collection->addPage($page);
         }
     }
 
     /** Add the generated robots.txt page unless the route is user-defined. */
     protected function discoverRobotsTxtPage(PageCollection $collection): void
     {
-        if (! $this->hasPageWithRouteKey($collection, RobotsTxtPage::routeKey())) {
-            $collection->addPage(new RobotsTxtPage());
+        if (! $this->hasPageWithRouteKey($collection, 'robots.txt')) {
+            $page = new InMemoryPage('robots.txt', ['navigation' => ['hidden' => true]]);
+            $page->macro('compile', fn (): string => app(RobotsTxtGenerator::class)->generate());
+
+            $collection->addPage($page);
         }
     }
 
     /** Add the generated llms.txt page unless the route is user-defined. */
     protected function discoverLlmsTxtPage(PageCollection $collection): void
     {
-        if (! $this->hasPageWithRouteKey($collection, LlmsTxtPage::routeKey())) {
-            $collection->addPage(new LlmsTxtPage());
+        if (! $this->hasPageWithRouteKey($collection, 'llms.txt')) {
+            $page = new InMemoryPage('llms.txt', ['navigation' => ['hidden' => true]]);
+            $page->macro('compile', fn (): string => app(LlmsTxtGenerator::class)->generate());
+
+            $collection->addPage($page);
         }
     }
 
