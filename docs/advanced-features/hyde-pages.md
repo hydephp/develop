@@ -161,16 +161,15 @@ autodiscovery, you may benefit from creating a custom page class instead, as tha
 
 You can learn more about the InMemoryPage class in the [InMemoryPage documentation](in-memory-pages).
 
-Normal in-memory pages compile as HTML, regardless of dots in their identifiers. Use `file()` to opt into an exact output path:
+In-memory pages generate HTML by default. Custom subclasses can generate another format by declaring their output extension:
 
 ```php
-InMemoryPage::make('about', contents: $html);
-// _site/about.html
+class TextFilePage extends InMemoryPage
+{
+    public static string $outputExtension = '.txt';
+}
 
-InMemoryPage::make('robots.txt', contents: $text);
-// _site/robots.txt.html
-
-InMemoryPage::file('robots.txt', contents: $text);
+TextFilePage::make('robots', contents: $text);
 // _site/robots.txt
 ```
 
@@ -199,7 +198,6 @@ class InMemoryPage extends HydePage
 
     protected string|\Closure $contents;
     protected string $view;
-    protected readonly bool $exactOutputPath;
 }
 ```
 

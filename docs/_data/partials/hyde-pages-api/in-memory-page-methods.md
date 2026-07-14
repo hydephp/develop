@@ -12,19 +12,6 @@ Static alias for the constructor.
 InMemoryPage::make(string|(Closure(): string)|(Closure(static):, Hyde\Markdown\Models\FrontMatter|array $matter, Closure|string|null $contents, string $view): static
 ```
 
-#### `file()`
-
-Create an in-memory page whose identifier is used as the exact output path.
-
-The output path must be a relative file path contained within the site output directory.
-
-The output path must be a relative file path contained within the site output directory.
-
-```php
-/** @param string|(Closure(): string)|(Closure(static): string)|null $contents */
-InMemoryPage::file(string $outputPath, Hyde\Markdown\Models\FrontMatter|array $matter, Closure|string|null $contents, string $view): static
-```
-
 #### `__construct()`
 
 Create a new in-memory (virtual) page instance.
@@ -35,24 +22,12 @@ Contents and views cannot be used together. Omit both to create an empty page. A
 
 View values ending in `.blade.php` are treated as Blade file paths. Other values are treated as registered Laravel view keys.
 
-Normal construction uses HTML page semantics; use the `file()` constructor to create an exact-path file page.
-
-- **Parameter $exactOutputPath:** Whether to validate and use the identifier as an exact output path. Prefer the `file()` constructor for this mode.
-
 ```php
 /** @param string|(Closure(): string)|(Closure(static): string)|null $contents */
-$page = new InMemoryPage(string $identifier, FrontMatter|array $matter, string|(Closure(): string)|(Closure(static):, string|null $view, bool $exactOutputPath): void
+$page = new InMemoryPage(string $identifier, FrontMatter|array $matter, string|(Closure(): string)|(Closure(static):, string|null $view): void
 ```
 
 - **Throws:** InvalidArgumentException If both contents and a view are supplied.
-
-#### `getOutputPath()`
-
-Get the path where the compiled page will be saved.
-
-```php
-$page->getOutputPath(): string
-```
 
 #### `getContents()`
 

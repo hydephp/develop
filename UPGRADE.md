@@ -2,18 +2,16 @@
 
 ## Overview
 
-HydePHP v3 adds `InMemoryPage::file()` for creating virtual pages whose identifier is used as the exact output path,
-allowing files such as `robots.txt`, `site.webmanifest`, nested JSON files, and extensionless outputs without extension
-inference. Normal `InMemoryPage::make()` construction retains its historical HTML behavior:
+HydePHP v3 lets custom page classes declare their output extension. `InMemoryPage` generates HTML by default; extend it
+and set the static `$outputExtension` property when creating an in-memory page for another format:
 
 ```php
-InMemoryPage::make('about', contents: $html);
-// _site/about.html
+class TextFilePage extends InMemoryPage
+{
+    public static string $outputExtension = '.txt';
+}
 
-InMemoryPage::make('robots.txt', contents: $text);
-// _site/robots.txt.html
-
-InMemoryPage::file('robots.txt', contents: $text);
+TextFilePage::make('robots', contents: $text);
 // _site/robots.txt
 ```
 
@@ -343,8 +341,13 @@ The same works for `RssFeedGenerator`.
 use Hyde\Hyde;
 use Hyde\Pages\InMemoryPage;
 
-Hyde::kernel()->booting(function ($kernel): void {
-    $kernel->pages()->addPage(InMemoryPage::file('sitemap.xml', contents: $myXml));
+class CustomSitemapPage extends InMemoryPage
+{
+    public static string $outputExtension = '.xml';
+}
+
+Hyde::kernel()->booting(function ($kernel) use ($myXml): void {
+    $kernel->pages()->addPage(new CustomSitemapPage('sitemap', contents: $myXml));
 });
 ```
 
