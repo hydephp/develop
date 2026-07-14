@@ -91,6 +91,22 @@ class HydeExtensionFeatureTest extends TestCase
         $this->assertInstanceOf(PageCollection::class, ...InspectableTestExtension::getCalled('default-pages'));
     }
 
+    public function testEveryNormalPageHandlerRunsBeforeAnyDefaultPageHandler()
+    {
+        DiscoveryPhaseOrder::$calls = [];
+
+        $this->kernel->registerExtension(FirstDiscoveryPhaseExtension::class);
+        $this->kernel->registerExtension(SecondDiscoveryPhaseExtension::class);
+        $this->kernel->boot();
+
+        $this->assertSame([
+            'extension-a pages',
+            'extension-b pages',
+            'extension-a defaults',
+            'extension-b defaults',
+        ], DiscoveryPhaseOrder::$calls);
+    }
+
     public function testRouteHandlerDependencyInjection()
     {
         $this->kernel->registerExtension(InspectableTestExtension::class);
@@ -317,5 +333,36 @@ class BootableTestExtension extends HydeExtension
     public function booted(HydeKernel $kernel): void
     {
         static::$callCache['booted'] = $kernel;
+    }
+}
+
+class DiscoveryPhaseOrder
+{
+    public static array $calls = [];
+}
+
+class FirstDiscoveryPhaseExtension extends HydeExtension
+{
+    public function discoverPages(PageCollection $collection): void
+    {
+        DiscoveryPhaseOrder::$calls[] = 'extension-a pages';
+    }
+
+    public function discoverDefaultPages(PageCollection $collection): void
+    {
+        DiscoveryPhaseOrder::$calls[] = 'extension-a defaults';
+    }
+}
+
+class SecondDiscoveryPhaseExtension extends HydeExtension
+{
+    public function discoverPages(PageCollection $collection): void
+    {
+        DiscoveryPhaseOrder::$calls[] = 'extension-b pages';
+    }
+
+    public function discoverDefaultPages(PageCollection $collection): void
+    {
+        DiscoveryPhaseOrder::$calls[] = 'extension-b defaults';
     }
 }

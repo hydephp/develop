@@ -226,6 +226,10 @@ Hyde::kernel()->booting(function ($kernel): void {
 });
 ```
 
+Framework fallback pages are now registered only after every extension has completed `discoverPages()`. If an extension
+previously inspected or modified a framework-generated page from that handler, move that work to
+`discoverDefaultPages()` or a later lifecycle hook. Default handlers still run in extension registration order.
+
 The `build:sitemap` and `build:rss` commands still work and now compile the registered pages. When the output
 cannot be generated (no base URL, disabled in the configuration, or — for the feed — no Markdown posts), they
 fail with an error instead of generating an empty or unwanted file. `build:sitemap` reports this
