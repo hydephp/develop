@@ -50,10 +50,9 @@ class InMemoryPage extends HydePage
     /**
      * Create a new in-memory/virtual page instance.
      *
-     * The in-memory page class offers three content strategies. You can pass a literal string or a lazy closure to
-     * the $contents parameter, or pass a view name or Blade file to the $view parameter. Closures are invoked each
-     * time the contents are requested with the current page as their first argument. The argument may be omitted when
-     * page context is not needed. Other dependencies are not resolved automatically.
+     * The in-memory page class offers three content strategies. You can pass a literal string,
+     * or closure to the `$contents` parameter, or pass a view name or Blade file to the `$view` parameter.
+     * Closures are invoked during compile time and we inject page instance as their first argument, and must return a string.
      *
      * Configured contents take precedence over a view, including closures that return an empty string.
      *
