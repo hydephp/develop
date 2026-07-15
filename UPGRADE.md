@@ -193,19 +193,21 @@ $page->macro(
 $page = new InMemoryPage(
     'sitemap.xml',
     ['navigation' => ['hidden' => true]],
-    fn (SitemapGenerator $generator): string => $generator->generate()->getXml(),
+    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 
-Closures are invoked lazily through the application container during compilation and are not cached. Dependencies
-declared as closure parameters are resolved when the contents are requested, and existing closure bindings are preserved.
+Closures are invoked lazily during compilation and are not cached. The current page can be injected as a typed closure
+parameter; other dependencies are not resolved. This preserves the page context formerly supplied to bound `compile`
+macros without rebinding the contents closure, so existing closure bindings are preserved.
 
 Other instance macros remain supported for adding per-instance methods. Use closure contents for dynamic output, keep
 macros for additional per-instance methods, and create an `InMemoryPage` subclass when you need complete class-level
 behavior changes.
 
-Content closures are not rebound to the page instance. If a previous `compile` macro used `$this` to access page state,
-move that behavior to a page subclass instead of copying the callback directly into the contents argument:
+Content closures are not rebound to the page instance. Instead, type-hint the page as a closure parameter when migrating
+a previous `compile` macro that used `$this` to access page state. This preserves page context without changing the
+closure's existing object binding:
 
 **Before:**
 
@@ -220,15 +222,12 @@ $page->macro('compile', function (): string {
 **After:**
 
 ```php
-class ExamplePage extends InMemoryPage
-{
-    public function getContents(): string
-    {
-        return $this->getIdentifier();
-    }
-}
-
-$page = new ExamplePage('example.txt');
+$page = new InMemoryPage(
+    'example.txt',
+    contents: function (InMemoryPage $page): string {
+        return $page->getIdentifier();
+    },
+);
 ```
 
 ## Migration Checklist

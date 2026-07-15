@@ -49,14 +49,23 @@ use Hyde\Pages\InMemoryPage;
 $page = new InMemoryPage(
     'sitemap.xml',
     ['navigation' => ['hidden' => true]],
-    fn (SitemapGenerator $generator): string => $generator->generate()->getXml(),
+    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 
-When contents are provided as a closure, Hyde invokes it through the application container each time the contents are
-requested. Dependencies declared as closure parameters are resolved lazily. Hyde does not rebind content
-closures, so first-class callable closures preserve their original object binding. The `$contents` parameter accepts
-only a string or closure, not arbitrary callables.
+When contents are provided as a closure, Hyde invokes it each time the contents are requested. Type-hint `InMemoryPage`
+or your page subclass to inject the current page. Only the current page is injected; Hyde does not resolve arbitrary
+closure dependencies. This narrowly preserves the page-context access previously available through bound `compile`
+macros without rebinding content closures, so static closures remain usable and first-class callable closures preserve
+their original object binding. The `$contents` parameter accepts only a string or closure, not arbitrary callables.
+
+```php
+$page = new InMemoryPage(
+    'example.txt',
+    ['title' => 'Example'],
+    fn (InMemoryPage $page): string => $page->matter->get('title'),
+);
+```
 
 Alternatively, pass a Blade view name or arbitrary `.blade.php` file to the `$view` parameter. Hyde renders the view
 with the supplied front matter during the static site build process.
