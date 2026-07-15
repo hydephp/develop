@@ -52,8 +52,8 @@ class InMemoryPage extends HydePage
      * Create a new in-memory/virtual page instance.
      *
      * The in-memory page class offers three content strategies. You can pass a literal string or a lazy closure to
-     * the $contents parameter, or pass a view name or Blade file to the $view parameter. Closures are resolved each
-     * time the contents are requested through the application container, allowing dependencies to be injected.
+     * the $contents parameter, or pass a view name or Blade file to the $view parameter. Closures are invoked each
+     * time the contents are requested through the application container, which resolves their dependencies.
      *
      * Configured contents take precedence over a view, including closures that return an empty string.
      *
@@ -74,7 +74,7 @@ class InMemoryPage extends HydePage
         $this->view = $view;
     }
 
-    /** Get the literal contents or resolve the configured content closure through the application container. */
+    /** Get the literal contents or invoke the configured content closure through the application container. */
     public function getContents(): string
     {
         return $this->contents instanceof Closure

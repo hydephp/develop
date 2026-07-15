@@ -197,8 +197,8 @@ $page = new InMemoryPage(
 );
 ```
 
-Closures are resolved lazily through the application container during compilation and are not cached. Dependencies
-declared as closure parameters are injected when the contents are requested, and existing closure bindings are preserved.
+Closures are invoked lazily through the application container during compilation and are not cached. Dependencies
+declared as closure parameters are resolved when the contents are requested, and existing closure bindings are preserved.
 
 Other instance macros remain supported for adding per-instance methods. Use closure contents for dynamic output, keep
 macros for additional per-instance methods, and create an `InMemoryPage` subclass when you need complete class-level
