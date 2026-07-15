@@ -62,6 +62,16 @@ class TerminalCodeBlocksTest extends TestCase
         );
     }
 
+    public function testMismatchedTagsAreEscaped(): void
+    {
+        $html = Markdown::render("```terminal xml\n<info>Ready</comment>\n```");
+
+        $this->assertStringContainsString(
+            '<span class="hyde-terminal-info text-[#C3E88D]">Ready&lt;/comment&gt;</span>',
+            $html,
+        );
+    }
+
     public function testTerminalContentsAreAlwaysEscaped(): void
     {
         $html = Markdown::render("```terminal xml\n<script>alert(1)</script> <unknown>text</unknown>\n```");

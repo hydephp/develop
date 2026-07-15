@@ -10,7 +10,6 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 
-use function array_fill;
 use function array_map;
 use function array_pop;
 use function count;
