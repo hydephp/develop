@@ -197,18 +197,12 @@ $page = new InMemoryPage(
 );
 ```
 
-Closures are invoked lazily during compilation and are not cached. Hyde passes the current page as the closure's first
-argument, which may be omitted when page context is not needed. This retains the page context formerly supplied to
-bound `compile` macros without rebinding the contents closure.
-
-Content closures are never rebound to the page instance. Instead, accept the page as the closure's first parameter when
-migrating a previous `compile` macro that used `$this` to access page state. This preserves page context without changing
-the closure's existing object binding:
+Content closures are invoked lazily during compilation, are not cached, and are never rebound to the page instance. Hyde instead passes the current page as the closure’s first argument, which may be omitted when page context is unnecessary. When migrating a previous bound compile macro that used $this to access page state, accept the page through this parameter instead. This preserves page context without altering the closure’s existing object binding, which PHP does not support for all closure types.
 
 **Before:**
 
 ```php
-$page = new InMemoryPage('example.txt');
+$page = new InMemoryPage('example');
 
 $page->macro('compile', function (): string {
     return $this->getIdentifier();
@@ -219,7 +213,7 @@ $page->macro('compile', function (): string {
 
 ```php
 $page = new InMemoryPage(
-    'example.txt',
+    'example',
     contents: function (InMemoryPage $page): string {
         return $page->getIdentifier();
     },
@@ -231,7 +225,7 @@ For macros other than `compile`, create an `InMemoryPage` subclass and add the m
 **Before:**
 
 ```php
-$page = new InMemoryPage('report.html');
+$page = new InMemoryPage('report');
 $page->macro('reportTitle', fn (): string => 'Monthly Report');
 ```
 
@@ -246,7 +240,7 @@ class ReportPage extends InMemoryPage
     }
 }
 
-$page = new ReportPage('report.html');
+$page = new ReportPage('report');
 ```
 
 ## Migration Checklist
