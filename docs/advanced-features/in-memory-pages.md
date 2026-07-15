@@ -39,7 +39,7 @@ Pass a string to the `$contents` parameter when the page contents are already av
 $page = new InMemoryPage('robots.txt', contents: "User-agent: *\n");
 ```
 
-Pass a closure when the contents should be generated lazily during compilation. The closure is resolved again for each
+Pass a closure when the contents should be generated lazily during compilation. The closure is invoked again for each
 compilation, which makes it useful for pages generated from the current application state.
 
 ```php
@@ -53,8 +53,8 @@ $page = new InMemoryPage(
 );
 ```
 
-When contents are provided as a closure, Hyde resolves and invokes it through the application container each time the
-contents are requested. Dependencies declared as closure parameters are injected lazily. Hyde does not rebind content
+When contents are provided as a closure, Hyde invokes it through the application container each time the contents are
+requested. Dependencies declared as closure parameters are resolved lazily. Hyde does not rebind content
 closures, so first-class callable closures preserve their original object binding. The `$contents` parameter accepts
 only a string or closure, not arbitrary callables.
 
