@@ -206,7 +206,7 @@ Other instance macros remain supported for adding per-instance methods. Use clos
 macros for additional per-instance methods, and create an `InMemoryPage` subclass when you need complete class-level
 behavior changes.
 
-Content closures are not rebound to the page instance. Instead, accept the page as the closure's first parameter when
+Content closures are not rebound to the page instance as first class callables do not support this. Instead, accept the page as the closure's first parameter when
 migrating a previous `compile` macro that used `$this` to access page state. This preserves page context without changing
 the closure's existing object binding:
 
