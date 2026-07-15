@@ -110,6 +110,74 @@ building them in a privileged environment.
 All `[Blade]:` shortcodes must be the first word on a new line, and only single-line shortcodes are supported. Use
 Blade blocks for multi-line code.
 
+## Terminal Code Blocks
+
+Use the `terminal` language on a fenced code block to render command output as a terminal window. This is a built-in
+Markdown feature and does not require a Torchlight API token.
+
+````markdown
+```terminal
+$ php hyde publish
+
+ Which group would you like to publish?
+ ❯ views    Blade templates and components
+   configs  Configuration files
+   layouts  Page and homepage layouts
+```
+````
+
+Which renders as:
+
+```terminal
+$ php hyde publish
+
+ Which group would you like to publish?
+ ❯ views    Blade templates and components
+   configs  Configuration files
+   layouts  Page and homepage layouts
+```
+
+Lines beginning with a `$ ` prompt are highlighted as commands. The prompt is excluded from text selection, so you
+can select and copy the command without including it.
+
+### Symfony Console formatting
+
+Add the `xml` modifier to style four commonly used Symfony Console formatter tags using colors from Hyde's terminal
+theme:
+
+````markdown
+```terminal xml
+<info>Published successfully!</info>
+<comment>Restart the development server.</comment>
+<question>Continue?</question>
+<error>Build failed.</error>
+```
+````
+
+| Tag          | Hyde default style |
+| ------------ | ------------------ |
+| `<info>`     | Green              |
+| `<comment>`  | Amber              |
+| `<question>` | Cyan               |
+| `<error>`    | Emphasized red     |
+
+The formatter only recognizes these four tags. All other terminal content, including HTML, is escaped and displayed
+as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output.
+
+The terminal markup provides stable styling hooks for customization. Use `hyde-terminal-body` to change the output
+area's default text and background colors, and `hyde-terminal` to style the outer container. The
+`hyde-terminal-info`, `hyde-terminal-comment`, `hyde-terminal-question`, and `hyde-terminal-error` classes target the
+four formatter tags individually.
+
+You can customize the terminal markup and Tailwind classes by publishing Hyde's Blade components:
+
+```bash
+php hyde publish:views components
+```
+
+The terminal component will be published to
+`resources/views/vendor/hyde/components/markdown/terminal.blade.php`.
+
 ## Coloured Blockquotes
 
 The HydePHP Markdown converter also supports some extra directives and features. One of them being four different

@@ -19,6 +19,7 @@ This serves two purposes:
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. They are controlled by the existing `markdown.enable_blade` option. ([#2504](https://github.com/hydephp/develop/pull/2504))
+- Added built-in `terminal` fenced code blocks with command prompt styling and optional Symfony Console formatting using the `terminal xml` info string. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
 
 ### Changed
 - Blade in Markdown is now enabled by default. The `markdown.enable_blade` option controls both `[Blade]:` directives and executable Blade Blocks; set it to `false` when compiling untrusted or unreviewed Markdown.

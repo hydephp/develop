@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Concerns\Internal;
 
 use Hyde\Facades\Config;
+use Hyde\Markdown\Extensions\TerminalExtension;
 use Hyde\Markdown\Processing\BladeBlockProcessor;
 use Hyde\Markdown\Processing\BladeDownProcessor;
 use Hyde\Markdown\Processing\ShortcodeProcessor;
@@ -26,6 +27,8 @@ trait SetsUpMarkdownConverter
 {
     protected function enableDynamicExtensions(): void
     {
+        $this->addExtension(TerminalExtension::class);
+
         if ($this->canEnableTorchlight()) {
             $this->addExtension(TorchlightExtension::class);
         }
