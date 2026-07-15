@@ -198,8 +198,7 @@ $page = new InMemoryPage(
 ```
 
 Closures are invoked lazily during compilation and are not cached. Hyde passes the current page as the closure's first
-argument, which may be omitted when page context is not needed. Other dependencies are not resolved automatically,
-and existing closure bindings are preserved. This retains the page context formerly supplied to bound `compile` macros
+argument, which may be omitted when page context is not needed. This retains the page context formerly supplied to bound `compile` macros
 without rebinding the contents closure.
 
 Other instance macros remain supported for adding per-instance methods. Use closure contents for dynamic output, keep
