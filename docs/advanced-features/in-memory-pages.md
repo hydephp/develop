@@ -53,11 +53,8 @@ $page = new InMemoryPage(
 );
 ```
 
-When contents are provided as a closure, Hyde invokes it each time the contents are requested and passes the current
-page as the closure's first argument. The argument may be omitted when page context is not needed. Other dependencies
-are not resolved automatically, and existing closure bindings are preserved. This provides the page-context access
-previously available through bound `compile` macros without rebinding content closures. The `$contents` parameter
-accepts only a string or closure, not arbitrary callables.
+When contents are provided as a closure, Hyde invokes when compiling the page and passes the current
+page as the closure's first argument. The argument may be omitted when page context is not needed. 
 
 ```php
 $page = new InMemoryPage(
