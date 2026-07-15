@@ -97,8 +97,14 @@ class InMemoryPage extends HydePage
      */
     public function compile(): string
     {
-        if ($this->contents instanceof Closure || $this->contents !== '') {
+        if ($this->contents instanceof Closure) {
             return $this->getContents();
+        }
+
+        $contents = $this->getContents();
+
+        if ($contents !== '') {
+            return $contents;
         }
 
         if ($this->getBladeView() !== '') {
@@ -111,7 +117,7 @@ class InMemoryPage extends HydePage
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
         }
 
-        return '';
+        return $contents;
     }
 
     /**

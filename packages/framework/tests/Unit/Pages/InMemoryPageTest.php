@@ -410,6 +410,26 @@ class InMemoryPageTest extends TestCase
 
         $this->assertSame('custom', $page->compile());
     }
+
+    public function testCompileUsesOverriddenGetContentsMethod()
+    {
+        $this->file('_pages/foo.blade.php', '@php(throw new \RuntimeException("View should not render"))');
+
+        $page = new class('foo', view: 'foo') extends InMemoryPage
+        {
+            public int $invocations = 0;
+
+            public function getContents(): string
+            {
+                $this->invocations++;
+
+                return 'custom';
+            }
+        };
+
+        $this->assertSame('custom', $page->compile());
+        $this->assertSame(1, $page->invocations);
+    }
 }
 
 class InMemoryPageContentGenerator
