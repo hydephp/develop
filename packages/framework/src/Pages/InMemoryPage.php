@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\View;
  * a view. Content closures receive the current page as their first argument.
  *
  * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
- * autodiscovery or control compilation completely, create a custom page class and override compile() instead.
+ * autodiscovery, add custom methods, or control compilation completely, extend this class. Subclasses can add ordinary
+ * methods or override compile() as needed.
  */
 class InMemoryPage extends HydePage
 {

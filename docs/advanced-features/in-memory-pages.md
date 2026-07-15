@@ -70,9 +70,18 @@ with the supplied front matter during the static site build process.
 >warning Note that `$contents` take precedence over `$view`, so if you pass both, only `$contents` will be used.
 > This includes a closure that returns an empty string. A view is used only when literal contents are the empty string.
 
-Instance macros remain supported for adding extra methods to a specific page, but a macro named `compile` does not
-override the real `compile()` method. Use closure contents for lazy dynamic output. For complete class-level behavior
-changes, extend `InMemoryPage` and override `compile()` in your custom page class.
+Use closure contents for lazy dynamic output. If the page needs custom methods or behavior beyond the supported content
+strategies, extend `InMemoryPage`. You can add methods normally and override `compile()` when you need complete control.
+
+```php
+class ReportPage extends InMemoryPage
+{
+    public function reportTitle(): string
+    {
+        return (string) $this->matter->get('title');
+    }
+}
+```
 
 ## Registering the Page
 
