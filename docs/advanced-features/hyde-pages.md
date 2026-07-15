@@ -166,7 +166,7 @@ You can learn more about the InMemoryPage class in the [InMemoryPage documentati
 
 As the class is not discoverable, the static path properties are not initialized. Instead, you rely on literal string
 contents, lazy closure contents, or a Blade view. Contents take precedence over the view. Extend the class and override
-`compile()` when you need complete compilation control, or add normal methods to the subclass for other custom behavior.
+`compile()` when you need complete compilation control, or want to add other methods to the subclass for custom behavior.
 
 ```php
 /**
