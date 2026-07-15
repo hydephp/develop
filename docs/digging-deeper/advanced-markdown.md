@@ -142,8 +142,8 @@ can select and copy the command without including it.
 
 ### Symfony Console formatting
 
-Add the `xml` modifier to use Hyde's four supported Symfony-compatible Console formatter tags. The tags retain their
-Symfony semantics, while Hyde presents them using colors from its terminal theme:
+Add the `xml` modifier to style four commonly used Symfony Console formatter tags using colors from Hyde's terminal
+theme:
 
 ````markdown
 ```terminal xml
