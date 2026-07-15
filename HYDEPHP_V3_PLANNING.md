@@ -28,6 +28,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 - Blade in Markdown is now enabled by default. The `markdown.enable_blade` option controls both `[Blade]:` directives and executable Blade Blocks. Hyde sites generally treat project content as trusted and reviewed; sites that compile untrusted or unreviewed Markdown can disable both forms with this option.
 - Raw HTML in Markdown is now enabled by default. Hyde sites generally treat project content as trusted and reviewed; sites that compile untrusted or unreviewed Markdown can set `markdown.allow_html` to `false` to strip potentially unsafe HTML tags.
+- `InMemoryPage` contents now accept lazy closures in addition to literal strings. Closures are invoked each time contents are requested with the current page as their first argument, without being rebound.
 
 ### Minor Changes and Cleanup
 
@@ -40,6 +41,7 @@ Having this document in code lets us know the devlopment state at any given poin
 ### Breaking Changes
 
 - Removed `Redirect::create()`, `Redirect::store()`, and the `Redirect` constructor's `showText` argument. Redirects must now be declared in `hyde.redirects`, keeping all generated output inside the kernel-owned build graph. Redirect routes are intrinsically excluded from navigation menus and sitemaps, and always include an accessible fallback link.
+- `InMemoryPage` macros can no longer override `compile()`. Dynamic contents should now be supplied with a closure; other instance macros remain supported.
 
 - Removed the `rebuild` command (`RebuildPageCommand`). It was originally added to build a single file to disk before the realtime compiler existed, and later used internally by the RC to build-and-serve a path, but the RC now renders everything in-memory, leaving `rebuild` with no remaining consumer. It also had no safe user-facing use case: a single-page build only produces a correct `_site` when the page is self-contained, while a page change routinely invalidates aggregate outputs (sitemap, RSS, search index, post listings, navigation), so single-path building could silently leave a stale output directory that looked complete. The underlying single-page build capability remains available internally via the `StaticPageBuilder` action. ([#2490](https://github.com/hydephp/develop/pull/2490))
 
@@ -51,3 +53,4 @@ Please fill in UPGRADE.md as you make changes.
 - Raw HTML in Markdown is now enabled by default. Existing projects with a published `config/markdown.php` retain their current `markdown.allow_html` setting; set it to `true` to adopt the v3 default, or keep it `false` when compiling untrusted or unreviewed Markdown.
 - The `rebuild` command has been removed. If you need to build a single page programmatically, use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead.
 - Move any calls to `Redirect::create()` or `Redirect::store()` into the `redirects` array in `config/hyde.php`, using the old path as the key and the destination as the value.
+- Move `InMemoryPage` `compile` macro callbacks into the contents argument. Keep macros for additional per-instance methods, or use a subclass for complete class-level behavior changes.

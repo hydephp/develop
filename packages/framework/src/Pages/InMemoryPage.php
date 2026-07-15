@@ -20,8 +20,12 @@ use function sprintf;
  * usually within the boot method of the package's service provider, or a page collection callback in an extension.
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
  *
- * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize
- * Hyde autodiscovery, you may benefit from creating a custom page class instead, as that will give you full control.
+ * Pages may use literal string contents, a lazy closure, or a Blade view. Configured contents take precedence over
+ * a view. Content closures receive the current page as their first argument. Instance macros may add per-page methods,
+ * but cannot override compile().
+ *
+ * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
+ * autodiscovery or control compilation completely, create a custom page class and override compile() instead.
  */
 class InMemoryPage extends HydePage
 {
@@ -29,7 +33,8 @@ class InMemoryPage extends HydePage
     public static string $outputDirectory;
     public static string $fileExtension;
 
-    protected string $contents;
+    /** @var string|Closure(static): string */
+    protected string|Closure $contents;
     protected string $view;
 
     /** @var array<string, callable> */
@@ -37,8 +42,10 @@ class InMemoryPage extends HydePage
 
     /**
      * Static alias for the constructor.
+     *
+     * @param  string|Closure(static): string  $contents
      */
-    public static function make(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = ''): static
+    public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = '', string $view = ''): static
     {
         return new static($identifier, $matter, $contents, $view);
     }
@@ -46,12 +53,11 @@ class InMemoryPage extends HydePage
     /**
      * Create a new in-memory/virtual page instance.
      *
-     * The in-memory page class offers two content options. You can either pass a string to the $contents parameter,
-     * Hyde will then save that literally as the page's contents. Alternatively, you can pass a view name to the $view parameter,
-     * and Hyde will use that view to render the page contents with the supplied front matter during the static site build process.
+     * The in-memory page class offers three content strategies. You can pass a literal string,
+     * or closure to the `$contents` parameter, or pass a view name or Blade file to the `$view` parameter.
+     * Closures return strings and are invoked during compile time. We inject page instance as their first argument.
      *
-     * Note that $contents take precedence over $view, so if you pass both, only $contents will be used.
-     * You can also register a macro with the name 'compile' to overload the default compile method.
+     * Configured contents take precedence over a view, including closures that return an empty string.
      *
      * @param  string  $identifier  The identifier of the page. This is used to generate the route key which is used to create the output filename.
      *                              If the identifier for an in-memory page is "foo/bar" the page will be saved to "_site/foo/bar.html".
@@ -59,10 +65,10 @@ class InMemoryPage extends HydePage
      *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
-     * @param  string  $contents  The contents of the page. This will be saved as-is to the output file.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
+     * @param  string|Closure(static): string  $contents  Literal page contents or a closure that lazily generates them.
      */
-    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string $contents = '', string $view = '')
+    public function __construct(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = '', string $view = '')
     {
         parent::__construct($identifier, $matter);
 
@@ -70,10 +76,12 @@ class InMemoryPage extends HydePage
         $this->view = $view;
     }
 
-    /** Get the contents of the page. This will be saved as-is to the output file when this strategy is used. */
+    /** Get the literal contents or invoke the configured content closure with the current page as its first argument. */
     public function getContents(): string
     {
-        return $this->contents;
+        return $this->contents instanceof Closure
+            ? ($this->contents)($this)
+            : $this->contents;
     }
 
     /** Get the view key or Blade file for the view to use to render the page contents when this strategy is used. */
@@ -85,17 +93,23 @@ class InMemoryPage extends HydePage
     /**
      * Get the contents that will be saved to disk for this page.
      *
-     * In order to make your virtual page easy to use we provide a few options for how the page can be compiled.
-     * If you want even more control, you can register a macro with the name 'compile' to overload the method,
-     * or simply extend the class and override the method yourself, either in a standard or anonymous class.
+     * Configured literal or closure contents take precedence over Blade views. A view is rendered only when the
+     * configured contents are the empty string. Instance macros do not override this method. Extend this class and
+     * override the method for complete control.
      */
     public function compile(): string
     {
-        if ($this->hasMacro('compile')) {
-            return $this->__call('compile', []);
+        if ($this->contents instanceof Closure) {
+            return $this->getContents();
         }
 
-        if ($this->getBladeView() && ! $this->getContents()) {
+        $contents = $this->getContents();
+
+        if ($contents !== '') {
+            return $contents;
+        }
+
+        if ($this->getBladeView() !== '') {
             if (str_ends_with($this->getBladeView(), '.blade.php')) {
                 // If the view key is for a Blade file path, we'll use the anonymous view compiler to compile it.
                 // This allows you to use any arbitrary file, without needing to register its namespace or directory.
@@ -105,15 +119,15 @@ class InMemoryPage extends HydePage
             return View::make($this->getBladeView(), $this->matter->toArray())->render();
         }
 
-        // If there's no macro or view configured, we'll just return the contents as-is.
-        return $this->getContents();
+        return $contents;
     }
 
     /**
      * Register a macro for the instance.
      *
      * Unlike most macros you might be used to, these are not static, meaning they belong to the instance.
-     * If you have the need for a macro to be used for multiple pages, you should create a custom page class instead.
+     * Macros add methods that do not already exist on the page. If you have the need for a macro to
+     * be used for multiple pages, you should consider creating a custom page class instead.
      */
     public function macro(string $name, callable $macro): void
     {
