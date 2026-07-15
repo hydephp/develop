@@ -126,8 +126,8 @@ class InMemoryPage extends HydePage
      * Register a macro for the instance.
      *
      * Unlike most macros you might be used to, these are not static, meaning they belong to the instance.
-     * Macros add methods that do not already exist on the page and cannot override compile(). If you have the need
-     * for a macro to be used for multiple pages, you should create a custom page class instead.
+     * Macros add methods that do not already exist on the page. If you have the need for a macro to
+     * be used for multiple pages, you should consider creating a custom page class instead.
      */
     public function macro(string $name, callable $macro): void
     {
