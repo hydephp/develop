@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Hyde\Pages;
 
-use BadMethodCallException;
 use Closure;
 use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
-
-use function sprintf;
 
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on any source files.
@@ -21,8 +18,7 @@ use function sprintf;
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
  *
  * Pages may use literal string contents, a lazy closure, or a Blade view. Configured contents take precedence over
- * a view. Content closures receive the current page as their first argument. Instance macros may add per-page methods,
- * but cannot override compile().
+ * a view. Content closures receive the current page as their first argument.
  *
  * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
  * autodiscovery or control compilation completely, create a custom page class and override compile() instead.
@@ -36,9 +32,6 @@ class InMemoryPage extends HydePage
     /** @var string|Closure(static): string */
     protected string|Closure $contents;
     protected string $view;
-
-    /** @var array<string, callable> */
-    protected array $macros = [];
 
     /**
      * Static alias for the constructor.
@@ -94,8 +87,7 @@ class InMemoryPage extends HydePage
      * Get the contents that will be saved to disk for this page.
      *
      * Configured literal or closure contents take precedence over Blade views. A view is rendered only when the
-     * configured contents are the empty string. Instance macros do not override this method. Extend this class and
-     * override the method for complete control.
+     * configured contents are the empty string. Extend this class and override the method for complete control.
      */
     public function compile(): string
     {
@@ -120,48 +112,5 @@ class InMemoryPage extends HydePage
         }
 
         return $contents;
-    }
-
-    /**
-     * Register a macro for the instance.
-     *
-     * Unlike most macros you might be used to, these are not static, meaning they belong to the instance.
-     * Macros add methods that do not already exist on the page. If you have the need for a macro to
-     * be used for multiple pages, you should consider creating a custom page class instead.
-     */
-    public function macro(string $name, callable $macro): void
-    {
-        $this->macros[$name] = $macro;
-    }
-
-    /**
-     * Determine if a macro with the given name is registered for the instance.
-     */
-    public function hasMacro(string $method): bool
-    {
-        return isset($this->macros[$method]);
-    }
-
-    /**
-     * Dynamically handle macro calls to the class.
-     */
-    public function __call(string $method, array $parameters): mixed
-    {
-        if (! $this->hasMacro($method)) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.', static::class, $method
-            ));
-        }
-
-        return $this->callMacro($this->macros[$method], $parameters);
-    }
-
-    protected function callMacro(callable $macro, array $parameters): mixed
-    {
-        if ($macro instanceof Closure) {
-            $macro = $macro->bindTo($this, static::class);
-        }
-
-        return $macro(...$parameters);
     }
 }
