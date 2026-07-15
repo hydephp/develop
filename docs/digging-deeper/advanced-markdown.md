@@ -142,7 +142,8 @@ can select and copy the command without including it.
 
 ### Symfony Console formatting
 
-Add the `xml` modifier to use Hyde's four supported Symfony Console formatter tags:
+Add the `xml` modifier to use Hyde's four supported Symfony-compatible Console formatter tags. The tags retain their
+Symfony semantics, while Hyde presents them using colors from its terminal theme:
 
 ````markdown
 ```terminal xml
@@ -153,15 +154,17 @@ Add the `xml` modifier to use Hyde's four supported Symfony Console formatter ta
 ```
 ````
 
-| Tag          | Default style       |
-| ------------ | ------------------- |
-| `<info>`     | Green text          |
-| `<comment>`  | Yellow text         |
-| `<question>` | Black text on cyan  |
-| `<error>`    | White text on red   |
+| Tag          | Hyde default style |
+| ------------ | ------------------ |
+| `<info>`     | Green              |
+| `<comment>`  | Amber              |
+| `<question>` | Cyan               |
+| `<error>`    | Emphasized red     |
 
 The formatter only recognizes these four tags. All other terminal content, including HTML, is escaped and displayed
-as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output.
+as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output. The
+`hyde-terminal-info`, `hyde-terminal-comment`, `hyde-terminal-question`, and `hyde-terminal-error` classes provide
+stable styling hooks when you want to customize their presentation.
 
 You can customize the terminal markup and Tailwind classes by publishing Hyde's Blade components:
 

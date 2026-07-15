@@ -48,8 +48,8 @@ class TerminalCodeBlocksTest extends TestCase
 
         $this->assertStringContainsString('<span class="hyde-terminal-info text-[#C3E88D]">Ready</span>', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-comment text-[#FFCB6B]">Wait</span>', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-question bg-[#89DDFF] text-black">Continue?</span>', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-error bg-[#F07178] text-white">Failed</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-question text-[#89DDFF]">Continue?</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-error font-semibold text-[#F07178]">Failed</span>', $html);
     }
 
     public function testXmlFormattingSupportsNestedTags(): void

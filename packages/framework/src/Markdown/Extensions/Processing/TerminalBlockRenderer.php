@@ -74,8 +74,8 @@ class TerminalBlockRenderer implements NodeRendererInterface
                 $output .= match ($matches[1]) {
                     'info' => '<span class="hyde-terminal-info text-[#C3E88D]">',
                     'comment' => '<span class="hyde-terminal-comment text-[#FFCB6B]">',
-                    'question' => '<span class="hyde-terminal-question bg-[#89DDFF] text-black">',
-                    'error' => '<span class="hyde-terminal-error bg-[#F07178] text-white">',
+                    'question' => '<span class="hyde-terminal-question text-[#89DDFF]">',
+                    'error' => '<span class="hyde-terminal-error font-semibold text-[#F07178]">',
                 };
             } elseif (preg_match('/^<\/(info|comment|question|error)>$/', $part, $matches)
                 && end($stack) === $matches[1]) {
