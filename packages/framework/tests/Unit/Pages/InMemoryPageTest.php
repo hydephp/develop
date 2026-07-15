@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Unit\Pages;
 
-use ArgumentCountError;
 use BadMethodCallException;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
@@ -91,7 +90,7 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('bar', $page->compile());
     }
 
-    public function testStaticClosureIsInvokedWithoutPageContext()
+    public function testStaticContentClosureMayIgnoreCurrentPageArgument()
     {
         $page = new InMemoryPage('foo', contents: static fn (): string => 'bar');
 
@@ -99,7 +98,7 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('bar', $page->compile());
     }
 
-    public function testContentClosureCanInjectCurrentPageInstance()
+    public function testContentClosureReceivesCurrentPageInstance()
     {
         $page = new InMemoryPage('example.txt', contents: function (InMemoryPage $page): string {
             return $page->getIdentifier();
@@ -108,7 +107,7 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('example.txt', $page->getContents());
     }
 
-    public function testContentClosureCanInjectCurrentSubclassInstance()
+    public function testContentClosureReceivesCurrentSubclassInstance()
     {
         $page = new InMemoryPageContentTestPage('example.txt', contents: function (InMemoryPageContentTestPage $page): string {
             return $page->contentPrefix().$page->getIdentifier();
@@ -117,11 +116,11 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('subclass:example.txt', $page->compile());
     }
 
-    public function testContentClosureDoesNotResolveArbitraryDependencies()
+    public function testContentClosureUsesNormalPhpTypeEnforcementForItsPageArgument()
     {
         $page = new InMemoryPage('foo', contents: fn (\stdClass $dependency): string => 'bar');
 
-        $this->expectException(ArgumentCountError::class);
+        $this->expectException(TypeError::class);
 
         $page->getContents();
     }
