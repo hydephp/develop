@@ -59,8 +59,8 @@ class InMemoryPage extends HydePage
      *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
-     * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      * @param  string|Closure(static): string  $contents  Literal page contents or a closure that lazily generates them.
+     * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
      */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = '', string $view = '')
     {
