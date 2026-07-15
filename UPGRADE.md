@@ -243,6 +243,43 @@ class ReportPage extends InMemoryPage
 $page = new ReportPage('report');
 ```
 
+### Select One `InMemoryPage` Content Source
+
+`InMemoryPage` no longer gives configured contents precedence over a configured Blade view. The `contents` and `view`
+arguments are now mutually exclusive, and the constructor throws an `InvalidArgumentException` when both are supplied.
+Calls already using only `contents:` or only `view:` do not need to change.
+
+If an existing call supplies a non-empty contents value and a view, remove the ignored view to preserve the previous
+behavior:
+
+```php
+// Before
+new InMemoryPage('example', contents: '<h1>Example</h1>', view: 'pages.example');
+
+// After
+new InMemoryPage('example', contents: '<h1>Example</h1>');
+```
+
+The parameter order is unchanged, but `null` now represents an omitted content source. Replace the old empty-string
+placeholder in positional view calls with `null`, or preferably use the named `view` argument:
+
+```php
+// Before
+new InMemoryPage('example', [], '', 'pages.example');
+
+// After: minimal positional migration
+new InMemoryPage('example', [], null, 'pages.example');
+
+// After: recommended
+new InMemoryPage('example', view: 'pages.example');
+```
+
+An explicitly empty literal remains valid as long as no view is also supplied:
+
+```php
+new InMemoryPage('empty', contents: '');
+```
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
@@ -251,6 +288,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Replaced any `php hyde rebuild <path>` usage with `StaticPageBuilder::handle()` or a full `php hyde build`
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
+- [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
 
 ## Troubleshooting
 

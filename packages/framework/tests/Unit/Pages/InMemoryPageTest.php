@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Unit\Pages;
 
 use Hyde\Pages\InMemoryPage;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
 use RuntimeException;
 use TypeError;
 
@@ -51,9 +52,7 @@ class InMemoryPageTest extends TestCase
 
     public function testLiteralZeroIsTreatedAsConfiguredContents()
     {
-        $this->file('_pages/foo.blade.php', '@php(throw new \RuntimeException("View should not render"))');
-
-        $page = new InMemoryPage('foo', contents: '0', view: 'foo');
+        $page = new InMemoryPage('foo', contents: '0');
 
         $this->assertSame('0', $page->getContents());
         $this->assertSame('0', $page->compile());
@@ -238,36 +237,45 @@ class InMemoryPageTest extends TestCase
         $this->assertSame(2, $invocations);
     }
 
-    public function testNonEmptyLiteralContentsTakePrecedenceOverNamedView()
+    public function testLiteralContentsAndViewCannotBothBeConfigured()
     {
-        $this->file('_pages/foo.blade.php', '@php(throw new \RuntimeException("View should not render"))');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('InMemoryPage cannot define both contents and a view.');
 
-        $this->assertSame('contents', (new InMemoryPage('foo', contents: 'contents', view: 'foo'))->compile());
+        new InMemoryPage('foo', contents: 'contents', view: 'foo');
     }
 
-    public function testClosureContentsTakePrecedenceOverNamedView()
+    public function testEmptyLiteralContentsAndViewCannotBothBeConfigured()
     {
-        $this->file('_pages/foo.blade.php', '@php(throw new \RuntimeException("View should not render"))');
+        $this->expectException(InvalidArgumentException::class);
 
-        $page = new InMemoryPage('foo', contents: fn (): string => 'contents', view: 'foo');
-
-        $this->assertSame('contents', $page->compile());
+        new InMemoryPage('foo', contents: '', view: 'foo');
     }
 
-    public function testClosureReturningEmptyStringTakesPrecedenceOverNamedView()
+    public function testClosureContentsAndViewCannotBothBeConfiguredWithoutInvokingClosure()
     {
-        $this->file('_pages/foo.blade.php', '@php(throw new \RuntimeException("View should not render"))');
+        $invoked = false;
 
-        $page = new InMemoryPage('foo', contents: fn (): string => '', view: 'foo');
+        try {
+            new InMemoryPage('foo', contents: function () use (&$invoked): string {
+                $invoked = true;
 
-        $this->assertSame('', $page->compile());
+                return '';
+            }, view: 'foo');
+
+            $this->fail('Expected an exception when both contents and a view are configured.');
+        } catch (InvalidArgumentException $exception) {
+            $this->assertSame('InMemoryPage cannot define both contents and a view.', $exception->getMessage());
+        }
+
+        $this->assertFalse($invoked);
     }
 
-    public function testEmptyLiteralContentsAllowNamedViewToRender()
+    public function testMakeRejectsContentsAndView()
     {
-        $this->file('_pages/foo.blade.php', 'bar');
+        $this->expectException(InvalidArgumentException::class);
 
-        $this->assertSame('bar', (new InMemoryPage('foo', contents: '', view: 'foo'))->compile());
+        InMemoryPage::make('foo', contents: 'contents', view: 'foo');
     }
 
     public function testRegisteredBladeViewRenders()
@@ -277,20 +285,25 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('bar', (new InMemoryPage('foo', view: 'foo'))->compile());
     }
 
+    public function testCanMakePageWithRegisteredBladeView()
+    {
+        $this->file('_pages/foo.blade.php', 'bar');
+
+        $this->assertSame('bar', InMemoryPage::make('foo', view: 'foo')->compile());
+    }
+
+    public function testPositionalViewCanUseNullContentsSentinel()
+    {
+        $this->file('_pages/foo.blade.php', 'bar');
+
+        $this->assertSame('bar', (new InMemoryPage('foo', [], null, 'foo'))->compile());
+    }
+
     public function testFrontMatterIsPassedToRegisteredBladeView()
     {
         $this->file('_pages/foo.blade.php', 'foo {{ $bar }}');
 
         $this->assertSame('foo baz', (new InMemoryPage('foo', ['bar' => 'baz'], view: 'foo'))->compile());
-    }
-
-    public function testEmptyLiteralContentsAllowArbitraryBladeFileToRender()
-    {
-        $this->file('_pages/foo.blade.php', 'blade');
-
-        $page = new InMemoryPage('foo', contents: '', view: '_pages/foo.blade.php');
-
-        $this->assertSame('blade', $page->compile());
     }
 
     public function testArbitraryBladeFileRendersThroughAnonymousViewCompiler()
@@ -330,9 +343,9 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('custom', $page->compile());
     }
 
-    public function testCompileUsesOverriddenGetContentsMethod()
+    public function testCompileDoesNotUseOverriddenGetContentsMethodWhenViewIsConfigured()
     {
-        $this->file('_pages/foo.blade.php', '@php(throw new \RuntimeException("View should not render"))');
+        $this->file('_pages/foo.blade.php', 'view');
 
         $page = new class('foo', view: 'foo') extends InMemoryPage
         {
@@ -346,8 +359,8 @@ class InMemoryPageTest extends TestCase
             }
         };
 
-        $this->assertSame('custom', $page->compile());
-        $this->assertSame(1, $page->invocations);
+        $this->assertSame('view', $page->compile());
+        $this->assertSame(0, $page->invocations);
     }
 }
 

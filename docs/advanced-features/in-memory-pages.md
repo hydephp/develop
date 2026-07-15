@@ -53,7 +53,7 @@ $page = new InMemoryPage(
 );
 ```
 
-When contents are provided as a closure, Hyde invokes when compiling the page and passes the current
+When contents are provided as a closure, Hyde invokes it when compiling the page and passes the current
 page as the closure's first argument. The argument may be omitted when page context is not needed. 
 
 ```php
@@ -67,8 +67,26 @@ $page = new InMemoryPage(
 Alternatively, pass a Blade view name or arbitrary `.blade.php` file to the `$view` parameter. Hyde renders the view
 with the supplied front matter during the static site build process.
 
->warning Note that `$contents` take precedence over `$view`, so if you pass both, only `$contents` will be used.
-> This includes a closure that returns an empty string. A view is used only when literal contents are the empty string.
+```php
+$page = new InMemoryPage(
+    identifier: 'hello',
+    matter: ['title' => 'Hello'],
+    view: 'pages.hello',
+);
+```
+
+An arbitrary Blade file can be rendered without registering its namespace or directory:
+
+```php
+$page = new InMemoryPage(
+    identifier: 'hello',
+    matter: ['title' => 'Hello'],
+    view: resource_path('views/pages/hello.blade.php'),
+);
+```
+
+>warning The `$contents` and `$view` parameters are mutually exclusive. Choose one content source for each page;
+> constructing a page with both throws an `InvalidArgumentException`. Omit both to create an empty page.
 
 Use closure contents for lazy dynamic output. If the page needs custom methods or behavior beyond the supported content
 strategies, extend `InMemoryPage`. You can add methods normally and override `compile()` when you need complete control.

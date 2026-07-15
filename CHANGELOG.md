@@ -25,6 +25,7 @@ This serves two purposes:
 ### Changed
 - Blade in Markdown is now enabled by default. The `markdown.enable_blade` option controls both `[Blade]:` directives and executable Blade Blocks; set it to `false` when compiling untrusted or unreviewed Markdown.
 - Raw HTML in Markdown is now enabled by default. Set `markdown.allow_html` to `false` when compiling untrusted or unreviewed Markdown to strip potentially unsafe HTML tags.
+- `InMemoryPage` now requires callers to select either `contents` or `view`; configuring both throws an `InvalidArgumentException` instead of silently giving contents precedence.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.
