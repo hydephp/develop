@@ -87,6 +87,6 @@ class TerminalBlockRenderer implements NodeRendererInterface
             }
         }
 
-        return $output.implode('', array_fill(0, count($stack), '</span>'));
+        return $output.str_repeat('</span>', count($stack));
     }
 }
