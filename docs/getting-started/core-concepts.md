@@ -23,7 +23,7 @@ using the **HydeCLI**, which is based on the Laravel Artisan Console that you ma
 If you want to learn about the available commands and how to use them, you can visit the [Console Commands](console-commands) page,
 or you can run any of the built-in help commands to get a list of available commands and their descriptions.
 
-```bash
+```terminal
 php hyde list
 php hyde help <command>
 php hyde <command> [--help]
@@ -154,7 +154,7 @@ and create routes for all of them, and store them in an index which works as a t
 
 You can see all the routes and their corresponding source files by running the `hyde route:list` command.
 
-```bash
+```terminal
 php hyde route:list
 ```
 

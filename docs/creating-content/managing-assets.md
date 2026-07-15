@@ -47,7 +47,7 @@ Vite's HMR feature allows for instant updates to the browser without requiring a
 
 You can start both of these by running `npm run dev` and `php hyde serve` in separate terminals, or using the `--vite` flag with the serve command:
 
-```bash
+```terminal
 php hyde serve --vite
 ```
 
@@ -130,7 +130,7 @@ To make it really easy to customize asset loading, the styles and scripts are lo
 
 To customize them, run the following command:
 
-```bash
+```terminal
 php hyde publish:views layouts
 ```
 

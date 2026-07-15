@@ -206,7 +206,7 @@ coloured blockquotes. Simply append the desired colour after the initial `>` cha
 
 You can easily customize these styles by publishing and editing the `markdown-blockquote.blade.php` file.
 
-```bash
+```terminal
 php hyde publish:views components
 ```
 
@@ -302,7 +302,7 @@ You can enable it for other page types by adding the page class to the `permalin
 
 Under the hood, Hyde uses a custom Blade-based heading renderer when converting Markdown to HTML. This allows for more flexibility and customization compared to standard Markdown parsers. You can also publish and customize the Blade component used to render the headings:
 
-```bash
+```terminal
 php hyde publish:components
 ```
 

@@ -14,7 +14,7 @@ allowing you to preview your static site on a local development server without h
 
 To start the server, run the following command from a terminal in your project directory:
 
-```bash
+```terminal
 php hyde serve
 ```
 
@@ -130,7 +130,7 @@ Since HydePHP v2 (Realtime Compiler v4), HydePHP has a new integration with [Her
 
 To install the Valet driver for Herd, run the following command:
 
-```bash
+```terminal
 php hyde herd:install
 ```
 

@@ -13,13 +13,13 @@ Now that you have some amazing content, you'll want to compile your site into st
 
 **This is as easy as executing the `build` command:**
 
-```bash
+```terminal
 php hyde build
 ```
 
 **And, you can even start a development server to compile your site on the fly:**
 
-```bash
+```terminal
 php hyde serve
 ```
 

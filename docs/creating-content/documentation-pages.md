@@ -41,7 +41,7 @@ You can create a Documentation page by adding a file to the `_docs` directory wh
 
 You can also scaffold one quickly by using the [HydeCLI](console-commands).
 
-```bash
+```terminal
 php hyde make:page "Page Title" --type="docs"
 ```
 

@@ -15,7 +15,7 @@ To use the full power of the Hyde post module you'll want to add YAML [Front Mat
 
 **You can interactively scaffold posts with automatic front matter using the HydeCLI:**
 
-```bash
+```terminal
 php hyde make:post
 ```
 Learn more about scaffolding posts, and other files, in the [console commands](console-commands) documentation.
@@ -39,7 +39,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 **Example:**
 
-```bash
+```terminal
 ✔ _posts/hello-world.md # Valid and will be compiled to _site/posts/hello-world.html
 ```
 
@@ -47,7 +47,7 @@ to keep in mind when creating blog posts so that you don't get unexpected result
 
 You **optionally** can set a blog post's publication date by prefixing the filename with a date in ISO 8601 format (`YYYY-MM-DD`). Optionally, you can also include the time (`HH-MM`).
 
-```bash
+```terminal
 # Basic date prefix (sets date to 2024-11-05 00:00)
 2024-11-05-my-first-post.md
 

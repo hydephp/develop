@@ -402,7 +402,7 @@ Before editing the views you should familiarize yourself with the [Laravel Blade
 
 To edit a default Hyde component you need to publish them first using the `hyde publish:views` command.
 
-```bash
+```terminal
 php hyde publish:views
 ```
 

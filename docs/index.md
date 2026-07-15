@@ -42,13 +42,13 @@ To use HydePHP, your system must have PHP version 8.2 or later installed, along 
 
 The recommended method of installation is using Composer.
 
-```bash
+```terminal
 composer create-project hyde/hyde
 ```
 
 Once installed, you can access the HydeCLI from the project root using the `hyde` command.
 
-```bash
+```terminal
 php hyde info
 ```
 
@@ -57,14 +57,14 @@ php hyde info
 Creating static websites with HydePHP is incredibly easy. First you need some content. You can just drop Markdown files
 in any of the source directories, or let Hyde scaffold the files for you using one of the many commands.
 
-```bash
+```terminal
 php hyde make:post "My First Post"
 php hyde make:page "About Me"
 ```
 
 Once you have some content, you can run the build command to compile the content into beautiful static HTML.
 
-```bash
+```terminal
 php hyde build
 ```
 

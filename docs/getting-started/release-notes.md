@@ -81,7 +81,7 @@ Numerous quality-of-life improvements for developers:
 
 We've upgraded from Tailwind CSS v3 to v4. Run the automated upgrade tool to migrate your custom classes:
 
-```bash
+```terminal
 npx @tailwindcss/upgrade
 ```
 
