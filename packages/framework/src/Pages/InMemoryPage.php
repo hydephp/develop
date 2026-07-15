@@ -33,6 +33,7 @@ class InMemoryPage extends HydePage
     public static string $outputDirectory;
     public static string $fileExtension;
 
+    /** @var string|Closure(static): string */
     protected string|Closure $contents;
     protected string $view;
 
@@ -41,6 +42,8 @@ class InMemoryPage extends HydePage
 
     /**
      * Static alias for the constructor.
+     *
+     * @param  string|Closure(static): string  $contents
      */
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = '', string $view = ''): static
     {
@@ -62,8 +65,8 @@ class InMemoryPage extends HydePage
      *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
-     * @param  string|\Closure  $contents  Literal page contents or a closure that lazily generates them.
      * @param  string  $view  The view key or Blade file for the view to use to render the page contents.
+     * @param  string|Closure(static): string  $contents  Literal page contents or a closure that lazily generates them.
      */
     public function __construct(string $identifier = '', FrontMatter|array $matter = [], string|Closure $contents = '', string $view = '')
     {
