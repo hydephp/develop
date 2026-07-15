@@ -162,9 +162,12 @@ Symfony semantics, while Hyde presents them using colors from its terminal theme
 | `<error>`    | Emphasized red     |
 
 The formatter only recognizes these four tags. All other terminal content, including HTML, is escaped and displayed
-as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output. The
-`hyde-terminal-info`, `hyde-terminal-comment`, `hyde-terminal-question`, and `hyde-terminal-error` classes provide
-stable styling hooks when you want to customize their presentation.
+as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output.
+
+The terminal markup provides stable styling hooks for customization. Use `hyde-terminal-body` to change the output
+area's default text and background colors, and `hyde-terminal` to style the outer container. The
+`hyde-terminal-info`, `hyde-terminal-comment`, `hyde-terminal-question`, and `hyde-terminal-error` classes target the
+four formatter tags individually.
 
 You can customize the terminal markup and Tailwind classes by publishing Hyde's Blade components:
 

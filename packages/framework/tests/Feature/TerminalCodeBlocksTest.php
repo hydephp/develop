@@ -11,6 +11,10 @@ use Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer;
 use Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Testing\TestCase;
+use InvalidArgumentException;
+use League\CommonMark\Node\Node;
+use League\CommonMark\Renderer\ChildNodeRendererInterface;
+use Mockery;
 use Torchlight\Commonmark\BaseExtension;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalExtension::class)]
@@ -19,6 +23,16 @@ use Torchlight\Commonmark\BaseExtension;
 #[\PHPUnit\Framework\Attributes\CoversClass(TransformTerminalBlocks::class)]
 class TerminalCodeBlocksTest extends TestCase
 {
+    public function testRendererRejectsIncompatibleNodes(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new TerminalBlockRenderer())->render(
+            Mockery::mock(Node::class),
+            Mockery::mock(ChildNodeRendererInterface::class),
+        );
+    }
+
     public function testTerminalFenceRendersAsTerminal(): void
     {
         $html = Markdown::render("```terminal\n\$ php hyde publish\n\nPublished!\n```");
