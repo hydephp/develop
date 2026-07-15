@@ -204,6 +204,33 @@ Other instance macros remain supported for adding per-instance methods. Use clos
 macros for additional per-instance methods, and create an `InMemoryPage` subclass when you need complete class-level
 behavior changes.
 
+Content closures are not rebound to the page instance. If a previous `compile` macro used `$this` to access page state,
+move that behavior to a page subclass instead of copying the callback directly into the contents argument:
+
+**Before:**
+
+```php
+$page = new InMemoryPage('example.txt');
+
+$page->macro('compile', function (): string {
+    return $this->getIdentifier();
+});
+```
+
+**After:**
+
+```php
+class ExamplePage extends InMemoryPage
+{
+    public function getContents(): string
+    {
+        return $this->getIdentifier();
+    }
+}
+
+$page = new ExamplePage('example.txt');
+```
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
