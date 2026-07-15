@@ -10,10 +10,7 @@ use Hyde\Framework\Actions\AnonymousViewCompiler;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
-use ReflectionFunction;
-use ReflectionNamedType;
 
-use function is_a;
 use function sprintf;
 
 /**
@@ -24,8 +21,8 @@ use function sprintf;
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
  *
  * Pages may use literal string contents, a lazy closure, or a Blade view. Configured contents take precedence over
- * a view. Content closures may receive the current page as a typed parameter. Instance macros may add per-page
- * methods, but cannot override compile().
+ * a view. Content closures receive the current page as their first argument. Instance macros may add per-page methods,
+ * but cannot override compile().
  *
  * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
  * autodiscovery or control compilation completely, create a custom page class and override compile() instead.
@@ -55,8 +52,8 @@ class InMemoryPage extends HydePage
      *
      * The in-memory page class offers three content strategies. You can pass a literal string or a lazy closure to
      * the $contents parameter, or pass a view name or Blade file to the $view parameter. Closures are invoked each
-     * time the contents are requested. The current page is injected when requested with a compatible type declaration.
-     * No other dependencies are resolved.
+     * time the contents are requested with the current page as their first argument. The argument may be omitted when
+     * page context is not needed. Other dependencies are not resolved automatically.
      *
      * Configured contents take precedence over a view, including closures that return an empty string.
      *
@@ -77,11 +74,11 @@ class InMemoryPage extends HydePage
         $this->view = $view;
     }
 
-    /** Get the literal contents or invoke the configured content closure with the current page when requested. */
+    /** Get the literal contents or invoke the configured content closure with the current page as its first argument. */
     public function getContents(): string
     {
         return $this->contents instanceof Closure
-            ? ($this->contents)(...$this->contentClosureParameters($this->contents))
+            ? ($this->contents)($this)
             : $this->contents;
     }
 
@@ -164,28 +161,5 @@ class InMemoryPage extends HydePage
         }
 
         return $macro(...$parameters);
-    }
-
-    /**
-     * Inject only the current page, without rebinding the closure or resolving arbitrary dependencies.
-     *
-     * This preserves the page context available to former compile macros while allowing static closures and
-     * first-class callable closures to retain their original binding.
-     *
-     * @return array<string, static>
-     */
-    private function contentClosureParameters(Closure $contents): array
-    {
-        $parameters = [];
-
-        foreach ((new ReflectionFunction($contents))->getParameters() as $parameter) {
-            $type = $parameter->getType();
-
-            if ($type instanceof ReflectionNamedType && ! $type->isBuiltin() && is_a($this, $type->getName())) {
-                $parameters[$parameter->getName()] = $this;
-            }
-        }
-
-        return $parameters;
     }
 }

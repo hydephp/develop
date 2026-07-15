@@ -53,11 +53,11 @@ $page = new InMemoryPage(
 );
 ```
 
-When contents are provided as a closure, Hyde invokes it each time the contents are requested. Type-hint `InMemoryPage`
-or your page subclass to inject the current page. Only the current page is injected; Hyde does not resolve arbitrary
-closure dependencies. This narrowly preserves the page-context access previously available through bound `compile`
-macros without rebinding content closures, so static closures remain usable and first-class callable closures preserve
-their original object binding. The `$contents` parameter accepts only a string or closure, not arbitrary callables.
+When contents are provided as a closure, Hyde invokes it each time the contents are requested and passes the current
+page as the closure's first argument. The argument may be omitted when page context is not needed. Other dependencies
+are not resolved automatically, and existing closure bindings are preserved. This provides the page-context access
+previously available through bound `compile` macros without rebinding content closures. The `$contents` parameter
+accepts only a string or closure, not arbitrary callables.
 
 ```php
 $page = new InMemoryPage(

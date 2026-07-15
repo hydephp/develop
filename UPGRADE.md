@@ -197,17 +197,18 @@ $page = new InMemoryPage(
 );
 ```
 
-Closures are invoked lazily during compilation and are not cached. The current page can be injected as a typed closure
-parameter; other dependencies are not resolved. This preserves the page context formerly supplied to bound `compile`
-macros without rebinding the contents closure, so existing closure bindings are preserved.
+Closures are invoked lazily during compilation and are not cached. Hyde passes the current page as the closure's first
+argument, which may be omitted when page context is not needed. Other dependencies are not resolved automatically,
+and existing closure bindings are preserved. This retains the page context formerly supplied to bound `compile` macros
+without rebinding the contents closure.
 
 Other instance macros remain supported for adding per-instance methods. Use closure contents for dynamic output, keep
 macros for additional per-instance methods, and create an `InMemoryPage` subclass when you need complete class-level
 behavior changes.
 
-Content closures are not rebound to the page instance. Instead, type-hint the page as a closure parameter when migrating
-a previous `compile` macro that used `$this` to access page state. This preserves page context without changing the
-closure's existing object binding:
+Content closures are not rebound to the page instance. Instead, accept the page as the closure's first parameter when
+migrating a previous `compile` macro that used `$this` to access page state. This preserves page context without changing
+the closure's existing object binding:
 
 **Before:**
 
