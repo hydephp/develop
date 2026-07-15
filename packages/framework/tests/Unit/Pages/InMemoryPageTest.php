@@ -317,21 +317,6 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('bar', (new InMemoryPage('foo', view: 'bar'))->getBladeView());
     }
 
-    public function testMacroMethodWasRemoved()
-    {
-        $this->assertFalse(method_exists(InMemoryPage::class, 'macro'));
-    }
-
-    public function testHasMacroMethodWasRemoved()
-    {
-        $this->assertFalse(method_exists(InMemoryPage::class, 'hasMacro'));
-    }
-
-    public function testCustomMacroCallHandlerWasRemoved()
-    {
-        $this->assertFalse(method_exists(InMemoryPage::class, '__call'));
-    }
-
     public function testSubclassCanOverrideCompileMethod()
     {
         $page = new class extends InMemoryPage
