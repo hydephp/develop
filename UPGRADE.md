@@ -249,7 +249,7 @@ $page = new ReportPage('report');
 arguments are now mutually exclusive, and the constructor throws an `InvalidArgumentException` when both are supplied.
 Calls already using only `contents:` or only `view:` do not need to change.
 
-If an existing call supplies a non-empty contents value and a view, remove the ignored view to preserve the previous
+If an existing call supplies a PHP-truthy contents value and a view, remove the ignored view to preserve the previous
 behavior:
 
 ```php
@@ -258,6 +258,17 @@ new InMemoryPage('example', contents: '<h1>Example</h1>', view: 'pages.example')
 
 // After
 new InMemoryPage('example', contents: '<h1>Example</h1>');
+```
+
+Previously, contents equal to `''` or `'0'` were treated as omitted, so the view rendered instead. To preserve that
+behavior, remove the contents argument or replace it with `null`:
+
+```php
+// Before: the view rendered because '0' was treated as omitted
+new InMemoryPage('example', contents: '0', view: 'pages.example');
+
+// After
+new InMemoryPage('example', view: 'pages.example');
 ```
 
 The parameter order is unchanged, but `null` now represents an omitted content source. Replace the old empty-string
@@ -280,13 +291,14 @@ An explicitly empty literal remains valid as long as no view is also supplied:
 new InMemoryPage('empty', contents: '');
 ```
 
-An empty string is no longer accepted as a view, since it never referenced a renderable view. Pass `null` instead:
+An empty view string is treated as an omitted view, so existing calls that pass `view: ''` continue to create a
+content-only or empty page. Prefer omitting the argument or passing `null` when no view is intended:
 
 ```php
-// In v3: throws InvalidArgumentException
+// Valid, but redundant
 new InMemoryPage('example', view: '');
 
-// Valid replacement
+// Recommended
 new InMemoryPage('example', view: null);
 ```
 

@@ -90,11 +90,11 @@ $page = new InMemoryPage(
 > constructing a page with both throws an `InvalidArgumentException`. Omit both to create an empty page.
 
 Pass `null` (or omit the parameter) when a page does not use a content source. An empty string is a valid literal for
-`$contents`, but not for `$view`, as an empty view key cannot be rendered; passing one throws an `InvalidArgumentException`.
+`$contents`. An empty `$view` is normalized to no view, so the page uses its configured contents instead.
 
 ```php
 $page = new InMemoryPage('empty', contents: ''); // Valid: an explicitly empty page
-$page = new InMemoryPage('empty', view: '');     // Throws InvalidArgumentException
+$page = new InMemoryPage('empty', view: '');     // Valid: equivalent to omitting the view
 ```
 
 Use closure contents for lazy dynamic output. If the page needs custom methods or behavior beyond the supported content

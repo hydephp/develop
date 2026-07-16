@@ -271,28 +271,30 @@ class InMemoryPageTest extends TestCase
         $this->assertFalse($invoked);
     }
 
-    public function testEmptyViewIsRejected()
+    public function testEmptyViewIsTreatedAsNoView()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('InMemoryPage view cannot be an empty string. Pass null to omit the view.');
+        $page = new InMemoryPage('foo', view: '');
 
-        new InMemoryPage('foo', view: '');
+        $this->assertSame('', $page->getBladeView());
+        $this->assertSame('', $page->getContents());
+        $this->assertSame('', $page->compile());
     }
 
-    public function testEmptyViewIsRejectedWhenContentsAreAlsoSupplied()
+    public function testEmptyViewIsTreatedAsNoViewWhenContentsAreSupplied()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('InMemoryPage view cannot be an empty string. Pass null to omit the view.');
+        $page = new InMemoryPage('foo', contents: 'bar', view: '');
 
-        new InMemoryPage('foo', contents: 'bar', view: '');
+        $this->assertSame('', $page->getBladeView());
+        $this->assertSame('bar', $page->getContents());
+        $this->assertSame('bar', $page->compile());
     }
 
-    public function testMakeRejectsEmptyView()
+    public function testMakeTreatsEmptyViewAsNoView()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('InMemoryPage view cannot be an empty string. Pass null to omit the view.');
+        $page = InMemoryPage::make('foo', view: '');
 
-        InMemoryPage::make('foo', view: '');
+        $this->assertSame('', $page->getBladeView());
+        $this->assertSame('', $page->compile());
     }
 
     public function testEmptyContentsWithoutViewIsValid()
