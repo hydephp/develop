@@ -88,6 +88,14 @@ $page = new InMemoryPage(
 >warning The `$contents` and `$view` parameters are mutually exclusive. Choose one content source for each page;
 > constructing a page with both throws an `InvalidArgumentException`. Omit both to create an empty page.
 
+Pass `null` (or omit the parameter) when a page does not use a content source. An empty string is a valid literal for
+`$contents`, but not for `$view`, as an empty view key cannot be rendered; passing one throws an `InvalidArgumentException`.
+
+```php
+$page = new InMemoryPage('empty', contents: ''); // Valid: an explicitly empty page
+$page = new InMemoryPage('empty', view: '');     // Throws InvalidArgumentException
+```
+
 Use closure contents for lazy dynamic output. If the page needs custom methods or behavior beyond the supported content
 strategies, extend `InMemoryPage`. You can add methods normally and override `compile()` when you need complete control.
 

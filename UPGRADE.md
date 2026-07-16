@@ -280,6 +280,16 @@ An explicitly empty literal remains valid as long as no view is also supplied:
 new InMemoryPage('empty', contents: '');
 ```
 
+An empty string is no longer accepted as a view, since it never referenced a renderable view. Pass `null` instead:
+
+```php
+// Before: silently compiled as an empty page
+new InMemoryPage('example', view: '');
+
+// After: throws an InvalidArgumentException
+new InMemoryPage('example', view: null);
+```
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
