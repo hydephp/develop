@@ -54,7 +54,8 @@ $page = new InMemoryPage(
 ```
 
 When contents are provided as a closure, Hyde invokes it when compiling the page and passes the current
-page as the closure's first argument. The argument may be omitted when page context is not needed. 
+page as the closure's first argument. Since PHP ignores arguments a closure does not declare, closures that
+don't need the page context can simply declare no parameters, as seen in the sitemap example above.
 
 ```php
 $page = new InMemoryPage(

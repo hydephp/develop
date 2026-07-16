@@ -19,7 +19,8 @@ use InvalidArgumentException;
  * This is because these pages cannot be discovered by the auto discovery process as there's no source files to parse.
  *
  * Pages may use literal string contents, a lazy closure, or a Blade view. Contents and views are mutually exclusive,
- * and null means the source was omitted. Content closures receive the current page as their first argument.
+ * and null means the source was omitted. Content closures receive the current page as their first argument, which
+ * they may declare or omit.
  *
  * This class is especially useful for one-off custom pages. But if your usage grows, or if you want to utilize Hyde
  * autodiscovery, add custom methods, or control compilation completely, extend this class. Subclasses can add ordinary
@@ -31,7 +32,13 @@ class InMemoryPage extends HydePage
     public static string $outputDirectory;
     public static string $fileExtension;
 
-    /** @var string|Closure(static): string */
+    /**
+     * The literal page contents, or a closure that lazily generates them.
+     *
+     * The closure is always called with the current page instance, but may declare no parameters to ignore it.
+     *
+     * @var string|Closure(static): string
+     */
     protected string|Closure $contents;
     protected string $view;
 
@@ -53,7 +60,8 @@ class InMemoryPage extends HydePage
      *
      * The in-memory page class offers three content strategies. You can pass a literal string,
      * or closure to the `$contents` parameter, or pass a view name or Blade file to the `$view` parameter.
-     * Closures return strings and are invoked during compile time. We inject page instance as their first argument.
+     * Closures return strings and are invoked during compile time. We inject the page instance as their first argument,
+     * though closures that don't need the page context can simply declare no parameters.
      *
      * Contents and views are alternative content sources and cannot be used together. Omit both to create an empty page.
      * Pass null to omit a content source. An empty string is a valid literal for contents, but is not a valid view.
@@ -64,7 +72,7 @@ class InMemoryPage extends HydePage
      *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
-     * @param  string|Closure(static):string|null  $contents  Literal page contents or a closure that lazily generates them.
+     * @param  string|Closure(static):string|null  $contents  Literal page contents or a closure that lazily generates them. The closure may declare the page parameter or omit it.
      * @param  string|null  $view  The non-empty view key or Blade file for the view to use to render the page contents, or null when no view is used.
      *
      * @throws \InvalidArgumentException If both contents and a view are supplied, or if the view is an empty string.
