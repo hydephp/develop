@@ -602,11 +602,11 @@ class RealtimeCompilerTest extends TestCase
 
     protected function makePageWithOutputPath(string $outputPath): InMemoryPage
     {
-        return new class('foo', [], 'contents', '', $outputPath) extends InMemoryPage
+        return new class('foo', [], 'contents', null, $outputPath) extends InMemoryPage
         {
             protected string $customOutputPath;
 
-            public function __construct(string $identifier, array $matter, string $contents, string $view, string $outputPath)
+            public function __construct(string $identifier, array $matter, string $contents, ?string $view, string $outputPath)
             {
                 // The custom output path must be assigned before calling the parent
                 // constructor, as it triggers factory data construction which calls
