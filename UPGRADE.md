@@ -283,10 +283,10 @@ new InMemoryPage('empty', contents: '');
 An empty string is no longer accepted as a view, since it never referenced a renderable view. Pass `null` instead:
 
 ```php
-// Before: silently compiled as an empty page
+// In v3: throws InvalidArgumentException
 new InMemoryPage('example', view: '');
 
-// After: throws an InvalidArgumentException
+// Valid replacement
 new InMemoryPage('example', view: null);
 ```
 
