@@ -37,7 +37,7 @@ class InMemoryPage extends HydePage
      *
      * The closure is always called with the current page instance, but may declare no parameters to ignore it.
      *
-     * @var string|Closure(static): string
+     * @var string|(Closure(): string)|(Closure(static): string)
      */
     protected string|Closure $contents;
     protected string $view;
@@ -47,7 +47,7 @@ class InMemoryPage extends HydePage
      *
      * @param  string  $identifier
      * @param  FrontMatter|array  $matter
-     * @param  string|Closure(static):string|null  $contents
+     * @param  string|(Closure():string)|(Closure(static):string)|null  $contents
      * @param  string|null  $view
      */
     public static function make(string $identifier = '', FrontMatter|array $matter = [], string|Closure|null $contents = null, ?string $view = null): static
@@ -72,7 +72,7 @@ class InMemoryPage extends HydePage
      *                              Take note that the identifier must be unique to prevent overwriting other pages.
      * @param  \Hyde\Markdown\Models\FrontMatter|array  $matter  The front matter of the page. When using the Blade view rendering option,
      *                                                           all this data will be passed to the view rendering engine.
-     * @param  string|Closure(static):string|null  $contents  Literal page contents or a closure that lazily generates them. The closure may declare the page parameter or omit it.
+     * @param  string|(Closure():string)|(Closure(static):string)|null  $contents  Literal page contents or a closure that lazily generates them. The closure may declare the page parameter or omit it.
      * @param  string|null  $view  The non-empty view key or Blade file for the view to use to render the page contents, or null when no view is used.
      *
      * @throws \InvalidArgumentException If both contents and a view are supplied, or if the view is an empty string.
