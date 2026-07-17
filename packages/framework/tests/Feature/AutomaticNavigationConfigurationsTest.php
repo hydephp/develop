@@ -97,6 +97,28 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testNonHtmlInMemoryPagesAreNotAddedToNavigationMenuByDefault()
+    {
+        $this->assertMenuEquals([], [
+            new InMemoryPage('feed.xml'),
+            new InMemoryPage('robots.txt'),
+        ]);
+    }
+
+    public function testNonHtmlInMemoryPagesCanBeExplicitlyAddedToNavigationMenu()
+    {
+        $this->assertMenuEquals(['Feed', 'Humans'], [
+            new InMemoryPage('feed.xml', [
+                'navigation.visible' => true,
+                'navigation.label' => 'Feed',
+            ]),
+            new InMemoryPage('humans.txt', [
+                'navigation.hidden' => false,
+                'navigation.label' => 'Humans',
+            ]),
+        ]);
+    }
+
     public function testMainNavigationDoesNotInclude404Page()
     {
         $this->assertMenuEquals([], [new MarkdownPage('404')]);

@@ -21,6 +21,7 @@ use function basename;
 use function array_flip;
 use function array_intersect;
 use function array_key_exists;
+use function str_ends_with;
 
 /**
  * Discover data used for navigation menus and the documentation sidebar.
@@ -40,6 +41,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
     protected readonly ?int $priority;
     private readonly string $title;
     private readonly string $routeKey;
+    private readonly string $outputPath;
     private readonly string $pageClass;
     private readonly string $identifier;
     private readonly FrontMatter $matter;
@@ -57,6 +59,7 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
         $this->identifier = $pageData->identifier;
         $this->pageClass = $pageData->pageClass;
         $this->routeKey = $pageData->routeKey;
+        $this->outputPath = $pageData->outputPath;
         $this->title = $title;
 
         $this->configurationKeys = $this->isInstanceOf(DocumentationPage::class)
@@ -103,10 +106,18 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeHidden(): bool
     {
+        $frontMatterHidden = $this->searchForHiddenInFrontMatter();
+
         return $this->isInstanceOf(MarkdownPost::class)
-            || $this->searchForHiddenInFrontMatter()
+            || $frontMatterHidden === true
             || $this->searchForHiddenInConfigs()
-            || $this->isNonDocumentationPageInHiddenSubdirectory();
+            || $this->isNonDocumentationPageInHiddenSubdirectory()
+            || ($frontMatterHidden === null && $this->hasNonHtmlOutput());
+    }
+
+    private function hasNonHtmlOutput(): bool
+    {
+        return ! str_ends_with($this->outputPath, '.html');
     }
 
     protected function makePriority(): int

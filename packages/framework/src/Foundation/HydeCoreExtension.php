@@ -110,8 +110,7 @@ class HydeCoreExtension extends HydeExtension
         if (! $this->hasPageWithRouteKey($collection, 'sitemap.xml')) {
             $collection->addPage(new InMemoryPage(
                 'sitemap.xml',
-                ['navigation' => ['hidden' => true]],
-                fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+                contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
             ));
         }
     }
@@ -124,8 +123,7 @@ class HydeCoreExtension extends HydeExtension
         if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
             $collection->addPage(new InMemoryPage(
                 $routeKey,
-                ['navigation' => ['hidden' => true]],
-                fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
+                contents: fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
             ));
         }
     }
@@ -136,8 +134,7 @@ class HydeCoreExtension extends HydeExtension
         if (! $this->hasPageWithRouteKey($collection, 'robots.txt')) {
             $collection->addPage(new InMemoryPage(
                 'robots.txt',
-                ['navigation' => ['hidden' => true]],
-                fn (): string => app(RobotsTxtGenerator::class)->generate(),
+                contents: fn (): string => app(RobotsTxtGenerator::class)->generate(),
             ));
         }
     }
@@ -148,8 +145,7 @@ class HydeCoreExtension extends HydeExtension
         if (! $this->hasPageWithRouteKey($collection, 'llms.txt')) {
             $collection->addPage(new InMemoryPage(
                 'llms.txt',
-                ['navigation' => ['hidden' => true]],
-                fn (): string => app(LlmsTxtGenerator::class)->generate(),
+                contents: fn (): string => app(LlmsTxtGenerator::class)->generate(),
             ));
         }
     }

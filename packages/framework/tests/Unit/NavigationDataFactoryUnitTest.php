@@ -247,6 +247,32 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertFalse($factory->makeHidden());
     }
 
+    public function testNonHtmlPagesAreHiddenFromNavigationByDefault()
+    {
+        $factory = new NavigationConfigTestClass($this->makeCoreDataObject(
+            routeKey: 'feed.xml',
+            outputPath: 'feed.xml',
+        ));
+
+        $this->assertTrue($factory->makeHidden());
+    }
+
+    public function testNonHtmlPagesCanBeExplicitlyShownInNavigation()
+    {
+        foreach ([
+            ['navigation.visible' => true],
+            ['navigation.hidden' => false],
+        ] as $matter) {
+            $factory = new NavigationConfigTestClass($this->makeCoreDataObject(
+                routeKey: 'feed.xml',
+                outputPath: 'feed.xml',
+                matter: $matter,
+            ));
+
+            $this->assertFalse($factory->makeHidden());
+        }
+    }
+
     public function testPageIsHiddenBasedOnSidebarConfigurationForDocumentationPage()
     {
         self::mockConfig(['docs.sidebar.exclude' => ['hiddenDocPage']]);
@@ -374,9 +400,14 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertSame(10, $factory->makePriority());
     }
 
-    protected function makeCoreDataObject(string $identifier = '', string $routeKey = '', string $pageClass = MarkdownPage::class): CoreDataObject
-    {
-        return new CoreDataObject(new FrontMatter(), new Markdown(), $pageClass, $identifier, '', '', $routeKey);
+    protected function makeCoreDataObject(
+        string $identifier = '',
+        string $routeKey = '',
+        string $pageClass = MarkdownPage::class,
+        string $outputPath = 'page.html',
+        array $matter = [],
+    ): CoreDataObject {
+        return new CoreDataObject(new FrontMatter($matter), new Markdown(), $pageClass, $identifier, '', $outputPath, $routeKey);
     }
 }
 
