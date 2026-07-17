@@ -86,4 +86,26 @@ class IntegrationTest extends IntegrationTestCase
         unlink($this->projectPath('_docs/index.md'));
         unlink($this->projectPath('_docs/installation.md'));
     }
+
+    public function testDynamicSitemapGeneration()
+    {
+        // No production site URL needs to be configured: the realtime compiler always
+        // overrides it with the local server address, which is what we assert against.
+        $this->get('/sitemap.xml')
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/xml')
+            ->assertSeeText('http://localhost:8080');
+    }
+
+    public function testDynamicRssFeedGeneration()
+    {
+        file_put_contents($this->projectPath('_posts/dynamic-rss-test.md'), "---\ntitle: Dynamic RSS Test\ndescription: Dynamic RSS test description\n---\n\n# Dynamic RSS Test");
+
+        $this->get('/feed.xml')
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/rss+xml')
+            ->assertSeeText('Dynamic RSS Test');
+
+        unlink($this->projectPath('_posts/dynamic-rss-test.md'));
+    }
 }
