@@ -108,10 +108,11 @@ class HydeCoreExtension extends HydeExtension
     protected function discoverSitemapPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, 'sitemap.xml')) {
-            $page = new InMemoryPage('sitemap.xml', ['navigation' => ['hidden' => true]]);
-            $page->macro('compile', fn (): string => app(SitemapGenerator::class)->generate()->getXml());
-
-            $collection->addPage($page);
+            $collection->addPage(new InMemoryPage(
+                'sitemap.xml',
+                ['navigation' => ['hidden' => true]],
+                fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+            ));
         }
     }
 
@@ -121,10 +122,11 @@ class HydeCoreExtension extends HydeExtension
         $routeKey = RssFeedGenerator::getFilename();
 
         if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
-            $page = new InMemoryPage($routeKey, ['navigation' => ['hidden' => true]]);
-            $page->macro('compile', fn (): string => app(RssFeedGenerator::class)->generate()->getXml());
-
-            $collection->addPage($page);
+            $collection->addPage(new InMemoryPage(
+                $routeKey,
+                ['navigation' => ['hidden' => true]],
+                fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
+            ));
         }
     }
 
@@ -132,10 +134,11 @@ class HydeCoreExtension extends HydeExtension
     protected function discoverRobotsTxtPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, 'robots.txt')) {
-            $page = new InMemoryPage('robots.txt', ['navigation' => ['hidden' => true]]);
-            $page->macro('compile', fn (): string => app(RobotsTxtGenerator::class)->generate());
-
-            $collection->addPage($page);
+            $collection->addPage(new InMemoryPage(
+                'robots.txt',
+                ['navigation' => ['hidden' => true]],
+                fn (): string => app(RobotsTxtGenerator::class)->generate(),
+            ));
         }
     }
 
@@ -143,10 +146,11 @@ class HydeCoreExtension extends HydeExtension
     protected function discoverLlmsTxtPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, 'llms.txt')) {
-            $page = new InMemoryPage('llms.txt', ['navigation' => ['hidden' => true]]);
-            $page->macro('compile', fn (): string => app(LlmsTxtGenerator::class)->generate());
-
-            $collection->addPage($page);
+            $collection->addPage(new InMemoryPage(
+                'llms.txt',
+                ['navigation' => ['hidden' => true]],
+                fn (): string => app(LlmsTxtGenerator::class)->generate(),
+            ));
         }
     }
 
