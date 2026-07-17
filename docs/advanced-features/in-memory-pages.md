@@ -58,6 +58,17 @@ InMemoryPage::make('robots.txt')->getOutputPath();
 // robots.txt
 ```
 
+Non-HTML output is excluded from automatic navigation by default. To link one of these files from the generated
+navigation, opt it in explicitly with `navigation.visible` (or set `navigation.hidden` to `false`):
+
+```php
+InMemoryPage::make(
+    'downloads/catalog.pdf',
+    matter: ['navigation' => ['visible' => true]],
+    contents: $catalog,
+);
+```
+
 Pass a closure when the contents should be generated lazily during compilation. The closure is invoked again for each
 compilation, which makes it useful for pages generated from the current application state.
 
@@ -67,8 +78,7 @@ use Hyde\Pages\InMemoryPage;
 
 $page = new InMemoryPage(
     'sitemap.xml',
-    ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 

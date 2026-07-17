@@ -203,8 +203,7 @@ $page->macro(
 ```php
 $page = new InMemoryPage(
     'sitemap.xml',
-    ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 
@@ -312,6 +311,26 @@ new InMemoryPage('example', view: '');
 // Recommended
 new InMemoryPage('example', view: null);
 ```
+
+### Review Non-HTML Navigation Visibility
+
+Pages whose resolved output path does not end in `.html` are no longer included in automatic navigation by default.
+This applies both to identifier-based `InMemoryPage` instances such as `feed.xml` and to custom page classes with a
+non-HTML `$outputExtension`. Machine-readable resources generally need no migration, and any
+`navigation.hidden: true` matter used only for this purpose can be removed.
+
+If a non-HTML page is intentionally linked from the generated navigation, opt it in explicitly:
+
+```php
+new InMemoryPage(
+    'downloads/catalog.pdf',
+    matter: ['navigation' => ['visible' => true]],
+    contents: $catalog,
+);
+```
+
+The equivalent `navigation.hidden: false` setting is also supported. Explicit visibility overrides only the new
+non-HTML default; existing exclusions for posts, configured route keys, and hidden subdirectories still apply.
 
 ## Step 6: Review Sitemap and RSS Feed Customizations
 
@@ -430,6 +449,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
+- [ ] Explicitly opted in any non-HTML pages that should remain in automatic navigation
 - [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
 - [ ] Confirmed the new generated `robots.txt` does not conflict with an existing one, or disabled it with `hyde.robots.enabled`
 - [ ] Decided whether to publish the new generated `llms.txt` for AI services, or disabled it with `hyde.llms.enabled`
