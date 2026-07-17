@@ -16,6 +16,7 @@ use Hyde\Pages\InMemoryPage;
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
 use Hyde\Facades\Filesystem;
+use Hyde\Facades\Localization;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
@@ -280,7 +281,7 @@ class DashboardController extends BaseController
         } else {
             Hyde::shareViewData($page);
 
-            $contents = $page->compile();
+            $contents = Localization::usingLanguage($page->getLanguage(), fn (): string => $page->compile());
         }
 
         if (self::isLoadedInIframe()) {

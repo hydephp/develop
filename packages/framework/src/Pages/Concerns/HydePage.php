@@ -67,6 +67,9 @@ abstract class HydePage implements PageSchema, SerializableContract
     public PageMetadataBag $metadata;
     public NavigationData $navigation;
 
+    /** The language the page is compiled for, if the site is localized. */
+    protected ?string $language = null;
+
     /**
      * Create a new page instance. Static alias for the constructor.
      */
@@ -284,7 +287,9 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getOutputPath(): string
     {
-        return unslash(static::outputPath($this->identifier));
+        return $this->language === null
+            ? unslash(static::outputPath($this->identifier))
+            : "{$this->getRouteKey()}.html";
     }
 
     // Section: Routing
@@ -301,7 +306,30 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRouteKey(): string
     {
-        return $this->routeKey;
+        return $this->language === null ? $this->routeKey : unslash("{$this->language}/{$this->routeKey}");
+    }
+
+    /**
+     * Get the language the page is compiled for, or null if the site is not localized.
+     */
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    /**
+     * Get a copy of the page that is compiled for the given language.
+     *
+     * The page keeps its source file and Blade view, but is routed to a language
+     * subdirectory, and is compiled with the given language as the app locale.
+     */
+    public function withLanguage(string $language): static
+    {
+        $page = clone $this;
+
+        $page->language = $language;
+
+        return $page;
     }
 
     /**
