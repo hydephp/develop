@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use Closure;
 use Hyde\Hyde;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
@@ -106,42 +107,46 @@ class HydeCoreExtension extends HydeExtension
 
     protected function discoverSitemapPage(PageCollection $collection): void
     {
-        if (! $this->hasPageWithRouteKey($collection, 'sitemap.xml')) {
-            $collection->addPage(new InMemoryPage(
-                'sitemap.xml',
-                contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
-            ));
-        }
+        $this->addGeneratedPage(
+            $collection,
+            'sitemap.xml',
+            fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+        );
     }
 
     protected function discoverRssFeedPage(PageCollection $collection): void
     {
-        $routeKey = RssFeedGenerator::getFilename();
-
-        if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
-            $collection->addPage(new InMemoryPage(
-                $routeKey,
-                contents: fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
-            ));
-        }
+        $this->addGeneratedPage(
+            $collection,
+            RssFeedGenerator::getFilename(),
+            fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
+        );
     }
 
     protected function discoverRobotsTxtPage(PageCollection $collection): void
     {
-        if (! $this->hasPageWithRouteKey($collection, 'robots.txt')) {
-            $collection->addPage(new InMemoryPage(
-                'robots.txt',
-                contents: fn (): string => app(RobotsTxtGenerator::class)->generate(),
-            ));
-        }
+        $this->addGeneratedPage(
+            $collection,
+            'robots.txt',
+            fn (): string => app(RobotsTxtGenerator::class)->generate(),
+        );
     }
 
     protected function discoverLlmsTxtPage(PageCollection $collection): void
     {
-        if (! $this->hasPageWithRouteKey($collection, 'llms.txt')) {
+        $this->addGeneratedPage(
+            $collection,
+            'llms.txt',
+            fn (): string => app(LlmsTxtGenerator::class)->generate(),
+        );
+    }
+
+    protected function addGeneratedPage(PageCollection $collection, string $routeKey, Closure $contents): void
+    {
+        if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
             $collection->addPage(new InMemoryPage(
-                'llms.txt',
-                contents: fn (): string => app(LlmsTxtGenerator::class)->generate(),
+                $routeKey,
+                contents: $contents,
             ));
         }
     }
