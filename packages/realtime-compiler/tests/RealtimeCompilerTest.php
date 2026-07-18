@@ -347,6 +347,36 @@ class RealtimeCompilerTest extends TestCase
         Filesystem::unlink('_docs/index.md');
     }
 
+    public function testVersionedDocsSearchJsonRendersSearchIndexWithJsonContentType()
+    {
+        $this->mockCompilerRoute('docs/1.x/search.json');
+        Filesystem::ensureDirectoryExists('_docs/1.x');
+        Filesystem::put('_docs/1.x/index.md', '# Hello World!');
+
+        try {
+            $router = new Router(new Request());
+
+            $this->bootRouterApplication($router);
+            config(['docs.versions' => ['1.x']]);
+            Hyde::boot();
+
+            $response = $router->handle();
+
+            $this->assertInstanceOf(Response::class, $response);
+            $this->assertNotInstanceOf(HtmlResponse::class, $response);
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/json', $headers['Content-Type']);
+            $this->assertSame((string) strlen($response->body), $headers['Content-Length']);
+
+            $this->assertIsArray(json_decode($response->body, true));
+        } finally {
+            Filesystem::deleteDirectory('_docs/1.x');
+        }
+    }
+
     public function testSitemapXmlRouteIsServedWithXmlContentType()
     {
         config(['hyde.url' => 'https://example.com']);
@@ -732,6 +762,13 @@ class RealtimeCompilerTest extends TestCase
         $method = new ReflectionMethod(Router::class, 'overrideSiteUrl');
         $method->setAccessible(true);
         $method->invoke(new Router(new Request()));
+    }
+
+    protected function bootRouterApplication(Router $router): void
+    {
+        $method = new ReflectionMethod(Router::class, 'bootApplication');
+        $method->setAccessible(true);
+        $method->invoke($router);
     }
 
     protected function invokeGetContentType(InMemoryPage $page): string
