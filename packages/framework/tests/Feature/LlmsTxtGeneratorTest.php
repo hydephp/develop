@@ -213,5 +213,4 @@ class LlmsTxtGeneratorTest extends TestCase
 
 class LlmsTxtGeneratorTestPage extends MarkdownPage
 {
-    //
 }
