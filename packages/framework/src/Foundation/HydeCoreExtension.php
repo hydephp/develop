@@ -104,7 +104,6 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Add the generated sitemap page unless the route is user-defined. */
     protected function discoverSitemapPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, 'sitemap.xml')) {
@@ -115,7 +114,6 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Add the generated RSS feed page unless the route is user-defined. */
     protected function discoverRssFeedPage(PageCollection $collection): void
     {
         $routeKey = RssFeedGenerator::getFilename();
@@ -128,7 +126,6 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Add the generated robots.txt page unless the route is user-defined. */
     protected function discoverRobotsTxtPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, 'robots.txt')) {
@@ -139,7 +136,6 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Add the generated llms.txt page unless the route is user-defined. */
     protected function discoverLlmsTxtPage(PageCollection $collection): void
     {
         if (! $this->hasPageWithRouteKey($collection, 'llms.txt')) {
