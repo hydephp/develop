@@ -31,20 +31,84 @@ _To see how to register the page, see the examples below. But first we must look
 
 To create an InMemoryPage, you need to instantiate it with the required parameters.
 
-Since a page would not be useful without any content to render, the class offers two content options through the constructor.
+The constructor supports three content strategies: literal string contents, lazy closure contents, and Blade view rendering.
 
-You can either pass a string to the `$contents` parameter, Hyde will then save that literally as the page's contents.
+Pass a string to the `$contents` parameter when the page contents are already available. Hyde saves the string literally.
 
 ```php
-$page = new InMemoryPage(contents: 'Hello World!');
+$page = new InMemoryPage('robots.txt', contents: "User-agent: *\n");
 ```
 
-Alternatively, you can pass a Blade view name to the `$view` parameter, and Hyde will use that view to render the page
-contents with the supplied front matter during the static site build process.
+Pass a closure when the contents should be generated lazily during compilation. The closure is invoked again for each
+compilation, which makes it useful for pages generated from the current application state.
 
->warning Note that `$contents` take precedence over `$view`, so if you pass both, only `$contents` will be used.
+```php
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
+use Hyde\Pages\InMemoryPage;
 
-You can also register a macro with the name `compile` to overload the default compile method.
+$page = new InMemoryPage(
+    'sitemap.xml',
+    ['navigation' => ['hidden' => true]],
+    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+);
+```
+
+When contents are provided as a closure, Hyde invokes it when compiling the page and passes the current
+page as the closure's first argument. Since PHP ignores arguments a closure does not declare, closures that
+don't need the page context can simply declare no parameters, as seen in the sitemap example above.
+
+```php
+$page = new InMemoryPage(
+    'example.txt',
+    ['title' => 'Example'],
+    fn (InMemoryPage $page): string => $page->matter->get('title'),
+);
+```
+
+Alternatively, pass a Blade view name or arbitrary `.blade.php` file to the `$view` parameter. Hyde renders the view
+with the supplied front matter during the static site build process.
+
+```php
+$page = new InMemoryPage(
+    identifier: 'hello',
+    matter: ['title' => 'Hello'],
+    view: 'pages.hello',
+);
+```
+
+An arbitrary Blade file can be rendered without registering its namespace or directory:
+
+```php
+$page = new InMemoryPage(
+    identifier: 'hello',
+    matter: ['title' => 'Hello'],
+    view: resource_path('views/pages/hello.blade.php'),
+);
+```
+
+>warning The `$contents` and `$view` parameters are mutually exclusive. Choose one content source for each page;
+> constructing a page with both throws an `InvalidArgumentException`. Omit both to create an empty page.
+
+Pass `null` (or omit the parameter) when a page does not use a content source. An empty string is a valid literal for
+`$contents`. An empty `$view` is normalized to no view, so the page uses its configured contents instead.
+
+```php
+$page = new InMemoryPage('empty', contents: ''); // Valid: an explicitly empty page
+$page = new InMemoryPage('empty', view: '');     // Valid: equivalent to omitting the view
+```
+
+Use closure contents for lazy dynamic output. If the page needs custom methods or behavior beyond the supported content
+strategies, extend `InMemoryPage`. You can add methods normally and override `compile()` when you need complete control.
+
+```php
+class ReportPage extends InMemoryPage
+{
+    public function reportTitle(): string
+    {
+        return (string) $this->matter->get('title');
+    }
+}
+```
 
 ## Registering the Page
 

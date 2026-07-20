@@ -241,6 +241,15 @@ Methods now return `HtmlString` objects:
 
 The documentation search page is now generated as an `InMemoryPage` instead of a post-build task, meaning it appears in the dashboard and route list.
 
+#### In-Memory Page Content Sources
+
+`InMemoryPage` now supports literal contents, lazy content closures, and Blade views. Content closures receive the
+current page when compiled, while contents and views are mutually exclusive to prevent ambiguous output. An empty view
+string is treated as no view, so the page falls back to its configured contents.
+
+The `InMemoryPage` instance macro API has been removed. Replace `compile` macros with lazy content closures, and move
+other custom methods to an `InMemoryPage` subclass.
+
 #### Sidebar Configuration
 
 Documentation sidebar configuration has been reorganized:
