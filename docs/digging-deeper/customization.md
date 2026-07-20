@@ -127,26 +127,99 @@ redirects:
   docs/old-guide: docs/new-guide
 ```
 
-### RSS feed generation
+### Generated discovery files
 
-When enabled, an RSS feed containing all your Markdown blog posts will be generated when you compile your static site.
-Here are the default settings:
+Hyde generates a sitemap, RSS feed, `robots.txt`, and `llms.txt` as regular in-memory pages. They are registered routes,
+so they are included in a normal site build, shown by `php hyde route:list`, recorded in the build manifest, and served
+by `php hyde serve`. Generated non-HTML pages are excluded from navigation and from the sitemap by default.
+
+The sitemap and llms.txt require a site URL so they can contain absolute links. RSS additionally requires Markdown blog
+posts and the SimpleXML extension; sitemap generation also requires SimpleXML. Robots.txt has no site URL requirement,
+and includes a `Sitemap:` line only when the sitemap is available.
+
+Here are the related default settings:
 
 ```php
 // filepath config/hyde.php
+'generate_sitemap' => true,
+
 'rss' => [
-    // Should the RSS feed be generated?
     'enabled' => true,
-
-    // What filename should the RSS file use?
     'filename' => 'feed.xml',
-
-    // The channel description.
     'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
+],
+
+'robots' => [
+    'enabled' => true,
+    'disallow' => [
+        // '/private',
+        // '/*.pdf$',
+    ],
+],
+
+'llms' => [
+    'enabled' => true,
+    'description' => null,
 ],
 ```
 
->warning Note that this feature requires that a `site_url` is set!
+Each robots.txt `disallow` value is written verbatim as a `Disallow:` rule, allowing patterns such as `/*.pdf$`.
+The llms.txt description becomes its introductory blockquote. The file groups published pages by type and uses each
+page's `abstract` front matter, falling back to `description`, as the link description. A page is included in llms.txt
+when it is included in the sitemap, so `sitemap: false` excludes it from both indexes. This does not prevent an AI
+crawler from accessing the page; use robots.txt rules for crawler access control.
+
+>warning Llms.txt is an emerging standard. Hyde may change the generated format in minor or patch releases as the
+> specification evolves. Disable it with `hyde.llms.enabled` or replace the page if you need a fixed format.
+
+#### Customizing generated output
+
+For small output changes, extend the corresponding generator and bind your implementation in a service provider. Hyde
+resolves generators from the service container when the page is compiled, after route discovery is complete:
+
+```php
+// filepath app/Providers/AppServiceProvider.php
+
+use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
+use Illuminate\Support\ServiceProvider;
+
+class CustomRobotsTxtGenerator extends RobotsTxtGenerator
+{
+    public function generate(): string
+    {
+        return parent::generate()."\nHost: example.com\n";
+    }
+}
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->bind(RobotsTxtGenerator::class, CustomRobotsTxtGenerator::class);
+    }
+}
+```
+
+The available generators are `SitemapGenerator`, `RssFeedGenerator`, `RobotsTxtGenerator`, and `LlmsTxtGenerator` in
+their respective `Hyde\Framework\Features\XmlGenerators` and `Hyde\Framework\Features\TextGenerators` namespaces.
+The protected `LlmsTxtGenerator::sections()` method can be overridden to change its page groups.
+
+To replace a generated file completely, register your own [`InMemoryPage`](in-memory-pages) with
+the same route key during a kernel booting callback or extension discovery. User-defined pages take precedence over
+Hyde's generators, even when the corresponding feature is disabled. For example:
+
+```php
+use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Foundation\HydeKernel;
+
+Hyde::booting(function (HydeKernel $kernel): void {
+    $kernel->pages()->addPage(InMemoryPage::make(
+        'robots.txt',
+        contents: "User-agent: *\nDisallow: /private\n",
+    ));
+});
+```
 
 ### Authors
 
