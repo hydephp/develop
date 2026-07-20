@@ -44,6 +44,11 @@ class Redirect extends InMemoryPage
         return false;
     }
 
+    public function showInSitemap(): bool
+    {
+        return false;
+    }
+
     protected function normalizePath(string $path): string
     {
         if (str_ends_with($path, '.html')) {

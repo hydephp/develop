@@ -40,11 +40,19 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
         );
     }
 
-    public function testFileExtension()
+    public function testSourceExtension()
     {
         $this->assertSame(
             '.html',
-            HtmlPage::fileExtension()
+            HtmlPage::sourceExtension()
+        );
+    }
+
+    public function testOutputExtension()
+    {
+        $this->assertSame(
+            '.html',
+            HtmlPage::outputExtension()
         );
     }
 
@@ -112,6 +120,12 @@ class HtmlPageUnitTest extends BaseHydePageUnitTest
     public function testShowInNavigation()
     {
         $this->assertTrue((new HtmlPage())->showInNavigation());
+    }
+
+    public function testShowInSitemap()
+    {
+        $this->assertTrue((new HtmlPage())->showInSitemap());
+        $this->assertFalse((new HtmlPage('foo', ['sitemap' => false]))->showInSitemap());
     }
 
     public function testNavigationMenuPriority()

@@ -31,9 +31,14 @@ class BladePageUnitTest extends BaseHydePageUnitTest
         $this->assertSame('', BladePage::baseRouteKey());
     }
 
-    public function testFileExtension()
+    public function testSourceExtension()
     {
-        $this->assertSame('.blade.php', BladePage::fileExtension());
+        $this->assertSame('.blade.php', BladePage::sourceExtension());
+    }
+
+    public function testOutputExtension()
+    {
+        $this->assertSame('.html', BladePage::outputExtension());
     }
 
     public function testSourcePath()
@@ -79,6 +84,12 @@ class BladePageUnitTest extends BaseHydePageUnitTest
     public function testShowInNavigation()
     {
         $this->assertTrue((new BladePage())->showInNavigation());
+    }
+
+    public function testShowInSitemap()
+    {
+        $this->assertTrue((new BladePage())->showInSitemap());
+        $this->assertFalse((new BladePage('foo', ['sitemap' => false]))->showInSitemap());
     }
 
     public function testNavigationMenuPriority()

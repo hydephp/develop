@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
-use LaravelZero\Framework\Commands\Command;
+use Hyde\Hyde;
+use Hyde\Console\Concerns\Command;
+use Hyde\Foundation\Facades\Routes;
+use Hyde\Framework\Actions\StaticPageBuilder;
+
+use function sprintf;
 
 /**
  * Run the build process for the sitemap.
@@ -20,6 +24,18 @@ class BuildSitemapCommand extends Command
 
     public function handle(): int
     {
-        return (new GenerateSitemap())->run($this->output);
+        $page = Routes::find('sitemap.xml')?->getPage();
+
+        if ($page === null) {
+            $this->error('Cannot generate the sitemap as the feature is not enabled');
+
+            return Command::FAILURE;
+        }
+
+        $path = StaticPageBuilder::handle($page);
+
+        $this->infoComment(sprintf('Created [%s]', Hyde::pathToRelative($path)));
+
+        return Command::SUCCESS;
     }
 }

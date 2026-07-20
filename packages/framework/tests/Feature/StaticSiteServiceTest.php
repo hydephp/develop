@@ -145,6 +145,8 @@ class StaticSiteServiceTest extends TestCase
 
     public function testOnlyProgressBarsForTypesWithPagesAreShown()
     {
+        config(['hyde.generate_sitemap' => false, 'hyde.robots.enabled' => false, 'hyde.llms.enabled' => false]);
+
         $this->file('_pages/blade.blade.php');
         $this->file('_pages/markdown.md');
 
@@ -191,9 +193,9 @@ class StaticSiteServiceTest extends TestCase
         $this->withoutSiteUrl();
         config(['hyde.generate_sitemap' => false]);
 
-        $this->artisan('build')
-            ->doesntExpectOutput('Generating sitemap...')
-            ->assertExitCode(0);
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/sitemap.xml'));
     }
 
     public function testSitemapIsGeneratedWhenConditionsAreMet()
@@ -201,9 +203,10 @@ class StaticSiteServiceTest extends TestCase
         $this->withSiteUrl();
         config(['hyde.generate_sitemap' => true]);
 
-        $this->artisan('build')
-            // ->expectsOutput('Generating sitemap...')
-            ->assertExitCode(0);
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/sitemap.xml'));
+
         Filesystem::unlink('_site/sitemap.xml');
     }
 
@@ -212,9 +215,9 @@ class StaticSiteServiceTest extends TestCase
         $this->withoutSiteUrl();
         config(['hyde.rss.enabled' => false]);
 
-        $this->artisan('build')
-            ->doesntExpectOutput('Generating RSS feed...')
-            ->assertExitCode(0);
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
     }
 
     public function testRssFeedIsGeneratedWhenConditionsAreMet()
@@ -224,9 +227,9 @@ class StaticSiteServiceTest extends TestCase
 
         Filesystem::touch('_posts/foo.md');
 
-        $this->artisan('build')
-            // ->expectsOutput('Generating RSS feed...')
-            ->assertExitCode(0);
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/feed.xml'));
 
         Filesystem::unlink('_posts/foo.md');
         Filesystem::unlink('_site/feed.xml');

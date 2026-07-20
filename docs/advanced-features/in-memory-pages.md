@@ -36,8 +36,51 @@ The constructor supports three content strategies: literal string contents, lazy
 Pass a string to the `$contents` parameter when the page contents are already available. Hyde saves the string literally.
 
 ```php
-$page = new InMemoryPage('robots.txt', contents: "User-agent: *\n");
+InMemoryPage::make('about', contents: $html);
+// _site/about.html
 ```
+
+The output format is inferred from the identifier. Identifiers without an extension compile to `.html`, while an
+identifier that already has an extension keeps it:
+
+```php
+InMemoryPage::make('robots.txt', contents: $text);
+// _site/robots.txt
+```
+
+Static and instance path resolution use the same inference:
+
+```php
+InMemoryPage::outputPath('robots.txt');
+// robots.txt
+
+InMemoryPage::make('robots.txt')->getOutputPath();
+// robots.txt
+```
+
+Non-HTML output is excluded from automatic navigation by default. To link one of these files from the generated
+navigation, opt it in explicitly with `navigation.visible` (or set `navigation.hidden` to `false`):
+
+```php
+InMemoryPage::make(
+    'downloads/catalog.pdf',
+    matter: ['navigation' => ['visible' => true]],
+    contents: $catalog,
+);
+```
+
+Non-HTML pages are also excluded from the sitemap by default. You can control sitemap inclusion for any page with
+the `sitemap` front matter key. This same setting controls whether a page is listed in Hyde's generated `llms.txt`:
+
+```php
+InMemoryPage::make(
+    'api/schema.json',
+    matter: ['sitemap' => true],
+    contents: $schema,
+);
+```
+
+For custom page classes, override `showInSitemap()` when the decision cannot be expressed as front matter.
 
 Pass a closure when the contents should be generated lazily during compilation. The closure is invoked again for each
 compilation, which makes it useful for pages generated from the current application state.
@@ -48,8 +91,7 @@ use Hyde\Pages\InMemoryPage;
 
 $page = new InMemoryPage(
     'sitemap.xml',
-    ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 
@@ -143,6 +185,10 @@ class AppServiceProvider extends ServiceProvider
 ```
 
 The page will be written to `_site/hello.html` and can be referenced using the `hello` route key.
+
+Hyde's generated `sitemap.xml`, RSS feed, `robots.txt`, and `llms.txt` are also in-memory pages. Registering your own
+page with one of those route keys during booting replaces Hyde's generated page, allowing complete control over the
+file. For the RSS feed, use the filename configured in `hyde.rss.filename`.
 
 ### In a package extension
 

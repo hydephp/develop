@@ -136,6 +136,56 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Robots.txt Generation
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, a robots.txt file allowing all crawlers will be generated
+    | when you compile your static site. A link to your sitemap is included
+    | when the sitemap feature is enabled.
+    |
+    | Values added to the disallow array are written verbatim as Disallow
+    | rule values for all crawlers, so wildcard patterns are supported.
+    |
+    */
+
+    'robots' => [
+        // Should the robots.txt file be generated?
+        'enabled' => true,
+
+        // Disallow rule values asking crawlers not to access matching paths.
+        'disallow' => [
+            // '/private',
+            // '/*.pdf$',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Llms.txt Generation
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, an llms.txt file listing your pages will be generated when
+    | you compile your static site, helping AI services and agents find your
+    | content. Set this to false if you would rather they did not.
+    |
+    | This feature requires that a site base URL has been set.
+    |
+    | Note that llms.txt is an emerging standard which is still subject to
+    | change, so we may need to change the format of the generated file
+    | in future minor and patch releases in order to follow the spec.
+    |
+    */
+
+    'llms' => [
+        // Should the llms.txt file be generated?
+        'enabled' => true,
+
+        // An optional summary of your site, added as the introductory blockquote.
+        'description' => null,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Source Root Directory
     |--------------------------------------------------------------------------
     |

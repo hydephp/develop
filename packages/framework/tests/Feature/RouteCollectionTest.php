@@ -22,6 +22,13 @@ use Illuminate\Support\Collection;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Routes::class)]
 class RouteCollectionTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.generate_sitemap' => false, 'hyde.rss.enabled' => false, 'hyde.robots.enabled' => false, 'hyde.llms.enabled' => false]);
+    }
+
     public function testBootMethodDiscoversAllPages()
     {
         $collection = RouteCollection::init(Hyde::getInstance())->boot();

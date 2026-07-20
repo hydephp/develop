@@ -115,6 +115,23 @@ class Features implements SerializableContract
     }
 
     /**
+     * Can a robots.txt file be generated?
+     */
+    public static function hasRobotsTxt(): bool
+    {
+        return Config::getBool('hyde.robots.enabled', true);
+    }
+
+    /**
+     * Can an llms.txt file be generated?
+     */
+    public static function hasLlmsTxt(): bool
+    {
+        return Hyde::hasSiteUrl()
+            && Config::getBool('hyde.llms.enabled', true);
+    }
+
+    /**
      * Should documentation search be enabled?
      */
     public static function hasDocumentationSearch(): bool

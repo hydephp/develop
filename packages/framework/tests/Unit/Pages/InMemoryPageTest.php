@@ -397,6 +397,29 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('view', $page->compile());
         $this->assertSame(0, $page->invocations);
     }
+
+    public function testOutputPathInfersFormatFromIdentifier()
+    {
+        $this->assertSame('foo.html', InMemoryPage::outputPath('foo'));
+        $this->assertSame('robots.txt', InMemoryPage::outputPath('robots.txt'));
+        $this->assertSame('data.json', InMemoryPage::outputPath('data.json'));
+        $this->assertSame('sitemap.xml', InMemoryPage::outputPath('sitemap.xml'));
+        $this->assertSame('docs/search.json', InMemoryPage::outputPath('docs/search.json'));
+        $this->assertSame('foo.md', InMemoryPage::outputPath('foo.md'));
+        $this->assertSame('foo.html', InMemoryPage::outputPath('foo.html'));
+        $this->assertSame('docs/1.x', InMemoryPage::outputPath('docs/1.x'));
+        $this->assertSame('docs/1.x/index.html', InMemoryPage::outputPath('docs/1.x/index'));
+    }
+
+    public function testStaticAndInstanceOutputPathsUseTheSameSemantics()
+    {
+        foreach (['foo', 'robots.txt', 'docs/search.json', 'docs/1.x/index'] as $identifier) {
+            $this->assertSame(
+                InMemoryPage::outputPath($identifier),
+                (new InMemoryPage($identifier))->getOutputPath()
+            );
+        }
+    }
 }
 
 class InMemoryPageContentTestPage extends InMemoryPage

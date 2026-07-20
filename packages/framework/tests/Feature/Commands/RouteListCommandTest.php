@@ -16,6 +16,13 @@ use Hyde\Support\Models\Route;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Internal\RouteListItem::class)]
 class RouteListCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.generate_sitemap' => false, 'hyde.robots.enabled' => false, 'hyde.llms.enabled' => false]);
+    }
+
     public function testRouteListCommand()
     {
         $this->artisan('route:list')

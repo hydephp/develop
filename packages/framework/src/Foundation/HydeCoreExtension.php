@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
+use Closure;
 use Hyde\Hyde;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\BuildWarnings;
 use Hyde\Support\Models\Redirect;
@@ -21,10 +23,15 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
+use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function Hyde\unslash;
+use function app;
 use function array_filter;
 use function array_keys;
 use function sprintf;
@@ -79,6 +86,68 @@ class HydeCoreExtension extends HydeExtension
                     $collection->addPage(new DocumentationSearchPage());
                 }
             }
+        }
+
+        if (Features::hasSitemap()) {
+            $this->discoverSitemapPage($collection);
+        }
+
+        if (Features::hasRss()) {
+            $this->discoverRssFeedPage($collection);
+        }
+
+        if (Features::hasRobotsTxt()) {
+            $this->discoverRobotsTxtPage($collection);
+        }
+
+        if (Features::hasLlmsTxt()) {
+            $this->discoverLlmsTxtPage($collection);
+        }
+    }
+
+    protected function discoverSitemapPage(PageCollection $collection): void
+    {
+        $this->addGeneratedPage(
+            $collection,
+            'sitemap.xml',
+            fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+        );
+    }
+
+    protected function discoverRssFeedPage(PageCollection $collection): void
+    {
+        $this->addGeneratedPage(
+            $collection,
+            RssFeedGenerator::getFilename(),
+            fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
+        );
+    }
+
+    protected function discoverRobotsTxtPage(PageCollection $collection): void
+    {
+        $this->addGeneratedPage(
+            $collection,
+            'robots.txt',
+            fn (): string => app(RobotsTxtGenerator::class)->generate(),
+        );
+    }
+
+    protected function discoverLlmsTxtPage(PageCollection $collection): void
+    {
+        $this->addGeneratedPage(
+            $collection,
+            'llms.txt',
+            fn (): string => app(LlmsTxtGenerator::class)->generate(),
+        );
+    }
+
+    protected function addGeneratedPage(PageCollection $collection, string $routeKey, Closure $contents): void
+    {
+        if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
+            $collection->addPage(new InMemoryPage(
+                $routeKey,
+                contents: $contents,
+            ));
         }
     }
 

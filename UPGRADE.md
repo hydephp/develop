@@ -2,7 +2,18 @@
 
 ## Overview
 
-//
+HydePHP v3 infers an `InMemoryPage` output format from its identifier. Identifiers that already have an extension keep
+it, while identifiers without an extension compile to `.html`:
+
+```php
+use Hyde\Pages\InMemoryPage;
+
+InMemoryPage::make('about', contents: $html);
+// _site/about.html
+
+InMemoryPage::make('robots.txt', contents: $text);
+// _site/robots.txt
+```
 
 ## Before You Begin
 
@@ -192,8 +203,7 @@ $page->macro(
 ```php
 $page = new InMemoryPage(
     'sitemap.xml',
-    ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 
@@ -302,6 +312,134 @@ new InMemoryPage('example', view: '');
 new InMemoryPage('example', view: null);
 ```
 
+### Review Non-HTML Navigation Visibility
+
+Pages whose resolved output path does not end in `.html` are no longer included in automatic navigation by default.
+This applies both to identifier-based `InMemoryPage` instances such as `feed.xml` and to custom page classes with a
+non-HTML `$outputExtension`. Machine-readable resources generally need no migration, and any
+`navigation.hidden: true` matter used only for this purpose can be removed.
+
+If a non-HTML page is intentionally linked from the generated navigation, opt it in explicitly:
+
+```php
+new InMemoryPage(
+    'downloads/catalog.pdf',
+    matter: ['navigation' => ['visible' => true]],
+    contents: $catalog,
+);
+```
+
+The equivalent `navigation.hidden: false` setting is also supported. Explicit visibility overrides only the new
+non-HTML default; existing exclusions for posts, configured route keys, and hidden subdirectories still apply.
+
+## Step 6: Review Sitemap and RSS Feed Customizations
+
+The sitemap and RSS feed are now generated as regular pages instead of by post-build tasks, so `sitemap.xml` and
+the RSS feed (`feed.xml`, or your configured `hyde.rss.filename`) are served by `php hyde serve`, listed in
+`route:list`, and included in the build manifest. Sites that just enable or disable these features through
+`hyde.generate_sitemap`, `hyde.rss`, and `hyde.url` need no changes.
+
+The `GenerateSitemap` and `GenerateRssFeed` post-build task classes have been removed. If you overrode one with a
+same-basename build task, or referenced the classes directly, customize the output through one of the replacement
+tiers instead:
+
+- Rebind the generator in the service container to change the output while keeping the page registration:
+
+```php
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
+
+app()->bind(SitemapGenerator::class, MyCustomSitemapGenerator::class);
+```
+
+The same works for `RssFeedGenerator`.
+
+- Or register your own page with the same route key (`sitemap.xml`, or the configured feed filename) from a
+  service provider, booting callback, or extension, which replaces the generated page entirely:
+
+```php
+use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
+
+Hyde::kernel()->booting(function ($kernel) use ($myXml): void {
+    $kernel->pages()->addPage(InMemoryPage::make('sitemap.xml', contents: $myXml));
+});
+```
+
+The `build:sitemap` and `build:rss` commands still work and now compile the registered pages. When the output
+cannot be generated (no base URL, disabled in the configuration, or — for the feed — no Markdown posts), they
+fail with an error instead of generating an empty or unwanted file. `build:sitemap` reports this
+failure with exit code 1 instead of 3. If you registered your own page under the route key, the commands build
+it regardless of these conditions.
+
+## Step 7: Review the New Generated robots.txt
+
+Hyde now generates a `robots.txt` file by default, allowing all crawlers and linking to the sitemap when that
+feature is enabled. Most sites want this and need no changes. If you already publish a `robots.txt` through your
+own tooling — a deploy step or web server configuration that would conflict with the generated file — either
+disable the feature with `hyde.robots.enabled => false`, or move the contents into Hyde by registering your own
+`robots.txt` page (which replaces the generated one, using the same registration pattern as the sitemap example
+above). Crawl rules can be added to the `hyde.robots.disallow` configuration array without any custom code.
+
+## Step 8: Decide Whether to Publish the New llms.txt
+
+Hyde now generates an [`llms.txt`](https://llmstxt.org/) file by default, indexing your site's content for AI
+services and agents. It requires a site base URL, since the file links to your pages with absolute URLs, so
+sites without one are unaffected. The file indexes only material you already publish — it lists nothing your
+sitemap does not, and grants no access to anything private — but it is a deliberate invitation for AI services
+to read your site. That is a choice worth making consciously: if you would rather not extend that invitation,
+set `hyde.llms.enabled` to `false`. Note that leaving pages out of this file does not stop AI crawlers from
+reading them; crawler access is governed by your `robots.txt`, not by llms.txt.
+
+If you do keep it, it needs no configuration. Pages are grouped into a section per page type and listed in the
+same order as your sitemap, and each link is described by the page's `abstract` front matter, falling back to
+its `description`, so filling those in improves the file. A page is listed when it is included in the sitemap,
+so anything already carrying `sitemap: false` stays out of this file too — there is no separate front matter key
+to learn. As with the sitemap and robots.txt, you can replace the file wholesale by registering your own
+`llms.txt` page, or adjust the sections and output by extending the `LlmsTxtGenerator` class and rebinding it in
+the service container.
+
+Be aware that llms.txt is an emerging standard which is still subject to change. We cannot make a backwards
+compatibility promise for the generated output while the specification is still moving, and we expect to change
+the file format in minor and patch releases as the standard evolves. If you depend on the exact output, pin the
+format by registering your own page.
+
+## Step 9: Rename Page File Extension References
+
+The static page class property `$fileExtension` has been renamed to `$sourceExtension`, along with the
+`fileExtension()` and `setFileExtension()` methods, which are now `sourceExtension()` and `setSourceExtension()`.
+The new name makes it explicit that these APIs describe the extension of source files.
+
+This only affects projects with custom page classes or code calling these APIs. Update property declarations,
+call sites, and any methods that override `fileExtension()` or `setFileExtension()` — the methods are public
+and non-final, and an un-renamed override silently stops being called now that the framework calls
+`sourceExtension()`:
+
+**Before:**
+
+```php
+class CustomPage extends HydePage
+{
+    public static string $fileExtension = '.md';
+}
+
+$extension = MarkdownPage::fileExtension();
+```
+
+**After:**
+
+```php
+class CustomPage extends HydePage
+{
+    public static string $sourceExtension = '.md';
+}
+
+$extension = MarkdownPage::sourceExtension();
+```
+
+The automated upgrade script will handle this rename for ordinary property declarations, property accesses,
+method calls, and overridden method declarations. Dynamic references — variable method or property names,
+reflection, and string-based access — must be updated manually.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
@@ -311,6 +449,11 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
+- [ ] Explicitly opted in any non-HTML pages that should remain in automatic navigation
+- [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
+- [ ] Confirmed the new generated `robots.txt` does not conflict with an existing one, or disabled it with `hyde.robots.enabled`
+- [ ] Decided whether to publish the new generated `llms.txt` for AI services, or disabled it with `hyde.llms.enabled`
+- [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 
 ## Troubleshooting
 

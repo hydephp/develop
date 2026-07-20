@@ -45,6 +45,7 @@ class DocumentationSearchIndexTest extends TestCase
 
         $this->assertSame('docs/1.x/search.json', $page->routeKey);
         $this->assertSame('docs/1.x/search.json', $page->getOutputPath());
+        $this->assertSame($page::outputPath($page->getIdentifier()), $page->getOutputPath());
         $this->assertSame('1.x', $page->getDocumentationVersion()->name);
     }
 

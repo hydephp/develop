@@ -42,11 +42,19 @@ class MarkdownPostUnitTest extends BaseMarkdownPageUnitTest
         );
     }
 
-    public function testFileExtension()
+    public function testSourceExtension()
     {
         $this->assertSame(
             '.md',
-            MarkdownPost::fileExtension()
+            MarkdownPost::sourceExtension()
+        );
+    }
+
+    public function testOutputExtension()
+    {
+        $this->assertSame(
+            '.html',
+            MarkdownPost::outputExtension()
         );
     }
 
@@ -114,6 +122,12 @@ class MarkdownPostUnitTest extends BaseMarkdownPageUnitTest
     public function testShowInNavigation()
     {
         $this->assertFalse((new MarkdownPost())->showInNavigation());
+    }
+
+    public function testShowInSitemap()
+    {
+        $this->assertTrue((new MarkdownPost())->showInSitemap());
+        $this->assertFalse((new MarkdownPost('foo', ['sitemap' => false]))->showInSitemap());
     }
 
     public function testNavigationMenuPriority()

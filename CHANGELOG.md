@@ -27,6 +27,7 @@ This serves two purposes:
 - Raw HTML in Markdown is now enabled by default. Set `markdown.allow_html` to `false` when compiling untrusted or unreviewed Markdown to strip potentially unsafe HTML tags.
 - `InMemoryPage` now requires callers to select either `contents` or `view`; configuring both throws an `InvalidArgumentException` instead of silently giving contents precedence.
 - `InMemoryPage` now treats an empty string as an omitted `view`, matching the existing compile-time behavior and allowing literal contents to be used with an empty view value.
+- Pages with non-HTML output paths are now excluded from automatic navigation by default. Set `navigation.visible: true` or `navigation.hidden: false` to include one explicitly.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.
