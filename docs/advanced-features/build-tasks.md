@@ -1,5 +1,5 @@
 ---
-abstract: "The Build Task API lets you hook into HydePHP's build process to run custom logic, or override built-in tasks like sitemap and RSS generation, whenever the site compiles."
+abstract: "The Build Task API lets you hook custom logic into HydePHP's build process before or after the site's pages are compiled."
 ---
 
 # Custom Build Tasks
@@ -9,9 +9,10 @@ abstract: "The Build Task API lets you hook into HydePHP's build process to run 
 The Build Task API offers a simple way to hook into the build process.
 The build tasks are very powerful and allow for limitless customizability.
 
-The built-in Hyde features like sitemap generation and RSS feeds are created using tasks like these.
 Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory?
-You can also overload the built-in tasks to customize them to your needs.
+
+Sitemaps, RSS feeds, robots.txt, and llms.txt are generated as regular pages rather than build tasks. To customize
+those files, see [Generated discovery files](customization#generated-discovery-files).
 
 ## Good to know before you start
 

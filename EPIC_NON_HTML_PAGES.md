@@ -648,7 +648,7 @@ Implementation notes (branch `v3/non-html-pages-llms-txt`):
 > 3. **A long explanatory comment in a config stub is a design smell,** not diligence. If
 >    an option needs paragraphs to explain, the option is usually the problem.
 
-### PR 8 — Documentation & release notes
+### PR 8 — Documentation & release notes ✅ Implemented
 
 - Document in-code virtual pages, `sitemap: false` front matter, robots/llms config,
   the container-rebind customization tier for generated pages, and the "user-defined
@@ -656,6 +656,23 @@ Implementation notes (branch `v3/non-html-pages-llms-txt`):
 - Update `HYDEPHP_V3_PLANNING.md` release notes: new features (robots.txt, llms.txt,
   serve support for sitemap/RSS), breaking changes (build task classes
   removed/relocated, search.json removed from sitemaps).
+
+Implementation notes (branch `v3/non-html-pages-documentation`):
+
+- The public InMemoryPage and customization guides document exact non-HTML paths,
+  navigation and sitemap defaults, all four generated pages, their feature conditions,
+  robots/llms configuration, generator rebinding, and user-defined route precedence.
+- The Build Tasks guide no longer describes sitemap/RSS generation as post-build tasks.
+  The console command guide now records that `build:sitemap` and `build:rss` compile
+  registered pages and fail when no matching page is registered.
+- The audit found behavior worth documenting beyond the original checklist: llms.txt
+  reuses sitemap inclusion, its format has no minor/patch compatibility promise while
+  the proposal evolves, robots.txt controls crawler access while llms.txt does not,
+  generated pages are hidden from automatic navigation, and sitemap/RSS registration
+  depends on SimpleXML in addition to their documented content prerequisites.
+- `HYDEPHP_V3_PLANNING.md` and `UPGRADE.md` already contain the feature, breaking-change,
+  and migration entries added with PRs 1–7; this PR verified them rather than duplicating
+  those notes.
 
 ## Out of scope (noted for later)
 
