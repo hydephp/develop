@@ -166,19 +166,20 @@ return [
     |
     | When enabled, an llms.txt file listing your pages will be generated when
     | you compile your static site, helping AI services and agents find your
-    | content. Set this to false if you would rather they did not.
+    | content. Set this to true if you would like to publish one.
     |
     | This feature requires that a site base URL has been set.
     |
-    | Note that llms.txt is an emerging standard which is still subject to
-    | change, so we may need to change the format of the generated file
-    | in future minor and patch releases in order to follow the spec.
+    | Unlike robots.txt, llms.txt is not an established web convention: it's
+    | an emerging proposal that may still change in minor and patch releases,
+    | and publishing it is a deliberate invitation for AI services to read
+    | your site, so it defaults to off until you decide you want that.
     |
     */
 
     'llms' => [
         // Should the llms.txt file be generated?
-        'enabled' => true,
+        'enabled' => false,
 
         // An optional summary of your site, added as the introductory blockquote.
         'description' => null,

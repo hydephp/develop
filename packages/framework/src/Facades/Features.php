@@ -128,7 +128,7 @@ class Features implements SerializableContract
     public static function hasLlmsTxt(): bool
     {
         return Hyde::hasSiteUrl()
-            && Config::getBool('hyde.llms.enabled', true);
+            && Config::getBool('hyde.llms.enabled', false);
     }
 
     /**
