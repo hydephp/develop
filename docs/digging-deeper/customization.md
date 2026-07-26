@@ -158,7 +158,7 @@ Here are the related default settings:
 ],
 
 'llms' => [
-    'enabled' => true,
+    'enabled' => false,
     'description' => null,
 ],
 ```
@@ -169,8 +169,11 @@ page's `abstract` front matter, falling back to `description`, as the link descr
 when it is included in the sitemap, so `sitemap: false` excludes it from both indexes. This does not prevent an AI
 crawler from accessing the page; use robots.txt rules for crawler access control.
 
+Unlike the sitemap, RSS feed, and robots.txt, llms.txt is disabled by default: publishing it is a deliberate
+invitation for AI services to read your site, so set `hyde.llms.enabled` to `true` to opt in.
+
 >warning Llms.txt is an emerging standard. Hyde may change the generated format in minor or patch releases as the
-> specification evolves. Disable it with `hyde.llms.enabled` or replace the page if you need a fixed format.
+> specification evolves. Replace the page if you need a fixed format.
 
 #### Customizing generated output
 

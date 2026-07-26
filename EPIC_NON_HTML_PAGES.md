@@ -529,14 +529,23 @@ Implementation notes (branch `v3/non-html-pages-llms-txt`):
   from navigation, D3-excluded from the sitemap, and both user override paths verified
   end-to-end through the real `build` command. No `build:llms` command, for the same
   reason PR 6 added no `build:robots`.
-- **Default on, with the opt-out as the documented choice.** `Features::hasLlmsTxt()`
-  reads `hyde.llms.enabled` (default `true`), so the file ships by default. The
-  decision the epic demanded: llms.txt lists only already-published pages and surfaces
-  nothing the sitemap does not, sitemap/RSS/robots are all on by default, and the
-  actual crawler control plane is robots.txt, not llms.txt — so an opt-*in* would
-  bury the feature for the majority to protect a minority that a `false` in the config
-  serves just as well. The opt-out is called out in the config stub, the release notes,
-  and its own UPGRADE.md step rather than being left for users to discover.
+- **Reversed to default off (post-implementation review).** `Features::hasLlmsTxt()`
+  reads `hyde.llms.enabled` (default `false`). The PR originally shipped default `true`,
+  reasoning that llms.txt lists only already-published pages and surfaces nothing the
+  sitemap does not, and that sitemap/RSS/robots are all on by default — so an opt-*in*
+  would bury the feature for the majority to protect a minority that a `false` in the
+  config serves just as well. That argument proves too little: sitemap.xml, RSS, and
+  robots.txt are each an established web convention that fixes a real compatibility or
+  crawler-control problem, so their on-by-default posture costs a site nothing it wasn't
+  already exposing through routing and search-engine norms. llms.txt has no such
+  precedent — it is, by the epic's and the config stub's own description, "an emerging
+  proposal" whose format may still change in a minor or patch release, and publishing it
+  is explicitly "a deliberate invitation" for AI services to read the site, not a
+  neutral discovery mechanism like a sitemap. "Bury the feature" describes a marketing
+  cost, not a reason to default an unstable, AI-specific invitation to on. The opt-in is
+  called out in the config stub, the release notes, and its own UPGRADE.md step, mirroring
+  how the (default-on) `hyde.robots.enabled` opt-out is documented, so the choice is a
+  first-class one either way rather than something a user has to discover.
 - **Emerging-standard caveat, recorded deliberately.** llms.txt is a proposal, not a
   ratified standard, so the generated *format* carries no backwards-compatibility
   promise: we expect to change it in minor and patch releases as the spec moves. This
