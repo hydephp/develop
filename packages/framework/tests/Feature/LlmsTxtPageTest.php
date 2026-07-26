@@ -29,6 +29,8 @@ class LlmsTxtPageTest extends TestCase
         parent::setUp();
 
         $this->withSiteUrl();
+
+        config(['hyde.llms.enabled' => true]);
     }
 
     protected function tearDown(): void
@@ -38,7 +40,7 @@ class LlmsTxtPageTest extends TestCase
         parent::tearDown();
     }
 
-    public function testLlmsTxtPageIsRegisteredAsRouteByDefault()
+    public function testLlmsTxtPageIsRegisteredAsRouteWhenEnabled()
     {
         $this->assertTrue(Routes::exists('llms.txt'));
 
