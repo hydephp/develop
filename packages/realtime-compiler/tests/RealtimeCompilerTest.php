@@ -447,8 +447,12 @@ class RealtimeCompilerTest extends TestCase
     {
         $this->mockCompilerRoute('llms.txt');
 
-        $kernel = new HttpKernel();
-        $response = $kernel->handle(new Request());
+        $router = new Router(new Request());
+        $this->bootRouterApplication($router);
+        config(['hyde.llms.enabled' => true, 'hyde.url' => 'https://example.com']);
+        Hyde::boot();
+
+        $response = $router->handle();
 
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotInstanceOf(HtmlResponse::class, $response);
