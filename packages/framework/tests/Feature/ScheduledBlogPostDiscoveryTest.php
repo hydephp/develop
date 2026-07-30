@@ -105,4 +105,49 @@ class ScheduledBlogPostDiscoveryTest extends TestCase
             'Since Hyde is a static site generator, it will be included in the first site build made after that date.',
         ], array_map(fn (BuildWarning $warning): string => $warning->getMessage(), BuildWarnings::getWarnings()));
     }
+
+    public function testPostDatedInTheFutureIsDiscoveredWhenServing()
+    {
+        config(['hyde.server.running' => true]);
+
+        $this->markdown('_posts/scheduled.md', matter: ['date' => '2100-01-01']);
+
+        Hyde::boot();
+
+        $this->assertTrue(Hyde::pages()->getPages(MarkdownPost::class)->has('_posts/scheduled.md'));
+        $this->assertTrue(Hyde::routes()->has('posts/scheduled'));
+    }
+
+    public function testPostWithAFutureDatePrefixIsDiscoveredWhenServing()
+    {
+        config(['hyde.server.running' => true]);
+
+        $this->markdown('_posts/2100-01-01-scheduled.md');
+
+        Hyde::boot();
+
+        $this->assertTrue(Hyde::routes()->has('posts/scheduled'));
+    }
+
+    public function testNoBuildWarningIsReportedWhenServing()
+    {
+        config(['hyde.server.running' => true]);
+
+        $this->markdown('_posts/scheduled.md', matter: ['date' => '2100-01-01']);
+
+        Hyde::boot();
+
+        $this->assertEmpty(BuildWarnings::getWarnings());
+    }
+
+    public function testScheduledPostIsIncludedInTheRssFeedWhenServing()
+    {
+        config(['hyde.server.running' => true]);
+
+        $this->markdown('_posts/scheduled.md', matter: ['date' => '2100-01-01']);
+
+        Hyde::boot();
+
+        $this->assertStringContainsString('<title>Scheduled</title>', (new RssFeedGenerator())->generate()->getXml());
+    }
 }
