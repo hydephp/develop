@@ -302,6 +302,20 @@ new InMemoryPage('example', view: '');
 new InMemoryPage('example', view: null);
 ```
 
+## Review Blog Posts Dated in the Future
+
+HydePHP v3 treats a blog post whose date is set in the future as a scheduled draft. Such posts are skipped during auto-discovery, so they get no route, are not compiled to `_site`, and are left out of post listings, the sitemap, and the RSS feed. This applies to both front matter dates and filename date prefixes.
+
+In v2 these posts were built like any other. If your site has posts dated ahead of the build time — whether deliberately or because of a typo — they will disappear from your site after upgrading.
+
+Each skipped post is reported as a build warning, so run a build and check the output:
+
+```terminal xml
+ 1. <comment>Skipping blog post "_posts/my-upcoming-post.md" as its date is set in the future (2099-01-01T00:00:00+00:00). Since Hyde is a static site generator, it will be included in the first site build made after that date.</comment>
+```
+
+If a post in the warning list was supposed to be published, correct its date. If you actually want to schedule posts, remember that **Hyde is a static site generator**: a scheduled post does not publish itself when its date passes. It is included in the first site build that runs after that point, so you need recurring builds for a post to go live on its own, for example a cron-scheduled GitHub Actions workflow.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
@@ -311,6 +325,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
+- [ ] Checked the build warnings for blog posts skipped due to a future date, and set up recurring builds if scheduling posts
 
 ## Troubleshooting
 
