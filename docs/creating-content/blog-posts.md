@@ -127,8 +127,7 @@ preview, so scheduled posts are included there and you can write and proofread t
 There is nothing to configure and no date to temporarily change: just visit the post's normal URL while serving.
 
 Note that this applies to everything the server renders, so a scheduled post also appears in post listings and feeds
-while serving. If you use `php hyde serve --save-preview`, visiting a scheduled post writes it to `_site` like any
-other previewed page. A subsequent `php hyde build` regenerates the output directory and removes it again.
+while serving.
 
 ### Scheduled Posts Do Not Publish Themselves
 
@@ -223,7 +222,7 @@ date: "2022-01-01 12:00"
 ```
 
 Setting the date in the future marks the post as a [scheduled draft](#scheduling-posts-with-future-dates),
-which is skipped during discovery until you build the site again after that date.
+which is excluded from site builds until its publication date has passed.
 
 ### Author
 
