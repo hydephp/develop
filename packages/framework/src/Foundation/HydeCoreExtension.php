@@ -52,6 +52,8 @@ class HydeCoreExtension extends HydeExtension
 
     public function discoverPages(PageCollection $collection): void
     {
+        $this->discardScheduledBlogPosts($collection);
+
         foreach (Config::getArray('hyde.redirects', []) as $path => $destination) {
             $collection->addPage(new Redirect((string) $path, (string) $destination));
         }
@@ -80,6 +82,19 @@ class HydeCoreExtension extends HydeExtension
                 }
             }
         }
+    }
+
+    /** Discard blog posts dated in the future, as those are considered scheduled drafts. */
+    protected function discardScheduledBlogPosts(PageCollection $collection): void
+    {
+        $collection->getPages(MarkdownPost::class)->each(function (MarkdownPost $post) use ($collection): void {
+            if ($post->isScheduled()) {
+                $collection->forget($post->getSourcePath());
+
+                // Warn because a typo in the date would otherwise silently drop the post from the site.
+                BuildWarnings::report(sprintf('Skipping blog post "%s" as its date is set in the future (%s). Since Hyde is a static site generator, it will be included in the first site build made after that date.', $post->getSourcePath(), $post->date->datetime));
+            }
+        });
     }
 
     /** Discard documentation source files stored outside the version directories. */
