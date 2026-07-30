@@ -58,8 +58,9 @@ class ScheduledBlogPostDiscoveryTest extends TestCase
 
         $feed = (new RssFeedGenerator())->generate()->getXml();
 
-        $this->assertStringContainsString('posts/published.html', $feed);
-        $this->assertStringNotContainsString('posts/scheduled.html', $feed);
+        // Assert on the item titles, as the item links are only present when the site URL is configured.
+        $this->assertStringContainsString('<title>Published</title>', $feed);
+        $this->assertStringNotContainsString('<title>Scheduled</title>', $feed);
     }
 
     public function testPostDatedInThePastIsDiscovered()
