@@ -100,8 +100,9 @@ animi distinctio earum ducimus minus, magnam.
 
 ## Scheduling Posts with Future Dates
 
-A post whose date is set in the future is treated as a scheduled draft. Hyde skips it during auto-discovery,
-meaning it gets no route, is not compiled to `_site`, and does not show up in post listings, the sitemap, or the RSS feed.
+A post whose date is set in the future is treated as a scheduled draft. When you build the site, Hyde skips it during
+auto-discovery, meaning it gets no route, is not compiled to `_site`, and does not show up in post listings, the
+sitemap, or the RSS feed.
 
 This works with both front matter dates and [date prefixes](#date-prefixes):
 
@@ -112,6 +113,22 @@ title: My Upcoming Post
 date: 2099-01-01
 ---
 ```
+
+### Previewing Scheduled Posts
+
+Scheduled posts are only withheld when building the site. The development server treats your site as an authoring
+preview, so scheduled posts are included there and you can write and proofread them as normal:
+
+| Command          | Scheduled posts                                    |
+|------------------|----------------------------------------------------|
+| `php hyde serve`  | **Included** — the site as you are working on it   |
+| `php hyde build`  | **Excluded** — the site as your readers will see it |
+
+There is nothing to configure and no date to temporarily change: just visit the post's normal URL while serving.
+
+Note that this applies to everything the server renders, so a scheduled post also appears in post listings and feeds
+while serving. If you use `php hyde serve --save-preview`, visiting a scheduled post writes it to `_site` like any
+other previewed page. A subsequent `php hyde build` regenerates the output directory and removes it again.
 
 ### Scheduled Posts Do Not Publish Themselves
 

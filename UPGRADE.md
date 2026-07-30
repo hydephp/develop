@@ -304,7 +304,9 @@ new InMemoryPage('example', view: null);
 
 ## Review Blog Posts Dated in the Future
 
-HydePHP v3 treats a blog post whose date is set in the future as a scheduled draft. Such posts are skipped during auto-discovery, so they get no route, are not compiled to `_site`, and are left out of post listings, the sitemap, and the RSS feed. This applies to both front matter dates and filename date prefixes.
+HydePHP v3 treats a blog post whose date is set in the future as a scheduled draft. When you build the site, such posts are skipped during auto-discovery, so they get no route, are not compiled to `_site`, and are left out of post listings, the sitemap, and the RSS feed. This applies to both front matter dates and filename date prefixes.
+
+Scheduled posts are still included by `php hyde serve`, which is treated as an authoring preview, so you can keep writing and previewing them at their normal URL.
 
 In v2 these posts were built like any other. If your site has posts dated ahead of the build time — whether deliberately or because of a typo — they will disappear from your site after upgrading.
 
