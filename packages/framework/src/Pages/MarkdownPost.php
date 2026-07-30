@@ -45,11 +45,12 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     /**
      * Determine if the post is scheduled, meaning its date is set in the future.
      *
-     * Scheduled posts are treated as drafts and are skipped during auto-discovery.
+     * Scheduled posts are excluded from publication builds until their date has passed,
+     * but remain available in realtime compiler previews.
      *
      * Since Hyde is a static site generator, a scheduled post does not publish itself when its date passes.
      * It is included in the first site build that is run after that point, so recurring builds are needed
-     * for a post to go live on its own, for example through a scheduled GitHub Actions workflow.
+     * for automatic publication, for example through a scheduled GitHub Actions workflow.
      */
     public function isScheduled(): bool
     {
