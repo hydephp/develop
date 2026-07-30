@@ -64,6 +64,7 @@ You **optionally** can set a blog post's publication date by prefixing the filen
 - Days and months must use leading zeros (e.g., `2024-01-05` not `2024-1-5`)
 - Time is optional and uses 24-hour format with a hyphen separator (`HH-MM`)
 - Front matter dates take precedence over filename dates
+- Dates in the future mark the post as a [scheduled draft](#scheduling-posts-with-future-dates)
 - Using date prefixes is entirely optional!
 
 This feature provides an intuitive way to organize your blog posts chronologically while maintaining clean URLs, and matches the behavior of many popular static site generators for interoperability.
@@ -96,6 +97,58 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 Autem aliquid alias explicabo consequatur similique,
 animi distinctio earum ducimus minus, magnam.
 ```
+
+## Scheduling Posts with Future Dates
+
+A post whose date is set in the future is treated as a scheduled draft. Hyde skips it during auto-discovery,
+meaning it gets no route, is not compiled to `_site`, and does not show up in post listings, the sitemap, or the RSS feed.
+
+This works with both front matter dates and [date prefixes](#date-prefixes):
+
+```markdown
+// filepath _posts/my-upcoming-post.md
+---
+title: My Upcoming Post
+date: 2099-01-01
+---
+```
+
+### Scheduled Posts Do Not Publish Themselves
+
+**Hyde is a static site generator, so nothing happens on your site until you build it again.**
+
+A scheduled post is not published when its date passes. It is published by the first site build that runs after that
+point. If you deploy your site once and leave it, a post dated next Tuesday will simply never appear.
+
+To have a post go live on its own, run builds on a schedule. For example, with GitHub Actions:
+
+```yaml
+// filepath .github/workflows/deploy.yml
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Build every day at 06:00 UTC so scheduled posts get published
+    - cron: '0 6 * * *'
+```
+
+Keep in mind that the post goes live at the first build after its date, not at the exact time you set. With the daily
+schedule above, a post dated 09:00 is published by the next morning's run, not at 09:00 on the dot. Build more often if
+you need tighter timing.
+
+Also note that the date is compared against the time zone of the machine running the build,
+which for CI runners is usually UTC rather than your local time zone.
+
+### Build Warnings for Skipped Posts
+
+Every skipped post is reported as a build warning, so a mistyped year does not silently remove a post from your site:
+
+```terminal xml
+ 1. <comment>Skipping blog post "_posts/my-upcoming-post.md" as its date is set in the future (2099-01-01T00:00:00+00:00). Since Hyde is a static site generator, it will be included in the first site build made after that date.</comment>
+```
+
+The warnings are printed at the end of the build. If you see one for a post you expected to be published,
+check its date for a typo, for example a mistyped year.
 
 ## Supported Front Matter Properties
 
@@ -151,6 +204,9 @@ date: "2022-01-01"
 ```yaml
 date: "2022-01-01 12:00"
 ```
+
+Setting the date in the future marks the post as a [scheduled draft](#scheduling-posts-with-future-dates),
+which is skipped during discovery until you build the site again after that date.
 
 ### Author
 
