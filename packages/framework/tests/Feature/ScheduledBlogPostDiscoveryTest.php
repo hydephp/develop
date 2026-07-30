@@ -14,7 +14,7 @@ use Hyde\Framework\Exceptions\BuildWarning;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
 /**
- * Tests that blog posts dated in the future are skipped during auto-discovery.
+ * Tests publication filtering and realtime preview behavior for scheduled posts.
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(MarkdownPost::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(HydeCoreExtension::class)]
