@@ -114,7 +114,14 @@ space-separated tokens.
 Rejecting a malformed title departs from how the block treats an unknown modifier, which is ignored so that a modifier
 added in a future version does not break a page rendered by an older one. The asymmetry is deliberate: `title=Build` is
 not a modifier this version doesn't know about, it is one it does know about, written wrong, and silently discarding it
-would leave an author looking at a window still labelled `Terminal` with nothing to explain why.
+would leave an author looking at a window still labelled `Terminal` with nothing to explain why. The same reasoning
+covers a bare `title`, a space around the `=`, and a second title on the same block: each is a title written wrong
+rather than a modifier from the future, so each is reported instead of ignored.
+
+The info string is tokenized by walking a cursor through it, requiring each token to end where the next one begins,
+rather than searching it for modifiers wherever they appear. That is what makes the rejections above reliable:
+`title="One"xml` is one malformed token instead of two valid modifiers, and a modifier is only recognized when it
+stands on its own, exactly as the documented grammar describes it.
 
 The title is passed to the view verbatim as a nullable string rather than pre-resolved to the default label, so that a
 published view can define its own fallback for untitled blocks, which the shipped view demonstrates with
