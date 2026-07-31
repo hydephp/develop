@@ -24,7 +24,7 @@ Having this document in code lets us know the devlopment state at any given poin
 - Redirects can now be declared as source and destination path pairs in the `hyde.redirects` configuration array. Hyde registers them with the kernel, includes them in `route:list`, and generates them through the normal site build.
 - Blog posts can now be kept out of the published site through two zero-configuration publication states. Setting `draft: true` in front matter excludes a post indefinitely, until the property is removed or set to `false`, which suits content that is unfinished or awaiting approval. Setting a date in the future schedules a post, excluding it until that date has passed. Drafts and scheduled posts are skipped during auto-discovery when building the site: they get no route, are not present in the kernel's page and route collections, and are left out of post listings, the sitemap, and the RSS feed. The date rule supports both front matter dates and filename date prefixes, and an explicit draft outranks the date, so a draft stays excluded even after its date passes. Posts are published by default, making `draft: false` a no-op. Both states remain served by the realtime compiler, which is treated as an authoring preview, so posts can be written and proofread at their normal URL without editing their front matter: `serve` shows everything you are working on, while `build` publishes only what is eligible. Since Hyde is a static site generator, a scheduled post does not publish itself once its date passes: it is included in the first site build run after that point, so recurring builds (for example a cron-scheduled GitHub Actions workflow) are needed for a post to go live on its own. The new `MarkdownPost::isDraft()` and `MarkdownPost::isScheduled()` methods expose the checks. ([#2441](https://github.com/hydephp/develop/issues/2441), [#2572](https://github.com/hydephp/develop/pull/2572))
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. The supported directives are `blade render` and `blade component="name"`, and the feature is controlled by `markdown.enable_blade`. ([#2504](https://github.com/hydephp/develop/pull/2504))
-- Added built-in terminal code blocks using the `terminal` fence language. Command prompts are styled for selection-free copying, and `terminal xml` supports four Symfony-style Console formatter tags. The window's title bar can be titled per block with `terminal title="Installing Hyde"`, which the terminal view receives as a `$title` variable, falling back to the `Terminal` label when a block sets no title. The modifiers are order-independent, so they can be combined as either `terminal xml title="Build output"` or `terminal title="Build output" xml`. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
+- Added built-in terminal code blocks using the `terminal` fence language. Command prompts are styled for selection-free copying, and `terminal xml` supports four Symfony-style Console formatter tags. The window's title bar can be titled per block with `terminal title="Installing Hyde"`, falling back to the `Terminal` label when a block sets no title. The modifiers are order-independent, so they can be combined as either `terminal xml title="Build output"` or `terminal title="Build output" xml`. Terminal windows render through the publishable `components/markdown/terminal.blade.php` view, which is backed by the new `TerminalBlockComponent` Blade component. Its public properties (`$contents`, `$literal`, `$title`, and `$usesSymfonyFormatting`) are the view's data contract, and the component can be constructed and rendered on its own with `toHtml()` to output a terminal window without writing any Markdown, including with attributes through `withAttributes()` or as a Blade tag registered in a service provider. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
 
 ### Feature Changes
 
@@ -123,3 +123,27 @@ The title is passed to the view verbatim as a nullable string rather than pre-re
 published view can define its own fallback for untitled blocks, which the shipped view demonstrates with
 `{{ $title ?? 'Terminal' }}`. An explicitly empty title is therefore distinguishable from an omitted one, and renders
 an empty title bar as written.
+
+## Terminal block view model motivation
+
+The terminal block is rendered by a class, `TerminalBlockComponent`, rather than by a renderer assembling an array of
+view data. The array version worked, but the contract only existed as the arguments of a `view()` call: three classes
+had to agree on it, and nothing declared it for a reader, an IDE, or the documentation.
+
+It is a Laravel `Illuminate\View\Component` rather than a homebrew data object because that contract already exists and
+is already understood. Public properties become view data, published views keep taking precedence, and the standard
+component features (attribute bags, subclassing, registering the class as an `<x-…>` tag) come along at no cost. A
+homebrew object would have needed all of that reimplemented to reach parity, and would have looked like an ordinary
+Blade component to users while behaving slightly differently.
+
+Blade's own bookkeeping properties are excluded from the view data so that the documented contract is exactly what the
+view receives. The component is not registered as a Blade tag by default, since the tag would take the terminal output
+as an attribute rather than a slot, which reads poorly enough that it is better left as an opt-in a project can make.
+
+The syntax tree node holds the component instead of duplicating its properties, which keeps a single source of truth for
+the block's shape, and leaves the node and the renderer as the thin CommonMark adapters they should be. The component is
+constructed while transforming the document, so the parsed block and the object are created together.
+
+The finished body is an `HtmlString`, not a string, so that a view can echo it with either `{{ }}` or `{!! !!}` without
+double-escaping it. The unrendered output is passed along as `$literal` beside it, which a view needs for things like a
+copy button, and which is the reason the two are separate properties rather than one overloaded value.
