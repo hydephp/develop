@@ -470,7 +470,7 @@ normally trusted and reviewed. Disable it when processing Markdown from outside 
 
 HydePHP also allows you to use Blade code in your Markdown files. This is enabled by default in HydePHP v3 because
 project source is normally trusted and reviewed. The `enable_blade` setting controls both `[Blade]:` directives and
-executable `blade render` and `blade component(name)` fenced code blocks.
+executable `blade render` and `blade component="name"` fenced code blocks.
 
 Blade code can execute arbitrary PHP during the build. Disable it when processing Markdown from outside your trusted
 review process:

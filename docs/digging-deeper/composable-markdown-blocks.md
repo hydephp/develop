@@ -57,7 +57,7 @@ loops, `@include`, config calls, and the full Tailwind class set inside them.
 | [Coloured blockquotes](#coloured-blockquotes) | `>info Text`            | `colored-blockquote.blade.php`     | Markdown pre-processor |
 | [Headings](#headings)                   | `## Heading`                  | `markdown-heading.blade.php`       | CommonMark renderer  |
 | [Filepath labels](#code-block-filepath-labels) | `// filepath: foo.php` | `filepath-label.blade.php`         | Markdown post-processor |
-| [Blade component blocks](#blade-component-blocks) | ` ```blade component(x) ` | *any component you write*     | Markdown pre-processor |
+| [Blade component blocks](#blade-component-blocks) | ` ```blade component="x" ` | *any component you write*    | Markdown pre-processor |
 
 All view paths are relative to `resources/views/components/` in the framework package, and to
 `resources/views/vendor/hyde/components/` once published into your project.
@@ -124,7 +124,7 @@ phases, orchestrated by the `MarkdownService`:
 
 **1. Pre-processors** run against the raw Markdown string, before the parser sees it.
 
-- `BladeBlockProcessor` — extracts ` ```blade render ` and ` ```blade component(name) ` blocks, replacing each with a
+- `BladeBlockProcessor` — extracts ` ```blade render ` and ` ```blade component="name" ` blocks, replacing each with a
   placeholder comment so nothing downstream tries to parse their contents.
 - `BladeDownProcessor` — handles single-line `[Blade]:` directives.
 - `ShortcodeProcessor` — expands coloured blockquotes into rendered HTML.
@@ -398,11 +398,11 @@ than a wrapper around the code block.
 
 ## Blade Component Blocks
 
-The blocks above are Hyde's own. The `blade component(name)` fenced block is the escape hatch that lets *any* component
+The blocks above are Hyde's own. The `blade component="name"` fenced block is the escape hatch that lets *any* component
 you write become a Markdown block:
 
 ````markdown
-```blade component(alert)
+```blade component="alert"
 ---
 type: warning
 title: Check this
@@ -625,7 +625,7 @@ fine; block-level Markdown inside the blockquote does not.
 
 ### Blade blocks depend on configuration
 
-`blade render` and `blade component(name)` blocks are gated behind `markdown.enable_blade`. If your site builds Markdown
+`blade render` and `blade component="name"` blocks are gated behind `markdown.enable_blade`. If your site builds Markdown
 from outside your trusted review process, that setting should be off — and any block you built on top of Blade blocks
 will stop rendering with it. Custom CommonMark extensions are unaffected.
 
