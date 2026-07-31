@@ -194,14 +194,12 @@ $ composer require hyde/framework
 $ composer require hyde/framework
 ```
 
-Double quotes are canonical, matching how attributes are written in HTML and Blade, but single quotes are accepted as
-an equivalent alternative, which is useful when the title itself contains a double quote. The title is escaped when it
-is rendered, so it is safe to use any characters in it, apart from the quote character enclosing it.
+Double quotes are canonical, matching how attributes are written in HTML and Blade, but single quotes are also
+accepted, which is useful when the title contains a double quote. The title is HTML-escaped when rendered.
 
-An empty title (`title=""`) is respected as written, leaving the title bar with just the window buttons. A `title`
-that isn't a quoted value — unquoted, never closing its quote, or spaced around the `=` — is rejected with an
-exception instead of being guessed at, so that a typo surfaces during the build rather than silently dropping the
-title.
+An empty title (`title=""`) is respected as written, leaving the title bar with only the window controls. The `title`
+modifier must otherwise use a quoted value with no whitespace around the `=`. Malformed title syntax causes the build
+to fail rather than being silently ignored.
 
 #### Symfony formatting
 

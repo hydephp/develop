@@ -212,7 +212,7 @@ class TerminalCodeBlocksTest extends TestCase
                 $this->fail("The malformed title [$modifier] was not rejected.");
             } catch (InvalidArgumentException $exception) {
                 $this->assertStringContainsString('Invalid terminal block title', $exception->getMessage());
-                $this->assertStringContainsString('Expected a quoted value, like title="My title".', $exception->getMessage());
+                $this->assertStringContainsString('Expected syntax like title="My title".', $exception->getMessage());
             }
         }
     }

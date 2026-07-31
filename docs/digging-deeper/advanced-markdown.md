@@ -160,10 +160,11 @@ Which renders as:
 $ composer require hyde/framework
 ```
 
-Double quotes are canonical, but single quotes work just as well, which helps when the title contains a double quote.
-The title is escaped when rendered, so any characters other than the enclosing quote are safe to use. A title that
-isn't a quoted value — unquoted, never closing its quote, or spaced around the `=` — is reported as an error instead
-of being guessed at.
+Double quotes are canonical, but single quotes are also accepted, which is useful when the title contains a double
+quote. The title is HTML-escaped when rendered.
+
+The `title` modifier must use a quoted value with no whitespace around the `=`, such as `title="Build output"`.
+Unquoted values, unclosed quotes, and whitespace around the `=` are reported as errors instead of being guessed at.
 
 ### Symfony Console formatting
 

@@ -114,9 +114,10 @@ space-separated tokens.
 Rejecting a malformed title departs from how the block treats an unknown modifier, which is ignored so that a modifier
 added in a future version does not break a page rendered by an older one. The asymmetry is deliberate: `title=Build` is
 not a modifier this version doesn't know about, it is one it does know about, written wrong, and silently discarding it
-would leave an author looking at a window still labelled `Terminal` with nothing to explain why. The same goes for a
-bare `title` and for a space around the `=`, which is why tokens are matched only between whitespace boundaries: it
-keeps a modifier from being recognized inside a larger typo like `title="One"xml`.
+would leave an author looking at a window still labelled `Terminal` with nothing to explain why. Malformed forms such
+as `title`, `title=Build`, and `title = "Build"` are rejected explicitly because they are recognizable attempts to use
+a supported modifier. Tokens are also matched only at whitespace boundaries, preventing a modifier from being
+recognized inside a larger malformed token such as `title="One"xml`.
 
 The title is passed to the view verbatim as a nullable string rather than pre-resolved to the default label, so that a
 published view can define its own fallback for untitled blocks, which the shipped view demonstrates with

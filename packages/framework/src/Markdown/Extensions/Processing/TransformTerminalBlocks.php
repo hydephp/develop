@@ -78,7 +78,7 @@ class TransformTerminalBlocks
             // A malformed title, on the other hand, is a typo we should not silently discard.
             if ($word === 'title' || str_starts_with($word, 'title=')) {
                 throw new InvalidArgumentException(sprintf(
-                    'Invalid terminal block title [%s]. Expected a quoted value, like title="My title".', $token['word']
+                    'Invalid terminal block title [%s]. Expected syntax like title="My title".', $token['word']
                 ));
             }
         }
