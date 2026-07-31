@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Services\MarkdownService;
+use Hyde\Framework\Views\Components\TerminalBlockComponent;
 use Hyde\Markdown\Extensions\TerminalExtension;
 use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
 use Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer;
 use Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Testing\TestCase;
+use Illuminate\Support\HtmlString;
 use InvalidArgumentException;
+use League\CommonMark\Event\DocumentParsedEvent;
+use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
+use League\CommonMark\Node\Block\Document;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use Mockery;
@@ -19,6 +24,7 @@ use Torchlight\Commonmark\BaseExtension;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalExtension::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlock::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlockComponent::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlockRenderer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TransformTerminalBlocks::class)]
 class TerminalCodeBlocksTest extends TestCase
@@ -259,5 +265,88 @@ class TerminalCodeBlocksTest extends TestCase
 
         $this->assertSame([], BaseExtension::$torchlightBlocks);
         $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
+    }
+
+    public function testParsedBlocksCarryTheComponentTheyWereParsedInto(): void
+    {
+        $document = new Document();
+
+        $fence = new FencedCode(3, '`', 0);
+        $fence->setInfo('terminal xml title="Build output"');
+        $fence->setLiteral('$ php hyde build');
+
+        $document->appendChild($fence);
+
+        (new TransformTerminalBlocks())(new DocumentParsedEvent($document));
+
+        /** @var TerminalBlock $node */
+        $node = $document->firstChild();
+
+        $this->assertInstanceOf(TerminalBlock::class, $node);
+        $this->assertInstanceOf(TerminalBlockComponent::class, $node->component);
+
+        $this->assertSame('$ php hyde build', $node->component->literal);
+        $this->assertSame('Build output', $node->component->title);
+        $this->assertTrue($node->component->usesSymfonyFormatting);
+    }
+
+    public function testComponentCanBeConstructedAndRenderedWithoutMarkdown(): void
+    {
+        $html = (new TerminalBlockComponent('$ php hyde build', 'Building the site'))->toHtml();
+
+        $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
+        $this->assertStringContainsString('<span>Building the site</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build', $html);
+    }
+
+    public function testComponentRendersTheSameHtmlAsTheEquivalentMarkdownBlock(): void
+    {
+        // The literal CommonMark hands the component keeps the trailing newline from the fence
+        $component = new TerminalBlockComponent("<info>Hyde was installed successfully.</info>\n", 'Build output', true);
+
+        $this->assertSame(
+            trim(Markdown::render("```terminal xml title=\"Build output\"\n<info>Hyde was installed successfully.</info>\n```")),
+            trim($component->toHtml())
+        );
+    }
+
+    public function testComponentPropertiesMakeUpTheViewData(): void
+    {
+        $component = new TerminalBlockComponent('$ php hyde build', 'Build output', true);
+
+        $data = $component->data();
+
+        $this->assertSame('$ php hyde build', $data['literal']);
+        $this->assertSame('Build output', $data['title']);
+        $this->assertTrue($data['usesSymfonyFormatting']);
+        $this->assertSame($component->contents, $data['contents']);
+    }
+
+    public function testComponentContentsAreAnHtmlStringOfFinishedMarkup(): void
+    {
+        $component = new TerminalBlockComponent('<info>Ready</info> <b>Bold</b>', usesSymfonyFormatting: true);
+
+        $this->assertInstanceOf(HtmlString::class, $component->contents);
+
+        $this->assertSame(
+            '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span> &lt;b&gt;Bold&lt;/b&gt;',
+            $component->contents->toHtml()
+        );
+    }
+
+    public function testComponentTitleDefaultsToNullSoTheViewCanDecideTheFallback(): void
+    {
+        $this->assertNull((new TerminalBlockComponent('$ php hyde build'))->title);
+
+        $this->assertStringContainsString('<span>Terminal</span>', (new TerminalBlockComponent('$ php hyde build'))->toHtml());
+    }
+
+    public function testComponentAttributesAreMergedIntoTheTerminalWindow(): void
+    {
+        $html = (new TerminalBlockComponent('$ php hyde build'))->withAttributes(['id' => 'build-log', 'class' => 'shadow-lg'])->toHtml();
+
+        $this->assertStringContainsString('id="build-log"', $html);
+        $this->assertStringContainsString('shadow-lg', $html);
+        $this->assertStringContainsString('hyde-terminal', $html);
     }
 }

@@ -207,6 +207,11 @@ php hyde publish:views components
 The terminal component will be published to
 `resources/views/vendor/hyde/components/markdown/terminal.blade.php`.
 
+The window is also available as a Blade component you can render yourself, which is useful when the output comes from
+somewhere other than a Markdown file. See
+[Composable Markdown Blocks](composable-markdown-blocks#rendering-terminal-windows-from-php) for the view contract and
+the ways to customize it.
+
 ## Coloured Blockquotes
 
 The HydePHP Markdown converter also supports some extra directives and features. One of them being four different

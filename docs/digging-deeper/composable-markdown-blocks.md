@@ -39,8 +39,8 @@ A composable block has three moving parts:
 2. **A processor** — the Hyde code that recognizes the syntax and gathers the data out of it.
 3. **A view** — a Blade template that turns that data into HTML.
 
-The contract between the processor and the view is just an array of variables. That is the whole trick, and it's what
-makes these blocks composable: you can replace the third part without touching the first two.
+The contract between the processor and the view is the data that passes between them. That is the whole trick, and it's
+what makes these blocks composable: you can replace the third part without touching the first two.
 
 ```
 Markdown source  ─►  Processor  ─►  view data  ─►  Blade view  ─►  HTML
@@ -48,6 +48,27 @@ Markdown source  ─►  Processor  ─►  view data  ─►  Blade view  ─�
 
 Because the view is a normal Blade template, everything you already know applies. You can use components, conditionals,
 loops, `@include`, config calls, and the full Tailwind class set inside them.
+
+### View models
+
+For most blocks that view data is a plain array, assembled where the block is rendered. It works, but nothing declares
+which variables a view may use: the contract only exists as the arguments of a `view()` call, and your IDE can't see it.
+
+Terminal blocks use a **view model** instead — a Blade component class that states what the block is made of, carries
+its data, and renders itself through the view:
+
+```php
+use Hyde\Framework\Views\Components\TerminalBlockComponent;
+
+echo (new TerminalBlockComponent('$ php hyde build', title: 'Building the site'))->toHtml();
+```
+
+The constructor is the block's parsed shape, the public properties are exactly what the view receives, and `toHtml()`
+resolves the same view a Markdown block does. So the class is three things at once: the documented contract, the object
+the Markdown pipeline passes around, and a generator you can use on its own to render a block from anywhere.
+
+These are ordinary [Laravel Blade components](https://laravel.com/docs/blade#components), not a Hyde invention, so
+everything they normally do applies — attribute bags, subclassing, and registering the class as an `<x-…>` tag.
 
 ## Blocks At a Glance
 
@@ -60,7 +81,8 @@ loops, `@include`, config calls, and the full Tailwind class set inside them.
 | [Blade component blocks](#blade-component-blocks) | ` ```blade component="x" ` | *any component you write*    | Markdown pre-processor |
 
 All view paths are relative to `resources/views/components/` in the framework package, and to
-`resources/views/vendor/hyde/components/` once published into your project.
+`resources/views/vendor/hyde/components/` once published into your project. Terminal blocks are the one block backed by
+a [view model](#view-models); the others hand their view a plain array.
 
 ## Publishing the Views
 
@@ -132,8 +154,8 @@ phases, orchestrated by the `MarkdownService`:
 
 **2. CommonMark conversion** parses the Markdown into an abstract syntax tree and renders it.
 
-- `TerminalExtension` is always registered. It converts matching fenced code nodes into `TerminalBlock` nodes and
-  renders them through the terminal view.
+- `TerminalExtension` is always registered. It converts matching fenced code nodes into terminal block components, and
+  renders those through the terminal view.
 - `HeadingRenderer` replaces CommonMark's default heading renderer with Hyde's Blade-backed one.
 - Any extensions listed in `markdown.extensions` are registered here too, as is the Torchlight extension when enabled.
 
@@ -223,19 +245,67 @@ usual, including unknown tags and tags that are not closed in the order they wer
 
 **View:** `hyde::components.markdown.terminal`
 
-| Variable    | Type            | Description                                                                    |
-|-------------|-----------------|--------------------------------------------------------------------------------|
-| `$contents` | `string`        | The pre-rendered, already-escaped HTML for the terminal body. Echo with `{!! !!}`. |
-| `$title`    | `string`/`null` | The title set by the block, or `null` when it did not set one.                  |
+**View model:** `Hyde\Framework\Views\Components\TerminalBlockComponent`
 
-The renderer does the per-line work before the view is involved: it escapes the raw text, wraps `$ ` prompts in
-`hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present — converts Symfony
-Console formatter tags into coloured spans. The view receives a single finished string.
+Every public property of the view model is a variable the view receives, and nothing else is passed to it:
+
+| Variable                 | Type                    | Description                                                                       |
+|--------------------------|-------------------------|-----------------------------------------------------------------------------------|
+| `$contents`              | `HtmlString`            | The terminal body as finished HTML, escaped and marked up for display.            |
+| `$title`                 | `string`/`null`         | The title set by the block, or `null` when it did not set one.                     |
+| `$literal`               | `string`                | The terminal output as it was written, before any markup was applied.              |
+| `$usesSymfonyFormatting` | `bool`                  | Whether the block set the `xml` modifier.                                          |
+| `$attributes`            | `ComponentAttributeBag` | The standard Blade component attribute bag, empty for blocks written in Markdown.  |
+
+The component does the per-line work when it is constructed, before the view is involved: it escapes the raw text, wraps
+`$ ` prompts in `hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present —
+converts Symfony Console formatter tags into coloured spans. The view receives a single finished string.
+
+That string is an `HtmlString`, so `{{ $contents }}` and `{!! $contents !!}` both render it as markup, and there is no
+way to double-escape it by mistake. `$literal` is the same output before any of that happened, which is what you want
+for a copy-to-clipboard button or a plain-text fallback — remember to escape it yourself when you echo it.
 
 The title is passed through as it was written, so the view is what decides both how it is displayed and what an
 untitled block falls back to. The shipped view escapes it with `{{ }}` and falls back to `Terminal`.
 
->danger `$contents` is already escaped by the renderer, which is why the view echoes it unescaped. If you build your own view, do not re-escape it with `{{ }}` (you will see markup as text), and do not pass unescaped user content into it from elsewhere.
+>warning `$contents` is trusted HTML the component built, while `$literal` is untrusted user text. If you build your own view, keep them apart: never echo `$literal` raw, and never pass unescaped content of your own into `$contents`.
+
+### Rendering terminal windows from PHP
+
+The view model is a normal object, so you can build a terminal window without writing any Markdown. This is useful for
+a Blade page or layout, a build task, or a custom page class that renders captured console output:
+
+```php
+use Hyde\Framework\Views\Components\TerminalBlockComponent;
+
+$terminal = new TerminalBlockComponent(
+    literal: $process->getOutput(),
+    title: 'Build output',
+    usesSymfonyFormatting: true,
+);
+
+echo $terminal->toHtml();
+```
+
+The constructor takes the same data the table above describes, and `toHtml()` renders it through the terminal view —
+including your published copy of that view, if you have one. Blocks written in Markdown are built exactly this way.
+
+Being a Blade component also means `withAttributes()` works, which the shipped view merges onto the `<figure>` element:
+
+```php
+echo (new TerminalBlockComponent('$ php hyde build'))->withAttributes(['id' => 'build-log'])->toHtml();
+```
+
+And if you want the window available as a tag in your own Blade files, register the class in a service provider:
+
+```php
+// filepath: app/Providers/AppServiceProvider.php
+Blade::component('terminal', TerminalBlockComponent::class);
+```
+
+```blade
+<x-terminal :literal="$output" title="Build output" />
+```
 
 ### Class hooks
 
@@ -259,7 +329,7 @@ Say you want blocks that set no title of their own to show the current working d
 
 ```blade
 <!-- filepath: resources/views/vendor/hyde/components/markdown/terminal.blade.php -->
-<figure class="hyde-terminal not-prose my-4 overflow-hidden rounded-md bg-[#292D3E] text-[#A6ACCD]">
+<figure {{ $attributes->class('hyde-terminal not-prose my-4 overflow-hidden rounded-md bg-[#292D3E] text-[#A6ACCD]') }}>
     <figcaption class="hyde-terminal-header flex items-center gap-3 bg-[#212529] px-4 py-2.5 font-sans text-xs leading-none">
         <span class="hyde-terminal-controls flex gap-1.5" aria-hidden="true">
             <span class="size-2.5 rounded-full bg-[#FF5F57]"></span>
@@ -268,12 +338,16 @@ Say you want blocks that set no title of their own to show the current working d
         </span>
         <span>{{ $title ?? '~/my-project' }}</span>
     </figcaption>
-    <pre class="hyde-terminal-body m-0 overflow-x-auto rounded-none bg-[#292D3E] p-4 text-[#A6ACCD]"><code class="block whitespace-pre font-mono text-sm leading-relaxed">{!! $contents !!}</code></pre>
+    <pre class="hyde-terminal-body m-0 overflow-x-auto rounded-none bg-[#292D3E] p-4 text-[#A6ACCD]"><code class="block whitespace-pre font-mono text-sm leading-relaxed">{{ $contents }}</code></pre>
 </figure>
 ```
 
-Because it's just Blade, you could go further: add a copy button, wire the title to a config value, or drop the window
-chrome entirely for a minimal look.
+Because it's just Blade, you could go further: wire the title to a config value, drop the window chrome entirely for a
+minimal look, or use the raw output for a copy button next to the rendered one:
+
+```blade
+<button type="button" class="hyde-terminal-copy" data-clipboard="{{ $literal }}">Copy</button>
+```
 
 ## Coloured Blockquotes
 
@@ -494,9 +568,54 @@ The framework's own blocks aren't special-cased — they are ordinary CommonMark
 configuration. You can add your own the same way. Here is a complete `callout` block, modelled directly on how Hyde
 implements terminal blocks.
 
-### 1. The node
+### 1. The view model
 
-A node is a value object holding the data you parsed out of the Markdown.
+Start with the contract: a Blade component holding the data your block is made of, and rendering it through a view.
+Only its public properties reach the view, so `$literal` stays a constructor argument while `$type` becomes one.
+
+```php
+// filepath: app/Markdown/CalloutBlockComponent.php
+<?php
+
+namespace App\Markdown;
+
+use Hyde\Markdown\Models\Markdown;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\HtmlString;
+use Illuminate\View\Component;
+
+class CalloutBlockComponent extends Component implements Htmlable
+{
+    public readonly HtmlString $contents;
+
+    public function __construct(string $literal, public readonly string $type = 'note')
+    {
+        $this->contents = new HtmlString(Markdown::render($literal));
+    }
+
+    public function toHtml(): string
+    {
+        return Blade::renderComponent($this);
+    }
+
+    public function render(): ViewContract
+    {
+        return View::make('components.callout');
+    }
+}
+```
+
+Note that `Markdown::render()` starts a nested conversion, which is what lets the callout body contain Markdown. If your
+block's content should be treated as literal text instead, escape it with `e()` and skip the nested render — that is
+what the terminal component does. Either way, wrapping finished HTML in an `HtmlString` tells the view it is markup and
+not text to escape again.
+
+### 2. The node
+
+The node is what lives in the syntax tree. It only has to carry the component from the transformer to the renderer.
 
 ```php
 // filepath: app/Markdown/CalloutBlock.php
@@ -508,16 +627,14 @@ use League\CommonMark\Node\Block\AbstractBlock;
 
 class CalloutBlock extends AbstractBlock
 {
-    public function __construct(
-        public readonly string $literal,
-        public readonly string $type = 'note',
-    ) {
+    public function __construct(public readonly CalloutBlockComponent $component)
+    {
         parent::__construct();
     }
 }
 ```
 
-### 2. The transformer
+### 3. The transformer
 
 The transformer walks the parsed document and swaps matching nodes for yours. Using the `DocumentParsedEvent` means you
 work on a real syntax tree, so you never have to worry about matching text inside other code blocks.
@@ -545,18 +662,18 @@ class TransformCalloutBlocks
 
         // Collect first, then replace, so we don't mutate the tree while iterating it
         foreach ($matches as $node) {
-            $node->replaceWith(new CalloutBlock(
+            $node->replaceWith(new CalloutBlock(new CalloutBlockComponent(
                 $node->getLiteral(),
                 strtolower($node->getInfoWords()[1] ?? 'note'),
-            ));
+            )));
         }
     }
 }
 ```
 
-### 3. The renderer
+### 4. The renderer
 
-The renderer is where the block becomes composable: it gathers view data and delegates the markup to Blade.
+With the view model doing the work, the renderer is just the adapter between CommonMark and your component.
 
 ```php
 // filepath: app/Markdown/CalloutBlockRenderer.php
@@ -564,7 +681,6 @@ The renderer is where the block becomes composable: it gathers view data and del
 
 namespace App\Markdown;
 
-use Hyde\Markdown\Models\Markdown;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
@@ -577,21 +693,14 @@ class CalloutBlockRenderer implements NodeRendererInterface
             throw new \InvalidArgumentException('Incompatible node type: '.$node::class);
         }
 
-        return view('components.callout', [
-            'type' => $node->type,
-            'contents' => Markdown::render($node->literal),
-        ])->render();
+        return $node->component->toHtml();
     }
 }
 ```
 
-Note that `Markdown::render()` starts a nested conversion, which is what lets the callout body contain Markdown. If your
-block's content should be treated as literal text instead, escape it with `e()` and skip the nested render — that is
-what the terminal renderer does.
+### 5. The extension
 
-### 4. The extension
-
-The extension wires the two together.
+The extension wires the transformer and the renderer into the Markdown environment.
 
 ```php
 // filepath: app/Markdown/CalloutExtension.php
@@ -614,7 +723,7 @@ class CalloutExtension implements ExtensionInterface
 }
 ```
 
-### 5. The view
+### 6. The view
 
 ```blade
 <!-- filepath: resources/views/components/callout.blade.php -->
@@ -627,7 +736,7 @@ class CalloutExtension implements ExtensionInterface
 </aside>
 ```
 
-### 6. Register it
+### 7. Register it
 
 ```php
 // filepath: config/markdown.php
@@ -650,8 +759,10 @@ Blocks you build this way are **composable** in exactly the same way the built-i
 
 A few conventions worth following, drawn from how the built-in blocks are written:
 
-- **Escape in the renderer, echo raw in the view.** Decide once, in PHP, whether a value is trusted HTML or user text.
-  A view that receives a mix of both is a view that eventually renders an injection.
+- **Declare the contract in a class.** A view model makes the block's data discoverable, keeps the transformer and the
+  renderer honest about it, and gives you an object you can render on its own — see [View models](#view-models).
+- **Escape in PHP, echo raw in the view.** Decide once, before the view runs, whether a value is trusted HTML or user
+  text. A view that receives a mix of both is a view that eventually renders an injection.
 - **Pass data, not markup.** Give the view the block's *type*, *level*, or *path* rather than a pre-baked class string.
   It costs nothing and it's the difference between a view that can be restyled and one that can only be replaced.
 - **Add stable class hooks.** A non-utility class like `my-callout` on the root element lets people restyle your block
