@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Views\Components;
 
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
@@ -24,12 +23,14 @@ use function sprintf;
 use function str_repeat;
 
 /**
- * A terminal window, rendered through the publishable terminal view.
+ * Backs the terminal block view, so that the data it is given has a defined shape.
  *
- * The public properties make up the data the view works with. Blocks written in Markdown are parsed
- * into instances of this class, which can also be constructed to render a window from anywhere else.
+ * The public properties are the variables the view receives, which is the part of this
+ * that is documented, as the view can be published and edited.
+ *
+ * @internal
  */
-class TerminalBlockComponent extends Component implements Htmlable
+class TerminalBlockComponent extends Component
 {
     /** The terminal output as finished HTML, escaped and marked up for display. */
     public readonly HtmlString $contents;
@@ -42,12 +43,9 @@ class TerminalBlockComponent extends Component implements Htmlable
         $this->contents = new HtmlString($this->formatContents());
     }
 
-    /**
-     * Render the terminal window to HTML using the terminal view.
-     */
     public function toHtml(): string
     {
-        return $this->shouldRender() ? Blade::renderComponent($this) : '';
+        return Blade::renderComponent($this);
     }
 
     /** @inheritDoc */

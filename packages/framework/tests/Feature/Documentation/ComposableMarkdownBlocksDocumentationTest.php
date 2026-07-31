@@ -11,7 +11,6 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
-use Hyde\Framework\Views\Components\TerminalBlockComponent;
 use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
 use Hyde\Markdown\Extensions\TerminalExtension;
 use Hyde\Markdown\Models\Markdown;
@@ -27,13 +26,9 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\HtmlString;
-use Illuminate\View\Component;
 use InvalidArgumentException;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
@@ -87,7 +82,6 @@ use function windows_os;
 #[CoversClass(MarkdownService::class)]
 #[CoversClass(TerminalExtension::class)]
 #[CoversClass(TerminalBlock::class)]
-#[CoversClass(TerminalBlockComponent::class)]
 #[CoversClass(\Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer::class)]
 #[CoversClass(\Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks::class)]
 #[CoversClass(HeadingRenderer::class)]
@@ -493,24 +487,28 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
     public function testEveryDocumentedViewVariableIsGivenToTheView()
     {
-        $table = strstr(strstr($this->documentation(), '**View model:**'), '### Rendering terminal windows', true);
+        $table = strstr(strstr($this->documentation(), '**View:** `hyde::components.markdown.terminal`'), '### Class hooks', true);
 
         preg_match_all('/^\| `\\$(\w+)`/m', $table, $matches);
 
-        $this->assertEqualsCanonicalizing(['contents', 'literal', 'title', 'usesSymfonyFormatting', 'attributes'], $matches[1]);
+        $this->assertEqualsCanonicalizing(['contents', 'title', 'literal', 'usesSymfonyFormatting'], $matches[1]);
 
-        $data = (new TerminalBlockComponent('$ php hyde build', 'Build output', true))->data();
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
+            '[{{ implode(",", array_keys(get_defined_vars()["__data"])) }}]'
+        );
+
+        $variables = Markdown::render("```terminal\nDone!\n```");
 
         foreach ($matches[1] as $variable) {
-            $this->assertArrayHasKey($variable, $data, "The documented view variable [\$$variable] is not given to the view.");
+            $this->assertStringContainsString($variable, $variables, "The documented view variable [\$$variable] is not given to the view.");
         }
     }
 
-    public function testTheTerminalViewReceivesASingleFinishedContentsString()
+    public function testTheTerminalViewReceivesASingleFinishedContentsValue()
     {
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[class={{ $contents::class }}][contents={{ $contents }}]');
 
-        // The component does the per-line work before the view is involved
+        // Hyde does the per-line work before the view is involved
         $this->assertStringContainsString('[class='.HtmlString::class.'][contents=Building your static site!',
             Markdown::render("```terminal\nBuilding your static site!\n```")
         );
@@ -520,7 +518,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         );
     }
 
-    public function testTerminalContentsAreAlreadyEscapedByTheComponentBeforeTheViewIsInvolved()
+    public function testTerminalContentsAreAlreadyEscapedBeforeTheViewIsInvolved()
     {
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '{{ $contents }}');
 
@@ -529,7 +527,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
     public function testBothEchoSyntaxesRenderTheContentsAsMarkup()
     {
-        // Since the contents are an HtmlString, there is no way to double-escape them by mistake
+        // Since the contents are an HtmlString, escaping already-rendered markup is not possible
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[escaped={{ $contents }}][raw={!! $contents !!}]');
 
         $html = Markdown::render("```terminal\n\$ php hyde build\n```");
@@ -557,13 +555,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         $this->assertStringContainsString('[xml=true]', Markdown::render("```terminal xml\nDone!\n```"));
         $this->assertStringContainsString('[xml=false]', Markdown::render("```terminal\nDone!\n```"));
-    }
-
-    public function testTheViewReceivesAnEmptyAttributeBagForBlocksWrittenInMarkdown()
-    {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[attributes={{ $attributes }}]');
-
-        $this->assertStringContainsString('[attributes=]', Markdown::render("```terminal\nDone!\n```"));
     }
 
     public function testTheRendererWrapsPromptLinesInCommandAndPromptSpans()
@@ -674,73 +665,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[title={{ $title }}]');
 
         $this->assertStringContainsString('[title=]', Markdown::render("```terminal\nDone!\n```"));
-    }
-
-    public function testATerminalWindowCanBeBuiltAndRenderedWithoutWritingAnyMarkdown()
-    {
-        $terminal = new TerminalBlockComponent(
-            literal: '$ php hyde build',
-            title: 'Build output',
-            usesSymfonyFormatting: true,
-        );
-
-        $html = $terminal->toHtml();
-
-        $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
-        $this->assertStringContainsString('<span>Build output</span>', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build', $html);
-    }
-
-    public function testBlocksWrittenInMarkdownAreBuiltExactlyTheSameWay()
-    {
-        $terminal = new TerminalBlockComponent("<info>Ready</info>\n", 'Build output', true);
-
-        $this->assertSame(
-            trim(Markdown::render("```terminal xml title=\"Build output\"\n<info>Ready</info>\n```")),
-            trim($terminal->toHtml())
-        );
-    }
-
-    public function testTheComponentRendersThroughThePublishedViewToo()
-    {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[{{ $title }}] {{ $contents }}');
-
-        $this->assertSame('[Build output] Done!', (new TerminalBlockComponent('Done!', 'Build output'))->toHtml());
-    }
-
-    public function testEchoingTheComponentInABladeViewRendersTheWindow()
-    {
-        $terminal = new TerminalBlockComponent('$ php hyde build', 'Build output');
-
-        $html = Blade::render('{{ $terminal }}', ['terminal' => $terminal]);
-
-        $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
-        $this->assertStringContainsString('<span>Build output</span>', $html);
-
-        // Blade does not escape it, since the component is Htmlable
-        $this->assertStringNotContainsString('&lt;figure', $html);
-    }
-
-    public function testAttributesGivenToTheComponentAreMergedOntoTheFigureElement()
-    {
-        $html = (new TerminalBlockComponent('$ php hyde build'))->withAttributes(['id' => 'build-log'])->toHtml();
-
-        $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
-        $this->assertStringContainsString('id="build-log"', $html);
-    }
-
-    public function testTheComponentCanBeRegisteredAsABladeTag()
-    {
-        $this->assertSame("Blade::component('terminal', TerminalBlockComponent::class);",
-            $this->documentedSnippet('app/Providers/AppServiceProvider.php')
-        );
-
-        Blade::component('terminal', TerminalBlockComponent::class);
-
-        $html = Blade::render('<x-terminal :literal="$output" title="Build output" />', ['output' => '$ php hyde build']);
-
-        $this->assertStringContainsString('<span>Build output</span>', $html);
-        $this->assertStringContainsString('php hyde build', $html);
     }
 
     public function testEveryDocumentedTerminalClassHookTargetsTheDocumentedElement()
@@ -1191,7 +1115,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     public function testTheDocumentedWalkthroughCodeIsTheCodeThisTestExercises()
     {
         $classes = [
-            'app/Markdown/CalloutBlockComponent.php' => CalloutBlockComponent::class,
             'app/Markdown/CalloutBlock.php' => CalloutBlock::class,
             'app/Markdown/TransformCalloutBlocks.php' => TransformCalloutBlocks::class,
             'app/Markdown/CalloutBlockRenderer.php' => CalloutBlockRenderer::class,
@@ -1211,7 +1134,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         $this->assertStringContainsString('<p>A <strong>bold</strong> note.</p>', Markdown::render("```callout\nA **bold** note.\n```"));
 
-        // Whereas the terminal component escapes its contents and skips the nested render
+        // Whereas the terminal renderer escapes its contents and skips the nested render
         $this->assertStringContainsString('**not bold**', Markdown::render("```terminal\n**not bold**\n```"));
     }
 
@@ -1233,11 +1156,11 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     public function testTheBuiltInBlocksPassDataRatherThanMarkupToTheirViews()
     {
         // The blocks give the view their type, level, or path, rather than a pre-baked class string
-        $this->assertSame(['literal', 'title', 'usesSymfonyFormatting'], $this->constructorParameters(TerminalBlockComponent::class));
-
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '{{ $title }}');
         $this->publishView('vendor/hyde/components/colored-blockquote.blade.php', '{{ $class }}');
         $this->publishView('vendor/hyde/components/markdown-heading.blade.php', '{{ $level }}');
 
+        $this->assertStringContainsString('Build output', Markdown::render("```terminal title=\"Build output\"\nDone!\n```"));
         $this->assertStringContainsString('info', Markdown::render('>info Hello'));
         $this->assertStringContainsString('2', Markdown::render('## Hello'));
     }
@@ -1571,30 +1494,12 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 |
 */
 
-class CalloutBlockComponent extends Component implements Htmlable
-{
-    public readonly HtmlString $contents;
-
-    public function __construct(string $literal, public readonly string $type = 'note')
-    {
-        $this->contents = new HtmlString(Markdown::render($literal));
-    }
-
-    public function toHtml(): string
-    {
-        return $this->shouldRender() ? Blade::renderComponent($this) : '';
-    }
-
-    public function render(): ViewContract
-    {
-        return View::make('components.callout');
-    }
-}
-
 class CalloutBlock extends AbstractBlock
 {
-    public function __construct(public readonly CalloutBlockComponent $component)
-    {
+    public function __construct(
+        public readonly string $literal,
+        public readonly string $type = 'note',
+    ) {
         parent::__construct();
     }
 }
@@ -1613,10 +1518,10 @@ class TransformCalloutBlocks
 
         // Collect first, then replace, so we don't mutate the tree while iterating it
         foreach ($matches as $node) {
-            $node->replaceWith(new CalloutBlock(new CalloutBlockComponent(
+            $node->replaceWith(new CalloutBlock(
                 $node->getLiteral(),
                 strtolower($node->getInfoWords()[1] ?? 'note'),
-            )));
+            ));
         }
     }
 }
@@ -1629,7 +1534,10 @@ class CalloutBlockRenderer implements NodeRendererInterface
             throw new \InvalidArgumentException('Incompatible node type: '.$node::class);
         }
 
-        return $node->component->toHtml();
+        return view('components.callout', [
+            'type' => $node->type,
+            'contents' => Markdown::render($node->literal),
+        ])->render();
     }
 }
 

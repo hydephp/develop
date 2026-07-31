@@ -1,4 +1,4 @@
-<figure {{ $attributes->class('hyde-terminal not-prose my-4 overflow-hidden rounded-md bg-[#292D3E] text-[#A6ACCD]') }}>
+<figure class="hyde-terminal not-prose my-4 overflow-hidden rounded-md bg-[#292D3E] text-[#A6ACCD]">
     <figcaption class="hyde-terminal-header flex items-center gap-3 bg-[#212529] px-4 py-2.5 font-sans text-xs leading-none">
         <span class="hyde-terminal-controls flex gap-1.5" aria-hidden="true">
             <span class="size-2.5 rounded-full bg-[#FF5F57]"></span>
