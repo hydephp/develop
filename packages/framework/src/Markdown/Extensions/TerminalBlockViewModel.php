@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Extensions;
 
-use Illuminate\Support\HtmlString;
-
 use function array_map;
 use function array_pop;
 use function count;
@@ -22,14 +20,14 @@ use function view;
 /** @internal */
 class TerminalBlockViewModel
 {
-    public readonly HtmlString $contents;
+    public readonly string $contents;
 
     public function __construct(
         public readonly string $literal,
         public readonly ?string $title = null,
         public readonly bool $usesSymfonyFormatting = false,
     ) {
-        $this->contents = new HtmlString($this->formatContents());
+        $this->contents = $this->formatContents();
     }
 
     public function render(): string
@@ -37,12 +35,11 @@ class TerminalBlockViewModel
         return view('hyde::components.markdown.terminal', $this->viewData())->render();
     }
 
-    /** @return array{contents: HtmlString, literal: string, title: ?string} */
+    /** @return array{contents: string, title: ?string} */
     protected function viewData(): array
     {
         return [
             'contents' => $this->contents,
-            'literal' => $this->literal,
             'title' => $this->title,
         ];
     }

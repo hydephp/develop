@@ -24,7 +24,7 @@ Having this document in code lets us know the devlopment state at any given poin
 - Redirects can now be declared as source and destination path pairs in the `hyde.redirects` configuration array. Hyde registers them with the kernel, includes them in `route:list`, and generates them through the normal site build.
 - Blog posts can now be kept out of the published site through two zero-configuration publication states. Setting `draft: true` in front matter excludes a post indefinitely, until the property is removed or set to `false`, which suits content that is unfinished or awaiting approval. Setting a date in the future schedules a post, excluding it until that date has passed. Drafts and scheduled posts are skipped during auto-discovery when building the site: they get no route, are not present in the kernel's page and route collections, and are left out of post listings, the sitemap, and the RSS feed. The date rule supports both front matter dates and filename date prefixes, and an explicit draft outranks the date, so a draft stays excluded even after its date passes. Posts are published by default, making `draft: false` a no-op. Both states remain served by the realtime compiler, which is treated as an authoring preview, so posts can be written and proofread at their normal URL without editing their front matter: `serve` shows everything you are working on, while `build` publishes only what is eligible. Since Hyde is a static site generator, a scheduled post does not publish itself once its date passes: it is included in the first site build run after that point, so recurring builds (for example a cron-scheduled GitHub Actions workflow) are needed for a post to go live on its own. The new `MarkdownPost::isDraft()` and `MarkdownPost::isScheduled()` methods expose the checks. ([#2441](https://github.com/hydephp/develop/issues/2441), [#2572](https://github.com/hydephp/develop/pull/2572))
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. The supported directives are `blade render` and `blade component="name"`, and the feature is controlled by `markdown.enable_blade`. ([#2504](https://github.com/hydephp/develop/pull/2504))
-- Added built-in terminal code blocks using the `terminal` fence language. Command prompts are styled for selection-free copying, and `terminal xml` supports four Symfony-style Console formatter tags. The window's title bar can be titled per block with `terminal title="Installing Hyde"`, falling back to the `Terminal` label when a block sets no title. The modifiers are order-independent, so they can be combined as either `terminal xml title="Build output"` or `terminal title="Build output" xml`. Terminal windows render through the publishable `components/markdown/terminal.blade.php` view, which receives the window title, the finished terminal body, and the raw output the block was written with, so a published view can do things like add a copy button. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
+- Added built-in terminal code blocks using the `terminal` fence language. Command prompts are styled for selection-free copying, and `terminal xml` supports four Symfony-style Console formatter tags. The window's title bar can be titled per block with `terminal title="Installing Hyde"`, which the terminal view receives as a `$title` variable, falling back to the `Terminal` label when a block sets no title. The modifiers are order-independent, so they can be combined as either `terminal xml title="Build output"` or `terminal title="Build output" xml`. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
 
 ### Feature Changes
 
@@ -127,25 +127,26 @@ an empty title bar as written.
 ## Terminal block view model motivation
 
 The data handed to the terminal view is assembled by a class, `TerminalBlockViewModel`, rather than by a renderer
-building an array inline. This is an internal cleanup and not something a Hyde site should have to know about: the
-shape of that data was previously agreed on in three places with nothing enforcing it, and a typo in any of them was a
-runtime surprise. A typed class means the schema exists once, and the transformer and renderer are checked against it.
+building an array inline. This is purely an internal cleanup: the shape of that data was agreed on in three places with
+nothing enforcing it, and a typo in any of them was a runtime surprise. A typed class means the schema exists once, and
+the transformer and renderer are checked against it. Nothing about the feature changes, and the view is given exactly
+the variables it was given before.
 
 It is a plain class rather than an `Illuminate\View\Component`. The component base class was tried first, since these
-blocks do render Blade views, but nothing it offers is used once the class is internal: there are no attributes to
-merge, no slot, and no tag to register. What it does bring is reflection-based view data, which passes a component's
-public methods to the view alongside its properties, so the exact thing the class exists to pin down would have been
-the one thing left implicit. Declaring `viewData()` is both smaller and stricter.
+blocks do render Blade views, but nothing it offers is used for an internal class: there are no attributes to merge, no
+slot, and no tag to register. What it does bring is reflection-based view data, which passes a component's public
+methods to the view alongside its properties, so the exact thing the class exists to pin down would have been the one
+thing left implicit. A declared `viewData()` is both smaller and stricter.
 
 The syntax tree node holds the view model rather than restating its properties, which keeps one source of truth for the
 block's shape and leaves the node and renderer as the thin CommonMark adapters they should be. The view model is built
 while transforming the document, so the parsed block and its data are created together. Nothing is rendered early by
 this, as the formatting is string work on a block that is about to be rendered anyway.
 
-The view receives the finished body as an `HtmlString`, so it renders as markup through either echo syntax and cannot
-be escaped twice by mistake, and the unrendered output beside it as `$literal`, which is what a copy button or a plain
-text fallback needs. Those two are separate variables rather than one overloaded value precisely because one is trusted
-markup and the other is not. The `xml` modifier is not passed to the view, as no view has a use for it; a view that
-needs it later can be given it then.
+Ideas that came up while doing this, and were deliberately left out because the feature was not wrong and this change
+is meant to be invisible: passing the finished body as an `HtmlString` so a view can echo it with either syntax,
+passing the unrendered output alongside it for views that want a copy button, and exposing the class publicly so a
+terminal window could be rendered from PHP without writing Markdown. Each is a feature change and belongs in its own
+change, judged on its own merits.
 
-More blocks may gain the same backing later, which is a separate change; terminal blocks are the only one today.
+More blocks may gain the same backing later, which is also a separate change; terminal blocks are the only one today.

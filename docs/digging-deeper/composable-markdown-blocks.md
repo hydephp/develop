@@ -223,25 +223,19 @@ usual, including unknown tags and tags that are not closed in the order they wer
 
 **View:** `hyde::components.markdown.terminal`
 
-| Variable    | Type            | Description                                                            |
-|-------------|-----------------|------------------------------------------------------------------------|
-| `$contents` | `HtmlString`    | The terminal body as finished HTML, escaped and marked up for display. |
-| `$title`    | `string`/`null` | The title set by the block, or `null` when it did not set one.         |
-| `$literal`  | `string`        | The terminal output as it was written, before any markup was applied.  |
+| Variable    | Type            | Description                                                                    |
+|-------------|-----------------|--------------------------------------------------------------------------------|
+| `$contents` | `string`        | The pre-rendered, already-escaped HTML for the terminal body. Echo with `{!! !!}`. |
+| `$title`    | `string`/`null` | The title set by the block, or `null` when it did not set one.                  |
 
-Hyde does the per-line work before the view is involved: it escapes the raw text, wraps `$ ` prompts in
+The renderer does the per-line work before the view is involved: it escapes the raw text, wraps `$ ` prompts in
 `hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present — converts Symfony
-Console formatter tags into coloured spans. The view receives one finished value.
-
-That value is an `HtmlString` rather than a plain string, so `{{ $contents }}` and `{!! $contents !!}` both render it as
-markup, and the usual mistake of escaping already-rendered markup is not possible. `$literal` is the same output before
-any of that happened, which is what you want for a copy-to-clipboard button or a plain-text fallback — remember to
-escape it yourself when you echo it.
+Console formatter tags into coloured spans. The view receives a single finished string.
 
 The title is passed through as it was written, so the view is what decides both how it is displayed and what an
 untitled block falls back to. The shipped view escapes it with `{{ }}` and falls back to `Terminal`.
 
->warning `$contents` is trusted HTML that Hyde built, while `$literal` is untrusted user text. If you build your own view, keep them apart: never echo `$literal` raw, and never pass unescaped content of your own into `$contents`.
+>danger `$contents` is already escaped by the renderer, which is why the view echoes it unescaped. If you build your own view, do not re-escape it with `{{ }}` (you will see markup as text), and do not pass unescaped user content into it from elsewhere.
 
 ### Class hooks
 
@@ -274,16 +268,12 @@ Say you want blocks that set no title of their own to show the current working d
         </span>
         <span>{{ $title ?? '~/my-project' }}</span>
     </figcaption>
-    <pre class="hyde-terminal-body m-0 overflow-x-auto rounded-none bg-[#292D3E] p-4 text-[#A6ACCD]"><code class="block whitespace-pre font-mono text-sm leading-relaxed">{{ $contents }}</code></pre>
+    <pre class="hyde-terminal-body m-0 overflow-x-auto rounded-none bg-[#292D3E] p-4 text-[#A6ACCD]"><code class="block whitespace-pre font-mono text-sm leading-relaxed">{!! $contents !!}</code></pre>
 </figure>
 ```
 
-Because it's just Blade, you could go further: wire the title to a config value, drop the window chrome entirely for a
-minimal look, or use the raw output for a copy button next to the rendered one:
-
-```blade
-<button type="button" class="hyde-terminal-copy" data-clipboard="{{ $literal }}">Copy</button>
-```
+Because it's just Blade, you could go further: add a copy button, wire the title to a config value, or drop the window
+chrome entirely for a minimal look.
 
 ## Coloured Blockquotes
 
@@ -597,7 +587,7 @@ class CalloutBlockRenderer implements NodeRendererInterface
 
 Note that `Markdown::render()` starts a nested conversion, which is what lets the callout body contain Markdown. If your
 block's content should be treated as literal text instead, escape it with `e()` and skip the nested render — that is
-what terminal blocks do.
+what the terminal renderer does.
 
 ### 4. The extension
 

@@ -12,7 +12,6 @@ use Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer;
 use Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Testing\TestCase;
-use Illuminate\Support\HtmlString;
 use InvalidArgumentException;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -299,15 +298,20 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString('<span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build', $html);
     }
 
-    public function testViewModelContentsAreAnHtmlStringOfFinishedMarkup(): void
+    public function testViewModelGivesTheViewTheSameDataAsBefore(): void
+    {
+        $viewModel = new TerminalBlockViewModel('$ php hyde build', 'Build output');
+
+        $this->assertSame(['contents', 'title'], array_keys((fn (): array => $this->viewData())->call($viewModel)));
+    }
+
+    public function testViewModelContentsAreFinishedMarkup(): void
     {
         $viewModel = new TerminalBlockViewModel('<info>Ready</info> <b>Bold</b>', usesSymfonyFormatting: true);
 
-        $this->assertInstanceOf(HtmlString::class, $viewModel->contents);
-
         $this->assertSame(
             '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span> &lt;b&gt;Bold&lt;/b&gt;',
-            $viewModel->contents->toHtml()
+            $viewModel->contents
         );
     }
 }

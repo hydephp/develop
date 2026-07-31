@@ -28,7 +28,6 @@ use Hyde\Support\Models\Route;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\HtmlString;
 use InvalidArgumentException;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
@@ -485,30 +484,12 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringNotContainsString('torchlight', $html);
     }
 
-    public function testEveryDocumentedViewVariableIsGivenToTheView()
+    public function testTheTerminalViewReceivesASingleFinishedContentsString()
     {
-        $table = strstr(strstr($this->documentation(), '**View:** `hyde::components.markdown.terminal`'), '### Class hooks', true);
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[type={{ gettype($contents) }}][contents={!! $contents !!}]');
 
-        preg_match_all('/^\| `\\$(\w+)`/m', $table, $matches);
-
-        $this->assertEqualsCanonicalizing(['contents', 'title', 'literal'], $matches[1]);
-
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
-            '[{{ implode(",", array_keys(get_defined_vars()["__data"])) }}]'
-        );
-
-        $variables = Markdown::render("```terminal\nDone!\n```");
-
-        foreach ($matches[1] as $variable) {
-            $this->assertStringContainsString($variable, $variables, "The documented view variable [\$$variable] is not given to the view.");
-        }
-    }
-
-    public function testTheTerminalViewReceivesASingleFinishedContentsValue()
-    {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[class={{ $contents::class }}][contents={{ $contents }}]');
-
-        $this->assertStringContainsString('[class='.HtmlString::class.'][contents=Building your static site!',
+        // The renderer does the per-line work before the view is involved
+        $this->assertStringContainsString('[type=string][contents=Building your static site!',
             Markdown::render("```terminal\nBuilding your static site!\n```")
         );
 
@@ -517,33 +498,21 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         );
     }
 
-    public function testTerminalContentsAreAlreadyEscapedBeforeTheViewIsInvolved()
+    public function testTerminalContentsAreAlreadyEscapedByTheRendererBeforeTheViewIsInvolved()
     {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '{{ $contents }}');
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '{!! $contents !!}');
 
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', Markdown::render("```terminal\n<script>alert(1)</script>\n```"));
     }
 
-    public function testBothEchoSyntaxesRenderTheContentsAsMarkup()
+    public function testEchoingTheTerminalContentsEscapedWouldShowTheMarkupAsText()
     {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[escaped={{ $contents }}][raw={!! $contents !!}]');
+        // Which is why the shipped view echoes the pre-rendered contents unescaped
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '{{ $contents }}');
 
-        $html = Markdown::render("```terminal\n\$ php hyde build\n```");
-
-        $this->assertStringContainsString('[escaped=<span class="hyde-terminal-command', $html);
-        $this->assertStringContainsString('[raw=<span class="hyde-terminal-command', $html);
-        $this->assertStringNotContainsString('&lt;span class=&quot;hyde-terminal-command', $html);
-    }
-
-    public function testTheViewReceivesTheOutputAsItWasWrittenBeforeAnyMarkupWasApplied()
-    {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
-            '<button data-clipboard="{{ $literal }}">Copy</button>'
+        $this->assertStringContainsString('&lt;span class=&quot;hyde-terminal-command',
+            Markdown::render("```terminal\n\$ php hyde build\n```")
         );
-
-        $html = Markdown::render("```terminal\n\$ echo '<script>'\n```");
-
-        $this->assertStringContainsString('data-clipboard="$ echo &#039;&lt;script&gt;&#039;', $html);
     }
 
     public function testTheRendererWrapsPromptLinesInCommandAndPromptSpans()
@@ -1457,14 +1426,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $declaration = array_slice($lines, $reflection->getStartLine() - 1, $reflection->getEndLine() - $reflection->getStartLine() + 1);
 
         return trim(implode("\n", $declaration));
-    }
-
-    /** @return array<int, string> */
-    protected function constructorParameters(string $class): array
-    {
-        return array_map(fn ($parameter): string => $parameter->getName(),
-            (new ReflectionClass($class))->getConstructor()->getParameters()
-        );
     }
 
     protected function normalize(string $contents): string
