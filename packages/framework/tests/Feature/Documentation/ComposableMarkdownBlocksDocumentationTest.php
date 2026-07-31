@@ -1111,9 +1111,9 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('not-prose', $this->frameworkViewContents('filepath-label.blade.php'));
     }
 
-    public function testTheBuiltInBlocksPassDataRatherThanMarkupToTheirViews()
+    public function testTheBuiltInBlocksGiveTheirViewsSemanticValuesRatherThanPrecomputedClasses()
     {
-        // The blocks give the view their type, level, or path, rather than a pre-baked class string
+        // The blocks give the view their title, type, or level, rather than a pre-baked class string
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '{{ $title }}');
         $this->publishView('vendor/hyde/components/colored-blockquote.blade.php', '{{ $class }}');
         $this->publishView('vendor/hyde/components/markdown-heading.blade.php', '{{ $level }}');

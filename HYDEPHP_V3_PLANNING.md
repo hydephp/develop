@@ -128,9 +128,9 @@ an empty title bar as written.
 
 The data handed to the terminal view is assembled by a class, `TerminalBlockViewModel`, rather than by a renderer
 building an array inline. This is purely an internal cleanup: the shape of that data was agreed on in three places with
-nothing enforcing it, and a typo in any of them was a runtime surprise. A typed class means the schema exists once, and
-the transformer and renderer are checked against it. Nothing about the feature changes, and the view is given exactly
-the variables it was given before.
+nothing enforcing it, and a typo in any of them was a runtime surprise. A typed class means the PHP-side view-data
+assembly and types are centralized, and the transformer and renderer are checked against it. Nothing about the feature
+changes, and the view is given exactly the variables it was given before.
 
 It is a plain class rather than an `Illuminate\View\Component`. The component base class was tried first, since these
 blocks do render Blade views, but nothing it offers is used for an internal class: there are no attributes to merge, no
@@ -141,7 +141,7 @@ thing left implicit. A declared `viewData()` is both smaller and stricter.
 The syntax tree node holds the view model rather than restating its properties, which keeps one source of truth for the
 block's shape and leaves the node and renderer as the thin CommonMark adapters they should be. The view model is built
 while transforming the document, so the parsed block and its data are created together. Nothing is rendered early by
-this, as the formatting is string work on a block that is about to be rendered anyway.
+this, as the formatting is string work without invoking Blade or rendering the outer view early.
 
 Ideas that came up while doing this, and were deliberately left out because the feature was not wrong and this change
 is meant to be invisible: passing the finished body as an `HtmlString` so a view can echo it with either syntax,
