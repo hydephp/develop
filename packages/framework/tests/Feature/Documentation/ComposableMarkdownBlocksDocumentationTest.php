@@ -508,7 +508,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[class={{ $contents::class }}][contents={{ $contents }}]');
 
-        // Hyde does the per-line work before the view is involved
         $this->assertStringContainsString('[class='.HtmlString::class.'][contents=Building your static site!',
             Markdown::render("```terminal\nBuilding your static site!\n```")
         );
@@ -527,7 +526,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
     public function testBothEchoSyntaxesRenderTheContentsAsMarkup()
     {
-        // Since the contents are an HtmlString, escaping already-rendered markup is not possible
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[escaped={{ $contents }}][raw={!! $contents !!}]');
 
         $html = Markdown::render("```terminal\n\$ php hyde build\n```");
@@ -539,7 +537,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
     public function testTheViewReceivesTheOutputAsItWasWrittenBeforeAnyMarkupWasApplied()
     {
-        // Which is what a copy button or a plain text fallback needs, and why the view has to escape it itself
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
             '<button data-clipboard="{{ $literal }}">Copy</button>'
         );

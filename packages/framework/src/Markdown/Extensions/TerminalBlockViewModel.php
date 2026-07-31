@@ -19,14 +19,9 @@ use function sprintf;
 use function str_repeat;
 use function view;
 
-/**
- * Holds the data for a terminal block and renders it through the terminal view.
- *
- * @internal
- */
+/** @internal */
 class TerminalBlockViewModel
 {
-    /** The terminal output as finished HTML, escaped and marked up for display. */
     public readonly HtmlString $contents;
 
     public function __construct(
@@ -42,7 +37,7 @@ class TerminalBlockViewModel
         return view('hyde::components.markdown.terminal', $this->viewData())->render();
     }
 
-    /** @return array<string, mixed> */
+    /** @return array{contents: HtmlString, literal: string, title: ?string} */
     protected function viewData(): array
     {
         return [
