@@ -536,6 +536,93 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         // Without the modifier the tags are just escaped text
         $this->assertStringContainsString('&lt;info&gt;Info&lt;/info&gt;', Markdown::render("```terminal\n<info>Info</info>\n```"));
+
+        // Everything else is escaped as usual, including unknown tags and tags closed out of order
+        $html = Markdown::render("```terminal xml\n<unknown>Text</unknown> <info>Info</comment>\n```");
+
+        $this->assertStringContainsString('&lt;unknown&gt;Text&lt;/unknown&gt;', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-info text-[#C3E88D]">Info&lt;/comment&gt;</span>', $html);
+    }
+
+    public function testTheTitleModifierReplacesTheDefaultLabelInTheWindowTitleBar()
+    {
+        $html = Markdown::render("```terminal title=\"Installing Hyde\"\n\$ composer require hyde/framework\n```");
+
+        $this->assertStringContainsString('<span>Installing Hyde</span>', $html);
+        $this->assertStringNotContainsString('<span>Terminal</span>', $html);
+
+        // The label is only replaced for the blocks that set a title
+        $this->assertStringContainsString('<span>Terminal</span>', Markdown::render("```terminal\n\$ php hyde build\n```"));
+    }
+
+    public function testModifiersAreOrderIndependent()
+    {
+        foreach (['xml title="Build output"', 'title="Build output" xml'] as $modifiers) {
+            $html = Markdown::render("```terminal $modifiers\n<info>Hyde was installed successfully.</info>\n```");
+
+            $this->assertStringContainsString('<span>Build output</span>', $html, "The modifiers [$modifiers] did not set the title.");
+            $this->assertStringContainsString('<span class="hyde-terminal-info', $html, "The modifiers [$modifiers] did not enable Symfony formatting.");
+        }
+    }
+
+    public function testSingleQuotedTitlesAreAcceptedAsAnEquivalentAlternative()
+    {
+        $this->assertStringContainsString('<span>Build output</span>', Markdown::render("```terminal title='Build output'\nDone!\n```"));
+
+        // Which is useful when the title itself contains a double quote
+        $this->assertStringContainsString('<span>The &quot;build&quot; command</span>',
+            Markdown::render("```terminal title='The \"build\" command'\nDone!\n```")
+        );
+    }
+
+    public function testTheTitleIsEscapedWhenItIsRendered()
+    {
+        $html = Markdown::render("```terminal title=\"<script>alert(1)</script> & 'more'\"\nDone!\n```");
+
+        $this->assertStringNotContainsString('<script>', $html);
+        $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt; &amp; &#039;more&#039;', $html);
+    }
+
+    public function testAnEmptyTitleIsRespectedAsWritten()
+    {
+        $html = Markdown::render("```terminal title=\"\"\nDone!\n```");
+
+        $this->assertStringContainsString('<span></span>', $html);
+        $this->assertStringNotContainsString('<span>Terminal</span>', $html);
+
+        // The window buttons are still there
+        $this->assertStringContainsString('<span class="hyde-terminal-controls ', $html);
+    }
+
+    public function testATitleThatIsNotAQuotedValueIsRejectedInsteadOfBeingGuessedAt()
+    {
+        foreach (['title=Build', 'title="Build output', "title='Build output", 'title', 'title = "Build"'] as $modifier) {
+            try {
+                Markdown::render("```terminal $modifier\nDone!\n```");
+
+                $this->fail("The malformed title [$modifier] was not rejected.");
+            } catch (InvalidArgumentException $exception) {
+                $this->assertStringContainsString('Invalid terminal block title', $exception->getMessage());
+            }
+        }
+    }
+
+    public function testTheTerminalViewReceivesTheTitleAsItWasWrittenOrNull()
+    {
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[title={{ $title }}][type={{ gettype($title) }}]');
+
+        $this->assertStringContainsString('[title=Build output][type=string]', Markdown::render("```terminal title=\"Build output\"\nDone!\n```"));
+        $this->assertStringContainsString('[title=][type=NULL]', Markdown::render("```terminal\nDone!\n```"));
+    }
+
+    public function testTheShippedViewIsWhatFallsBackToTheDefaultTitle()
+    {
+        $this->assertStringContainsString("{{ \$title ?? 'Terminal' }}", $this->frameworkViewContents('markdown/terminal.blade.php'));
+
+        // So a view that does not implement the fallback simply renders nothing for an untitled block
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[title={{ $title }}]');
+
+        $this->assertStringContainsString('[title=]', Markdown::render("```terminal\nDone!\n```"));
     }
 
     public function testEveryDocumentedTerminalClassHookTargetsTheDocumentedElement()
@@ -1027,7 +1114,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     public function testTheBuiltInBlocksPassDataRatherThanMarkupToTheirViews()
     {
         // The blocks give the view their type, level, or path, rather than a pre-baked class string
-        $this->assertSame(['literal', 'usesSymfonyFormatting'], $this->constructorParameters(TerminalBlock::class));
+        $this->assertSame(['literal', 'usesSymfonyFormatting', 'title'], $this->constructorParameters(TerminalBlock::class));
 
         $this->publishView('vendor/hyde/components/colored-blockquote.blade.php', '{{ $class }}');
         $this->publishView('vendor/hyde/components/markdown-heading.blade.php', '{{ $level }}');

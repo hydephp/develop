@@ -144,6 +144,28 @@ $ php hyde publish
 Lines beginning with a `$ ` prompt are highlighted as commands. The prompt is excluded from text selection, so you
 can select and copy the command without including it.
 
+### Window titles
+
+Add the `title` modifier to replace the default `Terminal` label in the window's title bar:
+
+````markdown
+```terminal title="Installing Hyde"
+$ composer require hyde/framework
+```
+````
+
+Which renders as:
+
+```terminal title="Installing Hyde"
+$ composer require hyde/framework
+```
+
+Double quotes are canonical, but single quotes are also accepted, which is useful when the title contains a double
+quote. The title is HTML-escaped when rendered.
+
+The `title` modifier must use a quoted value with no whitespace around the `=`, such as `title="Build output"`.
+Unquoted values, unclosed quotes, and whitespace around the `=` are reported as errors instead of being guessed at.
+
 ### Symfony Console formatting
 
 Add the `xml` modifier to style four commonly used Symfony Console formatter tags using colors from Hyde's terminal
@@ -167,6 +189,9 @@ theme:
 
 The formatter only recognizes these four tags. All other terminal content, including HTML, is escaped and displayed
 as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output.
+
+Modifiers can be combined in any order, so `terminal xml title="Build output"` and `terminal title="Build output" xml`
+are the same thing.
 
 The terminal markup provides stable styling hooks for customization. Use `hyde-terminal-body` to change the output
 area's default text and background colors, and `hyde-terminal` to style the outer container. The
