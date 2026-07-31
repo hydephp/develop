@@ -53,6 +53,7 @@ class SchemaContractsTest extends UnitTestCase
             'description' => 'string',
             'category' => 'string',
             'date' => 'string',
+            'draft' => 'bool',
             'author' => ['string', AuthorSchema::AUTHOR_SCHEMA],
             'image' => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
         ]);

@@ -64,7 +64,7 @@ You **optionally** can set a blog post's publication date by prefixing the filen
 - Days and months must use leading zeros (e.g., `2024-01-05` not `2024-1-5`)
 - Time is optional and uses 24-hour format with a hyphen separator (`HH-MM`)
 - Front matter dates take precedence over filename dates
-- Dates in the future mark the post as a [scheduled draft](#scheduling-posts-with-future-dates)
+- Dates in the future mark the post as a [scheduled post](#scheduled-posts)
 - Using date prefixes is entirely optional!
 
 This feature provides an intuitive way to organize your blog posts chronologically while maintaining clean URLs, and matches the behavior of many popular static site generators for interoperability.
@@ -98,13 +98,44 @@ Autem aliquid alias explicabo consequatur similique,
 animi distinctio earum ducimus minus, magnam.
 ```
 
-## Scheduling Posts with Future Dates
+## Drafts and Scheduled Posts
 
-A post whose date is set in the future is treated as a scheduled draft. When you build the site, Hyde skips it during
-auto-discovery, meaning it gets no route, is not compiled to `_site`, and does not show up in post listings, the
-sitemap, or the RSS feed.
+Hyde supports two zero-configuration publication states for keeping a post out of your published site. Drafts are marked
+with a front matter property, while scheduled posts are set by a date, which can come from either front matter or a
+filename [date prefix](#date-prefixes). Neither state needs any configuration, command line flags, or a separate directory.
 
-This works with both front matter dates and [date prefixes](#date-prefixes):
+| State         | Meaning                      | `php hyde serve` | `php hyde build`      |
+|---------------|------------------------------|------------------|-----------------------|
+| Normal post   | Publish now                  | Included         | Included              |
+| `draft: true` | Not approved for publication | Included         | Excluded indefinitely |
+| Future date   | Finished, publish later      | Included         | Excluded until date   |
+
+When you build the site, Hyde skips drafts and scheduled posts during auto-discovery, so they get no route, are not
+compiled to `_site`, and do not appear in post listings, the sitemap, or the RSS feed.
+
+### Drafts
+
+Set `draft: true` to keep a post out of your built site while the property remains true:
+
+```markdown
+// filepath _posts/work-in-progress.md
+---
+title: Work in progress
+draft: true
+---
+```
+
+This suits a post that is unfinished, awaiting review, or that you want to temporarily take down without deleting or
+moving the file. Unlike a future date, a draft never becomes publishable on its own: it stays out of your builds until
+you remove `draft: true` or set it to `false`, at which point the normal date rules apply.
+
+To publish the post, remove `draft: true`. You may set it to `false` instead, but because posts are published by
+default, omitting the property keeps the front matter cleaner.
+
+### Scheduled Posts
+
+A post whose date is set in the future is scheduled: it is excluded from builds until that date has passed, and is then
+published by the next build. This works with both front matter dates and [date prefixes](#date-prefixes):
 
 ```markdown
 // filepath _posts/my-upcoming-post.md
@@ -114,20 +145,24 @@ date: 2099-01-01
 ---
 ```
 
-### Previewing Scheduled Posts
+A post that is both a draft and dated in the future stays excluded even after its date passes, since the explicit draft
+status is stronger than the date.
 
-Scheduled posts are only withheld when building the site. The development server treats your site as an authoring
-preview, so scheduled posts are included there and you can write and proofread them as normal:
+### Previewing Drafts and Scheduled Posts
 
-| Command          | Scheduled posts                                    |
-|------------------|----------------------------------------------------|
-| `php hyde serve`  | **Included** — the site as you are working on it   |
-| `php hyde build`  | **Excluded** — the site as your readers will see it |
+Drafts and scheduled posts are only excluded when building the site. The development server treats your site as an
+authoring preview, so both are included there and you can write and proofread them as normal:
 
-There is nothing to configure and no date to temporarily change: just visit the post's normal URL while serving.
+| Command          | Drafts and scheduled posts                          |
+|------------------|-----------------------------------------------------|
+| `php hyde serve` | **Included** — the site as you are working on it    |
+| `php hyde build` | **Excluded** — the site as your readers will see it |
 
-Note that this applies to everything the server renders, so a scheduled post also appears in post listings and feeds
-while serving.
+There is nothing to configure and no front matter to temporarily change: just visit the post's normal URL while serving.
+
+Note that this applies to everything the server renders, so a draft or scheduled post also appears in post listings and
+feeds while serving. That is deliberate, as it lets you check how the post's card, category, image, excerpt, and ordering
+behave before it goes live, not just the article itself.
 
 ### Scheduled Posts Do Not Publish Themselves
 
@@ -155,9 +190,10 @@ you need tighter timing.
 Also note that the date is compared against the time zone of the machine running the build,
 which for CI runners is usually UTC rather than your local time zone.
 
-Since a future date is what withholds a post, a mistyped date does the same thing. If a post is missing from your
-built site, check that its date is not accidentally set ahead of the build, for example through a mistyped year.
-The post will still be visible while serving, which is a useful way to confirm this is what happened.
+Since a future date is what keeps a scheduled post out of your build, a mistyped date does the same thing. If a post is missing from
+your built site, check that its date is not accidentally set ahead of the build, for example through a mistyped year,
+and that it does not have a leftover `draft: true`. The post will still be visible while serving, which is a useful way
+to confirm this is what happened.
 
 ## Supported Front Matter Properties
 
@@ -172,6 +208,7 @@ Keep on reading to see further explanations, details, and examples.
 | `description`  | string         | "A short description"            |
 | `category`     | string         | "my favorite recipes"            |
 | `date`         | string         | "YYYY-MM-DD [HH:MM]"             |
+| `draft`        | bool           | true                             |
 | `author`       | string/array   | _See [author](#author) section_  |
 | `image`        | string/array   | _See [image](#image) section_    |
 
@@ -214,8 +251,17 @@ date: "2022-01-01"
 date: "2022-01-01 12:00"
 ```
 
-Setting the date in the future marks the post as a [scheduled draft](#scheduling-posts-with-future-dates),
+Setting the date in the future marks the post as a [scheduled post](#scheduled-posts),
 which is excluded from site builds until its publication date has passed.
+
+### Draft
+
+```yaml
+draft: true
+```
+
+Marks the post as a [draft](#drafts), excluding it from site builds while it is true.
+You may also set it to `false`, but as posts are published by default, that has no functional effect.
 
 ### Author
 
