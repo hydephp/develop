@@ -31,6 +31,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     public ?string $description;
     public ?string $category;
     public ?DateString $date;
+    public bool $draft;
     public ?PostAuthor $author;
     public ?FeaturedImage $image;
 
@@ -40,6 +41,20 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
         return static::all()->sortByDesc(function (self $post): int {
             return $post->date?->getTimestamp() ?? 0;
         });
+    }
+
+    /**
+     * Determine if the post is a draft, meaning it has `draft: true` in its front matter.
+     *
+     * Drafts are excluded from publication builds indefinitely, until the author removes the front matter
+     * property, but remain available in realtime compiler previews. Unlike a scheduled post, a draft never
+     * becomes publishable on its own, as it is withheld pending explicit approval rather than a date.
+     *
+     * Posts are published by default, so `draft: false` is the same as omitting the property entirely.
+     */
+    public function isDraft(): bool
+    {
+        return $this->draft;
     }
 
     /**
@@ -63,6 +78,7 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
             'description' => $this->description,
             'category' => $this->category,
             'date' => $this->date,
+            'draft' => $this->draft,
             'author' => $this->author,
             'image' => $this->image,
         ]);

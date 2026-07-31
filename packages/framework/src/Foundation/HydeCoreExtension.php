@@ -52,7 +52,7 @@ class HydeCoreExtension extends HydeExtension
 
     public function discoverPages(PageCollection $collection): void
     {
-        $this->discardScheduledBlogPosts($collection);
+        $this->discardUnpublishedBlogPosts($collection);
 
         foreach (Config::getArray('hyde.redirects', []) as $path => $destination) {
             $collection->addPage(new Redirect((string) $path, (string) $destination));
@@ -84,17 +84,17 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Discard blog posts dated in the future, as those are considered scheduled drafts. */
-    protected function discardScheduledBlogPosts(PageCollection $collection): void
+    /** Discard blog posts that are not yet approved for publication, being drafts or dated in the future. */
+    protected function discardUnpublishedBlogPosts(PageCollection $collection): void
     {
-        // The realtime compiler serves the site as an authoring preview, where scheduled posts must remain
+        // The realtime compiler serves the site as an authoring preview, where unpublished posts must remain
         // browsable so that they can be written and proofread. They are only withheld from published builds.
         if (Config::getBool('hyde.server.running', false)) {
             return;
         }
 
         $collection->getPages(MarkdownPost::class)->each(function (MarkdownPost $post) use ($collection): void {
-            if ($post->isScheduled()) {
+            if ($post->isDraft() || $post->isScheduled()) {
                 $collection->forget($post->getSourcePath());
             }
         });
