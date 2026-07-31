@@ -142,7 +142,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function getMatter(string $key): string|null|array|int|bool
     {
-        /** @var string|null|array $value */
+        /** @var string|null|array|int|bool $value */
         $value = $this->matter->get($key);
 
         return $value;

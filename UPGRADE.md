@@ -308,7 +308,7 @@ HydePHP v3 withholds two kinds of blog post from your built site: those marked `
 
 Withheld posts are still included by `php hyde serve`, which is treated as an authoring preview, so you can keep writing and previewing them at their normal URL.
 
-In v2 both kinds of post were built like any other, and `draft` was an unrecognized front matter key with no effect at all. So if your site has posts dated ahead of the build time, or posts carrying a `draft: true` annotation that used to be inert, they will disappear from your site after upgrading.
+In v2 both kinds of post were built like any other. Hyde assigned no built-in publication behavior to `draft`, although custom templates or extensions may already have read the property. In v3, `draft: true` withholds the post from publication builds. So if your site has posts dated ahead of the build time, or posts already carrying a `draft: true` annotation, they will disappear from your site after upgrading.
 
 To find affected posts, search `_posts` for `draft: true`, and check for dates ahead of the build time in both front matter and filename prefixes. If a post disappears after upgrading but remains visible through `php hyde serve`, one of these two states is the reason.
 

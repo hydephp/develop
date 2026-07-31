@@ -116,7 +116,7 @@ sitemap, or the RSS feed.
 
 ### Drafts
 
-Set `draft: true` to withhold a post from your built site for as long as the property is present:
+Set `draft: true` to withhold a post from your built site while the property remains true:
 
 ```markdown
 // filepath _posts/work-in-progress.md
@@ -261,7 +261,7 @@ which is excluded from site builds until its publication date has passed.
 draft: true
 ```
 
-Marks the post as a [draft](#drafts), excluding it from site builds until you remove the property.
+Marks the post as a [draft](#drafts), excluding it from site builds while it is true.
 You may also set it to `false`, but as posts are published by default, that has no functional effect.
 
 ### Author

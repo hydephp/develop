@@ -17,7 +17,7 @@ interface BlogPostSchema extends PageSchema
         'description' => 'string',  // Excerpt is also supported
         'category' => 'string',
         'date' => 'string',
-        'draft' => 'bool',  // Withholds the post from builds until removed. Only true has an effect, as posts are published by default.
+        'draft' => 'bool',  // Withholds the post from builds while true. Posts are published by default.
         'author' => ['string', AuthorSchema::AUTHOR_SCHEMA],
         'image' => ['string', FeaturedImageSchema::FEATURED_IMAGE_SCHEMA],
     ];
