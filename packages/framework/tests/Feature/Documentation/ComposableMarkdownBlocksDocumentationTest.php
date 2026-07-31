@@ -1027,7 +1027,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     public function testTheBuiltInBlocksPassDataRatherThanMarkupToTheirViews()
     {
         // The blocks give the view their type, level, or path, rather than a pre-baked class string
-        $this->assertSame(['literal', 'usesSymfonyFormatting'], $this->constructorParameters(TerminalBlock::class));
+        $this->assertSame(['literal', 'usesSymfonyFormatting', 'title'], $this->constructorParameters(TerminalBlock::class));
 
         $this->publishView('vendor/hyde/components/colored-blockquote.blade.php', '{{ $class }}');
         $this->publishView('vendor/hyde/components/markdown-heading.blade.php', '{{ $level }}');

@@ -34,6 +34,7 @@ class TerminalBlockRenderer implements NodeRendererInterface
 
         return view('hyde::components.markdown.terminal', [
             'contents' => $this->renderContents($node),
+            'title' => $node->title,
         ])->render();
     }
 
