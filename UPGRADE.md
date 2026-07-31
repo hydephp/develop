@@ -310,13 +310,9 @@ Scheduled posts are still included by `php hyde serve`, which is treated as an a
 
 In v2 these posts were built like any other. If your site has posts dated ahead of the build time — whether deliberately or because of a typo — they will disappear from your site after upgrading.
 
-Each skipped post is reported as a build warning, so run a build and check the output:
+To find the affected posts, check your `_posts` directory for dates ahead of your build time, in both front matter and filename prefixes. Withheld posts are also absent from `php hyde route:list`, so comparing that output against your previous site is a quick way to spot anything unexpectedly missing.
 
-```terminal xml
- 1. <comment>Skipping blog post "_posts/my-upcoming-post.md" as its date is set in the future (2099-01-01T00:00:00+00:00). Since Hyde is a static site generator, it will be included in the first site build made after that date.</comment>
-```
-
-If a post in the warning list was supposed to be published, correct its date. If you actually want to schedule posts, remember that **Hyde is a static site generator**: a scheduled post does not publish itself when its date passes. It is included in the first site build that runs after that point, so you need recurring builds for a post to go live on its own, for example a cron-scheduled GitHub Actions workflow.
+If a post that was supposed to be published turns out to have a future date, correct the date. If you actually want to schedule posts, remember that **Hyde is a static site generator**: a scheduled post does not publish itself when its date passes. It is included in the first site build that runs after that point, so you need recurring builds for a post to go live on its own, for example a cron-scheduled GitHub Actions workflow.
 
 ## Migration Checklist
 
@@ -327,7 +323,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
-- [ ] Checked the build warnings for blog posts skipped due to a future date, and set up recurring builds if scheduling posts
+- [ ] Checked `_posts` for blog posts dated in the future, and set up recurring builds if scheduling posts
 
 ## Troubleshooting
 

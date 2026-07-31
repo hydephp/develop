@@ -155,16 +155,9 @@ you need tighter timing.
 Also note that the date is compared against the time zone of the machine running the build,
 which for CI runners is usually UTC rather than your local time zone.
 
-### Build Warnings for Skipped Posts
-
-Every skipped post is reported as a build warning, so a mistyped year does not silently remove a post from your site:
-
-```terminal xml
- 1. <comment>Skipping blog post "_posts/my-upcoming-post.md" as its date is set in the future (2099-01-01T00:00:00+00:00). Since Hyde is a static site generator, it will be included in the first site build made after that date.</comment>
-```
-
-The warnings are printed at the end of the build. If you see one for a post you expected to be published,
-check its date for a typo, for example a mistyped year.
+Since a future date is what withholds a post, a mistyped date does the same thing. If a post is missing from your
+built site, check that its date is not accidentally set ahead of the build, for example through a mistyped year.
+The post will still be visible while serving, which is a useful way to confirm this is what happened.
 
 ## Supported Front Matter Properties
 
