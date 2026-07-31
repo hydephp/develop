@@ -169,17 +169,72 @@ $ php hyde build
 
 Terminal blocks are a built-in Markdown feature and do not require a Torchlight API token.
 
+### Modifiers
+
+The language can be followed by optional modifiers:
+
+```
+terminal [xml] [title="…"]
+```
+
+Modifiers are order-independent, so `terminal xml title="Build output"` and `terminal title="Build output" xml` mean
+the same thing.
+
+#### Window titles
+
+The `title` modifier replaces the `Terminal` label in the window's title bar.
+
+````markdown
+```terminal title="Installing Hyde"
+$ composer require hyde/framework
+```
+````
+
+```terminal title="Installing Hyde"
+$ composer require hyde/framework
+```
+
+Double quotes are canonical, matching how attributes are written in HTML and Blade, but single quotes are accepted as
+an equivalent alternative, which is useful when the title itself contains a double quote. The title is escaped when it
+is rendered, so it is safe to use any characters in it, apart from the quote character enclosing it.
+
+An empty title (`title=""`) is respected as written, leaving the title bar with just the window buttons. A `title`
+value that is unquoted, or that never closes its quote, is rejected with an exception instead of being guessed at, so
+that a typo surfaces during the build rather than silently dropping the title.
+
+#### Symfony formatting
+
+The `xml` modifier renders the four [Symfony Console formatter tags](https://symfony.com/doc/current/console/coloring.html)
+(`<info>`, `<comment>`, `<question>`, and `<error>`) as coloured output, letting you paste console output verbatim.
+
+````markdown
+```terminal xml title="Build output"
+<info>Hyde was installed successfully.</info>
+```
+````
+
+```terminal xml title="Build output"
+<info>Hyde was installed successfully.</info>
+```
+
+Tags are only interpreted with the modifier present; without it, they stay literal text. Everything else is escaped as
+usual, including unknown tags and tags that are not closed in the order they were opened.
+
 ### View contract
 
 **View:** `hyde::components.markdown.terminal`
 
-| Variable    | Type     | Description                                                                    |
-|-------------|----------|--------------------------------------------------------------------------------|
-| `$contents` | `string` | The pre-rendered, already-escaped HTML for the terminal body. Echo with `{!! !!}`. |
+| Variable    | Type            | Description                                                                    |
+|-------------|-----------------|--------------------------------------------------------------------------------|
+| `$contents` | `string`        | The pre-rendered, already-escaped HTML for the terminal body. Echo with `{!! !!}`. |
+| `$title`    | `string`/`null` | The title set by the block, or `null` when it did not set one.                  |
 
 The renderer does the per-line work before the view is involved: it escapes the raw text, wraps `$ ` prompts in
 `hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present — converts Symfony
 Console formatter tags into coloured spans. The view receives a single finished string.
+
+The title is passed through as it was written, so the view is what decides both how it is displayed and what an
+untitled block falls back to. The shipped view escapes it with `{{ }}` and falls back to `Terminal`.
 
 >danger `$contents` is already escaped by the renderer, which is why the view echoes it unescaped. If you build your own view, do not re-escape it with `{{ }}` (you will see markup as text), and do not pass unescaped user content into it from elsewhere.
 
@@ -200,8 +255,8 @@ Console formatter tags into coloured spans. The view receives a single finished 
 
 ### Customization example
 
-Say you want the window's title bar to show the current working directory instead of the word "Terminal". Publish the
-view and edit it:
+Say you want blocks that set no title of their own to show the current working directory instead of the word
+"Terminal". Publish the view and edit its fallback:
 
 ```blade
 <!-- filepath: resources/views/vendor/hyde/components/markdown/terminal.blade.php -->
