@@ -12,6 +12,7 @@ use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Support\Models\DateString;
 
 use function array_merge;
+use function time;
 
 /**
  * Page class for Markdown posts.
@@ -39,6 +40,21 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
         return static::all()->sortByDesc(function (self $post): int {
             return $post->date?->getTimestamp() ?? 0;
         });
+    }
+
+    /**
+     * Determine if the post is scheduled, meaning its date is set in the future.
+     *
+     * Scheduled posts are excluded from publication builds until their date has passed,
+     * but remain available in realtime compiler previews.
+     *
+     * Since Hyde is a static site generator, a scheduled post does not publish itself when its date passes.
+     * It is included in the first site build that is run after that point, so recurring builds are needed
+     * for automatic publication, for example through a scheduled GitHub Actions workflow.
+     */
+    public function isScheduled(): bool
+    {
+        return $this->date !== null && $this->date->dateTimeObject->getTimestamp() > time();
     }
 
     public function toArray(): array
