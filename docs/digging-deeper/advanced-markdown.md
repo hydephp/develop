@@ -49,11 +49,12 @@ For multi-line Blade, use an executable `blade render` fenced block:
 The Blade is evaluated at build time, and the rendered output is wrapped in a
 `<div class="blade-block not-prose">` element. When compiling a page, the `$page` variable is available to the block.
 
-You can also render a Blade component using the `blade component(name)` directive. Component data is passed using YAML
-front matter at the start of the block:
+You can also render a Blade component using the `blade component="name"` directive. The component name is given as an
+HTML-style attribute, mirroring Laravel's own `<x-dynamic-component component="name" />` syntax. Component data is
+passed using YAML front matter at the start of the block:
 
 ````markdown
-```blade component(alert)
+```blade component="alert"
 ---
 type: warning
 title: Check this
@@ -65,7 +66,7 @@ If the block does not start with YAML front matter, its content is rendered as M
 component slot. This is useful when the component does not need any data:
 
 ````markdown
-```blade component(alert)
+```blade component="alert"
 This content is passed to the component **slot**.
 ```
 ````
@@ -74,7 +75,7 @@ To pass both component data and Markdown slot content, enclose the data in YAML 
 it:
 
 ````markdown
-```blade component(alert)
+```blade component="alert"
 ---
 type: warning
 title: Check this
@@ -83,6 +84,9 @@ title: Check this
 This content is passed to the component **slot**.
 ```
 ````
+
+Double quotes are the canonical style, but single quotes are accepted as well, so `blade component='alert'` is
+equivalent. The name must be quoted and cannot contain whitespace.
 
 A fence using only `blade` is an ordinary syntax-highlighted code sample and is not executed. Unsupported Blade block
 directives, including `blade component` without a component name, throw an exception.

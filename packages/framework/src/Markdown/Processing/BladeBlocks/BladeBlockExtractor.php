@@ -178,7 +178,7 @@ class BladeBlockExtractor
         }
 
         throw new InvalidArgumentException(
-            'Invalid Blade block syntax. Expected ```blade render``` or ```blade component(component-name)```.'
+            'Invalid Blade block syntax. Expected ```blade render``` or ```blade component="component-name"```.'
         );
     }
 
@@ -187,10 +187,11 @@ class BladeBlockExtractor
         return $tokens[0] === 'blade' && count($tokens) > 1;
     }
 
+    /** Extract the component name from an HTML-style attribute, using either double (canonical) or single quotes. */
     protected function extractComponentName(string $directive): ?string
     {
-        if (preg_match('/^component\((?<name>[^)]+)\)$/', $directive, $matches)) {
-            return trim($matches['name']);
+        if (preg_match('/^component=(?<quote>["\'])(?<name>[^"\'\s]+)\k<quote>$/', $directive, $matches)) {
+            return $matches['name'];
         }
 
         return null;

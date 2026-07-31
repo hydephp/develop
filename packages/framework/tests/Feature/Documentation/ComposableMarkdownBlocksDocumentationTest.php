@@ -354,7 +354,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('Rendered by Blade', BladeBlockProcessor::postprocess($preprocessed));
 
         // Component blocks are extracted the same way
-        $preprocessed = BladeBlockProcessor::preprocess("Intro paragraph.\n\n```blade component(alert)\nSlot content\n```");
+        $preprocessed = BladeBlockProcessor::preprocess("Intro paragraph.\n\n```blade component=\"alert\"\nSlot content\n```");
 
         $this->assertStringContainsString('<!-- HYDE[BladeBlock]', $preprocessed);
         $this->assertStringNotContainsString('Slot content', $preprocessed);
@@ -887,7 +887,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->publishAlertComponent();
 
         $html = Markdown::render(<<<'MARKDOWN'
-        ```blade component(alert)
+        ```blade component="alert"
         ---
         type: warning
         title: Check this
@@ -910,13 +910,13 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->publishAlertComponent();
 
         // Front matter alone
-        $html = Markdown::render("```blade component(alert)\n---\ntype: warning\ntitle: Front matter alone\n---\n```");
+        $html = Markdown::render("```blade component=\"alert\"\n---\ntype: warning\ntitle: Front matter alone\n---\n```");
 
         $this->assertStringContainsString('<strong>Front matter alone</strong>', $html);
         $this->assertStringContainsString('border-amber-500', $html);
 
         // Slot content alone
-        $html = Markdown::render("```blade component(alert)\nSlot content alone\n```");
+        $html = Markdown::render("```blade component=\"alert\"\nSlot content alone\n```");
 
         $this->assertStringContainsString('Slot content alone', $html);
         $this->assertStringNotContainsString('border-amber-500', $html);
@@ -928,7 +928,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         config(['markdown.enable_blade' => false]);
 
-        $html = Markdown::render("```blade component(alert)\nSlot content\n```");
+        $html = Markdown::render("```blade component=\"alert\"\nSlot content\n```");
 
         $this->assertStringNotContainsString('rounded border-l-4 p-4', $html);
         $this->assertStringContainsString('<pre><code class="language-blade">', $html);
