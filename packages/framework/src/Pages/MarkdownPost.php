@@ -48,9 +48,9 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
      *
      * Drafts are excluded from publication builds while the property is true, but remain available in realtime
      * compiler previews. Unlike a scheduled post, a draft never becomes publishable on its own, as it is
-     * withheld pending an explicit front matter change rather than a date.
+     * withheld pending an explicit change to the draft property rather than a date.
      *
-     * Posts are published by default, so false is equivalent to omitting the property.
+     * Posts are published by default, so `false` is equivalent to omitting the property.
      */
     public function isDraft(): bool
     {

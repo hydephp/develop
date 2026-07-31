@@ -127,8 +127,8 @@ draft: true
 ```
 
 This suits a post that is unfinished, awaiting review, or that you want to temporarily take down without deleting or
-moving the file. Unlike a future date, a draft never becomes publishable on its own: it stays withheld until you change
-the front matter, at which point the normal date rules apply.
+moving the file. Unlike a future date, a draft never becomes publishable on its own: it stays withheld until you remove
+`draft: true` or set it to `false`, at which point the normal date rules apply.
 
 To publish the post, remove `draft: true`. You may set it to `false` instead, but because posts are published by
 default, omitting the property keeps the front matter cleaner.
