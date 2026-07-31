@@ -64,8 +64,8 @@ echo (new TerminalBlockComponent('$ php hyde build', title: 'Building the site')
 ```
 
 The constructor is the block's parsed shape, the public properties are the data the view works with, and `toHtml()`
-resolves the same view a Markdown block does. So the class is three things at once: the documented contract, the object the
-Markdown pipeline passes around, and a generator you can use on its own to render a block from anywhere.
+resolves the same view a Markdown block does. So the class is three things at once: the documented contract, the object
+the Markdown pipeline passes around, and a generator you can use on its own to render a block from anywhere.
 
 These are ordinary [Laravel Blade components](https://laravel.com/docs/blade#components), not a Hyde invention, so
 everything they normally do applies — attribute bags, subclassing, and registering the class as an `<x-…>` tag.
@@ -263,10 +263,10 @@ variables, as it would be for any component you write yourself.
 
 The component does the per-line work when it is constructed, before the view is involved: it escapes the raw text, wraps
 `$ ` prompts in `hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present —
-converts Symfony Console formatter tags into coloured spans. The view receives a single finished string.
+converts Symfony Console formatter tags into coloured spans. The view receives one finished value.
 
-That string is an `HtmlString`, so `{{ $contents }}` and `{!! $contents !!}` both render it as markup, and the usual
-mistake of escaping already-rendered markup is not possible. `$literal` is the same output before any of that happened,
+That value is an `HtmlString` rather than a plain string, so `{{ $contents }}` and `{!! $contents !!}` both render it as
+markup, and the usual mistake of escaping already-rendered markup is not possible. `$literal` is the same output before any of that happened,
 which is what you want for a copy-to-clipboard button or a plain-text fallback — remember to escape it yourself when
 you echo it.
 
@@ -577,7 +577,8 @@ implements terminal blocks.
 ### 1. The view model
 
 Start with the contract: a Blade component holding the data your block is made of, and rendering it through a view.
-Its public properties are what the view works with, so `$type` becomes one.
+Its public properties are what the view works with, so `$literal` stays a plain constructor argument while `$type`
+becomes one.
 
 ```php
 // filepath: app/Markdown/CalloutBlockComponent.php
@@ -597,10 +598,8 @@ class CalloutBlockComponent extends Component implements Htmlable
 {
     public readonly HtmlString $contents;
 
-    public function __construct(
-        public readonly string $literal,
-        public readonly string $type = 'note',
-    ) {
+    public function __construct(string $literal, public readonly string $type = 'note')
+    {
         $this->contents = new HtmlString(Markdown::render($literal));
     }
 
@@ -740,7 +739,7 @@ class CalloutExtension implements ExtensionInterface
         'border-blue-500' => $type === 'note',
         'border-amber-500' => $type === 'tip',
     ])>
-    {!! $contents !!}
+    {{ $contents }}
 </aside>
 ```
 
@@ -769,8 +768,9 @@ A few conventions worth following, drawn from how the built-in blocks are writte
 
 - **Declare the contract in a class.** A view model makes the block's data discoverable, keeps the transformer and the
   renderer honest about it, and gives you an object you can render on its own — see [View models](#view-models).
-- **Escape in PHP, echo raw in the view.** Decide once, before the view runs, whether a value is trusted HTML or user
-  text. A view that receives a mix of both is a view that eventually renders an injection.
+- **Settle escaping before the view runs.** Decide once, in PHP, whether a value is trusted HTML or user text, and hand
+  the trusted ones over as `HtmlString`. A view left to tell the two apart is a view that eventually renders an
+  injection.
 - **Pass data, not markup.** Give the view the block's *type*, *level*, or *path* rather than a pre-baked class string.
   It costs nothing and it's the difference between a view that can be restyled and one that can only be replaced.
 - **Add stable class hooks.** A non-utility class like `my-callout` on the root element lets people restyle your block

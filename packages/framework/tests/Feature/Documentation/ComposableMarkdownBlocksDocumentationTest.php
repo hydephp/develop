@@ -1562,10 +1562,8 @@ class CalloutBlockComponent extends Component implements Htmlable
 {
     public readonly HtmlString $contents;
 
-    public function __construct(
-        public readonly string $literal,
-        public readonly string $type = 'note',
-    ) {
+    public function __construct(string $literal, public readonly string $type = 'note')
+    {
         $this->contents = new HtmlString(Markdown::render($literal));
     }
 
