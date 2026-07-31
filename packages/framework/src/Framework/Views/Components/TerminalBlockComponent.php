@@ -26,7 +26,7 @@ use function str_repeat;
 /**
  * A terminal window, rendered through the publishable terminal view.
  *
- * The data supplied to that view is declared by {@see data()}. Blocks written in Markdown are parsed
+ * The public properties make up the data the view works with. Blocks written in Markdown are parsed
  * into instances of this class, which can also be constructed to render a window from anywhere else.
  */
 class TerminalBlockComponent extends Component implements Htmlable
@@ -48,27 +48,6 @@ class TerminalBlockComponent extends Component implements Htmlable
     public function toHtml(): string
     {
         return $this->shouldRender() ? Blade::renderComponent($this) : '';
-    }
-
-    /**
-     * Get the data that should be supplied to the view.
-     *
-     * The contract is declared here instead of being reflected from the class, so that adding a
-     * public member does not silently add a view variable.
-     *
-     * @return array<string, mixed>
-     */
-    public function data(): array
-    {
-        $this->attributes ??= $this->newAttributeBag();
-
-        return [
-            'contents' => $this->contents,
-            'literal' => $this->literal,
-            'title' => $this->title,
-            'usesSymfonyFormatting' => $this->usesSymfonyFormatting,
-            'attributes' => $this->attributes,
-        ];
     }
 
     /** @inheritDoc */

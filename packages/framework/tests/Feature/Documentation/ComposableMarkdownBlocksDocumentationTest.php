@@ -492,47 +492,19 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringNotContainsString('torchlight', $html);
     }
 
-    public function testTheViewModelDeclaresTheViewDataAndTheDocumentationListsAllOfIt()
+    public function testEveryDocumentedViewVariableIsGivenToTheView()
     {
-        $variables = array_keys((new TerminalBlockComponent('$ php hyde build', 'Build output', true))->data());
+        $table = strstr(strstr($this->documentation(), '**View model:**'), '### Rendering terminal windows', true);
 
-        $this->assertSame(['contents', 'literal', 'title', 'usesSymfonyFormatting', 'attributes'], $variables);
+        preg_match_all('/^\| `\\$(\w+)`/m', $table, $matches);
 
-        foreach ($variables as $variable) {
-            $this->assertStringContainsString("| `\$$variable`", $this->documentation(),
-                "The view variable [\$$variable] is not documented in the view contract table."
-            );
+        $this->assertEqualsCanonicalizing(['contents', 'literal', 'title', 'usesSymfonyFormatting', 'attributes'], $matches[1]);
+
+        $data = (new TerminalBlockComponent('$ php hyde build', 'Build output', true))->data();
+
+        foreach ($matches[1] as $variable) {
+            $this->assertArrayHasKey($variable, $data, "The documented view variable [\$$variable] is not given to the view.");
         }
-    }
-
-    public function testTheDeclaredViewDataIsAllTheViewReceives()
-    {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
-            '[{{ implode(",", array_keys(get_defined_vars()["__data"])) }}]'
-        );
-
-        $this->assertStringContainsString('[__env,app,contents,literal,title,usesSymfonyFormatting,attributes]',
-            Markdown::render("```terminal\nDone!\n```")
-        );
-    }
-
-    public function testRenderingTheComponentAsABladeTagAddsBladesSlotVariables()
-    {
-        Blade::component('terminal', TerminalBlockComponent::class);
-
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
-            '[{{ implode(",", array_keys(get_defined_vars()["__data"])) }}]'
-        );
-
-        $this->assertStringContainsString('usesSymfonyFormatting,attributes,slot,__laravel_slots]',
-            Blade::render('<x-terminal literal="$ php hyde build" />')
-        );
-    }
-
-    public function testTheWalkthroughComponentAlsoDeclaresItsViewData()
-    {
-        // Since the reflected default would pass the component's own methods to the view as well
-        $this->assertSame(['contents', 'type', 'attributes'], array_keys((new CalloutBlockComponent('A note.'))->data()));
     }
 
     public function testTheTerminalViewReceivesASingleFinishedContentsString()
@@ -1601,17 +1573,6 @@ class CalloutBlockComponent extends Component implements Htmlable
     public function toHtml(): string
     {
         return $this->shouldRender() ? Blade::renderComponent($this) : '';
-    }
-
-    public function data(): array
-    {
-        $this->attributes ??= $this->newAttributeBag();
-
-        return [
-            'contents' => $this->contents,
-            'type' => $this->type,
-            'attributes' => $this->attributes,
-        ];
     }
 
     public function render(): ViewContract

@@ -311,34 +311,17 @@ class TerminalCodeBlocksTest extends TestCase
         );
     }
 
-    public function testComponentDeclaresTheViewDataItSupplies(): void
+    public function testComponentPropertiesMakeUpTheViewData(): void
     {
         $component = new TerminalBlockComponent('$ php hyde build', 'Build output', true);
 
         $data = $component->data();
-
-        $this->assertSame(['contents', 'literal', 'title', 'usesSymfonyFormatting', 'attributes'], array_keys($data));
 
         $this->assertSame($component->contents, $data['contents']);
         $this->assertSame('$ php hyde build', $data['literal']);
         $this->assertSame('Build output', $data['title']);
         $this->assertTrue($data['usesSymfonyFormatting']);
         $this->assertInstanceOf(ComponentAttributeBag::class, $data['attributes']);
-    }
-
-    public function testAddingAPublicMemberDoesNotAddAViewVariable(): void
-    {
-        $component = new class('$ php hyde build') extends TerminalBlockComponent
-        {
-            public string $unrelated = 'value';
-
-            public function helper(): string
-            {
-                return 'value';
-            }
-        };
-
-        $this->assertSame(['contents', 'literal', 'title', 'usesSymfonyFormatting', 'attributes'], array_keys($component->data()));
     }
 
     public function testComponentDoesNotRenderWhenItShouldNotBeRendered(): void
