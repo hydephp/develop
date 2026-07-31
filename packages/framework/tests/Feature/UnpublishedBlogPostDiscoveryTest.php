@@ -12,8 +12,8 @@ use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
 /**
- * Tests publication filtering and realtime preview behavior for unpublished posts,
- * meaning both drafts and posts scheduled by way of a future date.
+ * Tests publication filtering and realtime preview behavior for drafts
+ * and scheduled posts, meaning posts dated in the future.
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(MarkdownPost::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(HydeCoreExtension::class)]
@@ -33,7 +33,7 @@ class UnpublishedBlogPostDiscoveryTest extends TestCase
         $this->assertTrue($pages->has('_posts/published.md'));
         $this->assertFalse($pages->has('_posts/scheduled.md'));
 
-        // Scheduled posts are silently and intentionally withheld; they are not build problems.
+        // Scheduled posts are silently and intentionally excluded; they are not build problems.
         $this->assertEmpty(BuildWarnings::getWarnings());
     }
 
@@ -135,7 +135,7 @@ class UnpublishedBlogPostDiscoveryTest extends TestCase
         $this->assertTrue($pages->has('_posts/published.md'));
         $this->assertFalse($pages->has('_posts/draft.md'));
 
-        // Drafts are silently and intentionally withheld; they are not build problems.
+        // Drafts are silently and intentionally excluded; they are not build problems.
         $this->assertEmpty(BuildWarnings::getWarnings());
     }
 
@@ -167,7 +167,7 @@ class UnpublishedBlogPostDiscoveryTest extends TestCase
 
         Hyde::boot();
 
-        // The explicit draft status is stronger than the date, so the post stays withheld.
+        // The explicit draft status is stronger than the date, so the post stays excluded.
         $this->assertFalse(Hyde::routes()->has('posts/draft'));
     }
 
@@ -186,7 +186,7 @@ class UnpublishedBlogPostDiscoveryTest extends TestCase
 
         Hyde::boot();
 
-        // Setting draft to false is a no-op, so the normal date rules still withhold the post.
+        // Setting draft to false is a no-op, so the normal date rules still exclude the post.
         $this->assertFalse(Hyde::routes()->has('posts/scheduled'));
     }
 

@@ -110,13 +110,12 @@ filename [date prefix](#date-prefixes). Neither state needs any configuration, c
 | `draft: true` | Not approved for publication | Included         | Excluded indefinitely |
 | Future date   | Finished, publish later      | Included         | Excluded until date   |
 
-Posts in either withheld state are collectively called **unpublished**. When you build the site, Hyde skips them during
-auto-discovery, meaning they get no route, are not compiled to `_site`, and do not show up in post listings, the
-sitemap, or the RSS feed.
+When you build the site, Hyde skips drafts and scheduled posts during auto-discovery, so they get no route, are not
+compiled to `_site`, and do not appear in post listings, the sitemap, or the RSS feed.
 
 ### Drafts
 
-Set `draft: true` to withhold a post from your built site while the property remains true:
+Set `draft: true` to keep a post out of your built site while the property remains true:
 
 ```markdown
 // filepath _posts/work-in-progress.md
@@ -127,15 +126,15 @@ draft: true
 ```
 
 This suits a post that is unfinished, awaiting review, or that you want to temporarily take down without deleting or
-moving the file. Unlike a future date, a draft never becomes publishable on its own: it stays withheld until you remove
-`draft: true` or set it to `false`, at which point the normal date rules apply.
+moving the file. Unlike a future date, a draft never becomes publishable on its own: it stays out of your builds until
+you remove `draft: true` or set it to `false`, at which point the normal date rules apply.
 
 To publish the post, remove `draft: true`. You may set it to `false` instead, but because posts are published by
 default, omitting the property keeps the front matter cleaner.
 
 ### Scheduled Posts
 
-A post whose date is set in the future is scheduled: it is withheld from builds until that date has passed, and is then
+A post whose date is set in the future is scheduled: it is excluded from builds until that date has passed, and is then
 published by the next build. This works with both front matter dates and [date prefixes](#date-prefixes):
 
 ```markdown
@@ -146,23 +145,23 @@ date: 2099-01-01
 ---
 ```
 
-A post that is both a draft and dated in the future stays withheld even after its date passes, since the explicit draft
+A post that is both a draft and dated in the future stays excluded even after its date passes, since the explicit draft
 status is stronger than the date.
 
-### Previewing Unpublished Posts
+### Previewing Drafts and Scheduled Posts
 
-Drafts and scheduled posts are only withheld when building the site. The development server treats your site as an
+Drafts and scheduled posts are only excluded when building the site. The development server treats your site as an
 authoring preview, so both are included there and you can write and proofread them as normal:
 
-| Command          | Unpublished posts                                   |
+| Command          | Drafts and scheduled posts                          |
 |------------------|-----------------------------------------------------|
 | `php hyde serve` | **Included** — the site as you are working on it    |
 | `php hyde build` | **Excluded** — the site as your readers will see it |
 
 There is nothing to configure and no front matter to temporarily change: just visit the post's normal URL while serving.
 
-Note that this applies to everything the server renders, so an unpublished post also appears in post listings and feeds
-while serving. That is deliberate, as it lets you check how the post's card, category, image, excerpt, and ordering
+Note that this applies to everything the server renders, so a draft or scheduled post also appears in post listings and
+feeds while serving. That is deliberate, as it lets you check how the post's card, category, image, excerpt, and ordering
 behave before it goes live, not just the article itself.
 
 ### Scheduled Posts Do Not Publish Themselves
@@ -191,7 +190,7 @@ you need tighter timing.
 Also note that the date is compared against the time zone of the machine running the build,
 which for CI runners is usually UTC rather than your local time zone.
 
-Since a future date is what withholds a scheduled post, a mistyped date does the same thing. If a post is missing from
+Since a future date is what keeps a scheduled post out of your build, a mistyped date does the same thing. If a post is missing from
 your built site, check that its date is not accidentally set ahead of the build, for example through a mistyped year,
 and that it does not have a leftover `draft: true`. The post will still be visible while serving, which is a useful way
 to confirm this is what happened.

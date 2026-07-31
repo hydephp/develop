@@ -84,11 +84,11 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Discard blog posts withheld from publication, either drafts or future-dated posts. */
+    /** Discard blog posts that are excluded from publication, either drafts or future-dated posts. */
     protected function discardUnpublishedBlogPosts(PageCollection $collection): void
     {
-        // The realtime compiler serves the site as an authoring preview, where unpublished posts must remain
-        // browsable so that they can be written and proofread. They are only withheld from published builds.
+        // The realtime compiler serves the site as an authoring preview, where drafts and scheduled posts must
+        // remain browsable so that they can be written and proofread. They are only excluded from site builds.
         if (Config::getBool('hyde.server.running', false)) {
             return;
         }

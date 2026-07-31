@@ -47,8 +47,8 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
      * Determine if the post is a draft, meaning it has `draft: true` in its front matter.
      *
      * Drafts are excluded from publication builds while the property is true, but remain available in realtime
-     * compiler previews. Unlike a scheduled post, a draft never becomes publishable on its own, as it is
-     * withheld pending an explicit change to the draft property rather than a date.
+     * compiler previews. Unlike a scheduled post, a draft never becomes publishable on its own, as it stays
+     * excluded pending an explicit change to the draft property rather than a date.
      *
      * Posts are published by default, so `false` is equivalent to omitting the property.
      */
