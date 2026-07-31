@@ -51,11 +51,12 @@ loops, `@include`, config calls, and the full Tailwind class set inside them.
 
 ### View models
 
-For most blocks that view data is a plain array, assembled where the block is rendered. It works, but nothing declares
-which variables a view may use: the contract only exists as the arguments of a `view()` call, and your IDE can't see it.
+For most blocks that view data is a plain array, assembled at the point the block is rendered. Terminal blocks use a
+**view model** instead: a Blade component class that carries the block's data and renders itself through the view.
 
-Terminal blocks use a **view model** instead — a Blade component class that states what the block is made of, carries
-its data, and renders itself through the view:
+Two things follow from that. The contract is a class you can open and your IDE can read, rather than the arguments of a
+`view()` call buried in a renderer. And because it is a normal object, you can build one yourself instead of writing
+Markdown to get one:
 
 ```php
 use Hyde\Framework\Views\Components\TerminalBlockComponent;
@@ -64,8 +65,7 @@ echo (new TerminalBlockComponent('$ php hyde build', title: 'Building the site')
 ```
 
 The constructor is the block's parsed shape, the public properties are the data the view works with, and `toHtml()`
-resolves the same view a Markdown block does. So the class is three things at once: the documented contract, the object
-the Markdown pipeline passes around, and a generator you can use on its own to render a block from anywhere.
+resolves the same view a Markdown block does.
 
 These are ordinary [Laravel Blade components](https://laravel.com/docs/blade#components), not a Hyde invention, so
 everything they normally do applies — attribute bags, subclassing, and registering the class as an `<x-…>` tag.
@@ -266,9 +266,9 @@ The component does the per-line work when it is constructed, before the view is 
 converts Symfony Console formatter tags into coloured spans. The view receives one finished value.
 
 That value is an `HtmlString` rather than a plain string, so `{{ $contents }}` and `{!! $contents !!}` both render it as
-markup, and the usual mistake of escaping already-rendered markup is not possible. `$literal` is the same output before any of that happened,
-which is what you want for a copy-to-clipboard button or a plain-text fallback — remember to escape it yourself when
-you echo it.
+markup, and the usual mistake of escaping already-rendered markup is not possible. `$literal` is the same output before
+any of that happened, which is what you want for a copy-to-clipboard button or a plain-text fallback — remember to
+escape it yourself when you echo it.
 
 The title is passed through as it was written, so the view is what decides both how it is displayed and what an
 untitled block falls back to. The shipped view escapes it with `{{ }}` and falls back to `Terminal`.
@@ -295,6 +295,13 @@ echo $terminal->toHtml();
 The constructor takes the terminal output and its two modifiers, and `toHtml()` renders the window through the terminal
 view — including your published copy of that view, if you have one. Blocks written in Markdown are built exactly this
 way.
+
+Inside a Blade view you rarely need to call it: the component is `Htmlable`, so echoing it renders the window, and
+Blade will not escape the markup.
+
+```blade
+{{ $terminal }}
+```
 
 Being a Blade component also means `withAttributes()` works, which the shipped view merges onto the `<figure>` element:
 
@@ -622,7 +629,8 @@ not text to escape again.
 
 ### 2. The node
 
-The node is what lives in the syntax tree. It only has to carry the component from the transformer to the renderer.
+CommonMark's syntax tree holds `Node` instances, and renderers are registered against a node class, so the block needs
+one of its own. It has nothing to do beyond carrying the component from the transformer to the renderer.
 
 ```php
 // filepath: app/Markdown/CalloutBlock.php

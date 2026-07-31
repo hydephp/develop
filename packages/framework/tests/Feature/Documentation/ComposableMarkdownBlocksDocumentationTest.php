@@ -708,6 +708,19 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertSame('[Build output] Done!', (new TerminalBlockComponent('Done!', 'Build output'))->toHtml());
     }
 
+    public function testEchoingTheComponentInABladeViewRendersTheWindow()
+    {
+        $terminal = new TerminalBlockComponent('$ php hyde build', 'Build output');
+
+        $html = Blade::render('{{ $terminal }}', ['terminal' => $terminal]);
+
+        $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
+        $this->assertStringContainsString('<span>Build output</span>', $html);
+
+        // Blade does not escape it, since the component is Htmlable
+        $this->assertStringNotContainsString('&lt;figure', $html);
+    }
+
     public function testAttributesGivenToTheComponentAreMergedOntoTheFigureElement()
     {
         $html = (new TerminalBlockComponent('$ php hyde build'))->withAttributes(['id' => 'build-log'])->toHtml();
