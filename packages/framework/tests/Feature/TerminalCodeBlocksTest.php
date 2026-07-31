@@ -290,8 +290,6 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertTrue($node->component->usesSymfonyFormatting);
     }
 
-
-
     public function testComponentPropertiesAreTheViewData(): void
     {
         $data = (new TerminalBlockComponent('$ php hyde build', 'Build output', true))->data();
@@ -301,7 +299,6 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertTrue($data['usesSymfonyFormatting']);
         $this->assertInstanceOf(HtmlString::class, $data['contents']);
     }
-
 
     public function testComponentContentsAreAnHtmlStringOfFinishedMarkup(): void
     {
@@ -314,6 +311,4 @@ class TerminalCodeBlocksTest extends TestCase
             $component->contents->toHtml()
         );
     }
-
-
 }
