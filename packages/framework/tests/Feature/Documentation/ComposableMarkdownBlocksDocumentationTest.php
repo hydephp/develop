@@ -549,7 +549,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('data-clipboard="$ echo &#039;&lt;script&gt;&#039;', $html);
     }
 
-
     public function testTheRendererWrapsPromptLinesInCommandAndPromptSpans()
     {
         $html = Markdown::render("```terminal\n\$ php hyde build\n```");
