@@ -55,7 +55,15 @@ class BladeBlockExtractorTest extends UnitTestCase
 
     public function testExtractsComponentBlock()
     {
-        [$blocks] = (new BladeBlockExtractor())->handle("```blade component(x)\ncontent\n```");
+        [$blocks] = (new BladeBlockExtractor())->handle("```blade component=\"x\"\ncontent\n```");
+
+        $this->assertCount(1, $blocks);
+        $this->assertInstanceOf(BladeComponentBlock::class, array_values($blocks)[0]);
+    }
+
+    public function testExtractsComponentBlockUsingSingleQuotes()
+    {
+        [$blocks] = (new BladeBlockExtractor())->handle("```blade component='x'\ncontent\n```");
 
         $this->assertCount(1, $blocks);
         $this->assertInstanceOf(BladeComponentBlock::class, array_values($blocks)[0]);
@@ -158,10 +166,31 @@ class BladeBlockExtractorTest extends UnitTestCase
         (new BladeBlockExtractor())->handle("```blade component\ncontent\n```");
     }
 
-    public function testThrowsOnComponentWithEmptyParentheses()
+    public function testThrowsOnComponentWithEmptyAttributeValue()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        (new BladeBlockExtractor())->handle("```blade component()\ncontent\n```");
+        (new BladeBlockExtractor())->handle("```blade component=\"\"\ncontent\n```");
+    }
+
+    public function testThrowsOnUnquotedComponentName()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new BladeBlockExtractor())->handle("```blade component=x\ncontent\n```");
+    }
+
+    public function testThrowsOnMismatchedQuotes()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new BladeBlockExtractor())->handle("```blade component=\"x'\ncontent\n```");
+    }
+
+    public function testThrowsOnUnterminatedQuote()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new BladeBlockExtractor())->handle("```blade component=\"x\ncontent\n```");
     }
 }
