@@ -10,23 +10,22 @@ use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 
 use function array_slice;
-use function preg_match;
+use function preg_match_all;
 use function sprintf;
 use function str_starts_with;
-use function strlen;
 use function strtolower;
 
+use const PREG_SET_ORDER;
 use const PREG_UNMATCHED_AS_NULL;
 
 /** @internal */
 class TransformTerminalBlocks
 {
     /**
-     * Matches the next info string token: either an HTML-style attribute with a quoted value
-     * (which may contain spaces), or a bare space-free word. Anchored to the cursor, and
-     * required to end at a token boundary, so that tokens must be separated by whitespace.
+     * Matches one info string token: either an HTML-style attribute with a
+     * quoted value (which may contain spaces), or a bare space-free word.
      */
-    protected const TOKEN_PATTERN = '/\G\s*(?:(?<key>[\w-]+)=(?:"(?<double>[^"]*)"|\'(?<single>[^\']*)\')|(?<word>\S+))(?=\s|$)/';
+    protected const TOKEN_PATTERN = '/(?<key>[\w-]+)=(?:"(?<double>[^"]*)"|\'(?<single>[^\']*)\')|(?<word>\S+)/';
 
     public function __invoke(DocumentParsedEvent $event): void
     {
@@ -54,73 +53,33 @@ class TransformTerminalBlocks
     {
         $usesSymfonyFormatting = false;
         $title = null;
-        $titled = false;
 
-        // The first token is the language, which is what got us here in the first place.
-        foreach (array_slice($this->tokenize($info), 1) as $token) {
-            if ($token['word'] !== null) {
-                if (strtolower($token['word']) === 'xml') {
-                    $usesSymfonyFormatting = true;
+        preg_match_all(static::TOKEN_PATTERN, $info, $matches, PREG_SET_ORDER | PREG_UNMATCHED_AS_NULL);
 
-                    continue;
+        foreach (array_slice($matches, 1) as $token) {
+            if ($token['word'] === null) {
+                if (strtolower($token['key']) === 'title') {
+                    $title = $token['double'] ?? $token['single'];
                 }
 
-                $this->rejectMalformedTitles($token['word']);
-
-                // Any other modifier may mean something in a future version, so it is ignored.
                 continue;
             }
 
-            if (strtolower($token['key']) !== 'title') {
+            if (strtolower($token['word']) === 'xml') {
+                $usesSymfonyFormatting = true;
+
                 continue;
             }
 
-            if ($titled) {
-                throw new InvalidArgumentException('A terminal block can only have one title.');
+            // A modifier we don't know about may mean something in a future version, so it is ignored.
+            // A malformed title, on the other hand, is a typo we should not silently discard.
+            if (str_starts_with(strtolower($token['word']), 'title=')) {
+                throw new InvalidArgumentException(sprintf(
+                    'Invalid terminal block title [%s]. Expected a quoted value, like title="My title".', $token['word']
+                ));
             }
-
-            $title = $token['double'] ?? $token['single'];
-            $titled = true;
         }
 
         return [$usesSymfonyFormatting, $title];
-    }
-
-    /**
-     * Split the info string into its tokens, walking a cursor through it so that each
-     * token has to end where the next one begins, instead of being found anywhere.
-     *
-     * @return array<int, array{key: string|null, double: string|null, single: string|null, word: string|null}>
-     */
-    protected function tokenize(string $info): array
-    {
-        $tokens = [];
-        $cursor = 0;
-
-        while ($cursor < strlen($info)) {
-            if (! preg_match(static::TOKEN_PATTERN, $info, $matches, PREG_UNMATCHED_AS_NULL, $cursor)) {
-                break; // Nothing but trailing whitespace is left.
-            }
-
-            $tokens[] = $matches;
-            $cursor += strlen($matches[0]);
-        }
-
-        return $tokens;
-    }
-
-    /**
-     * A modifier we don't know about is ignored, since it may mean something in a future version.
-     * A title we can't read, on the other hand, is a typo we should not silently discard.
-     */
-    protected function rejectMalformedTitles(string $word): void
-    {
-        $normalized = strtolower($word);
-
-        if ($normalized === 'title' || str_starts_with($normalized, 'title=')) {
-            throw new InvalidArgumentException(sprintf(
-                'Invalid terminal block title [%s]. Expected a quoted value, like title="My title".', $word
-            ));
-        }
     }
 }

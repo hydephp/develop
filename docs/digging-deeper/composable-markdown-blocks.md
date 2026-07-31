@@ -198,14 +198,9 @@ Double quotes are canonical, matching how attributes are written in HTML and Bla
 an equivalent alternative, which is useful when the title itself contains a double quote. The title is escaped when it
 is rendered, so it is safe to use any characters in it, apart from the quote character enclosing it.
 
-An empty title (`title=""`) is respected as written, leaving the title bar with just the window buttons. A block can
-only carry one title, and modifiers have to be separated by whitespace, so `title="One" title="Two"` and
-`title="One"xml` are both errors rather than a guess at what was meant.
-
-Anything else that reads as a title but isn't a quoted `title="…"` attribute — an unquoted value, a quote that is
-never closed, or a space around the `=` — is rejected with an exception, so that a typo surfaces during the build
-rather than silently dropping the title. Unknown modifiers are still ignored, since a modifier added in a future
-version should not break a page rendered by an older one.
+An empty title (`title=""`) is respected as written, leaving the title bar with just the window buttons. A `title`
+value that is unquoted, or that never closes its quote, is rejected with an exception instead of being guessed at, so
+that a typo surfaces during the build rather than silently dropping the title.
 
 #### Symfony formatting
 

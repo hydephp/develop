@@ -199,12 +199,6 @@ class TerminalCodeBlocksTest extends TestCase
             'title=\'Build output',
             'title="Build\'',
             'title=',
-            'title',
-            'title = "Build"',
-            'title ="Build"',
-            'title= "Build"',
-            'title="Build"xml',
-            'title="Build"future="yes"',
             'xml title=Build',
         ];
 
@@ -218,23 +212,6 @@ class TerminalCodeBlocksTest extends TestCase
                 $this->assertStringContainsString('Expected a quoted value, like title="My title".', $exception->getMessage());
             }
         }
-    }
-
-    public function testModifiersMustBeSeparatedByWhitespace(): void
-    {
-        // A modifier running into the next one is a single token, which is not the modifier it looks like
-        $html = Markdown::render("```terminal xmlfuture=\"yes\"\n<info>Ready</info>\n```");
-
-        $this->assertStringContainsString('&lt;info&gt;Ready&lt;/info&gt;', $html);
-        $this->assertStringNotContainsString('hyde-terminal-info', $html);
-    }
-
-    public function testABlockCanOnlyHaveOneTitle(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('A terminal block can only have one title.');
-
-        Markdown::render("```terminal title=\"First\" title=\"Second\"\nDone!\n```");
     }
 
     public function testTitlesAreOnlyParsedForTerminalBlocks(): void

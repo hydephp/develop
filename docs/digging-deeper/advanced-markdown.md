@@ -161,10 +161,8 @@ $ composer require hyde/framework
 ```
 
 Double quotes are canonical, but single quotes work just as well, which helps when the title contains a double quote.
-The title is escaped when rendered, so any characters other than the enclosing quote are safe to use.
-
-A block can only have one title, and anything that reads as a title but isn't a quoted `title="…"` attribute — an
-unquoted value, an unclosed quote, or a space around the `=` — is reported as an error instead of being guessed at.
+The title is escaped when rendered, so any characters other than the enclosing quote are safe to use. A title that is
+unquoted, or that never closes its quote, is reported as an error instead of being guessed at.
 
 ### Symfony Console formatting
 
@@ -190,8 +188,8 @@ theme:
 The formatter only recognizes these four tags. All other terminal content, including HTML, is escaped and displayed
 as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output.
 
-Modifiers can be combined in any order, as long as they are separated by whitespace, so
-`terminal xml title="Build output"` and `terminal title="Build output" xml` are the same thing.
+Modifiers can be combined in any order, so `terminal xml title="Build output"` and `terminal title="Build output" xml`
+are the same thing.
 
 The terminal markup provides stable styling hooks for customization. Use `hyde-terminal-body` to change the output
 area's default text and background colors, and `hyde-terminal` to style the outer container. The

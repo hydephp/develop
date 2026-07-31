@@ -594,11 +594,9 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('<span class="hyde-terminal-controls ', $html);
     }
 
-    public function testAnythingThatReadsAsATitleButIsNotAQuotedAttributeIsRejectedInsteadOfBeingGuessedAt()
+    public function testAnUnquotedOrUnclosedTitleIsRejectedInsteadOfBeingGuessedAt()
     {
-        $malformed = ['title=Build', 'title="Build output', "title='Build output", 'title = "Build"', 'title'];
-
-        foreach ($malformed as $modifier) {
+        foreach (['title=Build', 'title="Build output', "title='Build output"] as $modifier) {
             try {
                 Markdown::render("```terminal $modifier\nDone!\n```");
 
@@ -606,29 +604,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
             } catch (InvalidArgumentException $exception) {
                 $this->assertStringContainsString('Invalid terminal block title', $exception->getMessage());
             }
-        }
-
-        // While an unknown modifier is still ignored, so that a future one does not break an older renderer
-        $this->assertStringContainsString('<span>Terminal</span>', Markdown::render("```terminal future\nDone!\n```"));
-        $this->assertStringContainsString('<span>Terminal</span>', Markdown::render("```terminal future=\"yes\"\nDone!\n```"));
-    }
-
-    public function testABlockCanOnlyCarryOneTitleAndModifiersHaveToBeSeparatedByWhitespace()
-    {
-        try {
-            Markdown::render("```terminal title=\"One\" title=\"Two\"\nDone!\n```");
-
-            $this->fail('A block with two titles was not rejected.');
-        } catch (InvalidArgumentException $exception) {
-            $this->assertSame('A terminal block can only have one title.', $exception->getMessage());
-        }
-
-        try {
-            Markdown::render("```terminal title=\"One\"xml\nDone!\n```");
-
-            $this->fail('A title running into the next modifier was not rejected.');
-        } catch (InvalidArgumentException $exception) {
-            $this->assertStringContainsString('Invalid terminal block title', $exception->getMessage());
         }
     }
 
