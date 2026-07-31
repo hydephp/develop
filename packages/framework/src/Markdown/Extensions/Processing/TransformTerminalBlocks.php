@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Extensions\Processing;
 
-use Hyde\Framework\Views\Components\TerminalBlockComponent;
 use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
+use Hyde\Markdown\Extensions\TerminalBlockViewModel;
 use InvalidArgumentException;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -40,15 +40,15 @@ class TransformTerminalBlocks
         }
 
         foreach ($terminalBlocks as $node) {
-            $node->replaceWith(new TerminalBlock($this->makeComponent($node)));
+            $node->replaceWith(new TerminalBlock($this->makeViewModel($node)));
         }
     }
 
-    protected function makeComponent(FencedCode $node): TerminalBlockComponent
+    protected function makeViewModel(FencedCode $node): TerminalBlockViewModel
     {
         [$usesSymfonyFormatting, $title] = $this->parseModifiers($node->getInfo() ?? '');
 
-        return new TerminalBlockComponent($node->getLiteral(), $title, $usesSymfonyFormatting);
+        return new TerminalBlockViewModel($node->getLiteral(), $title, $usesSymfonyFormatting);
     }
 
     /**

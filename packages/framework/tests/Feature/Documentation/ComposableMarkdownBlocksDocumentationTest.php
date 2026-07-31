@@ -491,7 +491,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         preg_match_all('/^\| `\\$(\w+)`/m', $table, $matches);
 
-        $this->assertEqualsCanonicalizing(['contents', 'title', 'literal', 'usesSymfonyFormatting'], $matches[1]);
+        $this->assertEqualsCanonicalizing(['contents', 'title', 'literal'], $matches[1]);
 
         $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
             '[{{ implode(",", array_keys(get_defined_vars()["__data"])) }}]'
@@ -549,13 +549,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('data-clipboard="$ echo &#039;&lt;script&gt;&#039;', $html);
     }
 
-    public function testTheViewReceivesWhetherTheBlockUsesSymfonyFormatting()
-    {
-        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '[xml={{ var_export($usesSymfonyFormatting, true) }}]');
-
-        $this->assertStringContainsString('[xml=true]', Markdown::render("```terminal xml\nDone!\n```"));
-        $this->assertStringContainsString('[xml=false]', Markdown::render("```terminal\nDone!\n```"));
-    }
 
     public function testTheRendererWrapsPromptLinesInCommandAndPromptSpans()
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Framework\Services\MarkdownService;
-use Hyde\Framework\Views\Components\TerminalBlockComponent;
+use Hyde\Markdown\Extensions\TerminalBlockViewModel;
 use Hyde\Markdown\Extensions\TerminalExtension;
 use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
 use Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer;
@@ -24,7 +24,7 @@ use Torchlight\Commonmark\BaseExtension;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalExtension::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlock::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlockComponent::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlockViewModel::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlockRenderer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TransformTerminalBlocks::class)]
 class TerminalCodeBlocksTest extends TestCase
@@ -267,7 +267,7 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
     }
 
-    public function testParsedBlocksCarryTheComponentTheyWereParsedInto(): void
+    public function testParsedBlocksCarryTheViewModelTheyWereParsedInto(): void
     {
         $document = new Document();
 
@@ -283,32 +283,31 @@ class TerminalCodeBlocksTest extends TestCase
         $node = $document->firstChild();
 
         $this->assertInstanceOf(TerminalBlock::class, $node);
-        $this->assertInstanceOf(TerminalBlockComponent::class, $node->component);
+        $this->assertInstanceOf(TerminalBlockViewModel::class, $node->viewModel);
 
-        $this->assertSame('$ php hyde build', $node->component->literal);
-        $this->assertSame('Build output', $node->component->title);
-        $this->assertTrue($node->component->usesSymfonyFormatting);
+        $this->assertSame('$ php hyde build', $node->viewModel->literal);
+        $this->assertSame('Build output', $node->viewModel->title);
+        $this->assertTrue($node->viewModel->usesSymfonyFormatting);
     }
 
-    public function testComponentPropertiesAreTheViewData(): void
+    public function testViewModelRendersTheTerminalView(): void
     {
-        $data = (new TerminalBlockComponent('$ php hyde build', 'Build output', true))->data();
+        $html = (new TerminalBlockViewModel('$ php hyde build', 'Build output'))->render();
 
-        $this->assertSame('$ php hyde build', $data['literal']);
-        $this->assertSame('Build output', $data['title']);
-        $this->assertTrue($data['usesSymfonyFormatting']);
-        $this->assertInstanceOf(HtmlString::class, $data['contents']);
+        $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
+        $this->assertStringContainsString('<span>Build output</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build', $html);
     }
 
-    public function testComponentContentsAreAnHtmlStringOfFinishedMarkup(): void
+    public function testViewModelContentsAreAnHtmlStringOfFinishedMarkup(): void
     {
-        $component = new TerminalBlockComponent('<info>Ready</info> <b>Bold</b>', usesSymfonyFormatting: true);
+        $viewModel = new TerminalBlockViewModel('<info>Ready</info> <b>Bold</b>', usesSymfonyFormatting: true);
 
-        $this->assertInstanceOf(HtmlString::class, $component->contents);
+        $this->assertInstanceOf(HtmlString::class, $viewModel->contents);
 
         $this->assertSame(
             '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span> &lt;b&gt;Bold&lt;/b&gt;',
-            $component->contents->toHtml()
+            $viewModel->contents->toHtml()
         );
     }
 }

@@ -126,24 +126,26 @@ an empty title bar as written.
 
 ## Terminal block view model motivation
 
-The data handed to the terminal view is assembled by a class, `TerminalBlockComponent`, rather than by a renderer
-building an array. This is an internal cleanup and not something a Hyde site should have to know about: the shape of
-that data was previously agreed on in three places with nothing enforcing it, and a typo in any of them was a runtime
-surprise. A typed class means the schema exists once, and the transformer and renderer are checked against it.
+The data handed to the terminal view is assembled by a class, `TerminalBlockViewModel`, rather than by a renderer
+building an array inline. This is an internal cleanup and not something a Hyde site should have to know about: the
+shape of that data was previously agreed on in three places with nothing enforcing it, and a typo in any of them was a
+runtime surprise. A typed class means the schema exists once, and the transformer and renderer are checked against it.
 
-It is a Laravel `Illuminate\View\Component` rather than a data object of our own, since that is what the view layer
-already understands: public properties become view data and the published view keeps taking precedence, with nothing
-to reimplement. It is marked `@internal`, so the public contract stays what it was, the Markdown syntax and the
-variables a published view receives.
+It is a plain class rather than an `Illuminate\View\Component`. The component base class was tried first, since these
+blocks do render Blade views, but nothing it offers is used once the class is internal: there are no attributes to
+merge, no slot, and no tag to register. What it does bring is reflection-based view data, which passes a component's
+public methods to the view alongside its properties, so the exact thing the class exists to pin down would have been
+the one thing left implicit. Declaring `viewData()` is both smaller and stricter.
 
-The syntax tree node holds the component rather than restating its properties, which keeps one source of truth for the
-block's shape and leaves the node and renderer as the thin CommonMark adapters they should be. The component is built
+The syntax tree node holds the view model rather than restating its properties, which keeps one source of truth for the
+block's shape and leaves the node and renderer as the thin CommonMark adapters they should be. The view model is built
 while transforming the document, so the parsed block and its data are created together. Nothing is rendered early by
 this, as the formatting is string work on a block that is about to be rendered anyway.
 
 The view receives the finished body as an `HtmlString`, so it renders as markup through either echo syntax and cannot
 be escaped twice by mistake, and the unrendered output beside it as `$literal`, which is what a copy button or a plain
 text fallback needs. Those two are separate variables rather than one overloaded value precisely because one is trusted
-markup and the other is not.
+markup and the other is not. The `xml` modifier is not passed to the view, as no view has a use for it; a view that
+needs it later can be given it then.
 
 More blocks may gain the same backing later, which is a separate change; terminal blocks are the only one today.

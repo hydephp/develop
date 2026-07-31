@@ -22,6 +22,6 @@ class TerminalBlockRenderer implements NodeRendererInterface
             throw new InvalidArgumentException(sprintf('Incompatible node type: %s', get_class($node)));
         }
 
-        return $node->component->toHtml();
+        return $node->viewModel->render();
     }
 }

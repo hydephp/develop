@@ -223,12 +223,11 @@ usual, including unknown tags and tags that are not closed in the order they wer
 
 **View:** `hyde::components.markdown.terminal`
 
-| Variable                 | Type            | Description                                                             |
-|--------------------------|-----------------|-------------------------------------------------------------------------|
-| `$contents`              | `HtmlString`    | The terminal body as finished HTML, escaped and marked up for display.  |
-| `$title`                 | `string`/`null` | The title set by the block, or `null` when it did not set one.          |
-| `$literal`               | `string`        | The terminal output as it was written, before any markup was applied.   |
-| `$usesSymfonyFormatting` | `bool`          | Whether the block set the `xml` modifier.                               |
+| Variable    | Type            | Description                                                            |
+|-------------|-----------------|------------------------------------------------------------------------|
+| `$contents` | `HtmlString`    | The terminal body as finished HTML, escaped and marked up for display. |
+| `$title`    | `string`/`null` | The title set by the block, or `null` when it did not set one.         |
+| `$literal`  | `string`        | The terminal output as it was written, before any markup was applied.  |
 
 Hyde does the per-line work before the view is involved: it escapes the raw text, wraps `$ ` prompts in
 `hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present — converts Symfony
