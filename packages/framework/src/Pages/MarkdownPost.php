@@ -46,11 +46,11 @@ class MarkdownPost extends BaseMarkdownPage implements BlogPostSchema
     /**
      * Determine if the post is a draft, meaning it has `draft: true` in its front matter.
      *
-     * Drafts are excluded from publication builds indefinitely, until the author removes the front matter
-     * property, but remain available in realtime compiler previews. Unlike a scheduled post, a draft never
-     * becomes publishable on its own, as it is withheld pending explicit approval rather than a date.
+     * Drafts are excluded from publication builds while the property is true, but remain available in realtime
+     * compiler previews. Unlike a scheduled post, a draft never becomes publishable on its own, as it is
+     * withheld pending an explicit front matter change rather than a date.
      *
-     * Posts are published by default, so `draft: false` is the same as omitting the property entirely.
+     * Posts are published by default, so false is equivalent to omitting the property.
      */
     public function isDraft(): bool
     {

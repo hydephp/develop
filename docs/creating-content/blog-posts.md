@@ -100,8 +100,9 @@ animi distinctio earum ducimus minus, magnam.
 
 ## Drafts and Scheduled Posts
 
-Hyde has two ways to keep a post out of your published site. Both are set in front matter, and neither one needs any
-configuration, command line flags, or a separate directory.
+Hyde supports two zero-configuration publication states for keeping a post out of your published site. Drafts are marked
+with a front matter property, while scheduled posts are set by a date, which can come from either front matter or a
+filename [date prefix](#date-prefixes). Neither state needs any configuration, command line flags, or a separate directory.
 
 | State         | Meaning                      | `php hyde serve` | `php hyde build`      |
 |---------------|------------------------------|------------------|-----------------------|
@@ -126,10 +127,11 @@ draft: true
 ```
 
 This suits a post that is unfinished, awaiting review, or that you want to temporarily take down without deleting or
-moving the file. Unlike a future date, a draft never becomes publishable on its own: it stays withheld until you remove
-`draft: true`, at which point the normal date rules apply.
+moving the file. Unlike a future date, a draft never becomes publishable on its own: it stays withheld until you change
+the front matter, at which point the normal date rules apply.
 
-Posts are published by default, so `draft: false` does nothing at all, and is the same as leaving the property out.
+To publish the post, remove `draft: true`. You may set it to `false` instead, but because posts are published by
+default, omitting the property keeps the front matter cleaner.
 
 ### Scheduled Posts
 
@@ -260,7 +262,7 @@ draft: true
 ```
 
 Marks the post as a [draft](#drafts), excluding it from site builds until you remove the property.
-Posts are published by default, so `draft: false` has no effect.
+You may also set it to `false`, but as posts are published by default, that has no functional effect.
 
 ### Author
 

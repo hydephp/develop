@@ -84,7 +84,7 @@ class HydeCoreExtension extends HydeExtension
         }
     }
 
-    /** Discard blog posts that are not yet approved for publication, being drafts or dated in the future. */
+    /** Discard blog posts withheld from publication, either drafts or future-dated posts. */
     protected function discardUnpublishedBlogPosts(PageCollection $collection): void
     {
         // The realtime compiler serves the site as an authoring preview, where unpublished posts must remain

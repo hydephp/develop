@@ -180,6 +180,16 @@ class UnpublishedBlogPostDiscoveryTest extends TestCase
         $this->assertTrue(Hyde::routes()->has('posts/published'));
     }
 
+    public function testDraftSetToFalseDoesNotOverrideAFutureDate()
+    {
+        $this->markdown('_posts/scheduled.md', matter: ['date' => '2100-01-01', 'draft' => false]);
+
+        Hyde::boot();
+
+        // Setting draft to false is a no-op, so the normal date rules still withhold the post.
+        $this->assertFalse(Hyde::routes()->has('posts/scheduled'));
+    }
+
     public function testDraftPostIsDiscoveredWhenServing()
     {
         config(['hyde.server.running' => true]);
