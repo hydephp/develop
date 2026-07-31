@@ -199,6 +199,9 @@ class TerminalCodeBlocksTest extends TestCase
             'title=\'Build output',
             'title="Build\'',
             'title=',
+            'title',
+            'title = "Build"',
+            'title="Build"xml',
             'xml title=Build',
         ];
 
@@ -212,6 +215,15 @@ class TerminalCodeBlocksTest extends TestCase
                 $this->assertStringContainsString('Expected a quoted value, like title="My title".', $exception->getMessage());
             }
         }
+    }
+
+    public function testModifiersAreNotFoundInsideAnotherToken(): void
+    {
+        // Modifiers are whitespace separated, so this is one unknown token, not two modifiers
+        $html = Markdown::render("```terminal xmlfuture=\"yes\"\n<info>Ready</info>\n```");
+
+        $this->assertStringContainsString('&lt;info&gt;Ready&lt;/info&gt;', $html);
+        $this->assertStringNotContainsString('hyde-terminal-info', $html);
     }
 
     public function testTitlesAreOnlyParsedForTerminalBlocks(): void

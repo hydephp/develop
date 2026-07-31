@@ -22,10 +22,11 @@ use const PREG_UNMATCHED_AS_NULL;
 class TransformTerminalBlocks
 {
     /**
-     * Matches one info string token: either an HTML-style attribute with a
-     * quoted value (which may contain spaces), or a bare space-free word.
+     * Matches one info string token: either an HTML-style attribute with a quoted value
+     * (which may contain spaces), or a bare space-free word. The surrounding assertions
+     * keep a token from being found inside another one, as modifiers are whitespace separated.
      */
-    protected const TOKEN_PATTERN = '/(?<key>[\w-]+)=(?:"(?<double>[^"]*)"|\'(?<single>[^\']*)\')|(?<word>\S+)/';
+    protected const TOKEN_PATTERN = '/(?<!\S)(?:(?<key>[\w-]+)=(?:"(?<double>[^"]*)"|\'(?<single>[^\']*)\')|(?<word>\S+))(?=\s|$)/';
 
     public function __invoke(DocumentParsedEvent $event): void
     {
@@ -65,7 +66,9 @@ class TransformTerminalBlocks
                 continue;
             }
 
-            if (strtolower($token['word']) === 'xml') {
+            $word = strtolower($token['word']);
+
+            if ($word === 'xml') {
                 $usesSymfonyFormatting = true;
 
                 continue;
@@ -73,7 +76,7 @@ class TransformTerminalBlocks
 
             // A modifier we don't know about may mean something in a future version, so it is ignored.
             // A malformed title, on the other hand, is a typo we should not silently discard.
-            if (str_starts_with(strtolower($token['word']), 'title=')) {
+            if ($word === 'title' || str_starts_with($word, 'title=')) {
                 throw new InvalidArgumentException(sprintf(
                     'Invalid terminal block title [%s]. Expected a quoted value, like title="My title".', $token['word']
                 ));

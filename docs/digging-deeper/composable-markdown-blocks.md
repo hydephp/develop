@@ -199,8 +199,9 @@ an equivalent alternative, which is useful when the title itself contains a doub
 is rendered, so it is safe to use any characters in it, apart from the quote character enclosing it.
 
 An empty title (`title=""`) is respected as written, leaving the title bar with just the window buttons. A `title`
-value that is unquoted, or that never closes its quote, is rejected with an exception instead of being guessed at, so
-that a typo surfaces during the build rather than silently dropping the title.
+that isn't a quoted value — unquoted, never closing its quote, or spaced around the `=` — is rejected with an
+exception instead of being guessed at, so that a typo surfaces during the build rather than silently dropping the
+title.
 
 #### Symfony formatting
 

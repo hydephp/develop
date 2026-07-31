@@ -594,9 +594,9 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('<span class="hyde-terminal-controls ', $html);
     }
 
-    public function testAnUnquotedOrUnclosedTitleIsRejectedInsteadOfBeingGuessedAt()
+    public function testATitleThatIsNotAQuotedValueIsRejectedInsteadOfBeingGuessedAt()
     {
-        foreach (['title=Build', 'title="Build output', "title='Build output"] as $modifier) {
+        foreach (['title=Build', 'title="Build output', "title='Build output", 'title', 'title = "Build"'] as $modifier) {
             try {
                 Markdown::render("```terminal $modifier\nDone!\n```");
 
