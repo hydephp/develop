@@ -97,8 +97,11 @@ class TransformTerminalBlocks
         $tokens = [];
         $cursor = 0;
 
-        // Each match is anchored to the cursor, so the walk ends as soon as a token doesn't start there.
-        while (preg_match(static::TOKEN_PATTERN, $info, $matches, PREG_UNMATCHED_AS_NULL, $cursor)) {
+        while ($cursor < strlen($info)) {
+            if (! preg_match(static::TOKEN_PATTERN, $info, $matches, PREG_UNMATCHED_AS_NULL, $cursor)) {
+                break; // Nothing but trailing whitespace is left.
+            }
+
             $tokens[] = $matches;
             $cursor += strlen($matches[0]);
         }
