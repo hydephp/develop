@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Support\BuildWarnings;
 use Hyde\Foundation\HydeCoreExtension;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
@@ -19,6 +20,8 @@ class ScheduledBlogPostDiscoveryTest extends TestCase
 {
     public function testPostDatedInTheFutureIsNotDiscovered()
     {
+        app()->forgetInstance(BuildWarnings::class);
+
         $this->markdown('_posts/published.md', matter: ['date' => '2020-01-01']);
         $this->markdown('_posts/scheduled.md', matter: ['date' => '2100-01-01']);
 
@@ -28,6 +31,9 @@ class ScheduledBlogPostDiscoveryTest extends TestCase
 
         $this->assertTrue($pages->has('_posts/published.md'));
         $this->assertFalse($pages->has('_posts/scheduled.md'));
+
+        // Scheduled posts are silently and intentionally withheld; they are not build problems.
+        $this->assertEmpty(BuildWarnings::getWarnings());
     }
 
     public function testPostDatedInTheFutureDoesNotGetARoute()

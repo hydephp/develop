@@ -310,7 +310,7 @@ Scheduled posts are still included by `php hyde serve`, which is treated as an a
 
 In v2 these posts were built like any other. If your site has posts dated ahead of the build time — whether deliberately or because of a typo — they will disappear from your site after upgrading.
 
-To find the affected posts, check your `_posts` directory for dates ahead of your build time, in both front matter and filename prefixes. Withheld posts are also absent from `php hyde route:list`, so comparing that output against your previous site is a quick way to spot anything unexpectedly missing.
+To find affected posts, check your `_posts` directory for dates ahead of the build time, in both front matter and filename prefixes. If a post disappears after upgrading but remains visible through `php hyde serve`, check whether its date was accidentally set in the future.
 
 If a post that was supposed to be published turns out to have a future date, correct the date. If you actually want to schedule posts, remember that **Hyde is a static site generator**: a scheduled post does not publish itself when its date passes. It is included in the first site build that runs after that point, so you need recurring builds for a post to go live on its own, for example a cron-scheduled GitHub Actions workflow.
 
