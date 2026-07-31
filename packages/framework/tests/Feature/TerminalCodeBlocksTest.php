@@ -13,6 +13,7 @@ use Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\HtmlString;
+use Illuminate\View\ComponentAttributeBag;
 use InvalidArgumentException;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -310,16 +311,47 @@ class TerminalCodeBlocksTest extends TestCase
         );
     }
 
-    public function testComponentPropertiesMakeUpTheViewData(): void
+    public function testComponentDeclaresTheViewDataItSupplies(): void
     {
         $component = new TerminalBlockComponent('$ php hyde build', 'Build output', true);
 
         $data = $component->data();
 
+        $this->assertSame(['contents', 'literal', 'title', 'usesSymfonyFormatting', 'attributes'], array_keys($data));
+
+        $this->assertSame($component->contents, $data['contents']);
         $this->assertSame('$ php hyde build', $data['literal']);
         $this->assertSame('Build output', $data['title']);
         $this->assertTrue($data['usesSymfonyFormatting']);
-        $this->assertSame($component->contents, $data['contents']);
+        $this->assertInstanceOf(ComponentAttributeBag::class, $data['attributes']);
+    }
+
+    public function testAddingAPublicMemberDoesNotAddAViewVariable(): void
+    {
+        $component = new class('$ php hyde build') extends TerminalBlockComponent
+        {
+            public string $unrelated = 'value';
+
+            public function helper(): string
+            {
+                return 'value';
+            }
+        };
+
+        $this->assertSame(['contents', 'literal', 'title', 'usesSymfonyFormatting', 'attributes'], array_keys($component->data()));
+    }
+
+    public function testComponentDoesNotRenderWhenItShouldNotBeRendered(): void
+    {
+        $component = new class('$ php hyde build') extends TerminalBlockComponent
+        {
+            public function shouldRender(): bool
+            {
+                return false;
+            }
+        };
+
+        $this->assertSame('', $component->toHtml());
     }
 
     public function testComponentContentsAreAnHtmlStringOfFinishedMarkup(): void

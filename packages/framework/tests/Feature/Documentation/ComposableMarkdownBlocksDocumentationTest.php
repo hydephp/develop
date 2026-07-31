@@ -492,7 +492,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringNotContainsString('torchlight', $html);
     }
 
-    public function testEveryPublicPropertyOfTheViewModelIsAVariableTheViewReceives()
+    public function testTheViewModelDeclaresTheViewDataAndTheDocumentationListsAllOfIt()
     {
         $variables = array_keys((new TerminalBlockComponent('$ php hyde build', 'Build output', true))->data());
 
@@ -503,6 +503,36 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
                 "The view variable [\$$variable] is not documented in the view contract table."
             );
         }
+    }
+
+    public function testTheDeclaredViewDataIsAllTheViewReceives()
+    {
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
+            '[{{ implode(",", array_keys(get_defined_vars()["__data"])) }}]'
+        );
+
+        $this->assertStringContainsString('[__env,app,contents,literal,title,usesSymfonyFormatting,attributes]',
+            Markdown::render("```terminal\nDone!\n```")
+        );
+    }
+
+    public function testRenderingTheComponentAsABladeTagAddsBladesSlotVariables()
+    {
+        Blade::component('terminal', TerminalBlockComponent::class);
+
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php',
+            '[{{ implode(",", array_keys(get_defined_vars()["__data"])) }}]'
+        );
+
+        $this->assertStringContainsString('usesSymfonyFormatting,attributes,slot,__laravel_slots]',
+            Blade::render('<x-terminal literal="$ php hyde build" />')
+        );
+    }
+
+    public function testTheWalkthroughComponentAlsoDeclaresItsViewData()
+    {
+        // Since the reflected default would pass the component's own methods to the view as well
+        $this->assertSame(['contents', 'type', 'attributes'], array_keys((new CalloutBlockComponent('A note.'))->data()));
     }
 
     public function testTheTerminalViewReceivesASingleFinishedContentsString()
@@ -1561,14 +1591,27 @@ class CalloutBlockComponent extends Component implements Htmlable
 {
     public readonly HtmlString $contents;
 
-    public function __construct(string $literal, public readonly string $type = 'note')
-    {
+    public function __construct(
+        public readonly string $literal,
+        public readonly string $type = 'note',
+    ) {
         $this->contents = new HtmlString(Markdown::render($literal));
     }
 
     public function toHtml(): string
     {
-        return Blade::renderComponent($this);
+        return $this->shouldRender() ? Blade::renderComponent($this) : '';
+    }
+
+    public function data(): array
+    {
+        $this->attributes ??= $this->newAttributeBag();
+
+        return [
+            'contents' => $this->contents,
+            'type' => $this->type,
+            'attributes' => $this->attributes,
+        ];
     }
 
     public function render(): ViewContract

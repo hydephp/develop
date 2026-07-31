@@ -63,9 +63,9 @@ use Hyde\Framework\Views\Components\TerminalBlockComponent;
 echo (new TerminalBlockComponent('$ php hyde build', title: 'Building the site'))->toHtml();
 ```
 
-The constructor is the block's parsed shape, the public properties are exactly what the view receives, and `toHtml()`
-resolves the same view a Markdown block does. So the class is three things at once: the documented contract, the object
-the Markdown pipeline passes around, and a generator you can use on its own to render a block from anywhere.
+The constructor is the block's parsed shape, the class declares exactly what the view receives, and `toHtml()` resolves
+the same view a Markdown block does. So the class is three things at once: the documented contract, the object the
+Markdown pipeline passes around, and a generator you can use on its own to render a block from anywhere.
 
 These are ordinary [Laravel Blade components](https://laravel.com/docs/blade#components), not a Hyde invention, so
 everything they normally do applies — attribute bags, subclassing, and registering the class as an `<x-…>` tag.
@@ -247,7 +247,7 @@ usual, including unknown tags and tags that are not closed in the order they wer
 
 **View model:** `Hyde\Framework\Views\Components\TerminalBlockComponent`
 
-Every public property of the view model is a variable the view receives, and nothing else is passed to it:
+The view model declares its view data, so the following is what the view receives and nothing else:
 
 | Variable                 | Type                    | Description                                                                       |
 |--------------------------|-------------------------|-----------------------------------------------------------------------------------|
@@ -257,13 +257,17 @@ Every public property of the view model is a variable the view receives, and not
 | `$usesSymfonyFormatting` | `bool`                  | Whether the block set the `xml` modifier.                                          |
 | `$attributes`            | `ComponentAttributeBag` | The standard Blade component attribute bag, empty for blocks written in Markdown.  |
 
+`$contents` and `$attributes` are not constructor arguments: the first is built from the terminal output, and the
+second is the attribute bag every Blade component has.
+
 The component does the per-line work when it is constructed, before the view is involved: it escapes the raw text, wraps
 `$ ` prompts in `hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present —
 converts Symfony Console formatter tags into coloured spans. The view receives a single finished string.
 
-That string is an `HtmlString`, so `{{ $contents }}` and `{!! $contents !!}` both render it as markup, and there is no
-way to double-escape it by mistake. `$literal` is the same output before any of that happened, which is what you want
-for a copy-to-clipboard button or a plain-text fallback — remember to escape it yourself when you echo it.
+That string is an `HtmlString`, so `{{ $contents }}` and `{!! $contents !!}` both render it as markup, and the usual
+mistake of escaping already-rendered markup is not possible. `$literal` is the same output before any of that happened,
+which is what you want for a copy-to-clipboard button or a plain-text fallback — remember to escape it yourself when
+you echo it.
 
 The title is passed through as it was written, so the view is what decides both how it is displayed and what an
 untitled block falls back to. The shipped view escapes it with `{{ }}` and falls back to `Terminal`.
@@ -287,8 +291,9 @@ $terminal = new TerminalBlockComponent(
 echo $terminal->toHtml();
 ```
 
-The constructor takes the same data the table above describes, and `toHtml()` renders it through the terminal view —
-including your published copy of that view, if you have one. Blocks written in Markdown are built exactly this way.
+The constructor takes the terminal output and its two modifiers, and `toHtml()` renders the window through the terminal
+view — including your published copy of that view, if you have one. Blocks written in Markdown are built exactly this
+way.
 
 Being a Blade component also means `withAttributes()` works, which the shipped view merges onto the `<figure>` element:
 
@@ -306,6 +311,9 @@ Blade::component('terminal', TerminalBlockComponent::class);
 ```blade
 <x-terminal :literal="$output" title="Build output" />
 ```
+
+Rendering it as a tag goes through Blade's full component lifecycle, which adds its usual slot variables (`$slot` and
+friends) to the data in the table above. The terminal view has no use for them, but a view of your own may.
 
 ### Class hooks
 
@@ -571,7 +579,7 @@ implements terminal blocks.
 ### 1. The view model
 
 Start with the contract: a Blade component holding the data your block is made of, and rendering it through a view.
-Only its public properties reach the view, so `$literal` stays a constructor argument while `$type` becomes one.
+Declaring `data()` yourself is what makes that contract exact — see [the note below](#declaring-the-view-data).
 
 ```php
 // filepath: app/Markdown/CalloutBlockComponent.php
@@ -591,14 +599,27 @@ class CalloutBlockComponent extends Component implements Htmlable
 {
     public readonly HtmlString $contents;
 
-    public function __construct(string $literal, public readonly string $type = 'note')
-    {
+    public function __construct(
+        public readonly string $literal,
+        public readonly string $type = 'note',
+    ) {
         $this->contents = new HtmlString(Markdown::render($literal));
     }
 
     public function toHtml(): string
     {
-        return Blade::renderComponent($this);
+        return $this->shouldRender() ? Blade::renderComponent($this) : '';
+    }
+
+    public function data(): array
+    {
+        $this->attributes ??= $this->newAttributeBag();
+
+        return [
+            'contents' => $this->contents,
+            'type' => $this->type,
+            'attributes' => $this->attributes,
+        ];
     }
 
     public function render(): ViewContract
@@ -607,6 +628,16 @@ class CalloutBlockComponent extends Component implements Htmlable
     }
 }
 ```
+
+#### Declaring the view data
+
+Left to itself, Laravel builds the view data by reflecting over the class, and it picks up **public methods as well as
+public properties** — including the `toHtml()` you just wrote and a couple Blade defines on the base class. Declaring
+`data()` yourself keeps the contract to what you meant it to be, and stops a public helper added later from silently
+becoming a view variable.
+
+You can also inherit the reflection behaviour and subtract from it with `protected $except = ['toHtml'];`, which is
+less code but has to be kept in step with every public member you add.
 
 Note that `Markdown::render()` starts a nested conversion, which is what lets the callout body contain Markdown. If your
 block's content should be treated as literal text instead, escape it with `e()` and skip the nested render — that is
