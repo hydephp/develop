@@ -318,7 +318,7 @@ hovering over headings in these docs, but the view is rendered whether permalink
 | `$slot`            | `string`          | The rendered heading contents as HTML.                                       |
 | `$id`              | `string`          | A unique slug derived from the contents, deduplicated across the document.    |
 | `$addPermalink`    | `bool`            | Whether this heading should get a permalink anchor.                          |
-| `$extraAttributes` | `array\|null`     | Attributes parsed from the Markdown, e.g. via the Attributes extension.      |
+| `$extraAttributes` | `array`           | Attributes parsed from the Markdown, e.g. via the Attributes extension. Empty when there are none. |
 
 `$addPermalink` is resolved by Hyde before the view runs, based on the heading level and the `markdown.permalinks`
 config for the page type being rendered. Your view can honour it, ignore it, or add its own conditions.
