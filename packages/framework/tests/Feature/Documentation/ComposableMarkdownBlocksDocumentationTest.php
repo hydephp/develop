@@ -1111,14 +1111,14 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('not-prose', $this->frameworkViewContents('filepath-label.blade.php'));
     }
 
-    public function testTheBuiltInBlocksPassDataRatherThanMarkupToTheirViews()
+    public function testTheBuiltInBlocksGiveTheirViewsSemanticValuesRatherThanPrecomputedClasses()
     {
-        // The blocks give the view their type, level, or path, rather than a pre-baked class string
-        $this->assertSame(['literal', 'usesSymfonyFormatting', 'title'], $this->constructorParameters(TerminalBlock::class));
-
+        // The blocks give the view their title, type, or level, rather than a pre-baked class string
+        $this->publishView('vendor/hyde/components/markdown/terminal.blade.php', '{{ $title }}');
         $this->publishView('vendor/hyde/components/colored-blockquote.blade.php', '{{ $class }}');
         $this->publishView('vendor/hyde/components/markdown-heading.blade.php', '{{ $level }}');
 
+        $this->assertStringContainsString('Build output', Markdown::render("```terminal title=\"Build output\"\nDone!\n```"));
         $this->assertStringContainsString('info', Markdown::render('>info Hello'));
         $this->assertStringContainsString('2', Markdown::render('## Hello'));
     }
@@ -1426,14 +1426,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $declaration = array_slice($lines, $reflection->getStartLine() - 1, $reflection->getEndLine() - $reflection->getStartLine() + 1);
 
         return trim(implode("\n", $declaration));
-    }
-
-    /** @return array<int, string> */
-    protected function constructorParameters(string $class): array
-    {
-        return array_map(fn ($parameter): string => $parameter->getName(),
-            (new ReflectionClass($class))->getConstructor()->getParameters()
-        );
     }
 
     protected function normalize(string $contents): string
