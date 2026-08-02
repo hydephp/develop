@@ -15,13 +15,13 @@ class PrepareCodeBlocks
 {
     use ParsesFenceModifiers;
 
-    /** The node data key the renderer reads the resolved label back from. */
+    /** The node data key the renderer reads the label back from. */
     public const LABEL_KEY = 'hyde/code_block_label';
 
     public function __invoke(DocumentParsedEvent $event): void
     {
         foreach ($event->getDocument()->iterator() as $node) {
-            // Terminal blocks have their own syntax on the fence, which is not ours to read.
+            // Terminal blocks have their own fence syntax, which is not ours to read.
             if ($node instanceof FencedCode && ! TransformTerminalBlocks::claims($node)) {
                 $this->prepare($node);
             }
@@ -36,8 +36,8 @@ class PrepareCodeBlocks
 
         $node->setInfo($this->withoutTitleModifier($info));
 
-        // A terminal block blanks its title bar with an empty title, but a code block has no default
-        // label to blank, so an empty one would only ever render an empty element
+        // A terminal block blanks its title bar with an empty title, but a code block has no
+        // default label to blank, so an empty one would only ever render an empty element.
         if ($title !== null && $title !== '') {
             $node->data->set(static::LABEL_KEY, $this->formatLabel($title));
         }
