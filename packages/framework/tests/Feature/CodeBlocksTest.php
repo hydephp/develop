@@ -242,21 +242,6 @@ class CodeBlocksTest extends TestCase
         $this->assertStringContainsString(e('<a href="#">Link</a>').'</small>', $html);
     }
 
-    public function testLabelsCanBeDisabledWithConfigurationOption(): void
-    {
-        config(['markdown.features.codeblock_titles' => false]);
-
-        $html = Markdown::render("```php title=\"hello-world.php\"\necho 'Hello World!';\n```");
-
-        $this->assertStringNotContainsString('hyde-code-block-label', $html);
-
-        // The modifier is left on the fence for whatever else may want to read it
-        $this->assertSame('php title="app/Model.php"', $this->prepareFence('php title="app/Model.php"')->getInfo());
-
-        // And a malformed one is not ours to reject either
-        $this->assertSame('php title=Foo', $this->prepareFence('php title=Foo')->getInfo());
-    }
-
     public function testTorchlightStillRendersTheHighlightedMarkup(): void
     {
         $html = $this->renderWithTorchlight("```php\necho 'Hello World!';\n```");

@@ -25,10 +25,6 @@ class PrepareCodeBlocks
 
     public function __invoke(DocumentParsedEvent $event): void
     {
-        if (! Config::getBool('markdown.features.codeblock_titles', true)) {
-            return;
-        }
-
         foreach ($event->getDocument()->iterator() as $node) {
             // Terminal blocks have their own syntax on the fence, which is not ours to read.
             if ($node instanceof FencedCode && ! TransformTerminalBlocks::claims($node)) {

@@ -292,7 +292,6 @@ fenced blocks rather than a document-wide regex, so it should:
 The framework's own documentation was migrated the same way, and every label in it converted cleanly, which is the
 evidence that the mechanical rules above cover realistic usage.
 
-The option gating the feature is renamed from `markdown.features.codeblock_filepaths` to
-`markdown.features.codeblock_titles`, since it no longer gates anything filepath-shaped. It is absent from the
-published `config/markdown.php` and was never documented, so the rename is recorded here rather than in the changelog
-or the upgrade guide, where it would read as a supported option that projects were expected to set.
+The v2 option gating the feature, `markdown.features.codeblock_filepaths`, is dropped rather than renamed. It was
+absent from the published `config/markdown.php` and was never documented, and titles are opt-in syntax already, so
+there is nothing for a global switch to do that leaving `title="…"` off the fence does not.
