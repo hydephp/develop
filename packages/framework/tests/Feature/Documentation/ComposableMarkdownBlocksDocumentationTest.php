@@ -1151,10 +1151,12 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringNotContainsString('my-callout', $html);
     }
 
-    public function testTheBuiltInBlockViewsOptOutOfTheProseStyles()
+    public function testTheBuiltInBlockViewsOptOutOfTheProseStylesWhereAppropriate()
     {
-        $this->assertStringContainsString('not-prose', $this->frameworkViewContents('markdown/terminal.blade.php'));
-        $this->assertStringContainsString('not-prose', $this->frameworkViewContents('markdown/code-block.blade.php'));
+        // The terminal block styles itself completely, while the code block opts out for its
+        // label only, leaving the code with the prose styling code blocks have always had
+        $this->assertStringContainsString('hyde-terminal not-prose', $this->frameworkViewContents('markdown/terminal.blade.php'));
+        $this->assertStringContainsString('hyde-code-block-label not-prose', $this->frameworkViewContents('markdown/code-block.blade.php'));
     }
 
     public function testTheBuiltInBlocksGiveTheirViewsSemanticValuesRatherThanPrecomputedClasses()
