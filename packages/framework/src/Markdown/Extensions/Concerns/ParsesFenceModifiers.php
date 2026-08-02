@@ -89,7 +89,7 @@ trait ParsesFenceModifiers
      */
     protected function withFallbackLanguage(string $info): string
     {
-        return rtrim(static::FALLBACK_LANGUAGE . ' ' . $info);
+        return rtrim(static::FALLBACK_LANGUAGE.' '.$info);
     }
 
     protected function spliceToken(string $info, int $offset, int $length): string
@@ -97,7 +97,7 @@ trait ParsesFenceModifiers
         $before = substr($info, 0, $offset);
         $after = substr($info, $offset + $length);
 
-        return $after === '' ? rtrim($before) : $before . ltrim($after);
+        return $after === '' ? rtrim($before) : $before.ltrim($after);
     }
 
     /**
