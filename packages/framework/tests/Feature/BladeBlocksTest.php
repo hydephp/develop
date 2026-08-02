@@ -103,6 +103,32 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('{{', $html);
     }
 
+    public function testTitledBladeBlockIsRenderedAsALabelledCodeBlock()
+    {
+        $html = $this->render("```blade title=\"components/alert.blade.php\"\n{{ \"This is not executed\" }}\n```");
+
+        $this->assertStringNotContainsString('blade-block', $html);
+        $this->assertStringContainsString('{{', $html);
+        $this->assertStringContainsString('>components/alert.blade.php</small>', $html);
+    }
+
+    public function testBladeBlockTitledAfterAnotherModifierIsRenderedAsALabelledCodeBlock()
+    {
+        $html = $this->render("```blade theme:dark title=\"components/alert.blade.php\"\n{{ \"This is not executed\" }}\n```");
+
+        $this->assertStringNotContainsString('blade-block', $html);
+        $this->assertStringContainsString('{{', $html);
+        $this->assertStringContainsString('>components/alert.blade.php</small>', $html);
+    }
+
+    public function testTitledBladeRenderBlockIsStillExecuted()
+    {
+        $html = $this->render("```blade render title=\"x\"\n{{ \"This is executed\" }}\n```");
+
+        $this->assertStringContainsString('This is executed', $html);
+        $this->assertStringNotContainsString('{{', $html);
+    }
+
     public function testOrdinaryCodeBlocksAreUnaffected()
     {
         $html = $this->render("```php\n<h1>Hello</h1>\n```");

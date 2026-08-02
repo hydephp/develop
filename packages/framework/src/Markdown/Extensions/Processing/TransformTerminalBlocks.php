@@ -17,12 +17,20 @@ class TransformTerminalBlocks
 {
     use ParsesFenceModifiers;
 
+    protected const LANGUAGE = 'terminal';
+
+    /** Whether the fence is one this transformer will claim, which other processing leaves alone. */
+    public static function claims(FencedCode $node): bool
+    {
+        return strtolower($node->getInfoWords()[0] ?? '') === static::LANGUAGE;
+    }
+
     public function __invoke(DocumentParsedEvent $event): void
     {
         $terminalBlocks = [];
 
         foreach ($event->getDocument()->iterator() as $node) {
-            if ($node instanceof FencedCode && strtolower($node->getInfoWords()[0] ?? '') === 'terminal') {
+            if ($node instanceof FencedCode && static::claims($node)) {
                 $terminalBlocks[] = $node;
             }
         }

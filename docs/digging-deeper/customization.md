@@ -104,8 +104,7 @@ While all options are already documented within the files, here are some further
 Redirects are defined in the `redirects` array in `config/hyde.php`. Use the old path as the key and the new path or URL
 as the value:
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'redirects' => [
     'old-page' => 'new-page',
     'docs/old-guide' => 'docs/new-guide',
@@ -132,8 +131,7 @@ redirects:
 When enabled, an RSS feed containing all your Markdown blog posts will be generated when you compile your static site.
 Here are the default settings:
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'rss' => [
     // Should the RSS feed be generated?
     'enabled' => true,
@@ -161,8 +159,7 @@ and the rest of the data will be pulled from a matching entry found in the confi
 
 Authors are defined in the `config/hyde.php` file under the `authors` key. Each author is keyed by their username and is configured using the `Author::create()` method:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'authors' => [
     'mr_hyde' => Author::create(
         // The following fields, along with the username, are used by the default blog post templates.
@@ -228,15 +225,13 @@ The footer component is made up of a few levels of components, depending on how 
 
 There are two ways to customize the footer text. First, you can set it in the configuration file:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'footer' => 'Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩',
 ```
 
 If you don't want to write Markdown in the configuration file, you can create a Markdown file in your includes directory. When this file is found, it will be used instead of the configuration setting.
 
-```markdown
-// filepath: resources/includes/footer.md
+```markdown title="resources/includes/footer.md"
 Site proudly built with [HydePHP](https://github.com/hydephp/hyde) 🎩
 ```
 
@@ -252,8 +247,7 @@ In this template we automatically render the configured footer Markdown text. If
 
 If you don't want to have a footer on your site, you can set the `'footer'` configuration option to `false`.
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'footer' => 'false',
 ```
 
@@ -261,8 +255,7 @@ If you don't want to have a footer on your site, you can set the `'footer'` conf
 
 The footer includes a scroll-to-top button by default. If you want to keep the footer but hide this button, add the following to your configuration file:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'footer_scroll_to_top_button' => false,
 ```
 
@@ -277,15 +270,12 @@ To add custom HTML to your layouts, you can use the `head` and `scripts` configu
 The HTML will be added to the `<head>` section, or just before the closing `</body>` tag, respectively.
 Note that the HTML is added to all pages. If you need to add HTML to a specific page, you will need to override the layout for that page.
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'head' => '<!-- Custom HTML in the head -->',
 'scripts' => '<!-- Custom HTML in the body -->',
 ```
 
-```yaml
-# filepath: hyde.yml
-
+```yaml title="hyde.yml"
 hyde:
   head: "<!-- Custom HTML in the head -->"
   scripts: "<!-- Custom HTML in the body -->"
@@ -293,17 +283,14 @@ hyde:
 
 You can of course also add multiple lines of HTML:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'head' => <<<HTML
     <!-- Custom HTML in the head -->
     <link rel="stylesheet" href="https://example.com/styles.css">
 HTML,
 ```
 
-```yaml
-# filepath: hyde.yml
-
+```yaml title="hyde.yml"
 hyde:
   head: |
     <!-- Custom HTML in the head -->
@@ -344,8 +331,7 @@ should only be modified if you fully understand their impact. The code examples 
 This option allows you to specify file extensions considered as media files, which will be copied to the output directory.
 To add more extensions, either append them to the existing array or override the entire array.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 use \Hyde\Support\Filesystem\MediaFile;
 
 'media_extensions' => array_merge([], MediaFile::EXTENSIONS),
@@ -357,8 +343,7 @@ This setting defines a list of directories deemed safe to empty during the site 
 If the site output directory is not in this list, the build command will prompt for confirmation before emptying it. It is preconfigured
 with common directories including the default one, but you are free to change this to include any custom directories you may need.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'safe_output_directories' => ['_site', 'docs', 'build'],
 ```
 
@@ -366,8 +351,7 @@ with common directories including the default one, but you are free to change th
 
 Determines whether a JSON build manifest with metadata about the build should be generated. Set to `true` to enable.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'generate_build_manifest' => true,
 ```
 
@@ -375,8 +359,7 @@ Determines whether a JSON build manifest with metadata about the build should be
 
 Specifies the path where the build manifest should be saved, relative to the project root.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'build_manifest_path' => 'app/storage/framework/cache/build-manifest.json',
 ```
 
@@ -386,8 +369,7 @@ Specifies the path where the build manifest should be saved, relative to the pro
 
 This setting allows you to enable or disable the theme toggle buttons in the navigation menu.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'theme_toggle_buttons' => true,
 ```
 
@@ -428,8 +410,7 @@ You can add any extra [CommonMark Extensions](https://commonmark.thephpleague.co
 or change the default ones, using the `extensions` array in the config file. They will then automatically be loaded into
 the CommonMark converter environment when being set up by Hyde.
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'extensions' => [
     \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
     \League\CommonMark\Extension\Attributes\AttributesExtension::class,
@@ -443,8 +424,7 @@ Remember that you may need to install any third party extensions through Compose
 In the same file you can also change the configuration values to be passed to the CommonMark converter environment.
 Hyde handles many of the options automatically, but you may want to override some of them and/or add your own.
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'config' => [
     'disallowed_raw_html' => [
         'disallowed_tags' => [],
@@ -461,8 +441,7 @@ Since Hyde uses [GitHub Flavored Markdown](https://commonmark.thephpleague.com/2
 it can strip potentially unsafe HTML tags. Raw HTML is enabled by default in HydePHP v3 because project source is
 normally trusted and reviewed. Disable it when processing Markdown from outside your trusted review process.
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'allow_html' => false,
 ```
 
@@ -475,8 +454,7 @@ executable `blade render` and `blade component="name"` fenced code blocks.
 Blade code can execute arbitrary PHP during the build. Disable it when processing Markdown from outside your trusted
 review process:
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'enable_blade' => false,
 ```
 
@@ -493,9 +471,7 @@ files if you want to. Just keep in mind that any duplicate settings in the YAML 
 
 Here is an example showing some of the `config/hyde.php` file settings, and how they would be set in the YAML file.
 
-```yaml
-# filepath hyde.yml
-
+```yaml title="hyde.yml"
 name: HydePHP
 url: "http://localhost"
 pretty_urls: false
@@ -518,9 +494,7 @@ This allows you to set the settings of **any** configuration file normally found
 
 This feature is automatically enabled when you have a `hyde:` entry **first** in your `hyde.yml` file
 
-```yaml
-# filepath hyde.yml
-
+```yaml title="hyde.yml"
 hyde:
   name: HydePHP
 

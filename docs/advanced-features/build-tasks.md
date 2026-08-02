@@ -122,8 +122,7 @@ For example: `app/Actions/ExampleBuildTask.php`.
 
 If you want, you can also register build tasks of any namespace in the convenient `build_tasks` array which is in the main configuration file, `config/hyde.php`.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'build_tasks' => [
     \App\Actions\SimpleTask::class,
     \MyPackage\Tasks\MyBuildTask::class,

@@ -19,7 +19,7 @@ This serves two purposes:
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. They are controlled by the existing `markdown.enable_blade` option. ([#2504](https://github.com/hydephp/develop/pull/2504))
-- Added built-in `terminal` fenced code blocks with command prompt styling and optional Symfony Console formatting using the `terminal xml` info string. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
+- Added built-in `terminal` fenced code blocks with command prompt styling, an optional window title using the `title="…"` modifier, and optional Symfony Console formatting using the `terminal xml` info string. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
 - Added support for lazy `InMemoryPage` contents closures. The current page is passed as the first argument whenever the contents are requested.
 
 ### Changed
@@ -27,6 +27,9 @@ This serves two purposes:
 - Raw HTML in Markdown is now enabled by default. Set `markdown.allow_html` to `false` when compiling untrusted or unreviewed Markdown to strip potentially unsafe HTML tags.
 - `InMemoryPage` now requires callers to select either `contents` or `view`; configuring both throws an `InvalidArgumentException` instead of silently giving contents precedence.
 - `InMemoryPage` now treats an empty string as an omitted `view`, matching the existing compile-time behavior and allowing literal contents to be used with an empty view value.
+- Fenced code blocks are now rendered through the publishable `components/markdown/code-block.blade.php` view, which receives the block's finished markup as `$contents`, along with `$language` and `$label`. Syntax highlighting is unchanged, as the view wraps the highlighted code rather than producing it. The generated markup around the code has changed accordingly, with `hyde-code-block` and `hyde-code-block-label` as stable hooks for your own CSS.
+- Breaking: Code block labels are now set with a `title="…"` modifier on the fence, replacing the `// filepath:` comment syntax, which is no longer recognized. The label is no longer tied to file paths, and the language is optional, so ` ``` title=".env" ` labels a block that declares none, which is then treated as `plaintext`.
+- Breaking: Removed the `components/filepath-label.blade.php` view, as the label markup now lives in the code block view. A published copy of the old view is no longer used, so port any customizations into `components/markdown/code-block.blade.php`.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.

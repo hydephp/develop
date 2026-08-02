@@ -81,8 +81,7 @@ and understand how your front matter is used. You can read more about the Front 
 
 Before digging deeper into all the supported options, let's take a look at what a basic post with front matter looks like.
 
-```markdown
-// filepath _posts/my-new-post.md
+```markdown title="_posts/my-new-post.md"
 ---
 title: My New Post
 description: A short description used in previews and SEO
@@ -117,8 +116,7 @@ compiled to `_site`, and do not appear in post listings, the sitemap, or the RSS
 
 Set `draft: true` to keep a post out of your built site while the property remains true:
 
-```markdown
-// filepath _posts/work-in-progress.md
+```markdown title="_posts/work-in-progress.md"
 ---
 title: Work in progress
 draft: true
@@ -137,8 +135,7 @@ default, omitting the property keeps the front matter cleaner.
 A post whose date is set in the future is scheduled: it is excluded from builds until that date has passed, and is then
 published by the next build. This works with both front matter dates and [date prefixes](#date-prefixes):
 
-```markdown
-// filepath _posts/my-upcoming-post.md
+```markdown title="_posts/my-upcoming-post.md"
 ---
 title: My Upcoming Post
 date: 2099-01-01
@@ -173,8 +170,7 @@ point. If you deploy your site once and leave it, a post dated next Tuesday will
 
 To have a post go live on its own, run builds on a schedule. For example, with GitHub Actions:
 
-```yaml
-// filepath .github/workflows/deploy.yml
+```yaml title=".github/workflows/deploy.yml"
 on:
   push:
     branches: [main]

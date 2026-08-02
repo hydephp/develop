@@ -139,8 +139,7 @@ class IncludesFacadeTest extends TestCase
 
         >info Info Blockquote
 
-        ```php
-        // filepath: hello.php
+        ```php title="hello.php"
         echo 'Hello, World!';
         ```
 
@@ -165,8 +164,12 @@ class IncludesFacadeTest extends TestCase
         <blockquote class="border-blue-500">
             <p>Info Blockquote</p>
         </blockquote>
-        <pre><code class="language-php"><small class="relative float-right opacity-50 hover:opacity-100 transition-opacity duration-250 not-prose hidden md:block top-0 right-0"><span class="sr-only">Filepath: </span>hello.php</small>echo 'Hello, World!';
+        <div class="hyde-code-block relative">
+        <small class="hyde-code-block-label not-prose absolute right-4 top-3 z-10 hidden font-mono text-xs text-[color:var(--tw-prose-pre-code)] opacity-50 transition-opacity duration-250 hover:opacity-100 md:block"><span class="sr-only">Title: </span>hello.php</small>
+        <pre><code class="language-php">echo 'Hello, World!';
         </code></pre>
+        </div>
+
         <h2>Subheading</h2>
         <ul>
         <li><input checked="" disabled="" type="checkbox"> Checked task list</li>

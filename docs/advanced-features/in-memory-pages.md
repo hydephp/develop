@@ -117,9 +117,7 @@ class ReportPage extends InMemoryPage
 Register the page in the `boot` method of your `AppServiceProvider`. The `booting` callback runs before Hyde's discovery
 process, allowing the route to be generated automatically.
 
-```php
-// filepath: app/Providers/AppServiceProvider.php
-
+```php title="app/Providers/AppServiceProvider.php"
 namespace App\Providers;
 
 use Hyde\Hyde;

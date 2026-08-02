@@ -121,8 +121,7 @@ A nice and simple way to define the order of pages is to add their route keys as
 
 It may be useful to know that we internally will assign a priority calculated according to its position in the list, plus an offset of `500`. The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'navigation' => [
     'order' => [
         'home', // Priority: 500
@@ -136,8 +135,7 @@ It may be useful to know that we internally will assign a priority calculated ac
 
 You can also specify explicit priorities by adding a value to the array keys. We'll then use these exact values as the priorities.
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'navigation' => [
     'order' => [
         'home' => 10,
@@ -153,8 +151,7 @@ Hyde makes a few attempts to find suitable labels for the navigation menu items 
 
 If you're not happy with these, it's easy to override navigation link labels by mapping the route key to the desired title in the Hyde config:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'navigation' => [
     'labels' => [
         'index' => 'Start',
@@ -169,8 +166,7 @@ When you have many pages, it may be useful to prevent links from being added to 
 
 To exclude items from being added, simply add the page's route key to the navigation blacklist in the Hyde config:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'navigation' => [
     'exclude' => [
         '404'
@@ -182,8 +178,7 @@ To exclude items from being added, simply add the page's route key to the naviga
 
 You can easily add custom navigation menu links in the Hyde config:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 use Hyde\Facades\Navigation;
 
 'navigation' => [
@@ -203,8 +198,7 @@ use Hyde\Facades\Navigation;
 
 You can configure how subdirectories should be displayed in the menu:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'navigation' => [
     'subdirectory_display' => 'dropdown'
 ]
@@ -223,8 +217,7 @@ A handy feature HydePHP has is that it can automatically place pages in dropdown
 
 Enable this feature in the `hyde.php` config file by setting the `subdirectory_display` key to `dropdown`.
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'navigation' => [
     'subdirectory_display' => 'dropdown',
 ],

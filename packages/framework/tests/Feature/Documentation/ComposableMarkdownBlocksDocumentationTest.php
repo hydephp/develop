@@ -8,15 +8,16 @@ use Hyde\Console\Helpers\ConsoleHelper;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Hyde;
-use Hyde\Markdown\Contracts\MarkdownPostProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
+use Hyde\Markdown\Extensions\CodeBlockViewModel;
+use Hyde\Markdown\Extensions\Processing\CodeBlockRenderer;
+use Hyde\Markdown\Extensions\Processing\WrapCodeBlocks;
 use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
 use Hyde\Markdown\Extensions\TerminalExtension;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Processing\BladeBlockProcessor;
 use Hyde\Markdown\Processing\BladeDownProcessor;
-use Hyde\Markdown\Processing\CodeblockFilepathProcessor;
 use Hyde\Markdown\Processing\ColoredBlockquotes;
 use Hyde\Markdown\Processing\DynamicMarkdownLinkProcessor;
 use Hyde\Markdown\Processing\HeadingRenderer;
@@ -48,7 +49,6 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
 
 use function array_filter;
 use function array_map;
-use function array_shift;
 use function array_slice;
 use function array_values;
 use function class_implements;
@@ -59,6 +59,7 @@ use function in_array;
 use function iterator_to_array;
 use function preg_match;
 use function preg_match_all;
+use function sprintf;
 use function str_contains;
 use function str_replace;
 use function strstr;
@@ -86,7 +87,10 @@ use function windows_os;
 #[CoversClass(HeadingRenderer::class)]
 #[CoversClass(ColoredBlockquotes::class)]
 #[CoversClass(ShortcodeProcessor::class)]
-#[CoversClass(CodeblockFilepathProcessor::class)]
+#[CoversClass(CodeBlockViewModel::class)]
+#[CoversClass(CodeBlockRenderer::class)]
+#[CoversClass(WrapCodeBlocks::class)]
+#[CoversClass(\Hyde\Markdown\Extensions\Processing\PrepareCodeBlocks::class)]
 #[CoversClass(BladeBlockProcessor::class)]
 #[CoversClass(\Hyde\Console\Commands\PublishViewsCommand::class)]
 class ComposableMarkdownBlocksDocumentationTest extends TestCase
@@ -160,10 +164,10 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     public function testEveryDocumentedViewIsAddressableByItsDocumentedName()
     {
         $views = [
+            'hyde::components.markdown.code-block',
             'hyde::components.markdown.terminal',
             'hyde::components.colored-blockquote',
             'hyde::components.markdown-heading',
-            'hyde::components.filepath-label',
         ];
 
         foreach ($views as $view) {
@@ -180,10 +184,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         // Coloured blockquotes are expanded by a Markdown pre-processor
         $this->assertContains(MarkdownPreProcessorContract::class, class_implements(ShortcodeProcessor::class));
         $this->assertContains(MarkdownShortcodeContract::class, class_implements(ColoredBlockquotes::class));
-
-        // Filepath labels are injected by a Markdown post-processor (marked up by its pre-processor)
-        $this->assertContains(MarkdownPostProcessorContract::class, class_implements(CodeblockFilepathProcessor::class));
-        $this->assertContains(MarkdownPreProcessorContract::class, class_implements(CodeblockFilepathProcessor::class));
 
         // Blade component blocks are extracted by a Markdown pre-processor
         $this->assertContains(MarkdownPreProcessorContract::class, class_implements(BladeBlockProcessor::class));
@@ -217,6 +217,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
             ->expectsOutput('Published all [component] files to [resources/views/vendor/hyde/components]')
             ->assertExitCode(0);
 
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/code-block.blade.php'));
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/terminal.blade.php'));
     }
 
@@ -235,6 +236,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         // Just the one view we cared about, instead of the whole set
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/terminal.blade.php'));
+        $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/markdown/code-block.blade.php'));
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/colored-blockquote.blade.php'));
     }
 
@@ -249,6 +251,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
             ->doesntExpectOutputToContain('Select the files you want to publish')
             ->assertExitCode(0);
 
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/code-block.blade.php'));
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/terminal.blade.php'));
     }
 
@@ -260,9 +263,9 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         // The exact tree shown in the documentation
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/colored-blockquote.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/filepath-label.blade.php'));
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown-heading.blade.php'));
         $this->assertDirectoryExists(Hyde::path('resources/views/vendor/hyde/components/markdown'));
+        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/code-block.blade.php'));
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/terminal.blade.php'));
     }
 
@@ -319,7 +322,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
             BladeBlockProcessor::class,
             BladeDownProcessor::class,
             ShortcodeProcessor::class,
-            CodeblockFilepathProcessor::class,
         ], $this->readProperty($this->markdownService(), 'preprocessors'));
     }
 
@@ -327,7 +329,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $documented = [
             BladeBlockProcessor::class,
-            CodeblockFilepathProcessor::class,
             DynamicMarkdownLinkProcessor::class,
         ];
 
@@ -373,17 +374,12 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('<blockquote class="border-blue-500">', ShortcodeProcessor::preprocess('>info Hello'));
     }
 
-    public function testCodeblockFilepathProcessorConvertsFilepathCommentsIntoMarkers()
+    public function testAFencedCodeBlocksLabelIsResolvedAndRenderedThroughTheCodeBlockView()
     {
-        $markdown = "Intro paragraph.\n\n```php\n// filepath: hello-world.php\necho 'Hello World!';\n```";
+        $html = Markdown::render($this->codeBlockWithTitle());
 
-        $preprocessed = CodeblockFilepathProcessor::preprocess($markdown);
-
-        $this->assertStringContainsString('<!-- HYDE[Filepath]hello-world.php -->', $preprocessed);
-        $this->assertStringNotContainsString('// filepath:', $preprocessed);
-
-        // The post-processor replaces the marker with the rendered filepath label view
-        $this->assertStringNotContainsString('<!-- HYDE[Filepath]', Markdown::render($markdown));
+        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('hello-world.php', $html);
     }
 
     public function testTerminalExtensionIsAlwaysRegistered()
@@ -881,86 +877,136 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
     /*
     |--------------------------------------------------------------------------
-    | Code Block Filepath Labels
+    | Code Blocks
     |--------------------------------------------------------------------------
     */
 
-    public function testAFilepathCommentOnTheFirstLineOfAFencedCodeBlockBecomesALabel()
+    public function testEveryFencedCodeBlockGoesThroughTheCodeBlockView()
     {
-        $html = Markdown::render($this->codeBlockWithFilepath());
+        $this->publishView('vendor/hyde/components/markdown/code-block.blade.php', 'Published code block: {!! $contents !!}');
 
-        $this->assertStringContainsString('<span class="sr-only">Filepath: </span>hello-world.php', $html);
-        $this->assertStringContainsString("echo 'Hello World!';", $html);
-        $this->assertStringNotContainsString('// filepath:', $html);
+        $this->assertStringContainsString('Published code block: ', Markdown::render("```php\necho 'Hello World!';\n```"));
     }
 
-    public function testTheFilepathLabelViewReceivesTheDocumentedVariables()
+    public function testTheViewReceivesTheFinishedMarkupRatherThanRenderingTheCodeItself()
     {
-        $this->publishView('vendor/hyde/components/filepath-label.blade.php',
-            '[path={{ $path }}][type={{ is_string($path) ? "string" : $path::class }}][torchlight={{ var_export($highlightedByTorchlight, true) }}:{{ gettype($highlightedByTorchlight) }}]'
+        $this->publishView('vendor/hyde/components/markdown/code-block.blade.php', '[contents={!! $contents !!}]');
+
+        $html = Markdown::render("```php\necho 'Hello World!';\n```");
+
+        $this->assertStringContainsString('[contents=<pre><code class="language-php">echo \'Hello World!\';', $html);
+    }
+
+    public function testIndentedCodeBlocksAreLeftToCommonMarksDefaultRenderer()
+    {
+        $this->assertStringNotContainsString('hyde-code-block', Markdown::render("    echo 'Hello World!';"));
+    }
+
+    public function testATitleModifierOnTheFenceBecomesALabel()
+    {
+        $html = Markdown::render($this->codeBlockWithTitle());
+
+        $this->assertStringContainsString('<span class="sr-only">Title: </span>hello-world.php', $html);
+        $this->assertStringContainsString("echo 'Hello World!';", $html);
+    }
+
+    public function testTheTitleModifierFollowsTheTerminalBlockTitleRules()
+    {
+        // Double quotes are canonical, and single quotes are accepted
+        $this->assertStringContainsString('>hello-world.php</small>', Markdown::render("```php title=\"hello-world.php\"\necho 1;\n```"));
+        $this->assertStringContainsString('>hello-world.php</small>', Markdown::render("```php title='hello-world.php'\necho 1;\n```"));
+
+        // A malformed value fails the build rather than being silently ignored
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid code block title [title=hello-world.php]. Expected syntax like title="My title".');
+
+        Markdown::render("```php title=hello-world.php\necho 1;\n```");
+    }
+
+    public function testTheLanguageIsOptionalWhenSettingATitleModifier()
+    {
+        $html = Markdown::render("``` title=\".env\"\nAPP_NAME=HydePHP\n```");
+
+        $this->assertStringContainsString('>.env</small>', $html);
+
+        // Such a block is plaintext, as documented, so that a modifier after the title is not read as the language
+        $this->assertStringContainsString('<pre><code class="language-plaintext">APP_NAME=HydePHP', $html);
+    }
+
+    public function testTheCodeBlockViewReceivesTheDocumentedVariables()
+    {
+        $this->publishView('vendor/hyde/components/markdown/code-block.blade.php',
+            '[contents={{ gettype($contents) }}][language={{ $language }}][label={{ $label }}]'.
+            '[labelType={{ is_string($label) ? "string" : $label::class }}]'
         );
 
-        $html = Markdown::render($this->codeBlockWithFilepath());
+        $html = Markdown::render($this->codeBlockWithTitle());
 
-        $this->assertStringContainsString('[path=hello-world.php]', $html);
-        $this->assertStringContainsString('[type=Illuminate\Support\HtmlString]', $html);
-        $this->assertStringContainsString('[torchlight=false:boolean]', $html);
+        $this->assertStringContainsString('[contents=string]', $html);
+        $this->assertStringContainsString('[language=php]', $html);
+        $this->assertStringContainsString('[label=hello-world.php]', $html);
+        $this->assertStringContainsString('[labelType=Illuminate\Support\HtmlString]', $html);
     }
 
-    public function testThePathIsAPlainStringWhenHtmlIsNotAllowed()
+    public function testTheLanguageIsNullWhenTheBlockDeclaredNone()
     {
-        $this->publishView('vendor/hyde/components/filepath-label.blade.php', '[type={{ is_string($path) ? "string" : $path::class }}]');
+        $this->publishView('vendor/hyde/components/markdown/code-block.blade.php', '[language={{ var_export($language, true) }}]');
+
+        $this->assertStringContainsString('[language=NULL]', Markdown::render("```\nHello World!\n```"));
+    }
+
+    public function testTheLabelIsNullWhenTheBlockSetNone()
+    {
+        $this->publishView('vendor/hyde/components/markdown/code-block.blade.php', '[label={{ var_export($label, true) }}]');
+
+        $this->assertStringContainsString('[label=NULL]', Markdown::render("```php\necho 1;\n```"));
+    }
+
+    public function testTheLabelIsAPlainStringWhenHtmlIsNotAllowed()
+    {
+        $this->publishView('vendor/hyde/components/markdown/code-block.blade.php', '[type={{ is_string($label) ? "string" : $label::class }}]');
 
         config(['markdown.allow_html' => false]);
 
-        $this->assertStringContainsString('[type=string]', Markdown::render($this->codeBlockWithFilepath()));
+        $this->assertStringContainsString('[type=string]', Markdown::render($this->codeBlockWithTitle()));
     }
 
     public function testTheLabelCanContainLinksWhenHtmlIsAllowed()
     {
-        $markdown = "Intro paragraph.\n\n```php\n// filepath: <a href=\"index.html\">hello-world.php</a>\necho 'Hello World!';\n```";
+        $markdown = "Intro paragraph.\n\n```php title='<a href=\"index.html\">hello-world.php</a>'\necho 'Hello World!';\n```";
 
         $this->assertStringContainsString('<a href="index.html">hello-world.php</a>', Markdown::render($markdown));
     }
 
-    public function testTheShippedFilepathLabelViewHidesTheLabelOnSmallScreens()
+    public function testTheShippedLabelIsPositionedAgainstTheBlockAndHiddenOnSmallScreens()
     {
-        $this->assertStringContainsString('hidden md:block', $this->frameworkViewContents('filepath-label.blade.php'));
+        $view = $this->frameworkViewContents('markdown/code-block.blade.php');
+
+        $this->assertStringContainsString('absolute', $view);
+        $this->assertStringContainsString('hidden', $view);
+        $this->assertStringContainsString('md:block', $view);
+        $this->assertStringContainsString('hyde-code-block relative', $view);
     }
 
-    public function testTheLabelIsInjectedIntoTheAlreadyRenderedHtmlAsAPlainFragment()
+    public function testTheDocumentedCodeBlockClassHooksAreInTheShippedMarkup()
     {
-        $html = Markdown::render($this->codeBlockWithFilepath());
+        $html = Markdown::render($this->codeBlockWithTitle());
 
-        // The label is a fragment inside the code block, rather than a wrapper around it
-        $this->assertStringContainsString('<pre><code class="language-php"><small', $html);
+        $this->assertStringContainsString('class="hyde-code-block ', $html);
+        $this->assertStringContainsString('class="hyde-code-block-label ', $html);
     }
 
-    public function testTheDocumentedFilepathLabelCustomizationExampleShowsTheLabelOnMobile()
+    public function testTheDocumentedCodeBlockCustomizationExampleRendersAHeaderBar()
     {
-        $this->publishView('vendor/hyde/components/filepath-label.blade.php',
-            $this->documentedSnippet('resources/views/vendor/hyde/components/filepath-label.blade.php')
+        $this->publishView('vendor/hyde/components/markdown/code-block.blade.php',
+            $this->documentedSnippet('resources/views/vendor/hyde/components/markdown/code-block.blade.php')
         );
 
-        $html = Markdown::render($this->codeBlockWithFilepath());
+        $html = Markdown::render($this->codeBlockWithTitle());
 
-        $this->assertStringContainsString('<small class="not-prose block opacity-50 hover:opacity-100 md:float-right">', $html);
-        $this->assertStringContainsString('<span class="sr-only">Filepath: </span>hello-world.php', $html);
-    }
-
-    public function testTorchlightHighlightedCodeBlocksGetTheirOwnLabelPositioning()
-    {
-        $torchlight = '<!-- Syntax highlighted by torchlight.dev -->';
-
-        $html = CodeblockFilepathProcessor::postprocess(
-            "<!-- HYDE[Filepath]hello-world.php -->\n<pre><code class=\"torchlight\">$torchlight<div class=\"line\">Hello</div></code></pre>"
-        );
-
-        $this->assertStringContainsString('-top-1 right-1', $html);
-        $this->assertStringNotContainsString('top-0 right-0', $html);
-
-        // Without Torchlight the label is positioned differently
-        $this->assertStringContainsString('top-0 right-0', Markdown::render($this->codeBlockWithFilepath()));
+        $this->assertStringContainsString('<span>hello-world.php</span>', $html);
+        $this->assertStringContainsString('<span class="uppercase">php</span>', $html);
+        $this->assertStringContainsString("<pre><code class=\"language-php\">echo 'Hello World!';", $html);
     }
 
     /*
@@ -1108,7 +1154,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     public function testTheBuiltInBlockViewsOptOutOfTheProseStyles()
     {
         $this->assertStringContainsString('not-prose', $this->frameworkViewContents('markdown/terminal.blade.php'));
-        $this->assertStringContainsString('not-prose', $this->frameworkViewContents('filepath-label.blade.php'));
+        $this->assertStringContainsString('not-prose', $this->frameworkViewContents('markdown/code-block.blade.php'));
     }
 
     public function testTheBuiltInBlocksGiveTheirViewsSemanticValuesRatherThanPrecomputedClasses()
@@ -1242,10 +1288,10 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     protected function documentedViews(): array
     {
         return [
+            'markdown/code-block.blade.php',
             'markdown/terminal.blade.php',
             'colored-blockquote.blade.php',
             'markdown-heading.blade.php',
-            'filepath-label.blade.php',
         ];
     }
 
@@ -1283,10 +1329,10 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         config(['markdown.extensions' => [CalloutExtension::class]]);
     }
 
-    /** A Markdown document with a filepath commented code block, as shown in the documentation. */
-    protected function codeBlockWithFilepath(): string
+    /** A Markdown document with a titled code block, as shown in the documentation. */
+    protected function codeBlockWithTitle(): string
     {
-        return "Intro paragraph.\n\n```php\n// filepath: hello-world.php\necho 'Hello World!';\n```";
+        return "Intro paragraph.\n\n```php title=\"hello-world.php\"\necho 'Hello World!';\n```";
     }
 
     /** Get a Markdown service instance that has been set up but has nothing to convert. */
@@ -1346,26 +1392,26 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     /**
      * Get all the fenced code blocks in the documented page.
      *
-     * @return array<int, array{language: string, code: string}>
+     * @return array<int, array{info: string, code: string}>
      */
     protected function documentationCodeBlocks(): array
     {
         $blocks = [];
         $fence = null;
-        $language = '';
+        $info = '';
         $buffer = [];
 
         foreach (explode("\n", $this->documentation()) as $line) {
             if ($fence === null) {
                 if (preg_match('/^(`{3,})\s*(.*)$/', $line, $matches)) {
-                    [$fence, $language, $buffer] = [$matches[1], trim($matches[2]), []];
+                    [$fence, $info, $buffer] = [$matches[1], trim($matches[2]), []];
                 }
 
                 continue;
             }
 
             if (trim($line) === $fence) {
-                $blocks[] = ['language' => $language, 'code' => implode("\n", $buffer)];
+                $blocks[] = ['info' => $info, 'code' => implode("\n", $buffer)];
 
                 $fence = null;
 
@@ -1378,22 +1424,18 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         return $blocks;
     }
 
-    /** Get a code block from the documented page by the filepath comment on its first line. */
-    protected function documentedSnippet(string $filepath, int $index = 0): string
+    /** Get a code block from the documented page by the title modifier on its fence. */
+    protected function documentedSnippet(string $title, int $index = 0): string
     {
         $snippets = [];
 
         foreach ($this->documentationCodeBlocks() as $block) {
-            $lines = explode("\n", $block['code']);
-
-            if (str_contains($lines[0] ?? '', "filepath: $filepath")) {
-                array_shift($lines);
-
-                $snippets[] = trim(implode("\n", $lines));
+            if (str_contains($block['info'], sprintf('title="%s"', $title))) {
+                $snippets[] = trim($block['code']);
             }
         }
 
-        $this->assertArrayHasKey($index, $snippets, "The documentation does not contain snippet [$index] for [$filepath].");
+        $this->assertArrayHasKey($index, $snippets, "The documentation does not contain snippet [$index] for [$title].");
 
         return $snippets[$index];
     }
@@ -1411,9 +1453,9 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     }
 
     /** Get the class declaration from a documented PHP code block, without its namespace and imports. */
-    protected function documentedClassDeclaration(string $filepath): string
+    protected function documentedClassDeclaration(string $title): string
     {
-        return trim(strstr($this->documentedSnippet($filepath), 'class '));
+        return trim(strstr($this->documentedSnippet($title), 'class '));
     }
 
     /** Get the class declaration of a class defined in this test file. */
