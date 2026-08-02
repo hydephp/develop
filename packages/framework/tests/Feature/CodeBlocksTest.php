@@ -185,6 +185,14 @@ class CodeBlocksTest extends TestCase
         $this->assertSame('php  theme:dark   option="a  b"', $this->fenceInfoSeenByHighlighter('php  theme:dark   option="a  b"'));
     }
 
+    public function testAnEmptyTitleIsNoTitle(): void
+    {
+        $html = Markdown::render("```php title=\"\"\necho 'Hi';\n```");
+
+        $this->assertStringNotContainsString('hyde-code-block-label', $html);
+        $this->assertStringContainsString('<pre><code class="language-php">', $html);
+    }
+
     public function testMalformedTitleModifierThrowsWithoutALanguageToo(): void
     {
         $this->expectException(InvalidArgumentException::class);

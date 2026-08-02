@@ -41,7 +41,9 @@ class PrepareCodeBlocks
 
         $node->setInfo($this->withoutTitleModifier($info));
 
-        if ($title !== null) {
+        // A terminal block blanks its title bar with an empty title, but a code block has no default
+        // label to blank, so an empty one would only ever render an empty element
+        if ($title !== null && $title !== '') {
             $node->data->set(static::LABEL_KEY, $this->formatLabel($title));
         }
     }
