@@ -328,8 +328,6 @@ Search your source files for `filepath` to find the blocks to convert. All the d
 so also check for `#`, `/* */`, and `<!-- -->` comments. A blank line left between the old comment and the code can be
 removed with it.
 
-Labels are no longer tied to file paths, so a block can be titled with anything.
-
 ## Move Your Filepath Label Customizations
 
 Fenced code blocks are now rendered through the `components/markdown/code-block.blade.php` view, which also holds the
