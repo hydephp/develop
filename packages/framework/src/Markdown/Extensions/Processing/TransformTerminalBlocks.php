@@ -19,7 +19,6 @@ class TransformTerminalBlocks
 
     protected const LANGUAGE = 'terminal';
 
-    /** Whether the fence is one this transformer will claim, which other processing leaves alone. */
     public static function claims(FencedCode $node): bool
     {
         return strtolower($node->getInfoWords()[0] ?? '') === static::LANGUAGE;

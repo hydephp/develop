@@ -8,12 +8,7 @@ use Hyde\Markdown\Extensions\Nodes\CodeBlock;
 use League\CommonMark\Event\DocumentPreRenderEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 
-/**
- * Wrapping happens once the document is parsed and every listener has seen it, so that
- * an extension walking the tree for fenced code finds it where it expects to.
- *
- * @internal
- */
+/** @internal */
 class WrapCodeBlocks
 {
     public function __invoke(DocumentPreRenderEvent $event): void

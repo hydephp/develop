@@ -35,7 +35,6 @@ trait ParsesFenceModifiers
      */
     protected const TOKEN_PATTERN = '/(?<!\S)(?:(?<key>[\w-]+)=(?:"(?<double>[^"]*)"|\'(?<single>[^\']*)\')|(?<word>\S+))(?=\s|$)/';
 
-    /** Stands in for the language of a fence that labelled itself with a title instead of declaring one. */
     protected const FALLBACK_LANGUAGE = 'plaintext';
 
     /**

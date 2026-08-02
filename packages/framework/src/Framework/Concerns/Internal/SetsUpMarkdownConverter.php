@@ -76,9 +76,10 @@ trait SetsUpMarkdownConverter
     }
 
     /**
-     * Hyde renders the view around a code block, not the code, which is left to whichever renderer
-     * the environment already had for the fence. So the fence is wrapped in a node of our own, last
-     * of all, once every listener has had the document in the shape it expects.
+     * Hyde renders the view around a code block, not the code, so the fence is wrapped in a node of
+     * our own and stays in the tree to be rendered by whichever renderer the environment already had
+     * for it. Wrapping goes on last, and at the lowest priority, so it happens once every listener
+     * has had the document in the shape it expects.
      */
     protected function configureCodeBlockRenderer(): void
     {

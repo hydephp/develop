@@ -10,12 +10,7 @@ use Illuminate\Support\HtmlString;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 
-/**
- * Runs before the listeners a highlighter registers, so the info string they
- * collect is already free of the Hyde syntax that never belonged to the language.
- *
- * @internal
- */
+/** @internal */
 class PrepareCodeBlocks
 {
     use ParsesFenceModifiers;
