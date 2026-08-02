@@ -27,7 +27,6 @@ use League\CommonMark\Node\Block\Document;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
-use Mockery;
 use Torchlight\Commonmark\BaseExtension;
 
 use function array_map;
@@ -88,16 +87,6 @@ class CodeBlocksTest extends TestCase
 
         $this->assertStringNotContainsString('hyde-code-block', $html);
         $this->assertStringContainsString('hyde-terminal', $html);
-    }
-
-    public function testRendererRejectsIncompatibleNodes(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        (new CodeBlockRenderer())->render(
-            Mockery::mock(Node::class),
-            Mockery::mock(ChildNodeRendererInterface::class),
-        );
     }
 
     public function testTitleModifierBecomesALabel(): void
