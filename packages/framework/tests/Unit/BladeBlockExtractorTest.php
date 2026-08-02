@@ -45,6 +45,34 @@ class BladeBlockExtractorTest extends UnitTestCase
         $this->assertSame($markdown, $result);
     }
 
+    public function testLeavesTitledBladeBlockUntouched()
+    {
+        $markdown = "```blade title=\"components/alert.blade.php\"\n{{ \"Not executed\" }}\n```";
+
+        [$blocks, $result] = (new BladeBlockExtractor())->handle($markdown);
+
+        $this->assertSame([], $blocks);
+        $this->assertSame($markdown, $result);
+    }
+
+    public function testLeavesBladeBlockTitledAfterAnotherModifierUntouched()
+    {
+        $markdown = "```blade theme:dark title=\"components/alert.blade.php\"\n{{ \"Not executed\" }}\n```";
+
+        [$blocks, $result] = (new BladeBlockExtractor())->handle($markdown);
+
+        $this->assertSame([], $blocks);
+        $this->assertSame($markdown, $result);
+    }
+
+    public function testExtractsRenderBlockDeclaringATitle()
+    {
+        [$blocks] = (new BladeBlockExtractor())->handle("```blade render title=\"x\"\n{{ \"Hi\" }}\n```");
+
+        $this->assertCount(1, $blocks);
+        $this->assertInstanceOf(BladeRenderBlock::class, array_values($blocks)[0]);
+    }
+
     public function testExtractsRenderBlock()
     {
         [$blocks] = (new BladeBlockExtractor())->handle("```blade render\n{{ \"Hi\" }}\n```");
@@ -150,6 +178,20 @@ class BladeBlockExtractorTest extends UnitTestCase
 
         $this->assertCount(1, $blocks);
         $this->assertSame(array_key_first($blocks), $result);
+    }
+
+    public function testThrowsOnTitleWrittenInsideAnotherModifiersValue()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new BladeBlockExtractor())->handle("```blade meta='a title=\"not-hyde\" b'\ncontent\n```");
+    }
+
+    public function testThrowsOnUnknownDirectiveWithoutATitle()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new BladeBlockExtractor())->handle("```blade theme:dark\ncontent\n```");
     }
 
     public function testThrowsOnUnknownDirective()

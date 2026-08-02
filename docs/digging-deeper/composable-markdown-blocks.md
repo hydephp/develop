@@ -53,10 +53,10 @@ loops, `@include`, config calls, and the full Tailwind class set inside them.
 
 | Block                                   | Syntax                        | View                               | Mechanism            |
 |-----------------------------------------|-------------------------------|------------------------------------|----------------------|
+| [Code blocks](#code-blocks)             | ` ```php `                    | `markdown/code-block.blade.php`    | CommonMark renderer  |
 | [Terminal blocks](#terminal-blocks)     | ` ```terminal `               | `markdown/terminal.blade.php`      | CommonMark renderer  |
 | [Coloured blockquotes](#coloured-blockquotes) | `>info Text`            | `colored-blockquote.blade.php`     | Markdown pre-processor |
 | [Headings](#headings)                   | `## Heading`                  | `markdown-heading.blade.php`       | CommonMark renderer  |
-| [Filepath labels](#code-block-filepath-labels) | `// filepath: foo.php` | `filepath-label.blade.php`         | Markdown post-processor |
 | [Blade component blocks](#blade-component-blocks) | ` ```blade component="x" ` | *any component you write*    | Markdown pre-processor |
 
 All view paths are relative to `resources/views/components/` in the framework package, and to
@@ -78,9 +78,9 @@ Published views land in `resources/views/vendor/hyde/components/`, mirroring the
 ```
 resources/views/vendor/hyde/components/
 ├── colored-blockquote.blade.php
-├── filepath-label.blade.php
 ├── markdown-heading.blade.php
 └── markdown/
+    ├── code-block.blade.php
     └── terminal.blade.php
 ```
 
@@ -106,8 +106,7 @@ If a class you added has no visible effect, an un-recompiled stylesheet is almos
 You don't always need to publish. Hyde's block markup includes stable, non-utility class hooks specifically so you can
 restyle blocks from your own CSS:
 
-```css
-/* filepath: resources/assets/app.css */
+```css title="resources/assets/app.css"
 .hyde-terminal-body {
     background-color: #1a1b26;
     color: #a9b1d6;
@@ -128,24 +127,69 @@ phases, orchestrated by the `MarkdownService`:
   placeholder comment so nothing downstream tries to parse their contents.
 - `BladeDownProcessor` — handles single-line `[Blade]:` directives.
 - `ShortcodeProcessor` — expands coloured blockquotes into rendered HTML.
-- `CodeblockFilepathProcessor` — converts filepath comments into `<!-- HYDE[Filepath] -->` markers.
 
 **2. CommonMark conversion** parses the Markdown into an abstract syntax tree and renders it.
 
 - `TerminalExtension` is always registered. It converts matching fenced code nodes into `TerminalBlock` nodes and
   renders them through the terminal view.
+- Fenced code nodes that are not terminal blocks are wrapped in the code block view, with the `title` modifier
+  resolved into the label. Your highlighter still renders the code itself.
 - `HeadingRenderer` replaces CommonMark's default heading renderer with Hyde's Blade-backed one.
 - Any extensions listed in `markdown.extensions` are registered here too, as is the Torchlight extension when enabled.
 
 **3. Post-processors** run against the resulting HTML string.
 
 - `BladeBlockProcessor` swaps the placeholders back out for the rendered Blade output.
-- `CodeblockFilepathProcessor` replaces the markers with the rendered filepath label view.
 - `DynamicMarkdownLinkProcessor` resolves source-file links to routes.
 
-The distinction that matters: **AST-based blocks** (terminal, headings) are structurally aware — they only ever match
-real Markdown nodes. **String-based blocks** (shortcodes, filepath labels) work on lines of text and are cheaper to
-implement, but they are not fence-aware. See [Limitations](#limitations-and-gotchas).
+The distinction that matters: **AST-based blocks** (code blocks, terminals, headings) are structurally aware — they
+only ever match real Markdown nodes. **String-based blocks** (shortcodes, Blade blocks) work on lines of text and are
+cheaper to implement, but they are not fence-aware. See [Limitations](#limitations-and-gotchas).
+
+## Code Blocks
+
+Fenced code blocks go through a Blade view. The view doesn't render the code itself, it receives the rendered code
+block markup and decides what goes around it. Syntax highlighting is unaffected: whichever highlighter your site uses
+still renders the code, and the view wraps it.
+
+Indented code blocks are not affected.
+
+See [Advanced Markdown](advanced-markdown#code-block-titles) for the `title` modifier that labels a block.
+
+### View contract
+
+**View:** `hyde::components.markdown.code-block`
+
+| Variable    | Type                        | Description                                                                          |
+|-------------|-----------------------------|--------------------------------------------------------------------------------------|
+| `$contents` | `string`                    | The rendered code block markup, as your highlighter produced it. Echo with `{!! !!}`. |
+| `$language` | `string`/`null`             | The fence language, or `null` when the block declared none. A fence labelled with a `title` modifier instead of a language is `plaintext`. |
+| `$label`    | `HtmlString`/`string`/`null`| The resolved label, or `null` when the block set none. An `HtmlString` when `markdown.allow_html` is enabled, so the label can contain links. |
+
+>danger `$contents` is finished markup, which is why the view echoes it unescaped. Do not re-escape it with `{{ }}` (you will see markup as text).
+
+### Class hooks
+
+| Class                     | Targets                                    |
+|---------------------------|--------------------------------------------|
+| `hyde-code-block`         | The outer `<div>` wrapping the code block   |
+| `hyde-code-block-label`   | The block's title label                     |
+
+### Customization example
+
+Say you want a header bar above the code, showing the language next to the label:
+
+```blade title="resources/views/vendor/hyde/components/markdown/code-block.blade.php"
+<div class="hyde-code-block not-prose my-4 overflow-hidden rounded">
+    @if($label || $language)
+        <div class="flex items-center justify-between bg-gray-800 px-4 py-2 font-mono text-xs text-gray-300">
+            <span>{{ $label }}</span>
+            <span class="uppercase">{{ $language }}</span>
+        </div>
+    @endif
+    {!! $contents !!}
+</div>
+```
 
 ## Terminal Blocks
 
@@ -257,8 +301,7 @@ untitled block falls back to. The shipped view escapes it with `{{ }}` and falls
 Say you want blocks that set no title of their own to show the current working directory instead of the word
 "Terminal". Publish the view and edit its fallback:
 
-```blade
-<!-- filepath: resources/views/vendor/hyde/components/markdown/terminal.blade.php -->
+```blade title="resources/views/vendor/hyde/components/markdown/terminal.blade.php"
 <figure class="hyde-terminal not-prose my-4 overflow-hidden rounded-md bg-[#292D3E] text-[#A6ACCD]">
     <figcaption class="hyde-terminal-header flex items-center gap-3 bg-[#212529] px-4 py-2.5 font-sans text-xs leading-none">
         <span class="hyde-terminal-controls flex gap-1.5" aria-hidden="true">
@@ -308,8 +351,7 @@ Append a colour name directly after the `>` character to render a coloured block
 
 The shipped view maps the keyword to a Tailwind border colour:
 
-```blade
-<!-- filepath: resources/views/vendor/hyde/components/colored-blockquote.blade.php -->
+```blade title="resources/views/vendor/hyde/components/colored-blockquote.blade.php"
 <blockquote @class([
         'border-blue-500' => $class === 'info',
         'border-green-500' => $class === 'success',
@@ -323,8 +365,7 @@ The shipped view maps the keyword to a Tailwind border colour:
 Since `$class` is passed through verbatim, the view is free to do more than set a border. A common customization is to
 add an icon and a background tint per colour:
 
-```blade
-<!-- filepath: resources/views/vendor/hyde/components/colored-blockquote.blade.php -->
+```blade title="resources/views/vendor/hyde/components/colored-blockquote.blade.php"
 <blockquote @class([
         'flex gap-3 border-l-4 px-4 py-3',
         'border-blue-500 bg-blue-500/10' => $class === 'info',
@@ -380,8 +421,7 @@ config for the page type being rendered. Your view can honour it, ignore it, or 
 Because the view receives the level as data rather than being a per-level template, you can do things like give `h2`
 elements a divider rule, or render a self-linking anchor around the whole heading:
 
-```blade
-<!-- filepath: resources/views/vendor/hyde/components/markdown-heading.blade.php -->
+```blade title="resources/views/vendor/hyde/components/markdown-heading.blade.php"
 @props([
     'level' => 1,
     'id' => null,
@@ -410,46 +450,6 @@ elements a divider rule, or render a self-linking anchor around the whole headin
 
 >warning The heading renderer post-processes the rendered output to tidy up empty attributes and collapse newlines. Keep your markup on the conservative side — deeply nested or whitespace-sensitive structures inside the heading tag can be affected.
 
-## Code Block Filepath Labels
-
-A comment on the first line of a fenced code block becomes a filepath label:
-
-````markdown
-```php
-‎// filepath: hello-world.php
-echo 'Hello World!';
-```
-````
-
-```php
-// filepath: hello-world.php
-echo 'Hello World!';
-```
-
-### View contract
-
-**View:** `hyde::components.filepath-label`
-
-| Variable                  | Type                  | Description                                                                       |
-|---------------------------|-----------------------|-----------------------------------------------------------------------------------|
-| `$path`                   | `string\|HtmlString`  | The label text. An `HtmlString` when `markdown.allow_html` is enabled, so the label can contain links. |
-| `$highlightedByTorchlight`| `bool`                | Whether the code block was highlighted by Torchlight, which needs slightly different positioning. |
-
-The shipped view hides the label on small screens to keep it from overlapping the code. If you would rather show it on
-mobile as a block above the code, that's a view change:
-
-```blade
-<!-- filepath: resources/views/vendor/hyde/components/filepath-label.blade.php -->
-@props(['path', 'highlightedByTorchlight' => false])
-
-<small class="not-prose block opacity-50 hover:opacity-100 md:float-right">
-    <span class="sr-only">Filepath: </span>{{ $path }}
-</small>
-```
-
-This label is injected into the already-rendered HTML by a post-processor, which is why it is a plain fragment rather
-than a wrapper around the code block.
-
 ## Blade Component Blocks
 
 The blocks above are Hyde's own. The `blade component="name"` fenced block is the escape hatch that lets *any* component
@@ -471,8 +471,7 @@ as the slot. Either part is optional — front matter alone, or slot content alo
 
 Given a component at `resources/views/components/alert.blade.php`:
 
-```blade
-<!-- filepath: resources/views/components/alert.blade.php -->
+```blade title="resources/views/components/alert.blade.php"
 @props(['type' => 'info', 'title' => null])
 
 <div @class(['rounded border-l-4 p-4', 'border-amber-500' => $type === 'warning'])>
@@ -498,8 +497,7 @@ implements terminal blocks.
 
 A node is a value object holding the data you parsed out of the Markdown.
 
-```php
-// filepath: app/Markdown/CalloutBlock.php
+```php title="app/Markdown/CalloutBlock.php"
 <?php
 
 namespace App\Markdown;
@@ -522,8 +520,7 @@ class CalloutBlock extends AbstractBlock
 The transformer walks the parsed document and swaps matching nodes for yours. Using the `DocumentParsedEvent` means you
 work on a real syntax tree, so you never have to worry about matching text inside other code blocks.
 
-```php
-// filepath: app/Markdown/TransformCalloutBlocks.php
+```php title="app/Markdown/TransformCalloutBlocks.php"
 <?php
 
 namespace App\Markdown;
@@ -558,8 +555,7 @@ class TransformCalloutBlocks
 
 The renderer is where the block becomes composable: it gathers view data and delegates the markup to Blade.
 
-```php
-// filepath: app/Markdown/CalloutBlockRenderer.php
+```php title="app/Markdown/CalloutBlockRenderer.php"
 <?php
 
 namespace App\Markdown;
@@ -593,8 +589,7 @@ what the terminal renderer does.
 
 The extension wires the two together.
 
-```php
-// filepath: app/Markdown/CalloutExtension.php
+```php title="app/Markdown/CalloutExtension.php"
 <?php
 
 namespace App\Markdown;
@@ -616,8 +611,7 @@ class CalloutExtension implements ExtensionInterface
 
 ### 5. The view
 
-```blade
-<!-- filepath: resources/views/components/callout.blade.php -->
+```blade title="resources/views/components/callout.blade.php"
 <aside @class([
         'my-callout my-4 rounded border-l-4 p-4',
         'border-blue-500' => $type === 'note',
@@ -629,8 +623,7 @@ class CalloutExtension implements ExtensionInterface
 
 ### 6. Register it
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'extensions' => [
     \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
     \League\CommonMark\Extension\Attributes\AttributesExtension::class,
@@ -670,7 +663,7 @@ Coloured blockquotes are expanded line by line, before the Markdown parser runs.
 invisible `U+200E LEFT-TO-RIGHT MARK` character — it's the standard workaround for documenting the syntax without
 triggering it.
 
-Blocks implemented as CommonMark extensions, like terminal blocks, do not have this problem.
+Blocks implemented as CommonMark extensions, like code and terminal blocks, do not have this problem.
 
 ### Coloured blockquotes are single-line
 
@@ -689,11 +682,11 @@ A published view is a copy, frozen at the version you published it from. Framewo
 markup, add a class hook, or pass a new variable will not reach it. Re-run `php hyde publish:views components` after
 major upgrades and diff your customizations against the new defaults.
 
-### Torchlight changes the markup
+### Your highlighter decides what `$contents` looks like
 
-When Torchlight is enabled, code blocks are rendered by Torchlight rather than by CommonMark's default renderer. The
-filepath label accounts for this via `$highlightedByTorchlight`, but a custom view that assumes one structure will look
-wrong under the other. Test both if your site toggles Torchlight.
+Torchlight and CommonMark's default renderer produce different markup for the same block, and a third-party
+highlighter produces something different again. Your view receives whichever one as `$contents`, so a custom view that
+digs into that markup expecting one structure will look wrong under another. Test both if your site toggles Torchlight.
 
 ## See Also
 

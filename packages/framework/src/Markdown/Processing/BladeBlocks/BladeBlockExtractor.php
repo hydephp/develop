@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Markdown\Processing\BladeBlocks;
 
+use Hyde\Markdown\Extensions\Concerns\ParsesFenceModifiers;
 use InvalidArgumentException;
 
 use function array_map;
@@ -19,6 +20,8 @@ use function trim;
 
 class BladeBlockExtractor
 {
+    use ParsesFenceModifiers;
+
     /** @var array<string, BladeBlock> */
     protected array $extractedBlocks = [];
 
@@ -177,6 +180,10 @@ class BladeBlockExtractor
             return new BladeComponentBlock($content, $componentName);
         }
 
+        if ($this->declaresTitle($info)) {
+            return null;
+        }
+
         throw new InvalidArgumentException(
             'Invalid Blade block syntax. Expected ```blade render``` or ```blade component="component-name"```.'
         );
@@ -185,6 +192,11 @@ class BladeBlockExtractor
     protected function isBladeDirective(array $tokens): bool
     {
         return $tokens[0] === 'blade' && count($tokens) > 1;
+    }
+
+    protected function declaresTitle(string $info): bool
+    {
+        return $this->parseTitleModifier($this->tokenizeModifiers($info), 'code block') !== null;
     }
 
     /** Extract the component name from an HTML-style attribute, using either double (canonical) or single quotes. */

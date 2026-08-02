@@ -19,7 +19,7 @@ This serves two purposes:
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. They are controlled by the existing `markdown.enable_blade` option. ([#2504](https://github.com/hydephp/develop/pull/2504))
-- Added built-in `terminal` fenced code blocks with command prompt styling and optional Symfony Console formatting using the `terminal xml` info string. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
+- Added built-in `terminal` fenced code blocks with command prompt styling, an optional window title using the `title="…"` modifier, and optional Symfony Console formatting using the `terminal xml` info string. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
 - Added support for lazy `InMemoryPage` contents closures. The current page is passed as the first argument whenever the contents are requested.
 
 ### Changed
@@ -27,6 +27,8 @@ This serves two purposes:
 - Raw HTML in Markdown is now enabled by default. Set `markdown.allow_html` to `false` when compiling untrusted or unreviewed Markdown to strip potentially unsafe HTML tags.
 - `InMemoryPage` now requires callers to select either `contents` or `view`; configuring both throws an `InvalidArgumentException` instead of silently giving contents precedence.
 - `InMemoryPage` now treats an empty string as an omitted `view`, matching the existing compile-time behavior and allowing literal contents to be used with an empty view value.
+- Fenced code blocks are now rendered through the publishable `components/markdown/code-block.blade.php` view, which changes the generated markup around the code. Syntax highlighting is unaffected, and the `hyde-code-block` and `hyde-code-block-label` classes are stable hooks for your own CSS.
+- Code block labels are now set with a `title="…"` modifier on the fence, replacing the `// filepath:` comment syntax, which is no longer recognized and must be replaced.
 
 ### Deprecated
 - for changes that will be removed in upcoming releases.
@@ -34,6 +36,7 @@ This serves two purposes:
 ### Removed
 - Removed the `rebuild` command. It had no remaining internal consumers now that the realtime compiler renders pages in-memory, and single-page builds can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. Use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need to build a single page programmatically.
 - Removed the `InMemoryPage` instance macro API. Use a contents closure for dynamic output, or extend `InMemoryPage` to add custom methods and behavior.
+- Removed the `components/filepath-label.blade.php` view, as the label markup now lives in the code block view. If this was published, port any customizations into `components/markdown/code-block.blade.php`.
 
 ### Fixed
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332

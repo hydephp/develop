@@ -100,8 +100,7 @@ be reviewed both for the text they publish and for executable directives hidden 
 If your site accepts Markdown outside that trusted review process, or builds pull requests before they have been
 reviewed, disable Blade in Markdown in the `config/markdown.php` file:
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'enable_blade' => false,
 ```
 
@@ -251,61 +250,44 @@ The coloured blockquotes also support inline Markdown, just like normal blockquo
 
 Note that these currently do not support multi-line blockquotes.
 
-## Code Block Filepaths
+## Code Block Titles
 
-When browsing these documentation pages you may have noticed a label in the top right corner of code blocks specifying the file path.
-These are also created by using a custom Hyde feature that turns code comments into automatic code blocks.
+When browsing these documentation pages you may have noticed a label in the top right corner of code blocks naming the
+file the code belongs to. Add a `title` modifier to a fenced code block to label it like that.
 
 ### Usage
 
-Simply add a code comment with the path in the **first line** of a fenced code block like so:
-
-````markdown
-// filepath: _docs/advanced-markdown.md
-```php
-‎// filepath: hello-world.php
-
+````markdown title="_docs/advanced-markdown.md"
+```php title="hello-world.php"
 echo 'Hello World!';
 ```
 ````
 
 Which becomes:
 
-```php
-// filepath: hello-world.php
-
+```php title="hello-world.php"
 echo 'Hello World!';
 ```
 
-### Alternative syntax
-
-The syntax is rather forgiving, by design, and supports using both `//` and `#` for comments.
-The colon is also optional, and the 'filepath' string is case-insensitive. So the following is also perfectly valid:
-
-````markdown
-```js
-‎// filepath hello.js
-console.log('Hello World!');
-```
-````
-
-If you have a newline after the filepath, like in the first example, it will be removed so your code stays readable.
-
 ### Advanced usage
 
-Since HTML in Markdown is enabled by default, anything within the path label will be rendered as HTML. This means you
-can add links, or even images to the label. This requires `allow_html` to remain `true` in `config/markdown.php`.
+Since HTML in Markdown is enabled by default, anything within the title will be rendered as HTML. This means you
+can add links, or even images to the label.
 
-````markdown
-// filepath: <a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>
-```markdown
-‎// filepath: <a href="https://github.com">View file on Github</a>
+````markdown title='<a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>'
+```markdown title='<a href="https://github.com">View file on Github</a>'
+Hello World!
 ```
 ````
 
 ### Limitations
 
-The filepaths are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
+The titles are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
+
+### Customizations
+
+See [Composable Markdown Blocks](composable-markdown-blocks#code-blocks) for the code block view contract, its class
+hooks, and how to publish and customize the markup.
 
 
 ## Heading Permalinks
@@ -318,8 +300,7 @@ The feature is enabled by default for documentation pages. When enabled, Hyde wi
 
 You can enable it for other page types by adding the page class to the `permalinks.pages` array in the `config/markdown.php` file, or disable it for all pages by setting the array to an empty array.
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'permalinks' => [
     'pages' => [
         \Hyde\Pages\DocumentationPage::class,
@@ -397,8 +378,7 @@ To convert Markdown, HydePHP uses the GitHub Flavored Markdown extension. HydePH
 project source is normally trusted and reviewed. If you process Markdown from outside your trusted review process, set
 the `allow_html` option to `false` in your `config/markdown.php` file to strip potentially unsafe HTML tags.
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'allow_html' => false,
 ```
 
@@ -411,8 +391,7 @@ We do this by adding the `.prose` CSS class to the HTML elements containing the 
 
 You can easily edit these classes, for example if you want to customize the prose colours, in the `config/markdown.php` file.
 
-```php
-// filepath: config/markdown.php
+```php title="config/markdown.php"
 'prose_classes' => 'prose dark:prose-invert', // [tl! remove]
 'prose_classes' => 'prose dark:prose-invert prose-img:inline', // [tl! add]
 ```

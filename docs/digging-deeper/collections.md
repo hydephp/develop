@@ -160,8 +160,7 @@ The Markdown will be parsed into a `MarkdownDocument` object which parses any op
 
 Here is the sample Markdown we will use:
 
-```blade
-// filepath: resources/collections/testimonials/1.md
+```blade title="resources/collections/testimonials/1.md"
 ---
 author: John Doe
 ---
@@ -216,8 +215,7 @@ php hyde make:page "Testimonials" --type="blade"
 And we can use the collection almost like any other Laravel one. As you can see, since each entry is a `MarkdownDocument` class,
 we are able to get the author from the front matter, and the content from the body.
 
-```blade
-// filepath _pages/testimonials.blade.php
+```blade title="_pages/testimonials.blade.php"
 @foreach(DataCollection::markdown('testimonials') as $testimonial)
     <blockquote>
         <p>{{ $testimonial->body }}</p>

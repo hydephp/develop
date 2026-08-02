@@ -41,9 +41,7 @@ By adding the `--vite` option, the serve command will initiate Vite's developmen
 
 The server can be configured in the `config/hyde.php` file to change the port, host, and to customize its features.
 
-```php
-// filepath config/hyde.php
-
+```php title="config/hyde.php"
 'server' => [
     // The default port the preview is served on
     'port' => env('SERVER_PORT', 8080),
@@ -73,9 +71,7 @@ The live dashboard is not saved to your static site, and is only available throu
 
 The dashboard can be customized, and disabled, in the `config/hyde.php` file.
 
-```php
-// filepath config/hyde.php
-
+```php title="config/hyde.php"
 'server' => [
     // Configure the realtime compiler dashboard
     'dashboard' => [
@@ -114,9 +110,7 @@ The live editor supports the following keyboard shortcuts:
 The live editor can be disabled in the `config/hyde.php` file.
 The live editor plugin code will not be saved to your static site.
 
-```php
-// filepath config/hyde.php
-
+```php title="config/hyde.php"
 'server' => [
     'live_edit' => env('SERVER_LIVE_EDIT', true),
 ],

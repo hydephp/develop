@@ -231,9 +231,9 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringNotContainsString('hyde-terminal-info', $html);
     }
 
-    public function testTitlesAreOnlyParsedForTerminalBlocks(): void
+    public function testTitlesOnOtherLanguagesDoNotMakeTheBlockATerminal(): void
     {
-        $html = Markdown::render("```php title=Build\necho 'Hello World!';\n```");
+        $html = Markdown::render("```php title=\"Build\"\necho 'Hello World!';\n```");
 
         $this->assertStringNotContainsString('hyde-terminal', $html);
         $this->assertStringContainsString('<pre><code class="language-php', $html);
