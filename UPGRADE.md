@@ -345,7 +345,8 @@ are left alone, then re-apply your changes and delete the old file:
 php hyde publish:views
 ```
 
->warning Passing the group name, as in `php hyde publish:views components`, publishes the whole group and overwrites every component view you have already customized.
+Do not pass the group name, as in `php hyde publish:views components`, since that publishes the whole group and
+overwrites every component view you have already customized.
 
 The markup around code blocks has also changed, so compare a few pages against your old site if you have custom CSS
 for them. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks you can target instead of

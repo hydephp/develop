@@ -269,22 +269,10 @@ Which becomes:
 echo 'Hello World!';
 ```
 
-Titles follow the same quoting rules as [terminal window titles](#window-titles), so single quotes work just as well,
-and a title may contain spaces. They are not limited to file paths, so use whatever describes the block best.
-
-The language is optional, so you can label a block that declares none, which is then treated as `plaintext`. The
-language, if you set one, must come first: a fence that opens with `title=` declares no language.
-
-````markdown
-``` title=".env"
-APP_NAME=HydePHP
-```
-````
-
 ### Advanced usage
 
 Since HTML in Markdown is enabled by default, anything within the title will be rendered as HTML. This means you
-can add links, or even images to the label. This requires `allow_html` to remain `true` in `config/markdown.php`.
+can add links, or even images to the label.
 
 ````markdown title='<a href="https://github.com/hydephp/develop/blob/master/docs/digging-deeper/advanced-markdown.md" rel="nofollow noopener" target="_blank">View file on Github</a>'
 ```markdown title='<a href="https://github.com">View file on Github</a>'
