@@ -185,6 +185,15 @@ class CodeBlocksTest extends TestCase
         $this->assertSame('php  theme:dark   option="a  b"', $this->fenceInfoSeenByHighlighter('php  theme:dark   option="a  b"'));
     }
 
+    public function testTheLastOfSeveralTitleModifiersWins(): void
+    {
+        $html = Markdown::render("```php title=\"first.php\" title=\"second.php\"\necho 'Hi';\n```");
+
+        $this->assertStringContainsString('>second.php</small>', $html);
+        $this->assertStringNotContainsString('first.php', $html);
+        $this->assertSame('php', $this->fenceInfoSeenByHighlighter('php title="first.php" title="second.php"'));
+    }
+
     public function testAnEmptyTitleIsNoTitle(): void
     {
         $html = Markdown::render("```php title=\"\"\necho 'Hi';\n```");
