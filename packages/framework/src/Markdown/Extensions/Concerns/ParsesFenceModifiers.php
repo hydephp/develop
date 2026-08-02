@@ -81,7 +81,6 @@ trait ParsesFenceModifiers
             }
         }
 
-        // Nothing was ours, so the info string is left exactly as it was written.
         if ($prepared === $info) {
             return $info;
         }

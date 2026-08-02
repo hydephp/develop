@@ -180,7 +180,6 @@ class BladeBlockExtractor
             return new BladeComponentBlock($content, $componentName);
         }
 
-        // Neither directive, so a title anywhere on the fence makes this a labelled Blade code sample.
         if ($this->declaresTitle($info)) {
             return null;
         }
@@ -195,7 +194,6 @@ class BladeBlockExtractor
         return $tokens[0] === 'blade' && count($tokens) > 1;
     }
 
-    /** Read through the same tokenizer as the fence itself, so a `title=` inside another modifier's value is not one. */
     protected function declaresTitle(string $info): bool
     {
         return $this->parseTitleModifier($this->tokenizeModifiers($info), 'code block') !== null;
