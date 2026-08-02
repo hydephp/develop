@@ -247,6 +247,11 @@ shape in one place, not to be an entry point: a code block is rendered by writin
 work against is the Blade view, not the class that feeds it. Exposing it publicly was considered and dropped, since
 nothing needs it yet and a public class is much harder to take back than to add.
 
+The wrapper carries the block's vertical margins and zeroes the fence's own. The prose stylesheet resets the top
+margin of whatever follows a heading or opens the container, and those selectors now match the wrapper rather than the
+`<pre>`. Leaving the margin on the fence would collapse it straight back out through the border-less wrapper, putting a
+gap after every heading that v2 never had.
+
 The view is given a `$language` variable it does not currently use, because it is intrinsic to the block and views
 building their own header bars want it. It was not given a flag for whether Torchlight produced the markup. The v2
 label needed one to offset its position, but the wrapper makes that offset uniform, so the flag would have been view

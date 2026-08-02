@@ -52,7 +52,7 @@ class CodeBlockViewModelUnitTest extends UnitTestCase
     {
         $html = (new CodeBlockViewModel('<pre><code>Hello</code></pre>'))->render();
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString('<pre><code>Hello</code></pre>', $html);
     }
 

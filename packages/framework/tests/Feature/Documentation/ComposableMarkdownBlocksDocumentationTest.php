@@ -378,7 +378,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $html = Markdown::render($this->codeBlockWithTitle());
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString('hello-world.php', $html);
     }
 

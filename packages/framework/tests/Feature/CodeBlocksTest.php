@@ -49,7 +49,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("```php\necho 'Hello World!';\n```");
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString('<pre><code class="language-php">', $html);
     }
 
@@ -57,7 +57,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("```\nHello World!\n```");
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString('<pre><code>Hello World!', $html);
     }
 
@@ -223,7 +223,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("```php someFutureModifier\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
     }
 
     public function testLabelIsNotEscapedWhenHtmlIsAllowed(): void
@@ -247,7 +247,7 @@ class CodeBlocksTest extends TestCase
         $html = $this->renderWithTorchlight("```php\necho 'Hello World!';\n```");
 
         // Torchlight's markup, not CommonMark's, and it sits inside the code block view
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString("<pre><code class='torchlight'", $html);
         $this->assertStringContainsString('HIGHLIGHTED(echo \'Hello World!\';)', $html);
         $this->assertStringNotContainsString('<pre><code class="language-php">', $html);
@@ -273,7 +273,7 @@ class CodeBlocksTest extends TestCase
 
         $html = Markdown::render("```php\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString("<pre><code class=\"fake\">echo 'Hi';</code></pre>", $html);
         $this->assertStringNotContainsString('<pre><code class="language-php">', $html);
     }
@@ -284,7 +284,7 @@ class CodeBlocksTest extends TestCase
 
         $html = Markdown::render("```php\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString('<pre><code class="overriding">', $html);
     }
 
@@ -294,7 +294,7 @@ class CodeBlocksTest extends TestCase
 
         $html = Markdown::render("```php\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $html);
+        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
         $this->assertStringContainsString("<pre><code>HIGHLIGHTED(echo 'Hi';)</code></pre>", $html);
     }
 
@@ -371,7 +371,7 @@ class CodeBlocksTest extends TestCase
     {
         $model = new CodeBlockViewModel('<pre><code>Hello World!</code></pre>', 'php', 'foo.php');
 
-        $this->assertStringContainsString('<div class="hyde-code-block relative">', $model->render());
+        $this->assertStringContainsString('<div class="hyde-code-block ', $model->render());
         $this->assertStringContainsString('>foo.php</small>', $model->render());
         $this->assertStringContainsString('<pre><code>Hello World!</code></pre>', $model->render());
     }
