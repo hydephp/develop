@@ -65,7 +65,7 @@ class BladeBlockExtractorTest extends UnitTestCase
         $this->assertSame($markdown, $result);
     }
 
-    public function testExtractsTitledRenderBlock()
+    public function testExtractsRenderBlockDeclaringATitle()
     {
         [$blocks] = (new BladeBlockExtractor())->handle("```blade render title=\"x\"\n{{ \"Hi\" }}\n```");
 

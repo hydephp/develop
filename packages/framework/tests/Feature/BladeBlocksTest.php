@@ -121,12 +121,14 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('>components/alert.blade.php</small>', $html);
     }
 
-    public function testTitledBladeRenderBlockIsStillExecuted()
+    public function testTitledBladeRenderBlockIsStillExecutedAndDropsTheTitle()
     {
+        // A render block produces no code block for a title to label, so the modifier has nothing to do
         $html = $this->render("```blade render title=\"x\"\n{{ \"This is executed\" }}\n```");
 
         $this->assertStringContainsString('This is executed', $html);
         $this->assertStringNotContainsString('{{', $html);
+        $this->assertStringNotContainsString('hyde-code-block-label', $html);
     }
 
     public function testOrdinaryCodeBlocksAreUnaffected()
