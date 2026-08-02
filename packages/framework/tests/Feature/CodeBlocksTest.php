@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use ArrayObject;
 use GuzzleHttp\Promise\PromiseInterface;
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Markdown\Extensions\CodeBlockViewModel;
+use Hyde\Markdown\Extensions\Nodes\CodeBlock;
 use Hyde\Markdown\Extensions\Processing\CodeBlockRenderer;
 use Hyde\Markdown\Extensions\Processing\PrepareCodeBlocks;
+use Hyde\Markdown\Extensions\Processing\WrapCodeBlocks;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Testing\TestCase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
-use ArrayObject;
-use Hyde\Markdown\Extensions\Nodes\CodeBlock;
-use Hyde\Markdown\Extensions\Processing\WrapCodeBlocks;
-use League\CommonMark\Event\DocumentPreRenderEvent;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
+use League\CommonMark\Event\DocumentPreRenderEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Block\HtmlBlock;
 use League\CommonMark\Extension\ExtensionInterface;
@@ -127,22 +127,17 @@ class CodeBlocksTest extends TestCase
 
     public function testFenceThatDeclaresNoLanguageKeepsItsOtherModifiersOutOfTheLanguageSlot(): void
     {
-        $this->assertSame('plaintext theme:github-dark', $this->prepareFence('title="app/Model.php" theme:github-dark')->getInfo());
-        $this->assertSame('plaintext option="value"', $this->prepareFence('title="app/Model.php" option="value"')->getInfo());
+        $this->assertSame('plaintext theme:github-dark', $this->fenceInfoSeenByHighlighter('title="app/Model.php" theme:github-dark'));
+        $this->assertSame('plaintext option="value"', $this->fenceInfoSeenByHighlighter('title="app/Model.php" option="value"'));
 
         // Not even a modifier that happens to name a language, which belongs before the title
-        $this->assertSame('plaintext php', $this->prepareFence('title="app/Model.php" php')->getInfo());
+        $this->assertSame('plaintext php', $this->fenceInfoSeenByHighlighter('title="app/Model.php" php'));
     }
 
-    public function testFenceThatDeclaresNoLanguageIsMarkedAsPlaintext(): void
+    public function testFenceWithoutATitleIsLeftWithoutAFallbackLanguage(): void
     {
-        $this->assertSame('plaintext', $this->prepareFence('title="app/Model.php"')->getInfo());
-    }
-
-    public function testFenceWithoutATitleIsNotMarkedAsPlaintext(): void
-    {
-        $this->assertSame('', $this->prepareFence('')->getInfo());
-        $this->assertSame('option="value"', $this->prepareFence('option="value"')->getInfo());
+        $this->assertSame('', $this->fenceInfoSeenByHighlighter(''));
+        $this->assertSame('option="value"', $this->fenceInfoSeenByHighlighter('option="value"'));
     }
 
     public function testFallbackLanguageIsRenderedAsTheLanguage(): void
@@ -164,32 +159,30 @@ class CodeBlocksTest extends TestCase
 
     public function testTitleModifierIsTheOnlyModifierTakenOutOfTheInfoString(): void
     {
-        $node = $this->prepareFence('php theme:github-dark title="app/Model.php"');
-
-        $this->assertSame('php theme:github-dark', $node->getInfo());
+        $this->assertSame('php theme:github-dark', $this->fenceInfoSeenByHighlighter('php theme:github-dark title="app/Model.php"'));
     }
 
     public function testTakingTheTitleOutLeavesTheOtherModifiersByteForByte(): void
     {
-        $node = $this->prepareFence('php label="a  b" title="app/Model.php" option="c   d"');
-
-        $this->assertSame('php label="a  b" option="c   d"', $node->getInfo());
+        $this->assertSame('php label="a  b" option="c   d"',
+            $this->fenceInfoSeenByHighlighter('php label="a  b" title="app/Model.php" option="c   d"')
+        );
     }
 
     public function testATitleWrittenInsideAnotherModifiersValueIsNotOurs(): void
     {
         $this->assertSame('php meta=\'a title="not-hyde" b\'',
-            $this->prepareFence('php meta=\'a title="not-hyde" b\' title="file.php"')->getInfo()
+            $this->fenceInfoSeenByHighlighter('php meta=\'a title="not-hyde" b\' title="file.php"')
         );
 
         $this->assertSame('php meta="a title=\'not-hyde\' b"',
-            $this->prepareFence('php meta="a title=\'not-hyde\' b" title="file.php"')->getInfo()
+            $this->fenceInfoSeenByHighlighter('php meta="a title=\'not-hyde\' b" title="file.php"')
         );
     }
 
     public function testAnInfoStringWithoutATitleIsLeftExactlyAsItWas(): void
     {
-        $this->assertSame('php  theme:dark   option="a  b" ', $this->prepareFence('php  theme:dark   option="a  b" ')->getInfo());
+        $this->assertSame('php  theme:dark   option="a  b"', $this->fenceInfoSeenByHighlighter('php  theme:dark   option="a  b"'));
     }
 
     public function testMalformedTitleModifierThrowsWithoutALanguageToo(): void
@@ -387,20 +380,17 @@ class CodeBlocksTest extends TestCase
         return (new MarkdownService($markdown))->addFeature('torchlight')->parse();
     }
 
-    /** Run the document listener over a single fence, returning the node as the renderer will see it. */
-    protected function prepareFence(string $info): FencedCode
+    /** Render a fence with the given info string, returning it as the highlighter downstream is given it. */
+    protected function fenceInfoSeenByHighlighter(string $info): string
     {
-        $document = new Document();
+        config(['markdown.extensions' => [ListeningHighlighterExtension::class]]);
 
-        $node = new FencedCode(3, '`', 0);
-        $node->setInfo($info);
-        $node->setLiteral('echo 1;');
+        ListeningHighlighterExtension::$priority = 0;
+        ListeningHighlighterExtension::$collected = [];
 
-        $document->appendChild($node);
+        Markdown::render("```$info\necho 1;\n```");
 
-        (new PrepareCodeBlocks())(new DocumentParsedEvent($document));
-
-        return $node;
+        return ListeningHighlighterExtension::$collected[0][0];
     }
 }
 
