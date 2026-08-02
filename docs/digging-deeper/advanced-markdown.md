@@ -272,8 +272,8 @@ echo 'Hello World!';
 Titles follow the same quoting rules as [terminal window titles](#window-titles), so single quotes work just as well,
 and a title may contain spaces. They are not limited to file paths, so use whatever describes the block best.
 
-The language is optional, so you can label a block that declares none, which is then treated as `plaintext`. Put the
-language first if you want one, as anything written after the title stays a modifier.
+The language is optional, so you can label a block that declares none, which is then treated as `plaintext`. The
+language, if you set one, must come first: a fence that opens with `title=` declares no language.
 
 ````markdown
 ``` title=".env"

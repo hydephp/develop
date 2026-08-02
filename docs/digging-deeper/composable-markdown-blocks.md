@@ -132,8 +132,8 @@ phases, orchestrated by the `MarkdownService`:
 
 - `TerminalExtension` is always registered. It converts matching fenced code nodes into `TerminalBlock` nodes and
   renders them through the terminal view.
-- Remaining fenced code nodes get their label resolved, and are wrapped in the code block view. Your highlighter still
-  renders the code itself.
+- Fenced code nodes that are not terminal blocks are wrapped in the code block view, with the `title` modifier
+  resolved into the label. Your highlighter still renders the code itself.
 - `HeadingRenderer` replaces CommonMark's default heading renderer with Hyde's Blade-backed one.
 - Any extensions listed in `markdown.extensions` are registered here too, as is the Torchlight extension when enabled.
 
