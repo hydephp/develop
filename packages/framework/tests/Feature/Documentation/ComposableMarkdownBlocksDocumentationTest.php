@@ -11,9 +11,10 @@ use Hyde\Hyde;
 use Hyde\Markdown\Contracts\MarkdownPreProcessorContract;
 use Hyde\Markdown\Contracts\MarkdownShortcodeContract;
 use Hyde\Markdown\Extensions\CodeBlockViewModel;
-use Hyde\Markdown\Extensions\Processing\CodeBlockRenderer;
-use Hyde\Markdown\Extensions\Processing\WrapCodeBlocks;
 use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
+use Hyde\Markdown\Extensions\Processing\CodeBlockRenderer;
+use Hyde\Markdown\Extensions\Processing\PrepareCodeBlocks;
+use Hyde\Markdown\Extensions\Processing\WrapCodeBlocks;
 use Hyde\Markdown\Extensions\TerminalExtension;
 use Hyde\Markdown\Models\Markdown;
 use Hyde\Markdown\Processing\BladeBlockProcessor;
@@ -90,7 +91,7 @@ use function windows_os;
 #[CoversClass(CodeBlockViewModel::class)]
 #[CoversClass(CodeBlockRenderer::class)]
 #[CoversClass(WrapCodeBlocks::class)]
-#[CoversClass(\Hyde\Markdown\Extensions\Processing\PrepareCodeBlocks::class)]
+#[CoversClass(PrepareCodeBlocks::class)]
 #[CoversClass(BladeBlockProcessor::class)]
 #[CoversClass(\Hyde\Console\Commands\PublishViewsCommand::class)]
 class ComposableMarkdownBlocksDocumentationTest extends TestCase
