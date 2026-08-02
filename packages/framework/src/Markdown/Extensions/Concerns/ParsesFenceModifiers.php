@@ -100,13 +100,12 @@ trait ParsesFenceModifiers
         return rtrim(static::FALLBACK_LANGUAGE.' '.$info);
     }
 
-    /** Takes the separator that followed the token with it, or the one before it at the end of a string. */
     protected function spliceToken(string $info, int $offset, int $length): string
     {
         $before = substr($info, 0, $offset);
         $after = substr($info, $offset + $length);
 
-        return ltrim($after) === $after ? rtrim($before) : $before.ltrim($after);
+        return $after === '' ? rtrim($before) : $before.ltrim($after);
     }
 
     /**
