@@ -522,7 +522,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         );
     }
 
-    public function testTheXmlModifierConvertsSymfonyConsoleFormatterTagsIntoColouredSpans()
+    public function testTheXmlModifierConvertsFormatterTagsIntoColouredSpans()
     {
         $html = Markdown::render("```terminal xml\n<info>Info</info> <comment>Comment</comment> <question>Question</question> <error>Error</error>\n```");
 
@@ -558,7 +558,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
             $html = Markdown::render("```terminal $modifiers\n<info>Hyde was installed successfully.</info>\n```");
 
             $this->assertStringContainsString('<span>Build output</span>', $html, "The modifiers [$modifiers] did not set the title.");
-            $this->assertStringContainsString('<span class="hyde-terminal-info', $html, "The modifiers [$modifiers] did not enable Symfony formatting.");
+            $this->assertStringContainsString('<span class="hyde-terminal-info', $html, "The modifiers [$modifiers] did not enable XML style formatting.");
         }
     }
 

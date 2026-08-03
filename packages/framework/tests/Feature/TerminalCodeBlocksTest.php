@@ -59,7 +59,7 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString("\n\$VARIABLE\n", $html);
     }
 
-    public function testXmlModifierRendersSymfonyFormatterTags(): void
+    public function testXmlModifierRendersFormatterTags(): void
     {
         $html = Markdown::render(
             "```terminal xml\n<info>Ready</info> <comment>Wait</comment> <question>Continue?</question> <error>Failed</error>\n```"

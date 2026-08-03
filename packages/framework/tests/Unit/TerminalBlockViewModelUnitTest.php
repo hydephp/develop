@@ -103,7 +103,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('formatterTagProvider')]
-    public function testSymfonyFormatterTagsAreConvertedToSpans(string $literal, string $expected)
+    public function testFormatterTagsAreConvertedToSpans(string $literal, string $expected)
     {
         $this->assertSame($expected, (new TerminalBlockViewModel($literal, null, true))->contents);
     }
@@ -118,7 +118,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         ];
     }
 
-    public function testSymfonyFormatterTagsCanBeNested()
+    public function testFormatterTagsCanBeNested()
     {
         $this->assertSame(
             '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span></span>',
@@ -126,7 +126,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         );
     }
 
-    public function testUnclosedSymfonyFormatterTagsAreClosedAtTheEndOfTheLine()
+    public function testUnclosedFormatterTagsAreClosedAtTheEndOfTheLine()
     {
         $this->assertSame(
             '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span></span>',
@@ -134,7 +134,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         );
     }
 
-    public function testMismatchedSymfonyFormatterTagsAreEscaped()
+    public function testMismatchedFormatterTagsAreEscaped()
     {
         $this->assertSame(
             '<span class="hyde-terminal-info text-[#C3E88D]">Ready&lt;/comment&gt;</span>',
@@ -142,7 +142,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         );
     }
 
-    public function testUnopenedSymfonyFormatterTagsAreEscaped()
+    public function testUnopenedFormatterTagsAreEscaped()
     {
         $this->assertSame('Ready&lt;/info&gt;', (new TerminalBlockViewModel('Ready</info>', null, true))->contents);
     }
@@ -160,7 +160,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         );
     }
 
-    public function testSymfonyFormatterTagsDoNotSpanMultipleLines()
+    public function testFormatterTagsDoNotSpanMultipleLines()
     {
         $this->assertSame(
             '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span>'."\n".'Done&lt;/info&gt;',

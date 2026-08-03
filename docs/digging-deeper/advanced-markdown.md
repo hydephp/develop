@@ -165,10 +165,9 @@ quote. The title is HTML-escaped when rendered.
 The `title` modifier must use a quoted value with no whitespace around the `=`, such as `title="Build output"`.
 Unquoted values, unclosed quotes, and whitespace around the `=` are reported as errors instead of being guessed at.
 
-### Symfony Console formatting
+### XML style formatting
 
-Add the `xml` modifier to style four commonly used Symfony Console formatter tags using colors from Hyde's terminal
-theme:
+Add the `xml` modifier to style four formatter tags using colors from Hyde's terminal theme:
 
 ````markdown
 ```terminal xml
