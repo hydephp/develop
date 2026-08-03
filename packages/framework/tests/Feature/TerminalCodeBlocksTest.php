@@ -286,7 +286,7 @@ class TerminalCodeBlocksTest extends TestCase
 
         $this->assertSame('$ php hyde build', $node->viewModel->literal);
         $this->assertSame('Build output', $node->viewModel->title);
-        $this->assertTrue($node->viewModel->usesSymfonyFormatting);
+        $this->assertTrue($node->viewModel->usesFormatting);
     }
 
     public function testViewModelRendersTheTerminalView(): void
@@ -307,7 +307,7 @@ class TerminalCodeBlocksTest extends TestCase
 
     public function testViewModelContentsAreFinishedMarkup(): void
     {
-        $viewModel = new TerminalBlockViewModel('<info>Ready</info> <b>Bold</b>', usesSymfonyFormatting: true);
+        $viewModel = new TerminalBlockViewModel('<info>Ready</info> <b>Bold</b>', usesFormatting: true);
 
         $this->assertSame(
             '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span> &lt;b&gt;Bold&lt;/b&gt;',

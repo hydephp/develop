@@ -29,7 +29,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
 
         $this->assertSame('Output', $model->literal);
         $this->assertNull($model->title);
-        $this->assertFalse($model->usesSymfonyFormatting);
+        $this->assertFalse($model->usesFormatting);
     }
 
     public function testCanConstructWithAllArguments()
@@ -38,7 +38,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
 
         $this->assertSame('Output', $model->literal);
         $this->assertSame('Console', $model->title);
-        $this->assertTrue($model->usesSymfonyFormatting);
+        $this->assertTrue($model->usesFormatting);
     }
 
     public function testContentsAreFormattedOnConstruction()
@@ -97,7 +97,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         );
     }
 
-    public function testFormatterTagsAreEscapedWithoutSymfonyFormatting()
+    public function testFormatterTagsAreEscapedWithoutFormatting()
     {
         $this->assertSame('&lt;info&gt;Ready&lt;/info&gt;', (new TerminalBlockViewModel('<info>Ready</info>'))->contents);
     }
@@ -147,12 +147,12 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         $this->assertSame('Ready&lt;/info&gt;', (new TerminalBlockViewModel('Ready</info>', null, true))->contents);
     }
 
-    public function testUnknownTagsAreEscapedWithSymfonyFormatting()
+    public function testUnknownTagsAreEscapedWithFormatting()
     {
         $this->assertSame('&lt;unknown&gt;text&lt;/unknown&gt;', (new TerminalBlockViewModel('<unknown>text</unknown>', null, true))->contents);
     }
 
-    public function testSymfonyFormattingIsAppliedWithinCommandLines()
+    public function testFormattingIsAppliedWithinCommandLines()
     {
         $this->assertSame(
             '<span class="hyde-terminal-command text-[#C3E88D]"><span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build <span class="hyde-terminal-comment text-[#FFCB6B]">--force</span></span>',
