@@ -25,7 +25,7 @@ class TerminalBlockViewModel
     public function __construct(
         public readonly string $literal,
         public readonly ?string $title = null,
-        public readonly bool $usesSymfonyFormatting = false,
+        public readonly bool $usesFormatting = false,
     ) {
         $this->contents = $this->formatContents();
     }
@@ -67,7 +67,7 @@ class TerminalBlockViewModel
 
     protected function formatText(string $text): string
     {
-        if (! $this->usesSymfonyFormatting) {
+        if (! $this->usesFormatting) {
             return e($text);
         }
 

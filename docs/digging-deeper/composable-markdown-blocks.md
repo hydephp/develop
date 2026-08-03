@@ -245,10 +245,10 @@ An empty title (`title=""`) is respected as written, leaving the title bar with 
 modifier must otherwise use a quoted value with no whitespace around the `=`. Malformed title syntax causes the build
 to fail rather than being silently ignored.
 
-#### Symfony formatting
+#### XML style formatting
 
-The `xml` modifier renders the four [Symfony Console formatter tags](https://symfony.com/doc/current/console/coloring.html)
-(`<info>`, `<comment>`, `<question>`, and `<error>`) as coloured output, letting you paste console output verbatim.
+The `xml` modifier renders four formatter tags (`<info>`, `<comment>`, `<question>`, and `<error>`) as coloured
+output, letting you paste console-style output verbatim.
 
 ````markdown
 ```terminal xml title="Build output"
@@ -273,8 +273,8 @@ usual, including unknown tags and tags that are not closed in the order they wer
 | `$title`    | `string`/`null` | The title set by the block, or `null` when it did not set one.                  |
 
 The renderer does the per-line work before the view is involved: it escapes the raw text, wraps `$ ` prompts in
-`hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present — converts Symfony
-Console formatter tags into coloured spans. The view receives a single finished string.
+`hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present — converts the
+formatter tags into coloured spans. The view receives a single finished string.
 
 The title is passed through as it was written, so the view is what decides both how it is displayed and what an
 untitled block falls back to. The shipped view escapes it with `{{ }}` and falls back to `Terminal`.
@@ -291,10 +291,10 @@ untitled block falls back to. The shipped view escapes it with `{{ }}` and falls
 | `hyde-terminal-body`      | The `<pre>` output area                    |
 | `hyde-terminal-command`   | A line beginning with a `$ ` prompt        |
 | `hyde-terminal-prompt`    | The `$ ` prompt itself                     |
-| `hyde-terminal-info`      | Symfony `<info>` output                    |
-| `hyde-terminal-comment`   | Symfony `<comment>` output                 |
-| `hyde-terminal-question`  | Symfony `<question>` output                |
-| `hyde-terminal-error`     | Symfony `<error>` output                   |
+| `hyde-terminal-info`      | `<info>` output                            |
+| `hyde-terminal-comment`   | `<comment>` output                         |
+| `hyde-terminal-question`  | `<question>` output                        |
+| `hyde-terminal-error`     | `<error>` output                           |
 
 ### Customization example
 
