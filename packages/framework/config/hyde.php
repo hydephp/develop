@@ -136,57 +136,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Robots.txt Generation
-    |--------------------------------------------------------------------------
-    |
-    | When enabled, a robots.txt file allowing all crawlers will be generated
-    | when you compile your static site. A link to your sitemap is included
-    | when the sitemap feature is enabled.
-    |
-    | Values added to the disallow array are written verbatim as Disallow
-    | rule values for all crawlers, so wildcard patterns are supported.
-    |
-    */
-
-    'robots' => [
-        // Should the robots.txt file be generated?
-        'enabled' => true,
-
-        // Disallow rule values asking crawlers not to access matching paths.
-        'disallow' => [
-            // '/private',
-            // '/*.pdf$',
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Llms.txt Generation
-    |--------------------------------------------------------------------------
-    |
-    | When enabled, an llms.txt file listing your pages will be generated when
-    | you compile your static site, helping AI services and agents find your
-    | content. Set this to true if you would like to publish one.
-    |
-    | This feature requires that a site base URL has been set.
-    |
-    | Unlike robots.txt, llms.txt is not an established web convention: it's
-    | an emerging proposal that may still change in minor and patch releases,
-    | and publishing it is a deliberate invitation for AI services to read
-    | your site, so it defaults to off until you decide you want that.
-    |
-    */
-
-    'llms' => [
-        // Should the llms.txt file be generated?
-        'enabled' => false,
-
-        // An optional summary of your site, added as the introductory blockquote.
-        'description' => null,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Source Root Directory
     |--------------------------------------------------------------------------
     |

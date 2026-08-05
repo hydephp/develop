@@ -23,8 +23,6 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
-use Hyde\Framework\Features\TextGenerators\LlmsTxtGenerator;
-use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
@@ -97,14 +95,6 @@ class HydeCoreExtension extends HydeExtension
         if (Features::hasRss()) {
             $this->discoverRssFeedPage($collection);
         }
-
-        if (Features::hasRobotsTxt()) {
-            $this->discoverRobotsTxtPage($collection);
-        }
-
-        if (Features::hasLlmsTxt()) {
-            $this->discoverLlmsTxtPage($collection);
-        }
     }
 
     protected function discoverSitemapPage(PageCollection $collection): void
@@ -122,24 +112,6 @@ class HydeCoreExtension extends HydeExtension
             $collection,
             RssFeedGenerator::getFilename(),
             fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
-        );
-    }
-
-    protected function discoverRobotsTxtPage(PageCollection $collection): void
-    {
-        $this->addGeneratedPage(
-            $collection,
-            'robots.txt',
-            fn (): string => app(RobotsTxtGenerator::class)->generate(),
-        );
-    }
-
-    protected function discoverLlmsTxtPage(PageCollection $collection): void
-    {
-        $this->addGeneratedPage(
-            $collection,
-            'llms.txt',
-            fn (): string => app(LlmsTxtGenerator::class)->generate(),
         );
     }
 
