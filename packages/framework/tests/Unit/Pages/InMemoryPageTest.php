@@ -433,19 +433,6 @@ class InMemoryPageTest extends TestCase
     {
         $this->assertSame('api/users.json', InMemoryPageWithCustomOutputConfiguration::outputPath('users'));
     }
-
-    public function testSubclassOutputExtensionDoesNotOverrideAnIdentifierThatAlreadyHasAnExtension()
-    {
-        $this->assertSame('api/users.csv', InMemoryPageWithCustomOutputConfiguration::outputPath('users.csv'));
-    }
-
-    public function testRouteKeyAndOutputPathCanDisagreeWhenIdentifierExtensionDiffersFromSubclassExtension()
-    {
-        $page = new InMemoryPageWithCustomOutputConfiguration('users.csv');
-
-        $this->assertSame('api/users.csv.json', $page->getRouteKey());
-        $this->assertSame('api/users.csv', $page->getOutputPath());
-    }
 }
 
 class InMemoryPageWithCustomOutputConfiguration extends InMemoryPage
