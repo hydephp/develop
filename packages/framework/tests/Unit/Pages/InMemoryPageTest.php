@@ -420,6 +420,38 @@ class InMemoryPageTest extends TestCase
             );
         }
     }
+
+    public function testSubclassCanConfigureOutputDirectoryAndExtension()
+    {
+        $page = new InMemoryPageWithCustomOutputConfiguration('users');
+
+        $this->assertSame('api/users.json', $page->getRouteKey());
+        $this->assertSame('api/users.json', $page->getOutputPath());
+    }
+
+    public function testSubclassOutputDirectoryAndExtensionAreUsedForStaticResolutionToo()
+    {
+        $this->assertSame('api/users.json', InMemoryPageWithCustomOutputConfiguration::outputPath('users'));
+    }
+
+    public function testSubclassOutputExtensionDoesNotOverrideAnIdentifierThatAlreadyHasAnExtension()
+    {
+        $this->assertSame('api/users.csv', InMemoryPageWithCustomOutputConfiguration::outputPath('users.csv'));
+    }
+
+    public function testRouteKeyAndOutputPathCanDisagreeWhenIdentifierExtensionDiffersFromSubclassExtension()
+    {
+        $page = new InMemoryPageWithCustomOutputConfiguration('users.csv');
+
+        $this->assertSame('api/users.csv.json', $page->getRouteKey());
+        $this->assertSame('api/users.csv', $page->getOutputPath());
+    }
+}
+
+class InMemoryPageWithCustomOutputConfiguration extends InMemoryPage
+{
+    public static string $outputDirectory = 'api';
+    public static string $outputExtension = '.json';
 }
 
 class InMemoryPageContentTestPage extends InMemoryPage
