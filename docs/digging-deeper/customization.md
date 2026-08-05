@@ -128,13 +128,12 @@ redirects:
 
 ### Generated discovery files
 
-Hyde generates a sitemap, RSS feed, `robots.txt`, and `llms.txt` as regular in-memory pages. They are registered routes,
-so they are included in a normal site build, shown by `php hyde route:list`, recorded in the build manifest, and served
-by `php hyde serve`. Generated non-HTML pages are excluded from navigation and from the sitemap by default.
+Hyde generates a sitemap and RSS feed as regular in-memory pages. They are registered routes, so they are included in
+a normal site build, shown by `php hyde route:list`, recorded in the build manifest, and served by `php hyde serve`.
+Generated non-HTML pages are excluded from navigation and from the sitemap by default.
 
-The sitemap and llms.txt require a site URL so they can contain absolute links. RSS additionally requires Markdown blog
-posts and the SimpleXML extension; sitemap generation also requires SimpleXML. Robots.txt has no site URL requirement,
-and includes a `Sitemap:` line only when the sitemap is available.
+The sitemap requires a site URL so it can contain absolute links. RSS additionally requires Markdown blog posts and
+the SimpleXML extension; sitemap generation also requires SimpleXML.
 
 Here are the related default settings:
 
@@ -146,32 +145,7 @@ Here are the related default settings:
     'filename' => 'feed.xml',
     'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
 ],
-
-'robots' => [
-    'enabled' => true,
-    'disallow' => [
-        // '/private',
-        // '/*.pdf$',
-    ],
-],
-
-'llms' => [
-    'enabled' => false,
-    'description' => null,
-],
 ```
-
-Each robots.txt `disallow` value is written verbatim as a `Disallow:` rule, allowing patterns such as `/*.pdf$`.
-The llms.txt description becomes its introductory blockquote. The file groups published pages by type and uses each
-page's `abstract` front matter, falling back to `description`, as the link description. A page is included in llms.txt
-when it is included in the sitemap, so `sitemap: false` excludes it from both indexes. This does not prevent an AI
-crawler from accessing the page; use robots.txt rules for crawler access control.
-
-Unlike the sitemap, RSS feed, and robots.txt, llms.txt is disabled by default: publishing it is a deliberate
-invitation for AI services to read your site, so set `hyde.llms.enabled` to `true` to opt in.
-
->warning Llms.txt is an emerging standard. Hyde may change the generated format in minor or patch releases as the
-> specification evolves. Replace the page if you need a fixed format.
 
 #### Customizing generated output
 
@@ -179,14 +153,14 @@ For small output changes, extend the corresponding generator and bind your imple
 resolves generators from the service container when the page is compiled, after route discovery is complete:
 
 ```php title="app/Providers/AppServiceProvider.php"
-use Hyde\Framework\Features\TextGenerators\RobotsTxtGenerator;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Illuminate\Support\ServiceProvider;
 
-class CustomRobotsTxtGenerator extends RobotsTxtGenerator
+class CustomRssFeedGenerator extends RssFeedGenerator
 {
-    public function generate(): string
+    public static function getDescription(): string
     {
-        return parent::generate()."\nHost: example.com\n";
+        return 'A hand-written feed description.';
     }
 }
 
@@ -194,14 +168,13 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(RobotsTxtGenerator::class, CustomRobotsTxtGenerator::class);
+        $this->app->bind(RssFeedGenerator::class, CustomRssFeedGenerator::class);
     }
 }
 ```
 
-The available generators are `SitemapGenerator`, `RssFeedGenerator`, `RobotsTxtGenerator`, and `LlmsTxtGenerator` in
-their respective `Hyde\Framework\Features\XmlGenerators` and `Hyde\Framework\Features\TextGenerators` namespaces.
-The protected `LlmsTxtGenerator::sections()` method can be overridden to change its page groups.
+The available generators are `SitemapGenerator` and `RssFeedGenerator` in the `Hyde\Framework\Features\XmlGenerators`
+namespace.
 
 To replace a generated file completely, register your own [`InMemoryPage`](in-memory-pages) with
 the same route key during a kernel booting callback or extension discovery. User-defined pages take precedence over
@@ -214,8 +187,8 @@ use Hyde\Foundation\HydeKernel;
 
 Hyde::booting(function (HydeKernel $kernel): void {
     $kernel->pages()->addPage(InMemoryPage::make(
-        'robots.txt',
-        contents: "User-agent: *\nDisallow: /private\n",
+        'sitemap.xml',
+        contents: $customSitemapXml,
     ));
 });
 ```
