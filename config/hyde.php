@@ -99,37 +99,89 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Site Discovery Files
+    | Sitemap Generation
     |--------------------------------------------------------------------------
     |
-    | Configure the sitemap, RSS feed, robots.txt, and optional llms.txt files
-    | generated during site builds. Sitemap, RSS, and llms.txt require a site
-    | base URL; see the documentation for file-specific options and behavior.
+    | When the setting is enabled, a sitemap.xml file will automatically be
+    | generated when you compile your static site.
+    |
+    | This feature requires that a site base URL has been set.
     |
     */
 
-    // Should a sitemap.xml file be generated?
     'generate_sitemap' => true,
 
-    // Manage the RSS feed for site blog posts.
+    /*
+    |--------------------------------------------------------------------------
+    | RSS Feed Generation
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, an RSS feed with your Markdown blog posts will be
+    | generated when you compile your static site.
+    |
+    | This feature requires that a site base URL has been set.
+    |
+    */
+
     'rss' => [
+        // Should the RSS feed be generated?
         'enabled' => true,
+
+        // What filename should the RSS file use?
         'filename' => 'feed.xml',
-        'description' => env('SITE_NAME', 'HydePHP') . ' RSS Feed',
+
+        // The channel description.
+        'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
     ],
 
-    // Manage the robots.txt file for web crawlers.
+    /*
+    |--------------------------------------------------------------------------
+    | Robots.txt Generation
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, a robots.txt file allowing all crawlers will be generated
+    | when you compile your static site. A link to your sitemap is included
+    | when the sitemap feature is enabled.
+    |
+    | Values added to the disallow array are written verbatim as Disallow
+    | rule values for all crawlers, so wildcard patterns are supported.
+    |
+    */
+
     'robots' => [
+        // Should the robots.txt file be generated?
         'enabled' => true,
+
+        // Disallow rule values asking crawlers not to access matching paths.
         'disallow' => [
             // '/private',
             // '/*.pdf$',
         ],
     ],
 
-    // Manage the llms.txt file for AI rules.
+    /*
+    |--------------------------------------------------------------------------
+    | Llms.txt Generation
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, an llms.txt file listing your pages will be generated when
+    | you compile your static site, helping AI services and agents find your
+    | content. Set this to true if you would like to publish one.
+    |
+    | This feature requires that a site base URL has been set.
+    |
+    | Unlike robots.txt, llms.txt is not an established web convention: it's
+    | an emerging proposal that may still change in minor and patch releases,
+    | and publishing it is a deliberate invitation for AI services to read
+    | your site, so it defaults to off until you decide you want that.
+    |
+    */
+
     'llms' => [
+        // Should the llms.txt file be generated?
         'enabled' => false,
+
+        // An optional summary of your site, added as the introductory blockquote.
         'description' => null,
     ],
 
