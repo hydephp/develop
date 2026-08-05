@@ -14,6 +14,7 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
+use Hyde\RealtimeCompiler\RealtimeCompiler;
 use Hyde\RealtimeCompiler\Routing\PageRouter;
 use Hyde\RealtimeCompiler\Routing\Router;
 
@@ -323,6 +324,66 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('text/html', $this->invokeGetContentType($page));
     }
 
+    public function testSitemapRouteReturnsSitemapResponse()
+    {
+        // Note this works even without a production site URL configured: the router always
+        // overrides the site URL to the local server address (unless save_preview is enabled),
+        // so the sitemap and RSS feed are available on the dev server regardless of whether a
+        // production URL has been set.
+        $this->mockCompilerRoute('sitemap.xml');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+        $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+        $this->assertStringContainsString('<urlset', $response->body);
+    }
+
+    public function testRegisterDynamicVirtualRoutesDoesNotRegisterSitemapWhenFeatureIsDisabled()
+    {
+        $this->mockCompilerRoute('sitemap.xml');
+        config(['hyde.url' => 'http://localhost:8080', 'hyde.generate_sitemap' => false]);
+
+        $routes = $this->invokeRegisterDynamicVirtualRoutes();
+
+        $this->assertArrayNotHasKey('/sitemap.xml', $routes);
+    }
+
+    public function testRegisterDynamicVirtualRoutesDoesNotRegisterRssFeedWhenFeatureIsDisabled()
+    {
+        $this->mockCompilerRoute('feed.xml');
+        config(['hyde.url' => 'http://localhost:8080', 'hyde.rss.enabled' => false]);
+        Filesystem::put('_posts/test-post.md', "---\ntitle: Test Post\ndescription: Test post description\n---\n\n# Test Post");
+
+        $routes = $this->invokeRegisterDynamicVirtualRoutes();
+
+        $this->assertArrayNotHasKey('/feed.xml', $routes);
+
+        Filesystem::unlink('_posts/test-post.md');
+    }
+
+    public function testRssFeedRouteReturnsRssResponse()
+    {
+        $this->mockCompilerRoute('feed.xml');
+        Filesystem::put('_posts/test-post.md', "---\ntitle: Test Post\ndescription: Test post description\n---\n\n# Test Post");
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+        $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+        $this->assertStringContainsString('<rss ', $response->body);
+        $this->assertStringContainsString('version="2.0"', $response->body);
+        $this->assertStringContainsString('Test Post', $response->body);
+
+        Filesystem::unlink('_posts/test-post.md');
+    }
+
     public function testPingRouteReturnsPingResponse()
     {
         $this->mockCompilerRoute('ping');
@@ -588,6 +649,16 @@ class RealtimeCompilerTest extends TestCase
         $method = new ReflectionMethod(Router::class, 'overrideSiteUrl');
         $method->setAccessible(true);
         $method->invoke(new Router(new Request()));
+    }
+
+    /** @return array<string, callable> */
+    protected function invokeRegisterDynamicVirtualRoutes(): array
+    {
+        $method = new ReflectionMethod(Router::class, 'registerDynamicVirtualRoutes');
+        $method->setAccessible(true);
+        $method->invoke(new Router(new Request()));
+
+        return app(RealtimeCompiler::class)->getVirtualRoutes();
     }
 
     protected function invokeGetContentType(InMemoryPage $page): string

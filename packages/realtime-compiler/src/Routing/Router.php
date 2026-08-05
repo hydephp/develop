@@ -6,11 +6,14 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Facades\Features;
 use Hyde\RealtimeCompiler\RealtimeCompiler;
 use Hyde\RealtimeCompiler\Actions\AssetFileLocator;
 use Hyde\RealtimeCompiler\Concerns\SendsErrorResponses;
+use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 use Hyde\RealtimeCompiler\Models\FileObject;
 use Hyde\RealtimeCompiler\Concerns\InteractsWithLaravel;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 
 class Router
 {
@@ -37,6 +40,8 @@ class Router
 
         $this->overrideSiteUrl();
 
+        $this->registerDynamicVirtualRoutes();
+
         $virtualRoutes = app(RealtimeCompiler::class)->getVirtualRoutes();
 
         if (isset($virtualRoutes[$this->request->path])) {
@@ -51,6 +56,30 @@ class Router
         }
 
         return PageRouter::handle($this->request);
+    }
+
+    /**
+     * Register virtual routes whose availability depends on the site URL, which is only
+     * finalized after {@see overrideSiteUrl()} has run. Unlike the routes registered in
+     * the service provider's boot method, these can't be resolved any earlier: outside of
+     * `save_preview` mode, the site URL is always overridden to a local address, so (unlike
+     * a real `hyde build`) we don't need a production site URL to be configured to serve
+     * these on the local dev server.
+     */
+    protected function registerDynamicVirtualRoutes(): void
+    {
+        $compiler = app(RealtimeCompiler::class);
+
+        if (Features::hasSitemap()) {
+            $compiler->registerVirtualRoute('/sitemap.xml', [VirtualRouteController::class, 'sitemap']);
+        }
+
+        if (Features::hasRss()) {
+            // Note: this correctly registers a custom `hyde.rss.filename`, even though
+            // `shouldProxy()` below can't recognize that filename and will still proxy
+            // it as a static asset request. That's an accepted, intentional asymmetry.
+            $compiler->registerVirtualRoute('/'.ltrim(RssFeedGenerator::getFilename(), '/'), [VirtualRouteController::class, 'rssFeed']);
+        }
     }
 
     /**
@@ -71,6 +100,21 @@ class Router
 
         // Don't proxy the search.json file, as it's generated on the fly.
         if (str_ends_with($this->request->path, 'search.json')) {
+            return false;
+        }
+
+        // Don't proxy the sitemap, as it's generated on the fly.
+        // Note that unlike the RSS feed below, the sitemap filename is not configurable.
+        if ($this->request->path === '/sitemap.xml') {
+            return false;
+        }
+
+        // Don't proxy the RSS feed, as it's generated on the fly.
+        // We can't resolve the configured `hyde.rss.filename` here without booting the
+        // app, which we deliberately avoid for performance on every static asset request.
+        // A customized RSS filename is rare enough that we accept it falling back to
+        // static-asset proxying rather than being dynamically generated.
+        if ($this->request->path === '/feed.xml') {
             return false;
         }
 
