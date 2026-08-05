@@ -110,14 +110,21 @@ class InMemoryPage extends HydePage
     /**
      * Qualify a page identifier into a target output file path.
      *
-     * Identifiers with a file extension are used verbatim, while identifiers
-     * without an extension are compiled to HTML files.
+     * Identifiers with a file extension are used verbatim, while identifiers without one
+     * get the configured output extension (`.html` by default), prefixed with the
+     * configured output directory, if any.
+     *
+     * If an identifier's own extension differs from the configured output extension, the
+     * route key still gets the configured extension appended (see `RouteKey::fromPage()`),
+     * so the two may disagree. Configured subclasses are meant to be used with extensionless
+     * identifiers.
      */
     public static function outputPath(string $identifier): string
     {
         $identifier = unslash($identifier);
+        $path = unslash(static::outputDirectory().'/'.$identifier);
 
-        return $identifier.(pathinfo($identifier, PATHINFO_EXTENSION) === '' ? '.html' : '');
+        return $path.(pathinfo($identifier, PATHINFO_EXTENSION) === '' ? static::outputExtension() : '');
     }
 
     /**
