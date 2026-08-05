@@ -267,11 +267,12 @@ outright and the inferred default applies only when it is unset:
 return $this->searchForHiddenInFrontMatter() ?? $this->isHiddenByDefault();
 ```
 
-Hyde infers navigation membership from conventions; front matter exists to override the
-inference, and an override that only works in one direction — and only against the newest
-of four rules — is a rule users would have to memorize rather than derive. The `??` shape
-also matches `makePriority()` and `makeLabel()` in the same factory, which already put
-front matter ahead of configuration and convention, so `makeHidden()` was the outlier.
+Front matter is the most specific channel a user has, so it outranks both the conventions
+Hyde infers membership from and the global `hyde.navigation.exclude` configuration. An
+override that only works in one direction — and only against the newest of four rules — is
+a rule users would have to memorize rather than derive. The `??` shape also matches
+`makePriority()` and `makeLabel()` in the same factory, which already put front matter
+ahead of configuration and convention, so `makeHidden()` was the outlier.
 
 Consequence beyond this epic's scope: `navigation.visible: true` on a blog post, an
 excluded route key, or a page in a hidden subdirectory is no longer a silent no-op. No
@@ -729,7 +730,10 @@ Implementation notes (branch `v3/non-html-pages-hide-from-navigation`):
   D7. `isHiddenByDefault()` collects the four default rules behind the front matter check.
 - Covered at both levels: `NavigationDataFactoryUnitTest` asserts the default and the
   override against each of the four rules, and `AutomaticNavigationConfigurationsTest`
-  asserts a non-HTML `InMemoryPage` stays out of the real generated menu unless opted in.
+  asserts through the real generated menu that a non-HTML `InMemoryPage` stays out unless
+  opted in, and that front matter adds the pages the other three rules hide. The menu
+  level is asserted separately because `makeHidden()` only sets the flag that
+  `NavigationMenuGenerator` reads through `showInNavigation()`.
 - The `visible`/`hidden` front matter pair was left as-is. Both spellings already existed
   and `searchForHiddenInFrontMatter()` already normalized them, so widening the override
   needed no new front matter key — per PR 7's rule 2, the cheapest key is the one not added.
