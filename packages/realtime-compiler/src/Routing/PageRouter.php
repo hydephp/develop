@@ -6,6 +6,7 @@ namespace Hyde\RealtimeCompiler\Routing;
 
 use Desilva\Microserve\Request;
 use Desilva\Microserve\Response;
+use Hyde\Facades\Localization;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
@@ -94,7 +95,7 @@ class PageRouter
         } else {
             Hyde::shareViewData($page);
 
-            $contents = $page->compile();
+            $contents = Localization::usingLanguage($page->getLanguage(), fn (): string => $page->compile());
         }
 
         if ($page instanceof BaseMarkdownPage && LiveEditController::enabled()) {
