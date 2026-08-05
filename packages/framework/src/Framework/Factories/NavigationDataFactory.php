@@ -106,13 +106,15 @@ class NavigationDataFactory extends Concerns\PageDataFactory implements Navigati
 
     protected function makeHidden(): bool
     {
-        $frontMatterHidden = $this->searchForHiddenInFrontMatter();
+        return $this->searchForHiddenInFrontMatter() ?? $this->isHiddenByDefault();
+    }
 
+    private function isHiddenByDefault(): bool
+    {
         return $this->isInstanceOf(MarkdownPost::class)
-            || $frontMatterHidden === true
             || $this->searchForHiddenInConfigs()
             || $this->isNonDocumentationPageInHiddenSubdirectory()
-            || ($frontMatterHidden === null && $this->hasNonHtmlOutput());
+            || $this->hasNonHtmlOutput();
     }
 
     private function hasNonHtmlOutput(): bool
