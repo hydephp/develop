@@ -27,7 +27,7 @@ This serves two purposes:
 - Raw HTML in Markdown is now enabled by default. Set `markdown.allow_html` to `false` when compiling untrusted or unreviewed Markdown to strip potentially unsafe HTML tags.
 - `InMemoryPage` now requires callers to select either `contents` or `view`; configuring both throws an `InvalidArgumentException` instead of silently giving contents precedence.
 - `InMemoryPage` now treats an empty string as an omitted `view`, matching the existing compile-time behavior and allowing literal contents to be used with an empty view value.
-- Pages with non-HTML output paths are now excluded from automatic navigation by default. Set `navigation.visible: true` or `navigation.hidden: false` to include one explicitly.
+- Pages with non-HTML output paths are now excluded from automatic navigation by default. Navigation front matter always wins over the automatic behavior, so `navigation.visible: true` (or `navigation.hidden: false`) includes such a page explicitly, and now also shows pages Hyde leaves out on its own, like blog posts and pages in hidden subdirectories.
 - Fenced code blocks are now rendered through the publishable `components/markdown/code-block.blade.php` view, which changes the generated markup around the code. Syntax highlighting is unaffected, and the `hyde-code-block` and `hyde-code-block-label` classes are stable hooks for your own CSS.
 - Code block labels are now set with a `title="…"` modifier on the fence, replacing the `// filepath:` comment syntax, which is no longer recognized and must be replaced.
 

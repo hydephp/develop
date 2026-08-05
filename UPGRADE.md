@@ -329,8 +329,10 @@ new InMemoryPage(
 );
 ```
 
-The equivalent `navigation.hidden: false` setting is also supported. Explicit visibility overrides only the new
-non-HTML default; existing exclusions for posts, configured route keys, and hidden subdirectories still apply.
+The equivalent `navigation.hidden: false` setting is also supported. Navigation front matter now always wins over
+the automatic behavior, so it also adds pages Hyde leaves out on its own, like blog posts, route keys listed in
+`hyde.navigation.exclude`, and pages in hidden subdirectories. In v2 those pages stayed hidden regardless, so
+review any `navigation.visible: true` or `navigation.hidden: false` matter you set on them expecting no effect.
 
 ## Step 6: Review Sitemap and RSS Feed Customizations
 
