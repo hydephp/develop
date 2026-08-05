@@ -119,6 +119,17 @@ class AutomaticNavigationConfigurationsTest extends TestCase
         ]);
     }
 
+    public function testFrontMatterAddsPagesThatAreHiddenFromNavigationByDefault()
+    {
+        config(['hyde.navigation.exclude' => ['excluded']]);
+
+        $this->assertMenuEquals(['Post', 'Excluded', 'Nested'], [
+            new MarkdownPost('post', ['navigation.visible' => true, 'navigation.label' => 'Post']),
+            new MarkdownPage('excluded', ['navigation.visible' => true, 'navigation.label' => 'Excluded']),
+            new MarkdownPage('about/nested', ['navigation.visible' => true, 'navigation.label' => 'Nested']),
+        ]);
+    }
+
     public function testMainNavigationDoesNotInclude404Page()
     {
         $this->assertMenuEquals([], [new MarkdownPage('404')]);
