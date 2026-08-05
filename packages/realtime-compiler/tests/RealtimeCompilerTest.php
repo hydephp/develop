@@ -425,6 +425,59 @@ class RealtimeCompilerTest extends TestCase
         }
     }
 
+    public function testRssFeedRouteIsServedWithRssContentTypeWhenTheConfiguredFilenameUsesTheRssExtension()
+    {
+        $this->mockCompilerRoute('feed.rss');
+
+        Filesystem::put('_posts/rc-test-post.md', '# Hello World!');
+
+        try {
+            $router = new Router(new Request());
+            $this->bootRouterApplication($router);
+            config(['hyde.rss.filename' => 'feed.rss', 'hyde.url' => 'https://example.com']);
+            Hyde::boot();
+
+            $response = $router->handle();
+
+            $this->assertSame(200, $response->statusCode);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/rss+xml', $headers['Content-Type']);
+
+            $this->assertStringContainsString('<rss', $response->body);
+        } finally {
+            Filesystem::unlink('_posts/rc-test-post.md');
+        }
+    }
+
+    /**
+     * The site URL is overridden to the local server address before the kernel discovers its pages,
+     * so both feature-gated pages are served locally without a production site URL being configured.
+     */
+    public function testSitemapAndRssFeedAreServedWithoutAConfiguredSiteUrl()
+    {
+        Filesystem::put('_posts/rc-test-post.md', '# Hello World!');
+
+        try {
+            foreach (['sitemap.xml' => '<urlset', 'feed.xml' => '<rss'] as $route => $expected) {
+                $this->mockCompilerRoute($route);
+
+                $router = new Router(new Request());
+                $this->bootRouterApplication($router);
+                config(['hyde.url' => null]);
+
+                $response = $router->handle();
+
+                $this->assertSame(200, $response->statusCode);
+                $this->assertSame('application/xml', $this->getResponseHeaders($response)['Content-Type']);
+                $this->assertStringContainsString($expected, $response->body);
+                $this->assertStringContainsString('http://localhost:8080/', $response->body);
+            }
+        } finally {
+            Filesystem::unlink('_posts/rc-test-post.md');
+        }
+    }
+
     public function testRobotsTxtRouteIsServedWithPlainTextContentType()
     {
         $this->mockCompilerRoute('robots.txt');
@@ -478,6 +531,13 @@ class RealtimeCompilerTest extends TestCase
         $page = $this->makePageWithOutputPath('foo.xml');
 
         $this->assertSame('application/xml', $this->invokeGetContentType($page));
+    }
+
+    public function testGetContentTypeReturnsApplicationRssXmlForRssOutputPath()
+    {
+        $page = $this->makePageWithOutputPath('foo.rss');
+
+        $this->assertSame('application/rss+xml', $this->invokeGetContentType($page));
     }
 
     public function testGetContentTypeReturnsTextPlainForTxtOutputPath()
