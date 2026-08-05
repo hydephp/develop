@@ -349,7 +349,10 @@ Implementation notes (branch `v3/non-html-pages-realtime-compiler`):
   Conversely, a routeless file like `_media/search.json` requested as
   `/search.json` was previously 404'd by the suffix special case and is now
   proxied like any other asset.
-- `getContentType()` untouched — no new content types came up.
+- `getContentType()` gained one arm, `rss` → `application/rss+xml`, once PR 5B made
+  `hyde.rss.filename` the feed's route key: `feed.rss` is a supported configuration
+  that was otherwise served as `text/html`. The default `feed.xml` stays
+  `application/xml`, which browsers render in place instead of prompting a download.
 - **Post-implementation review: no changes required.** Route-first resolution is
   clean and the shadowing/`search.json` regression tests cover the behavior changes.
   Worth adding (if not already present elsewhere) an explicit versioned
@@ -471,6 +474,13 @@ Implementation notes, part A (branch `v3/non-html-pages-convert-sitemap`):
   `Features::hasSitemap()` condition that registers the page — no drift possible.
 - Realtime compiler needed no changes (PR 2's route-first resolution); a serve test
   asserts `sitemap.xml` returns the generated XML with `application/xml`.
+- This supersedes the pending virtual-route approach for serving the sitemap and feed
+  (registering `/sitemap.xml` and `/feed.xml` handlers in the realtime compiler). Both
+  routes are now ordinary pages, so the dev server needs no generator imports, no
+  proxy exclusions, and no accepted asymmetry for a configured feed filename. A test
+  covers the one property that approach was designed around: the site URL is overridden
+  before the kernel discovers pages, so both are served locally without a production
+  site URL configured.
 - For part B, `BuildTaskServiceUnitTest`'s framework-task fixtures were
   migrated from `GenerateSitemap` to `GenerateBuildManifest` (not `GenerateRssFeed`)
   so removing the RSS task would not churn them again. The RSS route key comes from
