@@ -152,6 +152,21 @@ class ReportPage extends InMemoryPage
 }
 ```
 
+A subclass can also declare `$outputDirectory` and `$outputExtension` to give all its instances a shared location and
+format, the same way a regular `HydePage` subclass does. Use extensionless identifiers with these subclasses, so the
+configured extension applies:
+
+```php
+class ApiEndpointPage extends InMemoryPage
+{
+    public static string $outputDirectory = 'api';
+    public static string $outputExtension = '.json';
+}
+
+ApiEndpointPage::make('users');
+// _site/api/users.json
+```
+
 ## Registering the Page
 
 ### In a Hyde project
