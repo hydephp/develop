@@ -109,8 +109,7 @@ A nice and simple way to define the order of pages is to add their route keys as
 
 It may be useful to know that Hyde internally will assign a priority calculated according to its position in the list, plus an offset of `500`. The offset is added to make it easier to place pages earlier in the list using front matter or with explicit priority settings.
 
-```php
-// filepath: config/docs.php
+```php title="config/docs.php"
 'sidebar' => [
     'order' => [
         'readme', // Priority: 500
@@ -124,8 +123,7 @@ It may be useful to know that Hyde internally will assign a priority calculated 
 
 You can also specify explicit priorities by adding a value to the array keys. Hyde will then use these exact values as the priorities.
 
-```php
-// filepath: config/docs.php
+```php title="config/docs.php"
 'sidebar' => [
     'order' => [
         'readme' => 10,
@@ -192,8 +190,7 @@ If you want to store the compiled documentation pages in a different directory t
 
 The path is relative to the site output, typically `_site`.
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'output_directories' => [
     \Hyde\Pages\DocumentationPage::class => 'docs' // default [tl! --]
     \Hyde\Pages\DocumentationPage::class => 'docs/1.x' // What the Hyde docs use [tl! ++]
@@ -218,9 +215,7 @@ By default, the site title shown in the sidebar header is generated from the con
 
 The sidebar footer contains, by default, a link to your site homepage. You can change this in the `config/docs.php` file.
 
-```php
-// filepath: config/docs.php
-
+```php title="config/docs.php"
 'sidebar' => [
     'footer' => 'My **Markdown** Footer Text',
 ],
@@ -248,9 +243,7 @@ See [the chapter in the customization page](customization#navigation-menu--sideb
 
 When using the automatic sidebar grouping feature the titles of the groups are generated from the subdirectory names. If these are not to your liking, for example if you need to use special characters, you can override them in the configuration file. The array key is the directory name, and the value is the label.
 
-```php
-// filepath: config/docs.php
-
+```php title="config/docs.php"
 'sidebar' => [
     'labels' => [
         'questions-and-answers' => 'Questions & Answers',
@@ -266,8 +259,7 @@ By default, each group will be assigned the lowest priority found inside the gro
 
 Just use the sidebar group key as instead of the page identifier/route key:
 
-```php
-// filepath: config/docs.php
+```php title="config/docs.php"
 'sidebar' => [
     'order' => [
         'readme',
@@ -347,8 +339,7 @@ If this setting is set to true, Hyde will output all documentation pages into th
 
 If you set this to false, Hyde will match the directory structure of the source files (just like all other pages).
 
-```php
-// filepath: config/docs.php
+```php title="config/docs.php"
 'flattened_output_paths' => true,
 ```
 
@@ -364,8 +355,7 @@ Hyde includes a built-in search feature for documentation pages powered by Alpin
 
 The search feature is enabled by default. You can disable it by removing the `DocumentationSearch` option from the Hyde `Features` config array:
 
-```php
-// filepath: config/hyde.php
+```php title="config/hyde.php"
 'features' => [
     Feature::DocumentationSearch, // [tl! --]
 ],
@@ -395,8 +385,7 @@ The search implementation includes:
 
 For large pages like changelogs, you may want to exclude them from the search index. Add the page identifier to the `exclude_from_search` array in the docs config:
 
-```php
-// filepath: config/docs.php
+```php title="config/docs.php"
 'exclude_from_search' => [
   'changelog',
 ]
@@ -422,9 +411,7 @@ The feature is automatically enabled when you specify a base URL in the Docs con
 
 Here's an example configuration from the official HydePHP.com documentation:
 
-```php
-// filepath: config/docs.php
-
+```php title="config/docs.php"
 'source_file_location_base' => 'https://github.com/hydephp/docs/blob/master/',
 ```
 
@@ -432,8 +419,7 @@ Here's an example configuration from the official HydePHP.com documentation:
 
 Changing the label is easy, just change the following config setting:
 
-```php
-// filepath: config/docs.php
+```php title="config/docs.php"
 'edit_source_link_text' => 'Edit Source on GitHub',
 ```
 
@@ -441,8 +427,7 @@ Changing the label is easy, just change the following config setting:
 
 By default, the button will be shown in the documentation page footer. You can change this by setting the following config setting to `'header'`, `'footer'`, or `'both'`
 
-```php
-// filepath: config/docs.php
+```php title="config/docs.php"
 'edit_source_link_position' => 'header',
 ```
 
@@ -450,8 +435,7 @@ By default, the button will be shown in the documentation page footer. You can c
 
 This is not included out of the box, but is easy to add with some CSS! Just target the `.edit-page-link` class.
 
-```css
-// filepath e.g. app.css
+```css title="e.g. app.css"
 .edit-page-link::before {content: "✏ "}
 ```
 

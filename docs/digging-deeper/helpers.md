@@ -339,8 +339,7 @@ and renamed the resulting `index.blade.php` file to `posts.blade.php`. We will a
 
 The blog post feed component is a simple component that looks like this:
 
-```blade
-// filepath _pages/posts.blade.php
+```blade title="_pages/posts.blade.php"
 @foreach(MarkdownPost::getLatestPosts() as $post)
     @include('hyde::components.article-excerpt')
 @endforeach
@@ -350,8 +349,7 @@ The blog post feed component is a simple component that looks like this:
 
 So we are simply going to inline component, but with the paginator we also declare. So, replace the post feed include with the following:
 
-```blade
-// filepath _pages/posts.blade.php
+```blade title="_pages/posts.blade.php"
 @php
     $paginator = new \Hyde\Support\Paginator(
         // The items to paginate
@@ -380,8 +378,7 @@ However, we still need to create the pagination pages, because the paginator wil
 
 In order to do this dynamically, we add the following to the `boot` of our `AppServiceProvider` (or any other provider or extension):
 
-```php
-// filepath app/Providers/AppServiceProvider.php
+```php title="app/Providers/AppServiceProvider.php"
 <?php
 
 namespace App\Providers;
@@ -439,14 +436,12 @@ class AppServiceProvider extends ServiceProvider
 Now, let's update our `posts` page to accept the paginator data. If you want to use a different view for the paginated posts,
 just apply these changes to that new view, but for this example I'm going to update the `posts` view.
 
-```blade
-// filepath _pages/posts.blade.php
+```blade title="_pages/posts.blade.php"
 <h1>Latest Posts</h1>{{-- [tl! remove] --}}
 <h1>{{ $page->matter('title') ?? $title }}</h1> {{-- [tl! add] --}}
 ```
 
-```blade
-// filepath _pages/posts.blade.php
+```blade title="_pages/posts.blade.php"
 @php
     $paginator = new \Hyde\Support\Paginator( // [tl! remove]
     $paginator = $page->matter('paginator') ?? new \Hyde\Support\Paginator( // [tl! add]

@@ -97,6 +97,42 @@ class MarkdownPostTest extends TestCase
         $this->assertSame('Jan 1st, 2022', $post->date->short);
     }
 
+    public function testDraftDefaultsToFalseWhenNotSetInMatter()
+    {
+        $post = new MarkdownPost();
+
+        $this->assertFalse($post->draft);
+        $this->assertFalse($post->isDraft());
+    }
+
+    public function testDraftIsTrueWhenSetToTrueInMatter()
+    {
+        $post = new MarkdownPost(matter: FrontMatter::fromArray([
+            'draft' => true,
+        ]));
+
+        $this->assertTrue($post->draft);
+        $this->assertTrue($post->isDraft());
+    }
+
+    public function testDraftIsFalseWhenSetToFalseInMatter()
+    {
+        $post = new MarkdownPost(matter: FrontMatter::fromArray([
+            'draft' => false,
+        ]));
+
+        $this->assertFalse($post->isDraft());
+    }
+
+    public function testOnlyAnExplicitBooleanTrueMarksAPostAsADraft()
+    {
+        $post = new MarkdownPost(matter: FrontMatter::fromArray([
+            'draft' => 'yes please',
+        ]));
+
+        $this->assertFalse($post->isDraft());
+    }
+
     public function testFeaturedImageCanBeConstructedReturnsNullWhenNoImageIsSetInThePageMatter()
     {
         $page = new MarkdownPost();

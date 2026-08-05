@@ -66,7 +66,7 @@ If you have a custom `vite.config.js` that overrides `build.rollupOptions`, note
 ## Step 2: Review the Markdown Trust Defaults
 
 HydePHP v3 enables both raw HTML and Blade in Markdown by default. The existing `markdown.enable_blade` setting controls both
-`[Blade]:` directives and the new executable `blade render` and `blade component(name)` fenced code blocks. New
+`[Blade]:` directives and the new executable `blade render` and `blade component="name"` fenced code blocks. New
 projects and projects without explicit settings can render arbitrary HTML and execute PHP during a build.
 
 Existing projects normally keep their published `config/markdown.php` file during a dependency update. If yours
@@ -82,7 +82,7 @@ When enabled, the following fences are executable. A fence using only `blade` re
 code sample.
 
 - `blade render`
-- `blade component(name)`
+- `blade component="name"`
 
 The v3 defaults are intended for sites where Markdown is part of the trusted, reviewed project source. If you ingest
 Markdown from users or another untrusted source, or your CI builds pull requests before review, disable raw HTML and
@@ -439,6 +439,65 @@ $extension = MarkdownPage::sourceExtension();
 The automated upgrade script will handle this rename for ordinary property declarations, property accesses,
 method calls, and overridden method declarations. Dynamic references — variable method or property names,
 reflection, and string-based access — must be updated manually.
+## Step 10: Replace Your Code Block Filepath Comments
+
+Code block labels are now set with a `title="…"` modifier on the fence, and the `// filepath:` comment is no longer
+recognized. A comment left behind stays in the code as written, where it renders as an ordinary first line.
+
+A block written like this:
+
+````markdown
+```php
+// filepath: app/Models/Post.php
+echo 'Hello World!';
+```
+````
+
+Becomes:
+
+````markdown
+```php title="app/Models/Post.php"
+echo 'Hello World!';
+```
+````
+
+Search your source files for `filepath` to find the blocks to convert. All the documented comment forms are affected,
+so also check for `#`, `/* */`, and `<!-- -->` comments. A blank line left between the old comment and the code can be
+removed with it.
+
+## Step 11: Move Your Filepath Label Customizations
+
+Fenced code blocks are now rendered through the `components/markdown/code-block.blade.php` view, which also holds the
+label markup. The `components/filepath-label.blade.php` view is gone.
+
+If you never published the label view, there is nothing to do here.
+
+If you did publish and customize it, your copy is no longer used, and your site renders with Hyde's default label
+until you move your changes over. Publish the code block view, choosing it individually so your other published views
+are left alone, then re-apply your changes and delete the old file:
+
+```bash
+php hyde publish:views
+```
+
+Do not pass the group name, as in `php hyde publish:views components`, since that publishes the whole group and
+overwrites every component view you have already customized.
+
+The markup around code blocks has also changed, so compare a few pages against your old site if you have custom CSS
+for them. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks you can target instead of
+matching the markup structure. Syntax highlighting is unaffected.
+
+## Step 12: Review Drafts and Future-Dated Blog Posts
+
+HydePHP v3 keeps two kinds of blog post out of your built site: those marked `draft: true` in front matter, and those whose date is set in the future. Drafts and scheduled posts are skipped during auto-discovery, so they get no route, are not compiled to `_site`, and are left out of post listings, the sitemap, and the RSS feed. The date rule applies to both front matter dates and filename date prefixes.
+
+Drafts and scheduled posts are still included by `php hyde serve`, which is treated as an authoring preview, so you can keep writing and previewing them at their normal URL.
+
+In v2 both kinds of post were built like any other. Hyde assigned no built-in publication behavior to `draft`, although custom templates or extensions may already have read the property. In v3, `draft: true` excludes the post from site builds. So if your site has posts dated ahead of the build time, or posts already carrying a `draft: true` annotation, they will disappear from your site after upgrading.
+
+To find affected posts, search `_posts` for `draft: true`, and check for dates ahead of the build time in both front matter and filename prefixes. If a post disappears after upgrading but remains visible through `php hyde serve`, one of these two states is the reason.
+
+If a post that was supposed to be published turns out to be excluded, remove the `draft` property or correct the date. If you actually want to schedule posts, remember that **Hyde is a static site generator**: a scheduled post does not publish itself when its date passes. It is included in the first site build that runs after that point, so you need recurring builds for a post to go live on its own, for example a cron-scheduled GitHub Actions workflow.
 
 ## Migration Checklist
 
@@ -454,6 +513,10 @@ Use this checklist to track your upgrade progress:
 - [ ] Confirmed the new generated `robots.txt` does not conflict with an existing one, or disabled it with `hyde.robots.enabled`
 - [ ] Decided whether to opt in to the new generated `llms.txt` for AI services with `hyde.llms.enabled`
 - [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
+- [ ] Replaced `// filepath:` code block comments with the `title="…"` fence modifier
+- [ ] Ported any `filepath-label.blade.php` customizations to `markdown/code-block.blade.php`, and deleted the old file
+- [ ] Compared pages against your old site if you have custom CSS for code blocks or their labels
+- [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
 
 ## Troubleshooting
 

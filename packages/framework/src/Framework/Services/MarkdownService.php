@@ -87,11 +87,14 @@ class MarkdownService
 
         $this->converter = new MarkdownConverter($this->config);
 
+        $this->prepareCodeBlocks();
+
         foreach ($this->extensions as $extension) {
             $this->initializeExtension($extension);
         }
 
         $this->configureCustomHeadingRenderer();
+        $this->configureCodeBlockRenderer();
 
         $this->registerPreProcessors();
         $this->registerPostProcessors();
@@ -124,6 +127,7 @@ class MarkdownService
         }
     }
 
+    /** @return array<class-string<\League\CommonMark\Extension\ExtensionInterface>> */
     public function getExtensions(): array
     {
         return $this->extensions;
