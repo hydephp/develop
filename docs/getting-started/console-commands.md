@@ -116,6 +116,11 @@ php hyde build:rss
 
 Generate the RSS feed
 
+This command compiles the registered RSS page. The page is normally registered when RSS generation is enabled, a site
+URL is configured, at least one Markdown post exists, and the SimpleXML extension is available. The command exits with
+an error if no RSS page is registered. A custom page registered at the configured `hyde.rss.filename` route is compiled
+instead of Hyde's generated page.
+
 ## Generate the `docs/search.json` file
 
 <a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -135,6 +140,11 @@ php hyde build:sitemap
 ```
 
 Generate the `sitemap.xml` file
+
+This command compiles the registered `sitemap.xml` page. The page is normally registered when sitemap generation is
+enabled, a site URL is configured, and the SimpleXML extension is available. The command exits with an error if no
+sitemap page is registered. A custom page registered at the `sitemap.xml` route is compiled instead of Hyde's generated
+page.
 
 ## Scaffold a new Markdown, Blade, or documentation page file
 

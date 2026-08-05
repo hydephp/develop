@@ -9,6 +9,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Support\Models\RouteKey;
 use Hyde\Testing\UnitTestCase;
@@ -81,6 +82,29 @@ class RouteKeyTest extends UnitTestCase
         $this->assertEquals(new RouteKey('foo/bar'), RouteKey::fromPage(InMemoryPage::class, 'foo/bar'));
     }
 
+    public function testFromPageWithDottedInMemoryPageIdentifier()
+    {
+        $this->assertEquals(new RouteKey('robots.txt'), RouteKey::fromPage(InMemoryPage::class, 'robots.txt'));
+        $this->assertEquals(new RouteKey('docs/search.json'), RouteKey::fromPage(InMemoryPage::class, 'docs/search.json'));
+    }
+
+    public function testFromPageWithNonHtmlOutputExtensionIncludesExtensionInRouteKey()
+    {
+        $this->assertEquals(new RouteKey('foo.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo'));
+        $this->assertEquals(new RouteKey('foo/bar.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo/bar'));
+    }
+
+    public function testFromPageWithNonHtmlOutputExtensionDoesNotDuplicateExtensionAlreadyInIdentifier()
+    {
+        $this->assertEquals(new RouteKey('foo.txt'), RouteKey::fromPage(NonHtmlOutputPageStub::class, 'foo.txt'));
+    }
+
+    public function testFromPageWithNonHtmlOutputExtensionAndEmptyIdentifierAppendsExtensionToOutputDirectory()
+    {
+        $this->assertEquals(new RouteKey('feed.xml'), RouteKey::fromPage(NonHtmlOutputDirectoryPageStub::class, ''));
+        $this->assertEquals(new RouteKey('feed/episode.xml'), RouteKey::fromPage(NonHtmlOutputDirectoryPageStub::class, 'episode'));
+    }
+
     public function testFromPageWithCustomOutputDirectory()
     {
         MarkdownPage::setOutputDirectory('foo');
@@ -134,5 +158,26 @@ class RouteKeyTest extends UnitTestCase
     {
         $this->assertSame('docs/foo-bar', RouteKey::fromPage(DocumentationPage::class, 'foo-bar')->get());
         $this->assertSame('docs/abc-bar', RouteKey::fromPage(DocumentationPage::class, 'abc-bar')->get());
+    }
+}
+
+class NonHtmlOutputPageStub extends HydePage
+{
+    public static string $outputExtension = '.txt';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class NonHtmlOutputDirectoryPageStub extends HydePage
+{
+    public static string $outputDirectory = 'feed';
+    public static string $outputExtension = '.xml';
+
+    public function compile(): string
+    {
+        return '';
     }
 }

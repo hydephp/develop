@@ -7,9 +7,8 @@ namespace Hyde\Framework\Testing\Unit;
 use Closure;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\Filesystem;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap as FrameworkGenerateSitemap;
+use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest as FrameworkGenerateBuildManifest;
+use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
@@ -136,16 +135,16 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testCanRegisterFrameworkTasks()
     {
-        $this->service->registerTask(FrameworkGenerateSitemap::class);
-        $this->assertSame([FrameworkGenerateSitemap::class], $this->service->getRegisteredTasks());
+        $this->service->registerTask(FrameworkGenerateBuildManifest::class);
+        $this->assertSame([FrameworkGenerateBuildManifest::class], $this->service->getRegisteredTasks());
     }
 
     public function testCanOverloadFrameworkTasks()
     {
-        $this->service->registerTask(FrameworkGenerateSitemap::class);
-        $this->service->registerTask(GenerateSitemap::class);
+        $this->service->registerTask(FrameworkGenerateBuildManifest::class);
+        $this->service->registerTask(GenerateBuildManifest::class);
 
-        $this->assertSame([GenerateSitemap::class], $this->service->getRegisteredTasks());
+        $this->assertSame([GenerateBuildManifest::class], $this->service->getRegisteredTasks());
     }
 
     public function testCanSetOutputWithNull()
@@ -160,17 +159,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
     public function testGenerateBuildManifestExtendsPostBuildTask()
     {
-        $this->assertInstanceOf(PostBuildTask::class, new GenerateBuildManifest());
-    }
-
-    public function testGenerateRssFeedExtendsPostBuildTask()
-    {
-        $this->assertInstanceOf(PostBuildTask::class, new GenerateRssFeed());
-    }
-
-    public function testGenerateSitemapExtendsPostBuildTask()
-    {
-        $this->assertInstanceOf(PostBuildTask::class, new FrameworkGenerateSitemap());
+        $this->assertInstanceOf(PostBuildTask::class, new FrameworkGenerateBuildManifest());
     }
 
     public function testCanRunPreBuildTasks()
@@ -281,8 +270,8 @@ class BuildTaskServiceUnitTest extends UnitTestCase
     public function testServiceFindsTasksInAppDirectory()
     {
         $files = [
-            'app/Actions/GenerateBuildManifestBuildTask.php' => GenerateBuildManifest::class,
-            'app/Actions/GenerateRssFeedBuildTask.php' => GenerateRssFeed::class,
+            'app/Actions/GenerateBuildManifestBuildTask.php' => FrameworkGenerateBuildManifest::class,
+            'app/Actions/TransferMediaAssetsBuildTask.php' => TransferMediaAssets::class,
         ];
 
         $this->mockKernelFilesystem($files);
@@ -291,7 +280,7 @@ class BuildTaskServiceUnitTest extends UnitTestCase
 
         $this->assertSame([
             'Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest',
-            'Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed',
+            'Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets',
         ], $this->service->getRegisteredTasks());
 
         $this->resetKernelInstance();
@@ -362,7 +351,7 @@ class TestBuildTaskNotExtendingChildren extends BuildTask
 }
 
 /** Test class to test overloading */
-class GenerateSitemap extends FrameworkGenerateSitemap
+class GenerateBuildManifest extends FrameworkGenerateBuildManifest
 {
     use VoidHandleMethod;
 }

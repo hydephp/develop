@@ -29,6 +29,7 @@ use function Hyde\unslash;
 use function filled;
 use function ltrim;
 use function rtrim;
+use function str_ends_with;
 
 /**
  * The base class for all Hyde pages.
@@ -56,7 +57,8 @@ abstract class HydePage implements PageSchema, SerializableContract
 
     public static string $sourceDirectory;
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
+    public static string $outputExtension = '.html';
     public static string $template;
 
     public readonly string $identifier;
@@ -95,7 +97,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function isDiscoverable(): bool
     {
-        return isset(static::$sourceDirectory, static::$outputDirectory, static::$fileExtension) && filled(static::$sourceDirectory);
+        return isset(static::$sourceDirectory, static::$outputDirectory, static::$sourceExtension) && filled(static::$sourceDirectory);
     }
 
     // Section: Query
@@ -158,7 +160,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the output subdirectory to store compiled HTML files for the page type.
+     * Get the output subdirectory where compiled files are stored for the page type.
      */
     public static function outputDirectory(): string
     {
@@ -166,15 +168,25 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Get the file extension of the source files for the page type.
+     * Get the file extension of the source files for the page type, such as `.md` or `.blade.php`.
      */
-    public static function fileExtension(): string
+    public static function sourceExtension(): string
     {
-        return static::$fileExtension ?? '';
+        return static::$sourceExtension ?? '';
     }
 
     /**
-     * Set the output directory for the page type.
+     * Get the output file extension for the page type, such as `.html` or `.txt`.
+     *
+     * The value includes the leading dot, so it can be used directly as a file name suffix.
+     */
+    public static function outputExtension(): string
+    {
+        return static::$outputExtension;
+    }
+
+    /**
+     * Set the source directory for the page type.
      */
     public static function setSourceDirectory(string $sourceDirectory): void
     {
@@ -182,7 +194,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the source directory for the page type.
+     * Set the output directory for the page type.
      */
     public static function setOutputDirectory(string $outputDirectory): void
     {
@@ -190,11 +202,11 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Set the file extension for the page type.
+     * Set the source file extension for the page type.
      */
-    public static function setFileExtension(string $fileExtension): void
+    public static function setSourceExtension(string $sourceExtension): void
     {
-        static::$fileExtension = rtrim('.'.ltrim($fileExtension, '.'), '.');
+        static::$sourceExtension = rtrim('.'.ltrim($sourceExtension, '.'), '.');
     }
 
     /**
@@ -202,7 +214,7 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function sourcePath(string $identifier): string
     {
-        return unslash(static::sourceDirectory().'/'.unslash($identifier).static::fileExtension());
+        return unslash(static::sourceDirectory().'/'.unslash($identifier).static::sourceExtension());
     }
 
     /**
@@ -210,7 +222,13 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public static function outputPath(string $identifier): string
     {
-        return RouteKey::fromPage(static::class, $identifier).'.html';
+        $routeKey = RouteKey::fromPage(static::class, $identifier);
+
+        if (static::outputExtension() === '.html') {
+            return "$routeKey.html";
+        }
+
+        return (string) $routeKey;
     }
 
     /**
@@ -232,7 +250,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     {
         return unslash(Str::between(Hyde::pathToRelative($path),
             static::sourceDirectory().'/',
-            static::fileExtension())
+            static::sourceExtension())
         );
     }
 
@@ -292,12 +310,15 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get the route key for the page.
      *
-     * The route key is the page URL path, relative to the site root, but without any file extensions.
+     * The route key is the page URL path, relative to the site root, but without the HTML file extension.
      * For example, if the page will be saved to `_site/docs/index.html`, the key is `docs/index`.
+     * Pages compiled to non-HTML files keep their extension in the route key, so a page
+     * saved to `_site/docs/search.json` has the route key `docs/search.json`.
      *
      * Route keys are used to identify page routes, similar to how named routes work in Laravel,
      * only that here the name is not just arbitrary, but also defines the output location,
-     * as the route key is used to determine the output path which is `$routeKey.html`.
+     * as the route key is used to determine the output path which is `$routeKey.html`,
+     * or the route key as-is for pages compiled to non-HTML files.
      */
     public function getRouteKey(): string
     {
@@ -371,6 +392,18 @@ abstract class HydePage implements PageSchema, SerializableContract
     public function showInNavigation(): bool
     {
         return ! $this->navigation->hidden;
+    }
+
+    /**
+     * Can the page be shown in the sitemap?
+     *
+     * It can be explicitly set in the front matter using the `sitemap` key,
+     * otherwise it defaults to true for pages compiled to HTML files, and
+     * false for pages compiled to non-HTML files like `robots.txt`.
+     */
+    public function showInSitemap(): bool
+    {
+        return filter_var($this->matter('sitemap', str_ends_with($this->getOutputPath(), '.html')), FILTER_VALIDATE_BOOLEAN);
     }
 
     /**

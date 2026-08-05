@@ -11,6 +11,10 @@ use Hyde\Pages\Concerns\HydePage;
 use Illuminate\Support\Facades\View;
 use InvalidArgumentException;
 
+use function Hyde\unslash;
+use function pathinfo;
+use function str_ends_with;
+
 /**
  * Extendable class for in-memory (or virtual) Hyde pages that are not based on source files.
  *
@@ -31,7 +35,7 @@ class InMemoryPage extends HydePage
 {
     public static string $sourceDirectory;
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
 
     /**
      * The literal page contents, or a closure that generates them at compile time.
@@ -74,6 +78,7 @@ class InMemoryPage extends HydePage
      *
      * View values ending in `.blade.php` are treated as Blade file paths. Other values are treated
      * as registered Laravel view keys.
+     * Identifiers that already have an extension use it as the output path unchanged.
      *
      * @param  string  $identifier
      * @param  FrontMatter|array  $matter
@@ -100,6 +105,21 @@ class InMemoryPage extends HydePage
 
         $this->contents = $contents ?? '';
         $this->view = $view ?? '';
+    }
+
+    /**
+     * Qualify a page identifier into a target output file path.
+     *
+     * The configured output directory is applied to all identifiers. Identifiers
+     * with a file extension retain it, while identifiers without one get the
+     * configured output extension (`.html` by default).
+     */
+    public static function outputPath(string $identifier): string
+    {
+        $identifier = unslash($identifier);
+        $path = unslash(static::outputDirectory().'/'.$identifier);
+
+        return $path.(pathinfo($identifier, PATHINFO_EXTENSION) === '' ? static::outputExtension() : '');
     }
 
     /**

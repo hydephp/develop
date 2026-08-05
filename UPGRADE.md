@@ -2,7 +2,18 @@
 
 ## Overview
 
-//
+HydePHP v3 infers an `InMemoryPage` output format from its identifier. Identifiers that already have an extension keep
+it, while identifiers without an extension compile to `.html`:
+
+```php
+use Hyde\Pages\InMemoryPage;
+
+InMemoryPage::make('about', contents: $html);
+// _site/about.html
+
+InMemoryPage::make('robots.txt', contents: $text);
+// _site/robots.txt
+```
 
 ## Before You Begin
 
@@ -192,8 +203,7 @@ $page->macro(
 ```php
 $page = new InMemoryPage(
     'sitemap.xml',
-    ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 
@@ -302,7 +312,104 @@ new InMemoryPage('example', view: '');
 new InMemoryPage('example', view: null);
 ```
 
-## Replace Your Code Block Filepath Comments
+### Review Non-HTML Navigation Visibility
+
+Pages whose resolved output path does not end in `.html` are no longer included in automatic navigation by default.
+This applies both to identifier-based `InMemoryPage` instances such as `feed.xml` and to custom page classes with a
+non-HTML `$outputExtension`. Machine-readable resources generally need no migration, and any
+`navigation.hidden: true` matter used only for this purpose can be removed.
+
+If a non-HTML page is intentionally linked from the generated navigation, opt it in explicitly:
+
+```php
+new InMemoryPage(
+    'downloads/catalog.pdf',
+    matter: ['navigation' => ['visible' => true]],
+    contents: $catalog,
+);
+```
+
+The equivalent `navigation.hidden: false` setting is also supported. Navigation front matter now always wins over
+the automatic behavior, so it also adds pages Hyde leaves out on its own, like blog posts, route keys listed in
+`hyde.navigation.exclude`, and pages in hidden subdirectories. In v2 those pages stayed hidden regardless, so
+review any `navigation.visible: true` or `navigation.hidden: false` matter you set on them expecting no effect.
+
+## Step 6: Review Sitemap and RSS Feed Customizations
+
+The sitemap and RSS feed are now generated as regular pages instead of by post-build tasks, so `sitemap.xml` and
+the RSS feed (`feed.xml`, or your configured `hyde.rss.filename`) are served by `php hyde serve`, listed in
+`route:list`, and included in the build manifest. Sites that just enable or disable these features through
+`hyde.generate_sitemap`, `hyde.rss`, and `hyde.url` need no changes.
+
+The `GenerateSitemap` and `GenerateRssFeed` post-build task classes have been removed. If you overrode one with a
+same-basename build task, or referenced the classes directly, customize the output through one of the replacement
+tiers instead:
+
+- Rebind the generator in the service container to change the output while keeping the page registration:
+
+```php
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
+
+app()->bind(SitemapGenerator::class, MyCustomSitemapGenerator::class);
+```
+
+The same works for `RssFeedGenerator`.
+
+- Or register your own page with the same route key (`sitemap.xml`, or the configured feed filename) from a
+  service provider, booting callback, or extension, which replaces the generated page entirely:
+
+```php
+use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
+
+Hyde::kernel()->booting(function ($kernel) use ($myXml): void {
+    $kernel->pages()->addPage(InMemoryPage::make('sitemap.xml', contents: $myXml));
+});
+```
+
+The `build:sitemap` and `build:rss` commands still work and now compile the registered pages. When the output
+cannot be generated (no base URL, disabled in the configuration, or — for the feed — no Markdown posts), they
+fail with an error instead of generating an empty or unwanted file. `build:sitemap` reports this
+failure with exit code 1 instead of 3. If you registered your own page under the route key, the commands build
+it regardless of these conditions.
+
+## Step 7: Rename Page File Extension References
+
+The static page class property `$fileExtension` has been renamed to `$sourceExtension`, along with the
+`fileExtension()` and `setFileExtension()` methods, which are now `sourceExtension()` and `setSourceExtension()`.
+The new name makes it explicit that these APIs describe the extension of source files.
+
+This only affects projects with custom page classes or code calling these APIs. Update property declarations,
+call sites, and any methods that override `fileExtension()` or `setFileExtension()` — the methods are public
+and non-final, and an un-renamed override silently stops being called now that the framework calls
+`sourceExtension()`:
+
+**Before:**
+
+```php
+class CustomPage extends HydePage
+{
+    public static string $fileExtension = '.md';
+}
+
+$extension = MarkdownPage::fileExtension();
+```
+
+**After:**
+
+```php
+class CustomPage extends HydePage
+{
+    public static string $sourceExtension = '.md';
+}
+
+$extension = MarkdownPage::sourceExtension();
+```
+
+The automated upgrade script will handle this rename for ordinary property declarations, property accesses,
+method calls, and overridden method declarations. Dynamic references — variable method or property names,
+reflection, and string-based access — must be updated manually.
+## Step 8: Replace Your Code Block Filepath Comments
 
 Code block labels are now set with a `title="…"` modifier on the fence, and the `// filepath:` comment is no longer
 recognized. A comment left behind stays in the code as written, where it renders as an ordinary first line.
@@ -328,7 +435,7 @@ Search your source files for `filepath` to find the blocks to convert. All the d
 so also check for `#`, `/* */`, and `<!-- -->` comments. A blank line left between the old comment and the code can be
 removed with it.
 
-## Move Your Filepath Label Customizations
+## Step 9: Move Your Filepath Label Customizations
 
 Fenced code blocks are now rendered through the `components/markdown/code-block.blade.php` view, which also holds the
 label markup. The `components/filepath-label.blade.php` view is gone.
@@ -350,7 +457,7 @@ The markup around code blocks has also changed, so compare a few pages against y
 for them. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks you can target instead of
 matching the markup structure. Syntax highlighting is unaffected.
 
-## Review Drafts and Future-Dated Blog Posts
+## Step 10: Review Drafts and Future-Dated Blog Posts
 
 HydePHP v3 keeps two kinds of blog post out of your built site: those marked `draft: true` in front matter, and those whose date is set in the future. Drafts and scheduled posts are skipped during auto-discovery, so they get no route, are not compiled to `_site`, and are left out of post listings, the sitemap, and the RSS feed. The date rule applies to both front matter dates and filename date prefixes.
 
@@ -371,10 +478,13 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved calls to `Redirect::create()` or `Redirect::store()` into the `hyde.redirects` configuration array
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
-- [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
+- [ ] Explicitly opted in any non-HTML pages that should remain in automatic navigation
+- [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
+- [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 - [ ] Replaced `// filepath:` code block comments with the `title="…"` fence modifier
 - [ ] Ported any `filepath-label.blade.php` customizations to `markdown/code-block.blade.php`, and deleted the old file
 - [ ] Compared pages against your old site if you have custom CSS for code blocks or their labels
+- [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
 
 ## Troubleshooting
 

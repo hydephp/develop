@@ -83,7 +83,8 @@ navigation:
 
 ### `hidden`
 
-Determines if the page appears in the navigation menu.
+Determines if the page appears in the navigation menu. This setting always wins over the automatic behavior, so
+`hidden: false` also adds a page Hyde leaves out on its own, like a blog post or a page with non-HTML output.
 
 ```yaml
 navigation:

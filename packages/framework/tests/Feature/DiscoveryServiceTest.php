@@ -68,17 +68,17 @@ class DiscoveryServiceTest extends UnitTestCase
         MarkdownPage::setSourceDirectory('_pages');
     }
 
-    public function testGetSourceFileListForModelMethodFindsCustomizedFileExtension()
+    public function testGetSourceFileListForModelMethodFindsCustomizedSourceExtension()
     {
         $this->directory('foo');
 
         MarkdownPage::setSourceDirectory('foo');
-        MarkdownPage::setFileExtension('.foo');
+        MarkdownPage::setSourceExtension('.foo');
 
         $this->unitTestMarkdownBasedPageList(MarkdownPage::class, 'foo/foo.foo', 'foo');
 
         MarkdownPage::setSourceDirectory('_pages');
-        MarkdownPage::setFileExtension('.md');
+        MarkdownPage::setSourceExtension('.md');
     }
 
     public function testGetMediaAssetFiles()

@@ -126,25 +126,72 @@ redirects:
   docs/old-guide: docs/new-guide
 ```
 
-### RSS feed generation
+### Generated discovery files
 
-When enabled, an RSS feed containing all your Markdown blog posts will be generated when you compile your static site.
-Here are the default settings:
+Hyde generates a sitemap and RSS feed as regular in-memory pages. They are registered routes, so they are included in
+a normal site build, shown by `php hyde route:list`, recorded in the build manifest, and served by `php hyde serve`.
+Generated non-HTML pages are excluded from navigation and from the sitemap by default.
+
+The sitemap requires a site URL so it can contain absolute links. RSS additionally requires Markdown blog posts and
+the SimpleXML extension; sitemap generation also requires SimpleXML.
+
+Here are the related default settings:
 
 ```php title="config/hyde.php"
+'generate_sitemap' => true,
+
 'rss' => [
-    // Should the RSS feed be generated?
     'enabled' => true,
-
-    // What filename should the RSS file use?
     'filename' => 'feed.xml',
-
-    // The channel description.
     'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
 ],
 ```
 
->warning Note that this feature requires that a `site_url` is set!
+#### Customizing generated output
+
+For small output changes, extend the corresponding generator and bind your implementation in a service provider. Hyde
+resolves generators from the service container when the page is compiled, after route discovery is complete:
+
+```php title="app/Providers/AppServiceProvider.php"
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Illuminate\Support\ServiceProvider;
+
+class CustomRssFeedGenerator extends RssFeedGenerator
+{
+    public static function getDescription(): string
+    {
+        return 'A hand-written feed description.';
+    }
+}
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->bind(RssFeedGenerator::class, CustomRssFeedGenerator::class);
+    }
+}
+```
+
+The available generators are `SitemapGenerator` and `RssFeedGenerator` in the `Hyde\Framework\Features\XmlGenerators`
+namespace.
+
+To replace a generated file completely, register your own [`InMemoryPage`](in-memory-pages) with
+the same route key during a kernel booting callback or extension discovery. User-defined pages take precedence over
+Hyde's generators, even when the corresponding feature is disabled. For example:
+
+```php
+use Hyde\Hyde;
+use Hyde\Pages\InMemoryPage;
+use Hyde\Foundation\HydeKernel;
+
+Hyde::booting(function (HydeKernel $kernel): void {
+    $kernel->pages()->addPage(InMemoryPage::make(
+        'sitemap.xml',
+        contents: $customSitemapXml,
+    ));
+});
+```
 
 ### Authors
 
