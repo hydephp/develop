@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Markdown\Models\Markdown;
@@ -257,19 +258,36 @@ class NavigationDataFactoryUnitTest extends UnitTestCase
         $this->assertTrue($factory->makeHidden());
     }
 
-    public function testNonHtmlPagesCanBeExplicitlyShownInNavigation()
+    public function testFrontMatterOverridesPagesThatAreHiddenByDefault()
     {
-        foreach ([
-            ['navigation.visible' => true],
-            ['navigation.hidden' => false],
-        ] as $matter) {
-            $factory = new NavigationConfigTestClass($this->makeCoreDataObject(
-                routeKey: 'feed.xml',
-                outputPath: 'feed.xml',
-                matter: $matter,
-            ));
+        self::mockConfig(['hyde.navigation.exclude' => ['excludedPage']]);
 
-            $this->assertFalse($factory->makeHidden());
+        $hiddenByDefault = [
+            'blog post' => fn (array $matter) => $this->makeCoreDataObject(pageClass: MarkdownPost::class, matter: $matter),
+            'excluded page' => fn (array $matter) => $this->makeCoreDataObject(routeKey: 'excludedPage', matter: $matter),
+            'page in subdirectory' => fn (array $matter) => $this->makeCoreDataObject(identifier: 'subdirectory/page', matter: $matter),
+            'non-HTML page' => fn (array $matter) => $this->makeCoreDataObject(outputPath: 'feed.xml', matter: $matter),
+        ];
+
+        foreach ($hiddenByDefault as $case => $makePageData) {
+            $this->assertTrue((new NavigationConfigTestClass($makePageData([])))->makeHidden(), "Failed asserting that a $case is hidden by default");
+
+            foreach ([['navigation.visible' => true], ['navigation.hidden' => false]] as $matter) {
+                $factory = new NavigationConfigTestClass($makePageData($matter));
+
+                $this->assertFalse($factory->makeHidden(), "Failed asserting that front matter shows a $case");
+            }
+        }
+    }
+
+    public function testFrontMatterOverridesPagesThatAreVisibleByDefault()
+    {
+        $this->assertFalse((new NavigationConfigTestClass($this->makeCoreDataObject()))->makeHidden());
+
+        foreach ([['navigation.visible' => false], ['navigation.hidden' => true]] as $matter) {
+            $factory = new NavigationConfigTestClass($this->makeCoreDataObject(matter: $matter));
+
+            $this->assertTrue($factory->makeHidden());
         }
     }
 
