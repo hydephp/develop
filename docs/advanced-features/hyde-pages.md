@@ -116,6 +116,21 @@ abstract class HydePage
 }
 ```
 
+A custom page class can declare a non-HTML `$outputExtension` to compile to a different file type:
+
+```php
+class SearchIndexPage extends HydePage
+{
+    public static string $sourceDirectory = '_pages';
+    public static string $outputDirectory = 'search';
+    public static string $sourceExtension = '.md';
+    public static string $outputExtension = '.json';
+}
+```
+
+For the identifier `index`, this produces the route key `search/index.json` and the output path
+`_site/search/index.json`. The `.html` extension is omitted from route keys, while non-HTML extensions like `.json` are kept.
+
 ### Methods
 
 >warning <p class="p-2" style="padding-right: 1rem"><strong>Heads up!</strong> The following methods are defined in the <code>HydePage</code> class, and are thus available to all page classes. Since the HydePage class is abstract, you cannot instantiate it directly, and many of the static methods are also only callable from the child classes.</p>
