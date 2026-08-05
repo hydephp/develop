@@ -1,6 +1,6 @@
 # Epic: First-class non-HTML pages (robots.txt, llms.txt, sitemap, RSS)
 
-> Status: Draft — v3 development branch
+> Status: Complete — all PRs implemented on the v3 development branch
 >
 > Theme: Make non-HTML output files (txt, xml, json) first-class pages instead of
 > build-task side effects, so they flow through routing, the build pipeline, the
@@ -246,6 +246,38 @@ justified by the narrow drop-a-file use case. If demand emerges for filesystem-b
 verbatim files, it should be designed as a generic raw/public-file mechanism instead
 of one page class per extension. Custom discoverable page classes remain supported as
 an extension point.
+
+### D7: Navigation exclusion mirrors D3, and front matter outranks every default
+
+Non-HTML pages are hidden from automatic navigation by the same rule D3 uses for the
+sitemap: the default is derived from the *resolved output path* (`getOutputPath()`), not
+the declared extension, so generated pages self-exclude for free. `robots.txt` and
+`feed.xml` are not destinations a visitor navigates to, and D6 named exactly this
+("page-type defaults or special handling for navigation and sitemap behavior") as a cost
+of source-backed text pages — so the default belongs in `NavigationDataFactory`, where it
+applies to every non-HTML page rather than to one page class.
+
+The first implementation made front matter a three-state override of *only* this new
+default: `navigation.hidden: false` re-showed a non-HTML page but could not re-show a blog
+post, a route key in `hyde.navigation.exclude`, or a page in a hidden subdirectory, which
+stayed hidden as they did in v2. That was reversed. Front matter now decides visibility
+outright and the inferred default applies only when it is unset:
+
+```php
+return $this->searchForHiddenInFrontMatter() ?? $this->isHiddenByDefault();
+```
+
+Hyde infers navigation membership from conventions; front matter exists to override the
+inference, and an override that only works in one direction — and only against the newest
+of four rules — is a rule users would have to memorize rather than derive. The `??` shape
+also matches `makePriority()` and `makeLabel()` in the same factory, which already put
+front matter ahead of configuration and convention, so `makeHidden()` was the outlier.
+
+Consequence beyond this epic's scope: `navigation.visible: true` on a blog post, an
+excluded route key, or a page in a hidden subdirectory is no longer a silent no-op. No
+migration is expected — such matter did nothing in v2, so nobody set it to achieve the
+v2 behavior — but it is recorded in `UPGRADE.md` because the front matter is inert in the
+version users are upgrading from.
 
 ## Work breakdown (planned PR sequence, in dependency order)
 
@@ -682,6 +714,25 @@ Implementation notes (branch `v3/non-html-pages-documentation`):
 - `HYDEPHP_V3_PLANNING.md` and `UPGRADE.md` already contain the feature, breaking-change,
   and migration entries added with PRs 1–7; this PR verified them rather than duplicating
   those notes.
+
+### PR 9 — Navigation exclusion for non-HTML pages ✅ Implemented
+
+Unplanned; landed between PRs 7 and 8, so the documentation PR already describes it.
+Added after the generated pages had shipped and each was individually hidden from
+navigation, which made the missing general rule obvious: any non-HTML page, generated or
+user-registered, has the same problem.
+
+Implementation notes (branch `v3/non-html-pages-hide-from-navigation`):
+
+- `NavigationDataFactory::makeHidden()` hides pages whose resolved output path does not
+  end in `.html`, and front matter overrides every default rather than only this one, per
+  D7. `isHiddenByDefault()` collects the four default rules behind the front matter check.
+- Covered at both levels: `NavigationDataFactoryUnitTest` asserts the default and the
+  override against each of the four rules, and `AutomaticNavigationConfigurationsTest`
+  asserts a non-HTML `InMemoryPage` stays out of the real generated menu unless opted in.
+- The `visible`/`hidden` front matter pair was left as-is. Both spellings already existed
+  and `searchForHiddenInFrontMatter()` already normalized them, so widening the override
+  needed no new front matter key — per PR 7's rule 2, the cheapest key is the one not added.
 
 ## Out of scope (noted for later)
 
