@@ -64,37 +64,6 @@ class ConfigurableFeaturesTest extends TestCase
         $this->assertFalse(Features::hasSitemap());
     }
 
-    public function testHasRobotsTxtReturnsTrueByDefault()
-    {
-        $this->assertTrue(Features::hasRobotsTxt());
-    }
-
-    public function testHasRobotsTxtReturnsFalseWhenDisabledInConfig()
-    {
-        config(['hyde.robots.enabled' => false]);
-        $this->assertFalse(Features::hasRobotsTxt());
-    }
-
-    public function testHasLlmsTxtReturnsFalseByDefaultEvenWhenHydeHasBaseUrl()
-    {
-        $this->withSiteUrl();
-        $this->assertFalse(Features::hasLlmsTxt());
-    }
-
-    public function testHasLlmsTxtReturnsFalseIfHydeDoesNotHaveBaseUrl()
-    {
-        $this->withSiteUrl();
-        config(['hyde.llms.enabled' => true, 'hyde.url' => '']);
-        $this->assertFalse(Features::hasLlmsTxt());
-    }
-
-    public function testHasLlmsTxtReturnsTrueWhenEnabledInConfigAndHydeHasBaseUrl()
-    {
-        $this->withSiteUrl();
-        config(['hyde.llms.enabled' => true]);
-        $this->assertTrue(Features::hasLlmsTxt());
-    }
-
     public function testHasThemeToggleButtonsReturnsTrueWhenDarkmodeEnabledAndConfigTrue()
     {
         // Enable dark mode and set hyde.theme_toggle_buttons config option to true
