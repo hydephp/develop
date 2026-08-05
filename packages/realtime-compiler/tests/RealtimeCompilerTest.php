@@ -478,47 +478,6 @@ class RealtimeCompilerTest extends TestCase
         }
     }
 
-    public function testRobotsTxtRouteIsServedWithPlainTextContentType()
-    {
-        $this->mockCompilerRoute('robots.txt');
-
-        $kernel = new HttpKernel();
-        $response = $kernel->handle(new Request());
-
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertNotInstanceOf(HtmlResponse::class, $response);
-        $this->assertSame(200, $response->statusCode);
-        $this->assertSame('OK', $response->statusMessage);
-
-        $headers = $this->getResponseHeaders($response);
-        $this->assertSame('text/plain', $headers['Content-Type']);
-
-        $this->assertSame("User-agent: *\nAllow: /\n\nSitemap: http://localhost:8080/sitemap.xml\n", $response->body);
-    }
-
-    public function testLlmsTxtRouteIsServedWithPlainTextContentType()
-    {
-        $this->mockCompilerRoute('llms.txt');
-
-        $router = new Router(new Request());
-        $this->bootRouterApplication($router);
-        config(['hyde.llms.enabled' => true, 'hyde.url' => 'https://example.com']);
-        Hyde::boot();
-
-        $response = $router->handle();
-
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertNotInstanceOf(HtmlResponse::class, $response);
-        $this->assertSame(200, $response->statusCode);
-        $this->assertSame('OK', $response->statusMessage);
-
-        $headers = $this->getResponseHeaders($response);
-        $this->assertSame('text/plain', $headers['Content-Type']);
-
-        $this->assertStringStartsWith('# HydePHP', $response->body);
-        $this->assertStringContainsString('http://localhost:8080/', $response->body);
-    }
-
     public function testGetContentTypeReturnsApplicationJsonForJsonOutputPath()
     {
         $page = $this->makePageWithOutputPath('foo.json');

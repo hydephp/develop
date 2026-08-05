@@ -373,39 +373,7 @@ fail with an error instead of generating an empty or unwanted file. `build:sitem
 failure with exit code 1 instead of 3. If you registered your own page under the route key, the commands build
 it regardless of these conditions.
 
-## Step 7: Review the New Generated robots.txt
-
-Hyde now generates a `robots.txt` file by default, allowing all crawlers and linking to the sitemap when that
-feature is enabled. Most sites want this and need no changes. If you already publish a `robots.txt` through your
-own tooling — a deploy step or web server configuration that would conflict with the generated file — either
-disable the feature with `hyde.robots.enabled => false`, or move the contents into Hyde by registering your own
-`robots.txt` page (which replaces the generated one, using the same registration pattern as the sitemap example
-above). Crawl rules can be added to the `hyde.robots.disallow` configuration array without any custom code.
-
-## Step 8: Optionally Publish the New llms.txt
-
-Hyde can now generate an [`llms.txt`](https://llmstxt.org/) file, indexing your site's content for AI services
-and agents. Unlike the sitemap, RSS feed, and robots.txt, this is opt-in — set `hyde.llms.enabled` to `true` to
-publish it. Publishing it is a deliberate invitation for AI services to read your site, so no action is needed
-if you'd rather not extend that. Note that leaving pages out of this file does not stop AI crawlers from reading
-them either way; crawler access is governed by your `robots.txt`, not by llms.txt.
-
-If you enable it, it needs no further configuration. It requires a site base URL, since the file links to your
-pages with absolute URLs. Pages are grouped into a section per page type and listed in the same order as your
-sitemap, and each link is described by the page's `abstract` front matter, falling back to its `description`,
-so filling those in improves the file. A page is listed when it is included in the sitemap — the file indexes
-only material you already publish, listing nothing your sitemap does not and granting no access to anything
-private — so anything already carrying `sitemap: false` stays out of this file too, and there is no separate
-front matter key to learn. As with the sitemap and robots.txt, you can replace the file wholesale by registering
-your own `llms.txt` page, or adjust the sections and output by extending the `LlmsTxtGenerator` class and
-rebinding it in the service container.
-
-Be aware that llms.txt is an emerging standard which is still subject to change. We cannot make a backwards
-compatibility promise for the generated output while the specification is still moving, and we expect to change
-the file format in minor and patch releases as the standard evolves. If you depend on the exact output, pin the
-format by registering your own page.
-
-## Step 9: Rename Page File Extension References
+## Step 7: Rename Page File Extension References
 
 The static page class property `$fileExtension` has been renamed to `$sourceExtension`, along with the
 `fileExtension()` and `setFileExtension()` methods, which are now `sourceExtension()` and `setSourceExtension()`.
@@ -441,7 +409,7 @@ $extension = MarkdownPage::sourceExtension();
 The automated upgrade script will handle this rename for ordinary property declarations, property accesses,
 method calls, and overridden method declarations. Dynamic references — variable method or property names,
 reflection, and string-based access — must be updated manually.
-## Step 10: Replace Your Code Block Filepath Comments
+## Step 8: Replace Your Code Block Filepath Comments
 
 Code block labels are now set with a `title="…"` modifier on the fence, and the `// filepath:` comment is no longer
 recognized. A comment left behind stays in the code as written, where it renders as an ordinary first line.
@@ -467,7 +435,7 @@ Search your source files for `filepath` to find the blocks to convert. All the d
 so also check for `#`, `/* */`, and `<!-- -->` comments. A blank line left between the old comment and the code can be
 removed with it.
 
-## Step 11: Move Your Filepath Label Customizations
+## Step 9: Move Your Filepath Label Customizations
 
 Fenced code blocks are now rendered through the `components/markdown/code-block.blade.php` view, which also holds the
 label markup. The `components/filepath-label.blade.php` view is gone.
@@ -489,7 +457,7 @@ The markup around code blocks has also changed, so compare a few pages against y
 for them. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks you can target instead of
 matching the markup structure. Syntax highlighting is unaffected.
 
-## Step 12: Review Drafts and Future-Dated Blog Posts
+## Step 10: Review Drafts and Future-Dated Blog Posts
 
 HydePHP v3 keeps two kinds of blog post out of your built site: those marked `draft: true` in front matter, and those whose date is set in the future. Drafts and scheduled posts are skipped during auto-discovery, so they get no route, are not compiled to `_site`, and are left out of post listings, the sitemap, and the RSS feed. The date rule applies to both front matter dates and filename date prefixes.
 
@@ -512,8 +480,6 @@ Use this checklist to track your upgrade progress:
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
 - [ ] Explicitly opted in any non-HTML pages that should remain in automatic navigation
 - [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
-- [ ] Confirmed the new generated `robots.txt` does not conflict with an existing one, or disabled it with `hyde.robots.enabled`
-- [ ] Decided whether to opt in to the new generated `llms.txt` for AI services with `hyde.llms.enabled`
 - [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 - [ ] Replaced `// filepath:` code block comments with the `title="…"` fence modifier
 - [ ] Ported any `filepath-label.blade.php` customizations to `markdown/code-block.blade.php`, and deleted the old file

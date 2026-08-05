@@ -70,7 +70,7 @@ InMemoryPage::make(
 ```
 
 Non-HTML pages are also excluded from the sitemap by default. You can control sitemap inclusion for any page with
-the `sitemap` front matter key. This same setting controls whether a page is listed in Hyde's generated `llms.txt`:
+the `sitemap` front matter key:
 
 ```php
 InMemoryPage::make(
@@ -184,9 +184,9 @@ class AppServiceProvider extends ServiceProvider
 
 The page will be written to `_site/hello.html` and can be referenced using the `hello` route key.
 
-Hyde's generated `sitemap.xml`, RSS feed, `robots.txt`, and `llms.txt` are also in-memory pages. Registering your own
-page with one of those route keys during booting replaces Hyde's generated page, allowing complete control over the
-file. For the RSS feed, use the filename configured in `hyde.rss.filename`.
+Hyde's generated `sitemap.xml` and RSS feed are also in-memory pages. Registering your own page with one of those
+route keys during booting replaces Hyde's generated page, allowing complete control over the file. For the RSS feed,
+use the filename configured in `hyde.rss.filename`.
 
 ### In a package extension
 
