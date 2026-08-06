@@ -129,7 +129,7 @@ class SearchIndexPage extends HydePage
 ```
 
 For the identifier `index`, this produces the route key `search/index.json` and the output path
-`_site/search/index.json`. The `.html` extension is omitted from route keys, while non-HTML extensions like `.json` are kept.
+`_site/search/index.json`. Unlike `.html`, non-HTML extensions are retained in the route key.
 
 ### Methods
 
@@ -176,7 +176,7 @@ autodiscovery, you may benefit from creating a custom page class instead, as tha
 
 You can learn more about the InMemoryPage class in the [InMemoryPage documentation](in-memory-pages).
 
-In-memory pages infer their output format from the identifier. Identifiers without an extension compile to `.html`,
+In-memory pages infer their output extension from the identifier. Identifiers without an extension compile to `.html`,
 while identifiers that already have an extension keep it:
 
 ```php

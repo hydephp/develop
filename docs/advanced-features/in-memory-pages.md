@@ -40,47 +40,18 @@ InMemoryPage::make('about', contents: $html);
 // _site/about.html
 ```
 
-The output format is inferred from the identifier. Identifiers without an extension compile to `.html`, while an
-identifier that already has an extension keeps it:
+The output extension is inferred from the identifier. Identifiers without an extension compile to `.html`, while
+identifiers with an extension retain it:
 
 ```php
 InMemoryPage::make('robots.txt', contents: $text);
 // _site/robots.txt
 ```
 
-Static and instance path resolution use the same inference:
+The same inference is used by static and instance path helpers.
 
-```php
-InMemoryPage::outputPath('robots.txt');
-// robots.txt
-
-InMemoryPage::make('robots.txt')->getOutputPath();
-// robots.txt
-```
-
-Non-HTML output is excluded from automatic navigation by default. To link one of these files from the generated
-navigation, opt it in explicitly with `navigation.visible` (or set `navigation.hidden` to `false`):
-
-```php
-InMemoryPage::make(
-    'downloads/catalog.pdf',
-    matter: ['navigation' => ['visible' => true]],
-    contents: $catalog,
-);
-```
-
-Non-HTML pages are also excluded from the sitemap by default. You can control sitemap inclusion for any page with
-the `sitemap` front matter key:
-
-```php
-InMemoryPage::make(
-    'api/schema.json',
-    matter: ['sitemap' => true],
-    contents: $schema,
-);
-```
-
-For custom page classes, override `showInSitemap()` when the decision cannot be expressed as front matter.
+Non-HTML pages are excluded from generated navigation and sitemaps by default. They can be included using the
+corresponding `navigation.visible: true` or `sitemap: true` front matter options.
 
 Pass a closure when the contents should be generated lazily during compilation. The closure is invoked again for each
 compilation, which makes it useful for pages generated from the current application state.
@@ -152,9 +123,8 @@ class ReportPage extends InMemoryPage
 }
 ```
 
-A subclass can also declare `$outputDirectory` and `$outputExtension` to give all its instances a shared location and
-format, the same way a regular `HydePage` subclass does. Use extensionless identifiers with these subclasses, so the
-configured extension applies:
+An `InMemoryPage` subclass can declare a shared `$outputDirectory` and `$outputExtension`. Use extensionless
+identifiers so the configured extension is applied:
 
 ```php
 class ApiEndpointPage extends InMemoryPage
@@ -199,9 +169,7 @@ class AppServiceProvider extends ServiceProvider
 
 The page will be written to `_site/hello.html` and can be referenced using the `hello` route key.
 
-Hyde's generated `sitemap.xml` and RSS feed are also in-memory pages. Registering your own page with one of those
-route keys during booting replaces Hyde's generated page, allowing complete control over the file. For the RSS feed,
-use the filename configured in `hyde.rss.filename`.
+Hyde's generated sitemap and RSS feed are themselves in-memory pages. Registering a page with the same route key during booting overrides the generated page, giving you complete control over its contents. The sitemap route key is `sitemap.xml` and the RSS route key is the filename configured in `hyde.rss.filename`.
 
 ### In a package extension
 

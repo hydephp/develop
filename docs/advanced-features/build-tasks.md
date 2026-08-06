@@ -11,9 +11,6 @@ The build tasks are very powerful and allow for limitless customizability.
 
 Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory?
 
-Sitemaps and RSS feeds are generated as regular pages rather than build tasks. To customize those files, see
-[Generated discovery files](customization#generated-discovery-files).
-
 ## Good to know before you start
 
 ### Types of tasks
