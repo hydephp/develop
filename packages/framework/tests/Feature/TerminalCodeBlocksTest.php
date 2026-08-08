@@ -7,6 +7,7 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Markdown\Extensions\TerminalBlockViewModel;
 use Hyde\Markdown\Extensions\TerminalExtension;
+use Hyde\Markdown\Extensions\TerminalOutputFormatter;
 use Hyde\Markdown\Extensions\Nodes\TerminalBlock;
 use Hyde\Markdown\Extensions\Processing\TerminalBlockRenderer;
 use Hyde\Markdown\Extensions\Processing\TransformTerminalBlocks;
@@ -24,6 +25,7 @@ use Torchlight\Commonmark\BaseExtension;
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalExtension::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlock::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlockViewModel::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(TerminalOutputFormatter::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TerminalBlockRenderer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(TransformTerminalBlocks::class)]
 class TerminalCodeBlocksTest extends TestCase
