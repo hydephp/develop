@@ -215,14 +215,11 @@ Terminal blocks are a built-in Markdown feature and do not require a Torchlight 
 
 ### Modifiers
 
-The language can be followed by optional modifiers:
+Terminal blocks support an optional `title` modifier:
 
 ```
-terminal [xml] [title="…"]
+terminal [title="…"]
 ```
-
-Modifiers are order-independent, so `terminal xml title="Build output"` and `terminal title="Build output" xml` mean
-the same thing.
 
 #### Window titles
 
@@ -245,23 +242,26 @@ An empty title (`title=""`) is respected as written, leaving the title bar with 
 modifier must otherwise use a quoted value with no whitespace around the `=`. Malformed title syntax causes the build
 to fail rather than being silently ignored.
 
-#### XML style formatting
+#### Terminal formatting tags
 
-The `xml` modifier renders four formatter tags (`<info>`, `<comment>`, `<question>`, and `<error>`) as coloured
-output, letting you paste console-style output verbatim.
+Terminal blocks render formatting tags as styled output. The `<info>`, `<comment>`, `<question>`, and `<error>` tags
+use Hyde's terminal theme colours. You can also set foreground and background colours or text formatting with the
+`fg`, `bg`, and `options` attributes, closing the tag with `</>`.
 
 ````markdown
-```terminal xml title="Build output"
+```terminal title="Build output"
 <info>Hyde was installed successfully.</info>
+<fg=gray>Created 12 files in 0.4 seconds</>
 ```
 ````
 
-```terminal xml title="Build output"
+```terminal title="Build output"
 <info>Hyde was installed successfully.</info>
+<fg=gray>Created 12 files in 0.4 seconds</>
 ```
 
-Tags are only interpreted with the modifier present; without it, they stay literal text. Everything else is escaped as
-usual, including unknown tags and tags that are not closed in the order they were opened.
+See [Advanced Markdown](advanced-markdown#terminal-formatting-tags) for the available colours and options. Everything
+else is escaped as usual, including unknown tags and tags that are not closed in the order they were opened.
 
 ### View contract
 
@@ -273,8 +273,8 @@ usual, including unknown tags and tags that are not closed in the order they wer
 | `$title`    | `string`/`null` | The title set by the block, or `null` when it did not set one.                  |
 
 The renderer does the per-line work before the view is involved: it escapes the raw text, wraps `$ ` prompts in
-`hyde-terminal-command`/`hyde-terminal-prompt` spans, and — when the `xml` modifier is present — converts the
-formatter tags into coloured spans. The view receives a single finished string.
+`hyde-terminal-command`/`hyde-terminal-prompt` spans, and converts the formatter tags into coloured spans. The view
+receives a single finished string.
 
 The title is passed through as it was written, so the view is what decides both how it is displayed and what an
 untitled block falls back to. The shipped view escapes it with `{{ }}` and falls back to `Terminal`.
@@ -283,18 +283,21 @@ untitled block falls back to. The shipped view escapes it with `{{ }}` and falls
 
 ### Class hooks
 
-| Class                     | Targets                                    |
-|---------------------------|--------------------------------------------|
-| `hyde-terminal`           | The outer `<figure>` container             |
-| `hyde-terminal-header`    | The title bar                              |
-| `hyde-terminal-controls`  | The decorative window buttons              |
-| `hyde-terminal-body`      | The `<pre>` output area                    |
-| `hyde-terminal-command`   | A line beginning with a `$ ` prompt        |
-| `hyde-terminal-prompt`    | The `$ ` prompt itself                     |
-| `hyde-terminal-info`      | `<info>` output                            |
-| `hyde-terminal-comment`   | `<comment>` output                         |
-| `hyde-terminal-question`  | `<question>` output                        |
-| `hyde-terminal-error`     | `<error>` output                           |
+| Class                     | Targets                                            |
+|---------------------------|----------------------------------------------------|
+| `hyde-terminal`           | The outer `<figure>` container                     |
+| `hyde-terminal-header`    | The title bar                                      |
+| `hyde-terminal-controls`  | The decorative window buttons                      |
+| `hyde-terminal-body`      | The `<pre>` output area                            |
+| `hyde-terminal-command`   | A line beginning with a `$ ` prompt                |
+| `hyde-terminal-prompt`    | The `$ ` prompt itself                             |
+| `hyde-terminal-info`      | `<info>` output                                    |
+| `hyde-terminal-comment`   | `<comment>` output                                 |
+| `hyde-terminal-question`  | `<question>` output                                |
+| `hyde-terminal-error`     | `<error>` output                                   |
+| `hyde-terminal-fg-*`      | A foreground colour, like `hyde-terminal-fg-gray`  |
+| `hyde-terminal-bg-*`      | A background colour, like `hyde-terminal-bg-red`   |
+| `hyde-terminal-<option>`  | An option, like `hyde-terminal-strikethrough`      |
 
 ### Customization example
 

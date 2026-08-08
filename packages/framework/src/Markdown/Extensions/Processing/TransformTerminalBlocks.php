@@ -41,32 +41,8 @@ class TransformTerminalBlocks
 
     protected function makeViewModel(FencedCode $node): TerminalBlockViewModel
     {
-        [$usesFormatting, $title] = $this->parseModifiers($node->getInfo() ?? '');
+        $tokens = $this->tokenizeModifiers($node->getInfo() ?? '');
 
-        return new TerminalBlockViewModel($node->getLiteral(), $title, $usesFormatting);
-    }
-
-    /**
-     * Parse the modifiers following the language, which are order-independent.
-     *
-     * @return array{0: bool, 1: string|null} Whether formatting is used, and the window title.
-     */
-    protected function parseModifiers(string $info): array
-    {
-        $tokens = $this->tokenizeModifiers($info);
-
-        return [$this->usesFormatting($tokens), $this->parseTitleModifier($tokens, 'terminal block')];
-    }
-
-    /** @param array<int, array{key: ?string, double: ?string, single: ?string, word: ?string}> $tokens */
-    protected function usesFormatting(array $tokens): bool
-    {
-        foreach ($tokens as $token) {
-            if ($token['word'] !== null && strtolower($token['word']) === 'xml') {
-                return true;
-            }
-        }
-
-        return false;
+        return new TerminalBlockViewModel($node->getLiteral(), $this->parseTitleModifier($tokens, 'terminal block'));
     }
 }
