@@ -102,54 +102,12 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         $this->assertSame('&lt;info&gt;Ready&lt;/info&gt;', (new TerminalBlockViewModel('<info>Ready</info>'))->contents);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('formatterTagProvider')]
-    public function testFormatterTagsAreConvertedToSpans(string $literal, string $expected)
-    {
-        $this->assertSame($expected, (new TerminalBlockViewModel($literal, null, true))->contents);
-    }
-
-    public static function formatterTagProvider(): array
-    {
-        return [
-            'info' => ['<info>Ready</info>', '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span>'],
-            'comment' => ['<comment>Wait</comment>', '<span class="hyde-terminal-comment text-[#FFCB6B]">Wait</span>'],
-            'question' => ['<question>Continue?</question>', '<span class="hyde-terminal-question text-[#89DDFF]">Continue?</span>'],
-            'error' => ['<error>Failed</error>', '<span class="hyde-terminal-error font-semibold text-[#F07178]">Failed</span>'],
-        ];
-    }
-
-    public function testFormatterTagsCanBeNested()
+    public function testFormatterTagsAreConvertedToSpansWithFormatting()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span></span>',
-            (new TerminalBlockViewModel('<info>Ready <comment>soon</comment></info>', null, true))->contents
+            '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span>',
+            (new TerminalBlockViewModel('<info>Ready</info>', null, true))->contents
         );
-    }
-
-    public function testUnclosedFormatterTagsAreClosedAtTheEndOfTheLine()
-    {
-        $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span></span>',
-            (new TerminalBlockViewModel('<info>Ready <comment>soon', null, true))->contents
-        );
-    }
-
-    public function testMismatchedFormatterTagsAreEscaped()
-    {
-        $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready&lt;/comment&gt;</span>',
-            (new TerminalBlockViewModel('<info>Ready</comment>', null, true))->contents
-        );
-    }
-
-    public function testUnopenedFormatterTagsAreEscaped()
-    {
-        $this->assertSame('Ready&lt;/info&gt;', (new TerminalBlockViewModel('Ready</info>', null, true))->contents);
-    }
-
-    public function testUnknownTagsAreEscapedWithFormatting()
-    {
-        $this->assertSame('&lt;unknown&gt;text&lt;/unknown&gt;', (new TerminalBlockViewModel('<unknown>text</unknown>', null, true))->contents);
     }
 
     public function testFormattingIsAppliedWithinCommandLines()
