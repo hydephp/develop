@@ -61,7 +61,7 @@ class TerminalOutputFormatter
     }
 
     /**
-     * A backslash only escapes a tag we would otherwise style, since `\<` is ordinary
+     * A backslash only escapes recognized formatting syntax, since `\<` is ordinary
      * shell and regular expression syntax that a terminal block has to leave alone.
      */
     protected function unescapeTag(string $part): string

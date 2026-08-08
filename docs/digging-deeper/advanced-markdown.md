@@ -185,7 +185,7 @@ Terminal blocks support formatting tags for styling console output with Hyde's t
 | `<question>` | Cyan               |
 | `<error>`    | Emphasized red     |
 
-Colors and text formatting can also be set directly, with the `fg`, `bg`, and `options` attributes. Combine them by
+Colours and text formatting can also be set directly, with the `fg`, `bg`, and `options` attributes. Combine them by
 separating them with semicolons, and close the tag with `</>`:
 
 ````markdown
@@ -195,7 +195,7 @@ separating them with semicolons, and close the tag with `</>`:
 ```
 ````
 
-The colors are `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, and `white`, each with a brighter
+The colours are `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, and `white`, each with a brighter
 `bright-` prefixed variant, except for bright black, which is called `gray`. The `options` attribute takes any of
 `bold`, `underscore`, and `strikethrough`, separated by commas.
 
@@ -206,7 +206,7 @@ Anything that is not one of these tags, including HTML, is escaped and displayed
 instead of styling it, escape it with a backslash, like `\<info>`.
 
 The terminal markup provides stable styling hooks for customization. Use `hyde-terminal-body` to change the output
-area's default text and background colors, and `hyde-terminal` to style the outer container. Each formatting tag is
+area's default text and background colours, and `hyde-terminal` to style the outer container. Each formatting tag is
 marked up with a class of its own, like `hyde-terminal-info`, `hyde-terminal-fg-gray`, `hyde-terminal-bg-red`, and
 `hyde-terminal-strikethrough`, so you can restyle the palette from your own CSS.
 

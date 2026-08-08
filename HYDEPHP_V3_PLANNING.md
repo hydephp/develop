@@ -150,8 +150,8 @@ view already uses. That is where `gray` comes from: the muted gray that console 
 The tags are interpreted automatically, without a modifier opting into them, since they are part of what a terminal
 block is. Unsupported syntax stays literal text, and a leading backslash escapes a tag, but only where the tag would
 otherwise be styled, since `\<` is ordinary shell and regular expression syntax that a terminal block has to leave
-alone. A tag is only a style tag when the whole of it is a semicolon-separated list of attribute pairs, so a stray
-word does not make the rest of a malformed tag take effect.
+alone. An attribute tag is only a style tag when the whole of it is a semicolon-separated list of attribute pairs, so
+a stray word does not make the rest of a malformed tag take effect.
 
 The supported set is deliberate. `strikethrough` is a Hyde addition, having an obvious rendering on a page and an
 obvious use in documentation. Options with no sound rendering on a page, such as blinking, reversing, and concealing,

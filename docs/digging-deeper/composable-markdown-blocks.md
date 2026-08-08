@@ -215,7 +215,7 @@ Terminal blocks are a built-in Markdown feature and do not require a Torchlight 
 
 ### Modifiers
 
-The language can be followed by an optional modifier:
+Terminal blocks support an optional `title` modifier:
 
 ```
 terminal [title="…"]
@@ -245,8 +245,8 @@ to fail rather than being silently ignored.
 #### Terminal formatting tags
 
 Terminal blocks render formatting tags as styled output. The `<info>`, `<comment>`, `<question>`, and `<error>` tags
-carry Hyde's terminal theme colours, while the `fg`, `bg`, and `options` attributes set a colour or text formatting
-directly, closed with `</>`.
+use Hyde's terminal theme colours. You can also set foreground and background colours or text formatting with the
+`fg`, `bg`, and `options` attributes, closing the tag with `</>`.
 
 ````markdown
 ```terminal title="Build output"
