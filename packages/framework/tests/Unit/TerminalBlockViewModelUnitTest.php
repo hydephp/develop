@@ -29,16 +29,14 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
 
         $this->assertSame('Output', $model->literal);
         $this->assertNull($model->title);
-        $this->assertFalse($model->usesFormatting);
     }
 
     public function testCanConstructWithAllArguments()
     {
-        $model = new TerminalBlockViewModel('Output', 'Console', true);
+        $model = new TerminalBlockViewModel('Output', 'Console');
 
         $this->assertSame('Output', $model->literal);
         $this->assertSame('Console', $model->title);
-        $this->assertTrue($model->usesFormatting);
     }
 
     public function testContentsAreFormattedOnConstruction()
@@ -97,16 +95,11 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
         );
     }
 
-    public function testFormatterTagsAreEscapedWithoutFormatting()
-    {
-        $this->assertSame('&lt;info&gt;Ready&lt;/info&gt;', (new TerminalBlockViewModel('<info>Ready</info>'))->contents);
-    }
-
-    public function testFormatterTagsAreConvertedToSpansWithFormatting()
+    public function testFormatterTagsAreConvertedToSpans()
     {
         $this->assertSame(
             '<span class="hyde-terminal-info">Ready</span>',
-            (new TerminalBlockViewModel('<info>Ready</info>', null, true))->contents
+            (new TerminalBlockViewModel('<info>Ready</info>'))->contents
         );
     }
 
@@ -114,7 +107,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     {
         $this->assertSame(
             '<span class="hyde-terminal-command"><span class="hyde-terminal-prompt" aria-hidden="true">$ </span>php hyde build <span class="hyde-terminal-comment">--force</span></span>',
-            (new TerminalBlockViewModel('$ php hyde build <comment>--force</comment>', null, true))->contents
+            (new TerminalBlockViewModel('$ php hyde build <comment>--force</comment>'))->contents
         );
     }
 
@@ -122,7 +115,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     {
         $this->assertSame(
             '<span class="hyde-terminal-info">Ready</span>'."\n".'Done&lt;/info&gt;',
-            (new TerminalBlockViewModel("<info>Ready\nDone</info>", null, true))->contents
+            (new TerminalBlockViewModel("<info>Ready\nDone</info>"))->contents
         );
     }
 

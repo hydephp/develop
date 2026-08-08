@@ -20,7 +20,6 @@ class TerminalBlockViewModel
     public function __construct(
         public readonly string $literal,
         public readonly ?string $title = null,
-        public readonly bool $usesFormatting = false,
     ) {
         $this->contents = $this->formatContents();
     }
@@ -62,6 +61,6 @@ class TerminalBlockViewModel
 
     protected function formatText(string $text): string
     {
-        return $this->usesFormatting ? (new TerminalOutputFormatter())->format($text) : e($text);
+        return (new TerminalOutputFormatter())->format($text);
     }
 }

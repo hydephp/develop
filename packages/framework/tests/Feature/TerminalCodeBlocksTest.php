@@ -61,10 +61,10 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString("\n\$VARIABLE\n", $html);
     }
 
-    public function testXmlModifierRendersFormatterTags(): void
+    public function testFormatterTagsAreRenderedAsStyledSpans(): void
     {
         $html = Markdown::render(
-            "```terminal xml\n<info>Ready</info> <comment>Wait</comment> <question>Continue?</question> <error>Failed</error>\n```"
+            "```terminal\n<info>Ready</info> <comment>Wait</comment> <question>Continue?</question> <error>Failed</error>\n```"
         );
 
         $this->assertStringContainsString('<span class="hyde-terminal-info">Ready</span>', $html);
@@ -73,10 +73,10 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString('<span class="hyde-terminal-error">Failed</span>', $html);
     }
 
-    public function testXmlModifierRendersColorAndOptionTags(): void
+    public function testColorAndOptionTagsAreRenderedAsStyledSpans(): void
     {
         $html = Markdown::render(
-            "```terminal xml\n<fg=gray>Skipped</> <options=strikethrough>Removed</> <fg=white;bg=red;options=bold> ERROR </>\n```"
+            "```terminal\n<fg=gray>Skipped</> <options=strikethrough>Removed</> <fg=white;bg=red;options=bold> ERROR </>\n```"
         );
 
         $this->assertStringContainsString('<span class="hyde-terminal-fg-gray">Skipped</span>', $html);
@@ -87,10 +87,10 @@ class TerminalCodeBlocksTest extends TestCase
         );
     }
 
-    public function testXmlFormattingRendersPastedConsoleOutput(): void
+    public function testFormattingRendersAnnotatedConsoleOutput(): void
     {
         $html = Markdown::render(<<<'MARKDOWN'
-        ```terminal xml title="Build output"
+        ```terminal title="Build output"
         $ php hyde build
         <info>Building your static site!</info>
         <fg=gray>Created 12 files in 0.4 seconds</>
@@ -108,9 +108,9 @@ class TerminalCodeBlocksTest extends TestCase
         );
     }
 
-    public function testXmlFormattingDoesNotCarryOverToTheNextLine(): void
+    public function testFormattingDoesNotCarryOverToTheNextLine(): void
     {
-        $html = Markdown::render("```terminal xml\n<fg=gray>Working\nDone</>\n```");
+        $html = Markdown::render("```terminal\n<fg=gray>Working\nDone</>\n```");
 
         $this->assertStringContainsString(
             '<span class="hyde-terminal-fg-gray">Working</span>'."\n".'Done&lt;/&gt;',
@@ -118,9 +118,9 @@ class TerminalCodeBlocksTest extends TestCase
         );
     }
 
-    public function testXmlFormattingSupportsNestedTags(): void
+    public function testFormattingSupportsNestedTags(): void
     {
-        $html = Markdown::render("```terminal xml\n<info>Ready <comment>soon</comment></info>\n```");
+        $html = Markdown::render("```terminal\n<info>Ready <comment>soon</comment></info>\n```");
 
         $this->assertStringContainsString(
             '<span class="hyde-terminal-info">Ready <span class="hyde-terminal-comment">soon</span></span>',
@@ -130,7 +130,7 @@ class TerminalCodeBlocksTest extends TestCase
 
     public function testMismatchedTagsAreEscaped(): void
     {
-        $html = Markdown::render("```terminal xml\n<info>Ready</comment>\n```");
+        $html = Markdown::render("```terminal\n<info>Ready</comment>\n```");
 
         $this->assertStringContainsString(
             '<span class="hyde-terminal-info">Ready&lt;/comment&gt;</span>',
@@ -140,20 +140,12 @@ class TerminalCodeBlocksTest extends TestCase
 
     public function testTerminalContentsAreAlwaysEscaped(): void
     {
-        $html = Markdown::render("```terminal xml\n<script>alert(1)</script> <unknown>text</unknown>\n```");
+        $html = Markdown::render("```terminal\n<script>alert(1)</script> <unknown>text</unknown>\n```");
 
         $this->assertStringNotContainsString('<script>', $html);
         $this->assertStringNotContainsString('<unknown>', $html);
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $html);
         $this->assertStringContainsString('&lt;unknown&gt;text&lt;/unknown&gt;', $html);
-    }
-
-    public function testFormatterTagsRemainLiteralWithoutXmlModifier(): void
-    {
-        $html = Markdown::render("```terminal\n<info>Ready</info>\n```");
-
-        $this->assertStringContainsString('&lt;info&gt;Ready&lt;/info&gt;', $html);
-        $this->assertStringNotContainsString('hyde-terminal-info', $html);
     }
 
     public function testUnknownModifiersAreIgnored(): void
@@ -230,19 +222,6 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringNotContainsString('<span>Terminal</span>', $html);
     }
 
-    public function testModifiersAreOrderIndependent(): void
-    {
-        $expected = ['<span>Build output</span>', '<span class="hyde-terminal-info">Hyde was installed successfully.</span>'];
-
-        foreach (['xml title="Build output"', 'title="Build output" xml'] as $modifiers) {
-            $html = Markdown::render("```terminal $modifiers\n<info>Hyde was installed successfully.</info>\n```");
-
-            foreach ($expected as $needle) {
-                $this->assertStringContainsString($needle, $html, "The modifiers [$modifiers] did not render as expected.");
-            }
-        }
-    }
-
     public function testMalformedTitlesAreRejected(): void
     {
         $malformed = [
@@ -253,8 +232,8 @@ class TerminalCodeBlocksTest extends TestCase
             'title=',
             'title',
             'title = "Build"',
-            'title="Build"xml',
-            'xml title=Build',
+            'title="Build"more',
+            'future title=Build',
         ];
 
         foreach ($malformed as $modifier) {
@@ -271,11 +250,10 @@ class TerminalCodeBlocksTest extends TestCase
 
     public function testModifiersAreNotFoundInsideAnotherToken(): void
     {
-        // Modifiers are whitespace separated, so this is one unknown token, not two modifiers
-        $html = Markdown::render("```terminal xmlfuture=\"yes\"\n<info>Ready</info>\n```");
+        // Modifiers are whitespace separated, so this is one unknown token, not a title
+        $html = Markdown::render("```terminal futuretitle=\"Build output\"\nOutput\n```");
 
-        $this->assertStringContainsString('&lt;info&gt;Ready&lt;/info&gt;', $html);
-        $this->assertStringNotContainsString('hyde-terminal-info', $html);
+        $this->assertStringContainsString('<span>Terminal</span>', $html);
     }
 
     public function testTitlesOnOtherLanguagesDoNotMakeTheBlockATerminal(): void
@@ -318,7 +296,7 @@ class TerminalCodeBlocksTest extends TestCase
         $document = new Document();
 
         $fence = new FencedCode(3, '`', 0);
-        $fence->setInfo('terminal xml title="Build output"');
+        $fence->setInfo('terminal title="Build output"');
         $fence->setLiteral('$ php hyde build');
 
         $document->appendChild($fence);
@@ -333,7 +311,6 @@ class TerminalCodeBlocksTest extends TestCase
 
         $this->assertSame('$ php hyde build', $node->viewModel->literal);
         $this->assertSame('Build output', $node->viewModel->title);
-        $this->assertTrue($node->viewModel->usesFormatting);
     }
 
     public function testViewModelRendersTheTerminalView(): void
@@ -354,7 +331,7 @@ class TerminalCodeBlocksTest extends TestCase
 
     public function testViewModelContentsAreFinishedMarkup(): void
     {
-        $viewModel = new TerminalBlockViewModel('<info>Ready</info> <b>Bold</b>', usesFormatting: true);
+        $viewModel = new TerminalBlockViewModel('<info>Ready</info> <b>Bold</b>');
 
         $this->assertSame(
             '<span class="hyde-terminal-info">Ready</span> &lt;b&gt;Bold&lt;/b&gt;',

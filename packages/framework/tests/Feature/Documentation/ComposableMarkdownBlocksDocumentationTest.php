@@ -522,20 +522,17 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         );
     }
 
-    public function testTheXmlModifierConvertsFormatterTagsIntoColouredSpans()
+    public function testFormatterTagsAreConvertedIntoColouredSpans()
     {
-        $html = Markdown::render("```terminal xml\n<info>Info</info> <comment>Comment</comment> <question>Question</question> <error>Error</error>\n```");
+        $html = Markdown::render("```terminal\n<info>Info</info> <comment>Comment</comment> <question>Question</question> <error>Error</error>\n```");
 
         $this->assertStringContainsString('<span class="hyde-terminal-info', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-comment', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-question', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-error', $html);
 
-        // Without the modifier the tags are just escaped text
-        $this->assertStringContainsString('&lt;info&gt;Info&lt;/info&gt;', Markdown::render("```terminal\n<info>Info</info>\n```"));
-
         // Everything else is escaped as usual, including unknown tags and tags closed out of order
-        $html = Markdown::render("```terminal xml\n<unknown>Text</unknown> <info>Info</comment>\n```");
+        $html = Markdown::render("```terminal\n<unknown>Text</unknown> <info>Info</comment>\n```");
 
         $this->assertStringContainsString('&lt;unknown&gt;Text&lt;/unknown&gt;', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-info">Info&lt;/comment&gt;</span>', $html);
@@ -550,16 +547,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         // The label is only replaced for the blocks that set a title
         $this->assertStringContainsString('<span>Terminal</span>', Markdown::render("```terminal\n\$ php hyde build\n```"));
-    }
-
-    public function testModifiersAreOrderIndependent()
-    {
-        foreach (['xml title="Build output"', 'title="Build output" xml'] as $modifiers) {
-            $html = Markdown::render("```terminal $modifiers\n<info>Hyde was installed successfully.</info>\n```");
-
-            $this->assertStringContainsString('<span>Build output</span>', $html, "The modifiers [$modifiers] did not set the title.");
-            $this->assertStringContainsString('<span class="hyde-terminal-info', $html, "The modifiers [$modifiers] did not enable XML style formatting.");
-        }
     }
 
     public function testSingleQuotedTitlesAreAcceptedAsAnEquivalentAlternative()
@@ -624,7 +611,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
     public function testEveryDocumentedTerminalClassHookTargetsTheDocumentedElement()
     {
-        $html = Markdown::render("```terminal xml\n\$ php hyde build\n<info>Info</info> <comment>Comment</comment> <question>Question</question> <error>Error</error>\n```");
+        $html = Markdown::render("```terminal\n\$ php hyde build\n<info>Info</info> <comment>Comment</comment> <question>Question</question> <error>Error</error>\n<fg=gray;bg=red;options=bold>Styled</>\n```");
 
         $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
         $this->assertStringContainsString('<figcaption class="hyde-terminal-header ', $html);
@@ -636,6 +623,9 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('<span class="hyde-terminal-comment"', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-question"', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-error"', $html);
+        $this->assertStringContainsString('hyde-terminal-fg-gray', $html);
+        $this->assertStringContainsString('hyde-terminal-bg-red', $html);
+        $this->assertStringContainsString('hyde-terminal-bold', $html);
     }
 
     public function testTheDocumentedTerminalCustomizationExampleIsTheShippedViewWithADifferentTitle()
