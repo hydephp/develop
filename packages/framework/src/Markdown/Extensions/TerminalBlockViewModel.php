@@ -51,7 +51,7 @@ class TerminalBlockViewModel
     {
         if (preg_match('/^(\$[\t ]+)(.*)$/', $line, $matches)) {
             return sprintf(
-                '<span class="hyde-terminal-command text-[#C3E88D]"><span class="hyde-terminal-prompt select-none" aria-hidden="true">%s</span>%s</span>',
+                '<span class="hyde-terminal-command"><span class="hyde-terminal-prompt" aria-hidden="true">%s</span>%s</span>',
                 e($matches[1]),
                 $this->formatText($matches[2]),
             );

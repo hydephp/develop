@@ -64,7 +64,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     public function testCommandPromptIsWrappedInSpans()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-command text-[#C3E88D]"><span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build</span>',
+            '<span class="hyde-terminal-command"><span class="hyde-terminal-prompt" aria-hidden="true">$ </span>php hyde build</span>',
             (new TerminalBlockViewModel('$ php hyde build'))->contents
         );
     }
@@ -72,7 +72,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     public function testCommandPromptCanBeIndentedWithTabs()
     {
         $this->assertSame(
-            "<span class=\"hyde-terminal-command text-[#C3E88D]\"><span class=\"hyde-terminal-prompt select-none\" aria-hidden=\"true\">\$\t</span>php hyde build</span>",
+            "<span class=\"hyde-terminal-command\"><span class=\"hyde-terminal-prompt\" aria-hidden=\"true\">\$\t</span>php hyde build</span>",
             (new TerminalBlockViewModel("\$\tphp hyde build"))->contents
         );
     }
@@ -92,7 +92,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     public function testOnlyCommandLinesAreWrapped()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-command text-[#C3E88D]"><span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build</span>'."\nDone!",
+            '<span class="hyde-terminal-command"><span class="hyde-terminal-prompt" aria-hidden="true">$ </span>php hyde build</span>'."\nDone!",
             (new TerminalBlockViewModel("\$ php hyde build\nDone!"))->contents
         );
     }
@@ -105,7 +105,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     public function testFormatterTagsAreConvertedToSpansWithFormatting()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span>',
+            '<span class="hyde-terminal-info">Ready</span>',
             (new TerminalBlockViewModel('<info>Ready</info>', null, true))->contents
         );
     }
@@ -113,7 +113,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     public function testFormattingIsAppliedWithinCommandLines()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-command text-[#C3E88D]"><span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build <span class="hyde-terminal-comment text-[#FFCB6B]">--force</span></span>',
+            '<span class="hyde-terminal-command"><span class="hyde-terminal-prompt" aria-hidden="true">$ </span>php hyde build <span class="hyde-terminal-comment">--force</span></span>',
             (new TerminalBlockViewModel('$ php hyde build <comment>--force</comment>', null, true))->contents
         );
     }
@@ -121,7 +121,7 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     public function testFormatterTagsDoNotSpanMultipleLines()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span>'."\n".'Done&lt;/info&gt;',
+            '<span class="hyde-terminal-info">Ready</span>'."\n".'Done&lt;/info&gt;',
             (new TerminalBlockViewModel("<info>Ready\nDone</info>", null, true))->contents
         );
     }
@@ -157,6 +157,6 @@ class TerminalBlockViewModelUnitTest extends UnitTestCase
     {
         $html = (new TerminalBlockViewModel('$ php hyde build'))->render();
 
-        $this->assertStringContainsString('<span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-prompt" aria-hidden="true">$ </span>php hyde build', $html);
     }
 }

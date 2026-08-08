@@ -517,7 +517,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $html = Markdown::render("```terminal\n\$ php hyde build\n```");
 
         $this->assertStringContainsString(
-            '<span class="hyde-terminal-command text-[#C3E88D]"><span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build</span>',
+            '<span class="hyde-terminal-command"><span class="hyde-terminal-prompt" aria-hidden="true">$ </span>php hyde build</span>',
             $html
         );
     }
@@ -538,7 +538,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $html = Markdown::render("```terminal xml\n<unknown>Text</unknown> <info>Info</comment>\n```");
 
         $this->assertStringContainsString('&lt;unknown&gt;Text&lt;/unknown&gt;', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-info text-[#C3E88D]">Info&lt;/comment&gt;</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-info">Info&lt;/comment&gt;</span>', $html);
     }
 
     public function testTheTitleModifierReplacesTheDefaultLabelInTheWindowTitleBar()
@@ -630,12 +630,12 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('<figcaption class="hyde-terminal-header ', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-controls ', $html);
         $this->assertStringContainsString('<pre class="hyde-terminal-body ', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-command ', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-prompt ', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-info ', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-comment ', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-question ', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-error ', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-command"', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-prompt"', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-info"', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-comment"', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-question"', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-error"', $html);
     }
 
     public function testTheDocumentedTerminalCustomizationExampleIsTheShippedViewWithADifferentTitle()

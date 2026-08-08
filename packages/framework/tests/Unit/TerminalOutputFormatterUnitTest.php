@@ -22,46 +22,33 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
     public static function styleProvider(): array
     {
         return [
-            'info' => ['<info>Ready</info>', '<span class="hyde-terminal-info text-[#C3E88D]">Ready</span>'],
-            'comment' => ['<comment>Wait</comment>', '<span class="hyde-terminal-comment text-[#FFCB6B]">Wait</span>'],
-            'question' => ['<question>Continue?</question>', '<span class="hyde-terminal-question text-[#89DDFF]">Continue?</span>'],
-            'error' => ['<error>Failed</error>', '<span class="hyde-terminal-error font-semibold text-[#F07178]">Failed</span>'],
+            'info' => ['<info>Ready</info>', '<span class="hyde-terminal-info">Ready</span>'],
+            'comment' => ['<comment>Wait</comment>', '<span class="hyde-terminal-comment">Wait</span>'],
+            'question' => ['<question>Continue?</question>', '<span class="hyde-terminal-question">Continue?</span>'],
+            'error' => ['<error>Failed</error>', '<span class="hyde-terminal-error">Failed</span>'],
         ];
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('colorProvider')]
-    public function testColorsAreConvertedToSpans(string $color, string $foreground, string $background)
+    public function testColorsAreConvertedToSpans(string $color)
     {
-        $this->assertSame("<span class=\"hyde-terminal-fg-$color $foreground\">Text</span>", $this->format("<fg=$color>Text</>"));
-        $this->assertSame("<span class=\"hyde-terminal-bg-$color $background\">Text</span>", $this->format("<bg=$color>Text</>"));
+        $this->assertSame("<span class=\"hyde-terminal-fg-$color\">Text</span>", $this->format("<fg=$color>Text</>"));
+        $this->assertSame("<span class=\"hyde-terminal-bg-$color\">Text</span>", $this->format("<bg=$color>Text</>"));
     }
 
     public static function colorProvider(): array
     {
         return [
-            ['black', 'text-[#292D3E]', 'bg-[#292D3E]'],
-            ['red', 'text-[#F07178]', 'bg-[#F07178]'],
-            ['green', 'text-[#C3E88D]', 'bg-[#C3E88D]'],
-            ['yellow', 'text-[#FFCB6B]', 'bg-[#FFCB6B]'],
-            ['blue', 'text-[#82AAFF]', 'bg-[#82AAFF]'],
-            ['magenta', 'text-[#C792EA]', 'bg-[#C792EA]'],
-            ['cyan', 'text-[#89DDFF]', 'bg-[#89DDFF]'],
-            ['white', 'text-[#D0D0D0]', 'bg-[#D0D0D0]'],
-            ['gray', 'text-[#676E95]', 'bg-[#676E95]'],
-            ['bright-red', 'text-[#FF8B92]', 'bg-[#FF8B92]'],
-            ['bright-green', 'text-[#DDFFA7]', 'bg-[#DDFFA7]'],
-            ['bright-yellow', 'text-[#FFE585]', 'bg-[#FFE585]'],
-            ['bright-blue', 'text-[#9CC4FF]', 'bg-[#9CC4FF]'],
-            ['bright-magenta', 'text-[#E1ACFF]', 'bg-[#E1ACFF]'],
-            ['bright-cyan', 'text-[#A3F7FF]', 'bg-[#A3F7FF]'],
-            ['bright-white', 'text-[#FFFFFF]', 'bg-[#FFFFFF]'],
+            ['black'], ['red'], ['green'], ['yellow'], ['blue'], ['magenta'], ['cyan'], ['white'], ['gray'],
+            ['bright-red'], ['bright-green'], ['bright-yellow'], ['bright-blue'],
+            ['bright-magenta'], ['bright-cyan'], ['bright-white'],
         ];
     }
 
     public function testForegroundAndBackgroundCanBeCombined()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-fg-white text-[#D0D0D0] hyde-terminal-bg-green bg-[#C3E88D]"> PASS </span>',
+            '<span class="hyde-terminal-fg-white hyde-terminal-bg-green"> PASS </span>',
             $this->format('<fg=white;bg=green> PASS </>')
         );
     }
@@ -69,30 +56,26 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
     public function testAttributeNamesAndValuesAreCaseInsensitive()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-fg-gray text-[#676E95]">Text</span>',
+            '<span class="hyde-terminal-fg-gray">Text</span>',
             $this->format('<FG=Gray>Text</>')
         );
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('optionProvider')]
-    public function testOptionsAreConvertedToSpans(string $option, string $classes)
+    public function testOptionsAreConvertedToSpans(string $option)
     {
-        $this->assertSame("<span class=\"hyde-terminal-$option $classes\">Text</span>", $this->format("<options=$option>Text</>"));
+        $this->assertSame("<span class=\"hyde-terminal-$option\">Text</span>", $this->format("<options=$option>Text</>"));
     }
 
     public static function optionProvider(): array
     {
-        return [
-            ['bold', 'font-semibold'],
-            ['underscore', 'underline'],
-            ['strikethrough', 'line-through'],
-        ];
+        return [['bold'], ['underscore'], ['strikethrough']];
     }
 
     public function testOptionsCanBeCombined()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-bold font-semibold hyde-terminal-strikethrough line-through">Text</span>',
+            '<span class="hyde-terminal-bold hyde-terminal-strikethrough">Text</span>',
             $this->format('<options=bold,strikethrough>Text</>')
         );
     }
@@ -100,7 +83,7 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
     public function testOptionsCanBeCombinedWithColors()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-fg-gray text-[#676E95] hyde-terminal-bg-yellow bg-[#FFCB6B] hyde-terminal-strikethrough line-through">Text</span>',
+            '<span class="hyde-terminal-fg-gray hyde-terminal-bg-yellow hyde-terminal-strikethrough">Text</span>',
             $this->format('<fg=gray;bg=yellow;options=strikethrough>Text</>')
         );
     }
@@ -136,34 +119,26 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
         ];
     }
 
-    public function testColorsCanBeNestedWithinNamedStyles()
+    public function testTagsCanBeNested()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready in <span class="hyde-terminal-fg-gray text-[#676E95]">0.4s</span></span>',
-            $this->format('<info>Ready in <fg=gray>0.4s</></info>')
+            '<span class="hyde-terminal-info">Ready <span class="hyde-terminal-comment">soon</span></span>',
+            $this->format('<info>Ready <comment>soon</comment></info>')
         );
     }
 
     public function testNestedTagsComposeWithTheOnesTheyAreNestedIn()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-bold font-semibold">now</span></span>',
-            $this->format('<info>Ready <options=bold>now</></info>')
-        );
-    }
-
-    public function testTagsCanBeNested()
-    {
-        $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span></span>',
-            $this->format('<info>Ready <comment>soon</comment></info>')
+            '<span class="hyde-terminal-info">Ready in <span class="hyde-terminal-fg-gray">0.4s</span></span>',
+            $this->format('<info>Ready in <fg=gray>0.4s</></info>')
         );
     }
 
     public function testUnclosedTagsAreClosedAtTheEnd()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span></span>',
+            '<span class="hyde-terminal-info">Ready <span class="hyde-terminal-comment">soon</span></span>',
             $this->format('<info>Ready <comment>soon')
         );
     }
@@ -171,7 +146,7 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
     public function testShorthandClosingTagClosesTheMostRecentTag()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span> now</span>',
+            '<span class="hyde-terminal-info">Ready <span class="hyde-terminal-comment">soon</span> now</span>',
             $this->format('<info>Ready <comment>soon</> now</>')
         );
     }
@@ -184,7 +159,7 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
     public function testMismatchedTagsAreEscaped()
     {
         $this->assertSame(
-            '<span class="hyde-terminal-info text-[#C3E88D]">Ready&lt;/comment&gt;</span>',
+            '<span class="hyde-terminal-info">Ready&lt;/comment&gt;</span>',
             $this->format('<info>Ready</comment>')
         );
     }
