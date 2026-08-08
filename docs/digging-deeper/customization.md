@@ -153,9 +153,9 @@ Individual pages can be excluded from the sitemap with `sitemap: false` front ma
 default and can be included explicitly with `sitemap: true`. Custom page classes can override `showInSitemap()` when
 they need their own inclusion logic.
 
-The sitemap and RSS feed are registered as normal [`InMemoryPage`](in-memory-pages) routes, so they are built and
-served like other pages. To customize the generated contents, extend and bind the corresponding `SitemapGenerator` or
-`RssFeedGenerator` in the service container:
+When enabled, the sitemap and RSS feed are registered as normal [`InMemoryPage`](in-memory-pages) routes, so they are
+built and served like other pages. To customize the generated contents, extend and bind the corresponding
+`SitemapGenerator` or `RssFeedGenerator` in the service container:
 
 ```php
 $this->app->bind(RssFeedGenerator::class, CustomRssFeedGenerator::class);

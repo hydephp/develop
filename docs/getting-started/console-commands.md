@@ -116,8 +116,8 @@ php hyde build:rss
 
 Generate the RSS feed
 
-Compiles the registered RSS feed page, including a custom page registered at `hyde.rss.filename`. The command fails if
-no feed page is registered.
+Compiles the registered RSS feed page, including a custom page registered under the filename configured by
+`hyde.rss.filename`. The command fails if no feed page is registered.
 
 ## Generate the `docs/search.json` file
 
