@@ -19,7 +19,7 @@ use function str_repeat;
  */
 class TerminalOutputFormatter
 {
-    protected const TAG_PATTERN = '/(<\/?[a-z][^<>]*>)/i';
+    protected const TAG_PATTERN = '/(<\/?[a-z][^<>]*>|<\/>)/i';
 
     protected const STYLES = [
         'info' => 'hyde-terminal-info text-[#C3E88D]',
@@ -37,6 +37,9 @@ class TerminalOutputFormatter
             if (preg_match('/^<([a-z][^<>]*)>$/i', $part, $matches) && isset(static::STYLES[$matches[1]])) {
                 $stack[] = $matches[1];
                 $output .= '<span class="'.static::STYLES[$matches[1]].'">';
+            } elseif ($part === '</>' && $stack !== []) {
+                array_pop($stack);
+                $output .= '</span>';
             } elseif (preg_match('/^<\/([a-z][^<>]*)>$/i', $part, $matches) && end($stack) === $matches[1]) {
                 array_pop($stack);
                 $output .= '</span>';

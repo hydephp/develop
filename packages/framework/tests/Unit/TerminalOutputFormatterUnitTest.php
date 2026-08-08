@@ -45,6 +45,19 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
         );
     }
 
+    public function testShorthandClosingTagClosesTheMostRecentTag()
+    {
+        $this->assertSame(
+            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-comment text-[#FFCB6B]">soon</span> now</span>',
+            $this->format('<info>Ready <comment>soon</> now</>')
+        );
+    }
+
+    public function testShorthandClosingTagIsEscapedWhenNothingIsOpen()
+    {
+        $this->assertSame('Ready&lt;/&gt;', $this->format('Ready</>'));
+    }
+
     public function testMismatchedTagsAreEscaped()
     {
         $this->assertSame(
