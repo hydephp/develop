@@ -247,21 +247,25 @@ to fail rather than being silently ignored.
 
 #### XML style formatting
 
-The `xml` modifier renders four formatter tags (`<info>`, `<comment>`, `<question>`, and `<error>`) as coloured
-output, letting you paste console-style output verbatim.
+The `xml` modifier renders formatter tags as coloured output, letting you paste console-style output verbatim. The
+`<info>`, `<comment>`, `<question>`, and `<error>` tags carry Hyde's terminal theme colours, while the `fg`, `bg`, and
+`options` attributes set a colour or text formatting directly, closed with `</>`.
 
 ````markdown
 ```terminal xml title="Build output"
 <info>Hyde was installed successfully.</info>
+<fg=gray>Created 12 files in 0.4 seconds</>
 ```
 ````
 
 ```terminal xml title="Build output"
 <info>Hyde was installed successfully.</info>
+<fg=gray>Created 12 files in 0.4 seconds</>
 ```
 
-Tags are only interpreted with the modifier present; without it, they stay literal text. Everything else is escaped as
-usual, including unknown tags and tags that are not closed in the order they were opened.
+See [Advanced Markdown](advanced-markdown#xml-style-formatting) for the available colours and options. Tags are only
+interpreted with the modifier present; without it, they stay literal text. Everything else is escaped as usual,
+including unknown tags and tags that are not closed in the order they were opened.
 
 ### View contract
 
@@ -283,18 +287,21 @@ untitled block falls back to. The shipped view escapes it with `{{ }}` and falls
 
 ### Class hooks
 
-| Class                     | Targets                                    |
-|---------------------------|--------------------------------------------|
-| `hyde-terminal`           | The outer `<figure>` container             |
-| `hyde-terminal-header`    | The title bar                              |
-| `hyde-terminal-controls`  | The decorative window buttons              |
-| `hyde-terminal-body`      | The `<pre>` output area                    |
-| `hyde-terminal-command`   | A line beginning with a `$ ` prompt        |
-| `hyde-terminal-prompt`    | The `$ ` prompt itself                     |
-| `hyde-terminal-info`      | `<info>` output                            |
-| `hyde-terminal-comment`   | `<comment>` output                         |
-| `hyde-terminal-question`  | `<question>` output                        |
-| `hyde-terminal-error`     | `<error>` output                           |
+| Class                     | Targets                                            |
+|---------------------------|----------------------------------------------------|
+| `hyde-terminal`           | The outer `<figure>` container                     |
+| `hyde-terminal-header`    | The title bar                                      |
+| `hyde-terminal-controls`  | The decorative window buttons                      |
+| `hyde-terminal-body`      | The `<pre>` output area                            |
+| `hyde-terminal-command`   | A line beginning with a `$ ` prompt                |
+| `hyde-terminal-prompt`    | The `$ ` prompt itself                             |
+| `hyde-terminal-info`      | `<info>` output                                    |
+| `hyde-terminal-comment`   | `<comment>` output                                 |
+| `hyde-terminal-question`  | `<question>` output                                |
+| `hyde-terminal-error`     | `<error>` output                                   |
+| `hyde-terminal-fg-*`      | A foreground colour, like `hyde-terminal-fg-gray`  |
+| `hyde-terminal-bg-*`      | A background colour, like `hyde-terminal-bg-red`   |
+| `hyde-terminal-<option>`  | An option, like `hyde-terminal-strikethrough`      |
 
 ### Customization example
 

@@ -167,7 +167,7 @@ Unquoted values, unclosed quotes, and whitespace around the `=` are reported as 
 
 ### XML style formatting
 
-Add the `xml` modifier to style four formatter tags using colors from Hyde's terminal theme:
+Add the `xml` modifier to style formatter tags using colors from Hyde's terminal theme:
 
 ````markdown
 ```terminal xml
@@ -185,8 +185,25 @@ Add the `xml` modifier to style four formatter tags using colors from Hyde's ter
 | `<question>` | Cyan               |
 | `<error>`    | Emphasized red     |
 
-The formatter only recognizes these four tags. All other terminal content, including HTML, is escaped and displayed
-as text. Without the `xml` modifier, the formatter tags are also displayed as ordinary terminal output.
+Colors and text formatting can also be set directly, with the `fg`, `bg`, and `options` attributes. Combine them by
+separating them with semicolons, and close the tag with `</>`:
+
+````markdown
+```terminal xml
+<fg=gray>Created 12 files in 0.4 seconds</>
+<fg=black;bg=red;options=bold> ERROR </>
+```
+````
+
+The colors are `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, and `white`, each with a brighter
+`bright-` prefixed variant, except for bright black, which is called `gray`. The `options` attribute takes any of
+`bold`, `underscore`, and `strikethrough`, separated by commas.
+
+Tags nest, so a tag written inside another one combines with it. Styling does not carry across lines, and any tag
+left open at the end of a line is closed there.
+
+Anything that is not one of these tags, including HTML, is escaped and displayed as text. Without the `xml` modifier,
+the formatter tags are also displayed as ordinary terminal output.
 
 Modifiers can be combined in any order, so `terminal xml title="Build output"` and `terminal title="Build output" xml`
 are the same thing.
@@ -194,7 +211,8 @@ are the same thing.
 The terminal markup provides stable styling hooks for customization. Use `hyde-terminal-body` to change the output
 area's default text and background colors, and `hyde-terminal` to style the outer container. The
 `hyde-terminal-info`, `hyde-terminal-comment`, `hyde-terminal-question`, and `hyde-terminal-error` classes target the
-four formatter tags individually.
+four named tags individually, and the attributes add classes of the same shape, such as `hyde-terminal-fg-gray`,
+`hyde-terminal-bg-red`, and `hyde-terminal-strikethrough`.
 
 You can customize the terminal markup and Tailwind classes by publishing Hyde's Blade components:
 
