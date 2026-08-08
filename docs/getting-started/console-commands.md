@@ -116,6 +116,9 @@ php hyde build:rss
 
 Generate the RSS feed
 
+Compiles the registered RSS feed page, including a custom page registered at `hyde.rss.filename`. The command fails if
+no feed page is registered.
+
 ## Generate the `docs/search.json` file
 
 <a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
@@ -135,6 +138,9 @@ php hyde build:sitemap
 ```
 
 Generate the `sitemap.xml` file
+
+Compiles the registered `sitemap.xml` page, including a custom page at the same route key. The command fails if no
+sitemap page is registered.
 
 ## Scaffold a new Markdown, Blade, or documentation page file
 

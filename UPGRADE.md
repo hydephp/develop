@@ -317,12 +317,13 @@ new InMemoryPage('example', view: null);
 Non-HTML pages are excluded from automatic navigation by default. If you want one to appear, add
 `navigation.visible: true` or `navigation.hidden: false` to its front matter.
 
-Explicit navigation front matter now overrides Hyde's automatic exclusions. Review these settings on pages that were
-previously always excluded, as they will now appear in generated navigation.
+Explicit navigation front matter now overrides Hyde's automatic exclusions. Review `navigation.visible: true` and
+`navigation.hidden: false` on blog posts, routes listed in `hyde.navigation.exclude`, and pages in hidden subdirectories,
+as those settings were previously ignored.
 
 ## Step 7: Review Sitemap and RSS Feed Customizations
 
-Sites using the built-in sitemap and RSS configuration need no changes. The `GenerateSitemap` and `GenerateRssFeed`
+Sites that only use the built-in sitemap and RSS configuration need no changes. The `GenerateSitemap` and `GenerateRssFeed`
 post-build task classes have been removed, so update code that referenced or overrode them.
 
 To customize the generated content, bind your own `SitemapGenerator` or `RssFeedGenerator` implementation in the

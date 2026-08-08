@@ -178,7 +178,7 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get the output file extension for the page type, such as `.html` or `.txt`.
      *
-     * The value includes the leading dot, so it can be used directly as a file name suffix.
+     * Output extensions should include the leading dot, for example `.html` or `.txt`.
      */
     public static function outputExtension(): string
     {

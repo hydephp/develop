@@ -149,8 +149,20 @@ pages, while the RSS feed contains your Markdown blog posts.
 Both generators require the SimpleXML extension and a configured site URL. RSS generation also requires at least one
 Markdown blog post.
 
-The generated files are registered as [`InMemoryPage`](in-memory-pages) instances. You can customize or replace them
-through the normal page APIs.
+Individual pages can be excluded from the sitemap with `sitemap: false` front matter. Non-HTML pages are excluded by
+default and can be included explicitly with `sitemap: true`. Custom page classes can override `showInSitemap()` when
+they need their own inclusion logic.
+
+The sitemap and RSS feed are registered as normal [`InMemoryPage`](in-memory-pages) routes, so they are built and
+served like other pages. To customize the generated contents, extend and bind the corresponding `SitemapGenerator` or
+`RssFeedGenerator` in the service container:
+
+```php
+$this->app->bind(RssFeedGenerator::class, CustomRssFeedGenerator::class);
+```
+
+To replace a generated file entirely, register an `InMemoryPage` with the same route key. See the
+[InMemoryPage guide](in-memory-pages#registering-the-page) for page registration.
 
 ### Authors
 
