@@ -148,6 +148,14 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString('&lt;unknown&gt;text&lt;/unknown&gt;', $html);
     }
 
+    public function testFormatterTagsCanBeEscapedWithABackslash(): void
+    {
+        $html = Markdown::render("```terminal\n\\<info>Ready\\</info>\n```");
+
+        $this->assertStringContainsString('&lt;info&gt;Ready&lt;/info&gt;', $html);
+        $this->assertStringNotContainsString('hyde-terminal-info', $html);
+    }
+
     public function testUnknownModifiersAreIgnored(): void
     {
         $html = Markdown::render("```terminal future\nOutput\n```");

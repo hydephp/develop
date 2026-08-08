@@ -202,7 +202,8 @@ The colors are `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, and
 Tags nest, so a tag written inside another one combines with it. Styling does not carry across lines, and any tag
 left open at the end of a line is closed there.
 
-Anything that is not one of these tags, including HTML, is escaped and displayed as text.
+Anything that is not one of these tags, including HTML, is escaped and displayed as text. To show a tag as text
+instead of styling it, escape it with a backslash, like `\<info>`.
 
 The terminal markup provides stable styling hooks for customization. Use `hyde-terminal-body` to change the output
 area's default text and background colors, and `hyde-terminal` to style the outer container. Each formatting tag is

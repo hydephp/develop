@@ -15,7 +15,9 @@ use function in_array;
 use function preg_match;
 use function preg_split;
 use function str_repeat;
+use function str_starts_with;
 use function strtolower;
+use function substr;
 
 /**
  * Renders the formatting tags of a terminal block line as styled markup.
@@ -24,7 +26,7 @@ use function strtolower;
  */
 class TerminalOutputFormatter
 {
-    protected const TAG_PATTERN = '/(<\/?[a-z][^<>]*>|<\/>)/i';
+    protected const TAG_PATTERN = '/(\\\\?<\/?[a-z][^<>]*>|\\\\?<\/>)/i';
 
     protected const STYLES = ['info', 'comment', 'question', 'error'];
 
@@ -42,7 +44,9 @@ class TerminalOutputFormatter
         $stack = [];
 
         foreach (preg_split(static::TAG_PATTERN, $text, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [] as $part) {
-            if (preg_match('/^<([a-z][^<>]*)>$/i', $part, $matches) && ($classes = $this->resolveStyle($matches[1])) !== null) {
+            if (str_starts_with($part, '\\')) {
+                $output .= e($this->unescapeTag($part));
+            } elseif (preg_match('/^<([a-z][^<>]*)>$/i', $part, $matches) && ($classes = $this->resolveStyle($matches[1])) !== null) {
                 $stack[] = $matches[1];
                 $output .= '<span class="'.$classes.'">';
             } elseif ($this->closesOpenTag($part, $stack)) {
@@ -54,6 +58,23 @@ class TerminalOutputFormatter
         }
 
         return $output.str_repeat('</span>', count($stack));
+    }
+
+    /**
+     * A backslash only escapes a tag we would otherwise style, since `\<` is ordinary
+     * shell and regular expression syntax that a terminal block has to leave alone.
+     */
+    protected function unescapeTag(string $part): string
+    {
+        $tag = substr($part, 1);
+
+        return $this->isStyleTag($tag) ? $tag : $part;
+    }
+
+    protected function isStyleTag(string $tag): bool
+    {
+        return $tag === '</>'
+            || (preg_match('/^<\/?([a-z][^<>]*)>$/i', $tag, $matches) && $this->resolveStyle($matches[1]) !== null);
     }
 
     /** @param  array<int, string>  $stack */

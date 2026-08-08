@@ -169,6 +169,39 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
         $this->assertSame('Ready&lt;/info&gt;', $this->format('Ready</info>'));
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('escapedTagProvider')]
+    public function testABackslashEscapesATagThatWouldOtherwiseBeStyled(string $text, string $expected)
+    {
+        $this->assertSame($expected, $this->format($text));
+    }
+
+    public static function escapedTagProvider(): array
+    {
+        return [
+            'named style' => ['\\<info>', '&lt;info&gt;'],
+            'attributes' => ['\\<fg=gray>', '&lt;fg=gray&gt;'],
+            'closing tag' => ['\\<info>Ready\\</info>', '&lt;info&gt;Ready&lt;/info&gt;'],
+            'shorthand closing tag' => ['\\<fg=gray>Ready\\</>', '&lt;fg=gray&gt;Ready&lt;/&gt;'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('unescapedBackslashProvider')]
+    public function testABackslashIsLeftAloneWhenItDoesNotEscapeATagWeWouldStyle(string $text, string $expected)
+    {
+        $this->assertSame($expected, $this->format($text));
+    }
+
+    public static function unescapedBackslashProvider(): array
+    {
+        return [
+            'word boundaries' => ["grep '\\<foo\\>' file.txt", 'grep &#039;\\&lt;foo\\&gt;&#039; file.txt'],
+            'comparison' => ['2 \\< 3', '2 \\&lt; 3'],
+            'unknown tag' => ['\\<unknown>', '\\&lt;unknown&gt;'],
+            'unknown color' => ['\\<fg=puce>', '\\&lt;fg=puce&gt;'],
+            'windows path' => ['C:\\Users\\emma', 'C:\\Users\\emma'],
+        ];
+    }
+
     public function testUnknownTagsAreEscaped()
     {
         $this->assertSame('&lt;unknown&gt;text&lt;/unknown&gt;', $this->format('<unknown>text</unknown>'));
