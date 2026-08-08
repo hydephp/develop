@@ -310,15 +310,9 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get the route key for the page.
      *
-     * The route key is the page URL path, relative to the site root, but without the HTML file extension.
-     * For example, if the page will be saved to `_site/docs/index.html`, the key is `docs/index`.
-     * Pages compiled to non-HTML files keep their extension in the route key, so a page
-     * saved to `_site/docs/search.json` has the route key `docs/search.json`.
-     *
-     * Route keys are used to identify page routes, similar to how named routes work in Laravel,
-     * only that here the name is not just arbitrary, but also defines the output location,
-     * as the route key is used to determine the output path which is `$routeKey.html`,
-     * or the route key as-is for pages compiled to non-HTML files.
+     * Route keys identify page routes and define their output locations. The `.html`
+     * extension is implicit, so `_site/docs/index.html` uses `docs/index`. Non-HTML
+     * extensions remain part of the key, so `_site/docs/search.json` uses `docs/search.json`.
      */
     public function getRouteKey(): string
     {
@@ -395,11 +389,10 @@ abstract class HydePage implements PageSchema, SerializableContract
     }
 
     /**
-     * Can the page be shown in the sitemap?
+     * Determine whether the page should be included in the sitemap.
      *
-     * It can be explicitly set in the front matter using the `sitemap` key,
-     * otherwise it defaults to true for pages compiled to HTML files, and
-     * false for pages compiled to non-HTML files like `robots.txt`.
+     * The `sitemap` front matter key can explicitly control this. Otherwise, HTML
+     * pages are included by default and non-HTML pages are excluded.
      */
     public function showInSitemap(): bool
     {

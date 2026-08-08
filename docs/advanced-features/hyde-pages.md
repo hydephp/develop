@@ -176,13 +176,8 @@ autodiscovery, you may benefit from creating a custom page class instead, as tha
 
 You can learn more about the InMemoryPage class in the [InMemoryPage documentation](in-memory-pages).
 
-In-memory pages infer their output extension from the identifier. Identifiers without an extension compile to `.html`,
-while identifiers that already have an extension keep it:
-
-```php
-InMemoryPage::make('robots.txt', contents: $text);
-// _site/robots.txt
-```
+In-memory pages infer their output extension from the identifier: identifiers without an extension compile to `.html`,
+while identifiers that already have an extension retain it. See the [InMemoryPage guide](in-memory-pages) for details.
 
 ### Quick Reference
 

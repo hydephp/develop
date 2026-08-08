@@ -48,8 +48,6 @@ InMemoryPage::make('robots.txt', contents: $text);
 // _site/robots.txt
 ```
 
-The same inference is used by static and instance path helpers.
-
 Non-HTML pages are excluded from generated navigation and sitemaps by default. They can be included using the
 corresponding `navigation.visible: true` or `sitemap: true` front matter options.
 
@@ -169,7 +167,8 @@ class AppServiceProvider extends ServiceProvider
 
 The page will be written to `_site/hello.html` and can be referenced using the `hello` route key.
 
-Hyde's generated sitemap and RSS feed are themselves in-memory pages. Registering a page with the same route key during booting overrides the generated page, giving you complete control over its contents. The sitemap route key is `sitemap.xml` and the RSS route key is the filename configured in `hyde.rss.filename`.
+Hyde's generated sitemap and RSS feed are in-memory pages. Registering a page with the same route key replaces the
+generated page. Use `sitemap.xml` for the sitemap and the filename configured in `hyde.rss.filename` for the feed.
 
 ### In a package extension
 

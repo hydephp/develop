@@ -135,17 +135,22 @@ pages, while the RSS feed contains your Markdown blog posts.
 'generate_sitemap' => true,
 
 'rss' => [
+    // Should the RSS feed be generated?
     'enabled' => true,
+
+    // What filename should the RSS file use?
     'filename' => 'feed.xml',
+
+    // The channel description.
     'description' => env('SITE_NAME', 'HydePHP').' RSS Feed',
 ],
 ```
 
-Both generators require the SimpleXML extension. Sitemap generation also requires a configured site URL so that it
-can produce absolute links.
+Both generators require the SimpleXML extension and a configured site URL. RSS generation also requires at least one
+Markdown blog post.
 
-The generated files are registered as [`InMemoryPage`](in-memory-pages) instances, allowing advanced users to
-customize or replace them through the page API.
+The generated files are registered as [`InMemoryPage`](in-memory-pages) instances. You can customize or replace them
+through the normal page APIs.
 
 ### Authors
 

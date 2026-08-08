@@ -78,7 +78,6 @@ class InMemoryPage extends HydePage
      *
      * View values ending in `.blade.php` are treated as Blade file paths. Other values are treated
      * as registered Laravel view keys.
-     * Identifiers that already have an extension use it as the output path unchanged.
      *
      * @param  string  $identifier
      * @param  FrontMatter|array  $matter
