@@ -74,6 +74,42 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
         );
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('optionProvider')]
+    public function testOptionsAreConvertedToSpans(string $option, string $classes)
+    {
+        $this->assertSame("<span class=\"hyde-terminal-$option $classes\">Text</span>", $this->format("<options=$option>Text</>"));
+    }
+
+    public static function optionProvider(): array
+    {
+        return [
+            ['bold', 'font-semibold'],
+            ['underscore', 'underline'],
+            ['strikethrough', 'line-through'],
+        ];
+    }
+
+    public function testOptionsCanBeCombined()
+    {
+        $this->assertSame(
+            '<span class="hyde-terminal-bold font-semibold hyde-terminal-strikethrough line-through">Text</span>',
+            $this->format('<options=bold,strikethrough>Text</>')
+        );
+    }
+
+    public function testOptionsCanBeCombinedWithColors()
+    {
+        $this->assertSame(
+            '<span class="hyde-terminal-fg-gray text-[#676E95] hyde-terminal-bg-yellow bg-[#FFCB6B] hyde-terminal-strikethrough line-through">Text</span>',
+            $this->format('<fg=gray;bg=yellow;options=strikethrough>Text</>')
+        );
+    }
+
+    public function testUnknownOptionsAreEscaped()
+    {
+        $this->assertSame('&lt;options=sparkle&gt;Text&lt;/&gt;', $this->format('<options=sparkle>Text</>'));
+    }
+
     public function testUnknownColorsAreEscaped()
     {
         $this->assertSame('&lt;fg=puce&gt;Text&lt;/&gt;', $this->format('<fg=puce>Text</>'));

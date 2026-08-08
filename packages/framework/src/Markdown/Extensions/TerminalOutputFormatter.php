@@ -70,6 +70,12 @@ class TerminalOutputFormatter
         'bright-white' => 'hyde-terminal-bg-bright-white bg-[#FFFFFF]',
     ];
 
+    protected const OPTIONS = [
+        'bold' => 'hyde-terminal-bold font-semibold',
+        'underscore' => 'hyde-terminal-underscore underline',
+        'strikethrough' => 'hyde-terminal-strikethrough line-through',
+    ];
+
     public function format(string $text): string
     {
         $output = '';
@@ -131,7 +137,23 @@ class TerminalOutputFormatter
         return match ($attribute) {
             'fg' => static::FOREGROUND_COLORS[$value] ?? null,
             'bg' => static::BACKGROUND_COLORS[$value] ?? null,
+            'options' => $this->resolveOptions($value),
             default => null,
         };
+    }
+
+    protected function resolveOptions(string $value): ?string
+    {
+        $classes = [];
+
+        foreach (explode(',', $value) as $option) {
+            if (! isset(static::OPTIONS[$option])) {
+                return null;
+            }
+
+            $classes[$option] = static::OPTIONS[$option];
+        }
+
+        return implode(' ', $classes);
     }
 }
