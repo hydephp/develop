@@ -73,6 +73,51 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString('<span class="hyde-terminal-error font-semibold text-[#F07178]">Failed</span>', $html);
     }
 
+    public function testXmlModifierRendersColorAndOptionTags(): void
+    {
+        $html = Markdown::render(
+            "```terminal xml\n<fg=gray>Skipped</> <options=strikethrough>Removed</> <fg=white;bg=red;options=bold> ERROR </>\n```"
+        );
+
+        $this->assertStringContainsString('<span class="hyde-terminal-fg-gray text-[#676E95]">Skipped</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-strikethrough line-through">Removed</span>', $html);
+        $this->assertStringContainsString(
+            '<span class="hyde-terminal-fg-white text-[#D0D0D0] hyde-terminal-bg-red bg-[#F07178] hyde-terminal-bold font-semibold"> ERROR </span>',
+            $html,
+        );
+    }
+
+    public function testXmlFormattingRendersPastedConsoleOutput(): void
+    {
+        $html = Markdown::render(<<<'MARKDOWN'
+        ```terminal xml title="Build output"
+        $ php hyde build
+        <info>Building your static site!</info>
+        <fg=gray>Created 12 files in 0.4 seconds</>
+        <comment>Note: <options=underscore>--pretty-urls</> is now the default</comment>
+        ```
+        MARKDOWN);
+
+        $this->assertStringContainsString('<span>Build output</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-prompt select-none" aria-hidden="true">$ </span>php hyde build', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-info text-[#C3E88D]">Building your static site!</span>', $html);
+        $this->assertStringContainsString('<span class="hyde-terminal-fg-gray text-[#676E95]">Created 12 files in 0.4 seconds</span>', $html);
+        $this->assertStringContainsString(
+            '<span class="hyde-terminal-comment text-[#FFCB6B]">Note: <span class="hyde-terminal-underscore underline">--pretty-urls</span> is now the default</span>',
+            $html,
+        );
+    }
+
+    public function testXmlFormattingDoesNotCarryOverToTheNextLine(): void
+    {
+        $html = Markdown::render("```terminal xml\n<fg=gray>Working\nDone</>\n```");
+
+        $this->assertStringContainsString(
+            '<span class="hyde-terminal-fg-gray text-[#676E95]">Working</span>'."\n".'Done&lt;/&gt;',
+            $html,
+        );
+    }
+
     public function testXmlFormattingSupportsNestedTags(): void
     {
         $html = Markdown::render("```terminal xml\n<info>Ready <comment>soon</comment></info>\n```");

@@ -144,6 +144,14 @@ class TerminalOutputFormatterUnitTest extends UnitTestCase
         );
     }
 
+    public function testNestedTagsComposeWithTheOnesTheyAreNestedIn()
+    {
+        $this->assertSame(
+            '<span class="hyde-terminal-info text-[#C3E88D]">Ready <span class="hyde-terminal-bold font-semibold">now</span></span>',
+            $this->format('<info>Ready <options=bold>now</></info>')
+        );
+    }
+
     public function testTagsCanBeNested()
     {
         $this->assertSame(
