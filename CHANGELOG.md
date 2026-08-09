@@ -19,7 +19,7 @@ This serves two purposes:
 ### Added
 - Added a configuration option to disable the footer scroll-to-top button independently of the footer in https://github.com/hydephp/develop/pull/2459
 - Added Blade Blocks for rendering Blade and Blade components from fenced code blocks in Markdown pages. They are controlled by the existing `markdown.enable_blade` option. ([#2504](https://github.com/hydephp/develop/pull/2504))
-- Added built-in `terminal` fenced code blocks with command prompt styling, an optional window title using the `title="…"` modifier, and optional XML style formatting using the `terminal xml` info string. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
+- Added built-in `terminal` fenced code blocks with command prompt styling and an optional window title using the `title="…"` modifier. They support terminal formatting tags, including the named `<info>`, `<comment>`, `<question>`, and `<error>` styles, as well as colors and text formatting using the `fg`, `bg`, and `options` attributes. ([#2188](https://github.com/hydephp/develop/issues/2188), [#2485](https://github.com/hydephp/develop/issues/2485))
 - Added support for lazy `InMemoryPage` contents closures. The current page is passed as the first argument whenever the contents are requested.
 
 ### Changed

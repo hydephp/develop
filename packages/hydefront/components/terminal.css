@@ -1,0 +1,82 @@
+/*
+ * This file contains the default styles for the terminal block output.
+ * This is already included in the bundled `resources/assets/app.css` file,
+ * and can be customized by replacing the import with your custom CSS.
+ */
+
+.hyde-terminal-command {
+    color: #C3E88D;
+}
+
+.hyde-terminal-prompt {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.hyde-terminal-info {
+    color: #C3E88D;
+}
+
+.hyde-terminal-comment {
+    color: #FFCB6B;
+}
+
+.hyde-terminal-question {
+    color: #89DDFF;
+}
+
+.hyde-terminal-error {
+    color: #F07178;
+    font-weight: 600;
+}
+
+.hyde-terminal-fg-black { color: #292D3E; }
+.hyde-terminal-fg-red { color: #F07178; }
+.hyde-terminal-fg-green { color: #C3E88D; }
+.hyde-terminal-fg-yellow { color: #FFCB6B; }
+.hyde-terminal-fg-blue { color: #82AAFF; }
+.hyde-terminal-fg-magenta { color: #C792EA; }
+.hyde-terminal-fg-cyan { color: #89DDFF; }
+.hyde-terminal-fg-white { color: #D0D0D0; }
+.hyde-terminal-fg-gray { color: #676E95; }
+.hyde-terminal-fg-bright-red { color: #FF8B92; }
+.hyde-terminal-fg-bright-green { color: #DDFFA7; }
+.hyde-terminal-fg-bright-yellow { color: #FFE585; }
+.hyde-terminal-fg-bright-blue { color: #9CC4FF; }
+.hyde-terminal-fg-bright-magenta { color: #E1ACFF; }
+.hyde-terminal-fg-bright-cyan { color: #A3F7FF; }
+.hyde-terminal-fg-bright-white { color: #FFFFFF; }
+
+.hyde-terminal-bg-black { background-color: #292D3E; }
+.hyde-terminal-bg-red { background-color: #F07178; }
+.hyde-terminal-bg-green { background-color: #C3E88D; }
+.hyde-terminal-bg-yellow { background-color: #FFCB6B; }
+.hyde-terminal-bg-blue { background-color: #82AAFF; }
+.hyde-terminal-bg-magenta { background-color: #C792EA; }
+.hyde-terminal-bg-cyan { background-color: #89DDFF; }
+.hyde-terminal-bg-white { background-color: #D0D0D0; }
+.hyde-terminal-bg-gray { background-color: #676E95; }
+.hyde-terminal-bg-bright-red { background-color: #FF8B92; }
+.hyde-terminal-bg-bright-green { background-color: #DDFFA7; }
+.hyde-terminal-bg-bright-yellow { background-color: #FFE585; }
+.hyde-terminal-bg-bright-blue { background-color: #9CC4FF; }
+.hyde-terminal-bg-bright-magenta { background-color: #E1ACFF; }
+.hyde-terminal-bg-bright-cyan { background-color: #A3F7FF; }
+.hyde-terminal-bg-bright-white { background-color: #FFFFFF; }
+
+.hyde-terminal-bold {
+    font-weight: 600;
+}
+
+.hyde-terminal-underscore {
+    text-decoration-line: underline;
+}
+
+.hyde-terminal-strikethrough {
+    text-decoration-line: line-through;
+}
+
+/* Both decorations are one property, so combining them needs its own declaration. */
+.hyde-terminal-underscore.hyde-terminal-strikethrough {
+    text-decoration-line: underline line-through;
+}
