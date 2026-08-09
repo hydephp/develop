@@ -4,29 +4,12 @@ This is the hydephp/develop monorepo. Framework code lives in `packages/framewor
 shared test utilities in `packages/testing`, the dev server in `packages/realtime-compiler`.
 We are developing HydePHP v3; the main branch for PRs is `2.x`.
 
-## Epic-driven workflow
-
-- Multi-PR efforts are specified in epic documents at the repo root (like
-  `EPIC_NON_HTML_PAGES.md`). The epic is the source of truth: before implementing,
-  re-read the relevant PR section and design decisions; after implementing, check the
-  diff against them line by line.
-- Deviations from the design and decisions the epic left open MUST be written back
-  into the epic in the same PR, and implemented sections marked (like "✅ Implemented").
-- Before deviating, verify it is a *good* deviation: check side effects against the
-  rest of the epic (later PRs, design decisions) so the change doesn't drift from the
-  overall design. Also watch for silent under-delivery — implementing a design rule
-  only for the cases the current PR exercises will break later PRs that rely on it.
-- Work on the epic happens in `v3/<epic-name>-*` branches off the epic base branch.
-  Check `git branch --list 'v3/*'` and the epic's status annotations (which may only
-  exist on PR branches) before assuming a PR is unimplemented.
-
 ## Commits
 
 - Make atomic commits as you go: one logical change per commit (implementation,
   tests, docs/release notes separately when they are separable). Do not batch a
   whole PR into one commit at the end.
-- Each commit should represent one coherent change and leave the repository in a valid
-  state. Do not mix unrelated refactors, behaviour changes, generated assets,
+- Each commit should represent one coherent change. Do not mix unrelated refactors, behaviour changes, generated assets,
   documentation cleanup, and bug fixes when they can be separated meaningfully.
 - Commit messages should explain the completed change, not narrate the editing process.
 - Before finishing, inspect the complete diff and remove temporary code, superseded
