@@ -92,6 +92,7 @@ class RouteKeyTest extends UnitTestCase
     public function testFromPageWithExplicitExtensionUsesItForInMemoryPageSubclasses()
     {
         $this->assertEquals(new RouteKey('api/users.xml'), RouteKey::fromPage(InMemoryPageWithCustomOutputConfiguration::class, 'users.xml'));
+        $this->assertEquals(new RouteKey('api/users'), RouteKey::fromPage(InMemoryPageWithCustomOutputConfiguration::class, 'users.html'));
     }
 
     public function testFromPageWithNonHtmlOutputExtensionIncludesExtensionInRouteKey()

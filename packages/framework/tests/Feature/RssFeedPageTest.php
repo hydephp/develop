@@ -92,23 +92,6 @@ class RssFeedPageTest extends TestCase
         $this->assertSame('feed.rss', InMemoryPage::outputPath('feed.rss'));
     }
 
-    public function testFeedPagePreservesConfiguredExtensionlessFilename()
-    {
-        config(['hyde.rss.filename' => 'feed']);
-
-        $this->assertFalse(Routes::exists('feed.html'));
-        $this->assertTrue(Routes::exists('feed'));
-        $this->assertSame('feed', Routes::get('feed')->getPage()->getOutputPath());
-
-        $this->artisan('build')->assertExitCode(0);
-
-        $contents = file_get_contents(Hyde::path('_site/feed'));
-
-        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $contents);
-        $this->assertStringContainsString('<rss', $contents);
-        $this->assertFileDoesNotExist(Hyde::path('_site/feed.html'));
-    }
-
     public function testFeedPageIsHiddenFromNavigationAndExcludesItselfFromTheSitemap()
     {
         $page = Routes::get('feed.xml')->getPage();

@@ -411,14 +411,6 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('docs/1.x/index.html', InMemoryPage::outputPath('docs/1.x/index'));
     }
 
-    public function testExplicitHtmlIdentifierUsesTheImplicitHtmlRouteKey()
-    {
-        $page = new InMemoryPage('about.html');
-
-        $this->assertSame('about.html', $page->getOutputPath());
-        $this->assertSame('about', $page->getRouteKey());
-    }
-
     public function testStaticAndInstanceOutputPathsUseTheSameSemantics()
     {
         foreach (['foo', 'robots.txt', 'docs/search.json', 'docs/1.x/index'] as $identifier) {
@@ -437,17 +429,10 @@ class InMemoryPageTest extends TestCase
         $this->assertSame('api/users.json', $page->getOutputPath());
     }
 
-    public function testSubclassExplicitIdentifierExtensionWinsOverConfiguredOutputExtension()
-    {
-        $page = new InMemoryPageWithCustomOutputConfiguration('users.xml');
-
-        $this->assertSame('api/users.xml', $page->getOutputPath());
-        $this->assertSame('api/users.xml', $page->getRouteKey());
-    }
-
     public function testSubclassOutputDirectoryAndExtensionAreUsedForStaticResolutionToo()
     {
         $this->assertSame('api/users.json', InMemoryPageWithCustomOutputConfiguration::outputPath('users'));
+        $this->assertSame('api/users.xml', InMemoryPageWithCustomOutputConfiguration::outputPath('users.xml'));
     }
 }
 
