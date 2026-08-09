@@ -126,12 +126,14 @@ redirects:
   docs/old-guide: docs/new-guide
 ```
 
-### RSS feed generation
+### Sitemap and RSS feed generation
 
-When enabled, an RSS feed containing all your Markdown blog posts will be generated when you compile your static site.
-Here are the default settings:
+Hyde can automatically generate a sitemap and an RSS feed when building your site. The sitemap includes eligible site
+pages, while the RSS feed contains your Markdown blog posts.
 
 ```php title="config/hyde.php"
+'generate_sitemap' => true,
+
 'rss' => [
     // Should the RSS feed be generated?
     'enabled' => true,
@@ -144,7 +146,33 @@ Here are the default settings:
 ],
 ```
 
->warning Note that this feature requires that a `site_url` is set!
+Both generators require the SimpleXML extension and a configured site URL. RSS generation also requires at least one
+Markdown blog post.
+
+Individual pages can be excluded from the sitemap with `sitemap: false` front matter. Non-HTML pages are excluded by
+default and can be included explicitly with `sitemap: true`. Custom page classes can override `showInSitemap()` when
+they need their own inclusion logic.
+
+When enabled, the sitemap and RSS feed are registered as routes, so they are built and served like other pages. To
+customize their contents, bind your generator implementation in the `register()` method of a service provider:
+
+```php
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
+
+public function register(): void
+{
+    $this->app->bind(
+        SitemapGenerator::class,
+        CustomSitemapGenerator::class,
+    );
+
+    $this->app->bind(
+        RssFeedGenerator::class,
+        CustomRssFeedGenerator::class,
+    );
+}
+```
 
 ### Authors
 

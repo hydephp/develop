@@ -9,7 +9,6 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildRssFeedCommand::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed::class)]
 class BuildRssFeedCommandTest extends TestCase
 {
     public function testRssFeedIsGeneratedWhenConditionsAreMet()
@@ -40,5 +39,41 @@ class BuildRssFeedCommandTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
         $this->assertFileExists(Hyde::path('_site/blog.xml'));
         Filesystem::unlink('_site/blog.xml');
+    }
+
+    public function testRssFeedIsNotGeneratedWithoutSiteUrl()
+    {
+        config(['hyde.url' => '']);
+        $this->file('_posts/foo.md');
+
+        $this->artisan('build:rss')
+            ->expectsOutput('Cannot generate the RSS feed as the feature is not enabled')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
+    }
+
+    public function testRssFeedIsNotGeneratedWhenFeedIsDisabledInConfig()
+    {
+        $this->withSiteUrl();
+        config(['hyde.rss.enabled' => false]);
+        $this->file('_posts/foo.md');
+
+        $this->artisan('build:rss')
+            ->expectsOutput('Cannot generate the RSS feed as the feature is not enabled')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
+    }
+
+    public function testRssFeedIsNotGeneratedWhenThereAreNoPosts()
+    {
+        $this->withSiteUrl();
+
+        $this->artisan('build:rss')
+            ->expectsOutput('Cannot generate the RSS feed as the feature is not enabled')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
     }
 }

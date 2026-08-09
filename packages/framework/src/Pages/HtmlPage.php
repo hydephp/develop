@@ -18,7 +18,7 @@ class HtmlPage extends HydePage
 {
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-    public static string $fileExtension = '.html';
+    public static string $sourceExtension = '.html';
 
     public function contents(): string
     {

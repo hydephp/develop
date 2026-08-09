@@ -36,8 +36,20 @@ The constructor supports three content strategies: literal string contents, lazy
 Pass a string to the `$contents` parameter when the page contents are already available. Hyde saves the string literally.
 
 ```php
-$page = new InMemoryPage('robots.txt', contents: "User-agent: *\n");
+InMemoryPage::make('about', contents: $html);
+// _site/about.html
 ```
+
+The output extension is inferred from the identifier. Identifiers without an extension compile to `.html`, while
+identifiers with an extension retain it:
+
+```php
+InMemoryPage::make('robots.txt', contents: $text);
+// _site/robots.txt
+```
+
+Non-HTML pages are excluded from generated navigation and sitemaps by default. They can be included using the
+corresponding `navigation.visible: true` or `sitemap: true` front matter options.
 
 Pass a closure when the contents should be generated lazily during compilation. The closure is invoked again for each
 compilation, which makes it useful for pages generated from the current application state.
@@ -48,8 +60,7 @@ use Hyde\Pages\InMemoryPage;
 
 $page = new InMemoryPage(
     'sitemap.xml',
-    ['navigation' => ['hidden' => true]],
-    fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+    contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
 );
 ```
 
@@ -108,6 +119,20 @@ class ReportPage extends InMemoryPage
         return (string) $this->matter->get('title');
     }
 }
+```
+
+An `InMemoryPage` subclass can declare a shared `$outputDirectory` and `$outputExtension`. Use extensionless
+identifiers so the configured extension is applied:
+
+```php
+class ApiEndpointPage extends InMemoryPage
+{
+    public static string $outputDirectory = 'api';
+    public static string $outputExtension = '.json';
+}
+
+ApiEndpointPage::make('users');
+// _site/api/users.json
 ```
 
 ## Registering the Page
