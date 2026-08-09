@@ -177,7 +177,7 @@ See [Advanced Markdown](advanced-markdown#code-block-titles) for the `title` mod
 
 ### Customization example
 
-Say you want a header bar above the code, showing the language next to the label:
+Say you want to show the language next to the label in the header:
 
 ```blade title="resources/views/vendor/hyde/components/markdown/code-block.blade.php"
 <div class="hyde-code-block not-prose my-4 overflow-hidden rounded">

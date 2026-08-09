@@ -267,8 +267,7 @@ Note that these currently do not support multi-line blockquotes.
 
 ## Code Block Titles
 
-When browsing these documentation pages you may have noticed a label in the top right corner of code blocks naming the
-file the code belongs to. Add a `title` modifier to a fenced code block to label it like that.
+Add a `title` modifier to a fenced code block to show a title or filename in a header above the code.
 
 ### Usage
 
@@ -284,6 +283,13 @@ Which becomes:
 echo 'Hello World!';
 ```
 
+Code block titles use a responsive header by default. To use the compact badge presentation, set the label style in
+`config/markdown.php`:
+
+```php title="config/markdown.php"
+'code_block_label_style' => 'badge',
+```
+
 ### Advanced usage
 
 Since HTML in Markdown is enabled by default, anything within the title will be rendered as HTML. This means you
@@ -294,10 +300,6 @@ can add links, or even images to the label.
 Hello World!
 ```
 ````
-
-### Limitations
-
-The titles are hidden on mobile devices using CSS to prevent them from overlapping with the code block.
 
 ### Customizations
 
