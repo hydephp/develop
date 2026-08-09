@@ -65,7 +65,7 @@ final class RouteKey implements Stringable
         $extension = $pageClass::outputExtension();
 
         if (is_a($pageClass, InMemoryPage::class, true) && pathinfo($identifier, PATHINFO_EXTENSION) !== '') {
-            if ($extension === '.html' && str_ends_with($key, '.html')) {
+            if (str_ends_with($key, '.html')) {
                 $key = substr($key, 0, -strlen('.html'));
             }
 

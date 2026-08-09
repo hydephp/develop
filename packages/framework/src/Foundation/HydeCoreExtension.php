@@ -32,7 +32,6 @@ use function Hyde\unslash;
 use function app;
 use function array_filter;
 use function array_keys;
-use function pathinfo;
 use function sprintf;
 
 class HydeCoreExtension extends HydeExtension
@@ -119,14 +118,10 @@ class HydeCoreExtension extends HydeExtension
     protected function addGeneratedPage(PageCollection $collection, string $routeKey, Closure $contents): void
     {
         if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
-            $page = pathinfo($routeKey, PATHINFO_EXTENSION) === ''
-                ? new class($routeKey, contents: $contents) extends InMemoryPage
-                {
-                    public static string $outputExtension = '';
-                }
-                : new InMemoryPage($routeKey, contents: $contents);
-
-            $collection->addPage($page);
+            $collection->addPage(new InMemoryPage(
+                $routeKey,
+                contents: $contents,
+            ));
         }
     }
 
