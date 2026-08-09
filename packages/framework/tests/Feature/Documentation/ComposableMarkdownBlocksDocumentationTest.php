@@ -379,7 +379,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $html = Markdown::render($this->codeBlockWithTitle());
 
-        $this->assertStringContainsString('<div class="hyde-code-block ', $html);
+        $this->assertStringContainsString('<figure class="hyde-code-block ', $html);
         $this->assertStringContainsString('hello-world.php', $html);
     }
 
@@ -893,15 +893,15 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $html = Markdown::render($this->codeBlockWithTitle());
 
-        $this->assertStringContainsString('<span class="sr-only">Title: </span>hello-world.php', $html);
+        $this->assertStringContainsString('>hello-world.php</figcaption>', $html);
         $this->assertStringContainsString("echo 'Hello World!';", $html);
     }
 
     public function testTheTitleModifierFollowsTheTerminalBlockTitleRules()
     {
         // Double quotes are canonical, and single quotes are accepted
-        $this->assertStringContainsString('>hello-world.php</header>', Markdown::render("```php title=\"hello-world.php\"\necho 1;\n```"));
-        $this->assertStringContainsString('>hello-world.php</header>', Markdown::render("```php title='hello-world.php'\necho 1;\n```"));
+        $this->assertStringContainsString('>hello-world.php</figcaption>', Markdown::render("```php title=\"hello-world.php\"\necho 1;\n```"));
+        $this->assertStringContainsString('>hello-world.php</figcaption>', Markdown::render("```php title='hello-world.php'\necho 1;\n```"));
 
         // A malformed value fails the build rather than being silently ignored
         $this->expectException(InvalidArgumentException::class);
@@ -914,7 +914,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $html = Markdown::render("``` title=\".env\"\nAPP_NAME=HydePHP\n```");
 
-        $this->assertStringContainsString('>.env</header>', $html);
+        $this->assertStringContainsString('>.env</figcaption>', $html);
 
         // Such a block is plaintext, as documented, so that a modifier after the title is not read as the language
         $this->assertStringContainsString('<pre><code class="language-plaintext">APP_NAME=HydePHP', $html);
@@ -969,7 +969,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $view = $this->frameworkViewContents('markdown/code-block.blade.php');
 
-        $this->assertStringContainsString('<header class="hyde-code-block-label ', $view);
+        $this->assertStringContainsString('<figcaption class="hyde-code-block-label ', $view);
         $this->assertStringContainsString('[overflow-wrap:anywhere]', $view);
     }
 

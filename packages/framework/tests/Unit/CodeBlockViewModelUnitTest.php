@@ -76,8 +76,9 @@ class CodeBlockViewModelUnitTest extends UnitTestCase
         $html = (new CodeBlockViewModel('<pre><code>Hello</code></pre>', label: 'foo.php'))->render();
 
         $this->assertStringContainsString('hyde-code-block-label', $html);
-        $this->assertStringContainsString('<header class="hyde-code-block-label ', $html);
-        $this->assertStringContainsString('<span class="sr-only">Title: </span>foo.php</header>', $html);
+        $this->assertStringContainsString('<figure class="hyde-code-block ', $html);
+        $this->assertStringContainsString('<figcaption class="hyde-code-block-label ', $html);
+        $this->assertStringContainsString('>foo.php</figcaption>', $html);
     }
 
     public function testRenderEscapesAStringLabel()

@@ -93,8 +93,9 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("```php title=\"app/Model.php\"\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('<header class="hyde-code-block-label ', $html);
-        $this->assertStringContainsString('<span class="sr-only">Title: </span>app/Model.php</header>', $html);
+        $this->assertStringContainsString('<figure class="hyde-code-block ', $html);
+        $this->assertStringContainsString('<figcaption class="hyde-code-block-label ', $html);
+        $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
     }
 
     public function testLegacyBadgeLabelStyleCanBeConfigured(): void
@@ -103,9 +104,9 @@ class CodeBlocksTest extends TestCase
 
         $html = Markdown::render("```php title=\"app/Model.php\"\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('<small class="hyde-code-block-label ', $html);
-        $this->assertStringContainsString('<span class="sr-only">Title: </span>app/Model.php</small>', $html);
-        $this->assertStringNotContainsString('<header class="hyde-code-block-label ', $html);
+        $this->assertStringContainsString('<figure class="hyde-code-block ', $html);
+        $this->assertStringContainsString('<figcaption class="hyde-code-block-label ', $html);
+        $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
     }
 
     public function testUnsupportedLabelStyleThrows(): void
@@ -122,14 +123,14 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("```php title='app/Model.php'\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('>app/Model.php</header>', $html);
+        $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
     }
 
     public function testTitleModifierMayContainWhitespace(): void
     {
         $html = Markdown::render("```php title=\"My File.php\"\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('>My File.php</header>', $html);
+        $this->assertStringContainsString('>My File.php</figcaption>', $html);
     }
 
     public function testTitleModifierDoesNotAffectTheLanguageClass(): void
@@ -143,7 +144,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("``` title=\"app/Model.php\"\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('>app/Model.php</header>', $html);
+        $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
         $this->assertStringContainsString("<pre><code class=\"language-plaintext\">echo 'Hi';", $html);
     }
 
@@ -166,7 +167,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("``` title=\"app/Model.php\" theme:github-dark\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('>app/Model.php</header>', $html);
+        $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
         $this->assertStringContainsString('<pre><code class="language-plaintext">', $html);
         $this->assertStringNotContainsString('theme:github-dark', $html);
     }
@@ -211,7 +212,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("```php title=\"first.php\" title=\"second.php\"\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('>second.php</header>', $html);
+        $this->assertStringContainsString('>second.php</figcaption>', $html);
         $this->assertStringNotContainsString('first.php', $html);
         $this->assertSame('php', $this->fenceInfoSeenByHighlighter('php title="first.php" title="second.php"'));
     }
@@ -251,7 +252,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = Markdown::render("```php title='<a href=\"#\">Link</a>'\necho 'Hi';\n```");
 
-        $this->assertStringContainsString('<a href="#">Link</a></header>', $html);
+        $this->assertStringContainsString('<a href="#">Link</a></figcaption>', $html);
     }
 
     public function testLabelIsEscapedWhenHtmlIsDisabled(): void
@@ -260,7 +261,7 @@ class CodeBlocksTest extends TestCase
 
         $html = Markdown::render("```php title='<a href=\"#\">Link</a>'\necho 'Hi';\n```");
 
-        $this->assertStringContainsString(e('<a href="#">Link</a>').'</header>', $html);
+        $this->assertStringContainsString(e('<a href="#">Link</a>').'</figcaption>', $html);
     }
 
     public function testTorchlightStillRendersTheHighlightedMarkup(): void
@@ -278,7 +279,7 @@ class CodeBlocksTest extends TestCase
     {
         $html = $this->renderWithTorchlight("```php title=\"hello-world.php\"\necho 'Hello World!';\n```");
 
-        $this->assertStringContainsString('<span class="sr-only">Title: </span>hello-world.php</header>', $html);
+        $this->assertStringContainsString('>hello-world.php</figcaption>', $html);
     }
 
     public function testTerminalBlocksAreStillNotSubmittedToTorchlight(): void
@@ -340,7 +341,7 @@ class CodeBlocksTest extends TestCase
         $html = Markdown::render("```php title=\"app/Model.php\"\necho 'Hi';\n```");
 
         $this->assertSame([['php', "echo 'Hi';"]], ListeningHighlighterExtension::$collected);
-        $this->assertStringContainsString('>app/Model.php</header>', $html);
+        $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
     }
 
     public function testTerminalFencesKeepTheirOwnTitleModifier(): void
@@ -392,8 +393,8 @@ class CodeBlocksTest extends TestCase
     {
         $model = new CodeBlockViewModel('<pre><code>Hello World!</code></pre>', 'php', 'foo.php');
 
-        $this->assertStringContainsString('<div class="hyde-code-block ', $model->render());
-        $this->assertStringContainsString('>foo.php</header>', $model->render());
+        $this->assertStringContainsString('<figure class="hyde-code-block ', $model->render());
+        $this->assertStringContainsString('>foo.php</figcaption>', $model->render());
         $this->assertStringContainsString('<pre><code>Hello World!</code></pre>', $model->render());
     }
 

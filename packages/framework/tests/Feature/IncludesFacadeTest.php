@@ -164,11 +164,11 @@ class IncludesFacadeTest extends TestCase
         <blockquote class="border-blue-500">
             <p>Info Blockquote</p>
         </blockquote>
-        <div class="hyde-code-block my-4 [&>pre]:my-0 overflow-hidden rounded-lg [&>pre]:rounded-none">
-        <header class="hyde-code-block-label not-prose bg-[color:var(--tw-prose-pre-bg)] px-4 py-2.5 font-mono text-xs leading-normal text-[color:var(--tw-prose-pre-code)] [overflow-wrap:anywhere]"><span class="sr-only">Title: </span>hello.php</header>
+        <figure class="hyde-code-block my-4 [&>pre]:my-0 overflow-hidden rounded-lg [&>pre]:rounded-none">
+        <figcaption class="hyde-code-block-label not-prose bg-[color:var(--tw-prose-pre-bg)] px-4 py-2.5 font-mono text-xs leading-normal text-[color:var(--tw-prose-pre-code)] [overflow-wrap:anywhere]">hello.php</figcaption>
         <pre><code class="language-php">echo 'Hello, World!';
         </code></pre>
-        </div>
+        </figure>
 
         <h2>Subheading</h2>
         <ul>
