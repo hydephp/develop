@@ -144,7 +144,7 @@ recognized inside a larger malformed token such as `title="One"more`.
 The title is passed to the view verbatim as a nullable string rather than pre-resolved to the default label, so that a
 published view can define its own fallback for untitled blocks, which the shipped view demonstrates with
 `{{ $title ?? 'Terminal' }}`. An explicitly empty title is therefore distinguishable from an omitted one, and renders
-an empty title bar as written.
+without a title bar.
 
 ## Terminal formatting tag motivation
 

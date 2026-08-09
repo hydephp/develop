@@ -567,11 +567,11 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt; &amp; &#039;more&#039;', $html);
     }
 
-    public function testAnEmptyTitleIsRespectedAsWritten()
+    public function testAnEmptyTitleOmitsTheHeader()
     {
         $html = Markdown::render("```terminal title=\"\"\nDone!\n```");
 
-        $this->assertStringContainsString('<span></span>', $html);
+        $this->assertStringNotContainsString('<figcaption', $html);
         $this->assertStringNotContainsString('<span>Terminal</span>', $html);
     }
 
