@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace Hyde\Support\Models;
 
 use Stringable;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Framework\Features\Navigation\NumericalPageOrderingHelper;
 use Hyde\Framework\Features\Blogging\BlogPostDatePrefixHelper;
 
 use function Hyde\unslash;
+use function is_a;
+use function pathinfo;
+use function strlen;
+use function substr;
 use function str_ends_with;
 
 /**
@@ -58,6 +63,14 @@ final class RouteKey implements Stringable
         $identifier = self::stripPrefixIfNeeded($pageClass, $identifier);
         $key = unslash("{$pageClass::baseRouteKey()}/$identifier");
         $extension = $pageClass::outputExtension();
+
+        if (is_a($pageClass, InMemoryPage::class, true) && pathinfo($identifier, PATHINFO_EXTENSION) !== '') {
+            if ($extension === '.html' && str_ends_with($key, '.html')) {
+                $key = substr($key, 0, -strlen('.html'));
+            }
+
+            return new self($key);
+        }
 
         if ($extension !== '.html' && ! str_ends_with($key, $extension)) {
             $key .= $extension;
