@@ -900,8 +900,8 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     public function testTheTitleModifierFollowsTheTerminalBlockTitleRules()
     {
         // Double quotes are canonical, and single quotes are accepted
-        $this->assertStringContainsString('>hello-world.php</small>', Markdown::render("```php title=\"hello-world.php\"\necho 1;\n```"));
-        $this->assertStringContainsString('>hello-world.php</small>', Markdown::render("```php title='hello-world.php'\necho 1;\n```"));
+        $this->assertStringContainsString('>hello-world.php</header>', Markdown::render("```php title=\"hello-world.php\"\necho 1;\n```"));
+        $this->assertStringContainsString('>hello-world.php</header>', Markdown::render("```php title='hello-world.php'\necho 1;\n```"));
 
         // A malformed value fails the build rather than being silently ignored
         $this->expectException(InvalidArgumentException::class);
@@ -914,7 +914,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         $html = Markdown::render("``` title=\".env\"\nAPP_NAME=HydePHP\n```");
 
-        $this->assertStringContainsString('>.env</small>', $html);
+        $this->assertStringContainsString('>.env</header>', $html);
 
         // Such a block is plaintext, as documented, so that a modifier after the title is not read as the language
         $this->assertStringContainsString('<pre><code class="language-plaintext">APP_NAME=HydePHP', $html);
@@ -965,14 +965,12 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringContainsString('<a href="index.html">hello-world.php</a>', Markdown::render($markdown));
     }
 
-    public function testTheShippedLabelIsPositionedAgainstTheBlockAndHiddenOnSmallScreens()
+    public function testTheShippedLabelUsesAResponsiveHeader()
     {
         $view = $this->frameworkViewContents('markdown/code-block.blade.php');
 
-        $this->assertStringContainsString('absolute', $view);
-        $this->assertStringContainsString('hidden', $view);
-        $this->assertStringContainsString('md:block', $view);
-        $this->assertStringContainsString('hyde-code-block relative', $view);
+        $this->assertStringContainsString('<header class="hyde-code-block-label ', $view);
+        $this->assertStringContainsString('[overflow-wrap:anywhere]', $view);
     }
 
     public function testTheDocumentedCodeBlockClassHooksAreInTheShippedMarkup()

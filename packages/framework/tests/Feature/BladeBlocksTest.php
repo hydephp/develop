@@ -109,7 +109,7 @@ class BladeBlocksTest extends TestCase
 
         $this->assertStringNotContainsString('blade-block', $html);
         $this->assertStringContainsString('{{', $html);
-        $this->assertStringContainsString('>components/alert.blade.php</small>', $html);
+        $this->assertStringContainsString('>components/alert.blade.php</header>', $html);
     }
 
     public function testBladeBlockTitledAfterAnotherModifierIsRenderedAsALabelledCodeBlock()
@@ -118,7 +118,7 @@ class BladeBlocksTest extends TestCase
 
         $this->assertStringNotContainsString('blade-block', $html);
         $this->assertStringContainsString('{{', $html);
-        $this->assertStringContainsString('>components/alert.blade.php</small>', $html);
+        $this->assertStringContainsString('>components/alert.blade.php</header>', $html);
     }
 
     public function testTitledBladeRenderBlockIsStillExecutedAndDropsTheTitle()

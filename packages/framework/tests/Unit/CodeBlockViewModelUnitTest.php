@@ -21,6 +21,7 @@ class CodeBlockViewModelUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        self::mockConfig(['markdown.code_block_label_style' => 'header']);
         $this->createRealBladeCompilerEnvironment();
     }
 
@@ -75,7 +76,8 @@ class CodeBlockViewModelUnitTest extends UnitTestCase
         $html = (new CodeBlockViewModel('<pre><code>Hello</code></pre>', label: 'foo.php'))->render();
 
         $this->assertStringContainsString('hyde-code-block-label', $html);
-        $this->assertStringContainsString('<span class="sr-only">Title: </span>foo.php</small>', $html);
+        $this->assertStringContainsString('<header class="hyde-code-block-label ', $html);
+        $this->assertStringContainsString('<span class="sr-only">Title: </span>foo.php</header>', $html);
     }
 
     public function testRenderEscapesAStringLabel()
