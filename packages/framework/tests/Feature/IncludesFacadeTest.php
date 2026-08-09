@@ -165,7 +165,7 @@ class IncludesFacadeTest extends TestCase
             <p>Info Blockquote</p>
         </blockquote>
         <figure class="hyde-code-block my-4 [&>pre]:my-0 overflow-hidden rounded-lg [&>pre]:rounded-none">
-        <figcaption class="hyde-code-block-label not-prose bg-[color:var(--tw-prose-pre-bg)] px-4 py-2.5 font-mono text-xs leading-normal text-[color:var(--tw-prose-pre-code)] [overflow-wrap:anywhere]">hello.php</figcaption>
+        <figcaption class="hyde-code-block-label not-prose bg-[#212529] px-4 py-2.5 font-sans text-xs leading-none text-[#A6ACCD] [overflow-wrap:anywhere]">hello.php</figcaption>
         <pre><code class="language-php">echo 'Hello, World!';
         </code></pre>
         </figure>
