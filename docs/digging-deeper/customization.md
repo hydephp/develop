@@ -153,16 +153,26 @@ Individual pages can be excluded from the sitemap with `sitemap: false` front ma
 default and can be included explicitly with `sitemap: true`. Custom page classes can override `showInSitemap()` when
 they need their own inclusion logic.
 
-When enabled, the sitemap and RSS feed are registered as normal [`InMemoryPage`](in-memory-pages) routes, so they are
-built and served like other pages. To customize the generated contents, extend and bind the corresponding
-`SitemapGenerator` or `RssFeedGenerator` in the service container:
+When enabled, the sitemap and RSS feed are registered as routes, so they are built and served like other pages. To
+customize their contents, bind your generator implementation in the `register()` method of a service provider:
 
 ```php
-$this->app->bind(RssFeedGenerator::class, CustomRssFeedGenerator::class);
-```
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 
-To replace a generated file entirely, register an `InMemoryPage` with the same route key. See the
-[InMemoryPage guide](in-memory-pages#registering-the-page) for page registration.
+public function register(): void
+{
+    $this->app->bind(
+        SitemapGenerator::class,
+        CustomSitemapGenerator::class,
+    );
+
+    $this->app->bind(
+        RssFeedGenerator::class,
+        CustomRssFeedGenerator::class,
+    );
+}
+```
 
 ### Authors
 

@@ -167,9 +167,6 @@ class AppServiceProvider extends ServiceProvider
 
 The page will be written to `_site/hello.html` and can be referenced using the `hello` route key.
 
-Hyde's generated sitemap and RSS feed are in-memory pages. Registering a page with the same route key replaces the
-generated page. Use `sitemap.xml` for the sitemap and the filename configured in `hyde.rss.filename` for the feed.
-
 ### In a package extension
 
 Package extensions can register the page directly in the page discovery callback. Pages added at this stage are

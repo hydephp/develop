@@ -326,9 +326,9 @@ as those settings were previously ignored.
 Sites that only use the built-in sitemap and RSS configuration need no changes. The `GenerateSitemap` and `GenerateRssFeed`
 post-build task classes have been removed, so update code that referenced or overrode them.
 
-To customize the generated content, bind your own `SitemapGenerator` or `RssFeedGenerator` implementation in the
-service container. To replace a generated file entirely, register an `InMemoryPage` with the same route key:
-`sitemap.xml` for the sitemap or the configured `hyde.rss.filename` for the feed.
+Replace a custom sitemap task with a `SitemapGenerator` implementation bound in the `register()` method of a service
+provider. Replace a custom RSS task with a bound `RssFeedGenerator` implementation. The framework registers the
+generated pages; the generator bindings control their contents.
 
 The `build:sitemap` and `build:rss` commands still work, but now fail when their corresponding page is not registered.
 
@@ -439,7 +439,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Moved `InMemoryPage` `compile` macro callbacks into the contents argument and replaced other macros with subclass methods
 - [ ] Updated `InMemoryPage` calls to supply only one of `contents` and `view`
 - [ ] Explicitly opted in any non-HTML pages that should remain in automatic navigation
-- [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with a generator container rebind or a user-defined page
+- [ ] Replaced any references to the removed `GenerateSitemap` and `GenerateRssFeed` build tasks with generator implementations bound in a service provider
 - [ ] Renamed `$fileExtension`, `fileExtension()`, and `setFileExtension()` to `$sourceExtension`, `sourceExtension()`, and `setSourceExtension()` in custom page classes and call sites
 - [ ] Replaced `// filepath:` code block comments with the `title="…"` fence modifier
 - [ ] Ported any `filepath-label.blade.php` customizations to `markdown/code-block.blade.php`, and deleted the old file
