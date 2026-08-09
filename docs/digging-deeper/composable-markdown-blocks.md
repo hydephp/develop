@@ -172,7 +172,7 @@ See [Advanced Markdown](advanced-markdown#code-block-titles) for the `title` mod
 
 | Class                     | Targets                                    |
 |---------------------------|--------------------------------------------|
-| `hyde-code-block`         | The outer `<div>` wrapping the code block   |
+| `hyde-code-block`         | The outer wrapper around the code block      |
 | `hyde-code-block-label`   | The block's title label                     |
 
 ### Customization example
@@ -180,15 +180,15 @@ See [Advanced Markdown](advanced-markdown#code-block-titles) for the `title` mod
 Say you want to show the language next to the label in the header:
 
 ```blade title="resources/views/vendor/hyde/components/markdown/code-block.blade.php"
-<div class="hyde-code-block not-prose my-4 overflow-hidden rounded">
+<figure class="hyde-code-block not-prose my-4 overflow-hidden rounded">
     @if($label || $language)
-        <div class="flex items-center justify-between bg-gray-800 px-4 py-2 font-mono text-xs text-gray-300">
+        <figcaption class="flex items-center justify-between bg-gray-800 px-4 py-2 font-mono text-xs text-gray-300">
             <span>{{ $label }}</span>
             <span class="uppercase">{{ $language }}</span>
-        </div>
+        </figcaption>
     @endif
     {!! $contents !!}
-</div>
+</figure>
 ```
 
 ## Terminal Blocks
