@@ -222,11 +222,11 @@ class TerminalCodeBlocksTest extends TestCase
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $html);
     }
 
-    public function testAnEmptyTitleRendersAnEmptyLabel(): void
+    public function testAnEmptyTitleOmitsTheHeader(): void
     {
         $html = Markdown::render("```terminal title=\"\"\nDone!\n```");
 
-        $this->assertStringContainsString('<span></span>', $html);
+        $this->assertStringNotContainsString('<figcaption', $html);
         $this->assertStringNotContainsString('<span>Terminal</span>', $html);
     }
 

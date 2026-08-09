@@ -223,7 +223,7 @@ terminal [title="…"]
 
 #### Window titles
 
-The `title` modifier replaces the `Terminal` label in the window's title bar.
+Without a `title` modifier, the title bar displays `Terminal`. The modifier replaces that label.
 
 ````markdown
 ```terminal title="Installing Hyde"
@@ -238,9 +238,8 @@ $ composer require hyde/framework
 Double quotes are canonical, matching how attributes are written in HTML and Blade, but single quotes are also
 accepted, which is useful when the title contains a double quote. The title is HTML-escaped when rendered.
 
-An empty title (`title=""`) is respected as written, leaving the title bar with only the window controls. The `title`
-modifier must otherwise use a quoted value with no whitespace around the `=`. Malformed title syntax causes the build
-to fail rather than being silently ignored.
+Set `title=""` to omit the title bar entirely. The `title` modifier must otherwise use a quoted value with no whitespace
+around the `=`. Malformed title syntax causes the build to fail rather than being silently ignored.
 
 #### Terminal formatting tags
 
@@ -287,7 +286,6 @@ untitled block falls back to. The shipped view escapes it with `{{ }}` and falls
 |---------------------------|----------------------------------------------------|
 | `hyde-terminal`           | The outer `<figure>` container                     |
 | `hyde-terminal-header`    | The title bar                                      |
-| `hyde-terminal-controls`  | The decorative window buttons                      |
 | `hyde-terminal-body`      | The `<pre>` output area                            |
 | `hyde-terminal-command`   | A line beginning with a `$ ` prompt                |
 | `hyde-terminal-prompt`    | The `$ ` prompt itself                             |
@@ -306,14 +304,11 @@ Say you want blocks that set no title of their own to show the current working d
 
 ```blade title="resources/views/vendor/hyde/components/markdown/terminal.blade.php"
 <figure class="hyde-terminal not-prose my-4 overflow-hidden rounded-md bg-[#292D3E] text-[#A6ACCD]">
-    <figcaption class="hyde-terminal-header flex items-center gap-3 bg-[#212529] px-4 py-2.5 font-sans text-xs leading-none">
-        <span class="hyde-terminal-controls flex gap-1.5" aria-hidden="true">
-            <span class="size-2.5 rounded-full bg-[#FF5F57]"></span>
-            <span class="size-2.5 rounded-full bg-[#FEBC2E]"></span>
-            <span class="size-2.5 rounded-full bg-[#28C840]"></span>
-        </span>
-        <span>{{ $title ?? '~/my-project' }}</span>
-    </figcaption>
+    @if (($title ?? '~/my-project') !== '')
+        <figcaption class="hyde-terminal-header bg-[#212529] px-4 py-2.5 font-sans text-xs leading-none">
+            <span>{{ $title ?? '~/my-project' }}</span>
+        </figcaption>
+    @endif
     <pre class="hyde-terminal-body m-0 overflow-x-auto rounded-none bg-[#292D3E] p-4 text-[#A6ACCD]"><code class="block whitespace-pre font-mono text-sm leading-relaxed">{!! $contents !!}</code></pre>
 </figure>
 ```

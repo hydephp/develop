@@ -145,7 +145,7 @@ can select and copy the command without including it.
 
 ### Window titles
 
-Add the `title` modifier to replace the default `Terminal` label in the window's title bar:
+Without a `title` modifier, the title bar displays `Terminal`. Add the modifier to replace that label:
 
 ````markdown
 ```terminal title="Installing Hyde"
@@ -161,6 +161,8 @@ $ composer require hyde/framework
 
 Double quotes are canonical, but single quotes are also accepted, which is useful when the title contains a double
 quote. The title is HTML-escaped when rendered.
+
+Set `title=""` to omit the title bar entirely.
 
 The `title` modifier must use a quoted value with no whitespace around the `=`, such as `title="Build output"`.
 Unquoted values, unclosed quotes, and whitespace around the `=` are reported as errors instead of being guessed at.
