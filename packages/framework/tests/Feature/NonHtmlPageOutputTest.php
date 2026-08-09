@@ -43,6 +43,24 @@ class NonHtmlPageOutputTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/robots.txt.html'));
     }
 
+    public function testBuildCommandCompilesInMemoryPageWithExplicitHtmlIdentifier()
+    {
+        Hyde::kernel()->booting(function (HydeKernel $kernel): void {
+            $page = InMemoryPage::make('about.html', contents: 'About');
+
+            $this->assertSame('about.html', $page->getOutputPath());
+            $this->assertSame('about', $page->getRouteKey());
+
+            $kernel->pages()->addPage($page);
+        });
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('_site/about.html'));
+        $this->assertSame('About', file_get_contents(Hyde::path('_site/about.html')));
+        $this->assertFileDoesNotExist(Hyde::path('_site/about.html.html'));
+    }
+
     public function testBuildCommandCompilesNestedNonHtmlOutputPath()
     {
         Hyde::kernel()->booting(function (HydeKernel $kernel): void {

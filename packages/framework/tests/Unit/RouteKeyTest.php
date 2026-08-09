@@ -84,8 +84,14 @@ class RouteKeyTest extends UnitTestCase
 
     public function testFromPageWithDottedInMemoryPageIdentifier()
     {
+        $this->assertEquals(new RouteKey('foo'), RouteKey::fromPage(InMemoryPage::class, 'foo.html'));
         $this->assertEquals(new RouteKey('robots.txt'), RouteKey::fromPage(InMemoryPage::class, 'robots.txt'));
         $this->assertEquals(new RouteKey('docs/search.json'), RouteKey::fromPage(InMemoryPage::class, 'docs/search.json'));
+    }
+
+    public function testFromPageWithExplicitExtensionUsesItForInMemoryPageSubclasses()
+    {
+        $this->assertEquals(new RouteKey('api/users.xml'), RouteKey::fromPage(InMemoryPageWithCustomOutputConfiguration::class, 'users.xml'));
     }
 
     public function testFromPageWithNonHtmlOutputExtensionIncludesExtensionInRouteKey()
@@ -180,4 +186,10 @@ class NonHtmlOutputDirectoryPageStub extends HydePage
     {
         return '';
     }
+}
+
+class InMemoryPageWithCustomOutputConfiguration extends InMemoryPage
+{
+    public static string $outputDirectory = 'api';
+    public static string $outputExtension = '.json';
 }
