@@ -7,17 +7,13 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Foundation\Concerns\HydeExtension;
-use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Illuminate\Support\Facades\File;
 
 /**
  * Feature test for the sitemap page, covering its registration through the core
- * extension, compilation through the standard build, and the user-land override
- * and container rebind customization paths.
+ * extension, compilation through the standard build, and generator customization.
  *
  * @see \Hyde\Framework\Testing\Feature\SitemapFeatureTest
  * @see \Hyde\Framework\Testing\Feature\Services\SitemapServiceTest
@@ -135,47 +131,5 @@ class SitemapPageTest extends TestCase
         $this->artisan('route:list')
             ->expectsOutputToContain('sitemap.xml')
             ->assertExitCode(0);
-    }
-
-    public function testUserPageRegisteredInBootingCallbackSuppressesTheGeneratedSitemapPage()
-    {
-        $this->withSiteUrl();
-
-        Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::make('sitemap.xml', contents: 'user defined sitemap'));
-        });
-
-        $page = Routes::get('sitemap.xml')->getPage();
-
-        $this->assertSame('user defined sitemap', $page->compile());
-        $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'sitemap.xml')->count());
-
-        $this->artisan('build')->assertExitCode(0);
-
-        $this->assertSame('user defined sitemap', file_get_contents(Hyde::path('_site/sitemap.xml')));
-    }
-
-    public function testUserPageRegisteredThroughExtensionSuppressesTheGeneratedSitemapPage()
-    {
-        $this->withSiteUrl();
-
-        Hyde::kernel()->registerExtension(SitemapPageTestExtension::class);
-
-        $page = Routes::get('sitemap.xml')->getPage();
-
-        $this->assertSame('extension defined sitemap', $page->compile());
-        $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'sitemap.xml')->count());
-
-        $this->artisan('build')->assertExitCode(0);
-
-        $this->assertSame('extension defined sitemap', file_get_contents(Hyde::path('_site/sitemap.xml')));
-    }
-}
-
-class SitemapPageTestExtension extends HydeExtension
-{
-    public function discoverPages(PageCollection $collection): void
-    {
-        $collection->addPage(InMemoryPage::make('sitemap.xml', contents: 'extension defined sitemap'));
     }
 }

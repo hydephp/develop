@@ -8,17 +8,13 @@ use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Facades\Filesystem;
 use Hyde\Pages\InMemoryPage;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Facades\Routes;
-use Hyde\Foundation\Concerns\HydeExtension;
-use Hyde\Foundation\Kernel\PageCollection;
 use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Illuminate\Support\Facades\File;
 
 /**
  * Feature test for the RSS feed page, covering its registration through the core
- * extension, compilation through the standard build, and the user-land override
- * and container rebind customization paths.
+ * extension, compilation through the standard build, and generator customization.
  *
  * @see \Hyde\Framework\Testing\Feature\Services\RssFeedServiceTest
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildRssFeedCommandTest
@@ -158,43 +154,5 @@ class RssFeedPageTest extends TestCase
         $this->artisan('route:list')
             ->expectsOutputToContain('feed.xml')
             ->assertExitCode(0);
-    }
-
-    public function testUserPageRegisteredInBootingCallbackSuppressesTheGeneratedFeedPage()
-    {
-        Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::make('feed.xml', contents: 'user defined feed'));
-        });
-
-        $page = Routes::get('feed.xml')->getPage();
-
-        $this->assertSame('user defined feed', $page->compile());
-        $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'feed.xml')->count());
-
-        $this->artisan('build')->assertExitCode(0);
-
-        $this->assertSame('user defined feed', file_get_contents(Hyde::path('_site/feed.xml')));
-    }
-
-    public function testUserPageRegisteredThroughExtensionSuppressesTheGeneratedFeedPage()
-    {
-        Hyde::kernel()->registerExtension(RssFeedPageTestExtension::class);
-
-        $page = Routes::get('feed.xml')->getPage();
-
-        $this->assertSame('extension defined feed', $page->compile());
-        $this->assertSame(1, Hyde::pages()->filter(fn ($page) => $page->getRouteKey() === 'feed.xml')->count());
-
-        $this->artisan('build')->assertExitCode(0);
-
-        $this->assertSame('extension defined feed', file_get_contents(Hyde::path('_site/feed.xml')));
-    }
-}
-
-class RssFeedPageTestExtension extends HydeExtension
-{
-    public function discoverPages(PageCollection $collection): void
-    {
-        $collection->addPage(InMemoryPage::make('feed.xml', contents: 'extension defined feed'));
     }
 }

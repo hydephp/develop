@@ -6,8 +6,6 @@ namespace Hyde\Framework\Testing\Feature\Commands;
 
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
-use Hyde\Pages\InMemoryPage;
-use Hyde\Foundation\HydeKernel;
 use Hyde\Testing\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildRssFeedCommand::class)]
@@ -77,21 +75,5 @@ class BuildRssFeedCommandTest extends TestCase
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/feed.xml'));
-    }
-
-    public function testCommandBuildsUserDefinedFeedPageEvenWhenRssFeatureConditionsAreNotMet()
-    {
-        $this->withSiteUrl();
-        config(['hyde.rss.enabled' => false]);
-
-        $this->cleanUpWhenDone('_site/feed.xml');
-
-        Hyde::kernel()->booting(function (HydeKernel $kernel): void {
-            $kernel->pages()->addPage(InMemoryPage::make('feed.xml', contents: '<?xml version="1.0"?><rss/>'));
-        });
-
-        $this->artisan('build:rss')->assertExitCode(0);
-
-        $this->assertSame('<?xml version="1.0"?><rss/>', file_get_contents(Hyde::path('_site/feed.xml')));
     }
 }

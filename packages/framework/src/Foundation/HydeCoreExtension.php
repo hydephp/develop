@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation;
 
-use Closure;
 use Hyde\Hyde;
 use Hyde\Pages\HtmlPage;
 use Hyde\Pages\BladePage;
@@ -99,30 +98,18 @@ class HydeCoreExtension extends HydeExtension
 
     protected function discoverSitemapPage(PageCollection $collection): void
     {
-        $this->addGeneratedPage(
-            $collection,
+        $collection->addPage(new InMemoryPage(
             'sitemap.xml',
-            fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
-        );
+            contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+        ));
     }
 
     protected function discoverRssFeedPage(PageCollection $collection): void
     {
-        $this->addGeneratedPage(
-            $collection,
+        $collection->addPage(new InMemoryPage(
             RssFeedGenerator::getFilename(),
-            fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
-        );
-    }
-
-    protected function addGeneratedPage(PageCollection $collection, string $routeKey, Closure $contents): void
-    {
-        if (! $this->hasPageWithRouteKey($collection, $routeKey)) {
-            $collection->addPage(new InMemoryPage(
-                $routeKey,
-                contents: $contents,
-            ));
-        }
+            contents: fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
+        ));
     }
 
     /** Discard blog posts that are excluded from publication, either drafts or future-dated posts. */
