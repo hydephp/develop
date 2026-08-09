@@ -203,11 +203,11 @@ If the page collection already contains a user-defined page with a route key suc
 as `robots.txt`, the framework does not register its generated page.
 This follows the pattern of `discoverDocumentationRootRedirect()`, which skips when
 a user-defined route exists.
-Users can register an `InMemoryPage` from a service provider or provide a custom page
-class through an extension. Combined with D4's container-resolved generators, this
-gives a smooth escalation path:
+Users can register an `InMemoryPage` with the same route key from a booting callback
+or a `HydeExtension`. Combined with D4's container-resolved generators, this gives a
+smooth escalation path:
 feature default → config tweaks → rebind the generator (or content closure) in the
-container → fully custom page in code.
+container → custom `InMemoryPage` content in code.
 
 > **Timing caveat — the skip check is ordering-sensitive.** "Is a `robots.txt` route
 > already registered" is evaluated at `discoverPages()` time, so whether a user's page
@@ -216,12 +216,13 @@ container → fully custom page in code.
 > `discoverDocumentationRootRedirect()` precedent suggests this is fine, but "fine and
 > ordering-dependent" is exactly what passes in our tests and breaks for the one user
 > who registers late. PR 5/6 MUST include an end-to-end test asserting that a
-> user-registered `robots.txt` (via both a `HydeExtension` page class and a `booting()`
-> `addPage()` callback) suppresses the generated one — this is the D5 contract and the
-> most likely silent failure for the power-user audience.
+> user-registered `robots.txt` `InMemoryPage` (via both a `HydeExtension` and a
+> `booting()` `addPage()` callback) suppresses the generated one — this is the D5
+> contract and the most likely silent failure for the power-user audience.
 
 > **Verified for the sitemap (PR 5 part A):** both user paths win, through two
-> different mechanisms that the tests pin down end-to-end. `booting()` callbacks run
+> different mechanisms that the tests pin down end-to-end. Both register an
+> `InMemoryPage` with the same route key. `booting()` callbacks run
 > before the page collection boots (`BootsHydeKernel::boot()`), so a callback-registered
 > `sitemap.xml` page is visible to the core extension's `hasPageWithRouteKey()` skip
 > check. A user `HydeExtension` runs *after* the core extension (registration order),
