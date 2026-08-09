@@ -223,7 +223,7 @@ terminal [title="…"]
 
 #### Window titles
 
-The `title` modifier replaces the `Terminal` label in the window's title bar.
+Without a `title` modifier, the title bar displays `Terminal`. The modifier replaces that label.
 
 ````markdown
 ```terminal title="Installing Hyde"
@@ -238,9 +238,8 @@ $ composer require hyde/framework
 Double quotes are canonical, matching how attributes are written in HTML and Blade, but single quotes are also
 accepted, which is useful when the title contains a double quote. The title is HTML-escaped when rendered.
 
-An empty title (`title=""`) is respected as written, omitting the title bar. The `title` modifier must otherwise use a
-quoted value with no whitespace around the `=`. Malformed title syntax causes the build to fail rather than being
-silently ignored.
+Set `title=""` to omit the title bar entirely. The `title` modifier must otherwise use a quoted value with no whitespace
+around the `=`. Malformed title syntax causes the build to fail rather than being silently ignored.
 
 #### Terminal formatting tags
 
