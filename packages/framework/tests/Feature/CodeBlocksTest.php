@@ -107,6 +107,7 @@ class CodeBlocksTest extends TestCase
         $this->assertStringContainsString('<figure class="hyde-code-block ', $html);
         $this->assertStringContainsString('<figcaption class="hyde-code-block-label ', $html);
         $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
+        $this->assertStringContainsString('absolute right-4 top-3', $html);
     }
 
     public function testUnsupportedLabelStyleThrows(): void
