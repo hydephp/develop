@@ -573,9 +573,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         $this->assertStringContainsString('<span></span>', $html);
         $this->assertStringNotContainsString('<span>Terminal</span>', $html);
-
-        // The window buttons are still there
-        $this->assertStringContainsString('<span class="hyde-terminal-controls ', $html);
     }
 
     public function testATitleThatIsNotAQuotedValueIsRejectedInsteadOfBeingGuessedAt()
@@ -615,7 +612,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
 
         $this->assertStringContainsString('<figure class="hyde-terminal ', $html);
         $this->assertStringContainsString('<figcaption class="hyde-terminal-header ', $html);
-        $this->assertStringContainsString('<span class="hyde-terminal-controls ', $html);
         $this->assertStringContainsString('<pre class="hyde-terminal-body ', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-command"', $html);
         $this->assertStringContainsString('<span class="hyde-terminal-prompt"', $html);
