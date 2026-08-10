@@ -129,14 +129,9 @@ class BuildTaskService
 
     private function registerFrameworkTasks(): void
     {
-        $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
+        $this->registerTask(CleanSiteDirectory::class);
         $this->registerIf(TransferMediaAssets::class, $this->canTransferMediaAssets());
         $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
-    }
-
-    private function canCleanSiteDirectory(): bool
-    {
-        return Config::getBool('hyde.empty_output_directory', true);
     }
 
     private function canTransferMediaAssets(): bool

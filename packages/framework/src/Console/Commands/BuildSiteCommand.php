@@ -9,6 +9,7 @@ use Hyde\Facades\Vite;
 use Hyde\Facades\Config;
 use Hyde\Support\BuildWarnings;
 use Hyde\Framework\Actions\TransferStaticFiles;
+use Hyde\Framework\Actions\Internal\OutputDirectoryValidator;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
@@ -80,6 +81,8 @@ class BuildSiteCommand extends Command
 
     protected function runPreBuildActions(): void
     {
+        OutputDirectoryValidator::validate();
+
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
