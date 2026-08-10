@@ -43,6 +43,7 @@ class RealtimeCompilerTest extends TestCase
     protected function tearDown(): void
     {
         $_SERVER = $this->serverBackup;
+        Filesystem::deleteDirectory('_static');
 
         parent::tearDown();
         ob_end_clean();
@@ -125,6 +126,24 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('test', $response->body);
 
         Filesystem::unlink('_media/test.css');
+    }
+
+    public function testStaticDirectoryTakesPrecedenceForMediaPath(): void
+    {
+        $this->mockCompilerRoute('media/static.jpg');
+        Filesystem::ensureDirectoryExists('_static/media');
+        Filesystem::put('_media/static.jpg', 'media');
+        Filesystem::put('_static/media/static.jpg', 'static media');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('static media', $response->body);
+        } finally {
+            Filesystem::unlink('_media/static.jpg');
+        }
     }
 
     public function testThrowsRouteNotFoundExceptionForMissingRoute()
@@ -221,8 +240,9 @@ class RealtimeCompilerTest extends TestCase
         $this->mockCompilerRoute('9.x');
 
         Filesystem::ensureDirectoryExists('_pages/9.x');
+        Filesystem::ensureDirectoryExists('_static');
         Filesystem::put('_pages/9.x/index.md', '# Hello World!');
-        Filesystem::put('_media/9.x', 'static decoy');
+        Filesystem::put('_static/9.x', 'static decoy');
 
         try {
             $kernel = new HttpKernel();
@@ -233,7 +253,7 @@ class RealtimeCompilerTest extends TestCase
             $this->assertStringNotContainsString('static decoy', $response->body);
         } finally {
             Filesystem::deleteDirectory('_pages/9.x');
-            Filesystem::unlink('_media/9.x');
+            Filesystem::unlink('_static/9.x');
         }
     }
 
@@ -242,8 +262,8 @@ class RealtimeCompilerTest extends TestCase
         $this->mockCompilerRoute('docs/search.json');
 
         Filesystem::put('_docs/index.md', '# Hello World!');
-        Filesystem::ensureDirectoryExists('_media/docs');
-        Filesystem::put('_media/docs/search.json', '"static decoy"');
+        Filesystem::ensureDirectoryExists('_static/docs');
+        Filesystem::put('_static/docs/search.json', '"static decoy"');
 
         try {
             $kernel = new HttpKernel();
@@ -254,7 +274,7 @@ class RealtimeCompilerTest extends TestCase
             $this->assertIsArray(json_decode($response->body, true));
         } finally {
             Filesystem::unlink('_docs/index.md');
-            Filesystem::deleteDirectory('_media/docs');
+            Filesystem::deleteDirectory('_static/docs');
         }
     }
 
@@ -262,7 +282,8 @@ class RealtimeCompilerTest extends TestCase
     {
         $this->mockCompilerRoute('data.json');
 
-        Filesystem::put('_media/data.json', '{"static": true}');
+        Filesystem::ensureDirectoryExists('_static');
+        Filesystem::put('_static/data.json', '{"static": true}');
 
         try {
             $kernel = new HttpKernel();
@@ -271,7 +292,25 @@ class RealtimeCompilerTest extends TestCase
             $this->assertSame(200, $response->statusCode);
             $this->assertSame('{"static": true}', $response->body);
         } finally {
-            Filesystem::unlink('_media/data.json');
+            Filesystem::unlink('_static/data.json');
+        }
+    }
+
+    public function testProxiesExtensionlessRootStaticFileWhenNoRouteMatchesThePath()
+    {
+        $this->mockCompilerRoute('security');
+
+        Filesystem::ensureDirectoryExists('_static');
+        Filesystem::put('_static/security', 'contact@example.com');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('contact@example.com', $response->body);
+        } finally {
+            Filesystem::unlink('_static/security');
         }
     }
 
