@@ -17,6 +17,7 @@ class StaticFilePassthroughTest extends TestCase
     protected function tearDown(): void
     {
         File::cleanDirectory(Hyde::sitePath());
+        File::deleteDirectory(Hyde::path('_static'));
 
         parent::tearDown();
     }
@@ -52,6 +53,17 @@ class StaticFilePassthroughTest extends TestCase
         $this->artisan('build')->assertExitCode(0);
 
         $this->assertSame('second', Filesystem::getContents('_site/robots.txt'));
+    }
+
+    public function testDeletingAStaticFileRemovesItsOutputOnTheNextBuild(): void
+    {
+        $this->file('_static/robots.txt', 'User-agent: *');
+        $this->artisan('build')->assertExitCode(0);
+
+        Filesystem::unlink('_static/robots.txt');
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::sitePath('robots.txt'));
     }
 
     public function testStaticFilesCannotOverwriteGeneratedOutput(): void
