@@ -283,13 +283,6 @@ Which becomes:
 echo 'Hello World!';
 ```
 
-Code block titles use a responsive header by default. To use the compact badge presentation, set the label style in
-`config/markdown.php`:
-
-```php title="config/markdown.php"
-'code_block_label_style' => 'badge',
-```
-
 ### Advanced usage
 
 Since HTML in Markdown is enabled by default, anything within the title will be rendered as HTML. This means you
