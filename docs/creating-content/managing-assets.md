@@ -16,6 +16,10 @@ Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and A
 
 To get you started quickly, all the styles are already compiled and minified into `_media/app.css`, which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
 
+## Root-Level Static Files
+
+Files that need to be published directly to the site root can be placed in an optional `_static` directory. Paths are preserved, so `_static/robots.txt` becomes `_site/robots.txt` and `_static/.well-known/security.txt` becomes `_site/.well-known/security.txt`. Use `_media` for normal site assets published under `/media`.
+
 ## Vite
 
 Hyde uses [Vite](https://vite.dev/) to compile assets. Vite is a build tool that aims to provide a faster and more efficient development experience for modern web projects.
