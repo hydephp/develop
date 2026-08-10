@@ -45,7 +45,8 @@ class Router
         // A path with a file extension that isn't a web page is a static asset request,
         // unless a page route is registered for the path (like `docs/search.json`),
         // as pages take precedence over the on-disk files the proxy serves.
-        if ($this->hasAssetLikeExtension() && ! PageRouter::hasRoute($this->request)) {
+        if (! PageRouter::hasRoute($this->request)
+            && ($this->hasAssetLikeExtension() || AssetFileLocator::find($this->request->path) !== null)) {
             return $this->proxyStatic();
         }
 
