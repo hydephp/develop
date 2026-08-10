@@ -98,28 +98,6 @@ class CodeBlocksTest extends TestCase
         $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
     }
 
-    public function testLegacyBadgeLabelStyleCanBeConfigured(): void
-    {
-        config(['markdown.code_block_label_style' => 'badge']);
-
-        $html = Markdown::render("```php title=\"app/Model.php\"\necho 'Hi';\n```");
-
-        $this->assertStringContainsString('<figure class="hyde-code-block ', $html);
-        $this->assertStringContainsString('<figcaption class="hyde-code-block-label ', $html);
-        $this->assertStringContainsString('>app/Model.php</figcaption>', $html);
-        $this->assertStringContainsString('absolute right-4 top-3', $html);
-    }
-
-    public function testUnsupportedLabelStyleThrows(): void
-    {
-        config(['markdown.code_block_label_style' => 'unsupported']);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid code block label style [unsupported]. Supported styles are [header] and [badge].');
-
-        Markdown::render("```php title=\"app/Model.php\"\necho 'Hi';\n```");
-    }
-
     public function testTitleModifierAcceptsSingleQuotes(): void
     {
         $html = Markdown::render("```php title='app/Model.php'\necho 'Hi';\n```");

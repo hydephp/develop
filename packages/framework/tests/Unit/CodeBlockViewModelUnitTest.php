@@ -21,7 +21,6 @@ class CodeBlockViewModelUnitTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        self::mockConfig(['markdown.code_block_label_style' => 'header']);
         $this->createRealBladeCompilerEnvironment();
     }
 
