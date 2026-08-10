@@ -20,6 +20,8 @@ To get you started quickly, all the styles are already compiled and minified int
 
 Files that need to be published directly to the site root can be placed in an optional `_static` directory. Paths are preserved, so `_static/robots.txt` becomes `_site/robots.txt` and `_static/.well-known/security.txt` becomes `_site/.well-known/security.txt`. Use `_media` for normal site assets published under `/media`.
 
+Since the output directory is emptied before every build, files like `CNAME` and `.nojekyll` need to live in `_static` rather than being placed in the compiled site directly.
+
 ## Vite
 
 Hyde uses [Vite](https://vite.dev/) to compile assets. Vite is a build tool that aims to provide a faster and more efficient development experience for modern web projects.

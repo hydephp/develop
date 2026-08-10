@@ -365,16 +365,6 @@ use \Hyde\Support\Filesystem\MediaFile;
 'media_extensions' => array_merge([], MediaFile::EXTENSIONS),
 ```
 
-### `safe_output_directories`
-
-This setting defines a list of directories deemed safe to empty during the site build process as a safeguard to prevent accidental data loss.
-If the site output directory is not in this list, the build command will prompt for confirmation before emptying it. It is preconfigured
-with common directories including the default one, but you are free to change this to include any custom directories you may need.
-
-```php title="config/hyde.php"
-'safe_output_directories' => ['_site', 'docs', 'build'],
-```
-
 ### `generate_build_manifest`
 
 Determines whether a JSON build manifest with metadata about the build should be generated. Set to `true` to enable.
