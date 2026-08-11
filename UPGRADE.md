@@ -437,7 +437,7 @@ HydePHP v3 empties the entire output directory before every build. In v2 the bui
 
 Move those files into the `_static` directory, which is copied verbatim to the site root on every build, so `_static/CNAME` becomes `_site/CNAME`.
 
-The `hyde.empty_output_directory` and `hyde.safe_output_directories` options no longer exist, and the build no longer asks for confirmation before emptying an unfamiliar output directory. Delete either entry if your `config/hyde.php` sets it. The build now fails with a configuration error if `hyde.output_directory` points outside your project, or at a directory the project needs, such as `app`, `vendor`, or one of your source directories.
+The `hyde.safe_output_directories` option no longer exists, and the build no longer asks for confirmation before emptying an unfamiliar output directory. Delete the entry from your `config/hyde.php`. Take the chance to double-check your `hyde.output_directory` if you build somewhere other than `_site`, since everything in that directory is now removed on every build.
 
 ## Migration Checklist
 
