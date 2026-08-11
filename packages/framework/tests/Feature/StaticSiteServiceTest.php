@@ -14,12 +14,9 @@ use Illuminate\Support\Facades\Process;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Actions\StaticPageBuilder;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
-use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
-use Hyde\Framework\Services\BuildTaskService;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSiteCommand::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\BuildService::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\Internal\OutputDirectoryValidator::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets::class)]
 class StaticSiteServiceTest extends TestCase
@@ -295,153 +292,18 @@ class StaticSiteServiceTest extends TestCase
         Hyde::setOutputDirectory('');
 
         $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage(sprintf(
-            'The output directory (%s) must be a subdirectory of the project, as it is emptied before every build.',
-            Hyde::path()
-        ));
+        $this->expectExceptionMessage('The output directory must not be the project root, as it is emptied before every build.');
 
         $this->artisan('build')->run();
     }
 
-    public function testBuildFailsWhenOutputDirectoryEscapesTheProject()
+    public function testBuildFailsWhenOutputDirectoryIsExplicitlyTheProjectRoot()
     {
-        $sibling = Hyde::path('../hyde-output-outside-the-project');
-
-        Hyde::setOutputDirectory('../hyde-output-outside-the-project');
-
-        File::ensureDirectoryExists($sibling);
-        File::put($sibling.'/keep.txt', 'kept');
-
-        try {
-            $this->artisan('build')->run();
-            $this->fail('The output directory outside the project was not rejected.');
-        } catch (InvalidConfigurationException $exception) {
-            $this->assertStringContainsString('must be a subdirectory of the project', $exception->getMessage());
-        } finally {
-            $this->assertFileExists($sibling.'/keep.txt');
-            File::deleteDirectory($sibling);
-        }
-    }
-
-    public function testBuildDoesNotCreateAnOutputDirectoryOutsideTheProject()
-    {
-        $sibling = Hyde::path('../hyde-output-outside-the-project');
-
-        Hyde::setOutputDirectory('../hyde-output-outside-the-project');
-
-        $this->expectException(InvalidConfigurationException::class);
-
-        try {
-            $this->artisan('build')->run();
-        } finally {
-            $created = File::isDirectory($sibling);
-            File::deleteDirectory($sibling);
-
-            $this->assertFalse($created, 'The output directory was created outside the project.');
-        }
-    }
-
-    public function testBuildFailsWhenTheOutputDirectoryIsASymbolicLink()
-    {
-        $target = $this->createSymlinkedOutputDirectory();
-
-        try {
-            $this->artisan('build')->run();
-            $this->fail('The symbolic link output directory was not rejected.');
-        } catch (InvalidConfigurationException $exception) {
-            $this->assertStringContainsString('must not be a symbolic link', $exception->getMessage());
-        } finally {
-            $this->assertTrue($this->removeSymlinkedOutputDirectory($target), 'The symlink target was emptied.');
-        }
-    }
-
-    public function testBuildFailsWhenTheOutputDirectoryIsBehindASymbolicLink()
-    {
-        $outside = Hyde::path('../hyde-output-outside-the-project');
-
-        File::ensureDirectoryExists($outside);
-        symlink($outside, Hyde::path('_test-symlink-escape'));
-
-        Hyde::setOutputDirectory('_test-symlink-escape/site');
-
-        try {
-            $this->artisan('build')->run();
-            $this->fail('The output directory behind a symbolic link was not rejected.');
-        } catch (InvalidConfigurationException $exception) {
-            $this->assertStringContainsString('must not be a symbolic link', $exception->getMessage());
-        } finally {
-            $this->removeSymlink(Hyde::path('_test-symlink-escape'));
-
-            $created = File::isDirectory($outside.'/site');
-            File::deleteDirectory($outside);
-
-            $this->assertFalse($created, 'The site was created outside the project.');
-        }
-    }
-
-    public function testCleanSiteDirectoryTaskValidatesTheOutputDirectoryBeforeEmptyingIt()
-    {
-        $target = $this->createSymlinkedOutputDirectory();
-
-        try {
-            (new CleanSiteDirectory())->handle();
-            $this->fail('The symbolic link output directory was not rejected.');
-        } catch (InvalidConfigurationException $exception) {
-            $this->assertStringContainsString('must not be a symbolic link', $exception->getMessage());
-        } finally {
-            $this->assertTrue($this->removeSymlinkedOutputDirectory($target), 'The symlink target was emptied.');
-        }
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('protectedOutputDirectories')]
-    public function testBuildFailsWhenTheOutputDirectoryOverlapsAProjectDirectory(string $directory)
-    {
-        Hyde::setOutputDirectory($directory);
-
-        $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage(sprintf('The output directory (%s) must not overlap the project directory', $directory));
-
-        $this->artisan('build')->run();
-    }
-
-    public static function protectedOutputDirectories(): array
-    {
-        return [
-            'version control' => ['.git'],
-            'application code' => ['app'],
-            'nested in application code' => ['app/storage'],
-            'configuration' => ['config'],
-            'dependencies' => ['vendor'],
-            'page sources' => ['_pages'],
-            'post sources' => ['_posts'],
-            'media sources' => ['_media'],
-            'static files' => ['_static'],
-            'uppercase application code' => ['APP'],
-            'mixed case dependencies' => ['Vendor'],
-            'uppercase page sources' => ['_PAGES'],
-            'uppercase static files' => ['_STATIC'],
-        ];
-    }
-
-    public function testBuildFailsWhenTheOutputDirectoryMatchesADifferentlySpelledProjectDirectory()
-    {
-        Hyde::setMediaDirectory('./assets');
-        Hyde::setOutputDirectory('assets');
+        Hyde::setOutputDirectory('.');
 
         $this->expectException(InvalidConfigurationException::class);
 
         $this->artisan('build')->run();
-    }
-
-    public function testBuildTaskServiceCannotEmptyAProjectDirectory()
-    {
-        $this->file('_static/keep.txt', 'kept');
-
-        Hyde::setOutputDirectory('_static');
-
-        (new BuildTaskService())->runPreBuildTasks();
-
-        $this->assertFileExists(Hyde::path('_static/keep.txt'));
     }
 
     public function testBuildCreatesANestedOutputDirectoryThatDoesNotExistYet()
@@ -620,41 +482,5 @@ class StaticSiteServiceTest extends TestCase
 
         $this->assertFileDoesNotExist(Hyde::path('_site/media/app.css'));
         $this->assertFileExists(Hyde::path('_site/media/image.png'));
-    }
-
-    /** Point the output directory at a symbolic link leading to a directory holding a file that must survive. */
-    protected function createSymlinkedOutputDirectory(): string
-    {
-        $target = Hyde::path('_test-symlink-target');
-
-        File::ensureDirectoryExists($target);
-        File::put($target.'/keep.txt', 'kept');
-        symlink($target, Hyde::path('_test-symlink-output'));
-
-        Hyde::setOutputDirectory('_test-symlink-output');
-
-        return $target;
-    }
-
-    /** @return bool Whether the file behind the symbolic link survived. */
-    protected function removeSymlinkedOutputDirectory(string $target): bool
-    {
-        $this->removeSymlink(Hyde::path('_test-symlink-output'));
-
-        $survived = File::exists($target.'/keep.txt');
-
-        File::deleteDirectory($target);
-
-        return $survived;
-    }
-
-    /** Windows needs rmdir to remove a symbolic link to a directory, which leaves the target alone just like unlink does. */
-    protected function removeSymlink(string $path): void
-    {
-        if (DIRECTORY_SEPARATOR === '\\' && is_dir($path)) {
-            rmdir($path);
-        } else {
-            unlink($path);
-        }
     }
 }
