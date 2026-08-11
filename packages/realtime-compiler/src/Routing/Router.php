@@ -28,7 +28,7 @@ class Router
     {
         // Media files are always static assets, so we proxy them
         // directly without paying for booting the application.
-        if (str_starts_with($this->request->path, '/media/')) {
+        if (AssetFileLocator::isMediaPath($this->request->path)) {
             return $this->proxyStatic();
         }
 
