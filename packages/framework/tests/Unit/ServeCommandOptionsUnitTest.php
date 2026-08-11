@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hyde\Framework\Testing\Unit;
 
 use Mockery;
+use Hyde\Hyde;
 use Hyde\Testing\UnitTestCase;
 use Hyde\Foundation\HydeKernel;
 use Illuminate\Process\Factory;
@@ -102,6 +103,20 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
             'HYDE_SERVER_MEDIA_DIRECTORY' => '_media',
             'HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY' => 'media',
         ], $this->getMock(['no-ansi' => true])->getEnvironmentVariables());
+    }
+
+    public function testGetEnvironmentVariablesWithCustomMediaDirectory()
+    {
+        Hyde::setMediaDirectory('_custom-media');
+
+        try {
+            $environment = $this->getMock()->getEnvironmentVariables();
+
+            $this->assertSame('_custom-media', $environment['HYDE_SERVER_MEDIA_DIRECTORY']);
+            $this->assertSame('custom-media', $environment['HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY']);
+        } finally {
+            Hyde::setMediaDirectory('_media');
+        }
     }
 
     public function testSavePreviewOptionPropagatesToEnvironmentVariables()
