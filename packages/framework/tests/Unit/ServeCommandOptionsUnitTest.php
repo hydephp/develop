@@ -20,6 +20,8 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\RealtimeCompiler\Console\Commands\ServeCommand::class)]
 class ServeCommandOptionsUnitTest extends UnitTestCase
 {
+    protected static bool $needsKernel = true;
+
     protected function setUp(): void
     {
         self::mockConfig([
@@ -88,6 +90,8 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     {
         $this->assertSame([
             'HYDE_SERVER_REQUEST_OUTPUT' => true,
+            'HYDE_SERVER_MEDIA_DIRECTORY' => '_media',
+            'HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY' => 'media',
         ], $this->getMock()->getEnvironmentVariables());
     }
 
@@ -95,6 +99,8 @@ class ServeCommandOptionsUnitTest extends UnitTestCase
     {
         $this->assertSame([
             'HYDE_SERVER_REQUEST_OUTPUT' => false,
+            'HYDE_SERVER_MEDIA_DIRECTORY' => '_media',
+            'HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY' => 'media',
         ], $this->getMock(['no-ansi' => true])->getEnvironmentVariables());
     }
 
