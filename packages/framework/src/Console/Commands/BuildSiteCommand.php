@@ -9,16 +9,19 @@ use Hyde\Facades\Vite;
 use Hyde\Facades\Config;
 use Hyde\Support\BuildWarnings;
 use Hyde\Framework\Actions\TransferStaticFiles;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 use Hyde\Console\Concerns\Command;
 use Hyde\Framework\Services\BuildService;
 use Hyde\Framework\Services\BuildTaskService;
 use Illuminate\Support\Facades\Process;
 
+use function Hyde\normalize_slashes;
 use function memory_get_peak_usage;
 use function number_format;
 use function array_search;
 use function microtime;
 use function sprintf;
+use function trim;
 use function app;
 
 /**
@@ -80,6 +83,8 @@ class BuildSiteCommand extends Command
 
     protected function runPreBuildActions(): void
     {
+        $this->assertOutputDirectoryIsSafeToEmpty();
+
         if ($this->option('no-api')) {
             $this->info('Disabling external API calls');
             $this->newLine();
@@ -105,6 +110,18 @@ class BuildSiteCommand extends Command
     public function runPostBuildActions(): void
     {
         $this->taskService->runPostBuildTasks();
+    }
+
+    protected function assertOutputDirectoryIsSafeToEmpty(): void
+    {
+        $directory = trim(normalize_slashes(Hyde::getOutputDirectory()), '/');
+
+        if ($directory === '' || $directory === '.') {
+            throw new InvalidConfigurationException(
+                'The output directory must not be the project root, as it is emptied before every build.',
+                'hyde', 'output_directory'
+            );
+        }
     }
 
     protected function printFinishMessage(float $timeStart): void

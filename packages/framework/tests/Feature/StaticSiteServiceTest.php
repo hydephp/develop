@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSiteCommand::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Services\BuildService::class)]
@@ -258,40 +259,62 @@ class StaticSiteServiceTest extends TestCase
     public function testSiteDirectoryIsEmptiedBeforeBuild()
     {
         Filesystem::touch('_site/foo.html');
+        Filesystem::touch('_site/.nojekyll');
+        Filesystem::ensureDirectoryExists(Hyde::path('_site/nested/deep'));
+        Filesystem::touch('_site/nested/deep/leftover.txt');
+
         $this->artisan('build')
             ->expectsOutputToContain('Removing all files from build directory...')
             ->assertExitCode(0);
+
         $this->assertFileDoesNotExist(Hyde::path('_site/foo.html'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/.nojekyll'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('_site/nested'));
     }
 
-    public function testOutputDirectoryIsNotEmptiedIfDisabledInConfig()
-    {
-        config(['hyde.empty_output_directory' => false]);
-        Filesystem::touch('_site/keep.html');
-
-        $this->artisan('build')
-            ->doesntExpectOutput('Removing all files from build directory...')
-            ->assertExitCode(0);
-
-        $this->assertFileExists(Hyde::path('_site/keep.html'));
-        Filesystem::unlink('_site/keep.html');
-    }
-
-    public function testAbortsWhenNonStandardDirectoryIsEmptied()
+    public function testNonStandardOutputDirectoryIsEmptiedWithoutConfirmation()
     {
         Hyde::setOutputDirectory('foo');
 
         mkdir(Hyde::path('foo'));
-        Filesystem::touch('foo/keep.html');
+        Filesystem::touch('foo/stale.html');
 
         $this->artisan('build')
             ->expectsOutputToContain('Removing all files from build directory...')
-            ->expectsQuestion('The configured output directory (foo) is potentially unsafe to empty. Are you sure you want to continue?', false)
-            ->expectsOutput('Output directory will not be emptied.')
             ->assertExitCode(0);
 
-        $this->assertFileExists(Hyde::path('foo/keep.html'));
+        $this->assertFileDoesNotExist(Hyde::path('foo/stale.html'));
         File::deleteDirectory(Hyde::path('foo'));
+    }
+
+    public function testBuildFailsWhenOutputDirectoryIsTheProjectRoot()
+    {
+        Hyde::setOutputDirectory('');
+
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('The output directory must not be the project root, as it is emptied before every build.');
+
+        $this->artisan('build')->run();
+    }
+
+    public function testBuildFailsWhenOutputDirectoryIsExplicitlyTheProjectRoot()
+    {
+        Hyde::setOutputDirectory('.');
+
+        $this->expectException(InvalidConfigurationException::class);
+
+        $this->artisan('build')->run();
+    }
+
+    public function testBuildCreatesANestedOutputDirectoryThatDoesNotExistYet()
+    {
+        Hyde::setOutputDirectory('build/nested-site');
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileExists(Hyde::path('build/nested-site/index.html'));
+
+        File::deleteDirectory(Hyde::path('build'));
     }
 
     public function testWithoutWarnings()
