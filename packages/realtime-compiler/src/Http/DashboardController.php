@@ -149,7 +149,7 @@ class DashboardController extends BaseController
 
     public function getMediaPreviewLink(MediaFile $mediaFile): string
     {
-        return $this->rootRelativeLink('media/'.$mediaFile->getIdentifier());
+        return $this->rootRelativeLink(Hyde::getMediaOutputDirectory().'/'.$mediaFile->getIdentifier());
     }
 
     /** @return array{label: string, mark: string, color: string, rgb: string} */

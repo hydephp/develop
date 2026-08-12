@@ -19,9 +19,8 @@ class AssetFileLocator
             return $static;
         }
 
-        // TODO: Custom media directories are unsupported because media is proxied before the application boots.
-        if (str_starts_with($path, 'media/')) {
-            $media = BASE_PATH.'/_media/'.substr($path, strlen('media/'));
+        if (static::isMediaPath($path)) {
+            $media = BASE_PATH.'/'.static::mediaDirectory().'/'.substr($path, strlen(static::mediaOutputDirectory()) + 1);
 
             if (is_file($media)) {
                 return $media;
@@ -29,5 +28,25 @@ class AssetFileLocator
         }
 
         return null;
+    }
+
+    public static function isMediaPath(string $path): bool
+    {
+        return str_starts_with(trim($path, '/'), static::mediaOutputDirectory().'/');
+    }
+
+    /**
+     * The serve command resolves the configured media directories and passes them to the server
+     * process, as media is proxied before the application boots. The defaults apply when the
+     * server is started directly, for example through the Herd integration.
+     */
+    protected static function mediaDirectory(): string
+    {
+        return getenv('HYDE_SERVER_MEDIA_DIRECTORY') ?: '_media';
+    }
+
+    protected static function mediaOutputDirectory(): string
+    {
+        return getenv('HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY') ?: 'media';
     }
 }

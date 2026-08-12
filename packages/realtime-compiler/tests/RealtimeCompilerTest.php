@@ -14,6 +14,8 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
+use Hyde\RealtimeCompiler\Http\DashboardController;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\RealtimeCompiler\Routing\PageRouter;
 use Hyde\RealtimeCompiler\Routing\Router;
 
@@ -126,6 +128,48 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('test', $response->body);
 
         Filesystem::unlink('_media/test.css');
+    }
+
+    public function testHandlesRoutesStaticAssetsInCustomMediaDirectory()
+    {
+        putenv('HYDE_SERVER_MEDIA_DIRECTORY=_custom-media');
+        putenv('HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY=custom-media');
+
+        $this->mockCompilerRoute('custom-media/test.css');
+        Filesystem::ensureDirectoryExists('_custom-media');
+        Filesystem::put('_custom-media/test.css', 'test');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('test', $response->body);
+        } finally {
+            putenv('HYDE_SERVER_MEDIA_DIRECTORY');
+            putenv('HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY');
+
+            Filesystem::deleteDirectory('_custom-media');
+        }
+    }
+
+    public function testDashboardMediaPreviewLinksUseTheConfiguredMediaOutputDirectory()
+    {
+        $this->mockCompilerRoute('dashboard');
+
+        Hyde::setMediaDirectory('_custom-media');
+        Filesystem::ensureDirectoryExists('_custom-media');
+        Filesystem::put('_custom-media/test.css', 'test');
+
+        try {
+            $dashboard = new DashboardController(new Request());
+
+            $this->assertSame('/custom-media/test.css', $dashboard->getMediaPreviewLink(MediaFile::make('test.css')));
+        } finally {
+            Hyde::setMediaDirectory('_media');
+
+            Filesystem::deleteDirectory('_custom-media');
+        }
     }
 
     public function testStaticDirectoryTakesPrecedenceForMediaPath(): void
