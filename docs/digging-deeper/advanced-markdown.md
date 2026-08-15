@@ -214,7 +214,7 @@ marked up with a class of its own, like `hyde-terminal-info`, `hyde-terminal-fg-
 
 You can customize the terminal markup and Tailwind classes by publishing Hyde's Blade components:
 
-```bash
+```terminal
 php hyde publish:views components
 ```
 
