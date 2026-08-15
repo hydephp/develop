@@ -28,6 +28,28 @@ class BuildSearchCommandTest extends TestCase
         Filesystem::unlink('_site/docs/search.html');
     }
 
+    public function testGeneratedSearchIndexContainsPlainTextContent()
+    {
+        $this->file('_docs/foo.md', <<<'MD'
+        # Customizing Your Site
+
+        ## Introduction
+
+        Hyde favours **Convention over Configuration**.
+        MD);
+
+        $this->artisan('build:search')->assertExitCode(0);
+
+        $index = json_decode(Filesystem::getContents('_site/docs/search.json'), true);
+
+        $this->assertSame(
+            "Customizing Your Site\n\nIntroduction\n\nHyde favours Convention over Configuration.",
+            $index[0]['content']
+        );
+
+        Filesystem::unlink('_site/docs/search.json');
+    }
+
     public function testItCreatesTheSearchPage()
     {
         $this->assertFileDoesNotExist(Hyde::path('_site/docs/search.html'));
