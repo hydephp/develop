@@ -33,6 +33,24 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
         $this->assertSame($text, $this->convert($markdown));
     }
 
+    public function testItRemovesHeadingsFromLongMarkdownDocuments()
+    {
+        $markdown = <<<'MD'
+        # Customizing Your Site
+
+        ## Introduction
+
+        | Collection Type                       | Facade Method  | Returned Object Type                                                                                                                                     | File Extension        |
+        |---------------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+        MD;
+
+        $text = $this->convert($markdown);
+
+        $this->assertStringContainsString("Customizing Your Site\n\nIntroduction", $text);
+        $this->assertStringNotContainsString('# Customizing Your Site', $text);
+        $this->assertStringContainsString('Collection Type', $text);
+    }
+
     public function testItRemovesHeadingsAlternateSyntax()
     {
         $markdown = <<<'MD'
@@ -509,7 +527,7 @@ class ConvertsMarkdownToPlainTextTest extends TestCase
 
     public function testWithOnlyEmptyLines()
     {
-        $this->assertSame("\n", $this->convert("\n\n\n"));
+        $this->assertSame("\n\n", $this->convert("\n\n\n"));
     }
 
     protected function convert(string $markdown): string

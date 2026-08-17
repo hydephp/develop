@@ -22,7 +22,7 @@ use function preg_replace;
  */
 class ConvertsMarkdownToPlainText
 {
-    protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
+    protected const ATX_HEADERS = ['/^[ \t]*#{1,6}[ \t]+|[ \t]+#{1,6}[ \t]*$/m' => ''];
     protected const SETEXT_HEADERS = ['/\n={2,}/' => "\n"];
     protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
     protected const HTML_TAGS = ['/<[^>]*>/' => ''];
