@@ -13,19 +13,19 @@ Now that you have some amazing content, you'll want to compile your site into st
 
 **This is as easy as executing the `build` command:**
 
-```bash
+```terminal
 php hyde build
 ```
 
 **You can also compile a single file, though this is deprecated and will be removed in v3.0 (use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead if you need this programmatically):**
 
-```bash
+```terminal
 php hyde rebuild <filepath>
 ```
 
 **And, you can even start a development server to compile your site on the fly:**
 
-```bash
+```terminal
 php hyde serve
 ```
 

@@ -209,7 +209,7 @@ This will return a Hyde DataCollection object, containing our Markdown files as 
 
 Let's create a Blade page to display all our testimonials.
 
-```bash
+```terminal
 php hyde make:page "Testimonials" --type="blade"
 ```
 

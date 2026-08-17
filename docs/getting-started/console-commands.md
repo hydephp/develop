@@ -21,7 +21,7 @@ If an argument or option value has a space in it, it needs to be wrapped in quot
 The HydeCLI exists at the root of your application as the `hyde` script and provides a number of helpful commands that can
 assist you while you build your site. To view a list of all available Hyde commands, you may use the list command:
 
-```bash
+```terminal
 php hyde list
 ```
 
@@ -30,13 +30,13 @@ php hyde list
 Every command also includes a "help" screen which displays and describes the command's available arguments and options.
 To view a help screen, precede the name of the command with `help`:
 
-```bash
+```terminal
 php hyde help <command>
 ```
 
 You can also always add `--help` to a command to show detailed usage information.
 
-```bash
+```terminal
 php hyde <command> --help
 ```
 
@@ -66,7 +66,7 @@ Here is a quick reference of all the available commands. You can also run `php h
 
 <a name="build" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde build [--vite] [--pretty-urls] [--no-api]
 ```
 
@@ -86,7 +86,7 @@ Build the static site
 
 >warning **Deprecated:** The `rebuild` command is deprecated and will be removed in HydePHP v3.0. It has no remaining internal consumers now that the realtime compiler renders pages in-memory, and building a single page can silently leave aggregate outputs (sitemap, RSS, search index, navigation) stale. If you need to build a single page programmatically, use `Hyde\Framework\Actions\StaticPageBuilder::handle()` instead.
 
-```bash
+```terminal
 php hyde rebuild <path>
 ```
 
@@ -102,7 +102,7 @@ Run the static site builder for a single file
 
 <a name="serve" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde serve [--host [HOST]] [--port [PORT]] [--vite]
 ```
 
@@ -119,7 +119,7 @@ Start the realtime compiler server.
 
 <a name="validate" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde validate
 ```
 
@@ -129,7 +129,7 @@ Run a series of tests to validate your setup and help you optimize your site.
 
 <a name="build-rss" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde build:rss
 ```
 
@@ -139,7 +139,7 @@ Generate the RSS feed
 
 <a name="build-search" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde build:search
 ```
 
@@ -149,7 +149,7 @@ Generate the `docs/search.json` file
 
 <a name="build-sitemap" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde build:sitemap
 ```
 
@@ -159,7 +159,7 @@ Generate the `sitemap.xml` file
 
 <a name="make-page" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde make:page [--type [TYPE]] [--blade] [--docs] [--force] [--] [<title>]
 ```
 
@@ -179,7 +179,7 @@ Scaffold a new Markdown, Blade, or documentation page file
 
 <a name="make-post" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde make:post [--force] [--] [<title>]
 ```
 
@@ -196,7 +196,7 @@ Scaffold a new Markdown blog post file
 
 <a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde publish:configs
 ```
 
@@ -206,7 +206,7 @@ Publish the default configuration files
 
 <a name="publish-homepage" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde publish:homepage [--force] [--] [<homepage>]
 ```
 
@@ -223,7 +223,7 @@ Publish one of the default homepages as `index.blade.php`.
 
 <a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde publish:views [<group>]
 ```
 
@@ -239,7 +239,7 @@ Publish the hyde components for customization. Note that existing files will be 
 
 <a name="route-list" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde route:list
 ```
 
@@ -249,7 +249,7 @@ Display all registered routes.
 
 <a name="vendor-publish" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
-```bash
+```terminal
 php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
 ```
 

@@ -12,7 +12,7 @@
 
 You can install the package via composer:
 
-```bash
+```terminal
 composer require hyde/testing --dev
 ```
 
@@ -21,7 +21,7 @@ composer require hyde/testing --dev
 
 This package is created for and intended to be used specifically with HydePHP. It will likely not work with other frameworks, and such usage is discouraged.
 
-```bash
+```terminal
 php hyde test
 ```
 

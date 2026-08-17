@@ -132,7 +132,7 @@ That's easy enough, just set the value of the `source_root` setting in `config/h
 
 You can even make this change automatically with the `php hyde change:sourceDirectory` command!
 
-```bash
+```terminal
 php hyde change:sourceDirectory <name>
 ```
 

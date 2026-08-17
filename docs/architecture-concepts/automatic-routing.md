@@ -21,7 +21,7 @@ automatically resolve relative links and other useful features.
 
 You can see all the routes and their corresponding source files by running the `hyde route:list` command.
 
-```bash
+```terminal
 php hyde route:list
 ```
 

@@ -47,7 +47,7 @@ following the upgrade guide for each version. After following the upgrade guide,
 
 Updating a minor or patch version is easy using Composer. Just run the following command:
 
-```bash
+```terminal
 composer update "hyde/*" --with-dependencies
 ```
 
@@ -60,7 +60,7 @@ You can always refer to the `composer.json` file in the HydePHP repository if yo
 
 If you are using Git, you can set the `hydephp/hyde` repository as a Git remote and merge in the changes that way:
 
-```bash
+```terminal
 git remote add hyde https://github.com/hydephp/hyde.git
 git fetch hyde
 git merge hyde/master # OR: Replace 'master' with the version tag you want to update to
@@ -83,19 +83,19 @@ as existing files may be overwritten. If you are using Git, you can easily take 
 
 First, ensure that your dependencies are up to date. If you have already done this, you can skip this step.
 
-```bash
+```terminal
 composer update
 ```
 
 Then, update your config files. This is the hardest part, as you may need to manually copy in your own changes.
 
-```bash
+```terminal
 php hyde publish:configs
 ```
 
 If you have published any of the included Blade components you will need to re-publish them.
 
-```bash
+```terminal
 php hyde publish:views layouts
 php hyde publish:views components
 ```
@@ -122,14 +122,14 @@ Here are the paths you may be interested in copying over: (Using Git will help a
 
 Next, recompile your assets, if you are not using the built-in assets.
 
-```bash
+```terminal
 npm install
 npm run dev/prod
 ```
 
 Finally, you can rebuild your site.
 
-```bash
+```terminal
 php hyde build
 ```
 

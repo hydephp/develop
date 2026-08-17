@@ -4,7 +4,7 @@ Official Vite plugin for HydePHP's realtime compiler integration.
 
 ## Installation
 
-```bash
+```terminal
 npm install hyde-vite-plugin --save-dev
 ```
 
