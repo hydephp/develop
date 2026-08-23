@@ -40,6 +40,7 @@ This serves two purposes:
 - Removed the `components/filepath-label.blade.php` view, as the label markup now lives in the code block view. If this was published, port any customizations into `components/markdown/code-block.blade.php`.
 
 ### Fixed
+- Fixed Markdown-to-plain-text conversion consuming unrelated content after ATX headings and stripping literal trailing hashes in https://github.com/hydephp/develop/pull/2590
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332
 - Fixed bug causing build manifest to not generate when a site has dynamic pages in https://github.com/hydephp/develop/pull/2450
 - Fixed bug causing errors in the build manifest task not showing in console in https://github.com/hydephp/develop/pull/2451
@@ -130,7 +131,7 @@ Numerous quality-of-life improvements for developers:
 
 We've upgraded from Tailwind CSS v3 to v4. Run the automated upgrade tool to migrate your custom classes:
 
-```bash
+```terminal
 npx @tailwindcss/upgrade
 ```
 

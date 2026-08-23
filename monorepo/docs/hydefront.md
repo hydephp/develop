@@ -10,7 +10,7 @@
 
 If you need to set up the "submodule", run the following commands:
 
-```bash
+```terminal
 cd packages/hydefront
 git init
 git remote add origin git@github.com:hydephp/hydefront.git
@@ -20,7 +20,7 @@ git checkout master --force
 
 If you need to set up the NPM link, run the following commands:
 
-```bash
+```terminal
 cd packages/hydefront
 npm link
 
@@ -30,7 +30,7 @@ npm link hydefront
 
 ### Setup
 
-```bash
+```terminal
 cd packages/hydefront
 git pull origin master
 ```
@@ -39,7 +39,7 @@ git pull origin master
 
 Head back to the monorepo root and run the following command to bump the version of the HydeFront package:
 
-```bash
+```terminal
 php packages/hydefront/.github/scripts/version.php patch|minor|major
 ```
 

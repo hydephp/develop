@@ -13,7 +13,7 @@ The analyser is called through the `run.php` script, and is automatically run on
 
 It can also be run manually from the monorepo root:
 
-```bash
+```terminal
 php ./monorepo/HydeStan/run.php
 ```
 

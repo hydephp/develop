@@ -46,28 +46,67 @@ The recommended method of installation is using Composer.
 composer create-project hyde/hyde
 ```
 
-Once installed, you can access the HydeCLI from the project root using the `hyde` command.
+From here, the [Quickstart Guide](quickstart) walks you through starting a development server,
+creating your first content, and compiling your site.
 
-```terminal
-php hyde info
-```
+## Browse the Documentation
 
-## Usage
+### Getting Started
 
-Creating static websites with HydePHP is incredibly easy. First you need some content. You can just drop Markdown files
-in any of the source directories, or let Hyde scaffold the files for you using one of the many commands.
+Everything you need to go from an empty directory to a compiled site.
 
-```terminal
-php hyde make:post "My First Post"
-php hyde make:page "About Me"
-```
+- [Quickstart Guide](quickstart)
+- [Console Commands](console-commands)
+- [Core Concepts](core-concepts)
+- [Front Matter](front-matter)
+- [Release Notes](release-notes)
+- [Upgrade Guide](upgrade-guide)
 
-Once you have some content, you can run the build command to compile the content into beautiful static HTML.
+### Creating Content
 
-```terminal
-php hyde build
-```
+The page types Hyde understands, and how to get your content onto the web.
 
-And that's it, your amazing website is ready to be shared with the world!
+- [Creating Blog Posts](blog-posts)
+- [Markdown & Blade Pages](static-pages)
+- [Documentation Pages](documentation-pages)
+- [Managing and Compiling Assets](managing-assets)
+- [Compile & Deploy](compile-and-deploy)
 
-### To learn more, head over to the [quickstart page](quickstart).
+### Digging Deeper
+
+Making a Hyde site your own, and getting unstuck when something misbehaves.
+
+- [Customizing your Site](customization)
+- [Navigation Menus](navigation)
+- [Advanced Markdown](advanced-markdown)
+- [Advanced Customization](advanced-customization)
+- [File-based Collections](collections)
+- [Helpers and Utilities](helpers)
+- [Troubleshooting](troubleshooting)
+- [Updating Hyde Projects](updating-hyde)
+
+### Advanced Features
+
+For when you want to reach past the defaults and drive Hyde programmatically.
+
+- [Introduction](advanced-features)
+- [Custom Build Tasks](build-tasks)
+- [HydePage API](hyde-pages)
+- [InMemoryPages](in-memory-pages)
+- [Navigation API](navigation-api)
+
+### Architecture Concepts
+
+How Hyde works under the hood, for contributors and the deeply curious.
+
+- [Introduction](architecture-concepts)
+- [Autodiscovery](autodiscovery)
+- [Automatic Routing](automatic-routing)
+- [Dynamic Data Discovery](dynamic-data-discovery)
+- [Page Models](page-models)
+- [The HydeKernel](the-hydekernel)
+- [The Extensions API](extensions-api)
+
+### Extensions & Integrations
+
+- [Extensions & Integrations](extensions)
