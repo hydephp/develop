@@ -39,7 +39,6 @@ jobs:
         run: php hyde debug
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        id: smoke-tests
         run: vendor/bin/pest --stop-on-failure --log-junit report.xml
         env:
           ENV: testing
@@ -204,7 +203,6 @@ jobs:
           verbose: true # optional (default = false)
 
       - name: Ping statistics server with test results
-        continue-on-error: true
         run: |
           cp build/junit.xml report.xml
           curl https://raw.githubusercontent.com/hydephp/develop/1bab6fc070a1b636cb4b69e44a9bf7fea1286c0f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
