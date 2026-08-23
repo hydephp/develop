@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Hyde\Framework\Actions;
 
 use function trim;
+use function strlen;
+use function strspn;
+use function ltrim;
 use function rtrim;
 use function is_numeric;
 use function str_ends_with;
@@ -22,7 +25,6 @@ use function preg_replace;
  */
 class ConvertsMarkdownToPlainText
 {
-    protected const ATX_HEADERS = ['/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,} {0,}(\n)?\s{0,}$/m' => '$1$2$3'];
     protected const SETEXT_HEADERS = ['/\n={2,}/' => "\n"];
     protected const HORIZONTAL_RULES = ['/^(-\s*?|\*\s*?|_\s*?){3,}\s*/m' => ''];
     protected const HTML_TAGS = ['/<[^>]*>/' => ''];
@@ -63,7 +65,6 @@ class ConvertsMarkdownToPlainText
     {
         /** @var array<array-key, array<string, string>> $patterns */
         $patterns = [
-            static::ATX_HEADERS,
             static::SETEXT_HEADERS,
             static::HORIZONTAL_RULES,
             static::HTML_TAGS,
@@ -93,6 +94,7 @@ class ConvertsMarkdownToPlainText
     {
         $lines = explode("\n", $markdown);
         foreach ($lines as $line => $contents) {
+            $contents = $this->removeAtxHeading($contents);
             $contents = $this->removeTables($contents);
             $contents = $this->removeBlockquotes($contents);
             $contents = $this->trimWhitespace($contents);
@@ -101,6 +103,50 @@ class ConvertsMarkdownToPlainText
         }
 
         return implode("\n", $lines);
+    }
+
+    protected function removeAtxHeading(string $contents): string
+    {
+        $indent = strspn($contents, ' ');
+
+        if ($indent > 3) {
+            return $contents;
+        }
+
+        $offset = $indent;
+        $hashes = strspn($contents, '#', $offset);
+
+        if ($hashes === 0 || $hashes > 6) {
+            return $contents;
+        }
+
+        $offset += $hashes;
+
+        if ($offset === strlen($contents)) {
+            return '';
+        }
+
+        if ($contents[$offset] !== ' ' && $contents[$offset] !== "\t") {
+            return $contents;
+        }
+
+        $contents = rtrim(ltrim(substr($contents, $offset), " \t"), " \t");
+        $closingMarker = strlen($contents);
+
+        while ($closingMarker > 0 && $contents[$closingMarker - 1] === '#') {
+            $closingMarker--;
+        }
+
+        if ($closingMarker === 0) {
+            return '';
+        }
+
+        if ($closingMarker < strlen($contents)
+            && ($contents[$closingMarker - 1] === ' ' || $contents[$closingMarker - 1] === "\t")) {
+            $contents = rtrim(substr($contents, 0, $closingMarker), " \t");
+        }
+
+        return $contents;
     }
 
     protected function removeTables(string $contents): string
