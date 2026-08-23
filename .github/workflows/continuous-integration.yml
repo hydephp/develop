@@ -105,8 +105,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Remove package-lock.json
-        run: rm -f package-lock.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
 
       - name: Run system tests (${{ matrix.script }})
         run: php monorepo/scripts/tests/${{ matrix.script }}.php
@@ -121,15 +124,13 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v6
         with:
-          cache: 'npm'
-
-      - name: Remove package-lock.json
-        run: rm -f package-lock.json
+          node-version: 24
+          cache: npm
 
       - name: Install Node.js dependencies
-        run: npm install
+        run: npm ci
 
       - name: Update Tailwind content path
         run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
