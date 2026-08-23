@@ -33,6 +33,7 @@ _Changes to the realtime compiler requires an update to v4.5 or later of the `hy
 - for now removed features.
 
 ### Fixed
+- Fixed Markdown-to-plain-text conversion consuming unrelated content after ATX headings and stripping literal trailing hashes in https://github.com/hydephp/develop/pull/2590
 - Improved documentation page detection in MarkdownService so it works for child classes in https://github.com/hydephp/develop/pull/2332
 - Fixed bug causing build manifest to not generate when a site has dynamic pages in https://github.com/hydephp/develop/pull/2450
 - Fixed bug causing errors in the build manifest task not showing in console in https://github.com/hydephp/develop/pull/2451
