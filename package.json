@@ -7,12 +7,12 @@
     },
     "devDependencies": {
         "@percy/cli": "^1.32.7",
-        "@tailwindcss/typography": "^0.5.16",
-        "@tailwindcss/vite": "^4.3.2",
-        "autoprefixer": "^10.4.27",
+        "@tailwindcss/typography": "^0.5.20",
+        "@tailwindcss/vite": "^4.3.3",
+        "autoprefixer": "^10.5.4",
         "hyde-vite-plugin": "^1.1.0",
         "hydefront": "^4.0.0",
-        "postcss": "^8.5.23",
+        "postcss": "^8.5.26",
         "tailwindcss": "^4.1.16",
         "vite": "^7.3.6"
     }
