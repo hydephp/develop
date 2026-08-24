@@ -134,6 +134,7 @@ jobs:
         run: npm ci
 
       - name: Install local HydeFront package
+        if: github.ref_name == 'master'
         run: npm install --no-save --no-package-lock ./packages/hydefront
 
       - name: Update Tailwind content path
