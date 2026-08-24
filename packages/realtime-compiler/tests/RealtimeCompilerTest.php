@@ -511,6 +511,138 @@ class RealtimeCompilerTest extends TestCase
         putenv('SERVER_SAVE_PREVIEW=');
     }
 
+    public function testSitemapRouteRendersDynamicallyGeneratedSitemap()
+    {
+        $siteUrlEnvironment = getenv('SITE_URL');
+        putenv('SITE_URL=');
+
+        $this->mockCompilerRoute('sitemap.xml');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $this->file('_pages/dynamic-sitemap-test.md', '# Dynamic Sitemap Test');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/xml', $headers['Content-Type']);
+            $this->assertSame((string) strlen($response->body), $headers['Content-Length']);
+
+            $this->assertStringContainsString('<loc>http://localhost:8080/dynamic-sitemap-test.html</loc>', $response->body);
+        } finally {
+            putenv($siteUrlEnvironment === false ? 'SITE_URL' : "SITE_URL=$siteUrlEnvironment");
+        }
+    }
+
+    public function testSitemapRouteIsNotServedFromAPreviouslyBuiltFile()
+    {
+        $this->mockCompilerRoute('sitemap.xml');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $this->file('_site/sitemap.xml', '<urlset><!-- Stale sitemap --></urlset>');
+        $this->file('_pages/fresh-sitemap-test.md', '# Fresh Sitemap Test');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertSame(200, $response->statusCode);
+        $this->assertStringNotContainsString('Stale sitemap', $response->body);
+        $this->assertStringContainsString('<loc>http://localhost:8080/fresh-sitemap-test.html</loc>', $response->body);
+    }
+
+    public function testRssFeedRouteRendersDynamicallyGeneratedFeed()
+    {
+        $siteUrlEnvironment = getenv('SITE_URL');
+        putenv('SITE_URL=');
+
+        $this->mockCompilerRoute('feed.xml');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $this->markdown('_posts/dynamic-feed-test.md', 'Hello World!', [
+            'title' => 'Dynamic Feed Test',
+            'description' => 'A post added while the server is running.',
+        ]);
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/rss+xml', $headers['Content-Type']);
+            $this->assertSame((string) strlen($response->body), $headers['Content-Length']);
+
+            $this->assertStringContainsString('<title>Dynamic Feed Test</title>', $response->body);
+            $this->assertStringContainsString('<link>http://localhost:8080/posts/dynamic-feed-test.html</link>', $response->body);
+            $this->assertStringContainsString('http://localhost:8080/feed.xml', $response->body);
+        } finally {
+            putenv($siteUrlEnvironment === false ? 'SITE_URL' : "SITE_URL=$siteUrlEnvironment");
+        }
+    }
+
+    public function testSitemapRouteIsNotServedWhenSitemapGenerationIsDisabled()
+    {
+        $this->mockCompilerRoute('sitemap.xml');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $this->file('hyde.yml', 'generate_sitemap: false');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertSame(404, $response->statusCode);
+        $this->assertSame('Not Found', $response->statusMessage);
+    }
+
+    public function testRssFeedRouteIsNotServedWhenRssGenerationIsDisabled()
+    {
+        $this->mockCompilerRoute('feed.xml');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $this->markdown('_posts/disabled-feed-test.md', 'Hello World!', ['title' => 'Disabled Feed Test']);
+        $this->file('hyde.yml', "rss:\n  enabled: false");
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertSame(404, $response->statusCode);
+        $this->assertSame('Not Found', $response->statusMessage);
+    }
+
+    public function testRssFeedRouteUsesTheConfiguredFilename()
+    {
+        $this->mockCompilerRoute('posts.rss');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $this->markdown('_posts/custom-filename-test.md', 'Hello World!', ['title' => 'Custom Filename Test']);
+        $this->file('hyde.yml', "rss:\n  filename: posts.rss");
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('application/rss+xml', $this->getResponseHeaders($response)['Content-Type']);
+        $this->assertStringContainsString('<title>Custom Filename Test</title>', $response->body);
+    }
+
+    public function testStaticXmlAssetsAreStillProxied()
+    {
+        $this->mockCompilerRoute('static-asset-test.xml');
+        $this->file('_media/static-asset-test.xml', '<static />');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('<static />', $response->body);
+    }
+
     protected function mockCompilerRoute(string $route, $method = 'GET'): void
     {
         $_SERVER['REQUEST_METHOD'] = $method;
