@@ -631,6 +631,21 @@ class RealtimeCompilerTest extends TestCase
         $this->assertStringContainsString('<title>Custom Filename Test</title>', $response->body);
     }
 
+    public function testRssFeedRouteNormalizesTheConfiguredFilename()
+    {
+        $this->mockCompilerRoute('posts.rss');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        $this->markdown('_posts/slashed-filename-test.md', 'Hello World!', ['title' => 'Slashed Filename Test']);
+        $this->file('hyde.yml', "rss:\n  filename: /posts.rss");
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertSame(200, $response->statusCode);
+        $this->assertStringContainsString('<title>Slashed Filename Test</title>', $response->body);
+    }
+
     public function testSitemapRouteIsNotServedWhenSavePreviewIsEnabledWithoutASiteUrl()
     {
         $siteUrlEnvironment = getenv('SITE_URL');

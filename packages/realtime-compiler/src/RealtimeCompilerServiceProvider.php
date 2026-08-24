@@ -13,6 +13,8 @@ use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\RealtimeCompiler\Console\Commands\HerdInstallCommand;
 use Hyde\RealtimeCompiler\Console\Commands\ServeCommand;
 
+use function Hyde\unslash;
+
 class RealtimeCompilerServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -48,6 +50,6 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
         // Unlike the routes above, these are registered unconditionally, as the feature checks depend on the
         // site URL, which the router only overrides with the local preview URL after the application boots.
         $router->registerVirtualRoute('/sitemap.xml', [VirtualRouteController::class, 'sitemap']);
-        $router->registerVirtualRoute('/'.RssFeedGenerator::getFilename(), [VirtualRouteController::class, 'rssFeed']);
+        $router->registerVirtualRoute('/'.unslash(RssFeedGenerator::getFilename()), [VirtualRouteController::class, 'rssFeed']);
     }
 }
