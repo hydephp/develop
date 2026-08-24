@@ -11,7 +11,7 @@ test('example', function () {
 test('can install node dependencies', function () {
     $this->assert(! file_exists(BASE_PATH.'/node_modules'), 'Node modules already exist');
 
-    shell_exec('cd '.BASE_PATH.' && npm install');
+    shell_exec('cd '.BASE_PATH.' && npm install && npm install --no-save --no-package-lock ./packages/hydefront');
 
     $this->assert(file_exists(BASE_PATH.'/node_modules'), 'Node modules do not exist');
 });
