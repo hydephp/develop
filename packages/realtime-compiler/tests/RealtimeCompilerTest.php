@@ -631,6 +631,29 @@ class RealtimeCompilerTest extends TestCase
         $this->assertStringContainsString('<title>Custom Filename Test</title>', $response->body);
     }
 
+    public function testSitemapRouteIsNotServedWhenSavePreviewIsEnabledWithoutASiteUrl()
+    {
+        $siteUrlEnvironment = getenv('SITE_URL');
+        putenv('SITE_URL=');
+        putenv('SERVER_SAVE_PREVIEW=true');
+
+        $this->mockCompilerRoute('sitemap.xml');
+        $_SERVER['HTTP_HOST'] = 'localhost:8080';
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            // The local preview URL is not applied when the preview is saved to disk,
+            // so there is no site URL to generate the sitemap with.
+            $this->assertSame(404, $response->statusCode);
+            $this->assertSame('Not Found', $response->statusMessage);
+        } finally {
+            putenv('SERVER_SAVE_PREVIEW=');
+            putenv($siteUrlEnvironment === false ? 'SITE_URL' : "SITE_URL=$siteUrlEnvironment");
+        }
+    }
+
     public function testStaticXmlAssetsAreStillProxied()
     {
         $this->mockCompilerRoute('static-asset-test.xml');
