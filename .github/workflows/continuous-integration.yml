@@ -6,71 +6,7 @@ on:
 
 jobs:
 
-  run-smoke-tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          extensions: fileinfo
-
-      - uses: actions/checkout@v7
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict --no-check-all
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v6
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-
-      - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Set environment to testing
-        run: echo "ENV=testing" > .env
-
-      - name: Output debug information
-        run: php hyde debug
-
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        id: smoke-tests
-        run: vendor/bin/pest --stop-on-failure --log-junit report.xml
-        env:
-          ENV: testing
-
-      - name: Ping continuous integration server with test status
-        if: always() && github.event.repository.full_name == 'hydephp/develop'
-        run: |
-          bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
-          commit="${{ github.sha }}"
-          url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-          if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
-              status=false
-          else
-              status=true
-          fi
-
-          curl -X POST --fail-with-body \
-            -H "Authorization: Bearer $bearerToken" \
-            -H "Content-Type: application/json" \
-            -H "Accept: application/json" \
-            -d '{"commit":"'"$commit"'", "status":'$status', "url":"'"$url"'"}' \
-            https://ci.hydephp.com/api/test-run-reports
-
-      - name: Ping statistics server with test results
-        run: |
-          curl https://raw.githubusercontent.com/hydephp/develop/1bab6fc070a1b636cb4b69e44a9bf7fea1286c0f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
-          php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
-
   test-matrix:
-    needs: run-smoke-tests
     strategy:
       fail-fast: false
       matrix:
@@ -119,7 +55,6 @@ jobs:
   build-tailwindcss:
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: actions/checkout@v7
@@ -169,7 +104,6 @@ jobs:
       url: https://hydephp.github.io/develop/master/coverage/
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -237,7 +171,6 @@ jobs:
       url: https://hydephp.github.io/develop/master/api-docs/
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: actions/checkout@v7
@@ -263,7 +196,6 @@ jobs:
       url: https://hydephp.github.io/develop/master/dev-docs/
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: actions/checkout@v7
@@ -307,7 +239,6 @@ jobs:
     # Todo: Reimplement this. See https://github.com/hydephp/develop/issues/2224
     if: false
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: actions/checkout@v7
@@ -354,7 +285,6 @@ jobs:
     #  url: https://hydephp.github.io/develop/master/test-fixtures/docs
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: actions/checkout@v7
@@ -395,7 +325,6 @@ jobs:
 
   build-git-history-graph:
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: actions/checkout@v7
@@ -420,7 +349,6 @@ jobs:
 
     runs-on: ubuntu-latest
     needs:
-      - run-smoke-tests
       - build-test-coverage
       - build-api-documentation
       - build-upcoming-documentation
@@ -597,7 +525,6 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     permissions:
       actions: read
