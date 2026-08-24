@@ -9,6 +9,7 @@ use Hyde\RealtimeCompiler\Http\DashboardController;
 use Hyde\RealtimeCompiler\Http\LiveEditController;
 use Hyde\RealtimeCompiler\Http\VirtualRouteController;
 use Hyde\RealtimeCompiler\Http\OpenInEditorController;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
 use Hyde\RealtimeCompiler\Console\Commands\HerdInstallCommand;
 use Hyde\RealtimeCompiler\Console\Commands\ServeCommand;
 
@@ -43,5 +44,10 @@ class RealtimeCompilerServiceProvider extends ServiceProvider
         if (OpenInEditorController::enabled()) {
             $router->registerVirtualRoute('/_hyde/open-in-editor', [VirtualRouteController::class, 'openInEditor']);
         }
+
+        // Unlike the routes above, these are registered unconditionally, as the feature checks depend on the
+        // site URL, which the router only overrides with the local preview URL after the application boots.
+        $router->registerVirtualRoute('/sitemap.xml', [VirtualRouteController::class, 'sitemap']);
+        $router->registerVirtualRoute('/'.RssFeedGenerator::getFilename(), [VirtualRouteController::class, 'rssFeed']);
     }
 }
