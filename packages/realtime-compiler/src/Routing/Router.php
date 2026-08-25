@@ -26,8 +26,16 @@ class Router
 
     public function handle(): Response
     {
-        if ($this->shouldProxy($this->request)) {
-            return $this->proxyStatic();
+        // An asset request without a matching file may still be served by a virtual
+        // route, as the sitemap and the RSS feed are generated on the fly.
+        $isAssetRequest = $this->isAssetRequest($this->request);
+
+        if ($isAssetRequest) {
+            $path = AssetFileLocator::find($this->request->path);
+
+            if ($path !== null) {
+                return $this->proxyStatic($path);
+            }
         }
 
         $this->bootApplication();
@@ -40,14 +48,14 @@ class Router
             return $virtualRoutes[$this->request->path]($this->request);
         }
 
-        return PageRouter::handle($this->request);
+        return $isAssetRequest ? $this->notFound() : PageRouter::handle($this->request);
     }
 
     /**
-     * If the request is not for a web page, we assume it's
-     * a static asset, which we instead want to proxy.
+     * If the request is not for a web page, we assume it's a static asset,
+     * which we want to proxy instead of compiling.
      */
-    protected function shouldProxy(Request $request): bool
+    protected function isAssetRequest(Request $request): bool
     {
         // Always proxy media files. This condition is just to improve performance
         // without having to check the file extension.
@@ -151,16 +159,10 @@ class Router
     }
 
     /**
-     * Proxy a static file or return a 404.
+     * Proxy a static file.
      */
-    protected function proxyStatic(): Response
+    protected function proxyStatic(string $path): Response
     {
-        $path = AssetFileLocator::find($this->request->path);
-
-        if ($path === null) {
-            return $this->notFound();
-        }
-
         $file = new FileObject($path);
 
         return (new Response(200, 'OK', [
