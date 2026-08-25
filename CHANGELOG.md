@@ -42,7 +42,7 @@ _Changes to the realtime compiler requires an update to v4.5 or later of the `hy
 - Fix build command trying to use Vite in site builds if server is running in https://github.com/hydephp/develop/issues/2483
 - Fixed missing content type headers for JSON and XML in the realtime compiler in https://github.com/hydephp/develop/pull/2496
 - Fixed dashboard links not resolving properly when there is a trailing slash in the URL in https://github.com/hydephp/develop/pull/2499
-- Fixed the realtime compiler serving a 404 for the sitemap and the RSS feed instead of generating them on the fly in https://github.com/hydephp/develop/pull/2603
+- Fixed the realtime compiler serving a 404 for the sitemap and the RSS feed during `php hyde serve`, even after building the site, by now generating them on the fly in https://github.com/hydephp/develop/pull/2603
 
 ### Security
 - in case of vulnerabilities.
