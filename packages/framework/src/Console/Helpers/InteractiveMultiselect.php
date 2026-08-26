@@ -39,6 +39,6 @@ class InteractiveMultiselect
             return array_keys($options);
         }
 
-        return array_values(array_filter($selected, fn ($key): bool => (string) $key !== self::ALL));
+        return array_values(array_filter($selected, fn (int|string $key): bool => (string) $key !== self::ALL));
     }
 }

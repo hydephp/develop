@@ -151,7 +151,7 @@ class PagesPublisher extends BasePublisher
         $selected = InteractiveMultiselect::select('Select pages to publish', $options);
 
         // Cast defends against PHP coercing a numeric key such as '404' to an int on the way back through the prompt.
-        return array_map(fn ($key): PublishablePage => $this->findPage((string) $key), $selected);
+        return array_map(fn (int|string $key): PublishablePage => $this->findPage((string) $key), $selected);
     }
 
     protected function pickerLabel(PublishablePage $page): string
