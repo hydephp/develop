@@ -200,8 +200,8 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         ConsoleHelper::mockWindowsOs(true);
 
-        $this->artisan('publish:views components')
-            ->expectsOutput('Published all [component] files to [resources/views/vendor/hyde/components]')
+        $this->artisan('publish --components')
+            ->expectsOutputToContain('views to [resources/views/vendor/hyde/components]')
             ->assertExitCode(0);
 
         foreach ($this->documentedViews() as $view) {
@@ -209,30 +209,15 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         }
     }
 
-    public function testRunningThePublishCommandWithoutArgumentsPromptsForAGroupFirst()
-    {
-        ConsoleHelper::disableLaravelPrompts();
-
-        $this->artisan('publish:views')
-            ->expectsQuestion('Which group do you want to publish?', $this->componentsGroupChoice())
-            ->expectsOutput('Published all [component] files to [resources/views/vendor/hyde/components]')
-            ->assertExitCode(0);
-
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/code-block.blade.php'));
-        $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/terminal.blade.php'));
-    }
-
-    public function testChoosingAGroupThenAsksWhichIndividualFilesToPublish()
+    public function testThePickerCanPublishAnIndividualComponentView()
     {
         if (windows_os()) {
             $this->markTestSkipped('Test is not applicable on Windows systems.');
         }
 
-        $this->artisan('publish:views')
-            ->expectsQuestion('Which group do you want to publish?', $this->componentsGroupChoice())
-            ->expectsOutput('Selected group [components]')
-            ->expectsQuestion('Select the files you want to publish', [$this->publishableFilePath('markdown/terminal.blade.php')])
-            ->expectsOutput('Published selected file to [resources/views/vendor/hyde/components/markdown/terminal.blade.php]')
+        $this->artisan('publish --components')
+            ->expectsQuestion('Select Hyde views to publish', [$this->publishableFilePath('markdown/terminal.blade.php')])
+            ->expectsOutputToContain('Published 1 view to [resources/views/vendor/hyde/components/markdown/terminal.blade.php]')
             ->assertExitCode(0);
 
         // Just the one view we cared about, instead of the whole set
@@ -241,15 +226,14 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('resources/views/vendor/hyde/components/colored-blockquote.blade.php'));
     }
 
-    public function testChoosingToPublishEverythingDoesNotAskWhichFilesToPublish()
+    public function testPublishingEverythingDoesNotAskWhichFilesToPublish()
     {
         if (windows_os()) {
             $this->markTestSkipped('Test is not applicable on Windows systems.');
         }
 
-        $this->artisan('publish:views')
-            ->expectsQuestion('Which group do you want to publish?', 'Publish all groups listed below')
-            ->doesntExpectOutputToContain('Select the files you want to publish')
+        $this->artisan('publish --components --all')
+            ->doesntExpectOutputToContain('Select Hyde views to publish')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/markdown/code-block.blade.php'));
@@ -260,7 +244,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         ConsoleHelper::mockWindowsOs(true);
 
-        $this->artisan('publish:views components')->assertExitCode(0);
+        $this->artisan('publish --components')->assertExitCode(0);
 
         // The exact tree shown in the documentation
         $this->assertFileExists(Hyde::path('resources/views/vendor/hyde/components/colored-blockquote.blade.php'));
@@ -282,13 +266,17 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
         $this->assertStringNotContainsString('border-blue-500', $html);
     }
 
-    public function testPublishingOverwritesAnyExistingFileAtTheTargetPath()
+    public function testPublishingLeavesACustomizedViewAloneUntilForced()
     {
         $this->publishView('vendor/hyde/components/colored-blockquote.blade.php', 'My customized view');
 
         ConsoleHelper::mockWindowsOs(true);
 
-        $this->artisan('publish:views components')->assertExitCode(0);
+        $this->artisan('publish --components')->assertExitCode(1);
+
+        $this->assertSame('My customized view', $this->normalize(File::get(Hyde::path('resources/views/vendor/hyde/components/colored-blockquote.blade.php'))));
+
+        $this->artisan('publish --components --force')->assertExitCode(0);
 
         $this->assertSame(
             $this->frameworkViewContents('colored-blockquote.blade.php'),
@@ -1201,7 +1189,7 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     {
         ConsoleHelper::mockWindowsOs(true);
 
-        $this->artisan('publish:views components')->assertExitCode(0);
+        $this->artisan('publish --components')->assertExitCode(0);
 
         $published = Hyde::path('resources/views/vendor/hyde/components/colored-blockquote.blade.php');
 
@@ -1358,12 +1346,6 @@ class ComposableMarkdownBlocksDocumentationTest extends TestCase
     protected function publishableFilePath(string $view): string
     {
         return (File::isDirectory(Hyde::path('packages')) ? 'packages' : 'vendor/hyde')."/framework/resources/views/components/$view";
-    }
-
-    /** Get the choice string for the components group in the publish command. */
-    protected function componentsGroupChoice(): string
-    {
-        return '<comment>components</comment>: More or less self contained components, extracted for customizability and DRY code';
     }
 
     /** Get the contents of the documented page, skipping the test when it is not part of the installation. */
