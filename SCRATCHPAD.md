@@ -17,10 +17,6 @@ Add tests for the localization feature (none exist yet).
 
 ### Known gaps
 
-The locale context only wraps `$page->compile()`, not `Hyde::shareViewData()`, so
-anything resolving translations outside the compile call runs under the default
-locale. The whole render should happen inside the language context instead.
-
 Navigation labels are not translated. The menus are filtered per language, but each
 language still shows the label from the shared front matter.
 
