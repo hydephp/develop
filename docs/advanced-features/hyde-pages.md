@@ -1,6 +1,7 @@
 ---
 navigation:
     label: "HydePage API"
+abstract: "Full API reference for HydePHP's built-in HydePage classes, useful if you're extending the framework or building your own custom page classes and Blade templates."
 ---
 
 # HydePage API Reference
@@ -69,14 +70,19 @@ abstract class HydePage
     public static string $sourceDirectory;
 
     /**
-     * The output subdirectory to store compiled HTML. Relative to the _site output directory.
+     * The output subdirectory to store compiled files. Relative to the _site output directory.
      */
     public static string $outputDirectory;
 
     /**
      * The file extension of the source files.
      */
-    public static string $fileExtension;
+    public static string $sourceExtension;
+
+    /**
+     * The file extension of the compiled output files.
+     */
+    public static string $outputExtension = '.html';
 
     /**
      * The default template to use for rendering the page.
@@ -138,7 +144,7 @@ abstract class BaseMarkdownPage extends HydePage
 {
     public Markdown $markdown;
 
-    public static string $fileExtension = '.md';
+    public static string $sourceExtension = '.md';
 }
 ```
 
@@ -155,6 +161,9 @@ autodiscovery, you may benefit from creating a custom page class instead, as tha
 
 You can learn more about the InMemoryPage class in the [InMemoryPage documentation](in-memory-pages).
 
+In-memory pages infer their output extension from the identifier: identifiers without an extension compile to `.html`,
+while identifiers that already have an extension retain it. See the [InMemoryPage guide](in-memory-pages) for details.
+
 ### Quick Reference
 
 | Class Name     | Namespace    | Source Code                                                                                   | API Docs                                                                                                |
@@ -163,9 +172,10 @@ You can learn more about the InMemoryPage class in the [InMemoryPage documentati
 
 ### Base Structure
 
-As the class is not discoverable, the static path properties are not initialized. Instead, you solely rely on the contents/view properties.
-
-You can also define macros which allow you to both add methods to the instance, but also to overload some built-in ones like the `compile` method.
+As the class is not discoverable, the static path properties are not initialized. Instead, you rely on literal string
+contents, lazy closure contents, or a Blade view. Contents and views are mutually exclusive; choose one content source
+for each page. Extend the class and override `compile()` when you need complete compilation control, or want to add
+other methods to the subclass for custom behavior.
 
 ```php
 /**
@@ -175,13 +185,10 @@ class InMemoryPage extends HydePage
 {
     public static string $sourceDirectory;
     public static string $outputDirectory;
-    public static string $fileExtension;
+    public static string $sourceExtension;
 
-    protected string $contents;
+    protected string|\Closure $contents;
     protected string $view;
-
-    /** @var array<string, callable> */
-    protected array $macros = [];
 }
 ```
 
@@ -209,7 +216,7 @@ class BladePage extends HydePage
 {
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-    public static string $fileExtension = '.blade.php';
+    public static string $sourceExtension = '.blade.php';
 }
 ```
 
@@ -327,7 +334,7 @@ class HtmlPage extends HydePage
 {
     public static string $sourceDirectory = '_pages';
     public static string $outputDirectory = '';
-    public static string $fileExtension = '.html';
+    public static string $sourceExtension = '.html';
 }
 ```
 

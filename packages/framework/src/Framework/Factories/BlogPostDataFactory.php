@@ -40,6 +40,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
     protected readonly ?string $description;
     protected readonly ?string $category;
     protected readonly ?DateString $date;
+    protected readonly bool $draft;
     protected readonly ?PostAuthor $author;
     protected readonly ?FeaturedImage $image;
 
@@ -54,12 +55,13 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         $this->description = $this->makeDescription();
         $this->category = $this->makeCategory();
         $this->date = $this->makeDate();
+        $this->draft = $this->makeDraft();
         $this->author = $this->makeAuthor();
         $this->image = $this->makeImage();
     }
 
     /**
-     * @return array{description: string|null, category: string|null, date: \Hyde\Support\Models\DateString|null, author: \Hyde\Framework\Features\Blogging\Models\PostAuthor|null, image: \Hyde\Framework\Features\Blogging\Models\FeaturedImage|null}
+     * @return array{description: string|null, category: string|null, date: \Hyde\Support\Models\DateString|null, draft: bool, author: \Hyde\Framework\Features\Blogging\Models\PostAuthor|null, image: \Hyde\Framework\Features\Blogging\Models\FeaturedImage|null}
      */
     public function toArray(): array
     {
@@ -67,6 +69,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
             'description' => $this->description,
             'category' => $this->category,
             'date' => $this->date,
+            'draft' => $this->draft,
             'author' => $this->author,
             'image' => $this->image,
         ];
@@ -95,6 +98,12 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
         }
 
         return null;
+    }
+
+    protected function makeDraft(): bool
+    {
+        // Posts are published by default, so only an explicit true marks one as a draft.
+        return $this->getMatter('draft') === true;
     }
 
     protected function makeAuthor(): ?PostAuthor
@@ -133,7 +142,7 @@ class BlogPostDataFactory extends Concerns\PageDataFactory implements BlogPostSc
 
     protected function getMatter(string $key): string|null|array|int|bool
     {
-        /** @var string|null|array $value */
+        /** @var string|null|array|int|bool $value */
         $value = $this->matter->get($key);
 
         return $value;

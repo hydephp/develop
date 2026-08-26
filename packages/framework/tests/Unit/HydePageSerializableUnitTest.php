@@ -81,7 +81,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
     public function testMarkdownPostToArrayKeys()
     {
         $this->assertSame(
-            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'description', 'category', 'date', 'author', 'image'],
+            ['class', 'identifier', 'routeKey', 'matter', 'metadata', 'navigation', 'title', 'description', 'category', 'date', 'draft', 'author', 'image'],
             array_keys((new MarkdownPost())->toArray())
         );
     }
@@ -172,6 +172,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
             'description' => $page->description,
             'category' => $page->category,
             'date' => $page->date,
+            'draft' => $page->draft,
             'author' => $page->author,
             'image' => $page->image,
         ],
@@ -324,6 +325,7 @@ class HydePageSerializableUnitTest extends UnitTestCase
                 "description": "",
                 "category": null,
                 "date": null,
+                "draft": false,
                 "author": null,
                 "image": null
             }

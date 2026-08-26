@@ -2,6 +2,7 @@
 navigation:
     label: "Advanced Customization"
     priority: 30
+abstract: "Example-driven coverage of advanced HydePHP customization options, intended for developers who already know their way around the framework's directory structure."
 ---
 
 # Advanced Customization
@@ -39,9 +40,7 @@ posts in the same directory as documentation pages, Hyde will not know which pag
 
 ### In the config file
 
-```php
-// filepath config/hyde.php
-
+```php title="config/hyde.php"
 'source_directories' => [
     HtmlPage::class => '_pages',
     BladePage::class => '_pages',
@@ -53,8 +52,7 @@ posts in the same directory as documentation pages, Hyde will not know which pag
 
 ### In a service provider
 
-```php
-// filepath app/AppServiceProvider.php
+```php title="app/AppServiceProvider.php"
 use Hyde\Framework\Concerns\RegistersFileLocations;
 
 public function register(): void
@@ -78,8 +76,7 @@ Each option is relative to the site's `output_directory` setting. Setting a valu
 
 ### In the config file
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'output_directories' => [
     HtmlPage::class => '',
     BladePage::class => '',
@@ -91,8 +88,7 @@ Each option is relative to the site's `output_directory` setting. Setting a valu
 
 ### In a service provider
 
-```php
-// filepath app/AppServiceProvider.php
+```php title="app/AppServiceProvider.php"
 use Hyde\Framework\Concerns\RegistersFileLocations;
 
 public function register(): void
@@ -120,9 +116,7 @@ HydePHP will by default look for the source directories shown above in the root 
 If you're not happy with this, it's easy to change! For example, you might want everything in a `'src'` subdirectory.
 That's easy enough, just set the value of the `source_root` setting in `config/hyde.php` to `'src'`, or whatever you prefer!
 
-```php
-// filepath config/hyde.php
-
+```php title="config/hyde.php"
 'source_root' => '', // [TL! --]
 'source_root' => 'src', // [TL! ++]
 ```
@@ -131,7 +125,7 @@ That's easy enough, just set the value of the `source_root` setting in `config/h
 
 You can even make this change automatically with the `php hyde change:sourceDirectory` command!
 
-```bash
+```terminal
 php hyde change:sourceDirectory <name>
 ```
 
@@ -145,8 +139,7 @@ Hyde will copy all files in this directory to `_site/media` (or whatever your co
 
 You can change the path to this directory by setting the `media_directory` option in `config/hyde.php`.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'media_directory' => '_media',
 ```
 
@@ -168,7 +161,6 @@ from the output directory, so files in `_assets` will be copied to `_site/assets
 If you want to store your compiled website in a different directory than the default `_site`, you can change the path
 using the following configuration option in `config/hyde.php`. The path is expected to be relative to your project root.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'output_directory' => '_site',
 ```

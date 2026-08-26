@@ -20,7 +20,6 @@ use Illuminate\Filesystem\Filesystem;
  * @see \Hyde\Framework\Testing\Feature\Commands\BuildSitemapCommandTest
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Features\XmlGenerators\SitemapGenerator::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSitemapCommand::class)]
 class SitemapFeatureTest extends TestCase
 {
@@ -36,7 +35,7 @@ class SitemapFeatureTest extends TestCase
         $this->withSiteUrl();
 
         $this->artisan('build:sitemap')
-            ->expectsOutputToContain('Created _site/sitemap.xml')
+            ->expectsOutputToContain('Created [_site/sitemap.xml]')
             ->assertExitCode(0);
 
         $this->assertFileExists('_site/sitemap.xml');
@@ -50,6 +49,7 @@ class SitemapFeatureTest extends TestCase
     protected function setUpBroadSiteStructure(): void
     {
         $this->file('_pages/about.md', "# About\n\nThis is the about page.");
+        $this->file('_pages/secret.md', "---\nsitemap: false\n---\n\n# Secret\n\nThis page is excluded from the sitemap.");
         $this->file('_pages/contact.html', '<h1>Contact</h1><p>This is the contact page.</p>');
         $this->file('_posts/hello-world.md', "# Hello, World!\n\nThis is the first post.");
         $this->file('_posts/second-post.md', "# Second Post\n\nThis is the second post.");
@@ -122,12 +122,6 @@ class SitemapFeatureTest extends TestCase
                 <lastmod>2024-01-01T12:00:00+00:00</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.9</priority>
-            </url>
-            <url>
-                <loc>https://example.com/docs/search.json</loc>
-                <lastmod>2024-01-01T12:00:00+00:00</lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>0.5</priority>
             </url>
             <url>
                 <loc>https://example.com/docs/search.html</loc>

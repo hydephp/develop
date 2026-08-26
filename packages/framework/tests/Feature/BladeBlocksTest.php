@@ -103,6 +103,34 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('{{', $html);
     }
 
+    public function testTitledBladeBlockIsRenderedAsALabelledCodeBlock()
+    {
+        $html = $this->render("```blade title=\"components/alert.blade.php\"\n{{ \"This is not executed\" }}\n```");
+
+        $this->assertStringNotContainsString('blade-block', $html);
+        $this->assertStringContainsString('{{', $html);
+        $this->assertStringContainsString('>components/alert.blade.php</figcaption>', $html);
+    }
+
+    public function testBladeBlockTitledAfterAnotherModifierIsRenderedAsALabelledCodeBlock()
+    {
+        $html = $this->render("```blade theme:dark title=\"components/alert.blade.php\"\n{{ \"This is not executed\" }}\n```");
+
+        $this->assertStringNotContainsString('blade-block', $html);
+        $this->assertStringContainsString('{{', $html);
+        $this->assertStringContainsString('>components/alert.blade.php</figcaption>', $html);
+    }
+
+    public function testTitledBladeRenderBlockIsStillExecutedAndDropsTheTitle()
+    {
+        // A render block produces no code block for a title to label, so the modifier has nothing to do
+        $html = $this->render("```blade render title=\"x\"\n{{ \"This is executed\" }}\n```");
+
+        $this->assertStringContainsString('This is executed', $html);
+        $this->assertStringNotContainsString('{{', $html);
+        $this->assertStringNotContainsString('hyde-code-block-label', $html);
+    }
+
     public function testOrdinaryCodeBlocksAreUnaffected()
     {
         $html = $this->render("```php\n<h1>Hello</h1>\n```");
@@ -111,11 +139,11 @@ class BladeBlocksTest extends TestCase
         $this->assertStringContainsString('&lt;h1&gt;Hello&lt;/h1&gt;', $html);
     }
 
-    // Test `blade component(name)`
+    // Test `blade component="name"`
 
     public function testComponentBlockWithFrontMatterAndMarkdownSlot()
     {
-        $html = $this->render("```blade component(blade-block-fixture)\n---\nfoo: bar\n---\n\n# Heading\n\nSome **bold** text\n```");
+        $html = $this->render("```blade component=\"blade-block-fixture\"\n---\nfoo: bar\n---\n\n# Heading\n\nSome **bold** text\n```");
 
         $this->assertStringContainsString('data=[bar]', $html);
         $this->assertStringContainsString('<h1>Heading</h1>', $html);
@@ -124,7 +152,7 @@ class BladeBlocksTest extends TestCase
 
     public function testComponentWithMarkdownBodyUsesContentAsMarkdownSlot()
     {
-        $html = $this->render("```blade component(blade-block-fixture)\nThis is just a simple alert message.\n\nIt supports **Markdown** without front matter.\n```");
+        $html = $this->render("```blade component=\"blade-block-fixture\"\nThis is just a simple alert message.\n\nIt supports **Markdown** without front matter.\n```");
 
         $this->assertStringContainsString('data=[]', $html);
         $this->assertStringContainsString('<p>This is just a simple alert message.</p>', $html);
@@ -134,7 +162,7 @@ class BladeBlocksTest extends TestCase
     public function testTextLookingLikeYamlIsTreatedAsMarkdownSlot()
     {
         $markdown = <<<'MARKDOWN'
-```blade component(blade-block-fixture)
+```blade component="blade-block-fixture"
 Warning: This is an alert
 - Item 1
 - Item 2
@@ -153,7 +181,7 @@ MARKDOWN;
 
     public function testFrontMatterMustStartTheComponentBlock()
     {
-        $html = $this->render("```blade component(blade-block-fixture)\n\n---\nfoo: bar\n---\n```");
+        $html = $this->render("```blade component=\"blade-block-fixture\"\n\n---\nfoo: bar\n---\n```");
 
         $this->assertStringContainsString('data=[]', $html);
         $this->assertStringContainsString('foo: bar', $html);
@@ -161,9 +189,16 @@ MARKDOWN;
 
     public function testComponentDataIsAvailableAsViewVariables()
     {
-        $html = $this->render("```blade component(blade-block-props-fixture)\n---\nfoo: bar\n---\n```");
+        $html = $this->render("```blade component=\"blade-block-props-fixture\"\n---\nfoo: bar\n---\n```");
 
         $this->assertStringContainsString('value=[bar]', $html);
+    }
+
+    public function testComponentNameCanBeSingleQuoted()
+    {
+        $html = $this->render("```blade component='blade-block-fixture'\n---\nfoo: bar\n---\n```");
+
+        $this->assertStringContainsString('data=[bar]', $html);
     }
 
     // Error handling
@@ -176,25 +211,32 @@ MARKDOWN;
         $this->render("```blade foo\ncontent\n```");
     }
 
-    public function testComponentWithoutParenthesesThrows()
+    public function testComponentWithoutAttributeThrows()
     {
         $this->expectException(InvalidArgumentException::class);
 
         $this->render("```blade component\ncontent\n```");
     }
 
-    public function testComponentWithEmptyParenthesesThrows()
+    public function testComponentWithEmptyAttributeValueThrows()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->render("```blade component()\ncontent\n```");
+        $this->render("```blade component=\"\"\ncontent\n```");
+    }
+
+    public function testComponentNameWithoutQuotesThrows()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->render("```blade component=foo\ncontent\n```");
     }
 
     public function testComponentNameWithWhitespaceThrows()
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->render("```blade component(foo bar)\ncontent\n```");
+        $this->render("```blade component=\"foo bar\"\ncontent\n```");
     }
 
     // Fence parsing behavior (through the real pipeline)
@@ -254,14 +296,14 @@ MARKDOWN;
 
     public function testBladeBlocksNestedInComponentSlotAreProcessed()
     {
-        $html = $this->render("````blade component(blade-block-fixture)\n---\nfoo: bar\n---\n\n```blade render\n{{ \"Nested\" }}\n```\n````");
+        $html = $this->render("````blade component=\"blade-block-fixture\"\n---\nfoo: bar\n---\n\n```blade render\n{{ \"Nested\" }}\n```\n````");
 
         $this->assertStringContainsString('<div class="blade-block not-prose">Nested</div>', $html);
     }
 
     public function testComponentSlotUsesPageClassWhenCompiledWithinPage()
     {
-        $page = MarkdownPage::make('blade-block-slot-page', [], "```blade component(blade-block-fixture)\n---\nfoo: bar\n---\n\n# Heading\n```");
+        $page = MarkdownPage::make('blade-block-slot-page', [], "```blade component=\"blade-block-fixture\"\n---\nfoo: bar\n---\n\n# Heading\n```");
 
         Hyde::shareViewData($page);
 

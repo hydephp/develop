@@ -2,6 +2,7 @@
 navigation:
     priority: 11
     label: "Markdown & Blade Pages"
+abstract: "HydePHP offers two ways to build static pages: content-focused Markdown pages, and Blade pages for when you need full control over the HTML and dynamic PHP."
 ---
 
 # Creating Static Pages
@@ -38,7 +39,7 @@ Markdown pages are the easiest way to create static pages. You can create a Mark
 
 Scaffolding a Markdown page is as easy as using the [HydeCLI](console-commands).
 
-```bash
+```terminal
 php hyde make:page "Page Title"
 ```
 
@@ -93,7 +94,7 @@ If you are not familiar with Blade, you may want to read [the Laravel Blade docs
 We can scaffold Blade pages using the same CLI command as Markdown pages, however, this time we need to specify that
 we want to use the `blade` page type, by using the `--type` option.
 
-```bash
+```terminal
 php hyde make:page "Page Title" --type="blade"
 ```
 

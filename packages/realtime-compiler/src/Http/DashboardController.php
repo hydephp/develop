@@ -149,7 +149,7 @@ class DashboardController extends BaseController
 
     public function getMediaPreviewLink(MediaFile $mediaFile): string
     {
-        return $this->rootRelativeLink('media/'.$mediaFile->getIdentifier());
+        return $this->rootRelativeLink(Hyde::getMediaOutputDirectory().'/'.$mediaFile->getIdentifier());
     }
 
     /** @return array{label: string, mark: string, color: string, rgb: string} */
@@ -465,8 +465,8 @@ class DashboardController extends BaseController
     {
         $title = trim($title, '/\\');
 
-        if (str_ends_with(strtolower($title), HtmlPage::fileExtension())) {
-            $title = substr($title, 0, -strlen(HtmlPage::fileExtension()));
+        if (str_ends_with(strtolower($title), HtmlPage::sourceExtension())) {
+            $title = substr($title, 0, -strlen(HtmlPage::sourceExtension()));
         }
 
         $directory = str_contains($title, '/')

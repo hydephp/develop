@@ -16,6 +16,13 @@ use Hyde\Support\Models\Route;
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Internal\RouteListItem::class)]
 class RouteListCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['hyde.generate_sitemap' => false]);
+    }
+
     public function testRouteListCommand()
     {
         $this->artisan('route:list')
@@ -71,26 +78,6 @@ class RouteListCommandTest extends TestCase
         $this->artisan('route:list')
             ->expectsTable($this->headers(), [[
                 'page_type' => 'InMemoryPage',
-                'source_file' => '<fg=gray>none</>',
-                'output_file' => '_site/foo.html',
-                'route_key' => 'foo',
-            ]])->assertExitCode(0);
-    }
-
-    public function testConsoleRouteListWithTypeLabel()
-    {
-        Hyde::routes()->forget('404');
-        Hyde::routes()->forget('index');
-
-        $page = new InMemoryPage('foo');
-        $page->macro('typeLabel', function () {
-            return 'Foo';
-        });
-        Hyde::routes()->put('foo', new Route($page));
-
-        $this->artisan('route:list')
-            ->expectsTable($this->headers(), [[
-                'page_type' => 'InMemoryPage <fg=gray>(Foo)</>',
                 'source_file' => '<fg=gray>none</>',
                 'output_file' => '_site/foo.html',
                 'route_key' => 'foo',

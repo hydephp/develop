@@ -45,6 +45,15 @@ class LoadConfigurationTest extends UnitTestCase
         (new LoadConfigurationEnvironmentTestClass(['HYDE_SERVER_DASHBOARD' => 'disabled']))->bootstrap(new Application(getcwd()));
         $this->assertFalse(config('hyde.server.dashboard.enabled'));
     }
+
+    public function testItLoadsTheServerRunningEnvironmentConfiguration()
+    {
+        (new LoadConfigurationEnvironmentTestClass([]))->bootstrap(new Application(getcwd()));
+        $this->assertNull(config('hyde.server.running'));
+
+        (new LoadConfigurationEnvironmentTestClass(['HYDE_SERVER_RUNNING' => 'enabled']))->bootstrap(new Application(getcwd()));
+        $this->assertTrue(config('hyde.server.running'));
+    }
 }
 
 class LoadConfigurationTestClass extends LoadConfiguration
@@ -73,6 +82,7 @@ class LoadConfigurationEnvironmentTestClass extends LoadConfiguration
 
     protected function getEnv(string $name): string|false|null
     {
-        return $this->env[$name] ?? null;
+        // Mirror getenv() which returns false for variables that are not set.
+        return $this->env[$name] ?? false;
     }
 }

@@ -153,21 +153,21 @@ class MarkdownServiceTest extends TestCase
         $this->assertSame("<p>[Blade]: {{ &quot;Hello World!&quot; }}</p>\n", $service->parse());
     }
 
-    public function testRawHtmlTagsAreStrippedByDefault()
+    public function testRawHtmlTagsAreAllowedByDefault()
     {
-        $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
-        $service = new MarkdownService($markdown);
-        $html = $service->parse();
-        $this->assertSame("<p>foo</p>&lt;style>bar&lt;/style>&lt;script>hat&lt;/script>\n", $html);
-    }
-
-    public function testRawHtmlTagsAreNotStrippedWhenExplicitlyEnabled()
-    {
-        config(['markdown.allow_html' => true]);
         $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
         $service = new MarkdownService($markdown);
         $html = $service->parse();
         $this->assertSame("<p>foo</p><style>bar</style><script>hat</script>\n", $html);
+    }
+
+    public function testRawHtmlTagsCanBeStrippedWhenExplicitlyDisabled()
+    {
+        config(['markdown.allow_html' => false]);
+        $markdown = '<p>foo</p><style>bar</style><script>hat</script>';
+        $service = new MarkdownService($markdown);
+        $html = $service->parse();
+        $this->assertSame("<p>foo</p>&lt;style>bar&lt;/style>&lt;script>hat&lt;/script>\n", $html);
     }
 
     public function testHasFeaturesArray()

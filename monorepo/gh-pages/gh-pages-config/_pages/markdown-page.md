@@ -15,11 +15,10 @@ Here are some custom Markdown features Hyde provides!
 
 >success Success Blockquote
 
-### Automatic file path labels for code blocks
+### Code block titles
 
-```php
-// filepath: Hello.php
-echo 'A file path label has been added to the top right corner.';
+```php title="Hello.php"
+echo 'A title label has been added to the top right corner.';
 ```
 
 ---

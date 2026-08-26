@@ -205,8 +205,29 @@ class MarkdownHeadingRendererTest extends TestCase
         HTML, $html);
     }
 
-    public function testHeadingsAllowBasicHtmlButEscapesDangerousInput()
+    public function testHeadingsAllowRawHtmlByDefault()
     {
+        $markdown = <<<'MARKDOWN'
+        ## Heading with <strong>HTML</strong>
+        ### Heading with <script>alert('XSS')</script>
+        MARKDOWN;
+
+        $html = (new MarkdownService($markdown, MarkdownPage::class))->parse();
+
+        $this->assertStringContainsString('Heading with <strong>HTML</strong>', $html);
+        $this->assertStringContainsString("Heading with <script>alert('XSS')</script>", $html);
+
+        $this->assertSame(<<<'HTML'
+        <h2>Heading with <strong>HTML</strong></h2>
+        <h3>Heading with <script>alert('XSS')</script></h3>
+
+        HTML, $html);
+    }
+
+    public function testHeadingsEscapeDisallowedRawHtmlWhenHtmlIsDisabled()
+    {
+        config(['markdown.allow_html' => false]);
+
         $markdown = <<<'MARKDOWN'
         ## Heading with <strong>HTML</strong>
         ### Heading with <script>alert('XSS')</script>

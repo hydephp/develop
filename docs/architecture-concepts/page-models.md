@@ -1,5 +1,6 @@
 ---
 title: Page models
+abstract: "Page models are the PHP classes at the heart of how HydePHP builds your site. This article gives a high-level overview of how they hold and process your content."
 ---
 
 # The Hyde Page Models
@@ -35,7 +36,7 @@ class MarkdownPost extends BaseMarkdownPage
 {
     public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
-    public static string $fileExtension = '.md';
+    public static string $sourceExtension = '.md';
     public static string $template = 'post';
 
     public string $identifier;
@@ -62,7 +63,7 @@ class MarkdownPost extends BaseMarkdownPage
 {
     public static string $sourceDirectory = '_posts';
     public static string $outputDirectory = 'posts';
-    public static string $fileExtension = '.md';
+    public static string $sourceExtension = '.md';
     public static string $template = 'post';
 }
 ```

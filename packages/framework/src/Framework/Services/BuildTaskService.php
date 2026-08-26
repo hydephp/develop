@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Hyde\Framework\Services;
 
 use Hyde\Facades\Config;
-use Hyde\Facades\Features;
 use Hyde\Facades\Filesystem;
 use Hyde\Framework\Features\BuildTasks\BuildTask;
 use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Features\BuildTasks\PostBuildTask;
 use Hyde\Framework\Actions\PreBuildTasks\CleanSiteDirectory;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateRssFeed;
-use Hyde\Framework\Actions\PostBuildTasks\GenerateSitemap;
 use Hyde\Framework\Actions\PreBuildTasks\TransferMediaAssets;
 use Hyde\Framework\Actions\PostBuildTasks\GenerateBuildManifest;
 use Illuminate\Console\OutputStyle;
@@ -132,16 +129,9 @@ class BuildTaskService
 
     private function registerFrameworkTasks(): void
     {
-        $this->registerIf(CleanSiteDirectory::class, $this->canCleanSiteDirectory());
+        $this->registerTask(CleanSiteDirectory::class);
         $this->registerIf(TransferMediaAssets::class, $this->canTransferMediaAssets());
         $this->registerIf(GenerateBuildManifest::class, $this->canGenerateManifest());
-        $this->registerIf(GenerateSitemap::class, $this->canGenerateSitemap());
-        $this->registerIf(GenerateRssFeed::class, $this->canGenerateFeed());
-    }
-
-    private function canCleanSiteDirectory(): bool
-    {
-        return Config::getBool('hyde.empty_output_directory', true);
     }
 
     private function canTransferMediaAssets(): bool
@@ -152,15 +142,5 @@ class BuildTaskService
     private function canGenerateManifest(): bool
     {
         return Config::getBool('hyde.generate_build_manifest', true);
-    }
-
-    private function canGenerateSitemap(): bool
-    {
-        return Features::hasSitemap();
-    }
-
-    private function canGenerateFeed(): bool
-    {
-        return Features::hasRss();
     }
 }

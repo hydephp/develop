@@ -10,6 +10,7 @@ use Hyde\Pages\BladePage;
 use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Pages\DocumentationPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\BuildWarnings;
 use Hyde\Support\Models\Redirect;
@@ -21,10 +22,13 @@ use Hyde\Facades\Features;
 use Hyde\Facades\Config;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
+use Hyde\Framework\Features\XmlGenerators\RssFeedGenerator;
+use Hyde\Framework\Features\XmlGenerators\SitemapGenerator;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersion;
 use Hyde\Framework\Features\Documentation\Versioning\DocumentationVersions;
 
 use function Hyde\unslash;
+use function app;
 use function array_filter;
 use function array_keys;
 use function sprintf;
@@ -52,6 +56,8 @@ class HydeCoreExtension extends HydeExtension
 
     public function discoverPages(PageCollection $collection): void
     {
+        $this->discardUnpublishedBlogPosts($collection);
+
         foreach (Config::getArray('hyde.redirects', []) as $path => $destination) {
             $collection->addPage(new Redirect((string) $path, (string) $destination));
         }
@@ -80,6 +86,48 @@ class HydeCoreExtension extends HydeExtension
                 }
             }
         }
+
+        if (Features::hasSitemap()) {
+            $this->discoverSitemapPage($collection);
+        }
+
+        if (Features::hasRss()) {
+            $this->discoverRssFeedPage($collection);
+        }
+    }
+
+    protected function discoverSitemapPage(PageCollection $collection): void
+    {
+        $collection->addPage(new InMemoryPage(
+            'sitemap.xml',
+            contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+            localizable: false,
+        ));
+    }
+
+    protected function discoverRssFeedPage(PageCollection $collection): void
+    {
+        $collection->addPage(new InMemoryPage(
+            RssFeedGenerator::getFilename(),
+            contents: fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
+            localizable: false,
+        ));
+    }
+
+    /** Discard blog posts that are excluded from publication, either drafts or future-dated posts. */
+    protected function discardUnpublishedBlogPosts(PageCollection $collection): void
+    {
+        // The realtime compiler serves the site as an authoring preview, where drafts and scheduled posts must
+        // remain browsable so that they can be written and proofread. They are only excluded from site builds.
+        if (Config::getBool('hyde.server.running', false)) {
+            return;
+        }
+
+        $collection->getPages(MarkdownPost::class)->each(function (MarkdownPost $post) use ($collection): void {
+            if ($post->isDraft() || $post->isScheduled()) {
+                $collection->forget($post->getSourcePath());
+            }
+        });
     }
 
     /** Discard documentation source files stored outside the version directories. */

@@ -1,6 +1,7 @@
 ---
 navigation:
     priority: 10
+abstract: "Front matter is a block of YAML metadata at the top of a Markdown file that HydePHP uses to generate rich, dynamic content, from post categories to sidebar labels."
 ---
 
 # Front Matter

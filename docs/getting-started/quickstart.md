@@ -2,6 +2,7 @@
 navigation:
     label: Quickstart Guide
     priority: 1
+abstract: "Get a new HydePHP project up and running in minutes, from installing via Composer to compiling your first static site."
 ---
 
 # Quickstart Guide
@@ -10,7 +11,7 @@ navigation:
 
 The recommended method of installing Hyde is using Composer, which installs the required dependencies on a per-project basis.
 
-```bash
+```terminal
 composer create-project hyde/hyde
 ```
 
@@ -31,7 +32,7 @@ The main way to interact with Hyde is through the [HydeCLI](console-commands), a
 
 To make previewing your site a breeze you can use the realtime compiler, which builds your pages on the fly.
 
-```bash
+```terminal
 php hyde serve
 ```
 Simply run the serve command, and you will be able to preview your site at [http://localhost:8080](http://localhost:8080).
@@ -50,7 +51,7 @@ Please see the [directory structure](core-concepts#directory-structure) section 
 You can scaffold blog post files using the `php hyde make:post` command which automatically creates the front matter, based on your input selections.
 You can also scaffold pages with the `php hyde make:page` command.
 
-```bash
+```terminal
 php hyde make:post
 php hyde make:page
 ```
@@ -59,7 +60,7 @@ php hyde make:page
 
 Now that you have some amazing content, you'll want to compile your site into static HTML. Thankfully, this is as easy as executing the `build` command, after which your compiled site is stored in the `_site` directory.
 
-```bash
+```terminal
 php hyde build
 ```
 

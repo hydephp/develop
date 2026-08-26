@@ -2,6 +2,7 @@
 navigation:
     label: Introduction
     priority: 40
+abstract: "An overview of the optional, more advanced features HydePHP offers once you've outgrown the basics, from custom build tasks to in-memory pages."
 ---
 
 # Advanced Features in HydePHP

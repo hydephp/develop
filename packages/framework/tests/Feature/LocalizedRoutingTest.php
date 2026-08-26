@@ -155,6 +155,30 @@ class LocalizedRoutingTest extends TestCase
         }
     }
 
+    public function testSiteWideArtifactsAreNotCompiledPerLanguage()
+    {
+        $this->withSiteUrl();
+
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages();
+
+        // The sitemap describes the whole site, so there is one of it, in the webroot.
+        $this->assertSame('sitemap.xml', Routes::findExact('sitemap.xml')->getOutputPath());
+
+        $this->assertNull(Routes::findExact('en/sitemap.xml'));
+        $this->assertNull(Routes::findExact('de/sitemap.xml'));
+    }
+
+    public function testPagesPresentingContentAreCompiledPerLanguage()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages();
+
+        $this->assertTrue(Routes::get('en/about')->getPage()->isLocalizable());
+    }
+
     public function testBuildingASiteEmitsExactlyTheRoutesItHas()
     {
         $this->source('_pages/about.md', 'About', 'Body.');

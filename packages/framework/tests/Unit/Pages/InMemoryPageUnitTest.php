@@ -44,11 +44,19 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
         );
     }
 
-    public function testFileExtension()
+    public function testSourceExtension()
     {
         $this->assertSame(
             '',
-            InMemoryPage::fileExtension()
+            InMemoryPage::sourceExtension()
+        );
+    }
+
+    public function testOutputExtension()
+    {
+        $this->assertSame(
+            '.html',
+            InMemoryPage::outputExtension()
         );
     }
 
@@ -116,6 +124,12 @@ class InMemoryPageUnitTest extends BaseHydePageUnitTest
     public function testShowInNavigation()
     {
         $this->assertTrue((new InMemoryPage('foo'))->showInNavigation());
+    }
+
+    public function testShowInSitemap()
+    {
+        $this->assertTrue((new InMemoryPage('foo'))->showInSitemap());
+        $this->assertFalse((new InMemoryPage('foo', ['sitemap' => false]))->showInSitemap());
     }
 
     public function testNavigationMenuPriority()

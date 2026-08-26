@@ -92,6 +92,8 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
 
     abstract public function testShowInNavigation();
 
+    abstract public function testShowInSitemap();
+
     abstract public function testGetSourcePath();
 
     abstract public function testGetLink();
@@ -102,7 +104,9 @@ abstract class BaseHydePageUnitTest extends UnitTestCase
 
     abstract public function testToCoreDataObject();
 
-    abstract public function testFileExtension();
+    abstract public function testSourceExtension();
+
+    abstract public function testOutputExtension();
 
     abstract public function testSourceDirectory();
 

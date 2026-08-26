@@ -988,11 +988,11 @@
         },
         {
             "name": "hyde/framework",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/framework",
-                "reference": "c5faf11f8377c0064d5f9738fa58e46ed10fbf16"
+                "reference": "8ed50ad9c2bb6a5e5e6937945a4737b2f79ba40a"
             },
             "require": {
                 "hydephp/torchlight-commonmark": "^1.0",
@@ -1039,7 +1039,7 @@
         },
         {
             "name": "hyde/ui-kit",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/ui-kit",
@@ -6935,7 +6935,7 @@
         },
         {
             "name": "hyde/monorepo-dev-tools",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./monorepo/DevTools",
@@ -6961,11 +6961,11 @@
         },
         {
             "name": "hyde/realtime-compiler",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/realtime-compiler",
-                "reference": "781f00bf731ff78845452a243cf305cdc11c2226"
+                "reference": "8c12540a4458b724b4bd762e8df855dba62d6fd0"
             },
             "require": {
                 "desilva/microserve": "^2.0",
@@ -7017,7 +7017,7 @@
         },
         {
             "name": "hyde/testing",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./packages/testing",
@@ -7128,16 +7128,16 @@
         },
         {
             "name": "jetbrains/phpstorm-attributes",
-            "version": "1.2",
+            "version": "1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JetBrains/phpstorm-attributes.git",
-                "reference": "64de815a4509c29e00d5e3474087fd24c171afc2"
+                "url": "https://github.com/JetBrains/phpstorm-attributes",
+                "reference": "c9afb897cad47b087457f667ec2156dde8aed926"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JetBrains/phpstorm-attributes/zipball/64de815a4509c29e00d5e3474087fd24c171afc2",
-                "reference": "64de815a4509c29e00d5e3474087fd24c171afc2",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-attributes/zipball/c9afb897cad47b087457f667ec2156dde8aed926",
+                "reference": "c9afb897cad47b087457f667ec2156dde8aed926",
                 "shasum": ""
             },
             "type": "library",
@@ -7163,10 +7163,9 @@
                 "phpstorm"
             ],
             "support": {
-                "issues": "https://youtrack.jetbrains.com/newIssue?project=WI",
-                "source": "https://github.com/JetBrains/phpstorm-attributes/tree/1.2"
+                "issues": "https://youtrack.jetbrains.com/newIssue?project=WI"
             },
-            "time": "2024-10-11T10:46:19+00:00"
+            "time": "2026-07-22T11:27:58+00:00"
         },
         {
             "name": "laravel/dusk",

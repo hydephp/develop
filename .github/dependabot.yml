@@ -5,25 +5,30 @@
 
 version: 2
 updates:
+  # HydePHP 3.x
   - package-ecosystem: "github-actions"
     directory: "/"
     target-branch: "master"
     schedule:
       interval: "daily"
-    groups:
-      frontend-deps:
-        patterns:
-          - "vite"
-          - "tailwindcss"
-          - "postcss"
-          - "autoprefixer"
-          - "@tailwindcss/*"
+    commit-message:
+      prefix: "[3.x] "
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
 
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "composer"
+    directory: "/"
     target-branch: "master"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: "[3.x] "
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "npm"
     directories:
@@ -33,3 +38,71 @@ updates:
     target-branch: "master"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: "[3.x] "
+    groups:
+      frontend-deps:
+        patterns:
+          - "vite"
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
+          - "@tailwindcss/*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  # HydePHP 2.x
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "2.x"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "[2.x] "
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    target-branch: "2.x"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "[2.x] "
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "packages/hyde"
+      - "packages/hydefront"
+    target-branch: "2.x"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "[2.x] "
+    groups:
+      frontend-deps:
+        patterns:
+          - "vite"
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
+          - "@tailwindcss/*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"

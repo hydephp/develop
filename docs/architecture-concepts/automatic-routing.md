@@ -1,3 +1,7 @@
+---
+abstract: "HydePHP automatically builds a route index linking source files to compiled output during autodiscovery. This page covers how routing works and the helpers you can use in Blade templates."
+---
+
 # Automatic Routing
 
 >info This covers an intermediate topic which is not required for basic usage, but is useful if you want to use the framework to design custom Blade templates.
@@ -17,7 +21,7 @@ automatically resolve relative links and other useful features.
 
 You can see all the routes and their corresponding source files by running the `hyde route:list` command.
 
-```bash
+```terminal
 php hyde route:list
 ```
 

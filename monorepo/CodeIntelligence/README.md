@@ -8,6 +8,6 @@ All code here is internal and should not be used outside the monorepo and no sup
 As the resulting data models and dashboards can get quite large, they are excluded from the repository.
 To generate them, run the following command:
 
-```bash
+```terminal
 php monorepo/CodeIntelligence/CodeIntelligence.php
 ```

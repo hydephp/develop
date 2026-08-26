@@ -6,70 +6,7 @@ on:
 
 jobs:
 
-  run-smoke-tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          extensions: fileinfo
-
-      - uses: actions/checkout@v6
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict --no-check-all
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v5
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-
-      - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Set environment to testing
-        run: echo "ENV=testing" > .env
-
-      - name: Output debug information
-        run: php hyde debug
-
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/pest --stop-on-failure --log-junit report.xml
-        env:
-          ENV: testing
-
-      - name: Ping continuous integration server with test status
-        if: always() && github.event.repository.full_name == 'hydephp/develop'
-        run: |
-          bearerToken="${{ secrets.CI_SERVER_TOKEN }}"
-          commit="${{ github.sha }}"
-          url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-          if [ ${{ steps.smoke-tests.outcome }} == "failure" ]; then
-              status=false
-          else
-              status=true
-          fi
-
-          curl -X POST --fail-with-body \
-            -H "Authorization: Bearer $bearerToken" \
-            -H "Content-Type: application/json" \
-            -H "Accept: application/json" \
-            -d '{"commit":"'"$commit"'", "status":'$status', "url":"'"$url"'"}' \
-            https://ci.hydephp.com/api/test-run-reports
-
-      - name: Ping statistics server with test results
-        run: |
-          curl https://raw.githubusercontent.com/hydephp/develop/1bab6fc070a1b636cb4b69e44a9bf7fea1286c0f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
-          php ping.php "Monorepo Smoke Tests" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
-
   test-matrix:
-    needs: run-smoke-tests
     strategy:
       fail-fast: false
       matrix:
@@ -82,7 +19,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: fileinfo, zip
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -103,10 +40,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
-      - name: Remove package-lock.json
-        run: rm -f package-lock.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
 
       - name: Run system tests (${{ matrix.script }})
         run: php monorepo/scripts/tests/${{ matrix.script }}.php
@@ -115,21 +55,22 @@ jobs:
   build-tailwindcss:
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          cache: 'npm'
-
-      - name: Remove package-lock.json
-        run: rm -f package-lock.json
+          node-version: 24
+          cache: npm
 
       - name: Install Node.js dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Install local HydeFront package
+        if: github.ref_name == 'master'
+        run: npm install --no-save --no-package-lock ./packages/hydefront
 
       - name: Update Tailwind content path
         run: sed -i 's/\.\/vendor\/hyde\/framework\/resources\/views\/\*\*\/\*\.blade\.php/\.\/packages\/framework\/resources\/views\/\*\*\/\*\.blade\.php/' tailwind.config.js
@@ -147,7 +88,8 @@ jobs:
           path: '_media'
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v10
+        continue-on-error: true
+        uses: EndBug/add-and-commit@v11
         with:
           add: '["_media/app.css", "packages/hydefront/dist/app.css"]'
           message: 'Compile TailwindCSS for production'
@@ -162,7 +104,6 @@ jobs:
       url: https://hydephp.github.io/develop/master/coverage/
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -170,11 +111,11 @@ jobs:
           php-version: "8.2"
           coverage: xdebug
           extensions: fileinfo
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -191,19 +132,19 @@ jobs:
         run: php hyde debug
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit with coverage
-        run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit build/junit.xml  --coverage-html build/coverage/html
+        run: vendor/bin/pest --coverage --coverage-text=build/coverage/report.txt --colors=always --coverage-clover build/coverage/clover.xml --coverage-cobertura build/coverage/cobertura.xml --coverage-crap4j build/coverage/crap4j.xml --coverage-xml build/coverage/coverage-xml --log-junit report.xml --coverage-html build/coverage/html
         env:
           ENV: testing
 
       - uses: codecov/codecov-action@v7
         with:
-          files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./build/junit.xml
+          files: ./build/coverage/clover.xml,./build/coverage/crap4j.xml,./build/coverage/report.txt,./report.xml
           fail_ci_if_error: false # optional (default = false)
           verbose: true # optional (default = false)
 
       - name: Ping statistics server with test results
+        continue-on-error: true
         run: |
-          cp build/junit.xml report.xml
           curl https://raw.githubusercontent.com/hydephp/develop/1bab6fc070a1b636cb4b69e44a9bf7fea1286c0f/monorepo/scripts/ping-openanalytics-testrunner.php -o ping.php
           php ping.php "Monorepo PR Test" ${{ secrets.OPENANALYTICS_TOKEN }} ${{ github.ref_name  }}
 
@@ -214,7 +155,8 @@ jobs:
           path: "build/coverage"
 
       - name: Copy Junit report
-        run: cp build/junit.xml build/coverage/html/junit.xml
+        if: hashFiles('report.xml') != ''
+        run: cp report.xml build/coverage/html/junit.xml
 
       - name: Upload HTML coverage artifact
         uses: actions/upload-artifact@v7
@@ -229,10 +171,9 @@ jobs:
       url: https://hydephp.github.io/develop/master/api-docs/
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Download phpDocumentor
         run: |
@@ -255,17 +196,16 @@ jobs:
       url: https://hydephp.github.io/develop/master/dev-docs/
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -299,17 +239,16 @@ jobs:
     # Todo: Reimplement this. See https://github.com/hydephp/develop/issues/2224
     if: false
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -346,17 +285,16 @@ jobs:
     #  url: https://hydephp.github.io/develop/master/test-fixtures/docs
 
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -387,10 +325,9 @@ jobs:
 
   build-git-history-graph:
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           # We need to fetch all history to generate the graph
           fetch-depth: 0
@@ -412,7 +349,6 @@ jobs:
 
     runs-on: ubuntu-latest
     needs:
-      - run-smoke-tests
       - build-test-coverage
       - build-api-documentation
       - build-upcoming-documentation
@@ -421,7 +357,7 @@ jobs:
       - build-git-history-graph
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: 'gh-pages'
 
@@ -507,7 +443,7 @@ jobs:
       # End directory listing
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v10
+        uses: EndBug/add-and-commit@v11
         with:
           pull: 'origin gh-pages'
           add: '["master", "index.html"]'
@@ -520,7 +456,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Download static analysis tools
         run: |
@@ -540,7 +476,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -558,7 +494,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -575,7 +511,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Run DevSkim scanner
         uses: microsoft/DevSkim-Action@v1
@@ -589,7 +525,6 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    needs: run-smoke-tests
 
     permissions:
       actions: read
@@ -604,7 +539,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -643,7 +578,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Run linter
         run: php packages/hydefront/.github/scripts/post-build.php
@@ -653,7 +588,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test monorepo tools can run
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - run: php monorepo/CodeIntelligence/CodeIntelligence.php
       - run: php monorepo/scripts/FileFormatter.php

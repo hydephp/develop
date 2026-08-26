@@ -13,7 +13,7 @@ file and that you may need to recompile the CSS file using the included Tailwind
 
 You can install the package via composer:
 
-```bash
+```terminal
 composer require hyde/ui-kit
 ```
 

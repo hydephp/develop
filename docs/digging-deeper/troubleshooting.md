@@ -1,6 +1,7 @@
 ---
 navigation:
     priority: 35
+abstract: "Common issues and gotchas you might run into with HydePHP's automatic, convention-driven features, plus how to use the built-in validate command to catch them."
 ---
 
 # Troubleshooting
@@ -93,6 +94,6 @@ If your configuration is broken, you might not be able to run any commands throu
 To remedy this you can copy the config files from the vendor directory into the project directory.
 You can do this manually, or with the following rescue command:
 
-```bash
+```terminal
 copy vendor/hyde/framework/config/hyde.php config/hyde.php
 ```

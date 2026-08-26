@@ -2,6 +2,7 @@
 navigation:
     label: "Third-Party Integrations"
     priority: 85
+abstract: "HydePHP has built-in support for third-party services like Torchlight for syntax highlighting. This page covers getting started with each integration."
 ---
 
 # Integrations with Third-Party Services

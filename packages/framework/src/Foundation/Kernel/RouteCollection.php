@@ -74,7 +74,9 @@ final class RouteCollection extends BaseFoundationCollection
      */
     protected function localizeRoute(Route $route): array
     {
-        if (! Localization::enabled() || $route->getPage()->getLanguage() !== null) {
+        $page = $route->getPage();
+
+        if (! Localization::enabled() || ! $page->isLocalizable() || $page->getLanguage() !== null) {
             return [$route];
         }
 

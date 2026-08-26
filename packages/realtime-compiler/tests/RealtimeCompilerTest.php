@@ -14,6 +14,8 @@ use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\RealtimeCompiler\Http\ExceptionHandler;
 use Desilva\Microserve\HtmlResponse;
 use Hyde\RealtimeCompiler\Http\HttpKernel;
+use Hyde\RealtimeCompiler\Http\DashboardController;
+use Hyde\Support\Filesystem\MediaFile;
 use Hyde\RealtimeCompiler\Routing\PageRouter;
 use Hyde\RealtimeCompiler\Routing\Router;
 
@@ -43,6 +45,7 @@ class RealtimeCompilerTest extends TestCase
     protected function tearDown(): void
     {
         $_SERVER = $this->serverBackup;
+        Filesystem::deleteDirectory('_static');
 
         parent::tearDown();
         ob_end_clean();
@@ -125,6 +128,66 @@ class RealtimeCompilerTest extends TestCase
         $this->assertSame('test', $response->body);
 
         Filesystem::unlink('_media/test.css');
+    }
+
+    public function testHandlesRoutesStaticAssetsInCustomMediaDirectory()
+    {
+        putenv('HYDE_SERVER_MEDIA_DIRECTORY=_custom-media');
+        putenv('HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY=custom-media');
+
+        $this->mockCompilerRoute('custom-media/test.css');
+        Filesystem::ensureDirectoryExists('_custom-media');
+        Filesystem::put('_custom-media/test.css', 'test');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('test', $response->body);
+        } finally {
+            putenv('HYDE_SERVER_MEDIA_DIRECTORY');
+            putenv('HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY');
+
+            Filesystem::deleteDirectory('_custom-media');
+        }
+    }
+
+    public function testDashboardMediaPreviewLinksUseTheConfiguredMediaOutputDirectory()
+    {
+        $this->mockCompilerRoute('dashboard');
+
+        Hyde::setMediaDirectory('_custom-media');
+        Filesystem::ensureDirectoryExists('_custom-media');
+        Filesystem::put('_custom-media/test.css', 'test');
+
+        try {
+            $dashboard = new DashboardController(new Request());
+
+            $this->assertSame('/custom-media/test.css', $dashboard->getMediaPreviewLink(MediaFile::make('test.css')));
+        } finally {
+            Hyde::setMediaDirectory('_media');
+
+            Filesystem::deleteDirectory('_custom-media');
+        }
+    }
+
+    public function testStaticDirectoryTakesPrecedenceForMediaPath(): void
+    {
+        $this->mockCompilerRoute('media/static.jpg');
+        Filesystem::ensureDirectoryExists('_static/media');
+        Filesystem::put('_media/static.jpg', 'media');
+        Filesystem::put('_static/media/static.jpg', 'static media');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('static media', $response->body);
+        } finally {
+            Filesystem::unlink('_media/static.jpg');
+        }
     }
 
     public function testThrowsRouteNotFoundExceptionForMissingRoute()
@@ -216,6 +279,85 @@ class RealtimeCompilerTest extends TestCase
         }
     }
 
+    public function testServesRegisteredPageRouteEvenWhenMatchingAssetExists()
+    {
+        $this->mockCompilerRoute('9.x');
+
+        Filesystem::ensureDirectoryExists('_pages/9.x');
+        Filesystem::ensureDirectoryExists('_static');
+        Filesystem::put('_pages/9.x/index.md', '# Hello World!');
+        Filesystem::put('_static/9.x', 'static decoy');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertStringContainsString('Hello World!', $response->body);
+            $this->assertStringNotContainsString('static decoy', $response->body);
+        } finally {
+            Filesystem::deleteDirectory('_pages/9.x');
+            Filesystem::unlink('_static/9.x');
+        }
+    }
+
+    public function testDocsSearchJsonRouteWinsOverMatchingAssetFile()
+    {
+        $this->mockCompilerRoute('docs/search.json');
+
+        Filesystem::put('_docs/index.md', '# Hello World!');
+        Filesystem::ensureDirectoryExists('_static/docs');
+        Filesystem::put('_static/docs/search.json', '"static decoy"');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertNotSame('"static decoy"', $response->body);
+            $this->assertIsArray(json_decode($response->body, true));
+        } finally {
+            Filesystem::unlink('_docs/index.md');
+            Filesystem::deleteDirectory('_static/docs');
+        }
+    }
+
+    public function testProxiesRootLevelAssetWhenNoRouteMatchesThePath()
+    {
+        $this->mockCompilerRoute('data.json');
+
+        Filesystem::ensureDirectoryExists('_static');
+        Filesystem::put('_static/data.json', '{"static": true}');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('{"static": true}', $response->body);
+        } finally {
+            Filesystem::unlink('_static/data.json');
+        }
+    }
+
+    public function testProxiesExtensionlessRootStaticFileWhenNoRouteMatchesThePath()
+    {
+        $this->mockCompilerRoute('security');
+
+        Filesystem::ensureDirectoryExists('_static');
+        Filesystem::put('_static/security', 'contact@example.com');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('contact@example.com', $response->body);
+        } finally {
+            Filesystem::unlink('_static/security');
+        }
+    }
+
     public function testTrailingSlashesAreNormalizedFromRoute()
     {
         $this->mockCompilerRoute('foo/');
@@ -288,6 +430,137 @@ class RealtimeCompilerTest extends TestCase
         Filesystem::unlink('_docs/index.md');
     }
 
+    public function testVersionedDocsSearchJsonRendersSearchIndexWithJsonContentType()
+    {
+        $this->mockCompilerRoute('docs/1.x/search.json');
+        Filesystem::ensureDirectoryExists('_docs/1.x');
+        Filesystem::put('_docs/1.x/index.md', '# Hello World!');
+
+        try {
+            $router = new Router(new Request());
+
+            $this->bootRouterApplication($router);
+            config(['docs.versions' => ['1.x']]);
+            Hyde::boot();
+
+            $response = $router->handle();
+
+            $this->assertInstanceOf(Response::class, $response);
+            $this->assertNotInstanceOf(HtmlResponse::class, $response);
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/json', $headers['Content-Type']);
+            $this->assertSame((string) strlen($response->body), $headers['Content-Length']);
+
+            $this->assertIsArray(json_decode($response->body, true));
+        } finally {
+            Filesystem::deleteDirectory('_docs/1.x');
+        }
+    }
+
+    public function testSitemapXmlRouteIsServedWithXmlContentType()
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $this->mockCompilerRoute('sitemap.xml');
+
+        $kernel = new HttpKernel();
+        $response = $kernel->handle(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotInstanceOf(HtmlResponse::class, $response);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->statusMessage);
+
+        $headers = $this->getResponseHeaders($response);
+        $this->assertSame('application/xml', $headers['Content-Type']);
+
+        $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+        $this->assertStringContainsString('<urlset', $response->body);
+    }
+
+    public function testRssFeedRouteIsServedWithXmlContentType()
+    {
+        config(['hyde.url' => 'https://example.com']);
+
+        $this->mockCompilerRoute('feed.xml');
+
+        Filesystem::put('_posts/rc-test-post.md', '# Hello World!');
+
+        try {
+            $kernel = new HttpKernel();
+            $response = $kernel->handle(new Request());
+
+            $this->assertInstanceOf(Response::class, $response);
+            $this->assertNotInstanceOf(HtmlResponse::class, $response);
+            $this->assertSame(200, $response->statusCode);
+            $this->assertSame('OK', $response->statusMessage);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/xml', $headers['Content-Type']);
+
+            $this->assertStringStartsWith('<?xml version="1.0" encoding="UTF-8"?>', $response->body);
+            $this->assertStringContainsString('<rss', $response->body);
+        } finally {
+            Filesystem::unlink('_posts/rc-test-post.md');
+        }
+    }
+
+    public function testRssFeedRouteIsServedWithRssContentTypeWhenTheConfiguredFilenameUsesTheRssExtension()
+    {
+        $this->mockCompilerRoute('feed.rss');
+
+        Filesystem::put('_posts/rc-test-post.md', '# Hello World!');
+
+        try {
+            $router = new Router(new Request());
+            $this->bootRouterApplication($router);
+            config(['hyde.rss.filename' => 'feed.rss', 'hyde.url' => 'https://example.com']);
+            Hyde::boot();
+
+            $response = $router->handle();
+
+            $this->assertSame(200, $response->statusCode);
+
+            $headers = $this->getResponseHeaders($response);
+            $this->assertSame('application/rss+xml', $headers['Content-Type']);
+
+            $this->assertStringContainsString('<rss', $response->body);
+        } finally {
+            Filesystem::unlink('_posts/rc-test-post.md');
+        }
+    }
+
+    /**
+     * The site URL is overridden to the local server address before the kernel discovers its pages,
+     * so both feature-gated pages are served locally without a production site URL being configured.
+     */
+    public function testSitemapAndRssFeedAreServedWithoutAConfiguredSiteUrl()
+    {
+        Filesystem::put('_posts/rc-test-post.md', '# Hello World!');
+
+        try {
+            foreach (['sitemap.xml' => '<urlset', 'feed.xml' => '<rss'] as $route => $expected) {
+                $this->mockCompilerRoute($route);
+
+                $router = new Router(new Request());
+                $this->bootRouterApplication($router);
+                config(['hyde.url' => null]);
+
+                $response = $router->handle();
+
+                $this->assertSame(200, $response->statusCode);
+                $this->assertSame('application/xml', $this->getResponseHeaders($response)['Content-Type']);
+                $this->assertStringContainsString($expected, $response->body);
+                $this->assertStringContainsString('http://localhost:8080/', $response->body);
+            }
+        } finally {
+            Filesystem::unlink('_posts/rc-test-post.md');
+        }
+    }
+
     public function testGetContentTypeReturnsApplicationJsonForJsonOutputPath()
     {
         $page = $this->makePageWithOutputPath('foo.json');
@@ -300,6 +573,13 @@ class RealtimeCompilerTest extends TestCase
         $page = $this->makePageWithOutputPath('foo.xml');
 
         $this->assertSame('application/xml', $this->invokeGetContentType($page));
+    }
+
+    public function testGetContentTypeReturnsApplicationRssXmlForRssOutputPath()
+    {
+        $page = $this->makePageWithOutputPath('foo.rss');
+
+        $this->assertSame('application/rss+xml', $this->invokeGetContentType($page));
     }
 
     public function testGetContentTypeReturnsTextPlainForTxtOutputPath()
@@ -590,6 +870,13 @@ class RealtimeCompilerTest extends TestCase
         $method->invoke(new Router(new Request()));
     }
 
+    protected function bootRouterApplication(Router $router): void
+    {
+        $method = new ReflectionMethod(Router::class, 'bootApplication');
+        $method->setAccessible(true);
+        $method->invoke($router);
+    }
+
     protected function invokeGetContentType(InMemoryPage $page): string
     {
         $this->mockCompilerRoute('foo');
@@ -602,11 +889,11 @@ class RealtimeCompilerTest extends TestCase
 
     protected function makePageWithOutputPath(string $outputPath): InMemoryPage
     {
-        return new class('foo', [], 'contents', '', $outputPath) extends InMemoryPage
+        return new class('foo', [], 'contents', null, $outputPath) extends InMemoryPage
         {
             protected string $customOutputPath;
 
-            public function __construct(string $identifier, array $matter, string $contents, string $view, string $outputPath)
+            public function __construct(string $identifier, array $matter, string $contents, ?string $view, string $outputPath)
             {
                 // The custom output path must be assigned before calling the parent
                 // constructor, as it triggers factory data construction which calls

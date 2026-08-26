@@ -63,6 +63,7 @@ class PageRouter
         return match ($extension) {
             'json' => 'application/json',
             'xml' => 'application/xml',
+            'rss' => 'application/rss+xml',
             'txt' => 'text/plain',
             default => 'text/html',
         };

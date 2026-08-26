@@ -1,6 +1,7 @@
 ---
 navigation:
     priority: 20
+abstract: "HydePHP ships with a preconfigured Tailwind and Vite frontend so you don't have to think about asset compilation, but this page covers how to customize it if you want to."
 ---
 
 # Managing and Compiling Assets
@@ -14,6 +15,10 @@ With Hyde, **you don't have to do it**, in fact, you can skip this entire page i
 Hyde ships with a complete frontend using Blade views, TailwindCSS styles, and Alpine.js interactions, all pre-installed and bundled in the pre-configured Tailwind and Vite setup.
 
 To get you started quickly, all the styles are already compiled and minified into `_media/app.css`, which will be copied to the `_site/media/app.css` directory when you run `php hyde build`.
+
+## Root-Level Static Files
+
+Files that need to be published directly to the site root can be placed in an optional `_static` directory. Paths are preserved, so for example `_static/robots.txt` becomes `_site/robots.txt`, and `_static/.well-known/security.txt` becomes `_site/.well-known/security.txt`. Use `_media` for normal site assets published under `/media`.
 
 ## Vite
 
@@ -46,7 +51,7 @@ Vite's HMR feature allows for instant updates to the browser without requiring a
 
 You can start both of these by running `npm run dev` and `php hyde serve` in separate terminals, or using the `--vite` flag with the serve command:
 
-```bash
+```terminal
 php hyde serve --vite
 ```
 
@@ -129,7 +134,7 @@ To make it really easy to customize asset loading, the styles and scripts are lo
 
 To customize them, run the following command:
 
-```bash
+```terminal
 php hyde publish:views layouts
 ```
 

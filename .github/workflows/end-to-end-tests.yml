@@ -15,11 +15,11 @@ jobs:
       - name: Disable system xdebug
         run:  echo "XDEBUG_MODE=off" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -28,9 +28,6 @@ jobs:
 
       - name: Install Composer Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Run smoke tests # if standard tests fail, there is no reason to do visual tests as they are expensive and it's faster to run them in parallel here than to wait for a main test job to run
-        run: vendor/bin/pest --stop-on-failure
 
       - name: Prepare the Environment
         run: echo -e "APP_URL=http://localhost:8080 \nDUSK_ENABLED=true\nSERVER_DASHBOARD=false\nSERVER_SAVE_PREVIEW=true" > .env
@@ -79,8 +76,10 @@ jobs:
   visual-regression-tests:
     runs-on: ubuntu-latest
     needs: dusk-browser-tests
-    if: contains(github.event.pull_request.labels.*.name, 'run-visual-tests') || github.event_name == 'push'
+    if: contains(github.event.pull_request.labels.*.name, 'run-visual-tests') || github.event_name == 'push' || github.base_ref == 'master' || github.base_ref == '2.x'
     steps:
+      - uses: actions/checkout@v7
+
       - name: Download Dusk generated pages
         uses: actions/download-artifact@v8
         with:
@@ -101,8 +100,8 @@ jobs:
           rm _site/posts_homepage.html
           rm _site/docs/index.html
 
-      - name: Install Percy
-        run: npm install --save-dev @percy/cli
+      - name: Install dependencies
+        run: npm ci
 
       - name: Upload build to Percy
         run: npx percy snapshot _site/

@@ -150,7 +150,11 @@ class ServeCommandTest extends TestCase
 
         Process::shouldReceive('env')
             ->once()
-            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false])
+            ->with([
+                'HYDE_SERVER_REQUEST_OUTPUT' => false,
+                'HYDE_SERVER_MEDIA_DIRECTORY' => '_media',
+                'HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY' => 'media',
+            ])
             ->andReturnSelf();
 
         Process::shouldReceive('start')
@@ -205,7 +209,11 @@ class ServeCommandTest extends TestCase
 
         Process::shouldReceive('env')
             ->once()
-            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false])
+            ->with([
+                'HYDE_SERVER_REQUEST_OUTPUT' => false,
+                'HYDE_SERVER_MEDIA_DIRECTORY' => '_media',
+                'HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY' => 'media',
+            ])
             ->andReturnSelf();
 
         Process::shouldReceive('start')
@@ -254,7 +262,11 @@ class ServeCommandTest extends TestCase
 
         Process::shouldReceive('env')
             ->once()
-            ->with(['HYDE_SERVER_REQUEST_OUTPUT' => false])
+            ->with([
+                'HYDE_SERVER_REQUEST_OUTPUT' => false,
+                'HYDE_SERVER_MEDIA_DIRECTORY' => '_media',
+                'HYDE_SERVER_MEDIA_OUTPUT_DIRECTORY' => 'media',
+            ])
             ->andReturnSelf();
 
         Process::shouldReceive('start')

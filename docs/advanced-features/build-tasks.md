@@ -1,3 +1,7 @@
+---
+abstract: "The Build Task API lets you hook custom logic into HydePHP's build process before or after the site's pages are compiled."
+---
+
 # Custom Build Tasks
 
 ## Introduction
@@ -5,9 +9,7 @@
 The Build Task API offers a simple way to hook into the build process.
 The build tasks are very powerful and allow for limitless customizability.
 
-The built-in Hyde features like sitemap generation and RSS feeds are created using tasks like these.
 Maybe you want to create your own, to for example upload the site to FTP or copy the files to a public directory?
-You can also overload the built-in tasks to customize them to your needs.
 
 ## Good to know before you start
 
@@ -118,8 +120,7 @@ For example: `app/Actions/ExampleBuildTask.php`.
 
 If you want, you can also register build tasks of any namespace in the convenient `build_tasks` array which is in the main configuration file, `config/hyde.php`.
 
-```php
-// filepath config/hyde.php
+```php title="config/hyde.php"
 'build_tasks' => [
     \App\Actions\SimpleTask::class,
     \MyPackage\Tasks\MyBuildTask::class,

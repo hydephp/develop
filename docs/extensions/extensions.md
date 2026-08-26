@@ -2,6 +2,7 @@
 navigation:
     label: "Extensions & Integrations"
     priority: 80
+abstract: "HydePHP is designed to be extensible, with a number of built-in extensions and integrations as well as support for third-party ones."
 ---
 
 # Extensions & Integrations

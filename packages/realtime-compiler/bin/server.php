@@ -8,6 +8,11 @@ try {
         chdir($_SERVER['HERD_SITE_PATH']);
     }
 
+    // Signal to the framework that the site is being served as an authoring preview rather than
+    // built for publication. We set this here, instead of in the serve command, so that it also
+    // covers the server being started directly, for example through the Herd integration.
+    putenv('HYDE_SERVER_RUNNING=enabled');
+
     require getenv('HYDE_AUTOLOAD_PATH') ?: BASE_PATH.'/vendor/autoload.php';
 
     try {

@@ -127,9 +127,9 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('pageTypeProvider')]
     public function testIdentifiersWithNumericalPrefixesAreDetectedForPageType(string $type)
     {
-        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01-home.'.$type::$fileExtension));
-        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('02-about.'.$type::$fileExtension));
-        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('03-contact.'.$type::$fileExtension));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01-home.'.$type::$sourceExtension));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('02-about.'.$type::$sourceExtension));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('03-contact.'.$type::$sourceExtension));
     }
 
     /**
@@ -138,9 +138,9 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('pageTypeProvider')]
     public function testIdentifiersWithoutNumericalPrefixesAreNotDetectedForPageType(string $type)
     {
-        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('home.'.$type::$fileExtension));
-        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('about.'.$type::$fileExtension));
-        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('contact.'.$type::$fileExtension));
+        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('home.'.$type::$sourceExtension));
+        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('about.'.$type::$sourceExtension));
+        $this->assertFalse(NumericalPageOrderingHelper::hasNumericalPrefix('contact.'.$type::$sourceExtension));
     }
 
     /**
@@ -149,9 +149,9 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('pageTypeProvider')]
     public function testIdentifiersWithNumericalPrefixesAreDetectedWhenUsingSnakeCaseDelimitersForPageType(string $type)
     {
-        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01_home.'.$type::$fileExtension));
-        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('02_about.'.$type::$fileExtension));
-        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('03_contact.'.$type::$fileExtension));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('01_home.'.$type::$sourceExtension));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('02_about.'.$type::$sourceExtension));
+        $this->assertTrue(NumericalPageOrderingHelper::hasNumericalPrefix('03_contact.'.$type::$sourceExtension));
     }
 
     /**
@@ -160,9 +160,9 @@ class NumericalPageOrderingHelperUnitTest extends UnitTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('pageTypeProvider')]
     public function testSplitNumericPrefixForDeeplyNestedPagesForPageType(string $type)
     {
-        $this->assertSame([1, 'foo/bar/home.'.$type::$fileExtension], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/01-home.'.$type::$fileExtension));
-        $this->assertSame([2, 'foo/bar/about.'.$type::$fileExtension], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/02-about.'.$type::$fileExtension));
-        $this->assertSame([3, 'foo/bar/contact.'.$type::$fileExtension], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/03-contact.'.$type::$fileExtension));
+        $this->assertSame([1, 'foo/bar/home.'.$type::$sourceExtension], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/01-home.'.$type::$sourceExtension));
+        $this->assertSame([2, 'foo/bar/about.'.$type::$sourceExtension], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/02-about.'.$type::$sourceExtension));
+        $this->assertSame([3, 'foo/bar/contact.'.$type::$sourceExtension], NumericalPageOrderingHelper::splitNumericPrefix('foo/bar/03-contact.'.$type::$sourceExtension));
     }
 
     public function testSplitNumericPrefixForDeeplyNestedPages()
