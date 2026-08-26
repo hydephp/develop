@@ -31,6 +31,10 @@ in, in `config/localization.php`. The first language listed is the default langu
 ],
 ```
 
+Language identifiers are web/BCP-47-style tags: a plain code such as `en`, or a regional variant
+such as `en-GB`. Hyde validates them at boot, rejecting malformed or path-like identifiers and
+duplicates that only differ by case.
+
 Languages can also be given display names, which the language switcher will show instead of the
 language code:
 
@@ -43,7 +47,8 @@ language code:
 ```
 
 Leaving the array empty disables localization entirely, and your site is compiled exactly as it
-would be without the feature, with pages placed in the site webroot.
+would be without the feature, with pages placed in the site webroot, and no current or default
+localization language.
 
 >info Localization requires the `TranslationServiceProvider` to be registered in your `app/config.php`. See the [upgrade guide](upgrade-guide) if you are upgrading an existing project.
 
@@ -70,6 +75,15 @@ page linking to `about` links to the English one, and a Swedish page to the Swed
 The site webroot gets a redirect to the default language, so a visitor arriving at `/` is sent
 to `/en/`.
 
+Configured language identifiers are reserved as the first segment of a route key. Referring to
+`about` resolves within the language currently being rendered, but referring to `en/about`
+explicitly always resolves to the English route, even while rendering the Swedish page. This is
+what `Routes::find()` does; `Routes::findExact()` skips that resolution and always requires the
+exact key, which is what to use for a key that is already a concrete path, such as an incoming
+request URL. Similarly, `Routes::forLanguage()` returns the routes belonging to one language, or
+the neutral, site-wide ones when passed `null`, while `Routes::forCurrentLanguage()` returns
+those of the language currently being rendered.
+
 ## Translating interface text
 
 Translation strings are loaded from the `lang` directory in your project root, using Laravel's
@@ -85,6 +99,10 @@ return [
 ```blade
 <h1>{{ __('main.welcome') }}</h1>
 ```
+
+A regional language such as `en-GB` loads its strings from `lang/en_GB`, following Laravel's own
+convention for territory-specific locales, even though the language itself is addressed as
+`en-GB` everywhere else: in routes, source paths, and metadata.
 
 Everything involved in rendering a page runs in the language it is being compiled for, so
 translations resolve correctly in your pages, layouts, components, and view composers alike.
@@ -167,8 +185,7 @@ localized nothing.
 Each page declares the language it was compiled for on its `html` element, and its own canonical
 URL. Pages also link to every language version of themselves with `hreflang` metadata, so that
 search engines serve visitors the right one instead of treating the versions as duplicates of
-each other. An `x-default` entry points at the site webroot, which redirects to your default
-language.
+each other. An `x-default` entry points at the default-language version of that same page.
 
 This requires absolute URLs to be meaningful, so it is only included when your site has a
 configured site URL.

@@ -182,6 +182,8 @@ class Localization
      * Configured language identifiers are reserved first route-key segments: a key that
      * begins with one refers to that language explicitly, rather than one to be resolved
      * within whichever language is currently being rendered.
+     *
+     * @internal Used by route resolution and redirect destination handling.
      */
     public static function isLanguagePrefixed(string $path): bool
     {
@@ -221,6 +223,8 @@ class Localization
      * own source for a page falls back to the canonical one, rendered in its language.
      * That lets a site be translated a page at a time, without any page going
      * missing from a language while its translation is still outstanding.
+     *
+     * @internal Used by page classes that support companion sources, such as BaseMarkdownPage.
      */
     public static function companionSourcePath(string $sourcePath, string $language): ?string
     {
