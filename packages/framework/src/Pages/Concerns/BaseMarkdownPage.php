@@ -59,7 +59,7 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
      */
     protected function localizedVariant(string $language): static
     {
-        $path = Localization::sourcePath($this->getSourcePath(), $language);
+        $path = Localization::companionSourcePath($this->getSourcePath(), $language);
 
         if ($path === null) {
             return parent::localizedVariant($language);

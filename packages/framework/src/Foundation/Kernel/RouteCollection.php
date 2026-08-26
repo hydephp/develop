@@ -11,6 +11,8 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Redirect;
 use Hyde\Support\Models\Route;
 
+use function assert;
+
 /**
  * The RouteCollection contains all the page routes, making it the pseudo-router for Hyde,
  * as it maps each page to the eventual URL that will be used to access it once built.
@@ -94,7 +96,11 @@ final class RouteCollection extends BaseFoundationCollection
      */
     protected function addDefaultLanguageRedirect(): void
     {
-        $redirect = new Redirect('index', Localization::defaultLanguage().'/', matter: [
+        $defaultLanguage = Localization::defaultLanguage();
+
+        assert($defaultLanguage !== null);
+
+        $redirect = new Redirect('index', "$defaultLanguage/", matter: [
             'navigation' => ['hidden' => true],
         ]);
 
@@ -113,9 +119,19 @@ final class RouteCollection extends BaseFoundationCollection
      * so that a lookup for `index` while rendering an English page finds the `en/index`
      * route, rather than failing or falling through to the webroot redirect. Already
      * localized keys still resolve, as does every key when localization is off.
+     *
+     * Configured language identifiers are reserved first route-key segments, so a key that
+     * already names one, such as `en/about`, is an explicit reference to that language's
+     * route, and is looked up exactly rather than resolved within the current language.
+     * Otherwise it would be ambiguous with a page whose own identifier begins with a
+     * configured language code, such as `_pages/en/about.md`.
      */
     public function findRoute(string $routeKey): ?Route
     {
+        if (Localization::isLanguagePrefixed($routeKey)) {
+            return $this->get($routeKey);
+        }
+
         return $this->get(Localization::prefixPath($routeKey, Localization::currentLanguage()))
             ?? $this->get($routeKey);
     }

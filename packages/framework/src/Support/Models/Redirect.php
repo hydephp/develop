@@ -8,12 +8,10 @@ use Hyde\Facades\Localization;
 use Hyde\Pages\InMemoryPage;
 use Hyde\Markdown\Models\FrontMatter;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 
 use function substr_count;
 use function str_ends_with;
 use function str_repeat;
-use function in_array;
 use function substr;
 
 /**
@@ -68,7 +66,7 @@ class Redirect extends InMemoryPage
 
     protected function destinationNamesLanguage(): bool
     {
-        return in_array(Str::before($this->destination, '/'), Localization::languages(), true);
+        return Localization::isLanguagePrefixed($this->destination);
     }
 
     public function showInNavigation(): bool

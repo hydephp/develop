@@ -6,6 +6,7 @@ namespace Hyde\Framework\Testing\Feature;
 
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
+use Hyde\Facades\Localization;
 use Hyde\Testing\LocalizesSites;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Features\Navigation\MainNavigationMenu;
@@ -51,13 +52,13 @@ class LocalizedRenderingTest extends TestCase
 
         $this->withLanguages();
 
-        Hyde::shareViewData(Routes::get('de/about')->getPage());
+        Localization::usingLanguage('de', function (): void {
+            $this->assertSame(['de/about', 'de/contact'], $this->menuRouteKeys(MainNavigationMenu::get()));
+        });
 
-        $this->assertSame(['de/about', 'de/contact'], $this->menuRouteKeys(MainNavigationMenu::get()));
-
-        Hyde::shareViewData(Routes::get('en/about')->getPage());
-
-        $this->assertSame(['en/about', 'en/contact'], $this->menuRouteKeys(MainNavigationMenu::get()));
+        Localization::usingLanguage('en', function (): void {
+            $this->assertSame(['en/about', 'en/contact'], $this->menuRouteKeys(MainNavigationMenu::get()));
+        });
     }
 
     public function testRenderedNavigationDoesNotLinkToAnotherLanguage()
@@ -161,13 +162,13 @@ class LocalizedRenderingTest extends TestCase
 
         $this->withLanguages();
 
-        Hyde::shareViewData(Routes::get('de/docs/index')->getPage());
+        Localization::usingLanguage('de', function (): void {
+            $this->assertSame(['de/docs/index', 'de/docs/install'], $this->menuRouteKeys(DocumentationSidebar::get()));
+        });
 
-        $this->assertSame(['de/docs/index', 'de/docs/install'], $this->menuRouteKeys(DocumentationSidebar::get()));
-
-        Hyde::shareViewData(Routes::get('en/docs/index')->getPage());
-
-        $this->assertSame(['en/docs/index', 'en/docs/install'], $this->menuRouteKeys(DocumentationSidebar::get()));
+        Localization::usingLanguage('en', function (): void {
+            $this->assertSame(['en/docs/index', 'en/docs/install'], $this->menuRouteKeys(DocumentationSidebar::get()));
+        });
     }
 
     public function testDocumentationPagesGetALanguageSwitcherToo()

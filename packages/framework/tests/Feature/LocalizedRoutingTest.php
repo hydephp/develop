@@ -60,13 +60,33 @@ class LocalizedRoutingTest extends TestCase
 
         $this->withLanguages();
 
-        Hyde::shareViewData(Routes::get('de/about')->getPage());
+        Localization::usingLanguage('de', function (): void {
+            // A logical reference to a page finds the page of the language being rendered.
+            $this->assertSame('de/about', Routes::find('about')->getRouteKey());
 
-        // A logical reference to a page finds the page of the language being rendered.
-        $this->assertSame('de/about', Routes::find('about')->getRouteKey());
+            // While a key that already names its language keeps resolving to it.
+            $this->assertSame('en/about', Routes::find('en/about')->getRouteKey());
+        });
+    }
 
-        // While a key that already names its language keeps resolving to it.
-        $this->assertSame('en/about', Routes::find('en/about')->getRouteKey());
+    public function testCollisionBetweenALogicalRouteAndAPageWhoseIdentifierBeginsWithALanguageCode()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+        $this->source('_pages/en/about.md', 'English Section', 'Body.');
+
+        $this->withLanguages();
+
+        Localization::usingLanguage('de', function (): void {
+            // The unprefixed key resolves within the current language.
+            $this->assertSame('de/about', Routes::find('about')->getRouteKey());
+
+            // A key that already names a configured language is an explicit reference to
+            // that language's route, not to `de/en/about`, which is a different page.
+            $this->assertSame('en/about', Routes::find('en/about')->getRouteKey());
+        });
+
+        $this->assertSame('en/about', Routes::findExact('en/about')->getRouteKey());
+        $this->assertSame('de/en/about', Routes::findExact('de/en/about')->getRouteKey());
     }
 
     public function testExactRouteLookupsDoNotResolveWithinALanguage()
@@ -184,17 +204,41 @@ class LocalizedRoutingTest extends TestCase
             ->keys()->all());
     }
 
-    public function testRoutesForLanguageDefaultsToTheLanguageBeingRendered()
+    public function testRoutesForLanguageNullReturnsTheNeutralRoutesNotLocalizedContent()
+    {
+        $this->withSiteUrl();
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages();
+
+        $keys = Routes::forLanguage(null)->keys()->sort()->values()->all();
+
+        $this->assertSame(['index', 'sitemap.xml'], $keys);
+        $this->assertNotContains('en/about', $keys);
+        $this->assertNotContains('de/about', $keys);
+    }
+
+    public function testRoutesForCurrentLanguageFollowsTheLanguageBeingRendered()
     {
         $this->source('_pages/about.md', 'About', 'Body.');
         $this->source('_pages/contact.md', 'Contact', 'Body.');
 
         $this->withLanguages();
 
-        Hyde::shareViewData(Routes::get('de/about')->getPage());
+        Localization::usingLanguage('de', function (): void {
+            $this->assertSame(['de/about', 'de/contact'], Routes::forCurrentLanguage()
+                ->filter(fn ($route): bool => $route->getPage() instanceof \Hyde\Pages\MarkdownPage)
+                ->keys()->sort()->values()->all());
+        });
+    }
 
-        $this->assertSame(['de/about', 'de/contact'], Routes::forLanguage()
-            ->filter(fn ($route): bool => $route->getPage() instanceof \Hyde\Pages\MarkdownPage)
+    public function testRoutesForCurrentLanguageBehavesSensiblyWhenLocalizationIsDisabled()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages([]);
+
+        $this->assertSame(Routes::all()->keys()->sort()->values()->all(), Routes::forCurrentLanguage()
             ->keys()->sort()->values()->all());
     }
 

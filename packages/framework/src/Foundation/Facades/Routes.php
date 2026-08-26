@@ -76,14 +76,26 @@ class Routes extends Facade
     /**
      * Get all the routes belonging to the given language, keyed by route key.
      *
-     * Defaults to the language of the page currently being rendered, which for a site
-     * that is not localized is null, matching every route.
+     * Passing null returns the routes that belong to no language, which for a site that
+     * is not localized is every route. See {@see forCurrentLanguage()} for the routes
+     * of the language currently being rendered.
      *
      * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
      */
-    public static function forLanguage(?string $language = null): RouteCollection
+    public static function forLanguage(?string $language): RouteCollection
     {
-        return static::getFacadeRoot()->getRoutesForLanguage($language ?? Localization::currentLanguage());
+        return static::getFacadeRoot()->getRoutesForLanguage($language);
+    }
+
+    /**
+     * Get all the routes belonging to the language currently being rendered, keyed by
+     * route key. For a site that is not localized, this returns every route.
+     *
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     */
+    public static function forCurrentLanguage(): RouteCollection
+    {
+        return static::forLanguage(Localization::currentLanguage());
     }
 
     /**

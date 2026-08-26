@@ -24,12 +24,14 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
         // disabled. The static site builder then swaps the locale for each page
         // it compiles, so that each language gets its own strings.
 
-        $language = Localization::enabled()
-            ? Localization::defaultLanguage()
+        $defaultLanguage = Localization::defaultLanguage();
+
+        $locale = $defaultLanguage !== null
+            ? Localization::toLaravelLocale($defaultLanguage)
             : Config::getString('app.locale', 'en');
 
-        $this->app['config']->set('app.locale', $language);
-        $this->app['config']->set('app.fallback_locale', Config::getNullableString('app.fallback_locale') ?? $language);
+        $this->app['config']->set('app.locale', $locale);
+        $this->app['config']->set('app.fallback_locale', Config::getNullableString('app.fallback_locale') ?? $locale);
 
         parent::register();
     }

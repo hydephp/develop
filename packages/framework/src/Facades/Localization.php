@@ -6,10 +6,9 @@ namespace Hyde\Facades;
 
 use Closure;
 use Hyde\Pages\Concerns\HydePage;
-use Hyde\Support\Facades\Render;
 use Illuminate\Support\Facades\App;
+use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
-use function Hyde\unslash;
 use function app;
 use function str_starts_with;
 use function strlen;
@@ -17,6 +16,12 @@ use function substr;
 use function array_keys;
 use function is_string;
 use function count;
+use function strtolower;
+use function str_replace;
+use function preg_match;
+use function in_array;
+
+use function Hyde\unslash;
 
 /**
  * General facade for interacting with the site localization settings.
@@ -26,6 +31,15 @@ use function count;
  */
 class Localization
 {
+    /**
+     * A language identifier is a web/BCP-47-style language tag: one or more alphanumeric
+     * subtags separated by single hyphens, such as `en`, `en-GB`, `zh-Hant`, or `es-419`.
+     *
+     * This is deliberately not a full IANA language subtag registry validator. It only
+     * rejects identifiers that would be unsafe as a path segment or ambiguous in a URL.
+     */
+    private const LANGUAGE_TAG_PATTERN = '/^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$/';
+
     /**
      * Determine if the site is localized, meaning it has at least one configured language.
      */
@@ -60,30 +74,74 @@ class Localization
      * so that a language switcher can offer 'Svenska' rather than 'sv'. A language
      * configured without a name uses its code as its name.
      *
+     * Every identifier is validated as a web language tag, and no two configured
+     * identifiers may be the same when compared case-insensitively.
+     *
      * @return array<string, string>
      */
     protected static function languageNames(): array
     {
         $languages = [];
+        $seen = [];
 
         foreach (Config::getArray('localization.languages', []) as $key => $name) {
-            $languages[is_string($key) ? $key : (string) $name] = (string) $name;
+            $language = is_string($key) ? $key : (string) $name;
+
+            static::validateLanguageIdentifier($language);
+
+            $normalized = strtolower($language);
+
+            if (isset($seen[$normalized])) {
+                throw new InvalidConfigurationException(
+                    "The language [$language] is configured more than once. Language identifiers must be unique, even when compared case-insensitively.",
+                    'localization',
+                    'languages'
+                );
+            }
+
+            $seen[$normalized] = true;
+            $languages[$language] = (string) $name;
         }
 
         return $languages;
     }
 
     /**
-     * Get the default language of the site, which is the first configured language.
+     * Validate that the given string is a well-formed web language tag, safe to use as a
+     * single path segment, such as `en`, `sv`, or `en-GB`.
      */
-    public static function defaultLanguage(): string
+    protected static function validateLanguageIdentifier(string $language): void
     {
-        return static::languages()[0] ?? Config::getString('app.locale', 'en');
+        if (preg_match(self::LANGUAGE_TAG_PATTERN, $language) !== 1) {
+            throw new InvalidConfigurationException(
+                "The configured language identifier [$language] is not a valid language tag. Language identifiers must be BCP-47-style tags composed of hyphen-separated alphanumeric subtags, such as 'en' or 'en-GB'.",
+                'localization',
+                'languages'
+            );
+        }
     }
 
     /**
-     * Get the language currently in effect, which is the language of the page being
-     * rendered, falling back to the default language when nothing is being rendered.
+     * Get the default language of the site, which is the first configured language,
+     * or null when the site is not localized.
+     */
+    public static function defaultLanguage(): ?string
+    {
+        return static::languages()[0] ?? null;
+    }
+
+    /**
+     * Determine if the given language is one of the site's configured languages.
+     */
+    public static function isConfiguredLanguage(string $language): bool
+    {
+        return in_array($language, static::languages(), true);
+    }
+
+    /**
+     * Get the language currently in effect, which is the configured language corresponding
+     * to Laravel's currently active locale, since that is what a render establishes for
+     * the duration of a page being compiled.
      *
      * Returns null when the site is not localized, so that passing this to a language
      * filter matches every route, rather than none of them.
@@ -94,7 +152,15 @@ class Localization
             return null;
         }
 
-        return Render::getPage()?->getLanguage() ?? static::defaultLanguage();
+        $language = static::fromLaravelLocale(App::currentLocale());
+
+        foreach (static::languages() as $configured) {
+            if (strtolower($configured) === strtolower($language)) {
+                return $configured;
+            }
+        }
+
+        return static::defaultLanguage();
     }
 
     /**
@@ -107,6 +173,25 @@ class Localization
     public static function prefixPath(string $path, ?string $language): string
     {
         return $language === null ? $path : unslash("$language/".unslash($path));
+    }
+
+    /**
+     * Determine whether a route key or redirect destination already names a configured
+     * language as its own first path segment, such as `en/about`, or `en` on its own.
+     *
+     * Configured language identifiers are reserved first route-key segments: a key that
+     * begins with one refers to that language explicitly, rather than one to be resolved
+     * within whichever language is currently being rendered.
+     */
+    public static function isLanguagePrefixed(string $path): bool
+    {
+        foreach (static::languages() as $language) {
+            if ($path === $language || str_starts_with($path, "$language/")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -137,7 +222,7 @@ class Localization
      * That lets a site be translated a page at a time, without any page going
      * missing from a language while its translation is still outstanding.
      */
-    public static function sourcePath(string $sourcePath, string $language): ?string
+    public static function companionSourcePath(string $sourcePath, string $language): ?string
     {
         $path = static::sourceDirectory()."/$language/".unslash($sourcePath);
 
@@ -160,7 +245,8 @@ class Localization
      * Get the output path of every language variant of the given page, keyed by language.
      *
      * This is what links the languages of a page together, for hreflang metadata and for
-     * language switchers. Returns an empty array when the site is not localized.
+     * language switchers. Returns an empty array when the site is not localized, or when
+     * the page is not compiled once per language to begin with.
      *
      * The paths are derived from the page rather than looked up in the route collection,
      * as page metadata is generated while that collection is still being built.
@@ -169,7 +255,7 @@ class Localization
      */
     public static function alternates(HydePage $page): array
     {
-        if (! static::enabled()) {
+        if (! static::enabled() || ! $page->isLocalizable()) {
             return [];
         }
 
@@ -222,12 +308,34 @@ class Localization
 
         $locale = App::getLocale();
 
-        App::setLocale($language);
+        App::setLocale(static::toLaravelLocale($language));
 
         try {
             return $callback();
         } finally {
             App::setLocale($locale);
         }
+    }
+
+    /**
+     * Convert a configured web language tag to the locale form Laravel's translator resolves
+     * translation files with, following the `language_TERRITORY` convention documented for
+     * Laravel, for example `en-GB` to `en_GB`.
+     *
+     * @internal Used to bridge Hyde's BCP-47-style language tags with Laravel's own locale form.
+     */
+    public static function toLaravelLocale(string $language): string
+    {
+        return str_replace('-', '_', $language);
+    }
+
+    /**
+     * Convert a Laravel locale back to its web language tag, the inverse of {@see toLaravelLocale()}.
+     *
+     * @internal Used to bridge Hyde's BCP-47-style language tags with Laravel's own locale form.
+     */
+    public static function fromLaravelLocale(string $locale): string
+    {
+        return str_replace('_', '-', $locale);
     }
 }
