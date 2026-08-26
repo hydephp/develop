@@ -343,22 +343,35 @@ abstract class HydePage implements PageSchema, SerializableContract
     /**
      * Get a copy of the page that is compiled for the given language.
      *
-     * The page keeps its source file and Blade view, but is routed to a language
-     * subdirectory, and is compiled with the given language as the app locale.
+     * The page keeps its identifier, and thus its place in the page collection, but is
+     * routed to a language subdirectory, compiled with the given language as the app
+     * locale, and takes its content from that language's source when there is one.
      */
     public function withLanguage(string $language): static
     {
-        $page = clone $this;
+        $page = $this->localizedVariant($language);
 
         $page->language = $language;
 
-        // Cloning is shallow, so the copy would otherwise share the metadata bag of the page
-        // it was cloned from, which holds a reference back to that page, and would thus emit
-        // the canonical URL of the unlocalized page. Regenerating it binds it to the variant.
+        // The metadata bag holds a reference back to the page it was built from, and
+        // generates its contents on construction, so it has to be regenerated for
+        // the variant, or it would emit the canonical URL of the source page.
 
         $page->constructMetadata();
 
         return $page;
+    }
+
+    /**
+     * Create the page instance that the given language is rendered from.
+     *
+     * Defaults to a copy of the page, so that a language with no source of its own for the
+     * page falls back to this content, rendered in that language. Page classes that can
+     * be authored per language override this to load the source for the language.
+     */
+    protected function localizedVariant(string $language): static
+    {
+        return clone $this;
     }
 
     /**

@@ -23,4 +23,22 @@ return [
     'languages' => [
         //
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Localized Source Directory
+    |--------------------------------------------------------------------------
+    |
+    | A page is authored once, and is by default compiled into every language,
+    | using the translation strings of each. When a page needs genuinely
+    | different content in a language, you can place a companion source
+    | file for it in this directory, under the language it is for.
+    |
+    | For example, _locales/sv/_pages/about.md supplies the Swedish content
+    | for _pages/about.md. Pages with no companion file for a language
+    | fall back to their canonical source, rendered in that language.
+    |
+    */
+
+    'source_directory' => '_locales',
 ];

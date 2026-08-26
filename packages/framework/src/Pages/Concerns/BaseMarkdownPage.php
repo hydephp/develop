@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Hyde\Pages\Concerns;
 
 use Hyde\Facades\Filesystem;
+use Hyde\Facades\Localization;
+use Hyde\Framework\Actions\MarkdownFileParser;
 use Hyde\Markdown\Contracts\MarkdownDocumentContract;
 use Hyde\Markdown\Models\FrontMatter;
 use Hyde\Markdown\Models\Markdown;
@@ -45,6 +47,27 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
     public function markdown(): Markdown
     {
         return $this->markdown;
+    }
+
+    /**
+     * Create the page instance that the given language is rendered from, using the companion
+     * source file for that language when the site has one, and this page's own otherwise.
+     *
+     * The variant is constructed rather than cloned, as its front matter is the front matter
+     * of the localized source, and the page data derived from it, such as the page title,
+     * is assigned once when the page is constructed, and cannot be reassigned after.
+     */
+    protected function localizedVariant(string $language): static
+    {
+        $path = Localization::sourcePath($this->getSourcePath(), $language);
+
+        if ($path === null) {
+            return parent::localizedVariant($language);
+        }
+
+        $document = MarkdownFileParser::parse($path);
+
+        return new static($this->identifier, $document->matter, $document->markdown);
     }
 
     /** @inheritDoc */

@@ -79,6 +79,41 @@ class Localization
     }
 
     /**
+     * Get the language to declare on the html element of the page being rendered.
+     *
+     * The language currently in effect when the site is localized, and the configured site
+     * language otherwise, which is where a site with a single language declares it.
+     */
+    public static function htmlLanguage(): string
+    {
+        return static::currentLanguage() ?? Config::getString('hyde.language', 'en');
+    }
+
+    /**
+     * Get the directory holding the localized companion sources of the site.
+     */
+    public static function sourceDirectory(): string
+    {
+        return Config::getString('localization.source_directory', '_locales');
+    }
+
+    /**
+     * Get the path to the companion source file supplying the given source file's content
+     * in the given language, or null when that language has no companion file for it.
+     *
+     * A page is authored once and compiled into every language, so a language without its
+     * own source for a page falls back to the canonical one, rendered in its language.
+     * That lets a site be translated a page at a time, without any page going
+     * missing from a language while its translation is still outstanding.
+     */
+    public static function sourcePath(string $sourcePath, string $language): ?string
+    {
+        $path = static::sourceDirectory()."/$language/".unslash($sourcePath);
+
+        return Filesystem::exists($path) ? $path : null;
+    }
+
+    /**
      * Translate a string, when there is a translator to translate it with.
      *
      * Navigation labels are translated through this, so that a localized site can translate
