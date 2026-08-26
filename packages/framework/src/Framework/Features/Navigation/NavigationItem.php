@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Localization;
-
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;

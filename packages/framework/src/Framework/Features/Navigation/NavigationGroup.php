@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Facades\Localization;
-
 use Illuminate\Support\Str;
 use Hyde\Pages\DocumentationPage;
 
