@@ -237,4 +237,37 @@ class LocalizedContentTest extends TestCase
         $this->assertSame('about.html', $page->getOutputPath());
         $this->assertSame(['about'], Routes::all()->keys()->all());
     }
+
+    public function testACustomPageSubclassOverridingTheUnlocalizedPathMethodsStillGetsLocalized()
+    {
+        $this->withLanguages();
+
+        $variant = (new \Hyde\Support\Models\Route(new CustomUnlocalizedPathPage('test')))->forLanguage('de');
+
+        $this->assertSame('de/custom/test', $variant->getRouteKey());
+        $this->assertSame('de/custom/test.html', $variant->getOutputPath());
+    }
+}
+
+class CustomUnlocalizedPathPage extends \Hyde\Pages\Concerns\HydePage
+{
+    public static string $sourceDirectory = 'source';
+    public static string $outputDirectory = 'output';
+    public static string $sourceExtension = '.md';
+    public static string $template = 'template';
+
+    protected function unlocalizedRouteKey(): string
+    {
+        return 'custom/'.$this->identifier;
+    }
+
+    protected function unlocalizedOutputPath(): string
+    {
+        return 'custom/'.$this->identifier.'.html';
+    }
+
+    public function compile(): string
+    {
+        return '';
+    }
 }

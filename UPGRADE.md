@@ -487,6 +487,16 @@ Note that route keys gain a language prefix, so `about` becomes `en/about` and `
 keys used in your configuration and views keep working, and resolve to the page of the language
 being rendered. Any code matching route keys literally needs to account for the prefix.
 
+Language identifiers are web/BCP-47-style tags, so a regional variant is written `en-GB`, not
+Laravel's own `en_GB` locale form. Hyde converts between the two internally, so `en-GB` gives you
+`/en-GB/about.html`, `_locales/en-GB/_pages/about.md`, and `<html lang="en-GB">`, while its
+translation strings still resolve from `lang/en_GB` as Laravel expects.
+
+If you have a custom `HydePage` subclass that overrides `getRouteKey()` or `getOutputPath()` to
+customize its paths, move that logic into the protected `unlocalizedRouteKey()` and
+`unlocalizedOutputPath()` methods instead. The public methods now apply localization on top of
+whatever those return, so overriding them directly would bypass localization for that page type.
+
 See the [localization documentation](https://hydephp.com/docs/3.x/localization) for the details.
 
 ## Migration Checklist
