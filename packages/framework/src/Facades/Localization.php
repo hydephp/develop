@@ -92,8 +92,12 @@ class Localization
     }
 
     /**
-     * Run the callback using the given language as the app locale, so that translation
-     * strings are resolved for it, then restore the previously active locale.
+     * Establish a language context, running the callback with the given language as the
+     * app locale, so that translation strings are resolved for it, then restore the
+     * previously active locale.
+     *
+     * Everything belonging to one language should run within a single context, rather than
+     * the context wrapping one call within it. {@see \Hyde\Hyde::renderPage()}
      *
      * Passing a null language runs the callback as is, using the default locale.
      *
