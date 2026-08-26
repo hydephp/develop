@@ -19,6 +19,8 @@ use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Facades\Localization::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Kernel\RouteCollection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Foundation\Facades\Routes::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\Route::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Support\Models\Redirect::class)]
 class LocalizedRoutingTest extends TestCase
 {
