@@ -412,8 +412,9 @@ are left alone, then re-apply your changes and delete the old file:
 php hyde publish --components
 ```
 
-Pick `markdown/code-block.blade.php` in the picker that appears. Your other published views are safe either way, since
-the command never overwrites a file you have modified without `--force`.
+This is the replacement for `publish:views components`; see [Step 13](#step-13-replace-the-removed-publishing-commands)
+for the full command mapping. Pick `markdown/code-block.blade.php` in the picker that appears. Your other published
+views are safe either way, since the command never overwrites a file you have modified without `--force`.
 
 The markup around code blocks has also changed, so compare a few pages against your old site if you have custom CSS
 for them. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks you can target instead of

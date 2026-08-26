@@ -216,6 +216,16 @@ class PublishCommandPagesTest extends TestCase
             ->assertExitCode(1);
     }
 
+    public function testToPathTraversingOutOfThePagesDirectoryIsRejected()
+    {
+        // The directory and extension checks both pass here, so only the traversal guard can reject this path.
+        $this->artisan('publish --page=welcome --to=_pages/../_pages/index.blade.php --no-interaction')
+            ->expectsOutputToContain('The --to path must be within _pages/ and end in .blade.php, for example _pages/index.blade.php.')
+            ->assertExitCode(1);
+
+        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
+    }
+
     public function testToIsRejectedForAPageThatDisallowsCustomTargets()
     {
         $this->artisan('publish --page=404 --to=_pages/error.blade.php --no-interaction')
