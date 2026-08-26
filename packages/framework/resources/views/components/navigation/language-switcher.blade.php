@@ -11,10 +11,9 @@
 @endphp
 
 @if(count($languageSwitcherLinks) > 1)
-    <ul id="language-switcher" aria-label="Language"
-        class="flex mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 md:mt-0 md:ml-4 md:pt-0 md:border-none">
+    <ul id="language-switcher" aria-label="Language" {{ $attributes->merge(['class' => 'flex gap-3']) }}>
         @foreach($languageSwitcherLinks as $language => $href)
-            <li class="mr-3 md:mr-0 md:ml-2">
+            <li>
                 @if($language === $languageSwitcherCurrent)
                     <span aria-current="true" lang="{{ $language }}"
                           class="text-sm font-medium uppercase text-gray-700 dark:text-gray-200">{{ $language }}</span>
