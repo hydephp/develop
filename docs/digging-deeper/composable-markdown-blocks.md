@@ -677,7 +677,7 @@ will stop rendering with it. Custom CommonMark extensions are unaffected.
 ### Publishing is a snapshot
 
 A published view is a copy, frozen at the version you published it from. Framework updates that change the default
-markup, add a class hook, or pass a new variable will not reach it. Re-run `php hyde publish --components --force` after
+markup, add a class hook, or pass a new variable will not reach it. Re-run `php hyde publish --components` after
 major upgrades and diff your customizations against the new defaults.
 
 ### Your highlighter decides what `$contents` looks like

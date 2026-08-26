@@ -98,9 +98,12 @@ Existing files are skipped without `--force`, so it is required here to update y
 If you have published any of the included Blade components you will need to re-publish them.
 
 ```terminal
-php hyde publish --layouts --force
-php hyde publish --components --force
+php hyde publish --layouts
+php hyde publish --components
 ```
+
+Views you have customized are left untouched, so re-apply your changes and re-run with `--force` when you are ready to
+overwrite them.
 
 You may also want to download any resources that have been updated. You download these from the Zip file of the latest release on GitHub.
 

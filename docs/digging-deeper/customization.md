@@ -406,7 +406,7 @@ To edit a default Hyde component you need to publish them first using the `hyde 
 php hyde publish --all
 ```
 
-Run `php hyde publish` without any options to pick the views interactively, or scope it with `--layouts` or `--components`.
+You can also scope the command with `--layouts` or `--components`.
 
 The files will then be available in the `resources/views/vendor/hyde` directory.
 
