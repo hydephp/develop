@@ -46,5 +46,7 @@
                 </li>
             @endforeach
         </ul>
+
+        <x-hyde::navigation.language-switcher/>
     </div>
 </nav>
