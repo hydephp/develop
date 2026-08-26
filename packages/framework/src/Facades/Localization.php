@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Closure;
+use Hyde\Support\Facades\Render;
 use Illuminate\Support\Facades\App;
 
 use function Hyde\unslash;
+use function str_starts_with;
+use function strlen;
+use function substr;
 use function count;
 
 /**
@@ -45,6 +49,22 @@ class Localization
     }
 
     /**
+     * Get the language currently in effect, which is the language of the page being
+     * rendered, falling back to the default language when nothing is being rendered.
+     *
+     * Returns null when the site is not localized, so that passing this to a language
+     * filter matches every route, rather than none of them.
+     */
+    public static function currentLanguage(): ?string
+    {
+        if (! static::enabled()) {
+            return null;
+        }
+
+        return Render::getPage()?->getLanguage() ?? static::defaultLanguage();
+    }
+
+    /**
      * Prefix a route key or output path with the given language directory.
      *
      * Passing a null language returns the path as is. The operation is deliberately dumb:
@@ -54,6 +74,21 @@ class Localization
     public static function prefixPath(string $path, ?string $language): string
     {
         return $language === null ? $path : unslash("$language/".unslash($path));
+    }
+
+    /**
+     * Strip the language directory from a route key or output path.
+     *
+     * This is the inverse of {@see prefixPath()}, for the cases where a path has to be
+     * matched against an unlocalized one, such as resolving an incoming request URL.
+     */
+    public static function stripPrefix(string $path, ?string $language): string
+    {
+        if ($language === null || ! str_starts_with($path, "$language/")) {
+            return $path;
+        }
+
+        return substr($path, strlen($language) + 1);
     }
 
     /**

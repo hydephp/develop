@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Facades;
 
+use Hyde\Facades\Localization;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
@@ -29,7 +30,7 @@ class Routes extends Facade
      */
     public static function exists(string $routeKey): bool
     {
-        return static::getFacadeRoot()->has($routeKey);
+        return static::getFacadeRoot()->findRoute($routeKey) !== null;
     }
 
     /**
@@ -37,7 +38,7 @@ class Routes extends Facade
      */
     public static function find(string $routeKey): ?Route
     {
-        return static::getFacadeRoot()->get($routeKey);
+        return static::getFacadeRoot()->findRoute($routeKey);
     }
 
     /**
@@ -58,6 +59,19 @@ class Routes extends Facade
     public static function all(): RouteCollection
     {
         return static::getFacadeRoot()->getRoutes();
+    }
+
+    /**
+     * Get all the routes belonging to the given language, keyed by route key.
+     *
+     * Defaults to the language of the page currently being rendered, which for a site
+     * that is not localized is null, matching every route.
+     *
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     */
+    public static function forLanguage(?string $language = null): RouteCollection
+    {
+        return static::getFacadeRoot()->getRoutesForLanguage($language ?? Localization::currentLanguage());
     }
 
     /**

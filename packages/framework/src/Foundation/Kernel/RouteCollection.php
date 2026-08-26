@@ -101,7 +101,36 @@ final class RouteCollection extends BaseFoundationCollection
 
     public function getRoute(string $routeKey): Route
     {
-        return $this->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return $this->findRoute($routeKey) ?? throw new RouteNotFoundException($routeKey);
+    }
+
+    /**
+     * Find a route by its route key, resolving it within the language currently in effect.
+     *
+     * This keeps route keys usable as the stable identifiers they are on a localized site,
+     * so that a lookup for `index` while rendering an English page finds the `en/index`
+     * route, rather than failing or falling through to the webroot redirect. Already
+     * localized keys still resolve, as does every key when localization is off.
+     */
+    public function findRoute(string $routeKey): ?Route
+    {
+        return $this->get(Localization::prefixPath($routeKey, Localization::currentLanguage()))
+            ?? $this->get($routeKey);
+    }
+
+    /**
+     * Get the routes belonging to the given language.
+     *
+     * Passing null returns the routes that belong to no language, which for a site that is
+     * not localized is every route, making this a no-op when localization is disabled.
+     *
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     */
+    public function getRoutesForLanguage(?string $language): RouteCollection
+    {
+        return $this->filter(function (Route $route) use ($language): bool {
+            return $route->getPage()->getLanguage() === $language;
+        });
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */
