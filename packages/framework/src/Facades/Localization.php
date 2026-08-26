@@ -114,7 +114,7 @@ class Localization
     {
         if (preg_match(self::LANGUAGE_TAG_PATTERN, $language) !== 1) {
             throw new InvalidConfigurationException(
-                "The configured language identifier [$language] is not a valid language tag. Language identifiers must be BCP-47-style tags composed of hyphen-separated alphanumeric subtags, such as 'en' or 'en-GB'.",
+                "The configured language identifier [$language] is not a supported language identifier. Language identifiers must be BCP-47-style tags composed of hyphen-separated alphanumeric subtags, such as 'en' or 'en-GB'.",
                 'localization',
                 'languages'
             );
@@ -169,6 +169,8 @@ class Localization
      * Passing a null language returns the path as is. The operation is deliberately dumb:
      * it knows nothing about file extensions, so paths like `feed.xml`, `search.json`,
      * and `about.html` are all prefixed the same way, into their language directory.
+     *
+     * @internal Used by route keys and output paths to apply localization.
      */
     public static function prefixPath(string $path, ?string $language): string
     {
@@ -209,6 +211,8 @@ class Localization
 
     /**
      * Get the directory holding the localized companion sources of the site.
+     *
+     * @internal Used by companionSourcePath(); publish `config/localization.php` to change it.
      */
     public static function sourceDirectory(): string
     {
@@ -239,6 +243,8 @@ class Localization
      * Navigation labels are translated through this, so that a localized site can translate
      * its menus. Navigation is also constructed in contexts that have no booted
      * application, where the string can only be returned as it was given.
+     *
+     * @internal Used to translate navigation labels; use the `__()` helper directly elsewhere.
      */
     public static function translate(string $string): string
     {
@@ -279,6 +285,8 @@ class Localization
      *
      * This is the inverse of {@see prefixPath()}, for the cases where a path has to be
      * matched against an unlocalized one, such as resolving an incoming request URL.
+     *
+     * @internal Used by alternates() and documentation versioning to reverse prefixPath().
      */
     public static function stripPrefix(string $path, ?string $language): string
     {
@@ -298,6 +306,10 @@ class Localization
      * the context wrapping one call within it. {@see \Hyde\Hyde::renderPage()}
      *
      * Passing a null language runs the callback as is, using the default locale.
+     *
+     * @internal Render-context mechanism; page language is validated through withLanguage()
+     *           before it ever reaches here, so this does not itself check the language
+     *           is one of the site's configured languages.
      *
      * @template T
      *
