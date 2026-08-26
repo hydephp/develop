@@ -335,6 +335,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInvalidRegisteredPageDoesNotStopValidPagesFromPublishing()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $missingSource = 'resources/views/homepages/missing-source.blade.php';
 
         PublishablePages::register(new PublishablePage(
@@ -385,6 +387,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractiveResolutionCanChooseAnAlternativeTarget()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --page=posts')
             ->expectsQuestion('Where should "Posts feed" be published?', '_pages/index.blade.php')
             ->expectsOutputToContain('Published [posts] to [_pages/index.blade.php]')
@@ -397,6 +401,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractiveResolutionCanChooseACustomPath()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --page=blank')
             ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
             ->expectsQuestion('Enter a BladePage source path', '_pages/custom.blade.php')
@@ -409,9 +415,7 @@ class PublishCommandPagesTest extends TestCase
 
     public function testCustomPathFromPromptRepromptsUntilValid()
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
-        }
+        $this->skipWhenPromptsAreUnavailable();
 
         PagesPromptsReset::resetFallbacks();
 
@@ -443,6 +447,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractivePickerPublishesSelectedPagesAfterConfirmation()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         // Welcome has a single sensible destination, so it is not prompted for; it resolves to its default.
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
@@ -458,6 +464,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractivePickerCanBeDeclinedAtConfirmation()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
             ->expectsConfirmation('Proceed?', 'no')
@@ -497,6 +505,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testTwoPagesResolvingToTheSameTargetAreRejectedBeforeWriting()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         PublishablePages::register(new PublishablePage(
             key: 'clash',
             label: 'Clashing page',
@@ -519,6 +529,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testCustomTargetWithDuplicateSlashesConflictsWithNormalizedDefaultTarget()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome', 'blank'])
             ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
@@ -532,6 +544,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testCustomTargetWithSingleDotSegmentConflictsWithNormalizedDefaultTarget()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome', 'blank'])
             ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
@@ -545,6 +559,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testRebuildIsOfferedInteractivelyAfterPublishing()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         // Welcome resolves to its default without a destination prompt, so the only interaction is the rebuild offer.
         $this->artisan('publish --page=welcome')
             ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
@@ -564,6 +580,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testPickerCanSelectTheNumericKeyedPage()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['404'])
             ->expectsConfirmation('Proceed?', 'yes')
@@ -601,6 +619,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testThreePagesResolvingToTheSameTargetReportAllTarget()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         foreach (['clash-one' => 'Clash One', 'clash-two' => 'Clash Two'] as $key => $label) {
             PublishablePages::register(new PublishablePage(
                 key: $key,
@@ -625,6 +645,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractiveConflictPromptCanOverwriteAPage()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish --page=welcome')
@@ -638,6 +660,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractiveConflictPromptCanSkipAModifiedPage()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish --page=welcome')
@@ -653,6 +677,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testInteractiveConflictPromptCanCancelForPages()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish --page=welcome')
@@ -665,6 +691,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testMixedRunReportsPublishedAlongsideAlreadyCurrentPages()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         // Seed two pages so they are already current, then register a third new page and publish all three.
         $this->artisan('publish --page=welcome --no-interaction')->assertExitCode(0);
         $this->artisan('publish --page=404 --no-interaction')->assertExitCode(0);
@@ -694,9 +722,7 @@ class PublishCommandPagesTest extends TestCase
 
     public function testAcceptingTheRebuildOfferRunsTheBuild()
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
-        }
+        $this->skipWhenPromptsAreUnavailable();
 
         PagesPromptsReset::resetFallbacks();
 
@@ -719,9 +745,7 @@ class PublishCommandPagesTest extends TestCase
     /** Drive the interactive pages picker with faked keystrokes and return the buffered output. */
     protected function runPagesPicker(array $keys): BufferedOutput
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
-        }
+        $this->skipWhenPromptsAreUnavailable();
 
         // Earlier --no-interaction runs in this class leave Prompt::$shouldFallback stuck true, which would
         // route the picker through the (unrendered) fallback path; reset it so the prompt renders to the fake buffer.
@@ -738,6 +762,14 @@ class PublishCommandPagesTest extends TestCase
         $command->handle();
 
         return $output;
+    }
+
+    /** Hyde disables Laravel Prompts on Windows, so the interactive flows are not reachable there. */
+    protected function skipWhenPromptsAreUnavailable(): void
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
     }
 }
 

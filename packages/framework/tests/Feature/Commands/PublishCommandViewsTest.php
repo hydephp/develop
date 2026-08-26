@@ -66,6 +66,8 @@ class PublishCommandViewsTest extends TestCase
 
     public function testPickerCanPublishASingleView()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --layouts')
             ->expectsQuestion('Select Hyde views to publish', [$this->source('layouts', 'app.blade.php')])
             ->expectsOutputToContain('Published 1 view to [resources/views/vendor/hyde/layouts/app.blade.php]')
@@ -103,6 +105,8 @@ class PublishCommandViewsTest extends TestCase
 
     public function testPickerCanPublishManyViewsFromOneGroup()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish --layouts')
             ->expectsQuestion('Select Hyde views to publish', [
                 $this->source('layouts', 'app.blade.php'),
@@ -115,6 +119,8 @@ class PublishCommandViewsTest extends TestCase
 
     public function testPickerBaseDirectorySpansGroupsWhenBothAreSelected()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'views')
             ->expectsQuestion('Select Hyde views to publish', [
@@ -168,9 +174,7 @@ class PublishCommandViewsTest extends TestCase
 
     public function testAllSentinelPreservesNumericOptionKeys()
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
-        }
+        $this->skipWhenPromptsAreUnavailable();
 
         Prompt::fake([Key::DOWN, Key::SPACE, Key::ENTER]);
 
@@ -179,9 +183,7 @@ class PublishCommandViewsTest extends TestCase
 
     public function testPickerCanSelectNumericOptionKeyDirectly()
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
-        }
+        $this->skipWhenPromptsAreUnavailable();
 
         Prompt::fake([Key::SPACE, Key::ENTER]);
 
@@ -190,9 +192,7 @@ class PublishCommandViewsTest extends TestCase
 
     public function testPickerCanSubmitAnEmptySelection()
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
-        }
+        $this->skipWhenPromptsAreUnavailable();
 
         Prompt::fake([Key::ENTER]);
 
@@ -348,6 +348,8 @@ class PublishCommandViewsTest extends TestCase
 
     public function testInteractiveConflictPromptCanOverwrite()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->seedAllViews();
         $target = $this->modifyPublishedView();
 
@@ -361,6 +363,8 @@ class PublishCommandViewsTest extends TestCase
 
     public function testInteractiveConflictPromptCanSkip()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->seedAllViews();
         $target = $this->modifyPublishedView();
 
@@ -374,6 +378,8 @@ class PublishCommandViewsTest extends TestCase
 
     public function testInteractiveConflictPromptCanCancel()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $this->seedAllViews();
         $target = $this->modifyPublishedView();
 
@@ -428,9 +434,7 @@ class PublishCommandViewsTest extends TestCase
     /** Drive the interactive picker with faked keystrokes and return the buffered output. */
     protected function runViewsPicker(array $parameters, array $keys): BufferedOutput
     {
-        if (windows_os()) {
-            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
-        }
+        $this->skipWhenPromptsAreUnavailable();
 
         Prompt::fake($keys);
 
@@ -457,6 +461,14 @@ class PublishCommandViewsTest extends TestCase
         }
 
         parent::tearDown();
+    }
+
+    /** Hyde disables Laravel Prompts on Windows, so the interactive flows are not reachable there. */
+    protected function skipWhenPromptsAreUnavailable(): void
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
     }
 }
 

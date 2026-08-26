@@ -114,6 +114,11 @@ class PublisherConsoleTest extends TestCase
      */
     protected function makeInteractiveConsole(array $keys): array
     {
+        // Hyde disables Laravel Prompts on Windows, so the interactive flows are not reachable there.
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
+
         ConsoleHelper::mockWindowsOs(false);
         PublisherConsolePromptReset::resetFallbacks();
         Prompt::fake($keys);

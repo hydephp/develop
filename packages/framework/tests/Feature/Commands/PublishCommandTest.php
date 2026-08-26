@@ -176,6 +176,8 @@ class PublishCommandTest extends TestCase
 
     public function testWizardRoutesToViews()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         $appLayout = (is_dir(Hyde::path('packages')) ? 'packages' : 'vendor/hyde').'/framework/resources/views/layouts/app.blade.php';
 
         $this->artisan('publish')
@@ -187,6 +189,8 @@ class PublishCommandTest extends TestCase
 
     public function testWizardRoutesToPages()
     {
+        $this->skipWhenPromptsAreUnavailable();
+
         // Route through the wizard into the real pages flow. A deliberately modified target makes the overwrite
         // guard prove the wizard reached PagesPublisher without depending on the repository fixture contents.
         $this->modifyDefaultHomePage();
@@ -263,5 +267,13 @@ class PublishCommandTest extends TestCase
         $this->expectExceptionMessage('The command "publish:configs" does not exist.');
 
         $this->artisan('publish:configs')->run();
+    }
+
+    /** Hyde disables Laravel Prompts on Windows, so the interactive flows are not reachable there. */
+    protected function skipWhenPromptsAreUnavailable(): void
+    {
+        if (windows_os()) {
+            $this->markTestSkipped('Interactive prompts are not applicable on Windows systems.');
+        }
     }
 }
