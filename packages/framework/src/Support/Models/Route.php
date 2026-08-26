@@ -91,6 +91,15 @@ class Route implements Stringable, SerializableContract
     }
 
     /**
+     * Get the path to the file the page's content was authored in, which for a language
+     * variant is the companion source of its language, when the site has one for it.
+     */
+    public function getContentSourcePath(): string
+    {
+        return $this->page->getContentSourcePath();
+    }
+
+    /**
      * Determine if the route instance matches another route or route key.
      */
     public function is(Route|RouteKey|string $route): bool

@@ -28,7 +28,9 @@ class RouteListItem
 
         return [
             'page_type' => $item->stylePageType($route->getPageClass()),
-            'source_file' => $item->styleSourcePath($route->getSourcePath()),
+            // The file the route was actually authored from, as that is what is useful to
+            // see here, and differs from the page identity for a localized variant.
+            'source_file' => $item->styleSourcePath($route->getContentSourcePath()),
             'output_file' => $item->styleOutputPath($route->getOutputPath()),
             'route_key' => $item->styleRouteKey($route->getRouteKey()),
         ];

@@ -67,7 +67,11 @@ abstract class BaseMarkdownPage extends HydePage implements MarkdownDocumentCont
 
         $document = MarkdownFileParser::parse($path);
 
-        return new static($this->identifier, $document->matter, $document->markdown);
+        $page = new static($this->identifier, $document->matter, $document->markdown);
+
+        $page->contentSourcePath = $path;
+
+        return $page;
     }
 
     /** @inheritDoc */

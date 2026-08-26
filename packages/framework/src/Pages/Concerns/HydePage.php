@@ -71,6 +71,9 @@ abstract class HydePage implements PageSchema, SerializableContract
     /** The language the page is compiled for, if the site is localized. */
     protected ?string $language = null;
 
+    /** The file this page's content was authored in, when not its own source file. */
+    protected ?string $contentSourcePath = null;
+
     /**
      * Create a new page instance. Static alias for the constructor.
      */
@@ -289,6 +292,21 @@ abstract class HydePage implements PageSchema, SerializableContract
     public function getOutputPath(): string
     {
         return Localization::prefixPath($this->unlocalizedOutputPath(), $this->language);
+    }
+
+    /**
+     * Get the path to the file this page's content was authored in.
+     *
+     * This is the page's own source file, unless the page is a language variant that was
+     * authored in a companion source file for its language, in which case it is that
+     * file. Unlike {@see getSourcePath()}, which is the identity of the page, and
+     * stays the same across its languages, this is where the content came from.
+     *
+     * @return string Path relative to the project root.
+     */
+    public function getContentSourcePath(): string
+    {
+        return $this->contentSourcePath ?? $this->getSourcePath();
     }
 
     /**
