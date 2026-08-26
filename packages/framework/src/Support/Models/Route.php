@@ -50,6 +50,20 @@ class Route implements Stringable, SerializableContract
         return $this->page;
     }
 
+    /**
+     * Get a copy of the route pointing to the given language variant of its page.
+     *
+     * The route keeps its class, so routes supplied by extensions keep their own behaviour.
+     */
+    public function forLanguage(string $language): static
+    {
+        $route = clone $this;
+
+        $route->page = $this->page->withLanguage($language);
+
+        return $route;
+    }
+
     /** @return class-string<HydePage> */
     public function getPageClass(): string
     {

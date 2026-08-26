@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
-use Hyde\Hyde;
-use Hyde\Facades\Localization;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\FileNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
-use Hyde\Support\Models\Redirect;
-
-use function str_repeat;
-use function substr_count;
 
 /**
  * The PageCollection contains all the instantiated pages.
@@ -31,54 +25,26 @@ use function substr_count;
  *
  * @see \Hyde\Foundation\Facades\PageCollection
  * @see \Hyde\Hyde::pages()
+ *
+ * Note that a localized site does not duplicate its pages here. A source file is always
+ * exactly one page, regardless of how many languages the site is compiled for, as the
+ * language variants are created in the route collection, which is the layer that
+ * maps out the files that will actually be emitted into the site output.
+ *
+ * @see \Hyde\Foundation\Kernel\RouteCollection
  */
 final class PageCollection extends BaseFoundationCollection
 {
     public function addPage(HydePage $page): void
     {
-        $this->put(static::makeKey($page), $page);
+        $this->put($page->getSourcePath(), $page);
     }
 
     protected function runDiscovery(): void
     {
         $this->kernel->files()->each(function (SourceFile $file): void {
-            $page = $this->parsePage($file->pageClass, $file->getPath());
-
-            if (Localization::enabled()) {
-                foreach (Localization::languages() as $language) {
-                    $this->addPage($page->withLanguage($language));
-                }
-
-                $this->addDefaultLanguageRedirect($page);
-            } else {
-                $this->addPage($page);
-            }
+            $this->addPage($this->parsePage($file->pageClass, $file->getPath()));
         });
-    }
-
-    /**
-     * Add a redirect from the unprefixed route key to the default language, so that
-     * for example `/foo` sends the visitor to `/en/foo` when English is the default.
-     */
-    protected function addDefaultLanguageRedirect(HydePage $page): void
-    {
-        $routeKey = $page->getRouteKey();
-
-        $this->addPage(new Redirect($routeKey, static::makeRedirectDestination($routeKey), matter: [
-            'navigation' => ['hidden' => true],
-        ]));
-    }
-
-    protected static function makeRedirectDestination(string $routeKey): string
-    {
-        // The destination is relative to the redirect page, which sits at the unprefixed
-        // route key, so we need to walk back up to the site webroot before descending
-        // into the language directory. For example, `posts/hello` redirects to
-        // `../en/posts/hello.html`, which resolves to `/en/posts/hello.html`.
-
-        $depth = substr_count($routeKey, '/');
-
-        return str_repeat('../', $depth).Hyde::formatLink(Localization::defaultLanguage()."/$routeKey.html");
     }
 
     protected function runExtensionHandlers(): void
@@ -97,24 +63,7 @@ final class PageCollection extends BaseFoundationCollection
 
     public function getPage(string $sourcePath): HydePage
     {
-        // When the site is localized, each source file has one page per language,
-        // so we resolve the page for the default language when given a source path.
-
-        return $this->get($sourcePath)
-            ?? $this->get(static::makeLocalizedKey(Localization::defaultLanguage(), $sourcePath))
-            ?? throw new FileNotFoundException($sourcePath);
-    }
-
-    protected static function makeKey(HydePage $page): string
-    {
-        return $page->getLanguage() === null
-            ? $page->getSourcePath()
-            : static::makeLocalizedKey($page->getLanguage(), $page->getSourcePath());
-    }
-
-    protected static function makeLocalizedKey(string $language, string $sourcePath): string
-    {
-        return "$language::$sourcePath";
+        return $this->get($sourcePath) ?? throw new FileNotFoundException($sourcePath);
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */
