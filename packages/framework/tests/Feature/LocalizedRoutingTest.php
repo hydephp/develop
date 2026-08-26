@@ -155,6 +155,58 @@ class LocalizedRoutingTest extends TestCase
         }
     }
 
+    public function testRouteForLanguageReturnsAVariantPointingAtThatLanguage()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages();
+
+        $canonical = new \Hyde\Support\Models\Route(Hyde::pages()->getPage('_pages/about.md'));
+
+        $variant = $canonical->forLanguage('de');
+
+        $this->assertSame('de/about', $variant->getRouteKey());
+        $this->assertSame('about', $canonical->getRouteKey());
+        $this->assertSame('de', $variant->getPage()->getLanguage());
+        $this->assertSame($canonical::class, $variant::class);
+    }
+
+    public function testRoutesForLanguageReturnsOnlyTheRoutesOfThatLanguage()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages();
+
+        $this->assertSame(['de/about'], Routes::forLanguage('de')
+            ->filter(fn ($route): bool => $route->getPage() instanceof \Hyde\Pages\MarkdownPage)
+            ->keys()->all());
+    }
+
+    public function testRoutesForLanguageDefaultsToTheLanguageBeingRendered()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+        $this->source('_pages/contact.md', 'Contact', 'Body.');
+
+        $this->withLanguages();
+
+        Hyde::shareViewData(Routes::get('de/about')->getPage());
+
+        $this->assertSame(['de/about', 'de/contact'], Routes::forLanguage()
+            ->filter(fn ($route): bool => $route->getPage() instanceof \Hyde\Pages\MarkdownPage)
+            ->keys()->sort()->values()->all());
+    }
+
+    public function testRouteReportsTheContentSourcePathOfItsPage()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+        $this->localizedSource('de', '_pages/about.md', 'Impressum', 'Deutscher Text.');
+
+        $this->withLanguages();
+
+        $this->assertSame('_locales/de/_pages/about.md', Routes::get('de/about')->getContentSourcePath());
+        $this->assertSame('_pages/about.md', Routes::get('en/about')->getContentSourcePath());
+    }
+
     public function testSiteWideArtifactsAreNotCompiledPerLanguage()
     {
         $this->withSiteUrl();
