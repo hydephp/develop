@@ -106,7 +106,10 @@ class LocalizedRenderingTest extends TestCase
 
         $this->assertStringContainsString('<link rel="alternate" href="https://example.com/en/about.html" hreflang="en">', $html);
         $this->assertStringContainsString('<link rel="alternate" href="https://example.com/de/about.html" hreflang="de">', $html);
-        $this->assertStringContainsString('hreflang="x-default"', $html);
+
+        // The x-default alternate points at the default-language version of this same
+        // page, not the site webroot, which only redirects to the default language.
+        $this->assertStringContainsString('<link rel="alternate" href="https://example.com/en/about.html" hreflang="x-default">', $html);
     }
 
     public function testTheLanguageSwitcherLinksToTheSamePageInTheOtherLanguage()

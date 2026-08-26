@@ -25,6 +25,7 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 use function Hyde\unslash;
 use function filled;
@@ -379,9 +380,15 @@ abstract class HydePage implements PageSchema, SerializableContract
      * The page keeps its identifier, and thus its place in the page collection, but is
      * routed to a language subdirectory, compiled with the given language as the app
      * locale, and takes its content from that language's source when there is one.
+     *
+     * @throws \InvalidArgumentException If the given language is not one of the site's configured languages.
      */
     public function withLanguage(string $language): static
     {
+        if (! Localization::isConfiguredLanguage($language)) {
+            throw new InvalidArgumentException("Language [$language] is not a configured site language.");
+        }
+
         $page = $this->localizedVariant($language);
 
         $page->language = $language;

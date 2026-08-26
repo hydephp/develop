@@ -11,6 +11,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Foundation\Kernel\Hyperlinks;
 
+use function assert;
 use function substr_count;
 use function str_repeat;
 
@@ -77,10 +78,15 @@ class PageMetadataBag extends MetadataBag
             ]));
         }
 
-        // The site webroot redirects to the default language, which makes it the right
-        // target for visitors whose language none of the variants above matches.
+        // The default-language alternate is the right target for visitors whose language
+        // none of the variants above matches, as it is the same page, in the language a
+        // visitor is served when none of their preferred languages is available.
 
-        $this->add(Meta::link('alternate', Hyde::url(), [
+        $defaultLanguage = Localization::defaultLanguage();
+
+        assert($defaultLanguage !== null);
+
+        $this->add(Meta::link('alternate', Hyde::url($alternates[$defaultLanguage]), [
             'hreflang' => 'x-default',
         ]));
     }

@@ -7,9 +7,11 @@ namespace Hyde\Framework\Testing\Feature;
 use Hyde\Hyde;
 use Hyde\Testing\TestCase;
 use Hyde\Pages\MarkdownPage;
+use Hyde\Pages\InMemoryPage;
 use Hyde\Facades\Localization;
 use Hyde\Testing\LocalizesSites;
 use Hyde\Foundation\Facades\Routes;
+use InvalidArgumentException;
 
 /**
  * Tests the content model of the site localization feature: how one authored page becomes
@@ -143,6 +145,41 @@ class LocalizedContentTest extends TestCase
 
         $this->assertSame(['en', 'de'], Localization::languages());
         $this->assertSame('de', Localization::label('de'));
+    }
+
+    public function testWithLanguageRejectsALanguageThatIsNotConfigured()
+    {
+        $this->source('_pages/about.md', 'About', 'Canonical body.');
+
+        $this->withLanguages();
+
+        $page = Hyde::pages()->getPage('_pages/about.md');
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $page->withLanguage('fr');
+    }
+
+    public function testWithLanguageRejectsAPathLikeValue()
+    {
+        $this->source('_pages/about.md', 'About', 'Canonical body.');
+
+        $this->withLanguages();
+
+        $page = Hyde::pages()->getPage('_pages/about.md');
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $page->withLanguage('../foo');
+    }
+
+    public function testAlternatesReturnsEmptyForANonLocalizablePage()
+    {
+        $this->withLanguages();
+
+        $page = new InMemoryPage('sitemap.xml', localizable: false);
+
+        $this->assertSame([], Localization::alternates($page));
     }
 
     public function testLocalizationIsDisabledWhenNoLanguagesAreConfigured()
