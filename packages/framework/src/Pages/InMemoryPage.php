@@ -98,6 +98,10 @@ class InMemoryPage extends HydePage
         ?string $view = null,
         bool $localizable = true,
     ) {
+        // Set before calling the parent constructor, as it constructs the page's metadata,
+        // which for a localized site needs to know whether the page is localizable.
+        $this->localizable = $localizable;
+
         parent::__construct($identifier, $matter);
 
         $view = $view === '' ? null : $view;
@@ -110,7 +114,6 @@ class InMemoryPage extends HydePage
 
         $this->contents = $contents ?? '';
         $this->view = $view ?? '';
-        $this->localizable = $localizable;
     }
 
     /** @inheritDoc */
