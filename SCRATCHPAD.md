@@ -17,17 +17,21 @@ Add tests for the localization feature (none exist yet).
 
 ### Known gaps
 
-Navigation and the documentation sidebar iterate `Routes::all()` with no language
-filter, so an English page lists both the English and the Swedish routes. Fixing
-this needs `Localization::currentLanguage()` plus language-aware route queries.
+The locale context only wraps `$page->compile()`, not `Hyde::shareViewData()`, so
+anything resolving translations outside the compile call runs under the default
+locale. The whole render should happen inside the language context instead.
 
-The locale context currently only wraps `$page->compile()`, not `Hyde::shareViewData()`,
-so anything resolving translations outside the compile call runs under the default
-locale.
+Navigation labels are not translated. The menus are filtered per language, but each
+language still shows the label from the shared front matter.
 
-`hyde.redirects` and the documentation root redirect are fanned out per language like
-any other page, so their destinations are not localized. Decide the URL policy for
-the default language before relying on this.
+There is no language switcher, and no hreflang metadata linking the variants.
 
-`build:search` builds the search index directly from the page collection rather than
-from routes, so it writes the unlocalized path when run standalone.
+`hyde.redirects` and the documentation root redirect are fanned out per language
+like any other page, so their destinations are not localized. Decide the URL policy
+for the default language before relying on this.
+
+`build:search` builds the search index directly from the page collection rather
+than from routes, so it writes the unlocalized path when run standalone.
+
+Every page is emitted for every language, with no way to mark a page as belonging
+to only one language.
