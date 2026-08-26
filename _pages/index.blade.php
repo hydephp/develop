@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
@@ -41,6 +41,8 @@
             </h1>
             <div class="mx-auto mt-8 sm:mt-4 text-gray-200 md:mt-8 md:max-w-2xl md:text-center">
                 <section aria-label="About Hyde">
+                    <p class="lg:text-lg mb-4">{{ __('main.welcome') }}</p>
+
                     <p class="lg:text-lg">
                         Leap into the future of static HTML blogs and documentation with the tools you already know and love.
                         Made with Tailwind, Laravel, and Coffee.
