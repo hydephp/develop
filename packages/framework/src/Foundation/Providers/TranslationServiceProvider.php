@@ -18,11 +18,15 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
 {
     public function register(): void
     {
-        // The translator resolves its locale from the app config, which for a localized site
-        // defaults to the first configured language. The static site builder then swaps the
-        // locale for each page it compiles, so that each language gets its own strings.
+        // The translator resolves its locale from the app config. For a localized site the
+        // first configured language is by definition the default one, and thus takes
+        // precedence over the app locale, which is only used when localization is
+        // disabled. The static site builder then swaps the locale for each page
+        // it compiles, so that each language gets its own strings.
 
-        $language = Config::getNullableString('app.locale') ?? Localization::defaultLanguage();
+        $language = Localization::enabled()
+            ? Localization::defaultLanguage()
+            : Config::getString('app.locale', 'en');
 
         $this->app['config']->set('app.locale', $language);
         $this->app['config']->set('app.fallback_locale', Config::getNullableString('app.fallback_locale') ?? $language);
