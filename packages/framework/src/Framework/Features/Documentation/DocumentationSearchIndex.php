@@ -50,7 +50,8 @@ class DocumentationSearchIndex extends InMemoryPage
         return RouteKey::fromPage(DocumentationPage::class, $version === null ? 'search' : "$version->name/search").'.json';
     }
 
-    public function getOutputPath(): string
+    /** Get the output path of the search index, before any localization is applied. */
+    protected function unlocalizedOutputPath(): string
     {
         return static::routeKey($this->version);
     }

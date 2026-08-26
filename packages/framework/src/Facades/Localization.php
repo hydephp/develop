@@ -7,6 +7,7 @@ namespace Hyde\Facades;
 use Closure;
 use Illuminate\Support\Facades\App;
 
+use function Hyde\unslash;
 use function count;
 
 /**
@@ -41,6 +42,18 @@ class Localization
     public static function defaultLanguage(): string
     {
         return static::languages()[0] ?? Config::getString('app.locale', 'en');
+    }
+
+    /**
+     * Prefix a route key or output path with the given language directory.
+     *
+     * Passing a null language returns the path as is. The operation is deliberately dumb:
+     * it knows nothing about file extensions, so paths like `feed.xml`, `search.json`,
+     * and `about.html` are all prefixed the same way, into their language directory.
+     */
+    public static function prefixPath(string $path, ?string $language): string
+    {
+        return $language === null ? $path : unslash("$language/".unslash($path));
     }
 
     /**

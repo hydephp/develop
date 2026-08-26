@@ -6,6 +6,7 @@ namespace Hyde\Pages\Concerns;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Facades\Localization;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
@@ -287,9 +288,20 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getOutputPath(): string
     {
-        return $this->language === null
-            ? unslash(static::outputPath($this->identifier))
-            : "{$this->getRouteKey()}.html";
+        return Localization::prefixPath($this->unlocalizedOutputPath(), $this->language);
+    }
+
+    /**
+     * Get the path where the compiled page will be saved, before any localization is applied.
+     *
+     * Page classes that need to customize their output path should override this method
+     * instead of {@see getOutputPath()}, so that localization keeps being applied last.
+     *
+     * @return string Path relative to the site output directory.
+     */
+    protected function unlocalizedOutputPath(): string
+    {
+        return unslash(static::outputPath($this->identifier));
     }
 
     // Section: Routing
@@ -306,7 +318,18 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRouteKey(): string
     {
-        return $this->language === null ? $this->routeKey : unslash("{$this->language}/{$this->routeKey}");
+        return Localization::prefixPath($this->unlocalizedRouteKey(), $this->language);
+    }
+
+    /**
+     * Get the route key for the page, before any localization is applied.
+     *
+     * Page classes that need to customize their route key should override this method
+     * instead of {@see getRouteKey()}, so that localization keeps being applied last.
+     */
+    protected function unlocalizedRouteKey(): string
+    {
+        return $this->routeKey;
     }
 
     /**
