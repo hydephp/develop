@@ -1,27 +1,27 @@
 ## Temp notes:
 
-### Demo setup
+### Trying it out
 
-Localization is off by default so the test suite stays green. To try it, set
-`config/localization.php` to `'languages' => ['en' => 'English', 'sv' => 'Svenska']`
-and run `php hyde build` or `php hyde serve`.
+Localization is off by default. To try it, set `config/localization.php` to
+`'languages' => ['en' => 'English', 'sv' => 'Svenska']`, add a page or two, and run
+`php hyde build` or `php hyde serve`.
 
-The repository carries a small bilingual demo: a home page, about, contact, a
-documentation page, and a blog post. All but contact have Swedish companion
-sources under `_locales/sv/`, so contact shows the fallback to the canonical
-source. Navigation labels come from `lang/sv.json`.
+For a page with genuinely different Swedish content, add a companion source beside
+it, so `_pages/about.md` gets `_locales/sv/_pages/about.md`. A page without one
+falls back to its canonical content, rendered in Swedish. Interface strings come
+from `lang/sv/*.php`, and navigation labels from `lang/sv.json`.
 
-Two things to know when working on this:
+The repository deliberately carries no demo content in `_pages`, `_docs`, or
+`_posts`. It used to, and it broke the browser tests: `publish:homepage` refuses to
+overwrite a modified `_pages/index.blade.php`, so those tests silently kept serving
+the demo homepage, and an extra documentation page shifted the sidebar positions
+they assert on. The feature test suite covers the feature instead.
 
-Running the test suite deletes the content of `_pages`, `_docs`, and `_posts`,
-and rewrites `_pages/index.blade.php` from the vendor welcome page. Restore the
-demo with `git checkout` afterwards. The localization tests do not rely on any
-of it, and localize into German so their fixtures cannot collide with it.
-
-With languages configured in `config/localization.php`, a large part of the test
-suite fails, because the existing tests assert unprefixed route keys. The
-localization tests configure their languages per test instead, so they
-pass with the committed configuration.
+Note that with languages configured, a large part of the unit and feature suite
+fails, because the existing tests assert unprefixed route keys. The localization
+tests configure their languages per test, so they pass with the committed
+configuration, and localize into German so their fixtures cannot collide
+with any content the surrounding project has.
 
 ### Deferred
 
