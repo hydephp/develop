@@ -215,7 +215,7 @@ marked up with a class of its own, like `hyde-terminal-info`, `hyde-terminal-fg-
 You can customize the terminal markup and Tailwind classes by publishing Hyde's Blade components:
 
 ```terminal
-php hyde publish:views components
+php hyde publish --components
 ```
 
 The terminal component will be published to
@@ -250,7 +250,7 @@ coloured blockquotes. Simply append the desired colour after the initial `>` cha
 You can easily customize these styles by publishing and editing the `markdown-blockquote.blade.php` file.
 
 ```terminal
-php hyde publish:views components
+php hyde publish --components
 ```
 
 ### Markdown usage
