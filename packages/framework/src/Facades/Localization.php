@@ -14,6 +14,8 @@ use function app;
 use function str_starts_with;
 use function strlen;
 use function substr;
+use function array_keys;
+use function is_string;
 use function count;
 
 /**
@@ -39,7 +41,36 @@ class Localization
      */
     public static function languages(): array
     {
-        return array_values(Config::getArray('localization.languages', []));
+        return array_keys(static::languageNames());
+    }
+
+    /**
+     * Get the display name of the given language, which is the language code itself
+     * unless the site configures a name for it.
+     */
+    public static function label(string $language): string
+    {
+        return static::languageNames()[$language] ?? $language;
+    }
+
+    /**
+     * Get the configured languages, as a map of language code to display name.
+     *
+     * Languages can be configured as a list of codes, or as a map of code to display name,
+     * so that a language switcher can offer 'Svenska' rather than 'sv'. A language
+     * configured without a name uses its code as its name.
+     *
+     * @return array<string, string>
+     */
+    protected static function languageNames(): array
+    {
+        $languages = [];
+
+        foreach (Config::getArray('localization.languages', []) as $key => $name) {
+            $languages[is_string($key) ? $key : (string) $name] = (string) $name;
+        }
+
+        return $languages;
     }
 
     /**

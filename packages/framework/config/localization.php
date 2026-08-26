@@ -12,6 +12,9 @@ return [
     | the language codes here. Each page will then be compiled once for every
     | language, into a subdirectory named after it, for example, /en/index.html.
     |
+    | Languages can also be given display names, for the language switcher to
+    | show, by listing them as 'en' => 'English' instead of just 'en'.
+    |
     | Translation strings are loaded from the lang/{language} directories,
     | and can be used in your pages with the standard __() helper.
     |
