@@ -352,6 +352,12 @@ abstract class HydePage implements PageSchema, SerializableContract
 
         $page->language = $language;
 
+        // Cloning is shallow, so the copy would otherwise share the metadata bag of the page
+        // it was cloned from, which holds a reference back to that page, and would thus emit
+        // the canonical URL of the unlocalized page. Regenerating it binds it to the variant.
+
+        $page->constructMetadata();
+
         return $page;
     }
 
