@@ -11,6 +11,7 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Facades\Localization;
 use Hyde\Testing\LocalizesSites;
 use Hyde\Foundation\Facades\Routes;
+use Illuminate\Support\Facades\App;
 use InvalidArgumentException;
 
 /**
@@ -210,6 +211,24 @@ class LocalizedContentTest extends TestCase
         $this->expectException(\Hyde\Framework\Exceptions\InvalidConfigurationException::class);
 
         Localization::languages();
+    }
+
+    public function testCurrentLanguageFallsBackToTheDefaultLanguageWhenTheActiveLocaleMatchesNoConfiguredLanguage()
+    {
+        $this->withLanguages(['en', 'de']);
+
+        $locale = App::getLocale();
+
+        // Something outside Hyde's own render context can set the active locale to a value
+        // that is not one of the site's configured languages, unlike usingLanguage(), which
+        // only ever installs a language that HydePage::withLanguage() has already validated.
+        App::setLocale('fr');
+
+        try {
+            $this->assertSame('en', Localization::currentLanguage());
+        } finally {
+            App::setLocale($locale);
+        }
     }
 
     public function testAlternatesReturnsEmptyForANonLocalizablePage()

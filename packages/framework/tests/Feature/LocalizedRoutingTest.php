@@ -193,6 +193,19 @@ class LocalizedRoutingTest extends TestCase
         $this->assertSame($canonical::class, $variant::class);
     }
 
+    public function testRouteForLanguageRejectsALanguageThatIsNotConfigured()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages();
+
+        $route = new \Hyde\Support\Models\Route(Hyde::pages()->getPage('_pages/about.md'));
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $route->forLanguage('fr');
+    }
+
     public function testRoutesForLanguageReturnsOnlyTheRoutesOfThatLanguage()
     {
         $this->source('_pages/about.md', 'About', 'Body.');
