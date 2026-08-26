@@ -62,6 +62,18 @@ class Routes extends Facade
     }
 
     /**
+     * Get the route with exactly the given route key, or null if there is none.
+     *
+     * Unlike find(), the key is not resolved within the language in effect, so this is what
+     * to use where the key is already a concrete path, such as an incoming request URL,
+     * as opposed to a logical reference to a page, which is what find() resolves.
+     */
+    public static function findExact(string $routeKey): ?Route
+    {
+        return static::getFacadeRoot()->get($routeKey);
+    }
+
+    /**
      * Get all the routes belonging to the given language, keyed by route key.
      *
      * Defaults to the language of the page currently being rendered, which for a site
