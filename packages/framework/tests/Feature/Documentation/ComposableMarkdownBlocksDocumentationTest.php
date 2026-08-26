@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature\Documentation;
 
+use Hyde\Console\Commands\PublishCommand;
 use Hyde\Console\Helpers\ConsoleHelper;
+use Hyde\Console\Helpers\ViewsPublisher;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Framework\Services\MarkdownService;
 use Hyde\Hyde;
@@ -93,7 +95,8 @@ use function windows_os;
 #[CoversClass(WrapCodeBlocks::class)]
 #[CoversClass(PrepareCodeBlocks::class)]
 #[CoversClass(BladeBlockProcessor::class)]
-#[CoversClass(\Hyde\Console\Commands\PublishViewsCommand::class)]
+#[CoversClass(PublishCommand::class)]
+#[CoversClass(ViewsPublisher::class)]
 class ComposableMarkdownBlocksDocumentationTest extends TestCase
 {
     /** The documentation page asserted by this test, relative to the project root. */
