@@ -101,6 +101,7 @@ return [
         'Config' => \Hyde\Facades\Config::class,
         'Filesystem' => \Hyde\Facades\Filesystem::class,
         'Navigation' => \Hyde\Facades\Navigation::class,
+        'Localization' => \Hyde\Facades\Localization::class,
         'Routes' => \Hyde\Foundation\Facades\Routes::class,
         'HtmlPage' => \Hyde\Pages\HtmlPage::class,
         'BladePage' => \Hyde\Pages\BladePage::class,
