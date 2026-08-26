@@ -17,17 +17,14 @@ Add tests for the localization feature (none exist yet).
 
 ### Known gaps
 
-Navigation labels are not translated. The menus are filtered per language, but each
-language still shows the label from the shared front matter.
-
-There is no language switcher, and no hreflang metadata linking the variants.
-
 `hyde.redirects` and the documentation root redirect are fanned out per language
 like any other page, so their destinations are not localized. Decide the URL policy
 for the default language before relying on this.
 
-`build:search` builds the search index directly from the page collection rather
-than from routes, so it writes the unlocalized path when run standalone.
-
 Every page is emitted for every language, with no way to mark a page as belonging
-to only one language.
+to only one language. The hreflang metadata assumes this, as it lists a variant
+for every configured language without checking that each one exists.
+
+Language switcher labels are the language codes themselves. There is no place to
+configure a display name, so a menu shows `en` and `sv` rather than English and
+Svenska.
