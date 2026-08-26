@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Hyde\Facades;
 
 use Closure;
+use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Facades\App;
 
 use function Hyde\unslash;
+use function app;
 use function str_starts_with;
 use function strlen;
 use function substr;
@@ -74,6 +76,46 @@ class Localization
     public static function prefixPath(string $path, ?string $language): string
     {
         return $language === null ? $path : unslash("$language/".unslash($path));
+    }
+
+    /**
+     * Translate a string, when there is a translator to translate it with.
+     *
+     * Navigation labels are translated through this, so that a localized site can translate
+     * its menus. Navigation is also constructed in contexts that have no booted
+     * application, where the string can only be returned as it was given.
+     */
+    public static function translate(string $string): string
+    {
+        return app()->bound('translator') ? __($string) : $string;
+    }
+
+    /**
+     * Get the output path of every language variant of the given page, keyed by language.
+     *
+     * This is what links the languages of a page together, for hreflang metadata and for
+     * language switchers. Returns an empty array when the site is not localized.
+     *
+     * The paths are derived from the page rather than looked up in the route collection,
+     * as page metadata is generated while that collection is still being built.
+     *
+     * @return array<string, string>
+     */
+    public static function alternates(HydePage $page): array
+    {
+        if (! static::enabled()) {
+            return [];
+        }
+
+        $outputPath = static::stripPrefix($page->getOutputPath(), $page->getLanguage());
+
+        $paths = [];
+
+        foreach (static::languages() as $language) {
+            $paths[$language] = static::prefixPath($outputPath, $language);
+        }
+
+        return $paths;
     }
 
     /**

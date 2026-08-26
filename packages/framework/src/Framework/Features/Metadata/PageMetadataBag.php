@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Metadata;
 
+use Hyde\Hyde;
 use Hyde\Facades\Meta;
+use Hyde\Facades\Localization;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Foundation\Kernel\Hyperlinks;
@@ -47,6 +49,40 @@ class PageMetadataBag extends MetadataBag
         if ($page instanceof MarkdownPost) {
             $this->addMetadataForMarkdownPost($page);
         }
+
+        $this->addAlternateLanguageMetadata($page);
+    }
+
+    /**
+     * Link the page to the other language versions of itself, so that search engines
+     * serve the right one, instead of treating them as duplicates of each other.
+     *
+     * Needs absolute URLs to be meaningful, so it is skipped without a configured site URL.
+     */
+    protected function addAlternateLanguageMetadata(HydePage $page): void
+    {
+        if (! Hyde::hasSiteUrl()) {
+            return;
+        }
+
+        $alternates = Localization::alternates($page);
+
+        if ($alternates === []) {
+            return;
+        }
+
+        foreach ($alternates as $language => $path) {
+            $this->add(Meta::link('alternate', Hyde::url($path), [
+                'hreflang' => $language,
+            ]));
+        }
+
+        // The site webroot redirects to the default language, which makes it the right
+        // target for visitors whose language none of the variants above matches.
+
+        $this->add(Meta::link('alternate', Hyde::url(), [
+            'hreflang' => 'x-default',
+        ]));
     }
 
     protected function addMetadataForMarkdownPost(MarkdownPost $page): void
