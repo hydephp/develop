@@ -173,6 +173,45 @@ class LocalizedContentTest extends TestCase
         $page->withLanguage('../foo');
     }
 
+    public function testValidBcp47StyleLanguageTagsAreAccepted()
+    {
+        $this->withLanguages(['en', 'sv', 'de', 'en-GB', 'zh-Hant', 'es-419', 'sr-Latn-RS']);
+
+        $this->assertSame(['en', 'sv', 'de', 'en-GB', 'zh-Hant', 'es-419', 'sr-Latn-RS'], Localization::languages());
+    }
+
+    /** @return array<string, array{0: string}> */
+    public static function malformedLanguageIdentifierProvider(): array
+    {
+        return [
+            'path traversal' => ['../de'],
+            'extra segment' => ['de/foo'],
+            'backslash' => ['de\\foo'],
+            'contains space' => ['de foo'],
+            'leading hyphen' => ['-de'],
+            'trailing hyphen' => ['de-'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('malformedLanguageIdentifierProvider')]
+    public function testMalformedLanguageIdentifiersFailEarly(string $language)
+    {
+        config(['localization.languages' => [$language]]);
+
+        $this->expectException(\Hyde\Framework\Exceptions\InvalidConfigurationException::class);
+
+        Localization::languages();
+    }
+
+    public function testCaseInsensitiveDuplicateLanguageIdentifiersFailEarly()
+    {
+        config(['localization.languages' => ['en', 'EN']]);
+
+        $this->expectException(\Hyde\Framework\Exceptions\InvalidConfigurationException::class);
+
+        Localization::languages();
+    }
+
     public function testAlternatesReturnsEmptyForANonLocalizablePage()
     {
         $this->withLanguages();

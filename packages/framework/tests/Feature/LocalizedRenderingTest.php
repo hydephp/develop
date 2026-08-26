@@ -201,6 +201,47 @@ class LocalizedRenderingTest extends TestCase
         $this->assertSame($locale, app()->getLocale());
     }
 
+    public function testCurrentLanguageDoesNotLeakStaleRenderStateAfterRendering()
+    {
+        $this->source('_pages/about.md', 'About', 'Body.');
+
+        $this->withLanguages();
+
+        $this->render('de/about');
+
+        // Render::getPage() still points at the German page, but the active locale was
+        // restored, and that is the source of truth for the language currently in effect.
+        $this->assertSame('en', Localization::currentLanguage());
+
+        $this->assertStringContainsString('<html lang="en"', $this->render('en/about'));
+    }
+
+    public function testARegionalLanguageWorksEndToEnd()
+    {
+        $this->source('_pages/about.md', 'About', 'Canonical body.');
+        $this->localizedSource('en-GB', '_pages/about.md', 'About', 'British body.');
+        $this->file('lang/en_GB/main.php', "<?php\n\nreturn [\n    'greeting' => 'Cheerio!',\n];\n");
+
+        $this->withSiteUrl();
+        $this->withLanguages(['en-GB', 'sv']);
+
+        $route = Routes::get('en-GB/about');
+
+        $this->assertSame('en-GB/about', $route->getRouteKey());
+        $this->assertSame('en-GB/about.html', $route->getOutputPath());
+        $this->assertSame('_locales/en-GB/_pages/about.md', $route->getContentSourcePath());
+
+        $html = $this->render('en-GB/about');
+
+        $this->assertStringContainsString('<html lang="en-GB"', $html);
+        $this->assertStringContainsString('hreflang="en-GB"', $html);
+
+        // Laravel resolves translation strings for the locale form of the tag.
+        Localization::usingLanguage('en-GB', function (): void {
+            $this->assertSame('Cheerio!', __('main.greeting'));
+        });
+    }
+
     public function testDisablingLocalizationRendersNoLocalizationMarkup()
     {
         $this->source('_pages/about.md', 'About', 'Body.');
