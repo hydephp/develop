@@ -9,7 +9,6 @@ use Hyde\Enums\OverwriteAction;
 use Hyde\Framework\Services\OverwritePolicy;
 use Hyde\Hyde;
 use Hyde\Pages\Concerns\HydePage;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -25,7 +24,6 @@ use function in_array;
 use function is_string;
 use function sprintf;
 use function Hyde\normalize_slashes;
-use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
@@ -90,10 +88,6 @@ class PagesPublisher extends BasePublisher
         }
 
         $this->report($written);
-
-        if ($written !== []) {
-            $this->maybeRebuild();
-        }
 
         return $this->hasPolicyErrors() ? Command::FAILURE : Command::SUCCESS;
     }
@@ -430,21 +424,6 @@ class PagesPublisher extends BasePublisher
             }
 
             $this->console->line('Run again with --force to overwrite.');
-        }
-    }
-
-    /**
-     * Interactive only, and deliberately defaulting to NO: a single page publish should not auto-rebuild
-     * the entire site.
-     */
-    protected function maybeRebuild(): void
-    {
-        if (! $this->console->canPrompt()) {
-            return;
-        }
-
-        if (confirm('Rebuild the site now?', false)) {
-            Artisan::call('build', [], $this->console->getOutput());
         }
     }
 

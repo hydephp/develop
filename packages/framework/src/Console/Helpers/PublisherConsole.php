@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Hyde\Console\Helpers;
 
 use Hyde\Console\Concerns\Command;
-use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Input\InputInterface;
 
 use function count;
@@ -55,11 +54,6 @@ class PublisherConsole
     public function infoComment(string $message): void
     {
         $this->command->infoComment($message);
-    }
-
-    public function getOutput(): OutputStyle
-    {
-        return $this->command->getOutput();
     }
 
     /**

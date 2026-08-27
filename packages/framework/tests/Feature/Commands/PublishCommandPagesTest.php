@@ -15,7 +15,6 @@ use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Testing\TestCase;
 use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Laravel\Prompts\Key;
 use Laravel\Prompts\Prompt;
@@ -359,7 +358,6 @@ class PublishCommandPagesTest extends TestCase
             ->expectsQuestion('Select pages to publish', ['missing-source', 'about'])
             ->expectsOutputToContain('Skipped ['.Hyde::path('_pages/missing-source.blade.php').']: source file ['.Hyde::vendorPath($missingSource).'] does not exist.')
             ->expectsOutputToContain('Published [about] to [_pages/about.blade.php]')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(1);
 
         $this->assertFileDoesNotExist(Hyde::path('_pages/missing-source.blade.php'));
@@ -391,7 +389,6 @@ class PublishCommandPagesTest extends TestCase
         $this->artisan('publish --page=posts')
             ->expectsQuestion('Where should "Posts feed" be published?', '_pages/index.blade.php')
             ->expectsOutputToContain('Published [posts] to [_pages/index.blade.php]')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
@@ -406,7 +403,6 @@ class PublishCommandPagesTest extends TestCase
             ->expectsQuestion('Where should "Blank page" be published?', '__hyde_custom_target__')
             ->expectsQuestion('Enter a BladePage source path', '_pages/custom.blade.php')
             ->expectsOutputToContain('Published [blank] to [_pages/custom.blade.php]')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/custom.blade.php'));
@@ -426,7 +422,6 @@ class PublishCommandPagesTest extends TestCase
             Key::ENTER,
             ...array_fill(0, strlen($invalidPath), Key::BACKSPACE),
             '_pages/custom.blade.php',
-            Key::ENTER,
             Key::ENTER,
         ]);
 
@@ -452,7 +447,6 @@ class PublishCommandPagesTest extends TestCase
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
             ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
@@ -539,22 +533,17 @@ class PublishCommandPagesTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
-    public function testRebuildIsOfferedInteractivelyAfterPublishing()
+    public function testPublishingANamedPageInteractivelyAsksNothing()
     {
         $this->skipWhenPromptsAreUnavailable();
 
-        // Welcome resolves to its default without a destination prompt, so the only interaction is the rebuild offer.
+        // Welcome resolves to its default destination, and the destination does not exist yet, so there is
+        // nothing to ask about: the page is published without a single prompt.
         $this->artisan('publish --page=welcome')
             ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
-    }
 
-    public function testRebuildIsNeverOfferedNonInteractively()
-    {
-        $this->artisan('publish --page=welcome --no-interaction')
-            ->doesntExpectOutputToContain('Rebuild the site now?')
-            ->assertExitCode(0);
+        $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
     }
 
     // The picker round-trips the numeric '404' key: PHP coerces it to an int option key, and it must cast
@@ -567,7 +556,6 @@ class PublishCommandPagesTest extends TestCase
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['404'])
             ->expectsOutputToContain('Published [404] to [_pages/404.blade.php]')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/404.blade.php'));
@@ -575,9 +563,8 @@ class PublishCommandPagesTest extends TestCase
 
     public function testPickerDoesNotOfferAnAllRow()
     {
-        // Space+enter selects the first row (welcome); the last enter accepts "Rebuild the site now?"
-        // (default no) — so the run completes without leftover prompts.
-        $output = $this->runPagesPicker([Key::SPACE, Key::ENTER, Key::ENTER]);
+        // Space+enter selects the first row (welcome), which completes the run without leftover prompts.
+        $output = $this->runPagesPicker([Key::SPACE, Key::ENTER]);
 
         Prompt::assertOutputContains('Select pages to publish');
         Prompt::assertOutputContains('Welcome page');
@@ -633,7 +620,6 @@ class PublishCommandPagesTest extends TestCase
         $this->artisan('publish --page=welcome')
             ->expectsQuestion('_pages/index.blade.php has local changes. Publishing will overwrite them.', 'overwrite')
             ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertNotSame('MODIFIED BY USER', File::get(Hyde::path('_pages/index.blade.php')));
@@ -691,35 +677,9 @@ class PublishCommandPagesTest extends TestCase
             ->expectsQuestion('Select pages to publish', ['welcome', '404', 'about'])
             ->expectsOutputToContain('Published [about] to [_pages/about.blade.php]')
             ->expectsOutputToContain('2 pages already up to date and skipped.')
-            ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/about.blade.php'));
-    }
-
-    // The command is driven directly (not through the console kernel) so that mocking the Artisan facade
-    // intercepts only maybeRebuild's own build call, rather than the runner's call that dispatches the command.
-
-    public function testAcceptingTheRebuildOfferRunsTheBuild()
-    {
-        $this->skipWhenPromptsAreUnavailable();
-
-        PagesPromptsReset::resetFallbacks();
-
-        Artisan::shouldReceive('call')->once()->with('build', [], \Mockery::any())->andReturn(0);
-
-        // 'y' + enter answers the "Rebuild the site now?" confirm (which defaults to no) with yes.
-        Prompt::fake(['y', Key::ENTER]);
-
-        $command = $this->app->make(PublishCommand::class);
-        $input = new ArrayInput(['--page' => 'welcome'], $command->getDefinition());
-        $output = new BufferedOutput();
-        $command->setLaravel($this->app);
-        $command->setInput($input);
-        $command->setOutput(new OutputStyle($input, $output));
-
-        $this->assertSame(0, $command->handle());
-        $this->assertStringContainsString('Published [welcome]', $output->fetch());
     }
 
     /** Drive the interactive pages picker with faked keystrokes and return the buffered output. */
