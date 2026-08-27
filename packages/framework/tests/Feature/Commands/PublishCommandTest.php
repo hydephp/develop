@@ -199,7 +199,7 @@ class PublishCommandTest extends TestCase
             ->expectsQuestion('What do you want to publish?', 'page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
             ->expectsConfirmation('Proceed?', 'yes')
-            ->expectsQuestion('1 selected files already exist and appear modified.', 'skip')
+            ->expectsQuestion('_pages/index.blade.php has local changes. Publishing will overwrite them.', 'skip')
             ->expectsOutputToContain('1 page left unchanged because they were modified:')
             ->assertExitCode(0);
     }

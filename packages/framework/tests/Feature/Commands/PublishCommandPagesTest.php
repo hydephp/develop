@@ -650,7 +650,7 @@ class PublishCommandPagesTest extends TestCase
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish --page=welcome')
-            ->expectsQuestion('1 selected files already exist and appear modified.', 'overwrite')
+            ->expectsQuestion('_pages/index.blade.php has local changes. Publishing will overwrite them.', 'overwrite')
             ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
             ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
@@ -665,7 +665,7 @@ class PublishCommandPagesTest extends TestCase
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish --page=welcome')
-            ->expectsQuestion('1 selected files already exist and appear modified.', 'skip')
+            ->expectsQuestion('_pages/index.blade.php has local changes. Publishing will overwrite them.', 'skip')
             ->expectsOutputToContain('1 page left unchanged because they were modified:')
             ->expectsOutputToContain('_pages/index.blade.php')
             ->expectsOutputToContain('Run again with --force to overwrite.')
@@ -682,7 +682,7 @@ class PublishCommandPagesTest extends TestCase
         File::put(Hyde::path('_pages/index.blade.php'), 'MODIFIED BY USER');
 
         $this->artisan('publish --page=welcome')
-            ->expectsQuestion('1 selected files already exist and appear modified.', 'cancel')
+            ->expectsQuestion('_pages/index.blade.php has local changes. Publishing will overwrite them.', 'cancel')
             ->expectsOutputToContain('Cancelled. No pages were published.')
             ->assertExitCode(0);
 

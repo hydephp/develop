@@ -9,6 +9,7 @@ use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Input\InputInterface;
 
 use function count;
+use function reset;
 use function sprintf;
 use function Laravel\Prompts\select;
 
@@ -90,9 +91,11 @@ class PublisherConsole
             return null;
         }
 
-        $choice = select(sprintf('%d selected files already exist and appear modified.', count($blocked)), [
-            'skip' => 'Skip modified files',
-            'overwrite' => 'Overwrite modified files',
+        $single = count($blocked) === 1;
+
+        $choice = select($this->warnAboutModifiedFiles($blocked), [
+            'skip' => $single ? 'Keep the existing file' : 'Keep the modified files',
+            'overwrite' => $single ? 'Overwrite it with the Hyde version' : 'Overwrite them with the Hyde versions',
             'cancel' => 'Cancel',
         ], 'skip');
 
@@ -101,6 +104,28 @@ class PublisherConsole
             'skip' => [],
             default => $this->cancel($cancelledMessage),
         };
+    }
+
+    /**
+     * Warn about the files that would lose local changes, and return the one-line label for the choice prompt.
+     *
+     * @param  array<array{source: string, target: string, absolute: string}>  $blocked
+     */
+    protected function warnAboutModifiedFiles(array $blocked): string
+    {
+        if (count($blocked) === 1) {
+            return sprintf('%s has local changes. Publishing will overwrite them.', reset($blocked)['target']);
+        }
+
+        $this->warn(sprintf('%d destination files have local changes:', count($blocked)));
+
+        foreach ($blocked as $record) {
+            $this->line('  '.$record['target']);
+        }
+
+        $this->newLine();
+
+        return 'Publishing will overwrite those changes.';
     }
 
     protected function cancel(string $message): ?array

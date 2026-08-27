@@ -354,7 +354,7 @@ class PublishCommandViewsTest extends TestCase
         $target = $this->modifyPublishedView();
 
         $this->artisan('publish --all')
-            ->expectsQuestion('1 selected files already exist and appear modified.', 'overwrite')
+            ->expectsQuestion('resources/views/vendor/hyde/layouts/app.blade.php has local changes. Publishing will overwrite them.', 'overwrite')
             ->expectsOutputToContain('Published 1 view to [resources/views/vendor/hyde/layouts/app.blade.php]')
             ->assertExitCode(0);
 
@@ -369,7 +369,7 @@ class PublishCommandViewsTest extends TestCase
         $target = $this->modifyPublishedView();
 
         $this->artisan('publish --all')
-            ->expectsQuestion('1 selected files already exist and appear modified.', 'skip')
+            ->expectsQuestion('resources/views/vendor/hyde/layouts/app.blade.php has local changes. Publishing will overwrite them.', 'skip')
             ->expectsOutputToContain('left unchanged because they were modified')
             ->assertExitCode(0);
 
@@ -384,7 +384,7 @@ class PublishCommandViewsTest extends TestCase
         $target = $this->modifyPublishedView();
 
         $this->artisan('publish --all')
-            ->expectsQuestion('1 selected files already exist and appear modified.', 'cancel')
+            ->expectsQuestion('resources/views/vendor/hyde/layouts/app.blade.php has local changes. Publishing will overwrite them.', 'cancel')
             ->expectsOutputToContain('Cancelled. No views were published.')
             ->assertExitCode(0);
 

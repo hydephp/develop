@@ -68,8 +68,27 @@ class PublisherConsoleTest extends TestCase
         $this->assertSame([], $console->resolveBlocked($blocked, 'Cancelled. No pages were published.'));
         $this->assertSame('', $output->fetch());
 
-        Prompt::assertOutputContains('1 selected files already exist and appear modified.');
-        Prompt::assertOutputContains('Skip modified files');
+        Prompt::assertOutputContains('_pages/index.blade.php has local changes. Publishing will overwrite them.');
+        Prompt::assertOutputContains('Keep the existing file');
+    }
+
+    public function testInteractiveRunListsAllModifiedFiles(): void
+    {
+        $blocked = [
+            $this->blockedFile('_pages/index.blade.php'),
+            $this->blockedFile('_pages/404.blade.php'),
+        ];
+        [$console, $output] = $this->makeInteractiveConsole([Key::ENTER]);
+
+        $this->assertSame([], $console->resolveBlocked($blocked, 'Cancelled. No pages were published.'));
+
+        $contents = $output->fetch();
+        $this->assertStringContainsString('2 destination files have local changes:', $contents);
+        $this->assertStringContainsString('_pages/index.blade.php', $contents);
+        $this->assertStringContainsString('_pages/404.blade.php', $contents);
+
+        Prompt::assertOutputContains('Publishing will overwrite those changes.');
+        Prompt::assertOutputContains('Keep the modified files');
     }
 
     public function testInteractiveRunCanOverwriteModifiedFiles(): void
