@@ -9,6 +9,7 @@ use Hyde\Framework\Features\Navigation\MainNavigationMenu;
 use Hyde\Framework\Features\Navigation\DocumentationSidebar;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Hyde\Console\ConsoleServiceProvider;
+use Hyde\Foundation\Providers\ConfigurationServiceProvider;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Services\BuildTaskService;
 use Hyde\Foundation\HydeCoreExtension;
@@ -20,6 +21,7 @@ use Hyde\Pages\MarkdownPage;
 use Hyde\Pages\MarkdownPost;
 use Hyde\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\ServiceProvider;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\HydeServiceProvider::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Framework\Concerns\RegistersFileLocations::class)]
@@ -383,5 +385,29 @@ class HydeServiceProviderTest extends TestCase
         Hyde::boot();
 
         $this->assertSame(app('navigation.sidebar'), DocumentationSidebar::get());
+    }
+
+    public function testHydeConfigPublishTagPublishesTheHydeOwnedConfigFiles()
+    {
+        $paths = ServiceProvider::pathsToPublish(ConfigurationServiceProvider::class, 'hyde-config');
+
+        $expected = ['hyde.php', 'docs.php', 'markdown.php', 'view.php', 'cache.php', 'commands.php'];
+
+        $this->assertSame($expected, array_map('basename', array_keys($paths)));
+        $this->assertSame($expected, array_map('basename', array_values($paths)));
+    }
+
+    public function testHydeConfigPublishTagDoesNotPublishTheTorchlightConfig()
+    {
+        $paths = ServiceProvider::pathsToPublish(ConfigurationServiceProvider::class, 'hyde-config');
+
+        $this->assertNotContains('torchlight.php', array_map('basename', array_keys($paths)));
+    }
+
+    public function testLegacyConfigPublishTagsAreRemovedAndPublishNothing()
+    {
+        foreach (['configs', 'hyde-configs', 'support-configs'] as $tag) {
+            $this->assertSame([], ServiceProvider::pathsToPublish(ConfigurationServiceProvider::class, $tag));
+        }
     }
 }

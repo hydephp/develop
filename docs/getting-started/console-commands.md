@@ -53,10 +53,8 @@ Here is a quick reference of all the available commands. You can also run `php h
 | [`build:sitemap`](#build-sitemap)       | Generate the `sitemap.xml` file                                                             |
 | [`make:page`](#make-page)               | Scaffold a new Markdown, Blade, or documentation page file                                  |
 | [`make:post`](#make-post)               | Scaffold a new Markdown blog post file                                                      |
-| [`publish:configs`](#publish-configs)   | Publish the default configuration files                                                     |
-| [`publish:homepage`](#publish-homepage) | Publish one of the default homepages as `index.blade.php`                                   |
-| [`publish:views`](#publish-views)       | Publish the hyde components for customization. Note that existing files will be overwritten |
-| [`vendor:publish`](#vendor-publish)     | Publish any publishable assets from vendor packages                                         |
+| [`publish`](#publish)                   | Publish Hyde views and starter pages for customization                                      |
+| [`vendor:publish`](#vendor-publish)     | Publish any publishable assets from vendor packages, including the Hyde config files        |
 | [`route:list`](#route-list)             | Display all registered routes                                                               |
 | [`validate`](#validate)                 | Run a series of tests to validate your setup and help you optimize your site                |
 | [`list`](#available-commands)           | List all available commands                                                                 |
@@ -177,48 +175,33 @@ Scaffold a new Markdown blog post file
 | `title`   | The title for the Post. Will also be used to generate the filename         |
 | `--force` | Should the generated file overwrite existing posts with the same filename? |
 
-## Publish the Default Configuration Files
+## Publish Hyde Views and Starter Pages
 
-<a name="publish-configs" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
-
-```terminal
-php hyde publish:configs
-```
-
-Publish the default configuration files
-
-## Publish one of the default homepages as `index.blade.php`.
-
-<a name="publish-homepage" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
+<a name="publish" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
 
 ```terminal
-php hyde publish:homepage [--force] [--] [<homepage>]
+php hyde publish [--layouts] [--components] [--all] [--page[=NAME]] [--to=PATH] [--force]
 ```
 
-Publish one of the default homepages as `index.blade.php`.
+Run without any options to pick between publishing views and a starter page interactively. Each option skips a step:
+`--layouts` and `--components` scope the view picker, `--all` publishes every view without asking, and `--page=NAME`
+publishes a starter page such as `welcome`, `posts`, `blank`, or `404`.
 
-#### Arguments & Options
+Views are published to `resources/views/vendor/hyde`, and starter pages to `_pages`. Files you have modified are never
+overwritten without your confirmation or `--force`.
 
-|            |                                 |
-|------------|---------------------------------|
-| `homepage` | The name of the page to publish |
-| `--force`  | Overwrite any existing files    |
+#### Options
 
-## Publish the hyde components for customization
+|                 |                                                                    |
+|-----------------|--------------------------------------------------------------------|
+| `--layouts`     | Scope publishing to the Hyde layout views                          |
+| `--components`  | Scope publishing to the Hyde component views                       |
+| `--all`         | Publish all Hyde views without the picker                          |
+| `--page[=NAME]` | Publish a starter page, optionally by name (e.g. `--page=welcome`) |
+| `--to=PATH`     | Destination path for a published page (pages only)                 |
+| `--force`       | Overwrite files that you have modified                             |
 
-<a name="publish-views" style="display: inline-block; position: absolute; margin-top: -5rem;"></a>
-
-```terminal
-php hyde publish:views [<group>]
-```
-
-Publish the hyde components for customization. Note that existing files will be overwritten.
-
-#### Arguments
-
-|          |                       |
-|----------|-------------------------|
-| `group`  | The group to publish |
+>info The Hyde configuration files are published with [`vendor:publish`](#vendor-publish) instead, using the `hyde-config` tag.
 
 ## Display All Registered Routes.
 
@@ -238,7 +221,14 @@ Display all registered routes.
 php hyde vendor:publish [--existing] [--force] [--all] [--provider [PROVIDER]] [--tag [TAG]]
 ```
 
-Publish any publishable assets from vendor packages
+Publish any publishable assets from vendor packages. This is also where the Hyde configuration files
+(`hyde.php`, `docs.php`, `markdown.php`, `view.php`, `cache.php`, and `commands.php`) are published from:
+
+```terminal
+php hyde vendor:publish --tag=hyde-config
+```
+
+Existing files are skipped unless you add `--force`.
 
 #### Options
 

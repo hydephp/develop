@@ -55,7 +55,7 @@ class HighLevelViewTest extends DuskTestCase
 
     public function testBlankHomepage()
     {
-        $this->artisan('publish:homepage blank -n');
+        $this->artisan('publish --page=blank --to=_pages/index.blade.php --force -n');
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
@@ -65,13 +65,13 @@ class HighLevelViewTest extends DuskTestCase
                     ->storeSourceAsHtml('blank_homepage');
         });
 
-        $this->artisan('publish:homepage welcome -n');
+        $this->artisan('publish --page=welcome --to=_pages/index.blade.php --force -n');
         Filesystem::unlink('_site/index.html');
     }
 
     public function testPostsHomepage()
     {
-        $this->artisan('publish:homepage posts -n');
+        $this->artisan('publish --page=posts --to=_pages/index.blade.php --force -n');
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
@@ -82,13 +82,13 @@ class HighLevelViewTest extends DuskTestCase
                     ->storeSourceAsHtml('posts_homepage');
         });
 
-        $this->artisan('publish:homepage welcome -n');
+        $this->artisan('publish --page=welcome --to=_pages/index.blade.php --force -n');
         Filesystem::unlink('_site/index.html');
     }
 
     public function testPostsHomepageWithPosts()
     {
-        $this->artisan('publish:homepage posts -n');
+        $this->artisan('publish --page=posts --to=_pages/index.blade.php --force -n');
         file_put_contents(Hyde::path('_posts/my-new-post.md'),
             '---
 title: My New Post
@@ -110,7 +110,7 @@ date: 2022-01-01 12:00
                     ->storeSourceAsHtml('posts_homepage_with_posts');
         });
 
-        $this->artisan('publish:homepage welcome -n');
+        $this->artisan('publish --page=welcome --to=_pages/index.blade.php --force -n');
         Filesystem::unlink('_posts/my-new-post.md');
         Filesystem::unlink('_site/index.html');
     }
@@ -198,7 +198,7 @@ date: 2022-01-01 12:00
         copy(Hyde::path('tests/fixtures/_posts/typography-simple.md'), Hyde::path('_posts/typography-simple.md'));
         copy(Hyde::path('tests/fixtures/_posts/typography-front-matter.md'), Hyde::path('_posts/typography-front-matter.md'));
 
-        $this->artisan('publish:homepage posts -n');
+        $this->artisan('publish --page=posts --to=_pages/index.blade.php --force -n');
 
         if (! is_dir(Browser::$storeSourceAt.'/posts')) {
             mkdir(Browser::$storeSourceAt.'/posts');
@@ -236,7 +236,7 @@ date: 2022-01-01 12:00
                 ->storeSourceAsHtml('posts/typography-front-matter');
         });
 
-        $this->artisan('publish:homepage welcome -n');
+        $this->artisan('publish --page=welcome --to=_pages/index.blade.php --force -n');
 
         Filesystem::unlink('_posts/typography-simple.md');
         Filesystem::unlink('_posts/typography-front-matter.md');

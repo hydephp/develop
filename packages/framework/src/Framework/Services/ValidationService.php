@@ -62,7 +62,7 @@ class ValidationService
         }
 
         return $result->fail('Could not find an 404.md or 404.blade.php file!')
-            ->withTip('You can publish the default one using `php hyde publish:views`');
+            ->withTip('You can publish the default one using `php hyde publish --page=404`');
     }
 
     public function check_site_has_an_index_page(Result $result): Result
@@ -74,7 +74,7 @@ class ValidationService
         }
 
         return $result->fail('Could not find an index.md or index.blade.php file!')
-            ->withTip('You can publish the one of the built in templates using `php hyde publish:homepage`');
+            ->withTip('You can publish the one of the built in templates using `php hyde publish --page`');
     }
 
     public function check_documentation_site_has_an_index_page(Result $result): Result

@@ -409,11 +409,12 @@ until you move your changes over. Publish the code block view, choosing it indiv
 are left alone, then re-apply your changes and delete the old file:
 
 ```bash
-php hyde publish:views
+php hyde publish --components
 ```
 
-Do not pass the group name, as in `php hyde publish:views components`, since that publishes the whole group and
-overwrites every component view you have already customized.
+This is the replacement for `publish:views components`; see [Step 13](#step-13-replace-the-removed-publishing-commands)
+for the full command mapping. Pick `markdown/code-block.blade.php` in the picker that appears. Your other published
+views are safe either way, since the command never overwrites a file you have modified without `--force`.
 
 The markup around code blocks has also changed, so compare a few pages against your old site if you have custom CSS
 for them. The `hyde-code-block` and `hyde-code-block-label` classes are stable hooks you can target instead of
@@ -439,6 +440,30 @@ Move those files into the `_static` directory, which is copied verbatim to the s
 
 The `hyde.safe_output_directories` option no longer exists, and the build no longer asks for confirmation before emptying an unfamiliar output directory. Delete the entry from your `config/hyde.php`. Take the chance to double-check your `hyde.output_directory` if you build somewhere other than `_site`, since everything in that directory is now removed on every build.
 
+## Step 13: Replace the Removed Publishing Commands
+
+The `publish:views`, `publish:homepage`, and `publish:configs` commands are replaced by the unified `publish` command,
+and, for the configuration files, by the standard `vendor:publish` path. They are not aliased, so invoking one now
+raises Symfony's native "command not found" error.
+
+| Removed in v3              | Use instead                                                                                                                                             |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `publish:views`            | `php hyde publish --all`, or bare `php hyde publish` for the interactive picker                                                                          |
+| `publish:views layouts`    | `php hyde publish --layouts`                                                                                                                            |
+| `publish:views components` | `php hyde publish --components`                                                                                                                         |
+| `publish:configs`          | `php hyde vendor:publish --tag=hyde-config --force`                                                                                                     |
+| `publish:homepage`         | `php hyde publish --page`                                                                                                                               |
+| `publish:homepage welcome` | `php hyde publish --page=welcome`                                                                                                                       |
+| `publish:homepage posts`   | `php hyde publish --page=posts --to=_pages/index.blade.php` (the old command always published to the index; the new default is `_pages/posts.blade.php`) |
+| `publish:homepage blank`   | `php hyde publish --page=blank --to=_pages/index.blade.php` (the blank page has no default destination)                                                 |
+
+The config publish tags were consolidated as well: `configs`, `hyde-configs`, and `support-configs` are removed, and
+`hyde-config` is now the only Hyde config publish tag. Torchlight's config is published through Torchlight's own tag.
+
+If you publish from a script or a CI workflow, note that the new command never overwrites a file you have modified
+without `--force`, where the old commands overwrote silently. That is why the `publish:configs` replacement above
+passes `--force`.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
@@ -456,6 +481,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Compared pages against your old site if you have custom CSS for code blocks or their labels
 - [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
 - [ ] Moved manually maintained files out of the output directory and into `_static`
+- [ ] Replaced any `publish:views`, `publish:homepage`, or `publish:configs` usage with the new `publish` and `vendor:publish` commands
 
 ## Troubleshooting
 
