@@ -278,9 +278,7 @@ class DashboardController extends BaseController
         if (config('hyde.server.save_preview')) {
             $contents = file_get_contents(StaticPageBuilder::handle($page));
         } else {
-            Hyde::shareViewData($page);
-
-            $contents = $page->compile();
+            $contents = Hyde::renderPage($page);
         }
 
         if (self::isLoadedInIframe()) {
@@ -346,7 +344,7 @@ class DashboardController extends BaseController
     protected function openPageInEditor(): void
     {
         $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
-        $page = Routes::get($routeKey)->getPage();
+        $page = Routes::findExact($routeKey)?->getPage() ?? $this->abort(404, "Route '$routeKey' not found");
 
         $binary = $this->findGeneralOpenBinary();
         $path = Hyde::path($page->getSourcePath());
@@ -361,7 +359,7 @@ class DashboardController extends BaseController
     protected function deletePage(): void
     {
         $routeKey = $this->request->data['routeKey'] ?? $this->abort(400, 'Must provide routeKey');
-        $route = Routes::get($routeKey);
+        $route = Routes::findExact($routeKey) ?? $this->abort(404, "Route '$routeKey' not found");
         $page = $route->getPage();
 
         if ($page instanceof InMemoryPage) {

@@ -997,6 +997,7 @@
             "require": {
                 "hydephp/torchlight-commonmark": "^1.0",
                 "illuminate/support": "^11.0",
+                "illuminate/translation": "^11.0",
                 "illuminate/view": "^11.0",
                 "league/commonmark": "^2.2",
                 "php": "^8.2",
@@ -2098,6 +2099,57 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2025-05-19T12:53:09+00:00"
+        },
+        {
+            "name": "illuminate/translation",
+            "version": "v11.51.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/translation.git",
+                "reference": "de64584470b1d4bfc30f2c291585b873ce844ecf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/de64584470b1d4bfc30f2c291585b873ce844ecf",
+                "reference": "de64584470b1d4bfc30f2c291585b873ce844ecf",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/collections": "^11.0",
+                "illuminate/contracts": "^11.0",
+                "illuminate/filesystem": "^11.0",
+                "illuminate/macroable": "^11.0",
+                "illuminate/support": "^11.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "11.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Translation\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Translation package.",
+            "homepage": "https://laravel.com",
+            "support": {
+                "issues": "https://github.com/laravel/framework/issues",
+                "source": "https://github.com/laravel/framework"
+            },
+            "time": "2025-02-14T15:47:05+00:00"
         },
         {
             "name": "illuminate/view",

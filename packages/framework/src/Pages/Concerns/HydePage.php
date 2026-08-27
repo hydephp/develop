@@ -6,6 +6,7 @@ namespace Hyde\Pages\Concerns;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Facades\Localization;
 use Hyde\Foundation\Facades;
 use Hyde\Foundation\Facades\Files;
 use Hyde\Foundation\Facades\Pages;
@@ -24,6 +25,7 @@ use Hyde\Support\Filesystem\SourceFile;
 use Hyde\Support\Models\Route;
 use Hyde\Support\Models\RouteKey;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 use function Hyde\unslash;
 use function filled;
@@ -68,6 +70,12 @@ abstract class HydePage implements PageSchema, SerializableContract
     public FrontMatter $matter;
     public PageMetadataBag $metadata;
     public NavigationData $navigation;
+
+    /** The language the page is compiled for, if the site is localized. */
+    protected ?string $language = null;
+
+    /** The file this page's content was authored in, when not its own source file. */
+    protected ?string $contentSourcePath = null;
 
     /**
      * Create a new page instance. Static alias for the constructor.
@@ -302,6 +310,34 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getOutputPath(): string
     {
+        return Localization::prefixPath($this->unlocalizedOutputPath(), $this->language);
+    }
+
+    /**
+     * Get the path to the file this page's content was authored in.
+     *
+     * This is the page's own source file, unless the page is a language variant that was
+     * authored in a companion source file for its language, in which case it is that
+     * file. Unlike {@see getSourcePath()}, which is the identity of the page, and
+     * stays the same across its languages, this is where the content came from.
+     *
+     * @return string Path relative to the project root.
+     */
+    public function getContentSourcePath(): string
+    {
+        return $this->contentSourcePath ?? $this->getSourcePath();
+    }
+
+    /**
+     * Get the path where the compiled page will be saved, before any localization is applied.
+     *
+     * Page classes that need to customize their output path should override this method
+     * instead of {@see getOutputPath()}, so that localization keeps being applied last.
+     *
+     * @return string Path relative to the site output directory.
+     */
+    protected function unlocalizedOutputPath(): string
+    {
         return unslash(static::outputPath($this->identifier));
     }
 
@@ -316,7 +352,78 @@ abstract class HydePage implements PageSchema, SerializableContract
      */
     public function getRouteKey(): string
     {
+        return Localization::prefixPath($this->unlocalizedRouteKey(), $this->language);
+    }
+
+    /**
+     * Get the route key for the page, before any localization is applied.
+     *
+     * Page classes that need to customize their route key should override this method
+     * instead of {@see getRouteKey()}, so that localization keeps being applied last.
+     */
+    protected function unlocalizedRouteKey(): string
+    {
         return $this->routeKey;
+    }
+
+    /**
+     * Get the language the page is compiled for, or null if the site is not localized.
+     */
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    /**
+     * Get a copy of the page that is compiled for the given language.
+     *
+     * The page keeps its identifier, and thus its place in the page collection, but is
+     * routed to a language subdirectory, compiled with the given language as the app
+     * locale, and takes its content from that language's source when there is one.
+     *
+     * @throws \InvalidArgumentException If the given language is not one of the site's configured languages.
+     */
+    public function withLanguage(string $language): static
+    {
+        if (! Localization::isConfiguredLanguage($language)) {
+            throw new InvalidArgumentException("Language [$language] is not a configured site language.");
+        }
+
+        $page = $this->localizedVariant($language);
+
+        $page->language = $language;
+
+        // The metadata bag holds a reference back to the page it was built from, and
+        // generates its contents on construction, so it has to be regenerated for
+        // the variant, or it would emit the canonical URL of the source page.
+
+        $page->constructMetadata();
+
+        return $page;
+    }
+
+    /**
+     * Determine whether the page is compiled once for each language of a localized site.
+     *
+     * Pages presenting content are, as that content is what differs between languages. Pages
+     * describing the site as a whole, such as its sitemap or feed, are not, as there is only
+     * ever one of them, and it belongs in the webroot rather than in a language directory.
+     */
+    public function isLocalizable(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Create the page instance that the given language is rendered from.
+     *
+     * Defaults to a copy of the page, so that a language with no source of its own for the
+     * page falls back to this content, rendered in that language. Page classes that can
+     * be authored per language override this to load the source for the language.
+     */
+    protected function localizedVariant(string $language): static
+    {
+        return clone $this;
     }
 
     /**

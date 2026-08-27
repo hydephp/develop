@@ -93,9 +93,7 @@ class PageRouter
         if (config('hyde.server.save_preview')) {
             $contents = file_get_contents(StaticPageBuilder::handle($page));
         } else {
-            Hyde::shareViewData($page);
-
-            $contents = $page->compile();
+            $contents = Hyde::renderPage($page);
         }
 
         if ($page instanceof BaseMarkdownPage && LiveEditController::enabled()) {
@@ -131,6 +129,9 @@ class PageRouter
         $routeKey = $this->normalizePath($this->request->path);
 
         // Directory-style requests (like `/docs/1.x`) are served by their index page.
-        return Routes::find($routeKey) ?? Routes::find("$routeKey/index");
+        // Matched exactly, as the request path is a concrete URL that already
+        // carries its language, and must resolve the way the built site does.
+
+        return Routes::findExact($routeKey) ?? Routes::findExact("$routeKey/index");
     }
 }

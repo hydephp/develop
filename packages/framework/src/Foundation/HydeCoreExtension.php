@@ -101,6 +101,7 @@ class HydeCoreExtension extends HydeExtension
         $collection->addPage(new InMemoryPage(
             'sitemap.xml',
             contents: fn (): string => app(SitemapGenerator::class)->generate()->getXml(),
+            localizable: false,
         ));
     }
 
@@ -109,6 +110,7 @@ class HydeCoreExtension extends HydeExtension
         $collection->addPage(new InMemoryPage(
             RssFeedGenerator::getFilename(),
             contents: fn (): string => app(RssFeedGenerator::class)->generate()->getXml(),
+            localizable: false,
         ));
     }
 

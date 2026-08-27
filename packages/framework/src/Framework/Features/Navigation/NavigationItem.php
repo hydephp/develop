@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Localization;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Hyde;
@@ -75,10 +76,15 @@ class NavigationItem implements Stringable
 
     /**
      * Get the label of the navigation item.
+     *
+     * The label is passed through the translation helper, so that a localized site can
+     * translate its menus by adding a translation string matching the label. Labels
+     * without a matching translation string are returned unchanged, which is
+     * always the case for a site that does not use translations at all.
      */
     public function getLabel(): string
     {
-        return $this->label;
+        return Localization::translate($this->label);
     }
 
     /**
