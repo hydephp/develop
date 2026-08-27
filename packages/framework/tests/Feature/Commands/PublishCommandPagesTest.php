@@ -357,7 +357,6 @@ class PublishCommandPagesTest extends TestCase
 
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['missing-source', 'about'])
-            ->expectsConfirmation('Proceed?', 'yes')
             ->expectsOutputToContain('Skipped ['.Hyde::path('_pages/missing-source.blade.php').']: source file ['.Hyde::vendorPath($missingSource).'] does not exist.')
             ->expectsOutputToContain('Published [about] to [_pages/about.blade.php]')
             ->expectsConfirmation('Rebuild the site now?', 'no')
@@ -445,34 +444,18 @@ class PublishCommandPagesTest extends TestCase
         Prompt::assertStrippedOutputContains('The path must be within _pages/ and end in .blade.php.');
     }
 
-    public function testInteractivePickerPublishesSelectedPagesAfterConfirmation()
+    public function testInteractivePickerPublishesSelectedPages()
     {
         $this->skipWhenPromptsAreUnavailable();
 
         // Welcome has a single sensible destination, so it is not prompted for; it resolves to its default.
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
-            ->expectsOutput('Ready to publish:')
-            ->expectsOutputToContain('Welcome page → _pages/index.blade.php')
-            ->expectsConfirmation('Proceed?', 'yes')
             ->expectsOutputToContain('Published [welcome] to [_pages/index.blade.php]')
             ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
 
         $this->assertFileExists(Hyde::path('_pages/index.blade.php'));
-    }
-
-    public function testInteractivePickerCanBeDeclinedAtConfirmation()
-    {
-        $this->skipWhenPromptsAreUnavailable();
-
-        $this->artisan('publish --page')
-            ->expectsQuestion('Select pages to publish', ['welcome'])
-            ->expectsConfirmation('Proceed?', 'no')
-            ->expectsOutputToContain('Cancelled. No pages were published.')
-            ->assertExitCode(0);
-
-        $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
     }
 
     public function testEmptyPageSelectionExitsWithoutPublishing()
@@ -496,7 +479,6 @@ class PublishCommandPagesTest extends TestCase
 
         $contents = $output->fetch();
         $this->assertStringContainsString('No pages selected; nothing to publish.', $contents);
-        $this->assertStringNotContainsString('Ready to publish:', $contents);
         $this->assertStringNotContainsString('Published', $contents);
 
         $this->assertFileDoesNotExist(Hyde::path('_pages/index.blade.php'));
@@ -584,7 +566,6 @@ class PublishCommandPagesTest extends TestCase
 
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['404'])
-            ->expectsConfirmation('Proceed?', 'yes')
             ->expectsOutputToContain('Published [404] to [_pages/404.blade.php]')
             ->expectsConfirmation('Rebuild the site now?', 'no')
             ->assertExitCode(0);
@@ -594,9 +575,9 @@ class PublishCommandPagesTest extends TestCase
 
     public function testPickerDoesNotOfferAnAllRow()
     {
-        // Space+enter selects the first row (welcome); the next enter accepts "Proceed?" (default yes), the
-        // last accepts "Rebuild the site now?" (default no) — so the run completes without leftover prompts.
-        $output = $this->runPagesPicker([Key::SPACE, Key::ENTER, Key::ENTER, Key::ENTER]);
+        // Space+enter selects the first row (welcome); the last enter accepts "Rebuild the site now?"
+        // (default no) — so the run completes without leftover prompts.
+        $output = $this->runPagesPicker([Key::SPACE, Key::ENTER, Key::ENTER]);
 
         Prompt::assertOutputContains('Select pages to publish');
         Prompt::assertOutputContains('Welcome page');
@@ -708,7 +689,6 @@ class PublishCommandPagesTest extends TestCase
         // welcome and 404 are already current; only about is copied — so the run reports both sides.
         $this->artisan('publish --page')
             ->expectsQuestion('Select pages to publish', ['welcome', '404', 'about'])
-            ->expectsConfirmation('Proceed?', 'yes')
             ->expectsOutputToContain('Published [about] to [_pages/about.blade.php]')
             ->expectsOutputToContain('2 pages already up to date and skipped.')
             ->expectsConfirmation('Rebuild the site now?', 'no')

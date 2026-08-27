@@ -198,7 +198,6 @@ class PublishCommandTest extends TestCase
         $this->artisan('publish')
             ->expectsQuestion('What do you want to publish?', 'page')
             ->expectsQuestion('Select pages to publish', ['welcome'])
-            ->expectsConfirmation('Proceed?', 'yes')
             ->expectsQuestion('_pages/index.blade.php has local changes. Publishing will overwrite them.', 'skip')
             ->expectsOutputToContain('1 page left unchanged because they were modified:')
             ->assertExitCode(0);

@@ -43,9 +43,6 @@ class PagesPublisher extends BasePublisher
     /** @var array<array{page: PublishablePage, target: string}> Modified destinations left unchanged (interactive skip). */
     protected array $leftModified = [];
 
-    /** Whether the pages were chosen through the interactive picker (which adds a confirmation step). */
-    protected bool $usedPicker = false;
-
     public function __construct(protected PublisherConsole $console)
     {
     }
@@ -82,12 +79,6 @@ class PagesPublisher extends BasePublisher
 
         if (! $this->assertNoDestinationConflicts($resolved)) {
             return Command::FAILURE;
-        }
-
-        if ($this->usedPicker && ! $this->confirmProceed($resolved)) {
-            $this->console->infoComment('Cancelled. No pages were published.');
-
-            return Command::SUCCESS;
         }
 
         $written = $this->write($resolved);
@@ -133,8 +124,6 @@ class PagesPublisher extends BasePublisher
 
             return null;
         }
-
-        $this->usedPicker = true;
 
         return $this->promptForPages();
     }
@@ -364,20 +353,6 @@ class PagesPublisher extends BasePublisher
         }
 
         return true;
-    }
-
-    /** @param  array<array{page: PublishablePage, target: string}>  $resolved */
-    protected function confirmProceed(array $resolved): bool
-    {
-        $this->console->line('Ready to publish:');
-
-        foreach ($resolved as $entry) {
-            $this->console->line(sprintf('  %s → %s', $entry['page']->label, $entry['target']));
-        }
-
-        $this->console->newLine();
-
-        return confirm('Proceed?', true);
     }
 
     /**
