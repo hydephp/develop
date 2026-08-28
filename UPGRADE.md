@@ -445,6 +445,8 @@ The `hyde.media_extensions` config option no longer exists, and `_media` now dis
 
 If you kept non-asset files in `_media` relying on the extension allow-list to exclude them from the build, such as design source files or notes, move them out of the directory, since they'll now be copied to the built site.
 
+This can also surface a new collision with `_static`: if a file such as `_media/report.pdf` was never discovered before because `.pdf` wasn't on the allow-list, `_static/media/report.pdf` could coexist with it. Now that `_media/report.pdf` is discovered too, the build throws a `FileConflictException` for the collision. Rename or remove one of the two files.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
