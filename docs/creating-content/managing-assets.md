@@ -99,7 +99,8 @@ to add your custom styles. It is also where we import HydeFront. If you compile 
 it will output the same file that's already included in Hyde.
 
 - The `_media` folder contains **compiled** (and usually minified) files. When Hyde compiles your static site,
-all asset files here will get copied as they are into the `_site/media` folder.
+every file here gets copied as-is into the `_site/media` folder, regardless of file type. The only files skipped
+are `Thumbs.db` and `desktop.ini`.
 
 - The `_site/media` folder contains the files that are served to the user.
 
