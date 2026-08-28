@@ -98,15 +98,13 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
     public function testItIgnoresThumbsDbAndDesktopIniRegardlessOfCase()
     {
-        $mock = Mockery::mock(FileFinder::class);
-        $mock->shouldReceive('handle')->andReturn(collect([
+        $this->mockFileFinder([
             '_media/Thumbs.db',
             '_media/thumbs.db',
             '_media/Desktop.ini',
             '_media/desktop.ini',
             '_media/image.png',
-        ]));
-        app()->instance(FileFinder::class, $mock);
+        ]);
 
         $assets = (new Filesystem(Hyde::getInstance()))->assets();
 
@@ -138,10 +136,10 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
         $this->assertInstanceOf(MediaFile::class, $result->get('document.pdf'));
     }
 
-    protected function mockFileFinder(): MockInterface
+    protected function mockFileFinder(array $files = []): MockInterface
     {
         $mock = Mockery::mock(FileFinder::class);
-        $mock->shouldReceive('handle')->andReturn(collect());
+        $mock->shouldReceive('handle')->andReturn(collect($files));
         app()->instance(FileFinder::class, $mock);
 
         return $mock;
