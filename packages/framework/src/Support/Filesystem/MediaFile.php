@@ -24,9 +24,6 @@ use function array_merge;
  */
 class MediaFile extends ProjectFile implements Stringable
 {
-    /** @var array<string> The default extensions for media types */
-    final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'webp', 'gif', 'ico', 'css', 'js'];
-
     protected readonly int $length;
     protected readonly string $mimeType;
     protected readonly string $hash;

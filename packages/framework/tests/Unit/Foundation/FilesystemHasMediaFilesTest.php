@@ -82,7 +82,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
         (new Filesystem(Hyde::getInstance()))->assets();
 
-        $mock->shouldHaveReceived('handle')->with('_media', MediaFile::EXTENSIONS, true);
+        $mock->shouldHaveReceived('handle')->with('_media', false, true);
     }
 
     public function testItSupportsCustomMediaDirectory()
@@ -93,18 +93,25 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
         (new Filesystem(Hyde::getInstance()))->assets();
 
-        $mock->shouldHaveReceived('handle')->with('assets', MediaFile::EXTENSIONS, true);
+        $mock->shouldHaveReceived('handle')->with('assets', false, true);
     }
 
-    public function testItSupportsCustomExtensions()
+    public function testItIgnoresThumbsDbAndDesktopIniRegardlessOfCase()
     {
-        self::mockConfig(['hyde.media_extensions' => ['gif', 'svg']]);
+        $mock = Mockery::mock(FileFinder::class);
+        $mock->shouldReceive('handle')->andReturn(collect([
+            '_media/Thumbs.db',
+            '_media/thumbs.db',
+            '_media/Desktop.ini',
+            '_media/desktop.ini',
+            '_media/image.png',
+        ]));
+        app()->instance(FileFinder::class, $mock);
 
-        $mock = $this->mockFileFinder();
+        $assets = (new Filesystem(Hyde::getInstance()))->assets();
 
-        (new Filesystem(Hyde::getInstance()))->assets();
-
-        $mock->shouldHaveReceived('handle')->with('_media', ['gif', 'svg'], true);
+        $this->assertCount(1, $assets);
+        $this->assertTrue($assets->has('image.png'));
     }
 
     public function testDiscoverMediaFilesWithEmptyResult()
