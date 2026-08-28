@@ -128,8 +128,7 @@ class StaticSiteServiceTest extends TestCase
 
     public function testBuildCommandSkipsMediaTransferWhenThereAreNoAssets()
     {
-        // Since the media directory is a passthrough, the file must leave the directory
-        // entirely to make it empty, rather than just being renamed within it.
+        // The file must leave the media directory entirely, since renaming it within a passthrough directory wouldn't empty it.
         rename(Hyde::path('_media/app.css'), Hyde::path('app.css.bak'));
 
         $this->artisan('build')

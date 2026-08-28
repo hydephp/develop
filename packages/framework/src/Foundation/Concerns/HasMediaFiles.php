@@ -21,7 +21,6 @@ use function strtolower;
  */
 trait HasMediaFiles
 {
-    /** Filenames that are never treated as media files, matched case-insensitively. */
     private const IGNORED_FILENAMES = ['thumbs.db', 'desktop.ini'];
 
     /** @var Collection<string, \Hyde\Support\Filesystem\MediaFile> The Collection keys are the filenames relative to the _media/ directory */
