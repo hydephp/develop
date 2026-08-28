@@ -114,6 +114,7 @@ class StaticSiteServiceTest extends TestCase
     public function testBuildCommandIgnoresThumbsDbAndHiddenOrVcsFiles()
     {
         $this->file('_media/Thumbs.db');
+        $this->file('_media/desktop.ini');
         $this->file('_media/.gitkeep');
         $this->file('_media/.DS_Store');
         $this->file('_media/.env');
@@ -122,6 +123,7 @@ class StaticSiteServiceTest extends TestCase
         $this->artisan('build')->assertExitCode(0);
 
         $this->assertFileDoesNotExist(Hyde::path('_site/media/Thumbs.db'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/desktop.ini'));
         $this->assertFileDoesNotExist(Hyde::path('_site/media/.gitkeep'));
         $this->assertFileDoesNotExist(Hyde::path('_site/media/.DS_Store'));
         $this->assertFileDoesNotExist(Hyde::path('_site/media/.env'));
@@ -150,13 +152,15 @@ class StaticSiteServiceTest extends TestCase
         // The file must leave the media directory entirely, since renaming it within a passthrough directory wouldn't empty it.
         rename(Hyde::path('_media/app.css'), Hyde::path('app.css.bak'));
 
-        $this->artisan('build')
-            ->expectsOutputToContain('Transferring Media Assets... ')
-            ->expectsOutputToContain('Skipped')
-            ->expectsOutputToContain('> No media files to transfer.')
-            ->assertExitCode(0);
-
-        rename(Hyde::path('app.css.bak'), Hyde::path('_media/app.css'));
+        try {
+            $this->artisan('build')
+                ->expectsOutputToContain('Transferring Media Assets... ')
+                ->expectsOutputToContain('Skipped')
+                ->expectsOutputToContain('> No media files to transfer.')
+                ->assertExitCode(0);
+        } finally {
+            rename(Hyde::path('app.css.bak'), Hyde::path('_media/app.css'));
+        }
     }
 
     public function testBuildCommandDoesNotUseViteDevServerPathEvenWhenViteIsRunning()
