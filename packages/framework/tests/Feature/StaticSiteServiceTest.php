@@ -96,7 +96,9 @@ class StaticSiteServiceTest extends TestCase
 
     public function testBuildCommandSkipsMediaTransferWhenThereAreNoAssets()
     {
-        rename(Hyde::path('_media/app.css'), Hyde::path('_media/app.css.bak'));
+        // Since the media directory is a passthrough, the file must leave the directory
+        // entirely to make it empty, rather than just being renamed within it.
+        rename(Hyde::path('_media/app.css'), Hyde::path('app.css.bak'));
 
         $this->artisan('build')
             ->expectsOutputToContain('Transferring Media Assets... ')
@@ -104,7 +106,7 @@ class StaticSiteServiceTest extends TestCase
             ->expectsOutputToContain('> No media files to transfer.')
             ->assertExitCode(0);
 
-        rename(Hyde::path('_media/app.css.bak'), Hyde::path('_media/app.css'));
+        rename(Hyde::path('app.css.bak'), Hyde::path('_media/app.css'));
     }
 
     public function testBuildCommandDoesNotUseViteDevServerPathEvenWhenViteIsRunning()

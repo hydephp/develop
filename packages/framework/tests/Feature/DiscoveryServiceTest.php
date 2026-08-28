@@ -103,10 +103,7 @@ class DiscoveryServiceTest extends UnitTestCase
     {
         $path = 'test.custom';
         $this->file("_media/$path");
-        $this->assertNotContains($path, MediaFile::files());
-        self::mockConfig(['hyde.media_extensions' => ['custom']]);
 
-        $this->resetKernel(); // Reboot to rediscover new files
         $this->assertContains($path, MediaFile::files());
     }
 
@@ -125,33 +122,6 @@ class DiscoveryServiceTest extends UnitTestCase
         $this->file("_media/$path");
         $this->assertContains($path, MediaFile::files());
         Filesystem::deleteDirectory('_media/foo');
-    }
-
-    public function testMediaAssetExtensionsCanBeAddedByCommaSeparatedValues()
-    {
-        self::mockConfig(['hyde.media_extensions' => []]);
-        $this->file('_media/test.1');
-        $this->file('_media/test.2');
-        $this->file('_media/test.3');
-
-        $this->assertSame([], MediaFile::files());
-
-        self::mockConfig(['hyde.media_extensions' => ['1,2,3']]);
-        $this->resetKernel(); // Reboot to rediscover new files
-        $this->assertSame(['test.1', 'test.2', 'test.3'], MediaFile::files());
-    }
-
-    public function testMediaAssetExtensionsCanBeAddedByArray()
-    {
-        self::mockConfig(['hyde.media_extensions' => []]);
-        $this->file('_media/test.1');
-        $this->file('_media/test.2');
-        $this->file('_media/test.3');
-
-        $this->assertSame([], MediaFile::files());
-        self::mockConfig(['hyde.media_extensions' => ['1', '2', '3']]);
-        $this->resetKernel(); // Reboot to rediscover new files
-        $this->assertSame(['test.1', 'test.2', 'test.3'], MediaFile::files());
     }
 
     public function testBladePageFilesStartingWithUnderscoreAreIgnored()
