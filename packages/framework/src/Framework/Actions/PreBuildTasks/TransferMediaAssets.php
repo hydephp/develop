@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions\PreBuildTasks;
 
+use RuntimeException;
 use Hyde\Facades\Config;
 use Hyde\Facades\Filesystem;
 use Hyde\Support\Filesystem\MediaFile;
-use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 use Hyde\Framework\Concerns\InteractsWithDirectories;
+use Hyde\Framework\Features\BuildTasks\PreBuildTask;
 
 class TransferMediaAssets extends PreBuildTask
 {
@@ -33,7 +34,10 @@ class TransferMediaAssets extends PreBuildTask
         $this->withProgressBar($files, function (MediaFile $file): void {
             $sitePath = $file->getOutputPath();
             $this->needsParentDirectory($sitePath);
-            Filesystem::putContents($sitePath, $file->getContents());
+
+            if (! Filesystem::copy($file->getPath(), $sitePath)) {
+                throw new RuntimeException("Failed to copy media file from [{$file->getPath()}] to [{$sitePath}]");
+            }
         });
 
         $this->newLine();

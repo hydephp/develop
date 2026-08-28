@@ -94,6 +94,38 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/media/foo/bar/3.png'));
     }
 
+    public function testBuildCommandDiscoversAndTransfersArbitraryFileTypesWithStructurePreserved()
+    {
+        $this->file('_media/document.pdf', 'pdf content');
+        $this->file('_media/font.woff2', 'font content');
+        $this->file('_media/archive.zip', 'zip content');
+        $this->file('_media/nested/deep/file.xyz', 'nested content');
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileEquals(Hyde::path('_media/document.pdf'), Hyde::path('_site/media/document.pdf'));
+        $this->assertFileEquals(Hyde::path('_media/font.woff2'), Hyde::path('_site/media/font.woff2'));
+        $this->assertFileEquals(Hyde::path('_media/archive.zip'), Hyde::path('_site/media/archive.zip'));
+        $this->assertFileEquals(Hyde::path('_media/nested/deep/file.xyz'), Hyde::path('_site/media/nested/deep/file.xyz'));
+    }
+
+    public function testBuildCommandIgnoresThumbsDbAndHiddenOrVcsFiles()
+    {
+        $this->file('_media/Thumbs.db');
+        $this->file('_media/.gitkeep');
+        $this->file('_media/.DS_Store');
+        $this->file('_media/.env');
+        $this->file('_media/.git/config');
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/Thumbs.db'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/.gitkeep'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/.DS_Store'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/.env'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('_site/media/.git'));
+    }
+
     public function testBuildCommandSkipsMediaTransferWhenThereAreNoAssets()
     {
         // Since the media directory is a passthrough, the file must leave the directory
