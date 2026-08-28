@@ -24,7 +24,13 @@ use function array_merge;
  */
 class MediaFile extends ProjectFile implements Stringable
 {
-    /** @var array<string> The default extensions for media types */
+    /**
+     * @deprecated This is not Hyde's list of supported asset types; the media directory is a
+     * passthrough that discovers files of any type. It is retained only so that published
+     * config files referencing it still load.
+     *
+     * @var array<string>
+     */
     final public const EXTENSIONS = ['png', 'svg', 'jpg', 'jpeg', 'webp', 'gif', 'ico', 'css', 'js'];
 
     protected readonly int $length;

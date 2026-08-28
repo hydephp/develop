@@ -439,6 +439,14 @@ Move those files into the `_static` directory, which is copied verbatim to the s
 
 The `hyde.safe_output_directories` option no longer exists, and the build no longer asks for confirmation before emptying an unfamiliar output directory. Delete the entry from your `config/hyde.php`. Take the chance to double-check your `hyde.output_directory` if you build somewhere other than `_site`, since everything in that directory is now removed on every build.
 
+## Step 13: Review the Contents of Your Media Directory
+
+The `hyde.media_extensions` config option no longer exists, and `_media` now discovers every file it contains, not just files with a recognized extension. Delete the entry from your `config/hyde.php`.
+
+If you kept non-asset files in `_media` relying on the extension allow-list to exclude them from the build, such as design source files or notes, move them out of the directory, since they'll now be copied to the built site.
+
+This can also surface a new collision with `_static`: if a file such as `_media/report.pdf` was never discovered before because `.pdf` wasn't on the allow-list, `_static/media/report.pdf` could coexist with it. Now that `_media/report.pdf` is discovered too, the build throws a `FileConflictException` for the collision. Rename or remove one of the two files.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
@@ -456,6 +464,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Compared pages against your old site if you have custom CSS for code blocks or their labels
 - [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
 - [ ] Moved manually maintained files out of the output directory and into `_static`
+- [ ] Removed `hyde.media_extensions` from `config/hyde.php` and moved any non-asset files out of `_media`
 
 ## Troubleshooting
 

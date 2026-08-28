@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Mockery;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Support\BuildWarnings;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSiteCommand::class)]
@@ -94,17 +96,71 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileExists(Hyde::path('_site/media/foo/bar/3.png'));
     }
 
+    public function testBuildCommandDiscoversAndTransfersArbitraryFileTypesWithStructurePreserved()
+    {
+        $this->file('_media/document.pdf', 'pdf content');
+        $this->file('_media/font.woff2', 'font content');
+        $this->file('_media/archive.zip', 'zip content');
+        $this->file('_media/nested/deep/file.xyz', 'nested content');
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileEquals(Hyde::path('_media/document.pdf'), Hyde::path('_site/media/document.pdf'));
+        $this->assertFileEquals(Hyde::path('_media/font.woff2'), Hyde::path('_site/media/font.woff2'));
+        $this->assertFileEquals(Hyde::path('_media/archive.zip'), Hyde::path('_site/media/archive.zip'));
+        $this->assertFileEquals(Hyde::path('_media/nested/deep/file.xyz'), Hyde::path('_site/media/nested/deep/file.xyz'));
+    }
+
+    public function testBuildCommandIgnoresThumbsDbAndHiddenOrVcsFiles()
+    {
+        $this->file('_media/Thumbs.db');
+        $this->file('_media/desktop.ini');
+        $this->file('_media/.gitkeep');
+        $this->file('_media/.DS_Store');
+        $this->file('_media/.env');
+        $this->file('_media/.git/config');
+
+        $this->artisan('build')->assertExitCode(0);
+
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/Thumbs.db'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/desktop.ini'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/.gitkeep'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/.DS_Store'));
+        $this->assertFileDoesNotExist(Hyde::path('_site/media/.env'));
+        $this->assertDirectoryDoesNotExist(Hyde::path('_site/media/.git'));
+    }
+
+    public function testBuildCommandTransfersEveryFileBeforeReportingAFailedMediaCopy()
+    {
+        $this->file('_media/good.txt', 'ok');
+        $this->file('_media/bad.txt', 'nope');
+
+        $mock = Mockery::mock(BaseFilesystem::class)->makePartial();
+        $mock->shouldReceive('copy')->withArgs(fn (string $path): bool => str_contains($path, 'bad.txt'))->andReturn(false);
+        $mock->shouldReceive('copy')->withArgs(fn (string $path): bool => ! str_contains($path, 'bad.txt'))->passthru();
+        app()->instance(BaseFilesystem::class, $mock);
+
+        $this->artisan('build')->expectsOutputToContain('[_media/bad.txt] to ['.Hyde::path('_site/media/bad.txt').']');
+
+        $this->assertFileExists(Hyde::path('_site/media/good.txt'));
+
+        app()->forgetInstance(BaseFilesystem::class);
+    }
+
     public function testBuildCommandSkipsMediaTransferWhenThereAreNoAssets()
     {
-        rename(Hyde::path('_media/app.css'), Hyde::path('_media/app.css.bak'));
+        // The file must leave the media directory entirely, since renaming it within a passthrough directory wouldn't empty it.
+        rename(Hyde::path('_media/app.css'), Hyde::path('app.css.bak'));
 
-        $this->artisan('build')
-            ->expectsOutputToContain('Transferring Media Assets... ')
-            ->expectsOutputToContain('Skipped')
-            ->expectsOutputToContain('> No media files to transfer.')
-            ->assertExitCode(0);
-
-        rename(Hyde::path('_media/app.css.bak'), Hyde::path('_media/app.css'));
+        try {
+            $this->artisan('build')
+                ->expectsOutputToContain('Transferring Media Assets... ')
+                ->expectsOutputToContain('Skipped')
+                ->expectsOutputToContain('> No media files to transfer.')
+                ->assertExitCode(0);
+        } finally {
+            rename(Hyde::path('app.css.bak'), Hyde::path('_media/app.css'));
+        }
     }
 
     public function testBuildCommandDoesNotUseViteDevServerPathEvenWhenViteIsRunning()
