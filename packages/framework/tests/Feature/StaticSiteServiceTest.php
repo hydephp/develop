@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Testing\Feature;
 
+use Mockery;
 use Hyde\Facades\Filesystem;
 use Hyde\Hyde;
 use Hyde\Support\BuildWarnings;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Hyde\Framework\HydeServiceProvider;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 use Hyde\Framework\Exceptions\InvalidConfigurationException;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\Hyde\Console\Commands\BuildSiteCommand::class)]
@@ -124,6 +126,23 @@ class StaticSiteServiceTest extends TestCase
         $this->assertFileDoesNotExist(Hyde::path('_site/media/.DS_Store'));
         $this->assertFileDoesNotExist(Hyde::path('_site/media/.env'));
         $this->assertDirectoryDoesNotExist(Hyde::path('_site/media/.git'));
+    }
+
+    public function testBuildCommandTransfersEveryFileBeforeReportingAFailedMediaCopy()
+    {
+        $this->file('_media/good.txt', 'ok');
+        $this->file('_media/bad.txt', 'nope');
+
+        $mock = Mockery::mock(BaseFilesystem::class)->makePartial();
+        $mock->shouldReceive('copy')->withArgs(fn (string $path): bool => str_contains($path, 'bad.txt'))->andReturn(false);
+        $mock->shouldReceive('copy')->withArgs(fn (string $path): bool => ! str_contains($path, 'bad.txt'))->passthru();
+        app()->instance(BaseFilesystem::class, $mock);
+
+        $this->artisan('build')->expectsOutputToContain('[_media/bad.txt] to ['.Hyde::path('_site/media/bad.txt').']');
+
+        $this->assertFileExists(Hyde::path('_site/media/good.txt'));
+
+        app()->forgetInstance(BaseFilesystem::class);
     }
 
     public function testBuildCommandSkipsMediaTransferWhenThereAreNoAssets()
