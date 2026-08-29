@@ -82,7 +82,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
         (new Filesystem(Hyde::getInstance()))->assets();
 
-        $mock->shouldHaveReceived('handle')->with('_media', MediaFile::EXTENSIONS, true);
+        $mock->shouldHaveReceived('handle')->with('_media', [], true);
     }
 
     public function testItSupportsCustomMediaDirectory()
@@ -93,7 +93,7 @@ class FilesystemHasMediaFilesTest extends UnitTestCase
 
         (new Filesystem(Hyde::getInstance()))->assets();
 
-        $mock->shouldHaveReceived('handle')->with('assets', MediaFile::EXTENSIONS, true);
+        $mock->shouldHaveReceived('handle')->with('assets', [], true);
     }
 
     public function testItSupportsCustomExtensions()

@@ -360,9 +360,7 @@ This option allows you to specify file extensions considered as media files, whi
 To add more extensions, either append them to the existing array or override the entire array.
 
 ```php title="config/hyde.php"
-use \Hyde\Support\Filesystem\MediaFile;
-
-'media_extensions' => array_merge([], MediaFile::EXTENSIONS),
+'media_extensions' => [],
 ```
 
 ### `generate_build_manifest`

@@ -44,7 +44,7 @@ trait HasMediaFiles
     protected static function getMediaFiles(): array
     {
         return Filesystem::findFiles(Hyde::getMediaDirectory(),
-            Config::getArray('hyde.media_extensions', MediaFile::EXTENSIONS), recursive: true
+            Config::getArray('hyde.media_extensions', []), recursive: true
         )->all();
     }
 }
