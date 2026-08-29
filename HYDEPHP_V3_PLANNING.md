@@ -40,6 +40,7 @@ Having this document in code lets us know the devlopment state at any given poin
 - Raw HTML in Markdown is now enabled by default. Hyde sites generally treat project content as trusted and reviewed; sites that compile untrusted or unreviewed Markdown can set `markdown.allow_html` to `false` to strip potentially unsafe HTML tags.
 - `InMemoryPage` contents now accept lazy closures in addition to literal strings. Closures are invoked each time contents are requested with the current page as their first argument, without being rebound.
 - `InMemoryPage` callers now select either literal/lazy `contents` or a Blade `view`. Supplying both throws an `InvalidArgumentException` instead of silently giving contents precedence.
+- Removed the `hyde.media_extensions` configuration option which was present in the `config/hyde.php` file, instead all media files are copied to the output directory.
 
 ### Minor Changes and Cleanup
 
@@ -57,6 +58,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 ### Breaking Changes
 
+- Removed the `MediaFile::EXTENSIONS` constant which was present in the `config/hyde.php` file, and must be removed to prevent fatal errors. To upgrade, remove the `hyde.media_extensions` configuration option from your `config/hyde.php` as we no longer use it, instead all media files are copied to the output directory.
 - Renamed the static page class property `$fileExtension` to `$sourceExtension`, and the `fileExtension()` and `setFileExtension()` methods to `sourceExtension()` and `setSourceExtension()`, making it explicit that these APIs describe source files. Custom page classes and code calling these APIs need the mechanical rename, which the planned automated upgrade script will handle (see the upgrade script rules section at the end of this document).
 - Removed the `GenerateSitemap` post-build task, as the sitemap is now generated through the page and route system. Sites that just enable or disable the sitemap through configuration are unaffected. Code referencing the task class — like a user-land `GenerateSitemap` build task relying on the same-basename override mechanism to replace the framework task — should bind a custom `SitemapGenerator` in the container instead. The `build:sitemap` command now compiles the registered page, and fails with an error (exit code 1 instead of 3) when the sitemap cannot be generated — because no base URL is configured or it is disabled in the configuration — instead of generating it anyway in the latter case.
 - Removed the `GenerateRssFeed` post-build task, as the RSS feed is now generated through the page and route system. Sites that just enable or disable the feed through configuration are unaffected. Code referencing the task class — like a user-land `GenerateRssFeed` build task relying on the same-basename override mechanism to replace the framework task — should bind a custom `RssFeedGenerator` in the container instead. The `build:rss` command now compiles the registered page, and fails with an error when the feed cannot be generated (no base URL, disabled in the configuration, or no Markdown posts), instead of silently generating an empty feed.
@@ -78,6 +80,7 @@ Having this document in code lets us know the devlopment state at any given poin
 
 Please fill in UPGRADE.md as you make changes.
 
+- Remove the `hyde.media_extensions` configuration option from your `config/hyde.php` as we no longer use it, instead all media files are copied to the output directory. Ensure you make no calls to the `MediaFile::EXTENSIONS` constant in your code, as it has been removed.
 - Blade in Markdown is now enabled by default, including `[Blade]:` directives and the new executable `blade render` and `blade component="name"` fenced code blocks. Existing projects with a published `config/markdown.php` retain their current `markdown.enable_blade` setting; set it to `true` to adopt the v3 default, or keep it `false` to disable both forms when compiling untrusted or unreviewed Markdown.
 - Raw HTML in Markdown is now enabled by default. Existing projects with a published `config/markdown.php` retain their current `markdown.allow_html` setting; set it to `true` to adopt the v3 default, or keep it `false` when compiling untrusted or unreviewed Markdown.
 - Blog posts marked `draft: true` or dated in the future are no longer built, though they remain visible when serving the site. Check `_posts` for both, correcting any mistyped dates and reviewing any existing `draft: true` annotations, which now gain built-in publication behavior. If you want to schedule posts, set up recurring builds, as a scheduled post is only published by a build run after its date has passed.

@@ -354,17 +354,6 @@ Learn more in the [Documentation Pages](documentation-pages#sidebar) documentati
 The following configuration options in the `config/hyde.php` file are intended for advanced users and
 should only be modified if you fully understand their impact. The code examples show the default values.
 
-### `media_extensions`
-
-This option allows you to specify file extensions considered as media files, which will be copied to the output directory.
-To add more extensions, either append them to the existing array or override the entire array.
-
-```php title="config/hyde.php"
-use \Hyde\Support\Filesystem\MediaFile;
-
-'media_extensions' => array_merge([], MediaFile::EXTENSIONS),
-```
-
 ### `generate_build_manifest`
 
 Determines whether a JSON build manifest with metadata about the build should be generated. Set to `true` to enable.
