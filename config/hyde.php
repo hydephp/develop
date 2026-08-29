@@ -483,10 +483,6 @@ return [
     |
     */
 
-    // Change the file extensions to be considered as media files and are copied to the output directory.
-    // If you want to add more extensions, add it to the empty merge array, or just override the entire array.
-    'media_extensions' => [],
-
     // Should a JSON build manifest with metadata about the build be generated?
     'generate_build_manifest' => true,
 

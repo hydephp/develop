@@ -40,6 +40,7 @@ Having this document in code lets us know the devlopment state at any given poin
 - Raw HTML in Markdown is now enabled by default. Hyde sites generally treat project content as trusted and reviewed; sites that compile untrusted or unreviewed Markdown can set `markdown.allow_html` to `false` to strip potentially unsafe HTML tags.
 - `InMemoryPage` contents now accept lazy closures in addition to literal strings. Closures are invoked each time contents are requested with the current page as their first argument, without being rebound.
 - `InMemoryPage` callers now select either literal/lazy `contents` or a Blade `view`. Supplying both throws an `InvalidArgumentException` instead of silently giving contents precedence.
+- Removed the `hyde.media_extensions` configuration option which was present in the `config/hyde.php` file, instead all media files are copied to the output directory.
 
 ### Minor Changes and Cleanup
 
