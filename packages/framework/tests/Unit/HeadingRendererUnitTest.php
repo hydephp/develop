@@ -175,6 +175,17 @@ class HeadingRendererUnitTest extends UnitTestCase
         $this->assertTrue($renderer->canAddPermalink('Test Content', 2));
     }
 
+    public function testCanonicalPermalinkConfigurationAppliesToPageSubclasses(): void
+    {
+        self::mockConfig([
+            'markdown.permalinks.pages' => [DocumentationPage::class],
+        ]);
+
+        $renderer = new HeadingRenderer(ReplacementDocumentationPage::class);
+
+        $this->assertTrue($renderer->canAddPermalink('Test Content', 2));
+    }
+
     public function testPostProcessMethodNormalizesInputToMatchCommonMark()
     {
         // Actual HTML output returned from Blade
@@ -302,4 +313,8 @@ class HeadingRendererUnitTest extends UnitTestCase
         yield ['    ', ''];
         yield ['1234567890', '1234567890'];
     }
+}
+
+class ReplacementDocumentationPage extends DocumentationPage
+{
 }

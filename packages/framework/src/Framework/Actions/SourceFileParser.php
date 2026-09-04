@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Actions;
 
+use Hyde\Hyde;
 use Hyde\Pages\BladePage;
 use Hyde\Pages\Concerns\HydePage;
 use Hyde\Pages\Concerns\BaseMarkdownPage;
 use Hyde\Framework\Concerns\ValidatesExistence;
 
+use function is_a;
 use function is_subclass_of;
 
 /**
@@ -31,6 +33,8 @@ class SourceFileParser
      */
     public function __construct(string $pageClass, string $identifier)
     {
+        $pageClass = Hyde::resolvePageClass($pageClass);
+
         $this->validateExistence($pageClass, $identifier);
         $this->identifier = $identifier;
 
@@ -39,8 +43,8 @@ class SourceFileParser
 
     protected function constructPage(string $pageClass): HydePage|BladePage|BaseMarkdownPage
     {
-        if ($pageClass === BladePage::class) {
-            return $this->parseBladePage();
+        if (is_a($pageClass, BladePage::class, true)) {
+            return $this->parseBladePage($pageClass);
         }
 
         if (is_subclass_of($pageClass, BaseMarkdownPage::class)) {
@@ -50,11 +54,12 @@ class SourceFileParser
         return new $pageClass($this->identifier);
     }
 
-    protected function parseBladePage(): BladePage
+    /** @param  class-string<BladePage>  $pageClass */
+    protected function parseBladePage(string $pageClass): BladePage
     {
-        return new BladePage(
+        return new $pageClass(
             identifier: $this->identifier,
-            matter: BladeMatterParser::parseFile(BladePage::sourcePath($this->identifier))
+            matter: BladeMatterParser::parseFile($pageClass::sourcePath($this->identifier))
         );
     }
 

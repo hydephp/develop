@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Hyde\Foundation\Concerns;
 
 use BadMethodCallException;
+use Hyde\Pages\Concerns\HydePage;
 use InvalidArgumentException;
 
-use function array_keys;
 use function array_map;
+use function array_keys;
 use function array_merge;
 use function array_unique;
 use function in_array;
+use function is_a;
 use function is_subclass_of;
 
 /**
@@ -103,9 +105,63 @@ trait ManagesExtensions
     /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
     public function getRegisteredPageClasses(): array
     {
-        return array_unique(array_merge(...array_map(function (string $extension): array {
+        $classes = array_merge(...array_map(function (string $extension): array {
             /** @var <class-string<\Hyde\Foundation\Concerns\HydeExtension>> $extension */
             return $extension::getPageClasses();
-        }, $this->getRegisteredExtensions())));
+        }, $this->getRegisteredExtensions()));
+
+        return array_unique(array_map($this->resolvePageClass(...), $classes));
+    }
+
+    /**
+     * Replace a registered page class with an application subclass.
+     *
+     * Register replacements in a service provider's register method before the Hyde Kernel boots.
+     * Changing filesystem or routing behavior on the replacement is not supported.
+     *
+     * @param  class-string<HydePage>  $original
+     * @param  class-string<HydePage>  $replacement
+     *
+     * @throws \BadMethodCallException If Kernel booting has already started
+     * @throws \InvalidArgumentException If the classes are incompatible or the replacement conflicts with an existing mapping
+     */
+    public function replacePageClass(string $original, string $replacement): void
+    {
+        if ($this->booting || $this->booted) {
+            throw new BadMethodCallException('Cannot replace a page class after Kernel booting has started.');
+        }
+
+        if (! is_a($original, HydePage::class, true)) {
+            throw new InvalidArgumentException("Original page class [$original] must extend the HydePage class.");
+        }
+
+        if (! is_subclass_of($replacement, $original)) {
+            throw new InvalidArgumentException("Replacement page class [$replacement] must extend [$original].");
+        }
+
+        if (($this->pageClassReplacements[$original] ?? null) === $replacement) {
+            return;
+        }
+
+        if (isset($this->pageClassReplacements[$original])) {
+            throw new InvalidArgumentException("Page class [$original] has already been replaced by [{$this->pageClassReplacements[$original]}].");
+        }
+
+        if (isset($this->pageClassReplacements[$replacement]) || in_array($original, $this->pageClassReplacements, true)) {
+            throw new InvalidArgumentException('Page class replacements cannot be chained.');
+        }
+
+        $this->pageClassReplacements[$original] = $replacement;
+    }
+
+    /**
+     * @internal Resolve a canonical page class to the class used at runtime.
+     *
+     * @param  class-string<HydePage>  $pageClass
+     * @return class-string<HydePage>
+     */
+    public function resolvePageClass(string $pageClass): string
+    {
+        return $this->pageClassReplacements[$pageClass] ?? $pageClass;
     }
 }
