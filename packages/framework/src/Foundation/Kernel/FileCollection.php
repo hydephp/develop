@@ -11,6 +11,7 @@ use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Filesystem\SourceFile;
 
 use function basename;
+use function is_a;
 use function str_starts_with;
 
 /**
@@ -75,7 +76,7 @@ final class FileCollection extends BaseFoundationCollection
     public function getFiles(?string $pageClass = null): FileCollection
     {
         return $pageClass ? $this->filter(function (SourceFile $file) use ($pageClass): bool {
-            return $file->pageClass === $pageClass;
+            return is_a($file->pageClass, $pageClass, true);
         }) : $this;
     }
 }

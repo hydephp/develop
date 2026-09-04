@@ -11,6 +11,9 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 
+use function array_filter;
+use function is_a;
+
 /**
  * Renders a heading node, and supports built-in permalink generation.
  *
@@ -59,7 +62,11 @@ class HeadingRenderer implements NodeRendererInterface
             && $level >= config('markdown.permalinks.min_level', 2)
             && $level <= config('markdown.permalinks.max_level', 6)
             && ! str_contains($content, 'class="heading-permalink"')
-            && in_array($this->pageClass, config('markdown.permalinks.pages', [DocumentationPage::class]));
+            && $this->pageClass !== null
+            && array_filter(
+                config('markdown.permalinks.pages', [DocumentationPage::class]),
+                fn (string $pageClass): bool => is_a($this->pageClass, $pageClass, true)
+            ) !== [];
     }
 
     /** @internal */

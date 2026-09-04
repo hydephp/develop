@@ -203,6 +203,98 @@ class ExtensionsUnitTest extends UnitTestCase
         );
     }
 
+    public function testCanReplaceARegisteredPageClassWithASubclass()
+    {
+        $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+
+        $this->assertSame(ReplacementMarkdownPost::class, $this->kernel->resolvePageClass(MarkdownPost::class));
+        $this->assertContains(ReplacementMarkdownPost::class, $this->kernel->getRegisteredPageClasses());
+        $this->assertNotContains(MarkdownPost::class, $this->kernel->getRegisteredPageClasses());
+    }
+
+    public function testCanRegisterAReplacementBeforeItsOriginalPageClassExtension()
+    {
+        $this->kernel->replacePageClass(ReplaceableExtensionPage::class, ReplacementExtensionPage::class);
+        $this->kernel->registerExtension(ReplaceablePageExtension::class);
+
+        $this->assertContains(ReplacementExtensionPage::class, $this->kernel->getRegisteredPageClasses());
+        $this->assertNotContains(ReplaceableExtensionPage::class, $this->kernel->getRegisteredPageClasses());
+    }
+
+    public function testEffectivePageClassRegistryIsDeduplicated()
+    {
+        $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+        $this->kernel->registerExtension(ReplacementPageExtension::class);
+
+        $this->assertSame(1, array_count_values($this->kernel->getRegisteredPageClasses())[ReplacementMarkdownPost::class]);
+    }
+
+    public function testRegisteringTheSameReplacementTwiceIsIdempotent()
+    {
+        $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+        $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+
+        $this->assertSame(ReplacementMarkdownPost::class, $this->kernel->resolvePageClass(MarkdownPost::class));
+    }
+
+    public function testCannotReplaceAPageClassAfterTheKernelHasBooted()
+    {
+        $this->kernel->boot();
+
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot replace a page class after Kernel booting has started.');
+
+        $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+    }
+
+    public function testCannotReplaceAPageClassAfterKernelBootingHasStarted()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Cannot replace a page class after Kernel booting has started.');
+
+        $this->kernel->booting(function (HydeKernel $kernel): void {
+            $kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+        });
+
+        $this->kernel->boot();
+    }
+
+    public function testOriginalReplacementClassMustBeAHydePage()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Original page class [stdClass] must extend the HydePage class.');
+
+        $this->kernel->replacePageClass(stdClass::class, ReplacementMarkdownPost::class);
+    }
+
+    public function testReplacementClassMustExtendTheOriginalPageClass()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Replacement page class ['.MarkdownPage::class.'] must extend ['.MarkdownPost::class.'].');
+
+        $this->kernel->replacePageClass(MarkdownPost::class, MarkdownPage::class);
+    }
+
+    public function testCannotRegisterCompetingReplacements()
+    {
+        $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Page class ['.MarkdownPost::class.'] has already been replaced by ['.ReplacementMarkdownPost::class.'].');
+
+        $this->kernel->replacePageClass(MarkdownPost::class, OtherReplacementMarkdownPost::class);
+    }
+
+    public function testCannotChainPageClassReplacements()
+    {
+        $this->kernel->replacePageClass(MarkdownPost::class, ReplacementMarkdownPost::class);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Page class replacements cannot be chained.');
+
+        $this->kernel->replacePageClass(ReplacementMarkdownPost::class, NestedReplacementMarkdownPost::class);
+    }
+
     public function testMergedRegisteredPageClassesArrayContents()
     {
         $this->assertSame([
@@ -288,5 +380,49 @@ class PolymorphicTestExtension extends HydeExtension
     public function example(): string
     {
         return 'foo';
+    }
+}
+
+class ReplacementMarkdownPost extends MarkdownPost
+{
+}
+
+class OtherReplacementMarkdownPost extends MarkdownPost
+{
+}
+
+class NestedReplacementMarkdownPost extends ReplacementMarkdownPost
+{
+}
+
+class ReplaceableExtensionPage extends HydePage
+{
+    public static string $sourceDirectory = 'replaceable';
+    public static string $outputDirectory = 'replaceable';
+    public static string $sourceExtension = '.txt';
+
+    public function compile(): string
+    {
+        return '';
+    }
+}
+
+class ReplacementExtensionPage extends ReplaceableExtensionPage
+{
+}
+
+class ReplaceablePageExtension extends HydeExtension
+{
+    public static function getPageClasses(): array
+    {
+        return [ReplaceableExtensionPage::class];
+    }
+}
+
+class ReplacementPageExtension extends HydeExtension
+{
+    public static function getPageClasses(): array
+    {
+        return [ReplacementMarkdownPost::class];
     }
 }
