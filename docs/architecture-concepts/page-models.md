@@ -104,3 +104,48 @@ the routeKey property is used to generate the URL for the page.
 The matter and markdown properties as I'm sure you can guess, hold the page's front matter and markdown content.
 These can then also be processed by [page factories](dynamic-data-discovery) to generate the computed data like the
 title property.
+
+## Replacing a Page Class
+
+To customize a page model that Hyde discovers from the filesystem, extend the built-in class:
+
+```php
+namespace App\Pages;
+
+use Hyde\Pages\MarkdownPost;
+
+class MyMarkdownPost extends MarkdownPost
+{
+    public function readingTime(): int
+    {
+        return (int) ceil(str_word_count($this->markdown->body()) / 200);
+    }
+}
+```
+
+Register the replacement in the `register` method of a service provider, before the Hyde kernel boots:
+
+```php
+namespace App\Providers;
+
+use App\Pages\MyMarkdownPost;
+use Hyde\Hyde;
+use Hyde\Pages\MarkdownPost;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        Hyde::replacePageClass(
+            MarkdownPost::class,
+            MyMarkdownPost::class,
+        );
+    }
+}
+```
+
+Hyde then uses `MyMarkdownPost` when discovering and parsing Markdown posts. The replacement must extend the original
+page class. Replacement classes are intended to customize page behavior; changing their filesystem or routing
+configuration is not supported. Use Hyde's existing configuration options to customize source and output directories.
+Normal `instanceof MarkdownPost` checks continue to work.
