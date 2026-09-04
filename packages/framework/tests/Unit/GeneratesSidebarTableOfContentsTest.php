@@ -170,6 +170,19 @@ class GeneratesSidebarTableOfContentsTest extends UnitTestCase
         );
     }
 
+    public function testMarkdownIsStrippedFromHeadingTitles()
+    {
+        $markdown = '## To learn more, head over to the [Quickstart page](quickstart).';
+
+        $this->assertSame([
+            [
+                'title' => 'To learn more, head over to the Quickstart page.',
+                'identifier' => 'to-learn-more-head-over-to-the-quickstart-pagequickstart',
+                'children' => [],
+            ],
+        ], (new GeneratesTableOfContents($markdown))->execute());
+    }
+
     public function testWithNoLevelOneHeading()
     {
         $markdown = <<<'MARKDOWN'
