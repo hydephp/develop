@@ -88,6 +88,7 @@ class SitemapServiceTest extends TestCase
 
     public function testUnregisteredPageSubclassesUseDefaultSitemapMetadata()
     {
+        // Only registered replacements inherit canonical sitemap metadata; unrelated subclasses keep the defaults.
         Routes::addRoute(new Route(new SitemapReplacementMarkdownPost('custom')));
 
         $sitemap = (new SitemapGenerator())->generate()->getXmlElement();
