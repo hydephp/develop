@@ -146,6 +146,7 @@ class AppServiceProvider extends ServiceProvider
 ```
 
 Hyde then uses `MyMarkdownPost` when discovering and parsing Markdown posts. The replacement must extend the original
-page class. Replacement classes are intended to customize page behavior; changing their filesystem or routing
-configuration is not supported. Use Hyde's existing configuration options to customize source and output directories.
-Normal `instanceof MarkdownPost` checks continue to work.
+page class and keep its constructor compatible with the named arguments Hyde uses when parsing that page type.
+Replacement classes are intended to customize page behavior; changing their filesystem or routing configuration is not
+supported. Use Hyde's existing configuration options to customize source and output directories. Normal
+`instanceof MarkdownPost` checks continue to work.
