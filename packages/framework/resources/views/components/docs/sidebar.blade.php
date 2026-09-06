@@ -7,6 +7,8 @@
         @include('hyde::components.docs.sidebar-brand')
     </header>
     @include('hyde::components.docs.version-switcher')
+
+    <x-hyde::navigation.language-switcher class="px-4 pb-3"/>
     <nav id="sidebar-navigation" class="p-2 overflow-y-auto border-y border-gray-300 dark:border-[#1b2533] h-full">
         @include('hyde::components.docs.sidebar-items')
     </nav>

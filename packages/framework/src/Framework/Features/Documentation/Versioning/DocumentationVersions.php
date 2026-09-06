@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Facades\Localization;
 use Hyde\Support\Facades\Render;
 use Illuminate\Support\Collection;
 use Hyde\Foundation\Facades\Routes;
@@ -103,7 +104,12 @@ final class DocumentationVersions
     {
         $page = Render::getPage();
 
-        return ($page === null ? null : self::fromRouteKey($page->getRouteKey())) ?? self::default();
+        // The route key of a localized page is prefixed with its language, which
+        // has to come off again before the version prefix can be matched.
+
+        return ($page === null ? null : self::fromRouteKey(
+            Localization::stripPrefix($page->getRouteKey(), $page->getLanguage())
+        )) ?? self::default();
     }
 
     /**

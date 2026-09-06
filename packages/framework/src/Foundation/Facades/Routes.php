@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Facades;
 
+use Hyde\Facades\Localization;
 use Hyde\Foundation\HydeKernel;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Hyde;
@@ -29,7 +30,7 @@ class Routes extends Facade
      */
     public static function exists(string $routeKey): bool
     {
-        return static::getFacadeRoot()->has($routeKey);
+        return static::getFacadeRoot()->findRoute($routeKey) !== null;
     }
 
     /**
@@ -37,7 +38,7 @@ class Routes extends Facade
      */
     public static function find(string $routeKey): ?Route
     {
-        return static::getFacadeRoot()->get($routeKey);
+        return static::getFacadeRoot()->findRoute($routeKey);
     }
 
     /**
@@ -58,6 +59,43 @@ class Routes extends Facade
     public static function all(): RouteCollection
     {
         return static::getFacadeRoot()->getRoutes();
+    }
+
+    /**
+     * Get the route with exactly the given route key, or null if there is none.
+     *
+     * Unlike find(), the key is not resolved within the language in effect, so this is what
+     * to use where the key is already a concrete path, such as an incoming request URL,
+     * as opposed to a logical reference to a page, which is what find() resolves.
+     */
+    public static function findExact(string $routeKey): ?Route
+    {
+        return static::getFacadeRoot()->get($routeKey);
+    }
+
+    /**
+     * Get all the routes belonging to the given language, keyed by route key.
+     *
+     * Passing null returns the routes that belong to no language, which for a site that
+     * is not localized is every route. See {@see forCurrentLanguage()} for the routes
+     * of the language currently being rendered.
+     *
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     */
+    public static function forLanguage(?string $language): RouteCollection
+    {
+        return static::getFacadeRoot()->getRoutesForLanguage($language);
+    }
+
+    /**
+     * Get all the routes belonging to the language currently being rendered, keyed by
+     * route key. For a site that is not localized, this returns every route.
+     *
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     */
+    public static function forCurrentLanguage(): RouteCollection
+    {
+        return static::forLanguage(Localization::currentLanguage());
     }
 
     /**

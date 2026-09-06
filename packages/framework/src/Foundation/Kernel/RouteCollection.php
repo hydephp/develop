@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Hyde\Foundation\Kernel;
 
+use Hyde\Facades\Localization;
 use Hyde\Foundation\Concerns\BaseFoundationCollection;
 use Hyde\Framework\Exceptions\RouteNotFoundException;
 use Hyde\Pages\Concerns\HydePage;
+use Hyde\Support\Models\Redirect;
 use Hyde\Support\Models\Route;
+
+use function assert;
 
 /**
  * The RouteCollection contains all the page routes, making it the pseudo-router for Hyde,
@@ -26,12 +30,24 @@ use Hyde\Support\Models\Route;
  *
  * @see \Hyde\Foundation\Facades\Router
  * @see \Hyde\Hyde::routes()
+ *
+ * This is also the layer where localization happens. A source file is always exactly one
+ * page, but a localized site emits one file per configured language, so each page is
+ * projected into one route per language, each routed to its own language directory.
  */
 final class RouteCollection extends BaseFoundationCollection
 {
+    /**
+     * Add a route to the collection.
+     *
+     * When the site is localized, the route is expanded into one route per configured
+     * language instead, so that pages added by extensions are localized as well.
+     */
     public function addRoute(Route $route): void
     {
-        $this->put($route->getRouteKey(), $route);
+        foreach ($this->localizeRoute($route) as $localized) {
+            $this->put($localized->getRouteKey(), $localized);
+        }
     }
 
     protected function runDiscovery(): void
@@ -39,6 +55,10 @@ final class RouteCollection extends BaseFoundationCollection
         $this->kernel->pages()->each(function (HydePage $page): void {
             $this->addRoute(new Route($page));
         });
+
+        if (Localization::enabled()) {
+            $this->addDefaultLanguageRedirect();
+        }
     }
 
     protected function runExtensionHandlers(): void
@@ -48,9 +68,87 @@ final class RouteCollection extends BaseFoundationCollection
         }
     }
 
+    /**
+     * Expand a route into one route per configured language, or return it as is
+     * when the site is not localized, or the route is already localized.
+     *
+     * @return array<Route>
+     */
+    protected function localizeRoute(Route $route): array
+    {
+        $page = $route->getPage();
+
+        if (! Localization::enabled() || ! $page->isLocalizable() || $page->getLanguage() !== null) {
+            return [$route];
+        }
+
+        return array_map(function (string $language) use ($route): Route {
+            return $route->forLanguage($language);
+        }, Localization::languages());
+    }
+
+    /**
+     * Add a redirect from the site webroot to the default language, so that visitors
+     * landing on `/` are sent to `/en/` when English is the default language.
+     *
+     * The redirect is put directly into the collection, as it is a routing artifact
+     * that belongs to the webroot, and so must not be localized in turn.
+     */
+    protected function addDefaultLanguageRedirect(): void
+    {
+        $defaultLanguage = Localization::defaultLanguage();
+
+        assert($defaultLanguage !== null);
+
+        $redirect = new Redirect('index', "$defaultLanguage/", matter: [
+            'navigation' => ['hidden' => true],
+        ]);
+
+        $this->put($redirect->getRouteKey(), new Route($redirect));
+    }
+
     public function getRoute(string $routeKey): Route
     {
-        return $this->get($routeKey) ?? throw new RouteNotFoundException($routeKey);
+        return $this->findRoute($routeKey) ?? throw new RouteNotFoundException($routeKey);
+    }
+
+    /**
+     * Find a route by its route key, resolving it within the language currently in effect.
+     *
+     * This keeps route keys usable as the stable identifiers they are on a localized site,
+     * so that a lookup for `index` while rendering an English page finds the `en/index`
+     * route, rather than failing or falling through to the webroot redirect. Already
+     * localized keys still resolve, as does every key when localization is off.
+     *
+     * Configured language identifiers are reserved first route-key segments, so a key that
+     * already names one, such as `en/about`, is an explicit reference to that language's
+     * route, and is looked up exactly rather than resolved within the current language.
+     * Otherwise it would be ambiguous with a page whose own identifier begins with a
+     * configured language code, such as `_pages/en/about.md`.
+     */
+    public function findRoute(string $routeKey): ?Route
+    {
+        if (Localization::isLanguagePrefixed($routeKey)) {
+            return $this->get($routeKey);
+        }
+
+        return $this->get(Localization::prefixPath($routeKey, Localization::currentLanguage()))
+            ?? $this->get($routeKey);
+    }
+
+    /**
+     * Get the routes belonging to the given language.
+     *
+     * Passing null returns the routes that belong to no language, which for a site that is
+     * not localized is every route, making this a no-op when localization is disabled.
+     *
+     * @return \Hyde\Foundation\Kernel\RouteCollection<string, \Hyde\Support\Models\Route>
+     */
+    public function getRoutesForLanguage(?string $language): RouteCollection
+    {
+        return $this->filter(function (Route $route) use ($language): bool {
+            return $route->getPage()->getLanguage() === $language;
+        });
     }
 
     /** @param  class-string<\Hyde\Pages\Concerns\HydePage>|null  $pageClass */

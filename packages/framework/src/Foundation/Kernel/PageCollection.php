@@ -25,6 +25,12 @@ use Hyde\Support\Filesystem\SourceFile;
  *
  * @see \Hyde\Foundation\Facades\PageCollection
  * @see \Hyde\Hyde::pages()
+ *
+ * Note that a localized site does not duplicate its pages here. A source file is always
+ * exactly one page, regardless of how many languages the site is compiled for, as the
+ * language variants are created in the route collection, which is the layer that
+ * maps out the files that will actually be emitted into the site output.
+ * @see \Hyde\Foundation\Kernel\RouteCollection
  */
 final class PageCollection extends BaseFoundationCollection
 {

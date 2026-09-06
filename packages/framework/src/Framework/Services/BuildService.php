@@ -9,7 +9,6 @@ use Hyde\Pages\InMemoryPage;
 use Hyde\Foundation\Facades\Routes;
 use Hyde\Foundation\Kernel\RouteCollection;
 use Hyde\Framework\Actions\StaticPageBuilder;
-use Hyde\Pages\Concerns\HydePage;
 use Hyde\Support\Models\Route;
 use Illuminate\Console\Concerns\InteractsWithIO;
 use Illuminate\Console\OutputStyle;
@@ -70,10 +69,20 @@ class BuildService
         return preg_replace('/([a-z])([A-Z])/', '$1 $2', class_basename($pageClass)).'s';
     }
 
-    /** @return array<class-string<\Hyde\Pages\Concerns\HydePage>> */
+    /**
+     * Get the page types to compile, as discovered from the routes that will be emitted.
+     *
+     * The types are taken from the router, not the page collection, as the router is the
+     * layer that maps out what actually gets built, and may hold routes that have no
+     * corresponding source page, such as the webroot redirect of a localized site.
+     *
+     * @return array<class-string<\Hyde\Pages\Concerns\HydePage>>
+     */
     protected function getPageTypes(): array
     {
-        return Hyde::pages()->map(function (HydePage $page): string {
+        return $this->router->map(function (Route $route): string {
+            $page = $route->getPage();
+
             if ($page instanceof InMemoryPage) {
                 return InMemoryPage::class;
             }

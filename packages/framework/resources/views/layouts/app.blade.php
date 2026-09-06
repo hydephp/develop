@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('hyde.language', 'en') }}">
+<html lang="{{ \Hyde\Facades\Localization::htmlLanguage() }}">
 <head>
     @include('hyde::layouts.head')
 </head>

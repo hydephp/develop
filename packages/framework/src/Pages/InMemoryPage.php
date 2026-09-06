@@ -53,6 +53,9 @@ class InMemoryPage extends HydePage
      */
     protected string $view;
 
+    /** Whether the page is compiled once for each language of a localized site. */
+    protected bool $localizable;
+
     /**
      * Static alias for the constructor.
      *
@@ -63,8 +66,9 @@ class InMemoryPage extends HydePage
         FrontMatter|array $matter = [],
         string|Closure|null $contents = null,
         ?string $view = null,
+        bool $localizable = true,
     ): static {
-        return new static($identifier, $matter, $contents, $view);
+        return new static($identifier, $matter, $contents, $view, $localizable);
     }
 
     /**
@@ -83,6 +87,7 @@ class InMemoryPage extends HydePage
      * @param  FrontMatter|array  $matter
      * @param  string|(Closure(): string)|(Closure(static): string)|null  $contents
      * @param  string|null  $view
+     * @param  bool  $localizable  Whether a localized site compiles the page once for each language.
      *
      * @throws InvalidArgumentException If both contents and a view are supplied.
      */
@@ -91,7 +96,12 @@ class InMemoryPage extends HydePage
         FrontMatter|array $matter = [],
         string|Closure|null $contents = null,
         ?string $view = null,
+        bool $localizable = true,
     ) {
+        // Set before calling the parent constructor, as it constructs the page's metadata,
+        // which for a localized site needs to know whether the page is localizable.
+        $this->localizable = $localizable;
+
         parent::__construct($identifier, $matter);
 
         $view = $view === '' ? null : $view;
@@ -104,6 +114,12 @@ class InMemoryPage extends HydePage
 
         $this->contents = $contents ?? '';
         $this->view = $view ?? '';
+    }
+
+    /** @inheritDoc */
+    public function isLocalizable(): bool
+    {
+        return $this->localizable;
     }
 
     /**

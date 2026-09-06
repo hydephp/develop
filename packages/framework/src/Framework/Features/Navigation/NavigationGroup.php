@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyde\Framework\Features\Navigation;
 
+use Hyde\Facades\Localization;
 use Illuminate\Support\Str;
 use Hyde\Pages\DocumentationPage;
 
@@ -30,9 +31,15 @@ class NavigationGroup extends NavigationMenu
         return new static($label, $items, $priority);
     }
 
+    /**
+     * Get the label of the navigation group.
+     *
+     * Translated the same way as the labels of the items within it. The group identifier
+     * is derived from the untranslated label, so that it stays stable across languages.
+     */
     public function getLabel(): string
     {
-        return $this->label;
+        return Localization::translate($this->label);
     }
 
     public function getGroupKey(): string

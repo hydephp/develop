@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Navigation;
 
 use Hyde\Hyde;
 use Hyde\Facades\Config;
+use Hyde\Facades\Localization;
 use Hyde\Support\Models\Route;
 use Hyde\Pages\DocumentationPage;
 use Illuminate\Support\Collection;
@@ -41,8 +42,14 @@ class NavigationMenuGenerator
      */
     protected ?DocumentationVersion $documentationVersion;
 
+    /**
+     * The language the menu is generated for, so that a localized site does not
+     * list the routes of every language in the menu of a single language.
+     */
+    protected ?string $language;
+
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
-    protected function __construct(string $menuType, ?DocumentationVersion $version = null)
+    protected function __construct(string $menuType, ?DocumentationVersion $version = null, ?string $language = null)
     {
         assert(in_array($menuType, [MainNavigationMenu::class, DocumentationSidebar::class]));
 
@@ -54,17 +61,19 @@ class NavigationMenuGenerator
 
         $this->documentationVersion = $version ?? DocumentationVersions::default();
 
-        $this->routes = $this->generatesSidebar
+        $this->language = $language ?? Localization::currentLanguage();
+
+        $this->routes = ($this->generatesSidebar
             ? $this->getSidebarRoutes()
-            : Routes::all();
+            : Routes::all())->getRoutesForLanguage($this->language);
 
         $this->usesGroups = $this->usesGroups();
     }
 
     /** @param class-string<\Hyde\Framework\Features\Navigation\NavigationMenu> $menuType */
-    public static function handle(string $menuType, ?DocumentationVersion $version = null): MainNavigationMenu|DocumentationSidebar
+    public static function handle(string $menuType, ?DocumentationVersion $version = null, ?string $language = null): MainNavigationMenu|DocumentationSidebar
     {
-        $menu = new static($menuType, $version);
+        $menu = new static($menuType, $version, $language);
 
         $menu->generate();
 

@@ -439,6 +439,66 @@ Move those files into the `_static` directory, which is copied verbatim to the s
 
 The `hyde.safe_output_directories` option no longer exists, and the build no longer asks for confirmation before emptying an unfamiliar output directory. Delete the entry from your `config/hyde.php`. Take the chance to double-check your `hyde.output_directory` if you build somewhere other than `_site`, since everything in that directory is now removed on every build.
 
+## Step 13: Register the Translation Service Provider
+
+HydePHP v3 ships Laravel's translation system, which powers the `__()` helper and the site
+localization feature. Add its service provider to your existing `app/config.php`:
+
+```php title="app/config.php"
+'providers' => [
+    Hyde\Framework\HydeServiceProvider::class,
+    Hyde\Foundation\Providers\ViewServiceProvider::class,
+    Hyde\Foundation\Providers\NavigationServiceProvider::class,
+    Hyde\Foundation\Providers\TranslationServiceProvider::class, // [tl! add]
+    Hyde\Console\ConsoleServiceProvider::class,
+],
+```
+
+You also need `config/localization.php`, which you can publish with `php hyde publish:configs`,
+or copy from the vendor directory. Localization is disabled until you configure a language,
+so adding the file changes nothing on its own.
+
+## Optional: Adopt Site Localization
+
+HydePHP v3 can compile your site once for each language you want it to be available in. This
+feature is entirely opt-in — with no languages configured, your site is compiled exactly as
+before, with its pages in the site webroot.
+
+To enable it, list your languages in `config/localization.php`, most preferred first:
+
+```php title="config/localization.php"
+'languages' => [
+    'en' => 'English',
+    'sv' => 'Svenska',
+],
+```
+
+Every page is then compiled into a subdirectory per language (`/en/about.html`, `/sv/about.html`),
+with the site webroot redirecting to the first language listed. Each language gets its own
+navigation menus, documentation sidebar, and search index, and pages link to their other
+languages with `hreflang` metadata. A language switcher is added to the navigation.
+
+Interface text is translated with Laravel's `lang` files and the `__()` helper. Pages needing
+genuinely different content in a language get a companion source file under `_locales`, such
+as `_locales/sv/_pages/about.md` for `_pages/about.md`. Pages without one are rendered from
+their canonical source in that language, so you can translate a site a page at a time.
+
+Note that route keys gain a language prefix, so `about` becomes `en/about` and `sv/about`. Route
+keys used in your configuration and views keep working, and resolve to the page of the language
+being rendered. Any code matching route keys literally needs to account for the prefix.
+
+Language identifiers are web/BCP-47-style tags, so a regional variant is written `en-GB`, not
+Laravel's own `en_GB` locale form. Hyde converts between the two internally, so `en-GB` gives you
+`/en-GB/about.html`, `_locales/en-GB/_pages/about.md`, and `<html lang="en-GB">`, while its
+translation strings still resolve from `lang/en_GB` as Laravel expects.
+
+If you have a custom `HydePage` subclass that overrides `getRouteKey()` or `getOutputPath()` to
+customize its paths, move that logic into the protected `unlocalizedRouteKey()` and
+`unlocalizedOutputPath()` methods instead. The public methods now apply localization on top of
+whatever those return, so overriding them directly would bypass localization for that page type.
+
+See the [localization documentation](https://hydephp.com/docs/3.x/localization) for the details.
+
 ## Migration Checklist
 
 Use this checklist to track your upgrade progress:
@@ -456,6 +516,7 @@ Use this checklist to track your upgrade progress:
 - [ ] Compared pages against your old site if you have custom CSS for code blocks or their labels
 - [ ] Checked `_posts` for drafts and blog posts dated in the future, and set up recurring builds if scheduling posts
 - [ ] Moved manually maintained files out of the output directory and into `_static`
+- [ ] Registered `TranslationServiceProvider` in `app/config.php` and published `config/localization.php`
 
 ## Troubleshooting
 

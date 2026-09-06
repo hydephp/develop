@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hyde\Console\Commands;
 
+use Hyde\Facades\Localization;
 use Hyde\Foundation\Facades\Pages;
 use Hyde\Framework\Actions\StaticPageBuilder;
+use Hyde\Pages\Concerns\HydePage;
 use LaravelZero\Framework\Commands\Command;
 use Hyde\Framework\Features\Documentation\DocumentationSearchPage;
 use Hyde\Framework\Features\Documentation\DocumentationSearchIndex;
@@ -38,10 +40,24 @@ class BuildSearchCommand extends Command
 
     protected function build(?DocumentationVersion $version): void
     {
-        StaticPageBuilder::handle(Pages::get(DocumentationSearchIndex::routeKey($version)) ?? new DocumentationSearchIndex($version));
+        $this->buildPage(Pages::get(DocumentationSearchIndex::routeKey($version)) ?? new DocumentationSearchIndex($version));
 
         if (DocumentationSearchPage::enabled($version)) {
-            StaticPageBuilder::handle(Pages::get(DocumentationSearchPage::routeKey($version)) ?? new DocumentationSearchPage($version));
+            $this->buildPage(Pages::get(DocumentationSearchPage::routeKey($version)) ?? new DocumentationSearchPage($version));
+        }
+    }
+
+    /**
+     * Build the page, once for each language when the site is localized.
+     *
+     * The page collection holds one page per source, as the languages are variants of its
+     * route, so this command has to fan them out the same way the route collection does,
+     * or it would write the unlocalized path that a localized site never serves.
+     */
+    protected function buildPage(HydePage $page): void
+    {
+        foreach (Localization::enabled() ? Localization::languages() : [null] as $language) {
+            StaticPageBuilder::handle($language === null ? $page : $page->withLanguage($language));
         }
     }
 }

@@ -78,29 +78,29 @@ class DocumentationPage extends BaseMarkdownPage
     }
 
     /**
-     * Get the route key for the page.
+     * Get the route key for the page, before any localization is applied.
      *
      * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
      * Pages belonging to a documentation version keep the version prefix, so only the structure within the version is flattened.
      */
-    public function getRouteKey(): string
+    protected function unlocalizedRouteKey(): string
     {
         return Config::getBool('docs.flattened_output_paths', true)
-            ? unslash(static::outputDirectory().'/'.$this->versionedBasename(basename(parent::getRouteKey())))
-            : parent::getRouteKey();
+            ? unslash(static::outputDirectory().'/'.$this->versionedBasename(basename(parent::unlocalizedRouteKey())))
+            : parent::unlocalizedRouteKey();
     }
 
     /**
-     * Get the path where the compiled page will be saved.
+     * Get the path where the compiled page will be saved, before any localization is applied.
      *
      * If flattened outputs are enabled, this will use the identifier basename so nested pages are flattened.
      * Pages belonging to a documentation version keep the version prefix, so only the structure within the version is flattened.
      */
-    public function getOutputPath(): string
+    protected function unlocalizedOutputPath(): string
     {
         return Config::getBool('docs.flattened_output_paths', true)
             ? static::outputPath($this->versionedBasename(basename($this->identifier)))
-            : parent::getOutputPath();
+            : parent::unlocalizedOutputPath();
     }
 
     /**

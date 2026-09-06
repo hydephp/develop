@@ -198,6 +198,32 @@ echo "\n\033[32mAll done in $time ms!\n\033[0m";
 
 // Helpers
 
+/**
+ * Format a parameter or return type for the generated signature, preserving nullability
+ * for named types, for example `?string`, since ReflectionNamedType::getName() drops it.
+ */
+function formatReflectionType(?ReflectionType $type, string $default): string
+{
+    if ($type === null) {
+        return $default;
+    }
+
+    if ($type instanceof ReflectionUnionType) {
+        return implode('|', array_map(function (ReflectionNamedType $type) {
+            return $type->getName();
+        }, $type->getTypes()));
+    }
+
+    /** @var ReflectionNamedType $type */
+    $name = $type->getName();
+
+    if ($type->allowsNull() && ! in_array($name, ['mixed', 'null'], true)) {
+        return '?'.$name;
+    }
+
+    return $name;
+}
+
 function generate(array $options): void
 {
     $timeStart = microtime(true);
@@ -335,29 +361,12 @@ function documentMethod(ReflectionMethod $method, array &$output, string $class,
 
     $parameters = array_map(function (ReflectionParameter $parameter) {
         $name = '$'.$parameter->getName();
-        if ($parameter->getType()) {
-            if ($parameter->getType() instanceof ReflectionUnionType) {
-                $type = implode('|', array_map(function (ReflectionNamedType $type) {
-                    return $type->getName();
-                }, $parameter->getType()->getTypes()));
-            } else {
-                $type = $parameter->getType()->getName();
-            }
-        } else {
-            $type = 'mixed';
-        }
+        $type = formatReflectionType($parameter->getType(), 'mixed');
 
         return trim($type.' '.$name);
     }, $method->getParameters());
 
-    // If return is union type
-    if ($method->getReturnType() instanceof ReflectionUnionType) {
-        $returnType = implode('|', array_map(function (ReflectionNamedType $type) {
-            return $type->getName();
-        }, $method->getReturnType()->getTypes()));
-    } else {
-        $returnType = $method->getReturnType() ? $method->getReturnType()->getName() : 'void';
-    }
+    $returnType = formatReflectionType($method->getReturnType(), 'void');
 
     // If higher specificity return type is provided in docblock, use that instead
     if (isset($PHPDocs['properties']['return'])) {

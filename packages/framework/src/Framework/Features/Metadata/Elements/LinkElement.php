@@ -6,6 +6,7 @@ namespace Hyde\Framework\Features\Metadata\Elements;
 
 use Hyde\Framework\Features\Metadata\MetadataElementContract;
 
+use function implode;
 use function collect;
 use function sprintf;
 use function e;
@@ -30,7 +31,10 @@ class LinkElement implements MetadataElementContract
 
     public function uniqueKey(): string
     {
-        return $this->rel;
+        // Links carrying attributes are distinguished by them, as a bag can legitimately hold
+        // several links with the same relation, such as one alternate per site language.
+
+        return empty($this->attr) ? $this->rel : $this->rel.':'.implode(':', $this->attr);
     }
 
     protected function formatOptionalAttributes(): string
