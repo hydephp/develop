@@ -147,7 +147,7 @@ class GeneratesTableOfContents
     protected function createTableItem(array $heading): array
     {
         return [
-            'title' => $heading['title'],
+            'title' => (new ConvertsMarkdownToPlainText($heading['title']))->execute(),
             'identifier' => $heading['identifier'],
             'children' => [],
         ];
