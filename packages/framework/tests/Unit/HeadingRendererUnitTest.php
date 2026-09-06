@@ -180,13 +180,13 @@ class HeadingRendererUnitTest extends UnitTestCase
     public function testCanonicalPermalinkConfigurationAppliesToPageSubclasses(): void
     {
         $kernel = Hyde::kernel();
-        HydeKernel::setInstance(new HydeKernel());
-
-        self::mockConfig([
-            'markdown.permalinks.pages' => [DocumentationPage::class],
-        ]);
 
         try {
+            HydeKernel::setInstance(new HydeKernel());
+            self::mockConfig([
+                'markdown.permalinks.pages' => [DocumentationPage::class],
+            ]);
+
             Hyde::replacePageClass(DocumentationPage::class, ReplacementDocumentationPage::class);
 
             $renderer = new HeadingRenderer(ReplacementDocumentationPage::class);
