@@ -371,9 +371,10 @@ reflection, and string-based access — must be updated manually.
 
 ### Review Exact Page-Class File Queries
 
-`FileCollection::getFiles($pageClass)` now includes files assigned to subclasses of the requested page class, matching
-`PageCollection::getPages()`. This only affects custom extensions that register or add files for both a parent page
-class and its subclass. If such code needs exact-class results, filter the collection explicitly:
+`FileCollection::getFiles($pageClass)` now uses the same polymorphic page-class filtering as
+`PageCollection::getPages()` and `RouteCollection::getRoutes()`. Querying a parent page class therefore includes files
+assigned to its subclasses. This only affects custom extensions that register or add files for both a parent page class
+and its subclass. If such code needs exact-class results, filter the collection explicitly:
 
 ```php
 use App\Pages\CustomPage;
