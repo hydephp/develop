@@ -12,6 +12,7 @@ use function array_map;
 use function array_keys;
 use function array_merge;
 use function array_unique;
+use function array_values;
 use function in_array;
 use function is_a;
 use function is_subclass_of;
@@ -110,7 +111,7 @@ trait ManagesExtensions
             return $extension::getPageClasses();
         }, $this->getRegisteredExtensions()));
 
-        return array_unique(array_map($this->resolvePageClass(...), $classes));
+        return array_values(array_unique(array_map($this->resolvePageClass(...), $classes)));
     }
 
     /**
